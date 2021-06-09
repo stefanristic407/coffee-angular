@@ -8,7 +8,7 @@ import { GeneralService } from '@services';
 import { UserService } from '@services';
 import { DestroyableComponent } from '@base-components';
 import { environment } from '@env/environment';
-import { OrganizationType } from '@enums';
+import { OrganizationType, UserStatus } from '@enums';
 
 @Component({
     selector: 'app-gate',
@@ -69,11 +69,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         const promises = [];
         promises.push(
             new Promise((resolve, reject) => {
-                this.getUserPermissions(resolve, reject);
-            }),
-        );
-        promises.push(
-            new Promise((resolve, reject) => {
                 this.getProfile(resolve, reject);
             }),
         );
@@ -91,32 +86,16 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             });
     }
 
-    private getUserPermissions(resolve, reject) {
-        this.userSrv.getUserPermissions().subscribe(
-            (res: any) => {
-                if (res.success) {
-                    this.aclService.loadPermission(res.result);
-                    resolve();
-                } else {
-                    reject();
-                }
-            },
-            (err) => {
-                reject();
-            },
-        );
-    }
-
     private getProfile(resolve, reject) {
         this.generalSrv.getProfile().subscribe(
             (res: any) => {
                 if (res.success) {
                     this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
-                    if (res.result.status === 'ACTIVE') {
+                    if (res.result.status === UserStatus.ACTIVE || res.result.status === UserStatus.PENDING) {
                         resolve();
-                    } else if (res.result.status === 'INACTIVE') {
+                    } else if (res.result.status === UserStatus.INACTIVE) {
                         this.toastrService.error('Your Account has been disabled , Contact your Admin');
-                        reject();
+                        setTimeout(() => reject(), 4000);
                     }
                 } else {
                     reject();

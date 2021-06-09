@@ -97,7 +97,6 @@
                     <div
                         class="border-main inner-bg br-4 p-md-4 p-3 mb-3 pointer"
                         *ngFor="let cmt of comment.comments?.slice(0, comment.sliceNumber); let i = index"
-                        [routerLink]="'/coffee-lab/' + comment?.post_type + 's' + '/' + comment?.post_slug"
                     >
                         <div class="d-flex justify-content-between">
                             <div>

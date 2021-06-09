@@ -10,3 +10,4 @@ export * from './orders';
 export * from './organization';
 export * from './shipping';
 export * from './unit';
+export * from './user';

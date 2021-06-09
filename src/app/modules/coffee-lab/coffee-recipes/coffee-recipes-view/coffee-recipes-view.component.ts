@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService, CoffeeLabService } from '@services';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
+import { Paginator } from 'primeng/paginator';
+import { ApiResponse } from '@models';
 
 @Component({
     selector: 'app-coffee-recipes-view',
@@ -12,11 +13,8 @@ import { Subject, Subscription } from 'rxjs';
     styleUrls: ['./coffee-recipes-view.component.scss'],
 })
 export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
-    rows = 9;
-    pageNumber = 1;
-    totalRecords = 0;
     destroy$: Subject<boolean> = new Subject<boolean>();
-    isAvailableTranslation?: string;
+    isAvailableTranslation = '';
     organizationId: any;
     label?: string;
     ingredientValue?: string;
@@ -35,7 +33,6 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             value: false,
         },
     ];
-    displayData: any[] = [];
     labels: any[] = [
         {
             label: 'Easy',
@@ -62,12 +59,15 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     ];
     selectedOrder = 'latest';
     pageDesc: string | undefined;
+    @ViewChild('paginator', {static: false}) private paginator: Paginator;
+    perPage = 9;
+    totalRecords = 0;
+    hidePaginator = false;
 
     constructor(
         private toastService: ToastrService,
         private router: Router,
         public coffeeLabService: CoffeeLabService,
-        private cookieService: CookieService,
         public authService: AuthService,
     ) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
@@ -84,67 +84,52 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         });
     }
 
-    getCoffeeRecipesData(): void {
+    reloadPageData(): void {
+        this.hidePaginator = true;
+        this.getCoffeeRecipesData();
+    }
+
+    getCoffeeRecipesData(page = 1): void {
         this.isLoading = true;
         const params = {
             query: this.searchQuery,
             ingredient: this.searchIngredient,
-            translations_available: this.isAvailableTranslation ? 'yes' : 'no',
+            translations_available: this.isAvailableTranslation,
             sort_by: 'created_at',
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
             level: this.label?.toLowerCase(),
+            publish: true,
+            page,
+            per_page: this.perPage
         };
         console.log('query param >>>>>>> ', params);
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLabService.getSavedForumList('recipe', params).subscribe((res) => {
-                if (res.success) {
-                    this.coffeeRecipeData = res.result ?? [];
-                    this.totalRecords = this.coffeeRecipeData.length;
-                    this.displayData = this.coffeeRecipeData.slice(0, 9);
-                    this.coffeeRecipeData.map((item) => {
-                        item.description = this.getJustText(item.description);
-                        return item;
-                    });
-                } else {
-                    this.toastService.error('Cannot get Recipes data');
-                }
-                this.isLoading = false;
+                this.handleRecipeDataResponse(res);
             });
         } else if (this.pageDesc === 'my-posts') {
             this.coffeeLabService.getMyForumList('recipe').subscribe((res) => {
-                if (res.success) {
-                    this.coffeeRecipeData = (res.result ?? []).filter((item) => item.publish === true);
-                    this.totalRecords = this.coffeeRecipeData.length;
-                    this.displayData = this.coffeeRecipeData.slice(0, 9);
-                    this.coffeeRecipeData.map((item) => {
-                        item.description = this.getJustText(item.description);
-                        return item;
-                    });
-                } else {
-                    this.toastService.error('Cannot get Recipes data');
-                }
-                this.isLoading = false;
+                this.handleRecipeDataResponse(res);
             });
         } else {
             this.coffeeLabService.getForumList('recipe', params, this.forumLanguage).subscribe((res) => {
-                if (res.success) {
-                    console.log('response----->>>>>', res);
-                    if (res.result) {
-                        this.coffeeRecipeData = (res.result ?? []).filter((item) => item.publish === true);
-                        this.totalRecords = this.coffeeRecipeData.length;
-                        this.displayData = this.coffeeRecipeData.slice(0, 9);
-                        this.coffeeRecipeData.map((item) => {
-                            item.description = this.getJustText(item.description);
-                            return item;
-                        });
-                    }
-                    console.log('coffeeRecipeData Data---->>>', this.coffeeRecipeData);
-                } else {
-                    this.toastService.error('Cannot get Recipes data');
-                }
-                this.isLoading = false;
+                this.handleRecipeDataResponse(res);
             });
         }
+    }
+
+    handleRecipeDataResponse(res: ApiResponse<any>): void {
+        if (res.success) {
+            this.coffeeRecipeData = (res.result ?? []).map((item) => {
+                item.description = this.getJustText(item.description);
+                return item;
+            });
+            this.totalRecords = res.result_info.total_count;
+            this.hidePaginator = false;
+        } else {
+            this.toastService.error('Cannot get Recipes data');
+        }
+        this.isLoading = false;
     }
 
     getJustText(content: any) {
@@ -157,16 +142,8 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         return contentElement.innerHTML;
     }
 
-    getData(event) {
-        if (event.page > -1) {
-            const currentPage = event.first / this.rows;
-            this.pageNumber = currentPage + 1;
-            this.getCoffeeRecipesData();
-        }
-    }
-
     paginate(event: any) {
-        this.displayData = this.coffeeRecipeData.slice(event.first, event.first + event.rows);
+        this.getCoffeeRecipesData(event.page + 1);
     }
 
     ngOnDestroy(): void {

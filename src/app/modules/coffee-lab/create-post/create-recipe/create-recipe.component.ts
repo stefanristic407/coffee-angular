@@ -6,7 +6,6 @@ import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-create-recipe',
@@ -123,14 +122,13 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     images = [];
     constructor(
-        private cookieService: CookieService,
+        private authService: AuthService,
         private fb: FormBuilder,
         private toaster: ToastrService,
         private coffeeLabService: CoffeeLabService,
         private router: Router,
         private route: ActivatedRoute,
         private location: Location,
-        private authService: AuthService,
     ) {
         this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
@@ -277,7 +275,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         console.log(this.fileEvent);
         this.imageFileName = this.files[0].name;
         const fileList: FileList = this.fileEvent;
-        const maximumFileSize = type === 'recipeVideo' ? 15 * 1024 : 2 * 1024;
+        const maximumFileSize = (type === 'recipeVideo' ? 15 * 1024 : 2 * 1024);
         if (fileList.length > 0) {
             const file: File = fileList[0];
             const fsize = file.size;
