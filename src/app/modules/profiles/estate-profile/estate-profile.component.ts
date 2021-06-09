@@ -1,3 +1,4 @@
+import { OrganizationType } from '@enums';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -11,9 +12,9 @@ import { EstateProfileService } from './estate-profile.service';
     styleUrls: ['./estate-profile.component.scss'],
 })
 export class EstateProfileComponent implements OnInit {
-    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'Estate Profile' }];
     tabIndex: number;
     estateId: any;
+    public readonly OrganizationType = OrganizationType;
 
     constructor(
         public profileCreationService: EstateProfileService,
