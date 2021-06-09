@@ -8,7 +8,7 @@ import { GeneralService } from '@services';
 import { UserService } from '@services';
 import { DestroyableComponent } from '@base-components';
 import { environment } from '@env/environment';
-import { OrganizationType } from '@enums';
+import { OrganizationType, UserStatus } from '@enums';
 
 @Component({
     selector: 'app-gate',
@@ -91,11 +91,11 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             (res: any) => {
                 if (res.success) {
                     this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
-                    if (res.result.status === 'ACTIVE') {
+                    if (res.result.status === UserStatus.ACTIVE || res.result.status === UserStatus.PENDING) {
                         resolve();
-                    } else if (res.result.status === 'INACTIVE') {
+                    } else if (res.result.status === UserStatus.INACTIVE) {
                         this.toastrService.error('Your Account has been disabled , Contact your Admin');
-                        reject();
+                        setTimeout(() => reject(), 4000);
                     }
                 } else {
                     reject();
