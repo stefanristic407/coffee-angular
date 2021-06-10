@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, HostListener, AfterContentInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationExtras, Router } from '@angular/router';
@@ -20,7 +20,7 @@ export class MarkedSaleComponent implements OnInit {
     termOrigin: any;
     appLanguage?: any;
     mainData: any[] = [];
-    roasterID: string;
+    roasterID: number;
     deleteId: any;
     popupDisplay = false;
     originArray: any = [];
@@ -51,10 +51,11 @@ export class MarkedSaleComponent implements OnInit {
         private router: Router,
         public primeTableService: PrimeTableService,
         private toastrService: ToastrService,
+        private authService: AuthService,
     ) {
         // this.termStatus = '';
         this.display = 10;
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
     }

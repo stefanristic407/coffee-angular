@@ -1,5 +1,17 @@
 .total-card-wrapper {
-    width: 224px;
+    width: 334px;
+    .p-input-icon-right {
+        position: relative;
+        .right-icon {
+            position: absolute;
+            padding: 16px;
+            right: 0;
+        }
+        input {
+            padding-right: 56px;
+            height: 50px;
+        }
+    }
 }
 
 @media (max-width: 767px) {

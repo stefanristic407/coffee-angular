@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { GlobalsService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
@@ -30,9 +30,10 @@ export class ProfileCertificatesEditComponent implements OnInit {
         private cookieService: CookieService,
         private route: ActivatedRoute,
         private dialogSrv: DialogService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
-        this.userId = this.cookieService.get('user_id');
+        this.roasterId = this.authService.getOrgId();
+        this.userId = this.authService.userId;
     }
 
     ngOnInit(): void {
@@ -121,7 +122,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
             formData.append('name', this.selectedCertificationName);
             formData.append('year', this.selectedCertificationYear.toString());
             formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/certificates`);
-            formData.append('token', this.cookieService.get('Auth'));
+            formData.append('token', this.authService.token);
             formData.append('method', 'POST');
             this.isSavingCertificate = true;
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
@@ -158,7 +159,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
                     this.certificationArray[this.editingRowIndex].id
                 }`,
             );
-            formData.append('token', this.cookieService.get('Auth'));
+            formData.append('token', this.authService.token);
             formData.append('method', 'PUT');
             this.isSavingCertificate = true;
             this.userService.uploadCertificate(formData).subscribe((res: any) => {

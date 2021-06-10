@@ -1,11 +1,7 @@
 <div class="main-block">
     <div class="w-100 d-flex justify-content-between mb-3">
-        <div class="d-none d-md-block">
-            <p-breadcrumb [model]="breadItems">
-                <ng-template pTemplate="item" let-item let-i="index">
-                    {{ item.label | translate }}
-                </ng-template>
-            </p-breadcrumb>
+        <div class="w-100 pt-lg-3">
+            <a class="back-page" (click)="location.back()"> {{ 'back' | translate }}</a>
         </div>
     </div>
     <div class="p-0">

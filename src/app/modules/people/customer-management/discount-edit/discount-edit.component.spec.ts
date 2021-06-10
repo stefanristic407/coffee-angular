@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChatNotificationComponent } from './chat-notification.component';
+import { DiscountEditComponent } from './discount-edit.component';
 
-describe('ChatNotificationComponent', () => {
-  let component: ChatNotificationComponent;
-  let fixture: ComponentFixture<ChatNotificationComponent>;
+describe('DiscountEditComponent', () => {
+  let component: DiscountEditComponent;
+  let fixture: ComponentFixture<DiscountEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatNotificationComponent ]
+      declarations: [ DiscountEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChatNotificationComponent);
+    fixture = TestBed.createComponent(DiscountEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

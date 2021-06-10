@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api';
 import { Injectable } from '@angular/core';
 import { OrganizationType } from '@enums';
-import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../auth';
 @Injectable({
     providedIn: 'root',
 })
@@ -10,8 +10,8 @@ import { CookieService } from 'ngx-cookie-service';
  * APIs which use ApiService,
  */
 export class ChatApiServices extends ApiService {
-    constructor(protected http: HttpClient, protected cookieService: CookieService) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     reportUser(userId: number, orgType: OrganizationType, orgId: number) {

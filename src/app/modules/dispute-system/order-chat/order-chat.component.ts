@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, OnDestroy, Renderer2, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { RoasterserviceService, GlobalsService } from '@services';
+import { RoasterserviceService, GlobalsService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { fromEvent, interval, Subscription } from 'rxjs';
@@ -40,11 +40,12 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         private toasterService: ToastrService,
         private elRef: ElementRef,
         private render: Renderer2,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.cookieService.get('roaster_id');
-        this.roasterName = this.cookieService.get('name');
+        this.roasterID = this.authService.getOrgId();
+        this.roasterName = this.authService.currentOrganization.name;
         this.currentDisputeID = this.route.snapshot.queryParams.disputeID
             ? Number(decodeURIComponent(this.route.snapshot.queryParams.disputeID))
             : undefined;

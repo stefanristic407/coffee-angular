@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { AclService, GlobalsService, RoasterserviceService } from '@services';
+import { AclService, AuthService, GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -30,6 +30,7 @@ export class RoleListComponent implements OnInit {
         public sharedService: SharedServiceService,
         public dialogSrv: DialogService,
         private aclService: AclService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
@@ -62,14 +63,11 @@ export class RoleListComponent implements OnInit {
                 width: 10,
             },
         ];
-        if (this.cookieService.get('Auth') === '') {
-            this.router.navigate(['/auth/login']);
-        }
         if (!this.aclService.checkPermission('acl-management')) {
             this.router.navigate(['/error/permission-error']);
         }
         this.supplyBreadCrumb();
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
     getTableData(event?): void {
         this.tableValue = [];

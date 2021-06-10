@@ -2,11 +2,10 @@ import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
-import { CoffeeLabService } from '@services';
+import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-create-recipe',
@@ -36,7 +35,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
     imageFileData: any;
     imageFileName: any;
     languageArray = [];
-    organizationId: string;
+    organizationId: number;
     imageIdListStep = [];
     recipeId: any;
     recipe: any;
@@ -123,7 +122,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
 
     images = [];
     constructor(
-        private cookieService: CookieService,
+        private authService: AuthService,
         private fb: FormBuilder,
         private toaster: ToastrService,
         private coffeeLabService: CoffeeLabService,
@@ -131,7 +130,7 @@ export class CreateRecipeComponent implements OnInit, OnChanges, OnDestroy {
         private route: ActivatedRoute,
         private location: Location,
     ) {
-        this.organizationId = this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
     }
 

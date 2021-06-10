@@ -11,10 +11,5 @@ export class OnboardCustomersComponent implements OnInit {
 
     constructor(private router: Router, private cookieService: CookieService) {}
 
-    ngOnInit(): void {
-        // Auth checking
-        if (this.cookieService.get('Auth') === '') {
-            this.router.navigate(['/auth/login']);
-        }
-    }
+    ngOnInit(): void {}
 }

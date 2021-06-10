@@ -1,6 +1,6 @@
 <div>
     <h1 *ngIf="pageDesc === 'overview'" class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0 d-block d-md-none">
-        {{ 'articles' | translate }}
+        {{ 'posts' | translate }}
     </h1>
     <div *ngIf="pageDesc === 'overview'" class="row gutter-32 justify-content-lg-between pt-3 pt-md-0">
         <div class="col-12 col-lg-8">
@@ -18,7 +18,7 @@
                         [queryParams]="{ type: 'article' }"
                         type="text"
                         pInputText
-                        placeholder="{{ 'publish_article' | translate }}"
+                        placeholder="{{ 'publish_a_post' | translate }}"
                     />
                 </div>
             </div>
@@ -31,7 +31,7 @@
                     pInputText
                     #searchInput
                     [(ngModel)]="keyword"
-                    placeholder="{{ 'search_articles' | translate }}"
+                    placeholder="{{ 'search_for_posts' | translate }}"
                     (ngModelChange)="getData()"
                 />
             </div>
@@ -41,16 +41,15 @@
         *ngIf="pageDesc === 'overview'"
         class="d-none d-md-flex flex-column flex-md-row justify-content-md-between pt-md-4 pt-lg-45 align-items-center"
     >
-        <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">{{ 'articles' | translate }}</h1>
+        <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">{{ 'posts' | translate }}</h1>
         <div class="custom-search h-fit-content mt-3 mt-md-0 d-lg-none">
             <input
                 class="w-100 fnt-16"
                 type="text"
                 pInputText
-                #searchInput
                 [(ngModel)]="keyword"
-                placeholder="{{ 'search_articles' | translate }}"
-                (ngModelChange)="getData()"
+                placeholder="{{ 'search_for_posts' | translate }}"
+                (ngModelChange)="reloadPageData()"
             />
         </div>
     </div>
@@ -64,7 +63,7 @@
             optionValue="value"
             [showClear]="true"
             [(ngModel)]="isAvailableTranslation"
-            (onChange)="getData()"
+            (ngModelChange)="reloadPageData()"
             placeholder="{{ 'translations_available' | translate }}"
             styleClass="round-border"
         >
@@ -74,13 +73,13 @@
             optionLabel="label"
             optionValue="value"
             [(ngModel)]="selectedOrder"
-            (onChange)="getData()"
+            (ngModelChange)="reloadPageData()"
             styleClass="no-border"
         >
         </p-dropdown>
     </div>
     <div class="articles-wrapper" *ngIf="!isLoading">
-        <div class="col-12 col-md-6 col-lg-4 px-0 py-25 p-md-2" *ngFor="let article of displayData">
+        <div class="col-12 col-md-6 col-lg-4 px-0 py-25 p-md-2" *ngFor="let article of articlesData">
             <div
                 class="border-main br-4 p-3 py-md-4 px-lg-4 article-item"
                 [routerLink]="'/coffee-lab/articles/' + article.slug"
@@ -119,9 +118,6 @@
             </div>
         </div>
     </div>
-    <div *ngIf="!isLoading && totalRecords" class="pt-3 pt-md-4">
-        <p-paginator [rows]="9" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
-    </div>
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading && !articlesData.length" class="text-center my-4 fnt-muli text-clr24">
         <app-empty
@@ -142,5 +138,13 @@
                 ) | translate
             "
         ></app-empty>
+    </div>
+    <div class="pt-3 pt-md-4 w-100 text-center" *ngIf="totalRecords && !hidePaginator">
+        <p-paginator
+            [rows]="perPage"
+            [totalRecords]="totalRecords"
+            (onPageChange)="paginate($event)"
+            styleClass="mt-45"
+        ></p-paginator>
     </div>
 </div>

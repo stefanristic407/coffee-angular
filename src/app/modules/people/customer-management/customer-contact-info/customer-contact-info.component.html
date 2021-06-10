@@ -94,9 +94,28 @@
             <p class="fnt-18 fnt-bold text-clr334 fnt-muli lh-129 lh-md-normal mb-25">{{ 'discount' | translate }} %</p>
             <p class="fnt-14 fnt-normal text-clr334 fnt-muli lh-15 mb-0">{{ 'please_enter_discount' | translate }}</p>
             <p-divider type="dashed" styleClass="my-2 my-md-475"></p-divider>
-            <p class="fnt-40 fnt-bold text-clr334 fnt-muli lh-1.25 lh-md-normal mb-3 px-3 px-md-4">
-                {{ data?.discount || 0 }}%
-            </p>
+            <div *ngIf="!isEdit">
+                <p class="fnt-40 fnt-bold text-clr334 fnt-muli lh-1.25 lh-md-normal mb-1">
+                    {{ data?.discount_percentage || 0 }}%
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="fnt-muli fnt-18 fnt-600 lh-normal text-clr588">{{ 'discount' | translate }}</p>
+                    <div
+                        class="d-flex align-items-center fnt-muli fnt-14 fnt-600 text-clr55c cursor-pointer"
+                        (click)="isEdit = true"
+                    >
+                        <img class="mr-2" src="assets/images/green-edit-icon.svg" />
+                        {{ 'edit' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center" *ngIf="isEdit">
+                <span class="p-input-icon-right mr-25 flex-1">
+                    <input class="w-100" pInputText [(ngModel)]="discountPercentage" placeholder="Eg:28" />
+                    <span class="right-icon fnt-bold fnt-14 text-clr334">%</span>
+                </span>
+                <button class="btn-raised" (click)="updateDiscount()">{{ 'save' | translate }}</button>
+            </div>
         </div>
     </div>
 </div>

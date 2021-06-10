@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ApiResponse } from '@models';
 import { OrganizationType } from '@enums';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SimulatedLoginService extends ApiService {
-    constructor(protected http: HttpClient, protected cookieService: CookieService) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     // Login as Support User of different entities
@@ -19,7 +20,7 @@ export class SimulatedLoginService extends ApiService {
         const data: any = {
             api_call: `/${this.orgType}/${this.getOrgId()}/support-login/${userId}`,
             method: 'POST',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.simulatedLoginUrl, data, { withCredentials: true });
     }
@@ -40,7 +41,7 @@ export class SimulatedLoginService extends ApiService {
         const data: any = {
             api_call: `/${this.orgType}/${this.getOrgId()}/${this.getOrgEndpoint(orgType)}/${orgId}/support-login`,
             method: 'POST',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.simulatedLoginUrl, data, { withCredentials: true });
     }

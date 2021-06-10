@@ -72,7 +72,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     ngOnInit(): void {
         console.log(this.authService.currentOrganization);
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.route.data.subscribe((data) => {
             this.orderType = data.orderType;
         });
@@ -470,8 +470,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     getRoAddress(resolve: any = null, requireUpdating?) {
         this.userService.getAddresses(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.deliveryAddress = res.result?.find((item) => item.type === 'delivery') ?? {};
-                this.billingAddress = res.result?.find((item) => item.type === 'billing') ?? {};
+                this.deliveryAddress = (res.result || []).find((item) => item.type === 'delivery') ?? {};
+                this.billingAddress = (res.result || []).find((item) => item.type === 'billing') ?? {};
                 if (requireUpdating && !this.infoForm.value?.service) {
                     this.addressData = this.deliveryAddress;
                 }

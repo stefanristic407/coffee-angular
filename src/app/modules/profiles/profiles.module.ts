@@ -22,6 +22,7 @@ import { PartnerAboutComponent } from './partner-profile/partner-about/partner-a
 import { PartnerContactComponent } from './partner-profile/partner-contact/partner-contact.component';
 import { PartnerVirtualTourComponent } from './partner-profile/partner-virtual-tour/partner-virtual-tour.component';
 import { PartnerProfileComponent } from './partner-profile/partner-profile.component';
+import { VirtualTourComponent } from './common/virtual-tour/virtual-tour.component';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import { PartnerProfileComponent } from './partner-profile/partner-profile.compo
         PartnerAboutComponent,
         PartnerContactComponent,
         PartnerVirtualTourComponent,
+        VirtualTourComponent,
     ],
     imports: [
         CommonModule,

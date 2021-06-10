@@ -19,6 +19,7 @@ export class CustomerManagementTableComponent implements OnInit {
     @Input() searchTerm = '';
     @Input() sortedMainData: any;
     @Input() customerType: OrganizationType;
+    @Input() isPartners: boolean;
     itemId: any;
 
     constructor(
@@ -45,7 +46,6 @@ export class CustomerManagementTableComponent implements OnInit {
             } else {
                 this.customer.pendingHorecaDetails();
             }
-
             this.router.navigate(['/people/pending-details']);
         } else {
             const navigationExtras: NavigationExtras = {

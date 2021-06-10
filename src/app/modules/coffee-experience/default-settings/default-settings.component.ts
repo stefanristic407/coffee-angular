@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DownloadService, FileService, GlobalsService, RoasterserviceService } from '@services';
+import { AuthService, DownloadService, FileService, GlobalsService, RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -72,8 +72,9 @@ export class DefaultSettingsComponent implements OnInit {
         public dialogSrv: DialogService,
         public downloadService: DownloadService,
         private fileService: FileService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.setMenuItems();
     }
 
@@ -134,14 +135,12 @@ export class DefaultSettingsComponent implements OnInit {
         this.imageMenuItems = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.updateImage();
                 },
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.deleteImage();
                 },
@@ -150,14 +149,12 @@ export class DefaultSettingsComponent implements OnInit {
         this.videoMenuItems = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.updateVideo();
                 },
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.deleteVideo();
                 },
@@ -174,21 +171,18 @@ export class DefaultSettingsComponent implements OnInit {
         this.materialMenuItems = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.updateMarketing();
                 },
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.updateMarketing();
                 },
             },
             {
                 label: 'Download',
-                icon: 'pi pi-download',
                 command: () => {
                     this.downloadMaterialFile();
                 },

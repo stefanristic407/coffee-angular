@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DownloadService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, DownloadService, RoasterserviceService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -38,7 +38,7 @@ export class AddNewOrderComponent implements OnInit {
     userID: any;
     customerID: any;
     createdID: any;
-    loginUserID: string;
+    loginUserID: number;
     wasteProduced: string;
 
     constructor(
@@ -53,10 +53,11 @@ export class AddNewOrderComponent implements OnInit {
         public dialogSrv: DialogService,
         private router: Router,
         public globals: GlobalsService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
-        this.loginUserID = this.cookieService.get('user_id');
+        this.loginUserID = this.authService.userId;
     }
 
     ngOnInit(): void {

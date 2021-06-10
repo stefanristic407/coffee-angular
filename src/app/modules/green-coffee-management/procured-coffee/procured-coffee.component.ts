@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService, PrimeTableService } from '@services';
+import { AuthService, GlobalsService, PrimeTableService } from '@services';
 import { RoasterserviceService, ResizeService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ResizeableComponent } from '@base-components';
@@ -39,9 +39,10 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         public cookieService: CookieService,
         protected resizeService: ResizeService,
         public primeTableService: PrimeTableService,
+        private authService: AuthService,
     ) {
         super(resizeService);
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.primeTableService.rows = 10;
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;

@@ -4,7 +4,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { RoasterserviceService } from '@services';
+import { FileService, IdmService, RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-folder-dialog',
@@ -37,7 +37,8 @@ export class FolderDialogComponent implements OnInit {
         private fb: FormBuilder,
         private cookieSrv: CookieService,
         private toastrService: ToastrService,
-        private roasterSrv: RoasterserviceService,
+        private fileService: FileService,
+        private idmService: IdmService,
     ) {
         this.roasterId = this.cookieSrv.get('roaster_id');
         this.record = config.data.record;
@@ -67,7 +68,7 @@ export class FolderDialogComponent implements OnInit {
             };
             this.submitted = true;
             if (this.isCreate) {
-                this.roasterSrv.createFolder(this.roasterId, postData).subscribe((res: any) => {
+                this.fileService.createFolder(postData).subscribe((res: any) => {
                     if (res.success) {
                         if (this.invite) {
                             this.record = res.result;
@@ -83,23 +84,21 @@ export class FolderDialogComponent implements OnInit {
                     }
                 });
             } else {
-                this.roasterSrv
-                    .updateFolderDetails(this.roasterId, this.config.data.record.id, postData)
-                    .subscribe((res: any) => {
-                        if (res.success) {
-                            if (this.invite) {
-                                this.record = res.result;
-                                this.shareFolder(res.result.id);
-                            } else {
-                                this.submitted = false;
-                                this.toastrService.success('Folder details updated sucessfully');
-                                this.close(res.result);
-                            }
+                this.fileService.updateFolder(this.config.data.record.id, postData).subscribe((res: any) => {
+                    if (res.success) {
+                        if (this.invite) {
+                            this.record = res.result;
+                            this.shareFolder(res.result.id);
                         } else {
                             this.submitted = false;
-                            this.toastrService.error('Error while updating details');
+                            this.toastrService.success('Folder details updated sucessfully');
+                            this.close(res.result);
                         }
-                    });
+                    } else {
+                        this.submitted = false;
+                        this.toastrService.error('Error while updating details');
+                    }
+                });
             }
         } else {
             this.infoForm.markAllAsTouched();
@@ -113,7 +112,7 @@ export class FolderDialogComponent implements OnInit {
             company_type: this.shareForm.value.user.organization_type,
             company_id: this.shareForm.value.user.organization_id,
         };
-        this.roasterSrv.shareFolder(this.roasterId, fileId, postData).subscribe((res: any) => {
+        this.fileService.shareFileFolder(fileId, postData).subscribe((res: any) => {
             this.submitted = false;
             if (res.success) {
                 this.toastrService.success('New folder ' + this.record.name + ' has been created.');
@@ -130,7 +129,7 @@ export class FolderDialogComponent implements OnInit {
         console.log(event);
         const typedValue = event.query;
         if (typedValue.length > 4) {
-            this.roasterSrv.getUsersList(typedValue).subscribe((res: any) => {
+            this.idmService.getUsersList(typedValue).subscribe((res: any) => {
                 if (res.success) {
                     this.usersList = res.result;
                     this.usersList.map((element) => (element.name = `${element.firstname} ${element.lastname}`));

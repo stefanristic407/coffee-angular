@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService, GreenGradingService } from '@services';
+import { AuthService, GlobalsService, GreenGradingService } from '@services';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, SelectItemGroup, PrimeNGConfig } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
@@ -49,8 +49,9 @@ export class CuppingReportComponent implements OnInit {
         private primengConfig: PrimeNGConfig,
         private router: Router,
         private greenGradingService: GreenGradingService,
+        private authService: AuthService,
     ) {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {

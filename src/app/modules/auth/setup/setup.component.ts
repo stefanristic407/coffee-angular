@@ -126,10 +126,6 @@ export class SetupComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        //Auth Checking
-        // if (this.cookieService.get("Auth") == "") {
-        //   this.router.navigate(["/auth/login"]);
-        // }
         var language = 'en';
         this.userService.getUserLanguageStrings(language).subscribe((resultLanguage) => {
             this.globals.languageJson = resultLanguage;

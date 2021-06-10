@@ -10,6 +10,10 @@
     border-bottom: none !important;
 }
 
+::ng-deep .index .p-dialog-mask {
+    z-index: 999 !important;
+}
+
 /**********popover*******/
 
 .list-group-item {
@@ -49,18 +53,18 @@
 }
 
 @media (min-width: 993px) and (max-width: 1279px) {
-    #sales-table .p-datatable table {
+    ::ng-deep #sales-table .p-datatable table {
         width: 115%;
     }
-    #sales-table .p-datatable-wrapper {
+    ::ng-deep #sales-table .p-datatable-wrapper {
         overflow-x: auto;
     }
 }
 @media (min-width: 768px) and (max-width: 992px) {
-    #sales-table .p-datatable table {
+    ::ng-deep #sales-table .p-datatable table {
         width: 170%;
     }
-    #sales-table .p-datatable-wrapper {
+    ::ng-deep #sales-table .p-datatable-wrapper {
         overflow-x: auto;
     }
 }

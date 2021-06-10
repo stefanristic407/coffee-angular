@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoffeeLabService, AuthService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ApiResponse } from '@models';
 @Component({
     selector: 'app-articles-view',
     templateUrl: './articles-view.component.html',
@@ -35,26 +35,26 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     isAvailableTranslation?: any;
     selectedOrder = 'latest';
     articlesData: any[] = [];
-    displayData: any[] = [];
     isLoading = false;
     pageDesc: string | undefined;
     organizationId: any;
     destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
-    totalRecords = 0;
     constructor(
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         private router: Router,
         private coffeeLab: CoffeeLabService,
-        private cookieService: CookieService,
         public authService: AuthService,
     ) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
+    perPage = 9;
+    totalRecords = 0;
+    hidePaginator = false;
 
     ngOnInit(): void {
-        this.organizationId = +this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getData();
@@ -64,61 +64,49 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         });
     }
 
-    getData(): void {
+    reloadPageData(): void {
+        this.hidePaginator = true;
+        this.getData();
+    }
+
+    getData(page = 1): void {
         this.isLoading = true;
         const params = {
             query: this.keyword,
             translations_available: this.isAvailableTranslation,
             sort_by: 'created_at',
             sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
+            publish: true,
+            page,
+            per_page: this.perPage
         };
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLab.getSavedForumList('article', params).subscribe((res) => {
-                if (res.success) {
-                    this.articlesData = res.result ?? [];
-                    this.totalRecords = this.articlesData.length;
-                    this.displayData = this.articlesData.slice(0, 9);
-                    this.articlesData.map((item) => {
-                        item.content = this.getJustText(item.content);
-                        return item;
-                    });
-                } else {
-                    this.toastService.error('Cannot get Articles data');
-                }
-                this.isLoading = false;
+                this.handleDataResponse(res);
             });
         } else if (this.pageDesc === 'my-posts') {
             this.coffeeLab.getMyForumList('article').subscribe((res) => {
-                if (res.success) {
-                    this.articlesData = res.result ?? [];
-                    this.totalRecords = this.articlesData.length;
-                    this.displayData = this.articlesData.slice(0, 9);
-                    this.articlesData.map((item) => {
-                        item.content = this.getJustText(item.content);
-                        return item;
-                    });
-                } else {
-                    this.toastService.error('Cannot get Articles data');
-                }
-                this.isLoading = false;
+                this.handleDataResponse(res);
             });
         } else {
             this.coffeeLabService.getForumList('article', params, this.forumLanguage).subscribe((res) => {
-                console.log('articles >>>>>>', res);
-                if (res.success) {
-                    this.articlesData = res.result ?? [];
-                    this.totalRecords = this.articlesData.length;
-                    this.displayData = this.articlesData.slice(0, 9);
-                    this.articlesData.map((item) => {
-                        item.content = this.getJustText(item.content);
-                        return item;
-                    });
-                } else {
-                    this.toastService.error('Cannot get Articles data');
-                }
-                this.isLoading = false;
+               this.handleDataResponse(res);
             });
         }
+    }
+
+    handleDataResponse(res: ApiResponse<any>): void {
+        if (res.success) {
+            this.articlesData = (res.result ?? []).map((item) => {
+                item.content = this.getJustText(item.content);
+                return item;
+            });
+            this.totalRecords = res.result_info.total_count;
+            this.hidePaginator = false;
+        } else {
+            this.toastService.error('Cannot get Articles data');
+        }
+        this.isLoading = false;
     }
 
     getJustText(content: any) {
@@ -132,7 +120,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     }
 
     paginate(event: any) {
-        this.displayData = this.articlesData.slice(event.first, event.first + event.rows);
+        this.getData(event.page + 1);
     }
 
     ngOnDestroy(): void {

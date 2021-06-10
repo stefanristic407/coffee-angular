@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,7 @@ import { MenuItem } from 'primeng/api';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { ChatHandlerService } from '@services';
-import { OrganizationType } from '@enums';
+import { OrganizationType, UserStatus } from '@enums';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
 
@@ -19,6 +19,7 @@ import { ConfirmComponent } from '@shared';
     styleUrls: ['./team-member-table.component.scss'],
 })
 export class TeamMemberTableComponent implements OnInit, AfterViewInit {
+    readonly UserStatus = UserStatus;
     roasterID: any;
     breadCrumbItem: MenuItem[] = [];
     selectedRole;
@@ -57,6 +58,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         public sharedService: SharedServiceService,
         public dialogSrv: DialogService,
         private commonService: CommonService,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
@@ -70,8 +72,8 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             { name: 'Inactive', value: 'Inactive' },
             { name: 'Pending', value: 'pending' },
         ];
-        this.loginId = this.cookieService.get('user_id');
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.loginId = this.authService.userId;
+        this.roasterID = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
             this.currentRoleID = Number(params.roleID);
             this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;

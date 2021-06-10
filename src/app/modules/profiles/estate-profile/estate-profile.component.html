@@ -1,7 +1,7 @@
 <div class="bg-fff pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325 p-md-3">
     <div class="w-100 d-flex justify-content-between mb-3">
         <div class="w-100 pt-lg-3">
-            <a class="back-page" routerLink="/sourcing/estate-list"> {{ 'back' | translate }}</a>
+            <a class="back-page" (click)="location.back()"> {{ 'back' | translate }}</a>
         </div>
     </div>
     <div class="p-0">
@@ -58,7 +58,7 @@
             <p-tabPanel header="Virtual Tour">
                 <ng-template pTemplate="content">
                     <div class="mb-3 mb-md-0 mt-3 mt-md-0">
-                        <app-estate-virtul-tour [estateId]="estateId"></app-estate-virtul-tour>
+                        <app-virtual-tour [profileId]="estateId" [orgType]="OrganizationType.ESTATE"></app-virtual-tour>
                     </div>
                 </ng-template>
             </p-tabPanel>

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { ApiService } from './api.service';
+import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
@@ -23,8 +24,8 @@ export class RoasterserviceService extends ApiService {
     private encryptionKey = 'sewen_secrete_key';
     private brandUrl = environment.apiURL + '/ro/brands';
 
-    constructor(protected http: HttpClient, protected cookieService: CookieService) {
-        super(cookieService, http);
+    constructor(protected http: HttpClient, protected authService: AuthService) {
+        super(http, authService);
     }
 
     //API Function Name : Role List
@@ -34,7 +35,7 @@ export class RoasterserviceService extends ApiService {
         const data = {
             api_call: `/ro/${id}/roles?${this.serlialise(postData)}`,
             method: 'GET',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -45,7 +46,7 @@ export class RoasterserviceService extends ApiService {
     deleteRoles(roaster_id: any, id: any) {
         const data = {
             api_call: `/ro/${roaster_id}/roles/${id}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'DELETE',
         };
         return this.http.post(this.orgDeleteUrl, data);
@@ -58,7 +59,7 @@ export class RoasterserviceService extends ApiService {
         const data = {
             api_call: `/ro/${id}/users?${this.serlialise(postData)}`,
             method: 'GET',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -79,7 +80,7 @@ export class RoasterserviceService extends ApiService {
     createRole(body: any) {
         const data = {
             api_call: `/ro/${body.id}/roles`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             data: {
                 name: body.name,
             },
@@ -94,7 +95,7 @@ export class RoasterserviceService extends ApiService {
     getRoasterPermissions(id: any) {
         const data = {
             api_call: `/ro/${id}/permissions`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -106,7 +107,7 @@ export class RoasterserviceService extends ApiService {
     getRoasterRoleName(id: any, roaster_id: any) {
         const data = {
             api_call: `/ro/${roaster_id}/roles/${id}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -118,7 +119,7 @@ export class RoasterserviceService extends ApiService {
     updateRoasterRoleName(body: any, roaster_id: any) {
         const data = {
             api_call: `/ro/${roaster_id}/roles/${body.roleId}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'PUT',
             data: {
                 name: body.name,
@@ -133,7 +134,7 @@ export class RoasterserviceService extends ApiService {
     getRolePermissions(roaster_id: any, roleId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/roles/${roleId}/permissions`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -145,7 +146,7 @@ export class RoasterserviceService extends ApiService {
     assignRolePermissions(body: any, roleId: any, roaster_id: any) {
         const data = {
             api_call: `/ro/${roaster_id}/roles/${roleId}/permissions`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'POST',
             data: body,
         };
@@ -158,7 +159,7 @@ export class RoasterserviceService extends ApiService {
     getUserBasedRoles(roaster_id: any, userId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/${userId}/roles`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -170,7 +171,7 @@ export class RoasterserviceService extends ApiService {
     deleteRoasterUser(roaster_id: any, userId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/${userId}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'DELETE',
         };
         return this.http.post(this.url, data);
@@ -182,7 +183,7 @@ export class RoasterserviceService extends ApiService {
     assignUserBasedUserRoles(roaster_id: any, roleId: any, userId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/${userId}/roles/${roleId}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'POST',
         };
         return this.http.post(this.url, data);
@@ -194,7 +195,7 @@ export class RoasterserviceService extends ApiService {
     deleteRoasterUserRole(roaster_id: any, roleId: any, userId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/${userId}/roles/${roleId}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'DELETE',
         };
         return this.http.post(this.url, data);
@@ -206,7 +207,7 @@ export class RoasterserviceService extends ApiService {
     enableAdminUser(roaster_id: any, enableUserId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/${enableUserId}/enable`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'PUT',
         };
         return this.http.put(this.putUrl, data);
@@ -218,7 +219,7 @@ export class RoasterserviceService extends ApiService {
     disableAdminUsers(roaster_id: any, disableUserId: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/${disableUserId}/disable`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'PUT',
         };
         return this.http.put(this.putUrl, data);
@@ -234,7 +235,7 @@ export class RoasterserviceService extends ApiService {
     getRoasterContacts(roaster_id: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/top-contacts`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -246,7 +247,7 @@ export class RoasterserviceService extends ApiService {
     addRoasterContacts(roaster_id: any, body: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/top-contacts`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'POST',
             data: body,
         };
@@ -259,7 +260,7 @@ export class RoasterserviceService extends ApiService {
     deleteRoasterContacts(roaster_id: any, contact_id: any) {
         const data = {
             api_call: `/ro/${roaster_id}/users/top-contacts/${contact_id}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'DELETE',
         };
         return this.http.post(this.orgDeleteUrl, data);
@@ -271,7 +272,7 @@ export class RoasterserviceService extends ApiService {
     getRoasterBrands(roaster_id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/brands`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -285,8 +286,8 @@ export class RoasterserviceService extends ApiService {
     }
 
     deleteRoasterBrand(brandId: string): Observable<any> {
-        const roasterId = this.cookieService.get('roaster_id');
-        const token = this.cookieService.get('Auth');
+        const roasterId = this.getOrgId();
+        const token = this.authService.token;
         const data = {
             method: 'DELETE',
             api_call: `/ro/${roasterId}/brands/${brandId}`,
@@ -300,7 +301,7 @@ export class RoasterserviceService extends ApiService {
         const data = {
             api_call: `/ro/${roasterId}/your-reviews?${this.serlialise(queryParams)}`,
             method: 'GET',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -311,7 +312,7 @@ export class RoasterserviceService extends ApiService {
     createFolder(roaster_id: any, body: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/folders';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'POST';
         data['data'] = body;
         return this.http.post(this.url, data);
@@ -327,7 +328,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/my-files?' + params;
         // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         //  const params = new HttpParams().append( 'file_module', fileModule )
 
         return this.http.post(this.url, data);
@@ -339,7 +340,7 @@ export class RoasterserviceService extends ApiService {
     deleteFolder(roaster_id: any, id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/folders/' + id;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.orgDeleteUrl, data);
     }
 
@@ -349,7 +350,7 @@ export class RoasterserviceService extends ApiService {
     deleteFile(roaster_id: any, id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/files/' + id;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.orgDeleteUrl, data);
     }
 
@@ -362,7 +363,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/shared?' + params;
         // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         //  const params = new HttpParams().append( 'file_module', fileModule )
 
         return this.http.post(this.url, data);
@@ -377,7 +378,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/pinned?' + params;
         // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         //  const params = new HttpParams().append( 'file_module', fileModule )
 
         return this.http.post(this.url, data);
@@ -390,7 +391,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/' + id + '/pin';
         data['method'] = 'PUT';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
 
@@ -401,7 +402,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/folders/' + id;
         data['method'] = 'PUT';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['data'] = body;
         return this.http.post(this.url, data);
     }
@@ -412,7 +413,7 @@ export class RoasterserviceService extends ApiService {
     getFolderDetails(roaster_id: any, id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/folders/' + id;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
 
@@ -422,7 +423,7 @@ export class RoasterserviceService extends ApiService {
     getFileDetails(roaster_id: any, id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/files/' + id;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
 
@@ -443,14 +444,14 @@ export class RoasterserviceService extends ApiService {
 
     // Upload brand profile files
     uploadBrandProfile(file) {
-        const roasterId = this.cookieService.get('roaster_id');
+        const roasterId = this.getOrgId();
         const uploadData = new FormData();
         uploadData.append('api_call', `/ro/${roasterId}/file-manager/files`);
         uploadData.append('method', 'POST');
         uploadData.append('file', file);
         uploadData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
         uploadData.append('file_module', 'Brand-Profile');
-        uploadData.append('token', this.cookieService.get('Auth'));
+        uploadData.append('token', this.authService.token);
         return this.http.post(this.fileuploadUrl, uploadData);
     }
 
@@ -473,7 +474,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/my-files?' + params;
         // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         //  const params = new HttpParams().append( 'file_module', fileModule )
         console.log(data);
         return this.http.post(this.url, data);
@@ -485,7 +486,7 @@ export class RoasterserviceService extends ApiService {
     shareFolder(roaster_id: any, file_id: any, body: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/' + file_id + '/share';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'POST';
         data['data'] = body;
         return this.http.post(this.url, data);
@@ -496,7 +497,7 @@ export class RoasterserviceService extends ApiService {
     getAgreements(roaster_id: any, customer_type: any) {
         const data = { api_call: '', token: '', method: '' };
         data.api_call = '/ro/' + roaster_id + '/' + customer_type + '/agreements';
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
     }
@@ -507,7 +508,7 @@ export class RoasterserviceService extends ApiService {
     uploadAgreements(roaster_id: any, customer_type: any, body: any) {
         const data = { api_call: '', token: '', method: '', data: '' };
         data.api_call = '/ro/' + roaster_id + '/' + customer_type + '/agreements';
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.data = body;
         data.method = 'POST';
         return this.http.post(this.url, data);
@@ -520,7 +521,7 @@ export class RoasterserviceService extends ApiService {
         const data = { api_call: '', token: '', method: '', data: '' };
         data.api_call = '/ro/' + roaster_id + '/' + customer_type + '/agreements/' + id;
         data.method = 'PUT';
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.data = body;
         return this.http.post(this.url, data);
     }
@@ -532,7 +533,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/' + customer_type + '/agreements/' + id;
         data['method'] = 'GET';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
 
@@ -542,7 +543,7 @@ export class RoasterserviceService extends ApiService {
     deleteAgreement(roaster_id: any, customer_type: any, id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/' + customer_type + '/agreements/' + id;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.orgDeleteUrl, data);
     }
 
@@ -556,7 +557,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/users/user-list?' + params;
         // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         //  const params = new HttpParams().append( 'file_module', fileModule )
         // console.log(data);
         return this.http.post(this.url, data);
@@ -567,7 +568,7 @@ export class RoasterserviceService extends ApiService {
     getSharedUserList(roasterId: any, fileId: any) {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/file-manager/' + fileId + '/shared-users';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -578,7 +579,7 @@ export class RoasterserviceService extends ApiService {
     unShareFolder(roaster_id: any, file_id: any, body: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/' + file_id + '/unshare';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'POST';
         data['data'] = body;
         return this.http.post(this.url, data);
@@ -591,7 +592,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/file-manager/' + file_id + '/permission';
         data['method'] = 'PUT';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['data'] = body;
         return this.http.post(this.url, data);
     }
@@ -599,7 +600,7 @@ export class RoasterserviceService extends ApiService {
     getMicroRoasters(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
         data.api_call = `/ro/${roasterId}/micro-roasters?${this.serlialise(postData)}`;
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
     }
@@ -607,7 +608,7 @@ export class RoasterserviceService extends ApiService {
     getPartnerDetails(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
         data.api_call = `/ro/${roasterId}/hrc?${this.serlialise(postData)}`;
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
     }
@@ -615,7 +616,7 @@ export class RoasterserviceService extends ApiService {
     getMicroRoastersList(roaster_id: any) {
         const data = { api_call: '', token: '', method: '' };
         data.api_call = '/ro/' + roaster_id + '/micro-roasters';
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
     }
@@ -632,7 +633,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/roasted-batches';
         // data['params'] = params;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         //  const params = new HttpParams().append( 'file_module', fileModule )
         console.log(data);
         return this.http.post(this.url, data);
@@ -642,7 +643,7 @@ export class RoasterserviceService extends ApiService {
     getDefaultProducts(roaster_id: any, postData?) {
         const data = {
             api_call: `/ro/${roaster_id}/products/default?${this.serlialise(postData)}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -652,7 +653,7 @@ export class RoasterserviceService extends ApiService {
             api_call: `/ro/${roasterId}/products/update-featured`,
             data: body,
             method: 'PUT',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -663,7 +664,7 @@ export class RoasterserviceService extends ApiService {
         if (orderType == 'MR') {
             data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
         }
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
     }
@@ -672,7 +673,7 @@ export class RoasterserviceService extends ApiService {
         const data = { api_call: '', method: '', token: '' };
         data.api_call = `/ro/${roasterId}/${orderType}?` + this.serlialise(queryParams);
         data.method = 'GET';
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         return this.http.post(this.url, data);
     }
 
@@ -682,14 +683,14 @@ export class RoasterserviceService extends ApiService {
         if (orderType === 'MR') {
             data.api_call = '/ro/' + roaster_id + '/micro_roasters/disputes?' + this.serlialise(postData);
         }
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
     }
     // getEstateSelectAnOrderTableData(roaster_id: any) {
     //   var data = {};
     //   data['api_call'] = "/ro/" + roaster_id + "/orders";
-    //   data['token'] = this.cookieService.get('Auth');
+    //   data['token'] = this.authService.token;
     //   return this.http.post(this.url, data);
     // }
     encryptData(data) {
@@ -724,22 +725,14 @@ export class RoasterserviceService extends ApiService {
         const data = {};
         data['api_call'] = '/ro/' + roasterId + '/micro-roasters/' + id + '/support-login';
         data['method'] = 'POST';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     getHorecaStimulatedLogin(id: any, roasterId: any) {
         const data = {};
         data['api_call'] = '/ro/' + roasterId + '/hrc/' + id + '/support-login';
         data['method'] = 'POST';
-        data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.url, data);
-    }
-
-    getLoggedinUserRoles(roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/roles';
-        data['token'] = this.cookieService.get('Auth');
-        data['method'] = 'GET';
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     placeOrder(roaster_id: any, harvest_id: any, body: any) {
@@ -747,33 +740,33 @@ export class RoasterserviceService extends ApiService {
         data['api_call'] = `/ro/${roaster_id}/availability/${harvest_id}/gc`;
         data['method'] = 'POST';
         data['data'] = body;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     getHorecaTable(roaster_id: any, hrc_id) {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/hrc/${hrc_id}/partners`;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     getHorecaTableDetails(roaster_id: any, hrc_id) {
         const data = { api_call: '', token: '', method: '' };
         data.api_call = `/ro/${roaster_id}/hrc/${hrc_id}`;
-        data.token = this.cookieService.get('Auth');
+        data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
     }
     getMrOrders(roaster_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/mr-orders';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     getMrAvailabilityRequests(roaster_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/availability-requests';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     getViewOrderDetails(roaster_id: any, order_id: any, orderType = null): Observable<any> {
@@ -782,14 +775,14 @@ export class RoasterserviceService extends ApiService {
         if (orderType && (orderType == 'MR' || orderType == 'mr')) {
             data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id;
         }
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     getViewCustomerDetails(roaster_id: any, hrc_id: any, orderType = null): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/hrc/${hrc_id}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -797,7 +790,7 @@ export class RoasterserviceService extends ApiService {
     getCustomerDetails(roaster_id: any, customerType: string, customerId: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/${customerType}/${customerId}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -806,7 +799,7 @@ export class RoasterserviceService extends ApiService {
     getUserDetails(roasterID: any): Observable<any> {
         const data = {
             api_call: `/ro/${roasterID}/users`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -815,7 +808,7 @@ export class RoasterserviceService extends ApiService {
     getsalesMemberDetails(roasterID: any, userID: any): Observable<any> {
         const data = {
             api_call: `/ro/${roasterID}/users/${userID}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -824,7 +817,7 @@ export class RoasterserviceService extends ApiService {
     getListOrderDetails(roasterId: any, orderType: string, postData = null): Observable<any> {
         const data = {
             api_call: `/ro/${roasterId}/${orderType}?` + this.serlialise(postData),
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -832,7 +825,7 @@ export class RoasterserviceService extends ApiService {
     addOrderDetails(roaster_id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/outtake-orders`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'POST',
             data: body,
         };
@@ -841,7 +834,7 @@ export class RoasterserviceService extends ApiService {
     getViewOrder(roaster_id: any, outtake_order_id: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/outtake-orders/${outtake_order_id}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -849,7 +842,7 @@ export class RoasterserviceService extends ApiService {
     updateOrderDetails(roaster_id: any, outtake_order_id: any, body: any): Observable<any> {
         const data = {
             api_call: `/ro/${roaster_id}/outtake-orders/${outtake_order_id}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'PUT',
             data: body,
         };
@@ -863,7 +856,7 @@ export class RoasterserviceService extends ApiService {
         if (orderType === 'MR') {
             data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/disputes';
         }
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     getOrderChatList(roaster_id: any, order_id: any, orderType?) {
@@ -873,21 +866,21 @@ export class RoasterserviceService extends ApiService {
         if (orderType === 'MR') {
             data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/threads';
         }
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
 
     deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any): Observable<any> {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.orgDeleteUrl, data);
     }
     orderReceived(roaster_id: any, order_id: any) {
         const data = {};
         data['api_call'] = `/ro/${roaster_id}/orders/${order_id}/mark/received`;
         data['method'] = 'PUT';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
 
@@ -907,7 +900,7 @@ export class RoasterserviceService extends ApiService {
         } else if (searchString) {
             data['api_call'] = data['api_call'] + '?search_query=' + searchString;
         }
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     //Get Coffee Sale List
@@ -921,14 +914,14 @@ export class RoasterserviceService extends ApiService {
         } else if (displayCount) {
             data['api_call'] = data['api_call'] + '?per_page=' + displayCount;
         }
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     //Get Procured Coffees Details
     getProcuredCoffeeDetails(roaster_id: any, orderID): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/orders/' + orderID;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -937,7 +930,7 @@ export class RoasterserviceService extends ApiService {
         let obj = {};
         obj['method'] = 'POST';
         obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
-        obj['token'] = this.cookieService.get('Auth');
+        obj['token'] = this.authService.token;
         obj['data'] = data;
         return this.http.post(this.url, obj);
     }
@@ -945,7 +938,7 @@ export class RoasterserviceService extends ApiService {
     getMarkForSaleDetails(roaster_id: any, orderID): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -956,7 +949,7 @@ export class RoasterserviceService extends ApiService {
         obj['method'] = 'PUT';
         obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
         obj['data'] = data;
-        obj['token'] = this.cookieService.get('Auth');
+        obj['token'] = this.authService.token;
         return this.http.post(this.url, obj);
     }
     //upate Mark for Sale status
@@ -965,14 +958,14 @@ export class RoasterserviceService extends ApiService {
         obj['method'] = 'PUT';
         obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale/status';
         obj['data'] = data;
-        obj['token'] = this.cookieService.get('Auth');
+        obj['token'] = this.authService.token;
         return this.http.post(this.url, obj);
     }
     //Get Harvest GC available details
     getGCAvailableDetails(harvest_id: any): Observable<any> {
         var data = {};
         data['api_call'] = '/general/availability/gc/' + harvest_id;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -985,7 +978,7 @@ export class RoasterserviceService extends ApiService {
         if (orderType && orderType == 'MR') {
             obj['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + orderID + '/disputes';
         }
-        obj['token'] = this.cookieService.get('Auth');
+        obj['token'] = this.authService.token;
         obj['data'] = data;
         return this.http.post(this.url, obj);
     }
@@ -993,7 +986,7 @@ export class RoasterserviceService extends ApiService {
     getEvaluatorsList(roaster_id: any, cupping_report_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/cupping-process/' + cupping_report_id + '/evaluators';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -1002,7 +995,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/users';
         data['api_call'] = query ? data['api_call'] + '?name=' + query : data['api_call'];
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -1010,7 +1003,7 @@ export class RoasterserviceService extends ApiService {
     markTicketasResolved(roasterId: any, disputeId: any) {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/disputes/' + disputeId + '/resolve';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'PUT';
         return this.http.post(this.url, data);
     }
@@ -1018,7 +1011,7 @@ export class RoasterserviceService extends ApiService {
     escalteTicket(roasterId: any, disputeId: any) {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/disputes/' + disputeId + '/escalate';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'PUT';
         return this.http.post(this.url, data);
     }
@@ -1031,7 +1024,7 @@ export class RoasterserviceService extends ApiService {
             data['api_call'] = '/ro/' + roasterId + '/orders/' + disputeId + '/users/' + userData.user_id + '/assign';
             data['method'] = 'PUT';
         }
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['data'] = userData;
 
         return this.http.post(this.url, data);
@@ -1040,7 +1033,7 @@ export class RoasterserviceService extends ApiService {
     addFileIDDispute(roasterId: any, disputeId: any, userData) {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/disputes/' + disputeId + '/files';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['data'] = userData;
         data['method'] = 'POST';
         return this.http.post(this.url, data);
@@ -1049,7 +1042,7 @@ export class RoasterserviceService extends ApiService {
     externalCuppingReportsList(roasterId: any) {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/external-cupping-reports';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -1057,7 +1050,7 @@ export class RoasterserviceService extends ApiService {
     listCuppingRequest(roasterId: any) {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/external-cupping-invite-list';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -1065,7 +1058,7 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/cupping-process/' + cupping_report_id + '/external-samples';
         data['method'] = 'PUT';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['data'] = body;
         return this.http.post(this.url, data);
     }
@@ -1073,14 +1066,14 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/ro/' + roasterId + '/cupping-process/' + cupping_report_id + '/external-samples';
         data['method'] = 'DELETE';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     //API Function Name : Get Harvest details
     getHarvestDetails(harvest_id: any) {
         var data = {};
         data['api_call'] = '/general/harvests/' + harvest_id + '/cupping-scores';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -1089,14 +1082,14 @@ export class RoasterserviceService extends ApiService {
         var data = {};
         data['api_call'] = '/general/harvests/' + harvest_id + '/cupping-report';
         data['method'] = 'GET';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
 
     listServiceCuppingReports(roaster_id: any, gc_order_id: any) {
         var data = {};
         data['api_call'] = `​/gc/${roaster_id}​/orders/${gc_order_id}​/cupping-reports`;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -1106,7 +1099,7 @@ export class RoasterserviceService extends ApiService {
         data[
             'api_call'
         ] = `​/ro/${roaster_id}​/cupping-process/external-samples/${external_sample_id}​/cupping-reports`;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
@@ -1115,19 +1108,19 @@ export class RoasterserviceService extends ApiService {
         data['api_call'] =
             '/ro/' + roaster_id + '/cupping-process/' + cupping_report_id + '/evaluators/' + evaluator_id;
         data['method'] = 'DELETE';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     getMrGcOrderDetails(roaster_id: any, order_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     acceptMrConfirmOrder(roaster_id: any, order_id: any, body: any) {
         const data = {};
         data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/confirm';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'PUT';
         data['data'] = body;
         return this.http.post(this.url, data);
@@ -1135,7 +1128,7 @@ export class RoasterserviceService extends ApiService {
     rejectBookedOrder(roaster_id: any, order_id: any, body: any) {
         const data = {};
         data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/reject';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'PUT';
         data['data'] = body;
         return this.http.post(this.url, data);
@@ -1143,7 +1136,7 @@ export class RoasterserviceService extends ApiService {
     addOrderNotes(roaster_id: any, order_id: any, orderData: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/notes';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['data'] = orderData;
         data['method'] = 'POST';
         return this.http.post(this.url, data);
@@ -1151,20 +1144,20 @@ export class RoasterserviceService extends ApiService {
     getOrderNotes(roaster_id: any, order_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/notes';
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
     getAvailableRequestDetail(roaster_id: any, availability_request_id: any) {
         const data = {};
         data['api_call'] = `/ro/${roaster_id}/availability-requests/${availability_request_id}`;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     updateAvailabilityStatus(roaster_id: any, availability_request_id: any, status: any) {
         const data = {};
         data['api_call'] = `/ro/${roaster_id}/availability-requests/${availability_request_id}/${status}`;
-        data['token'] = this.cookieService.get('Auth');
+        data['token'] = this.authService.token;
         data['method'] = 'PUT';
         return this.http.post(this.url, data);
     }
@@ -1174,7 +1167,7 @@ export class RoasterserviceService extends ApiService {
         const data = {
             api_call: `/ro/${roasterId}/order-settings`,
             method: 'GET',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -1193,7 +1186,7 @@ export class RoasterserviceService extends ApiService {
         const data = {
             api_call: `/ro/${roaster_id}/certificates/`,
             method: 'POST',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             data: {
                 file: fileData,
                 certificate_type_id: 1234,
@@ -1207,7 +1200,7 @@ export class RoasterserviceService extends ApiService {
         const data = {
             api_call: `/ro/${roaster_id}/certificates/${certificateId}`,
             method: 'DELETE',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -1216,7 +1209,7 @@ export class RoasterserviceService extends ApiService {
     updateRoasterSlug(roasterId, slug: any) {
         const data = {
             api_call: `/ro/${roasterId}/slug`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'POST',
             data: { slug },
         };
@@ -1227,7 +1220,7 @@ export class RoasterserviceService extends ApiService {
     getRoasterNotes(roasterId, orderId): Observable<any> {
         const data = {
             api_call: `/ro/${roasterId}/orders/${orderId}/notes`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);
@@ -1236,7 +1229,7 @@ export class RoasterserviceService extends ApiService {
     deleteOuttakeOrders(roasterId: any, outTakeOrderId): Observable<any> {
         const data = {
             api_call: `/ro/${roasterId}/outtake-orders/${outTakeOrderId}`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'DELETE',
         };
         return this.http.post(this.url, data);
@@ -1247,7 +1240,7 @@ export class RoasterserviceService extends ApiService {
         const data = {
             api_call: `/ro/${roaster_id}/procured-coffees/${orderId}/sale`,
             method: 'DELETE',
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
         };
         return this.http.post(this.url, data);
     }
@@ -1255,7 +1248,7 @@ export class RoasterserviceService extends ApiService {
     getRoasterOuttakeOrders(roasterId) {
         const data = {
             api_call: `/ro/${roasterId}/outtake-orders`,
-            token: this.cookieService.get('Auth'),
+            token: this.authService.token,
             method: 'GET',
         };
         return this.http.post(this.url, data);

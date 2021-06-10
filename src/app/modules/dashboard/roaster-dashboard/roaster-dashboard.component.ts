@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { AclService, AuthService, GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
 import { WelcomeService } from './welcome.service';
@@ -14,8 +14,8 @@ import { WelcomeService } from './welcome.service';
 })
 export class RoasterDashboardComponent implements OnInit {
     appLanguage?: any;
-    userName = '';
-    roasterId: string;
+    roasterId: number;
+
     constructor(
         private router: Router,
         private cookieService: CookieService,
@@ -24,26 +24,25 @@ export class RoasterDashboardComponent implements OnInit {
         private roasterSrv: RoasterserviceService,
         private toastrService: ToastrService,
         private welcomeSrv: WelcomeService,
+        public authService: AuthService,
+        private aclService: AclService,
     ) {}
 
     ngOnInit(): void {
-        // Auth checking
-        if (this.cookieService.get('Auth') === '') {
-            this.router.navigate(['/auth/login']);
-        }
-        this.userName = this.cookieService.get('userName');
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
 
         this.appLanguage = this.globals.languageJson;
 
         const promises = [];
         promises.push(new Promise((resolve) => this.getStats(resolve)));
-        promises.push(new Promise((resolve) => this.getAvailableEstates(resolve)));
+        if (this.aclService.checkPermission('sourcing-management')) {
+            promises.push(new Promise((resolve) => this.getAvailableEstates(resolve)));
+            this.getEstateOrders();
+        }
         promises.push(new Promise((resolve) => this.getReviewsSummary(resolve)));
         Promise.all(promises).then(() => {});
 
         this.getRecentActivities();
-        this.getEstateOrders();
     }
 
     getStats(resolve) {

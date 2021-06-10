@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
@@ -26,12 +25,11 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         public router: Router,
         private activatedRoute: ActivatedRoute,
         public coffeeLabService: CoffeeLabService,
-        private cookieService: CookieService,
         private messageService: MessageService,
         public location: Location,
         public authService: AuthService,
     ) {
-        this.organizationId = this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();
         this.activatedRoute.params.subscribe((params) => {
             this.id = params.id;
             this.getCoffeeDetails(true);
@@ -74,7 +72,12 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     }
 
     getCoffeeRecipesData() {
-        this.coffeeLabService.getForumList('recipe').subscribe((res) => {
+        const params = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            publish: true,
+        };
+        this.coffeeLabService.getForumList('recipe', params).subscribe((res) => {
             if (res.success) {
                 console.log('response----->>>>>', res);
                 this.relatedData = res.result.filter((item: any) => item.id !== this.id).slice(0, 5);

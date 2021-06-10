@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasteryProfileService } from '@services';
 import { Router } from '@angular/router';
 import { PrimeTableService } from '@services';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -20,7 +19,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     termStatus: any;
     display: any;
     appLanguage?: any;
-    roasterID: string;
+    roasterID: number;
     mainData: any[] = [];
     originArray: any[] = [];
     displayItems = [
@@ -47,13 +46,12 @@ export class CoffeeProcuredTabComponent implements OnInit {
         private toastrService: ToastrService,
         public router: Router,
         public cookieService: CookieService,
-        public roasteryProfileService: RoasteryProfileService,
         public primeTableService: PrimeTableService,
         public fb: FormBuilder,
+        private authService: AuthService,
     ) {
-        // this.termStatus = '';
         this.display = 10;
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
         this.primeTableService.sortOrder = 'desc';

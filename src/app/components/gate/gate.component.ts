@@ -3,12 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AclService, DashboardService } from '@services';
+import { AclService, AuthService, DashboardService } from '@services';
 import { GeneralService } from '@services';
 import { UserService } from '@services';
 import { DestroyableComponent } from '@base-components';
 import { environment } from '@env/environment';
-import { OrganizationType } from '@enums';
+import { OrganizationType, UserStatus } from '@enums';
 
 @Component({
     selector: 'app-gate',
@@ -29,6 +29,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         private aclService: AclService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
+        private authService: AuthService,
     ) {
         super();
     }
@@ -40,35 +41,23 @@ export class GateComponent extends DestroyableComponent implements OnInit {
     private checkToken() {
         this.route.queryParamMap.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             if (params.has('orgId')) {
-                const orgId = params.get('orgId');
-                // Either from url, or from API cookie
-                let token = '';
-                if (params.has('token')) {
-                    token = params.get('token');
-                } else {
-                    if (params.has('loginType') && params.get('loginType') === 'sim') {
-                        const simToken = this.cookieService.get('Sim-Authorization');
-                        if (simToken) {
-                            token = JSON.parse(atob(simToken)).Authorization;
-                        }
-                    } else {
-                        token = this.cookieService.get('Authorization');
-                    }
+                const orgId = +params.get('orgId');
+                if (params.has('loginType') && params.get('loginType') === 'sim') {
+                    this.authService.isSimulated = true;
                 }
-                if (!token) {
+                if (!this.authService.isAuthenticated) {
                     this.goToLogin();
                 }
 
                 const cookies = this.cookieService.getAll();
                 let keys = Object.keys(cookies);
-                keys = keys.filter((k) => k !== 'version');
+                keys = keys.filter((k) => !(k === 'version' || k === 'Authorization' || k === 'Sim-Authorization'));
 
                 keys.forEach((key) => {
                     this.cookieService.delete(key);
                 });
 
-                this.cookieService.set('roaster_id', orgId);
-                this.cookieService.set('Auth', token);
+                this.authService.setOrgId(orgId);
                 this.getData();
             } else {
                 this.goToLogin();
@@ -78,11 +67,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
 
     private getData() {
         const promises = [];
-        promises.push(
-            new Promise((resolve, reject) => {
-                this.getUserPermissions(resolve, reject);
-            }),
-        );
         promises.push(
             new Promise((resolve, reject) => {
                 this.getProfile(resolve, reject);
@@ -102,34 +86,16 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             });
     }
 
-    private getUserPermissions(resolve, reject) {
-        this.userSrv.getUserPermissions().subscribe(
-            (res: any) => {
-                if (res.success) {
-                    this.aclService.updatePermission(res.result);
-                    resolve();
-                } else {
-                    reject();
-                }
-            },
-            (err) => {
-                reject();
-            },
-        );
-    }
-
     private getProfile(resolve, reject) {
         this.generalSrv.getProfile().subscribe(
             (res: any) => {
                 if (res.success) {
-                    this.cookieService.set('name', res.result.name);
-                    this.cookieService.set('roasterSlug', res.result.slug);
                     this.orgTermsAccepted = res.result.terms_accepted || !('terms_accepted' in res.result);
-                    if (res.result.status === 'ACTIVE') {
+                    if (res.result.status === UserStatus.ACTIVE || res.result.status === UserStatus.PENDING) {
                         resolve();
-                    } else if (res.result.status === 'INACTIVE') {
+                    } else if (res.result.status === UserStatus.INACTIVE) {
                         this.toastrService.error('Your Account has been disabled , Contact your Admin');
-                        reject();
+                        setTimeout(() => reject(), 4000);
                     }
                 } else {
                     reject();
@@ -146,9 +112,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             (res: any) => {
                 if (res.success) {
                     this.userTermsAccepted = res.result.terms_accepted;
-                    this.cookieService.set('user_id', res.result.id);
-                    this.cookieService.set('userName', res.result.firstname + ' ' + res.result.lastname);
-                    this.cookieService.set('referral_code', res.result.referral_code);
                     resolve();
                 } else {
                     reject();

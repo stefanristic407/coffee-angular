@@ -21,6 +21,7 @@ import { CustomerContactInfoComponent } from './customer-management/customer-con
 import { CustomerDetailsComponent } from './customer-management/customer-details/customer-details.component';
 import { CustomerInfoComponent } from './customer-management/customer-info/customer-info.component';
 import { CustomerPortalInfoComponent } from './customer-management/customer-portal-info/customer-portal-info.component';
+import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { CustomerPortalInfoComponent } from './customer-management/customer-port
         CustomerDetailsComponent,
         CustomerInfoComponent,
         CustomerPortalInfoComponent,
+        DiscountEditComponent,
     ],
     imports: [
         CommonModule,

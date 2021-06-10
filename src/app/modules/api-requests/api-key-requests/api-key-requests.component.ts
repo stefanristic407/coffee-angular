@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService, ApiRequestService } from '@services';
+import { GlobalsService, ApiRequestService, AuthService } from '@services';
 import * as moment from 'moment';
 @Component({
     selector: 'app-api-key-requests',
@@ -26,7 +26,7 @@ export class ApiKeyRequestsComponent implements OnInit, OnChanges {
 
     display: any;
     showDisplay = true;
-    roasterID = '';
+    roasterID: number;
     requestData: any[] = [];
     sortOrder = '';
     sortType = '';
@@ -35,10 +35,11 @@ export class ApiKeyRequestsComponent implements OnInit, OnChanges {
         private apiRequestService: ApiRequestService,
         public router: Router,
         public globals: GlobalsService,
+        private authService: AuthService,
     ) {
         this.termStatus = '';
         this.display = '10';
-        this.roasterID = this.cookieService.get('roaster_id');
+        this.roasterID = this.authService.getOrgId();
     }
     ngOnInit(): void {}
 

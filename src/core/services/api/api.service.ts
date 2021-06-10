@@ -2,9 +2,9 @@ export class Api {}
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse, RequestDto } from '@models';
 import { environment } from '@env/environment';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
+import { AuthService } from '../auth';
 
 type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -20,7 +20,7 @@ export class ApiService {
     protected generalUrl: string;
     protected simulatedLoginUrl: string;
 
-    constructor(protected cookieSrv: CookieService, protected http: HttpClient) {
+    constructor(protected http: HttpClient, protected authService: AuthService) {
         this.orgType = 'ro';
         this.postUrl = `${environment.apiURL}/api`;
         this.deleteUrl = `${environment.apiURL}/deleteapi`;
@@ -62,9 +62,8 @@ export class ApiService {
     }
 
     protected getDtoWithOrg(apiCall: string, method: string, data?: object): RequestDto {
-        const orgId = this.cookieSrv.get('roaster_id');
         const dto: RequestDto = {
-            api_call: `/${this.orgType}/${orgId}/${apiCall}`,
+            api_call: `/${this.orgType}/${this.getOrgId()}/${apiCall}`,
             method,
             token: this.getToken(),
         };
@@ -97,10 +96,14 @@ export class ApiService {
     }
 
     protected getOrgId(): number {
-        return +this.cookieSrv.get('roaster_id');
+        return this.authService.getOrgId();
+    }
+
+    protected getUserId(): number {
+        return this.authService.userId;
     }
 
     protected getToken(): string {
-        return this.cookieSrv.get('Auth');
+        return this.authService.token;
     }
 }

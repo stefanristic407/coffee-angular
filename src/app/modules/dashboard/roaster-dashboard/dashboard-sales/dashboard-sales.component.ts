@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Browser } from '@syncfusion/ej2-base';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { WelcomeService } from '../welcome.service';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./dashboard-sales.component.scss'],
 })
 export class DashboardSalesComponent implements OnInit, OnDestroy {
-    roasterId: string;
+    roasterId: number;
     sales: any;
     salesSub: Subscription;
     chartData: any[] = [];
@@ -68,6 +68,7 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     dateFrom: string;
     dateTo: string;
     showDataLabel = true;
+
     constructor(
         private cookieService: CookieService,
         public globals: GlobalsService,
@@ -75,6 +76,7 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
         private toastrService: ToastrService,
         private userSrv: UserserviceService,
         private welcomeSrv: WelcomeService,
+        private authService: AuthService,
     ) {}
 
     yAxisTickFormatting(value) {
@@ -82,7 +84,7 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
         const date = moment().format('YYYY-MM-DD');
         const lastWeekStart = moment().subtract(6, 'day').format('YYYY-MM-DD');
         const lastWeekEnd = date;

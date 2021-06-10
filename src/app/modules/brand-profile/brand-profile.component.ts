@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 
 @Component({
@@ -42,9 +42,10 @@ export class BrandProfileComponent implements OnInit {
         public globals: GlobalsService,
         private cookieService: CookieService,
         private roasterSrv: RoasterserviceService,
+        private authService: AuthService,
     ) {
-        this.roasterId = +this.cookieService.get('roaster_id');
-        this.roasterSlug = this.cookieService.get('roasterSlug');
+        this.roasterId = this.authService.getOrgId();
+        this.roasterSlug = this.authService.currentOrganization.slug;
         this.slug = this.roasterSlug;
     }
 
@@ -60,7 +61,10 @@ export class BrandProfileComponent implements OnInit {
         if (this.slug) {
             this.roasterSrv.updateRoasterSlug(this.roasterId, this.slug).subscribe((res: any) => {
                 if (res.success) {
-                    this.cookieService.set('roasterSlug', this.slug);
+                    this.authService.organizationSubject.next({
+                        ...this.authService.currentOrganization,
+                        slug: this.slug,
+                    });
                     this.roasterSlug = this.slug;
                     this.toastrService.success('Slug updated successfully');
                 } else {

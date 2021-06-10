@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CommonService, RoasterserviceService, SimulatedLoginService } from '@services';
+import { AuthService, CommonService, RoasterserviceService, SimulatedLoginService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -11,8 +11,7 @@ import { OrganizationType } from '@enums';
     providedIn: 'root',
 })
 export class CustomerServiceService {
-    estateId: string;
-    roasterId: string;
+    roasterId: number;
     microId: any;
     horecaId: any;
     name: any;
@@ -52,9 +51,9 @@ export class CustomerServiceService {
         private commonService: CommonService,
         private toastrService: ToastrService,
         private router: Router,
+        private authService: AuthService,
     ) {
-        this.estateId = this.cookieService.get('estate_id');
-        this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterId = this.authService.getOrgId();
     }
 
     mrCustomerDetails() {
@@ -196,7 +195,6 @@ export class CustomerServiceService {
                 this.pendingStatus = this.pendingHorecaList.status;
                 this.pendingType = this.pendingHorecaList.type;
                 this.headerValue = 'HoReCa';
-                console.log(this.pendingHorecaList);
             }
         });
     }

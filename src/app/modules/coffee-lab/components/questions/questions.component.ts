@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
 
@@ -19,7 +18,6 @@ export class QuestionsComponent implements OnInit {
     displayData: any[] = [];
 
     constructor(
-        private cookieService: CookieService,
         private router: Router,
         public coffeeLabService: CoffeeLabService,
         public authService: AuthService
@@ -28,10 +26,9 @@ export class QuestionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.organizationId = +this.cookieService.get('roaster_id');
+        this.organizationId = this.authService.getOrgId();;
         this.displayData = this.questions.slice(0, 10);
         this.totalRecords = this.questions.length;
-        console.log('totalRecords >>>>>>', this.totalRecords);
     }
 
     paginate(event: any) {
