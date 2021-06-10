@@ -29,7 +29,7 @@ export const menuItems = [
     new Menu(42, 'menu_rc_inventory', '/roasted-coffee-batch/roasted-coffee-batchs', null, null, null, false, 4, null),
     new Menu(43, 'menu_product_settings', '/product-setting', null, null, null, false, 4, null),
 
-    new Menu(9, 'menu_ecommerce', null, null, null, null, true, 0, 'products-management'),
+    new Menu(9, 'menu_ecommerce', null, null, null, null, true, 0, 'roasting-management'),
     new Menu(
         91,
         'b2b_product_catalog',
@@ -39,7 +39,7 @@ export const menuItems = [
         null,
         false,
         9,
-        'products-management',
+        'roasting-management',
     ),
     new Menu(
         92,
@@ -50,9 +50,9 @@ export const menuItems = [
         null,
         false,
         9,
-        'products-management',
+        'roasting-management',
     ),
-    new Menu(93, 'other_products', '/e-commerce/product-list/other', null, null, null, false, 9, 'products-management'),
+    new Menu(93, 'other_products', '/e-commerce/product-list/other', null, null, null, false, 9, 'roasting-management'),
 
     new Menu(
         5,
