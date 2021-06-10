@@ -37,7 +37,7 @@ export class DownloadService {
             'Content-Type': contentType,
             Accept: contentType,
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-            'Access-Control-Allow-Origin': 'https://estates.sewnstaging.com',
+            'Access-Control-Allow-Origin': window.location.origin,
             'Access-Control-Allow-Methods': 'GET, HEAD',
             'Access-Control-Allow-credentials': 'true',
         };
