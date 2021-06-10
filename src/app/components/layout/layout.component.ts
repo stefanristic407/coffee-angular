@@ -193,6 +193,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.userService.getUserPermissions().subscribe((res: any) => {
             if (res.success) {
                 this.aclService.loadPermission(res.result);
+                console.log('permissions', res.result);
             }
             resolve();
         });

@@ -45,7 +45,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         }
                         case 403: {
                             this.showCodeMessage(body.response_code);
-                            this.goToGate();
+                            // this.goToGate();
                             break;
                         }
                         case 404: {
