@@ -735,14 +735,6 @@ export class RoasterserviceService extends ApiService {
         data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
-
-    getLoggedinUserRoles(roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/roles';
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
-        return this.http.post(this.url, data);
-    }
     placeOrder(roaster_id: any, harvest_id: any, body: any) {
         const data = {};
         data['api_call'] = `/ro/${roaster_id}/availability/${harvest_id}/gc`;
