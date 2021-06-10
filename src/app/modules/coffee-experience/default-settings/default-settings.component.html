@@ -310,6 +310,12 @@
                                                                     (change)="onChangeTag(index)"
                                                                 />
                                                                 <span
+                                                                    *ngIf="isEditableMode"
+                                                                    class="custom-raotary-tags"
+                                                                    >{{ item.label }}</span
+                                                                >
+                                                                <span
+                                                                    *ngIf="!isEditableMode && item.select"
                                                                     class="custom-raotary-tags"
                                                                     [ngClass]="{ 'mt-2': !isEditableMode }"
                                                                     >{{ item.label }}</span
