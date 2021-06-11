@@ -48,4 +48,9 @@ export class UserService extends ApiService {
     getUserPermissions() {
         return this.postWithOrg(this.orgPostUrl, `users/permissions`, 'GET');
     }
+
+    // Get the list of roles for the currently logged in user
+    getUserRoles() {
+        return this.postWithOrg(this.orgPostUrl, `users/roles`, 'GET');
+    }
 }

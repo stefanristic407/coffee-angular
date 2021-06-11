@@ -119,7 +119,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     getUserBasedRoles(): void {
-        this.roasterService.getUserBasedRoles(this.roasterId, this.profileInfo.id).subscribe((res: any) => {
+        this.userService.getUserRoles().subscribe((res: any) => {
             this.apiCount += 1;
             if (res.success) {
                 this.role = res.result[0].name;

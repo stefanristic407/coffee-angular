@@ -7,7 +7,7 @@ import * as _ from 'underscore';
     providedIn: 'root',
 })
 export class AclService {
-    permissions: any = {};
+    private permissions: any = {};
 
     constructor(private cookieService: CookieService, private router: Router) {}
 

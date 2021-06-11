@@ -193,6 +193,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.userService.getUserPermissions().subscribe((res: any) => {
             if (res.success) {
                 this.aclService.loadPermission(res.result);
+                console.log('permissions', res.result);
             }
             resolve();
         });
@@ -425,7 +426,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     getLoggedInUserRoles() {
-        this.roasterService.getLoggedinUserRoles(this.roasterId).subscribe((res: any) => {
+        this.userService.getUserRoles().subscribe((res: any) => {
             if (res.success) {
                 this.rolename = res.result[0].name;
             }

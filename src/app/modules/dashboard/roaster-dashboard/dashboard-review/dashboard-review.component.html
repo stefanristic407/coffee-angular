@@ -1,5 +1,7 @@
 <div class="p-md-3 p-lg-4 p-4 border-main br-4 h-100">
-    <p class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block">Your rating</p>
+    <p class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block">
+        {{ 'your_rating' | translate }}
+    </p>
     <p class="fnt-12 fnt-md-14 fnt-normal fnt-muli text-clr588 mb-2 mb-lg-4 mb-md-2 d-none d-md-block">
         {{ 'dashboard_your_rating_desp' | translate }}
     </p>
@@ -7,7 +9,7 @@
     <div class="row">
         <div class="col-12">
             <div class="review-block">
-                <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-2 d-md-none">Reviews</p>
+                <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-2 d-md-none">{{ 'reviews' | translate }}</p>
 
                 <h2 class="fnt-32 fnt-bold fnt-muli text-clr334 mb-md-1 mb-0">
                     {{ reviewsSummary?.rating.toFixed(1) || '-' }}
@@ -16,17 +18,17 @@
                 <div>
                     <div *ngIf="reviewsSummary" class="d-flex star-wrap mt-md-1 mt-2 mb-45">
                         <p-rating
-                                [(ngModel)]="reviewsSummary.rating"
-                                [readonly]="true"
-                                [stars]="5"
-                                [cancel]="false"
-                                class="fnt-lg-20"
+                            [(ngModel)]="reviewsSummary.rating"
+                            [readonly]="true"
+                            [stars]="5"
+                            [cancel]="false"
+                            class="fnt-lg-20"
                         ></p-rating>
                     </div>
                 </div>
 
                 <p class="fnt-14 fnt-md-84 fnt-bold fnt-muli text-clr334 mb-3">
-                    {{ reviewsSummary?.total_review || '-' }} customer reviews
+                    {{ reviewsSummary?.total_review || '0' }} customer reviews
                 </p>
                 <div class="rating-bar" *ngIf="reviewsSummary">
                     <div class="row" *ngFor="let item of reviewStars; let i = index">
