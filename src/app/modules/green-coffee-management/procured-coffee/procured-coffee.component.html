@@ -113,7 +113,11 @@
                                                         <li>
                                                             <label>Lot ID</label>
                                                             <p>
-                                                                {{ orderDetails.lot_id ? orderDetails.lot_id : 'NA' }}
+                                                                {{
+                                                                    orderDetails.lot_number
+                                                                        ? orderDetails.lot_number
+                                                                        : 'NA'
+                                                                }}
                                                             </p>
                                                         </li>
                                                         <li>

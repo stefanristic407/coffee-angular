@@ -4,7 +4,7 @@ export enum OrganizationSlug {
     ESTATE = 'estate',
     MICRO_ROASTER = 'micro-roaster',
     SEWN_ADMIN = 'sewn-admin',
-    HORECA = 'partner',
+    HORECA = 'horeca',
     CONSUMER = 'consumer',
     EMPTY = '',
 }

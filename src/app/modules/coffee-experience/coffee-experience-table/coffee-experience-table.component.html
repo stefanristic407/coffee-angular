@@ -121,7 +121,12 @@
                             </span>
 
                             <span [class.w-50]="primeTableService.isMobileView">
-                                {{ rowData['rc_total_quantity'] }} {{ rowData['rc_total_quantity_unit'] }}
+                                {{ rowData['rc_total_quantity'] }}
+                                {{
+                                    rowData['rc_total_quantity_unit'] === 'jute_bags'
+                                        ? 'Jute bags'
+                                        : rowData['rc_total_quantity_unit']
+                                }}
                             </span>
                         </div>
                         <div *ngIf="rowData['customer_type'] === 'mr'" class="d-flex">
@@ -130,7 +135,12 @@
                             </span>
 
                             <span [class.w-50]="primeTableService.isMobileView">
-                                {{ rowData['gc_total_quantity'] }} {{ rowData['gc_total_quantity_unit'] }}
+                                {{ rowData['gc_total_quantity'] }}
+                                {{
+                                    rowData['gc_total_quantity_unit'] === 'jute_bags'
+                                        ? 'Jute bags'
+                                        : rowData['gc_total_quantity_unit']
+                                }}
                             </span>
                         </div>
                     </span>
@@ -223,13 +233,28 @@
                             {{ rowData['quantity'] }}&nbsp; kg
                         </span> -->
                         <span *ngIf="path === 'orders'">
-                            {{ rowData['quantity'] }} {{ rowData['quantity_type'] | translate }}</span
+                            {{ rowData['quantity'] }}
+                            {{
+                                rowData['quantity_type'] === 'jute_bags'
+                                    ? 'Jute bags'
+                                    : (rowData['quantity_type'] | translate)
+                            }}</span
                         >
                         <span *ngIf="path === 'mr-orders'">
-                            {{ rowData['quantity'] }} {{ rowData['quantity_type'] | translate }}</span
+                            {{ rowData['quantity'] }}
+                            {{
+                                rowData['quantity_type'] === 'jute_bags'
+                                    ? 'Jute bags'
+                                    : (rowData['quantity_type'] | translate)
+                            }}</span
                         >
                         <span *ngIf="path === 'hrc-orders'">
-                            {{ rowData['quantity'] }} {{ rowData['available_quantity_type'] | translate }}</span
+                            {{ rowData['quantity'] }}
+                            {{
+                                rowData['quantity_type'] === 'jute_bags'
+                                    ? 'Jute bags'
+                                    : (rowData['quantity_type'] | translate)
+                            }}</span
                         >
                     </span>
 
