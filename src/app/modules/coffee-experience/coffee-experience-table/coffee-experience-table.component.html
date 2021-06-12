@@ -215,12 +215,9 @@
                         </div>
                     </span>
                     <span *ngSwitchCase="'roast_level'" (click)="availabilityPage(rowData)">
-                        {{ (rowData['roast_level'] | titlecase).replace('-', ' ') }}
+                        {{ (rowData['roast_level'] | titlecase)?.replace('-', ' ') }}
                     </span>
                     <span *ngSwitchCase="'quantity'" (click)="availabilityPage(rowData)">
-                        <!-- <span *ngIf="primeTableService.isMobileView" class="w-50">
-                            {{ rowData['quantity'] }}&nbsp; kg
-                        </span> -->
                         <span *ngIf="path === 'orders'">
                             {{ rowData['quantity_count'] }}
                             {{
