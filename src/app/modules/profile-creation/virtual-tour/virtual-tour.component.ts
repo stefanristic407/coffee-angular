@@ -7,6 +7,7 @@ import { RoasteryProfileService } from '../roastery-profile.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MediaPreviewComponent } from '@app/modules/file-share/components/media-preview/media-preview.component';
 import { DestroyableComponent } from '@base-components';
+import { FileModule, FileType } from '@enums';
 
 @Component({
     selector: 'app-sewn-virtual-tour',
@@ -41,13 +42,14 @@ export class VirtualTourComponent extends DestroyableComponent implements OnInit
 
     getFiles() {
         this.isLoading = true;
-        this.fileService.getAllFiles({ file_module: 'Virtual-Tour', type_in: 'VIDEO,IMAGE' }).subscribe((res) => {
-            if (res.success) {
-                this.isLoading = false;
-                this.tourMedias = res.result;
-                console.log('this is tour messages: ', this.tourMedias);
-            }
-        });
+        this.fileService
+            .getAllFiles({ file_module: FileModule.Gallery, type_in: `${FileType.VIDEO},${FileType.IMAGE}` })
+            .subscribe((res) => {
+                if (res.success) {
+                    this.isLoading = false;
+                    this.tourMedias = res.result;
+                }
+            });
     }
 
     addFile(data) {
@@ -81,7 +83,7 @@ export class VirtualTourComponent extends DestroyableComponent implements OnInit
                         Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
                     );
                     File.append('file', image);
-                    File.append('file_module', 'Virtual-Tour');
+                    File.append('file_module', FileModule.Gallery);
                     this.addFile(File);
                 }
             }
