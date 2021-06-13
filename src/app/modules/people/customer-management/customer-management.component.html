@@ -28,7 +28,7 @@
                         <div>
                             <p-dropdown
                                 id="select-table-customer"
-                                [options]="statusList"
+                                [options]="USER_STSTUS_ITEMS"
                                 [(ngModel)]="selectedStatus"
                                 scrollHeight="225px"
                                 (onChange)="filterStatus()"
@@ -66,7 +66,7 @@
                     <div class="mx-2 pt-3 pb-2">
                         <p-dropdown
                             id="select-table-customer"
-                            [options]="statusList"
+                            [options]="USER_STSTUS_ITEMS"
                             [(ngModel)]="selectedStatus"
                             scrollHeight="225px"
                             (onChange)="filterStatus()"

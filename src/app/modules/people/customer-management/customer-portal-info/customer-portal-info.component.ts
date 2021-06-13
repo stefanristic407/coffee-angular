@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OrganizationType } from '@enums';
+import { OrganizationType, UserStatus } from '@enums';
 import { ChatHandlerService, CommonService } from '@services';
 
 @Component({
@@ -8,6 +8,7 @@ import { ChatHandlerService, CommonService } from '@services';
     styleUrls: ['./customer-portal-info.component.scss'],
 })
 export class CustomerPortalInfoComponent implements OnInit {
+    readonly UserStatus = UserStatus;
     @Input() data: any;
     @Input() customerID: any;
     @Input() orgType: any;

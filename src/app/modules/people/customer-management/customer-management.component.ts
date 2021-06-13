@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { USER_STATUS_ITEMS } from '@constants';
 import { OrganizationType } from '@enums';
 import { AuthService, GlobalsService, RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,6 +14,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class CustomerManagementComponent implements OnInit {
     readonly OrgType = OrganizationType;
+    readonly USER_STSTUS_ITEMS = USER_STATUS_ITEMS;
     appLanguage?: any;
     customerActive: any = 0;
     searchTerm: any;
@@ -21,11 +23,6 @@ export class CustomerManagementComponent implements OnInit {
     selectedStatus: any;
     sortedMainData: any;
     mainData: any;
-    statusList: any = [
-        { label: 'Active', value: 'active' },
-        { label: 'Inactive', value: 'inactive' },
-        { label: 'Pending', value: 'pending' },
-    ];
     roasterId: number;
     odd: boolean;
     horecaActive: any;

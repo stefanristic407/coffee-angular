@@ -3,7 +3,7 @@ import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { CustomerServiceService } from '../customer-service.service';
 import { NavigationExtras, Router } from '@angular/router';
-import { OrganizationType } from '@enums';
+import { OrganizationType, UserStatus } from '@enums';
 
 @Component({
     selector: 'app-customer-management-table',
@@ -12,6 +12,7 @@ import { OrganizationType } from '@enums';
 })
 export class CustomerManagementTableComponent implements OnInit {
     readonly OrgType = OrganizationType;
+    readonly UserStatus = UserStatus;
     estatetermOrigin: any;
     appLanguage?: any;
     folderId: any;
@@ -58,6 +59,8 @@ export class CustomerManagementTableComponent implements OnInit {
     }
 
     stimulatedLogin(org) {
-        this.customer.customerSimulatedLogin(this.customerType, org.id);
+        if (org.status === UserStatus.ACTIVE) {
+            this.customer.customerSimulatedLogin(this.customerType, org.id);
+        }
     }
 }
