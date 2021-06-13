@@ -296,7 +296,7 @@
                             <div class="row mt-4 ml-md-0 mr-md-0" *ngIf="primeTableService.records.length > 0">
                                 <div class="fnt-muli fnt-14 fnt-bold mb-2">{{ 'order_activity' | translate }}</div>
                                 <p-table
-                                    #markedTable
+                                    #activityLog
                                     [class.table-mobile]="primeTableService.isMobileView"
                                     [value]="primeTableService?.records"
                                     [columns]="primeTableService._allColumns"

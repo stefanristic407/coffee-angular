@@ -168,6 +168,7 @@ export class MarkedSaleComponent implements OnInit {
     }
     ngOnInit(): void {
         this.primeTableService.isMarkedForSale = false;
+        this.primeTableService.url = '';
         this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
 
         this.initializeTable();

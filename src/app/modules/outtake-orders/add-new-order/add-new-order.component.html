@@ -271,14 +271,14 @@
                                         placeholder="{{ 'price_paid_by_the_customer' | translate }}"
                                     ></p-inputNumber>
                                     <span
-                                        class="fnt-600 p-inputgroup-addon text-clr334 br-4 m-1 right-dropdown-background"
+                                        class="fnt-600 p-inputgroup-addon text-clr334 br-4 m-1 right-dropdown-background lh-1"
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
                                         >SEK / kg</span
                                     >
                                     <span
-                                        class="p-inputgroup-addon br-4 text-clr334 m-1 right-dropdown-background"
+                                        class="p-inputgroup-addon fnt-600 br-4 text-clr334 m-1 right-dropdown-background lh-1"
                                         *ngIf="outtakeOrderDetails?.unit_currency && outtakeOrderDetails?.quantity_unit"
                                         >{{ outtakeOrderDetails?.unit_currency }} /
                                         {{ outtakeOrderDetails?.quantity_unit }}</span
@@ -305,14 +305,14 @@
                                 >
                                 <div class="p-inputgroup custom-addon">
                                     <span
-                                        class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334 br-4 m-1 right-dropdown-background"
+                                        class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334 br-4 m-1 right-dropdown-background lh-1"
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
                                         >SEK</span
                                     >
                                     <span
-                                        class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334 br-4 m-1 right-dropdown-background"
+                                        class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334 br-4 m-1 right-dropdown-background fnt-600 lh-1"
                                         *ngIf="outtakeOrderDetails?.total_price_currency"
                                         >{{ outtakeOrderDetails?.total_price_currency }}</span
                                     >
@@ -366,7 +366,7 @@
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['gc_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1">
                                         <p-dropdown
                                             [ngClass]="{
                                                 'invalid-gc-order': addOrdersForm.controls['gc_total_quantity'].invalid
@@ -413,7 +413,7 @@
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['roasted_coffee_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1">
                                         <p-dropdown
                                             [options]="weightTypeArray"
                                             optionLabel="label"
@@ -525,7 +525,7 @@
                         <div class="row padd-2r">
                             <div class="col-sm-12 col-md-6 mob-form-top-margin pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
-                                    <label>{{ 'roast_level' | translate }}</label>
+                                    <label>{{ 'ro_roast_level' | translate }}</label>
                                     <p-dropdown
                                         [options]="roasterLableypeArray"
                                         optionLabel="label"
@@ -597,7 +597,7 @@
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['gc_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1">
                                         <p-dropdown
                                             [ngClass]="{
                                                 'invalid-gc-order': addOrdersForm.controls['gc_total_quantity'].invalid

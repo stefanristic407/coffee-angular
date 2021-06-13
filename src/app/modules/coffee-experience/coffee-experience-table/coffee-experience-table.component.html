@@ -237,7 +237,9 @@
                         <span *ngIf="path === 'hrc-orders'">
                             {{ rowData['quantity'] }}
                             {{
-                                rowData['quantity_type'] === 'jute_bags' ? 'Jute bags' : rowData['quantity_type']
+                                rowData['available_quantity_type'] === 'jute_bags'
+                                    ? 'Jute bags'
+                                    : rowData['available_quantity_type']
                             }}</span
                         >
                     </span>
