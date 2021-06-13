@@ -121,7 +121,12 @@
                             </span>
 
                             <span [class.w-50]="primeTableService.isMobileView">
-                                {{ rowData['rc_total_quantity'] }} {{ rowData['rc_total_quantity_unit'] }}
+                                {{ rowData['rc_total_quantity'] }}
+                                {{
+                                    rowData['rc_total_quantity_unit'] === 'jute_bags'
+                                        ? 'Jute bags'
+                                        : rowData['rc_total_quantity_unit']
+                                }}
                             </span>
                         </div>
                         <div *ngIf="rowData['customer_type'] === 'mr'" class="d-flex">
@@ -130,7 +135,12 @@
                             </span>
 
                             <span [class.w-50]="primeTableService.isMobileView">
-                                {{ rowData['gc_total_quantity'] }} {{ rowData['gc_total_quantity_unit'] }}
+                                {{ rowData['gc_total_quantity'] }}
+                                {{
+                                    rowData['gc_total_quantity_unit'] === 'jute_bags'
+                                        ? 'Jute bags'
+                                        : rowData['gc_total_quantity_unit']
+                                }}
                             </span>
                         </div>
                     </span>
@@ -205,31 +215,32 @@
                         </div>
                     </span>
                     <span *ngSwitchCase="'roast_level'" (click)="availabilityPage(rowData)">
-                        <span *ngIf="rowData['roast_level'] === 'light-roast'" class="truncate break-word">
-                            Light Roast
-                        </span>
-                        <span *ngIf="rowData['roast_level'] === 'medium-roast'" class="truncate break-word">
-                            Medium Roast
-                        </span>
-                        <span *ngIf="rowData['roast_level'] === 'medium-dark-roast'" class="truncate break-word">
-                            Medium Dark Roast
-                        </span>
-                        <span *ngIf="rowData['roast_level'] === 'dark-roast'" class="truncate break-word">
-                            Dark Roast
-                        </span>
+                        {{ (rowData['roast_level'] | titlecase)?.replace('-', ' ') }}
                     </span>
                     <span *ngSwitchCase="'quantity'" (click)="availabilityPage(rowData)">
-                        <!-- <span *ngIf="primeTableService.isMobileView" class="w-50">
-                            {{ rowData['quantity'] }}&nbsp; kg
-                        </span> -->
                         <span *ngIf="path === 'orders'">
-                            {{ rowData['quantity'] }} {{ rowData['quantity_type'] | translate }}</span
+                            {{ rowData['quantity_count'] }}
+                            {{
+                                rowData['quantity_type'] === 'jute_bags'
+                                    ? 'Jute bags'
+                                    : (rowData['quantity_type'] | translate)
+                            }}</span
                         >
                         <span *ngIf="path === 'mr-orders'">
-                            {{ rowData['quantity'] }} {{ rowData['quantity_type'] | translate }}</span
+                            {{ rowData['quantity'] }}
+                            {{
+                                rowData['quantity_type'] === 'jute_bags'
+                                    ? 'Jute bags'
+                                    : (rowData['quantity_type'] | translate)
+                            }}</span
                         >
                         <span *ngIf="path === 'hrc-orders'">
-                            {{ rowData['quantity'] }} {{ rowData['available_quantity_type'] | translate }}</span
+                            {{ rowData['quantity'] }}
+                            {{
+                                rowData['available_quantity_type'] === 'jute_bags'
+                                    ? 'Jute bags'
+                                    : rowData['available_quantity_type']
+                            }}</span
                         >
                     </span>
 

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
@@ -7,6 +7,7 @@ import { RoasterserviceService, ResizeService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ResizeableComponent } from '@base-components';
 import { Table } from 'primeng/table';
+import { FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-procured-coffee',
@@ -25,10 +26,18 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     selectedTab = 0;
     roasterNotes: any = [];
     originArray: any;
-    form: any;
     termStatus: any;
     termOrigin: any;
+    // tslint:disable-next-line: variable-name
+    public _form: FormGroup;
+    @Input('form')
+    set form(value: FormGroup) {
+        this._form = value;
+    }
 
+    get form() {
+        return this._form;
+    }
     constructor(
         public gallery: Gallery,
         public lightbox: Lightbox,
@@ -43,7 +52,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     ) {
         super(resizeService);
         this.roasterID = this.authService.getOrgId();
-        this.primeTableService.rows = 10;
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });
@@ -55,7 +63,8 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             { label: `Order #${this.orderID}` },
         ];
     }
-    @ViewChild('markedTable', { static: true }) table: Table;
+
+    @ViewChild('activityLog', { static: true }) table: Table;
     public isMobile = false;
 
     @HostListener('window:resize', ['$event'])
@@ -118,12 +127,19 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             thumbPosition: ThumbnailsPosition.Top,
         });
         lightboxRef.load(this.items);
-        this.primeTableService.url = `/ro/${this.roasterID}/orders/${this.orderID}/activity-logs`;
-        // this.primeTableService.isMarkedForSale = false;
         this.language();
         this.getOrderDetails();
         this.getRoasterNotes();
+        this.primeTableService.url = `/ro/${this.roasterID}/orders/${this.orderID}/activity-logs`;
         this.initializeTableProcuredCoffee();
+        this.primeTableService.rows = 5;
+        this.primeTableService.form = this.form;
+        this.primeTableService.form?.valueChanges.subscribe((data) =>
+            setTimeout(() => {
+                this.table.reset();
+            }, 100),
+        );
+        // this.primeTableService.isMarkedForSale = false;
     }
 
     getOrderDetails() {
@@ -158,7 +174,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                     this.orderDetails.altitude = result.min_altitude + '-' + result.max_altitude;
                     this.orderDetails.flavour_profile = result.flavours.map((item) => item.name).join(', ');
                     this.orderDetails.wet_mill = result.wet_milling.name;
-                    this.orderDetails.processing = result.processing_types;
+                    this.orderDetails.processing = result.wet_milling.process + ',' + result.dry_milling.process;
                     this.orderDetails.images = result.images;
                     this.orderDetails.available_quantity = result.quantity;
                     this.orderDetails.available_quantity_count = result.quantity_count;

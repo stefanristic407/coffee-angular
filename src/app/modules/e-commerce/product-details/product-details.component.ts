@@ -343,13 +343,11 @@ export class ProductDetailsComponent implements OnInit {
                             variantForm.patchValue({
                                 weight_variants: weightVariants,
                                 flavour_profiles: flavourProfile,
+                                roast_time: getBatchDetails.roast_duration,
+                                harvest_year: new Date(getBatchDetails.harvest_date),
                             });
                         }
                         this.variants.push(variantForm);
-                        if (getBatchDetails && !productDetails.is_external_product) {
-                            this.getRoastingProfile(increment, getBatchDetails.roasting_profile_id);
-                            this.getOrderDetails(increment, getBatchDetails.order_id);
-                        }
                         increment++;
                     }
                     if (!productDetails.is_external_product) {
@@ -433,14 +431,14 @@ export class ProductDetailsComponent implements OnInit {
             const selectedID = getVariant.value.rc_batch_id;
             const getBatchDetails = this.roastedBatches.find((ele) => ele.id === selectedID);
             if (getBatchDetails) {
-                this.getRoastingProfile(idx, getBatchDetails.roasting_profile_id);
-                this.getOrderDetails(idx, getBatchDetails.order_id);
                 this.roastedFields.forEach((ele) => {
                     const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
                     getVariant.controls[ele].setValue(getValue);
                 });
                 getVariant.patchValue({
                     flavour_profiles: getBatchDetails.flavour_profile,
+                    roast_time: getBatchDetails.roast_duration,
+                    harvest_year: new Date(getBatchDetails.harvest_date),
                 });
             }
         }
@@ -852,40 +850,6 @@ export class ProductDetailsComponent implements OnInit {
         this.variantTypeArray = variantTypeArray;
     }
 
-    getRoastingProfile(idx, profileID) {
-        this.variants = this.productForm.get('variants') as FormArray;
-        const getVariant = this.variants.controls[idx];
-        getVariant.patchValue({
-            roast_level: '',
-            roast_time: '',
-        });
-        this.userService.getRoastingProfileDetail(this.roasterId, profileID).subscribe((res) => {
-            if (res && res.result) {
-                getVariant.patchValue({
-                    roast_level: res.result.roast_level,
-                    roast_time: res.result.roast_duration,
-                });
-            }
-        });
-    }
-    getOrderDetails(idx, orderID) {
-        this.variants = this.productForm.get('variants') as FormArray;
-        const getVariant = this.variants.controls[idx];
-        getVariant.patchValue({
-            origin: '',
-            harvest_year: '',
-            processing: '',
-        });
-        this.roasterService.getViewOrderDetails(this.roasterId, orderID).subscribe((res) => {
-            if (res && res.result) {
-                getVariant.patchValue({
-                    origin: res.result.origin?.toUpperCase(),
-                    harvest_year: new Date(res.result.harvest_date),
-                    processing: res.result.processing,
-                });
-            }
-        });
-    }
     productNameValue(event: any) {
         this.productName = event.target.value;
     }
