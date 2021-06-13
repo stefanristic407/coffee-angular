@@ -20,6 +20,14 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
     @Input() orderId: number;
     @Input() orderStatus: OrderStatus;
 
+    get isShipped() {
+        if (this.orderStatus === OrderStatus.Shipped || this.orderStatus === OrderStatus.Received) {
+            return true;
+        }
+
+        return false;
+    }
+
     get today(): Date {
         return new Date();
     }
@@ -38,6 +46,7 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
                 if (order) {
                     this.shippingDate = order.shipment_date ? new Date(order.shipment_date) : '';
                     this.trackingUrl = order.tracking_link;
+                    this.orderStatus = OrderStatus.Shipped;
                 }
             },
         });
