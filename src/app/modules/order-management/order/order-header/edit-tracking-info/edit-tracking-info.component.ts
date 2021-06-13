@@ -21,7 +21,10 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
     @Input() orderStatus: OrderStatus;
 
     get isShipped() {
-        if (this.orderStatus === OrderStatus.Shipped || this.orderStatus === OrderStatus.Received) {
+        if (
+            this.orderStatus &&
+            (this.orderStatus === OrderStatus.Shipped || this.orderStatus === OrderStatus.Received)
+        ) {
             return true;
         }
 
