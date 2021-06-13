@@ -48,21 +48,15 @@
                         }}
                     </td>
                     <td class="fnt-14" (click)="shareDetails(item)">
-                        <span *ngIf="item.status === 'PENDING'">{{ item.status }}</span>
-                        <span *ngIf="item.status === 'ACTIVE'" class="active d-flex"
-                            ><div class="active-dot"></div>
-                            Active</span
-                        >
-                        <span *ngIf="item.status === 'INACTIVE'" class="disabled d-flex"
-                            ><div class="disabled-dot"></div>
-                            Disabled</span
-                        >
+                        <span class="status-badge  {{ item.status }}">{{ item.status | titlecase }} </span>
                     </td>
                     <td class="fnt-14" (click)="shareDetails(item)">{{ item.discount_percentage }}</td>
                     <td class="fnt-14" (click)="shareDetails(item)">
                         {{ customerType === OrgType.MICRO_ROASTER ? item.total_employees : item.active_users }}
                     </td>
-                    <td class="view-listing" (click)="shareDetails(item)">{{ 'view_details' | translate }}</td>
+                    <td (click)="shareDetails(item)">
+                        <span class="brown-cta fnt-bold"> {{ 'view_details' | translate }}</span>
+                    </td>
                     <td id="customer-contract-popup">
                         <ng-container>
                             <a
@@ -75,19 +69,14 @@
                                 <p><img src="assets/images/kebab-menu.svg" alt="" /></p>
                             </a>
                             <ng-template #poplistTemplate id="{{ item.id }}">
-                                <div id="popover-mobile-content">
-                                    <ul class="list-group custom-popover">
-                                        <li class="list-group-item">
-                                            <a
-                                                class="pointer-item"
-                                                disabled="item.status !== 'PENDING'"
-                                                [ngClass]="{ 'disabled-pointer': item.status === 'PENDING' }"
-                                                (click)="pop.hide(); stimulatedLogin(item)"
-                                                >{{ 'simulated_login' | translate }}</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
+                                <ul class="menu-list">
+                                    <li
+                                        [ngClass]="{ 'disabled-pointer': item.status != UserStatus.ACTIVE }"
+                                        (click)="pop.hide(); stimulatedLogin(item)"
+                                    >
+                                        {{ 'simulated_login' | translate }}
+                                    </li>
+                                </ul>
                             </ng-template>
                         </ng-container>
                     </td>
@@ -135,15 +124,9 @@
                             <div class="row bg-f4f4 br-4 mb-3 mt-2 mx-3 py-2">
                                 <div class="col-12 pl-2">
                                     <p class="black fnt-14 pb-1">
-                                        <span *ngIf="data.status === 'PENDING'">{{ data.status }}</span>
-                                        <span *ngIf="data.status === 'ACTIVE'" class="active d-flex"
-                                            ><div class="active-dot"></div>
-                                            Active</span
-                                        >
-                                        <span *ngIf="data.status === 'INACTIVE'" class="disabled d-flex"
-                                            ><div class="disabled-dot"></div>
-                                            Disabled</span
-                                        >
+                                        <span class="status-badge  {{ data.status }}"
+                                            >{{ data.status | titlecase }}
+                                        </span>
                                     </p>
                                 </div>
                                 <div class="col-12 pl-2">

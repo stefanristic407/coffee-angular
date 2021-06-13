@@ -17,7 +17,12 @@
     </div>
     <div class="w-mob-100 d-flex flex-md-row-reverse mx-auto mx-lg-0">
         <div class="col pr-2 pr-md-0 pl-0 pl-md-2">
-            <button class="btn-raised w-100" (click)="orgSimulatedLogin()" type="button">
+            <button
+                class="btn-raised w-100"
+                (click)="orgSimulatedLogin()"
+                type="button"
+                [disabled]="data.status != UserStatus.ACTIVE"
+            >
                 {{ 'simulated_login' | translate }}
             </button>
         </div>
