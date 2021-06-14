@@ -24,9 +24,7 @@
                 >
                     <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
                         <img class="d-none d-lg-block mr-4" src="assets/images/reorder.svg" alt="certification" />
-                        <label class="fnt-muli fnt-600 fnt-14 text-clr334 mb-0">{{
-                            certificationItem.certificate_type | strReplace: '-':' ' | titlecase
-                        }}</label>
+                        <label class="fnt-600 mb-0">{{ certificationItem.certificate_type | certificateName }}</label>
                         <p-divider class="divider border-none" layout="vertical"></p-divider>
                         <label class="fnt-muli fnt-600 fnt-14 text-clr334 mb-0">{{ certificationItem.year }}</label>
                     </div>
