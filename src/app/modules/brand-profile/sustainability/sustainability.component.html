@@ -61,6 +61,31 @@
                             </small>
                         </div>
 
+                        <div class="w-100 sewn-form-field">
+                            <label>
+                                {{ 'short_description' | translate | titlecase }}<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('intro_short_description').value | wordCount }}/100 words
+                                </span>
+                            </label>
+                            <textarea
+                                formControlName="intro_short_description"
+                                rows="3"
+                                appWordLimit
+                                [limit]="100"
+                                pInputTextarea
+                            ></textarea>
+                            <small *ngIf="infoForm.controls.intro_short_description.errors?.required" class="p-error">
+                                {{ 'Required' | translate }}
+                            </small>
+                            <small
+                                *ngIf="infoForm.controls.intro_short_description.errors?.maxWordCount"
+                                class="p-error"
+                            >
+                                Please input 100 words
+                            </small>
+                        </div>
+
                         <div class="w-100 sewn-form-field mb-0">
                             <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
