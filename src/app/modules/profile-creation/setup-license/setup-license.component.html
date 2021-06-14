@@ -14,12 +14,18 @@
     </div>
     <div class="license-content-wrapper">
         <div class="pt-45 pt-md-5">
-            <ng-container
-                class="certification-item justify-content-between br-4 bg-f8 pt-0 pb-0 pl-3 pr-3 d-flex align-items-center mb-3 mb-md-4"
-                *ngFor="let certificationItem of certificationArray; let i = index"
-            >
+            <ng-container *ngFor="let certificationItem of certificationArray; let i = index">
                 <div
-                    class="certification-item justify-content-between br-4 bg-f8 pt-0 pb-0 pl-3 pr-3 d-flex align-items-center mb-3 mb-md-4"
+                    class="
+                        certification-item
+                        d-flex
+                        align-items-center
+                        justify-content-between
+                        br-4
+                        bg-f8
+                        px-3
+                        mb-3 mb-md-4
+                    "
                     *ngIf="i !== editingRowIndex; else addAndEditTemplate"
                 >
                     <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
@@ -108,7 +114,12 @@
                     {{ 'upload_certificate' | translate }}
                 </label>
                 <div
-                    class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between"
+                    class="
+                        d-flex
+                        flex-column flex-md-row
+                        align-items-start align-items-md-center
+                        justify-content-between
+                    "
                 >
                     <div class="file-name" *ngIf="file || certificationArray[editingRowIndex]?.public_url">
                         <span class="fnt-muli fnt-600 fnt-14 text-clr588 lh-normal mb-0 text-overflow-ellipsis">
