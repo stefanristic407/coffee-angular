@@ -140,6 +140,13 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/outtake-orders/outtake-orders.module').then((m) => m.OuttakeOrdersModule),
             },
+            {
+                path: 'order-transaction',
+                loadChildren: () =>
+                    import('./modules/order-transaction/order-transaction.module').then(
+                        (m) => m.OrderTransactionModule,
+                    ),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },
