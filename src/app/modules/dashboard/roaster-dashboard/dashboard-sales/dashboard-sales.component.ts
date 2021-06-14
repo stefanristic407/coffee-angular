@@ -1,11 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { Browser } from '@syncfusion/ej2-base';
 import { AuthService, GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
-import { WelcomeService } from '../welcome.service';
 import * as moment from 'moment';
 import * as _ from 'underscore';
 import { Subscription } from 'rxjs';
@@ -70,13 +66,10 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     showDataLabel = true;
 
     constructor(
-        private cookieService: CookieService,
-        public globals: GlobalsService,
-        private roasterSrv: RoasterserviceService,
+        private authService: AuthService,
         private toastrService: ToastrService,
         private userSrv: UserserviceService,
-        private welcomeSrv: WelcomeService,
-        private authService: AuthService,
+        public globals: GlobalsService,
     ) {}
 
     yAxisTickFormatting(value) {
@@ -122,12 +115,11 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                                     item.month === blankItem.month &&
                                     item.date === blankItem.day
                                 ) {
-                                    blankItem.earnings = item.earnings;
-                                    blankItem.value = item.earnings;
+                                    blankItem.earnings = parseFloat(item.earnings.toFixed(0));
+                                    blankItem.value = parseFloat(item.earnings.toFixed(0));
                                 }
                             });
                         });
-                        console.log('sales data: ', this.saleData);
                     }
                 } else {
                     this.toastrService.error('Error while getting stats');
@@ -136,13 +128,11 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     }
 
     changeCustomerType(value) {
-        console.log('changed customer type: ', value);
         this.customerType = value;
         this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
     }
 
     changePeriod(value: string) {
-        console.log('changed period: ', value);
         this.periodsValue = value;
         const date = moment().format('YYYY-MM-DD');
         switch (value) {
@@ -246,7 +236,6 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
             day = day.clone().add(1, 'd');
         }
 
-        console.log('blankData', blankData);
         return blankData;
     }
 

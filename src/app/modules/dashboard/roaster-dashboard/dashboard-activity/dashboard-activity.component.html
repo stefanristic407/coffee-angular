@@ -37,8 +37,8 @@
                     <tr class="p-selectable-row">
                         <td class="showcurser">
                             {{
-                                activityTypes[item.description]
-                                    ? activityTypes[item.description].name
+                                ACTIVITY_TYPE[item.description]
+                                    ? ACTIVITY_TYPE[item.description].name
                                     : item.description
                             }}
                         </td>
@@ -65,7 +65,7 @@
                     <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-0">{{ item.user_name }}</p>
                     <p class="fnt-12 fnt-600 fnt-muli text-clr588 mb-0">{{ item.organisation_name }}</p>
                     <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-2 text-break">
-                        {{ activityTypes[item.description] ? activityTypes[item.description].name : item.description }}
+                        {{ ACTIVITY_TYPE[item.description] ? ACTIVITY_TYPE[item.description].name : item.description }}
                     </p>
                 </div>
             </div>

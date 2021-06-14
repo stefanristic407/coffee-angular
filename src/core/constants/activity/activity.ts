@@ -122,6 +122,7 @@ export const ACTIVITY_TYPE = {
     notification_all_read: { name: 'Notificates marked as read' },
     es_user_preferences_updated: { name: 'User preferences updated' },
     mr_user_preferences_updated: { name: 'User preferences updated' },
+    ro_user_preferences_updated: { name: 'User preferences updated' },
     es_banner_deleted: { name: 'Banner deleted' },
     ro_banner_deleted: { name: 'Banner deleted' },
     fc_banner_deleted: { name: 'Banner deleted' },

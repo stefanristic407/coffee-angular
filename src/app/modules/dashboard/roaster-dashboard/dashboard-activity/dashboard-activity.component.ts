@@ -11,13 +11,13 @@ import { ACTIVITY_TYPE } from '@constants';
     styleUrls: ['./dashboard-activity.component.scss'],
 })
 export class DashboardActivityComponent implements OnInit, OnDestroy {
+    readonly ACTIVITY_TYPE = ACTIVITY_TYPE;
     recentActivities: any[] = [];
     recentActivitiesSub: Subscription;
 
     loading = true;
     @ViewChild('activeDT') activeTable: Table;
     selectedMetaData: any[];
-    activityTypes = ACTIVITY_TYPE;
 
     constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 
