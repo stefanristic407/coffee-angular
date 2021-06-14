@@ -57,4 +57,7 @@ export interface OrderDetails {
     payment_verification?: boolean;
     before_grade_complete: boolean;
     after_grade_complete: boolean;
+
+    total_price_unit?: string;
+    total_price?: number;
 }
