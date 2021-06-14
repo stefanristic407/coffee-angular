@@ -142,6 +142,10 @@ export class PurchaseService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `${this.endpoint}/${orderId}`, 'PUT', details);
     }
 
+    updateOrderDetailsForMr(orderId: number, details: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}`, 'PUT', details);
+    }
+
     updateShipmentDetails(orderId: number, body: any): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `mr-${this.endpoint}/${orderId}/shipment`, 'PUT', body);
     }
