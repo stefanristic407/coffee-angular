@@ -203,8 +203,7 @@
                                                     <li class="list-group-item">
                                                         <a
                                                             class="text-clr588 fnt-600 fnt-14"
-                                                            [routerLink]="viewOrderPage(rowData)"
-                                                            [queryParams]="{ type: rowData.status, order: rowData.id }"
+                                                            (click)="viewOrderPage(rowData)"
                                                             >{{ 'view_order_page' | translate }}</a
                                                         >
                                                     </li>
@@ -247,18 +246,12 @@
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
                                         <li class="list-group-item">
-                                            <a
-                                                class="text-clr588 fnt-600 fnt-14"
-                                                [routerLink]="viewOrderPage(rowData)"
-                                                [queryParams]="{ type: rowData.status, order: rowData.id }"
-                                                >{{ 'view_order_page' | translate }}</a
-                                            >
+                                            <a class="text-clr588 fnt-600 fnt-14" (click)="viewOrderPage(rowData)">{{
+                                                'view_order_page' | translate
+                                            }}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a
-                                                class="text-clr588 fnt-600 fnt-14"
-                                                (click)="sourcingRedirect(rowData)"
-                                            >
+                                            <a class="text-clr588 fnt-600 fnt-14" (click)="sourcingRedirect(rowData)">
                                                 {{ 'go_to_availability_page' | translate }}</a
                                             >
                                         </li>

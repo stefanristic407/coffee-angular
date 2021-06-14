@@ -335,7 +335,9 @@
                                                     [style.backgroundImage]="'url(' + defaultDetails.image_url + ')'"
                                                 >
                                                     <div class="grey-gradient-container text-white">
-                                                        <div>{{ defaultDetails.image_url | fileName: 20 }}</div>
+                                                        <div>
+                                                            {{ imageName ? imageName : defaultDetails.image_name }}
+                                                        </div>
                                                         <div *ngIf="isEditableMode">
                                                             <i
                                                                 class="pi pi-ellipsis-v cursor-pointer line-height-2"
@@ -411,7 +413,9 @@
                                                         class="w-100 br-4"
                                                     ></video>
                                                     <div class="grey-gradient-container text-white">
-                                                        <div>{{ defaultDetails.video_url | fileName: 20 }}</div>
+                                                        <div>
+                                                            {{ videoName ? videoName : defaultDetails.video_name }}
+                                                        </div>
                                                         <div *ngIf="isEditableMode">
                                                             <i
                                                                 class="pi pi-ellipsis-v cursor-pointer line-height-2"

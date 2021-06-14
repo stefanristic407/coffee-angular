@@ -61,6 +61,8 @@ export class DefaultSettingsComponent implements OnInit {
     items = [];
     isEditableMode = false;
     estateBtn = true;
+    imageName: any;
+    videoName: any;
     constructor(
         public router: Router,
         public globals: GlobalsService,
@@ -366,10 +368,11 @@ export class DefaultSettingsComponent implements OnInit {
             this.totalFilesNumber++;
         }
         if (this.fileVideo) {
-            const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            // const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
             const formData = new FormData();
+            this.videoName = file.name;
             formData.append('file', this.fileVideo);
-            formData.append('name', name);
+            formData.append('name', file.name);
             formData.append('file_module', 'Coffee-Story');
             this.fileService.uploadFiles(formData).subscribe(
                 (res: any) => {
@@ -389,10 +392,11 @@ export class DefaultSettingsComponent implements OnInit {
             );
         }
         if (this.fileImage) {
-            const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            // const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
             const formData = new FormData();
+            this.imageName = file.name;
             formData.append('file', this.fileImage);
-            formData.append('name', name);
+            formData.append('name', file.name);
             formData.append('file_module', 'Coffee-Story');
             this.fileService.uploadFiles(formData).subscribe(
                 (res: any) => {
