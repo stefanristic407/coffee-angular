@@ -22,16 +22,22 @@
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
         <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} kg</span>
-        <span class="mt-md-3 fnt-600 text-clr334">
-            {{ CURRENCY_LIST[lot?.total_price_unit] }}
-            {{ lot?.unit_price | number: '1.0-3' }}
+        <span class="mt-md-3 fnt-600 text-clr334" *ngIf="orgType === OrgType.MICRO_ROASTER; else other_rate">
+            {{ CURRENCY_LIST[lot?.total_price_unit] }}{{ lot?.unit_price | number: '1.0-3' }}
             {{ lot?.total_price_unit }}
         </span>
+
+        <span class="mt-md-3 fnt-600 text-clr334" #other_rate>{{
+            lot?.quantity ? (lot?.price / (lot?.quantity * lot?.quantity_count) | currency: 'USD') : '-'
+        }}</span>
     </div>
     <div class="d-flex flex-row flex-md-column w-100">
         <span class="fnt-500 text-muted">{{ 'total' | translate }}</span>
-        <span class="mt-md-3 fnt-600 text-clr334"
+        <span class="mt-md-3 fnt-600 text-clr334" *ngIf="orgType === OrgType.MICRO_ROASTER; else other_total"
             >{{ CURRENCY_LIST[lot?.total_price_unit] }}{{ lot?.total_price }} {{ lot?.total_price_unit }}</span
         >
+        <span class="mt-md-3 fnt-600 text-clr334" #other_total>{{
+            lot?.price + lot?.shipping_price | currency: 'USD'
+        }}</span>
     </div>
 </div>
