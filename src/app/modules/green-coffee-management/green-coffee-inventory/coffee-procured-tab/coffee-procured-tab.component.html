@@ -211,7 +211,7 @@
                                                     <li class="list-group-item">
                                                         <a
                                                             class="text-clr588 fnt-600 fnt-14"
-                                                            [routerLink]="sourcingRedirect(rowData)"
+                                                            (click)="sourcingRedirect(rowData)"
                                                         >
                                                             {{ 'go_to_availability_page' | translate }}</a
                                                         >
@@ -257,7 +257,7 @@
                                         <li class="list-group-item">
                                             <a
                                                 class="text-clr588 fnt-600 fnt-14"
-                                                [routerLink]="sourcingRedirect(rowData)"
+                                                (click)="sourcingRedirect(rowData)"
                                             >
                                                 {{ 'go_to_availability_page' | translate }}</a
                                             >

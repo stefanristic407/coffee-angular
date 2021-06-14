@@ -28,8 +28,11 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     originArray: any;
     termStatus: any;
     termOrigin: any;
-    // tslint:disable-next-line: variable-name
+    totalRecords = 0;
     public _form: FormGroup;
+    activityValue: any;
+    filterAtivity: any;
+    first: any;
     @Input('form')
     set form(value: FormGroup) {
         this._form = value;
@@ -78,7 +81,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             this.primeTableService.isMobileView = true;
             this.primeTableService.allColumns = [
                 {
-                    field: 'date',
+                    field: 'created_at',
                     header: 'Date',
                     sortable: false,
                 },
@@ -121,6 +124,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     }
 
     ngOnInit(): void {
+        this.getActivityDetails();
         const lightboxRef = this.gallery.ref('lightbox');
         lightboxRef.setConfig({
             imageSize: ImageSize.Cover,
@@ -130,9 +134,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         this.language();
         this.getOrderDetails();
         this.getRoasterNotes();
-        this.primeTableService.url = `/ro/${this.roasterID}/orders/${this.orderID}/activity-logs`;
         this.initializeTableProcuredCoffee();
-        this.primeTableService.rows = 5;
         this.primeTableService.form = this.form;
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
@@ -243,5 +245,19 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                 console.log(err);
             },
         );
+    }
+
+    getActivityDetails() {
+        this.roasterService.getActivityDetails(this.roasterID, this.orderID).subscribe((res: any) => {
+            if (res.success) {
+                this.filterAtivity = res.result;
+                this.activityValue = this.filterAtivity.slice(0, 5);
+                this.totalRecords = res.result.length;
+            }
+        });
+    }
+
+    paginate(event: any) {
+        this.activityValue = this.filterAtivity.slice(event.first, event.first + 5);
     }
 }
