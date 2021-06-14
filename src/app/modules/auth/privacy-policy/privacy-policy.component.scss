@@ -1,3 +1,5 @@
+@import 'variables';
+
 .main-block {
     display: flex;
     flex-direction: column;
@@ -47,18 +49,18 @@
     p-checkbox {
         .p-checkbox-privacy {
             .p-checkbox-box {
-                border: 1px solid #747588;
+                border: 1px solid $muted-text-color;
             }
         }
         .p-checkbox-label {
             font-size: 14px;
-            color: #747588;
+            color: $muted-text-color;
             @media (min-width: 768px) {
                 font-size: 14px;
             }
         }
         .p-checkbox-label-active {
-            color: #232334;
+            color: $general-text-color;
         }
     }
 }
