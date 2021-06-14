@@ -46,16 +46,16 @@ export class LearnComponent implements OnInit {
             title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
             step1_file: [null, Validators.compose([Validators.required])],
             step1_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
-            step1_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
+            step1_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
             step2_file: [null, Validators.compose([Validators.required])],
             step2_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
-            step2_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
+            step2_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
             step3_file: [null, Validators.compose([Validators.required])],
             step3_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
-            step3_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
+            step3_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
             step4_file: [null, Validators.compose([Validators.required])],
             step4_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
-            step4_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
+            step4_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
         });
         this.getLearnDetails();
     }
