@@ -230,7 +230,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     sourcingRedirect(item) {
         this.userService.getGreenCoffeeDetails(this.roasterID, item.harvest_id).subscribe((res) => {
             if (res.success) {
-                return `/sourcing/coffee-details/${res.result?.estate_id}/${res.result?.harvest_id}`;
+                this.router.navigateByUrl(`/sourcing/coffee-details/${res.result?.estate_id}/${item?.harvest_id}`);
             } else {
                 this.toastrService.error('Error while getting the Availability details');
             }

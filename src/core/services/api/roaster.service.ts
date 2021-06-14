@@ -1086,6 +1086,15 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
+    getActivityDetails(roasterID: any, orderID: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterID}/orders/${orderID}/activity-logs`,
+            method: 'GET',
+            token: this.authService.token,
+        };
+        return this.http.post(this.url, data);
+    }
+
     listServiceCuppingReports(roaster_id: any, gc_order_id: any) {
         var data = {};
         data['api_call'] = `​/gc/${roaster_id}​/orders/${gc_order_id}​/cupping-reports`;
