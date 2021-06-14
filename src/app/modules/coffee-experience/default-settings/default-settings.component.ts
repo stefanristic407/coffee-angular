@@ -368,7 +368,6 @@ export class DefaultSettingsComponent implements OnInit {
             this.totalFilesNumber++;
         }
         if (this.fileVideo) {
-            // const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
             const formData = new FormData();
             this.videoName = file.name;
             formData.append('file', this.fileVideo);
@@ -381,7 +380,6 @@ export class DefaultSettingsComponent implements OnInit {
                     this.filesCount++;
                     if (this.filesCount === this.totalFilesNumber) {
                         this.isVideoPreviewPanel = true;
-                        // this.handleSaveData();
                         this.toastrService.success('Video update successfully');
                     }
                 },
@@ -392,7 +390,6 @@ export class DefaultSettingsComponent implements OnInit {
             );
         }
         if (this.fileImage) {
-            // const name = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
             const formData = new FormData();
             this.imageName = file.name;
             formData.append('file', this.fileImage);
@@ -404,12 +401,10 @@ export class DefaultSettingsComponent implements OnInit {
                         this.fileImageId = res.result?.id;
                         this.defaultDetails.image_url = res.result.url;
                         this.filesCount++;
-                        this.isImagePreviewPanel = true;
                         if (this.filesCount === this.totalFilesNumber) {
-                            // this.handleSaveData();
+                            this.isImagePreviewPanel = true;
                             this.toastrService.success('Image update successfully');
                         }
-                        // this.handleSaveData();
                     }
                 },
                 (err) => {
