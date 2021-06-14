@@ -60,4 +60,5 @@ export interface OrderDetails {
 
     total_price_unit?: string;
     total_price?: number;
+    product_name?: string;
 }
