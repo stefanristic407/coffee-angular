@@ -41,7 +41,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
         dates: this.fb.control(null),
         page: this.fb.control(1),
         per_page: this.fb.control(10),
-        sort_by: this.fb.control('date_received'),
+        sort_by: this.fb.control('created_at'),
         sort_order: this.fb.control('desc'),
     });
 
