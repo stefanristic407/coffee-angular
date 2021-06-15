@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OrganizationType, UserStatus } from '@enums';
-import { ChatHandlerService, CommonService } from '@services';
+import { ChatHandlerService } from '@services';
+import { CustomerServiceService } from '../customer-service.service';
 
 @Component({
     selector: 'app-customer-portal-info',
@@ -10,15 +11,15 @@ import { ChatHandlerService, CommonService } from '@services';
 export class CustomerPortalInfoComponent implements OnInit {
     readonly UserStatus = UserStatus;
     @Input() data: any;
-    @Input() customerID: any;
-    @Input() orgType: any;
+    @Input() customerID: number;
+    @Input() orgType: OrganizationType;
 
-    constructor(private commonService: CommonService, private chatHandler: ChatHandlerService) {}
+    constructor(private customerService: CustomerServiceService, private chatHandler: ChatHandlerService) {}
 
     ngOnInit(): void {}
 
     orgSimulatedLogin() {
-        this.commonService.userSimulatedLogin(this.customerID);
+        this.customerService.customerSimulatedLogin(this.orgType, this.customerID);
     }
 
     sendMessage() {
