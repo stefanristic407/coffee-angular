@@ -1,81 +1,8 @@
-.disabled-pointer {
-    cursor: no-drop !important;
-}
-
-.estate-orders {
-    position: relative;
-}
-
-.row {
-    color: #232334 !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    font-family: 'Muli' !important;
-    border-bottom: none !important;
-}
-
-.menu-arrow {
-    cursor: pointer;
-    position: relative;
-    top: 0px;
-}
-
-.cust-width {
-    width: 40%;
-}
-
-.customer-name {
-    width: 185px;
-}
-
-#customer-contract-popup popover-container {
-    border: 0 !important;
-}
-
-@media (min-width: 993px) and (max-width: 1279px) {
-    #customer-table .p-datatable table {
-        width: 115%;
-    }
-    #customer-table .p-datatable-wrapper {
-        overflow-x: auto;
-    }
-}
-@media (min-width: 768px) and (max-width: 992px) {
-    #customer-table .p-datatable table {
-        width: 170%;
-    }
-    #customer-table .p-datatable-wrapper {
-        overflow-x: auto;
-    }
-}
-
-@media (max-width: 767px) {
-    .estate-table {
-        margin: -1.5rem 0rem;
-    }
-    .mobile-ce p {
-        margin-bottom: 0rem !important;
-    }
-    .bg-f4f4 {
-        background: #f8f8f8;
-    }
-    .bor-bot-d6d6 {
-        border-bottom: 2px dashed #d6d6d6 !important;
-    }
-    .bor-ebe {
-        border: 1px solid #ebebeb;
-        border-radius: 4px;
-    }
-    .agreement-top {
-        margin-top: 2rem;
-    }
-}
-@media (max-width: 480px) {
-    .estate-orders {
-        margin: 1rem 0px;
-    }
-    .name-header {
-        margin: 4px;
-        border-radius: 4px;
+@media (min-width: 768px) {
+    .customer-table-wrapper {
+        overflow: auto;
+        .customer-table {
+            min-width: 1144px;
+        }
     }
 }
