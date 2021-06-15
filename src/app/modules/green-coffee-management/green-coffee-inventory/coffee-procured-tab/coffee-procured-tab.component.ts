@@ -220,7 +220,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     menuClicked() {
-        // Stop propagation
         this.disableAction = true;
         setTimeout(() => {
             this.disableAction = false;
@@ -228,22 +227,10 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     sourcingRedirect(item) {
-        this.userService.getGreenCoffeeDetails(this.roasterID, item.harvest_id).subscribe((res) => {
-            if (res.success) {
-                this.router.navigateByUrl(`/sourcing/coffee-details/${res.result?.estate_id}/${item?.harvest_id}`);
-            } else {
-                this.toastrService.error('Error while getting the Availability details');
-            }
-        });
+        this.router.navigateByUrl(`/sourcing/coffee-details/${item?.estate_id}/${item?.harvest_id}`);
     }
 
     viewOrderPage(item) {
-        if (item.type === 'GC_ORDER') {
-            return `/ordermanagement/order-booked`;
-        } else if (item.type === 'GC_ORDER_SAMPLE') {
-            return `/ordermanagement/order-sample`;
-        } else if (item.type === 'PREBOOK_LOT') {
-            return `/ordermanagement/order-prebook`;
-        }
+        this.router.navigateByUrl(`/orders/es/${item?.id}`);
     }
 }
