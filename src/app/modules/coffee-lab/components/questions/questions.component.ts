@@ -26,7 +26,7 @@ export class QuestionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.organizationId = this.authService.getOrgId();;
+        this.organizationId = this.authService.getOrgId();
         this.displayData = this.questions.slice(0, 10);
         this.totalRecords = this.questions.length;
     }
