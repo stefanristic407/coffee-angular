@@ -12,10 +12,9 @@ import { Subscription } from 'rxjs';
 export class MyCommentsComponent implements OnInit, OnDestroy {
     comments: any[] = [];
     sortOptions = [
-        { label: 'Latest', value: 'latest' },
-        { label: 'Oldest', value: 'oldest' },
+        { label: 'Latest', value: 'desc' },
+        { label: 'Oldest', value: 'asc' },
     ];
-    sortBy = 'latest';
     organizationId: number;
     isLoading = false;
     isMyPostsPage = false;
@@ -25,7 +24,7 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
     displayData: any[] = [];
 
     constructor(
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private authService: AuthService,
         private router: Router,
     ) {
@@ -45,7 +44,11 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
 
     getComments(): void {
         this.isLoading = true;
-        this.coffeeLabService.getMyForumList('my-comment').subscribe((res) => {
+        const params = {
+            sort_by: 'created_at',
+            sort_order: this.coffeeLabService.myCommentsSortBy,
+        };
+        this.coffeeLabService.getMyForumList('my-comment', params).subscribe((res) => {
             this.comments = (res.result ?? []).map((item) => {
                 const id = 'id';
                 if (item.post_slug) {

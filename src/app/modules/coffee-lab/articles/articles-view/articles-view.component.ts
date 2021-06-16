@@ -32,8 +32,6 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             value: 'oldest',
         },
     ];
-    isAvailableTranslation?: any;
-    selectedOrder = 'latest';
     articlesData: any[] = [];
     isLoading = false;
     pageDesc: string | undefined;
@@ -71,25 +69,32 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
 
     getData(page = 1): void {
         this.isLoading = true;
-        const params = {
-            query: this.keyword,
-            translations_available: this.isAvailableTranslation,
+        const params1 = {
             sort_by: 'created_at',
-            sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
+            sort_order: 'desc',
+            publish: true,
+            page,
+            per_page: this.perPage
+        };
+        const params2 = {
+            query: this.keyword,
+            translations_available: this.coffeeLabService.articleViewFilterBy,
+            sort_by: 'created_at',
+            sort_order: this.coffeeLabService.articleViewSortBy === 'latest' ? 'desc' : 'asc',
             publish: true,
             page,
             per_page: this.perPage
         };
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLab.getSavedForumList('article', params).subscribe((res) => {
+            this.coffeeLab.getSavedForumList('article', params1).subscribe((res) => {
                 this.handleDataResponse(res);
             });
         } else if (this.pageDesc === 'my-posts') {
-            this.coffeeLab.getMyForumList('article').subscribe((res) => {
+            this.coffeeLab.getMyForumList('article', params1).subscribe((res) => {
                 this.handleDataResponse(res);
             });
         } else {
-            this.coffeeLabService.getForumList('article', params, this.forumLanguage).subscribe((res) => {
+            this.coffeeLabService.getForumList('article', params2, this.forumLanguage).subscribe((res) => {
                this.handleDataResponse(res);
             });
         }

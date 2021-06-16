@@ -57,7 +57,7 @@
                 <div>
                     <p-dropdown
                         [options]="filterOptions"
-                        [(ngModel)]="filterBy"
+                        [(ngModel)]="coffeeLabService.qaForumViewFilterBy"
                         [showClear]="true"
                         (ngModelChange)="getQuestions()"
                         styleClass="round-border text-clr588"
@@ -69,7 +69,7 @@
                 <div>
                     <p-dropdown
                         [options]="sortOptions"
-                        [(ngModel)]="sortBy"
+                        [(ngModel)]="coffeeLabService.qaForumViewSortBy"
                         (ngModelChange)="getQuestions()"
                         styleClass="no-border no-padding text-clr588"
                         optionLabel="label"
