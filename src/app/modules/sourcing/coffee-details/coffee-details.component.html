@@ -216,20 +216,14 @@
                                             <img src="assets/images/estate.svg" />
                                             <h6>{{ 'variety' | translate }}</h6>
                                             <h3>
-                                                {{ sourcing.harvestDetail?.varieties.split(',')[0] || 'NA' }}
-                                                {{
-                                                    sourcing.harvestDetail?.varieties.split(',')?.length > 1
-                                                        ? ' +' +
-                                                          (sourcing.harvestDetail?.varieties.split(',').length - 1)
-                                                        : ''
-                                                }}
+                                                {{ sourcing.harvestDetail?.varieties || 'NA' }}
                                             </h3>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 col-lg-4 mb-45 pb-md-2">
                                         <div class="real-estate">
                                             <img src="assets/images/harveaster.svg" />
-                                            <h6>Harvest Month</h6>
+                                            <h6>{{ 'harvest_month' | translate }}</h6>
                                             <h3>
                                                 {{ sourcing.harvestDetail?.harvest_year_start | date: 'MMM' }} -
                                                 {{ sourcing.harvestDetail?.harvest_year_end | date: 'MMM' }}
