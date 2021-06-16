@@ -49,7 +49,7 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
                 if (order) {
                     this.shippingDate = order.shipment_date ? new Date(order.shipment_date) : '';
                     this.trackingUrl = order.tracking_link;
-                    this.orderStatus = OrderStatus.Shipped;
+                    this.orderStatus = order.status;
                 }
             },
         });
