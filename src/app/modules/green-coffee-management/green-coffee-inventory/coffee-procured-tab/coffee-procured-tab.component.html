@@ -67,12 +67,11 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr class="rowClass">
+            <tr class="rowClass" (click)="availabilityPage(rowData)">
                 <td
                     *ngFor="let col of columns"
                     [ngSwitch]="col.field"
                     [ngClass]="{ borderNone: col.field === 'order_reference' }"
-                    (click)="availabilityPage(rowData)"
                 >
                     <span *ngSwitchCase="'availability_name'">
                         <div class="d-flex">
@@ -200,19 +199,13 @@
                                         <ng-template #poplistTemplate>
                                             <div id="popover-mobile-content">
                                                 <ul class="list-group custom-popover">
-                                                    <li class="list-group-item">
-                                                        <a
-                                                            class="text-clr588 fnt-600 fnt-14"
-                                                            [routerLink]="viewOrderPage(rowData)"
-                                                            [queryParams]="{ type: rowData.status, order: rowData.id }"
-                                                            >{{ 'view_order_page' | translate }}</a
-                                                        >
+                                                    <li class="list-group-item" (click)="viewOrderPage(rowData)">
+                                                        <a class="text-clr588 fnt-600 fnt-14">{{
+                                                            'view_order_page' | translate
+                                                        }}</a>
                                                     </li>
-                                                    <li class="list-group-item">
-                                                        <a
-                                                            class="text-clr588 fnt-600 fnt-14"
-                                                            [routerLink]="sourcingRedirect(rowData)"
-                                                        >
+                                                    <li class="list-group-item" (click)="sourcingRedirect(rowData)">
+                                                        <a class="text-clr588 fnt-600 fnt-14">
                                                             {{ 'go_to_availability_page' | translate }}</a
                                                         >
                                                     </li>
@@ -231,34 +224,27 @@
                     </span>
                     <span *ngSwitchCase="'options'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <a
-                                class="menu-arrow"
-                                [popover]="poplistTemplate"
-                                placement="left"
-                                [outsideClick]="true"
-                                #pop="bs-popover"
-                                (click)="menuClicked()"
-                            >
-                                <p class="mb-0">
+                            <span class="d-flex align-items-center" (click)="menuClicked()">
+                                <a
+                                    class="menu-arrow"
+                                    [popover]="poplistTemplate"
+                                    placement="left"
+                                    [outsideClick]="true"
+                                    #pop="bs-popover"
+                                >
                                     <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
-                                </p>
-                            </a>
+                                </a>
+                            </span>
                             <ng-template #poplistTemplate>
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
-                                        <li class="list-group-item">
-                                            <a
-                                                class="text-clr588 fnt-600 fnt-14"
-                                                [routerLink]="viewOrderPage(rowData)"
-                                                [queryParams]="{ type: rowData.status, order: rowData.id }"
-                                                >{{ 'view_order_page' | translate }}</a
-                                            >
+                                        <li class="list-group-item" (click)="viewOrderPage(rowData)">
+                                            <a class="text-clr588 fnt-600 fnt-14">{{
+                                                'view_order_page' | translate
+                                            }}</a>
                                         </li>
-                                        <li class="list-group-item">
-                                            <a
-                                                class="text-clr588 fnt-600 fnt-14"
-                                                [routerLink]="sourcingRedirect(rowData)"
-                                            >
+                                        <li class="list-group-item" (click)="sourcingRedirect(rowData)">
+                                            <a class="text-clr588 fnt-600 fnt-14">
                                                 {{ 'go_to_availability_page' | translate }}</a
                                             >
                                         </li>

@@ -1,3 +1,4 @@
+import { OrganizationType } from '@enums';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -11,20 +12,23 @@ import { PartnerProfileService } from './partner-profile.service';
     styleUrls: ['./partner-profile.component.scss'],
 })
 export class PartnerProfileComponent implements OnInit {
-    breadItems = [{ label: 'home', routerLink: '/' }, { label: 'Company Profile' }];
     tabIndex: number;
     horecaId: any;
+
+    public readonly OrganizationType = OrganizationType;
+
     constructor(
         public profileCreationService: PartnerProfileService,
         public globals: GlobalsService,
         public cookieService: CookieService,
         private route: ActivatedRoute,
         public location: Location,
-    ) {}
+    ) {
+        this.tabIndex = 0;
+        this.horecaId = this.route.snapshot.params?.id || '';
+    }
 
     ngOnInit(): void {
-        this.tabIndex = 0;
-        this.horecaId = this.route.snapshot.params?.id || ''; // 23
-        this.horecaId = this.profileCreationService.partnerProfile(this.horecaId);
+        this.profileCreationService.partnerProfile(this.horecaId);
     }
 }

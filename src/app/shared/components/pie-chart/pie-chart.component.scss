@@ -1,4 +1,4 @@
-@import '../../../../theme/styles/variables';
+@import 'variables';
 
 .total-info {
     position: absolute;
@@ -9,21 +9,15 @@
     max-width: 120px;
 }
 .custom-chart-tooltip {
-    background: white;
-    color: black;
+    background: $white;
+    color: $black;
 }
 
-// ngx chart styles
-// ::ng-deep .legend-wrap {
-//     width: 300px !important;
-//     margin-left: -16px !important;
-// }
 ::ng-deep .chart-legend {
     .legend-labels {
         display: flex;
         flex-wrap: wrap;
         background: none !important;
-        width: 300px !important;
     }
 
     .legend-label {
@@ -31,7 +25,6 @@
         padding: 8px 4px !important;
         color: $general-text-color !important;
         font-weight: 600 !important;
-        // width: 50% !important;
     }
 
     .legend-label-color {
@@ -52,23 +45,22 @@
         border-top-color: white;
         box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
         text {
-            fill: #747588;
+            fill: $muted-text-color;
         }
     }
 
     background-color: white;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     padding: 5px;
-    color: #747588;
+    color: $muted-text-color;
     text {
-        fill: #747588;
+        fill: $muted-text-color;
     }
 }
 
 ::ng-deep .textDataLabel {
     font-size: 12px;
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-weight: bold;
-    fill: #747588;
-    // transform: translate(-20px, -8px);
+    fill: $muted-text-color;
 }

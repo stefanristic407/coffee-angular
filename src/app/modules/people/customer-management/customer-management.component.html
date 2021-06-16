@@ -7,7 +7,7 @@
             <div class="mb-4">
                 <p-breadcrumb [model]="navItems" [home]="selectedNav"></p-breadcrumb>
             </div>
-            <div class="col-md-6 col-lg-4 px-0 web-farm">
+            <div class="col-md-6 col-lg-4 px-0 flex-1 ml-md-3 web-farm">
                 <span class="custom-search">
                     <input
                         type="text"
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <section class="social-media">
+        <section class="social-media pt-lg-3">
             <div class="col-lg-12 col-md-12 col-12 px-0">
                 <h6 class="fnt-muli fnt-bold fnt-18 text-clr334 mb-3">{{ 'customer_management' | translate }}</h6>
                 <div class="row mx-0 web-farm">
@@ -28,7 +28,7 @@
                         <div>
                             <p-dropdown
                                 id="select-table-customer"
-                                [options]="statusList"
+                                [options]="USER_STSTUS_ITEMS"
                                 [(ngModel)]="selectedStatus"
                                 scrollHeight="225px"
                                 (onChange)="filterStatus()"
@@ -66,7 +66,7 @@
                     <div class="mx-2 pt-3 pb-2">
                         <p-dropdown
                             id="select-table-customer"
-                            [options]="statusList"
+                            [options]="USER_STSTUS_ITEMS"
                             [(ngModel)]="selectedStatus"
                             scrollHeight="225px"
                             (onChange)="filterStatus()"
@@ -94,6 +94,14 @@
                                 [searchTerm]="searchTerm"
                                 [sortedMainData]="sortedMainData"
                                 [customerType]="customerType"
+                            >
+                            </app-customer-management-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="{{ 'invited_customers' | translate }}">
+                            <app-customer-management-table
+                                *ngIf="!customerType"
+                                [searchTerm]="searchTerm"
+                                [sortedMainData]="sortedMainData"
                             >
                             </app-customer-management-table>
                         </p-tabPanel>

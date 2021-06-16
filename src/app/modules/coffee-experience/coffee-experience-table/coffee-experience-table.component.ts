@@ -287,7 +287,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                     },
                     {
                         field: 'roast_level',
-                        header: 'roast_level',
+                        header: 'ro_roast_level',
                         sortable: true,
                         width: 40,
                     },

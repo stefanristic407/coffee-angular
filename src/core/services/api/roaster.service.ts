@@ -605,6 +605,14 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
+    getInviteUsers(options) {
+        return this.postWithOrg(this.orgPostUrl, `invite-users?${this.serializeParams(options)}`, 'GET');
+    }
+
+    sendPortalInvite(email: any, portal): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `${portal}/invite-token`, 'POST', { email });
+    }
+
     getPartnerDetails(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
         data.api_call = `/ro/${roasterId}/hrc?${this.serlialise(postData)}`;
@@ -733,14 +741,6 @@ export class RoasterserviceService extends ApiService {
         data['api_call'] = '/ro/' + roasterId + '/hrc/' + id + '/support-login';
         data['method'] = 'POST';
         data['token'] = this.authService.token;
-        return this.http.post(this.url, data);
-    }
-
-    getLoggedinUserRoles(roaster_id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/users/roles';
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     placeOrder(roaster_id: any, harvest_id: any, body: any) {
@@ -1091,6 +1091,15 @@ export class RoasterserviceService extends ApiService {
         data['api_call'] = '/general/harvests/' + harvest_id + '/cupping-report';
         data['method'] = 'GET';
         data['token'] = this.authService.token;
+        return this.http.post(this.url, data);
+    }
+
+    getActivityDetails(roasterID: any, orderID: any): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterID}/orders/${orderID}/activity-logs`,
+            method: 'GET',
+            token: this.authService.token,
+        };
         return this.http.post(this.url, data);
     }
 

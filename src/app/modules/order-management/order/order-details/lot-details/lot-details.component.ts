@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { OrderDetails } from '@models';
 import { CommonService } from '@services';
-import { trimCharRight } from '@utils';
-import { OrderType } from '@enums';
+import { OrderType, OrganizationType } from '@enums';
+import { CURRENCY_LIST } from '@constants';
 
 @Component({
     selector: 'app-lot-details',
@@ -12,8 +12,11 @@ import { OrderType } from '@enums';
 })
 export class LotDetailsComponent {
     readonly OrderType = OrderType;
+    public readonly CURRENCY_LIST = CURRENCY_LIST;
+    readonly OrgType = OrganizationType;
 
     @Input() lot: OrderDetails;
+    @Input() orgType: OrganizationType;
 
     get quantity(): string {
         if (this.lot && this.lot.quantity && this.lot.quantity_count) {

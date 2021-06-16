@@ -191,6 +191,7 @@
 
 .download-qr-link {
     margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .download-qr-link__file {
@@ -235,10 +236,6 @@
     padding: 15px;
 }
 
-.download-qr-link {
-    margin-bottom: 25px;
-}
-
 @media (min-width: 768px) {
     .form-section__inputs .roastery-fields {
         margin-bottom: 15px;
@@ -279,9 +276,7 @@
 }
 
 @media (min-width: 992px) {
-    .form-section__inputs {
-        padding: 25px;
-    }
+    .form-section__inputs,
     .form-section__inputs .input-body {
         padding: 25px;
     }
@@ -598,8 +593,5 @@ label {
 @media (min-width: 320px) and (max-width: 480px) {
     .mob-view {
         margin-bottom: -40px !important;
-    }
-    .contact-for-help {
-        margin-bottom: -16px;
     }
 }

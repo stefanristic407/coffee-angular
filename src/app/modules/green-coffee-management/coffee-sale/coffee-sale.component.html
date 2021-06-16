@@ -116,7 +116,7 @@
                                                 <span
                                                     class="d-none d-sm-none d-md-inline-block text-clr588 fnt-600 text-underline"
                                                 >
-                                                    {{ rowData['lot_id'] }}
+                                                    {{ rowData['lot_number'] }}
                                                 </span>
 
                                                 <div class="d-block d-sm-block d-md-none row m-0 pb-4">
@@ -132,7 +132,7 @@
                                                                     }}</span>
                                                                     <span
                                                                         class="float-right primary_txt mobileValueTxt text-underline"
-                                                                        >{{ rowData['lot_id'] }}</span
+                                                                        >{{ rowData['lot_number'] }}</span
                                                                     >
                                                                 </div>
                                                             </div>
@@ -182,7 +182,7 @@
                                                                     'buying_price' | translate
                                                                 }}</span>
                                                                 <span class="float-right primary_txt mobileValueTxt"
-                                                                    >${{ rowData['price'] }}/{{
+                                                                    >$ {{ rowData['price'] }}/{{
                                                                         rowData['quantity_unit'] || 'kg'
                                                                     }}</span
                                                                 >
@@ -227,7 +227,7 @@
                                             </span>
                                             <span *ngSwitchCase="'price'" class="text-clr588 fnt-600">
                                                 <span
-                                                    >$ &nbsp; {{ rowData['unit_price'] }}/{{
+                                                    >$ {{ rowData['unit_price'] }}/{{
                                                         rowData['quantity_unit'] || 'kg'
                                                     }}</span
                                                 >

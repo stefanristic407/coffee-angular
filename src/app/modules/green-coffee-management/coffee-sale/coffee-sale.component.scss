@@ -41,6 +41,10 @@
     white-space: normal;
 }
 
+::ng-deep .sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
+    padding: 0.3rem 0.75rem !important;
+}
+
 /****************************    Media Queries   ****************************/
 
 @media screen and (max-width: 767px) {

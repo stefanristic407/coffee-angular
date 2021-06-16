@@ -1,19 +1,12 @@
 :host {
     @media all and (min-width: 768px) {
         margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     @media all and (min-width: 992px) {
         margin-top: 32px;
-    }
-
-    .payment-container {
-        padding: 10px 64px;
-        border-radius: 4px;
-
-        @media all and (max-width: 767px) {
-            padding: 16px;
-        }
+        margin-bottom: 32px;
     }
 
     .no-text-wrap {

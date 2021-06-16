@@ -215,6 +215,10 @@ export class OrderManagementService {
         return this.purchaseSrv.updateOrderDetails(orderId, { order_reference: referenceNumber });
     }
 
+    createReferenceNumberForMrOrder(orderId: number, referenceNumber: string): Observable<ApiResponse<any>> {
+        return this.purchaseSrv.updateOrderDetailsForMr(orderId, { order_reference: referenceNumber });
+    }
+
     addOrderNote(orderId: number, note: string): Observable<ApiResponse<any>> {
         return this.purchaseSrv.addOrderNote(orderId, note);
     }

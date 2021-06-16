@@ -25,6 +25,7 @@ export interface OrderDetails {
     statusPaid: boolean;
     prebook_order_id?: number;
     price: number;
+    unit_price?: number;
     quantity: number;
     quantity_count?: number;
     quantity_type: string;
@@ -56,4 +57,8 @@ export interface OrderDetails {
     payment_verification?: boolean;
     before_grade_complete: boolean;
     after_grade_complete: boolean;
+
+    total_price_unit?: string;
+    total_price?: number;
+    product_name?: string;
 }

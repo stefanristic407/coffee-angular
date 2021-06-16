@@ -131,16 +131,17 @@
                                 <label>
                                     Description<span class="star">*</span>
                                     <span class="pull-right text-clr588">
-                                        {{ infoForm.get('step' + i + '_short_description').value | wordCount }}/50 words
+                                        {{ infoForm.get('step' + i + '_short_description').value | wordCount }}/100
+                                        words
                                     </span>
                                 </label>
-                                <input
-                                    type="text"
+                                <textarea
                                     formControlName="step{{ i }}_short_description"
+                                    rows="3"
                                     appWordLimit
-                                    [limit]="50"
-                                    pInputText
-                                />
+                                    [limit]="100"
+                                    pInputTextarea
+                                ></textarea>
                                 <small
                                     *ngIf="infoForm.controls['step' + i + '_short_description'].errors?.required"
                                     class="p-error"
@@ -151,7 +152,7 @@
                                     *ngIf="infoForm.controls['step' + i + '_short_description'].errors?.maxWordCount"
                                     class="p-error"
                                 >
-                                    Please input 50 words
+                                    Please input 100 words
                                 </small>
                             </div>
 

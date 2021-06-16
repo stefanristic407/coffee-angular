@@ -257,9 +257,9 @@
                                         </p>
                                     </div>
                                     <div class="mt-3 mt-lg-45">
-                                        <button class="btn-file-upload">
-                                            {{ 'message' | translate }}
+                                        <button class="btn-file-upload" (click)="openChat(contact)">
                                             <img class="mr-2" src="assets/images/message-icon.svg" alt="message icon" />
+                                            {{ 'message' | translate }}
                                         </button>
                                     </div>
                                 </div>
@@ -287,13 +287,17 @@
                             [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 }"
                         >
                             <div class="certification-item-metadata d-flex mb-25">
-                                <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
+                                <img
+                                    class="img-estate"
+                                    [src]="certificate.certificate_type_url"
+                                    [alt]="certificate.certificate_type"
+                                />
                                 <div class="certification-description ml-2">
                                     <ul class="no-bullet-ul">
-                                        <li class="fnt-14-normal fnt-600 text-clr334">
+                                        <li class="fnt-600">
                                             {{ certificate.certificate_type | certificateName }}
                                         </li>
-                                        <li class="fnt-14-normal fnt-600 text-clr588">
+                                        <li class="fnt-600 text-clr588">
                                             {{ certificate.year }}
                                         </li>
                                     </ul>

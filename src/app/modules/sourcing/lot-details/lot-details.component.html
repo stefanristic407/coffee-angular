@@ -307,14 +307,15 @@
 </section>
 
 <ng-template #btnGroup>
-    <div *ngIf="checkPrebookable()" class="row gutter-16 gutter-md-12 mt-3 mt-md-0">
+    <div class="row gutter-16 gutter-md-12 mt-3 mt-md-0">
         <div class="col-12 col-md-auto">
-            <a
+            <button
                 class="btn-raised w-100"
                 routerLink="/sourcing/prebook-lot/{{ sourcing.lot?.estate_id }}/{{ sourcing.lot?.id }}"
+                [disabled]="!checkPrebookable()"
             >
                 {{ 'pre_book_lot' | translate }}
-            </a>
+            </button>
         </div>
     </div>
 </ng-template>
