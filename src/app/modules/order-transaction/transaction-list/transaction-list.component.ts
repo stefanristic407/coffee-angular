@@ -152,7 +152,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
                 field: 'channel',
                 header: 'Channel',
                 sortable: false,
-                width: 90,
+                width: 100,
             },
             {
                 field: 'document_number',
