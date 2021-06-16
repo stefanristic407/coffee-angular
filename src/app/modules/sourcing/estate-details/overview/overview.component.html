@@ -41,8 +41,11 @@
                             <div class="real-estate">
                                 <img src="assets/images/total-farm.svg" />
                                 <h6>{{ 'total_farm_area' | translate }}</h6>
-                                <h3 *ngIf="sourcing.estate?.total_area != ''">
-                                    {{ sourcing.estate?.total_area + ' acres' || 'NA' }}
+                                <h3 *ngIf="sourcing.estate?.total_area">
+                                    {{ sourcing.estate?.total_area }} {{ sourcing.estate?.total_area_unit }}
+                                </h3>
+                                <h3 *ngIf="!sourcing.estate?.total_area">
+                                    {{ 'NA' }}
                                 </h3>
                             </div>
                         </div>
@@ -50,8 +53,11 @@
                             <div class="real-estate">
                                 <img src="assets/images/farm-yield.svg" />
                                 <h6>{{ 'farm_yield' | translate }} / Ha</h6>
-                                <h3 *ngIf="sourcing.estate?.total_area != ''">
-                                    {{ sourcing.estate?.farm_yield || 'NA' }}
+                                <h3 *ngIf="sourcing.estate?.farm_yield">
+                                    {{ sourcing.estate?.farm_yield || 'NA' }} {{ sourcing.estate?.farm_yield_unit }}
+                                </h3>
+                                <h3 *ngIf="!sourcing.estate?.farm_yield">
+                                    {{ 'NA' }}
                                 </h3>
                             </div>
                         </div>

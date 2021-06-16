@@ -6,24 +6,36 @@
     <div class="border-main br-4 p-3 p-md-0">
         <div class="total-wrap py-lg-3 px-lg-2 h-100 d-md-none">
             <div class="fnt-14 fnt-bold fnt-muli text-clr334 mb-3 fnt-bold">{{ 'you_have_earned' | translate }}</div>
-            <div class="fnt-32 fnt-bold fnt-muli text-clr334 mb-2">$ {{ sales?.total_earnings || 0 | thousandSuff }}</div>
-            <div class="fnt-14 fnt-muli text-clr588 mb-4">{{ 'all_time_earnings' | translate }}</div>
-            <div class="fnt-32 fnt-bold fnt-muli text-clr334 mb-2">$ {{ sales?.weekly_earnings || 0 | thousandSuff }}</div>
-            <div class="fnt-14 fnt-muli text-clr588 mb-4">
-                {{ 'earned' | translate }} in the last 7 days
+            <div class="fnt-32 fnt-bold fnt-muli text-clr334 mb-2">
+                $ {{ sales?.total_earnings || 0 | thousandSuff }}
             </div>
+            <div class="fnt-14 fnt-muli text-clr588 mb-4">{{ 'all_time_earnings' | translate }}</div>
+            <div class="fnt-32 fnt-bold fnt-muli text-clr334 mb-2">
+                $ {{ sales?.weekly_earnings || 0 | thousandSuff }}
+            </div>
+            <div class="fnt-14 fnt-muli text-clr588 mb-4">{{ 'earned' | translate }} in the last 7 days</div>
         </div>
-        <div class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 py-1 d-md-none d-flex justify-content-between align-items-center">
+        <div
+            class="
+                fnt-14 fnt-bold
+                text-clr334
+                br-4
+                bg-f8
+                py-1
+                d-md-none d-flex
+                justify-content-between
+                align-items-center
+            "
+        >
             <div class="ml-25">{{ 'total_sales' | translate }}</div>
             <div>
                 <span class="fnt-14 fnt-600 fnt-muli text-clr334">Sort by :</span>
-                <app-select
-                    [items]="periods"
-                    [noBorder]="true"
-                    [textColor]="'primary'"
-                    [value]="periods[selPeriod].value"
-                    (valueChange)="changePeriod($event)"
-                ></app-select>
+                <p-dropdown
+                    [options]="periods"
+                    [(ngModel)]="periodsValue"
+                    (onChange)="changePeriod()"
+                    styleClass="no-border accent"
+                ></p-dropdown>
             </div>
         </div>
         <div class="d-md-none">
@@ -125,13 +137,12 @@
                                         <span class="fnt-14 fnt-600 fnt-muli text-clr334"
                                             >{{ 'sort_by' | translate }} :</span
                                         >
-                                        <app-select
-                                            [items]="periods"
-                                            [noBorder]="true"
-                                            [textColor]="'primary'"
-                                            [value]="periods[selPeriod].value"
-                                            (valueChange)="changePeriod($event)"
-                                        ></app-select>
+                                        <p-dropdown
+                                            [options]="periods"
+                                            [(ngModel)]="periodsValue"
+                                            (onChange)="changePeriod()"
+                                            styleClass="no-border accent"
+                                        ></p-dropdown>
                                     </div>
                                 </div>
 
@@ -141,7 +152,15 @@
                                 </div>
                                 <ng-template #blank>
                                     <div
-                                        class="flex-fill d-flex flex-column justify-content-center align-items-center text-center p-5"
+                                        class="
+                                            flex-fill
+                                            d-flex
+                                            flex-column
+                                            justify-content-center
+                                            align-items-center
+                                            text-center
+                                            p-5
+                                        "
                                     >
                                         <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
                                         <p class="fnt-14 fnt-muli fnt-normal text-gray588 mb-4 col-md-6">

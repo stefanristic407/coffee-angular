@@ -45,7 +45,7 @@ export class SustainabilityComponent implements OnInit {
             intro_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
             intro_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
             title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
-            short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
+            short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
             section1_file: [null, Validators.compose([Validators.required])],
             section1_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
             section1_description: ['', Validators.compose([Validators.required, maxWordCountValidator(70)])],

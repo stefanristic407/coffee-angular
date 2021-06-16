@@ -92,11 +92,6 @@ export class SourcingService {
         this.userService.getAvailableEstateList(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.estate = res.result;
-                if (this.estate.gps_coordinates) {
-                    const coordinates = this.estate.gps_coordinates.split(',');
-                    this.estate.latitude = parseFloat(coordinates[0].slice(0, -3));
-                    this.estate.longitude = parseFloat(coordinates[1].slice(0, -3));
-                }
             }
         });
     }
