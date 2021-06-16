@@ -39,19 +39,16 @@ export class SavedPostsViewComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         const ele = document.getElementsByClassName('remove-menu');
         if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'qa-post') {
-            ele[0].children[0].children[0].className = ele[0].children[0].children[0].className.concat(' p-highlight');
             if (window.innerWidth <= 767) {
-                ele[0].children[0].scrollLeft = -10;
+                ele[0].children[0].scrollLeft = 0;
             }
         } else if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'article') {
-            ele[0].children[0].children[1].className = ele[0].children[0].children[1].className.concat(' p-highlight');
             if (window.innerWidth <= 767) {
                 ele[0].children[0].scrollLeft = 30;
             }
         } else if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'recipe') {
-            ele[0].children[0].children[2].className = ele[0].children[0].children[2].className.concat(' p-highlight');
             if (window.innerWidth <= 767) {
-                ele[0].children[0].scrollLeft = 80;
+                ele[0].children[0].scrollLeft = 130;
             }
         }
     }
@@ -59,22 +56,16 @@ export class SavedPostsViewComponent implements OnInit, AfterViewInit {
     removeClass(event) {
         const ele = document.getElementsByClassName('remove-menu');
         if (event.item.label === 'qa_post') {
-            ele[0].children[0].children[1].className = 'p-tabmenuitem';
-            ele[0].children[0].children[2].className = 'p-tabmenuitem';
             if (window.innerWidth <= 767) {
-                ele[0].children[0].scrollLeft = -10;
+                ele[0].children[0].scrollLeft = 0;
             }
-        } else if (event.item.label === 'article') {
-            ele[0].children[0].children[0].className = 'p-tabmenuitem';
-            ele[0].children[0].children[2].className = 'p-tabmenuitem';
+        } else if (event.item.label === 'posts') {
             if (window.innerWidth <= 767) {
                 ele[0].children[0].scrollLeft = 30;
             }
-        } else if (event.item.label === 'recipe') {
-            ele[0].children[0].children[0].className = 'p-tabmenuitem';
-            ele[0].children[0].children[1].className = 'p-tabmenuitem';
+        } else if (event.item.label === 'brewing_guides') {
             if (window.innerWidth <= 767) {
-                ele[0].children[0].scrollLeft = 80;
+                ele[0].children[0].scrollLeft = 130;
             }
         }
     }
