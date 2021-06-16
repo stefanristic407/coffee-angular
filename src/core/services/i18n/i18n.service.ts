@@ -73,7 +73,7 @@ export class I18NService {
 
     private updateLangData(lang: string) {
         const item = LANGS[lang];
-        registerLocaleData(item.ng || ngEn);
+        registerLocaleData(item?.ng || ngEn);
     }
 
     use(lang: string): void {
