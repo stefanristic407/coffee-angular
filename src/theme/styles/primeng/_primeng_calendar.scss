@@ -58,7 +58,12 @@
         border: none;
     }
 }
-
+.round-border.p-calendar {
+    border-radius: 20px;
+    input {
+        background: none;
+    }
+}
 .p-calendar {
     &.p-calendar-full-width {
         max-width: 100%;

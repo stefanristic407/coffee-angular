@@ -1,4 +1,4 @@
-import { TransactionListComponent } from './transaction-list/transaction-list.component
+import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
