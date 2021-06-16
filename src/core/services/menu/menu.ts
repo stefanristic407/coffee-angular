@@ -12,7 +12,8 @@ export const menuItems = [
     new Menu(31, 'menu_estate_orders', '/orders/es', null, null, null, false, 3, null),
     new Menu(32, 'menu_micro_roaster_orders', '/orders/mr', null, null, null, false, 3, null),
     new Menu(33, 'menu_outtake_orders', '/outtake-orders', null, null, null, false, 3, null),
-    new Menu(33, 'menu_ecom_orders', null, null, '/secure/orders', null, false, 3, null, MenuType.SHOPLINK),
+    new Menu(34, 'Order Transactions', '/order-transaction/list', null, null, null, false, 3, null),
+    new Menu(35, 'menu_ecom_orders', null, null, '/secure/orders', null, false, 3, null, MenuType.SHOPLINK),
 
     new Menu(4, 'menu_inventory', null, null, null, null, true, 0, 'roasting-management'),
     new Menu(

@@ -1624,4 +1624,8 @@ export class UserserviceService extends ApiService {
         };
         return this.http.post(this.roasterUrl, data);
     }
+
+    getUserDetail(userId: string | number, orgType: string): Observable<ApiResponse<any>> {
+        return this.post(this.orgPostUrl, `general/${orgType}/users/${userId}`, 'GET');
+    }
 }

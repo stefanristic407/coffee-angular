@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrganizationType } from '@enums';
-import { AclService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AclService, GlobalsService, RoasterserviceService, UserserviceService, ChatHandlerService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { EstateProfileService } from '../estate-profile.service';
 
@@ -24,6 +24,7 @@ export class EstateAboutComponent implements OnInit {
         public roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         private aclService: AclService,
+        private chatHandler: ChatHandlerService,
     ) {}
 
     ngOnInit(): void {
@@ -37,6 +38,18 @@ export class EstateAboutComponent implements OnInit {
                 this.certificatesArray = result.result;
             } else {
                 this.toastrService.error('Error in loading Estate Profile Certificates');
+            }
+        });
+    }
+
+    openChat(contactData): void {
+        this.userService.getUserDetail(contactData.user_id, OrganizationType.ESTATE).subscribe((res) => {
+            if (res.success) {
+                this.chatHandler.openChatThread({
+                    user_id: contactData.user_id,
+                    org_type: OrganizationType.ESTATE,
+                    org_id: res.result.organization_id,
+                });
             }
         });
     }

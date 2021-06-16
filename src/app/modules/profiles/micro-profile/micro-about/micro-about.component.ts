@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AclService, UserserviceService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { UserserviceService, ChatHandlerService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
@@ -24,7 +23,7 @@ export class MicroAboutComponent implements OnInit {
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
-        private aclService: AclService,
+        private chatHandler: ChatHandlerService,
     ) {}
 
     ngOnInit(): void {
@@ -52,5 +51,17 @@ export class MicroAboutComponent implements OnInit {
         //         this.branches = res.result;
         //     }
         // });
+    }
+
+    openChat(contactData): void {
+        this.userService.getUserDetail(contactData.user_id, OrganizationType.MICRO_ROASTER).subscribe((res) => {
+            if (res.success) {
+                this.chatHandler.openChatThread({
+                    user_id: contactData.user_id,
+                    org_type: OrganizationType.MICRO_ROASTER,
+                    org_id: res.result.organization_id,
+                });
+            }
+        });
     }
 }
