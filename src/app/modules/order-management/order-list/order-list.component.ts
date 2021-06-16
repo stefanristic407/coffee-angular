@@ -4,7 +4,7 @@ import { CommonService, GlobalsService, ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { MenuItem } from 'primeng/api';
 import { ApiResponse, LabelValue } from '@models';
-import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS, MR_ORDER_TYPE_ITEMS } from '@constants';
+import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS, MR_ORDER_TYPE_ITEMS, MR_ORDER_STATUS_ITEMS } from '@constants';
 import { ResizeableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
 import { OrganizationType } from '@enums';
@@ -20,6 +20,7 @@ import { RequestTableComponent } from './request-table/request-table.component';
 })
 export class OrderListComponent extends ResizeableComponent implements OnInit {
     readonly statusItems = ORDER_STATUS_ITEMS;
+    readonly mrStatusItems = MR_ORDER_STATUS_ITEMS;
     readonly orderTypeItems = ORDER_TYPE_ITEMS;
     readonly mrOrderTypeItems = MR_ORDER_TYPE_ITEMS;
     readonly OrgType = OrganizationType;

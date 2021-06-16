@@ -70,7 +70,7 @@
                 </p-dropdown>
                 <p-dropdown
                     [showClear]="true"
-                    [options]="statusItems"
+                    [options]="organizationType === OrgType.MICRO_ROASTER ? mrStatusItems : statusItems"
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Status"
