@@ -257,9 +257,9 @@
                                         </p>
                                     </div>
                                     <div class="mt-3 mt-lg-45">
-                                        <button class="btn-file-upload">
-                                            {{ 'message' | translate }}
+                                        <button class="btn-file-upload" (click)="openChat(contact)">
                                             <img class="mr-2" src="assets/images/message-icon.svg" alt="message icon" />
+                                            {{ 'message' | translate }}
                                         </button>
                                     </div>
                                 </div>
