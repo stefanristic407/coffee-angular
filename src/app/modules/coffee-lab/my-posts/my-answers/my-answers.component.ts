@@ -11,10 +11,9 @@ import { Subscription } from 'rxjs';
 export class MyAnswersComponent implements OnInit, OnDestroy {
     answers: any[] = [];
     sortOptions = [
-        { label: 'Latest', value: 'latest' },
-        { label: 'Oldest', value: 'oldest' },
+        { label: 'Latest', value: 'desc' },
+        { label: 'Oldest', value: 'asc' },
     ];
-    sortBy = 'latest';
     pageDesc: string;
     isMyPostsPage = false;
     isLoading = false;
@@ -23,7 +22,7 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
     displayData: any[] = [];
 
     constructor(
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
         private router: Router,
     ) {
@@ -42,7 +41,11 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
 
     getAnswers(): void {
         this.isLoading = true;
-        this.coffeeLabService.getMyForumList('answer').subscribe((res) => {
+        const params = {
+            sort_by: 'created_at',
+            sort_order: this.coffeeLabService.myAnswersSortBy,
+        };
+        this.coffeeLabService.getMyForumList('answer', params).subscribe((res) => {
             this.answers = (res.result ?? []).map((item) => {
                 if (item.question_slug) {
                     const slug = 'slug';
