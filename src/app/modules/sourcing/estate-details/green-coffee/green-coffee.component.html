@@ -2,10 +2,7 @@
     <ng-container *ngIf="sourcing.estateGreenList?.length; else empty">
         <div class="row gutter-26 v-gutter-24 v-gutter-md-26">
             <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of sourcing.estateGreenList">
-                <div
-                    class="cursor-pointer h-100"
-                    routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}"
-                >
+                <div class="cursor-pointer h-100" routerLink="/sourcing/coffee-details/{{ item.harvest_id }}">
                     <app-harvest-card [data]="item"></app-harvest-card>
                 </div>
             </div>

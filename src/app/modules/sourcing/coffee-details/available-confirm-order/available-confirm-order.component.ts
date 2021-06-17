@@ -149,7 +149,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                   }
                 : {
                       label: this.sourcing.harvestDetail.name,
-                      routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.estate_id}/${this.sourcing.harvestDetail.id}`,
+                      routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.id}`,
                   },
             { label: 'Confirm order' },
         ];

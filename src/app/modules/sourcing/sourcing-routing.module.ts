@@ -29,7 +29,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
     },
     {
-        path: 'coffee-details/:estateId/:harvestId',
+        path: 'coffee-details/:harvestId',
         component: CoffeeDetailsComponent,
         canActivate: [AuthGuard],
     },
