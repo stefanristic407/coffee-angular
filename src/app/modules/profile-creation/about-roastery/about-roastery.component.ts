@@ -60,11 +60,6 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     chartData: any;
     @ViewChild('brandImageInput', { static: true }) brandImageInput: ElementRef;
 
-    kgsOptions = [
-        { name: 'kg', value: 'kg' },
-        { name: 'lb', value: 'lb' },
-    ];
-
     allUsers: any[] = [];
     aboutForm: FormGroup;
     brandForm: FormGroup;
@@ -121,7 +116,6 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         this.getBrands();
         this.getRoasterUsers();
         this.initialForm();
-
         this.detectMode();
     }
 
