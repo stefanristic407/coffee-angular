@@ -17,13 +17,6 @@ import { GRADE_ITEMS, MONTH_LIST } from '@constants';
 export class SourcingComponent extends DestroyableComponent implements OnInit, AfterViewInit {
     @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
     menuItems: any[];
-    varietyItems: any[] = [
-        { label: 'Bourbon', value: 'Bourbon' },
-        { label: 'Castillo', value: 'Castillo' },
-        { label: 'Arabica', value: 'Arabica' },
-        { label: 'asdasd', value: 'asdasd' },
-        { label: 'Arabsdsica', value: 'Araasdbica' },
-    ];
     gradeItems = GRADE_ITEMS;
     cropItems: any[] = MONTH_LIST;
     availableItems: any[] = [

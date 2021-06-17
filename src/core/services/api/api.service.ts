@@ -88,10 +88,20 @@ export class ApiService {
     protected serializeParams(obj: object): string {
         const str = [];
         for (const prop in obj) {
-            if (obj.hasOwnProperty(prop) && !_.isNull(obj[prop]) && !_.isUndefined(obj[prop])) {
-                str.push(encodeURIComponent(prop) + '=' + encodeURIComponent(obj[prop]));
+            if (
+                obj.hasOwnProperty(prop) &&
+                !_.isNull(obj[prop]) &&
+                !_.isUndefined(obj[prop]) &&
+                !_.isEmpty(obj[prop])
+            ) {
+                str.push(
+                    encodeURIComponent(prop) +
+                        '=' +
+                        encodeURIComponent(_.isArray(obj[prop]) ? obj[prop].join(',') : obj[prop]),
+                );
             }
         }
+        console.log(str);
         return str.join('&');
     }
 

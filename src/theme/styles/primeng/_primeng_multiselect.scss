@@ -89,6 +89,10 @@
         color: $muted-text-color;
     }
 }
+.p-multiselect-panel .p-multiselect-footer {
+    position: relative;
+    padding: 0.75rem;
+}
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close {
     display: none;
 }

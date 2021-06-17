@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService, GlobalsService, OriginService, CommonService, AuthService } from '@services';
+import {
+    UserserviceService,
+    GlobalsService,
+    OriginService,
+    CommonService,
+    AuthService,
+    VarietyService,
+} from '@services';
 import * as _ from 'underscore';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { ApiResponse } from '@models';
@@ -34,6 +41,7 @@ export class SourcingService {
     generalFlavourList: any[];
 
     origins: DropdownItem[] = [];
+    varieties: DropdownItem[] = [];
 
     // Details of an estate
     estateId: number;
@@ -65,20 +73,21 @@ export class SourcingService {
         public globals: GlobalsService,
         private commonService: CommonService,
         private originService: OriginService,
-        private cookieService: CookieService,
         private authService: AuthService,
+        private varietyService: VarietyService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.getEstateCertificates();
         this.flavourprofileList();
         this.getOrigins();
+        this.getVarieties();
     }
 
     clearQueryParams() {
         this.sortParam = null;
         this.queryParams.next({
             origin: '',
-            species: '',
+            varieties: null,
             name: '',
             grade: null,
             crop_year: null,
@@ -256,6 +265,16 @@ export class SourcingService {
                         return { value: item, label: this.commonService.getCountryName(item) || item };
                     })
                     .value();
+            }
+        });
+    }
+
+    getVarieties() {
+        this.varietyService.getVarieties({ page: 0 }).subscribe((res: ApiResponse<any>) => {
+            if (res.success) {
+                this.varieties = (res.result || []).map((item) => {
+                    return { value: item.title, label: item.title };
+                });
             }
         });
     }
