@@ -11,9 +11,6 @@ declare class ClipboardItem {
 })
 export class CopyImageToClipboardDirective implements AfterViewInit {
     isCopyingImage = false;
-    css =
-        '.copy-image-to-clipboard-container img {cursor: pointer} .copy-image-to-clipboard-container img:hover{ opacity: 0.8 } .copying-image img { cursor: not-allowed !important }';
-    style: any = document.createElement('style');
 
     constructor(
         private el: ElementRef,
@@ -22,18 +19,11 @@ export class CopyImageToClipboardDirective implements AfterViewInit {
     ) {}
 
     ngAfterViewInit(): void {
-        if (this.style.styleSheet) {
-            this.style.styleSheet.cssText = this.css;
-        } else {
-            this.style.appendChild(document.createTextNode(this.css));
-        }
-        this.el.nativeElement.classList.add('copy-image-to-clipboard-container');
-        this.el.nativeElement.appendChild(this.style);
-        this.el.nativeElement.querySelectorAll('img').forEach((item) => {
-            item.addEventListener('click', (event) => {
-                console.log('clicking image..........');
-                if (!this.isCopyingImage) {
-                    this.onCopyImageToClipboard(event);
+        this.el.nativeElement.querySelectorAll('img').forEach((imgElement) => {
+            imgElement.parentElement.classList.add('clipboard-img-p');
+            imgElement.parentElement.addEventListener('click', (event) => {
+                if (event?.target?.tagName !== 'IMG' && !this.isCopyingImage) {
+                    this.onCopyImageToClipboard(event.target.children[0]);
                 }
             });
         });
@@ -51,11 +41,10 @@ export class CopyImageToClipboardDirective implements AfterViewInit {
         });
     }
 
-    async onCopyImageToClipboard(event: any) {
+    async onCopyImageToClipboard(selectedImgElement: HTMLImageElement) {
         this.isCopyingImage = true;
         this.el.nativeElement.classList.add('copying-image');
-        const selectedElement = event.target || event.currentTarget;
-        const url = selectedElement.src;
+        const url = selectedImgElement.src;
         this.coffeeLabService.getFileBlob(url).subscribe(
             async (blob: any) => {
                 console.log(blob);
