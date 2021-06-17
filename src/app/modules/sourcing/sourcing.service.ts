@@ -28,6 +28,7 @@ export class SourcingService {
     viewMode$: any = this.viewMode.asObservable();
 
     showUnitFilter = false;
+    showAvailableFilter = false;
 
     flavourList: any[];
     generalFlavourList: any[];

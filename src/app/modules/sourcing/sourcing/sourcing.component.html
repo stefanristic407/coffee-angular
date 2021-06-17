@@ -90,6 +90,7 @@
                 }}"
             ></p-dropdown>
             <p-dropdown
+                *ngIf="sourcingSrv.showAvailableFilter"
                 [options]="availableItems"
                 [(ngModel)]="queryParams.available_coffee"
                 (onChange)="filterCall()"
