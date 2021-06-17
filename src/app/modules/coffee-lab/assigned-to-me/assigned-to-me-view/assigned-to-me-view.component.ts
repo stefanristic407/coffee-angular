@@ -15,11 +15,10 @@ export class AssignedToMeViewComponent implements OnInit {
         { label: 'Most Answered', value: 'most_answered' },
         { label: 'Oldest', value: 'oldest' },
     ];
-    sortBy = 'latest';
     questions: any[] = [];
     isLoading = false;
 
-    constructor(private coffeeLabService: CoffeeLabService, private toastService: ToastrService) {}
+    constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {}
 
     ngOnInit(): void {
         window.scroll(0, 0);
@@ -29,8 +28,8 @@ export class AssignedToMeViewComponent implements OnInit {
     getQuestions(): void {
         const params = {
             org_type: 'ro',
-            sort_by: this.sortBy === 'most_answered' ? 'posted_at' : 'posted_at',
-            sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
+            sort_by: this.coffeeLabService.assignedToMeSortBy === 'most_answered' ? 'posted_at' : 'posted_at',
+            sort_order: this.coffeeLabService.assignedToMeSortBy === 'most_answered' ? 'desc' : this.coffeeLabService.assignedToMeSortBy === 'latest' ? 'desc' : 'asc',
             page: 1,
             per_page: 10000,
         };

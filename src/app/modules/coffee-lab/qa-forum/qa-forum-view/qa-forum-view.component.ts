@@ -27,8 +27,6 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
             value: true,
         },
     ];
-    sortBy = 'latest';
-    filterBy: any;
     questions: any[] = [];
     isLoading = false;
     keyword = '';
@@ -36,7 +34,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     forumLanguage: string;
 
     constructor(
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         public authService: AuthService,
     ) {}
@@ -55,9 +53,9 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     getQuestions(): void {
         const params = {
             query: this.keyword,
-            is_consumer: this.filterBy,
-            sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
-            sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
+            is_consumer: this.coffeeLabService.qaForumViewFilterBy,
+            sort_by: this.coffeeLabService.qaForumViewSortBy === 'most_answered' ? 'most_answered' : 'posted_at',
+            sort_order: this.coffeeLabService.qaForumViewSortBy === 'most_answered' ? 'desc' : this.coffeeLabService.qaForumViewSortBy === 'latest' ? 'desc' : 'asc',
             publish: true,
             page: 1,
             per_page: 10000,

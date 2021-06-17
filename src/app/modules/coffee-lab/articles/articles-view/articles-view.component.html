@@ -62,7 +62,7 @@
             optionLabel="label"
             optionValue="value"
             [showClear]="true"
-            [(ngModel)]="isAvailableTranslation"
+            [(ngModel)]="coffeeLabService.articleViewFilterBy"
             (ngModelChange)="reloadPageData()"
             placeholder="{{ 'translations_available' | translate }}"
             styleClass="round-border"
@@ -72,7 +72,7 @@
             [options]="orderList"
             optionLabel="label"
             optionValue="value"
-            [(ngModel)]="selectedOrder"
+            [(ngModel)]="coffeeLabService.articleViewSortBy"
             (ngModelChange)="reloadPageData()"
             styleClass="no-border"
         >

@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService, CoffeeLabService } from '@services';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Paginator } from 'primeng/paginator';
 import { ApiResponse } from '@models';
 
@@ -14,10 +14,7 @@ import { ApiResponse } from '@models';
 })
 export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
-    isAvailableTranslation = '';
     organizationId: any;
-    label?: string;
-    ingredientValue?: string;
     searchQuery = '';
     searchIngredient = '';
     coffeeRecipeData: any[] = [];
@@ -33,7 +30,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             value: false,
         },
     ];
-    labels: any[] = [
+    levels: any[] = [
         {
             label: 'Easy',
             value: 'Easy',
@@ -57,7 +54,6 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             value: 'oldest',
         },
     ];
-    selectedOrder = 'latest';
     pageDesc: string | undefined;
     @ViewChild('paginator', {static: false}) private paginator: Paginator;
     perPage = 9;
@@ -91,28 +87,34 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
 
     getCoffeeRecipesData(page = 1): void {
         this.isLoading = true;
-        const params = {
-            query: this.searchQuery,
-            ingredient: this.searchIngredient,
-            translations_available: this.isAvailableTranslation,
+        const params1 = {
             sort_by: 'created_at',
-            sort_order: this.selectedOrder === 'latest' ? 'desc' : 'asc',
-            level: this.label?.toLowerCase(),
+            sort_order: 'desc',
             publish: true,
             page,
             per_page: this.perPage
         };
-        console.log('query param >>>>>>> ', params);
+        const params2 = {
+            query: this.searchQuery,
+            ingredient: this.searchIngredient,
+            translations_available: this.coffeeLabService.recipeViewIsAvailableTranslation,
+            sort_by: 'created_at',
+            sort_order: this.coffeeLabService.recipeViewSortBy === 'latest' ? 'desc' : 'asc',
+            level: this.coffeeLabService.recipeViewLevel?.toLowerCase(),
+            publish: true,
+            page,
+            per_page: this.perPage
+        };
         if (this.pageDesc === 'saved-posts') {
-            this.coffeeLabService.getSavedForumList('recipe', params).subscribe((res) => {
+            this.coffeeLabService.getSavedForumList('recipe', params1).subscribe((res) => {
                 this.handleRecipeDataResponse(res);
             });
         } else if (this.pageDesc === 'my-posts') {
-            this.coffeeLabService.getMyForumList('recipe').subscribe((res) => {
+            this.coffeeLabService.getMyForumList('recipe', params1).subscribe((res) => {
                 this.handleRecipeDataResponse(res);
             });
         } else {
-            this.coffeeLabService.getForumList('recipe', params, this.forumLanguage).subscribe((res) => {
+            this.coffeeLabService.getForumList('recipe', params2, this.forumLanguage).subscribe((res) => {
                 this.handleRecipeDataResponse(res);
             });
         }
