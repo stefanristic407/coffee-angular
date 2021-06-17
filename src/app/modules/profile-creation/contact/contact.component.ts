@@ -78,7 +78,6 @@ export class ContactComponent implements OnInit {
                 this.cityList = item.cities;
             }
         });
-
         this.contactForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
 
         this.latitude = this.roasteryProfileService.toUpdateProfileData.latitude;
