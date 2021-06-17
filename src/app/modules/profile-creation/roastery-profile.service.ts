@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthService, UserserviceService } from '@services';
+import { AuthService, UserService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
 import { BehaviorSubject } from 'rxjs';
 import { OrganizationProfile } from '@models';
+import { ContactGroup } from '@enums';
 @Injectable({
     providedIn: 'root',
 })
@@ -53,6 +54,7 @@ export class RoasteryProfileService {
         public profilePhotoService: ProfilePhotoService,
         public router: Router,
         private authService: AuthService,
+        private newUserService: UserService,
     ) {
         this.userId = this.authService.userId;
         this.roasterId = this.authService.getOrgId();
@@ -109,7 +111,7 @@ export class RoasteryProfileService {
     }
 
     getcontactList() {
-        this.roasterService.getRoasterContacts(this.roasterId).subscribe((res: any) => {
+        this.newUserService.getContacts(ContactGroup.TOP).subscribe((res: any) => {
             if (res.success) {
                 this.topContacts = res.result || [];
             }
@@ -228,7 +230,8 @@ export class RoasteryProfileService {
             }),
         );
 
-        const base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
+        const base64Rejex =
+            /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
         const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
         if (isBase64Valid) {
             const ImageURL = this.profilePhotoService.croppedImage;

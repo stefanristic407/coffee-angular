@@ -402,3 +402,35 @@ input[type='number'] {
         display: none !important;
     }
 }
+
+.clipboard-img-p {
+    position: relative;
+    display: inline-block;
+    &:before {
+        display: block;
+        content: 'Copy';
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        background-color: #f8f8f8;
+        width: 97px;
+        height: 40px;
+        padding-top: 11px;
+        padding-left: 44px;
+        border-radius: 4px;
+        cursor: pointer;
+        background-image: url(assets/images/copy.svg);
+        background-repeat: no-repeat;
+        background-position: 16px;
+        font-weight: 600;
+        color: $general-text-color;
+        @media (max-width: 767px) {
+            bottom: 8px;
+            right: 8px;
+        }
+    }
+}
+
+.copying-image .clipboard-img-p::before {
+    cursor: not-allowed;
+}

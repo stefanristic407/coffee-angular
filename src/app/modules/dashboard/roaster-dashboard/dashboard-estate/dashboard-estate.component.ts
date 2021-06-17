@@ -28,7 +28,6 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
         this.estatesSub = this.welcomeSrv.estates$.subscribe((res: any) => {
             if (res) {
                 const estateData: any = res;
-                console.log('estate data: ', res);
                 estateData.length > 4 ? (this.estates = estateData.slice(0, 4)) : (this.estates = estateData);
                 this.estates.map((item: any) => {
                     if (item.varieties) {

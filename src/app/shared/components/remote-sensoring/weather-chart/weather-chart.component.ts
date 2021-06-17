@@ -271,7 +271,6 @@ export class WeatherChartComponent implements OnInit {
                     this.loading = false;
                 },
                 (err: HttpErrorResponse) => {
-                    console.log(err);
                     this.clearData();
                     this.loading = false;
                 },

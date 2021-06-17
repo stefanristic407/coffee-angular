@@ -32,9 +32,8 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
     ) {
         super(resizeService);
         this.route.paramMap.subscribe((params) => {
-            if (params.has('harvestId') && params.has('estateId')) {
+            if (params.has('harvestId')) {
                 this.sourcing.harvestId = +params.get('harvestId');
-                this.sourcing.estateId = +params.get('estateId');
                 this.refreshData();
             }
         });
@@ -51,21 +50,25 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
         new Promise((resolve, reject) => this.sourcing.availableDetailList(resolve, reject))
             .then(() => {
                 this.galleryImages();
+                this.sourcing.estateId = this.sourcing.harvestDetail.estate_id;
+                this.sourcing.estateDetailList();
+                this.sourcing.getEachEstateCertify();
+
+                this.sourcing.lotId = this.sourcing.harvestDetail.lot_id;
+                this.sourcing.getLotDetails();
+
+                this.sourcing.otherAvailableCoffee();
                 this.isLoaded = true;
             })
             .catch(() => {
                 this.toastrService.error('Error while retrieving data');
                 this.router.navigateByUrl('/sourcing/coffee-list');
             });
-        this.sourcing.estateDetailList();
-        this.sourcing.otherAvailableCoffee();
-        this.sourcing.getEachEstateCertify();
     }
 
     galleryImages() {
         const images = [];
         if (this.sourcing.harvestDetail?.images) {
-            console.log(this.sourcing.harvestDetail.images);
             this.sourcing.harvestDetail?.images.forEach((element) => {
                 const sample = {
                     srcUrl: element.url,

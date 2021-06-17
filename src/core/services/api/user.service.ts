@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiResponse, UserProfile } from '@models';
-import { OrganizationType } from '@enums';
+import { ContactGroup, OrganizationType } from '@enums';
 import { AuthService } from '../auth';
 
 @Injectable({
@@ -34,6 +34,23 @@ export class UserService extends ApiService {
         } else {
             return this.postWithOrg(this.orgPostUrl, `users/profile`, 'GET');
         }
+    }
+
+    // ------------ User Groups ------------
+
+    // Add an employee to contact group.
+    createContact(contactGroup: ContactGroup, data: any) {
+        return this.postWithOrg(this.orgPostUrl, `users/${contactGroup}`, 'POST', data);
+    }
+
+    // Return the list of all top employee contacts under an organization.
+    getContacts(contactGroup: ContactGroup) {
+        return this.postWithOrg(this.orgPostUrl, `users/${contactGroup}`, 'GET');
+    }
+
+    // Delete employee from the contact group
+    deleteContact(contactGroup: ContactGroup, id: number) {
+        return this.postWithOrg(this.orgDeleteUrl, `users/${contactGroup}/${id}`, 'DELETE');
     }
 
     // ------------ Privacy & Terms ------------
