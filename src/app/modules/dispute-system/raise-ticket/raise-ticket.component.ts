@@ -53,7 +53,7 @@ export class RaiseTicketComponent implements OnInit {
         this.ticketForm = this.fb.group({
             orderID: [{ value: this.orderID, disabled: true }, Validators.compose([Validators.required])],
             dispute_type: [this.supportValue, Validators.compose([Validators.required])],
-            dispute_reason: ['', Validators.compose([Validators.required])],
+            // dispute_reason: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
             solution: [''],
             images: [],
@@ -114,31 +114,17 @@ export class RaiseTicketComponent implements OnInit {
         }
         return formatVal.replace('-', '');
     }
+
     supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: 'Home',
-            routerLink: '/',
-        };
-        const obj2: MenuItem = {
-            label: 'Order Management',
-        };
-        const obj3: MenuItem = {
-            label: 'Purchased order of estate',
-            routerLink: '/orders/es',
-        };
-        const obj4: MenuItem = {
-            label: 'Order ' + this.orderID,
-            routerLink: [`/orders/es/${this.orderID}`],
-        };
-        const obj5: MenuItem = {
-            label: 'Order Support',
-        };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj3);
-        this.breadCrumbItem.push(obj4);
-        this.breadCrumbItem.push(obj5);
+        this.breadCrumbItem = [
+            { label: 'Home', routerLink: '/' },
+            { label: 'Order Management' },
+            { label: 'Purchased order of estate', routerLink: '/orders/es' },
+            { label: 'Order ' + this.orderID, routerLink: [`/orders/es/${this.orderID}`] },
+            { label: 'Order Support' },
+        ];
     }
+
     submitTicket() {
         if (this.ticketForm.valid) {
             const obj = this.ticketForm.value;
