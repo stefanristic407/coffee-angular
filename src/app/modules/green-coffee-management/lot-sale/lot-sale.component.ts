@@ -84,6 +84,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             { label: 'Sold', value: 'SOLD' },
             { label: 'Hidden', value: 'HIDDEN' },
         ];
+        this.getRoasterVatDetails();
     }
 
     public refreshData() {
@@ -104,7 +105,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         this.language();
         this.getProcuredOrderDetails();
         this.getSaleOrderDetails();
-        this.getRoasterVatDetails();
         this.lotSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
             this.lotSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
         });
@@ -200,14 +200,12 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                     this.orderStatus = response.result.status;
                     this.availablityName = lotDetails.name;
                     this.statusLabel = this.formatStatus(this.orderStatus);
-                    console.log(lotDetails.quantity_type);
                     if (lotDetails.quantity_type.toLowerCase() === 'bags') {
                         const remaining = lotDetails.quantity_count;
                         if (remaining > 0) {
                             this.remaining = `${remaining} Bags`;
                         } else {
                             this.remaining = '0 Bags';
-                            console.log(this.remaining);
                         }
                         this.lotSaleForm.patchValue(
                             { quantity_type: lotDetails.quantity_type.toLowerCase() },
@@ -247,7 +245,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     this.tableValue.push(this.orderDetails);
-                    console.log(this.tableValue);
                 }
             },
             (err) => {
@@ -304,7 +301,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         return returnFlag;
     }
     onSave(): void {
-        console.log(this.lotSaleForm.value);
         if (this.validateForms()) {
             const productObj = this.lotSaleForm.value;
             this.updateMarkForSale(productObj);

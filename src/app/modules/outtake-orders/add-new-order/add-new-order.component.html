@@ -570,7 +570,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="outtakeOrderDetails?.waste_produced" class="row padd-2r">
+                        <div class="row padd-2r">
                             <div class="col-md-6 mob-form-top-margin col-sm-12 pr-md-25">
                                 <div class="sewn-form-field mb-0 w-100">
                                     <div>
@@ -580,7 +580,7 @@
                                         pInputText
                                         placeholder="{{ 'total_waste_produced' | translate }}"
                                         [value]="wasteProduced"
-                                        disabled
+                                        [disabled]="outtakeOrderId"
                                     />
                                 </div>
                             </div>
@@ -648,17 +648,14 @@
                                 ></p-dropdown>
                             </div>
                         </div>
-                        <div
-                            *ngIf="outtakeOrderDetails?.waste_produced"
-                            class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3"
-                        >
+                        <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'waste_produced' | translate }}</label>
                                 <input
                                     pInputText
                                     placeholder="{{ 'total_waste_produced' | translate }}"
                                     [value]="wasteProduced"
-                                    disabled
+                                    [disabled]="outtakeOrderId"
                                 />
                             </div>
                         </div>
@@ -903,7 +900,7 @@
                                 {{ customerDetails.name }}
                             </li>
                             <li class="fnt-12 fnt-600 text-clr588 pt-1">
-                                {{ customerDetails?.company_type }}
+                                {{ 'roaster' | translate }}
                             </li>
                         </ul>
                     </div>
@@ -924,7 +921,7 @@
             <table class="recent-time w-100">
                 <tr>
                     <td>
-                        <span class="list-que"> {{ 'owner' | translate }} : </span>
+                        <span class="list-que"> {{ 'manager' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
                         <span class="list-ans">
@@ -948,8 +945,9 @@
                     </td>
                     <td class="recent-data-ans">
                         <span class="list-ans">
-                            {{ customerDetails?.address_line1 }} {{ customerDetails?.address_line2 }}
-                            {{ customerDetails?.city }} {{ customerDetails?.state }} {{ customerDetails?.zipcode }}
+                            {{ customerDetails?.address_line1 }}, {{ customerDetails?.address_line2 }}
+                            {{ customerDetails?.country | country }}, {{ customerDetails?.state }}
+                            {{ customerDetails?.city }}, {{ customerDetails?.zipcode }}
                         </span>
                     </td>
                 </tr>
