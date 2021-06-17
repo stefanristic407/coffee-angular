@@ -49,7 +49,15 @@
                         </a>
                     </li>
                     <li
-                        class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container position-relative overflow-visible"
+                        class="
+                            header-profile-links__item
+                            d-inline-block
+                            ml-md-3 ml-lg-4
+                            pl-xl-2
+                            zoom-effect-container
+                            position-relative
+                            overflow-visible
+                        "
                     >
                         <a href="javascript:void(0)" class="d-inline-block image-card" (click)="myOp.toggle($event)">
                             <img class="img" src="assets/images/notification.svg " />
@@ -189,14 +197,18 @@
                     </div>
                     <ul class="nav-links fnt-muli pad-5">
                         <li
-                            class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
+                            class="
+                                nav-links__item
+                                d-md-inline-block
+                                position-relative
+                                mobile-farm
+                                settings-list
+                                mt-md-0 mt-5
+                            "
                         >
-                            <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
+                            <a class="d-inline-block fnt-600" [routerLink]="['/account-settings']"
                                 >{{ 'menu_account_settings' | translate }}
                             </a>
-                        </li>
-                        <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
-                            <a class="d-inline-block fnt-600">{{ 'help_support' | translate }} </a>
                         </li>
                         <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
                             <a class="d-inline-block fnt-600" (click)="userLogout()">{{ 'logout' | translate }} </a>
