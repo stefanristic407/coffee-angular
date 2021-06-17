@@ -216,7 +216,6 @@ import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-description.pipe';
 import { WeightConvertPipe } from './pipes/weight-convert.pipe';
 import { ThousandSuffPipe } from './pipes/thousand-suff.pipe';
-import { CertificateNamePipe } from './pipes';
 import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
@@ -241,7 +240,6 @@ const PIPES = [
     ArrayFilterPipe,
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
-    CertificateNamePipe,
     ConvertToShortDescriptionPipe,
     CountryPipe,
     EstateBrandLinkPipe,
