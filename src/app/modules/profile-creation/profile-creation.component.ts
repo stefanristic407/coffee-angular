@@ -58,7 +58,6 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
 
     checkAdminRole() {
         this.userService.getUserDetail().subscribe((res: any) => {
-            console.log('check admin role: ', res);
             if (res.success) {
                 this.isAdminRole = res.result.has_system_role;
             }
