@@ -132,12 +132,10 @@ export class SourcingService {
         this.estateLots = null;
         this.userService.getavailableLots(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
-                this.estateLots = res.result;
-                if (this.estateLots?.length) {
-                    this.estateLots.forEach((element) => {
-                        element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
-                    });
-                }
+                this.estateLots = res.result || [];
+                this.estateLots.forEach((element) => {
+                    element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
+                });
             }
         });
     }
