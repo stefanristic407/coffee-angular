@@ -22,7 +22,8 @@
             <button
                 type="button"
                 class="btn-raised"
-                [routerLink]="['/dispute-system/order-support', orderId]"
+                [routerLink]="['/dispute-system/raise-ticket', orderId]"
+                [queryParams]="{ supportValue: 'Coffee Bulks' }"
                 *ngIf="order?.status !== OrderStatus.Received && (!isMobile || (isMobile && selectedTab === 0))"
             >
                 {{ 'have_a_problem' | translate }}
