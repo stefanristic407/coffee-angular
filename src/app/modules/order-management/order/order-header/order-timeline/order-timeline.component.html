@@ -63,7 +63,7 @@
 
 <div
     class="in-order mt-3 pb-lg-2 br-4"
-    *ngIf="!showTextBlock && !showMrTextBlock && order.status !== OrderStatus.Rejected"
+    *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected"
 >
     <div class="row">
         <div class="col-12 col-md-12">
@@ -109,7 +109,7 @@
 <ng-container *ngIf="order && showTextBlock">
     <div class="in-order mt-4 confirm-shippment br-4">
         <div class="row">
-            <ng-container *ngIf="order.status === OrderStatus.Received; else confirmationBlock">
+            <ng-container *ngIf="order?.status === OrderStatus.Received; else confirmationBlock">
                 <div class="col-12 d-flex px-2 px-md-3">
                     <div class="img-block d-none d-md-block">
                         <span class="circle-image">
@@ -169,7 +169,7 @@
                     </div>
                     <div class="mt-4">
                         <button class="btn-stroked" [routerLink]="orderId | orderRatingLink: orgType">
-                            {{ 'leave_a_feedback' | translate }}
+                            {{ ((isReviewed$ | async) ? 'view_feedback' : 'leave_a_feedback') | translate }}
                         </button>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
 </ng-container>
 
 <ng-container *ngIf="order && showMrTextBlock">
-    <ng-container *ngIf="order.status === OrderStatus.Shipped; else orderReceived">
+    <ng-container *ngIf="order?.status === OrderStatus.Shipped; else orderReceived">
         <div class="in-order mt-5 confirm-shippment">
             <div class="row">
                 <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
@@ -198,9 +198,9 @@
                             type="submit"
                             class="btn-raised sm mt-3"
                             *ngIf="order"
-                            [routerLink]="order?.id | orderRatingLink: OrgTypes.ROASTER"
+                            [routerLink]="order?.id | orderRatingLink: orgType"
                         >
-                            Leave a feedback!
+                            {{ ((isReviewed$ | async) ? 'view_feedback' : 'leave_a_feedback') | translate }}
                         </button>
                         <button
                             type="submit"
@@ -238,9 +238,9 @@
                             type="submit"
                             class="btn-raised sm mt-3"
                             *ngIf="order"
-                            [routerLink]="order?.id | orderRatingLink: OrgTypes.ROASTER"
+                            [routerLink]="order?.id | orderRatingLink: orgType"
                         >
-                            Leave a Feedback!
+                            {{ ((isReviewed$ | async) ? 'view_feedback' : 'leave_a_feedback') | translate }}
                         </button>
                         <button
                             type="submit"
@@ -256,7 +256,7 @@
     </ng-template>
 </ng-container>
 
-<ng-container *ngIf="order.status === OrderStatus.Rejected">
+<ng-container *ngIf="order?.status === OrderStatus.Rejected">
     <div class="in-order mt-4 confirm-shippment br-4">
         <div class="row">
             <div class="col-12 d-flex px-2 px-md-3">

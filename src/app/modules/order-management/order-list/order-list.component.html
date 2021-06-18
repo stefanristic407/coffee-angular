@@ -58,7 +58,7 @@
                 </p-multiSelect>
                 <p-dropdown
                     [showClear]="true"
-                    [options]="orderTypeItems"
+                    [options]="organizationType === OrgType.MICRO_ROASTER ? mrOrderTypeItems : orderTypeItems"
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Type of order"
@@ -70,7 +70,7 @@
                 </p-dropdown>
                 <p-dropdown
                     [showClear]="true"
-                    [options]="statusItems"
+                    [options]="organizationType === OrgType.MICRO_ROASTER ? mrStatusItems : statusItems"
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Status"

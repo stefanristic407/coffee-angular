@@ -22,7 +22,8 @@
             <button
                 type="button"
                 class="btn-raised"
-                [routerLink]="['/dispute-system/order-support', orderId]"
+                [routerLink]="['/dispute-system/raise-ticket', orderId]"
+                [queryParams]="{ supportValue: 'Coffee Bulks' }"
                 *ngIf="order?.status !== OrderStatus.Received && (!isMobile || (isMobile && selectedTab === 0))"
             >
                 {{ 'have_a_problem' | translate }}
@@ -56,8 +57,8 @@
 
 <ng-template #confirmationDetails>
     <div class="border-ebebeb pr-0">
-        <div class="fnt-bold fnt-18 text-clr334">{{ 'order_details' | translate }}</div>
-        <app-lot-details [lot]="order"></app-lot-details>
+        <div class="fnt-bold fnt-18 text-clr334 mb-md-4">{{ 'order_details' | translate }}</div>
+        <app-lot-details [lot]="order" [orgType]="orgType"></app-lot-details>
     </div>
 
     <div class="border-ebebeb mt-3">

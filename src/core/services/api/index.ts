@@ -28,3 +28,4 @@ export * from './shipping-details.service';
 export * from './simulated-login.service';
 export * from './user-original.service';
 export * from './user.service';
+export * from './variety.service';

@@ -43,6 +43,5 @@ export class DashboardSourcingComponent implements OnInit, OnDestroy {
                 }
             });
         });
-        console.log('result chart data: ', this.chartData);
     }
 }

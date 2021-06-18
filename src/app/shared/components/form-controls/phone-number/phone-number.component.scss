@@ -1,11 +1,11 @@
-@import '_variables.scss';
+@import 'variables';
 
 .phone-number-input {
     height: 50px !important;
     border: 1px solid $primary-border-color;
     border-radius: 4px;
     color: $general-text-color;
-    font-family: 'Muli', sans-serif !important;
+    font-family: $general-font-family !important;
     font-weight: 600;
     font-size: 14px;
     padding-left: 64px !important;
@@ -49,7 +49,7 @@
     }
 }
 
-::ng-deep .ng-invalid.ng-dirty + .iti {
+::ng-deep .ng-invalid.ng-dirty > .iti {
     .phone-number-input {
         border: 1px solid $error-border-color !important;
         &:hover {

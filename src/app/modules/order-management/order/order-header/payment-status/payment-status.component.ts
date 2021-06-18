@@ -5,7 +5,7 @@ import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
-import { OrganizationType } from '@enums';
+import { OrderStatus, OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-payment-status',
@@ -39,6 +39,7 @@ export class PaymentStatusComponent extends ResizeableComponent implements OnIni
             if (data.success) {
                 this.toastrService.success('Payment has been verified!');
                 this.paymentStatus = 'VERIFIED';
+                this.orderDetails.status = OrderStatus.Payment;
                 this.orderDetails.status_paid = true;
                 this.orderDetails.status_pending = false;
                 this.orderDetails.receipt_show = true;

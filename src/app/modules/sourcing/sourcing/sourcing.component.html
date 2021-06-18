@@ -23,24 +23,21 @@
             </div>
             <div class="col-6 col-md-3">
                 <p-multiSelect
-                    [options]="varietyItems"
-                    [(ngModel)]="queryParams.species"
+                    [options]="sourcingSrv.varieties"
+                    [(ngModel)]="queryParams.varieties"
                     defaultLabel="{{ 'add_variety' | translate }}"
                     [maxSelectedLabels]="1"
-                    selectedItemsLabel="{0} Species"
-                    [filter]="false"
+                    selectedItemsLabel="{0} {{ 'varieties' | translate }}"
                     (onChange)="filterCall()"
                     scrollHeight="225px"
                     styleClass="w-100 mb-3 mb-md-4 br-left-0 br-right-md-0 {{
-                        queryParams.species?.length ? 'highlight' : ''
+                        queryParams.varieties?.length ? 'highlight' : ''
                     }}"
                 >
-                    <ng-template pTemplate="header">
-                        <span class="all-mark">{{ 'all' | translate }}</span>
-                        <span
-                            class="clear-btn pi pi-times {{ queryParams.species?.length ? 'show' : '' }}"
-                            (click)="queryParams.species = null; filterCall()"
-                        ></span>
+                    <ng-template pTemplate="footer">
+                        <span class="brown-cta" (click)="queryParams.varieties = null; filterCall()">
+                            {{ 'clear' | translate }}
+                        </span>
                     </ng-template>
                 </p-multiSelect>
             </div>
@@ -90,6 +87,7 @@
                 }}"
             ></p-dropdown>
             <p-dropdown
+                *ngIf="sourcingSrv.showAvailableFilter"
                 [options]="availableItems"
                 [(ngModel)]="queryParams.available_coffee"
                 (onChange)="filterCall()"

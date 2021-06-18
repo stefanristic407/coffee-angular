@@ -227,7 +227,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     sourcingRedirect(item) {
-        this.router.navigateByUrl(`/sourcing/coffee-details/${item?.estate_id}/${item?.harvest_id}`);
+        this.router.navigateByUrl(`/sourcing/coffee-details/${item?.harvest_id}`);
     }
 
     viewOrderPage(item) {

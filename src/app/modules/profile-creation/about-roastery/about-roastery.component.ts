@@ -60,12 +60,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     chartData: any;
     @ViewChild('brandImageInput', { static: true }) brandImageInput: ElementRef;
 
-    kgsOptions = [
-        { name: 'kg', value: 'kg' },
-        { name: 'lb', value: 'lb' },
-    ];
-
-    roasterUsersOptions?: any[];
+    allUsers: any[] = [];
     aboutForm: FormGroup;
     brandForm: FormGroup;
     membersForm: FormGroup;
@@ -121,7 +116,6 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         this.getBrands();
         this.getRoasterUsers();
         this.initialForm();
-
         this.detectMode();
     }
 
@@ -225,7 +219,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     getRoasterUsers() {
         this.roasterService.getRoasterUsers(this.roasterId).subscribe((data: any) => {
             if (data.success === true) {
-                this.roasterUsersOptions = (data.result || []).map((item) => {
+                this.allUsers = (data.result || []).map((item) => {
                     return {
                         name: item.firstname + ' ' + item.lastname,
                         value: item.id,
@@ -237,7 +231,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
 
     usersOptions(curIdx = null): number[] {
         const localArray = [];
-        this.roasterUsersOptions.forEach((element) => {
+        this.allUsers.forEach((element) => {
             const idx = this.members.value.findIndex((item, index) => item === element.value && curIdx !== index);
             if (idx < 0) {
                 localArray.push(element);

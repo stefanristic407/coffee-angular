@@ -59,7 +59,6 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
             label: 'Micro-roster',
         },
     ];
-    selPeriod = 0;
     saleData = [];
     dateFrom: string;
     dateTo: string;
@@ -102,7 +101,6 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                 date_to: dateTo,
             })
             .subscribe((res: any) => {
-                console.log('sales: ', res);
                 if (res.success) {
                     this.sales = res.result.sales;
                     this.saleData = this.generateBlankData();
@@ -132,10 +130,9 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
         this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
     }
 
-    changePeriod(value: string) {
-        this.periodsValue = value;
+    changePeriod() {
         const date = moment().format('YYYY-MM-DD');
-        switch (value) {
+        switch (this.periodsValue) {
             case 'lastWeek':
                 this.barPadding = 88;
                 const lastWeekStart = moment().subtract(6, 'day').format('YYYY-MM-DD');

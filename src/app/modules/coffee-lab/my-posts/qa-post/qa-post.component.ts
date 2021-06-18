@@ -19,13 +19,12 @@ export class QaPostComponent implements OnInit, OnDestroy {
         { label: 'Most Answered', value: 'most_answered' },
         { label: 'Oldest', value: 'oldest' },
     ];
-    sortBy = 'latest';
     pageDesc: string | undefined;
     destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
 
     constructor(
-        private coffeeLabService: CoffeeLabService,
+        public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         private router: Router,
     ) {
@@ -45,8 +44,8 @@ export class QaPostComponent implements OnInit, OnDestroy {
     getPosts(): void {
         this.isLoading = true;
         const params = {
-            sort_by: this.sortBy === 'most_answered' ? 'most_answered' : 'posted_at',
-            sort_order: this.sortBy === 'most_answered' ? 'desc' : this.sortBy === 'latest' ? 'desc' : 'asc',
+            sort_by: this.coffeeLabService.qaPostSortBy === 'most_answered' ? 'most_answered' : 'posted_at',
+            sort_order: this.coffeeLabService.qaPostSortBy === 'most_answered' ? 'desc' : this.coffeeLabService.qaPostSortBy === 'latest' ? 'desc' : 'asc',
             page: 1,
             per_page: 10000,
         };

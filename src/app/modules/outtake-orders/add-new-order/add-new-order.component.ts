@@ -39,11 +39,10 @@ export class AddNewOrderComponent implements OnInit {
     customerID: any;
     createdID: any;
     loginUserID: number;
-    wasteProduced: string;
+    wasteProduced = '';
 
     constructor(
         private roasterService: RoasterserviceService,
-        private cookieService: CookieService,
         private fb: FormBuilder,
         public location: Location,
         private userService: UserserviceService,

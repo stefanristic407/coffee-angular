@@ -25,17 +25,6 @@ export class SimulatedLoginService extends ApiService {
         return this.http.post(this.simulatedLoginUrl, data, { withCredentials: true });
     }
 
-    private getOrgEndpoint(orgType: OrganizationType): string {
-        switch (orgType) {
-            case OrganizationType.HORECA: {
-                return 'hrc';
-            }
-            case OrganizationType.MICRO_ROASTER: {
-                return 'micro-roasters';
-            }
-        }
-    }
-
     // Simulated login - RO user
     customerSimulatedLogin(orgType: OrganizationType, orgId: number) {
         const data: any = {

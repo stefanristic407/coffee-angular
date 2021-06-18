@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService, GlobalsService, OriginService, CommonService, AuthService } from '@services';
+import {
+    UserserviceService,
+    GlobalsService,
+    OriginService,
+    CommonService,
+    AuthService,
+    VarietyService,
+} from '@services';
 import * as _ from 'underscore';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { ApiResponse } from '@models';
@@ -28,11 +35,13 @@ export class SourcingService {
     viewMode$: any = this.viewMode.asObservable();
 
     showUnitFilter = false;
+    showAvailableFilter = false;
 
     flavourList: any[];
     generalFlavourList: any[];
 
     origins: DropdownItem[] = [];
+    varieties: DropdownItem[] = [];
 
     // Details of an estate
     estateId: number;
@@ -64,20 +73,21 @@ export class SourcingService {
         public globals: GlobalsService,
         private commonService: CommonService,
         private originService: OriginService,
-        private cookieService: CookieService,
         private authService: AuthService,
+        private varietyService: VarietyService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.getEstateCertificates();
         this.flavourprofileList();
         this.getOrigins();
+        this.getVarieties();
     }
 
     clearQueryParams() {
         this.sortParam = null;
         this.queryParams.next({
             origin: '',
-            species: '',
+            varieties: null,
             name: '',
             grade: null,
             crop_year: null,
@@ -92,11 +102,6 @@ export class SourcingService {
         this.userService.getAvailableEstateList(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.estate = res.result;
-                if (this.estate.gps_coordinates) {
-                    const coordinates = this.estate.gps_coordinates.split(',');
-                    this.estate.latitude = parseFloat(coordinates[0].slice(0, -3));
-                    this.estate.longitude = parseFloat(coordinates[1].slice(0, -3));
-                }
             }
         });
     }
@@ -137,12 +142,10 @@ export class SourcingService {
         this.estateLots = null;
         this.userService.getavailableLots(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
-                this.estateLots = res.result;
-                if (this.estateLots?.length) {
-                    this.estateLots.forEach((element) => {
-                        element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
-                    });
-                }
+                this.estateLots = res.result || [];
+                this.estateLots.forEach((element) => {
+                    element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
+                });
             }
         });
     }
@@ -262,6 +265,16 @@ export class SourcingService {
                         return { value: item, label: this.commonService.getCountryName(item) || item };
                     })
                     .value();
+            }
+        });
+    }
+
+    getVarieties() {
+        this.varietyService.getAllVarieties({ page: 0 }).subscribe((res: ApiResponse<any>) => {
+            if (res.success) {
+                this.varieties = (res.result || []).map((item) => {
+                    return { value: item.title, label: item.title };
+                });
             }
         });
     }

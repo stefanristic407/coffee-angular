@@ -128,6 +128,7 @@ export class ProductDetailsComponent implements OnInit {
         ];
         this.brewingMethodArray = [
             { label: 'Pour Over', value: 'pour-over' },
+            { label: 'Espresso', value: 'espresso' },
             { label: 'Coffeemaker', value: 'coffee-maker' },
             { label: 'French Press', value: 'french-press' },
             { label: 'AeroPress', value: 'aeropress' },

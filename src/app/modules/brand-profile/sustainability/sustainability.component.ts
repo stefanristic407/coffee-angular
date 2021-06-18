@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
-import { maxWordCountValidator, fileCountValidator } from '@utils';
+import { maxWordCountValidator } from '@utils';
 import { AuthService, GlobalsService } from '@services';
 import { UserserviceService } from '@services';
-import { RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-sustainability',
@@ -24,9 +21,7 @@ export class SustainabilityComponent implements OnInit {
         private route: Router,
         public globals: GlobalsService,
         private toastrService: ToastrService,
-        private cookieService: CookieService,
         private userService: UserserviceService,
-        private roasterService: RoasterserviceService,
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();
@@ -45,14 +40,14 @@ export class SustainabilityComponent implements OnInit {
             intro_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
             intro_short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
             title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
-            short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
+            short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
             section1_file: [null, Validators.compose([Validators.required])],
             section1_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
             section1_description: ['', Validators.compose([Validators.required, maxWordCountValidator(70)])],
             section2_file: [null, Validators.compose([Validators.required])],
             section2_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
             section2_description: ['', Validators.compose([Validators.required, maxWordCountValidator(70)])],
-            section3_file: [null, Validators.compose([fileCountValidator(2)])],
+            section3_file: [null, Validators.compose([Validators.required])],
             section3_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
             section3_description: ['', Validators.compose([Validators.required, maxWordCountValidator(70)])],
             section4_file: [null, Validators.compose([Validators.required])],
@@ -73,7 +68,7 @@ export class SustainabilityComponent implements OnInit {
                 section1_file: this.infoForm.value.section1_file.id,
                 section2_file: this.infoForm.value.section2_file.id,
                 section3_file_1: this.infoForm.value.section3_file[0].id,
-                section3_file_2: this.infoForm.value.section3_file[1].id,
+                section3_file_2: this.infoForm.value.section3_file[1]?.id || null,
                 section4_file_1: this.infoForm.value.section4_file.id,
                 product_label_icon_1: this.infoForm.value.product_label_icon[0].id,
                 product_label_icon_2: this.infoForm.value.product_label_icon[1].id,

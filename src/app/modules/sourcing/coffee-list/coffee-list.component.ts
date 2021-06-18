@@ -42,6 +42,7 @@ export class CoffeeListComponent extends ResizeableComponent implements OnInit {
                 { label: 'Quantity (High- Low)', value: ['total_quantity', 'desc'] },
             ];
             this.sourcingSrv.showUnitFilter = true;
+            this.sourcingSrv.showAvailableFilter = false;
         });
         this.sourcingSrv.clearQueryParams();
         this.sourcingSrv.queryParams$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: any) => {

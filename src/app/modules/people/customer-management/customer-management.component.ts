@@ -79,6 +79,10 @@ export class CustomerManagementComponent implements OnInit {
             this.customerType = OrganizationType.HORECA;
             this.pages = 0;
             this.getPartnerDetails();
+        } else if (event.index === 2) {
+            this.customerType = null;
+            this.pages = 0;
+            this.getInvitedUsers();
         }
     }
 
@@ -134,6 +138,35 @@ export class CustomerManagementComponent implements OnInit {
                     this.isLoading = false;
                 }
                 this.horecaActive++;
+            } else {
+                this.odd = true;
+                this.toastrService.error('Error while getting the table list!');
+            }
+        });
+    }
+
+    getInvitedUsers() {
+        this.isLoading = true;
+        const params = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            page: this.pages ? this.pages + 1 : 1,
+            per_page: 10,
+        };
+        this.sortedMainData = [];
+        this.mainData = [];
+        this.roasterService.getInviteUsers(params).subscribe((getRoaster: any) => {
+            if (getRoaster.success === true) {
+                if (getRoaster.result == null || getRoaster.result.length === 0) {
+                    this.odd = true;
+                    this.toastrService.error('Table Data is empty');
+                } else {
+                    this.odd = false;
+                    this.mainData = getRoaster.result;
+                    this.totalRecords = getRoaster.result_info.total_count;
+                    this.sortedMainData = this.mainData;
+                    this.isLoading = false;
+                }
             } else {
                 this.odd = true;
                 this.toastrService.error('Error while getting the table list!');

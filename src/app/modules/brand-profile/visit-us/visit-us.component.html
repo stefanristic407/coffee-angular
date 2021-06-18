@@ -197,9 +197,6 @@
 
                         <div class="sewn-form-field col-md-6 px-0 mb-0">
                             <app-time-range formControlName="storeTime"></app-time-range>
-                            <small *ngIf="infoForm.controls.storeTime.errors?.required" class="p-error">
-                                Please select the time
-                            </small>
                         </div>
                     </div>
                 </form>
@@ -221,7 +218,15 @@
                                 <div class="flex-fill overflow-hidden">
                                     <div class="d-flex flex-wrap align-items-center" [id]="'heading' + i">
                                         <div
-                                            class="question-wrap w-100 d-flex align-items-center border-main br-4 collapsed"
+                                            class="
+                                                question-wrap
+                                                w-100
+                                                d-flex
+                                                align-items-center
+                                                border-main
+                                                br-4
+                                                collapsed
+                                            "
                                             data-toggle="collapse"
                                             [attr.data-target]="'#collapse' + i"
                                             aria-expanded="true"

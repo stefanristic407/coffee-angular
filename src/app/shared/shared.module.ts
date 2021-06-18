@@ -65,7 +65,6 @@ import { MomentModule } from 'ngx-moment';
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
 import { EmptyComponent } from './components/empty/empty.component';
-import { SelectComponent } from './components/select/select.component';
 import { RemoteSensoringComponent } from './components/remote-sensoring/remote-sensoring.component';
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
 import { SoilChartComponent } from './components/remote-sensoring/soil-chart/soil-chart.component';
@@ -157,10 +156,8 @@ const COMPONENTS = [
     AvatarComponent,
     BlankComponent,
     EmptyComponent,
-    SelectComponent,
     RemoteSensoringComponent,
     WeatherChartComponent,
-    SelectComponent,
     SoilChartComponent,
     UvChartComponent,
     VegetationChartComponent,
@@ -219,7 +216,6 @@ import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-description.pipe';
 import { WeightConvertPipe } from './pipes/weight-convert.pipe';
 import { ThousandSuffPipe } from './pipes/thousand-suff.pipe';
-import { CertificateNamePipe } from './pipes';
 import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
@@ -244,7 +240,6 @@ const PIPES = [
     ArrayFilterPipe,
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
-    CertificateNamePipe,
     ConvertToShortDescriptionPipe,
     CountryPipe,
     EstateBrandLinkPipe,

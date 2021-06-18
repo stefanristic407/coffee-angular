@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 import { AuthService } from '../auth';
+import { OrganizationType } from '@enums';
 
 type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -88,8 +89,17 @@ export class ApiService {
     protected serializeParams(obj: object): string {
         const str = [];
         for (const prop in obj) {
-            if (obj.hasOwnProperty(prop) && !_.isNull(obj[prop]) && !_.isUndefined(obj[prop])) {
-                str.push(encodeURIComponent(prop) + '=' + encodeURIComponent(obj[prop]));
+            if (
+                obj.hasOwnProperty(prop) &&
+                !_.isNull(obj[prop]) &&
+                !_.isUndefined(obj[prop]) &&
+                !_.isEmpty(obj[prop])
+            ) {
+                str.push(
+                    encodeURIComponent(prop) +
+                        '=' +
+                        encodeURIComponent(_.isArray(obj[prop]) ? obj[prop].join(',') : obj[prop]),
+                );
             }
         }
         return str.join('&');
@@ -105,5 +115,28 @@ export class ApiService {
 
     protected getToken(): string {
         return this.authService.token;
+    }
+
+    protected getOrgEndpoint(orgType: OrganizationType): string {
+        switch (orgType) {
+            case OrganizationType.ESTATE: {
+                return 'estates';
+            }
+            case OrganizationType.ROASTER: {
+                return 'roasters';
+            }
+            case OrganizationType.MICRO_ROASTER: {
+                return 'micro-roasters';
+            }
+            case OrganizationType.FACILITATOR: {
+                return 'facilitators';
+            }
+            case OrganizationType.HORECA: {
+                return 'hrc';
+            }
+            case OrganizationType.CONSUMER: {
+                return 'consumers';
+            }
+        }
     }
 }

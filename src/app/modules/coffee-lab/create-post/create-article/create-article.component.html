@@ -45,8 +45,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-6 sewn-form-field p-0">
-            <input type="text" placeholder="Give a title" pInputText formControlName="title" />
+        <div class="col-12 sewn-form-field p-0">
+            <textarea
+                    [placeholder]="'give_a_title' | translate"
+                    pInputTextarea
+                    formControlName="title"
+                    [rows]="1"
+            ></textarea>
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>

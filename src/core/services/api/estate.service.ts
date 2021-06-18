@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { environment } from '@env/environment';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../auth';
 
 @Injectable({

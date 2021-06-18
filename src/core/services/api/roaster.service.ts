@@ -605,6 +605,14 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
+    getInviteUsers(options) {
+        return this.postWithOrg(this.orgPostUrl, `invite-users?${this.serializeParams(options)}`, 'GET');
+    }
+
+    sendPortalInvite(email: any, portal): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `${portal}/invite-token`, 'POST', { email });
+    }
+
     getPartnerDetails(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
         data.api_call = `/ro/${roasterId}/hrc?${this.serlialise(postData)}`;

@@ -5,7 +5,7 @@
             <div>
                 <p-dropdown
                     [options]="sortOptions"
-                    [(ngModel)]="sortBy"
+                    [(ngModel)]="coffeeLabService.myAnswersSortBy"
                     (ngModelChange)="getAnswers()"
                     styleClass="no-border no-padding"
                     optionLabel="label"

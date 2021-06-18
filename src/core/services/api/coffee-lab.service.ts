@@ -19,6 +19,18 @@ export class CoffeeLabService extends ApiService {
     copyCoverImage = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
     organization = this.orgType;
+    // filterBy and sortBy
+    qaForumViewFilterBy = '';
+    qaForumViewSortBy = 'latest';
+    articleViewFilterBy = '';
+    articleViewSortBy = 'latest';
+    recipeViewIsAvailableTranslation = '';
+    recipeViewLevel = '';
+    recipeViewSortBy = 'latest';
+    qaPostSortBy = 'latest';
+    assignedToMeSortBy = 'latest';
+    myAnswersSortBy = 'desc';
+    myCommentsSortBy = 'desc';
 
     get currentForumLanguage(): string {
         return this.forumLanguage.value;
@@ -120,8 +132,8 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/drafts`, 'GET');
     }
 
-    getMyForumList(type: string): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s`, 'GET');
+    getMyForumList(type: string, params = {}): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s?${this.serializeParams(params)}`, 'GET');
     }
 
     getSavedForumList(type: string, options: any): Observable<any> {

@@ -278,8 +278,6 @@ export class DefaultSettingsComponent implements OnInit {
         this.userService.getDefaultCoffeeExperience(this.roasterId).subscribe((response: any) => {
             if (response.success) {
                 this.setPageData(response);
-            } else {
-                this.toastrService.error('Error while getting the Default settings of the Roaster');
             }
         });
     }

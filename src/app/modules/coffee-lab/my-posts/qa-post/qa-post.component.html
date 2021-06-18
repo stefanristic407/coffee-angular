@@ -10,7 +10,7 @@
             <div>
                 <p-dropdown
                     [options]="sortOptions"
-                    [(ngModel)]="sortBy"
+                    [(ngModel)]="coffeeLabService.qaPostSortBy"
                     (ngModelChange)="getPosts()"
                     styleClass="no-border no-padding"
                     optionLabel="label"
