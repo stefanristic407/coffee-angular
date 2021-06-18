@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 import { AuthService } from '../auth';
+import { OrganizationType } from '@enums';
 
 type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -115,5 +116,28 @@ export class ApiService {
 
     protected getToken(): string {
         return this.authService.token;
+    }
+
+    protected getOrgEndpoint(orgType: OrganizationType): string {
+        switch (orgType) {
+            case OrganizationType.ESTATE: {
+                return 'estates';
+            }
+            case OrganizationType.ROASTER: {
+                return 'roasters';
+            }
+            case OrganizationType.MICRO_ROASTER: {
+                return 'micro-roasters';
+            }
+            case OrganizationType.FACILITATOR: {
+                return 'facilitators';
+            }
+            case OrganizationType.HORECA: {
+                return 'hrc';
+            }
+            case OrganizationType.CONSUMER: {
+                return 'consumers';
+            }
+        }
     }
 }
