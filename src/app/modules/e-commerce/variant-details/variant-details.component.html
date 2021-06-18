@@ -89,9 +89,10 @@
                                 </div>
                                 <div class="col-6 pl-0">
                                     <p-checkbox
-                                        formControlName="is_public"
+                                        formControlName="is_hide"
                                         binary="true"
                                         [label]="'hide_product' | translate"
+                                        (onChange)="handleHideProduct()"
                                     >
                                     </p-checkbox>
                                 </div>
@@ -136,10 +137,11 @@
                                 class="col-12 col-md-4 col-lg-6 d-none d-md-flex mb-4 justify-content-end justify-content-lg-start align-items-lg-end flex-column flex-lg-row pl-3"
                             >
                                 <p-checkbox
-                                    formControlName="is_public"
+                                    formControlName="is_hide"
                                     binary="true"
                                     class="mr-4 mb-3 mb-lg-0"
                                     label="Hide product"
+                                    (onChange)="handleHideProduct()"
                                 >
                                 </p-checkbox>
                                 <p-checkbox
@@ -266,7 +268,7 @@
                             <img src="assets/images/add-partner.svg" />
                             <span
                                 class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer"
-                                (click)="addNewGrindVariants()"
+                                (click)="addNewGrindVariants(currentForm.value.is_hide)"
                             >
                                 {{ 'add_grind_variant' | translate }}
                             </span>
