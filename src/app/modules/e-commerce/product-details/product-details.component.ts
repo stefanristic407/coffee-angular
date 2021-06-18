@@ -110,6 +110,9 @@ export class ProductDetailsComponent implements OnInit {
                 this.productID = params.id;
             } else {
                 this.createTypeVariantArray();
+                Object.keys(this.productForm.controls).forEach((key) => {
+                    this.productForm.get(key).clearValidators();
+                });
             }
         });
         this.boughtArray = [
@@ -229,6 +232,11 @@ export class ProductDetailsComponent implements OnInit {
                     const productDetails = res.result;
                     this.count = Object.keys(res.result?.variants).length;
                     this.isPublished = res.result.is_published;
+                    if (!this.isPublished) {
+                        Object.keys(this.productForm.controls).forEach((key) => {
+                            this.productForm.get(key).clearValidators();
+                        });
+                    }
                     this.isSetDefault = true;
                     this.breadCrumbItem = [
                         { label: this.globals.languageJson?.home, routerLink: '/' },
@@ -451,23 +459,23 @@ export class ProductDetailsComponent implements OnInit {
             roaster_ref_no: '',
             batch_ref_no: '',
             roasting_profile_name: '',
-            roast_level: ['', Validators.compose([Validators.required])],
+            roast_level: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
             roast_time: '',
             estate_name: '',
             origin: '',
             region: '',
             harvest_year: '',
-            body: ['', Validators.compose([Validators.required])],
-            acidity: ['', Validators.compose([Validators.required])],
-            aroma: ['', Validators.compose([Validators.required])],
-            flavour: ['', Validators.compose([Validators.required])],
-            processing: ['', Validators.compose(isExternalProduct ? [Validators.required] : [])],
+            body: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
+            acidity: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
+            aroma: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
+            flavour: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
+            processing: ['', Validators.compose(isExternalProduct && this.isPublished ? [Validators.required] : [])],
             flavour_profiles: [],
             external_flavour_profiles: [],
-            roaster_notes: ['', Validators.compose([maxWordCountValidator(300)])],
-            recipes: ['', Validators.compose([maxWordCountValidator(300)])],
+            roaster_notes: ['', Validators.compose(this.isPublished ? [maxWordCountValidator(300)] : [])],
+            recipes: ['', Validators.compose(this.isPublished ? [maxWordCountValidator(300)] : [])],
             brewing_method: '',
-            roaster_recommendation: ['', Validators.compose([maxWordCountValidator(10)])],
+            roaster_recommendation: ['', Validators.compose(this.isPublished ? [maxWordCountValidator(10)] : [])],
             remaining_quantity: '',
             weight_variants: [],
         });
@@ -475,12 +483,15 @@ export class ProductDetailsComponent implements OnInit {
     createEmptyCrate() {
         return this.fb.group({
             id: '',
-            weight: [0, Validators.compose(this.type === 'b2c' ? [] : [Validators.required])],
+            weight: [0, Validators.compose(this.type === 'b2c' || !this.isPublished ? [] : [Validators.required])],
             crate_unit: 'lb',
             boxField: '1 box',
             weight_name: '0 lb',
             product_weight_variant_id: '',
-            crate_capacity: ['', Validators.compose(this.type === 'b2c' ? [] : [Validators.required])],
+            crate_capacity: [
+                '',
+                Validators.compose(this.type === 'b2c' || !this.isPublished ? [] : [Validators.required]),
+            ],
             variant_name: '',
         });
     }
@@ -581,18 +592,27 @@ export class ProductDetailsComponent implements OnInit {
         }
     }
     createNewProduct(productObj) {
+        for (const key of Object.keys(productObj)) {
+            if (!productObj[key]) {
+                delete productObj[key];
+            }
+        }
         if (this.type === 'b2c') {
             delete productObj.crates;
         } else {
-            productObj.crates.map((item) => {
-                item.weight =
-                    item.crate_unit === 'lb'
-                        ? item.weight * LBUNIT
-                        : item.crate_unit === 'g'
-                        ? item.weight / 1000
-                        : item.weight;
-                return item;
-            });
+            const crates: any = [];
+            for (const crate of productObj.crates) {
+                if (crate.crate_capacity?.length) {
+                    crate.weight =
+                        crate.crate_unit === 'lb'
+                            ? crate.weight * LBUNIT
+                            : crate.crate_unit === 'g'
+                            ? crate.weight / 1000
+                            : crate.weight;
+                    this.crates.push(crate);
+                }
+            }
+            productObj.crates = crates;
         }
         this.eCommerceService.addProductDetails(productObj, this.type).subscribe(
             (res) => {
@@ -728,13 +748,21 @@ export class ProductDetailsComponent implements OnInit {
                         ? moment(getVariantDetails.harvest_year).format('yyyy-MM-DD')
                         : '';
                 }
-                const grindVariants = weightObj.grind_variants.map((item) => {
-                    if (!item.grind_variant_id) {
-                        delete item.grind_variant_id;
+                const grindVariants: any = [];
+                for (const grind of weightObj.grind_variants) {
+                    if (grind.available_quantity && grind.sku_number) {
+                        if (!grind.grind_variant_id) {
+                            delete grind.grind_variant_id;
+                        }
+                        grindVariants.push(grind);
                     }
-                    return item;
-                });
+                }
                 weightObj.grind_variants = grindVariants;
+                for (const key of Object.keys(weightObj)) {
+                    if (!weightObj[key]) {
+                        delete weightObj[key];
+                    }
+                }
                 if (weight.isNew) {
                     promises.push(
                         new Promise((resolve, reject) => {
@@ -780,6 +808,8 @@ export class ProductDetailsComponent implements OnInit {
         delete weightObj.product_weight_variant_id;
         delete weightObj.fileDetails;
         weightObj.status = weightObj.status.toUpperCase();
+        weightObj.is_public = !weightObj.is_hide;
+        delete weightObj.is_hide;
         weightObj.grind_variants.forEach((ele) => {
             ele.id = undefined;
             ele.grind_variant_id = undefined;
@@ -803,6 +833,8 @@ export class ProductDetailsComponent implements OnInit {
         delete weightObj.product_weight_variant_id;
         delete weightObj.fileDetails;
         weightObj.status = weightObj.status.toUpperCase();
+        weightObj.is_public = !weightObj.is_hide;
+        delete weightObj.is_hide;
         weightObj.grind_variants.map((ele) => {
             ele.id = ele.grind_variant_id ? ele.grind_variant_id : undefined;
         });
