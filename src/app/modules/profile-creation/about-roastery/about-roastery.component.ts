@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
 import { AclService, AuthService, ChatHandlerService, UserService, UserserviceService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
@@ -93,18 +92,17 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     }
 
     constructor(
-        public roasteryProfileService: RoasteryProfileService,
-        public userService: UserserviceService,
-        private usrService: UserService,
-        private cookieService: CookieService,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        public roasterService: RoasterserviceService,
-        private fb: FormBuilder,
-        private router: Router,
-        private chatHandler: ChatHandlerService,
         private aclService: AclService,
         private authService: AuthService,
+        private chatHandler: ChatHandlerService,
+        private fb: FormBuilder,
+        private router: Router,
+        private toastrService: ToastrService,
+        private usrService: UserService,
+        public globals: GlobalsService,
+        public roasterService: RoasterserviceService,
+        public roasteryProfileService: RoasteryProfileService,
+        public userService: UserserviceService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.userId = this.authService.userId;

@@ -144,6 +144,10 @@
         @include btn-icon();
         background-image: url('/assets/images/share-icon.svg');
     }
+    &.message-icon::before {
+        @include btn-icon();
+        background-image: url('/assets/images/message-icon.svg');
+    }
 
     &.green {
         color: $primary-color;
