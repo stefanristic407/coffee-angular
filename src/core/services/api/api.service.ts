@@ -102,7 +102,6 @@ export class ApiService {
                 );
             }
         }
-        console.log(str);
         return str.join('&');
     }
 

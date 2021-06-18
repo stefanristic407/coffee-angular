@@ -270,7 +270,7 @@ export class SourcingService {
     }
 
     getVarieties() {
-        this.varietyService.getVarieties({ page: 0 }).subscribe((res: ApiResponse<any>) => {
+        this.varietyService.getAllVarieties({ page: 0 }).subscribe((res: ApiResponse<any>) => {
             if (res.success) {
                 this.varieties = (res.result || []).map((item) => {
                     return { value: item.title, label: item.title };

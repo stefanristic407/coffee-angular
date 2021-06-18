@@ -14,7 +14,7 @@ export class VarietyService extends ApiService {
     }
 
     // List all distinct varieties in the platform for public
-    getVarieties(query: any = null): Observable<ApiResponse<any>> {
+    getAllVarieties(query: any = null): Observable<ApiResponse<any>> {
         const params = this.serializeParams(query);
         return this.post(this.postUrl, `general/es/varieties?${params}`, 'GET');
     }
