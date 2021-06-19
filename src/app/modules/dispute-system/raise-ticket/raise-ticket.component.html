@@ -42,7 +42,7 @@
                                 <span
                                     class="raise-chng-ord fnt-muli ml-auto"
                                     routerLink="/dispute-system/select-order"
-                                    [queryParams]="{ orderId: orderID, orderType: orderType }"
+                                    [queryParams]="{ orderId: orderID, orderType: orgType }"
                                 >
                                     <img src="/assets/images/change_order.svg" alt="" /> change order</span
                                 >
@@ -64,7 +64,7 @@
                         <span
                             class="raise-chng-ord fnt-muli"
                             routerLink="/dispute-system/select-order"
-                            [queryParams]="{ id: orderID, orderType: orderType }"
+                            [queryParams]="{ id: orderID, orderType: orgType }"
                         >
                             <img src="/assets/images/shape-2.png" alt="" /> change order</span
                         >
@@ -179,42 +179,42 @@
                     <div class="col-xl-12 col-lg-7 col-md-6 col-sm-12 mt-2 origin-pad">
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Origin :
+                                {{ 'origin' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.origin ? orderDetails.origin : 'NA' }}
+                                {{ orderDetails?.origin | country }}
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Variety :
+                                {{ 'variety' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.varieties ? orderDetails.varieties : 'NA' }}
+                                {{ orderDetails?.varieties || 'NA' }}
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Price :
+                                {{ 'price' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.price ? orderDetails.price : 'NA' }}
+                                {{ orderDetails?.price | number }} {{ orderDetails?.price_unit }}
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Type of order :
+                                {{ 'type_of_order' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.order_type ? orderDetails.order_type : 'NA' }}
+                                {{ orderDetails?.order_type | orderType }}
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 statusBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Status :
+                                {{ 'status' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.status ? orderDetails.status : 'NA' }}
+                                {{ orderDetails?.status | orderStatus }}
                             </div>
                         </div>
                     </div>

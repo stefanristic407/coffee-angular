@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, PurchaseService, RoasterserviceService } from '@services';
 import { GlobalsService, SocketService, ChatUtilService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { ChatMessageType } from '@enums';
+import { ChatMessageType, OrganizationType } from '@enums';
+import { OrderDetails } from '@models';
 
 @Component({
     selector: 'app-raise-ticket',
@@ -21,12 +22,13 @@ export class RaiseTicketComponent implements OnInit {
     helpTextArray = [];
     reasonTextArray = [];
     ticketForm: FormGroup;
-    orderType: any;
+    orgType: OrganizationType = OrganizationType.ESTATE;
     orderDetails: any;
     roasterID: any;
     filesArray = [];
     disputeID: string;
     supportValue: any = '';
+
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -38,6 +40,7 @@ export class RaiseTicketComponent implements OnInit {
         private socket: SocketService,
         private chatUtil: ChatUtilService,
         private authService: AuthService,
+        private purchaseService: PurchaseService,
     ) {}
 
     ngOnInit(): void {
@@ -82,21 +85,13 @@ export class RaiseTicketComponent implements OnInit {
             this.termSearch = value;
         });
     }
+
     getOrderDetails() {
-        this.roasterService.getViewOrderDetails(this.roasterID, this.orderID, this.orderType).subscribe(
-            (res: any) => {
-                if (res.success && res.result) {
-                    this.orderDetails = res.result;
-                    if (this.orderDetails.status) {
-                        this.orderDetails.status = this.formatStatus(this.orderDetails.status);
-                    }
-                    if (this.orderDetails.order_type) {
-                        this.orderDetails.order_type = this.formatStatus(this.orderDetails.order_type);
-                    }
-                    if (this.orderType === 'MR') {
-                        if (this.orderDetails.type) {
-                            this.orderDetails.order_type = this.formatStatus(this.orderDetails.type);
-                        }
+        this.purchaseService.getOrderDetailsById(this.orderID, this.orgType).subscribe(
+            (res: OrderDetails) => {
+                if (res) {
+                    this.orderDetails = res;
+                    if (this.orgType === OrganizationType.MICRO_ROASTER) {
                         this.orderDetails.price = this.orderDetails.total_price ? this.orderDetails.total_price : 'NA';
                     }
                 }
@@ -105,14 +100,6 @@ export class RaiseTicketComponent implements OnInit {
                 console.log(err);
             },
         );
-    }
-    formatStatus(stringVal) {
-        let formatVal = '';
-        if (stringVal) {
-            formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
-            formatVal = formatVal.replace('_', ' ');
-        }
-        return formatVal.replace('-', '');
     }
 
     supplyBreadCrumb(): void {
@@ -128,7 +115,7 @@ export class RaiseTicketComponent implements OnInit {
     submitTicket() {
         if (this.ticketForm.valid) {
             const obj = this.ticketForm.value;
-            this.roasterService.raiseTicket(this.roasterID, this.orderID, obj, this.orderType).subscribe(
+            this.roasterService.raiseTicket(this.roasterID, this.orderID, obj, this.orgType).subscribe(
                 (res: any) => {
                     console.log(res);
                     if (res && res.success) {
@@ -152,8 +139,9 @@ export class RaiseTicketComponent implements OnInit {
             this.toastrService.error('Please fill the data');
         }
     }
+
     pushInfoTochatThread(disputeID, disputeReason, callback) {
-        this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orderType).subscribe(
+        this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orgType).subscribe(
             (res: any) => {
                 console.log(res);
                 if (res.success && res.result) {
@@ -186,12 +174,14 @@ export class RaiseTicketComponent implements OnInit {
             },
         );
     }
+
     documentUpload(event) {
         if (event.target.files) {
             this.filesArray = [];
             this.filesArray.push(event.target.files);
         }
     }
+
     uploadFile() {
         const fileList: FileList = this.filesArray[0];
         const file: File = fileList[0];
@@ -215,6 +205,7 @@ export class RaiseTicketComponent implements OnInit {
             },
         );
     }
+
     addFileIds(fileID) {
         const fileArray = [fileID];
         const objData = { file_id: fileID };
@@ -227,12 +218,13 @@ export class RaiseTicketComponent implements OnInit {
             },
         );
     }
+
     redirectOrderChat() {
         this.toastrService.success('Successfully raised a ticket');
         const navigationExtras: NavigationExtras = {
             queryParams: {
                 disputeID: this.disputeID,
-                orderType: this.orderType ? this.orderType : undefined,
+                orderType: this.orgType ? this.orgType : undefined,
             },
         };
         this.router.navigate(['/dispute-system/order-chat', this.orderID], navigationExtras);
