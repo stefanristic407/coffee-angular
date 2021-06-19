@@ -10,6 +10,6 @@ export class ShopLinkPipe implements PipeTransform {
 
     transform(url: string): string {
         const token = this.authService.token;
-        return `${environment.shopWeb}/gate?token=${token}&redirect_to=${url}`;
+        return `${environment.shopWeb}/gate?token=${encodeURIComponent(token)}&redirect_to=${encodeURIComponent(url)}`;
     }
 }
