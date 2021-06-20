@@ -589,19 +589,22 @@
                 <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">
                         <div
-                            class="w-100 certification-item-container d-flex justify-content-between"
+                            class="w-100 d-flex justify-content-between"
                             [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 || isSaveMode }"
                         >
-                            <div class="certification-item-metadata d-flex mb-25">
-                                <img
-                                    class="img-estate"
-                                    [src]="certificate.certificate_type_url"
-                                    [alt]="certificate.certificate_type"
-                                />
-                                <div class="certification-description ml-2">
+                            <div class="d-flex mb-25">
+                                <a [href]="certificate.public_url" target="_blank">
+                                    <img
+                                        class="img-estate"
+                                        [src]="certificate.certificate_type_url"
+                                        [alt]="certificate.certificate_type"
+                                /></a>
+                                <div class="ml-2">
                                     <ul class="no-bullet-ul">
                                         <li class="fnt-600">
-                                            {{ certificate.certificate_type_name }}
+                                            <a [href]="certificate.public_url" target="_blank">{{
+                                                certificate.certificate_type_name
+                                            }}</a>
                                         </li>
                                         <li class="fnt-600 text-clr588">
                                             {{ certificate.year }}
