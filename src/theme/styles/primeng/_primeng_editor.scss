@@ -20,10 +20,9 @@
     }
     .p-editor-content {
         background-color: white;
-        padding: 24px;
         font-family: Muli;
         .ql-editor {
-            padding: 0;
+            padding: 24px;
             &:before {
                 left: 24px;
                 font-family: $general-font-family;

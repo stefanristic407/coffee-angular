@@ -126,7 +126,7 @@ export class CreateArticleComponent implements OnInit {
             content: this.content,
             images: this.imageIdList,
             status,
-            language: this.coffeeLabService.currentForumLanguage,
+            language: this.articleId ? this.article?.language : this.coffeeLabService.currentForumLanguage,
         };
         if (this.articleId) {
             this.coffeeLabService.updateForum('article', this.articleId, data).subscribe((res: any) => {

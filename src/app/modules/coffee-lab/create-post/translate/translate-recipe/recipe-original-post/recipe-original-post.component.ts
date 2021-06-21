@@ -17,7 +17,6 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     ngOnInit(): void {}
 
     ngOnChanges(): void {
-        console.log('recipeId', this.recipeId);
         if (this.recipeId) {
             this.getCoffeeDetails(true);
         }
@@ -26,20 +25,15 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
         this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
+            console.log('recipe details >>>>>>>>>', res);
             if (res.success) {
-                console.log('coffee details--------', res);
                 this.detailsData = res.result;
             }
             this.isLoading = false;
         });
     }
 
-    copyImage(id: string): void {
-        if (id === 'stepImg') {
-            const ele = document.getElementById(id);
-            ele.click();
-        } else {
-            this.coffeeLabService.copyCoverImage.emit(this.detailsData);
-        }
+    copyImage(id: number, type: string): void {
+        this.coffeeLabService.copyCoverImage.emit({ id, type });
     }
 }

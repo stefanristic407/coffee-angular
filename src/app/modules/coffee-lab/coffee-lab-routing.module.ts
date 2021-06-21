@@ -20,6 +20,10 @@ import { TranslateAnswerComponent } from '@modules/coffee-lab/create-post/transl
 import { QaPostComponent } from './my-posts/qa-post/qa-post.component';
 import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
 import { MyCommentsComponent } from './my-posts/my-comments/my-comments.component';
+import { MyArticlesComponent } from '@modules/coffee-lab/my-posts/my-articles/my-articles.component';
+import { SavedArticlesComponent } from '@modules/coffee-lab/saved-posts/saved-articles/saved-articles.component';
+import { MyRecipesComponent } from '@modules/coffee-lab/my-posts/my-recipes/my-recipes.component';
+import { SavedRecipesComponent } from '@modules/coffee-lab/saved-posts/saved-recipes/saved-recipes.component';
 
 const routes: Routes = [
     {
@@ -58,8 +62,8 @@ const routes: Routes = [
                         children: [
                             { path: '', redirectTo: 'qa-post' },
                             { path: 'qa-post', component: QaPostComponent },
-                            { path: 'article', component: ArticlesViewComponent },
-                            { path: 'recipe', component: CoffeeRecipesViewComponent },
+                            { path: 'article', component: MyArticlesComponent },
+                            { path: 'recipe', component: MyRecipesComponent },
                             { path: 'answer', component: MyAnswersComponent },
                             { path: 'comment', component: MyCommentsComponent },
                             { path: '**', redirectTo: 'qa-post' },
@@ -71,8 +75,8 @@ const routes: Routes = [
                         children: [
                             { path: '', redirectTo: 'qa-post' },
                             { path: 'qa-post', component: QaPostComponent },
-                            { path: 'article', component: ArticlesViewComponent },
-                            { path: 'recipe', component: CoffeeRecipesViewComponent },
+                            { path: 'article', component: SavedArticlesComponent },
+                            { path: 'recipe', component: SavedRecipesComponent },
                             { path: '**', redirectTo: 'qa-post' },
                         ],
                     },

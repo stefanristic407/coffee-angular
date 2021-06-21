@@ -26,7 +26,8 @@
                                 [selectedItem]="detailsData"
                                 forumType="article"
                                 [enableTranslation]="
-                                    detailsData?.allow_translation && (detailsData?.translated_articles || []).length < 3
+                                    detailsData?.allow_translation &&
+                                    (detailsData?.translated_articles || []).length < 3
                                 "
                                 [enableEdit]="
                                     organizationId === detailsData?.organisation_id &&

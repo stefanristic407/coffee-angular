@@ -47,7 +47,6 @@ export class CopyImageToClipboardDirective implements AfterViewInit {
         const url = selectedImgElement.src;
         this.coffeeLabService.getFileBlob(url).subscribe(
             async (blob: any) => {
-                console.log(blob);
                 const convertedImage = await this.convertBlobToImage(blob);
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
@@ -66,7 +65,6 @@ export class CopyImageToClipboardDirective implements AfterViewInit {
             (error) => {
                 this.isCopyingImage = false;
                 this.el.nativeElement.classList.remove('copying-image');
-                console.log('error while get blob file >>>>>>>>>>', error);
             },
         );
     }
