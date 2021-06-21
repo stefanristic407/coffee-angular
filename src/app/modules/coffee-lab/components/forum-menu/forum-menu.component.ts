@@ -97,16 +97,16 @@ export class ForumMenuComponent implements OnInit {
         let url = '';
         switch (this.forumType) {
             case 'question':
-                url = `${environment.estatesWeb}/coffee-lab/questions/${this.selectedItem.slug}`;
+                url = `${environment.roasterWeb}/coffee-lab/questions/${this.selectedItem.slug}`;
                 break;
             case 'article':
-                url = `${environment.estatesWeb}/coffee-lab/articles/${this.selectedItem.slug}`;
+                url = `${environment.roasterWeb}/coffee-lab/articles/${this.selectedItem.slug}`;
                 break;
             case 'recipe':
-                url = `${environment.estatesWeb}/coffee-lab/recipes/${this.selectedItem.slug}`;
+                url = `${environment.roasterWeb}/coffee-lab/recipes/${this.selectedItem.slug}`;
                 break;
             case 'answer':
-                url = `${environment.estatesWeb}/coffee-lab/questions/${this.extraInfo.slug}?answer=${this.selectedItem.id}`;
+                url = `${environment.roasterWeb}/coffee-lab/questions/${this.extraInfo.slug}?answer=${this.selectedItem.id}`;
                 break;
             case 'comment':
                 break;

@@ -1,12 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
-import { ApiResponse } from '@models';
 import { UplaodService } from '../upload';
 import { AuthService } from '../auth';
 
