@@ -57,7 +57,6 @@ export class TranslateAnswerComponent implements OnInit {
             if (res.success) {
                 this.answer = res.result;
                 this.originLanguage = res.result?.original_details?.language || res.result.lang_code;
-                console.log('answer >>>>>>>>>>>>>', res.result);
                 if (res.result.parent_answer_id) {
                     this.coffeeLabService
                         .getForumDetails('answer', res.result.parent_answer_id)
@@ -78,7 +77,6 @@ export class TranslateAnswerComponent implements OnInit {
                     .subscribe((questionRes: any) => {
                         this.isLoading = false;
                         if (questionRes.success) {
-                            console.log('parent question >>>>>>>>>', questionRes.result);
                             this.question = questionRes.result;
                         } else {
                             this.toastrService.error('Error while get parent question');
@@ -93,11 +91,11 @@ export class TranslateAnswerComponent implements OnInit {
     }
 
     setLanguageOptions(): void {
-        console.log('origin answer >>>>>>>', this.originAnswer);
         this.applicationLanguages = APP_LANGUAGES.filter((item: any) => {
             if (
                 item.value !== this.originLanguage &&
-                (this.originAnswer.translations || []).findIndex((translate) => translate.language === item.value) === -1
+                (this.originAnswer.translations || []).findIndex((translate) => translate.language === item.value) ===
+                    -1
             ) {
                 return item;
             }
@@ -150,11 +148,9 @@ export class TranslateAnswerComponent implements OnInit {
         if (this.needToTranslateQuestion) {
             data.question = this.form.controls.question.value;
         }
-        console.log('data >>>>>>>>', data);
         this.isPosting = true;
         this.coffeeLabService.translateForum('answer', this.answerId, data).subscribe((res: any) => {
             this.isPosting = false;
-            console.log('post question result >>>', res);
             if (res.success) {
                 this.toastrService.success('You have translated an answer successfully.');
                 this.location.back();

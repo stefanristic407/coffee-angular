@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app-qa-forum-view',
@@ -31,6 +32,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     isLoading = false;
     keyword = '';
     destroy$: Subject<boolean> = new Subject<boolean>();
+    searchInput$: Subject<any> = new Subject<any>();
     forumLanguage: string;
 
     constructor(
@@ -48,6 +50,13 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getQuestions();
         });
+        this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
+            this.getQuestions();
+        });
+    }
+
+    handleSearch(): void {
+        this.searchInput$.next(this.keyword);
     }
 
     getQuestions(): void {
@@ -55,7 +64,12 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
             query: this.keyword,
             is_consumer: this.coffeeLabService.qaForumViewFilterBy,
             sort_by: this.coffeeLabService.qaForumViewSortBy === 'most_answered' ? 'most_answered' : 'posted_at',
-            sort_order: this.coffeeLabService.qaForumViewSortBy === 'most_answered' ? 'desc' : this.coffeeLabService.qaForumViewSortBy === 'latest' ? 'desc' : 'asc',
+            sort_order:
+                this.coffeeLabService.qaForumViewSortBy === 'most_answered'
+                    ? 'desc'
+                    : this.coffeeLabService.qaForumViewSortBy === 'latest'
+                    ? 'desc'
+                    : 'asc',
             publish: true,
             page: 1,
             per_page: 10000,
@@ -63,7 +77,6 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         this.coffeeLabService.getForumList('question', params, this.forumLanguage).subscribe((res: any) => {
             this.isLoading = false;
-            console.log('questions >>>', res);
             if (res.success) {
                 this.questions = res.result?.questions;
             } else {

@@ -23,11 +23,7 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
     totalRecords = 0;
     displayData: any[] = [];
 
-    constructor(
-        public coffeeLabService: CoffeeLabService,
-        private authService: AuthService,
-        private router: Router,
-    ) {
+    constructor(public coffeeLabService: CoffeeLabService, private authService: AuthService, private router: Router) {
         this.organizationId = this.authService.getOrgId();
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }

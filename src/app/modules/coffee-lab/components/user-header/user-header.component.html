@@ -13,7 +13,7 @@
                 [ngClass]="{ ellipsis: enableEllipsis }"
                 class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1"
             >
-                {{ prop?.user_name || prop?.question_user || prop?.posted_user || 'Unknown User' }}
+                {{ prop?.user_name || prop?.question_user || prop?.posted_user || prop?.first_name || 'Unknown User' }}
             </div>
             <div class="fnt-muli fnt-12 text-clr588">
                 {{ prop?.posted_at || prop?.created_at | amTimeAgo: true }}

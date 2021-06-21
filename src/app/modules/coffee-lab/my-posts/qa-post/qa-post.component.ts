@@ -45,7 +45,12 @@ export class QaPostComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         const params = {
             sort_by: this.coffeeLabService.qaPostSortBy === 'most_answered' ? 'most_answered' : 'posted_at',
-            sort_order: this.coffeeLabService.qaPostSortBy === 'most_answered' ? 'desc' : this.coffeeLabService.qaPostSortBy === 'latest' ? 'desc' : 'asc',
+            sort_order:
+                this.coffeeLabService.qaPostSortBy === 'most_answered'
+                    ? 'desc'
+                    : this.coffeeLabService.qaPostSortBy === 'latest'
+                    ? 'desc'
+                    : 'asc',
             page: 1,
             per_page: 10000,
         };

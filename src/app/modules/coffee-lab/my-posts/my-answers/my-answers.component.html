@@ -68,9 +68,7 @@
                         class="mb-4 fnt-md-18 fnt-16 fnt-bold fnt-muli text-clr24 ml-md-5"
                         [innerHTML]="answer?.question"
                     ></div>
-                    <div
-                        class="border-main inner-bg br-4 p-md-4 p-3 mb-3"
-                    >
+                    <div class="border-main inner-bg br-4 p-md-4 p-3 mb-3">
                         <div class="d-flex">
                             <div class="mr-md-25 mr-1">
                                 <img
@@ -138,8 +136,8 @@
     </div>
     <div *ngIf="!isLoading && !answers.length" class="text-center my-4 fnt-muli text-clr24">
         <app-empty
-                [title]="'you_have_not_posted_anything_yet' | translate"
-                [description]="'no_my_posts_description' | translate"
+            [title]="'you_have_not_posted_anything_yet' | translate"
+            [description]="'no_my_posts_description' | translate"
         ></app-empty>
     </div>
 </div>

@@ -1,8 +1,8 @@
 <div>
-    <h1 *ngIf="pageDesc === 'overview'" class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0 d-block d-md-none">
+    <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0 d-block d-md-none">
         {{ 'posts' | translate }}
     </h1>
-    <div *ngIf="pageDesc === 'overview'" class="row gutter-32 justify-content-lg-between pt-3 pt-md-0">
+    <div class="row gutter-32 justify-content-lg-between pt-3 pt-md-0">
         <div class="col-12 col-lg-8">
             <div class="p-3 bg-f8 br-4 d-flex align-items-center">
                 <img
@@ -29,16 +29,14 @@
                     class="w-100 fnt-16"
                     type="text"
                     pInputText
-                    #searchInput
                     [(ngModel)]="keyword"
                     placeholder="{{ 'search_for_posts' | translate }}"
-                    (ngModelChange)="getData()"
+                    (ngModelChange)="handleSearch()"
                 />
             </div>
         </div>
     </div>
     <div
-        *ngIf="pageDesc === 'overview'"
         class="d-none d-md-flex flex-column flex-md-row justify-content-md-between pt-md-4 pt-lg-45 align-items-center"
     >
         <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">{{ 'posts' | translate }}</h1>
@@ -49,14 +47,11 @@
                 pInputText
                 [(ngModel)]="keyword"
                 placeholder="{{ 'search_for_posts' | translate }}"
-                (ngModelChange)="reloadPageData()"
+                (ngModelChange)="handleSearch()"
             />
         </div>
     </div>
-    <div
-        *ngIf="pageDesc === 'overview'"
-        class="d-flex justify-content-between align-items-center py-3 pb-md-4 pb-lg-45"
-    >
+    <div class="d-flex justify-content-between align-items-center py-3 pb-md-4 pb-lg-45">
         <p-dropdown
             [options]="translationsList"
             optionLabel="label"
@@ -78,73 +73,14 @@
         >
         </p-dropdown>
     </div>
-    <div class="articles-wrapper" *ngIf="!isLoading">
-        <div class="col-12 col-md-6 col-lg-4 px-0 py-25 p-md-2" *ngFor="let article of articlesData">
-            <div
-                class="border-main br-4 p-3 py-md-4 px-lg-4 article-item"
-                [routerLink]="'/coffee-lab/articles/' + article.slug"
-            >
-                <div class="d-flex justify-content-between">
-                    <div class="flex-1 overflow-hidden">
-                        <app-user-header [prop]="article"></app-user-header>
-                    </div>
-                    <app-forum-menu
-                        [selectedItem]="article"
-                        forumType="article"
-                        [enableEdit]="
-                            organizationId == article.organisation_id &&
-                            article.organisation_type === coffeeLabService.organization &&
-                            article.user_id == authService.currentUser.id
-                        "
-                        [enableDelete]="
-                            organizationId == article.organisation_id &&
-                            article.organisation_type === coffeeLabService.organization &&
-                            article.user_id == authService.currentUser.id
-                        "
-                        [enableSave]="pageDesc !== 'saved-posts'"
-                        [enableDeleteSave]="pageDesc === 'saved-posts'"
-                    ></app-forum-menu>
-                </div>
-                <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />
-                <div class="fnt-muli fnt-14 fnt-bold lh-157 text-clr334 cursor-pointer article-title-text">
-                    {{ article?.title }}
-                </div>
-                <div class="fnt-muli fnt-14 fnt-normal lh-143 text-clr334 mt-3">
-                    <a class="article-title-text">
-                        {{ article?.subtitle }}
-                    </a>
-                    <p class="brown-cta mb-0">{{ 'read_more' | translate }}</p>
-                </div>
-            </div>
-        </div>
+    <div *ngIf="!isLoading">
+        <app-articles [articles]="articlesData"></app-articles>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading && !articlesData.length" class="text-center my-4 fnt-muli text-clr24">
         <app-empty
-            [title]="
-                (pageDesc === 'saved-posts'
-                    ? 'you_have_not_saved_any_post'
-                    : 'my-posts'
-                    ? 'you_have_not_posted_anything_yet'
-                    : 'there_are_no_posts_to_show'
-                ) | translate
-            "
-            [description]="
-                (pageDesc === 'saved-posts'
-                    ? 'no_saved_posts_description'
-                    : 'my-posts'
-                    ? 'no_my_posts_description'
-                    : 'no_any_posts_to_show_description'
-                ) | translate
-            "
+            [title]="'there_are_no_posts_to_show' | translate"
+            [description]="'no_any_posts_to_show_description' | translate"
         ></app-empty>
-    </div>
-    <div class="pt-3 pt-md-4 w-100 text-center" *ngIf="totalRecords && !hidePaginator">
-        <p-paginator
-            [rows]="perPage"
-            [totalRecords]="totalRecords"
-            (onPageChange)="paginate($event)"
-            styleClass="mt-45"
-        ></p-paginator>
     </div>
 </div>

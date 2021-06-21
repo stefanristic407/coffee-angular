@@ -52,8 +52,7 @@ export class CreateAnswerComponent implements OnInit {
     }
 
     getQuestionById(): void {
-        this.coffeeLabService.getForumDetails('question', this.parentForumId).subscribe(res => {
-            console.log('parent question >>>>>>>>', res);
+        this.coffeeLabService.getForumDetails('question', this.parentForumId).subscribe((res) => {
             this.parentQuestionIsAllowTranslation = res?.result?.allow_translation;
         });
     }
@@ -62,7 +61,6 @@ export class CreateAnswerComponent implements OnInit {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails(this.forumType, this.forumId).subscribe((res: any) => {
             this.isLoading = false;
-            console.log('forum detail >>>>>>>', res);
             if (res.success) {
                 if (this.forumType === 'comment') {
                     this.content = res.result.comment;

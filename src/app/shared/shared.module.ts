@@ -236,6 +236,7 @@ import {
     RoasterBrandCmsLinkPipe,
     RoasterBrandLinkPipe,
     ShopLinkPipe,
+    HtmlStringWordCountPipe,
 } from './pipes';
 
 const PIPES = [
@@ -267,6 +268,8 @@ const PIPES = [
     StringReplacePipe,
     ThousandSuffPipe,
     WordCountPipe,
+    SafeHtmlPipe,
+    HtmlStringWordCountPipe,
 ];
 
 @NgModule({

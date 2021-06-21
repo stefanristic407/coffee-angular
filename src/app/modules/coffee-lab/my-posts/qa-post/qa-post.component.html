@@ -27,7 +27,7 @@
     </div>
     <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
         <app-empty
-                [title]="
+            [title]="
                 (pageDesc === 'saved-posts'
                     ? 'you_have_not_saved_any_post'
                     : 'my-posts'
@@ -35,7 +35,7 @@
                     : 'there_are_no_posts_to_show'
                 ) | translate
             "
-                [description]="
+            [description]="
                 (pageDesc === 'saved-posts'
                     ? 'no_saved_posts_description'
                     : 'my-posts'

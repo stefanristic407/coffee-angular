@@ -25,7 +25,7 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableTranslation = false;
     @Input() enableStopPropagation = true;
     items: MenuItem[] = [];
-    @ViewChild('menu', {static: false}) menu: Menu;
+    @ViewChild('menu', { static: false }) menu: Menu;
 
     constructor(
         public globalsService: GlobalsService,
@@ -115,9 +115,7 @@ export class ForumMenuComponent implements OnInit {
     }
 
     onSave(): void {
-        console.log('on save >>>>>>>>>>', this.selectedItem);
         this.coffeeLabService.saveForum(this.forumType, this.selectedItem.id).subscribe((res: any) => {
-            console.log('save forum result >>>>>>>>', res);
             if (res.success) {
                 this.toastService.success('Successfully saved');
             } else {
@@ -145,7 +143,6 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'answer':
-                console.log('lets go here');
                 this.router.navigate(['/coffee-lab/create-post/translate-answer'], {
                     queryParams: { id: this.selectedItem.id },
                 });
@@ -173,7 +170,6 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'answer':
-                console.log('selected item >>>?>>>>>', this.selectedItem);
                 this.router.navigate(['/coffee-lab/create-post/answer'], {
                     queryParams: {
                         forumId: this.selectedItem.answer_id || this.selectedItem.id,
@@ -200,7 +196,7 @@ export class ForumMenuComponent implements OnInit {
                 data: {
                     type: 'delete',
                     desp: 'Are you sure you want to remove this post?',
-                    yesButton: 'Remove'
+                    yesButton: 'Remove',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
@@ -210,7 +206,6 @@ export class ForumMenuComponent implements OnInit {
                     this.coffeeLabService
                         .deleteForumById(this.forumType, this.selectedItem.id)
                         .subscribe((res: any) => {
-                            console.log('delete forum result >>>>>>>>>>>', res);
                             if (res.success) {
                                 this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
                                 this.coffeeLabService.forumDeleteEvent.emit();
@@ -227,7 +222,7 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?'
+                    desp: 'Are you sure you want to remove this post?',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
@@ -237,7 +232,6 @@ export class ForumMenuComponent implements OnInit {
                     this.coffeeLabService
                         .unSaveFormByType(this.forumType, this.selectedItem.id)
                         .subscribe((res: any) => {
-                            console.log('delete forum result >>>>>>>>>>>', res);
                             if (res.success) {
                                 this.toastService.success(
                                     `You have removed the ${this.forumType} successfully from saved posts.`,

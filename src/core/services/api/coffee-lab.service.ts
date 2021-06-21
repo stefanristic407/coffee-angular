@@ -45,6 +45,16 @@ export class CoffeeLabService extends ApiService {
         super(http, authService);
     }
 
+    getJustText(content: any) {
+        const contentElement = document.createElement('div');
+        contentElement.innerHTML = content;
+        const images = contentElement.querySelectorAll('img');
+        images.forEach((image) => {
+            image.parentNode.removeChild(image);
+        });
+        return contentElement.innerHTML;
+    }
+
     dataURItoBlob(dataURI: any): any {
         const byteString = atob(dataURI.split(',')[1]);
         const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -190,7 +200,7 @@ export class CoffeeLabService extends ApiService {
     copyFile(fileId: number) {
         return this.post(
             this.orgPostUrl,
-            `${this.orgType}/${this.getOrgId()}/file-manager/files/${fileId}/copy-image`,
+            `${this.orgType}/${this.getOrgId()}/file-manager/files/${fileId}/copy`,
             'POST',
         );
     }
