@@ -86,8 +86,7 @@
                 <div class="fnt-14 fnt-muli fnt-bold text-clr334 mb-3">{{ 'see_recipe_video' | translate }}</div>
                 <video class="w-100" [src]="detailsData.video_url" controls></video>
                 <span class="copy-btn fnt-14 fnt-muli fnt-bold" (click)="copyImage(detailsData.video_id, 'video')"
-                ><span><img class="mr-2" src="assets/images/group-18.svg" /></span
-                >{{ 'copy' | translate }}</span
+                    ><span><img class="mr-2" src="assets/images/group-18.svg" /></span>{{ 'copy' | translate }}</span
                 >
             </div>
             <div class="directions pt-45" *ngIf="detailsData?.steps && detailsData?.steps.length">
