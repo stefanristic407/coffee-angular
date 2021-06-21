@@ -21,7 +21,8 @@
                     [images]="images"
                     fileModule="qa-forum"
                     [placeholder]="'leave_an_answer_bla' | translate"
-                ></app-forum-editor>
+                >
+                </app-forum-editor>
             </div>
             <div *ngIf="forumType === 'comment'" class="mb-0 sewn-form-field w-100">
                 <textarea
@@ -40,7 +41,10 @@
     </div>
 
     <div class="pt-2 pt-md-0 bg-f8 bg-md-white">
-        <div *ngIf="forumType === 'answer' && parentQuestionIsAllowTranslation" class="d-flex align-items-center mb-4 mb-md-5">
+        <div
+            *ngIf="forumType === 'answer' && parentQuestionIsAllowTranslation"
+            class="d-flex align-items-center mb-4 mb-md-5"
+        >
             <p-checkbox
                 [(ngModel)]="isAllowTranslation"
                 [binary]="true"

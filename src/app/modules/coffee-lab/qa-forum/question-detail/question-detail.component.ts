@@ -77,7 +77,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     getDetails(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('question', this.slug).subscribe((res: any) => {
-            console.log('question details >>>>>>>>>>>>', res);
             this.isLoading = false;
             if (res.success) {
                 this.detailsData = res.result;

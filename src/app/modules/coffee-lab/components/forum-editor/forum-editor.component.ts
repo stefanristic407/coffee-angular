@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService, CoffeeLabService, FileService } from '@services';
+import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-forum-editor',

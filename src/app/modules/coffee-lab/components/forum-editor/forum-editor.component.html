@@ -6,4 +6,19 @@
     (ngModelChange)="onChangeContent()"
     [placeholder]="placeholder"
 >
+    <p-header>
+        <span class="ql-formats">
+            <button class="ql-bold" aria-label="Bold"></button>
+            <button class="ql-italic" aria-label="Italic"></button>
+            <button class="ql-underline" aria-label="Underline"></button>
+        </span>
+        <span class="ql-formats">
+            <button value="ordered" aria-label="Ordered List" type="button" class="ql-list"></button>
+            <button value="bullet" aria-label="Unordered List" type="button" class="ql-list"></button>
+        </span>
+        <span class="ql-formats">
+            <button aria-label="Insert Link" type="button" class="ql-link"></button>
+            <button aria-label="Insert Image" type="button" class="ql-image"></button>
+        </span>
+    </p-header>
 </p-editor>

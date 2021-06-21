@@ -29,7 +29,12 @@ export class AssignedToMeViewComponent implements OnInit {
         const params = {
             org_type: 'ro',
             sort_by: this.coffeeLabService.assignedToMeSortBy === 'most_answered' ? 'posted_at' : 'posted_at',
-            sort_order: this.coffeeLabService.assignedToMeSortBy === 'most_answered' ? 'desc' : this.coffeeLabService.assignedToMeSortBy === 'latest' ? 'desc' : 'asc',
+            sort_order:
+                this.coffeeLabService.assignedToMeSortBy === 'most_answered'
+                    ? 'desc'
+                    : this.coffeeLabService.assignedToMeSortBy === 'latest'
+                    ? 'desc'
+                    : 'asc',
             page: 1,
             per_page: 10000,
         };

@@ -1,12 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
-import { ApiResponse } from '@models';
 import { UplaodService } from '../upload';
 import { AuthService } from '../auth';
 
@@ -43,6 +40,16 @@ export class CoffeeLabService extends ApiService {
         private toastService: ToastrService,
     ) {
         super(http, authService);
+    }
+
+    getJustText(content: any) {
+        const contentElement = document.createElement('div');
+        contentElement.innerHTML = content;
+        const images = contentElement.querySelectorAll('img');
+        images.forEach((image) => {
+            image.parentNode.removeChild(image);
+        });
+        return contentElement.innerHTML;
     }
 
     dataURItoBlob(dataURI: any): any {
@@ -190,7 +197,7 @@ export class CoffeeLabService extends ApiService {
     copyFile(fileId: number) {
         return this.post(
             this.orgPostUrl,
-            `${this.orgType}/${this.getOrgId()}/file-manager/files/${fileId}/copy-image`,
+            `${this.orgType}/${this.getOrgId()}/file-manager/files/${fileId}/copy`,
             'POST',
         );
     }

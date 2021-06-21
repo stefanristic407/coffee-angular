@@ -39,6 +39,13 @@ import { TranslateAnswerComponent } from './create-post/translate/translate-answ
 import { RecipeOriginalPostComponent } from './create-post/translate/translate-recipe/recipe-original-post/recipe-original-post.component';
 import { TranslateToastComponent } from './components/translate-toast/translate-toast.component';
 import { InfoTooltipComponent } from './components/info-tooltip/info-tooltip.component';
+import { ArticlesComponent } from './components/articles/articles.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { MyArticlesComponent } from './my-posts/my-articles/my-articles.component';
+import { MyRecipesComponent } from './my-posts/my-recipes/my-recipes.component';
+import { SavedArticlesComponent } from './saved-posts/saved-articles/saved-articles.component';
+import { SavedRecipesComponent } from './saved-posts/saved-recipes/saved-recipes.component';
+import { GlobalSearchResultComponent } from './overview/global-search-result/global-search-result.component';
 
 @NgModule({
     declarations: [
@@ -78,6 +85,13 @@ import { InfoTooltipComponent } from './components/info-tooltip/info-tooltip.com
         RecipeOriginalPostComponent,
         TranslateToastComponent,
         InfoTooltipComponent,
+        ArticlesComponent,
+        RecipesComponent,
+        MyArticlesComponent,
+        MyRecipesComponent,
+        SavedArticlesComponent,
+        SavedRecipesComponent,
+        GlobalSearchResultComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

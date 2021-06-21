@@ -15,21 +15,21 @@
                         </div>
                         <div class="d-flex flex-column align-items-end">
                             <app-forum-menu
-                                    [selectedItem]="detailsData"
-                                    forumType="recipe"
-                                    [enableTranslation]="
-                                        detailsData?.allow_translation && (detailsData?.translations || []).length < 3
-                                    "
-                                    [enableEdit]="
-                                        organizationId == detailsData?.organisation_id &&
-                                        detailsData?.organisation_type === coffeeLabService.organization &&
-                                        detailsData.user_id == authService.currentUser.id
-                                    "
-                                    [enableDelete]="
-                                        organizationId == detailsData?.organisation_id &&
-                                        detailsData?.organisation_type === coffeeLabService.organization &&
-                                        detailsData.user_id == authService.currentUser.id
-                                    "
+                                [selectedItem]="detailsData"
+                                forumType="recipe"
+                                [enableTranslation]="
+                                    detailsData?.allow_translation && (detailsData?.translations || []).length < 3
+                                "
+                                [enableEdit]="
+                                    organizationId == detailsData?.organisation_id &&
+                                    detailsData?.organisation_type === coffeeLabService.organization &&
+                                    detailsData.user_id == authService.currentUser.id
+                                "
+                                [enableDelete]="
+                                    organizationId == detailsData?.organisation_id &&
+                                    detailsData?.organisation_type === coffeeLabService.organization &&
+                                    detailsData.user_id == authService.currentUser.id
+                                "
                             ></app-forum-menu>
                             <div
                                 class="d-none d-md-block mt-2"

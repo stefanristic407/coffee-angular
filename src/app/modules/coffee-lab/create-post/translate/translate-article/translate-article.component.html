@@ -32,7 +32,7 @@
                                     style="display: none"
                                     (change)="onFileChange($event)"
                                 />
-                                <div class="d-flex flex-column align-items-center">
+                                <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
                                     <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
                                     <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
                                         >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
@@ -65,16 +65,7 @@
                                 ></button>
                             </div>
                             <div
-                                class="
-                                    bg-f8
-                                    br-4
-                                    py-2
-                                    px-3
-                                    d-flex
-                                    align-items-center
-                                    justify-content-center
-                                    copy-paste-button
-                                "
+                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
                                 (click)="pasteCoverImage()"
                             >
                                 <img src="assets/images/paste.svg" class="mr-1" />
@@ -123,16 +114,7 @@
                         <div class="position-relative">
                             <img [src]="article?.cover_image_url" class="banner-image" />
                             <div
-                                class="
-                                    bg-f8
-                                    br-4
-                                    py-2
-                                    px-3
-                                    d-flex
-                                    align-items-center
-                                    justify-content-center
-                                    copy-paste-button
-                                "
+                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
                                 (click)="copyCoverImage()"
                             >
                                 <img src="assets/images/copy.svg" class="mr-1" />
@@ -147,7 +129,7 @@
                         <p class="fnt-muli fnt-14 fnt-md-18 fnt-normal lh-normal text-clr334 mb-3 mb-md-4">
                             {{ article?.subtitle }}
                         </p>
-                        <div class="article-content" appCopyImageToClipboard [innerHTML]="article.content"></div>
+                        <div appCopyImageToClipboard appFullImgWrapper [innerHTML]="article.content"></div>
                     </div>
                 </div>
             </p-tabPanel>
