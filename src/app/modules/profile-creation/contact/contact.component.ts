@@ -4,6 +4,7 @@ import { GlobalsService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
 import { Country } from '@models';
+import { urlValidator } from '@utils';
 @Component({
     selector: 'app-sewn-contact',
     templateUrl: './contact.component.html',
@@ -48,8 +49,8 @@ export class ContactComponent implements OnInit {
             address_line2: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],
             zipcode: [''],
-            fb_profile: [''],
-            ig_profile: [''],
+            fb_profile: ['', Validators.compose([urlValidator()])],
+            ig_profile: ['', Validators.compose([urlValidator()])],
         });
 
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {

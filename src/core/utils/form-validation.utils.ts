@@ -43,3 +43,18 @@ export function minValidator(limitKey: string) {
             : null;
     };
 }
+
+export function urlValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        const uriRegEx = RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');
+        const result = uriRegEx.test(control.value);
+
+        console.log(result);
+
+        if (!result) {
+            return { url: true };
+        }
+
+        return null;
+    };
+}

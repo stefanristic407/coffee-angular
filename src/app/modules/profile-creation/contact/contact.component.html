@@ -111,6 +111,9 @@
                         <div class="sewn-form-field col-md-12">
                             <label>{{ 'facebook_link' | translate }}</label>
                             <input type="text" pInputText formControlName="fb_profile" placeholder="Add facebook URL" />
+                            <small *ngIf="isControlHasError('fb_profile', 'url')" class="p-error">
+                                {{ 'invalid' | translate }}
+                            </small>
                         </div>
                     </div>
                     <div class="row">
@@ -122,6 +125,9 @@
                                 formControlName="ig_profile"
                                 placeholder="Add instagram URL"
                             />
+                            <small *ngIf="isControlHasError('ig_profile', 'url')" class="p-error">
+                                {{ 'invalid' | translate }}
+                            </small>
                         </div>
                     </div>
                 </div>
