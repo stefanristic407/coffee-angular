@@ -9,7 +9,7 @@ export class RoasterBrandCmsLinkPipe implements PipeTransform {
     constructor(private authService: AuthService) {}
     transform(orgId: number, page: string = ''): string {
         return `${environment.roasterBrandProfileUrl}/gate?orgId=${orgId}${
-            page && page !== 'home-page' ? '&url=' + page : ''
+            page && page !== 'home-page' ? '&redirect_to=' + page : ''
         }${this.authService.isSimulated ? '&loginType=sim' : ''}`;
     }
 }
