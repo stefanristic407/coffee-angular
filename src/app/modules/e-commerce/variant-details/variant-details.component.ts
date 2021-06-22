@@ -42,6 +42,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     weightVariantArray: any = [];
     displayDelete = false;
     uploadDisabled = true;
+
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
@@ -120,6 +121,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         }
         this.createWeightVariantArray();
     }
+
     onWeightUnitChange() {
         const weights = this.weightForm.get('weights') as FormArray;
         const weight = weights.controls[this.currentVariantIndex];
@@ -136,6 +138,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.handleWeightCreate.emit(getObj);
         this.createWeightVariantArray();
     }
+
     updateCrate(idx) {
         const weight = (this.weightForm.get('weights') as FormArray).controls[idx].value;
         const getObj = {
@@ -147,6 +150,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         };
         this.handleWeightCreate.emit(getObj);
     }
+
     loadWeight() {
         if (this.variantDetails.value.weight_variants) {
             this.weights = this.weightForm.get('weights') as FormArray;
@@ -292,41 +296,57 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         const grindVariants = weight.controls[this.currentVariantIndex].get('grind_variants') as FormArray;
         grindVariants.removeAt(idx);
     }
+
     handleRoasterFile(e, index, type) {
-        if (e.target.files.length > 0) {
-            for (let i = 0; i <= e.target.files.length - 1; i++) {
-                const fsize = e.target.files.item(i).size;
-                const file = Math.round(fsize / 1024);
-                // The size of the file.
-                if (file >= 1024 * 10) {
-                    this.toaster.error('File too big, please select a file smaller than 10mb');
-                } else {
-                    const imgFile: any = e.target.files;
-                    const reader = new FileReader();
-                    reader.readAsDataURL(imgFile[0]);
-                    reader.onload = (event) => {
-                        const imgURL = reader.result;
-                        fileObj.image_url = imgURL;
+        if (!e.target.files.length) {
+            return;
+        }
+        for (let i = 0; i <= e.target.files.length - 1; i++) {
+            const file = e.target.files[i];
+            const fsize = e.target.files.item(i).size;
+            if (Math.round(fsize / 1024) >= 1024 * 10) {
+                this.toaster.error('File too big, please select a file smaller than 10mb');
+            } else {
+                const imgFile: any = e.target.files;
+                // let fileObj: any;
+                const reader = new FileReader();
+                reader.readAsDataURL(imgFile[0]);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = window.URL.createObjectURL(file);
+                    img.onload = () => {
+                        if (img.naturalWidth >= 5000 || img.naturalHeight >= 5000) {
+                            this.toaster.error(`Image should be 5000 x 5000 size`);
+                        } else {
+                            // this.upload(file);
+                            const fileObj = {
+                                file,
+                                image_url: reader.result,
+                                isNew: true,
+                                fileID: '_' + Math.random().toString(36).substr(2, 9),
+                            };
+                            console.log('e.target.files:', e.target.files);
+                            console.log('fileObj:', fileObj);
+                            const weight = this.weightForm.get('weights') as FormArray;
+                            if (type === 'featured_image') {
+                                weight.controls[this.currentVariantIndex].patchValue({
+                                    fileDetails: fileObj,
+                                    featured_image_id: '',
+                                });
+                            } else {
+                                weight.controls[this.currentVariantIndex].get('product_images').value[
+                                    index
+                                ].fileDetails = fileObj;
+                            }
+                            this.uploadDisabled = false;
+                        }
+                        window.URL.revokeObjectURL(img.src);
                     };
-                    this.uploadDisabled = false;
-                    const fileObj = e.target.files;
-                    fileObj.isNew = true;
-                    fileObj.fileID = '_' + Math.random().toString(36).substr(2, 9);
-                    const weight = this.weightForm.get('weights') as FormArray;
-                    if (type === 'featured_image') {
-                        weight.controls[this.currentVariantIndex].patchValue({
-                            fileDetails: fileObj,
-                            featured_image_id: '',
-                        });
-                    } else {
-                        weight.controls[this.currentVariantIndex].get('product_images').value[
-                            index
-                        ].fileDetails = fileObj;
-                    }
-                }
+                };
             }
         }
     }
+
     deleteImage(index, type?) {
         const weight = this.weightForm.get('weights') as FormArray;
         this.uploadDisabled = false;
@@ -348,6 +368,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             productArray[index].image_id = '';
         }
     }
+
     uploadImages() {
         const weight = this.weightForm.get('weights') as FormArray;
         const getValue = weight.controls[this.currentVariantIndex].value;
@@ -355,7 +376,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         if (!getValue.featured_image_id && getValue.fileDetails) {
             promises.push(
                 new Promise((resolve, reject) => {
-                    this.uploadImage(getValue.fileDetails, 'featured_image', resolve, reject);
+                    this.uploadImage(getValue.fileDetails, true, resolve, reject);
                 }),
             );
         }
@@ -367,7 +388,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             if (ele.fileDetails && !ele.fileDetails.image_id && ele.fileDetails.image_url) {
                 promises.push(
                     new Promise((resolve, reject) => {
-                        this.uploadImage(ele.fileDetails, 'product_images', resolve, reject);
+                        this.uploadImage(ele.fileDetails, false, resolve, reject);
                     }),
                 );
             }
@@ -392,9 +413,9 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             })
             .catch(() => {});
     }
-    uploadImage(fileObj, type, resolve, reject) {
-        const fileList: FileList = fileObj;
-        const file: File = fileList[0];
+
+    uploadImage(fileObj: any, isFeatured: boolean, resolve, reject) {
+        const file: File = fileObj.file;
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
         formData.append('name', file.name);
@@ -403,7 +424,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.fileService.uploadFiles(formData).subscribe((uploadedFile) => {
             if (uploadedFile.success) {
                 const weight = this.weightForm.get('weights') as FormArray;
-                if (type === 'featured_image') {
+                if (isFeatured) {
                     weight.controls[this.currentVariantIndex].get('featured_image_id').setValue(uploadedFile.result.id);
                 } else {
                     const productImageArray = weight.controls[this.currentVariantIndex].get('product_images').value;
@@ -419,6 +440,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             }
         });
     }
+
     deleteFile(fileId, resolve, reject) {
         this.fileService.deleteFile(fileId).subscribe((res) => {
             if (res.success) {
