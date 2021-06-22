@@ -19,3 +19,9 @@
         padding: 16px;
     }
 }
+
+@media (min-width: 768px) {
+    ::ng-deep .upload-dropdown .p-dropdown-items-wrapper {
+        max-height: 120px !important;
+    }
+}
