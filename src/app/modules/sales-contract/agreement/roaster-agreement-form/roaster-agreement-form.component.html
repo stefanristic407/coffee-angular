@@ -34,6 +34,7 @@
             <div class="pb-md-2 sewn-form-field w-50 btn-width">
                 <label> {{ 'select_customer' | translate }}<span class="star">*</span> </label>
                 <p-dropdown
+                    class="upload-dropdown"
                     [options]="modalDropdownList"
                     formControlName="customerId"
                     [style]="{ width: '100%' }"
