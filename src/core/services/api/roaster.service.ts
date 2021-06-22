@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { ApiService } from './api.service';
 import { AuthService } from '../auth';
+import { OrganizationType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -685,22 +686,6 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    getRaisedTicketData(roaster_id: any, orderType?, postData?) {
-        const data: any = {};
-        data.api_call = '/ro/' + roaster_id + '/disputes?' + this.serlialise(postData);
-        if (orderType === 'MR') {
-            data.api_call = '/ro/' + roaster_id + '/micro_roasters/disputes?' + this.serlialise(postData);
-        }
-        data.token = this.authService.token;
-        data.method = 'GET';
-        return this.http.post(this.url, data);
-    }
-    // getEstateSelectAnOrderTableData(roaster_id: any) {
-    //   var data = {};
-    //   data['api_call'] = "/ro/" + roaster_id + "/orders";
-    //   data['token'] = this.authService.token;
-    //   return this.http.post(this.url, data);
-    // }
     encryptData(data) {
         try {
             return CryptoJS.AES.encrypt(JSON.stringify(data), this.encryptionKey).toString();
@@ -867,11 +852,11 @@ export class RoasterserviceService extends ApiService {
         data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
-    getOrderChatList(roaster_id: any, order_id: any, orderType?) {
+    getOrderChatList(roaster_id: any, order_id: any, orderType?: OrganizationType) {
         var data = {};
         data['method'] = 'GET';
         data['api_call'] = '/ro/' + roaster_id + '/orders/' + order_id + '/threads';
-        if (orderType === 'MR') {
+        if (orderType === OrganizationType.MICRO_ROASTER) {
             data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/threads';
         }
         data['token'] = this.authService.token;

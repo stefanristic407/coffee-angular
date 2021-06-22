@@ -4,14 +4,14 @@
             <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
         <div class="d-md-none">
-            <div class="back-page" [routerLink]="['/dispute-system/order-chat/', orderID]">
+            <div class="back-page" [routerLink]="['/dispute-system/order-chat/', orderId]">
                 {{ 'back' | translate }}
             </div>
         </div>
     </div>
     <div class="d-md-flex justify-content-between align-items-end mb-4">
         <div class="fnt-18 fnt-bold mb-4 mb-md-0">{{ 'order_support' | translate }}</div>
-        <button class="btn-raised w-mob-100" routerLink="/dispute-system/raised-tickets/{{ orderID }}">
+        <button class="btn-raised w-mob-100" routerLink="/dispute-system/raised-tickets/{{ orgType }}/{{ orderId }}">
             {{ 'view_all_raised_tickets' | translate }}
         </button>
     </div>
@@ -39,14 +39,14 @@
                                     <span
                                         class="raise-chng-ord fnt-muli ml-auto"
                                         routerLink="/dispute-system/select-order"
-                                        [queryParams]="{ orderId: orderID, orderType: orgType }"
+                                        [queryParams]="{ orderId: orderId, orgType: orgType }"
                                     >
                                         <img src="/assets/images/change_order.svg" alt="" /> change order</span
                                     >
                                 </div>
                             </div>
-                            <input type="text" placeholder="product name" formControlName="orderID" pInputText />
-                            <small *ngIf="ticketForm.controls['orderID'].errors?.required" class="p-error">
+                            <input type="text" placeholder="product name" formControlName="orderId" pInputText />
+                            <small *ngIf="ticketForm.controls['orderId'].errors?.required" class="p-error">
                                 Required
                             </small>
                         </div>
@@ -61,7 +61,7 @@
                             <span
                                 class="raise-chng-ord fnt-muli"
                                 routerLink="/dispute-system/select-order"
-                                [queryParams]="{ id: orderID, orderType: orgType }"
+                                [queryParams]="{ id: orderId, orderType: orgType }"
                             >
                                 <img src="/assets/images/shape-2.png" alt="" /> change order</span
                             >
@@ -227,14 +227,14 @@
 
     <div class="row mt-md-4">
         <div class="col-12 d-none d-sm-none d-md-flex">
-            <button class="btn btn-stroked ml-auto" [routerLink]="['/dispute-system/order-chat/', orderID]">
+            <button class="btn btn-stroked ml-auto" [routerLink]="['/dispute-system/order-chat/', orderId]">
                 {{ 'cancel' | translate }}
             </button>
             <button class="btn btn-raised ml-3" (click)="submitTicket()">{{ 'submit' | translate }}</button>
         </div>
         <div class="col-12 d-block d-sm-block d-md-none">
             <button class="btn btn-raised w-100" (click)="submitTicket()">{{ 'submit' | translate }}</button>
-            <button class="btn btn-stroked w-100 mt-3" [routerLink]="['/dispute-system/order-chat/', orderID]">
+            <button class="btn btn-stroked w-100 mt-3" [routerLink]="['/dispute-system/order-chat/', orderId]">
                 {{ 'cancel' | translate }}
             </button>
         </div>

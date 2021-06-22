@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, OnDestroy, Renderer2, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { OrganizationType } from '@enums';
 import { RoasterserviceService, GlobalsService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -24,7 +25,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
     showEscalateBtn = false;
     currentDispute: any;
     roasterName: any;
-    orderType: any;
+    orderType: OrganizationType;
     threadUserList = [];
     orderChatWrapperEl: HTMLElement | null = null;
     headerEl: HTMLElement | null = null;
@@ -49,9 +50,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         this.currentDisputeID = this.route.snapshot.queryParams.disputeID
             ? Number(decodeURIComponent(this.route.snapshot.queryParams.disputeID))
             : undefined;
-        this.orderType = this.route.snapshot.queryParams.orderType
-            ? decodeURIComponent(this.route.snapshot.queryParams.orderType)
-            : undefined;
+        this.orderType = this.route.snapshot.queryParams.orderType as OrganizationType;
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId ? params.orderId : '';
             this.getOrderDetails();
@@ -109,7 +108,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (this.orderDetails.order_type) {
                         this.orderDetails.order_type = this.formatStatus(this.orderDetails.order_type);
                     }
-                    if (this.orderType === 'MR' && this.orderDetails.type) {
+                    if (this.orderType === OrganizationType.MICRO_ROASTER && this.orderDetails.type) {
                         this.orderDetails.order_type = this.formatStatus(this.orderDetails.type);
                     }
                     this.orderDetails.images = [];

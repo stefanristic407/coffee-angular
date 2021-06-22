@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { RoasterserviceService, SocketService, ChatUtilService, AuthService } from '@services';
+import { RoasterserviceService, SocketService, ChatUtilService, AuthService, DisputeService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
-import { ChatMessageType } from '@enums';
+import { ChatMessageType, OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-raised-tickets',
@@ -15,44 +12,33 @@ import { ChatMessageType } from '@enums';
     styleUrls: ['./raised-tickets.component.scss'],
 })
 export class RaisedTicketsComponent implements OnInit {
-    breadCrumbItem: MenuItem[] = [];
     tableValue = [];
     tableColumns = [];
     totalCount = 0;
-    searchForm: FormGroup;
-    termSearch: any;
     roasterID: any;
-    orderType: any;
-    orderID: any;
+    orgType: OrganizationType = OrganizationType.ESTATE;
+    orderId: number;
 
     constructor(
-        public globals: GlobalsService,
-        private fb: FormBuilder,
+        private authService: AuthService,
+        private chatUtil: ChatUtilService,
+        private disputeService: DisputeService,
+        private roasterService: RoasterserviceService,
         private route: ActivatedRoute,
         private router: Router,
-        public cookieService: CookieService,
-        private toastrService: ToastrService,
-        private roasterService: RoasterserviceService,
-        public sharedService: SharedServiceService,
         private socket: SocketService,
-        private chatUtil: ChatUtilService,
-        private authService: AuthService,
+        private toastrService: ToastrService,
+        public cookieService: CookieService,
+        public globals: GlobalsService,
     ) {
         this.roasterID = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
-        this.sharedService.windowWidth = window.innerWidth;
-        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
-            this.sharedService.isMobileView = true;
-        }
-
-        this.route.params.subscribe((params) => {
-            this.orderID = params.orderId ? params.orderId : '';
-            this.supplyBreadCrumb();
-        });
-        this.searchForm = this.fb.group({
-            searchField: new FormControl({ value: '' }),
+        this.route.paramMap.subscribe((params) => {
+            if (params.has('orderId')) {
+                this.orderId = +params.get('orderId');
+            }
         });
         this.tableColumns = [
             {
@@ -91,17 +77,15 @@ export class RaisedTicketsComponent implements OnInit {
                 width: 15,
             },
         ];
-        this.searchForm.setValue({ searchField: '' });
-        this.searchForm.controls.searchField.valueChanges.subscribe((value) => {
-            this.termSearch = value;
-            this.getTableData();
-        });
     }
+
     getTableData() {
-        const postData: any = {};
-        postData.search_query = this.termSearch ? this.termSearch : '';
+        const params: any = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+        };
         this.tableValue = [];
-        this.roasterService.getRaisedTicketData(this.roasterID, postData, this.orderType).subscribe((data: any) => {
+        this.disputeService.getOrderDisputes(this.orgType, this.orderId, params).subscribe((data: any) => {
             if (data.success) {
                 data.result.map((ele) => {
                     ele.dispute_type =
@@ -116,25 +100,9 @@ export class RaisedTicketsComponent implements OnInit {
             }
         });
     }
-    supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: 'Home',
-            routerLink: '/',
-        };
-        const obj2: MenuItem = {
-            label: 'Order Support',
-            routerLink: '/dispute-system/order-support/' + this.orderID,
-        };
-        const obj3: MenuItem = {
-            label: 'Raised Tickets',
-        };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj3);
-    }
 
     pushInfoTochatThread(disputeID, disputeReason, callback) {
-        this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orderType).subscribe(
+        this.roasterService.getOrderChatList(this.roasterID, this.orderId, this.orgType).subscribe(
             (res: any) => {
                 console.log(res);
                 if (res.success && res.result) {
@@ -166,16 +134,16 @@ export class RaisedTicketsComponent implements OnInit {
             },
         );
     }
+
     callMobileTicket(ticket) {
-        if (this.sharedService.isMobileView) {
-            this.goToDispute(ticket);
-        }
+        this.goToDispute(ticket);
     }
+
     goToDispute(ticket) {
         const navigationExtras: NavigationExtras = {
             queryParams: {
                 disputeID: ticket.id,
-                orderType: this.orderType ? this.orderType : undefined,
+                orderType: this.orgType ? this.orgType : undefined,
             },
         };
         this.router.navigate(['/dispute-system/order-chat', ticket.order_id], navigationExtras);

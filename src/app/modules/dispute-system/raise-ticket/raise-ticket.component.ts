@@ -16,13 +16,11 @@ import { OrderDetails } from '@models';
 })
 export class RaiseTicketComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
-    orderID: any;
-    searchForm: FormGroup;
-    termSearch: any;
+    orgType: OrganizationType = OrganizationType.ESTATE;
+    orderId: number;
     helpTextArray = [];
     reasonTextArray = [];
     ticketForm: FormGroup;
-    orgType: OrganizationType = OrganizationType.ESTATE;
     orderDetails: any;
     roasterID: any;
     filesArray = [];
@@ -45,16 +43,19 @@ export class RaiseTicketComponent implements OnInit {
 
     ngOnInit(): void {
         this.roasterID = this.authService.getOrgId();
-        this.route.params.subscribe((params) => {
-            this.orderID = params.orderId ? params.orderId : '';
-            this.getOrderDetails();
+        this.route.paramMap.subscribe((params) => {
+            if (params.has('orderId') && params.has('orgType')) {
+                this.orderId = +params.get('orderId');
+                this.orgType = params.get('orgType') as OrganizationType;
+                this.getOrderDetails();
+            }
         });
         if (this.route.snapshot.queryParams.supportValue) {
             this.supportValue = decodeURIComponent(this.route.snapshot.queryParams.supportValue);
         }
         this.supplyBreadCrumb();
         this.ticketForm = this.fb.group({
-            orderID: [{ value: this.orderID, disabled: true }, Validators.compose([Validators.required])],
+            orderId: [{ value: this.orderId, disabled: true }, Validators.compose([Validators.required])],
             dispute_type: [this.supportValue, Validators.compose([Validators.required])],
             // dispute_reason: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
@@ -77,17 +78,10 @@ export class RaiseTicketComponent implements OnInit {
             { label: 'Order', value: 'Order' },
             { label: 'Test', value: 'Test' },
         ];
-        this.searchForm = this.fb.group({
-            searchField: new FormControl({ value: '' }, Validators.compose([Validators.required])),
-        });
-        this.searchForm.setValue({ searchField: '' });
-        this.searchForm.controls.searchField.valueChanges.subscribe((value) => {
-            this.termSearch = value;
-        });
     }
 
     getOrderDetails() {
-        this.purchaseService.getOrderDetailsById(this.orderID, this.orgType).subscribe(
+        this.purchaseService.getOrderDetailsById(this.orderId, this.orgType).subscribe(
             (res: OrderDetails) => {
                 if (res) {
                     this.orderDetails = res;
@@ -107,7 +101,7 @@ export class RaiseTicketComponent implements OnInit {
             { label: 'Home', routerLink: '/' },
             { label: 'Order Management' },
             { label: 'Purchased order of estate', routerLink: '/orders/es' },
-            { label: 'Order ' + this.orderID, routerLink: [`/orders/es/${this.orderID}`] },
+            { label: 'Order ' + this.orderId, routerLink: [`/orders/es/${this.orderId}`] },
             { label: 'Order Support' },
         ];
     }
@@ -115,9 +109,8 @@ export class RaiseTicketComponent implements OnInit {
     submitTicket() {
         if (this.ticketForm.valid) {
             const obj = this.ticketForm.value;
-            this.roasterService.raiseTicket(this.roasterID, this.orderID, obj, this.orgType).subscribe(
+            this.roasterService.raiseTicket(this.roasterID, this.orderId, obj, this.orgType).subscribe(
                 (res: any) => {
-                    console.log(res);
                     if (res && res.success) {
                         this.disputeID = res.result.id;
                         this.pushInfoTochatThread(this.disputeID, obj.dispute_type, () => {
@@ -141,9 +134,8 @@ export class RaiseTicketComponent implements OnInit {
     }
 
     pushInfoTochatThread(disputeID, disputeReason, callback) {
-        this.roasterService.getOrderChatList(this.roasterID, this.orderID, this.orgType).subscribe(
+        this.roasterService.getOrderChatList(this.roasterID, this.orderId, this.orgType).subscribe(
             (res: any) => {
-                console.log(res);
                 if (res.success && res.result) {
                     const threadList = res.result;
                     const orderThread = threadList.find((x) => x.thread_type === 'order');
@@ -227,6 +219,6 @@ export class RaiseTicketComponent implements OnInit {
                 orderType: this.orgType ? this.orgType : undefined,
             },
         };
-        this.router.navigate(['/dispute-system/order-chat', this.orderID], navigationExtras);
+        this.router.navigate(['/dispute-system/order-chat', this.orderId], navigationExtras);
     }
 }
