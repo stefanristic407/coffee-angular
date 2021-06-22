@@ -345,6 +345,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 this.deleteImageIDs.push(productArray[index].image_id);
             }
             productArray[index].fileDetails = null;
+            productArray[index].image_id = '';
         }
     }
     uploadImages() {
