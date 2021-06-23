@@ -5,6 +5,7 @@ import { OrderManagementService } from '@app/modules/order-management/order-mana
 import { ResizeableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
 import { OrderStatus } from '@enums';
+import { OrderDetails } from '@models';
 
 @Component({
     selector: 'app-edit-tracking-info',
@@ -13,6 +14,8 @@ import { OrderStatus } from '@enums';
 })
 export class EditTrackingInfoComponent extends ResizeableComponent implements OnInit {
     readonly OrderStatuses = OrderStatus;
+    editable = false;
+    orderDetails: OrderDetails;
 
     trackingUrl: string;
     shippingDate: string | Date;
@@ -47,6 +50,7 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
         this.ordersService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe({
             next: (order) => {
                 if (order) {
+                    this.orderDetails = order;
                     this.shippingDate = order.shipment_date ? new Date(order.shipment_date) : '';
                     this.trackingUrl = order.tracking_link;
                     this.orderStatus = order.status;
@@ -56,16 +60,21 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
     }
 
     update(): void {
-        this.ordersService
-            .updateShipmentDetails(this.orderId, this.trackingUrl, this.shippingDate.toString())
-            .subscribe({
-                next: (res) => {
-                    if (res.success) {
-                        this.toastrService.success('Shipment details has been updated!');
-                    } else {
-                        this.toastrService.error('Error while updating shipment details');
-                    }
-                },
-            });
+        if (this.orderDetails?.shipment_date && !this.editable) {
+            this.editable = true;
+        } else {
+            this.ordersService
+                .updateShipmentDetails(this.orderId, this.trackingUrl, this.shippingDate.toString())
+                .subscribe({
+                    next: (res) => {
+                        if (res.success) {
+                            this.toastrService.success('Shipment details has been updated!');
+                            this.editable = false;
+                        } else {
+                            this.toastrService.error('Error while updating shipment details');
+                        }
+                    },
+                });
+        }
     }
 }
