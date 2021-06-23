@@ -329,19 +329,25 @@
                     <th colspan="1"></th>
                     <th>
                         <span class="primeng-table-footer"
-                            >{{ primeTableService.result?.grand_total || 0 | currency: 'USD':'symbol-narrow' || '--' }}
+                            >{{
+                                primeTableService.result?.grand_total || 0
+                                    | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
+                            }}
                         </span>
                     </th>
                     <th>
                         <span class="primeng-table-footer">
-                            {{ primeTableService.result?.total_vat || 0 | currency: 'USD':'symbol-narrow' || '--' }}
+                            {{
+                                primeTableService.result?.total_vat || 0
+                                    | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
+                            }}
                         </span>
                     </th>
                     <th>
                         <span class="primeng-table-footer">
                             {{
                                 primeTableService.result?.total_commission || 0
-                                    | currency: 'USD':'symbol-narrow' || '--'
+                                    | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
                             }}
                         </span>
                     </th>
