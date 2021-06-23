@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService } from '@services';
+import { CoffeeLabService, GlobalsService } from '@services';
 import { TitleCasePipe } from '@angular/common';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+import { CoffeeLabGlobalSearchResult } from '@models';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-overview',
@@ -49,9 +54,29 @@ export class OverviewComponent implements OnInit {
         },
     ];
     keyword?: string;
+    keyword$?: string;
     breadcrumbItems: MenuItem[];
+    isGlobalSearchResultPage = false;
+    searchInput$: Subject<any> = new Subject<any>();
+    isLoading: boolean;
+    searchResult: CoffeeLabGlobalSearchResult;
 
-    constructor(public globals: GlobalsService, private titleCasePipe: TitleCasePipe) {}
+    constructor(
+        public globals: GlobalsService,
+        private titleCasePipe: TitleCasePipe,
+        private coffeeLabService: CoffeeLabService,
+        private router: Router,
+        private route: ActivatedRoute,
+    ) {
+        this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
+            this.startSearch();
+        });
+        const searchQueryParam = this.route.snapshot.queryParamMap.get('search');
+        if (searchQueryParam) {
+            this.keyword = searchQueryParam;
+            this.startSearch();
+        }
+    }
 
     ngOnInit(): void {
         this.breadcrumbItems = [
@@ -59,5 +84,54 @@ export class OverviewComponent implements OnInit {
             { label: this.globals.languageJson?.brand_and_experience },
             { label: this.titleCasePipe.transform(this.globals.languageJson?.the_coffee_lab) },
         ];
+    }
+
+    handleSearch(): void {
+        this.searchInput$.next(this.keyword);
+    }
+
+    startSearch(): void {
+        if (!this.keyword) {
+            this.handleBackPage();
+            return;
+        }
+        this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { search: this.keyword },
+            queryParamsHandling: 'merge',
+        });
+        this.keyword$ = this.keyword;
+        this.isGlobalSearchResultPage = true;
+        const params = {
+            query: this.keyword,
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            publish: true,
+            page: 1,
+            per_page: 10000,
+        };
+        this.isLoading = true;
+        forkJoin([
+            this.coffeeLabService.getForumList('question', params),
+            this.coffeeLabService.getForumList('article', params),
+            this.coffeeLabService.getForumList('recipe', params),
+        ]).subscribe((res: any[]) => {
+            const questions = res[0]?.result?.questions || [];
+            const articles = res[1]?.result || [];
+            const recipes = res[2]?.result || [];
+            this.searchResult = {
+                questions,
+                articles,
+                recipes,
+                total_count: questions.length + articles.length + recipes.length,
+            };
+            this.isLoading = false;
+        });
+    }
+
+    handleBackPage(): void {
+        this.isGlobalSearchResultPage = false;
+        this.keyword = '';
+        this.router.navigate([], { relativeTo: this.route, queryParams: { search: '' }, queryParamsHandling: 'merge' });
     }
 }

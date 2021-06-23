@@ -1,53 +1,72 @@
 <div class="mb-45 mb-lg-35 d-flex justify-content-between align-items-start">
-    <div class="fnt-14">
+    <div *ngIf="!isGlobalSearchResultPage" class="fnt-14">
         <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+    </div>
+    <div *ngIf="isGlobalSearchResultPage">
+        <a class="back-page" (click)="handleBackPage()">
+            <span>{{ 'back' | translate }}</span>
+        </a>
     </div>
     <span class="custom-search coffee-lab-search h-fit-content mt-3 mt-md-0 d-none d-md-inline-block">
         <input
-                class="w-100 fnt-16"
-                type="text"
-                pInputText
-                [(ngModel)]="keyword"
-                [placeholder]="'search_the_coffee_lab' | translate"
+            class="w-100 fnt-16"
+            type="text"
+            pInputText
+            [(ngModel)]="keyword"
+            (ngModelChange)="handleSearch()"
+            [placeholder]="'search_the_coffee_lab' | translate"
         />
     </span>
 </div>
 
-<div class="language-wrapper d-md-none mb-3">
-    <app-language-dropdown></app-language-dropdown>
-</div>
-<div class="d-flex flex-column flex-md-row justify-content-between pb-4">
-    <div>
-        <h1 class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 mb-25">{{ 'the_coffee_lab' | translate | titlecase }}</h1>
-        <p class="fnt-14 fnt-muli fnt-normal text-clr588 lh-normal mb-0">
-            {{ 'coffee_lab_sub_text' | translate }}
-        </p>
+<div *ngIf="isGlobalSearchResultPage">
+    <div *ngIf="isLoading">
+        <app-loading></app-loading>
     </div>
-    <span class="custom-search coffee-lab-search h-fit-content mt-3 mt-md-0 d-inline-block d-md-none">
-        <input
+    <div *ngIf="!isLoading">
+        <app-global-search-result [searchResult]="searchResult" [keyword]="keyword$"></app-global-search-result>
+    </div>
+</div>
+
+<div *ngIf="!isGlobalSearchResultPage">
+    <div class="language-wrapper d-md-none mb-3">
+        <app-language-dropdown></app-language-dropdown>
+    </div>
+    <div class="d-flex flex-column flex-md-row justify-content-between pb-4">
+        <div>
+            <h1 class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 mb-25">
+                {{ 'the_coffee_lab' | translate | titlecase }}
+            </h1>
+            <p class="fnt-14 fnt-muli fnt-normal text-clr588 lh-normal mb-0">
+                {{ 'coffee_lab_sub_text' | translate }}
+            </p>
+        </div>
+        <span class="custom-search coffee-lab-search h-fit-content mt-3 mt-md-0 d-inline-block d-md-none">
+            <input
                 class="w-100 fnt-16"
                 type="text"
                 pInputText
                 [(ngModel)]="keyword"
                 [placeholder]="'search_the_coffee_lab' | translate"
-        />
-    </span>
-</div>
-<div class="d-none d-md-flex justify-content-between align-items-center pt-2 pb-45">
-    <p class="fnt-14 fnt-muli fnt-600 text-clr334 mb-0">{{ 'discussions_knowledge_language' | translate }}</p>
-    <div>
-        <app-language-dropdown></app-language-dropdown>
+            />
+        </span>
     </div>
-</div>
-<div>
-    <p-tabMenu [model]="menuItems" styleClass="tabmenu-coffee-lab">
-        <ng-template pTemplate="item" let-item let-i="index">
-            <img [src]="item.icon" alt="icon" />
-            <img [src]="item.activeIcon" alt="icon" class="active-icon" />
-            <span class="pl-1 d-none d-md-block">{{ item.label | translate }}</span>
-        </ng-template>
-    </p-tabMenu>
-    <div class="pt-35 pt-lg-45">
-        <router-outlet></router-outlet>
+    <div class="d-none d-md-flex justify-content-between align-items-center pt-2 pb-45">
+        <p class="fnt-14 fnt-muli fnt-600 text-clr334 mb-0">{{ 'discussions_knowledge_language' | translate }}</p>
+        <div>
+            <app-language-dropdown></app-language-dropdown>
+        </div>
+    </div>
+    <div>
+        <p-tabMenu [model]="menuItems" styleClass="tabmenu-coffee-lab">
+            <ng-template pTemplate="item" let-item let-i="index">
+                <img [src]="item.icon" alt="icon" />
+                <img [src]="item.activeIcon" alt="icon" class="active-icon" />
+                <span class="pl-1 d-none d-md-block">{{ item.label | translate }}</span>
+            </ng-template>
+        </p-tabMenu>
+        <div class="pt-35 pt-lg-45">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>

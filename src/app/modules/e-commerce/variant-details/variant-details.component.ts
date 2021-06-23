@@ -30,7 +30,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     @Output() handleWeightCreate = new EventEmitter();
     @Output() handleWeightDelete = new EventEmitter<any>();
     @Output() handleSetDefault = new EventEmitter<any>();
-    weightFields = ['weight_unit', 'weight', 'status', 'is_public', 'is_default_product', 'product_weight_variant_id'];
+    weightFields = ['weight_unit', 'weight', 'status', 'is_hide', 'is_default_product', 'product_weight_variant_id'];
     grindVariantFields = [
         'price',
         'grind',
@@ -42,6 +42,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     weightVariantArray: any = [];
     displayDelete = false;
     uploadDisabled = true;
+
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
@@ -120,6 +121,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         }
         this.createWeightVariantArray();
     }
+
     onWeightUnitChange() {
         const weights = this.weightForm.get('weights') as FormArray;
         const weight = weights.controls[this.currentVariantIndex];
@@ -136,6 +138,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.handleWeightCreate.emit(getObj);
         this.createWeightVariantArray();
     }
+
     updateCrate(idx) {
         const weight = (this.weightForm.get('weights') as FormArray).controls[idx].value;
         const getObj = {
@@ -147,12 +150,13 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         };
         this.handleWeightCreate.emit(getObj);
     }
+
     loadWeight() {
         if (this.variantDetails.value.weight_variants) {
             this.weights = this.weightForm.get('weights') as FormArray;
             this.weights.removeAt(0);
             this.variantDetails.value.weight_variants.forEach((ele, index) => {
-                const weightForm = this.createEmptyWeights();
+                const weightForm = this.createEmptyWeights(ele.is_public);
                 weightForm.get('weight').valueChanges.subscribe((value) => {
                     this.onWeightChange(value, index);
                 });
@@ -164,8 +168,8 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 }
                 this.weightFields.forEach((key) => {
                     let getValue = ele[key];
-                    if (key === 'is_public') {
-                        getValue = !getValue;
+                    if (key === 'is_hide') {
+                        getValue = !ele.is_public;
                     } else if (key === 'status') {
                         if (!getValue) {
                             getValue = this.isPublished ? 'IN-STOCK' : 'IN-DRAFT';
@@ -173,6 +177,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                     }
                     weightForm.controls[key].setValue(getValue);
                 });
+
                 const productImages = [];
                 ele.product_images = ele.product_images ? ele.product_images : [];
                 ele.product_images.forEach((image) => {
@@ -181,7 +186,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                         fileDetails: { image_url: image.image_url },
                     });
                 });
-                this.loadGrindVariants(weightForm.controls.grind_variants, ele.grind_variants);
+                this.loadGrindVariants(weightForm.controls.grind_variants, ele.grind_variants, ele.is_public);
                 const productImageArray = this.setProductImages(productImages);
                 weightForm.controls.product_images.setValue(productImageArray);
                 weightForm.controls.isNew.setValue(false);
@@ -192,12 +197,12 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             this.updateCrate(0);
         }
     }
-    loadGrindVariants(grindForm, item): void {
+    loadGrindVariants(grindForm, item, isPublic): void {
         this.grindVariants = grindForm as FormArray;
         this.grindVariants.removeAt(0);
         if (item && item.length > 0) {
             item.forEach((variant) => {
-                const formGrind = this.createEmptyGrindVariant();
+                const formGrind = this.createEmptyGrindVariant(isPublic);
                 this.grindVariantFields.forEach((field) => {
                     formGrind.controls[field].setValue(variant[field]);
                 });
@@ -238,27 +243,30 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             this.weightVariantArray = weightVariantArray;
         }, 200);
     }
-    addNewGrindVariants(): void {
+    addNewGrindVariants(isHide): void {
         this.displayDelete = true;
         this.grindVariants = (this.weightForm.get('weights') as FormArray).controls[this.currentVariantIndex].get(
             'grind_variants',
         ) as FormArray;
-        this.grindVariants.push(this.createEmptyGrindVariant());
+        this.grindVariants.push(this.createEmptyGrindVariant(!isHide));
     }
-    createEmptyWeights() {
+    createEmptyWeights(isPublic?) {
         const emptyVariantID = '_' + Math.random().toString(36).substr(2, 9);
         const emptyWeight: FormGroup = this.fb.group({
             weight_name: 'weight - 0 lb',
             weight_unit: 'lb',
             product_weight_variant_id: emptyVariantID,
-            featured_image_id: ['', Validators.compose([Validators.required])],
+            featured_image_id: ['', Validators.compose(isPublic ? [Validators.required] : [])],
             fileDetails: null,
             isNew: true,
             product_images: [],
-            weight: [0, Validators.compose([Validators.required])],
-            status: [this.isPublished ? 'IN-STOCK' : 'IN-DRAFT', Validators.compose([Validators.required])],
-            is_public: [false, Validators.compose([Validators.required])],
-            is_default_product: [false, Validators.compose([Validators.required])],
+            weight: [0, Validators.compose(isPublic ? [Validators.required] : [])],
+            status: [
+                this.isPublished ? 'IN-STOCK' : 'IN-DRAFT',
+                Validators.compose(isPublic ? [Validators.required] : []),
+            ],
+            is_hide: [true],
+            is_default_product: [false, Validators.compose(isPublic ? [Validators.required] : [])],
             grind_variants: this.fb.array([this.createEmptyGrindVariant()]),
         });
         return emptyWeight;
@@ -272,14 +280,14 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         }
         return productArray.concat(productEmptyArray);
     }
-    createEmptyGrindVariant() {
+    createEmptyGrindVariant(isPublic?) {
         return this.fb.group({
             grind_variant_id: '',
-            price: [0, Validators.compose([Validators.required])],
-            grind: ['', Validators.compose([Validators.required])],
-            available_quantity: [0, Validators.compose([Validators.required])],
+            price: [0, Validators.compose(isPublic ? [Validators.required] : [])],
+            grind: ['', Validators.compose(isPublic ? [Validators.required] : [])],
+            available_quantity: [0, Validators.compose(isPublic ? [Validators.required] : [])],
             available_quantity_type: this.type === 'b2b' ? 'boxes' : 'bags',
-            sku_number: ['', Validators.compose([Validators.required])],
+            sku_number: ['', Validators.compose(isPublic ? [Validators.required] : [])],
         });
     }
 
@@ -288,41 +296,57 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         const grindVariants = weight.controls[this.currentVariantIndex].get('grind_variants') as FormArray;
         grindVariants.removeAt(idx);
     }
+
     handleRoasterFile(e, index, type) {
-        if (e.target.files.length > 0) {
-            for (let i = 0; i <= e.target.files.length - 1; i++) {
-                const fsize = e.target.files.item(i).size;
-                const file = Math.round(fsize / 1024);
-                // The size of the file.
-                if (file >= 1024 * 10) {
-                    this.toaster.error('File too big, please select a file smaller than 10mb');
-                } else {
-                    const imgFile: any = e.target.files;
-                    const reader = new FileReader();
-                    reader.readAsDataURL(imgFile[0]);
-                    reader.onload = (event) => {
-                        const imgURL = reader.result;
-                        fileObj.image_url = imgURL;
+        if (!e.target.files.length) {
+            return;
+        }
+        for (let i = 0; i <= e.target.files.length - 1; i++) {
+            const file = e.target.files[i];
+            const fsize = e.target.files.item(i).size;
+            if (Math.round(fsize / 1024) >= 1024 * 10) {
+                this.toaster.error('File too big, please select a file smaller than 10mb');
+            } else {
+                const imgFile: any = e.target.files;
+                // let fileObj: any;
+                const reader = new FileReader();
+                reader.readAsDataURL(imgFile[0]);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = window.URL.createObjectURL(file);
+                    img.onload = () => {
+                        if (img.naturalWidth >= 5000 || img.naturalHeight >= 5000) {
+                            this.toaster.error(`Image should be 5000 x 5000 size`);
+                        } else {
+                            // this.upload(file);
+                            const fileObj = {
+                                file,
+                                image_url: reader.result,
+                                isNew: true,
+                                fileID: '_' + Math.random().toString(36).substr(2, 9),
+                            };
+                            console.log('e.target.files:', e.target.files);
+                            console.log('fileObj:', fileObj);
+                            const weight = this.weightForm.get('weights') as FormArray;
+                            if (type === 'featured_image') {
+                                weight.controls[this.currentVariantIndex].patchValue({
+                                    fileDetails: fileObj,
+                                    featured_image_id: '',
+                                });
+                            } else {
+                                weight.controls[this.currentVariantIndex].get('product_images').value[
+                                    index
+                                ].fileDetails = fileObj;
+                            }
+                            this.uploadDisabled = false;
+                        }
+                        window.URL.revokeObjectURL(img.src);
                     };
-                    this.uploadDisabled = false;
-                    const fileObj = e.target.files;
-                    fileObj.isNew = true;
-                    fileObj.fileID = '_' + Math.random().toString(36).substr(2, 9);
-                    const weight = this.weightForm.get('weights') as FormArray;
-                    if (type === 'featured_image') {
-                        weight.controls[this.currentVariantIndex].patchValue({
-                            fileDetails: fileObj,
-                            featured_image_id: '',
-                        });
-                    } else {
-                        weight.controls[this.currentVariantIndex].get('product_images').value[
-                            index
-                        ].fileDetails = fileObj;
-                    }
-                }
+                };
             }
         }
     }
+
     deleteImage(index, type?) {
         const weight = this.weightForm.get('weights') as FormArray;
         this.uploadDisabled = false;
@@ -341,8 +365,10 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 this.deleteImageIDs.push(productArray[index].image_id);
             }
             productArray[index].fileDetails = null;
+            productArray[index].image_id = '';
         }
     }
+
     uploadImages() {
         const weight = this.weightForm.get('weights') as FormArray;
         const getValue = weight.controls[this.currentVariantIndex].value;
@@ -350,7 +376,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         if (!getValue.featured_image_id && getValue.fileDetails) {
             promises.push(
                 new Promise((resolve, reject) => {
-                    this.uploadImage(getValue.fileDetails, 'featured_image', resolve, reject);
+                    this.uploadImage(getValue.fileDetails, true, resolve, reject);
                 }),
             );
         }
@@ -362,7 +388,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             if (ele.fileDetails && !ele.fileDetails.image_id && ele.fileDetails.image_url) {
                 promises.push(
                     new Promise((resolve, reject) => {
-                        this.uploadImage(ele.fileDetails, 'product_images', resolve, reject);
+                        this.uploadImage(ele.fileDetails, false, resolve, reject);
                     }),
                 );
             }
@@ -387,9 +413,9 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             })
             .catch(() => {});
     }
-    uploadImage(fileObj, type, resolve, reject) {
-        const fileList: FileList = fileObj;
-        const file: File = fileList[0];
+
+    uploadImage(fileObj: any, isFeatured: boolean, resolve, reject) {
+        const file: File = fileObj.file;
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
         formData.append('name', file.name);
@@ -398,7 +424,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.fileService.uploadFiles(formData).subscribe((uploadedFile) => {
             if (uploadedFile.success) {
                 const weight = this.weightForm.get('weights') as FormArray;
-                if (type === 'featured_image') {
+                if (isFeatured) {
                     weight.controls[this.currentVariantIndex].get('featured_image_id').setValue(uploadedFile.result.id);
                 } else {
                     const productImageArray = weight.controls[this.currentVariantIndex].get('product_images').value;
@@ -414,6 +440,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             }
         });
     }
+
     deleteFile(fileId, resolve, reject) {
         this.fileService.deleteFile(fileId).subscribe((res) => {
             if (res.success) {
@@ -435,5 +462,37 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
 
     trackFileName(name) {
         return trackFileName(name);
+    }
+
+    handleHideProduct() {
+        const weights = this.weightForm.get('weights') as FormArray;
+        const weight = weights.controls[this.currentVariantIndex] as FormGroup;
+        if (weight.get('is_hide').value) {
+            Object.keys(weight.controls).forEach((key) => {
+                weight.get(key).clearValidators();
+            });
+            const grindVariants = weight.get('grind_variants') as FormArray;
+            grindVariants.controls.forEach((variant: FormGroup) => {
+                Object.keys(variant.controls).forEach((key) => {
+                    variant.get(key).clearValidators();
+                });
+                variant.updateValueAndValidity();
+            });
+            weight.updateValueAndValidity();
+        } else {
+            weight.get('featured_image_id').setValidators(Validators.compose([Validators.required]));
+            weight.get('weight').setValidators(Validators.compose([Validators.required]));
+            weight.get('status').setValidators(Validators.compose([Validators.required]));
+            weight.updateValueAndValidity();
+            const grindVariants = weight.get('grind_variants') as FormArray;
+            grindVariants.controls.forEach((variant: FormGroup) => {
+                variant.get('price').setValidators(Validators.compose([Validators.required]));
+                variant.get('grind').setValidators(Validators.compose([Validators.required]));
+                variant.get('available_quantity').setValidators(Validators.compose([Validators.required]));
+                variant.get('sku_number').setValidators(Validators.compose([Validators.required]));
+                variant.updateValueAndValidity();
+            });
+        }
+        console.log(weight);
     }
 }

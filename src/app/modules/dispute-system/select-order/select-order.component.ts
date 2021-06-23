@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { AuthService, RoasterserviceService } from '@services';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService, PurchaseService } from '@services';
 import { GlobalsService } from '@services';
 import * as moment from 'moment';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
 import { COUNTRY_LIST } from '@constants';
+import { OrganizationType } from '@enums';
+import { LazyLoadEvent } from 'primeng/api';
+import { ApiResponse, OrderSummary } from '@models';
 
 @Component({
     selector: 'app-select-order',
@@ -13,6 +14,9 @@ import { COUNTRY_LIST } from '@constants';
     styleUrls: ['./select-order.component.scss'],
 })
 export class SelectOrderComponent implements OnInit {
+    orgType: OrganizationType = OrganizationType.ESTATE;
+    orderId: number;
+    loading = true;
     currentIndex = 0;
     originArray = [];
     orderTypeArray = [];
@@ -22,32 +26,32 @@ export class SelectOrderComponent implements OnInit {
     statusFilter: any;
     rangeDates: any;
     displayArray = [];
-    displayFilter: any;
+    displayFilter = 10;
     tableValue = [];
     tableColumns = [];
     selectedOrder: any;
-    roasterID: any;
-    totalCount = 0;
-    orderType: any;
-    orderID: any;
+    pageNumber = 1;
+    totalRecords;
+
     constructor(
         public globals: GlobalsService,
         public router: Router,
-        public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
-        private toastrService: ToastrService,
         public route: ActivatedRoute,
         public activeRoute: ActivatedRoute,
-        private authService: AuthService,
+        private purchaseService: PurchaseService,
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.authService.getOrgId();
         this.loadFilterValues();
         this.createRoasterTable();
-        if (this.activeRoute.snapshot.queryParams.id) {
-            this.orderID = this.activeRoute.snapshot.queryParams.id;
-        }
+        this.route.queryParamMap.subscribe((params) => {
+            if (params.has('id')) {
+                this.orderId = +params.get('id');
+            }
+            if (params.has('orgType')) {
+                this.orgType = params.get('orgType') as OrganizationType;
+            }
+        });
     }
     createRoasterTable() {
         this.tableColumns = [
@@ -112,17 +116,23 @@ export class SelectOrderComponent implements OnInit {
             },
         ];
     }
+
     onTabChange(event) {
         if (event.index === 1) {
-            this.orderType = 'MR';
+            this.orgType = OrganizationType.MICRO_ROASTER;
         } else {
-            this.orderType = 'ro';
+            this.orgType = OrganizationType.ESTATE;
         }
         this.getTableData();
     }
-    filterCall() {
+
+    filterCall(event?: LazyLoadEvent) {
+        if (event.first > -1) {
+            this.pageNumber = event.first / event.rows + 1;
+        }
         this.getTableData();
     }
+
     loadFilterValues() {
         this.originArray = COUNTRY_LIST;
         this.orderTypeArray = [
@@ -143,41 +153,38 @@ export class SelectOrderComponent implements OnInit {
             { label: '50', value: 50 },
         ];
     }
+
     getTableData() {
         this.tableValue = [];
-        const postData: any = {};
+        const postData: any = {
+            sort_by: 'created_at',
+            sort_order: 'desc',
+            page: this.pageNumber,
+            per_page: this.displayFilter,
+        };
         postData.origin = this.originFilter ? this.originFilter : '';
         postData.order_type = this.statusFilter ? this.statusFilter : '';
         postData.status = this.typeFilter ? this.typeFilter : '';
-        postData.per_page = this.displayFilter ? this.displayFilter : 1000;
         postData.start_date = '';
         postData.end_date = '';
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
-        this.roasterService.getEstateOrders(this.roasterID, postData, this.orderType).subscribe((data: any) => {
+        this.loading = true;
+        this.purchaseService.getOrders(this.orgType, postData).subscribe((data: ApiResponse<OrderSummary[]>) => {
             if (data.success && data.result) {
-                data.result.map((ele) => {
-                    if (this.orderType === 'mr') {
-                        ele.price = ele.total_price;
-                    }
-                    const findOrderType = this.statusTypeArray.find((item) => item.value === ele.type);
-                    ele.type = findOrderType ? findOrderType.label : ele.type;
-                    ele.status = ele.status.charAt(0).toUpperCase() + ele.status.slice(1).toLowerCase();
-                    return ele;
-                });
-                this.totalCount = data.result_info.total_count;
+                this.totalRecords = data.result_info.total_count;
                 this.tableValue = data.result;
+                if (!this.selectedOrder && this.orderId) {
+                    this.selectedOrder = this.tableValue.find((element: OrderSummary) => element.id === this.orderId);
+                }
             }
+            this.loading = false;
         });
     }
+
     onContinue() {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                orderType: this.orderType ? this.orderType : undefined,
-            },
-        };
-        this.router.navigate(['/dispute-system/raise-ticket', this.selectedOrder.id], navigationExtras);
+        this.router.navigate(['/dispute-system/raise-ticket', this.orgType, this.selectedOrder.id]);
     }
 }

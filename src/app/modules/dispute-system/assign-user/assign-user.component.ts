@@ -19,8 +19,6 @@ export class AssignUserComponent implements OnInit {
     disputeID = '';
     SERVICE_TYPE = OrderChatType.RO_ES;
 
-    public tempMenu: any = require('./test.router.json');
-
     constructor(
         private route: ActivatedRoute,
         private roasterService: RoasterserviceService,

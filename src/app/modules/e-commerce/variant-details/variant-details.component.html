@@ -1,255 +1,255 @@
-<div>
-    <div class="col-12 mb-3 d-flex justify-content-between p-0">
-        <span class="primary_txt fnt-16">{{ 'product_weights' | translate }}</span>
-        <div class="d-none d-md-block d-lg-none addWeightDiv" (click)="addNewWeights()">
+<div class="d-flex justify-content-between mb-3">
+    <span class="primary_txt fnt-16">{{ 'product_weights' | translate }}</span>
+    <div class="d-none d-md-block d-lg-none addWeightDiv" (click)="addNewWeights()">
+        <img class="mb-z5" src="assets/images/add_grey.svg" />
+        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334"> {{ 'add_weight_variant' | translate }} </span>
+    </div>
+</div>
+
+<div [formGroup]="weightForm" class="d-flex flex-wrap flex-lg-nowrap" *ngIf="weightForm.get('weights')">
+    <div class="d-none d-lg-block productWeightDiv">
+        <div *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
+            <a
+                class="
+                    d-flex
+                    justify-content-between
+                    align-items-center
+                    p-3
+                    br-4
+                    border-main
+                    cursor-pointer
+                    mb-3
+                    weight-item
+                "
+                [ngClass]="{ active: currentVariantIndex == i }"
+                (click)="currentVariantIndex = i"
+            >
+                <div class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334">
+                    {{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
+                </div>
+                <img src="assets/images/right-arrow.svg" alt="" />
+            </a>
+        </div>
+        <div class="addWeightDiv" (click)="addNewWeights()">
             <img class="mb-z5" src="assets/images/add_grey.svg" />
-            <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334"> {{ 'add_weight_variant' | translate }} </span>
+            <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited">
+                {{ 'add_weight_variant' | translate }}
+            </span>
         </div>
     </div>
-
-    <div [formGroup]="weightForm" class="d-flex flex-wrap flex-lg-nowrap" *ngIf="weightForm.get('weights')">
-        <div class="d-none d-lg-block productWeightDiv">
-            <div *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
-                <a
-                    class="d-flex justify-content-between align-items-center p-3 br-4 border-main cursor-pointer mb-3 weight-item"
-                    [ngClass]="{ active: currentVariantIndex == i }"
-                    (click)="currentVariantIndex = i"
-                >
-                    <div class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334">
-                        {{ 'weight' | translate }} - {{ weight.weight }} {{ weight.weight_unit }}
-                    </div>
-                    <img src="assets/images/right-arrow.svg" alt="" />
-                </a>
-            </div>
-            <div class="addWeightDiv" (click)="addNewWeights()">
-                <img class="mb-z5" src="assets/images/add_grey.svg" />
-                <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited">
-                    {{ 'add_weight_variant' | translate }}
+    <div class="col-12 d-block d-md-none mb-3 weight-variant-array p-0">
+        <p-dropdown
+            [options]="weightVariantArray"
+            optionLabel="label"
+            placeholder=""
+            styleClass="w-100 p-dropdown-variantType"
+            [(ngModel)]="currentVariantIndex"
+            optionValue="value"
+            [ngModelOptions]="{ standalone: true }"
+        >
+            <ng-template let-weight pTemplate="item">
+                <span *ngIf="weight.label">{{ weight.label }}</span>
+                <span *ngIf="!weight.label" class="weightVariantBtn w-100" (click)="addNewWeights()">
+                    <img class="" src="assets/images/add_green_icon.svg" />
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer">
+                        {{ 'add_weight_variant' | translate }}
+                    </span>
                 </span>
-            </div>
-        </div>
-        <div class="col-12 d-block d-md-none mb-3 weight-variant-array p-0">
-            <p-dropdown
-                [options]="weightVariantArray"
-                optionLabel="label"
-                placeholder=""
-                styleClass="w-100 p-dropdown-variantType"
-                [(ngModel)]="currentVariantIndex"
-                optionValue="value"
-                [ngModelOptions]="{ standalone: true }"
+            </ng-template>
+        </p-dropdown>
+    </div>
+    <span
+        class="fnt-700 editBtn cursor-pointer align-items-center d-flex d-md-none mb-3"
+        *ngIf="weights?.length > 1"
+        (click)="deleteWeightVariant(currentVariantIndex)"
+    >
+        {{ 'delete_weight_variant' | translate }}
+    </span>
+    <div class="pl-lg-4 weight-form-wrapper">
+        <p-tabView [(activeIndex)]="currentVariantIndex" styleClass="weight-tabview">
+            <p-tabPanel
+                *ngFor="let currentForm of weightForm.controls['weights']['controls']; let i = index"
+                formArrayName="weights"
             >
-                <ng-template let-weight pTemplate="item">
-                    <span *ngIf="weight.label">{{ weight.label }}</span>
-                    <span *ngIf="!weight.label" class="weightVariantBtn w-100" (click)="addNewWeights()">
-                        <img class="" src="assets/images/add_green_icon.svg" />
-                        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer">
-                            {{ 'add_weight_variant' | translate }}
+                <ng-template pTemplate="header">
+                    <span>
+                        {{ 'weight' | translate }} - {{ currentForm.value.weight }}
+                        {{ currentForm.value.weight_unit }}
+                        <span (click)="$event.stopPropagation(); deleteWeightVariant(i)" *ngIf="weights?.length > 1">
+                            <img src="assets/images/delete-variant-name.svg" alt="delete" />
                         </span>
                     </span>
                 </ng-template>
-            </p-dropdown>
-        </div>
-        <span
-            class="fnt-700 editBtn cursor-pointer align-items-center d-flex d-md-none mb-3"
-            *ngIf="weights?.length > 1"
-            (click)="deleteWeightVariant(currentVariantIndex)"
-        >
-            {{ 'delete_weight_variant' | translate }}
-        </span>
-        <div class="pl-lg-4 weight-form-wrapper">
-            <p-tabView [(activeIndex)]="currentVariantIndex" styleClass="weight-tabview">
-                <p-tabPanel
-                    *ngFor="let currentForm of weightForm.controls['weights']['controls']; let i = index"
-                    formArrayName="weights"
-                >
-                    <ng-template pTemplate="header">
-                        <span>
-                            {{ 'weight' | translate }} - {{ currentForm.value.weight }}
-                            {{ currentForm.value.weight_unit }}
-                            <span
-                                (click)="$event.stopPropagation(); deleteWeightVariant(i)"
-                                *ngIf="weights?.length > 1"
-                            >
-                                <img src="assets/images/delete-variant-name.svg" alt="delete" />
-                            </span>
-                        </span>
-                    </ng-template>
-                    <div [formGroupName]="i" class=" ">
-                        <div class="row gutter-16 mt-2 mt-md-3 mt-lg-0 position-relative">
-                            <div class="col-12 mb-4 d-flex d-md-none">
-                                <div class="col-6 pl-0">
-                                    <p-checkbox
-                                        formControlName="is_default_product"
-                                        binary="true"
-                                        [label]="'set_default_product' | translate"
-                                        (onChange)="handleSetDefault.emit($event)"
-                                        *ngIf="currentForm?.value.is_default_product || !isSetDefault"
-                                    >
-                                    </p-checkbox>
-                                </div>
-                                <div class="col-6 pl-0">
-                                    <p-checkbox
-                                        formControlName="is_public"
-                                        binary="true"
-                                        [label]="'hide_product' | translate"
-                                    >
-                                    </p-checkbox>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 sewn-form-field">
-                                <label>{{ 'weight' | translate }}<span class="star">*</span></label>
-
-                                <div class="input-and-select gray">
-                                    <input type="number" pInputText class="w-100" formControlName="weight" />
-                                    <p-dropdown
-                                        [options]="weightTypeArray"
-                                        optionLabel="label"
-                                        placeholder=""
-                                        formControlName="weight_unit"
-                                        optionValue="value"
-                                        (onChange)="onWeightUnitChange()"
-                                    ></p-dropdown>
-                                    <small
-                                        *ngIf="currentForm?.controls['weight'].errors?.required"
-                                        class="position-absolute p-error"
-                                    >
-                                        {{ 'required' | translate }}
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4 col-lg-3 sewn-form-field">
-                                <label>{{ 'status' | translate }}<span class="star">*</span></label>
-                                <p-dropdown
-                                    [options]="statusArray"
-                                    optionLabel="label"
-                                    placeholder=""
-                                    styleClass="w-100"
-                                    formControlName="status"
-                                    optionValue="value"
-                                ></p-dropdown>
-                                <small *ngIf="currentForm?.controls['status'].errors?.required" class="p-error">
-                                    {{ 'required' | translate }}
-                                </small>
-                            </div>
-                            <p-divider type="dashed" class="col-12 d-md-none" styleClass="mt-2 mb-4"></p-divider>
-                            <div
-                                class="col-12 col-md-4 col-lg-6 d-none d-md-flex mb-4 justify-content-end justify-content-lg-start align-items-lg-end flex-column flex-lg-row pl-3"
-                            >
-                                <p-checkbox
-                                    formControlName="is_public"
-                                    binary="true"
-                                    class="mr-4 mb-3 mb-lg-0"
-                                    label="Hide product"
-                                >
-                                </p-checkbox>
+                <div [formGroupName]="i" class="">
+                    <div class="row gutter-16 mt-2 mt-md-3 mt-lg-0 position-relative">
+                        <div class="col-12 mb-4 d-flex d-md-none">
+                            <div class="col-6 pl-0">
                                 <p-checkbox
                                     formControlName="is_default_product"
-                                    binary="true "
-                                    label="Set as default product"
+                                    binary="true"
+                                    [label]="'set_default_product' | translate"
                                     (onChange)="handleSetDefault.emit($event)"
                                     *ngIf="currentForm?.value.is_default_product || !isSetDefault"
                                 >
                                 </p-checkbox>
                             </div>
-                            <span
-                                class="fnt-700 delete-weight-variant cursor-pointer align-items-center d-none d-lg-flex"
-                                *ngIf="weights?.length > 1"
-                                (click)="deleteWeightVariant(currentVariantIndex)"
-                            >
-                                <img src="assets/images/delete-variant.svg" alt="delete" />
-                                {{ 'delete_weight_variant' | translate }}
-                            </span>
+                            <div class="col-6 pl-0">
+                                <p-checkbox
+                                    formControlName="is_hide"
+                                    binary="true"
+                                    [label]="'hide_product' | translate"
+                                    (onChange)="handleHideProduct()"
+                                >
+                                </p-checkbox>
+                            </div>
                         </div>
+                        <div class="col-12 col-md-4 col-lg-3 sewn-form-field">
+                            <label>{{ 'weight' | translate }}<span class="star">*</span></label>
+
+                            <div class="input-and-select gray">
+                                <input type="number" pInputText class="w-100" formControlName="weight" />
+                                <p-dropdown
+                                    [options]="weightTypeArray"
+                                    optionLabel="label"
+                                    placeholder=""
+                                    formControlName="weight_unit"
+                                    optionValue="value"
+                                    (onChange)="onWeightUnitChange()"
+                                ></p-dropdown>
+                                <small
+                                    *ngIf="currentForm?.controls['weight'].errors?.required"
+                                    class="position-absolute p-error"
+                                >
+                                    {{ 'required' | translate }}
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-3 sewn-form-field">
+                            <label>{{ 'status' | translate }}<span class="star">*</span></label>
+                            <p-dropdown
+                                [options]="statusArray"
+                                optionLabel="label"
+                                placeholder=""
+                                styleClass="w-100"
+                                formControlName="status"
+                                optionValue="value"
+                            ></p-dropdown>
+                            <small *ngIf="currentForm?.controls['status'].errors?.required" class="p-error">
+                                {{ 'required' | translate }}
+                            </small>
+                        </div>
+                        <p-divider type="dashed" class="col-12 d-md-none" styleClass="mt-2 mb-4"></p-divider>
                         <div
-                            formArrayName="grind_variants"
-                            *ngFor="
-                                let grind_variant of currentForm?.get('grind_variants')?.controls;
-                                let i = index;
-                                last as isLast
+                            class="
+                                col-12 col-md-4 col-lg-6
+                                d-none d-md-flex
+                                mb-4
+                                justify-content-end justify-content-lg-start
+                                align-items-lg-end
+                                flex-column flex-lg-row
+                                pl-3
                             "
                         >
-                            <div class="d-flex">
-                                <div [formGroupName]="i" class="row gutter-16 flex-1">
-                                    <div class="col-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
-                                        <label>{{ 'price' | translate }}<span class="star">*</span></label>
-                                        <div class="p-input-icon-left">
-                                            <input type="number" formControlName="price" pInputText />
-                                            <span class="left-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal"
-                                                >SEK</span
-                                            >
-                                            <small
-                                                *ngIf="grind_variant['controls']['price'].errors?.required"
-                                                class="position-absolute p-error"
-                                            >
-                                                {{ 'required' | translate }}
-                                            </small>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mr-md-4 mr-lg-0 mb-3 mb-lg-4"
-                                    >
-                                        <label>{{ 'grind' | translate }}<span class="star">*</span></label>
-                                        <p-dropdown
-                                            [options]="grindArray"
-                                            optionLabel="label"
-                                            placeholder="Please select the grind variant"
-                                            styleClass="w-100"
-                                            formControlName="grind"
-                                            optionValue="value"
-                                        ></p-dropdown>
+                            <p-checkbox
+                                formControlName="is_hide"
+                                binary="true"
+                                class="mr-4 mb-3 mb-lg-0"
+                                label="Hide product"
+                                (onChange)="handleHideProduct()"
+                            >
+                            </p-checkbox>
+                            <p-checkbox
+                                formControlName="is_default_product"
+                                binary="true "
+                                label="Set as default product"
+                                (onChange)="handleSetDefault.emit($event)"
+                                *ngIf="currentForm?.value.is_default_product || !isSetDefault"
+                            >
+                            </p-checkbox>
+                        </div>
+                        <span
+                            class="fnt-700 delete-weight-variant cursor-pointer align-items-center d-none d-lg-flex"
+                            *ngIf="weights?.length > 1"
+                            (click)="deleteWeightVariant(currentVariantIndex)"
+                        >
+                            <img src="assets/images/delete-variant.svg" alt="delete" />
+                            {{ 'delete_weight_variant' | translate }}
+                        </span>
+                    </div>
+                    <div
+                        formArrayName="grind_variants"
+                        *ngFor="
+                            let grind_variant of currentForm?.get('grind_variants')?.controls;
+                            let i = index;
+                            last as isLast
+                        "
+                    >
+                        <div class="d-flex">
+                            <div [formGroupName]="i" class="row gutter-16 flex-1">
+                                <div class="col-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
+                                    <label>{{ 'price' | translate }}<span class="star">*</span></label>
+                                    <div class="p-input-icon-left">
+                                        <input type="number" formControlName="price" pInputText />
+                                        <span class="left-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal"
+                                            >SEK</span
+                                        >
                                         <small
-                                            *ngIf="grind_variant['controls']['grind'].errors?.required"
-                                            class="p-error"
+                                            *ngIf="grind_variant['controls']['price'].errors?.required"
+                                            class="position-absolute p-error"
                                         >
                                             {{ 'required' | translate }}
                                         </small>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
-                                        <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mr-md-4 mr-lg-0 mb-3 mb-lg-4">
+                                    <label>{{ 'grind' | translate }}<span class="star">*</span></label>
+                                    <p-dropdown
+                                        [options]="grindArray"
+                                        optionLabel="label"
+                                        placeholder="Please select the grind variant"
+                                        styleClass="w-100"
+                                        formControlName="grind"
+                                        optionValue="value"
+                                    ></p-dropdown>
+                                    <small *ngIf="grind_variant['controls']['grind'].errors?.required" class="p-error">
+                                        {{ 'required' | translate }}
+                                    </small>
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
+                                    <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
 
-                                        <div class="p-input-icon-right">
-                                            <input type="number" pInputText formControlName="available_quantity" />
-                                            <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">{{
-                                                grind_variant.value.available_quantity_type
-                                            }}</span>
-                                            <small
-                                                *ngIf="grind_variant['controls']['available_quantity'].errors?.required"
-                                                class="position-absolute p-error"
-                                            >
-                                                {{ 'required' | translate }}
-                                            </small>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
-                                        <label>{{ 'sku_number' | translate }}<span class="star">*</span></label>
-                                        <input type="text" formControlName="sku_number" pInputText />
+                                    <div class="p-input-icon-right">
+                                        <input type="number" pInputText formControlName="available_quantity" />
+                                        <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">{{
+                                            grind_variant.value.available_quantity_type
+                                        }}</span>
                                         <small
-                                            *ngIf="grind_variant['controls']['sku_number'].errors?.required"
-                                            class="p-error"
+                                            *ngIf="grind_variant['controls']['available_quantity'].errors?.required"
+                                            class="position-absolute p-error"
                                         >
                                             {{ 'required' | translate }}
                                         </small>
                                     </div>
-                                    <div
-                                        class="col-12 col-md-1 sewn-form-field pl-md-0 pl-lg-2 justify-content-end d-lg-none mb-3"
-                                        *ngIf="i != 0 || !isLast"
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-3 sewn-form-field mb-3 mb-lg-4">
+                                    <label>{{ 'sku_number' | translate }}<span class="star">*</span></label>
+                                    <input type="text" formControlName="sku_number" pInputText />
+                                    <small
+                                        *ngIf="grind_variant['controls']['sku_number'].errors?.required"
+                                        class="p-error"
                                     >
-                                        <span
-                                            class="fnt-700 editBtn cursor-pointer mb-2"
-                                            *ngIf="i != 0 || !isLast"
-                                            (click)="deleteGrindVariant(i)"
-                                        >
-                                            {{ 'delete' | translate }}
-                                        </span>
-                                    </div>
-                                    <p-divider
-                                        type="dashed"
-                                        class="col-12"
-                                        styleClass="mt-2 mb-3 mb-md-4 d-lg-none"
-                                    ></p-divider>
+                                        {{ 'required' | translate }}
+                                    </small>
                                 </div>
                                 <div
-                                    class="sewn-form-field pl-3 justify-content-end d-none d-lg-inline-flex"
+                                    class="
+                                        col-12 col-md-1
+                                        sewn-form-field
+                                        pl-md-0 pl-lg-2
+                                        justify-content-end
+                                        d-lg-none
+                                        mb-3
+                                    "
                                     *ngIf="i != 0 || !isLast"
                                 >
                                     <span
@@ -260,153 +260,153 @@
                                         {{ 'delete' | translate }}
                                     </span>
                                 </div>
+                                <p-divider
+                                    type="dashed"
+                                    class="col-12"
+                                    styleClass="mt-2 mb-3 mb-md-4 d-lg-none"
+                                ></p-divider>
                             </div>
-                        </div>
-                        <div>
-                            <img src="assets/images/add-partner.svg" />
-                            <span
-                                class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer"
-                                (click)="addNewGrindVariants()"
+                            <div
+                                class="sewn-form-field pl-3 justify-content-end d-none d-lg-inline-flex"
+                                *ngIf="i != 0 || !isLast"
                             >
-                                {{ 'add_grind_variant' | translate }}
-                            </span>
-                        </div>
-                        <p-divider type="dashed" class="col-12 p-0" styleClass="mt-3 mb-0 d-md-none"></p-divider>
-                        <div class="w-100 mt-4 mt-lg-45 d-flex flex-wrap">
-                            <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
-                                {{ 'add_images' | translate }}
-                            </div>
-                            <div class="row gutter-16 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3">
-                                <div class="col">
-                                    <label class="text-nowrap"
-                                        >{{
-                                            ((isMobile$ | async) ? 'feature_image' : 'upload_feature_image')
-                                                | translate
-                                        }}<span class="star">*</span></label
-                                    >
-                                    <div
-                                        *ngIf="!currentForm?.value?.fileDetails"
-                                        class="addImageContainer d-flex align-items-center justify-content-center imagesDiv"
-                                    >
-                                        <label class="d-flex align-items-center justify-content-center pointer-item">
-                                            <input
-                                                type="file"
-                                                accept="image/png, image/jpeg"
-                                                style="display: none"
-                                                #featureImage
-                                                (change)="handleRoasterFile($event, 0, 'featured_image')"
-                                            />
-                                            <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                                <img src="assets/images/upload_icon.svg" />
-                                                <span
-                                                    class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1"
-                                                    >{{ 'drag_drop_image' | translate }}</span
-                                                >
-                                            </div>
-                                        </label>
-                                    </div>
-
-                                    <div *ngIf="currentForm?.value?.fileDetails" class="addImageContainer">
-                                        <img
-                                            [src]="currentForm?.value?.fileDetails?.image_url"
-                                            alt=""
-                                            class="uploadImg"
-                                        />
-                                        <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
-                                            <span class="ellipsis">
-                                                {{
-                                                    (currentForm?.value?.fileDetails &&
-                                                        currentForm?.value?.fileDetails[0]?.name) ||
-                                                        trackFileName(currentForm?.value?.fileDetails?.image_url)
-                                                }}
-                                            </span>
-                                            <i
-                                                class="pi pi-ellipsis-v cursor-pointer"
-                                                (click)="opMd.toggle($event)"
-                                            ></i>
-                                        </div>
-                                        <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                                            <ng-template pTemplate>
-                                                <div
-                                                    class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                                    (click)="deleteImage(0, 'featured_image')"
-                                                >
-                                                    Delete
-                                                </div>
-                                            </ng-template>
-                                        </p-overlayPanel>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col"
-                                    *ngFor="let product_image of currentForm?.value?.product_images; let m = index"
+                                <span
+                                    class="fnt-700 editBtn cursor-pointer mb-2"
+                                    *ngIf="i != 0 || !isLast"
+                                    (click)="deleteGrindVariant(i)"
                                 >
-                                    <label>{{ 'product_images' | translate }}</label>
-                                    <div
-                                        *ngIf="!product_image['fileDetails']"
-                                        class="addImageContainer d-flex align-items-center justify-content-center"
-                                    >
-                                        <label class="d-flex align-items-center justify-content-center pointer-item">
-                                            <input
-                                                type="file"
-                                                accept="image/png, image/jpeg"
-                                                style="display: none"
-                                                #featureImage
-                                                (change)="handleRoasterFile($event, m, 'product_image')"
-                                            />
-                                            <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                                <img src="assets/images/upload_icon.svg" />
-                                                <span
-                                                    class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1"
-                                                    >{{ 'drag_drop_image' | translate }}</span
-                                                >
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div *ngIf="product_image['fileDetails']" class="addImageContainer">
-                                        <img
-                                            [src]="product_image['fileDetails']['image_url']"
-                                            alt=""
-                                            class="uploadImg"
-                                        />
-                                        <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
-                                            <span class="ellipsis">
-                                                {{
-                                                    (product_image?.fileDetails &&
-                                                        product_image?.fileDetails[0]?.name) ||
-                                                        trackFileName(product_image['fileDetails']['image_url'])
-                                                }}
-                                            </span>
-                                            <i
-                                                class="pi pi-ellipsis-v cursor-pointer"
-                                                (click)="opMd.toggle($event)"
-                                            ></i>
-                                        </div>
-                                        <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                                            <ng-template pTemplate>
-                                                <div
-                                                    class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                                    (click)="deleteImage(m, 'product_image')"
-                                                >
-                                                    Delete
-                                                </div>
-                                            </ng-template>
-                                        </p-overlayPanel>
-                                    </div>
-                                </div>
+                                    {{ 'delete' | translate }}
+                                </span>
                             </div>
-                            <button
-                                type="button"
-                                (click)="uploadImages()"
-                                [disabled]="uploadDisabled"
-                                class="btn-stroked mt-2 mt-md-25 mt-lg-3"
-                            >
-                                {{ 'upload_images' | translate }}
-                            </button>
                         </div>
                     </div>
-                </p-tabPanel>
-            </p-tabView>
-        </div>
+                    <div>
+                        <img src="assets/images/add-partner.svg" />
+                        <span
+                            class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer"
+                            (click)="addNewGrindVariants(currentForm.value.is_hide)"
+                        >
+                            {{ 'add_grind_variant' | translate }}
+                        </span>
+                    </div>
+                    <p-divider type="dashed" class="col-12 p-0" styleClass="mt-3 mb-0 d-md-none"></p-divider>
+                    <div class="w-100 mt-4 mt-lg-45 d-flex flex-wrap">
+                        <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
+                            {{ 'add_images' | translate }}
+                        </div>
+                        <div class="row gutter-16 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3">
+                            <div class="col">
+                                <label class="text-nowrap"
+                                    >{{ ((isMobile$ | async) ? 'feature_image' : 'upload_feature_image') | translate
+                                    }}<span class="star">*</span></label
+                                >
+                                <div
+                                    *ngIf="!currentForm?.value?.fileDetails"
+                                    class="addImageContainer d-flex align-items-center justify-content-center imagesDiv"
+                                >
+                                    <label class="d-flex align-items-center justify-content-center pointer-item">
+                                        <input
+                                            type="file"
+                                            accept="image/png, image/jpeg"
+                                            style="display: none"
+                                            #featureImage
+                                            (change)="handleRoasterFile($event, 0, 'featured_image')"
+                                        />
+                                        <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                            <img src="assets/images/upload_icon.svg" />
+                                            <span
+                                                class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1"
+                                                >{{ 'drag_drop_image' | translate }}</span
+                                            >
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div *ngIf="currentForm?.value?.fileDetails" class="addImageContainer">
+                                    <img [src]="currentForm?.value?.fileDetails?.image_url" alt="" class="uploadImg" />
+                                    <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
+                                        <span class="ellipsis">
+                                            {{
+                                                (currentForm?.value?.fileDetails &&
+                                                    currentForm?.value?.fileDetails[0]?.name) ||
+                                                    trackFileName(currentForm?.value?.fileDetails?.image_url)
+                                            }}
+                                        </span>
+                                        <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
+                                    </div>
+                                    <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
+                                        <ng-template pTemplate>
+                                            <div
+                                                class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
+                                                (click)="deleteImage(0, 'featured_image')"
+                                            >
+                                                Delete
+                                            </div>
+                                        </ng-template>
+                                    </p-overlayPanel>
+                                </div>
+                            </div>
+                            <div
+                                class="col"
+                                *ngFor="let product_image of currentForm?.value?.product_images; let m = index"
+                            >
+                                <label>{{ 'product_images' | translate }}</label>
+                                <div
+                                    *ngIf="!product_image['fileDetails']"
+                                    class="addImageContainer d-flex align-items-center justify-content-center"
+                                >
+                                    <label class="d-flex align-items-center justify-content-center pointer-item">
+                                        <input
+                                            type="file"
+                                            accept="image/png, image/jpeg"
+                                            style="display: none"
+                                            #featureImage
+                                            (change)="handleRoasterFile($event, m, 'product_image')"
+                                        />
+                                        <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                            <img src="assets/images/upload_icon.svg" />
+                                            <span
+                                                class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1"
+                                                >{{ 'drag_drop_image' | translate }}</span
+                                            >
+                                        </div>
+                                    </label>
+                                </div>
+                                <div *ngIf="product_image['fileDetails']" class="addImageContainer">
+                                    <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
+                                    <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
+                                        <span class="ellipsis">
+                                            {{
+                                                (product_image?.fileDetails && product_image?.fileDetails[0]?.name) ||
+                                                    trackFileName(product_image['fileDetails']['image_url'])
+                                            }}
+                                        </span>
+                                        <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
+                                    </div>
+                                    <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
+                                        <ng-template pTemplate>
+                                            <div
+                                                class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
+                                                (click)="deleteImage(m, 'product_image')"
+                                            >
+                                                Delete
+                                            </div>
+                                        </ng-template>
+                                    </p-overlayPanel>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            (click)="uploadImages()"
+                            [disabled]="uploadDisabled"
+                            class="btn-stroked mt-2 mt-md-25 mt-lg-3"
+                        >
+                            {{ 'upload_images' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
     </div>
 </div>

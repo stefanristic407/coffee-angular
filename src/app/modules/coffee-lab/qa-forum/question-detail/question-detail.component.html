@@ -89,7 +89,10 @@
                                     [enableStopPropagation]="false"
                                 ></app-forum-menu>
                             </div>
-                            <div *ngIf="answer?.allow_translation && answer?.translations?.length" class="d-none d-md-block">
+                            <div
+                                *ngIf="answer?.allow_translation && answer?.translations?.length"
+                                class="d-none d-md-block"
+                            >
                                 <app-translation-dropdown
                                     forumType="question"
                                     [translatedList]="answer?.translations"
@@ -107,11 +110,7 @@
                         [translatedList]="answer?.translations"
                     ></app-translation-dropdown>
                 </div>
-                <div
-                    class="fnt-muli fnt-14 text-clr334 lh-15"
-                    appFullImgWrapper
-                    [innerHTML]="answer.answer"
-                ></div>
+                <div class="fnt-muli fnt-14 text-clr334 lh-15" appFullImgWrapper [innerHTML]="answer.answer"></div>
                 <div class="pt-4" *ngIf="answer?.parent_answer_id">
                     <app-original-view
                         [translations]="answer.translations"

@@ -24,7 +24,7 @@ export class OriginalViewComponent implements OnInit {
             this.originalUrl = `/coffee-lab/${this.forumType}s/${this.originalForumData.question_slug}`;
             this.originalForumTitle = this.originalForumData.question;
         } else if (this.forumType === 'article') {
-            this.originalForumData = this.detailsData[`original_articles`];
+            this.originalForumData = this.detailsData[`original_article`];
             this.getOriginalDetails(this.detailsData?.original_article_id);
         } else {
             this.originalForumData = this.detailsData[`original_details`];
@@ -33,13 +33,11 @@ export class OriginalViewComponent implements OnInit {
     }
 
     getOriginalDetails(id): void {
-        this.coffeeLabService
-            .getForumDetails(this.forumType, id)
-            .subscribe((res: any) => {
-                if (res.success) {
-                    this.originalForumTitle = res.result.title || res.result.name;
-                    this.originalUrl = `/coffee-lab/${this.forumType}s/${res.result.slug}`;
-                }
-            });
+        this.coffeeLabService.getForumDetails(this.forumType, id).subscribe((res: any) => {
+            if (res.success) {
+                this.originalForumTitle = res.result.title || res.result.name;
+                this.originalUrl = `/coffee-lab/${this.forumType}s/${res.result.slug}`;
+            }
+        });
     }
 }

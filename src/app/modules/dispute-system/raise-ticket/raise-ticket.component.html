@@ -1,83 +1,88 @@
 <div class="main-block">
-    <div class="row mb-3">
-        <div class="col-md-12 col-lg-12 col-xl-9 d-none d-sm-none d-md-block">
+    <div class="mb-3">
+        <div class="d-none d-md-block">
             <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex d-sm-flex d-md-none align-items-center">
-            <div class="back-href cursor-pointer" [routerLink]="['/dispute-system/order-chat/', orderID]">
-                <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
+        <div class="d-md-none">
+            <div class="back-page" [routerLink]="['/dispute-system/order-chat/', orderId]">
+                {{ 'back' | translate }}
             </div>
         </div>
     </div>
-    <div class="row no-gutters d-flex d-sm-flex d-md-none">
-        <div class="col-12 p-0">
-            <span class="primary_txt">Raise a ticket</span>
-        </div>
+    <div class="d-md-flex justify-content-between align-items-end mb-4">
+        <div class="fnt-18 fnt-bold mb-4 mb-md-0">{{ 'order_support' | translate }}</div>
+        <button class="btn-raised w-mob-100" routerLink="/dispute-system/raised-tickets/{{ orgType }}/{{ orderId }}">
+            {{ 'view_all_raised_tickets' | translate }}
+        </button>
     </div>
-    <div class="row no-gutters">
-        <div [formGroup]="ticketForm" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 formDiv order-2 order-md-1">
-            <div class="col-12 p-0 d-none d-sm-none d-md-flex">
-                <span class="primary_txt">Raise a ticket</span>
-            </div>
-            <div class="col-12 p-0 mt-md-4">
-                <div class="row no-gutters">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 sewn-form-field">
-                        <div class="d-flex">
-                            <label class="mobileOrderDiv">Order ID #<span class="star">*</span></label>
-                            <div
-                                class="
-                                    col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4
-                                    d-flex d-sm-flex
-                                    p-0
-                                    d-md-none
-                                    mobileOrderDiv
-                                "
-                            >
-                                <span
-                                    class="raise-chng-ord fnt-muli ml-auto"
-                                    routerLink="/dispute-system/select-order"
-                                    [queryParams]="{ orderId: orderID, orderType: orderType }"
+
+    <div class="row gutter-16 v-gutter-16">
+        <div [formGroup]="ticketForm" class="col-12 col-xl-6 order-2 order-md-1">
+            <div class="border-md-main br-4 h-100 px-md-4 py-md-45">
+                <div class="col-12 p-0 d-none d-sm-none d-md-flex">
+                    <span class="primary_txt">Raise a ticket</span>
+                </div>
+                <div class="col-12 p-0 mt-md-4">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 sewn-form-field">
+                            <div class="d-flex">
+                                <label class="mobileOrderDiv">Order ID #<span class="star">*</span></label>
+                                <div
+                                    class="
+                                        col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4
+                                        d-flex d-sm-flex
+                                        p-0
+                                        d-md-none
+                                        mobileOrderDiv
+                                    "
                                 >
-                                    <img src="/assets/images/change_order.svg" alt="" /> change order</span
-                                >
+                                    <span
+                                        class="raise-chng-ord fnt-muli ml-auto"
+                                        routerLink="/dispute-system/select-order"
+                                        [queryParams]="{ orderId: orderId, orgType: orgType }"
+                                    >
+                                        <img src="/assets/images/change_order.svg" alt="" /> change order</span
+                                    >
+                                </div>
                             </div>
+                            <input type="text" placeholder="product name" formControlName="orderId" pInputText />
+                            <small *ngIf="ticketForm.controls['orderId'].errors?.required" class="p-error">
+                                Required
+                            </small>
                         </div>
-                        <input type="text" placeholder="product name" formControlName="orderID" pInputText />
-                        <small *ngIf="ticketForm.controls['orderID'].errors?.required" class="p-error">
-                            Required
-                        </small>
-                    </div>
-                    <div
-                        class="
-                            col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4
-                            d-none d-sm-none d-md-flex
-                            pl-3
-                            align-items-center
-                        "
-                    >
-                        <span
-                            class="raise-chng-ord fnt-muli"
-                            routerLink="/dispute-system/select-order"
-                            [queryParams]="{ id: orderID, orderType: orderType }"
+                        <div
+                            class="
+                                col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4
+                                d-none d-sm-none d-md-flex
+                                pl-3
+                                align-items-center
+                            "
                         >
-                            <img src="/assets/images/shape-2.png" alt="" /> change order</span
-                        >
+                            <span
+                                class="raise-chng-ord fnt-muli"
+                                routerLink="/dispute-system/select-order"
+                                [queryParams]="{ id: orderId, orderType: orgType }"
+                            >
+                                <img src="/assets/images/shape-2.png" alt="" /> change order</span
+                            >
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 p-0 sewn-form-field">
-                <label>What can we help you with?<span class="star">*</span></label>
-                <p-dropdown
-                    [options]="helpTextArray"
-                    optionLabel="label"
-                    placeholder=""
-                    [style]="{ width: '100%' }"
-                    formControlName="dispute_type"
-                    optionValue="value"
-                ></p-dropdown>
-                <small *ngIf="ticketForm.controls['dispute_type'].errors?.required" class="p-error"> Required </small>
-            </div>
-            <!-- <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0 sewn-form-field">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 p-0 sewn-form-field">
+                    <label>What can we help you with?<span class="star">*</span></label>
+                    <p-dropdown
+                        [options]="helpTextArray"
+                        optionLabel="label"
+                        placeholder=""
+                        [style]="{ width: '100%' }"
+                        formControlName="dispute_type"
+                        optionValue="value"
+                    ></p-dropdown>
+                    <small *ngIf="ticketForm.controls['dispute_type'].errors?.required" class="p-error">
+                        Required
+                    </small>
+                </div>
+                <!-- <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0 sewn-form-field">
                 <label>Why do you want to dispute the order?</label>
                 <p-dropdown
                     [options]="reasonTextArray"
@@ -89,42 +94,45 @@
                 ></p-dropdown>
                 <small *ngIf="ticketForm.controls['dispute_reason'].errors?.required" class="p-error"> Required </small>
             </div> -->
-            <div class="col-12 p-0 sewn-form-field">
-                <label>Describe your problem<span class="star">*</span></label>
-                <textarea
-                    type="text"
-                    class="descriptionText-area"
-                    placeholder="Describe your problem"
-                    formControlName="description"
-                    pInputText
-                ></textarea>
-                <small *ngIf="ticketForm.controls['description'].errors?.required" class="p-error"> Required </small>
-            </div>
-            <div class="col-12 p-0 sewn-form-field">
-                <label>Whats your solution to the problem? (Optional)</label>
-                <textarea
-                    type="text"
-                    class="descriptionText-area"
-                    placeholder="Describe your problem"
-                    formControlName="solution"
-                    pInputText
-                ></textarea>
-                <small *ngIf="ticketForm.controls['solution'].errors?.required" class="p-error"> Required </small>
-            </div>
-            <div class="col-12 p-0 sewn-form-field">
-                <label
-                    >Attachments <span *ngIf="filesArray">({{ filesArray.length }})</span></label
-                >
-                <div class="imgContainer image-upload-wrap">
-                    <input class="file-upload-input" type="file" (change)="documentUpload($event)" />
-                    <div class="secondary_txt">
-                        <span>+ Add File</span>
+                <div class="col-12 p-0 sewn-form-field">
+                    <label>Describe your problem<span class="star">*</span></label>
+                    <textarea
+                        type="text"
+                        class="descriptionText-area"
+                        placeholder="Describe your problem"
+                        formControlName="description"
+                        pInputText
+                    ></textarea>
+                    <small *ngIf="ticketForm.controls['description'].errors?.required" class="p-error">
+                        Required
+                    </small>
+                </div>
+                <div class="col-12 p-0 sewn-form-field">
+                    <label>Whats your solution to the problem? (Optional)</label>
+                    <textarea
+                        type="text"
+                        class="descriptionText-area"
+                        placeholder="Describe your problem"
+                        formControlName="solution"
+                        pInputText
+                    ></textarea>
+                    <small *ngIf="ticketForm.controls['solution'].errors?.required" class="p-error"> Required </small>
+                </div>
+                <div class="col-12 p-0 sewn-form-field">
+                    <label
+                        >Attachments <span *ngIf="filesArray">({{ filesArray.length }})</span></label
+                    >
+                    <div class="imgContainer image-upload-wrap">
+                        <input class="file-upload-input" type="file" (change)="documentUpload($event)" />
+                        <div class="secondary_txt">
+                            <span>+ Add File</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div *ngIf="orderDetails" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 order-1 order-md-2">
-            <div class="formDiv detailsDiv h-100">
+        <div *ngIf="orderDetails" class="col-12 col-xl-6 order-1 order-md-2">
+            <div class="border-md-main br-4 h-100 px-md-4 py-md-45">
                 <div class="col-12 p-0">
                     <span class="primary_txt">Order details</span>
                 </div>
@@ -132,11 +140,11 @@
                     <div class="col-xl-12 col-lg-5 col-md-6 col-sm-12 mt-md-4">
                         <div class="row pb-4 rowBorder d-none d-sm-none d-md-flex n-margin">
                             <div class="col-2 p-0 d-flex align-items-center">
-                                <img
-                                    class="img-estate img-procured"
+                                <app-avatar
+                                    [size]="36"
                                     [src]="orderDetails?.estate_profile_image_thumbnail_url"
-                                    alt="User"
-                                />
+                                    [name]="orderDetails?.estate_name"
+                                ></app-avatar>
                             </div>
                             <div class="col-10 p-0 ownerDiv">
                                 <span class="estateMediumFont mb-1"
@@ -151,11 +159,11 @@
                         </div>
                         <div class="row roasterDiv pb-4 rowBorder n-margin">
                             <div class="col-2 p-0 d-flex align-items-center">
-                                <img
-                                    class="img-estate img-procured"
+                                <app-avatar
+                                    [size]="36"
                                     [src]="orderDetails?.roaster_profile_image_thumbnail_url"
-                                    alt="User"
-                                />
+                                    [name]="orderDetails?.roaster_name"
+                                ></app-avatar>
                             </div>
                             <div class="col-10 p-0 ownerDiv">
                                 <span class="estateMediumFont mb-1"
@@ -173,42 +181,42 @@
                     <div class="col-xl-12 col-lg-7 col-md-6 col-sm-12 mt-2 origin-pad">
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Origin :
+                                {{ 'origin' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.origin ? orderDetails.origin : 'NA' }}
+                                {{ orderDetails?.origin | country }}
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Variety :
+                                {{ 'variety' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.varieties ? orderDetails.varieties : 'NA' }}
+                                {{ orderDetails?.varieties || 'NA' }}
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Price :
+                                {{ 'price' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.price ? orderDetails.price : 'NA' }}
+                                {{ orderDetails?.price | number }} {{ orderDetails?.price_unit }}
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 rowBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Type of order :
+                                {{ 'type_of_order' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.order_type ? orderDetails.order_type : 'NA' }}
+                                {{ orderDetails?.order_type | orderType }}
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 statusBorder">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
-                                Status :
+                                {{ 'status' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
-                                {{ orderDetails.status ? orderDetails.status : 'NA' }}
+                                {{ orderDetails?.status | orderStatus }}
                             </div>
                         </div>
                     </div>
@@ -216,17 +224,18 @@
             </div>
         </div>
     </div>
+
     <div class="row mt-md-4">
         <div class="col-12 d-none d-sm-none d-md-flex">
-            <button class="btn btn-stroked ml-auto" [routerLink]="['/dispute-system/order-chat/', orderID]">
-                {{ globals.languageJson?.cancel }}
+            <button class="btn btn-stroked ml-auto" [routerLink]="['/dispute-system/order-chat/', orderId]">
+                {{ 'cancel' | translate }}
             </button>
-            <button class="btn btn-raised ml-3" (click)="submitTicket()">Submit</button>
+            <button class="btn btn-raised ml-3" (click)="submitTicket()">{{ 'submit' | translate }}</button>
         </div>
         <div class="col-12 d-block d-sm-block d-md-none">
-            <button class="btn btn-raised w-100" (click)="submitTicket()">Submit</button>
-            <button class="btn btn-stroked w-100 mt-3" [routerLink]="['/dispute-system/order-chat/', orderID]">
-                {{ globals.languageJson?.cancel }}
+            <button class="btn btn-raised w-100" (click)="submitTicket()">{{ 'submit' | translate }}</button>
+            <button class="btn btn-stroked w-100 mt-3" [routerLink]="['/dispute-system/order-chat/', orderId]">
+                {{ 'cancel' | translate }}
             </button>
         </div>
     </div>

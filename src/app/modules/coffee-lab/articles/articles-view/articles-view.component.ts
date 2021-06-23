@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { CoffeeLabService, AuthService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { Subject, Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ApiResponse } from '@models';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'app-articles-view',
     templateUrl: './articles-view.component.html',
@@ -34,22 +32,15 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     ];
     articlesData: any[] = [];
     isLoading = false;
-    pageDesc: string | undefined;
     organizationId: any;
     destroy$: Subject<boolean> = new Subject<boolean>();
+    searchInput$: Subject<any> = new Subject<any>();
     forumLanguage: string;
     constructor(
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
-        private router: Router,
-        private coffeeLab: CoffeeLabService,
         public authService: AuthService,
-    ) {
-        this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
-    }
-    perPage = 9;
-    totalRecords = 0;
-    hidePaginator = false;
+    ) {}
 
     ngOnInit(): void {
         this.organizationId = this.authService.getOrgId();
@@ -60,72 +51,41 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getData();
         });
+        this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
+            this.getData();
+        });
+    }
+
+    handleSearch(): void {
+        this.searchInput$.next(this.keyword);
     }
 
     reloadPageData(): void {
-        this.hidePaginator = true;
         this.getData();
     }
 
-    getData(page = 1): void {
+    getData(): void {
         this.isLoading = true;
-        const params1 = {
-            sort_by: 'created_at',
-            sort_order: 'desc',
-            publish: true,
-            page,
-            per_page: this.perPage
-        };
-        const params2 = {
+        const params = {
             query: this.keyword,
             translations_available: this.coffeeLabService.articleViewFilterBy,
             sort_by: 'created_at',
             sort_order: this.coffeeLabService.articleViewSortBy === 'latest' ? 'desc' : 'asc',
             publish: true,
-            page,
-            per_page: this.perPage
+            page: 1,
+            per_page: 10000,
         };
-        if (this.pageDesc === 'saved-posts') {
-            this.coffeeLab.getSavedForumList('article', params1).subscribe((res) => {
-                this.handleDataResponse(res);
-            });
-        } else if (this.pageDesc === 'my-posts') {
-            this.coffeeLab.getMyForumList('article', params1).subscribe((res) => {
-                this.handleDataResponse(res);
-            });
-        } else {
-            this.coffeeLabService.getForumList('article', params2, this.forumLanguage).subscribe((res) => {
-               this.handleDataResponse(res);
-            });
-        }
-    }
-
-    handleDataResponse(res: ApiResponse<any>): void {
-        if (res.success) {
-            this.articlesData = (res.result ?? []).map((item) => {
-                item.content = this.getJustText(item.content);
-                return item;
-            });
-            this.totalRecords = res.result_info.total_count;
-            this.hidePaginator = false;
-        } else {
-            this.toastService.error('Cannot get Articles data');
-        }
-        this.isLoading = false;
-    }
-
-    getJustText(content: any) {
-        const contentElement = document.createElement('div');
-        contentElement.innerHTML = content;
-        const images = contentElement.querySelectorAll('img');
-        images.forEach((image) => {
-            image.parentNode.removeChild(image);
+        this.coffeeLabService.getForumList('article', params, this.forumLanguage).subscribe((res) => {
+            if (res.success) {
+                this.articlesData = (res.result ?? []).map((item) => {
+                    item.content = this.coffeeLabService.getJustText(item.content);
+                    return item;
+                });
+            } else {
+                this.toastService.error('Cannot get Articles data');
+            }
+            this.isLoading = false;
         });
-        return contentElement.innerHTML;
-    }
-
-    paginate(event: any) {
-        this.getData(event.page + 1);
     }
 
     ngOnDestroy(): void {

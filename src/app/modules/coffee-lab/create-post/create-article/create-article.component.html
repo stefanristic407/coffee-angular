@@ -47,10 +47,10 @@
         </div>
         <div class="col-12 sewn-form-field p-0">
             <textarea
-                    [placeholder]="'give_a_title' | translate"
-                    pInputTextarea
-                    formControlName="title"
-                    [rows]="1"
+                [placeholder]="'give_a_title' | translate"
+                pInputTextarea
+                formControlName="title"
+                [rows]="1"
             ></textarea>
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
@@ -86,8 +86,8 @@
                 formControlName="allow_translation"
             ></p-checkbox>
             <app-info-tooltip
-                    [title]="'translations' | translate"
-                    [description]="'translation-tooltip' | translate"
+                [title]="'translations' | translate"
+                [description]="'translation-tooltip' | translate"
             ></app-info-tooltip>
         </div>
         <div class="row pt-45 pt-lg-5">

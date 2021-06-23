@@ -11,17 +11,12 @@ import { AuthService, CoffeeLabService } from '@services';
 export class QuestionsComponent implements OnInit {
     @Input() questions: any[] = [];
     @Input() viewMode = 'list';
-    questionMenuItems: MenuItem[] = [];
     organizationId: any;
     pageDesc: string;
     totalRecords = 0;
     displayData: any[] = [];
 
-    constructor(
-        private router: Router,
-        public coffeeLabService: CoffeeLabService,
-        public authService: AuthService
-    ) {
+    constructor(private router: Router, public coffeeLabService: CoffeeLabService, public authService: AuthService) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 

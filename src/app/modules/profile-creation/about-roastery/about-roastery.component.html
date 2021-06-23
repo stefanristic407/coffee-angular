@@ -66,7 +66,17 @@
                     </div>
 
                     <div
-                        class="row border-md-main border-md-none br-4 mb-3 mb-md-45 m-0 mt-3 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
+                        class="
+                            row
+                            border-md-main border-md-none
+                            br-4
+                            mb-3 mb-md-45
+                            m-0
+                            mt-3 mt-md-0
+                            p-0 p-md-0
+                            mr-md-0
+                            ml-md-0
+                        "
                     >
                         <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
                             <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14 text-clr588']" for="summary"
@@ -519,10 +529,9 @@
                                         </p>
                                     </div>
                                     <div class="mt-3">
-                                        <button class="btn-file-upload d-flex" (click)="openChat(contact)">
-                                            <img class="mr-2" src="assets/images/message-icon.svg" alt="message icon" />
+                                        <span class="btn-trans-icon message-icon" (click)="openChat(contact)">
                                             {{ 'message' | translate }}
-                                        </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -580,19 +589,22 @@
                 <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12">
                         <div
-                            class="w-100 certification-item-container d-flex justify-content-between"
+                            class="w-100 d-flex justify-content-between"
                             [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 || isSaveMode }"
                         >
-                            <div class="certification-item-metadata d-flex mb-25">
-                                <img
-                                    class="img-estate"
-                                    [src]="certificate.certificate_type_url"
-                                    [alt]="certificate.certificate_type"
-                                />
-                                <div class="certification-description ml-2">
+                            <div class="d-flex mb-25">
+                                <a [href]="certificate.public_url" target="_blank">
+                                    <img
+                                        class="img-estate"
+                                        [src]="certificate.certificate_type_url"
+                                        [alt]="certificate.certificate_type"
+                                /></a>
+                                <div class="ml-2">
                                     <ul class="no-bullet-ul">
                                         <li class="fnt-600">
-                                            {{ certificate.certificate_type_name }}
+                                            <a [href]="certificate.public_url" target="_blank">{{
+                                                certificate.certificate_type_name
+                                            }}</a>
                                         </li>
                                         <li class="fnt-600 text-clr588">
                                             {{ certificate.year }}

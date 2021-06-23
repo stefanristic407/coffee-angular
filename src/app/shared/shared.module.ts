@@ -228,12 +228,15 @@ import {
     LotBrandLinkPipe,
     OrderLinkPipe,
     OrderRatingLinkPipe,
+    OrderStatusPipe,
+    OrderTypePipe,
     ProfileLinkPipe,
     QuantityTypePipe,
     ReviewLinkPipe,
     RoasterBrandCmsLinkPipe,
     RoasterBrandLinkPipe,
     ShopLinkPipe,
+    HtmlStringWordCountPipe,
 } from './pipes';
 
 const PIPES = [
@@ -250,6 +253,8 @@ const PIPES = [
     MonthPipe,
     OrderLinkPipe,
     OrderRatingLinkPipe,
+    OrderStatusPipe,
+    OrderTypePipe,
     OrgTypePipe,
     ProfileLinkPipe,
     QuantityTypePipe,
@@ -257,12 +262,14 @@ const PIPES = [
     ReviewLinkPipe,
     RoasterBrandCmsLinkPipe,
     RoasterBrandLinkPipe,
+    SafeHtmlPipe,
     SearchFilterPipe,
     ShopLinkPipe,
     StringReplacePipe,
     ThousandSuffPipe,
     WordCountPipe,
     SafeHtmlPipe,
+    HtmlStringWordCountPipe,
 ];
 
 @NgModule({

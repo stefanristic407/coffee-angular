@@ -27,7 +27,7 @@
             <input
                 class="w-100 fnt-16"
                 [(ngModel)]="keyword"
-                (ngModelChange)="getQuestions()"
+                (ngModelChange)="handleSearch()"
                 type="text"
                 pInputText
                 [placeholder]="'search_qna_forum' | translate"
@@ -47,6 +47,7 @@
                     <input
                         class="w-100 fnt-16"
                         [(ngModel)]="keyword"
+                        (ngModelChange)="handleSearch()"
                         type="text"
                         pInputText
                         [placeholder]="'search_qna_forum' | translate"

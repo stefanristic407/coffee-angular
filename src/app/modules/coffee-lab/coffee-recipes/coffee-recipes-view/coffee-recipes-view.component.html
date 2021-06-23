@@ -1,8 +1,8 @@
 <div class="coffee-recipes-view-container">
-    <div *ngIf="pageDesc === 'overview'" class="fnt-18 fnt-md-24 font-weight-bold d-md-none">
+    <div class="fnt-18 fnt-md-24 font-weight-bold d-md-none">
         {{ 'brewing_guides' | translate }}
     </div>
-    <div *ngIf="pageDesc === 'overview'" class="row justify-content-lg-between pt-3 pt-md-0 gutter-32">
+    <div class="row justify-content-lg-between pt-3 pt-md-0 gutter-32">
         <div class="col-lg-8">
             <div class="p-3 bg-f8 br-4 d-flex align-items-center">
                 <img
@@ -29,8 +29,8 @@
                     class="w-100 fnt-16"
                     type="text"
                     pInputText
-                    [(ngModel)]="searchQuery"
-                    (ngModelChange)="getCoffeeRecipesData()"
+                    [(ngModel)]="keyword"
+                    (ngModelChange)="handleSearch()"
                     [placeholder]="'search_for_brewing_guides' | translate"
                 />
             </div>
@@ -38,7 +38,6 @@
     </div>
 
     <div
-        *ngIf="pageDesc === 'overview'"
         class="d-none d-md-flex flex-column align-items-center flex-md-row justify-content-md-between pb-lg-3 pb-md-0 pt-md-4 pt-lg-45"
     >
         <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">
@@ -49,17 +48,14 @@
                 class="w-100 fnt-16"
                 type="text"
                 pInputText
-                [(ngModel)]="searchQuery"
-                (ngModelChange)="reloadPageData()"
+                [(ngModel)]="keyword"
+                (ngModelChange)="handleSearch()"
                 [placeholder]="'search_for_brewing_guides' | translate"
             />
         </span>
     </div>
 
-    <div
-        *ngIf="pageDesc === 'overview'"
-        class="d-flex align-items-md-center justify-content-between pb-4 pb-lg-45 pt-3 pt-lg-0"
-    >
+    <div class="d-flex align-items-md-center justify-content-between pb-4 pb-lg-45 pt-3 pt-lg-0">
         <div class="d-block flex-wrap d-md-flex">
             <div class="mb-25 mb-md-0">
                 <p-dropdown
@@ -89,13 +85,12 @@
             </div>
             <div class="pl-md-3 ingredient-field">
                 <input
-                    class="w-100 fnt-16"
                     type="text"
                     pInputText
                     [(ngModel)]="searchIngredient"
                     (ngModelChange)="reloadPageData()"
-                    styleClass="ingredient-field"
                     [placeholder]="'search_by_ingredient' | translate"
+                    class="round-border w-100 fnt-16"
                 />
             </div>
         </div>
@@ -111,85 +106,14 @@
             </p-dropdown>
         </div>
     </div>
-    <div class="coffee-wrapper" *ngIf="!isLoading">
-        <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of coffeeRecipeData">
-            <div
-                class="border-main br-4 p-3 py-md-4 px-lg-4 coffee-item"
-                [routerLink]="'/coffee-lab/recipes/' + coffee.slug"
-            >
-                <div class="d-flex justify-content-between">
-                    <div class="flex-1 overflow-hidden">
-                        <app-user-header [prop]="coffee"></app-user-header>
-                    </div>
-                    <app-forum-menu
-                        [selectedItem]="coffee"
-                        forumType="recipe"
-                        [enableEdit]="
-                            organizationId == coffee.organisation_id &&
-                            coffee.organisation_type === coffeeLabService.organization &&
-                            coffee.posted_by == authService.currentUser.id
-                        "
-                        [enableDelete]="
-                            organizationId == coffee.organisation_id &&
-                            coffee.organisation_type === coffeeLabService.organization &&
-                            coffee.posted_by == authService.currentUser.id
-                        "
-                        [enableSave]="pageDesc !== 'saved-posts'"
-                        [enableDeleteSave]="pageDesc === 'saved-posts'"
-                    ></app-forum-menu>
-                </div>
-                <div class="w-100 position-relative">
-                    <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4 object-fit-cover" />
-                    <span class="expertise fnt-12"> {{ coffee.expertise }} </span>
-                </div>
-                <a class="fnt-muli fnt-lg-14 fnt-16 fnt-bold text-clr334 cursor-pointer">
-                    {{ coffee?.name }}
-                    <div class="py-3 m-0 d-flex">
-                        <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'preparation_time' | translate }}:</div>
-                        <span class="fnt-600"> {{ coffee.preparation_time }}{{ coffee.preparation_time_unit }} </span>
-                    </div>
-                    <div class="m-0 d-flex">
-                        <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'ingredients' | translate }}:</div>
-                        <span class="value fnt-muli fnt-14 fnt-600">
-                            {{ coffee.ingredients }}
-                        </span>
-                    </div>
-                </a>
-                <div class="coffee-content-wrapper">
-                    <p class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0" [innerHTML]="coffee.description"></p>
-
-                    <label class="mb-0 brown-cta pt-2">{{ 'read_more' | translate }}</label>
-                </div>
-            </div>
-        </div>
+    <div *ngIf="!isLoading">
+        <app-recipes [recipes]="coffeeRecipeData"></app-recipes>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading && !coffeeRecipeData.length" class="text-center my-4 fnt-muli text-clr24">
         <app-empty
-                [title]="
-                (pageDesc === 'saved-posts'
-                    ? 'you_have_not_saved_any_post'
-                    : 'my-posts'
-                    ? 'you_have_not_posted_anything_yet'
-                    : 'there_are_no_posts_to_show'
-                ) | translate
-            "
-                [description]="
-                (pageDesc === 'saved-posts'
-                    ? 'no_saved_posts_description'
-                    : 'my-posts'
-                    ? 'no_my_posts_description'
-                    : 'no_any_posts_to_show_description'
-                ) | translate
-            "
+            [title]="'there_are_no_posts_to_show' | translate"
+            [description]="'no_any_posts_to_show_description' | translate"
         ></app-empty>
-    </div>
-    <div class="pt-3 pt-md-4 w-100 text-center" *ngIf="totalRecords && !hidePaginator">
-        <p-paginator
-                #paginator
-                [rows]="perPage"
-                [totalRecords]="totalRecords"
-                (onPageChange)="paginate($event)"
-        ></p-paginator>
     </div>
 </div>

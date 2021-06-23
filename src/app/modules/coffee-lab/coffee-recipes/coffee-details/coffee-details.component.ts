@@ -16,7 +16,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     relatedData: any[] = [];
     organizationId: any;
     detailsData: any;
-    id: string | number = '';
+    slug = '';
     isLoading = true;
     commentData: any[] = [];
     destroy$: Subject<boolean> = new Subject<boolean>();
@@ -31,7 +31,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     ) {
         this.organizationId = this.authService.getOrgId();
         this.activatedRoute.params.subscribe((params) => {
-            this.id = params.id;
+            this.slug = params.id;
             this.getCoffeeDetails(true);
             this.getCoffeeRecipesData();
         });
@@ -46,8 +46,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
 
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        this.coffeeLabService.getForumDetails('recipe', this.id).subscribe((res: any) => {
-            console.log('coffee details >>>>>>>', res);
+        this.coffeeLabService.getForumDetails('recipe', this.slug).subscribe((res: any) => {
             if (res.success) {
                 this.detailsData = res.result;
                 this.detailsData.description = this.getJustText(this.detailsData.description);
@@ -79,8 +78,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         };
         this.coffeeLabService.getForumList('recipe', params).subscribe((res) => {
             if (res.success) {
-                console.log('response----->>>>>', res);
-                this.relatedData = res.result.filter((item: any) => item.id !== this.id).slice(0, 5);
+                this.relatedData = res.result.filter((item: any) => item.slug !== this.slug).slice(0, 5);
                 this.relatedData.map((item) => {
                     item.description = this.getJustText(item.description);
                     return item;

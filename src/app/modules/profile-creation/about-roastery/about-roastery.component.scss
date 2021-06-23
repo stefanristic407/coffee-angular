@@ -1,22 +1,5 @@
 @import 'variables';
 
-.btn-file-upload {
-    background: transparent;
-    font-size: 14px;
-    color: $general-text-color;
-    line-height: 16px;
-    padding: 8px 12px;
-    border: 1px solid $muted-text-color;
-    border-radius: 2px;
-    &:hover {
-        border: 1px solid $muted-text-color !important;
-    }
-    img {
-        height: 16px;
-        width: 16px;
-    }
-}
-
 .header {
     height: 50px;
     border-radius: 4px;

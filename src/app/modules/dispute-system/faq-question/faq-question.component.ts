@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { OrganizationType } from '@enums';
 import { AuthService, UserserviceService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -72,7 +73,7 @@ export class FaqQuestionComponent implements OnInit {
                 supportValue: this.buttonValue,
             },
         };
-        this.router.navigate(['/dispute-system/raise-ticket', this.orderID], navigationExtras);
+        this.router.navigate(['/dispute-system/raise-ticket', OrganizationType.ESTATE, this.orderID], navigationExtras);
     }
     getFAQList() {
         this.userService.getDisputeFAQList(this.roasterID).subscribe(
