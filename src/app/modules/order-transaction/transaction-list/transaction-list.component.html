@@ -51,7 +51,7 @@
                 optionValue="value"
                 value="value"
                 scrollHeight="225px"
-                placeholder="Status"
+                placeholder="Channel"
                 [autoDisplayFirst]="false"
                 styleClass="filter-component round-border mb-3 {{ fCchannel.dirty ? 'highlight' : '' }}"
             ></p-dropdown>
@@ -143,7 +143,7 @@
                             ariaLabelAsc="Activate to sort in ascending order"
                         >
                         </p-sortIcon>
-                        <p class="vat-included-message" *ngIf="columns.field === 'total_amount'">(Inc. VAT)</p>
+                        <span class="vat-included-message" *ngIf="col.field === 'total_amount'">(Inc. VAT)</span>
                     </th>
                 </tr>
             </ng-template>
@@ -209,7 +209,7 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['document_date'] || '--' }}
+                                    {{ (rowData['document_date'] | date: 'd MMM y') || '--' }}
                                 </span>
                             </div>
                         </span>
@@ -253,7 +253,10 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['total_amount'] | currency: 'USD':'symbol-narrow' || '--' }}
+                                    {{
+                                        rowData['total_amount']
+                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                    }}
                                 </span>
                             </div>
                         </span>
@@ -264,7 +267,10 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['vat_amount'] | currency: 'USD':'symbol-narrow' || '--' }}
+                                    {{
+                                        rowData['vat_amount']
+                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                    }}
                                 </span>
                             </div>
                         </span>
@@ -275,7 +281,10 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['commission_amount'] | currency: 'USD':'symbol-narrow' || '--' }}
+                                    {{
+                                        rowData['commission_amount']
+                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                    }}
                                 </span>
                             </div>
                         </span>

@@ -30,6 +30,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         { label: 'MR GC Order', value: 'MR_GC_ORDER' },
         { label: 'B2B Order', value: 'B2C_ORDER' },
         { label: 'E-Commerce Order', value: 'ECOM_ORDER' },
+        { label: 'MICRO_ROASTER', value: 'Micro Roaster' },
     ];
 
     public readonly orderTypeItemList = [
@@ -66,7 +67,6 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     }
 
     constructor(
-        private cookieService: CookieService,
         public globals: GlobalsService,
         public primeTableService: OrderTransactionPrimeTableService,
         protected resizeService: ResizeService,
@@ -86,9 +86,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
 
     ngOnInit(): void {
         this.primeTableService.rows = this.perPageItemList[0].value;
-        // this.primeTableService.sortBy = 'document_date';
-        this.primeTableService.sortBy = '';
-
+        this.primeTableService.sortBy = 'document_date';
         this.primeTableService.url = `/ro/${this.roasterId}/transactions`;
         this.primeTableService.roasterId = this.roasterId;
 
