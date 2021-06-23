@@ -41,9 +41,13 @@
         </div>
         <div class="d-flex flex-row flex-md-column w-100">
             <span class="fnt-500 text-muted">{{ 'quantity' | translate }}</span>
-            <span class="mt-md-3 fnt-600 text-clr334">{{
-                lot?.order_type === OrderType.Sample ? ('sample' | translate) : quantity || '-'
-            }}</span>
+            <span class="mt-md-3 fnt-600 text-clr334">
+                <span *ngIf="lot?.order_type === OrderType.Sample">{{ 'sample' | translate }}</span>
+                <span *ngIf="lot?.order_type !== OrderType.Sample"
+                    >{{ lot?.quantity_count }}&nbsp;{{ lot?.quantity_type | quantityType }} x {{ lot?.quantity
+                    }}{{ lot?.quantity_unit }}</span
+                >
+            </span>
             <div
                 class="navigation-link mt-2"
                 *ngIf="lot"
