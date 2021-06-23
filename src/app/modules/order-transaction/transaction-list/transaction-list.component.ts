@@ -50,7 +50,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
 
     public readonly statusMap = {};
 
-    fcDocumentNumber: FormControl;
+    fcSearchQuery: FormControl;
     fCDocumentDateRange: FormControl;
     fCOrderType: FormControl;
     fCperPage: FormControl;
@@ -91,13 +91,13 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         this.primeTableService.url = `/ro/${this.roasterId}/transactions`;
         this.primeTableService.roasterId = this.roasterId;
 
-        this.fcDocumentNumber = new FormControl('');
+        this.fcSearchQuery = new FormControl('');
         this.fCDocumentDateRange = new FormControl(null);
         this.fCperPage = new FormControl(this.perPageItemList[0].value);
         this.fCchannel = new FormControl(null);
         this.fCOrderType = new FormControl(null);
         this.uiForm = new FormGroup({
-            fcDocumentNumber: this.fcDocumentNumber,
+            fcSearchQuery: this.fcSearchQuery,
             fCDocumentDateRange: this.fCDocumentDateRange,
             fCperPage: this.fCperPage,
             fCchannel: this.fCchannel,
@@ -121,7 +121,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     updateServiceValues() {
         const value = this.uiForm.value;
         this.primeTableService.rows = value.fCperPage || this.perPageItemList[0].value;
-        this.primeTableService.documentNumber = value.fcDocumentNumber;
+        this.primeTableService.searchQuery = value.fcSearchQuery;
 
         const startDate =
             value.fCDocumentDateRange && value.fCDocumentDateRange[0]

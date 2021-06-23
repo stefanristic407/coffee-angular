@@ -30,7 +30,7 @@ export class OrderTransactionPrimeTableService {
 
     public channel: any;
     public paymentMode: any;
-    public documentNumber: any;
+    public searchQuery: any;
     public documentFromDate: any;
     public documentToDate: any;
 
@@ -89,8 +89,8 @@ export class OrderTransactionPrimeTableService {
         if (this.status) {
             postData = { ...postData, ...{ status: this.status } };
         }
-        if (this.documentNumber) {
-            postData = { ...postData, ...{ document_number: this.documentNumber } };
+        if (this.searchQuery) {
+            postData = { ...postData, ...{ query: this.searchQuery } };
         }
         if (this.channel) {
             postData = { ...postData, ...{ channel: this.channel } };
