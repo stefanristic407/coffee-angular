@@ -24,11 +24,12 @@ const routes: Routes = [
                 component: AssignUserComponent,
                 canActivate: [AuthGuard],
             },
-            {
-                path: 'order-support/:orderId',
-                component: OrderSupportComponent,
-                canActivate: [AuthGuard],
-            },
+            // This will be used in the future.
+            // {
+            //     path: 'order-support/:orderId',
+            //     component: OrderSupportComponent,
+            //     canActivate: [AuthGuard],
+            // },
             {
                 path: 'order-support-faq/:orderId',
                 component: FaqQuestionComponent,

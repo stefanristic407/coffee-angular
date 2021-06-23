@@ -436,7 +436,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.userOriginalService.logOut().subscribe((res: any) => {
             if (res.success) {
                 this.cookieService.deleteAll();
-                this.router.navigate(['/gate']);
+                window.open(`${environment.ssoWeb}`, '_self');
                 this.toastrService.success('Logout successfully !');
             } else {
                 this.toastrService.error('Error while Logout!');

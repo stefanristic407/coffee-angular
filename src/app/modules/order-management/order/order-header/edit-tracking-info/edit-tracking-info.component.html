@@ -9,6 +9,7 @@
             class="w-100 mx-md-2 py-1 px-3 br-4 {{ trackingUrl ? 'highlight' : '' }}"
             placeholder="{{ 'enter_tracking_link' | translate }}"
             [(ngModel)]="trackingUrl"
+            [disabled]="!editable && !!orderDetails?.shipment_date"
         />
         <p-calendar
             class="mr-md-2 mt-2 mt-md-0 w-100 bg-white"
@@ -21,12 +22,12 @@
             styleClass="w-100 p-calendar-w-btn br-4 single-calendar ml-0 export-calendar py-1 {{
                 shippingDate ? 'highlight' : ''
             }}"
-            [disabled]="orderStatus === OrderStatuses.Shipped || orderStatus === OrderStatuses.Received"
+            [disabled]="!!orderDetails?.shipment_date"
             [(ngModel)]="shippingDate"
         >
         </p-calendar>
         <button class="btn-raised px-2 px-lg-4 mt-2 mt-md-0 no-text-wrap" (click)="update()">
-            {{ (isShipped ? 'edit' : 'update') | translate }}
+            {{ (!!orderDetails?.shipment_date ? (editable ? 'save' : 'edit') : 'update') | translate }}
         </button>
     </div>
 </div>
