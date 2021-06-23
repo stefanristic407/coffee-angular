@@ -140,18 +140,22 @@
 
             <ng-template pTemplate="header" let-columns>
                 <tr class="top-row">
-                    <th colspan="3">
+                    <th colspan="3" class="right-border">
                         <span class="primeng-table-header">Customer Details</span>
                     </th>
-                    <th colspan="4">
+                    <th colspan="4" class="right-border">
                         <span class="primeng-table-header"> Order Details</span>
                     </th>
-                    <th colspan="4">
+                    <th colspan="4" class="right-border">
                         <span class="primeng-table-header"> Payment Details</span>
                     </th>
                 </tr>
                 <tr class="bottom-row">
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
+                    <th
+                        *ngFor="let col of columns"
+                        [pSortableColumn]="col.sortable === true ? col.field : null"
+                        [ngClass]="{ 'right-border': col.field === 'channel' || col.field === 'order_type' }"
+                    >
                         <span class="primeng-table-header">{{ col.header }}</span>
                         <p-sortIcon
                             *ngIf="col.sortable === true"
