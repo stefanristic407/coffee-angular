@@ -291,6 +291,11 @@
                     </td>
                 </tr>
             </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns.length">No records found</td>
+                </tr>
+            </ng-template>
             <ng-template pTemplate="footer" let-columns>
                 <tr class="footer-row">
                     <th colspan="6" class="no-background-color"></th>
@@ -300,17 +305,20 @@
                     <th colspan="1"></th>
                     <th>
                         <span class="primeng-table-footer"
-                            >{{ primeTableService.result.grand_total | currency: 'USD':'symbol-narrow' || '--' }}
+                            >{{ primeTableService.result?.grand_total || 0 | currency: 'USD':'symbol-narrow' || '--' }}
                         </span>
                     </th>
                     <th>
                         <span class="primeng-table-footer">
-                            {{ primeTableService.result.total_vat | currency: 'USD':'symbol-narrow' || '--' }}
+                            {{ primeTableService.result?.total_vat || 0 | currency: 'USD':'symbol-narrow' || '--' }}
                         </span>
                     </th>
                     <th>
                         <span class="primeng-table-footer">
-                            {{ primeTableService.result.total_commission | currency: 'USD':'symbol-narrow' || '--' }}
+                            {{
+                                primeTableService.result?.total_commission || 0
+                                    | currency: 'USD':'symbol-narrow' || '--'
+                            }}
                         </span>
                     </th>
                 </tr>

@@ -31,6 +31,15 @@
 }
 
 ::ng-deep .p-datatable {
+    .p-datatable-scrollable-header,
+    .p-datatable-scrollable-footer {
+        overflow-x: auto;
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+    }
     .p-datatable-scrollable-header {
         background-color: unset;
         .p-datatable-scrollable-header-box table.p-datatable-scrollable-header-table thead.p-datatable-thead tr {

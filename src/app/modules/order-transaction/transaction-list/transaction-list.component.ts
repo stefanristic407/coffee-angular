@@ -87,6 +87,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     ngOnInit(): void {
         this.primeTableService.rows = this.perPageItemList[0].value;
         this.primeTableService.sortBy = 'document_date';
+        this.primeTableService.sortOrder = 'desc';
         this.primeTableService.url = `/ro/${this.roasterId}/transactions`;
         this.primeTableService.roasterId = this.roasterId;
 
