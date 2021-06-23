@@ -32,10 +32,9 @@
                 }
             }
         }
-        .p-datatable-tfoot tr.footer-row th {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .p-datatable-tfoot tr.footer-row th span {
+            display: block;
+            text-align: center;
         }
     }
 }
