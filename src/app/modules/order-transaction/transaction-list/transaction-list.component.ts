@@ -28,9 +28,10 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
 
     public readonly channelItemList = [
         { label: 'MR GC Order', value: 'MR_GC_ORDER' },
-        { label: 'B2B Order', value: 'B2C_ORDER' },
+        { label: 'B2B', value: 'B2B_ORDER' },
+        { label: 'B2C', value: 'B2C_ORDER' },
         { label: 'E-Commerce Order', value: 'ECOM_ORDER' },
-        { label: 'MICRO_ROASTER', value: 'Micro Roaster' },
+        { label: 'Micro-roaster', value: 'MICRO_ROASTER' },
     ];
 
     public readonly orderTypeItemList = [
@@ -38,21 +39,20 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         { label: 'One time', value: 'ONE-TIME' },
         { label: 'GC Order', value: 'GC_ORDER' },
     ];
+    public readonly paymentTypeList = [
+        { label: 'Klarna', value: 'klarna' },
+        { label: 'Swish', value: 'swish' },
+        { label: 'Invoice', value: 'invoice' },
+    ];
 
     public readonly channelItemMap = {};
     public readonly orderTypeItemMap = {};
-
-    public readonly statusList = [
-        { label: 'Paid', value: 'PAID' },
-        { label: 'New', value: 'NEW' },
-        { label: 'Overdue', value: 'OVERDUE' },
-    ];
-
-    public readonly statusMap = {};
+    public readonly paymentTypeMap = {};
 
     fcSearchQuery: FormControl;
     fCDocumentDateRange: FormControl;
     fCOrderType: FormControl;
+    fcPaymentType: FormControl;
     fCperPage: FormControl;
     fCchannel: FormControl;
     uiForm: FormGroup;
@@ -82,6 +82,10 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         this.orderTypeItemList.forEach((lisItem) => {
             this.orderTypeItemMap[lisItem.value] = lisItem.label;
         });
+        this.paymentTypeMap = {};
+        this.paymentTypeList.forEach((x) => {
+            this.paymentTypeMap[x.value] = x.label;
+        });
     }
 
     ngOnInit(): void {
@@ -96,16 +100,16 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         this.fCperPage = new FormControl(this.perPageItemList[0].value);
         this.fCchannel = new FormControl(null);
         this.fCOrderType = new FormControl(null);
+        this.fcPaymentType = new FormControl(null);
         this.uiForm = new FormGroup({
             fcSearchQuery: this.fcSearchQuery,
             fCDocumentDateRange: this.fCDocumentDateRange,
             fCperPage: this.fCperPage,
             fCchannel: this.fCchannel,
+            fcPaymentType: this.fcPaymentType,
             fCOrderType: this.fCOrderType,
         });
-        this.statusList.forEach((x) => {
-            this.statusMap[x.value] = x.label;
-        });
+
         this.initializeTable();
         this.updateServiceValues();
         this.table.reset();
@@ -134,7 +138,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
 
         this.primeTableService.documentToDate = startDate;
         this.primeTableService.documentFromDate = endDate;
-
+        this.primeTableService.paymentMode = value.fcPaymentType;
         this.primeTableService.orderType = value.fCOrderType;
         this.primeTableService.channel = value.fCchannel;
     }

@@ -53,7 +53,9 @@
                 scrollHeight="225px"
                 placeholder="Channel"
                 [autoDisplayFirst]="false"
-                styleClass="filter-component round-border mb-3 {{ fCchannel.dirty ? 'highlight' : '' }}"
+                styleClass="filter-component round-border mb-3 {{
+                    fCchannel.dirty && fCchannel.value ? 'highlight' : ''
+                }}"
             ></p-dropdown>
 
             <p-calendar
@@ -78,7 +80,23 @@
                 scrollHeight="225px"
                 placeholder="Order type"
                 [autoDisplayFirst]="false"
-                styleClass="filter-component round-border mb-3 {{ fCOrderType.dirty ? 'highlight' : '' }}"
+                styleClass="filter-component round-border mb-3 {{
+                    fCOrderType.dirty && fCOrderType.value ? 'highlight' : ''
+                }}"
+            ></p-dropdown>
+            <p-dropdown
+                [options]="paymentTypeList"
+                [showClear]="true"
+                formControlName="fcPaymentType"
+                optionLabel="label"
+                optionValue="value"
+                value="value"
+                scrollHeight="225px"
+                placeholder="Payment mode"
+                [autoDisplayFirst]="false"
+                styleClass="filter-component round-border mb-3 {{
+                    fcPaymentType.dirty && fcPaymentType.value ? 'highlight' : ''
+                }}"
             ></p-dropdown>
 
             <div class="float-right d-none d-md-block">
@@ -242,7 +260,7 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['payment_type'] || '--' }}
+                                    {{ paymentTypeMap[rowData['payment_type']] || '--' }}
                                 </span>
                             </div>
                         </span>
