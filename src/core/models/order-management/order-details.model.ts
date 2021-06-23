@@ -29,6 +29,7 @@ export interface OrderDetails {
     quantity: number;
     quantity_count?: number;
     quantity_type: string;
+    quantity_unit: string;
     receipt_url: string;
     ro_assignee_id?: number;
     roaster_id: number;
