@@ -9,8 +9,8 @@
                     type="text"
                     pInputText
                     class="w-100"
-                    [ngClass]="{ highlight: !!fcDocumentNumber.value && fcDocumentNumber.dirty }"
-                    formControlName="fcDocumentNumber"
+                    [ngClass]="{ highlight: !!fcSearchQuery.value && fcSearchQuery.dirty }"
+                    formControlName="fcSearchQuery"
                     placeholder="Search by document no, customer"
                 />
             </span>
@@ -33,8 +33,8 @@
                     type="text"
                     pInputText
                     class="w-100"
-                    [ngClass]="{ highlight: !!fcDocumentNumber.value && fcDocumentNumber.dirty }"
-                    formControlName="fcDocumentNumber"
+                    [ngClass]="{ highlight: !!fcSearchQuery.value && fcSearchQuery.dirty }"
+                    formControlName="fcSearchQuery"
                     placeholder="Search by document no, customer"
                 />
             </span>
@@ -51,9 +51,11 @@
                 optionValue="value"
                 value="value"
                 scrollHeight="225px"
-                placeholder="Status"
+                placeholder="Channel"
                 [autoDisplayFirst]="false"
-                styleClass="filter-component round-border mb-3 {{ fCchannel.dirty ? 'highlight' : '' }}"
+                styleClass="filter-component round-border mb-3 {{
+                    fCchannel.dirty && fCchannel.value ? 'highlight' : ''
+                }}"
             ></p-dropdown>
 
             <p-calendar
@@ -78,7 +80,23 @@
                 scrollHeight="225px"
                 placeholder="Order type"
                 [autoDisplayFirst]="false"
-                styleClass="filter-component round-border mb-3 {{ fCOrderType.dirty ? 'highlight' : '' }}"
+                styleClass="filter-component round-border mb-3 {{
+                    fCOrderType.dirty && fCOrderType.value ? 'highlight' : ''
+                }}"
+            ></p-dropdown>
+            <p-dropdown
+                [options]="paymentTypeList"
+                [showClear]="true"
+                formControlName="fcPaymentType"
+                optionLabel="label"
+                optionValue="value"
+                value="value"
+                scrollHeight="225px"
+                placeholder="Payment mode"
+                [autoDisplayFirst]="false"
+                styleClass="filter-component round-border mb-3 {{
+                    fcPaymentType.dirty && fcPaymentType.value ? 'highlight' : ''
+                }}"
             ></p-dropdown>
 
             <div class="float-right d-none d-md-block">
@@ -122,18 +140,22 @@
 
             <ng-template pTemplate="header" let-columns>
                 <tr class="top-row">
-                    <th colspan="3">
+                    <th colspan="3" class="right-border">
                         <span class="primeng-table-header">Customer Details</span>
                     </th>
-                    <th colspan="4">
+                    <th colspan="4" class="right-border">
                         <span class="primeng-table-header"> Order Details</span>
                     </th>
-                    <th colspan="4">
+                    <th colspan="4" class="right-border">
                         <span class="primeng-table-header"> Payment Details</span>
                     </th>
                 </tr>
                 <tr class="bottom-row">
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
+                    <th
+                        *ngFor="let col of columns"
+                        [pSortableColumn]="col.sortable === true ? col.field : null"
+                        [ngClass]="{ 'right-border': col.field === 'channel' || col.field === 'order_type' }"
+                    >
                         <span class="primeng-table-header">{{ col.header }}</span>
                         <p-sortIcon
                             *ngIf="col.sortable === true"
@@ -143,7 +165,7 @@
                             ariaLabelAsc="Activate to sort in ascending order"
                         >
                         </p-sortIcon>
-                        <p class="vat-included-message" *ngIf="columns.field === 'total_amount'">(Inc. VAT)</p>
+                        <span class="vat-included-message" *ngIf="col.field === 'total_amount'">(Inc. VAT)</span>
                     </th>
                 </tr>
             </ng-template>
@@ -209,7 +231,7 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['document_date'] || '--' }}
+                                    {{ (rowData['document_date'] | date: 'd MMM y') || '--' }}
                                 </span>
                             </div>
                         </span>
@@ -242,7 +264,7 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['payment_type'] || '--' }}
+                                    {{ paymentTypeMap[rowData['payment_type']] || '--' }}
                                 </span>
                             </div>
                         </span>
@@ -253,7 +275,10 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['total_amount'] | currency: 'USD':'symbol-narrow' || '--' }}
+                                    {{
+                                        rowData['total_amount']
+                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                    }}
                                 </span>
                             </div>
                         </span>
@@ -264,7 +289,10 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['vat_amount'] | currency: 'USD':'symbol-narrow' || '--' }}
+                                    {{
+                                        rowData['vat_amount']
+                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                    }}
                                 </span>
                             </div>
                         </span>
@@ -275,11 +303,19 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['commission_amount'] | currency: 'USD':'symbol-narrow' || '--' }}
+                                    {{
+                                        rowData['commission_amount']
+                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                    }}
                                 </span>
                             </div>
                         </span>
                     </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns.length">No records found</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer" let-columns>
@@ -291,17 +327,20 @@
                     <th colspan="1"></th>
                     <th>
                         <span class="primeng-table-footer"
-                            >{{ primeTableService.result.grand_total | currency: 'USD':'symbol-narrow' || '--' }}
+                            >{{ primeTableService.result?.grand_total || 0 | currency: 'USD':'symbol-narrow' || '--' }}
                         </span>
                     </th>
                     <th>
                         <span class="primeng-table-footer">
-                            {{ primeTableService.result.total_vat | currency: 'USD':'symbol-narrow' || '--' }}
+                            {{ primeTableService.result?.total_vat || 0 | currency: 'USD':'symbol-narrow' || '--' }}
                         </span>
                     </th>
                     <th>
                         <span class="primeng-table-footer">
-                            {{ primeTableService.result.total_commission | currency: 'USD':'symbol-narrow' || '--' }}
+                            {{
+                                primeTableService.result?.total_commission || 0
+                                    | currency: 'USD':'symbol-narrow' || '--'
+                            }}
                         </span>
                     </th>
                 </tr>

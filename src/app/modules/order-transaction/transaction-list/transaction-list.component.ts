@@ -28,8 +28,10 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
 
     public readonly channelItemList = [
         { label: 'MR GC Order', value: 'MR_GC_ORDER' },
-        { label: 'B2B Order', value: 'B2C_ORDER' },
+        { label: 'B2B', value: 'B2B_ORDER' },
+        { label: 'B2C', value: 'B2C_ORDER' },
         { label: 'E-Commerce Order', value: 'ECOM_ORDER' },
+        { label: 'Micro-roaster', value: 'MICRO_ROASTER' },
     ];
 
     public readonly orderTypeItemList = [
@@ -37,21 +39,20 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         { label: 'One time', value: 'ONE-TIME' },
         { label: 'GC Order', value: 'GC_ORDER' },
     ];
+    public readonly paymentTypeList = [
+        { label: 'Klarna', value: 'klarna' },
+        { label: 'Swish', value: 'swish' },
+        { label: 'Invoice', value: 'invoice' },
+    ];
 
     public readonly channelItemMap = {};
     public readonly orderTypeItemMap = {};
+    public readonly paymentTypeMap = {};
 
-    public readonly statusList = [
-        { label: 'Paid', value: 'PAID' },
-        { label: 'New', value: 'NEW' },
-        { label: 'Overdue', value: 'OVERDUE' },
-    ];
-
-    public readonly statusMap = {};
-
-    fcDocumentNumber: FormControl;
+    fcSearchQuery: FormControl;
     fCDocumentDateRange: FormControl;
     fCOrderType: FormControl;
+    fcPaymentType: FormControl;
     fCperPage: FormControl;
     fCchannel: FormControl;
     uiForm: FormGroup;
@@ -66,7 +67,6 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     }
 
     constructor(
-        private cookieService: CookieService,
         public globals: GlobalsService,
         public primeTableService: OrderTransactionPrimeTableService,
         protected resizeService: ResizeService,
@@ -82,31 +82,34 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         this.orderTypeItemList.forEach((lisItem) => {
             this.orderTypeItemMap[lisItem.value] = lisItem.label;
         });
+        this.paymentTypeMap = {};
+        this.paymentTypeList.forEach((x) => {
+            this.paymentTypeMap[x.value] = x.label;
+        });
     }
 
     ngOnInit(): void {
         this.primeTableService.rows = this.perPageItemList[0].value;
-        // this.primeTableService.sortBy = 'document_date';
-        this.primeTableService.sortBy = '';
-
+        this.primeTableService.sortBy = 'document_date';
+        this.primeTableService.sortOrder = 'desc';
         this.primeTableService.url = `/ro/${this.roasterId}/transactions`;
         this.primeTableService.roasterId = this.roasterId;
 
-        this.fcDocumentNumber = new FormControl('');
+        this.fcSearchQuery = new FormControl('');
         this.fCDocumentDateRange = new FormControl(null);
         this.fCperPage = new FormControl(this.perPageItemList[0].value);
         this.fCchannel = new FormControl(null);
         this.fCOrderType = new FormControl(null);
+        this.fcPaymentType = new FormControl(null);
         this.uiForm = new FormGroup({
-            fcDocumentNumber: this.fcDocumentNumber,
+            fcSearchQuery: this.fcSearchQuery,
             fCDocumentDateRange: this.fCDocumentDateRange,
             fCperPage: this.fCperPage,
             fCchannel: this.fCchannel,
+            fcPaymentType: this.fcPaymentType,
             fCOrderType: this.fCOrderType,
         });
-        this.statusList.forEach((x) => {
-            this.statusMap[x.value] = x.label;
-        });
+
         this.initializeTable();
         this.updateServiceValues();
         this.table.reset();
@@ -122,7 +125,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     updateServiceValues() {
         const value = this.uiForm.value;
         this.primeTableService.rows = value.fCperPage || this.perPageItemList[0].value;
-        this.primeTableService.documentNumber = value.fcDocumentNumber;
+        this.primeTableService.searchQuery = value.fcSearchQuery;
 
         const startDate =
             value.fCDocumentDateRange && value.fCDocumentDateRange[0]
@@ -135,7 +138,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
 
         this.primeTableService.documentToDate = startDate;
         this.primeTableService.documentFromDate = endDate;
-
+        this.primeTableService.paymentMode = value.fcPaymentType;
         this.primeTableService.orderType = value.fCOrderType;
         this.primeTableService.channel = value.fCchannel;
     }

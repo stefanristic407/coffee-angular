@@ -1,22 +1,41 @@
 @import 'variables';
 
-:host {
-    @media screen and (max-width: 767px) {
-        ::ng-deep .p-datatable.p-datatable-responsive {
-            table {
-                width: auto;
-                .p-datatable-tbody > tr {
-                    width: max-content;
+@media screen and (max-width: 767px) {
+    ::ng-deep .p-datatable.p-datatable-responsive {
+        table {
+            width: auto;
+            .p-datatable-tbody > tr {
+                width: max-content;
+            }
+        }
+    }
+    .order-container .content-container {
+        margin: 4px 16px;
+    }
+
+    .mobile-header {
+        background-color: $primary-bg-color;
+        margin: -0.75rem -0.75rem 1rem -0.75rem;
+    }
+}
+@media screen and (min-width: 768px) {
+    ::ng-deep .p-datatable {
+        tbody.p-datatable-tbody {
+            tr {
+                td {
+                    & > span {
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
                 }
             }
         }
-        .order-container .content-container {
-            margin: 4px 16px;
-        }
-
-        .mobile-header {
-            background-color: $primary-bg-color;
-            margin: -0.75rem -0.75rem 1rem -0.75rem;
+        .p-datatable-tfoot tr.footer-row th {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }
@@ -31,6 +50,15 @@
 }
 
 ::ng-deep .p-datatable {
+    .p-datatable-scrollable-header,
+    .p-datatable-scrollable-footer {
+        overflow-x: auto;
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+    }
     .p-datatable-scrollable-header {
         background-color: unset;
         .p-datatable-scrollable-header-box table.p-datatable-scrollable-header-table thead.p-datatable-thead tr {
@@ -55,10 +83,13 @@
                     }
                 }
             }
-
             th {
                 background-color: $primary-bg-color;
                 border-radius: unset;
+                text-align: center;
+                &.right-border {
+                    border-right: 1px solid #ebebeb;
+                }
             }
         }
     }
@@ -87,4 +118,9 @@
             }
         }
     }
+}
+.vat-included-message {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
 }

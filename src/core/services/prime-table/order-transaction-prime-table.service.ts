@@ -30,7 +30,7 @@ export class OrderTransactionPrimeTableService {
 
     public channel: any;
     public paymentMode: any;
-    public documentNumber: any;
+    public searchQuery: any;
     public documentFromDate: any;
     public documentToDate: any;
 
@@ -42,7 +42,7 @@ export class OrderTransactionPrimeTableService {
     constructor(public http: HttpClient, private authService: AuthService) {}
 
     getData(event: any) {
-        if (this.sub) {
+        if (this.sub && this.sub.unsubscribe) {
             this.sub.unsubscribe();
         }
 
@@ -89,8 +89,8 @@ export class OrderTransactionPrimeTableService {
         if (this.status) {
             postData = { ...postData, ...{ status: this.status } };
         }
-        if (this.documentNumber) {
-            postData = { ...postData, ...{ document_number: this.documentNumber } };
+        if (this.searchQuery) {
+            postData = { ...postData, ...{ query: this.searchQuery } };
         }
         if (this.channel) {
             postData = { ...postData, ...{ channel: this.channel } };
@@ -116,9 +116,9 @@ export class OrderTransactionPrimeTableService {
                 (result) => {
                     if (result && result.result) {
                         this.result = result.result;
-                        this.records = [...this.result.transaction_details];
-                        this.totalRecords = result.result_info.total_count;
-                        this.currentPage = result.result_info.page;
+                        this.records = [...(this.result.transaction_details || [])];
+                        this.totalRecords = result.result_info.total_count || 0;
+                        this.currentPage = result.result_info.page || 1;
                         if (this.totalRecords < 10) {
                             this.paginationValue = false;
                         } else {
