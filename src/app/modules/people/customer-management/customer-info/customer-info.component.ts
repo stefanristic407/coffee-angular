@@ -43,17 +43,9 @@ export class CustomerInfoComponent implements OnInit, OnChanges {
         });
     }
 
-    updateForm() {
-        if (this.organizationType === 'mr') {
-            this.updateStatus('micro-roasters');
-        } else if (this.organizationType === 'hrc') {
-            this.updateStatus('hrc');
-        }
-    }
-
-    updateStatus(type: any) {
+    updateStatus() {
         if (this.status) {
-            this.customerService.enableAccount(type, this.customerID).subscribe((res) => {
+            this.customerService.enableAccount(this.organizationType, this.customerID).subscribe((res) => {
                 if (res.success) {
                     this.toastrService.success('Customer Enabled');
                 } else {
@@ -61,7 +53,7 @@ export class CustomerInfoComponent implements OnInit, OnChanges {
                 }
             });
         } else {
-            this.customerService.disableAccount(type, this.customerID).subscribe((res) => {
+            this.customerService.disableAccount(this.organizationType, this.customerID).subscribe((res) => {
                 if (res.success) {
                     this.toastrService.success('Customer Disabled');
                 } else {
