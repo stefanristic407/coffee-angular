@@ -255,7 +255,7 @@
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ orderTypeItemMap[rowData['order_type']] || '--' }}
+                                    {{ rowData['order_type'] || '--' }}
                                 </span>
                             </div>
                         </span>

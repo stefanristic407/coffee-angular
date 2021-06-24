@@ -33,7 +33,7 @@ export class OrderTransactionPrimeTableService {
     public searchQuery: any;
     public documentFromDate: any;
     public documentToDate: any;
-
+    public orderTypeItemMap: any;
     public status: any;
     public orderType: any;
 
@@ -124,6 +124,7 @@ export class OrderTransactionPrimeTableService {
                         } else {
                             this.paginationValue = true;
                         }
+                        this.records.forEach(this.processRecords);
                     } else {
                         this.records = [...[]];
                         this.totalRecords = 0;
@@ -137,6 +138,15 @@ export class OrderTransactionPrimeTableService {
                 },
             );
     }
+
+    processRecords = (record: any) => {
+        const orderType = record?.order_type || '';
+        record.order_type = orderType
+            .split(',')
+            .map((x: any) => this.orderTypeItemMap[(x || '').trim()] || '')
+            .filter((x: any) => !!x)
+            .join(', ');
+    };
 
     serlialise(obj) {
         const str = [];

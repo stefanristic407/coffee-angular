@@ -27,17 +27,16 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     ];
 
     public readonly channelItemList = [
-        { label: 'MR GC Order', value: 'MR_GC_ORDER' },
-        { label: 'B2B', value: 'B2B_ORDER' },
-        { label: 'B2C', value: 'B2C_ORDER' },
-        { label: 'E-Commerce Order', value: 'ECOM_ORDER' },
+        { label: 'HoReCa Outtake', value: 'OUTTAKE_ROASTED' },
+        { label: 'Micro-Roaster Outtake', value: 'OUTTAKE_GREEN' },
+        { label: 'B2B', value: 'B2B' },
+        { label: 'B2C', value: 'B2C' },
         { label: 'Micro-roaster', value: 'MICRO_ROASTER' },
     ];
 
     public readonly orderTypeItemList = [
-        { label: 'Subscription', value: 'SUBSCRIPTION' },
-        { label: 'One time', value: 'ONE-TIME' },
-        { label: 'GC Order', value: 'GC_ORDER' },
+        { label: 'Subscription', value: 'subscription' },
+        { label: 'One time', value: 'one-time' },
     ];
     public readonly paymentTypeList = [
         { label: 'Klarna', value: 'klarna' },
@@ -89,6 +88,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     }
 
     ngOnInit(): void {
+        this.primeTableService.orderTypeItemMap = this.orderTypeItemMap;
         this.primeTableService.rows = this.perPageItemList[0].value;
         this.primeTableService.sortBy = 'document_date';
         this.primeTableService.sortOrder = 'desc';
