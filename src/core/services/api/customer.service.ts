@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ApiResponse } from '@models';
 import { AuthService } from '../auth';
+import { OrganizationType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -65,12 +66,12 @@ export class CustomerService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `hrc/${hrcId}/partners?${this.serializeParams(options)}`, 'GET');
     }
 
-    enableAccount(orgType: any, enableId: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `${orgType}/${enableId}/enable`);
+    enableAccount(orgType: OrganizationType, enableId: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${enableId}/enable`, 'PUT');
     }
 
-    disableAccount(orgType: any, disableId: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `${orgType}/${disableId}/disable`);
+    disableAccount(orgType: OrganizationType, disableId: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${disableId}/disable`, 'PUT');
     }
 
     updateDiscount(orgType: any, id: any, value) {
