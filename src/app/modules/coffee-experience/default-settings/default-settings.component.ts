@@ -36,8 +36,6 @@ export class DefaultSettingsComponent implements OnInit {
     fileVideo: any;
     filesCount = 0;
     totalFilesNumber = 0;
-    fileVideoId?: number;
-    fileImageId?: number;
     files: any;
     fileEvent: any;
     fileName: string;
@@ -202,6 +200,7 @@ export class DefaultSettingsComponent implements OnInit {
 
     deleteImage() {
         this.isImagePreviewPanel = false;
+        this.fileImage = null;
         this.defaultDetails.image_id = 0;
     }
 
@@ -211,6 +210,7 @@ export class DefaultSettingsComponent implements OnInit {
 
     deleteVideo() {
         this.isVideoPreviewPanel = false;
+        this.fileVideo = null;
         this.defaultDetails.video_id = 0;
     }
 
@@ -352,6 +352,8 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     onChooseFile(target: any, parameter: string) {
+        this.fileImage = null;
+        this.fileVideo = null;
         const file = target.files[0];
         if (!file) {
             return;
@@ -361,19 +363,14 @@ export class DefaultSettingsComponent implements OnInit {
         this.filesCount = 0;
         if (this.fileVideo) {
             this.totalFilesNumber++;
-        }
-        if (this.fileImage) {
-            this.totalFilesNumber++;
-        }
-        if (this.fileVideo) {
             const formData = new FormData();
-            this.videoName = file.name;
             formData.append('file', this.fileVideo);
             formData.append('name', file.name);
             formData.append('file_module', 'Coffee-Story');
             this.fileService.uploadFiles(formData).subscribe(
                 (res: any) => {
-                    this.fileVideoId = res.result?.id;
+                    this.videoName = file.name;
+                    this.defaultDetails.video_id = res.result?.id;
                     this.defaultDetails.video_url = res.result?.url;
                     this.filesCount++;
                     if (this.filesCount === this.totalFilesNumber) {
@@ -388,15 +385,16 @@ export class DefaultSettingsComponent implements OnInit {
             );
         }
         if (this.fileImage) {
+            this.totalFilesNumber++;
             const formData = new FormData();
-            this.imageName = file.name;
             formData.append('file', this.fileImage);
             formData.append('name', file.name);
             formData.append('file_module', 'Coffee-Story');
             this.fileService.uploadFiles(formData).subscribe(
                 (res: any) => {
                     if (res.success) {
-                        this.fileImageId = res.result?.id;
+                        this.imageName = file.name;
+                        this.defaultDetails.image_id = res.result?.id;
                         this.defaultDetails.image_url = res.result.url;
                         this.filesCount++;
                         if (this.filesCount === this.totalFilesNumber) {
@@ -440,8 +438,8 @@ export class DefaultSettingsComponent implements OnInit {
             website: this.defaultDetails.website,
             description: this.defaultDetails.description,
             tags: this.tagOptionList.filter((item: any) => item.select).map((item: any) => item.label),
-            image_id: this.fileImageId || this.defaultDetails.image_id,
-            video_id: this.fileVideoId || this.defaultDetails.video_id,
+            image_id: this.defaultDetails.image_id,
+            video_id: this.defaultDetails.video_id,
         };
         if (this.activateRoute.snapshot.queryParams.micro_roasters_id) {
             this.userService.postMrOrdersCoffeeExperience(this.roasterId, this.orderId, data).subscribe(
