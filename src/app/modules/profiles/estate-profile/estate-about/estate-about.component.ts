@@ -53,4 +53,8 @@ export class EstateAboutComponent implements OnInit {
             }
         });
     }
+
+    certificateClicked(certificate) {
+        window.open(certificate.public_url, '_blank');
+    }
 }
