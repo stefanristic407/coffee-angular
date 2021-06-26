@@ -2,9 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ResizeService, AuthService, RoasterserviceService, UserserviceService } from '@services';
+import {
+    GlobalsService,
+    ResizeService,
+    AuthService,
+    RoasterserviceService,
+    UserserviceService,
+    CommonService,
+} from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
@@ -60,12 +66,12 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         public globals: GlobalsService,
         private route: ActivatedRoute,
         public sourcing: SourcingService,
-        private cookieService: CookieService,
         private toastrService: ToastrService,
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
         protected resizeService: ResizeService,
         public authService: AuthService,
+        private commonService: CommonService,
     ) {
         super(resizeService);
     }
@@ -402,7 +408,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     changeCountry() {
         if (this.addressForm.value.country) {
-            this.globals.getCountry(this.addressForm.value.country).cities.forEach((element) => {
+            this.commonService.getCountry(this.addressForm.value.country).cities.forEach((element) => {
                 this.cities.push({ label: element, value: element });
             });
         }

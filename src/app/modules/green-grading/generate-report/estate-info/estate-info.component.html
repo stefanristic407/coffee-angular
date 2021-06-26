@@ -48,7 +48,7 @@
                     <div>
                         <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Origin :</label>
                         <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
-                            {{ generateReportService.getCountryName(cuppingDetails['origin']) }}
+                            {{ cuppingDetails['origin'] | country }}
                         </p>
                     </div>
                 </li>

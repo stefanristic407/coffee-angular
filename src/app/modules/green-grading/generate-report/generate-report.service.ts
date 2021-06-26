@@ -9,9 +9,4 @@ export class GenerateReportService {
     totalRequestList: any = [];
 
     constructor(private globalsService: GlobalsService) {}
-
-    getCountryName(data: any) {
-        const countryItem = this.globalsService.getCountryName(data);
-        return countryItem;
-    }
 }

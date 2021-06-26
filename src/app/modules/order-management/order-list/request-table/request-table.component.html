@@ -108,7 +108,7 @@
                             <div class="mobile-row py-2 d-flex">
                                 <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
                                 <span class="text-clr334">
-                                    {{ commonService.getCountryName(rowData.origin) }}
+                                    {{ rowData.origin | country }}
                                 </span>
                             </div>
                             <div class="py-2 d-flex">
@@ -121,7 +121,7 @@
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.created_at | date: 'd MMM yyyy' }}</td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">
-                {{ commonService.getCountryName(rowData.origin) }}
+                {{ rowData.origin | country }}
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.estate_name }}</td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.varieties }}</td>
