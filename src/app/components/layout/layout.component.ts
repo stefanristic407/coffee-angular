@@ -254,6 +254,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                     const content = this.getContent(notification)?.content;
                     if (content) {
                         const item: any = {
+                            id: notification.id,
                             ...this.getContent(notification),
                             is_read: notification.is_read,
                             status_updated_at: notification.status_updated_at,
@@ -279,7 +280,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         });
     }
 
-    onClickNotification(data: any, element: any, notification: any) {
+    onClickNotification(data: any, element: any) {
         if (data.is_read) {
             element.hide();
         } else {
@@ -290,9 +291,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 }
             });
         }
-        if (notification.url) {
-            this.router.navigate([notification.url], {
-                queryParams: notification.queryParams,
+        if (data.url) {
+            this.router.navigate([data.url], {
+                queryParams: data.queryParams,
             });
         }
     }
