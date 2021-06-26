@@ -74,12 +74,10 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     }
 
     refreshTemplate() {
-        setTimeout(() => {
-            const temp = this.inputObj.a.placeholder || '';
-            // Remove first zero
-            this.placeholder = temp.replace(/^0/, '');
-            this.template = this.placeholder.replace(/[0-9]/g, '9');
-        }, 300);
+        const temp = this.inputObj.a.placeholder || '';
+        // Remove first zero
+        this.placeholder = temp.replace(/^0/, '');
+        this.template = this.placeholder.replace(/[0-9]/g, '9');
     }
 
     onInput(event) {
