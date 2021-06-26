@@ -49,18 +49,17 @@
                         </a>
                     </li>
                     <li
-                        class="
-                            header-profile-links__item
-                            d-inline-block
-                            ml-md-3 ml-lg-4
-                            pl-xl-2
-                            zoom-effect-container
-                            position-relative
-                            overflow-visible
-                        "
+                        class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container position-relative overflow-visible"
                     >
                         <a href="javascript:void(0)" class="d-inline-block image-card" (click)="myOp.toggle($event)">
-                            <img class="img" src="assets/images/notification.svg " />
+                            <img
+                                class="img"
+                                [src]="
+                                    hasUnreadNotification
+                                        ? 'assets/images/notification.svg'
+                                        : 'assets/images/notification-normal.svg'
+                                "
+                            />
                         </a>
                         <p-overlayPanel #myOp styleClass="notification-overlay">
                             <div class="notification-header">
@@ -77,17 +76,14 @@
                                 </div>
                             </div>
                             <div class="notification-body px-1 py-2">
-                                <div
-                                    *ngFor="let notification of notifications"
-                                    [ngClass]="{ 'd-none': !getContent(notification)?.content }"
-                                >
+                                <div *ngFor="let notification of notifications">
                                     <div
                                         class="notifi-cotainer pl-25 pr-4 py-2"
-                                        (click)="onClickNotification(notification, myOp, getContent(notification))"
+                                        (click)="onClickNotification(notification, myOp, notification)"
                                     >
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-0 pr-4">
-                                                {{ getContent(notification).content }}
+                                                {{ notification.content }}
                                             </p>
                                             <p
                                                 class="fnt-18"
@@ -197,14 +193,7 @@
                     </div>
                     <ul class="nav-links fnt-muli pad-5">
                         <li
-                            class="
-                                nav-links__item
-                                d-md-inline-block
-                                position-relative
-                                mobile-farm
-                                settings-list
-                                mt-md-0 mt-5
-                            "
+                            class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
                         >
                             <a class="d-inline-block fnt-600" [routerLink]="['/account-settings']"
                                 >{{ 'menu_account_settings' | translate }}

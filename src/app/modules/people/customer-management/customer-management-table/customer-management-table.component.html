@@ -32,7 +32,6 @@
                             >
                             </p-sortIcon>
                         </th>
-                        <th [style.width]="'50px'"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -72,32 +71,6 @@
                                                 rowData['status'] | titlecase
                                             }}</span>
                                         </span>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <a
-                                            class="menu-arrow"
-                                            [popover]="poplistTemplate"
-                                            placement="left"
-                                            [outsideClick]="true"
-                                            (click)="$event.stopPropagation()"
-                                            #pop="bs-popover"
-                                        >
-                                            <p><img src="assets/images/kebab-menu.svg" alt="" /></p>
-                                        </a>
-                                        <ng-template #poplistTemplate id="{{ rowData.id }}">
-                                            <ul class="menu-list">
-                                                <li
-                                                    [ngClass]="{
-                                                        'disabled-pointer': rowData.status != UserStatus.ACTIVE
-                                                    }"
-                                                    (click)="
-                                                        $event.stopPropagation(); pop.hide(); stimulatedLogin(rowData)
-                                                    "
-                                                >
-                                                    {{ 'simulated_login' | translate }}
-                                                </li>
-                                            </ul>
-                                        </ng-template>
                                     </div>
                                 </div>
                                 <span *ngIf="!isMobileView"> #{{ rowData.admin_id || rowData.id }} </span>
@@ -159,30 +132,6 @@
                                     </span>
                                 </div>
                             </span>
-                        </td>
-                        <td id="customer-contract-popup">
-                            <ng-container>
-                                <a
-                                    class="menu-arrow"
-                                    [popover]="poplistTemplate"
-                                    placement="left"
-                                    [outsideClick]="true"
-                                    (click)="$event.stopPropagation()"
-                                    #pop="bs-popover"
-                                >
-                                    <p><img src="assets/images/kebab-menu.svg" alt="" /></p>
-                                </a>
-                                <ng-template #poplistTemplate id="{{ rowData.id }}">
-                                    <ul class="menu-list">
-                                        <li
-                                            [ngClass]="{ 'disabled-pointer': rowData.status != UserStatus.ACTIVE }"
-                                            (click)="$event.stopPropagation(); pop.hide(); stimulatedLogin(rowData)"
-                                        >
-                                            {{ 'simulated_login' | translate }}
-                                        </li>
-                                    </ul>
-                                </ng-template>
-                            </ng-container>
                         </td>
                     </tr>
                 </ng-template>

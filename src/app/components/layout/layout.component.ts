@@ -45,7 +45,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     showMobFooter = true;
 
     notifications: any[];
-    readNotification: any;
+    hasUnreadNotification: boolean;
 
     activeLink: 'DASHBOARD' | 'COFFEELAB' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
     userTermsAccepted: boolean;
@@ -242,9 +242,30 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     getNotificationList() {
-        this.userOriginalService.getNofitication().subscribe((res: any) => {
+        const options = {
+            per_page: 1000,
+        };
+        let isUnread = false;
+        this.userOriginalService.getNofitication(options).subscribe((res: any) => {
             if (res.success) {
-                this.notifications = res.result ?? [];
+                const notifications = res.result ?? [];
+                const temp: any[] = [];
+                for (const notification of notifications) {
+                    const content = this.getContent(notification)?.content;
+                    if (content) {
+                        const item: any = {
+                            ...this.getContent(notification),
+                            is_read: notification.is_read,
+                            status_updated_at: notification.status_updated_at,
+                        };
+                        if (!notification.is_read) {
+                            isUnread = true;
+                        }
+                        temp.push(item);
+                    }
+                    this.hasUnreadNotification = isUnread;
+                }
+                this.notifications = temp;
             }
         });
     }
