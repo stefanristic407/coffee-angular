@@ -4,14 +4,7 @@
     height: 50px !important;
     border: 1px solid $primary-border-color;
     border-radius: 4px;
-    color: $general-text-color;
-    font-family: $general-font-family !important;
-    font-weight: 600;
-    font-size: 14px;
     padding-left: 64px !important;
-    &:hover {
-        border-color: $primary-color !important;
-    }
 }
 
 ::ng-deep .iti {
@@ -49,11 +42,20 @@
     }
 }
 
-::ng-deep .ng-invalid.ng-dirty > .iti {
-    .phone-number-input {
+::ng-deep .ng-invalid.ng-dirty > .phone-number-wrap {
+    .input-mask-wrap .p-inputmask {
         border: 1px solid $error-border-color !important;
         &:hover {
             border-color: $error-border-color !important;
         }
+    }
+}
+::ng-deep .input-mask-wrap {
+    width: 100%;
+    position: absolute;
+    top: 0;
+
+    .p-inputmask {
+        padding-left: 64px !important;
     }
 }

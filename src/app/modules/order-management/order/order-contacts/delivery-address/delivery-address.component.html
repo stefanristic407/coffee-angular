@@ -25,7 +25,7 @@
 
 <ng-template #addressText let-address="address">
     <div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="address">
-        {{ address.address_line1 }}, {{ address.address_line2 }}, {{ commonService.getCountryName(address.country) }},
-        {{ address.state }} {{ address.city }}, {{ address.zipcode }}
+        {{ address.address_line1 }}, {{ address.address_line2 }}, {{ address.country | country }}, {{ address.state }}
+        {{ address.city }}, {{ address.zipcode }}
     </div>
 </ng-template>

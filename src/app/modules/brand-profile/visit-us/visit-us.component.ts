@@ -7,7 +7,14 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
 import { maxWordCountValidator } from '@utils';
-import { AuthService, BrandService, GeneralService, GlobalsService, UserserviceService } from '@services';
+import {
+    AuthService,
+    BrandService,
+    CommonService,
+    GeneralService,
+    GlobalsService,
+    UserserviceService,
+} from '@services';
 import { ConfirmComponent } from '@shared';
 import * as _ from 'underscore';
 
@@ -44,6 +51,7 @@ export class VisitUsComponent implements OnInit {
         public generalService: GeneralService,
         private brandService: BrandService,
         private authService: AuthService,
+        private commonService: CommonService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -91,7 +99,6 @@ export class VisitUsComponent implements OnInit {
 
     getProfile() {
         this.generalService.getProfile().subscribe((res: any) => {
-            console.log('Profile data:', res.result);
             this.profileForm.patchValue(res.result);
             this.latitude = res.result.latitude;
             this.longitude = res.result.longitude;
@@ -153,7 +160,7 @@ export class VisitUsComponent implements OnInit {
     changeCountry() {
         if (this.profileForm.value.country) {
             this.cities = [];
-            this.globals.getCountry(this.profileForm.value.country).cities.forEach((element) => {
+            this.commonService.getCountry(this.profileForm.value.country).cities.forEach((element) => {
                 this.cities.push({ label: element, value: element });
             });
         }

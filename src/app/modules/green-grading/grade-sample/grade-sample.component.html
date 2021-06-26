@@ -199,7 +199,7 @@
                                                 </p-dropdown>
                                             </ng-template>
                                             <ng-template pTemplate="output">
-                                                {{ globals.getCountryName(rowData.origin) }}
+                                                {{ rowData.origin | country }}
                                             </ng-template>
                                         </p-cellEditor>
                                     </span>
