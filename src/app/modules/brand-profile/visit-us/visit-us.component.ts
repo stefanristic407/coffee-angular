@@ -91,7 +91,6 @@ export class VisitUsComponent implements OnInit {
 
     getProfile() {
         this.generalService.getProfile().subscribe((res: any) => {
-            console.log('Profile data:', res.result);
             this.profileForm.patchValue(res.result);
             this.latitude = res.result.latitude;
             this.longitude = res.result.longitude;
