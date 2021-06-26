@@ -972,7 +972,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     handleMuteListResponse(WSmsg: WSResponse<any>) {
-        console.log('Mute List', WSmsg);
         this.loader.muteFetch = false;
         if (WSmsg.success && WSmsg.code === 200) {
             this.muteList.clear();
@@ -1374,7 +1373,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (this.unReadTimerRef) {
             clearTimeout(this.unReadTimerRef);
         }
-        this.unReadTimerRef = (window.setTimeout(this.updateUnRead, this.UPDATE_UNREAD_INTERVAL) as unknown) as number;
+        this.unReadTimerRef = window.setTimeout(this.updateUnRead, this.UPDATE_UNREAD_INTERVAL) as unknown as number;
     };
 
     ngOnDestroy() {
