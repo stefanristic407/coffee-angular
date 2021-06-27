@@ -265,6 +265,7 @@ export class OrderManagementService {
         const rewrite = this.orderId !== orderId;
         this.orderId = orderId;
 
+        this.orderDetailsSubject.next(null);
         this.purchaseSrv.getOrderDetailsById(orderId, orgType).subscribe({
             next: (details) => {
                 if (details) {

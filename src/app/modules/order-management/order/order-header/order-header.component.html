@@ -22,7 +22,14 @@
                         <div class="row">
                             <div class="col-md-6 pl-0 pr-0">
                                 <div
-                                    class="order__id d-flex align-items-center pt-2 fnt-16 fnt-md-18 fnt-bold text-clr334"
+                                    class="
+                                        order__id
+                                        d-flex
+                                        align-items-center
+                                        pt-2
+                                        fnt-16 fnt-md-18 fnt-bold
+                                        text-clr334
+                                    "
                                 >
                                     {{ 'order' | translate }} #{{ orderId }}
                                     <span class="ml-2 fnt-12 fnt-md-14 fnt-600" [ngClass]="typeClass"
@@ -31,9 +38,9 @@
                                 </div>
                             </div>
                             <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
-                                <button class="btn-raised pull-right" (click)="openInvoice()">
+                                <a *ngIf="invoiceUrl" class="btn-raised pull-right" [href]="invoiceUrl" target="_blank">
                                     {{ 'order_invoice' | translate | titlecase }}
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <div class="row" *ngIf="orderType === OrderTypes.Prebook">
