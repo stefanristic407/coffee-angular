@@ -16,10 +16,12 @@
                 [resizableColumns]="true"
                 styleClass="ui-table-disputes"
                 [showCurrentPageReport]="false"
-                [paginator]="false"
+                [paginator]="totalRecords > rows"
+                [rows]="rows"
                 [lazy]="true"
-                (onLazyLoad)="getTableData()"
-                [totalRecords]="totalCount"
+                (onLazyLoad)="filterCall($event)"
+                [loading]="loading"
+                [totalRecords]="totalRecords"
                 [responsive]="true"
             >
                 <ng-template pTemplate="header" let-columns>

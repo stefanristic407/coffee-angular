@@ -5,6 +5,7 @@ import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ChatMessageType, OrganizationType } from '@enums';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
     selector: 'app-raised-tickets',
@@ -14,10 +15,13 @@ import { ChatMessageType, OrganizationType } from '@enums';
 export class RaisedTicketsComponent implements OnInit {
     tableValue = [];
     tableColumns = [];
-    totalCount = 0;
     roasterID: any;
+    loading = true;
     orgType: OrganizationType = OrganizationType.ESTATE;
     orderId: number;
+    pageNumber = 1;
+    rows = 10;
+    totalRecords;
 
     constructor(
         private authService: AuthService,
@@ -79,13 +83,23 @@ export class RaisedTicketsComponent implements OnInit {
         ];
     }
 
+    filterCall(event?: LazyLoadEvent) {
+        if (event.first > -1) {
+            this.pageNumber = event.first / event.rows + 1;
+        }
+        this.getTableData();
+    }
+
     getTableData() {
         const params: any = {
             sort_by: 'created_at',
             sort_order: 'desc',
+            page: this.pageNumber,
+            per_page: this.rows,
         };
         this.tableValue = [];
-        this.disputeService.getOrderDisputes(this.orgType, this.orderId, params).subscribe((data: any) => {
+        this.loading = true;
+        this.disputeService.getDisputes(this.orgType, params).subscribe((data: any) => {
             if (data.success) {
                 data.result.map((ele) => {
                     ele.dispute_type =
@@ -95,9 +109,11 @@ export class RaisedTicketsComponent implements OnInit {
                     return ele;
                 });
                 this.tableValue = data.result;
+                this.totalRecords = data.result_info.total_count;
             } else {
                 this.toastrService.error('Error while getting the agreement list!');
             }
+            this.loading = false;
         });
     }
 
