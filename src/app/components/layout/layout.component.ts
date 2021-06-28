@@ -314,7 +314,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
                     orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
-                    disputeID: data.dispute_id,
+                    disputeID: data.content.dispute_id,
                 };
             } else if (data.action === 'RESOLVED') {
                 content = `${
@@ -323,7 +323,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
                     orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
-                    disputeID: data.dispute_id,
+                    disputeID: data.content.dispute_id,
                 };
             } else if (data.action === 'ESCALATED') {
                 content = `A dispute against Order #${data.content.order_id} has been escalated by ${
@@ -332,7 +332,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
                     orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
-                    disputeID: data.dispute_id,
+                    disputeID: data.content.dispute_id,
                 };
             }
         } else if (data.event === 'invite') {
@@ -395,7 +395,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 content = `A QR code for your coffee experience story has been generated for order #${data.content.order_id}.`;
                 url = `/coffee-experience/coffee-details`;
                 queryParams = {
-                   estate_id: data.content.order_id
+                    estate_id: data.content.order_id,
                 };
             }
         } else if (data.event === 'hrc_order') {
