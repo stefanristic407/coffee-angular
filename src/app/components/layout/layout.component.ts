@@ -313,7 +313,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 }. View dispute for more details.`;
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
-                    orderType: data.content.order_type,
+                    orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
                     disputeID: data.dispute_id,
                 };
             } else if (data.action === 'RESOLVED') {
@@ -322,7 +322,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 } has resolved the dispute against Order #${data.content.order_id}`;
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
-                    orderType: data.content.order_type,
+                    orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
                     disputeID: data.dispute_id,
                 };
             } else if (data.action === 'ESCALATED') {
@@ -331,7 +331,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 }. View dispute for more details.`;
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
-                    orderType: data.content.order_type,
+                    orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
                     disputeID: data.dispute_id,
                 };
             }
@@ -362,7 +362,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         } else if (data.event === 'prebook_order' || data.event === 'sample_order' || data.event === 'gc_order') {
             if (data.action === 'GRADE_REPORT_UPLOADED') {
                 content = `A grade report has been uploaded to order #${data.content.order_id}.`;
-                url = `/orders/es/${data.content.order_id}`;
+                url = `/orders/es/${data.content.estate_id}`;
             } else if (data.action === 'CONFIRM') {
                 content = `${data.content.estate_name} has confirmed your order #${data.content.order_id}`;
                 url = `/orders/es/${data.content.order_id}`;
@@ -387,11 +387,16 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         } else if (data.event === 'mr_gc_order') {
             if (data.action === 'PLACED') {
                 content = `Micro roaster ${data.content.micro_roaster_name} has placed a new order #${data.content.order_id}.`;
+                url = `/orders/mr/${data.content.order_id}`;
             } else if (data.action === 'RECEIVED') {
                 content = `Micro roaster ${data.content.micro_roaster_name} has confirmed delivery of order #${data.content.order_id}.`;
-                url = `/orders/mr`;
+                url = `/orders/mr/${data.content.order_id}`;
             } else if (data.action === 'COMPLETED') {
                 content = `A QR code for your coffee experience story has been generated for order #${data.content.order_id}.`;
+                url = `/coffee-experience/coffee-details`;
+                queryParams = {
+                   estate_id: data.content.order_id
+                };
             }
         } else if (data.event === 'hrc_order') {
             if (data.action === 'PLACED') {
@@ -420,7 +425,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 content = `You have a new rating for ${data.content.product_id ? 'product' : 'order'} #${
                     data.content.product_id ?? data.content.order_id
                 }`;
-                url = `/operator-profile/reviews`;
+                url = `/roastery-profile/reviews`;
             }
         } else if (data.event === 'commission_invoice') {
             if (data.action === 'PAID') {
