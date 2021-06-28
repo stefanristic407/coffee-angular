@@ -360,7 +360,7 @@ export class ChatUtilService {
     }
 
     public get ORGANIZATION_ID(): number {
-        return this.authService.getOrgId();
+        return this.authService.getOrgId() || 0;
     }
     public get TOKEN(): string {
         let userToken = this.authService.token?.replace(/\r/g, '')?.split(/\n/)[0];

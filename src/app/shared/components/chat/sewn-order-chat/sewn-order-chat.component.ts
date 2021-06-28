@@ -187,7 +187,7 @@ export class SewnOrderChatComponent implements OnInit, OnDestroy, OnChanges {
             if (!mem.is_removed) {
                 if (
                     mem.org_type === this.chatUtil.ORGANIZATION_TYPE &&
-                    (mem.org_id || 0) === this.chatUtil.ORGANIZATION_ID &&
+                    (mem.org_id || 0) === (this.chatUtil.ORGANIZATION_ID || 0) &&
                     mem.user_id === this.chatUtil.USER_ID
                 ) {
                     activeUser.push(mem);

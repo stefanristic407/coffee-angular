@@ -643,7 +643,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             if (!mem.is_removed) {
                 if (
                     mem.org_type === this.chatUtil.ORGANIZATION_TYPE &&
-                    (mem.org_id || 0) === this.chatUtil.ORGANIZATION_ID &&
+                    (mem.org_id || 0) === (this.chatUtil.ORGANIZATION_ID || 0) &&
                     mem.user_id === this.chatUtil.USER_ID
                 ) {
                     activeUser.push(mem);
@@ -1738,7 +1738,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.usersList = list
                 .filter((x) => {
                     return !(
-                        (x.organization_id || 0) === this.chatUtil.ORGANIZATION_ID &&
+                        (x.organization_id || 0) === (this.chatUtil.ORGANIZATION_ID || 0) &&
                         x.organization_name === this.chatUtil.ORGANIZATION_TYPE &&
                         x.user_id === this.chatUtil.USER_ID
                     );
