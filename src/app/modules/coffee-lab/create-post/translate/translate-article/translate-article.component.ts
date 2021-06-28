@@ -14,6 +14,7 @@ import { maxWordCountValidator } from '@utils';
 })
 export class TranslateArticleComponent implements OnInit {
     articleId: any;
+    draftId: any;
     article: any;
     isLoading = false;
     applicationLanguages: any[];
@@ -28,6 +29,7 @@ export class TranslateArticleComponent implements OnInit {
     coverImageId: any;
     copiedCoverImageId: any;
     copiedCoverImageUrl: any;
+    images = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -39,19 +41,25 @@ export class TranslateArticleComponent implements OnInit {
         public authService: AuthService,
     ) {
         this.articleForm = this.articleForm = this.formBuilder.group({
-            language: ['', Validators.required],
+            language: [''],
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
         });
     }
 
     ngOnInit(): void {
-        this.articleId = this.route.snapshot.queryParamMap.get('id');
+        this.articleId = this.route.snapshot.queryParamMap.get('origin_id');
         if (!this.articleId) {
             this.location.back();
         } else {
             this.getArticleById();
         }
+        this.route.queryParams.subscribe(() => {
+            this.draftId = this.route.snapshot.queryParamMap.get('draft_id');
+            if (this.draftId) {
+                this.getDraftById();
+            }
+        });
     }
 
     getArticleById(): void {
@@ -72,6 +80,27 @@ export class TranslateArticleComponent implements OnInit {
         });
     }
 
+    getDraftById(): void {
+        this.coffeeLabService.getForumDetails('article', this.draftId).subscribe((res: any) => {
+            console.log('draft result >>>>>>>>', res);
+            if (res.success) {
+                this.coverImageUrl = res.result.cover_image_url;
+                this.coverImageId = res.result.cover_image_id;
+                this.isCoverImageUploaded = true;
+                this.content = res.result.content;
+                this.images = res.result.images ?? [];
+                this.articleForm.patchValue({
+                    language: res.result.language,
+                    title: res.result.title,
+                    subtitle: res.result.subtitle,
+                    allow_translation: res.result.allow_translation,
+                });
+            } else {
+                this.toastrService.error('Error while get draft');
+            }
+        });
+    }
+
     onFileChange(event: any) {
         if (event.target.files?.length) {
             this.isCoverImageUploaded = false;
@@ -81,28 +110,11 @@ export class TranslateArticleComponent implements OnInit {
             reader.onload = () => {
                 this.coverImageUrl = reader.result;
             };
-        }
-    }
-
-    onPost(status: string): void {
-        this.articleForm.markAllAsTouched();
-        if (this.articleForm.invalid) {
-            return;
-        }
-        if (!this.content) {
-            this.toastrService.error('Please fill content.');
-            return;
-        }
-        this.isPosting = true;
-        if (this.isCoverImageUploaded) {
-            this.handlePost(status);
-        } else {
             this.coffeeLabService.uploadFile(this.coverImage, 'cl-articles').subscribe((res) => {
                 if (res.result) {
                     this.coverImageId = res.result.id;
                     this.isCoverImageUploaded = true;
-                    this.toastrService.success('Cover image has been successfuly uploaded.');
-                    this.handlePost(status);
+                    this.toastrService.success('Cover image has been successfully uploaded.');
                 } else {
                     this.toastrService.error('failed to upload cover image.');
                     this.coverImage = null;
@@ -113,23 +125,66 @@ export class TranslateArticleComponent implements OnInit {
             });
         }
     }
+
+    onPost(status: string): void {
+        if (status === 'published') {
+            this.articleForm.controls.language.setValidators(Validators.required);
+            this.articleForm.controls.subtitle.setValidators(Validators.required);
+        } else {
+            this.articleForm.controls.language.clearValidators();
+            this.articleForm.controls.subtitle.clearValidators();
+        }
+        this.articleForm.controls.language.updateValueAndValidity();
+        this.articleForm.controls.subtitle.updateValueAndValidity();
+        this.articleForm.markAllAsTouched();
+        if (this.articleForm.invalid) {
+            return;
+        }
+        if (!this.content && status === 'published') {
+            this.toastrService.error('Please fill content.');
+            return;
+        }
+        if (!this.isCoverImageUploaded && status === 'published') {
+            this.toastrService.error('Please upload cover image.');
+            return;
+        }
+        this.isPosting = true;
+        this.handlePost(status);
+    }
     handlePost(status: string) {
-        const data = {
+        let data: any = {
             ...this.articleForm.value,
-            cover_image_id: this.coverImageId,
             content: this.content,
             images: this.imageIdList,
             status,
         };
-        this.coffeeLabService.translateForum('article', this.articleId, data).subscribe((res: any) => {
-            this.isPosting = false;
-            if (res.success) {
-                this.toastrService.success('You have posted a translated article successfully.');
-                this.router.navigate(['/coffee-lab/overview/articles']);
-            } else {
-                this.toastrService.error('Failed to post translated article.');
-            }
-        });
+        if (this.isCoverImageUploaded) {
+            data = {
+                ...data,
+                cover_image_id: this.coverImageId,
+            };
+        }
+        if (status === 'draft' && this.draftId) {
+            this.coffeeLabService.updateForum('article', this.draftId, data).subscribe((res: any) => {
+                this.isPosting = false;
+                if (res.success) {
+                    this.toastrService.success('You have updated a draft successfully.');
+                    this.location.back();
+                } else {
+                    this.toastrService.error('Failed to update draft.');
+                }
+            });
+        } else {
+            this.coffeeLabService.translateForum('article', this.articleId, data).subscribe((res: any) => {
+                this.isPosting = false;
+                if (res.success) {
+                    this.toastrService.success('You have posted a translated article successfully.');
+                    this.router.navigate(['/coffee-lab/overview/articles']);
+                } else {
+                    this.toastrService.error('Failed to post translated article.');
+                }
+            });
+        }
     }
 
     copyCoverImage() {

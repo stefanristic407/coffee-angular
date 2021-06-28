@@ -140,7 +140,11 @@ export class CoffeeLabService extends ApiService {
     }
 
     getMyForumList(type: string, params = {}): Observable<any> {
-        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s?${this.serializeParams(params)}`, 'GET');
+        return this.post(
+            this.orgPostUrl,
+            `${this.orgType}/${this.getOrgId()}/${type}s?${this.serializeParams(params)}`,
+            'GET',
+        );
     }
 
     getSavedForumList(type: string, options: any): Observable<any> {
@@ -192,6 +196,10 @@ export class CoffeeLabService extends ApiService {
 
     translateForum(type: string, id: any, data: any): Observable<any> {
         return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/translate`, 'POST', data);
+    }
+
+    translateAnswer(id: any, data: any) {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/translated-answers/${id}`, 'PUT', data);
     }
 
     copyFile(fileId: number) {

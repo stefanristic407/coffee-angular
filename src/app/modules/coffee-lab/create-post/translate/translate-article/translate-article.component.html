@@ -12,7 +12,6 @@
                             [options]="applicationLanguages"
                             class="w-100"
                             formControlName="language"
-                            required
                             [placeholder]="'select_translation_language' | translate"
                             optionLabel="label"
                             optionValue="value"
@@ -104,6 +103,7 @@
                             [(isUploadingImage)]="isUploadingImage"
                             [(imageIdList)]="imageIdList"
                             fileModule="cl-articles"
+                            [images]="images"
                         ></app-forum-editor>
                     </div>
                 </div>

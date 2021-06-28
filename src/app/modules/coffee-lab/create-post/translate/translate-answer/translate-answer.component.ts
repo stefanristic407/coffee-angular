@@ -43,7 +43,7 @@ export class TranslateAnswerComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.answerId = this.route.snapshot.queryParamMap.get('id');
+        this.answerId = this.route.snapshot.queryParamMap.get('origin_id');
         if (!this.answerId) {
             this.router.navigate(['/coffee-lab']);
         } else {
@@ -54,6 +54,7 @@ export class TranslateAnswerComponent implements OnInit {
     getAnswerById(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('answer', this.answerId).subscribe((res: any) => {
+            console.log('answer details >>>>>>>>', res);
             if (res.success) {
                 this.answer = res.result;
                 this.originLanguage = res.result?.original_details?.language || res.result.lang_code;

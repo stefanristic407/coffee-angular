@@ -11,7 +11,7 @@ export class TranslateRecipeComponent implements OnInit {
     selectedTab = 0;
     id: any;
     constructor(private route: ActivatedRoute, public router: Router, private coffeeLabService: CoffeeLabService) {
-        this.id = this.route.snapshot.queryParamMap.get('id');
+        this.id = this.route.snapshot.queryParamMap.get('origin_id');
     }
 
     ngOnInit(): void {}

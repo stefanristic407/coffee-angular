@@ -49,7 +49,7 @@ export class CreateArticleComponent implements OnInit {
 
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
-            subtitle: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(30)])],
             allow_translation: [true, Validators.compose([Validators.required])],
         });
     }
@@ -57,6 +57,7 @@ export class CreateArticleComponent implements OnInit {
     getArticleById(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('article', this.articleId).subscribe((res: any) => {
+            console.log('article details ?????', res);
             this.isLoading = false;
             if (res.success) {
                 this.article = res.result;
@@ -86,48 +87,58 @@ export class CreateArticleComponent implements OnInit {
             reader.onload = () => {
                 this.coverImageUrl = reader.result;
             };
-        }
-    }
-
-    onPost(status: string): void {
-        this.articleForm.markAllAsTouched();
-        if (this.articleForm.invalid) {
-            return;
-        }
-        if (!this.content) {
-            this.toaster.error('Please fill content.');
-            return;
-        }
-        this.isPosting = true;
-        if (this.isCoverImageUploaded) {
-            this.handlePost(status);
-        } else {
             this.coffeeLabService.uploadFile(this.coverImage, 'cl-articles').subscribe((res) => {
                 if (res.result) {
                     this.coverImageId = res.result.id;
                     this.isCoverImageUploaded = true;
                     this.toaster.success('Cover image has been successfully uploaded.');
-                    this.handlePost(status);
                 } else {
                     this.toaster.error('failed to upload cover image.');
                     this.coverImage = null;
                     this.coverImageId = null;
                     this.coverImageUrl = null;
                     this.isCoverImageUploaded = false;
-                    this.isPosting = false;
                 }
             });
         }
     }
+
+    onPost(status: string): void {
+        if (status === 'published') {
+            this.articleForm.controls.subtitle.setValidators(Validators.required);
+        } else {
+            this.articleForm.controls.subtitle.clearValidators();
+        }
+        this.articleForm.controls.subtitle.updateValueAndValidity();
+        this.articleForm.markAllAsTouched();
+        if (this.articleForm.invalid) {
+            return;
+        }
+        if (!this.content && status === 'published') {
+            this.toaster.error('Please fill content.');
+            return;
+        }
+        if (!this.isCoverImageUploaded && status === 'published') {
+            this.toaster.error('Please upload cover image.');
+            return;
+        }
+        this.isPosting = true;
+        this.handlePost(status);
+    }
     handlePost(status: string) {
-        const data = {
+        let data: any = {
             ...this.articleForm.value,
-            cover_image_id: this.coverImageId,
             content: this.content,
             images: this.imageIdList,
             status,
             language: this.articleId ? this.article?.language : this.coffeeLabService.currentForumLanguage,
         };
+        if (this.isCoverImageUploaded) {
+            data = {
+                ...data,
+                cover_image_id: this.coverImageId,
+            };
+        }
         if (this.articleId) {
             this.coffeeLabService.updateForum('article', this.articleId, data).subscribe((res: any) => {
                 this.isPosting = false;

@@ -134,17 +134,17 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'article':
                 this.router.navigate(['/coffee-lab/create-post/translate-article'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { origin_id: this.selectedItem.id },
                 });
                 break;
             case 'recipe':
                 this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
-                    queryParams: { id: this.selectedItem.id, type: this.forumType },
+                    queryParams: { origin_id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'answer':
                 this.router.navigate(['/coffee-lab/create-post/translate-answer'], {
-                    queryParams: { id: this.selectedItem.id },
+                    queryParams: { origin_id: this.selectedItem.id },
                 });
                 break;
             case 'comment':
