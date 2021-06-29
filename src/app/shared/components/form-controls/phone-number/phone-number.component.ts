@@ -22,7 +22,7 @@ import { CountryCode, isValidPhoneNumber, parsePhoneNumber } from 'libphonenumbe
 export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     // intl-tel-input doesn't support auto format so have to integrate libphonenumber-js manually
 
-    countryCode: CountryCode;
+    countryCode: CountryCode = 'US';
     nationalNumber: string;
     inputObj: any;
     onChange: any;
@@ -35,8 +35,8 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
             const phoneNumber = parsePhoneNumber(value);
             this.countryCode = phoneNumber.country;
             this.nationalNumber = phoneNumber.nationalNumber as string;
-            this.setInputObj();
         }
+        this.setInputObj();
     }
 
     registerOnChange(fn: (_: any) => void): void {
@@ -52,7 +52,10 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     ngOnInit(): void {}
 
     validate({ value }: FormControl) {
-        if (this.nationalNumber && this.countryCode && isValidPhoneNumber(this.nationalNumber, this.countryCode)) {
+        if (!(this.nationalNumber && this.countryCode)) {
+            return null;
+        }
+        if (isValidPhoneNumber(this.nationalNumber, this.countryCode)) {
             return null;
         }
         return { invalid: true };
@@ -64,7 +67,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     }
 
     setInputObj() {
-        if (this.inputObj && this.countryCode) {
+        if (this.inputObj) {
             this.inputObj.setCountry(this.countryCode);
             // For the default country
             if (this.countryCode === 'US') {
@@ -98,6 +101,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     saveChange() {
         try {
             const phoneNumber = parsePhoneNumber(this.nationalNumber, this.countryCode);
+            console.log(phoneNumber.number);
             this.onChange(phoneNumber.number);
         } catch (error) {
             this.onChange(null);
