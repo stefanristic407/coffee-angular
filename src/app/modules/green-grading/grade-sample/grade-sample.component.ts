@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { AuthService, GlobalsService, GreenGradingService } from '@services';
+import { AuthService, CommonService, GlobalsService, GreenGradingService } from '@services';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GenerateReportService } from '../generate-report/generate-report.service';
@@ -52,6 +52,7 @@ export class GradeSampleComponent implements OnInit {
         private greenGradingService: GreenGradingService,
         private activeRoute: ActivatedRoute,
         private authService: AuthService,
+        private commonService: CommonService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -234,8 +235,8 @@ export class GradeSampleComponent implements OnInit {
 
     customSort(event: SortEvent) {
         event.data.sort((data1, data2) => {
-            const value1 = this.globals.getCountryName(data1[event.field]);
-            const value2 = this.globals.getCountryName(data2[event.field]);
+            const value1 = this.commonService.getCountryName(data1[event.field]);
+            const value2 = this.commonService.getCountryName(data2[event.field]);
             const result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
             return event.order * result;
         });

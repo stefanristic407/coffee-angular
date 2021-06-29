@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { GlobalsService } from '@services';
+import { CommonService, GlobalsService } from '@services';
 import { WelcomeService } from '../welcome.service';
 
 @Component({
@@ -16,7 +16,11 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
     sourcingSub: Subscription;
     chartData: any[] = [];
 
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    constructor(
+        public globals: GlobalsService,
+        private welcomeSrv: WelcomeService,
+        private commonService: CommonService,
+    ) {}
 
     ngOnInit(): void {
         this.sourcingSub = this.welcomeSrv.sourcing$.subscribe((res: any) => {
@@ -53,7 +57,7 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
     makeChartData() {
         const tempData = [];
         this.sourcing.sourcing_stats.forEach((element) => {
-            const countryName = this.globals.getCountryName(element.origin) || element.origin;
+            const countryName = this.commonService.getCountryName(element.origin) || element.origin;
             tempData.push({
                 name: countryName,
                 value: (element.available_quantity / 1000).toFixed(0),

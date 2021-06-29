@@ -335,7 +335,6 @@ export class ChatUtilService {
                 return messageDate.format('YYYY MMM DD, hh.mm a');
             }
         } else {
-            console.log('Date Parse error');
             return '';
         }
     }

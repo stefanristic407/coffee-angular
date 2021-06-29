@@ -102,7 +102,6 @@ export class ChatHandlerService {
 
     public fetchSettings() {
         this.userService.getPreferences(this.util.ORGANIZATION_ID).subscribe((res: any) => {
-            console.log('PREF', res.result);
             if (res.success) {
                 this.updateSetting(res.result);
             }

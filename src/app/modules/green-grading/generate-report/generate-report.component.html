@@ -32,7 +32,7 @@
                                 {{ item.external_sample_id }}
                             </p>
                         </div>
-                        <p class="origin-text">{{ generateReportService.getCountryName(item.origin) }}</p>
+                        <p class="origin-text">{{ item.origin | country }}</p>
                     </a>
                     <div class="add-another">
                         <span class="pi pi-plus pr-1 mb-1"></span>

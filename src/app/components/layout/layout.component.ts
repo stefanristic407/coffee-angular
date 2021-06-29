@@ -45,7 +45,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     showMobFooter = true;
 
     notifications: any[];
-    readNotification: any;
+    hasUnreadNotification: boolean;
 
     activeLink: 'DASHBOARD' | 'COFFEELAB' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
     userTermsAccepted: boolean;
@@ -242,9 +242,31 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     getNotificationList() {
-        this.userOriginalService.getNofitication().subscribe((res: any) => {
+        const options = {
+            per_page: 1000,
+        };
+        let isUnread = false;
+        this.userOriginalService.getNofitication(options).subscribe((res: any) => {
             if (res.success) {
-                this.notifications = res.result ?? [];
+                const notifications = res.result ?? [];
+                const temp: any[] = [];
+                for (const notification of notifications) {
+                    const content = this.getContent(notification)?.content;
+                    if (content) {
+                        const item: any = {
+                            id: notification.id,
+                            ...this.getContent(notification),
+                            is_read: notification.is_read,
+                            status_updated_at: notification.status_updated_at,
+                        };
+                        if (!notification.is_read) {
+                            isUnread = true;
+                        }
+                        temp.push(item);
+                    }
+                    this.hasUnreadNotification = isUnread;
+                }
+                this.notifications = temp;
             }
         });
     }
@@ -258,7 +280,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         });
     }
 
-    onClickNotification(data: any, element: any, notification: any) {
+    onClickNotification(data: any, element: any) {
         if (data.is_read) {
             element.hide();
         } else {
@@ -269,9 +291,9 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 }
             });
         }
-        if (notification.url) {
-            this.router.navigate([notification.url], {
-                queryParams: notification.queryParams,
+        if (data.url) {
+            this.router.navigate([data.url], {
+                queryParams: data.queryParams,
             });
         }
     }
@@ -291,8 +313,8 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 }. View dispute for more details.`;
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
-                    orderType: data.content.order_type,
-                    disputeID: data.dispute_id,
+                    orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
+                    disputeID: data.content.dispute_id,
                 };
             } else if (data.action === 'RESOLVED') {
                 content = `${
@@ -300,8 +322,8 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 } has resolved the dispute against Order #${data.content.order_id}`;
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
-                    orderType: data.content.order_type,
-                    disputeID: data.dispute_id,
+                    orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
+                    disputeID: data.content.dispute_id,
                 };
             } else if (data.action === 'ESCALATED') {
                 content = `A dispute against Order #${data.content.order_id} has been escalated by ${
@@ -309,8 +331,8 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 }. View dispute for more details.`;
                 url = `dispute-system/order-chat/${data.content.order_id}`;
                 queryParams = {
-                    orderType: data.content.order_type,
-                    disputeID: data.dispute_id,
+                    orderType: data.content.order_type === 'RO-MR' ? 'MR' : 'ES',
+                    disputeID: data.content.dispute_id,
                 };
             }
         } else if (data.event === 'invite') {
@@ -340,7 +362,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         } else if (data.event === 'prebook_order' || data.event === 'sample_order' || data.event === 'gc_order') {
             if (data.action === 'GRADE_REPORT_UPLOADED') {
                 content = `A grade report has been uploaded to order #${data.content.order_id}.`;
-                url = `/orders/es/${data.content.order_id}`;
+                url = `/orders/es/${data.content.estate_id}`;
             } else if (data.action === 'CONFIRM') {
                 content = `${data.content.estate_name} has confirmed your order #${data.content.order_id}`;
                 url = `/orders/es/${data.content.order_id}`;
@@ -365,11 +387,16 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         } else if (data.event === 'mr_gc_order') {
             if (data.action === 'PLACED') {
                 content = `Micro roaster ${data.content.micro_roaster_name} has placed a new order #${data.content.order_id}.`;
+                url = `/orders/mr/${data.content.order_id}`;
             } else if (data.action === 'RECEIVED') {
                 content = `Micro roaster ${data.content.micro_roaster_name} has confirmed delivery of order #${data.content.order_id}.`;
-                url = `/orders/mr`;
+                url = `/orders/mr/${data.content.order_id}`;
             } else if (data.action === 'COMPLETED') {
                 content = `A QR code for your coffee experience story has been generated for order #${data.content.order_id}.`;
+                url = `/coffee-experience/coffee-details`;
+                queryParams = {
+                    estate_id: data.content.order_id,
+                };
             }
         } else if (data.event === 'hrc_order') {
             if (data.action === 'PLACED') {
@@ -398,7 +425,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 content = `You have a new rating for ${data.content.product_id ? 'product' : 'order'} #${
                     data.content.product_id ?? data.content.order_id
                 }`;
-                url = `/operator-profile/reviews`;
+                url = `/roastery-profile/reviews`;
             }
         } else if (data.event === 'commission_invoice') {
             if (data.action === 'PAID') {

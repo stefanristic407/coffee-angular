@@ -1,8 +1,22 @@
-<input
-    type="text"
-    ng2TelInput
-    class="phone-number-input w-100"
-    (ng2TelOutput)="getPhoneNumber($event)"
-    (hasError)="hasError($event)"
-    (intlTelInputObject)="telInputObject($event)"
-/>
+<div class="position-relative phone-number-wrap">
+    <input
+        type="text"
+        ng2TelInput
+        class="phone-number-input w-100"
+        (intlTelInputObject)="telInputObject($event)"
+        (countryChange)="onCountryChange($event)"
+    />
+
+    <div class="input-mask-wrap">
+        <p-inputMask
+            *ngIf="template && placeholder"
+            type="string"
+            [mask]="template"
+            [(ngModel)]="nationalNumber"
+            [autoClear]="false"
+            [unmask]="true"
+            [placeholder]="placeholder"
+            (onInput)="onInput($event)"
+        ></p-inputMask>
+    </div>
+</div>

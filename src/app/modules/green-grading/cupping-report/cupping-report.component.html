@@ -163,7 +163,7 @@
                                                     </span>
 
                                                     <span>
-                                                        {{ generateReportService.getCountryName(rowData.origin) }}
+                                                        {{ rowData.origin | country }}
                                                     </span>
                                                 </span>
                                                 <span class="d-flex" *ngSwitchDefault>
@@ -183,7 +183,11 @@
                                                         pRipple
                                                         type="button"
                                                         (click)="viewPdf(rowData.url)"
-                                                        class="p-button-rounded p-button-outlined table-action-button mr-1"
+                                                        class="
+                                                            p-button-rounded p-button-outlined
+                                                            table-action-button
+                                                            mr-1
+                                                        "
                                                         label="View PDF"
                                                     ></button>
                                                     <button
@@ -192,7 +196,11 @@
                                                         type="button"
                                                         (click)="serviceReportLink(rowData)"
                                                         label="View table"
-                                                        class="p-button-rounded p-button-outlined table-action-button ml-1"
+                                                        class="
+                                                            p-button-rounded p-button-outlined
+                                                            table-action-button
+                                                            ml-1
+                                                        "
                                                     ></button>
                                                 </span>
                                                 <span *ngIf="!isMobileView" class="pl-3" [style.position]="'relative'">

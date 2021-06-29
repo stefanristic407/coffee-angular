@@ -127,7 +127,12 @@
                         <td *ngFor="let col of columns" [ngSwitch]="col.field">
                             <span *ngSwitchCase="'name'">
                                 <div
-                                    class="d-flex d-md-none justify-content-between align-items-center table-mobile-first-col"
+                                    class="
+                                        d-flex d-md-none
+                                        justify-content-between
+                                        align-items-center
+                                        table-mobile-first-col
+                                    "
                                 >
                                     <div class="d-flex align-items-center">
                                         <span class="fnt-bold mr-2"> {{ rowData[col.field] }} </span>
@@ -181,7 +186,7 @@
                                                 {{ rowData[item.field] | strReplace: '-':' ' | titlecase }}
                                             </span>
                                             <span class="fnt-bold" *ngSwitchCase="'origin'">
-                                                {{ globals.getCountryName(rowData[item.field]) }}
+                                                {{ rowData[item.field] | country }}
                                             </span>
                                             <span class="fnt-bold" *ngSwitchCase="'price'">
                                                 {{ rowData[item.field] }} kr
@@ -208,7 +213,7 @@
 
                             <span *ngSwitchCase="'origin'" (click)="onViewDetails(rowData)">
                                 <span>
-                                    {{ globals.getCountryName(rowData[col.field]) || '_' }}
+                                    {{ rowData[col.field] | country }}
                                 </span>
                             </span>
                             <span *ngSwitchCase="'weight'" (click)="onViewDetails(rowData)">

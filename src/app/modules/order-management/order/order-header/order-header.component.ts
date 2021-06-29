@@ -59,10 +59,4 @@ export class OrderHeaderComponent implements OnInit {
             { label: `Order ${this.orderId}` },
         ];
     }
-
-    openInvoice(): void {
-        if (this.invoiceUrl) {
-            window.open(this.invoiceUrl, '_blank');
-        }
-    }
 }

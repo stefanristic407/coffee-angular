@@ -77,9 +77,15 @@
                 class="btn-div col-md-6 pl-0 pr-0 d-inline-block d-md-none mb-2"
                 [class.invoice-block]="accordionOpened"
             >
-                <button type="submit" class="btn-raised pull-right w-100 text-center" (click)="openInvoice()">
+                <a
+                    *ngIf="invoiceUrl"
+                    type="submit"
+                    class="btn-raised pull-right w-100 text-center"
+                    [href]="invoiceUrl"
+                    target="_blank"
+                >
                     {{ 'order_invoice' | translate }}
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -145,13 +151,15 @@
                             </button>
                         </div>
 
-                        <button
+                        <a
+                            *ngIf="invoiceUrl"
                             type="submit"
                             class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
-                            (click)="openInvoice()"
+                            [href]="invoiceUrl"
+                            target="_blank"
                         >
                             {{ 'order_invoice' | translate }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </ng-container>
@@ -202,13 +210,15 @@
                         >
                             {{ ((isReviewed$ | async) ? 'view_feedback' : 'leave_a_feedback') | translate }}
                         </button>
-                        <button
+                        <a
+                            *ngIf="invoiceUrl"
                             type="submit"
                             class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
-                            (click)="openInvoice()"
+                            [href]="invoiceUrl"
+                            target="_blank"
                         >
                             {{ 'order_invoice' | translate }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -242,13 +252,15 @@
                         >
                             {{ ((isReviewed$ | async) ? 'view_feedback' : 'leave_a_feedback') | translate }}
                         </button>
-                        <button
+                        <a
+                            *ngIf="invoiceUrl"
                             type="submit"
                             class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
-                            (click)="openInvoice()"
+                            [href]="invoiceUrl"
+                            target="_blank"
                         >
                             {{ 'order_invoice' | translate }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -292,13 +304,15 @@
                         </button>
                     </div>
 
-                    <button
+                    <a
+                        *ngIf="invoiceUrl"
                         type="submit"
                         class="btn-raised pull-right w-100 text-center mt-2 d-md-none"
-                        (click)="openInvoice()"
+                        [href]="invoiceUrl"
+                        target="_blank"
                     >
                         {{ 'order_invoice' | translate }}
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

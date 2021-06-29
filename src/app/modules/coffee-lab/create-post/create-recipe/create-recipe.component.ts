@@ -36,6 +36,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     organizationId: number;
     imageIdListStep = [];
     recipeId: any;
+    draftRecipeId: any;
+    originRecipeId: any;
     recipe: any;
     copiedCoverImageId: number;
     copiedCoverImageUrl: string;
@@ -108,6 +110,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             label: 'glasses',
             value: 'glasses',
         },
+        {
+            label: 'N/A',
+            value: '',
+        },
     ];
     preparationArray: any[] = [
         {
@@ -141,6 +147,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             const type = params.type;
             if (type === 'recipe') {
                 this.recipeId = params.id;
+                this.originRecipeId = params.origin_id;
+                this.draftRecipeId = params.draft_id;
                 this.coffeeLabService.originalPost.pipe(takeUntil(this.destroy$)).subscribe((res) => {
                     if (res && this.isTranslate) {
                         this.onSave();
@@ -149,82 +157,91 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 this.coffeeLabService.copyCoverImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
                     this.copyFile(data);
                 });
-            }
-            if (this.recipeId) {
-                this.getRecipeById();
+                if (this.recipeId) {
+                    this.getRecipeById(this.recipeId);
+                }
+                if (this.draftRecipeId) {
+                    console.log('draft recipe id >>>>>>>>>>', this.draftRecipeId);
+                    this.getRecipeById(this.draftRecipeId);
+                }
+                if (this.originRecipeId) {
+                    this.setAppLanguages();
+                }
             }
         });
-        if (this.isTranslate) {
-            this.recipeForm.controls.language.setValue(null);
-            this.recipeForm.controls.language.setValidators(Validators.compose([Validators.required]));
-            this.recipeForm.controls.language.updateValueAndValidity();
-        }
     }
 
-    getRecipeById(): void {
-        this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
+    setAppLanguages(): void {
+        this.coffeeLabService.getForumDetails('recipe', this.originRecipeId).subscribe((res: any) => {
             if (res.success) {
-                this.recipe = res.result;
+                console.log('origin recipe >>?', res.result);
                 this.applicationLanguages = APP_LANGUAGES.filter(
                     (item) =>
                         item.value !== res.result.lang_code &&
                         !res.result.translations?.find((lng) => lng.language === item.value),
                 );
-                this.recipeForm.controls.allow_translation.setValue(res.result.allow_translation);
-                if (!this.isTranslate) {
-                    this.images = res.result.inline_images ? res.result.inline_images : [];
-                    this.coverImageUrl = res.result.cover_image_url;
-                    this.recipeForm.patchValue({
-                        name: res.result.name,
-                        expertise: res.result.expertise,
-                        serves: res.result.serves,
-                        preparation_time_unit: res.result.preparation_time_unit,
-                        cooking_time_unit: res.result.cooking_time_unit,
-                        preparation_time: res.result.preparation_time,
-                        cooking_time: res.result.cooking_time,
-                        preparation_method: res.result.preparation_method,
-                        description: res.result.description,
-                        language: res.result.lang_code,
-                        steps: res.result.steps ? res.result.steps : [],
-                        cover_image_id: res.result.cover_image_id,
-                        video_id: res.result.video_id,
-                    });
-                    if (res.result?.ingredients && res.result?.ingredients.length > 0) {
-                        let i = 0;
-                        for (const ing of res.result?.ingredients) {
-                            const ingredient = {
-                                name: ing.name,
-                                quantity: ing.quantity,
-                                quantity_unit: ing.quantity_unit,
-                            };
-                            const controlArray = this.recipeForm.controls?.ingredients as FormArray;
-                            controlArray.controls[i]?.patchValue(ingredient);
-                            if (i < res.result.ingredients.length - 1) {
-                                controlArray.push(this.createCoffeeIngredient());
-                            }
-                            i++;
+            }
+        });
+    }
+
+    getRecipeById(id: any): void {
+        this.coffeeLabService.getForumDetails('recipe', id).subscribe((res: any) => {
+            if (res.success) {
+                console.log('draft recipe >>>>>>>>>>', res.result);
+                this.recipe = res.result;
+                this.images = res.result.inline_images ? res.result.inline_images : [];
+                this.coverImageUrl = res.result.cover_image_url;
+                this.recipeForm.patchValue({
+                    name: res.result.name,
+                    expertise: res.result.expertise,
+                    serves: res.result.serves,
+                    preparation_time_unit: res.result.preparation_time_unit,
+                    cooking_time_unit: res.result.cooking_time_unit,
+                    preparation_time: res.result.preparation_time,
+                    cooking_time: res.result.cooking_time,
+                    preparation_method: res.result.preparation_method,
+                    description: res.result.description,
+                    language: res.result.lang_code,
+                    steps: res.result.steps ? res.result.steps : [],
+                    cover_image_id: res.result.cover_image_id,
+                    video_id: res.result.video_id,
+                    allow_translation: res.result.allow_translation,
+                });
+                if (res.result?.ingredients && res.result?.ingredients.length > 0) {
+                    let i = 0;
+                    for (const ing of res.result?.ingredients) {
+                        const ingredient = {
+                            name: ing.name,
+                            quantity: ing.quantity,
+                            quantity_unit: ing.quantity_unit,
+                        };
+                        const controlArray = this.recipeForm.controls?.ingredients as FormArray;
+                        controlArray.controls[i]?.patchValue(ingredient);
+                        if (i < res.result.ingredients.length - 1) {
+                            controlArray.push(this.createCoffeeIngredient());
                         }
+                        i++;
                     }
-                    if (res.result?.steps && res.result?.steps.length > 0) {
-                        let j = 0;
-                        for (const ing of res.result?.steps) {
-                            const ingredient = {
-                                image_id: ing?.image_id,
-                                coverImageUrl: ing?.image_url,
-                                description: ing.description,
-                            };
-                            const controlArray = this.recipeForm.controls?.steps as FormArray;
-                            controlArray.controls[j]?.patchValue(ingredient);
-                            if (j < res.result.steps.length - 1) {
-                                controlArray.push(this.createCoffeeStep());
-                            }
-                            j++;
+                }
+                if (res.result?.steps && res.result?.steps.length > 0) {
+                    let j = 0;
+                    for (const ing of res.result?.steps) {
+                        const ingredient = {
+                            image_id: ing?.image_id,
+                            coverImageUrl: ing?.image_url,
+                            description: ing.description,
+                        };
+                        const controlArray = this.recipeForm.controls?.steps as FormArray;
+                        controlArray.controls[j]?.patchValue(ingredient);
+                        if (j < res.result.steps.length - 1) {
+                            controlArray.push(this.createCoffeeStep());
                         }
+                        j++;
                     }
-                    if (res.result.video_url) {
-                        this.isShowVideo = true;
-                        this.videoUrl = res.result.video_url;
-                    }
+                }
+                if (res.result.video_url) {
+                    this.isShowVideo = true;
+                    this.videoUrl = res.result.video_url;
                 }
             } else {
                 this.toaster.error('Error while get recipe');
@@ -250,7 +267,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             allow_translation: [true],
             video_id: [null],
             inline_images: [[]],
-            language: [this.coffeeLabService.currentForumLanguage],
+            language: [],
             publish: [true],
         });
     }
@@ -324,38 +341,49 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     onSave(status?: string): void {
+        this.recipeForm.markAsUntouched();
         if (status === 'draft') {
             if (!this.recipeForm.value.name) {
                 this.toaster.error('Please fill recipe name');
+                return;
             } else {
-                this.isPosting = true;
                 this.recipeForm.controls.publish.setValue(false);
-                this.createNewRecipe(this.recipeForm.value);
+                this.handlePost();
             }
         } else {
+            if (this.isTranslate) {
+                this.recipeForm.controls.language.setValidators(Validators.required);
+                this.recipeForm.controls.language.updateValueAndValidity();
+            }
             if (this.recipeForm.invalid) {
                 this.recipeForm.markAllAsTouched();
                 this.toaster.error('Please fill all Data');
+                return;
             } else {
-                this.isPosting = true;
-                if (this.isTranslate) {
-                    this.translateRecipe(this.recipeForm.value);
-                } else if (this.recipeId) {
-                    this.updateRecipe(this.recipeForm.value);
-                } else {
-                    this.createNewRecipe(this.recipeForm.value);
-                }
+                this.handlePost();
             }
         }
     }
 
+    handlePost(): void {
+        this.isPosting = true;
+        if (this.isTranslate) {
+            this.translateRecipe(this.recipeForm.value);
+        } else if (this.recipeId) {
+            this.updateRecipe(this.recipeForm.value);
+        } else {
+            this.createNewRecipe(this.recipeForm.value);
+        }
+    }
+
     updateRecipe(data: any): void {
+        console.log('updating......');
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
                 this.toaster.success('You have updated an recipe successfully.');
-                this.location.back();
+                this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
             } else {
                 this.isPosting = false;
                 this.toaster.error('Failed to update recipe.');
@@ -364,8 +392,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     translateRecipe(data: any): void {
+        console.log('translating......');
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
-        this.coffeeLabService.translateForum('recipe', this.recipeId, data).subscribe((res: any) => {
+        this.coffeeLabService.translateForum('recipe', this.originRecipeId, data).subscribe((res: any) => {
             if (res.success) {
                 this.toaster.success('You have translated a coffee recipe successfully.');
                 this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
@@ -377,27 +406,22 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     copyFile(data: any) {
-        const { id, type } = data;
-        this.coffeeLabService.copyFile(id).subscribe((res: any) => {
-            if (res.success) {
-                if (type === 'cover') {
-                    this.copiedCoverImageId = res.result.id;
-                    this.copiedCoverImageUrl = res.result.url;
-                } else if (type === 'video') {
-                    this.copiedVideoId = res.result.id;
-                    this.copiedVideoUrl = res.result.url;
-                } else {
-                    this.copiedStepImageId = res.result.id;
-                    this.copiedStepImageUrl = res.result.url;
-                }
-                this.toaster.success('Copied file successfully.');
-            } else {
-                this.toaster.error('Failed to copy file.');
-            }
-        });
+        const { imageId, imageUrl, type } = data;
+        if (type === 'cover') {
+            this.copiedCoverImageId = imageId;
+            this.copiedCoverImageUrl = imageUrl;
+        } else if (type === 'video') {
+            this.copiedVideoId = imageId;
+            this.copiedVideoUrl = imageUrl;
+        } else {
+            this.copiedStepImageId = imageId;
+            this.copiedStepImageUrl = imageUrl;
+        }
     }
 
     createNewRecipe(data: any): void {
+        console.log('creating......');
+        data.language = this.coffeeLabService.currentForumLanguage;
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
             if (res.success) {
@@ -423,7 +447,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     pasteStepImage(index: number) {
         const step = this.recipeForm.get('steps') as FormArray;
-        step.controls[index].value.image_id = this.copiedCoverImageId;
+        step.controls[index].value.image_id = this.copiedStepImageId;
         step.controls[index].value.coverImageUrl = this.copiedStepImageUrl;
     }
 

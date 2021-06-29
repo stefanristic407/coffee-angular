@@ -400,7 +400,49 @@
                                         </div>
                                         <div class="media-container">
                                             <div *ngIf="isVideoPreviewPanel" class="existing-media-container">
-                                                <div class="content-container br-4">
+                                                <div
+                                                    *ngIf="
+                                                        defaultDetails?.video_url?.includes('png') ||
+                                                        defaultDetails?.video_url?.includes('jpg') ||
+                                                        defaultDetails?.video_url?.includes('jpeg') ||
+                                                        defaultDetails?.video_url?.includes('gif') ||
+                                                        defaultDetails?.video_url?.includes('PNG') ||
+                                                        defaultDetails?.video_url?.includes('JPG') ||
+                                                        defaultDetails?.video_url?.includes('JPEG') ||
+                                                        defaultDetails?.video_url?.includes('GIF')
+                                                    "
+                                                    class="content-container br-4"
+                                                    [style.backgroundImage]="'url(' + defaultDetails?.video_url + ')'"
+                                                >
+                                                    <div class="grey-gradient-container pl-25 text-white mr-1">
+                                                        <div>
+                                                            {{ videoName ? videoName : defaultDetails.video_name }}
+                                                        </div>
+                                                        <span class="pull-right pr-2" *ngIf="isEditableMode">
+                                                            <i
+                                                                class="pi pi-ellipsis-v cursor-pointer line-height-2"
+                                                                (click)="menu.toggle($event)"
+                                                            ></i>
+                                                            <p-menu
+                                                                #menu
+                                                                [popup]="true"
+                                                                [model]="videoMenuItems"
+                                                                appendTo="body"
+                                                            ></p-menu>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    *ngIf="
+                                                        defaultDetails?.video_url?.includes('mp4') ||
+                                                        defaultDetails?.video_url?.includes('mpeg') ||
+                                                        defaultDetails?.video_url?.includes('mov') ||
+                                                        defaultDetails?.video_url?.includes('wmv') ||
+                                                        defaultDetails?.video_url?.includes('flv') ||
+                                                        defaultDetails?.video_url?.includes('webm')
+                                                    "
+                                                    class="content-container br-4"
+                                                >
                                                     <img
                                                         (click)="video.paused ? video.play() : video.pause()"
                                                         src="assets/images/play-button.png"

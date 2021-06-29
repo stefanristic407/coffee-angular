@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { COUNTRY_LIST, CONTINIENT_LIST, languages } from '@constants';
-import { Country } from '@models';
+import { languages } from '@constants';
 
 @Injectable({
     providedIn: 'root',
@@ -23,32 +20,6 @@ export class GlobalsService {
         } else if (deviceSrv.isTablet()) {
             this.device = 'tablet';
         }
-    }
-
-    getCountry(data: string): Country {
-        if (data) {
-            return COUNTRY_LIST.find((con: any) => con.isoCode === data.toUpperCase());
-        }
-        return null;
-    }
-
-    getCountryName(isoCode: string): string {
-        if (isoCode) {
-            const country = COUNTRY_LIST.find((c) => c.isoCode === isoCode.toUpperCase());
-            if (country) {
-                return country.name;
-            }
-        }
-        return '';
-    }
-
-    getContinentName(code: string): string {
-        if (code) {
-            if (CONTINIENT_LIST[code]) {
-                return CONTINIENT_LIST[code];
-            }
-        }
-        return '';
     }
 
     openPicture(src) {

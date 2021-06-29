@@ -23,17 +23,6 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
     @Input() orderId: number;
     @Input() orderStatus: OrderStatus;
 
-    get isShipped() {
-        if (
-            this.orderStatus &&
-            (this.orderStatus === OrderStatus.Shipped || this.orderStatus === OrderStatus.Received)
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
     get today(): Date {
         return new Date();
     }

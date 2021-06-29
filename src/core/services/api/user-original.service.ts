@@ -1561,11 +1561,11 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.roasterUrl, data);
     }
 
-    getNofitication() {
+    getNofitication(options?) {
         const organization = 'ro';
         const organizationId = this.getOrgId();
         const data = {
-            api_call: `/${organization}/${organizationId}/notifications`,
+            api_call: `/${organization}/${organizationId}/notifications?${this.serializeParams(options)}`,
             method: 'GET',
             token: this.authService.token,
         };

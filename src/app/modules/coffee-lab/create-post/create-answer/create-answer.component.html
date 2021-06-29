@@ -63,18 +63,18 @@
             </div>
             <div class="col-md-6 order-1 order-md-2">
                 <div class="d-flex justify-content-end flex-column flex-md-row">
-                    <button
+                    <!--<button
                         [disabled]="isPosting || isUploadingImage"
                         (click)="onPost('DRAFT')"
-                        class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+                        class="btn-stroked px-4 mr-md-3 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
                         *ngIf="forumType !== 'comment'"
                     >
                         {{ 'save_as_draft' | translate }}
-                    </button>
+                    </button>-->
                     <button
                         [disabled]="isPosting || isUploadingImage"
                         (click)="onPost('PUBLISHED')"
-                        class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                        class="btn-raised px-4 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
                         {{ (forumId ? 'save_changes' : 'submit') | translate }}
                     </button>

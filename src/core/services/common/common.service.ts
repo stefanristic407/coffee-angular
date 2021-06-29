@@ -28,6 +28,13 @@ export class CommonService {
         }));
     }
 
+    getCountry(isoCode: string): Country {
+        if (isoCode) {
+            return COUNTRY_LIST.find((c: any) => c.isoCode === isoCode.toUpperCase());
+        }
+        return null;
+    }
+
     getCountryName(isoCode: string): string {
         if (isoCode) {
             const country = this.findCountry(isoCode);

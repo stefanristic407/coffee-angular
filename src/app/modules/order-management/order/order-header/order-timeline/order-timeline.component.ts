@@ -155,12 +155,6 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         return point.value !== OrderStatus.HarvestReady && activity ? activity.created_at : '';
     }
 
-    openInvoice(): void {
-        if (this.invoiceUrl) {
-            window.open(this.invoiceUrl, '_blank');
-        }
-    }
-
     confirmOrder(): void {
         this.orderService.markAsReceived(+this.orderId).subscribe({
             next: (response) => {

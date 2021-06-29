@@ -80,7 +80,7 @@ export class CreateQuestionComponent implements OnInit {
                 this.isPosting = false;
                 if (res.success) {
                     this.toaster.success('You have updated a question successfully.');
-                    this.location.back();
+                    this.router.navigate(['/coffee-lab']);
                 } else {
                     this.toaster.error('Failed to update question.');
                 }

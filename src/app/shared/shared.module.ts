@@ -27,6 +27,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 import { EditorModule } from 'primeng/editor';
 import { GalleriaModule } from 'primeng/galleria';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -105,6 +106,7 @@ const THIRDMODULES = [
     GalleriaModule,
     GalleryModule,
     ImageCropperModule,
+    InputMaskModule,
     InputNumberModule,
     InputSwitchModule,
     InputTextareaModule,

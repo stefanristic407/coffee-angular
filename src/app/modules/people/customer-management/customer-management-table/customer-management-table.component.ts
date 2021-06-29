@@ -185,12 +185,6 @@ export class CustomerManagementTableComponent implements OnInit {
         }
     }
 
-    stimulatedLogin(org) {
-        if (org.status === UserStatus.ACTIVE) {
-            this.customer.customerSimulatedLogin(this.customerType, org.id);
-        }
-    }
-
     sendInite(event: any, row: any) {
         event.stopPropagation();
         if (row.status === 'PENDING') {

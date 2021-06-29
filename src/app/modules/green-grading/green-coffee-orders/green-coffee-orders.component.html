@@ -159,7 +159,7 @@
                                         </span>
 
                                         <span>
-                                            {{ generateReportService.getCountryName(rowData[col.field]) }}
+                                            {{ rowData[col.field] | country }}
                                         </span>
                                     </span>
                                     <span class="d-flex" *ngSwitchCase="'order_type'">
