@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { CoffeeLabService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-recipe-original-post',
@@ -11,8 +11,9 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     @Input() recipeId;
     id: string | number = '';
     isLoading = true;
+    isCopying = false;
     detailsData: any;
-    constructor(private coffeeLabService: CoffeeLabService, private cookieService: CookieService) {}
+    constructor(private coffeeLabService: CoffeeLabService, private toaster: ToastrService) {}
 
     ngOnInit(): void {}
 
@@ -34,6 +35,22 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     }
 
     copyImage(id: number, type: string): void {
-        this.coffeeLabService.copyCoverImage.emit({ id, type });
+        if (this.isCopying) {
+            return;
+        }
+        this.isCopying = true;
+        this.coffeeLabService.copyFile(id).subscribe((res: any) => {
+            this.isCopying = false;
+            if (res.success) {
+                this.toaster.success('Copied file successfully.');
+                this.coffeeLabService.copyCoverImage.emit({
+                    imageId: res.result.id,
+                    imageUrl: res.result.url,
+                    type,
+                });
+            } else {
+                this.toaster.error('Failed to copy file.');
+            }
+        });
     }
 }

@@ -9,6 +9,7 @@
                     <span
                         class="copy-btn fnt-14 fnt-muli fnt-bold"
                         (click)="copyImage(detailsData.cover_image_id, 'cover')"
+                        [ngClass]="{ 'cursor-not-allowed': isCopying }"
                         ><span><img class="mr-2" src="assets/images/group-18.svg" /></span
                         >{{ 'copy' | translate }}</span
                     >
@@ -85,7 +86,10 @@
             <div *ngIf="detailsData.video_url" class="pt-3 pt-md-4 pt-lg-45 position-relative">
                 <div class="fnt-14 fnt-muli fnt-bold text-clr334 mb-3">{{ 'see_recipe_video' | translate }}</div>
                 <video class="w-100" [src]="detailsData.video_url" controls></video>
-                <span class="copy-btn fnt-14 fnt-muli fnt-bold" (click)="copyImage(detailsData.video_id, 'video')"
+                <span
+                    class="copy-btn fnt-14 fnt-muli fnt-bold"
+                    (click)="copyImage(detailsData.video_id, 'video')"
+                    [ngClass]="{ 'cursor-not-allowed': isCopying }"
                     ><span><img class="mr-2" src="assets/images/group-18.svg" /></span>{{ 'copy' | translate }}</span
                 >
             </div>
@@ -96,7 +100,10 @@
                     <p class="m-0 pb-2 fnt-14 fnt-muli" [innerHTML]="step?.description"></p>
                     <div class="w-100 position-relative mb-3" *ngIf="step.image_url">
                         <img [src]="step.image_url" class="w-100" />
-                        <span class="copy-btn fnt-14 fnt-muli fnt-bold" (click)="copyImage(step.image_id, 'step')"
+                        <span
+                            class="copy-btn fnt-14 fnt-muli fnt-bold"
+                            (click)="copyImage(step.image_id, 'step')"
+                            [ngClass]="{ 'cursor-not-allowed': isCopying }"
                             ><span><img class="mr-2" src="assets/images/group-18.svg" /></span
                             >{{ 'copy' | translate }}</span
                         >

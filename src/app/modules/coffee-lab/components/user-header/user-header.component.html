@@ -19,10 +19,20 @@
                 {{ prop?.posted_at || prop?.created_at | amTimeAgo: true }}
             </div>
         </div>
-        <div *ngIf="prop?.org_type !== 'co'" class="fnt-12 fnt-muli text-clr588 mt-2 d-flex text-nowrap">
+        <div
+                *ngIf="prop?.org_type !== 'co' && prop?.organisation_type !== 'co' && prop?.organization_type !== 'co'"
+                class="fnt-12 fnt-muli text-clr588 mt-2 d-flex text-nowrap"
+        >
             <span class="font-weight-bold mr-2">Coffee Expert</span>
-            <span [ngClass]="{ ellipsis: enableEllipsis }"
-                >@{{ prop?.company_name || prop?.organization_name || prop?.organisation_name || prop?.org_type }}</span
+            <span
+                    *ngIf="prop?.org_type !== 'sa' && prop?.organisation_type !== 'sa' && prop?.organization_type !== 'sa'"
+                    [ngClass]="{ ellipsis: enableEllipsis }"
+            >@{{ prop?.company_name || prop?.organization_name || prop?.organisation_name || prop?.org_type }}</span
+            >
+            <span
+                    *ngIf="prop?.org_type === 'sa' || prop?.organisation_type === 'sa' || prop?.organization_type === 'sa'"
+                    [ngClass]="{ ellipsis: enableEllipsis }"
+            >@Era of we</span
             >
         </div>
     </div>

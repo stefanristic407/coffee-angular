@@ -5,6 +5,16 @@ import { ConfirmComponent } from '@shared';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
+interface Draft {
+    created_at: string;
+    parent_id: number;
+    post_id: number;
+    post_title: string;
+    post_type: string;
+    slug: string;
+    updated_at: string;
+}
+
 @Component({
     selector: 'app-draft-posts',
     templateUrl: './draft-posts.component.html',
@@ -24,9 +34,10 @@ export class DraftPostsComponent implements OnInit {
 
     ngOnInit(): void {
         this.drafts = this.config.data;
+        console.log('drafts >>>>>>>>>>>>', this.drafts);
     }
 
-    onDeleteDraft(draft: any): void {
+    onDeleteDraft(draft: Draft): void {
         this.dialogService
             .open(ConfirmComponent, {
                 data: {
@@ -51,13 +62,23 @@ export class DraftPostsComponent implements OnInit {
             });
     }
 
-    onClickDraft(draft: any): void {
-        this.router.navigate(['/coffee-lab/create-post/tab'], {
-            queryParams: {
-                id: draft.post_id,
-                type: draft.post_type,
-            },
-        });
+    onClickDraft(draft: Draft): void {
+        if (draft.parent_id) {
+            this.router.navigate(['/coffee-lab/create-post/translate-' + draft.post_type], {
+                queryParams: {
+                    origin_id: draft.parent_id,
+                    draft_id: draft.post_id,
+                    type: draft.post_type,
+                },
+            });
+        } else {
+            this.router.navigate(['/coffee-lab/create-post/tab'], {
+                queryParams: {
+                    id: draft.post_id,
+                    type: draft.post_type,
+                },
+            });
+        }
         this.ref.close();
     }
 }
