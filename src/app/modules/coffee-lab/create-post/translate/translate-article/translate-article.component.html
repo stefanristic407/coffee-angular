@@ -118,9 +118,11 @@
                                 (click)="copyCoverImage()"
                             >
                                 <img src="assets/images/copy.svg" class="mr-1" />
-                                <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
-                                    'copy' | translate
-                                }}</span>
+                                <span
+                                    class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1"
+                                    [ngClass]="{ 'cursor-not-allowed': isCopying }"
+                                    >{{ 'copy' | translate }}</span
+                                >
                             </div>
                         </div>
                         <p class="fnt-muli fnt-14 fnt-md-18 fnt-bold lh-normal text-clr334 pt-3 mb-2">

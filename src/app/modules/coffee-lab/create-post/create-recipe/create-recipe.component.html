@@ -255,9 +255,6 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9 sewn-form-field w-100">
                                 <div>
                                     <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
-                                    <label class="float-right limitFont"
-                                        >({{ (step.description | htmlStringWordCount) || 0 }}/50 words)</label
-                                    >
                                 </div>
                                 <app-forum-editor
                                     [(content)]="step.description"
@@ -443,9 +440,6 @@
                 <div class="col-sm-12 col-md-8 col-lg-8 col-xl-9 pr-md-2 pr-lg-3 sewn-form-field w-100">
                     <div>
                         <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
-                        <label class="float-right limitFont"
-                            >({{ (step.description | htmlStringWordCount) || 0 }}/50 words)</label
-                        >
                     </div>
                     <app-forum-editor
                         [(content)]="step.description"
@@ -527,7 +521,7 @@
                 }}</span></span
             >
         </div>
-        <div class="d-flex col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center my-4">
+        <div *ngIf="!isTranslate" class="d-flex col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center my-4">
             <p-checkbox
                 [binary]="true"
                 label="Allow translations by other authors"

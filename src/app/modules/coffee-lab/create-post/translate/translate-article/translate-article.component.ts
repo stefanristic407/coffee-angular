@@ -23,6 +23,7 @@ export class TranslateArticleComponent implements OnInit {
     isUploadingImage = false;
     imageIdList = [];
     isPosting = false;
+    isCopying = false;
     coverImage: any;
     coverImageUrl: any;
     isCoverImageUploaded = false;
@@ -67,6 +68,7 @@ export class TranslateArticleComponent implements OnInit {
         this.coffeeLabService.getForumDetails('article', this.articleId).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
+                console.log('origin article ????????????', res.result);
                 this.article = res.result;
                 this.applicationLanguages = APP_LANGUAGES.filter(
                     (item) =>
@@ -188,9 +190,12 @@ export class TranslateArticleComponent implements OnInit {
     }
 
     copyCoverImage() {
-        this.isPosting = true;
+        if (this.isCopying) {
+            return;
+        }
+        this.isCopying = true;
         this.coffeeLabService.copyFile(this.article.cover_image_id).subscribe((res: any) => {
-            this.isPosting = false;
+            this.isCopying = false;
             if (res.success) {
                 this.copiedCoverImageId = res.result.id;
                 this.copiedCoverImageUrl = res.result.url;

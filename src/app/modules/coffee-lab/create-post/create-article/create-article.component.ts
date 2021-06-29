@@ -144,7 +144,7 @@ export class CreateArticleComponent implements OnInit {
                 this.isPosting = false;
                 if (res.success) {
                     this.toaster.success('You have updated an article successfully.');
-                    this.location.back();
+                    this.router.navigate(['/coffee-lab/overview/articles']);
                 } else {
                     this.toaster.error('Failed to update article.');
                 }

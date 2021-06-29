@@ -164,6 +164,22 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     console.log('draft recipe id >>>>>>>>>>', this.draftRecipeId);
                     this.getRecipeById(this.draftRecipeId);
                 }
+                if (this.originRecipeId) {
+                    this.setAppLanguages();
+                }
+            }
+        });
+    }
+
+    setAppLanguages(): void {
+        this.coffeeLabService.getForumDetails('recipe', this.originRecipeId).subscribe((res: any) => {
+            if (res.success) {
+                console.log('origin recipe >>?', res.result);
+                this.applicationLanguages = APP_LANGUAGES.filter(
+                    (item) =>
+                        item.value !== res.result.lang_code &&
+                        !res.result.translations?.find((lng) => lng.language === item.value),
+                );
             }
         });
     }
@@ -171,12 +187,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     getRecipeById(id: any): void {
         this.coffeeLabService.getForumDetails('recipe', id).subscribe((res: any) => {
             if (res.success) {
+                console.log('draft recipe >>>>>>>>>>', res.result);
                 this.recipe = res.result;
-                this.applicationLanguages = APP_LANGUAGES.filter(
-                    (item) =>
-                        item.value !== res.result.lang_code &&
-                        !res.result.translations?.find((lng) => lng.language === item.value),
-                );
                 this.images = res.result.inline_images ? res.result.inline_images : [];
                 this.coverImageUrl = res.result.cover_image_url;
                 this.recipeForm.patchValue({
@@ -394,24 +406,17 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     copyFile(data: any) {
-        const { id, type } = data;
-        this.coffeeLabService.copyFile(id).subscribe((res: any) => {
-            if (res.success) {
-                if (type === 'cover') {
-                    this.copiedCoverImageId = res.result.id;
-                    this.copiedCoverImageUrl = res.result.url;
-                } else if (type === 'video') {
-                    this.copiedVideoId = res.result.id;
-                    this.copiedVideoUrl = res.result.url;
-                } else {
-                    this.copiedStepImageId = res.result.id;
-                    this.copiedStepImageUrl = res.result.url;
-                }
-                this.toaster.success('Copied file successfully.');
-            } else {
-                this.toaster.error('Failed to copy file.');
-            }
-        });
+        const { imageId, imageUrl, type } = data;
+        if (type === 'cover') {
+            this.copiedCoverImageId = imageId;
+            this.copiedCoverImageUrl = imageUrl;
+        } else if (type === 'video') {
+            this.copiedVideoId = imageId;
+            this.copiedVideoUrl = imageUrl;
+        } else {
+            this.copiedStepImageId = imageId;
+            this.copiedStepImageUrl = imageUrl;
+        }
     }
 
     createNewRecipe(data: any): void {
