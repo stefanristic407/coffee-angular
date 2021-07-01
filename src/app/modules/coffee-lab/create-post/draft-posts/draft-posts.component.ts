@@ -34,7 +34,6 @@ export class DraftPostsComponent implements OnInit {
 
     ngOnInit(): void {
         this.drafts = this.config.data;
-        console.log('drafts >>>>>>>>>>>>', this.drafts);
     }
 
     onDeleteDraft(draft: Draft): void {

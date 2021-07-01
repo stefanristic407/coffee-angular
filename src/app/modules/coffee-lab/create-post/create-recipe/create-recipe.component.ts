@@ -155,7 +155,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.getRecipeById(this.recipeId);
                 }
                 if (this.draftRecipeId) {
-                    console.log('draft recipe id >>>>>>>>>>', this.draftRecipeId);
                     this.getRecipeById(this.draftRecipeId);
                 }
                 if (this.originRecipeId) {
@@ -168,7 +167,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     setAppLanguages(): void {
         this.coffeeLabService.getForumDetails('recipe', this.originRecipeId).subscribe((res: any) => {
             if (res.success) {
-                console.log('origin recipe >>?', res.result);
                 this.applicationLanguages = APP_LANGUAGES.filter(
                     (item) =>
                         item.value !== res.result.lang_code &&
@@ -181,7 +179,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     getRecipeById(id: any): void {
         this.coffeeLabService.getForumDetails('recipe', id).subscribe((res: any) => {
             if (res.success) {
-                console.log('draft recipe >>>>>>>>>>', res.result);
                 this.recipe = res.result;
                 this.images = res.result.inline_images ? res.result.inline_images : [];
                 this.coverImageUrl = res.result.cover_image_url;
@@ -379,7 +376,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     updateRecipe(data: any): void {
-        console.log('updating......');
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
@@ -394,7 +390,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     translateRecipe(data: any): void {
-        console.log('translating......');
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         this.coffeeLabService.translateForum('recipe', this.originRecipeId, data).subscribe((res: any) => {
             if (res.success) {
@@ -422,7 +417,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     createNewRecipe(data: any): void {
-        console.log('creating......');
         data.language = this.coffeeLabService.currentForumLanguage;
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {

@@ -68,7 +68,6 @@ export class TranslateArticleComponent implements OnInit {
         this.coffeeLabService.getForumDetails('article', this.articleId).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
-                console.log('origin article ????????????', res.result);
                 this.article = res.result;
                 this.applicationLanguages = APP_LANGUAGES.filter(
                     (item) =>
@@ -84,7 +83,6 @@ export class TranslateArticleComponent implements OnInit {
 
     getDraftById(): void {
         this.coffeeLabService.getForumDetails('article', this.draftId).subscribe((res: any) => {
-            console.log('draft result >>>>>>>>', res);
             if (res.success) {
                 this.coverImageUrl = res.result.cover_image_url;
                 this.coverImageId = res.result.cover_image_id;

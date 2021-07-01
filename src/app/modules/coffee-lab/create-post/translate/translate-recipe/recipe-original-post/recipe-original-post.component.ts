@@ -26,7 +26,6 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
         this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
-            console.log('recipe details >>>>>>>>>', res);
             if (res.success) {
                 this.detailsData = res.result;
             }

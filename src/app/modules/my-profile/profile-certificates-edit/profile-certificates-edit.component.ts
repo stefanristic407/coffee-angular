@@ -37,7 +37,6 @@ export class ProfileCertificatesEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('certification array >>>>>>>>>>>', this.certificationArray);
         const currentYear = new Date().getFullYear();
         for (let i = currentYear; i >= currentYear - 70; i--) {
             this.yearList = [
