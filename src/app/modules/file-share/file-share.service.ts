@@ -212,29 +212,16 @@ export class FileShareService {
     }
 
     downloadFile(item: any) {
-        this.dialogSrv
-            .open(ConfirmComponent, {
-                data: {
-                    title: 'Please confirm!',
-                    desp: 'Are you sure want to download',
-                },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
-            })
-            .onClose.subscribe((action: any) => {
-                if (action === 'yes') {
-                    this.downloadService.download(item.url, item.name, item.mime).subscribe(
-                        (res: Download) => {
-                            if (res.state === 'DONE') {
-                                this.toastrService.success('Downloaded successfully');
-                            }
-                        },
-                        (error) => {
-                            this.toastrService.error('Download failed');
-                        },
-                    );
+        this.downloadService.download(item.url, item.name, item.mime).subscribe(
+            (res: Download) => {
+                if (res.state === 'DONE') {
+                    this.toastrService.success('Downloaded successfully');
                 }
-            });
+            },
+            (error) => {
+                this.toastrService.error('Download failed');
+            },
+        );
     }
 
     pinFileorFolder(id: any) {
