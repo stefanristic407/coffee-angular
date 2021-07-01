@@ -131,6 +131,7 @@
                 </div>
             </div>
         </div>
+
         <div *ngIf="orderDetails" class="col-12 col-xl-6 order-1 order-md-2">
             <div class="border-md-main br-4 h-100 px-md-4 py-md-45">
                 <div class="col-12 p-0">
@@ -138,7 +139,7 @@
                 </div>
                 <div class="row p-3">
                     <div class="col-xl-12 col-lg-5 col-md-6 col-sm-12 mt-md-4">
-                        <div class="row pb-4 rowBorder d-none d-sm-none d-md-flex n-margin">
+                        <div class="row pb-4 border-bottom-primary d-none d-sm-none d-md-flex n-margin">
                             <div class="col-2 p-0 d-flex align-items-center">
                                 <app-avatar
                                     [size]="36"
@@ -148,16 +149,16 @@
                             </div>
                             <div class="col-10 p-0 ownerDiv">
                                 <span class="estateMediumFont mb-1"
-                                    ><span class="fnt-600">Estate name: </span
+                                    ><span class="fnt-600">{{ 'estate_name' | translate }}: </span
                                     >{{ orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}</span
                                 >
                                 <span class="estateMediumFont"
-                                    ><span class="fnt-600">Owner:</span>
+                                    ><span class="fnt-600">{{ 'manager' | translate }}:</span>
                                     {{ orderDetails.estate_owner ? orderDetails.estate_owner : 'NA' }}</span
                                 >
                             </div>
                         </div>
-                        <div class="row roasterDiv pb-4 rowBorder n-margin">
+                        <div class="row roasterDiv pb-4 border-bottom-primary n-margin">
                             <div class="col-2 p-0 d-flex align-items-center">
                                 <app-avatar
                                     [size]="36"
@@ -167,11 +168,11 @@
                             </div>
                             <div class="col-10 p-0 ownerDiv">
                                 <span class="estateMediumFont mb-1"
-                                    ><span class="fnt-600">Roaster name:</span>
+                                    ><span class="fnt-600">{{ 'roaster_name' | translate }}:</span>
                                     {{ orderDetails.roaster_name ? orderDetails.roaster_name : 'NA' }}</span
                                 >
                                 <span class="estateMediumFont"
-                                    ><span class="fnt-600">Owner:</span>
+                                    ><span class="fnt-600">{{ 'manager' | translate }}:</span>
                                     {{ orderDetails.roaster_owner ? orderDetails.roaster_owner : 'NA' }}</span
                                 >
                             </div>
@@ -179,7 +180,7 @@
                     </div>
 
                     <div class="col-xl-12 col-lg-7 col-md-6 col-sm-12 mt-2 origin-pad">
-                        <div class="row pt-3 pb-3 rowBorder">
+                        <div class="row pt-3 pb-3 border-bottom-primary">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
                                 {{ 'origin' | translate }} :
                             </div>
@@ -187,7 +188,7 @@
                                 {{ orderDetails?.origin | country }}
                             </div>
                         </div>
-                        <div class="row pt-3 pb-3 rowBorder">
+                        <div class="row pt-3 pb-3 border-bottom-primary">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
                                 {{ 'variety' | translate }} :
                             </div>
@@ -195,7 +196,7 @@
                                 {{ orderDetails?.varieties || 'NA' }}
                             </div>
                         </div>
-                        <div class="row pt-3 pb-3 rowBorder">
+                        <div class="row pt-3 pb-3 border-bottom-primary">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
                                 {{ 'price' | translate }} :
                             </div>
@@ -204,7 +205,7 @@
                                 {{ orderDetails?.price_unit }}
                             </div>
                         </div>
-                        <div class="row pt-3 pb-3 rowBorder">
+                        <div class="row pt-3 pb-3 border-bottom-primary">
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
                                 {{ 'type_of_order' | translate }} :
                             </div>
