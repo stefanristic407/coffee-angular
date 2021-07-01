@@ -26,12 +26,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     recipeForm: FormGroup;
     ingredients: FormArray;
     steps: FormArray;
-    coverImage = '';
-    files: any;
-    fileEvent: any;
-    fileName: any;
-    imageFileData: any;
-    imageFileName: any;
     languageArray = [];
     organizationId: number;
     imageIdListStep = [];
@@ -277,41 +271,49 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.recipeForm.controls.cover_image_id.setValue(null);
     }
 
-    uploadImage(event: any, index?, type?): void {
-        this.files = event.target.files;
-        this.fileEvent = this.files;
-        this.imageFileName = this.files[0].name;
-        const fileList: FileList = this.fileEvent;
-        const maximumFileSize = type === 'recipeVideo' ? this.maxVideoSize * 1024 : 2 * 1024;
-        if (fileList.length > 0) {
-            const file: File = fileList[0];
-            const fsize = file.size;
-            const fileSize = Math.round(fsize / 1024);
-            if (fileSize >= maximumFileSize) {
-                this.toaster.error(`Maximum file size is ${maximumFileSize / 1024}mb`);
-                return;
-            }
-            this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((res: any) => {
-                if (res.success === true) {
-                    this.toaster.success('The file ' + this.imageFileName + ' uploaded successfully');
-                    this.imageFileData = res.result;
-                    if (type === 'recipeCoverImage') {
-                        this.recipeForm.controls.cover_image_id.setValue(res.result.id);
-                        this.coverImageUrl = res.result.url;
-                    } else if (type === 'stepImage') {
-                        const step = this.recipeForm.get('steps') as FormArray;
-                        step.controls[index].value.image_id = res.result.id;
-                        step.controls[index].value.coverImageUrl = res.result.url;
-                    } else {
-                        this.isShowVideo = true;
-                        this.videoUrl = res.result.url;
-                        this.recipeForm.controls.video_id.setValue(res.result.id);
-                    }
-                } else {
-                    this.toaster.error('Error while uploading the file');
-                }
-            });
+    uploadFile(event: any, index?, type?): void {
+        const files = event.target.files;
+        if (!files.length) {
+            return;
         }
+        const maximumFileSize = type === 'recipeVideo' ? this.maxVideoSize * 1024 : 2 * 1024;
+        const file: File = files[0];
+        const fileSize = Math.round(file.size / 1024);
+        // Check file type
+        const isImageFile = file.type.includes('image');
+        const isVideoFile = file.type.includes('video');
+        if (type === 'recipeVideo' && !isVideoFile) {
+            this.toaster.error('Please upload video file');
+            return;
+        }
+        if (type !== 'recipeVideo' && !isImageFile) {
+            this.toaster.error('Please upload image file');
+            return;
+        }
+        // Check max file size
+        if (fileSize >= maximumFileSize) {
+            this.toaster.error(`Maximum file size is ${maximumFileSize / 1024}mb`);
+            return;
+        }
+        this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((res: any) => {
+            if (res.success === true) {
+                this.toaster.success('The file ' + file.name + ' uploaded successfully');
+                if (type === 'recipeCoverImage') {
+                    this.recipeForm.controls.cover_image_id.setValue(res.result.id);
+                    this.coverImageUrl = res.result.url;
+                } else if (type === 'stepImage') {
+                    const step = this.recipeForm.get('steps') as FormArray;
+                    step.controls[index].value.image_id = res.result.id;
+                    step.controls[index].value.coverImageUrl = res.result.url;
+                } else {
+                    this.isShowVideo = true;
+                    this.videoUrl = res.result.url;
+                    this.recipeForm.controls.video_id.setValue(res.result.id);
+                }
+            } else {
+                this.toaster.error('Error while uploading the file');
+            }
+        });
     }
 
     createCoffeeStep() {

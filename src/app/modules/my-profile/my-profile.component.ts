@@ -77,6 +77,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        console.log('my profile component,....');
         this.breadcrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
             { label: this.globals.languageJson?.my_profile },

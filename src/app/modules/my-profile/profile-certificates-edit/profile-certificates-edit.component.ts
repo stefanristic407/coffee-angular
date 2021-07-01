@@ -37,6 +37,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log('certification array >>>>>>>>>>>', this.certificationArray);
         const currentYear = new Date().getFullYear();
         for (let i = currentYear; i >= currentYear - 70; i--) {
             this.yearList = [
@@ -114,7 +115,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
         }
         if (this.editingRowIndex === -1) {
             if (!this.file) {
-                this.toastrService.error('Please fill all required fields.');
+                this.toastrService.error('Please upload certificate file');
                 return;
             }
             const formData: FormData = new FormData();
@@ -147,6 +148,10 @@ export class ProfileCertificatesEditComponent implements OnInit {
             });
         } else {
             const formData: FormData = new FormData();
+            if (!this.certificationArray[this.editingRowIndex].public_url && !this.file) {
+                this.toastrService.error('Please upload certificate file');
+                return;
+            }
             if (this.file) {
                 formData.append('file', this.file);
             }

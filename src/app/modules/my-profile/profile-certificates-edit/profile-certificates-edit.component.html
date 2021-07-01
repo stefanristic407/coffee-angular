@@ -29,19 +29,19 @@
                 </div>
             </div>
         </ng-container>
-        <div class="mt-2" *ngIf="(editingRowIndex === -1 || !certificationArray.length) else addAnotherCertificate">
+        <div class="mt-2" *ngIf="editingRowIndex === -1 || !certificationArray.length; else addAnotherCertificate">
             <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
         </div>
         <ng-template #addAnotherCertificate>
             <div class="pt-2 pb-45 pb-md-0">
-            <span class="fnt-muli fnt-14 fnt-bold text-clr60b cursor-pointer" (click)="onAdd()">
-                <i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>
-                Add another certificate
-            </span>
+                <span class="fnt-muli fnt-14 fnt-bold text-clr60b cursor-pointer" (click)="onAdd()">
+                    <i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>
+                    Add another certificate
+                </span>
             </div>
         </ng-template>
     </div>
-    <input #myFileInput type="file" class="d-none" (change)="onFileChange($event)" />
+    <input #myFileInput type="file" hidden accept="image/png, image/jpeg" (change)="onFileChange($event)" />
 </div>
 
 <ng-template #addAndEditTemplate>
@@ -81,7 +81,7 @@
                 <div class="d-flex align-items-center flex-column flex-md-row">
                     <div class="file-name mr-3" *ngIf="file || certificationArray[editingRowIndex]?.public_url">
                         <span class="fnt-muli fnt-600 fnt-14 text-clr588 lh-normal mb-0 text-overflow-ellipsis">
-                            {{ file?.name || certificationArray[editingRowIndex]?.public_url.split('/').pop() }}
+                            {{ 'attachment' | translate }}
                         </span>
                         <i class="pi pi-times fnt-14 text-clr588 ml-25 cursor-pointer" (click)="onRemoveFile()"></i>
                     </div>
@@ -95,10 +95,12 @@
                     </div>
                     <div class="d-block d-md-flex btn-container">
                         <button
-                                class="btn-raised px-4 mr-2 mt-3 mt-md-0"
-                                [disabled]="isSavingCertificate"
-                                (click)="onSave()"
-                        >Save</button>
+                            class="btn-raised px-4 mr-2 mt-3 mt-md-0"
+                            [disabled]="isSavingCertificate"
+                            (click)="onSave()"
+                        >
+                            Save
+                        </button>
                         <button class="btn-stroked px-4 mt-3 mt-md-0" (click)="onCancel()" *ngIf="editingRowIndex > -1">
                             Cancel
                         </button>

@@ -113,6 +113,10 @@ export const routes: Routes = [
                 loadChildren: () => import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
             },
             {
+                path: 'user-profile',
+                loadChildren: () => import('./modules/my-profile/my-profile.module').then((m) => m.MyProfileModule),
+            },
+            {
                 path: 'profile',
                 loadChildren: () => import('./modules/profiles/profiles.module').then((m) => m.ProfilesModule),
             },
