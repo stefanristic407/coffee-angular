@@ -5447,20 +5447,6 @@ ul.list-style-none li a:hover {
     transform: rotate(-135deg) translate(0, -50%)
 }
 
-.user-profile {
-    padding: 15px
-}
-
-.user-profile .user-content,
-.user-profile .user-email,
-.user-profile .user-name {
-    color: #fff;
-    overflow: hidden;
-    white-space: nowrap;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis
-}
-
 .create-btn {
     height: 40px;
     background: #343a40
