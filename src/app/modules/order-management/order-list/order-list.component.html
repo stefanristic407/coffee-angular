@@ -1,52 +1,50 @@
-<div class="bg-fff py-2 py-md-4 py-lg-45 px-2 px-md-3 px-lg-5">
-    <div class="row no-gutters">
-        <div class="col-12 px-2 py-2">
+<div class="main-block">
+    <div class="d-md-flex justify-content-between mb-25">
+        <div>
             <p-breadcrumb [model]="items"></p-breadcrumb>
+        </div>
+        <div class="d-none d-md-flex flex-wrap">
+            <button class="btn-stroked w-mob-100" [routerLink]="['/dispute-system/raised-tickets', orgType]">
+                {{ 'view_all_raised_tickets' | translate }}
+            </button>
+            <button class="btn-raised w-mob-100 ml-md-25" (click)="displayExportDialog = !displayExportDialog">
+                {{ 'export_orders' | translate }}
+            </button>
         </div>
     </div>
 
-    <div class="row no-gutters mt-2 px-2" [formGroup]="searchForm">
+    <div class="row no-gutters" [formGroup]="searchForm">
         <div class="col-12 col-md-4 px-0 d-flex align-items-center">
             <h4 class="fnt-18 fnt-bold text-clr334 m-0 text-capitalize">
-                {{
-                    (organizationType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate | titlecase
-                }}
+                {{ (orgType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate | titlecase }}
             </h4>
         </div>
-        <div class="col-12 col-md-8 search-export px-0 mt-25">
-            <div class="d-flex justify-content-end search-bar">
+        <div class="col-12 px-0 mt-25 d-md-none">
+            <div class="d-flex justify-content-end">
                 <span class="custom-search w-100">
                     <input
                         pInputText
-                        class="w-100 h-100 pt-2 pb-2 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
+                        class="w-100 h-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
                         type="text"
                         placeholder="Search by order ID, {{ customerPropertyName }}, etc"
                         formControlName="search_query"
                     />
                 </span>
-                <button
-                    type="submit"
-                    class="btn-raised ml-2 d-none d-lg-block"
-                    (click)="displayExportDialog = !displayExportDialog"
-                >
-                    {{ 'export' | translate }}
-                </button>
             </div>
         </div>
 
-        <div class="d-flex justify-content-between w-100 col-12 px-0 mt-3">
-            <div class="d-flex flex-wrap">
+        <div class="d-flex justify-content-between w-100 col-12 px-0 mt-3 mt-md-4">
+            <div>
                 <p-multiSelect
                     placeholder="Origin"
                     optionLabel="label"
                     optionValue="value"
-                    class="mr-25"
                     [options]="origins$ | async"
                     [filter]="false"
                     [showToggleAll]="false"
                     [showHeader]="false"
                     [maxSelectedLabels]="1"
-                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.origin ? ' highlight' : '')"
+                    [styleClass]="'round-border mr-25 mb-25 mb-md-3 mb-lg-4' + (queryParams.origin ? ' highlight' : '')"
                     scrollHeight="225px"
                     formControlName="origin"
                 >
@@ -58,29 +56,30 @@
                 </p-multiSelect>
                 <p-dropdown
                     [showClear]="true"
-                    [options]="organizationType === OrgType.MICRO_ROASTER ? mrOrderTypeItems : orderTypeItems"
+                    [options]="orgType === OrgType.MICRO_ROASTER ? mrOrderTypeItems : orderTypeItems"
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Type of order"
-                    class="mr-25"
-                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.order_type ? ' highlight' : '')"
+                    [styleClass]="
+                        'round-border mr-25 mb-25 mb-md-3 mb-lg-4' + (queryParams.order_type ? ' highlight' : '')
+                    "
                     scrollHeight="225px"
                     formControlName="order_type"
                 >
                 </p-dropdown>
                 <p-dropdown
                     [showClear]="true"
-                    [options]="organizationType === OrgType.MICRO_ROASTER ? mrStatusItems : statusItems"
+                    [options]="orgType === OrgType.MICRO_ROASTER ? mrStatusItems : statusItems"
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Status"
-                    class="mr-25"
-                    [styleClass]="'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.status ? ' highlight' : '')"
+                    [styleClass]="'round-border mr-25 mb-25 mb-md-3 mb-lg-4' + (queryParams.status ? ' highlight' : '')"
                     scrollHeight="225px"
                     formControlName="status"
                 ></p-dropdown>
                 <p-calendar
                     [readonlyInput]="true"
+                    [showIcon]="true"
                     placeholder="Date range"
                     selectionMode="range"
                     formControlName="dates"
@@ -92,12 +91,19 @@
                 >
                 </p-calendar>
             </div>
-            <div class="d-none d-md-flex">
+            <div class="d-none d-md-flex align-items-start">
+                <span class="custom-search w-100 mr-2">
+                    <input
+                        pInputText
+                        class="w-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
+                        type="text"
+                        placeholder="Search by order ID, {{ customerPropertyName }}, etc"
+                        formControlName="search_query"
+                    />
+                </span>
                 <p-dropdown
                     [options]="displayOptions"
                     formControlName="per_page"
-                    optionLabel="label"
-                    optionValue="value"
                     [showClear]="true"
                     placeholder="Display"
                     styleClass="round-border"
@@ -112,14 +118,14 @@
     </div>
 
     <div class="row no-gutters">
-        <div class="col-12 p-1">
+        <div class="col-12">
             <app-order-table
-                *ngIf="organizationType === OrgType.ESTATE"
+                *ngIf="orgType === OrgType.ESTATE"
                 #appOrderTable
                 [searchOptions]="queryParams"
             ></app-order-table>
             <p-tabView
-                *ngIf="organizationType === OrgType.MICRO_ROASTER"
+                *ngIf="orgType === OrgType.MICRO_ROASTER"
                 [(activeIndex)]="activeIndex"
                 (onChange)="resetFilter()"
             >

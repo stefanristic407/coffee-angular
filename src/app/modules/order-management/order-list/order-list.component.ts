@@ -55,7 +55,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     readonly origins$ = this.orderService.originList$.pipe(takeUntil(this.unsubscribeAll$));
 
     activeIndex = 0;
-    organizationType = OrganizationType.ESTATE;
+    orgType = OrganizationType.ESTATE;
     queryParams: any = {};
     displayExportDialog = false;
 
@@ -63,7 +63,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     @ViewChild('requestTable') requestTable: RequestTableComponent;
 
     get customerPropertyName(): string {
-        return this.organizationType === OrganizationType.ESTATE ? 'estate' : 'micro-roaster';
+        return this.orgType === OrganizationType.ESTATE ? 'estate' : 'micro-roaster';
     }
 
     constructor(
@@ -82,11 +82,8 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
         this.orderService.loadOrigins();
 
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
-            this.organizationType = params.orgType;
-            if (
-                this.organizationType !== OrganizationType.ESTATE &&
-                this.organizationType !== OrganizationType.MICRO_ROASTER
-            ) {
+            this.orgType = params.orgType;
+            if (this.orgType !== OrganizationType.ESTATE && this.orgType !== OrganizationType.MICRO_ROASTER) {
                 this.router.navigateByUrl('/orders/es');
             }
 
@@ -95,7 +92,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
                 { label: 'Order Management' }, // Do we need this item while we have no page for it?
                 {
                     label:
-                        this.organizationType === OrganizationType.ESTATE
+                        this.orgType === OrganizationType.ESTATE
                             ? 'Purchased Orders of Estates'
                             : this.globals.languageJson?.orders_by_mr,
                 },
@@ -112,6 +109,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
             this.queryParams = {
                 ...value,
                 page: 1,
+                per_page: value.per_page ?? 10,
                 start_date: startDate,
                 end_date: endDate,
             };
@@ -135,7 +133,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     downloadOrderClicked(): void {
         const form = this.exportForm.value;
         this.orderService
-            .downloadOrders(this.organizationType, form.export_type, form.from_date, form.to_date)
+            .downloadOrders(this.orgType, form.export_type, form.from_date, form.to_date)
             .subscribe((response: ApiResponse<any>) => {
                 if (response.success) {
                     window.open(response.result.url, '_blank');
