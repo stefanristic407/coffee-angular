@@ -43,6 +43,9 @@ export class RaisedTicketsComponent implements OnInit {
             if (params.has('orderId')) {
                 this.orderId = +params.get('orderId');
             }
+            if (params.has('orgType')) {
+                this.orgType = params.get('orgType') as OrganizationType;
+            }
         });
         this.tableColumns = [
             {

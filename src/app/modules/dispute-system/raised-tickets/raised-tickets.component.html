@@ -1,6 +1,11 @@
 <div class="main-block select-order">
     <div class="mb-45 mb-475">
-        <a class="back-page" [routerLink]="orgType | orderLink: orderId">{{ 'return_to_order' | translate }}</a>
+        <a *ngIf="orderId" class="back-page" [routerLink]="orgType | orderLink: orderId">{{
+            'return_to_order' | translate
+        }}</a>
+        <a *ngIf="!orderId" class="back-page" [routerLink]="['/orders', orgType]">{{
+            'return_to_order_list' | translate
+        }}</a>
     </div>
     <div class="mb-3">
         <span class="fnt-18 fnt-bold">{{ 'raised_tickets' | translate }}</span>

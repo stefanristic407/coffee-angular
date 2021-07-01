@@ -36,6 +36,11 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
+                path: 'raised-tickets/:orgType',
+                component: RaisedTicketsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
                 path: 'raised-tickets/:orgType/:orderId',
                 component: RaisedTicketsComponent,
                 canActivate: [AuthGuard],
