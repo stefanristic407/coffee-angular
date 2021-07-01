@@ -44,7 +44,6 @@ export class FilterComponent extends ResizeableComponent implements OnInit {
             certificates: null,
         };
         this.sourcingSrv.queryParams.next({ ...this.sourcingSrv.queryParams.getValue(), ...this.queryParams });
-        this.close();
     }
 
     close() {
