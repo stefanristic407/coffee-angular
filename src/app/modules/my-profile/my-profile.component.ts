@@ -77,7 +77,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        console.log('my profile component,....');
         this.breadcrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
             { label: this.globals.languageJson?.my_profile },
@@ -100,7 +99,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     getUserDetail(): void {
         this.userService.getUserDetail(this.queryUserId, this.queryOrganization).subscribe((res: any) => {
-            console.log('get user info response >>>>>>>>>>>>>>>', res);
             this.apiCount += 1;
             if (res.success) {
                 this.profileInfo = res.result;
@@ -133,7 +131,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     getCertificates(): void {
         this.userOriginalService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
-            console.log('get certificates result >>>>>>>>>>>>', res);
             this.apiCount += 1;
             if (res.success) {
                 this.certificationArray = res.result;
@@ -168,15 +165,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         const inputElement = event.target;
         this.avatarFileError = '';
         this.file = inputElement.files[0];
-        console.log('file >>>>>', this.file);
-        this.coffeeLabService.uploadFile(this.file, 'qa-forum').subscribe((res) => {
-            console.log('file upload response >>>>>>>', res);
-        });
         if (!this.file) {
-            return;
-        }
-        if (this.file.type.split('/')[0] !== 'image') {
-            this.avatarFileError = 'Invalid image';
             return;
         }
         this.myProfileService.imageChangedEvent = event;
@@ -261,7 +250,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
             formData.append('token', this.authService.token);
             this.userOriginalService.uploadProfileImage(formData).subscribe((res: any) => {
-                console.log('upload image result >>>>>>>>>', res);
                 if (res.success) {
                     newProfileImageUrl = res.result.file_path;
                 } else {
@@ -279,7 +267,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         } else {
             this.isUpdatingProfile = true;
             this.userOriginalService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res: any) => {
-                console.log('profile update result >>>>>>>>', res);
                 if (res.success) {
                     this.handleProfileUpdateSuccess();
                 } else {

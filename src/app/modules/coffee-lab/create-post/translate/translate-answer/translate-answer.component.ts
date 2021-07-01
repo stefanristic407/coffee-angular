@@ -54,7 +54,6 @@ export class TranslateAnswerComponent implements OnInit {
     getAnswerById(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('answer', this.answerId).subscribe((res: any) => {
-            console.log('answer details >>>>>>>>', res);
             if (res.success) {
                 this.answer = res.result;
                 this.originLanguage = res.result?.original_details?.language || res.result.lang_code;

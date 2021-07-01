@@ -26,9 +26,7 @@
                     {{ 'enter_personal_detail_text' | translate }}
                 </div>
             </div>
-            <div
-                    class="col-md-6 mb-3 d-none d-md-flex align-items-center justify-content-start justify-content-md-end"
-            >
+            <div class="col-md-6 mb-3 d-none d-md-flex align-items-center justify-content-start justify-content-md-end">
                 <div *ngIf="!isEditMode">
                     <button (click)="isEditMode = true" type="button" class="btn-raised px-4">
                         {{ 'edit_profile' | translate }}
@@ -39,10 +37,10 @@
                         {{ 'cancel' | translate }}
                     </button>
                     <button
-                            (click)="handleSubmit()"
-                            [disabled]="isUpdatingProfile"
-                            type="button"
-                            class="btn-raised px-4 ml-1"
+                        (click)="handleSubmit()"
+                        [disabled]="isUpdatingProfile"
+                        type="button"
+                        class="btn-raised px-4 ml-1"
                     >
                         {{ 'save' | translate }}
                     </button>
@@ -58,11 +56,11 @@
                             <div class="avatar-name-container mb-45">
                                 <div>
                                     <img
-                                            *ngIf="!previewUrl"
-                                            src="assets/images/default-avatar.png"
-                                            alt="icon"
-                                            width="90"
-                                            height="90"
+                                        *ngIf="!previewUrl"
+                                        src="assets/images/default-avatar.png"
+                                        alt="icon"
+                                        width="90"
+                                        height="90"
                                     />
                                     <img *ngIf="previewUrl" [src]="previewUrl" alt="icon" width="90" height="90" />
                                 </div>
@@ -91,16 +89,14 @@
                                     <div class="d-flex align-items-center px-0 px-md-1 border-bottom-dashed-primary">
                                         <img class="mr-4" src="assets/images/icon-birthday.svg" alt="icon" />
                                         <div class="w-100 text-clr24 py-3">
-                                            {{
-                                            (profileInfo?.date_of_birth | date: 'dd/MM/yyyy') || 'Not provided'
-                                            }}
+                                            {{ (profileInfo?.date_of_birth | date: 'dd/MM/yyyy') || 'Not provided' }}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="px-0 px-md-3 mx-1">
                                 <app-profile-certificates-view
-                                        [certificationArray]="certificationArray"
+                                    [certificationArray]="certificationArray"
                                 ></app-profile-certificates-view>
                             </div>
                         </div>
@@ -130,26 +126,26 @@
                                 <div class="d-flex justify-content-center mb-3">
                                     <div class="position-relative">
                                         <img
-                                                src="assets/images/icon-camera.svg"
-                                                alt="icon"
-                                                class="camera"
-                                                (click)="fileInput.click()"
+                                            src="assets/images/icon-camera.svg"
+                                            alt="icon"
+                                            class="camera"
+                                            (click)="fileInput.click()"
                                         />
                                         <img
-                                                *ngIf="!previewUrl"
-                                                src="assets/images/default-avatar.png"
-                                                class="avatar"
-                                                alt="icon"
-                                                width="90"
-                                                height="90"
+                                            *ngIf="!previewUrl"
+                                            src="assets/images/default-avatar.png"
+                                            class="avatar"
+                                            alt="icon"
+                                            width="90"
+                                            height="90"
                                         />
                                         <img
-                                                *ngIf="previewUrl"
-                                                [src]="previewUrl"
-                                                class="avatar"
-                                                alt="icon"
-                                                width="90"
-                                                height="90"
+                                            *ngIf="previewUrl"
+                                            [src]="previewUrl"
+                                            class="avatar"
+                                            alt="icon"
+                                            width="90"
+                                            height="90"
                                         />
                                     </div>
                                 </div>
@@ -157,8 +153,8 @@
                                     {{ 'upload_your_picture' | translate }}
                                 </div>
                                 <div
-                                        *ngIf="!profileInfo?.profile_image_url"
-                                        class="text-clr588 text-center fnt-14 mt-2"
+                                    *ngIf="!profileInfo?.profile_image_url"
+                                    class="text-clr588 text-center fnt-14 mt-2"
                                 >
                                     {{ 'you_can_upload' | translate }}
                                 </div>
@@ -175,15 +171,15 @@
                                     <div class="row gutter-16 gutter-lg-24">
                                         <div class="col-md-12 col-lg-6">
                                             <label class="fnt-14 text-clr588" style="font-weight: 600"
-                                            >Name <span class="text-danger">*</span></label
+                                                >Name <span class="text-danger">*</span></label
                                             >
                                             <div class="mb-4 mb-md-45 sewn-form-field w-100">
                                                 <input
-                                                        class="w-100"
-                                                        type="text"
-                                                        pInputText
-                                                        required
-                                                        formControlName="firstName"
+                                                    class="w-100"
+                                                    type="text"
+                                                    pInputText
+                                                    required
+                                                    formControlName="firstName"
                                                 />
                                                 <div *ngIf="form.controls.firstName.invalid" class="p-error">
                                                     Required field
@@ -194,34 +190,34 @@
                                         <div class="col-12">
                                             <div class="mb-4 mb-md-45 sewn-form-field w-100">
                                                 <label class="fnt-14 text-clr588"
-                                                >Tell us a bit about yourself! (Optional)</label
+                                                    >Tell us a bit about yourself! (Optional)</label
                                                 >
                                                 <textarea
-                                                        pInputTextarea
-                                                        rows="3"
-                                                        class="w-100 about-text-box"
-                                                        formControlName="aboutMe"
+                                                    pInputTextarea
+                                                    rows="3"
+                                                    class="w-100 about-text-box"
+                                                    formControlName="aboutMe"
                                                 ></textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <label class="fnt-14 text-clr588"
-                                            >Email address <span class="text-danger">*</span></label
+                                                >Email address <span class="text-danger">*</span></label
                                             >
                                             <div class="mb-4 mb-md-45 sewn-form-field w-100">
                                                 <input
-                                                        class="w-100"
-                                                        type="text"
-                                                        pInputText
-                                                        required
-                                                        formControlName="email"
+                                                    class="w-100"
+                                                    type="text"
+                                                    pInputText
+                                                    required
+                                                    formControlName="email"
                                                 />
                                                 <div *ngIf="form.controls.email.invalid" class="p-error">
                                                     {{
-                                                    form.controls.email.hasError('required')
-                                                        ? 'Required field'
-                                                        : 'Invalid email'
+                                                        form.controls.email.hasError('required')
+                                                            ? 'Required field'
+                                                            : 'Invalid email'
                                                     }}
                                                 </div>
                                             </div>
@@ -242,13 +238,13 @@
                                                 <label class="fnt-14 text-clr588">Date of birth</label>
                                                 <div class="mb-4 mb-md-45">
                                                     <p-calendar
-                                                            class="w-100 birthday-input"
-                                                            [monthNavigator]="true"
-                                                            [yearNavigator]="true"
-                                                            yearRange="1950:2020"
-                                                            dateFormat="dd/mm/yy"
-                                                            [showIcon]="true"
-                                                            formControlName="birthday"
+                                                        class="w-100 birthday-input"
+                                                        [monthNavigator]="true"
+                                                        [yearNavigator]="true"
+                                                        yearRange="1950:2020"
+                                                        dateFormat="dd/mm/yy"
+                                                        [showIcon]="true"
+                                                        formControlName="birthday"
                                                     ></p-calendar>
                                                 </div>
                                             </div>
@@ -257,19 +253,14 @@
                                         <div class="col-md-6">
                                             <label class="fnt-14 text-clr588">{{ 'role' | translate }}</label>
                                             <div class="mb-4 mb-md-45 sewn-form-field w-100">
-                                                <input
-                                                        class="w-100"
-                                                        type="text"
-                                                        pInputText
-                                                        formControlName="role"
-                                                />
+                                                <input class="w-100" type="text" pInputText formControlName="role" />
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                                 <div class="border-bottom-dashed-sub-secondary mb-4 mb-md-45"></div>
                                 <app-profile-certificates-edit
-                                        [certificationArray]="certificationArray"
+                                    [certificationArray]="certificationArray"
                                 ></app-profile-certificates-edit>
                             </div>
                         </div>
@@ -283,21 +274,14 @@
             <div class="py-4 text-center border-top-dashed-primary border-bottom-dashed-primary">
                 <div class="mb-2">
                     <img
-                            *ngIf="!previewUrl"
-                            src="assets/images/default-avatar.png"
-                            class="avatar-img"
-                            alt="icon"
-                            width="90"
-                            height="90"
+                        *ngIf="!previewUrl"
+                        src="assets/images/default-avatar.png"
+                        class="avatar-img"
+                        alt="icon"
+                        width="90"
+                        height="90"
                     />
-                    <img
-                            *ngIf="previewUrl"
-                            [src]="previewUrl"
-                            class="avatar-img"
-                            alt="icon"
-                            width="90"
-                            height="90"
-                    />
+                    <img *ngIf="previewUrl" [src]="previewUrl" class="avatar-img" alt="icon" width="90" height="90" />
                 </div>
                 <div class="text-clr24 fnt-16 font-weight-bold profile-name">
                     {{ profileInfo?.firstname + ' ' + profileInfo?.lastname }}
@@ -343,7 +327,7 @@
             <div class="border-bottom-dashed-primary"></div>
             <div class="px-0 px-md-3 mb-3">
                 <app-profile-certificates-view
-                        [certificationArray]="certificationArray"
+                    [certificationArray]="certificationArray"
                 ></app-profile-certificates-view>
             </div>
         </div>
@@ -362,10 +346,10 @@
             <div *ngIf="isEditMode">
                 <div class="mb-3">
                     <button
-                            (click)="handleSubmit()"
-                            [disabled]="isUpdatingProfile"
-                            type="button"
-                            class="btn-raised w-100"
+                        (click)="handleSubmit()"
+                        [disabled]="isUpdatingProfile"
+                        type="button"
+                        class="btn-raised w-100"
                     >
                         {{ 'save_changes' | translate }}
                     </button>
@@ -381,22 +365,22 @@
 </div>
 
 <p-dialog
-        header="Edit Photo"
-        [visible]="myProfileService.displayCropImageDialog"
-        [modal]="true"
-        [style]="{ width: '50vw' }"
-        appendTo="body"
-        [baseZIndex]="10000"
-        [draggable]="false"
-        [resizable]="false"
+    header="Edit Photo"
+    [visible]="myProfileService.displayCropImageDialog"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    appendTo="body"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
 >
     <p-header>
         <div class="text-right">
             <img
-                    class="cursor-pointer"
-                    src="assets/images/close.svg"
-                    alt="close-image"
-                    (click)="myProfileService.displayCropImageDialog = false"
+                class="cursor-pointer"
+                src="assets/images/close.svg"
+                alt="close-image"
+                (click)="myProfileService.displayCropImageDialog = false"
             />
         </div>
     </p-header>
@@ -411,4 +395,4 @@
     </ng-template>
 </p-dialog>
 
-<input hidden type="file" #fileInput (change)="onSelectFile($event)" />
+<input hidden type="file" accept="image/png, image/jpeg" #fileInput (change)="onSelectFile($event)" />

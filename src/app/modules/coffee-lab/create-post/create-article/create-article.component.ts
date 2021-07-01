@@ -57,7 +57,6 @@ export class CreateArticleComponent implements OnInit {
     getArticleById(): void {
         this.isLoading = true;
         this.coffeeLabService.getForumDetails('article', this.articleId).subscribe((res: any) => {
-            console.log('article details ?????', res);
             this.isLoading = false;
             if (res.success) {
                 this.article = res.result;
