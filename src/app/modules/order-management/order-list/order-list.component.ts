@@ -109,6 +109,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
             this.queryParams = {
                 ...value,
                 page: 1,
+                per_page: value.per_page ?? 10,
                 start_date: startDate,
                 end_date: endDate,
             };
