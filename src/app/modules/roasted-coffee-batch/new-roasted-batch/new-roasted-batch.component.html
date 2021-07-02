@@ -210,34 +210,30 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <label>Aroma/ Fragrance</label>
-                                <input type="number" placeholder="Enter a number" formControlName="aroma" pInputText />
+                                <p-inputNumber placeholder="Enter a number" formControlName="aroma"></p-inputNumber>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <label>Acidity</label>
-                                <input
-                                    type="number"
-                                    placeholder="Enter a number"
-                                    formControlName="acidity"
-                                    pInputText
-                                />
+                                <p-inputNumber placeholder="Enter a number" formControlName="acidity"></p-inputNumber>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field mt-lg-3">
                                 <label>Body</label>
-                                <input type="number" placeholder="Enter a number" formControlName="body" pInputText />
+                                <p-inputNumber placeholder="Enter a number" formControlName="body"></p-inputNumber>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field mt-lg-3">
                                 <label>{{ 'flavor' | translate }}</label>
-                                <input
-                                    type="number"
-                                    placeholder="Enter a number"
-                                    formControlName="flavour"
-                                    pInputText
-                                />
+                                <p-inputNumber placeholder="Enter a number" formControlName="flavour"></p-inputNumber>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100 mt-lg-3">
                                 <label>Processing</label>
-                                <input type="text" placeholder="" disabled [value]="orderDetails?.processing || ''" pInputText />
+                                <input
+                                    type="text"
+                                    placeholder=""
+                                    disabled
+                                    [value]="orderDetails?.processing || ''"
+                                    pInputText
+                                />
                             </div>
                         </div>
                         <div class="row pt-md-1 pb-1">
