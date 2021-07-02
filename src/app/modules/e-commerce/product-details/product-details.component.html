@@ -327,48 +327,40 @@
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'body' | translate }}</label>
-                                <input
-                                    type="number"
-                                    [readonly]="!productForm.get('is_external_product').value"
+                                <p-inputNumber
+                                    [disabled]="!productForm.get('is_external_product').value"
                                     formControlName="body"
-                                    pInputText
-                                />
+                                ></p-inputNumber>
                                 <small *ngIf="variant['controls']['body'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'acidity' | translate }}</label>
-                                <input
-                                    type="number"
-                                    [readonly]="!productForm.get('is_external_product').value"
+                                <p-inputNumber
+                                    [disabled]="!productForm.get('is_external_product').value"
                                     formControlName="acidity"
-                                    pInputText
-                                />
+                                ></p-inputNumber>
                                 <small *ngIf="variant['controls']['acidity'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'aroma' | translate }}</label>
-                                <input
-                                    type="number"
-                                    [readonly]="!productForm.get('is_external_product').value"
+                                <p-inputNumber
+                                    [disabled]="!productForm.get('is_external_product').value"
                                     formControlName="aroma"
-                                    pInputText
-                                />
+                                ></p-inputNumber>
                                 <small *ngIf="variant['controls']['aroma'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'flavor' | translate }}</label>
-                                <input
-                                    type="number"
-                                    [readonly]="!productForm.get('is_external_product').value"
+                                <p-inputNumber
+                                    [disabled]="!productForm.get('is_external_product').value"
                                     formControlName="flavour"
-                                    pInputText
-                                />
+                                ></p-inputNumber>
                                 <small *ngIf="variant['controls']['flavour'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
