@@ -295,12 +295,15 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             this.router.navigate([data.url], {
                 queryParams: data.queryParams,
             });
+        } else if (data.externalUrl) {
+            window.location.href = data.externalUrl;
         }
     }
 
     getContent(data) {
         let content = '';
         let url = '';
+        let externalUrl = '';
         let queryParams: any = {};
         if (data.event === 'cupping_request') {
             if (data.action === 'ASSIGNED') {
@@ -408,6 +411,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             } else if (data.action === 'COMPLETED') {
                 content = `A QR code for your coffee experience story has been generated for order #${data.content.order_id}.`;
             }
+            externalUrl = `${environment.shopWeb}/gate?token=${this.authService.token}&redirect_to=/ecomsecure/orders/${data.content.easify_order_id}`;
         } else if (data.event === 'question') {
             if (data.action === 'ASSIGNED') {
                 content = `Era of We Admin has assigned you a question in The Coffee Lab.`;
@@ -432,7 +436,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 content = `Payment for your commission invoice #${data.content.invoice_number} has been confirmed.`;
             }
         }
-        return { content, url, queryParams };
+        return { content, url, queryParams, externalUrl };
     }
 
     updateActiveLinkState() {
