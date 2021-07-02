@@ -735,9 +735,9 @@ export class ProductDetailsComponent implements OnInit {
                         );
                     }
                     weightObj.variant_details.processing = getVariantDetails.processing;
-                    weightObj.variant_details.body = getVariantDetails.body;
-                    weightObj.variant_details.acidity = getVariantDetails.acidity;
-                    weightObj.variant_details.aroma = getVariantDetails.aroma;
+                    weightObj.variant_details.body = getVariantDetails.body || 0;
+                    weightObj.variant_details.acidity = getVariantDetails.acidity || 0;
+                    weightObj.variant_details.aroma = getVariantDetails.aroma || 0;
                     weightObj.variant_details.flavour = getVariantDetails.flavour;
                     weightObj.variant_details.roaster_ref_no = getVariantDetails.roaster_ref_no;
                     weightObj.variant_details.estate_name = getVariantDetails.estate_name;
