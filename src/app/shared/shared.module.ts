@@ -154,6 +154,8 @@ import { PieAreaChartComponent } from './components/pie-area-chart/pie-area-char
 import { AppKeyConfirmationComponent } from './components/app-key-confirmation/app-key-confirmation.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { SelectOrdersComponent } from './components/select-orders/select-orders.component';
+import { RectangleImageCropperDialogComponent } from './components/rectangle-image-cropper-dialog/rectangle-image-cropper-dialog.component';
+
 const COMPONENTS = [
     AvatarComponent,
     BlankComponent,
@@ -186,6 +188,7 @@ const COMPONENTS = [
     AppKeyConfirmationComponent,
     UserDetailComponent,
     SelectOrdersComponent,
+    RectangleImageCropperDialogComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 

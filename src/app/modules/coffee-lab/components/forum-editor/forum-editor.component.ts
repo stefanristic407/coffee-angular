@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { dataURItoBlob } from '@utils';
 
 @Component({
     selector: 'app-forum-editor',
@@ -57,7 +58,7 @@ export class ForumEditorComponent implements OnInit {
         this.images.push({
             virtualId,
         });
-        const file = this.coffeeLabService.dataURItoBlob(imageURL);
+        const file = dataURItoBlob(imageURL);
         this.isUploadingImage = true;
         this.isUploadingImageChange.emit(true);
         this.coffeeLabService.uploadFile(file, this.fileModule).subscribe((res: any) => {

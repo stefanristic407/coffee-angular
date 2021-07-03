@@ -104,3 +104,15 @@
         }
     }
 }
+
+// Rectangle image cropper dialog
+.rectangle-image-cropper-dialog.p-dialog {
+    max-width: 700px;
+    padding: 24px;
+    border-radius: 8px;
+
+    & .p-dialog-content {
+        padding: 0;
+        border-radius: 8px;
+    }
+}
