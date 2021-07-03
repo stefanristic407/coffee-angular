@@ -2,20 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import {
-    AuthService,
-    CoffeeLabService,
-    CommonService,
-    GlobalsService,
-    RoasterserviceService,
-    UserService,
-    UserserviceService,
-} from '@services';
+import { AuthService, GlobalsService, RoasterserviceService, UserService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { formatDate, Location } from '@angular/common';
 import { MyProfileService } from '@modules/my-profile/my-profile.service';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { dataURItoBlob } from '@utils';
 
 @Component({
     selector: 'app-my-profile',
@@ -59,7 +52,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         private roasterService: RoasterserviceService,
         private activateRoute: ActivatedRoute,
         private router: Router,
-        private coffeeLabService: CoffeeLabService,
     ) {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
@@ -172,38 +164,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.myProfileService.displayCropImageDialog = true;
     }
 
-    b64toBlob(b64Data: any, contentType: any, sliceSize: any): any {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
-
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            const byteArray = new Uint8Array(byteNumbers);
-
-            byteArrays.push(byteArray);
-        }
-
-        const blob = new Blob(byteArrays, { type: contentType });
-        return blob;
-    }
-
     handleCroppedProfilePicture(): void {
         this.previewUrl = this.myProfileService.croppedImage;
-        const ImageURL = this.myProfileService.croppedImage;
-        const block = ImageURL.split(';');
-        const contentType = block[0].split(':')[1];
-        const realData = block[1].split(',')[1];
-        const blob = this.b64toBlob(realData, contentType, 0);
-        this.file = blob;
+        this.file = dataURItoBlob(this.previewUrl);
     }
 
     handleCancel(): void {

@@ -1,6 +1,7 @@
 import { AfterViewInit, Directive, ElementRef } from '@angular/core';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { dataURItoBlob } from '@utils';
 
 declare class ClipboardItem {
     constructor(data: { [mimeType: string]: Blob });
@@ -54,7 +55,7 @@ export class CopyImageToClipboardDirective implements AfterViewInit {
                 canvas.height = convertedImage.naturalHeight;
                 ctx.drawImage(convertedImage, 0, 0);
                 const pngDataURI = canvas.toDataURL('image/png');
-                const pngBlob = this.coffeeLabService.dataURItoBlob(pngDataURI);
+                const pngBlob = dataURItoBlob(pngDataURI);
                 const data = [new ClipboardItem({ [pngBlob.type]: pngBlob })];
                 // @ts-ignore
                 navigator.clipboard.write(data);

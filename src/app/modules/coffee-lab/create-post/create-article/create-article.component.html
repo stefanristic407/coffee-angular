@@ -8,7 +8,7 @@
                         #coverFileInput
                         type="file"
                         accept="image/png, image/jpeg"
-                        class="d-none"
+                        hidden
                         (change)="onFileChange($event)"
                     />
                     <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">

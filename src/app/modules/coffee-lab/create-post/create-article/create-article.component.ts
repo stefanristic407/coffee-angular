@@ -5,6 +5,9 @@ import { CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { maxWordCountValidator } from '@utils';
+import { DialogService } from 'primeng/dynamicdialog';
+import { RectangleImageCropperDialogComponent } from '@app/shared/components/rectangle-image-cropper-dialog/rectangle-image-cropper-dialog.component';
+import { CroppedImage } from '@models';
 
 @Component({
     selector: 'app-create-article',
@@ -34,6 +37,7 @@ export class CreateArticleComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private location: Location,
+        private dialogService: DialogService,
     ) {}
 
     ngOnInit(): void {
@@ -78,28 +82,37 @@ export class CreateArticleComponent implements OnInit {
     }
 
     onFileChange(event: any) {
-        if (event.target.files?.length) {
-            this.isCoverImageUploaded = false;
-            this.coverImage = event.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(this.coverImage);
-            reader.onload = () => {
-                this.coverImageUrl = reader.result;
-            };
-            this.coffeeLabService.uploadFile(this.coverImage, 'cl-articles').subscribe((res) => {
-                if (res.result) {
-                    this.coverImageId = res.result.id;
-                    this.isCoverImageUploaded = true;
-                    this.toaster.success('Cover image has been successfully uploaded.');
-                } else {
-                    this.toaster.error('failed to upload cover image.');
-                    this.coverImage = null;
-                    this.coverImageId = null;
-                    this.coverImageUrl = null;
-                    this.isCoverImageUploaded = false;
+        if (!event.target.files?.length) {
+            return;
+        }
+        this.dialogService
+            .open(RectangleImageCropperDialogComponent, {
+                data: {
+                    imageChangedEvent: event,
+                    aspectRatio: 782 / 253,
+                },
+                showHeader: false,
+                styleClass: 'rectangle-image-cropper-dialog',
+            })
+            .onClose.subscribe((data: CroppedImage) => {
+                if (data.status) {
+                    this.coverImageUrl = data.croppedImgUrl;
+                    this.coverImage = data.croppedImgFile;
+                    this.coffeeLabService.uploadFile(this.coverImage, 'cl-articles').subscribe((res) => {
+                        if (res.result) {
+                            this.coverImageId = res.result.id;
+                            this.isCoverImageUploaded = true;
+                            this.toaster.success('Cover image has been successfully uploaded.');
+                        } else {
+                            this.toaster.error('failed to upload cover image.');
+                            this.coverImage = null;
+                            this.coverImageId = null;
+                            this.coverImageUrl = null;
+                            this.isCoverImageUploaded = false;
+                        }
+                    });
                 }
             });
-        }
     }
 
     onPost(status: string): void {
