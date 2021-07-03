@@ -156,6 +156,7 @@ export class SetupLicenseComponent implements OnInit {
                         id: res.result.id,
                         certificate_type_id: certification.id,
                         certificate_type: certification.type,
+                        certificate_type_name: certification.name,
                         year: this.selectedCertificationYear,
                         public_url: res.result.url,
                     };
@@ -189,6 +190,7 @@ export class SetupLicenseComponent implements OnInit {
                         ...this.certificationArray[this.editingRowIndex],
                         certificate_type_id: certification.id,
                         certificate_type: certification.type,
+                        certificate_type_name: certification.name,
                         year: this.selectedCertificationYear,
                     };
                 }
