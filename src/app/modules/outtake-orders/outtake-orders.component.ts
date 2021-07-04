@@ -139,7 +139,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
                 },
                 {
                     field: 'gc_odrer_id',
-                    header: this.globals.languageJson?.gc_odrer_id,
+                    header: this.globals.languageJson?.gc_order_id,
                     sortable: false,
                     width: 80,
                 },
