@@ -71,6 +71,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
+        this.getFlavourProfileList();
         this.availableValues = [];
         for (let i = 6; i <= 10; i += 0.25) {
             this.availableValues.push(i);
@@ -103,89 +104,102 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
                 });
         }
     }
-    flavourProfileList(getFlavourArray) {
+
+    getFlavourProfileList() {
         this.userService.getFlavourProfile().subscribe((data: any) => {
             if (data.success === true) {
-                this.flavourArray = data.result;
+                this.flavourArray = data.result ?? [];
+            }
+        });
+    }
 
-                this.langChips = [];
-                getFlavourArray.forEach((element) => {
-                    const findObj = data.result.find((item) => item.name === element);
-                    if (findObj) {
-                        this.langChips.push(findObj);
-                    }
-                });
+    setChipsValue(getFlavourArray) {
+        this.langChips = [];
+        getFlavourArray.forEach((element) => {
+            const findObj = this.flavourArray.result.find((item) => item.name === element);
+            if (findObj) {
+                this.langChips.push(findObj);
             }
         });
     }
 
     getCuppingScoreDetails() {
-        this.greenGradingService.getCuppingScore(this.roasterId, this.cuppingReportId).subscribe((res: any) => {
-            let getFlavourArray = [];
-            if (res.success === true && res.result.length > 0) {
-                this.roastLevel = [res.result[0].roast_level];
-                this.fragrance = res.result[0].fragrance_score;
-                this.fragranceBreak = res.result[0].fragrance_break;
-                this.fragranceDry = res.result[0].fragrance_dry;
-                this.flavorScore = res.result[0].flavour_score;
-                this.aftertasteScore = res.result[0].aftertaste_score;
-                this.acidityScore = res.result[0].acidity_score;
-                this.acidityIntensity = res.result[0].acidity_intensity;
-                this.bodyScore = res.result[0].body_score;
-                this.bodyLevel = res.result[0].body_level;
-                this.uniformityScore = res.result[0].uniformity_score;
-                for (let i = 2; i <= res.result[0].uniformity_value; i += 2) {
-                    this.uniformityValue.push(i / 2);
+        this.greenGradingService
+            .getCuppingScore(this.cuppingReportId, this.cuppingDetails.type)
+            .subscribe((res: any) => {
+                let getFlavourArray = [];
+                let data;
+                if (this.cuppingDetails?.type === 'Invited') {
+                    data = res.result;
+                    this.langChips = data?.descriptors ?? [];
+                } else {
+                    data = res.result?.[0];
+                    getFlavourArray = data?.descriptors ? data.descriptors.split(',') : [];
+                    this.setChipsValue(getFlavourArray);
                 }
-                this.balanceScore = res.result[0].balance_score;
-                this.cleancupScore = res.result[0].cleancup_score;
-                for (let i = 2; i <= res.result[0].cleancup_value; i += 2) {
-                    this.cleancupValue.push(i / 2);
+                if (res.success === true && data) {
+                    this.roastLevel = [data.roast_level];
+                    this.fragrance = data.fragrance_score;
+                    this.fragranceBreak = data.fragrance_break;
+                    this.fragranceDry = data.fragrance_dry;
+                    this.flavorScore = data.flavour_score;
+                    this.aftertasteScore = data.aftertaste_score;
+                    this.acidityScore = data.acidity_score;
+                    this.acidityIntensity = data.acidity_intensity;
+                    this.bodyScore = data.body_score;
+                    this.bodyLevel = data.body_level;
+                    this.uniformityScore = data.uniformity_score;
+                    for (let i = 2; i <= data.uniformity_value; i += 2) {
+                        this.uniformityValue.push(i / 2);
+                    }
+                    this.balanceScore = data.balance_score;
+                    this.cleancupScore = data.cleancup_score;
+                    for (let i = 2; i <= data.cleancup_value; i += 2) {
+                        this.cleancupValue.push(i / 2);
+                    }
+                    this.sweetnessScore = data.sweetness_score;
+                    for (let i = 2; i <= data.sweetness_value; i += 2) {
+                        this.sweetnessValue.push(i / 2);
+                    }
+                    this.sweetnessComment = data.sweetness_comment;
+                    this.overallScore = data.overall_score;
+                    this.defectsNoOfCups = data.defects_no_of_cups;
+                    this.defectIntensity = data.defects_intensity;
+                    this.btnToggle = this.defectIntensity === 'TAINT' ? true : false;
+                    this.finalScore = data.final_score;
+                    this.comments = data.comments;
+                    getFlavourArray = data.descriptors ? data.descriptors.split(',') : [];
+                } else {
+                    this.roastLevel = [0];
+                    this.fragrance = 6;
+                    this.fragranceBreak = 0;
+                    this.fragranceDry = 0;
+                    this.flavorScore = 6;
+                    this.aftertasteScore = 6;
+                    this.acidityScore = 6;
+                    this.acidityIntensity = 0;
+                    this.bodyScore = 6;
+                    this.bodyLevel = 0;
+                    this.uniformityScore = 10;
+                    this.uniformityValue = [1, 2, 3, 4, 5];
+                    this.uniformityComment = '';
+                    this.balanceScore = 6;
+                    this.cleancupScore = 10;
+                    this.cleancupValue = [1, 2, 3, 4, 5];
+                    this.cleancupComment = '';
+                    this.sweetnessScore = 10;
+                    this.sweetnessValue = [1, 2, 3, 4, 5];
+                    this.sweetnessComment = '';
+                    this.overallScore = 6;
+                    this.defectsNoOfCups = 0;
+                    this.defectIntensity = 'TAINT';
+                    this.btnToggle = this.defectIntensity === 'TAINT' ? true : false;
+                    this.finalScore = 0;
+                    this.comments = '';
                 }
-                this.sweetnessScore = res.result[0].sweetness_score;
-                for (let i = 2; i <= res.result[0].sweetness_value; i += 2) {
-                    this.sweetnessValue.push(i / 2);
-                }
-                this.sweetnessComment = res.result[0].sweetness_comment;
-                this.overallScore = res.result[0].overall_score;
-                this.defectsNoOfCups = res.result[0].defects_no_of_cups;
-                this.defectIntensity = res.result[0].defects_intensity;
-                this.btnToggle = this.defectIntensity === 'TAINT' ? true : false;
-                this.finalScore = res.result[0].final_score;
-                this.comments = res.result[0].comments;
-                getFlavourArray = res.result[0].descriptors ? res.result[0].descriptors.split(',') : [];
-            } else {
-                this.roastLevel = [0];
-                this.fragrance = 6;
-                this.fragranceBreak = 0;
-                this.fragranceDry = 0;
-                this.flavorScore = 6;
-                this.aftertasteScore = 6;
-                this.acidityScore = 6;
-                this.acidityIntensity = 0;
-                this.bodyScore = 6;
-                this.bodyLevel = 0;
-                this.uniformityScore = 10;
-                this.uniformityValue = [1, 2, 3, 4, 5];
-                this.uniformityComment = '';
-                this.balanceScore = 6;
-                this.cleancupScore = 10;
-                this.cleancupValue = [1, 2, 3, 4, 5];
-                this.cleancupComment = '';
-                this.sweetnessScore = 10;
-                this.sweetnessValue = [1, 2, 3, 4, 5];
-                this.sweetnessComment = '';
-                this.overallScore = 6;
-                this.defectsNoOfCups = 0;
-                this.defectIntensity = 'TAINT';
-                this.btnToggle = this.defectIntensity === 'TAINT' ? true : false;
-                this.finalScore = 0;
-                this.comments = '';
-            }
 
-            this.calculateFinalScore();
-            this.flavourProfileList(getFlavourArray);
-        });
+                this.calculateFinalScore();
+            });
     }
 
     onCheckRoastLevel(i) {
@@ -218,7 +232,6 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     selectLevels(event: any, section: any, value: number) {
-        console.log(this.uniformityValue);
         if (this.isEditable) {
             if (section === 'uniformity') {
                 if (event.target.checked) {
@@ -301,55 +314,69 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
             this.toastrService.error('Please select values');
             return false;
         }
+        if (!this.langChips?.length) {
+            this.toastrService.error('Please add Flavour profile');
+            return false;
+        }
         return true;
     }
 
     goNext() {
         if (!!this.cuppingReportId) {
-            if (this.isEditable && this.checkValidation()) {
-                const data = {
-                    roast_level: this.roastLevel[0],
-                    fragrance_score: this.fragrance,
-                    fragrance_dry: this.fragranceDry,
-                    fragrance_break: this.fragranceBreak,
-                    flavour_score: this.flavorScore,
-                    aftertaste_score: this.aftertasteScore,
-                    acidity_score: this.acidityScore,
-                    acidity_intensity: this.acidityIntensity,
-                    body_score: this.bodyScore,
-                    body_level: this.bodyLevel,
-                    uniformity_score: this.uniformityScore,
-                    uniformity_value: this.uniformityValue.length * 2,
-                    uniformity_comment: this.uniformityComment,
-                    balance_score: this.balanceScore,
-                    cleancup_score: this.cleancupScore,
-                    cleancup_value: this.cleancupValue.length * 2,
-                    cleancup_comment: this.cleancupComment,
-                    sweetness_score: this.sweetnessScore,
-                    sweetness_value: this.sweetnessValue.length * 2,
-                    sweetness_comment: this.sweetnessComment,
-                    overall_score: this.overallScore,
-                    defects_no_of_cups: this.defectsNoOfCups,
-                    defects_intensity: this.defectIntensity,
-                    total_score: this.finalScore,
-                    final_score: this.finalScore,
-                    flavour_profile_ids: this.langChips.map((ele) => {
-                        return ele.id;
-                    }),
-                    comments: this.comments,
-                };
-                this.greenGradingService
-                    .addCuppingScore(this.roasterId, this.cuppingReportId, data)
-                    .subscribe((result: any) => {
-                        if (result.success === true) {
-                            this.toastrService.success('Final Score details has been updated');
-                            this.next.emit('screen4');
-                        } else {
-                            this.toastrService.error('Please fill all the details');
-                        }
-                    });
+            if (this.isEditable) {
+                if (this.checkValidation()) {
+                    const data = {
+                        roast_level: this.roastLevel[0],
+                        fragrance_score: this.fragrance,
+                        fragrance_dry: this.fragranceDry,
+                        fragrance_break: this.fragranceBreak,
+                        flavour_score: this.flavorScore,
+                        aftertaste_score: this.aftertasteScore,
+                        acidity_score: this.acidityScore,
+                        acidity_intensity: this.acidityIntensity,
+                        body_score: this.bodyScore,
+                        body_level: this.bodyLevel,
+                        uniformity_score: this.uniformityScore,
+                        uniformity_value: this.uniformityValue.length * 2,
+                        uniformity_comment: this.uniformityComment,
+                        balance_score: this.balanceScore,
+                        cleancup_score: this.cleancupScore,
+                        cleancup_value: this.cleancupValue.length * 2,
+                        cleancup_comment: this.cleancupComment,
+                        sweetness_score: this.sweetnessScore,
+                        sweetness_value: this.sweetnessValue.length * 2,
+                        sweetness_comment: this.sweetnessComment,
+                        overall_score: this.overallScore,
+                        defects_no_of_cups: this.defectsNoOfCups,
+                        defects_intensity: this.defectIntensity,
+                        total_score: this.finalScore,
+                        final_score: this.finalScore,
+                        flavour_profile_ids: this.langChips.map((ele) => {
+                            return ele.id;
+                        }),
+                        comments: this.comments,
+                    };
+                    this.greenGradingService
+                        .addCuppingScore(this.roasterId, this.cuppingReportId, data)
+                        .subscribe((result: any) => {
+                            if (result.success === true) {
+                                this.toastrService.success('Final Score details has been updated');
+                                if (this.cuppingDetails?.type === 'Invited') {
+                                    this.cancel();
+                                } else {
+                                    this.next.emit('screen4');
+                                }
+                            } else {
+                                this.toastrService.error('Please fill all the details');
+                            }
+                        });
+                }
             } else {
-                this.next.emit('screen4');
+                if (this.cuppingDetails?.type === 'Invited') {
+                    this.cancel();
+                } else {
+                    this.next.emit('screen4');
+                }
             }
         }
     }

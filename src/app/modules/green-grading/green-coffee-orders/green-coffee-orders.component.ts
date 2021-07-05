@@ -212,7 +212,6 @@ export class GreenCoffeeOrdersComponent implements OnInit {
     }
 
     selectRow(rowData, checkValue) {
-        console.log(rowData);
         if (!rowData.cupping_report_id) {
             this.toastrService.error('Please assign user.');
         }

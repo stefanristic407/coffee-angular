@@ -116,7 +116,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
                         },
                         ticks: {
                             callback: (value, index, values) => {
-                                return self.type ? self.labels[index].label.split(/\n/) : '';
+                                return self.type ? self.labels[index].label?.split(/\n/) : '';
                             },
                             stepSize: 1,
                             autoSkip: false,
