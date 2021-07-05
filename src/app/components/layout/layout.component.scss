@@ -142,20 +142,47 @@
 }
 
 ::ng-deep {
-    .p-overlaypanel.notification-overlay {
-        width: 422px;
-        left: -350px !important;
-        top: 45px !important;
-        --overlayArrowLeft: 340px !important;
-        border-radius: 2px;
-        border: none;
-        box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
-        .p-overlaypanel-content {
-            padding: 0;
+    .p-overlaypanel {
+        &.notification-overlay {
+            width: 422px;
+            left: -350px !important;
+            top: 45px !important;
+            --overlayArrowLeft: 340px !important;
+            border-radius: 2px;
+            border: none;
+            box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+            .p-overlaypanel-content {
+                padding: 0;
+            }
+            &:before {
+                box-shadow: 0 22px 34px 0 rgb(0 0 0 / 8%);
+                border-bottom-color: transparent;
+            }
         }
-        &:before {
-            box-shadow: 0 22px 34px 0 rgb(0 0 0 / 8%);
-            border-bottom-color: transparent;
+        &.mobile-notification-overlay {
+            background: #f1f1f1;
+            width: 100%;
+            top: 56px !important;
+            box-shadow: none;
+            border: none;
+            &::before,
+            &::after {
+                display: none;
+            }
+            .p-overlaypanel-content {
+                padding: 0;
+                .notification-body {
+                    max-height: calc(100vh - 160px);
+                    padding: 18px 16px 0;
+                    & > div {
+                        background: #fff;
+                        padding-top: 8px;
+                    }
+                    .notifi-cotainer {
+                        padding: 8px 16px;
+                    }
+                }
+            }
         }
     }
 }

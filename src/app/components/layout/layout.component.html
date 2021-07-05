@@ -84,33 +84,9 @@
                                 </div>
                             </div>
                             <div class="notification-body px-1 py-2">
-                                <ng-container *ngIf="notifications?.length">
-                                    <div *ngFor="let notification of notifications">
-                                        <div
-                                            class="notifi-cotainer pl-25 pr-4 py-2"
-                                            (click)="onClickNotification(notification, myOp)"
-                                        >
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-0 pr-4">
-                                                    {{ notification.content }}
-                                                </p>
-                                                <p
-                                                    class="fnt-18"
-                                                    [ngClass]="notification.is_read ? 'text-clrcb' : 'text-clr55c'"
-                                                >
-                                                    &#9679;
-                                                </p>
-                                            </div>
-                                            <p class="fnt-12 fnt-normal fnt-muli text-clr588 mt-3">
-                                                {{ notification.status_updated_at | amTimeAgo }}
-                                            </p>
-                                        </div>
-                                        <p-divider type="dashed" styleClass="my-2"></p-divider>
-                                    </div>
-                                </ng-container>
-                                <div *ngIf="!notifications?.length" class="px-3 py-2">
-                                    {{ 'no_notification' | translate }}
-                                </div>
+                                <ng-container
+                                    *ngTemplateOutlet="notificationTemplate; context: { myOp: myOp }"
+                                ></ng-container>
                             </div>
                         </p-overlayPanel>
                     </li>
@@ -280,11 +256,7 @@
                             </a>
                         </li>
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'NOTIFICATIONS' }">
-                            <a
-                                (click)="closeMessagePanel()"
-                                [routerLink]="['/features/notification']"
-                                class="d-inline-block"
-                            >
+                            <a (click)="myOp.toggle($event)" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/notification.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-notification.svg" />
@@ -293,6 +265,23 @@
                                     </p>
                                 </div>
                             </a>
+                            <p-overlayPanel #myOp styleClass="mobile-notification-overlay" appendTo="body">
+                                <div class="notification-header m-0 p-3">
+                                    <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">
+                                        {{ 'notifications' | translate }}
+                                    </span>
+                                    <div class="d-flex">
+                                        <div class="custom-link fnt-14" (click)="makeAsAllRead(myOp)">
+                                            {{ 'mark_all_read' | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="notification-body">
+                                    <ng-container
+                                        *ngTemplateOutlet="notificationTemplate; context: { myOp: myOp }"
+                                    ></ng-container>
+                                </div>
+                            </p-overlayPanel>
                         </li>
 
                         <li
@@ -380,4 +369,26 @@
 
 <ng-template #mainLoader>
     <app-loading></app-loading>
+</ng-template>
+
+<ng-template #notificationTemplate let-myOp="myOp">
+    <div *ngIf="notifications?.length">
+        <div *ngFor="let notification of notifications">
+            <div class="notifi-cotainer pl-25 pr-4 py-2" (click)="onClickNotification(notification, myOp)">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-0 pr-4">
+                        {{ notification.content }}
+                    </p>
+                    <p class="fnt-18" [ngClass]="notification.is_read ? 'text-clrcb' : 'text-clr55c'">&#9679;</p>
+                </div>
+                <p class="fnt-12 fnt-normal fnt-muli text-clr588 mt-3">
+                    {{ notification.status_updated_at | amTimeAgo }}
+                </p>
+            </div>
+            <p-divider type="dashed" styleClass="my-2"></p-divider>
+        </div>
+    </div>
+    <div *ngIf="!notifications?.length" class="px-3 py-2">
+        {{ 'no_notification' | translate }}
+    </div>
 </ng-template>
