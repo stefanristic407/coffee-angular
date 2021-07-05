@@ -233,6 +233,7 @@
             </div>
             <div
                 class="col-12 d-flex justify-content-end flex-column-reverse flex-md-row pt-2 pt-md-0 mt-4 p-0 button-wrapper"
+                *ngIf="eachServiceData?.type !== 'Invited'"
             >
                 <button class="green-button btn-stroked mr-md-2" (click)="reGrade()">Re-grade sample</button>
                 <button class="green-button btn-raised ml-md-2" (click)="generateReportLink()">
