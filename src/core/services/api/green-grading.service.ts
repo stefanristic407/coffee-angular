@@ -60,14 +60,15 @@ export class GreenGradingService extends ApiService {
         );
     }
 
-    getCuppingScore(roasterId: any, cuppingReportId: any, evaluatorIds: any = null) {
+    getCuppingScore(cuppingReportId: any, type: string, evaluatorIds: any = null) {
         let params = new HttpParams();
         if (evaluatorIds) {
             params = params.append('evaluator_ids', evaluatorIds);
         }
+        const url = type === 'Invited' ? 'my-cupping-score' : 'cupping-score';
         return this.post(
             this.orgPostUrl,
-            `ro/${roasterId}/cupping-process/${cuppingReportId}/cupping-score${params}`,
+            `ro/${this.getOrgId()}/cupping-process/${cuppingReportId}/${url}${params}`,
             'GET',
         );
     }

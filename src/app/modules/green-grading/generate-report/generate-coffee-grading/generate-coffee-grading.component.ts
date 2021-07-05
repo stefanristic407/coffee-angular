@@ -161,13 +161,17 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
 
     ngOnChanges(): void {
         const statusKey = this.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
-        this.isEditable = this.cuppingDetails[statusKey] === 'DRAFT' || this.cuppingDetails[statusKey] === 'NEW';
-        this.getEvaluatorData();
-        this.physicalDefectsList();
+        this.isEditable = this.cuppingDetails?.[statusKey] === 'DRAFT' || this.cuppingDetails?.[statusKey] === 'NEW';
+        if (this.cuppingDetails?.type === 'Invited') {
+            this.next.emit('screen3');
+        } else {
+            this.getEvaluatorData();
+            this.physicalDefectsList();
+        }
     }
 
     getEvaluatorData() {
-        this.cuppingId = this.cuppingDetails.cupping_report_id;
+        this.cuppingId = this.cuppingDetails?.cupping_report_id;
         this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingId).subscribe((res: any) => {
             if (res.success === true) {
                 this.evaluatorData = res.result[0];
@@ -232,7 +236,7 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
     }
 
     physicalDefectsList() {
-        this.cuppingId = this.cuppingDetails.cupping_report_id;
+        this.cuppingId = this.cuppingDetails?.cupping_report_id;
         this.greenGradingService.getPhysicalDefectsList(this.roasterId, this.cuppingId).subscribe((res: any) => {
             if (res.success === true) {
                 const defectsList = res.result;

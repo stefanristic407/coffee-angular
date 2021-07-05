@@ -281,36 +281,38 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     getCuppingScoreDetails() {
-        this.greenGradingService.getCuppingScore(this.roasterId, this.cuppingReportId).subscribe((data: any) => {
-            if (data.success === true) {
-                this.cuppingScoreDetails = data.result;
-                this.mobileTableData = [];
-                for (const label of this.allColumns) {
-                    const tempRow = [label.header];
-                    for (const evaluator of this.evaluatorsList) {
-                        const dataItem = data.result.find((item) => item.evaluator_id === evaluator.evaluator_id);
-                        const value = dataItem ? dataItem[label.field] : '';
-                        let additionalValue = '';
-                        if (label.field === 'fragrance_score') {
-                            additionalValue = dataItem
-                                ? `(D:${dataItem.fragrance_dry}, B:${dataItem.fragrance_break})`
-                                : '';
+        this.greenGradingService
+            .getCuppingScore(this.cuppingReportId, this.eachServiceData?.type)
+            .subscribe((data: any) => {
+                if (data.success === true) {
+                    this.cuppingScoreDetails = data.result;
+                    this.mobileTableData = [];
+                    for (const label of this.allColumns) {
+                        const tempRow = [label.header];
+                        for (const evaluator of this.evaluatorsList) {
+                            const dataItem = data.result.find((item) => item.evaluator_id === evaluator.evaluator_id);
+                            const value = dataItem ? dataItem[label.field] : '';
+                            let additionalValue = '';
+                            if (label.field === 'fragrance_score') {
+                                additionalValue = dataItem
+                                    ? `(D:${dataItem.fragrance_dry}, B:${dataItem.fragrance_break})`
+                                    : '';
+                            }
+                            if (label.field === 'acidity_score') {
+                                additionalValue = dataItem ? `(${dataItem.acidity_intensity})` : '';
+                            }
+                            if (label.field === 'body_score') {
+                                additionalValue = dataItem ? `(${dataItem.body_level})` : '';
+                            }
+                            tempRow.push(`${value}${additionalValue}`);
                         }
-                        if (label.field === 'acidity_score') {
-                            additionalValue = dataItem ? `(${dataItem.acidity_intensity})` : '';
-                        }
-                        if (label.field === 'body_score') {
-                            additionalValue = dataItem ? `(${dataItem.body_level})` : '';
-                        }
-                        tempRow.push(`${value}${additionalValue}`);
+                        this.mobileTableData.push(tempRow);
                     }
-                    this.mobileTableData.push(tempRow);
+                    this.mobileTableData = this.mobileTableData.slice(1);
+                } else {
+                    this.toastrService.error('Error while getting the Cupping score details');
                 }
-                this.mobileTableData = this.mobileTableData.slice(1);
-            } else {
-                this.toastrService.error('Error while getting the Cupping score details');
-            }
-        });
+            });
     }
 
     physicalDefectsList() {

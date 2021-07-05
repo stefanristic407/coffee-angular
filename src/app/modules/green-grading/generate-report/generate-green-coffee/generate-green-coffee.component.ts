@@ -114,7 +114,10 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     }
 
     getUsersList() {
-        this.roasterService.getRoasterUsers(this.roasterId).subscribe((data: any) => {
+        const options = {
+            per_page: 1000
+        };
+        this.roasterService.getRoasterUsers(this.roasterId, options).subscribe((data: any) => {
             if (data.success === true) {
                 this.usersList = data.result;
             } else {
