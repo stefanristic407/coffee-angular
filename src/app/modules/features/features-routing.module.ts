@@ -5,7 +5,6 @@ import { OnboardCustomersComponent } from './onboard-customers/onboard-customers
 import { FeaturesComponent } from './features.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
-import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
@@ -38,11 +37,6 @@ const routes: Routes = [
             {
                 path: 'notification',
                 component: NotificationComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'roaster-onboard',
-                component: RoasterOnboardComponent,
                 canActivate: [AuthGuard],
             },
             {

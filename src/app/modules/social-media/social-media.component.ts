@@ -18,7 +18,6 @@ export class SocialMediaComponent implements OnInit {
     modalRef1: BsModalRef;
     modalRef2: BsModalRef;
     blogResult: string;
-    appLanguage?: any;
     imagesListArray: any = [];
     filteredImagesList: any = [];
     videosListArray: any = [];
@@ -109,7 +108,6 @@ export class SocialMediaComponent implements OnInit {
                 break;
         }
 
-        this.globalLanguage();
         this.getSocialImages();
         this.getSocialVideos();
     }
@@ -155,10 +153,6 @@ export class SocialMediaComponent implements OnInit {
         }
     }
 
-    globalLanguage() {
-        this.appLanguage = this.globals.languageJson;
-    }
-
     imagesModal(template: TemplateRef<any>, item: any) {
         this.modalRef = this.modalService.show(template);
         this.selectedImage = item;
@@ -180,7 +174,6 @@ export class SocialMediaComponent implements OnInit {
             if (response.success === true) {
                 this.imagesListArray = response.result;
                 this.filteredImagesList = this.imagesListArray;
-                console.log('social media', this.imagesListArray);
             } else {
                 this.toastrService.error('Error While loading the Images');
             }
@@ -191,7 +184,6 @@ export class SocialMediaComponent implements OnInit {
             if (response.success === true) {
                 this.videosListArray = response.result;
                 this.filteredVideosList = this.videosListArray;
-                console.log(this.videosListArray);
             } else {
                 this.toastrService.error('Error While loading the Videos');
             }
