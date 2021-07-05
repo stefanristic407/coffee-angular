@@ -19,7 +19,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { NotificationComponent } from './notification/notification.component';
-import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
@@ -34,7 +33,6 @@ import { PaginatorModule } from 'primeng/paginator';
         RoasterCompleteSetupComponent,
         FeaturesComponent,
         NotificationComponent,
-        RoasterOnboardComponent,
         SuccessfulPageComponent,
     ],
     imports: [
