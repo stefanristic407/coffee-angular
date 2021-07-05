@@ -9,11 +9,16 @@ import { GlobalsService } from '@services';
     styleUrls: ['./confirm.component.scss'],
 })
 export class ConfirmComponent implements OnInit {
+    preference: boolean;
     constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public globals: GlobalsService) {}
 
     ngOnInit(): void {}
 
     close(value = null) {
-        this.ref.close(value);
+        if (this.preference && value === 'yes') {
+            // Save user preference
+        } else {
+            this.ref.close(value);
+        }
     }
 }

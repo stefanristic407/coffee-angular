@@ -15,6 +15,25 @@
         </div>
     </div>
 
+    <div *ngSwitchCase="'logout'" class="text-center dialog-wrap">
+        <img src="/assets/images/delete-role.svg" alt="" />
+        <div class="title lh-normal fnt-bold text-clr02 fnt-play mt-3">
+            {{ config.data.title || ('attention_user' | translate) }}
+        </div>
+        <div class="fnt-14 fnt-md-16 lh-15 text-clr5d pt-3">
+            {{ config.data.desp || ('confirm_logout' | translate) }}
+        </div>
+        <div class="text-left pl-md-35 pt-4">
+            <p-checkbox [(ngModel)]="preference" binary="true" [label]="'do_not_ask_me_again' | translate"></p-checkbox>
+        </div>
+        <div class="pt-45 pt-md-5">
+            <button class="btn-stroked mr-3" (click)="close('no')">{{ 'no' | translate }}</button>
+            <button class="btn-raised" (click)="close('yes')">
+                {{ 'yes' | translate }}
+            </button>
+        </div>
+    </div>
+
     <div *ngSwitchDefault class="text-center dialog-wrap">
         <img src="/assets/images/confirm-icon.svg" alt="" />
         <div class="title lh-normal fnt-bold text-clr02 fnt-play mt-35">

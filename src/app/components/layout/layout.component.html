@@ -49,7 +49,15 @@
                         </a>
                     </li>
                     <li
-                        class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container position-relative overflow-visible"
+                        class="
+                            header-profile-links__item
+                            d-inline-block
+                            ml-md-3 ml-lg-4
+                            pl-xl-2
+                            zoom-effect-container
+                            position-relative
+                            overflow-visible
+                        "
                     >
                         <a href="javascript:void(0)" class="d-inline-block image-card" (click)="myOp.toggle($event)">
                             <img
@@ -114,64 +122,62 @@
                                 </app-avatar>
                             </div>
                             <div class="profile-link__info pl-lg-1 float-right">
-                                <div>
-                                    <a
-                                        class="profile-name"
-                                        role="button"
-                                        [popover]="popTemplate"
-                                        placement="bottom"
-                                        #pop2="bs-popover"
-                                        container="body"
-                                        [outsideClick]="true"
+                                <a
+                                    class="profile-name"
+                                    role="button"
+                                    [popover]="popTemplate"
+                                    placement="bottom"
+                                    #pop2="bs-popover"
+                                    container="body"
+                                    [outsideClick]="true"
+                                >
+                                    <h6 class="d-block fnt-14 fnt-md-16 fnt-600 text-clr24 m-0">
+                                        {{ authService.currentUser?.firstname }}
+                                        <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
+                                    </h6>
+                                    <span
+                                        class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
+                                        style="transform: translateY(-10px)"
+                                        >{{ rolename | titlecase }}</span
                                     >
-                                        <h6 class="d-block fnt-14 fnt-md-16 fnt-600 text-clr24 m-0">
-                                            {{ authService.currentUser?.firstname }}
-                                            <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
-                                        </h6>
-                                        <span
-                                            class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
-                                            style="transform: translateY(-10px)"
-                                            >{{ rolename | titlecase }}</span
-                                        >
-                                    </a>
-                                    <ng-template #popTemplate>
-                                        <div id="popover-mobile-content">
-                                            <ul class="menu-list bottom">
-                                                <li
-                                                    *appAclIf="'brand-profile-management'"
-                                                    [routerLink]="['/roastery-profile']"
-                                                    routerLinkActive="highlight"
-                                                    (click)="pop2.hide()"
-                                                >
-                                                    {{ 'menu_roastery_profile' | translate }}
-                                                </li>
-                                                <li
-                                                    [routerLink]="['/my-profile']"
-                                                    routerLinkActive="highlight"
-                                                    (click)="pop2.hide()"
-                                                >
-                                                    {{ 'menu_my_profile' | translate }}
-                                                </li>
-                                                <li
-                                                    [routerLink]="['/account-settings']"
-                                                    routerLinkActive="highlight"
-                                                    (click)="pop2.hide()"
-                                                >
-                                                    {{ 'menu_account_settings' | translate }}
-                                                </li>
-                                                <li
-                                                    *ngFor="let item of orgData"
-                                                    (click)="switchPortal(item.orgType, item.id)"
-                                                >
-                                                    {{ 'switch_to' | translate }}&nbsp;{{
-                                                        item.orgType | orgType
-                                                    }}&nbsp;{{ 'portal' | translate }}
-                                                </li>
-                                                <li (click)="userLogout()">{{ 'logout' | translate }}</li>
-                                            </ul>
-                                        </div>
-                                    </ng-template>
-                                </div>
+                                </a>
+                                <ng-template #popTemplate>
+                                    <div id="popover-mobile-content">
+                                        <ul class="menu-list bottom">
+                                            <li
+                                                *appAclIf="'brand-profile-management'"
+                                                [routerLink]="['/roastery-profile']"
+                                                routerLinkActive="highlight"
+                                                (click)="pop2.hide()"
+                                            >
+                                                {{ 'menu_roastery_profile' | translate }}
+                                            </li>
+                                            <li
+                                                [routerLink]="['/my-profile']"
+                                                routerLinkActive="highlight"
+                                                (click)="pop2.hide()"
+                                            >
+                                                {{ 'menu_my_profile' | translate }}
+                                            </li>
+                                            <li
+                                                [routerLink]="['/account-settings']"
+                                                routerLinkActive="highlight"
+                                                (click)="pop2.hide()"
+                                            >
+                                                {{ 'menu_account_settings' | translate }}
+                                            </li>
+                                            <li
+                                                *ngFor="let item of orgData"
+                                                (click)="switchPortal(item.orgType, item.id)"
+                                            >
+                                                {{ 'switch_to' | translate }}&nbsp;{{ item.orgType | orgType }}&nbsp;{{
+                                                    'portal' | translate
+                                                }}
+                                            </li>
+                                            <li (click)="userLogout(); pop2.hide()">{{ 'logout' | translate }}</li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
                             </div>
                         </div>
                     </li>
@@ -193,7 +199,14 @@
                     </div>
                     <ul class="nav-links fnt-muli pad-5">
                         <li
-                            class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
+                            class="
+                                nav-links__item
+                                d-md-inline-block
+                                position-relative
+                                mobile-farm
+                                settings-list
+                                mt-md-0 mt-5
+                            "
                         >
                             <a class="d-inline-block fnt-600" [routerLink]="['/account-settings']"
                                 >{{ 'menu_account_settings' | translate }}

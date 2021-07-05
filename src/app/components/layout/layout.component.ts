@@ -22,6 +22,8 @@ import {
 import { DestroyableComponent } from '@base-components';
 import { OrganizationType } from '@enums';
 import { environment } from '@env/environment';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@app/shared';
 
 @Component({
     selector: 'app-layout',
@@ -68,6 +70,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private idmService: IdmService,
         public authService: AuthService,
         public aclService: AclService,
+        private dialogService: DialogService,
     ) {
         super();
     }
@@ -464,15 +467,27 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     userLogout() {
-        this.userOriginalService.logOut().subscribe((res: any) => {
-            if (res.success) {
-                this.cookieService.deleteAll();
-                window.open(`${environment.ssoWeb}`, '_self');
-                this.toastrService.success('Logout successfully !');
-            } else {
-                this.toastrService.error('Error while Logout!');
-            }
-        });
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'logout',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog logout',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.userOriginalService.logOut().subscribe((res: any) => {
+                        if (res.success) {
+                            this.cookieService.deleteAll();
+                            window.open(`${environment.ssoWeb}`, '_self');
+                            this.toastrService.success('Logout successfully !');
+                        } else {
+                            this.toastrService.error('Error while Logout!');
+                        }
+                    });
+                }
+            });
     }
 
     search() {
