@@ -9974,14 +9974,6 @@ li.b-cum {
     color: #ffffff;
 }
 
-/* .login-sec {
-    background-image: url(../../assets/images/coffee_estate_bg.png);
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    position: fixed;
-} */
-
 .blob:hover {
     background: transparent;
     border-radius: 50%;
@@ -10050,14 +10042,6 @@ li.b-cum {
     .w-icon {
         width: 25px;
     }
-    .login-sec {
-        background-image: url(../../assets/images/coffee_estate_bg.png);
-        width: 100%;
-        height: 100vh;
-        background-size: 100%;
-        background-repeat: no-repeat;
-        overflow: hidden;
-    }
     .forgot-sec {
         height: 76%;
     }
@@ -10106,9 +10090,6 @@ li.b-cum {
 }
 
 @media (max-width:360px) {
-    /* .login-sec {
-        height: 87%;
-    } */
     .forgot-sec {
         height: 70%;
     }
@@ -10126,15 +10107,6 @@ li.b-cum {
         background: url(../../assets/images/black-search.svg) no-repeat scroll 2px 5px !important;
         padding-left: 30px !important;
     }
-    /* .login-sec {
-        background-image: url(../../assets/images/coffee_estate_bg.png);
-        width: 100%;
-        height: 94%;
-        background-size: 100%;
-        position: fixed;
-        background-repeat: no-repeat;
-        overflow: hidden;
-    } */
     .forgot-sec {
         height: 70%;
     }
@@ -13757,29 +13729,7 @@ li.select-list__item {
     }
 }
 
-@media only screen and (min-width: 768px) {
-    .login-sec {
-        background-size: cover !important;
-        position: fixed;
-        background-position: center !important;
-        background-image: url(../../assets/images/coffee_estate_bg.png);
-        width: 100%;
-        height: 100vh;
-        background-repeat: no-repeat;
-        overflow: hidden;
-    }
-}
-
 @media only screen and (max-width: 767px) {
-    .login-sec {
-        background-image: url(../../assets/images/coffee_estate_bg.png);
-        width: 100%;
-        height: 100vh;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        overflow: hidden;
-    }
     .sewn-bg-logo {
         min-height: 145px;
         max-height: 145px;

@@ -21,23 +21,6 @@
         display: block;
     }
 }
-.form-group {
-    input,
-    select {
-        height: 50px !important;
-        padding: 16px;
-    }
-    select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-image: url(../../../../assets/images/arrow-down.png);
-        background-repeat: no-repeat;
-        background-position: right;
-        background-size: 14px;
-        background-position: right 17px bottom 16px;
-    }
-}
 
 .loader {
     height: 17px;
