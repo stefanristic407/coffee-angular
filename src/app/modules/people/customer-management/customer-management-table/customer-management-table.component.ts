@@ -167,6 +167,9 @@ export class CustomerManagementTableComponent implements OnInit {
     }
 
     shareDetails(size: any) {
+        if (!this.customerType) {
+            return;
+        }
         if (size.status === 'PENDING') {
             this.customer.emailId = size.email;
             if (this.customerType === OrganizationType.MICRO_ROASTER) {
