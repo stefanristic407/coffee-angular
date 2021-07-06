@@ -392,7 +392,11 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     goBack() {
-        this.next.emit('screen2');
+        if (this.cuppingDetails?.type === 'Invited') {
+            this.cancel();
+        } else {
+            this.next.emit('screen2');
+        }
     }
 
     calculateFinalScore() {
