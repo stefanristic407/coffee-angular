@@ -116,7 +116,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     setChipsValue(getFlavourArray) {
         this.langChips = [];
         getFlavourArray.forEach((element) => {
-            const findObj = this.flavourArray.result.find((item) => item.name === element);
+            const findObj = this.flavourArray.find((item) => item.name === element);
             if (findObj) {
                 this.langChips.push(findObj);
             }
