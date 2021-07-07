@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, DownloadService, FileService, GlobalsService, RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
+import { AuthService, DownloadService, FileService, GlobalsService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
@@ -62,17 +61,17 @@ export class DefaultSettingsComponent implements OnInit {
     imageName: any;
     videoName: any;
     constructor(
-        public router: Router,
-        public globals: GlobalsService,
-        private userService: UserserviceService,
+        private authService: AuthService,
+        private fileService: FileService,
         private toastrService: ToastrService,
-        public cookieService: CookieService,
+        private userService: UserService,
         public activateRoute: ActivatedRoute,
-        public location: Location,
+        public cookieService: CookieService,
         public dialogSrv: DialogService,
         public downloadService: DownloadService,
-        private fileService: FileService,
-        private authService: AuthService,
+        public globals: GlobalsService,
+        public location: Location,
+        public router: Router,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.setMenuItems();

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalsService, RoasterserviceService, UserserviceService, ECommerceService, AuthService } from '@services';
+import { GlobalsService, RoasterserviceService, ECommerceService, AuthService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -76,7 +76,7 @@ export class ProductDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private roasterService: RoasterserviceService,
-        private userService: UserserviceService,
+        private userService: UserService,
         private eCommerceService: ECommerceService,
         private authService: AuthService,
     ) {
@@ -738,7 +738,7 @@ export class ProductDetailsComponent implements OnInit {
                     weightObj.variant_details.body = getVariantDetails.body || 0;
                     weightObj.variant_details.acidity = getVariantDetails.acidity || 0;
                     weightObj.variant_details.aroma = getVariantDetails.aroma || 0;
-                    weightObj.variant_details.flavour = getVariantDetails.flavour || 0 ;
+                    weightObj.variant_details.flavour = getVariantDetails.flavour || 0;
                     weightObj.variant_details.roaster_ref_no = getVariantDetails.roaster_ref_no;
                     weightObj.variant_details.estate_name = getVariantDetails.estate_name;
                     weightObj.variant_details.origin = getVariantDetails.origin;

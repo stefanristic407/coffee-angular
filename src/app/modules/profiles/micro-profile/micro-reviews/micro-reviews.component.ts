@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService, ReviewsService, UserserviceService } from '@services';
+import { GlobalsService, ReviewsService, UserService } from '@services';
 import { OrganizationType } from '@enums';
 
 @Component({
@@ -17,11 +17,7 @@ export class MicroReviewsComponent implements OnInit {
     average: any;
     @Input() microRoasterId;
 
-    constructor(
-        public globals: GlobalsService,
-        private ratingService: ReviewsService,
-        public userSrv: UserserviceService,
-    ) {
+    constructor(public globals: GlobalsService, private ratingService: ReviewsService, public userSrv: UserService) {
         this.termStatus = 'Most relevant';
     }
 

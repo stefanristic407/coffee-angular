@@ -7,14 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
 import { maxWordCountValidator } from '@utils';
-import {
-    AuthService,
-    BrandService,
-    CommonService,
-    GeneralService,
-    GlobalsService,
-    UserserviceService,
-} from '@services';
+import { AuthService, BrandService, CommonService, GeneralService, GlobalsService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 import * as _ from 'underscore';
 
@@ -47,7 +40,7 @@ export class VisitUsComponent implements OnInit {
         public globals: GlobalsService,
         private toastrService: ToastrService,
         private cookieService: CookieService,
-        private userService: UserserviceService,
+        private userService: UserService,
         public generalService: GeneralService,
         private brandService: BrandService,
         private authService: AuthService,

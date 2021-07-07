@@ -11,26 +11,32 @@ type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export class ApiService {
     protected orgType: string;
-    protected postUrl: string;
+    protected certificatesUrl: string;
     protected deleteUrl: string;
+    protected fileUploadUrl: string;
+    protected generalUrl: string;
+    protected inviteUrl: string;
+    protected orgDeleteUrl: string;
     protected orgPostUrl: string;
     protected orgPutUrl: string;
-    protected orgDeleteUrl: string;
-    protected fileUploadUrl: string;
+    protected postUrl: string;
+    protected profileImageUrl: string;
     protected putFileUploadUrl: string;
-    protected generalUrl: string;
     protected simulatedLoginUrl: string;
 
     constructor(protected http: HttpClient, protected authService: AuthService) {
         this.orgType = 'ro';
-        this.postUrl = `${environment.apiURL}/api`;
+        this.certificatesUrl = `${environment.apiURL}/${this.orgType}/certificates`;
         this.deleteUrl = `${environment.apiURL}/deleteapi`;
+        this.fileUploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
+        this.generalUrl = `${environment.apiURL}/${this.orgType}/general`;
+        this.inviteUrl = `${environment.apiURL}/${this.orgType}/inviteusers`;
+        this.orgDeleteUrl = `${environment.apiURL}/${this.orgType}/deleteapi`;
         this.orgPostUrl = `${environment.apiURL}/${this.orgType}/api`;
         this.orgPutUrl = `${environment.apiURL}/${this.orgType}/putapi`;
-        this.orgDeleteUrl = `${environment.apiURL}/${this.orgType}/deleteapi`;
-        this.fileUploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
+        this.postUrl = `${environment.apiURL}/api`;
+        this.profileImageUrl = `${environment.apiURL}/${this.orgType}/uploadfiles`;
         this.putFileUploadUrl = `${environment.apiURL}/${this.orgType}/putfilesfolders`;
-        this.generalUrl = `${environment.apiURL}/${this.orgType}/general`;
         this.simulatedLoginUrl = `${environment.apiURL}/simulated-login`;
     }
 

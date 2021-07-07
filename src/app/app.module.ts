@@ -1,12 +1,13 @@
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+
 // bootstrap modules
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -15,6 +16,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { ToastrModule } from 'ngx-toastr';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '@env/environment';
 import { AppComponent } from './app.component';
@@ -28,17 +30,11 @@ import {
     UploadInfoComponent,
 } from '@components';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { ErrorInterceptor } from '@interceptors';
 
 import 'hammerjs';
 import { AuthGuard } from '@guards';
-import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from '@services';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { getSaver, SAVER } from '@services';
 

@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService } from '@services';
-import { UserserviceService } from '@services';
-import { RoasterserviceService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 @Component({
     selector: 'app-welcome-aboard',
     templateUrl: './welcome-aboard.component.html',
@@ -19,7 +17,7 @@ export class WelcomeAboardComponent implements OnInit {
         private router: Router,
         private cookieService: CookieService,
         public globals: GlobalsService,
-        private userSrv: UserserviceService,
+        private userSrv: UserService,
         private toastrService: ToastrService,
         private authService: AuthService,
     ) {}

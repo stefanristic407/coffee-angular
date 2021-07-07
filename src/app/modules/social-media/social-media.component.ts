@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, GlobalsService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -42,7 +42,7 @@ export class SocialMediaComponent implements OnInit {
         private route: ActivatedRoute,
         public globals: GlobalsService,
         private cookieService: CookieService,
-        private userService: UserserviceService,
+        private userService: UserService,
         private toastrService: ToastrService,
         private router: Router,
         private downloads: DownloadService,

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, Input, OnChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService, GreenGradingService, AuthService } from '@services';
+import { GreenGradingService, AuthService, UserService } from '@services';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -62,7 +62,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     constructor(
         private toastrService: ToastrService,
         private cookieService: CookieService,
-        private userService: UserserviceService,
+        private userService: UserService,
         private greenGradingService: GreenGradingService,
         private router: Router,
         private authService: AuthService,

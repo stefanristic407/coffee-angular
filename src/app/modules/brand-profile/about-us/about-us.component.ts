@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { AuthService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 
 @Component({
@@ -47,7 +47,7 @@ export class AboutUsComponent implements OnInit {
         public globals: GlobalsService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
-        public userService: UserserviceService,
+        public userService: UserService,
         public route: Router,
         public roasterService: RoasterserviceService,
         private authService: AuthService,

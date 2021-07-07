@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrganizationType } from '@enums';
-import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { GlobalsService, RoasterserviceService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { PartnerProfileService } from '../partner-profile.service';
 
@@ -16,7 +16,7 @@ export class PartnerAboutComponent implements OnInit {
 
     constructor(
         public profileCreationService: PartnerProfileService,
-        public userService: UserserviceService,
+        public userService: UserService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
         private toastrService: ToastrService,

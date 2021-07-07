@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, UserserviceService } from '@services';
+import { AuthService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
@@ -29,7 +29,7 @@ export class VatDetailsComponent implements OnInit {
     constructor(
         private toastrService: ToastrService,
         public cookieService: CookieService,
-        public userService: UserserviceService,
+        public userService: UserService,
         private fb: FormBuilder,
         private authService: AuthService,
     ) {

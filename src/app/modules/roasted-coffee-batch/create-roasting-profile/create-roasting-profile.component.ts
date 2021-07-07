@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, GlobalsService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -24,7 +23,7 @@ export class CreateRoastingProfileComponent implements OnInit {
         public cookieService: CookieService,
         public router: Router,
         public route: ActivatedRoute,
-        private userService: UserserviceService,
+        private userService: UserService,
         public toastrService: ToastrService,
         private fb: FormBuilder,
         private authService: AuthService,

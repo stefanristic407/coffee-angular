@@ -1,10 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, RoasterserviceService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
-import { UserserviceService } from '@services';
 import { FormBuilder } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { ConfirmComponent } from '@shared';
@@ -53,7 +52,7 @@ export class RoastingProfilesComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
-        public userService: UserserviceService,
+        public userService: UserService,
         private fb: FormBuilder,
         public sharedService: SharedServiceService,
         private dialogService: DialogService,

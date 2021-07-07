@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, GlobalsService, ResizeService } from '@services';
+import { AuthService, GlobalsService, ResizeService, UserService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserserviceService } from '@services';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { ResizeableComponent } from '@base-components';
 
@@ -46,7 +45,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         private router: Router,
         private toasterService: ToastrService,
         private fb: FormBuilder,
-        private userService: UserserviceService,
+        private userService: UserService,
         public sharedService: SharedServiceService,
         protected resizeService: ResizeService,
         private authService: AuthService,

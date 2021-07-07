@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrganizationType } from '@enums';
-import { AclService, GlobalsService, RoasterserviceService, UserserviceService, ChatHandlerService } from '@services';
+import { AclService, GlobalsService, RoasterserviceService, ChatHandlerService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { EstateProfileService } from '../estate-profile.service';
 
@@ -19,7 +19,7 @@ export class EstateAboutComponent implements OnInit {
 
     constructor(
         public profileCreationService: EstateProfileService,
-        public userService: UserserviceService,
+        public userService: UserService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
         private toastrService: ToastrService,
@@ -45,6 +45,7 @@ export class EstateAboutComponent implements OnInit {
     openChat(contactData): void {
         this.userService.getUserDetail(contactData.user_id, OrganizationType.ESTATE).subscribe((res) => {
             if (res.success) {
+                console.log(res.result);
                 this.chatHandler.openChatThread({
                     user_id: contactData.user_id,
                     org_type: OrganizationType.ESTATE,

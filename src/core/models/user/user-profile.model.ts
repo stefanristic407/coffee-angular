@@ -15,6 +15,7 @@ export interface UserProfile {
     language: string;
     lastLoginAt: string;
     lastName: string;
+    organization_id: number;
     phone: string;
     profileImageThumbUrl: string;
     profileImageUrl: string;

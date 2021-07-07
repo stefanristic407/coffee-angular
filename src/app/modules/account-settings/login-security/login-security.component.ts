@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { GlobalsService, UserService, UserserviceService } from '@services';
+import { GlobalsService, UserService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ConfirmationService, MenuItem } from 'primeng/api';
@@ -27,7 +27,6 @@ export class LoginSecurityComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        private userOriginalService: UserserviceService,
         private formBuilder: FormBuilder,
         public location: Location,
         private confirmationService: ConfirmationService,
@@ -80,7 +79,7 @@ export class LoginSecurityComponent implements OnInit {
 
     getSessions(): void {
         this.isLoading = true;
-        this.userOriginalService.getUserSessions().subscribe((res) => {
+        this.userService.getUserSessions().subscribe((res) => {
             this.isLoading = false;
             console.log('get sessions >>>>>>>>', res);
             if (res.success) {
@@ -93,7 +92,7 @@ export class LoginSecurityComponent implements OnInit {
     }
 
     userLogout(): void {
-        this.userOriginalService.logOut().subscribe((res: any) => {
+        this.userService.logOut().subscribe((res: any) => {
             if (res.success) {
                 this.cookieService.deleteAll();
                 localStorage.clear();
@@ -110,7 +109,7 @@ export class LoginSecurityComponent implements OnInit {
     }
 
     handleDeactivateAccount(): void {
-        this.userOriginalService.deactivateAccount().subscribe((res) => {
+        this.userService.deactivateAccount().subscribe((res) => {
             if (res.success) {
                 this.toastrService.success('Account has been deactivated successfully.');
                 this.userLogout();
@@ -156,7 +155,7 @@ export class LoginSecurityComponent implements OnInit {
             confirm_password: this.form.controls.confirmPassword.value,
         };
         this.isUpdatingPassword = true;
-        this.userOriginalService.updatePassword(data).subscribe((res: any) => {
+        this.userService.updatePassword(data).subscribe((res: any) => {
             this.isUpdatingPassword = false;
             console.log('change password result >>>>>>>>', res);
             if (res.success) {

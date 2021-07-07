@@ -1,14 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
-import {
-    UserserviceService,
-    GlobalsService,
-    OriginService,
-    CommonService,
-    AuthService,
-    VarietyService,
-} from '@services';
+import { GlobalsService, OriginService, CommonService, AuthService, VarietyService, UserService } from '@services';
 import * as _ from 'underscore';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { ApiResponse } from '@models';
@@ -69,7 +61,7 @@ export class SourcingService {
     lot: any;
 
     constructor(
-        public userService: UserserviceService,
+        public userService: UserService,
         public globals: GlobalsService,
         private commonService: CommonService,
         private originService: OriginService,

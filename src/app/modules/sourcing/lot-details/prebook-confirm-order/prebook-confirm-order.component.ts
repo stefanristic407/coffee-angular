@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, CommonService, GlobalsService, ResizeService } from '@services';
+import { AuthService, CommonService, GlobalsService, ResizeService, UserService } from '@services';
 import { RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
@@ -52,10 +50,9 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
         public globals: GlobalsService,
         private route: ActivatedRoute,
         public sourcing: SourcingService,
-        private cookieService: CookieService,
         private toastrService: ToastrService,
         private roasterService: RoasterserviceService,
-        private userService: UserserviceService,
+        private userService: UserService,
         protected resizeService: ResizeService,
         private authService: AuthService,
         private commonService: CommonService,

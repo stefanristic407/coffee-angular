@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AuthService, CoffeeStoryService, DownloadService, GlobalsService } from '@services';
-import { UserserviceService } from '@services';
+import { AuthService, CoffeeStoryService, DownloadService, GlobalsService, UserService } from '@services';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
@@ -65,7 +64,7 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
     constructor(
         public dialogSrv: DialogService,
         public globals: GlobalsService,
-        public userService: UserserviceService,
+        public userService: UserService,
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
         public router: Router,

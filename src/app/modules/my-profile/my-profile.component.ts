@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, RoasterserviceService, UserService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { formatDate, Location } from '@angular/common';
 import { MyProfileService } from '@modules/my-profile/my-profile.service';
@@ -45,7 +45,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         private toastr: ToastrService,
         public globals: GlobalsService,
         private userService: UserService,
-        private userOriginalService: UserserviceService,
         private cookieService: CookieService,
         public myProfileService: MyProfileService,
         private authService: AuthService,
@@ -122,7 +121,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     getCertificates(): void {
-        this.userOriginalService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
+        this.userService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
             this.apiCount += 1;
             if (res.success) {
                 this.certificationArray = res.result;
@@ -212,13 +211,13 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             formData.append('file', this.file);
             formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
             formData.append('token', this.authService.token);
-            this.userOriginalService.uploadProfileImage(formData).subscribe((res: any) => {
+            this.userService.uploadProfileImage(formData).subscribe((res: any) => {
                 if (res.success) {
                     newProfileImageUrl = res.result.file_path;
                 } else {
                     this.toastr.error('Failed to upload profile image.');
                 }
-                this.userOriginalService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res2: any) => {
+                this.userService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res2: any) => {
                     if (res2.success) {
                         this.handleProfileUpdateSuccess();
                     } else {
@@ -229,7 +228,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             });
         } else {
             this.isUpdatingProfile = true;
-            this.userOriginalService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res: any) => {
+            this.userService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res: any) => {
                 if (res.success) {
                     this.handleProfileUpdateSuccess();
                 } else {

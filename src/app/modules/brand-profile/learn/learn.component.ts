@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { AuthService, GlobalsService } from '@services';
-import { UserserviceService } from '@services';
+import { maxWordCountValidator } from '@utils';
+import { AuthService, GlobalsService, UserService } from '@services';
 import { RoasterserviceService } from '@services';
 import * as _ from 'lodash';
 @Component({
@@ -24,7 +23,7 @@ export class LearnComponent implements OnInit {
         public globals: GlobalsService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
-        public userService: UserserviceService,
+        public userService: UserService,
         public route: Router,
         public roasterService: RoasterserviceService,
         private authService: AuthService,

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService, UserserviceService, RoasterserviceService, AuthService } from '@services';
+import { GlobalsService, RoasterserviceService, AuthService, UserService } from '@services';
 import { Location } from '@angular/common';
 
 @Component({
@@ -30,7 +30,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         private router: Router,
         public globals: GlobalsService,
         public route: ActivatedRoute,
-        public userService: UserserviceService,
+        public userService: UserService,
         private toastrService: ToastrService,
         private fb: FormBuilder,
         public location: Location,

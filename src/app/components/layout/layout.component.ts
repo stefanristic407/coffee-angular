@@ -1,23 +1,20 @@
 import { AfterViewInit, Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription, fromEvent, interval } from 'rxjs';
+import { fromEvent, interval } from 'rxjs';
 import { filter, takeUntil, debounce, debounceTime } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import {
+    AclService,
     AuthService,
     ChatHandlerService,
     CoffeeLabService,
-    CommonService,
     GlobalsService,
     I18NService,
     IdmService,
     MenuService,
-    RoasterserviceService,
     SocketService,
-    UserserviceService,
     UserService,
-    AclService,
 } from '@services';
 import { DestroyableComponent } from '@base-components';
 import { OrganizationType } from '@enums';
@@ -55,23 +52,20 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     orgTermsAccepted: boolean;
 
     constructor(
-        private cookieService: CookieService,
-        private userOriginalService: UserserviceService,
-        private userService: UserService,
-        private roasterService: RoasterserviceService,
-        private router: Router,
-        private toastrService: ToastrService,
-        private i18NService: I18NService,
-        public globals: GlobalsService,
-        public chat: ChatHandlerService,
-        public menuService: MenuService,
-        private socket: SocketService,
-        private commonService: CommonService,
         private coffeeLabService: CoffeeLabService,
-        private idmService: IdmService,
-        public authService: AuthService,
-        public aclService: AclService,
+        private cookieService: CookieService,
         private dialogService: DialogService,
+        private i18NService: I18NService,
+        private idmService: IdmService,
+        private router: Router,
+        private socket: SocketService,
+        private toastrService: ToastrService,
+        private userService: UserService,
+        public aclService: AclService,
+        public authService: AuthService,
+        public chat: ChatHandlerService,
+        public globals: GlobalsService,
+        public menuService: MenuService,
     ) {
         super();
     }
@@ -247,7 +241,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             per_page: 1000,
         };
         let isUnread = false;
-        this.userOriginalService.getNofitication(options).subscribe((res: any) => {
+        this.userService.getNofitication(options).subscribe((res: any) => {
             if (res.success) {
                 const notifications = res.result ?? [];
                 const temp: any[] = [];
@@ -273,7 +267,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     makeAsAllRead(element: any) {
-        this.userOriginalService.makeAsAllRead().subscribe((res: any) => {
+        this.userService.makeAsAllRead().subscribe((res: any) => {
             if (res.success) {
                 element.hide();
                 this.getNotificationList();
@@ -285,7 +279,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         if (data.is_read) {
             element.hide();
         } else {
-            this.userOriginalService.makeAsRead(data.id).subscribe((res: any) => {
+            this.userService.makeAsRead(data.id).subscribe((res: any) => {
                 if (res.success) {
                     element.hide();
                     this.getNotificationList();
@@ -485,7 +479,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     logout(): void {
-        this.userOriginalService.logOut().subscribe((res: any) => {
+        this.userService.logOut().subscribe((res: any) => {
             if (res.success) {
                 this.cookieService.deleteAll();
                 window.open(`${environment.ssoWeb}`, '_self');

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, GlobalsService, ReviewsService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, ReviewsService, UserService } from '@services';
 import { RoasterserviceService } from '@services';
 import { OrganizationType } from '@enums';
 
@@ -18,7 +18,7 @@ export class ReviewsComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         private cookieService: CookieService,
-        public userSrv: UserserviceService,
+        public userSrv: UserService,
         private reviewRatingService: ReviewsService,
         private authService: AuthService,
     ) {}

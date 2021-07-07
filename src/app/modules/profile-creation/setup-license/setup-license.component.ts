@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, Input, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { AuthService, UserserviceService } from '@services';
+import { AuthService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -31,7 +31,7 @@ export class SetupLicenseComponent implements OnInit {
     yearList: any[] = [];
 
     constructor(
-        private userService: UserserviceService,
+        private userService: UserService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         private cookieService: CookieService,

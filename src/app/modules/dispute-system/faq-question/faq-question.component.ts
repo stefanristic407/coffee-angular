@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { OrganizationType } from '@enums';
-import { AuthService, UserserviceService } from '@services';
+import { AuthService, UserService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
@@ -21,7 +21,7 @@ export class FaqQuestionComponent implements OnInit {
         public globals: GlobalsService,
         private route: ActivatedRoute,
         public router: Router,
-        public userService: UserserviceService,
+        public userService: UserService,
         public cookieService: CookieService,
         private authService: AuthService,
     ) {}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { AnyARecord } from 'dns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -40,7 +40,7 @@ export class ProductSettingComponent implements OnInit {
     constructor(
         private router: Router,
         private toastrService: ToastrService,
-        public userService: UserserviceService,
+        public userService: UserService,
         public cookieService: CookieService,
         private route: ActivatedRoute,
         public fb: FormBuilder,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthService, UserService, UserserviceService } from '@services';
+import { AuthService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -47,7 +47,7 @@ export class RoasteryProfileService {
     isSaving?: boolean;
 
     constructor(
-        public userService: UserserviceService,
+        public userService: UserService,
         public cookieService: CookieService,
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,

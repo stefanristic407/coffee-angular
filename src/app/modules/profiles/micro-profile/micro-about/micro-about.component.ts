@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserserviceService, ChatHandlerService } from '@services';
+import { ChatHandlerService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
@@ -19,7 +19,7 @@ export class MicroAboutComponent implements OnInit {
 
     constructor(
         public profileCreationService: MicroProfileService,
-        public userService: UserserviceService,
+        public userService: UserService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,

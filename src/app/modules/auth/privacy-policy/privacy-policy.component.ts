@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UserserviceService } from '@services';
+import { UserService } from '@services';
 
 @Component({
     selector: 'app-privacy-policy',
@@ -24,7 +24,7 @@ export class PrivacyPolicyComponent implements OnInit {
     constructor(
         private router: Router,
         public toastrService: ToastrService,
-        private userService: UserserviceService,
+        private userService: UserService,
         private activatedRoute: ActivatedRoute,
     ) {}
 

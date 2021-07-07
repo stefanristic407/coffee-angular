@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AuthService, CommonService, RoasterserviceService, SimulatedLoginService } from '@services';
+import { AuthService, CommonService, RoasterserviceService, SimulatedLoginService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ApiResponse } from '@models';
@@ -46,7 +45,7 @@ export class CustomerServiceService {
     constructor(
         private roasterService: RoasterserviceService,
         public cookieService: CookieService,
-        private userService: UserserviceService,
+        private userService: UserService,
         private simulatedLoginService: SimulatedLoginService,
         private commonService: CommonService,
         private toastrService: ToastrService,

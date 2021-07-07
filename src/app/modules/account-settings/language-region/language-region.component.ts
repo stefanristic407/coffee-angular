@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment-timezone';
-import { AuthService, GlobalsService, I18NService, UserService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, I18NService, UserService } from '@services';
 import { Location } from '@angular/common';
 import { APP_LANGUAGES, languages } from '@constants';
-import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -24,14 +22,11 @@ export class LanguageRegionComponent implements OnInit {
     userInfo?: any;
 
     constructor(
-        private userService: UserService,
-        private userOriginalService: UserserviceService,
-        private i18n: I18NService,
-        public location: Location,
-        private toastr: ToastrService,
-        private cookieService: CookieService,
-        public globals: GlobalsService,
         private authService: AuthService,
+        private i18n: I18NService,
+        private userService: UserService,
+        public globals: GlobalsService,
+        public location: Location,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -67,7 +62,7 @@ export class LanguageRegionComponent implements OnInit {
 
     getConverseLanguages(): void {
         this.isLoading = true;
-        this.userOriginalService.getConverseLanguage().subscribe((res: any) => {
+        this.userService.getConverseLanguage().subscribe((res: any) => {
             this.apiCount += 1;
             if (this.apiCount === 2) {
                 this.isLoading = false;
@@ -95,13 +90,13 @@ export class LanguageRegionComponent implements OnInit {
 
     onChangeUserInfo(): void {
         console.log('update user info >>>', this.userInfo);
-        this.userOriginalService.updateRoasterProfile(this.roasterId, this.userInfo).subscribe();
+        this.userService.updateRoasterProfile(this.roasterId, this.userInfo).subscribe();
         this.i18n.use(this.userInfo.language);
     }
 
     handleSaveConverseLanguages(): void {
         if (this.selectedConverseLanguages.length) {
-            this.userOriginalService
+            this.userService
                 .addConverseLanguage({
                     languages: this.selectedConverseLanguages.map((item: any) => item.value),
                 })

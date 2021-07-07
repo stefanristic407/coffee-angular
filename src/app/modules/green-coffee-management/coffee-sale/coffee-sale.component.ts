@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, GlobalsService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { UserserviceService } from '@services';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
 @Component({
@@ -40,7 +39,7 @@ export class CoffeeSaleComponent implements OnInit {
         private router: Router,
         private toasterService: ToastrService,
         private fb: FormBuilder,
-        private userService: UserserviceService,
+        private userService: UserService,
         public sharedService: SharedServiceService,
         private authService: AuthService,
     ) {

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
 import { SourcingService } from '../../sourcing.service';
-import { RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
 import { OrganizationType } from '@enums';
 
 @Component({
@@ -18,12 +16,7 @@ export class OverviewRatingsComponent implements OnInit {
     showRelavant = true;
     estateRatingActive: any = 0;
 
-    constructor(
-        public globals: GlobalsService,
-        public sourcing: SourcingService,
-        private roasterService: RoasterserviceService,
-        private userService: UserserviceService,
-    ) {
+    constructor(public globals: GlobalsService, public sourcing: SourcingService) {
         this.termStatus = 'Most relevant';
     }
 

@@ -8,8 +8,8 @@ import {
     ResizeService,
     AuthService,
     RoasterserviceService,
-    UserserviceService,
     CommonService,
+    UserService,
 } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
@@ -68,7 +68,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         public sourcing: SourcingService,
         private toastrService: ToastrService,
         private roasterService: RoasterserviceService,
-        private userService: UserserviceService,
+        private userService: UserService,
         protected resizeService: ResizeService,
         public authService: AuthService,
         private commonService: CommonService,

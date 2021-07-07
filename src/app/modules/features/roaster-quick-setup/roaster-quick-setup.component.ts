@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GlobalsService } from '@services';
-import { UserserviceService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -34,7 +32,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         private router: Router,
         private toastrService: ToastrService,
         public route: ActivatedRoute,
-        public userService: UserserviceService,
+        public userService: UserService,
         public globals: GlobalsService,
         private fb: FormBuilder,
         private authService: AuthService,

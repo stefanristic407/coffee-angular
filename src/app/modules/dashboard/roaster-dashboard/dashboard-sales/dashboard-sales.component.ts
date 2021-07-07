@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService } from '@services';
-import { UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 import * as moment from 'moment';
 import * as _ from 'underscore';
 import { Subscription } from 'rxjs';
@@ -67,7 +66,7 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     constructor(
         private authService: AuthService,
         private toastrService: ToastrService,
-        private userSrv: UserserviceService,
+        private userSrv: UserService,
         public globals: GlobalsService,
     ) {}
 

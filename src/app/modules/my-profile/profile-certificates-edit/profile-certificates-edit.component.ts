@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { AuthService, GlobalsService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +24,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
     isSavingCertificate = false;
 
     constructor(
-        private userService: UserserviceService,
+        private userService: UserService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         private cookieService: CookieService,

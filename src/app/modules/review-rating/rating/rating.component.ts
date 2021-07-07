@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, ResizeService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, GlobalsService, ResizeService, RoasterserviceService, UserService } from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
 import { ResizeableComponent } from '@base-components';
 
@@ -33,7 +33,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         private router: Router,
         public globals: GlobalsService,
         public roasterSrv: RoasterserviceService,
-        public userSrv: UserserviceService,
+        public userSrv: UserService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
         protected resizeService: ResizeService,

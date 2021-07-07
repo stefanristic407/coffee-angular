@@ -3,8 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { maxWordCountValidator } from '@utils';
-import { AuthService, GlobalsService } from '@services';
-import { UserserviceService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 
 @Component({
     selector: 'app-sustainability',
@@ -21,7 +20,7 @@ export class SustainabilityComponent implements OnInit {
         private route: Router,
         public globals: GlobalsService,
         private toastrService: ToastrService,
-        private userService: UserserviceService,
+        private userService: UserService,
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();

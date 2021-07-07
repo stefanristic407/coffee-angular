@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ResizeService, UserserviceService } from '@services';
+import { GlobalsService, ResizeService, UserService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { ResizeableComponent } from '@base-components';
 import { PrebookStatus } from '@enums';
@@ -27,7 +27,7 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
         public globals: GlobalsService,
         protected resizeService: ResizeService,
         public sourcing: SourcingService,
-        private userService: UserserviceService,
+        private userService: UserService,
     ) {
         super(resizeService);
         this.route.paramMap.subscribe((params) => {

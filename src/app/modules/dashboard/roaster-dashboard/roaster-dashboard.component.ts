@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AclService, AuthService, GlobalsService } from '@services';
-import { UserserviceService } from '@services';
+import { AclService, AuthService, GlobalsService, UserService } from '@services';
 import { RoasterserviceService } from '@services';
 import { WelcomeService } from './welcome.service';
 
@@ -20,7 +19,7 @@ export class RoasterDashboardComponent implements OnInit {
         private router: Router,
         private cookieService: CookieService,
         public globals: GlobalsService,
-        private userSrv: UserserviceService,
+        private userSrv: UserService,
         private roasterSrv: RoasterserviceService,
         private toastrService: ToastrService,
         private welcomeSrv: WelcomeService,

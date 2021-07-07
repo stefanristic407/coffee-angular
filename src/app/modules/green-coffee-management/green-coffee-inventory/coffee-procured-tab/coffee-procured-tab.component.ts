@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { PrimeTableService } from '@services';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { UserserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { COUNTRY_LIST } from '@constants';
 
@@ -42,8 +41,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         public roasterService: RoasterserviceService,
-        private userService: UserserviceService,
-        private toastrService: ToastrService,
         public router: Router,
         public cookieService: CookieService,
         public primeTableService: PrimeTableService,

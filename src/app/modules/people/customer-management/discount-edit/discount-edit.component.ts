@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, GlobalsService } from '@services';
+import { AuthService, GlobalsService, UserService } from '@services';
 import { CustomerServiceService } from '../customer-service.service';
-import { UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +15,7 @@ export class DiscountEditComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         public customerService: CustomerServiceService,
-        public userService: UserserviceService,
+        public userService: UserService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
         public route: ActivatedRoute,

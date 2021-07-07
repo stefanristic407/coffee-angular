@@ -1,9 +1,8 @@
 import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { AuthService, CommonService, GlobalsService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, CommonService, GlobalsService, RoasterserviceService, UserService } from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { fromEvent } from 'rxjs';
@@ -48,11 +47,10 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     constructor(
         public router: Router,
         private roasterService: RoasterserviceService,
-        private cookieService: CookieService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public route: ActivatedRoute,
-        public userService: UserserviceService,
+        public userService: UserService,
         private modalService: BsModalService,
         private messageService: ChatHandlerService,
         public sharedService: SharedServiceService,

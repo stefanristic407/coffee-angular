@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrganizationType } from '@enums';
-import { GlobalsService, ReviewsService, UserserviceService } from '@services';
+import { GlobalsService, ReviewsService, UserService } from '@services';
 
 @Component({
     selector: 'app-estate-reviews',
@@ -18,11 +18,7 @@ export class EstateReviewsComponent implements OnInit {
     summary: any;
     average: any;
 
-    constructor(
-        public globals: GlobalsService,
-        private ratingService: ReviewsService,
-        public userSrv: UserserviceService,
-    ) {
+    constructor(public globals: GlobalsService, private ratingService: ReviewsService, public userSrv: UserService) {
         this.termStatus = 'Most relevant';
     }
 

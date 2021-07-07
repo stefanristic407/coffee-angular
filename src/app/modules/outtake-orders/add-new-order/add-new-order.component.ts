@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService, DownloadService, RoasterserviceService, UserserviceService } from '@services';
+import { AuthService, DownloadService, RoasterserviceService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -45,7 +45,7 @@ export class AddNewOrderComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private fb: FormBuilder,
         public location: Location,
-        private userService: UserserviceService,
+        private userService: UserService,
         private toaster: ToastrService,
         private activeRoute: ActivatedRoute,
         public downloadService: DownloadService,
