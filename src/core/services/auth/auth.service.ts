@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserPreference } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -10,6 +11,7 @@ export class AuthService {
     private orgId: number;
     userSubject = new BehaviorSubject(null);
     organizationSubject = new BehaviorSubject(null);
+    preferenceSubject: BehaviorSubject<UserPreference> = new BehaviorSubject(null);
 
     get token(): any {
         if (this.isSimulated) {
@@ -45,6 +47,10 @@ export class AuthService {
 
     get currentOrganization(): any {
         return this.organizationSubject.value;
+    }
+
+    get preference(): UserPreference {
+        return this.preferenceSubject.value;
     }
 
     get isAdmin(): boolean {

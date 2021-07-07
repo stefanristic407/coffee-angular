@@ -24,6 +24,7 @@ import { OrganizationType } from '@enums';
 import { environment } from '@env/environment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
+import { ApiResponse, UserPreference } from '@models';
 
 @Component({
     selector: 'app-layout',
@@ -124,22 +125,10 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.roasterId = this.authService.getOrgId();
 
         const promises = [];
-
-        promises.push(
-            new Promise((resolve, reject) => {
-                this.getUserPermissions(resolve);
-            }),
-        );
-        promises.push(
-            new Promise((resolve) => {
-                this.getUserDetail(resolve);
-            }),
-        );
-        promises.push(
-            new Promise((resolve) => {
-                this.getOrgProfile(resolve);
-            }),
-        );
+        promises.push(new Promise((resolve) => this.getUserPermissions(resolve)));
+        promises.push(new Promise((resolve) => this.getUserDetail(resolve)));
+        promises.push(new Promise((resolve) => this.getPreferences(resolve)));
+        promises.push(new Promise((resolve) => this.getOrgProfile(resolve)));
         const self = this;
         Promise.all(promises).then(() => {
             if (!self.orgTermsAccepted || !self.userTermsAccepted) {
@@ -208,6 +197,15 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
                 this.authService.userSubject.next(res.result);
                 this.i18NService.use(res.result.language || 'en');
+            }
+            resolve();
+        });
+    }
+
+    private getPreferences(resolve) {
+        this.userService.getPreferences().subscribe((res: ApiResponse<UserPreference>) => {
+            if (res.success) {
+                this.authService.preferenceSubject.next(res.result);
             }
             resolve();
         });
@@ -467,27 +465,35 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     userLogout() {
-        this.dialogService
-            .open(ConfirmComponent, {
-                data: {
-                    type: 'logout',
-                },
-                showHeader: false,
-                styleClass: 'confirm-dialog logout',
-            })
-            .onClose.subscribe((action: any) => {
-                if (action === 'yes') {
-                    this.userOriginalService.logOut().subscribe((res: any) => {
-                        if (res.success) {
-                            this.cookieService.deleteAll();
-                            window.open(`${environment.ssoWeb}`, '_self');
-                            this.toastrService.success('Logout successfully !');
-                        } else {
-                            this.toastrService.error('Error while Logout!');
-                        }
-                    });
-                }
-            });
+        if (this.authService.preference.logout_all) {
+            this.logout();
+        } else {
+            this.dialogService
+                .open(ConfirmComponent, {
+                    data: {
+                        type: 'logout',
+                    },
+                    showHeader: false,
+                    styleClass: 'confirm-dialog logout',
+                })
+                .onClose.subscribe((action: any) => {
+                    if (action === 'yes') {
+                        this.logout();
+                    }
+                });
+        }
+    }
+
+    logout(): void {
+        this.userOriginalService.logOut().subscribe((res: any) => {
+            if (res.success) {
+                this.cookieService.deleteAll();
+                window.open(`${environment.ssoWeb}`, '_self');
+                this.toastrService.success('Logout successfully !');
+            } else {
+                this.toastrService.error('Error while Logout!');
+            }
+        });
     }
 
     search() {

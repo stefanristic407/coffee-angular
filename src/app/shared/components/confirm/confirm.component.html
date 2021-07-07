@@ -24,7 +24,7 @@
             {{ config.data.desp || ('confirm_logout' | translate) }}
         </div>
         <div class="text-left pl-md-35 pt-4">
-            <p-checkbox [(ngModel)]="preference" binary="true" [label]="'do_not_ask_me_again' | translate"></p-checkbox>
+            <p-checkbox [(ngModel)]="logoutAll" binary="true" [label]="'do_not_ask_me_again' | translate"></p-checkbox>
         </div>
         <div class="pt-45 pt-md-5">
             <button class="btn-stroked mr-3" (click)="close('no')">{{ 'no' | translate }}</button>

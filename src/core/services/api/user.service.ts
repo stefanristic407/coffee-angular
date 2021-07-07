@@ -70,4 +70,15 @@ export class UserService extends ApiService {
     getUserRoles() {
         return this.postWithOrg(this.orgPostUrl, `users/roles`, 'GET');
     }
+
+    // ------------ Preferences ------------
+    // Return the preferences saved by the user
+    getPreferences() {
+        return this.postWithOrg(this.orgPostUrl, `users/preferences`);
+    }
+
+    // Update user preferences
+    updatePreferences(body: any) {
+        return this.postWithOrg(this.orgPostUrl, `users/preferences`, 'PUT', body);
+    }
 }

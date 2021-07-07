@@ -410,30 +410,6 @@ export class UserserviceService extends ApiService {
         return this.http.post(this.orgDeleteUrl, data);
     }
 
-    // API Function Name : Preferences Settings
-    // API Description: This API call helps to set the Preferences terms.
-
-    updatePreferences(roasterId: any, body: any) {
-        const data = {
-            api_call: '/ro/' + roasterId + '/users/preferences',
-            method: 'PUT',
-            token: this.authService.token,
-            data: body,
-        };
-        return this.http.put(this.putUrl, data);
-    }
-
-    // API Function Name : Preferences Settings
-    // API Description: This API call helps to get the Preferences terms.
-
-    getPreferences(roasterId: any) {
-        const data = {
-            api_call: '/ro/' + roasterId + '/users/preferences',
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.roasterUrl, data);
-    }
     // API Function Name: getLanguage
     // API Description: Get the Language based on user's signin and apply all application static text
     getUserLanguageStrings(language: any) {

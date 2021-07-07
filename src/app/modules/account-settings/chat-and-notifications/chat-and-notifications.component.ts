@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GlobalsService, UserService, UserserviceService, ChatHandlerService, AuthService } from '@services';
+import { GlobalsService, UserService, ChatHandlerService, AuthService } from '@services';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -20,11 +20,9 @@ export class ChatAndNotificationsComponent implements OnInit, OnDestroy {
         { label: 'Large', value: 'large' },
     ];
     breadcrumbItems: MenuItem[];
-    roasterId?: any;
     settingUpdateSubscription: Subscription;
     constructor(
         private userService: UserService,
-        private userOriginalService: UserserviceService,
         public location: Location,
         private toastr: ToastrService,
         private cookieService: CookieService,
@@ -34,7 +32,6 @@ export class ChatAndNotificationsComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        this.roasterId = this.authService.getOrgId();
         this.getPreferences();
         this.breadcrumbItems = [
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
@@ -56,9 +53,7 @@ export class ChatAndNotificationsComponent implements OnInit, OnDestroy {
 
     getPreferences(): void {
         this.isLoading = true;
-        console.log('estateId >>>>>>>', this.roasterId);
-        this.userOriginalService.getPreferences(this.roasterId).subscribe((res: any) => {
-            console.log('preferences result >>>>>>>>>>>>>', res);
+        this.userService.getPreferences().subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
                 this.preference = res.result;
@@ -69,9 +64,10 @@ export class ChatAndNotificationsComponent implements OnInit, OnDestroy {
     }
 
     onChangeData(): void {
-        this.userOriginalService.updatePreferences(this.roasterId, this.preference).subscribe((res: any) => {
+        this.userService.updatePreferences(this.preference).subscribe((res: any) => {
             if (res.success) {
                 this.chatHandlerService.updateSetting(this.preference);
+                this.authService.preferenceSubject.next(this.preference);
             }
             console.log('chat and notification change res >>>>>>', res);
         });

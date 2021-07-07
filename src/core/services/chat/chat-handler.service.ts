@@ -1,4 +1,3 @@
-import { UserserviceService } from './../api/user-original.service';
 import { ChatUtilService } from './chat-util.service';
 import { ToastrService } from 'ngx-toastr';
 import { OpenChatThread } from '@models';
@@ -6,6 +5,7 @@ import { ServiceCommunicationType, OrganizationType } from '@enums';
 import { Subject, BehaviorSubject, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
+import { UserService } from '../api';
 
 @Injectable({
     providedIn: 'root',
@@ -35,7 +35,7 @@ export class ChatHandlerService {
         read_recipient: false,
     };
 
-    constructor(private userService: UserserviceService, private util: ChatUtilService, private toast: ToastrService) {}
+    constructor(private userService: UserService, private util: ChatUtilService, private toast: ToastrService) {}
 
     public showChatPanel() {
         this.chatSubject.next({
@@ -101,14 +101,15 @@ export class ChatHandlerService {
     }
 
     public fetchSettings() {
-        this.userService.getPreferences(this.util.ORGANIZATION_ID).subscribe((res: any) => {
+        this.userService.getPreferences().subscribe((res: any) => {
             if (res.success) {
                 this.updateSetting(res.result);
             }
         });
     }
+
     public saveSettings() {
-        return this.userService.updatePreferences(this.util.ORGANIZATION_ID, this.setting).pipe(
+        return this.userService.updatePreferences(this.setting).pipe(
             map((x: any) => x.success),
             catchError(() => of(false)),
         );
