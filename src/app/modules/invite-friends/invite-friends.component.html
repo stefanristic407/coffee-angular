@@ -20,10 +20,12 @@
                             <div *ngFor="let email of emails.controls; let i = index">
                                 <div class="d-flex justify-content-between align-items-center d-md-none mb-3">
                                     <h4 class="fnt-16 fnt-md-18 lh-normal fnt-bold text-clr334 mb-0">
-                                        Invite {{ i + 1 }}
+                                        {{ 'invite' | translate }} {{ i + 1 }}
                                     </h4>
                                     <div *ngIf="i">
-                                        <span class="brown-cta" (click)="deleteEmail(i)"> Delete </span>
+                                        <span class="brown-cta" (click)="deleteEmail(i)">
+                                            {{ 'delete' | translate }}
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -41,7 +43,9 @@
                                         </small>
                                     </div>
                                     <div class="delete-wrap ml-2 d-none d-md-block" *ngIf="i">
-                                        <span class="brown-cta" (click)="deleteEmail(i)"> Delete </span>
+                                        <span class="brown-cta" (click)="deleteEmail(i)">
+                                            {{ 'delete' | translate }}
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="divider d-md-none mb-4"></div>
@@ -59,13 +63,13 @@
                                 class="btn-stroked mb-3 w-mob-100 order-2 order-md-1 mr-md-2"
                                 routerLink="/"
                             >
-                                Cancel
+                                {{ 'cancel' | translate }}
                             </button>
                             <button
                                 type="submit"
                                 class="invite-btn btn-raised mb-3 w-mob-100 order-1 order-md-2 ml-md-1"
                             >
-                                Send Invites
+                                {{ 'send_invites' | translate }}
                             </button>
                         </div>
                     </div>

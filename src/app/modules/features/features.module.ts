@@ -9,7 +9,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { FeaturesRoutingModule } from './features-routing.module';
 import { FeaturesComponent } from './features.component';
-import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -18,7 +17,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
 import { ListboxModule } from 'primeng/listbox';
@@ -29,9 +27,7 @@ import { PaginatorModule } from 'primeng/paginator';
         OnboardCustomersComponent,
         RoasterOnboardingComponent,
         RoasterQuickSetupComponent,
-        RoasterCompleteSetupComponent,
         FeaturesComponent,
-        SuccessfulPageComponent,
     ],
     imports: [
         PaginatorModule,

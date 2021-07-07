@@ -12,10 +12,9 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
     styleUrls: ['./roaster-quick-setup.component.scss'],
 })
 export class RoasterQuickSetupComponent implements OnInit {
-    appLanguage?: any;
+    inviteStatus: '' | 'SENDING' | 'SUCCESS' = '';
     roasterId: any;
     headerValue: string;
-    sendInviteButton: any = 'Send Invites';
     companyTypeList = [
         { label: 'Hotel', value: 'Hotel' },
         { label: 'Cafe', value: 'Cafe' },
@@ -25,11 +24,11 @@ export class RoasterQuickSetupComponent implements OnInit {
     inviteFormArray = new FormArray([]);
     navItems: MenuItem[];
     selectedNav: MenuItem;
+    userInvitesArray: string[] = [];
 
     constructor(
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
-        private router: Router,
         private toastrService: ToastrService,
         public route: ActivatedRoute,
         public userService: UserService,
@@ -41,15 +40,8 @@ export class RoasterQuickSetupComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.inviteFormArray.push(
-            new FormGroup({
-                name: new FormControl('', [Validators.required]),
-                email: new FormControl('', [Validators.required, Validators.email]),
-                type: new FormControl(''),
-            }),
-        );
+        this.addNewRow();
         this.headerValue = decodeURIComponent(this.route.snapshot.queryParams.buttonValue);
-        this.appLanguage = this.globals.languageJson;
         this.navItems = [
             { label: this.globals.languageJson?.menu_sales_management },
             { label: this.globals.languageJson?.customer_management, routerLink: '/people/customer-management' },
@@ -81,45 +73,51 @@ export class RoasterQuickSetupComponent implements OnInit {
     }
 
     sendInvite() {
-        this.sendInviteButton = 'Sending';
-        if (this.headerValue === 'Micro-Roaster') {
-            this.globals.userInvitesArray = [];
-            if (this.inviteFormArray.length > 0) {
-                this.inviteFormArray.controls.forEach((item: any) => {
-                    this.userService
-                        .sendMicroRoasterInvite(this.roasterId, item.value.email, item.value.name)
-                        .subscribe((data: any) => {
-                            if (data.success) {
-                                this.globals.userInvitesArray.push(item.value.email);
-                                this.sendInviteButton = 'Send Invites';
-                                this.toastrService.success('Email has been sent successfully');
-                                this.router.navigate(['/features/success-mail']);
-                            } else {
-                                this.sendInviteButton = 'Send Invites';
-                                this.toastrService.error('Error while sending email to the User');
-                            }
-                        });
-                });
+        this.inviteStatus = 'SENDING';
+        const promises: any[] = [];
+        this.inviteFormArray.controls.forEach((element) => {
+            if (!this.userInvitesArray.some((item) => item === element.value.email)) {
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        if (this.headerValue === 'Micro-Roaster') {
+                            return this.userService
+                                .sendMicroRoasterInvite(this.roasterId, element.value.email, element.value.name)
+                                .subscribe((res: any) => {
+                                    if (res.success) {
+                                        this.userInvitesArray.push(element.value.email);
+                                        resolve(res);
+                                    } else {
+                                        reject();
+                                    }
+                                });
+                        } else if (this.headerValue === 'HoReCa') {
+                            return this.userService
+                                .sendHorecaInvite(
+                                    this.roasterId,
+                                    element.value.email,
+                                    element.value.name,
+                                    element.value.type,
+                                )
+                                .subscribe((res: any) => {
+                                    if (res.success) {
+                                        this.userInvitesArray.push(element.value.email);
+                                        resolve(res);
+                                    } else {
+                                        reject();
+                                    }
+                                });
+                        }
+                    }),
+                );
             }
-        } else if (this.headerValue === 'HoReCa') {
-            this.globals.userInvitesArray = [];
-            if (this.inviteFormArray.length > 0) {
-                this.inviteFormArray.controls.forEach((item: any) => {
-                    this.userService
-                        .sendHorecaInvite(this.roasterId, item.value.email, item.value.name, item.value.type)
-                        .subscribe((data: any) => {
-                            if (data.success) {
-                                this.globals.userInvitesArray.push(item.value.email);
-                                this.sendInviteButton = 'Send Invites';
-                                this.toastrService.success('Email has been sent successfully');
-                                this.router.navigate(['/features/success-mail']);
-                            } else {
-                                this.sendInviteButton = 'Send Invites';
-                                this.toastrService.error('Error while sending email to the User');
-                            }
-                        });
-                });
-            }
-        }
+        });
+        Promise.all(promises)
+            .then((res: any) => {
+                this.inviteStatus = 'SUCCESS';
+                this.toastrService.success('Invitation has been sent successfully');
+            })
+            .catch(() => {
+                this.inviteStatus = '';
+            });
     }
 }

@@ -2,6 +2,9 @@ p-breadcrumb {
     display: block;
     max-width: 100%;
     overflow-x: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 .p-breadcrumb {
     border: none;

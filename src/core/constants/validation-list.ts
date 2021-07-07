@@ -27,6 +27,7 @@ export const VALIDATION_LIST: any = {
     auth_invalid: 've_auth_invalid',
     app_key_forbidden: 've_app_key_forbidden',
     auth_forbidden: 've_auth_forbidden',
+    already_exists_in_another_mr: 've_already_exists_in_another_mr',
 };
 
 export const CODEMESSAGE: any = {

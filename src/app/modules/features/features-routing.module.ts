@@ -3,10 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@guards';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { FeaturesComponent } from './features.component';
-import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
 import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
-import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 
 const routes: Routes = [
     {
@@ -26,16 +24,6 @@ const routes: Routes = [
             {
                 path: 'roaster-quick-setup',
                 component: RoasterQuickSetupComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'roaster-complete-setup',
-                component: RoasterCompleteSetupComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'success-mail',
-                component: SuccessfulPageComponent,
                 canActivate: [AuthGuard],
             },
         ],
