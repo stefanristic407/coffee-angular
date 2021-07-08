@@ -18,7 +18,15 @@
     </div>
     <section>
         <div
-            class="d-md-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mt-3 mb-md-4 mb-lg-475"
+            class="
+                d-md-flex
+                flex-column flex-md-row
+                justify-content-between
+                align-items-end
+                mb-3
+                mt-3
+                mb-md-4 mb-lg-475
+            "
         >
             <div>
                 <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">Order Transactions</div>
@@ -317,7 +325,9 @@
             </ng-template>
             <ng-template pTemplate="emptymessage" let-columns>
                 <tr>
-                    <td [attr.colspan]="columns.length">No records found</td>
+                    <td [attr.colspan]="columns.length">
+                        <app-empty title="No Records found"></app-empty>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer" let-columns>
