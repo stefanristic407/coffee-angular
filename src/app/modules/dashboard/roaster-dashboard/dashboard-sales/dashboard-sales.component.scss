@@ -115,7 +115,9 @@ li.nav-item {
     background: white;
     color: black;
 }
-
+.break-all {
+    word-break: break-all;
+}
 ::ng-deep ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     .tooltip-caret.position-top {
         border-top-color: white;
