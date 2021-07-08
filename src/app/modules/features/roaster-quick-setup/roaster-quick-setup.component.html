@@ -10,7 +10,9 @@
                     <div class="fnt-18 fnt-bold mb-2">
                         Invite
                         {{
-                            headerValue === 'Micro-Roaster' ? 'Micro-Roaster' : ('roasted_coffee_customers' | translate)
+                            orgType === OrgType.MICRO_ROASTER
+                                ? 'Micro-Roaster'
+                                : ('roasted_coffee_customers' | translate)
                         }}
                     </div>
                     <div class="fnt-14 fnt-normal mb-4 pt-2 pt-lg-0 text-clr588">
@@ -57,7 +59,7 @@
                                         Please enter the email
                                     </small>
                                 </div>
-                                <div class="sewn-form-field col-md-3" *ngIf="headerValue == 'HoReCa'">
+                                <div class="sewn-form-field col-md-3" *ngIf="orgType == OrgType.HORECA">
                                     <label>{{ 'enter_yoru_work_type' | translate }}<span class="star">*</span> </label>
                                     <p-dropdown
                                         [options]="companyTypeList"

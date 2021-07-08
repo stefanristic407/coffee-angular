@@ -16,7 +16,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'roaster-quick-setup',
+                path: 'roaster-quick-setup/:orgType',
                 component: RoasterQuickSetupComponent,
                 canActivate: [AuthGuard],
             },
