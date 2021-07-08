@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { OrganizationType } from '@enums';
 @Component({
     selector: 'app-onboard-customers',
     templateUrl: './onboard-customers.component.html',
     styleUrls: ['./onboard-customers.component.scss'],
 })
 export class OnboardCustomersComponent implements OnInit {
-    buttonValue: string;
+    readonly OrgType = OrganizationType;
 
-    constructor(private router: Router, private cookieService: CookieService) {}
+    constructor() {}
 
     ngOnInit(): void {}
 }

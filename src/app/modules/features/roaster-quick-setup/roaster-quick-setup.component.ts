@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-roaster-quick-setup',
@@ -12,9 +13,10 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
     styleUrls: ['./roaster-quick-setup.component.scss'],
 })
 export class RoasterQuickSetupComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     inviteStatus: '' | 'SENDING' | 'SUCCESS' = '';
     roasterId: any;
-    headerValue: string;
+    orgType: OrganizationType;
     companyTypeList = [
         { label: 'Hotel', value: 'Hotel' },
         { label: 'Cafe', value: 'Cafe' },
@@ -31,6 +33,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         public cookieService: CookieService,
         private toastrService: ToastrService,
         public route: ActivatedRoute,
+        private router: Router,
         public userService: UserService,
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -40,14 +43,18 @@ export class RoasterQuickSetupComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (this.route.snapshot.paramMap.has('orgType')) {
+            this.orgType = decodeURIComponent(this.route.snapshot.paramMap.get('orgType')) as OrganizationType;
+        } else {
+            this.router.navigateByUrl('/');
+        }
         this.addNewRow();
-        this.headerValue = decodeURIComponent(this.route.snapshot.queryParams.buttonValue);
         this.navItems = [
             { label: this.globals.languageJson?.menu_sales_management },
             { label: this.globals.languageJson?.customer_management, routerLink: '/people/customer-management' },
             {
                 label: `Invite  ${
-                    this.headerValue === 'Micro-Roaster'
+                    this.orgType === OrganizationType.MICRO_ROASTER
                         ? 'Micro-Roaster'
                         : this.globals.languageJson?.roasted_coffee_customers
                 }`,
@@ -79,7 +86,7 @@ export class RoasterQuickSetupComponent implements OnInit {
             if (!this.userInvitesArray.some((item) => item === element.value.email)) {
                 promises.push(
                     new Promise((resolve, reject) => {
-                        if (this.headerValue === 'Micro-Roaster') {
+                        if (this.orgType === OrganizationType.MICRO_ROASTER) {
                             return this.userService
                                 .sendMicroRoasterInvite(this.roasterId, element.value.email, element.value.name)
                                 .subscribe((res: any) => {
@@ -90,7 +97,7 @@ export class RoasterQuickSetupComponent implements OnInit {
                                         reject();
                                     }
                                 });
-                        } else if (this.headerValue === 'HoReCa') {
+                        } else if (this.orgType === OrganizationType.HORECA) {
                             return this.userService
                                 .sendHorecaInvite(
                                     this.roasterId,

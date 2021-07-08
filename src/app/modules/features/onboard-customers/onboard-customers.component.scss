@@ -1,89 +1,60 @@
-.sub-text {
-    font-weight: normal;
-    line-height: 1.43;
-    color: #747588;
-}
+@import 'variables';
 
-.title {
-    font-family: PlayfairDisplay;
-    font-size: 34px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.21;
-    letter-spacing: normal;
-    color: #232334;
+.onboard-section {
+    padding-bottom: 15rem !important;
 }
 
 .dashboard-button {
     height: 70px;
     width: 100%;
     border-radius: 6px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding-left: 28px;
-    padding-right: 28px;
+    border: solid 1px $primary-border-color;
+    background-color: $white;
+    padding-left: 16px;
+    padding-right: 20px;
     text-align: left;
-}
-.roaster,
-.facilitator {
-    font-family: 'Muli';
-    font-size: 20px;
-    font-weight: 600;
-    color: #232334;
-    padding-left: 0.5rem;
-    position: relative;
-    top: 2px;
-}
 
-.logo-img {
-    bottom: 2px;
-    position: relative;
-}
-.dashboard-button:hover {
-    border: solid 1px #30855c;
-}
+    .logo-img {
+        bottom: 2px;
+        position: relative;
+    }
 
-.dashboard-button .icon-img-filled {
-    display: none;
-}
-.dashboard-button:hover .icon-img-filled {
-    display: inline;
-    position: relative;
-    top: 3px;
-}
-.dashboard-button:hover .icon-img {
-    display: none;
-}
-.icon-img {
-    position: relative;
-    top: 3px;
-}
+    .icon-img,
+    .icon-img-filled {
+        position: relative;
+        top: 3px;
+        width: 25px;
+        height: 25px;
+    }
 
-.onboard-section {
-    padding-bottom: 15rem !important;
+    .icon-img-filled {
+        display: none;
+    }
+
+    span {
+        position: relative;
+        @media (max-width: 767px) {
+            top: 5px;
+        }
+    }
+
+    &:hover {
+        border: solid 1px $primary-color;
+
+        .icon-img {
+            display: none;
+        }
+        .icon-img-filled {
+            display: inline;
+        }
+    }
 }
 
 @media only screen and (min-width: 991px) and (max-width: 1200px) {
     .dashboard-button {
         height: 70px;
-        width: 100%;
-        border-radius: 6px;
-        border: solid 1px #d6d6d6;
-        background-color: #ffffff;
         padding-left: 20px;
         padding-right: 20px;
-    }
-    .roaster,
-    .facilitator {
-        font-family: Muli;
-        font-size: 16px;
-        font-weight: 600;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #232334;
     }
     .logo-img {
         bottom: 6px;
@@ -91,28 +62,11 @@
     }
 }
 
-@media (max-width: 767px) {
-    .title {
-        text-align: center;
-    }
-}
-
 @media (max-width: 425px) {
-    .title {
-        text-align: left;
-        font-size: 22px;
-    }
-    .roaster,
-    .facilitator {
-        font-size: 16px;
-    }
     .dashboard-button {
         height: 56px;
         border-radius: 4px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .onboard-section {
-        padding-bottom: 15rem !important;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }

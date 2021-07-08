@@ -377,7 +377,7 @@
                         <span class="list-que"> {{ 'price' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> ${{ orderDetails.price + orderDetails.shipping_price }} USD/kg </span>
+                        <span class="list-ans"> ${{ orderDetails.price + orderDetails.shipping_price | number }} </span>
                     </td>
                 </tr>
 
