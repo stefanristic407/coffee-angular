@@ -120,7 +120,7 @@
                 <label>{{ 'price' | translate }}<span class="star">*</span></label>
                 <div class="p-input-icon-left">
                     <input type="number" formControlName="price" pInputText />
-                    <span class="left-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">SEK</span>
+                    <span class="left-icon fnt-14 fnt-600">SEK</span>
                     <small *ngIf="productForm.controls['price'].errors?.required" class="position-absolute p-error">
                         {{ 'required' | translate }}
                     </small>
@@ -130,9 +130,7 @@
                 <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
                 <div class="p-input-icon-right">
                     <input type="number" pInputText formControlName="available_quantity" />
-                    <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">{{
-                        productForm.value.available_quantity_type
-                    }}</span>
+                    <span class="right-icon fnt-14 fnt-normal">{{ productForm.value.available_quantity_type }}</span>
                     <small
                         *ngIf="productForm.controls['available_quantity'].errors?.required"
                         class="position-absolute p-error"
