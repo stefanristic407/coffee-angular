@@ -9,7 +9,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { FeaturesRoutingModule } from './features-routing.module';
 import { FeaturesComponent } from './features.component';
-import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
 import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
@@ -23,12 +22,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
-    declarations: [
-        OnboardCustomersComponent,
-        RoasterOnboardingComponent,
-        RoasterQuickSetupComponent,
-        FeaturesComponent,
-    ],
+    declarations: [OnboardCustomersComponent, RoasterQuickSetupComponent, FeaturesComponent],
     imports: [
         PaginatorModule,
         CommonModule,
