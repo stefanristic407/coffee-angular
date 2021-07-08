@@ -160,7 +160,10 @@
                                     </div>
                                 </div>
                                 <span class="d-none d-md-flex align-items-center" (click)="onViewDetails(rowData)">
-                                    <img class="product-image" src="{{ rowData['featured_image'] }}" />
+                                    <img
+                                        class="product-image"
+                                        [src]="rowData['featured_image'] || 'assets/images/empty.svg'"
+                                    />
                                     <div>
                                         {{ rowData[col.field] }}
                                         <div class="mt-2" *ngIf="type !== 'other'">
@@ -174,7 +177,10 @@
                             </span>
                             <span *ngSwitchCase="'featured_image'" (click)="onViewDetails(rowData)">
                                 <div class="d-flex">
-                                    <img class="product-image" src="{{ rowData['featured_image'] }}" />
+                                    <img
+                                        class="product-image"
+                                        [src]="rowData['featured_image'] || 'assets/images/empty.svg'"
+                                    />
                                     <div class="w-100">
                                         <div
                                             class="mob-row-item"
