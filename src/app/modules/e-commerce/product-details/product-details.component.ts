@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
-import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalsService, RoasterserviceService, ECommerceService, AuthService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
@@ -9,12 +9,15 @@ import { VariantDetailsComponent } from '../variant-details/variant-details.comp
 import { maxWordCountValidator } from '@utils';
 import { COUNTRY_LIST, LBUNIT } from '@constants';
 import * as moment from 'moment';
+import { DestroyableComponent } from '@base-components';
+import { takeUntil } from 'rxjs/operators';
+import { ApiResponse } from '@models';
 @Component({
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
     styleUrls: ['./product-details.component.scss'],
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent extends DestroyableComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
     eligibleArray: any = [];
     productForm: FormGroup;
@@ -80,6 +83,7 @@ export class ProductDetailsComponent implements OnInit {
         private eCommerceService: ECommerceService,
         private authService: AuthService,
     ) {
+        super();
         this.roasterId = this.authService.getOrgId();
     }
 
@@ -150,22 +154,57 @@ export class ProductDetailsComponent implements OnInit {
             //     this.variants.push(this.createEmptyVariant());
             // }
         });
-        promises.push(
-            new Promise((resolve, reject) => {
-                this.getVatData(resolve, reject);
-            }),
-        );
-        promises.push(
-            new Promise((resolve, reject) => {
-                this.getRoasterBatches(resolve, reject);
-            }),
-        );
+        promises.push(new Promise((resolve, reject) => this.getVatData(resolve, reject)));
+        promises.push(new Promise((resolve, reject) => this.getRoasterBatches(resolve, reject)));
         Promise.all(promises).then(() => {
             if (this.productID && this.productID !== 'add') {
                 this.getProductDetails();
             }
         });
+
         this.supplyBreadCrumb();
+        this.syncIsExternalProduct();
+    }
+
+    supplyBreadCrumb(): void {
+        this.breadCrumbItem = [
+            { label: this.globals.languageJson?.home, routerLink: '/' },
+            {
+                label: this.globals.languageJson?.ecommerce,
+            },
+            {
+                label: this.globals.languageJson[`${this.type}_product_catalog`],
+                routerLink: `/e-commerce/product-list/${this.type}`,
+            },
+            { label: 'Add product' },
+        ];
+    }
+
+    syncIsExternalProduct() {
+        this.productForm
+            .get('is_external_product')
+            .valueChanges.pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe((isExternal: boolean) => {
+                (this.productForm.get('variants') as FormArray).controls.forEach((variantForm: FormGroup) => {
+                    if (isExternal) {
+                        variantForm.get('harvest_year').enable();
+                        variantForm.get('body').enable();
+                        variantForm.get('acidity').enable();
+                        variantForm.get('aroma').enable();
+                        variantForm.get('flavour').enable();
+                        variantForm.get('processing').setValidators(Validators.compose([Validators.required]));
+                        variantForm.get('processing').updateValueAndValidity();
+                    } else {
+                        variantForm.get('harvest_year').disable();
+                        variantForm.get('body').disable();
+                        variantForm.get('acidity').disable();
+                        variantForm.get('aroma').disable();
+                        variantForm.get('flavour').disable();
+                        variantForm.get('processing').clearValidators();
+                        variantForm.get('processing').setValue('');
+                    }
+                });
+            });
     }
 
     getVatData(resolve, reject) {
@@ -192,7 +231,6 @@ export class ProductDetailsComponent implements OnInit {
                         item.roast_batch_name = `Batch #${item.id} - ${item.roast_batch_name}`;
                         return item;
                     });
-                    // console.log(roastedBatches);
                     resolve();
                 } else {
                     reject();
@@ -228,8 +266,8 @@ export class ProductDetailsComponent implements OnInit {
 
     getProductDetails() {
         this.eCommerceService.getProductDetails(this.productID, this.type).subscribe(
-            (res) => {
-                if (res && res.result) {
+            (res: ApiResponse<any>) => {
+                if (res.success && res.result) {
                     const productDetails = res.result;
                     this.count = Object.keys(res.result?.variants).length;
                     this.isPublished = res.result.is_published;
@@ -314,7 +352,8 @@ export class ProductDetailsComponent implements OnInit {
                                 }
                             }
                         }
-                        const variantForm = this.fb.group(variant);
+                        const variantForm = this.createEmptyVariant(productDetails.is_external_product);
+                        variantForm.patchValue(variant);
                         const weightVariants = getVariant[0].weight_variants;
                         weightVariants.forEach((ele) => {
                             if (!productDetails.is_external_product) {
@@ -388,6 +427,7 @@ export class ProductDetailsComponent implements OnInit {
             },
         );
     }
+
     addNewVariants(): void {
         this.variants = this.productForm.get('variants') as FormArray;
         this.variants.push(this.createEmptyVariant(this.productForm.value.is_external_product));
@@ -396,6 +436,7 @@ export class ProductDetailsComponent implements OnInit {
             this.currentVariant = this.variants.length - 1;
         }, 0);
     }
+
     removeVariant(index: any) {
         this.variants = this.productForm.get('variants') as FormArray;
         if (index === this.currentVariant) {
@@ -420,19 +461,7 @@ export class ProductDetailsComponent implements OnInit {
             this.variantTypeArray = variantTypeArray;
         }, 200);
     }
-    supplyBreadCrumb(): void {
-        this.breadCrumbItem = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            {
-                label: this.globals.languageJson?.ecommerce,
-            },
-            {
-                label: this.globals.languageJson[`${this.type}_product_catalog`],
-                routerLink: `/e-commerce/product-list/${this.type}`,
-            },
-            { label: 'Add product' },
-        ];
-    }
+
     onBatchChange(idx) {
         this.variants = this.productForm.get('variants') as FormArray;
         const getVariant: any = this.variants.controls[idx];
@@ -452,6 +481,7 @@ export class ProductDetailsComponent implements OnInit {
             }
         }
     }
+
     createEmptyVariant(isExternalProduct?: boolean) {
         this.count++;
         return this.fb.group({
@@ -465,11 +495,23 @@ export class ProductDetailsComponent implements OnInit {
             estate_name: '',
             origin: '',
             region: '',
-            harvest_year: '',
-            body: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
-            acidity: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
-            aroma: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
-            flavour: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
+            harvest_year: new FormControl({ value: '', disabled: !isExternalProduct }),
+            body: [
+                { value: '', disabled: !isExternalProduct },
+                Validators.compose(this.isPublished ? [Validators.required] : []),
+            ],
+            acidity: [
+                { value: '', disabled: !isExternalProduct },
+                Validators.compose(this.isPublished ? [Validators.required] : []),
+            ],
+            aroma: [
+                { value: '', disabled: !isExternalProduct },
+                Validators.compose(this.isPublished ? [Validators.required] : []),
+            ],
+            flavour: [
+                { value: '', disabled: !isExternalProduct },
+                Validators.compose(this.isPublished ? [Validators.required] : []),
+            ],
             processing: ['', Validators.compose(isExternalProduct && this.isPublished ? [Validators.required] : [])],
             flavour_profiles: [],
             external_flavour_profiles: [],
@@ -481,6 +523,7 @@ export class ProductDetailsComponent implements OnInit {
             weight_variants: [],
         });
     }
+
     createEmptyCrate() {
         return this.fb.group({
             id: '',
@@ -520,6 +563,7 @@ export class ProductDetailsComponent implements OnInit {
             this.removedWeightVariants.push(event.productWeightVariantId);
         }
     }
+
     onWeightCreate(event) {
         if (this.type === 'b2b') {
             this.crates = this.productForm.get('crates') as FormArray;
@@ -603,14 +647,14 @@ export class ProductDetailsComponent implements OnInit {
         } else {
             const crates: any = [];
             for (const crate of productObj.crates) {
-                if (crate.crate_capacity?.length) {
+                if (!!crate.crate_capacity) {
                     crate.weight =
                         crate.crate_unit === 'lb'
                             ? crate.weight * LBUNIT
                             : crate.crate_unit === 'g'
                             ? crate.weight / 1000
                             : crate.weight;
-                    this.crates.push(crate);
+                    crates.push(crate);
                 }
             }
             productObj.crates = crates;
@@ -912,17 +956,5 @@ export class ProductDetailsComponent implements OnInit {
     getFlavourName(id) {
         const flavour = this.flavoursList.find((item) => item.flavour_profile_id === id);
         return flavour.flavour_profile_name;
-    }
-
-    onChangeExternalProduct(event) {
-        (this.productForm.get('variants') as FormArray).controls.forEach((variantForm) => {
-            if (event.value) {
-                variantForm.get('processing').setValidators(Validators.compose([Validators.required]));
-                variantForm.get('processing').updateValueAndValidity();
-            } else {
-                variantForm.get('processing').clearValidators();
-                variantForm.get('processing').setValue('');
-            }
-        });
     }
 }

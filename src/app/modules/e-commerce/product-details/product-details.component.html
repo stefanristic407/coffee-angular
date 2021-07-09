@@ -62,7 +62,6 @@
                     [placeholder]=""
                     formControlName="is_external_product"
                     optionValue="value"
-                    (onChange)="onChangeExternalProduct($event)"
                 ></p-dropdown>
             </div>
             <div class="col-12 col-lg-6 mt-lg-3 sewn-form-field">
@@ -309,7 +308,6 @@
                                 <label>{{ 'harvest_year' | translate }}</label>
                                 <p-calendar
                                     formControlName="harvest_year"
-                                    [disabled]="!productForm.get('is_external_product').value"
                                     view="month"
                                     dateFormat="MM yy"
                                     [yearNavigator]="true"
@@ -327,40 +325,28 @@
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'body' | translate }}</label>
-                                <p-inputNumber
-                                    [disabled]="!productForm.get('is_external_product').value"
-                                    formControlName="body"
-                                ></p-inputNumber>
+                                <p-inputNumber formControlName="body"></p-inputNumber>
                                 <small *ngIf="variant['controls']['body'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'acidity' | translate }}</label>
-                                <p-inputNumber
-                                    [disabled]="!productForm.get('is_external_product').value"
-                                    formControlName="acidity"
-                                ></p-inputNumber>
+                                <p-inputNumber formControlName="acidity"></p-inputNumber>
                                 <small *ngIf="variant['controls']['acidity'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'aroma' | translate }}</label>
-                                <p-inputNumber
-                                    [disabled]="!productForm.get('is_external_product').value"
-                                    formControlName="aroma"
-                                ></p-inputNumber>
+                                <p-inputNumber formControlName="aroma"></p-inputNumber>
                                 <small *ngIf="variant['controls']['aroma'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'flavor' | translate }}</label>
-                                <p-inputNumber
-                                    [disabled]="!productForm.get('is_external_product').value"
-                                    formControlName="flavour"
-                                ></p-inputNumber>
+                                <p-inputNumber formControlName="flavour"></p-inputNumber>
                                 <small *ngIf="variant['controls']['flavour'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
@@ -550,7 +536,7 @@
                         <label class="d-block d-md-none"
                             >{{ 'no_of_bags' | translate }}<span class="star">*</span></label
                         >
-                        <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
+                        <p-inputNumber formControlName="crate_capacity"></p-inputNumber>
                         <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
