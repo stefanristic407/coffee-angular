@@ -2,7 +2,10 @@
 
 :host {
     @media all and (max-width: 767px) {
-        .d-flex.w-100 {
+        .lot-detail-width-adjust {
+            width: 100%;
+        }
+        .d-flex.lot-detail-width-adjust {
             padding-top: 16px;
             padding-bottom: 12px;
 
@@ -12,6 +15,20 @@
 
             span {
                 width: 50%;
+            }
+        }
+    }
+    @media (min-width: 768px) {
+        .lot-detail-block {
+            .lot-detail-width-adjust {
+                width: 25%;
+            }
+            .lot-detail-wrapper {
+                &:first-child {
+                    margin-bottom: 23px;
+                    padding-bottom: 23px;
+                    border-bottom: 1px dashed #ebebeb;
+                }
             }
         }
     }
