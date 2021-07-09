@@ -7,7 +7,7 @@
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="d-flex flex-column flex-md-row justify-content-md-between">
             <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli fnt-clr334">
-                {{ productName || ('add_new_product' | translate) }}
+                {{ productID ? productName || 'NA' : ('add_new_product' | translate) }}
             </span>
             <div *ngIf="productID" class="">
                 <p-divider type="dashed" styleClass="d-block d-md-none"></p-divider>
@@ -54,7 +54,7 @@
                     {{ 'required' | translate }}
                 </small>
             </div>
-            <div class="col-12 col-md-6 col-lg-3 sewn-form-field" *ngIf="type === 'b2c'">
+            <div class="col-12 col-md-6 col-lg-3 sewn-form-field" *ngIf="type === ProductType.b2c">
                 <label>{{ 'is_product_bought_platform' | translate }}</label>
                 <p-dropdown
                     [options]="boughtOnPlatformOptions"
@@ -62,7 +62,6 @@
                     [placeholder]=""
                     formControlName="is_external_product"
                     optionValue="value"
-                    (onChange)="onChangeExternalProduct($event)"
                 ></p-dropdown>
             </div>
             <div class="col-12 col-lg-6 mt-lg-3 sewn-form-field">
@@ -309,7 +308,6 @@
                                 <label>{{ 'harvest_year' | translate }}</label>
                                 <p-calendar
                                     formControlName="harvest_year"
-                                    [disabled]="!productForm.get('is_external_product').value"
                                     view="month"
                                     dateFormat="MM yy"
                                     [yearNavigator]="true"
@@ -327,40 +325,28 @@
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'body' | translate }}</label>
-                                <p-inputNumber
-                                    [disabled]="!productForm.get('is_external_product').value"
-                                    formControlName="body"
-                                ></p-inputNumber>
+                                <p-inputNumber formControlName="body"></p-inputNumber>
                                 <small *ngIf="variant['controls']['body'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'acidity' | translate }}</label>
-                                <p-inputNumber
-                                    [disabled]="!productForm.get('is_external_product').value"
-                                    formControlName="acidity"
-                                ></p-inputNumber>
+                                <p-inputNumber formControlName="acidity"></p-inputNumber>
                                 <small *ngIf="variant['controls']['acidity'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'aroma' | translate }}</label>
-                                <p-inputNumber
-                                    [disabled]="!productForm.get('is_external_product').value"
-                                    formControlName="aroma"
-                                ></p-inputNumber>
+                                <p-inputNumber formControlName="aroma"></p-inputNumber>
                                 <small *ngIf="variant['controls']['aroma'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
                                 <label>{{ 'flavor' | translate }}</label>
-                                <p-inputNumber
-                                    [disabled]="!productForm.get('is_external_product').value"
-                                    formControlName="flavour"
-                                ></p-inputNumber>
+                                <p-inputNumber formControlName="flavour"></p-inputNumber>
                                 <small *ngIf="variant['controls']['flavour'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
@@ -516,7 +502,7 @@
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <div [ngClass]="this.type === 'b2b' ? 'd-block' : 'd-none'">
+        <div [ngClass]="this.type === ProductType.b2b ? 'd-block' : 'd-none'">
             <p-divider type="dashed" styleClass="my-4 my-lg-45"></p-divider>
             <div class="col-12 p-0">
                 <p class="primary_txt fnt-16 mb-2">
@@ -550,7 +536,7 @@
                         <label class="d-block d-md-none"
                             >{{ 'no_of_bags' | translate }}<span class="star">*</span></label
                         >
-                        <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
+                        <p-inputNumber formControlName="crate_capacity"></p-inputNumber>
                         <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
@@ -586,7 +572,7 @@
                     formControlName="is_price_including_vat"
                     binary="true"
                     [label]="'price_inclusive_vat' | translate"
-                    [readonly]="type === 'b2c'"
+                    [readonly]="type === ProductType.b2c"
                 >
                 </p-checkbox>
             </div>
