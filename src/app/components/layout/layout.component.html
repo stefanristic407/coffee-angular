@@ -349,7 +349,6 @@
     <div class="container">
         <div class="router-design" [class]="{ 'hide-footer-for-chat': !showFooter() }">
             <ng-container *ngIf="loaded; else mainLoader">
-                <app-sewn-direct-message></app-sewn-direct-message>
                 <app-search-panel
                     [show]="showSearch"
                     [searchStr]="searchString"
@@ -357,6 +356,7 @@
                     (closeEmitter)="closeSearchPanel()"
                 ></app-search-panel>
                 <div [class.d-none]="showSearch">
+                    <app-sewn-direct-message></app-sewn-direct-message>
                     <router-outlet></router-outlet>
                 </div>
             </ng-container>
