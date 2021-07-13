@@ -51,46 +51,8 @@
 }
 
 ::ng-deep {
-    .p-dialog-confirm {
-        @media (max-width: 575px) {
-            margin: 12px;
-        }
-
-        width: auto;
-        border-radius: 8px;
-
-        .p-dialog-header {
-            display: none;
-        }
-
-        .confirm-body {
-            padding: 40px 24px 40px 32px;
-
-            @media (min-width: 576px) {
-                padding: 34px 46px;
-            }
-
-            img {
-                width: 52px;
-            }
-
-            h1 {
-                font-size: 28px;
-                color: #020202;
-            }
-
-            h4 {
-                color: #747588;
-            }
-
-            .button-group {
-                // margin-top: 32px;
-            }
-
-            .p-dialog-mask-scrollblocker {
-                background-color: rgba(0, 0, 0, 0.8);
-            }
-        }
+    .confirm-dialog.p-dialog {
+        max-width: 530px;
     }
 
     .p-datatable.p-datatable-evaluators {
