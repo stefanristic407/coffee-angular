@@ -158,8 +158,8 @@
                                 <span *ngSwitchCase="'type'">
                                     <div class="d-flex justify-content-between align-items-center px-0">
                                         <span
-                                            *ngIf="!isMobileView"
-                                            class="fnt-muli fnt-14 fnt-bold text-clr588 col-6 p-0"
+                                            *ngIf="isMobileView"
+                                            class="fnt-muli fnt-14 fnt-bold text-clr588 col-6 p-0 d-none d-md-block"
                                         >
                                             {{ col['header'] }}
                                         </span>
