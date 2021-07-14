@@ -156,16 +156,16 @@
                                     </span>
                                 </span>
                                 <span *ngSwitchCase="'type'">
-                                    <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
+                                    <div class="d-flex justify-content-between align-items-center px-0">
                                         <span
-                                            *ngIf="isMobileView"
+                                            *ngIf="!isMobileView"
                                             class="fnt-muli fnt-14 fnt-bold text-clr588 col-6 p-0"
                                         >
                                             {{ col['header'] }}
                                         </span>
 
                                         <span
-                                            class="ellipsis navigation-link"
+                                            class="ellipsis navigation-link mb-3 mb-md-0"
                                             [routerLink]="'/green-grading/assign-user/' + rowData.order_id"
                                         >
                                             {{ rowData[col.field] || 'Assign' }}

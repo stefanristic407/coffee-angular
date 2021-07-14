@@ -91,6 +91,11 @@ export class AssignOrdersComponent implements OnInit {
                     sortable: false,
                     isCut: true,
                 },
+                {
+                    field: 'type',
+                    header: 'Type',
+                    sortable: false,
+                },
             ];
         } else {
             this.isMobileView = false;
