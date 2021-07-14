@@ -352,7 +352,8 @@
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
-                                <label>{{ 'processing' | translate }}</label>
+                                <label>{{ 'processing' | translate }} <span class="star">*</span></label>
+
                                 <input
                                     type="text"
                                     [readonly]="!productForm.get('is_external_product').value"

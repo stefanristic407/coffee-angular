@@ -88,7 +88,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     productName: any = '';
     removedWeightVariants: any = [];
     flavoursList: any[];
-    isPublished: boolean;
+    isPublished: boolean = false;
     thisYear = new Date().getFullYear();
     countryArray: any[] = COUNTRY_LIST;
     variantCnt = 0;
@@ -265,7 +265,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 if (res.success && res.result) {
                     const productDetails = res.result;
                     this.variantCnt = Object.keys(res.result?.variants).length;
-                    this.isPublished = res.result.is_published;
+                    this.isPublished = !!res.result.is_published;
                     if (!this.isPublished) {
                         Object.keys(this.productForm.controls).forEach((key) => {
                             this.productForm.get(key).clearValidators();
@@ -759,9 +759,9 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 };
                 if (this.type === ProductType.b2c) {
                     if (this.productForm.value.is_external_product) {
-                        weightObj.variant_details.flavour_profiles = getVariantDetails.external_flavour_profiles.map(
-                            (item) => item.flavour_profile_id ?? item,
-                        );
+                        weightObj.variant_details.flavour_profiles = (
+                            getVariantDetails.external_flavour_profiles || []
+                        ).map((item) => item.flavour_profile_id ?? item);
                     } else {
                         weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles.map(
                             (item) => item.flavour_profile_id ?? item,
@@ -936,6 +936,10 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 .setValidators(Validators.compose([Validators.required, maxWordCountValidator(10)]));
             variantForm.get('roaster_recommendation').updateValueAndValidity();
         }
+    }
+
+    get isExternalFlag() {
+        return !!this.productForm?.value?.is_external_product;
     }
 
     onChangeSetDefault(value) {
