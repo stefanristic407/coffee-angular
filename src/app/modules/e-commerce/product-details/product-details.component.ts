@@ -625,6 +625,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             this.toasterService.error('Please fill all Data and upload feature image.');
         }
     }
+
     createNewProduct(productObj) {
         for (const key of Object.keys(productObj)) {
             if (!productObj[key]) {
@@ -649,9 +650,10 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             productObj.crates = crates;
         }
         this.eCommerceService.addProductDetails(productObj, this.type).subscribe(
-            (res) => {
+            (res: ApiResponse<any>) => {
                 if (res && res.success) {
-                    this.GrindVariantsDetails(res.result.id, true);
+                    this.productID = res.result.id;
+                    this.grindVariantsDetails(true);
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
@@ -661,6 +663,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             },
         );
     }
+
     updateProductDetails(productObj) {
         delete productObj.variants;
         if (this.type === ProductType.b2b) {
@@ -692,7 +695,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         this.eCommerceService.updateProductDetails(this.productID, productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
-                    this.GrindVariantsDetails(this.productID, false);
+                    this.grindVariantsDetails(false);
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
@@ -702,7 +705,8 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             },
         );
     }
-    GrindVariantsDetails(productID, isNew) {
+
+    grindVariantsDetails(isNew) {
         const promises: any[] = [];
         let includeDefault = false;
         for (const variantComponet of this.variantComponent) {
@@ -800,7 +804,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 if (weight.isNew) {
                     promises.push(
                         new Promise((resolve, reject) => {
-                            this.addNewGrindVariant(productID, weightObj, resolve, reject);
+                            this.addNewGrindVariant(this.productID, weightObj, resolve, reject);
                         }),
                     );
                 } else if (weightVariantID) {
@@ -815,7 +819,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         for (const weightVariant of this.removedWeightVariants) {
             promises.push(
                 new Promise((resolve, reject) => {
-                    this.deleteWeightVariant(productID, weightVariant, resolve, reject);
+                    this.deleteWeightVariant(this.productID, weightVariant, resolve, reject);
                 }),
             );
         }
@@ -863,6 +867,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             },
         );
     }
+
     updateGrindVariant(weightObj, weightVariantID, resolve, reject) {
         delete weightObj.product_weight_variant_id;
         delete weightObj.fileDetails;
@@ -888,6 +893,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 },
             );
     }
+
     validateForms() {
         let returnFlag = true;
         if (!this.productForm.valid) {
@@ -897,15 +903,17 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         this.variantComponent.forEach((child) => {
             if (!child.weightForm.valid) {
                 returnFlag = false;
-                return;
+                return returnFlag;
             }
         });
         return returnFlag;
     }
+
     togglePublic(flag) {
         this.productForm.controls.is_public.setValue(flag);
         this.onSave();
     }
+
     createTypeVariantArray() {
         const variantTypeArray = [];
         const variant = this.productForm.get('variants') as FormArray;
