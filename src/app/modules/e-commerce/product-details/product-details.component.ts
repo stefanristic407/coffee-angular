@@ -475,7 +475,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             roaster_ref_no: '',
             batch_ref_no: '',
             roasting_profile_name: '',
-            roast_level: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
+            roast_level: ['', Validators.compose([Validators.required])],
             roast_time: '',
             estate_name: '',
             origin: '',
