@@ -521,7 +521,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             weight_name: '0 lb',
             product_weight_variant_id: '',
             crate_capacity: [
-                '',
+                0,
                 Validators.compose(this.type === ProductType.b2c || !this.isPublished ? [] : [Validators.required]),
             ],
             variant_name: '',
@@ -637,15 +637,15 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         } else {
             const crates: any = [];
             for (const crate of productObj.crates) {
-                if (!!crate.crate_capacity) {
-                    crate.weight =
-                        crate.crate_unit === 'lb'
-                            ? crate.weight * LBUNIT
-                            : crate.crate_unit === 'g'
-                            ? crate.weight / 1000
-                            : crate.weight;
-                    crates.push(crate);
-                }
+                // if (!!crate.crate_capacity) {
+                crate.weight =
+                    crate.crate_unit === 'lb'
+                        ? crate.weight * LBUNIT
+                        : crate.crate_unit === 'g'
+                        ? crate.weight / 1000
+                        : crate.weight;
+                crates.push(crate);
+                // }
             }
             productObj.crates = crates;
         }

@@ -261,7 +261,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             isNew: true,
             product_images: [],
             weight: [
-                null,
+                0,
                 Validators.compose(isPublic ? [Validators.required, quantityMinValidator('weight_unit', 0.1)] : []),
             ],
             status: [
