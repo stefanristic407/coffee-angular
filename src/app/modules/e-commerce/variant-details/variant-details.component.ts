@@ -5,7 +5,7 @@ import { GlobalsService, ResizeService, FileService, AuthService } from '@servic
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
-import { trackFileName } from '@utils';
+import { quantityMinValidator, trackFileName } from '@utils';
 
 @Component({
     selector: 'app-variant-details',
@@ -260,7 +260,10 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             fileDetails: null,
             isNew: true,
             product_images: [],
-            weight: [0, Validators.compose(isPublic ? [Validators.required] : [])],
+            weight: [
+                null,
+                Validators.compose(isPublic ? [Validators.required, quantityMinValidator('weight_unit', 0.1)] : []),
+            ],
             status: [
                 this.isPublished ? 'IN-STOCK' : 'IN-DRAFT',
                 Validators.compose(isPublic ? [Validators.required] : []),
