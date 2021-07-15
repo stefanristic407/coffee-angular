@@ -88,7 +88,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     productName: any = '';
     removedWeightVariants: any = [];
     flavoursList: any[];
-    isPublished: boolean = false;
+    isPublished = false;
     thisYear = new Date().getFullYear();
     countryArray: any[] = COUNTRY_LIST;
     variantCnt = 0;
@@ -611,7 +611,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
 
     onSave(): void {
         if (this.validateForms()) {
-            const productObj = this.productForm.value;
+            const productObj = JSON.parse(JSON.stringify(this.productForm.value));
             if (this.productID) {
                 this.updateProductDetails(productObj);
             } else {
