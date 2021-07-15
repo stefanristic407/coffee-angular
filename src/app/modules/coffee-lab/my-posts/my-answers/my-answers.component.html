@@ -125,8 +125,7 @@
                             >{{ 'read_complete_answer' | translate }}</a
                         >
                         <div *ngIf="answer?.question_state === 'DELETED'" class="fnt-bold fnt-14 text-clr334">
-                            {{ 'note' | translate }}: The author has delete the original post, your answer will no
-                            longer be visible to the community
+                            {{ 'note' | translate }}: {{ 'the_author_delete' | translate }}
                         </div>
                     </div>
                 </div>
