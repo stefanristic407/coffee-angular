@@ -105,7 +105,6 @@
                         </div>
                         <div class="col-12 col-md-4 col-lg-3 sewn-form-field">
                             <label>{{ 'weight' | translate }}<span class="star">*</span></label>
-
                             <div class="input-and-select gray">
                                 <p-inputNumber formControlName="weight"></p-inputNumber>
                                 <p-dropdown
@@ -116,11 +115,11 @@
                                     optionValue="value"
                                     (onChange)="onWeightUnitChange()"
                                 ></p-dropdown>
-                                <small
-                                    *ngIf="currentForm?.controls['weight'].errors?.required"
-                                    class="position-absolute p-error"
-                                >
+                                <small *ngIf="currentForm?.controls['weight'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
+                                </small>
+                                <small *ngIf="currentForm?.controls['weight'].errors?.min" class="p-error">
+                                    {{ 'minimum_quantity_is_100g' | translate }}
                                 </small>
                             </div>
                         </div>
