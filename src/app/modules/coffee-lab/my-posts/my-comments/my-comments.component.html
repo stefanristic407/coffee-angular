@@ -129,10 +129,15 @@
                     </div>
                     <div class="mt-4">
                         <a
+                            *ngIf="comment?.post_state === 'ACTIVE'"
                             class="custom-link ml-1"
                             [routerLink]="'/coffee-lab/' + comment?.post_type + 's' + '/' + comment?.post_slug"
                             >{{ 'view_post' | translate }}</a
                         >
+                        <div *ngIf="comment?.post_state === 'DELETED'" class="fnt-bold fnt-14 text-clr334">
+                            {{ 'note' | translate }}: The author has delete the original post, your answer will no
+                            longer be visible to the community
+                        </div>
                     </div>
                 </div>
             </div>

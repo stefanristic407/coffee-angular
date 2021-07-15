@@ -118,11 +118,16 @@
                     </div>
                     <div class="mt-4">
                         <a
+                            *ngIf="answer?.question_state === 'ACTIVE'"
                             class="brown-cta ml-1"
                             [routerLink]="'/coffee-lab/questions/' + answer.question_slug"
                             [queryParams]="{ answer: answer.answer_id }"
                             >{{ 'read_complete_answer' | translate }}</a
                         >
+                        <div *ngIf="answer?.question_state === 'DELETED'" class="fnt-bold fnt-14 text-clr334">
+                            {{ 'note' | translate }}: The author has delete the original post, your answer will no
+                            longer be visible to the community
+                        </div>
                     </div>
                 </div>
             </div>
