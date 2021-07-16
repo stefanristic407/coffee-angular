@@ -30,11 +30,11 @@ const routes: Routes = [
             //     component: OrderSupportComponent,
             //     canActivate: [AuthGuard],
             // },
-            {
-                path: 'order-support-faq/:orderId',
-                component: FaqQuestionComponent,
-                canActivate: [AuthGuard],
-            },
+            // {
+            //     path: 'order-support-faq/:orderId',
+            //     component: FaqQuestionComponent,
+            //     canActivate: [AuthGuard],
+            // },
             {
                 path: 'raised-tickets/:orgType',
                 component: RaisedTicketsComponent,
