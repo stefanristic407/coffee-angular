@@ -162,6 +162,8 @@
         &.mobile-notification-overlay {
             background: #f1f1f1;
             width: 100%;
+            position: fixed !important;
+            display: block !important;
             top: 56px !important;
             box-shadow: none;
             border: none;
