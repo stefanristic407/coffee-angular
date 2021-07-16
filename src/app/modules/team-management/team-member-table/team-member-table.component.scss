@@ -1,14 +1,12 @@
 @import 'variables';
-.custom-popover {
-    li {
-        list-style: none;
-        padding-right: 4.5rem;
-        border: none !important;
+
+:host ::ng-deep {
+    .role-selector.p-dropdown .p-dropdown-label {
+        font-size: 18px;
+        font-weight: 700;
     }
 }
-.ellipsisWidth {
-    width: 5%;
-}
+
 ::ng-deep .userTable .p-datatable .p-sortable-column:not(.p-highlight):hover {
     background: #ffffff;
 }
@@ -23,9 +21,7 @@
     padding: 0px !important;
     text-align: center;
 }
-.selectedRoleHeader {
-    color: $primary-color;
-}
+
 ::ng-deep .userTable .ui-column-filter {
     margin-bottom: 0px !important;
     border: 0px !important;
@@ -83,22 +79,7 @@
     color: #232334;
     font-size: 14px;
 }
-.list-group-item {
-    border: none;
-    font-family: 'Muli';
-    font-size: 14px;
-    font-weight: 600 !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #747588;
-    &:hover {
-        color: #232334;
-        font-weight: 600 !important;
-        background-color: #f8f8f8;
-    }
-}
+
 ::ng-deep .userTable .p-checkbox {
     margin-left: 0px;
 }

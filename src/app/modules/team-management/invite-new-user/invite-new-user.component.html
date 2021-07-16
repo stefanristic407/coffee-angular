@@ -1,27 +1,27 @@
 <div class="main-block">
-    <div class="row mb-3">
-        <div class="col-10">
-            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
-        </div>
+    <div class="mb-3">
+        <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <span class="d-none d-md-flex primary_txt">
-                {{ globals.languageJson?.new_members_to }}
-                <span
-                    class="d-flex align-items-center w-fit-content primary_txt roleTxt-selector pl-1"
-                    (click)="op.toggle($event)"
-                >
-                    <span>{{ selectedRole }}</span>
-                    <i class="pi pi-angle-down text-clr55c fnt-22"></i>
-                </span>
-            </span>
-            <div class="d-block d-md-none primary_txt">Create Role</div>
-        </div>
+    <div class="mb-3 mb-md-4">
+        <span class="d-none d-md-flex fnt-18 fnt-700">
+            {{ 'invite_new_members_to' | translate }}&nbsp;
+            <p-dropdown
+                [options]="roleList"
+                optionLabel="name"
+                optionValue="id"
+                scrollHeight="225px"
+                placeholder="All Roles"
+                [(ngModel)]="currentRoleID"
+                styleClass="no-border no-padding accent role-selector"
+            >
+            </p-dropdown>
+        </span>
+        <div class="d-block d-md-none primary_txt">{{ 'create_role' | translate }}</div>
     </div>
+
     <div class="d-block d-md-none col-12 p-0 mt-3">
         <div class="sewn-form-field w-100">
-            <label>Add member<span class="star">*</span></label>
+            <label>{{ 'add_member' | translate }}<span class="star">*</span></label>
             <p-dropdown
                 [options]="roleList"
                 optionLabel="name"
@@ -47,21 +47,8 @@
                 {{ 'cancel' | translate }}
             </button>
             <button (click)="onInvite()" [disabled]="!currentRoleID" class="btn-raised mb-3 w-mob-100">
-                Send Invites
+                {{ 'send_invites' | translate }}
             </button>
         </div>
     </div>
-
-    <p-overlayPanel #op [dismissable]="true" appendTo="body" styleClass="p-overlaypanel-role">
-        <div class="overflow-popover">
-            <ul class="custom-popover">
-                <li class="content_list" *ngFor="let role of roleList" (click)="setTeamRole(role); op.hide()">
-                    {{ role.name }}
-                </li>
-            </ul>
-            <button class="btn btn-stroked w-100" routerLink="/team-management/create-role">
-                {{ 'add_role' | translate }}
-            </button>
-        </div>
-    </p-overlayPanel>
 </div>

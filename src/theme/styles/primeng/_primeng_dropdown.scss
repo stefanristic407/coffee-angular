@@ -94,8 +94,8 @@
     transform: rotate(180deg);
 }
 
-.p-dropdown:not(.p-disabled):hover .p-dropdown-label.p-placeholder,
-.p-dropdown:not(.p-disabled).p-focus .p-dropdown-label.p-placeholder {
+.p-dropdown:not(.p-disabled):not(.accent):hover .p-dropdown-label.p-placeholder,
+.p-dropdown:not(.p-disabled):not(.accent).p-focus .p-dropdown-label.p-placeholder {
     color: $general-text-color;
 }
 

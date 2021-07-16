@@ -13,12 +13,12 @@ import { EditUserDetailsComponent } from '../edit-user-details/edit-user-details
 })
 export class InviteNewUserComponent implements OnInit {
     currentRoleID: any = '';
-    selectedRole: any = 'Select Role';
     roleList: any = [];
     roasterID: any = '';
     breadCrumbItem: MenuItem[] = [];
     password = 'Ro@Sewn1234';
     @ViewChild(EditUserDetailsComponent, { static: false }) userDetails;
+
     constructor(
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
@@ -38,12 +38,12 @@ export class InviteNewUserComponent implements OnInit {
         this.supplyBreadCrumb();
         this.listRoles();
     }
+
     listRoles(): void {
         this.roasterService.getRoles(this.roasterID).subscribe(
             (response: any) => {
                 if (response.success) {
                     const getCurrentRole = response.result.find((ele) => ele.id === this.currentRoleID);
-                    this.selectedRole = getCurrentRole ? getCurrentRole.name : 'Select Role';
                     this.currentRoleID = getCurrentRole ? getCurrentRole.id : '';
                 }
                 this.roleList = response.result;
@@ -53,10 +53,7 @@ export class InviteNewUserComponent implements OnInit {
             },
         );
     }
-    setTeamRole(currentRole): void {
-        this.selectedRole = currentRole.name;
-        this.currentRoleID = currentRole.id;
-    }
+
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
@@ -73,6 +70,7 @@ export class InviteNewUserComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj4);
     }
+
     onInvite() {
         if (this.userDetails.userForm.valid) {
             const getArrayLength = this.userDetails.userForm.value.items;
@@ -88,6 +86,7 @@ export class InviteNewUserComponent implements OnInit {
             this.toastrService.error('Please fill correct data');
         }
     }
+
     async addUserToRoaster(userInput) {
         const existUser: any = await this.userService.getUser({ email: userInput.email }).toPromise();
         let userId;
@@ -118,6 +117,7 @@ export class InviteNewUserComponent implements OnInit {
             this.showError('add');
         }
     }
+
     showError(flag) {
         if (flag === 'add') {
             this.toastrService.error('Error while creating a new user');

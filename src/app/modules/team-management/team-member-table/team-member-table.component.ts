@@ -21,7 +21,6 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     readonly UserStatus = UserStatus;
     roasterID: any;
     breadCrumbItem: MenuItem[] = [];
-    selectedRole;
     termStatus;
     termRole;
     termRoleName;
@@ -124,7 +123,6 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             (response: any) => {
                 if (response.success) {
                     const getCurrentRole: any = response.result.find((ele) => ele.id === this.currentRoleID);
-                    this.selectedRole = getCurrentRole ? getCurrentRole.name : '';
                     if (!this.isAddMember) {
                         this.termRole = this.currentRoleID;
                         this.termRoleName = getCurrentRole ? getCurrentRole.name : '';
@@ -232,11 +230,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj4);
     }
-    setTeamRole(): void {
-        const getSelectedRole = this.roleList.find((ele) => ele['id'] === this.currentRoleID);
-        this.selectedRole = getSelectedRole ? getSelectedRole.name : '';
-        this.filterSelectedRoleUser();
-    }
+
     inviteNewMembers() {
         const navigationExtras: NavigationExtras = {
             queryParams: {

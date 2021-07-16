@@ -15,23 +15,22 @@
     </div>
     <div class="d-flex justify-content-between mt-4 mt-md-2 mt-lg-4">
         <div class="w-mob-100">
-            <div *ngIf="isAddMember" class="d-inline p-0 primary_txt userTable">
-                {{ 'add_team_members' | translate }}
-                <p-dropdown
-                    [options]="roleList"
-                    optionLabel="name"
-                    optionValue="id"
-                    (onChange)="setTeamRole()"
-                    scrollHeight="225px"
-                    placeholder="All Roles"
-                    [(ngModel)]="currentRoleID"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 ui-column-filter headerFilter"
-                >
-                    <ng-template pTemplate="selectedItem">
-                        <span class="primary_txt fnt-700 selectedRoleHeader">{{ selectedRole }}</span>
-                    </ng-template>
-                </p-dropdown>
-                <div class="secondary_txt mt-1">{{ 'select_members_role' | translate }}</div>
+            <div *ngIf="isAddMember">
+                <span class="d-none d-md-flex fnt-18 fnt-700 mb-1">
+                    {{ 'add_team_members_to' | translate }}&nbsp;
+                    <p-dropdown
+                        [options]="roleList"
+                        optionLabel="name"
+                        optionValue="id"
+                        (onChange)="filterSelectedRoleUser()"
+                        scrollHeight="225px"
+                        placeholder="All Roles"
+                        [(ngModel)]="currentRoleID"
+                        styleClass="no-border no-padding accent role-selector"
+                    >
+                    </p-dropdown>
+                </span>
+                <div class="fnt-600 text-clr588">{{ 'select_members_role' | translate }}</div>
             </div>
             <div *ngIf="!isAddMember" class="d-inline primary_txt p-0">{{ 'user_management' | translate }}</div>
             <div class="d-flex d-md-none mt-4 flex-column">
@@ -111,7 +110,7 @@
                 *ngIf="selectedUsers && selectedUsers.length > 0"
                 class="d-none d-md-flex align-items-center justify-content-end p-0 pt-4"
             >
-                <span class="secondary_txt float-right mr-3">
+                <span class="fnt-600 text-clr588 float-right mr-3">
                     Selected: {{ selectedUsers.length | number: '2.0' }}
                 </span>
                 <button
@@ -135,7 +134,7 @@
         </div>
     </div>
     <div *ngIf="selectedUsers && selectedUsers.length > 0" class="d-flex d-sm-flex d-md-none pt-3 align-items-center">
-        <span class="secondary_txt"> {{ selectedUsers.length }} selected </span>
+        <span class="fnt-600 text-clr588"> {{ selectedUsers.length }} selected </span>
         <button
             *ngIf="selectedUsers.length > 0"
             type="button"
