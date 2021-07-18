@@ -37,7 +37,7 @@
                 <div class="sewn-form-field slug-input mr-3 mr-md-2 mb-0">
                     <input
                         type="text"
-                        [(ngModel)]="slug"
+                        [formControl]="infoForm.controls.slug"
                         placeholder="your-custom-name"
                         pInputText
                         [readonly]="roasterSlug"

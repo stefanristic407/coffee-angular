@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService, GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-brand-profile',
@@ -35,7 +36,7 @@ export class BrandProfileComponent implements OnInit {
     ];
     roasterId: number;
     roasterSlug: string;
-    slug;
+    infoForm: FormGroup;
 
     constructor(
         private toastrService: ToastrService,
@@ -43,10 +44,10 @@ export class BrandProfileComponent implements OnInit {
         private cookieService: CookieService,
         private roasterSrv: RoasterserviceService,
         private authService: AuthService,
+        private fb: FormBuilder,
     ) {
         this.roasterId = this.authService.getOrgId();
-        this.roasterSlug = this.authService.currentOrganization.slug;
-        this.slug = this.roasterSlug;
+        // this.roasterSlug = this.authService.currentOrganization.slug;
     }
 
     ngOnInit(): void {
@@ -55,24 +56,32 @@ export class BrandProfileComponent implements OnInit {
             { label: this.globals.languageJson?.brand_experience },
             { label: this.globals.languageJson?.brand_profile },
         ];
+        this.infoForm = this.fb.group({
+            slug: [this.roasterSlug, [Validators.required, Validators.pattern(/^[a-z_-]+$/)]],
+        });
     }
 
     updateSlug() {
-        if (this.slug) {
-            this.roasterSrv.updateRoasterSlug(this.roasterId, this.slug).subscribe((res: any) => {
+        if (this.infoForm.valid) {
+            this.roasterSrv.updateRoasterSlug(this.roasterId, this.infoForm.value.slug).subscribe((res: any) => {
                 if (res.success) {
                     this.authService.organizationSubject.next({
                         ...this.authService.currentOrganization,
-                        slug: this.slug,
+                        slug: this.infoForm.value.slug,
                     });
-                    this.roasterSlug = this.slug;
+                    this.roasterSlug = this.infoForm.value.slug;
                     this.toastrService.success('Slug updated successfully');
                 } else {
                     this.toastrService.error('Error while updating slug');
                 }
             });
         } else {
-            this.toastrService.error('Please enter slug');
+            console.log(this.infoForm.controls.slug);
+            if (this.infoForm.controls.slug.errors?.required) {
+                this.toastrService.error('Please enter slug');
+            } else if (this.infoForm.controls.slug.errors?.pattern) {
+                this.toastrService.error('Please enter valid slug');
+            }
         }
     }
 }
