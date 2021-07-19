@@ -13,20 +13,33 @@ import { SharedServiceService } from '@app/shared/services/shared-service.servic
     styleUrls: ['./coffee-sale.component.scss'],
 })
 export class CoffeeSaleComponent implements OnInit {
-    appLanguage?: any;
-    lotSaleActive: any = 0;
+    loaded = false;
     roasterID: any = '';
     orderDetails: any;
     orderID: any = '';
     showDropdown = false;
     statusLabel = 'In stock';
     breadItems: any = [];
-    quantityUnitArray: any = [];
+    quantityUnitArray: any = [
+        { label: 'Bags', value: 'bags' },
+        { label: 'kg', value: 'kg' },
+    ];
     coffeeSaleForm: FormGroup;
-    priceTypeArray: any = [];
-    stockTypeArray: any = [];
+    priceTypeArray: any = [
+        { label: 'Per kg', value: 'kg' },
+        { label: 'per lb', value: 'lb' },
+    ];
+    stockTypeArray: any = [
+        { label: 'In stock', value: 'IN_STOCK' },
+        { label: 'Sold', value: 'SOLD' },
+        { label: 'Hidden', value: 'HIDDEN' },
+    ];
     vatDetailsArray: any = [];
-    weightTypeArray: any = [];
+    weightTypeArray: any = [
+        { label: 'kg', value: 'kg' },
+        { label: 'lb', value: 'lb' },
+        { label: 'tonnes', value: 'tonnes' },
+    ];
     tableColumns = [];
     tableValue = [];
     remaining: any;
@@ -52,47 +65,27 @@ export class CoffeeSaleComponent implements OnInit {
             { label: 'Procured coffee', routerLink: `/green-coffee-management/green-coffee-inventory` },
             { label: `Order #${this.orderID}` },
         ];
-        this.quantityUnitArray = [
-            { label: 'Bags', value: 'bags' },
-            { label: 'kg', value: 'kg' },
-        ];
-        this.priceTypeArray = [
-            { label: 'Per kg', value: 'kg' },
-            { label: 'per lb', value: 'lb' },
-        ];
-        this.stockTypeArray = [
-            { label: 'In stock', value: 'IN_STOCK' },
-            { label: 'Sold', value: 'SOLD' },
-            { label: 'Hidden', value: 'HIDDEN' },
-        ];
-        this.weightTypeArray = [
-            { label: 'kg', value: 'kg' },
-            { label: 'lb', value: 'lb' },
-            { label: 'tonnes', value: 'tonnes' },
-        ];
-        this.coffeeSaleForm = this.fb.group({
-            name: ['', Validators.compose([Validators.required])],
-            price: ['', Validators.compose([Validators.required])],
-            price_per_unit: ['kg', Validators.compose([Validators.required])],
-            quantity: ['', Validators.compose([Validators.required])],
-            quantity_type: ['bags', Validators.compose([Validators.required])],
-            quantity_count: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['kg', Validators.compose([Validators.required])],
-            minimum_purchase_quantity: ['', Validators.compose([Validators.required])],
-            vat_settings_id: ['', Validators.compose([Validators.required])],
-            status: ['IN_STOCK', Validators.compose([Validators.required])],
-        });
     }
+
     ngOnInit(): void {
-        this.language();
-        this.getProcuredOrderDetails();
-        this.getRoasterVatDetails();
+        this.initTable();
+        this.initForm();
+        new Promise((resolve) => this.getRoasterVatDetails(resolve)).then(() => {
+            const promises = [];
+            promises.push(new Promise((resolve) => this.getProcuredOrderDetails(resolve)));
+            Promise.all(promises).then(() => {
+                this.loaded = true;
+            });
+        });
         this.coffeeSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
             this.coffeeSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
         });
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
+    }
+
+    initTable() {
         this.tableColumns = [
             {
                 field: 'order_id',
@@ -155,11 +148,23 @@ export class CoffeeSaleComponent implements OnInit {
             },
         ];
     }
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.lotSaleActive++;
+
+    initForm() {
+        this.coffeeSaleForm = this.fb.group({
+            name: ['', Validators.compose([Validators.required])],
+            price: ['', Validators.compose([Validators.required])],
+            price_per_unit: ['kg', Validators.compose([Validators.required])],
+            quantity: ['', Validators.compose([Validators.required])],
+            quantity_type: ['bags', Validators.compose([Validators.required])],
+            quantity_count: ['', Validators.compose([Validators.required])],
+            quantity_unit: ['kg', Validators.compose([Validators.required])],
+            minimum_purchase_quantity: ['', Validators.compose([Validators.required])],
+            vat_settings_id: ['', Validators.compose([Validators.required])],
+            status: ['IN_STOCK', Validators.compose([Validators.required])],
+        });
     }
-    getProcuredOrderDetails() {
+
+    getProcuredOrderDetails(resolve) {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
@@ -168,6 +173,7 @@ export class CoffeeSaleComponent implements OnInit {
                     const remaining = 0;
                     this.remaining = `${remaining} Bags`;
                 }
+                resolve();
             },
             (err) => {
                 console.log(err);
@@ -175,7 +181,8 @@ export class CoffeeSaleComponent implements OnInit {
             },
         );
     }
-    getRoasterVatDetails() {
+
+    getRoasterVatDetails(resolve) {
         this.userService.getRoasterVatDetails(this.roasterID, 'mr').subscribe((response) => {
             if (response.success && response.result) {
                 const vatArray = response.result;
@@ -187,8 +194,10 @@ export class CoffeeSaleComponent implements OnInit {
                     this.vatDetailsArray.push(pushObj);
                 });
             }
+            resolve();
         });
     }
+
     createMarkForSale(productObj) {
         this.roasterService.CreateMarkForSale(this.roasterID, this.orderID, productObj).subscribe(
             (response) => {
@@ -219,6 +228,7 @@ export class CoffeeSaleComponent implements OnInit {
             },
         );
     }
+
     updateStatus() {
         const status = { status: this.coffeeSaleForm.value.status };
         this.roasterService.updateMarkForSaleStatus(this.roasterID, this.orderID, status).subscribe(
@@ -239,6 +249,7 @@ export class CoffeeSaleComponent implements OnInit {
             },
         );
     }
+
     formatStatus(stringVal) {
         let formatVal = '';
         if (stringVal) {
@@ -247,10 +258,12 @@ export class CoffeeSaleComponent implements OnInit {
         }
         return formatVal.replace('-', '');
     }
+
     quantityTypeChange() {
         this.quantityType = this.coffeeSaleForm.value.quantity_type;
         this.changeQuantity(this.coffeeSaleForm.value.quantity_count);
     }
+
     validateForms() {
         let returnFlag = true;
         if (!this.coffeeSaleForm.valid) {
@@ -259,6 +272,7 @@ export class CoffeeSaleComponent implements OnInit {
         }
         return returnFlag;
     }
+
     onSave(): void {
         if (this.validateForms()) {
             const productObj = this.coffeeSaleForm.value;
@@ -269,9 +283,11 @@ export class CoffeeSaleComponent implements OnInit {
             this.toasterService.error('Please fill all Data');
         }
     }
+
     onCancel() {
         this.router.navigate([`/green-coffee-management/procured-coffee/${this.orderID}`]);
     }
+
     changeQuantity(event) {
         if (this.quantityType === 'kg') {
             const remaining = event.value;
