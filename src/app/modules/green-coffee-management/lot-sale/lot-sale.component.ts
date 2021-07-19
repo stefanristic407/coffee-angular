@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { ResizeableComponent } from '@base-components';
+import { ApiResponse } from '@models';
+import { ConfirmComponent } from '@app/shared';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-lot-sale',
@@ -14,8 +17,7 @@ import { ResizeableComponent } from '@base-components';
     styleUrls: ['./lot-sale.component.scss'],
 })
 export class LotSaleComponent extends ResizeableComponent implements OnInit {
-    appLanguage?: any;
-    lotSaleActive: any = 0;
+    loaded = false;
     roasterID: any = '';
     orderDetails: any;
     orderID: any = '';
@@ -25,18 +27,32 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     saleDetailsPresent = false;
     readOnlyMode = false;
     breadItems: any = [];
-    quantityUnitArray: any = [];
-    lotSaleForm: FormGroup;
-    priceTypeArray: any = [];
+    quantityUnitArray: any = [
+        { label: 'Bags', value: 'bags' },
+        { label: 'kg', value: 'kg' },
+    ];
+    priceTypeArray: any = [
+        { label: 'Per kg', value: 'kg' },
+        { label: 'per lb', value: 'lb' },
+    ];
     vatDetailsArray: any = [];
-    stockTypeArray: any = [];
-    weightTypeArray: any = [];
+    stockTypeArray: any = [
+        { label: 'In stock', value: 'IN_STOCK' },
+        { label: 'Sold', value: 'SOLD' },
+        { label: 'Hidden', value: 'HIDDEN' },
+    ];
+    weightTypeArray: any = [
+        { label: 'kg', value: 'kg' },
+        { label: 'lb', value: 'lb' },
+        { label: 'tonnes', value: 'tonnes' },
+    ];
+    lotSaleForm: FormGroup;
     availablityName: any;
     tableColumns = [];
     tableValue = [];
-    popupDisplay = false;
     remaining: any = '--';
     quantityType: any;
+
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -49,67 +65,27 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         public sharedService: SharedServiceService,
         protected resizeService: ResizeService,
         private authService: AuthService,
+        private dialogService: DialogService,
     ) {
         super(resizeService);
         this.roasterID = this.authService.getOrgId();
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
-        this.lotSaleForm = this.fb.group({
-            name: ['', Validators.compose([Validators.required])],
-            price: ['', Validators.compose([Validators.required])],
-            price_per_unit: ['kg', Validators.compose([Validators.required])],
-            quantity: ['', Validators.compose([Validators.required])],
-            quantity_type: ['bags', Validators.compose([Validators.required])],
-            quantity_count: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['kg', Validators.compose([Validators.required])],
-            minimum_order_quantity_count: ['', Validators.compose([Validators.required])],
-            vat_settings_id: ['', Validators.compose([Validators.required])],
-            status: ['IN_STOCK', Validators.compose([Validators.required])],
-        });
-        this.quantityUnitArray = [
-            { label: 'Bags', value: 'bags' },
-            { label: 'kg', value: 'kg' },
-        ];
-        this.priceTypeArray = [
-            { label: 'Per kg', value: 'kg' },
-            { label: 'per lb', value: 'lb' },
-        ];
-        this.weightTypeArray = [
-            { label: 'kg', value: 'kg' },
-            { label: 'lb', value: 'lb' },
-            { label: 'tonnes', value: 'tonnes' },
-        ];
-        this.stockTypeArray = [
-            { label: 'In stock', value: 'IN_STOCK' },
-            { label: 'Sold', value: 'SOLD' },
-            { label: 'Hidden', value: 'HIDDEN' },
-        ];
-        this.getRoasterVatDetails();
-    }
-
-    public refreshData() {
-        this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
-            { label: 'Inventory' },
-            { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
-            {
-                label: 'Marked for sale',
-                routerLink: `/green-coffee-management/green-coffee-inventory`,
-                queryParams: { markSale: 'yes' },
-            },
-            { label: this.availablityName ? this.availablityName : '' },
-        ];
     }
 
     ngOnInit(): void {
-        this.language();
-        this.getProcuredOrderDetails();
-        this.getSaleOrderDetails();
-        this.lotSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
-            this.lotSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
+        this.initTable();
+        this.initForm();
+        new Promise((resolve) => this.getRoasterVatDetails(resolve)).then(() => {
+            const promises = [];
+            promises.push(new Promise((resolve) => this.getProcuredOrderDetails(resolve)));
+            promises.push(new Promise((resolve) => this.getSaleOrderDetails(resolve)));
+            Promise.all(promises).then(() => {
+                this.loaded = true;
+            });
         });
-        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
-            this.sharedService.isMobileView = true;
-        }
+    }
+
+    initTable() {
         this.tableColumns = [
             {
                 field: 'id',
@@ -170,32 +146,45 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             },
         ];
     }
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.lotSaleActive++;
+
+    initForm() {
+        this.lotSaleForm = this.fb.group({
+            name: ['', Validators.compose([Validators.required])],
+            price: ['', Validators.compose([Validators.required])],
+            price_per_unit: ['kg', Validators.compose([Validators.required])],
+            quantity: ['', Validators.compose([Validators.required])],
+            quantity_type: ['bags', Validators.compose([Validators.required])],
+            quantity_count: [null, Validators.compose([Validators.required])],
+            quantity_unit: ['kg', Validators.compose([Validators.required])],
+            minimum_order_quantity_count: ['', Validators.compose([Validators.required])],
+            vat_settings_id: [null, Validators.compose([Validators.required])],
+            status: ['IN_STOCK', Validators.compose([Validators.required])],
+        });
+        this.lotSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
+            this.lotSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
+        });
     }
-    getSaleOrderDetails() {
+
+    refreshBreadcrumb() {
+        this.breadItems = [
+            { label: 'Home', routerLink: '/roaster-dashboard' },
+            { label: 'Inventory' },
+            { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
+            {
+                label: 'Marked for sale',
+                routerLink: `/green-coffee-management/green-coffee-inventory`,
+                queryParams: { markSale: 'yes' },
+            },
+            { label: this.availablityName ? this.availablityName : '' },
+        ];
+    }
+
+    getSaleOrderDetails(resolve) {
         this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     const lotDetails = response.result;
-                    const lotFields = [
-                        'name',
-                        'quantity',
-                        'quantity_count',
-                        'quantity_type',
-                        'quantity_unit',
-                        'minimum_order_quantity_count',
-                        'vat_settings_id',
-                        'price',
-                        'price_per_unit',
-                        'status',
-                    ];
-                    lotFields.forEach((ele) => {
-                        const getValue = lotDetails[ele];
-                        this.lotSaleForm.controls[ele].setValue(getValue);
-                    });
-                    // this.readOnlyMode = lotDetails && lotDetails.status === 'SOLD' ? true : false;
+                    this.lotSaleForm.patchValue(lotDetails);
                     this.orderStatus = response.result.status;
                     this.availablityName = lotDetails.name;
                     this.statusLabel = this.formatStatus(this.orderStatus);
@@ -222,14 +211,16 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                             { emitEvent: false },
                         );
                     }
-                    this.refreshData();
+                    this.refreshBreadcrumb();
                 }
+                resolve();
             },
             (err) => {
                 console.log(err);
             },
         );
     }
+
     formatStatus(stringVal) {
         let formatVal = '';
         if (stringVal) {
@@ -238,19 +229,22 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         }
         return formatVal.replace('-', '');
     }
-    getProcuredOrderDetails() {
+
+    getProcuredOrderDetails(resolve) {
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     this.tableValue.push(this.orderDetails);
                 }
+                resolve();
             },
             (err) => {
                 console.log(err);
             },
         );
     }
+
     updateMarkForSale(productObj) {
         this.roasterService.updateMarkForSale(this.roasterID, this.orderID, productObj).subscribe(
             (response) => {
@@ -269,6 +263,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             },
         );
     }
+
     updateStatus() {
         const status = { status: this.lotSaleForm.value.status };
         this.roasterService.updateMarkForSaleStatus(this.roasterID, this.orderID, status).subscribe(
@@ -291,16 +286,9 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             },
         );
     }
-    validateForms() {
-        let returnFlag = true;
-        if (!this.lotSaleForm.valid) {
-            returnFlag = false;
-            return returnFlag;
-        }
-        return returnFlag;
-    }
+
     onSave(): void {
-        if (this.validateForms()) {
+        if (this.lotSaleForm.valid) {
             const productObj = this.lotSaleForm.value;
             this.updateMarkForSale(productObj);
         } else {
@@ -308,13 +296,31 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             this.toasterService.error('Please fill all Data');
         }
     }
+
     onCancel() {
         this.router.navigate([`/green-coffee-management/green-coffee-for-sale-details/${this.orderID}`]);
     }
+
+    openDeleteModal() {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.deleteProductFromList();
+                }
+            });
+    }
+
     deleteProductFromList() {
         this.roasterService.deleteProcuredCoffee(this.roasterID, this.orderID).subscribe(
-            (response) => {
-                if (response && response.success) {
+            (res: ApiResponse<any>) => {
+                if (res.success) {
                     this.toasterService.success('Product deleted successfully');
                     const navigationExtras: NavigationExtras = {
                         queryParams: {
@@ -330,24 +336,27 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             },
         );
     }
-    getRoasterVatDetails() {
-        this.userService.getRoasterVatDetails(this.roasterID, 'mr').subscribe((response) => {
-            if (response.success && response.result) {
-                const vatArray = response.result;
-                vatArray.forEach((element) => {
-                    const pushObj = {
+
+    getRoasterVatDetails(resolve) {
+        this.userService.getRoasterVatDetails(this.roasterID, 'mr').subscribe((res: ApiResponse<any>) => {
+            if (res.success && res.result) {
+                this.vatDetailsArray = [];
+                res.result.forEach((element) => {
+                    this.vatDetailsArray.push({
                         label: `${element.vat_percentage}% ${element.transaction_type}`,
                         value: element.id,
-                    };
-                    this.vatDetailsArray.push(pushObj);
+                    });
                 });
             }
+            resolve();
         });
     }
+
     quantityTypeChange() {
         this.quantityType = this.lotSaleForm.value.quantity_type;
         this.changeQuantity(this.lotSaleForm.value.quantity_count);
     }
+
     changeQuantity(event) {
         if (this.quantityType === 'kg') {
             const remaining = event.value;
