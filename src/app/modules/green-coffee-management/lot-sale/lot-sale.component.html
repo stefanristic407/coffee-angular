@@ -148,7 +148,7 @@
                 </div>
             </div>
             <div class="row mt-4 pt-lg-2 gutter-16 gutter-lg-24">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+                <div class="col-md-6 sewn-form-field">
                     <label>Product name<span class="star">*</span></label>
                     <input
                         type="text"
@@ -160,151 +160,92 @@
                         {{ 'required' | translate }}
                     </small>
                 </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Selling price<span class="star">*</span>(in SEK)</label>
-
-                    <div class="p-inputgroup custom-addon right-dropdown">
+                    <div class="input-and-select gray">
                         <p-inputNumber formControlName="price" placeholder="Enter the selling price"></p-inputNumber>
-                        <span class="p-inputgroup-addon">
-                            <p-dropdown
-                                [options]="priceTypeArray"
-                                optionLabel="label"
-                                placeholder=""
-                                [style]="{
-                                    width: '100%',
-                                    border: '0px',
-                                    'background-color': '#f8f8f8',
-                                    height: '40px'
-                                }"
-                                formControlName="price_per_unit"
-                                optionValue="value"
-                            >
-                            </p-dropdown>
-                        </span>
+                        <p-dropdown [options]="priceTypeArray" placeholder="" formControlName="price_per_unit">
+                        </p-dropdown>
+                        <small *ngIf="lotSaleForm.controls['price'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                        <small *ngIf="lotSaleForm.controls['price_per_unit'].errors?.required" class="p-error">
+                            {{ 'please_select_unit' | translate }}
+                        </small>
                     </div>
-                    <small
-                        *ngIf="
-                            lotSaleForm.controls['price'].errors?.required &&
-                            lotSaleForm.controls['price_per_unit'].errors?.required
-                        "
-                        class="p-error"
-                    >
-                        {{ 'required' | translate }}
-                    </small>
                 </div>
             </div>
             <div class="row gutter-16 gutter-lg-24">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Quantity for sale<span class="star">*</span></label>
-
-                    <div class="p-inputgroup custom-addon right-dropdown">
+                    <div class="input-and-select gray">
                         <p-inputNumber
                             formControlName="quantity_count"
                             placeholder="Enter a number"
                             (onInput)="changeQuantity($event)"
                         ></p-inputNumber>
-                        <span class="p-inputgroup-addon">
-                            <p-dropdown
-                                [options]="quantityUnitArray"
-                                optionLabel="label"
-                                placeholder="Bags"
-                                [style]="{
-                                    width: '100%',
-                                    border: '0px',
-                                    'background-color': '#f8f8f8',
-                                    height: '40px'
-                                }"
-                                formControlName="quantity_type"
-                                optionValue="value"
-                                (onChange)="quantityTypeChange()"
-                            >
-                            </p-dropdown>
-                        </span>
-                        <small
-                            *ngIf="
-                                lotSaleForm.controls['quantity_count'].errors?.required &&
-                                lotSaleForm.controls['quantity_type'].errors?.required
-                            "
-                            class="p-error"
+                        <p-dropdown
+                            [options]="quantityUnitArray"
+                            placeholder="Bags"
+                            formControlName="quantity_type"
+                            (onChange)="quantityTypeChange()"
                         >
+                        </p-dropdown>
+                        <small *ngIf="lotSaleForm.controls['quantity_count'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
+                        </small>
+                        <small *ngIf="lotSaleForm.controls['quantity_type'].errors?.required" class="p-error">
+                            {{ 'please_select_unit' | translate }}
                         </small>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Remaining quantity</label>
                     <input type="text" placeholder="-" [value]="remaining" pInputText disabled />
                 </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Minimum order quantity<span class="star">*</span></label>
-
-                    <div class="p-inputgroup custom-addon right-dropdown">
+                    <div class="input-and-select gray">
                         <p-inputNumber
                             formControlName="minimum_order_quantity_count"
                             placeholder="Enter a number"
                         ></p-inputNumber>
-                        <span class="p-inputgroup-addon">
-                            <p-dropdown
-                                [options]="quantityUnitArray"
-                                optionLabel="label"
-                                placeholder="kg"
-                                [style]="{
-                                    width: '100%',
-                                    border: '0px',
-                                    'background-color': '#f8f8f8',
-                                    height: '40px'
-                                }"
-                                formControlName="quantity_type"
-                                optionValue="value"
-                            >
-                            </p-dropdown>
-                        </span>
+                        <p-dropdown
+                            [options]="quantityUnitArray"
+                            optionLabel="label"
+                            placeholder="kg"
+                            formControlName="quantity_type"
+                            optionValue="value"
+                        >
+                        </p-dropdown>
+                        <small
+                            *ngIf="lotSaleForm.controls['minimum_order_quantity_count'].errors?.required"
+                            class="p-error"
+                        >
+                            {{ 'required' | translate }}
+                        </small>
+                        <small *ngIf="lotSaleForm.controls['quantity_type'].errors?.required" class="p-error">
+                            {{ 'please_select_unit' | translate }}
+                        </small>
                     </div>
-                    <small
-                        *ngIf="
-                            lotSaleForm.controls['minimum_order_quantity_count'].errors?.required &&
-                            lotSaleForm.controls['quantity_type'].errors?.required
-                        "
-                        class="p-error"
-                    >
-                        {{ 'required' | translate }}
-                    </small>
                 </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Weight / bag<span class="star">*</span></label>
-
-                    <div class="p-inputgroup custom-addon right-dropdown">
+                    <div class="input-and-select gray">
                         <p-inputNumber formControlName="quantity" placeholder="Enter a number"></p-inputNumber>
-                        <span class="p-inputgroup-addon">
-                            <p-dropdown
-                                [options]="weightTypeArray"
-                                optionLabel="label"
-                                placeholder="kg"
-                                [style]="{
-                                    width: '100%',
-                                    border: '0px',
-                                    'background-color': '#f8f8f8',
-                                    height: '40px'
-                                }"
-                                formControlName="quantity_unit"
-                                optionValue="value"
-                            >
-                            </p-dropdown>
-                        </span>
+                        <p-dropdown [options]="weightTypeArray" placeholder="kg" formControlName="quantity_unit">
+                        </p-dropdown>
+                        <small *ngIf="lotSaleForm.controls['quantity'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                        <small *ngIf="lotSaleForm.controls['quantity_unit'].errors?.required" class="p-error">
+                            {{ 'please_select_unit' | translate }}
+                        </small>
                     </div>
-                    <small
-                        *ngIf="
-                            lotSaleForm.controls['quantity'].errors?.required &&
-                            lotSaleForm.controls['quantity_unit'].errors?.required
-                        "
-                        class="p-error"
-                    >
-                        {{ 'required' | translate }}
-                    </small>
                 </div>
             </div>
             <div class="row gutter-16 gutter-lg-24">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>VAT role<span class="star">*</span></label>
                     <p-dropdown
                         [options]="vatDetailsArray"
