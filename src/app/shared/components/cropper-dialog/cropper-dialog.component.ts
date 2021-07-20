@@ -15,6 +15,7 @@ export class CropperDialogComponent implements OnInit {
     croppedImgUrl: any = '';
     cropperConfig = {
         imageChangedEvent: null,
+        imageBase64: null,
         format: 'png',
         aspectRatio: 1 / 1,
         maintainAspectRatio: true,

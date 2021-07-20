@@ -5,6 +5,7 @@
     [style]="{ minHeight: height + 'px' }"
     (ngModelChange)="onChangeContent()"
     [placeholder]="placeholder"
+    [readonly]="isUploadingImage"
 >
     <p-header>
         <span class="ql-formats">

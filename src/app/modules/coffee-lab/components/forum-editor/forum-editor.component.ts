@@ -3,7 +3,8 @@ import { Location } from '@angular/common';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { dataURItoBlob } from '@utils';
+import { CropperDialogComponent } from '@shared';
+import { CroppedImage } from '@models';
 
 @Component({
     selector: 'app-forum-editor',
@@ -11,6 +12,8 @@ import { dataURItoBlob } from '@utils';
     styleUrls: ['./forum-editor.component.scss'],
 })
 export class ForumEditorComponent implements OnInit {
+    readonly imgRex: RegExp = /<img.*?src="(.*?)"[^>]*>/g;
+    readonly base64Rex: RegExp = /data:image\/[a-z]*;base64,[^"]+/g;
     @Input() content: string;
     @Output() contentChange = new EventEmitter<string>();
     @Input() isUploadingImage = false;
@@ -44,47 +47,65 @@ export class ForumEditorComponent implements OnInit {
     onChangeContent(): void {
         this.contentChange.emit(this.content);
         const lastUploadedImage = this.getLastUploadedImage();
-        if (lastUploadedImage && lastUploadedImage.includes('data:image')) {
+        if (lastUploadedImage) {
             this.handleUploadImage(lastUploadedImage);
         }
     }
 
     handleUploadImage(imageURL: string): void {
-        const images = this.getImages();
-        if (images.filter((item) => item === imageURL).length > 1) {
-            return;
-        }
-        const virtualId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        this.images.push({
-            virtualId,
-        });
-        const file = dataURItoBlob(imageURL);
-        this.isUploadingImage = true;
-        this.isUploadingImageChange.emit(true);
-        this.coffeeLabService.uploadFile(file, this.fileModule).subscribe((res: any) => {
-            this.isUploadingImage = false;
-            this.isUploadingImageChange.emit(false);
-            if (res.success) {
-                this.content = this.content.replace(/data:image\/[a-z]*;base64,[^"]+/g, res.result.url);
-                this.contentChange.emit(this.content);
-                const imageIndex = this.images.findIndex((item: any) => item.virtualId === virtualId);
-                if (imageIndex !== -1) {
-                    this.images[imageIndex].id = res.result.id;
-                    this.images[imageIndex].url = res.result.url;
-                    this.emitImagesChange();
+        this.dialogService
+            .open(CropperDialogComponent, {
+                data: {
+                    imageBase64: imageURL,
+                    maintainAspectRatio: false,
+                },
+            })
+            .onClose.subscribe((data: CroppedImage) => {
+                if (data?.status) {
+                    const images = this.getImages();
+                    if (images.filter((item) => item === imageURL).length > 1) {
+                        return;
+                    }
+                    const virtualId =
+                        Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                    this.images.push({
+                        virtualId,
+                    });
+                    const file = data.croppedImgFile;
+                    this.isUploadingImage = true;
+                    this.isUploadingImageChange.emit(true);
+                    this.coffeeLabService.uploadFile(file, this.fileModule).subscribe((res: any) => {
+                        this.isUploadingImage = false;
+                        this.isUploadingImageChange.emit(false);
+                        if (res.success) {
+                            this.content = this.content.replace(this.base64Rex, res.result.url);
+                            this.contentChange.emit(this.content);
+                            const imageIndex = this.images.findIndex((item: any) => item.virtualId === virtualId);
+                            if (imageIndex !== -1) {
+                                this.images[imageIndex].id = res.result.id;
+                                this.images[imageIndex].url = res.result.url;
+                                this.emitImagesChange();
+                            }
+                        } else {
+                            this.content = this.content.replace(this.imgRex, '');
+                            this.imagesCount -= 1;
+                            this.contentChange.emit(this.content);
+                            this.toastrService.error('Error while upload image');
+                        }
+                    });
+                } else {
+                    this.content = this.content.replace(this.imgRex, '');
+                    this.imagesCount -= 1;
+                    this.contentChange.emit(this.content);
                 }
-            } else {
-                this.toastrService.error('Error while upload image');
-            }
-        });
+            });
     }
 
     getImages(): any {
-        const imgRex = /<img.*?src="(.*?)"[^>]*>/g;
         const images = [];
         let img;
         // tslint:disable-next-line:no-conditional-assignment
-        while ((img = imgRex.exec(this.content)) !== null) {
+        while ((img = this.imgRex.exec(this.content)) !== null) {
             images.push(img[1]);
         }
         return images;
@@ -103,7 +124,7 @@ export class ForumEditorComponent implements OnInit {
             return null;
         } else {
             this.imagesCount += 1;
-            return images[images.length - 1];
+            return images.find((item) => item.includes('data:image'));
         }
     }
 
