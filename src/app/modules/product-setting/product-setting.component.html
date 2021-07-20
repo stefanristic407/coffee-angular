@@ -111,18 +111,14 @@
                                                     <label class="fnt-14 fnt-muli fnt-600 text-clr334"
                                                         >Shipping Price<span class="star">*</span></label
                                                     >
-                                                    <div class="input-and-select gray">
+                                                    <div class="p-inputgroup custom-addon">
                                                         <p-inputNumber
                                                             mode="decimal"
                                                             locale="en-US"
                                                             [minFractionDigits]="2"
                                                             formControlName="price"
                                                         ></p-inputNumber>
-                                                        <p-dropdown
-                                                            [options]="shippingPriceUnitArray"
-                                                            [autoDisplayFirst]="false"
-                                                            formControlName="price_unit"
-                                                        ></p-dropdown>
+                                                        <span class="p-inputgroup-addon gray">SEK</span>
                                                         <small
                                                             *ngIf="detailsFormControl.price.errors?.required"
                                                             class="p-error"
@@ -132,7 +128,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <label>Estimated delivery time<span class="star">*</span></label>
+                                                    <label
+                                                        >{{ 'estimated_delivery_time' | translate
+                                                        }}<span class="star">*</span></label
+                                                    >
                                                     <div class="delivery-time-wrap">
                                                         <div class="sewn-form-field">
                                                             <div class="p-inputgroup custom-addon">
@@ -206,19 +205,27 @@
                                 <div class="shipping-border col-12 mt-43">
                                     <table class="shipping-time col-12">
                                         <tr>
-                                            <td><span class="list-que"> Shipping name : </span></td>
+                                            <td>
+                                                <span class="list-que"> {{ 'shipping_name' | translate }} : </span>
+                                            </td>
                                             <td>
                                                 <span class="list-ans"> {{ shippingDetails.name }} </span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="list-que"> Shipping price : </span></td>
                                             <td>
-                                                <span class="list-ans"> $ {{ shippingDetails.price }} </span>
+                                                <span class="list-que"> {{ 'shipping_price' | translate }} : </span>
+                                            </td>
+                                            <td>
+                                                <span class="list-ans"> {{ shippingDetails.price }} kr </span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="list-que"> Estimated delivery time : </span></td>
+                                            <td>
+                                                <span class="list-que">
+                                                    {{ 'estimated_delivery_time' | translate }} :
+                                                </span>
+                                            </td>
                                             <td>
                                                 <span class="list-ans">
                                                     {{ shippingDetails.day_min }} - {{ shippingDetails.day_max }} Days
@@ -234,7 +241,7 @@
                                         class="fnt-14 fnt-muli fnt-700 btn btn-raised pull-right"
                                         (click)="editShippingInfo()"
                                     >
-                                        Edit
+                                        {{ 'edit' | translate }}
                                     </button>
                                 </div>
                             </div>
@@ -342,7 +349,10 @@
                                         </div>
                                     </div>
                                     <div class="col-12 sewn-form-field">
-                                        <label>Estimated delivery time<span class="star">*</span></label>
+                                        <label
+                                            >{{ 'estimated_delivery_time' | translate
+                                            }}<span class="star">*</span></label
+                                        >
                                         <div class="delivery-time-wrap">
                                             <div class="sewn-form-field">
                                                 <div class="p-inputgroup custom-addon">
@@ -401,19 +411,25 @@
                     <div class="shipping-border col-12 mt-43">
                         <table class="shipping-time col-12">
                             <tr>
-                                <td><span class="list-que"> Shipping name : </span></td>
+                                <td>
+                                    <span class="list-que"> {{ 'shipping_name' | translate }} : </span>
+                                </td>
                                 <td>
                                     <span class="list-ans"> {{ shippingDetails.name }} </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td><span class="list-que"> Shipping price : </span></td>
                                 <td>
-                                    <span class="list-ans"> $ {{ shippingDetails.price }} </span>
+                                    <span class="list-que"> {{ 'shipping_price' | translate }} : </span>
+                                </td>
+                                <td>
+                                    <span class="list-ans"> {{ shippingDetails.price }} kr </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td><span class="list-que"> Estimated delivery time : </span></td>
+                                <td>
+                                    <span class="list-que"> {{ 'estimated_delivery_time' | translate }} : </span>
+                                </td>
                                 <td>
                                     <span class="list-ans">
                                         {{ shippingDetails.day_min }} - {{ shippingDetails.day_max }} Days
@@ -428,7 +444,7 @@
                             class="col-12 fnt-14 fnt-muli fnt-700 btn btn-raised"
                             (click)="editShippingInfo()"
                         >
-                            Edit
+                            {{ 'edit' | translate }}
                         </button>
                     </div>
                 </div>

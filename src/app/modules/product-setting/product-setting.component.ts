@@ -35,7 +35,6 @@ export class ProductSettingComponent implements OnInit {
         day_max: '',
     };
     selectedMobileTab = '';
-    shippingPriceUnitArray = [];
     dayMinListArray = [];
     constructor(
         private router: Router,
@@ -55,12 +54,6 @@ export class ProductSettingComponent implements OnInit {
         this.options = [
             { name: this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management, code: '', index: 0 },
             { name: this.globals.languageJson?.shipping_details, code: '', index: 1 },
-        ];
-        this.shippingPriceUnitArray = [
-            {
-                label: 'USD',
-                value: 'USD',
-            },
         ];
         this.dayMinListArray = [
             {
@@ -99,7 +92,7 @@ export class ProductSettingComponent implements OnInit {
                         day_min: [this.shippingDetails.day_min, Validators.compose([Validators.required])],
                         day_max: [this.shippingDetails.day_max, Validators.compose([Validators.required])],
                         price: [this.shippingDetails.price, Validators.compose([Validators.required])],
-                        price_unit: ['USD', Validators.compose([Validators.required])],
+                        price_unit: ['SEK', Validators.compose([Validators.required])],
                     });
                 } else {
                     this.details = this.fb.group({
@@ -107,7 +100,7 @@ export class ProductSettingComponent implements OnInit {
                         day_min: [null, Validators.compose([Validators.required])],
                         day_max: [null, Validators.compose([Validators.required])],
                         price: [null, Validators.compose([Validators.required])],
-                        price_unit: ['USD', Validators.compose([Validators.required])],
+                        price_unit: ['SEK', Validators.compose([Validators.required])],
                     });
                 }
             }
