@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CountryCode, isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js';
 
@@ -47,7 +47,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
         this.onTouched = fn;
     }
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor() {}
 
     ngOnInit(): void {}
 
@@ -84,9 +84,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     }
 
     onInput(event) {
-        setTimeout(() => {
-            this.saveChange();
-        });
+        this.saveChange();
     }
 
     onCountryChange(value: any): void {
@@ -99,12 +97,13 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     }
 
     saveChange() {
-        try {
-            const phoneNumber = parsePhoneNumber(this.nationalNumber, this.countryCode);
-            console.log(phoneNumber.number);
-            this.onChange(phoneNumber.number);
-        } catch (error) {
-            this.onChange(null);
-        }
+        setTimeout(() => {
+            try {
+                const phoneNumber = parsePhoneNumber(this.nationalNumber, this.countryCode);
+                this.onChange(phoneNumber.number);
+            } catch (error) {
+                this.onChange(null);
+            }
+        });
     }
 }
