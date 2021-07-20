@@ -127,7 +127,7 @@
                     </p-sortIcon>
                 </div>
             </th>
-            <th pSortableColumn="quantity">
+            <th pSortableColumn="quantity" width="400px">
                 <div class="d-flex">
                     <span class="text-overflow-ellipsis">{{ 'roaster_reference_no' | translate }}</span>
                     <p-sortIcon
@@ -221,7 +221,7 @@
                 {{ rowData.estate_name }}
             </td>
             <ng-container *ngIf="orgType === OrgTypes.MICRO_ROASTER">
-                <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.product_name }}</td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis" width="400px">{{ rowData.product_name }}</td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.micro_roaster_name }}</td>
             </ng-container>
             <td class="d-none d-md-table-cell text-overflow-ellipsis">{{ rowData.created_at | date: 'd MMM yyyy' }}</td>
