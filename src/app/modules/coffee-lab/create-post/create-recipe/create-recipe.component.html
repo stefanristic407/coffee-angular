@@ -39,7 +39,7 @@
                         accept="image/png, image/jpeg"
                         class="d-none"
                         #bannerFileInput
-                        (change)="uploadFile($event, 0, 'recipeCoverImage')"
+                        (change)="onFileChange($event, 0, RecipeFileType.CoverImage)"
                     />
                     <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
                         <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
@@ -233,7 +233,7 @@
                                     type="file"
                                     class="d-none"
                                     accept="video/*"
-                                    (change)="uploadFile($event, 0, 'recipeVideo')"
+                                    (change)="onFileChange($event, 0, RecipeFileType.Video)"
                                 />
                                 <div class="d-flex flex-column align-items-center">
                                     <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
@@ -299,7 +299,7 @@
                                             accept="image/png, image/jpeg"
                                             class="d-none"
                                             #stepImageCover
-                                            (change)="uploadFile($event, 0, 'stepImage')"
+                                            (change)="onFileChange($event, 0, RecipeFileType.StepImage)"
                                         />
                                         <div
                                             class="d-flex flex-column align-items-center px-25"
@@ -385,7 +385,7 @@
                                     type="file"
                                     class="d-none"
                                     accept="video/*"
-                                    (change)="uploadFile($event, 0, 'recipeVideo')"
+                                    (change)="onFileChange($event, 0, RecipeFileType.Video)"
                                 />
                                 <div class="d-flex flex-column align-items-center">
                                     <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
@@ -449,7 +449,7 @@
                             class="d-none"
                             #recipeVideo
                             accept="video/*"
-                            (change)="uploadFile($event, 0, 'recipeVideo')"
+                            (change)="onFileChange($event, 0, RecipeFileType.Video)"
                         />
                         <div class="d-flex flex-column align-items-center">
                             <div class="step-img-delete d-flex" *ngIf="isShowVideo">
@@ -541,7 +541,7 @@
                                 accept="image/png, image/jpeg"
                                 class="d-none"
                                 #stepImageCover
-                                (change)="uploadFile($event, i, 'stepImage')"
+                                (change)="onFileChange($event, i, RecipeFileType.StepImage)"
                             />
                             <div class="d-flex flex-column align-items-center px-25" *ngIf="!step?.coverImageUrl">
                                 <span (click)="stepImageCover.click()"

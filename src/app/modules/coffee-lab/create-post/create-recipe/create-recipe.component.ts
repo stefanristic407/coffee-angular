@@ -7,6 +7,15 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Location } from '@angular/common';
 import { takeUntil } from 'rxjs/operators';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CropperDialogComponent } from '@app/shared';
+import { CroppedImage } from '@models';
+
+export enum RecipeFileType {
+    CoverImage = 'CoverImage',
+    Video = 'Video',
+    StepImage = 'StepImage',
+}
 
 @Component({
     selector: 'app-create-recipe',
@@ -14,6 +23,7 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./create-recipe.component.scss'],
 })
 export class CreateRecipeComponent implements OnInit, OnDestroy {
+    readonly RecipeFileType = RecipeFileType;
     @Input() isTranslate;
     @Input() saveOriginalPost;
     isPosting = false;
@@ -131,6 +141,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         private router: Router,
         private route: ActivatedRoute,
         private location: Location,
+        private dialogService: DialogService,
     ) {
         this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
@@ -264,25 +275,31 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.recipeForm.controls.cover_image_id.setValue(null);
     }
 
-    uploadFile(event: any, index?, type?): void {
-        const files = event.target.files;
-        if (!files.length) {
+    onFileChange(event: any, index: number, type: RecipeFileType) {
+        if (!event.target.files?.length) {
             return;
         }
-        const maximumFileSize = type === 'recipeVideo' ? this.maxVideoSize * 1024 : 2 * 1024;
-        const file: File = files[0];
+        if (type === RecipeFileType.Video) {
+            this.uploadFile(event.target.files[0], index, type);
+        } else {
+            this.dialogService
+                .open(CropperDialogComponent, {
+                    data: {
+                        imageChangedEvent: event,
+                        aspectRatio: 674 / 276,
+                    },
+                })
+                .onClose.subscribe((data: CroppedImage) => {
+                    if (data.status) {
+                        this.uploadFile(data.croppedImgFile, index, type);
+                    }
+                });
+        }
+    }
+
+    uploadFile(file: any, index: number, type): void {
+        const maximumFileSize = type === RecipeFileType.Video ? this.maxVideoSize * 1024 : 2 * 1024;
         const fileSize = Math.round(file.size / 1024);
-        // Check file type
-        const isImageFile = file.type.includes('image');
-        const isVideoFile = file.type.includes('video');
-        if (type === 'recipeVideo' && !isVideoFile) {
-            this.toaster.error('Please upload video file');
-            return;
-        }
-        if (type !== 'recipeVideo' && !isImageFile) {
-            this.toaster.error('Please upload image file');
-            return;
-        }
         // Check max file size
         if (fileSize >= maximumFileSize) {
             this.toaster.error(`Maximum file size is ${maximumFileSize / 1024}mb`);
@@ -291,10 +308,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((res: any) => {
             if (res.success === true) {
                 this.toaster.success('The file ' + file.name + ' uploaded successfully');
-                if (type === 'recipeCoverImage') {
+                if (type === RecipeFileType.CoverImage) {
                     this.recipeForm.controls.cover_image_id.setValue(res.result.id);
                     this.coverImageUrl = res.result.url;
-                } else if (type === 'stepImage') {
+                } else if (type === RecipeFileType.StepImage) {
                     const step = this.recipeForm.get('steps') as FormArray;
                     step.controls[index].value.image_id = res.result.id;
                     step.controls[index].value.coverImageUrl = res.result.url;
