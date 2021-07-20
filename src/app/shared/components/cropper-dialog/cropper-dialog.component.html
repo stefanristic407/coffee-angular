@@ -1,0 +1,16 @@
+<div class="mb-4">
+    <image-cropper
+        [imageChangedEvent]="cropperConfig.imageChangedEvent"
+        [format]="cropperConfig.format"
+        [aspectRatio]="cropperConfig.aspectRatio"
+        [maintainAspectRatio]="cropperConfig.maintainAspectRatio"
+        (imageCropped)="imageCropped($event)"
+    ></image-cropper>
+</div>
+
+<input #fileInput type="file" accept="image/png, image/jpeg" hidden (change)="onFileChange($event)" />
+
+<div class="text-right">
+    <button (click)="fileInput.click()" class="btn-stroked mr-3">{{ 'change_photo' | translate }}</button>
+    <button (click)="onSave()" class="btn-raised">{{ 'save_photo' | translate }}</button>
+</div>

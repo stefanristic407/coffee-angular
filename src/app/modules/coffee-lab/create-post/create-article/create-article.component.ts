@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { maxWordCountValidator } from '@utils';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RectangleImageCropperDialogComponent } from '@app/shared/components/rectangle-image-cropper-dialog/rectangle-image-cropper-dialog.component';
+import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
 
 @Component({
@@ -86,13 +86,11 @@ export class CreateArticleComponent implements OnInit {
             return;
         }
         this.dialogService
-            .open(RectangleImageCropperDialogComponent, {
+            .open(CropperDialogComponent, {
                 data: {
                     imageChangedEvent: event,
                     aspectRatio: 782 / 253,
                 },
-                showHeader: false,
-                styleClass: 'rectangle-image-cropper-dialog',
             })
             .onClose.subscribe((data: CroppedImage) => {
                 if (data.status) {
