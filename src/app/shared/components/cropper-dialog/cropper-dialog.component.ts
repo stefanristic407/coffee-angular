@@ -11,7 +11,6 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./cropper-dialog.component.scss'],
 })
 export class CropperDialogComponent implements OnInit {
-    // imageChangedEvent: any = '';
     croppedImgUrl: any = '';
     cropperConfig = {
         imageChangedEvent: null,
