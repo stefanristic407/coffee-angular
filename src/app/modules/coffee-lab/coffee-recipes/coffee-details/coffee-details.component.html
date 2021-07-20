@@ -56,7 +56,7 @@
                 <div class="pb-3 pb-md-4 pb-lg-45">
                     <img class="w-100 banner-image" [src]="detailsData?.cover_image_url" />
                     <div class="mt-3 expertise-level-block">
-                        <div class="d-flex w-100">
+                        <div class="d-flex w-100 justify-content-md-around">
                             <div class="pr-45 expert-sm">
                                 <div class="m-0 d-flex">
                                     <span class="d-none d-md-block"
@@ -80,31 +80,18 @@
                                 <div class="m-0 d-flex">
                                     <span class="d-none d-md-block"><img src="/assets/images/p-time.svg" /></span>
                                     <span class="d-md-none"><img src="/assets/images/p-time-mb.svg" /></span>
-                                    <div class="expertise pl-2">{{ 'preparation_time' | translate }}</div>
+                                    <div class="expertise pl-2">{{ 'brew_ratio' | translate }}</div>
                                 </div>
                                 <div class="expertise-level m-0 d-flex">
                                     <span class="visibility-hidden"
                                         ><img src="/assets/images/beginner-expertise.svg"
                                     /></span>
-                                    <span class="pl-2">{{ detailsData?.preparation_time }}</span>
+                                    <span class="pl-2"
+                                        >{{ detailsData?.coffee_ratio }}:{{ detailsData?.water_ratio }}</span
+                                    >
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex w-100">
-                            <div class="pr-45 cooking-sm">
-                                <div class="m-0 d-flex">
-                                    <span class="d-none d-md-block"><img src="/assets/images/cooking-time.svg" /></span>
-                                    <span class="d-md-none"><img src="/assets/images/cooking-time-mb.svg" /></span>
-                                    <div class="expertise pl-2">{{ 'cooking _time' | translate }}</div>
-                                </div>
-                                <div class="expertise-level m-0 d-flex">
-                                    <span class="visibility-hidden"><img src="/assets/images/cooking-time.svg" /></span>
-                                    <div class="pl-2 cooking-time">
-                                        {{ detailsData?.cooking_time }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex-wrap serving-sm d-md-block d-lg-flex">
+                            <div class="flex-wrap serving-sm">
                                 <div class="m-0 d-flex">
                                     <span class="d-none d-md-block"><img src="/assets/images/serving.svg" /></span>
                                     <span class="d-md-none"><img src="/assets/images/serving-mb.svg" /></span>
@@ -116,6 +103,9 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- <div class="d-flex w-100">
+                  
+                        </div> -->
                     </div>
                     <p class="fnt-14 fnt-muli pt-3" [innerHTML]="detailsData?.description"></p>
                 </div>

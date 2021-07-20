@@ -31,30 +31,17 @@
                         <div class="pr-45 preparation-sm">
                             <div class="m-0 d-flex">
                                 <span><img src="/assets/images/p-time.svg" /></span>
-                                <div class="expertise pl-2">{{ 'preparation_time' | translate }}</div>
+                                <div class="expertise pl-2">{{ 'brew_ratio' | translate }}</div>
                             </div>
                             <div class="expertise-level m-0">
                                 <span style="visibility: hidden"
                                     ><img src="/assets/images/beginner-expertise.svg"
                                 /></span>
-                                <span class="pl-2">{{ detailsData?.preparation_time }}</span>
+                                <span class="pl-2">{{ detailsData?.coffee_ratio }}:{{ detailsData?.water_ratio }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex w-100">
-                        <div class="pr-45 cooking-sm">
-                            <div class="m-0 d-flex">
-                                <span><img src="/assets/images/cooking-time.svg" /></span>
-                                <div class="expertise pl-2">{{ 'cooking _time' | translate }}</div>
-                            </div>
-                            <div class="expertise-level m-0 d-flex">
-                                <span style="visibility: hidden"><img src="/assets/images/cooking-time.svg" /></span>
-                                <div class="pl-2">
-                                    {{ detailsData?.cooking_time }}
-                                    {{ detailsData?.cooking_time_unit }}
-                                </div>
-                            </div>
-                        </div>
                         <div class="d-flex flex-wrap serving-sm">
                             <div class="m-0 d-flex">
                                 <span><img src="/assets/images/beginner-expertise.svg" /></span>

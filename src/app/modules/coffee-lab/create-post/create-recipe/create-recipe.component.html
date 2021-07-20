@@ -101,26 +101,26 @@
                 {{ 'required' | translate }}
             </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
-            <label>{{ 'preparation_time' | translate }}<span class="star">*</span></label>
-            <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
-                <input placeholder="eg. 45 min" formControlName="preparation_time" pInputText />
-                <small
-                    *ngIf="recipeForm.controls['preparation_time'].errors?.required"
-                    class="position-absolute p-error"
-                >
-                    {{ 'required' | translate }}
-                </small>
-            </div>
-        </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
-            <label>{{ 'cooking_time' | translate }}<span class="star">*</span></label>
-            <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
-                <input placeholder="eg. 1hr 32 min" formControlName="cooking_time" pInputText />
-                <small *ngIf="recipeForm.controls['cooking_time'].errors?.required" class="position-absolute p-error">
-                    {{ 'required' | translate }}
-                </small>
-            </div>
+            <label>{{ 'equipment' | translate }}<span class="star">*</span></label>
+            <input type="text" placeholder="Enter equipment name" formControlName="equipment_name" pInputText />
+            <small *ngIf="recipeForm.controls['equipment_name'].errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 pl-md-2 pl-lg-3">
+            <label>{{ 'brewing-ratio' | translate }}<span class="star">*</span></label>
+            <p-inputNumber formControlName="coffee_ratio"></p-inputNumber>
+            <small *ngIf="recipeForm.controls['coffee_ratio'].errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 pl-md-2 pl-lg-3">
+            <label style="color: transparent !important">lorem</label>
+            <p-inputNumber formControlName="water_ratio"></p-inputNumber>
+            <small *ngIf="recipeForm.controls['water_ratio'].errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 d-flex">
@@ -210,7 +210,14 @@
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pt-4">
                         <label>{{ 'upload_recipe_video' | translate }}</label>
                         <div
-                            class="addImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
+                            class="
+                                addImageContainer
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                imagesDiv
+                                position-relative
+                            "
                         >
                             <video
                                 class="w-100 cover-image"
@@ -239,7 +246,16 @@
                                 </div>
                                 <div
                                     *ngIf="isTranslate"
-                                    class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                    class="
+                                        bg-f8
+                                        br-4
+                                        py-2
+                                        px-3
+                                        d-flex
+                                        align-items-center
+                                        justify-content-center
+                                        copy-paste-button
+                                    "
                                     (click)="pasteVideo()"
                                 >
                                     <img src="assets/images/paste.svg" class="mr-1" />
@@ -267,7 +283,14 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 sewn-form-field w-100">
                                 <label>{{ 'add_image' | translate }}</label>
                                 <div
-                                    class="stepAddImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
+                                    class="
+                                        stepAddImageContainer
+                                        d-flex
+                                        align-items-center
+                                        justify-content-center
+                                        imagesDiv
+                                        position-relative
+                                    "
                                 >
                                     <img [src]="step?.coverImageUrl" *ngIf="step?.coverImageUrl" class="cover-image" />
                                     <div class="d-block align-items-center justify-content-center pointer-item">
@@ -297,7 +320,16 @@
                                     </div>
                                     <div
                                         *ngIf="isTranslate"
-                                        class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                        class="
+                                            bg-f8
+                                            br-4
+                                            py-2
+                                            px-3
+                                            d-flex
+                                            align-items-center
+                                            justify-content-center
+                                            copy-paste-button
+                                        "
                                         (click)="pasteStepImage(i)"
                                     >
                                         <img src="assets/images/paste.svg" class="mr-1" />
@@ -330,7 +362,14 @@
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pt-4">
                         <label>{{ 'upload_recipe_video' | translate }}</label>
                         <div
-                            class="addImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
+                            class="
+                                addImageContainer
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                imagesDiv
+                                position-relative
+                            "
                         >
                             <video
                                 class="w-100 cover-image"
@@ -359,7 +398,16 @@
                                 </div>
                                 <div
                                     *ngIf="isTranslate"
-                                    class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                    class="
+                                        bg-f8
+                                        br-4
+                                        py-2
+                                        px-3
+                                        d-flex
+                                        align-items-center
+                                        justify-content-center
+                                        copy-paste-button
+                                    "
                                     (click)="pasteVideo()"
                                 >
                                     <img src="assets/images/paste.svg" class="mr-1" />
@@ -377,7 +425,14 @@
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-0">
                 <label>{{ 'upload_recipe_video' | translate }}</label>
                 <div
-                    class="addImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
+                    class="
+                        addImageContainer
+                        d-flex
+                        align-items-center
+                        justify-content-center
+                        imagesDiv
+                        position-relative
+                    "
                 >
                     <video
                         class="w-100 cover-image"
@@ -418,7 +473,16 @@
                                 >
                                 <div
                                     *ngIf="isTranslate"
-                                    class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                    class="
+                                        bg-f8
+                                        br-4
+                                        py-2
+                                        px-3
+                                        d-flex
+                                        align-items-center
+                                        justify-content-center
+                                        copy-paste-button
+                                    "
                                     (click)="pasteVideo()"
                                 >
                                     <img src="assets/images/paste.svg" class="mr-1" />
@@ -454,7 +518,14 @@
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 pl-md-2 pl-lg-3 sewn-form-field w-100">
                     <label>{{ 'add_image' | translate }}</label>
                     <div
-                        class="stepAddImageContainer d-flex align-items-center justify-content-center imagesDiv position-relative"
+                        class="
+                            stepAddImageContainer
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                            imagesDiv
+                            position-relative
+                        "
                     >
                         <div class="step-img-delete d-flex" *ngIf="step?.coverImageUrl">
                             <div class="m-3 delete-icon">
@@ -488,7 +559,16 @@
                         </div>
                         <div
                             *ngIf="isTranslate"
-                            class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                            class="
+                                bg-f8
+                                br-4
+                                py-2
+                                px-3
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                copy-paste-button
+                            "
                             (click)="pasteStepImage(i)"
                         >
                             <img src="assets/images/paste.svg" class="mr-1" />
