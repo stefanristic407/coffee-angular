@@ -325,28 +325,18 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6 sewn-form-field">
                                         <label>Shipping Price<span class="star">*</span></label>
-                                        <div class="weightInputGroupDiv d-flex">
-                                            <input
-                                                type="number"
-                                                placeholder="Please enter shipping amount"
-                                                class="weightInputDiv"
+                                        <div class="p-inputgroup custom-addon">
+                                            <p-inputNumber
+                                                mode="decimal"
+                                                locale="en-US"
+                                                [minFractionDigits]="2"
                                                 formControlName="price"
-                                                pInputText
-                                            />
-                                            <small
-                                                *ngIf="details['controls']['price'].errors?.required"
-                                                class="p-error"
-                                            >
+                                                placeholder="Please enter shipping amount"
+                                            ></p-inputNumber>
+                                            <span class="p-inputgroup-addon gray">SEK</span>
+                                            <small *ngIf="detailsFormControl.price.errors?.required" class="p-error">
                                                 Shipment price is required
                                             </small>
-                                            <div>
-                                                <p-dropdown
-                                                    [options]="shippingPriceUnitArray"
-                                                    optionLabel="label"
-                                                    [style]="{ width: '100%', border: '0px' }"
-                                                    optionValue="value"
-                                                ></p-dropdown>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 sewn-form-field">
