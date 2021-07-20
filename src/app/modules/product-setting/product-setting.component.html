@@ -209,7 +209,7 @@
                                                 <span class="list-que"> {{ 'shipping_name' | translate }} : </span>
                                             </td>
                                             <td>
-                                                <span class="list-ans"> {{ shippingDetails.name }} </span>
+                                                <span class="list-ans"> {{ shippingDetails.name || 'NA' }} </span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -217,7 +217,7 @@
                                                 <span class="list-que"> {{ 'shipping_price' | translate }} : </span>
                                             </td>
                                             <td>
-                                                <span class="list-ans"> {{ shippingDetails.price }} kr </span>
+                                                <span class="list-ans"> {{ shippingDetails.price || 'NA' }} kr </span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -228,7 +228,8 @@
                                             </td>
                                             <td>
                                                 <span class="list-ans">
-                                                    {{ shippingDetails.day_min }} - {{ shippingDetails.day_max }} Days
+                                                    {{ shippingDetails.day_min || 'NA' }} -
+                                                    {{ shippingDetails.day_max || 'NA' }} Days
                                                 </span>
                                             </td>
                                         </tr>
@@ -415,7 +416,7 @@
                                     <span class="list-que"> {{ 'shipping_name' | translate }} : </span>
                                 </td>
                                 <td>
-                                    <span class="list-ans"> {{ shippingDetails.name }} </span>
+                                    <span class="list-ans"> {{ shippingDetails.name || 'NA' }} </span>
                                 </td>
                             </tr>
                             <tr>
@@ -423,7 +424,7 @@
                                     <span class="list-que"> {{ 'shipping_price' | translate }} : </span>
                                 </td>
                                 <td>
-                                    <span class="list-ans"> {{ shippingDetails.price }} kr </span>
+                                    <span class="list-ans"> {{ shippingDetails.price || 'NA' }} kr </span>
                                 </td>
                             </tr>
                             <tr>
@@ -432,7 +433,8 @@
                                 </td>
                                 <td>
                                     <span class="list-ans">
-                                        {{ shippingDetails.day_min }} - {{ shippingDetails.day_max }} Days
+                                        {{ shippingDetails.day_min || 'NA' }} -
+                                        {{ shippingDetails.day_max || 'NA' }} Days
                                     </span>
                                 </td>
                             </tr>
