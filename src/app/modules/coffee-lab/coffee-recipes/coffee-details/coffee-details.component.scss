@@ -132,10 +132,16 @@
             .serving-sm {
                 padding: 0px 0px 0 6px !important;
             }
+            .preparation-sm {
+                padding: 0 6px 16px 6px !important;
+            }
+            .expertise-level-block {
+                padding: 12px 4px !important;
+            }
         }
         .expertise-level-block {
             flex-wrap: wrap;
-            padding: 12px 22px !important;
+            padding: 12px 22px;
         }
         .cooking-time {
             white-space: initial;
