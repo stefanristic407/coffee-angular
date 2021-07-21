@@ -9,9 +9,7 @@
     .pr-45 {
         padding-right: 45px !important;
     }
-    .expert-sm,
-    .preparation-sm,
-    .cooking-sm {
+    .preparation-sm {
         white-space: nowrap;
     }
 
@@ -82,11 +80,6 @@
         color: $general-text-color;
     }
     @media (max-width: 767px) {
-        .expert-sm {
-            .expertise {
-                width: 50px;
-            }
-        }
         .ingredient-block {
             .ingredient-details {
                 .name {
@@ -99,49 +92,21 @@
     @media (max-width: 768px) {
         padding-bottom: 0 !important;
         .expert-sm {
-            border-right: solid 1px $primary-border-color;
             border-bottom: solid 1px $primary-border-color;
-            padding: 0 16px 16px 0 !important;
+            padding: 0 16px 16px 8px !important;
             white-space: break-spaces;
-            width: 50%;
         }
         .preparation-sm {
-            width: 50%;
-            padding: 0 16px 16px 15px !important;
-            padding-right: 0 !important;
+            padding: 8px 0px 16px 8px !important;
             border-bottom: solid 1px $primary-border-color;
-            white-space: break-spaces;
-        }
-        .cooking-sm {
-            width: 50%;
-            padding: 16px 23px 0 0 !important;
-            border-right: solid 1px $primary-border-color;
             white-space: break-spaces;
         }
         .serving-sm {
-            width: 50%;
-            padding: 0px 23px 0 15px !important;
-            padding-right: 0 !important;
-            border-left: solid 1px #d6d6d6;
-            border-bottom: solid 1px #d6d6d6;
-        }
-        @media screen and (max-width: 767px) {
-            .expertise-level-block {
-                padding: 16px 4px !important;
-            }
-            .serving-sm {
-                padding: 0px 0px 0 6px !important;
-            }
-            .preparation-sm {
-                padding: 0 6px 16px 6px !important;
-            }
-            .expertise-level-block {
-                padding: 12px 4px !important;
-            }
+            padding: 8px 0px 16px 8px !important;
         }
         .expertise-level-block {
             flex-wrap: wrap;
-            padding: 12px 22px;
+            padding: 12px 22px !important;
         }
         .cooking-time {
             white-space: initial;

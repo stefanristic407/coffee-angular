@@ -56,7 +56,7 @@
                 <div class="pb-3 pb-md-4 pb-lg-45">
                     <img class="w-100 banner-image" [src]="detailsData?.cover_image_url" />
                     <div class="mt-3 expertise-level-block">
-                        <div class="d-flex w-100 justify-content-md-around">
+                        <div class="d-flex flex-column flex-md-row justify-content-md-around w-100">
                             <div class="pr-45 expert-sm">
                                 <div class="m-0 d-flex">
                                     <span class="d-none d-md-block"
@@ -91,7 +91,7 @@
                                     >
                                 </div>
                             </div>
-                            <div class="serving-sm pr-md-45">
+                            <div class="flex-wrap serving-sm">
                                 <div class="m-0 d-flex">
                                     <span class="d-none d-md-block"><img src="/assets/images/serving.svg" /></span>
                                     <span class="d-md-none"><img src="/assets/images/serving-mb.svg" /></span>
@@ -103,9 +103,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="d-flex w-100">
-                  
-                        </div> -->
                     </div>
                     <p class="fnt-14 fnt-muli pt-3" [innerHTML]="detailsData?.description"></p>
                 </div>
