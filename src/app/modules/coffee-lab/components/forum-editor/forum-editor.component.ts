@@ -87,14 +87,14 @@ export class ForumEditorComponent implements OnInit {
                                 this.emitImagesChange();
                             }
                         } else {
-                            this.content = this.content.replace(this.imgRex, '');
+                            this.content = this.content.replace(this.base64Rex, '');
                             this.imagesCount -= 1;
                             this.contentChange.emit(this.content);
                             this.toastrService.error('Error while upload image');
                         }
                     });
                 } else {
-                    this.content = this.content.replace(this.imgRex, '');
+                    this.content = this.content.replace(this.base64Rex, '');
                     this.imagesCount -= 1;
                     this.contentChange.emit(this.content);
                 }
