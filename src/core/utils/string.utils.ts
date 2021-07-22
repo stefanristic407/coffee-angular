@@ -24,18 +24,24 @@ export const dataURItoBlob = (dataURI: string): any => {
 };
 
 export const insertAltAttr = (content: string, alt: string): string => {
-    // readonly imgRex: RegExp = /<img.*?src="(.*?)"[^>]*>/g;
-    let img;
     const altStr = ` alt="${alt}"`;
     // Remove alt attribute
-    while ((img = RegExp(/<img.*?(alt=".*?")[^>]*>/g).exec(content)) !== null) {
+    while (1) {
+        const img = RegExp(/<img.*?(alt=".*?")[^>]*>/g).exec(content);
+        if (!img) {
+            break;
+        }
         content = content.replace(img[1], '');
     }
     // Insert alt attribute
-    while ((img = RegExp(/<img(?!.*\s+alt\s*=)[^>]*>/g).exec(content)) !== null) {
+    while (1) {
+        const img = RegExp(/<img(?!.*\s+alt\s*=)[^>]*>/g).exec(content);
+        if (!img) {
+            break;
+        }
         const originTag = img[0];
         const position = originTag.length - 1;
-        let imageTag = originTag.slice(0, position) + altStr + originTag.slice(position);
+        const imageTag = originTag.slice(0, position) + altStr + originTag.slice(position);
         content = content.replace(originTag, imageTag);
     }
     return content;
