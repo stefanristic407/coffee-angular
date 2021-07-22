@@ -42,6 +42,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { SkeletonModule } from 'primeng/skeleton';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -129,6 +130,7 @@ const THIRDMODULES = [
     RangeNavigatorAllModule,
     RatingModule,
     SelectButtonModule,
+    SkeletonModule,
     SliderModule,
     TableModule,
     TabMenuModule,

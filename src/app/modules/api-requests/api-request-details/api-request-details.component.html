@@ -1,6 +1,6 @@
 <section>
     <div *ngIf="loader">
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <app-loading></app-loading>
     </div>
     <div class="api-request-detail-container" *ngIf="!loader">
         <div class="breadCrumb-block">

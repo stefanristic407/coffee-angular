@@ -1,6 +1,5 @@
 <div *ngIf="loader">
-    <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-    <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+    <app-loading></app-loading>
 </div>
 <div *ngIf="!loader" class="main-block">
     <div class="d-md-flex justify-content-between align-items-start">

@@ -204,9 +204,7 @@
 </header>
 
 <ng-template #headerLoader>
-    <div class="stricky">
-        <img class="w-100" src="/assets/images/loader-header.gif" />
-    </div>
+    <app-loading type="header"></app-loading>
 </ng-template>
 
 <footer class="sectin-footer-mb" [class.show]="showMobFooter">
@@ -368,7 +366,7 @@
 <app-upload-info></app-upload-info>
 
 <ng-template #mainLoader>
-    <app-loading></app-loading>
+    <app-loading type="dashboard"></app-loading>
 </ng-template>
 
 <ng-template #notificationTemplate let-myOp="myOp">

@@ -7213,20 +7213,11 @@ li.select-list__item {
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-    .header-profile-links .profile-link__info {
-        max-width: 120px;
-    }
     .g-thumbs-container .ng-star-inserted {
         padding-right: 8px !important;
     }
     .g-slider {
         left: 16% !important;
-    }
-}
-
-@media (min-width: 992px) {
-    .header-profile-links .profile-link__info {
-        max-width: 175px;
     }
 }
 
