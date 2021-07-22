@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
-import { maxWordCountValidator } from '@utils';
+import { insertAltAttr, maxWordCountValidator } from '@utils';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
@@ -17,7 +17,6 @@ import { CroppedImage } from '@models';
 export class CreateArticleComponent implements OnInit {
     articleForm: FormGroup;
     isPosting = false;
-    content: any;
     isUploadingImage: any;
     imageIdList: any;
     coverImage: any;
@@ -54,6 +53,7 @@ export class CreateArticleComponent implements OnInit {
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([maxWordCountValidator(30)])],
+            content: [''],
             allow_translation: [true, Validators.compose([Validators.required])],
         });
     }
@@ -67,13 +67,8 @@ export class CreateArticleComponent implements OnInit {
                 this.coverImageUrl = res.result.cover_image_url;
                 this.coverImageId = res.result.cover_image_id;
                 this.isCoverImageUploaded = true;
-                this.content = res.result.content;
                 this.images = res.result.images ?? [];
-                this.articleForm.patchValue({
-                    title: res.result.title,
-                    subtitle: res.result.subtitle,
-                    allow_translation: res.result.allow_translation,
-                });
+                this.articleForm.patchValue(res.result.title);
             } else {
                 this.toaster.error('Error while get article');
                 this.location.back();
@@ -124,7 +119,7 @@ export class CreateArticleComponent implements OnInit {
         if (this.articleForm.invalid) {
             return;
         }
-        if (!this.content && status === 'published') {
+        if (!this.articleForm.value.content && status === 'published') {
             this.toaster.error('Please fill content.');
             return;
         }
@@ -136,9 +131,12 @@ export class CreateArticleComponent implements OnInit {
         this.handlePost(status);
     }
     handlePost(status: string) {
+        this.articleForm
+            .get('content')
+            .setValue(insertAltAttr(this.articleForm.value.content, ` ${this.articleForm.value.title} detail image`));
+
         let data: any = {
             ...this.articleForm.value,
-            content: this.content,
             images: this.imageIdList,
             status,
             language: this.articleId ? this.article?.language : this.coffeeLabService.currentForumLanguage,

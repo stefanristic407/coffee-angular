@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { APP_LANGUAGES } from '@constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { maxWordCountValidator } from '@utils';
+import { insertAltAttr, maxWordCountValidator } from '@utils';
 
 @Component({
     selector: 'app-translate-article',
@@ -19,7 +19,6 @@ export class TranslateArticleComponent implements OnInit {
     isLoading = false;
     applicationLanguages: any[];
     articleForm: FormGroup;
-    content = '';
     isUploadingImage = false;
     imageIdList = [];
     isPosting = false;
@@ -45,6 +44,7 @@ export class TranslateArticleComponent implements OnInit {
             language: [''],
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
+            content: [''],
         });
     }
 
@@ -87,14 +87,8 @@ export class TranslateArticleComponent implements OnInit {
                 this.coverImageUrl = res.result.cover_image_url;
                 this.coverImageId = res.result.cover_image_id;
                 this.isCoverImageUploaded = true;
-                this.content = res.result.content;
                 this.images = res.result.images ?? [];
-                this.articleForm.patchValue({
-                    language: res.result.language,
-                    title: res.result.title,
-                    subtitle: res.result.subtitle,
-                    allow_translation: res.result.allow_translation,
-                });
+                this.articleForm.patchValue(res.result);
             } else {
                 this.toastrService.error('Error while get draft');
             }
@@ -140,7 +134,7 @@ export class TranslateArticleComponent implements OnInit {
         if (this.articleForm.invalid) {
             return;
         }
-        if (!this.content && status === 'published') {
+        if (!this.articleForm.value.content && status === 'published') {
             this.toastrService.error('Please fill content.');
             return;
         }
@@ -151,10 +145,13 @@ export class TranslateArticleComponent implements OnInit {
         this.isPosting = true;
         this.handlePost(status);
     }
+
     handlePost(status: string) {
+        this.articleForm
+            .get('content')
+            .setValue(insertAltAttr(this.articleForm.value.content, ` ${this.articleForm.value.title} detail image`));
         let data: any = {
             ...this.articleForm.value,
-            content: this.content,
             images: this.imageIdList,
             status,
         };

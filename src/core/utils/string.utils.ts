@@ -22,3 +22,21 @@ export const dataURItoBlob = (dataURI: string): any => {
     }
     return new Blob([ab], { type: mimeString });
 };
+
+export const insertAltAttr = (content: string, alt: string): string => {
+    // readonly imgRex: RegExp = /<img.*?src="(.*?)"[^>]*>/g;
+    let img;
+    const altStr = ` alt="${alt}"`;
+    // Remove alt attribute
+    while ((img = RegExp(/<img.*?(alt=".*?")[^>]*>/g).exec(content)) !== null) {
+        content = content.replace(img[1], '');
+    }
+    // Insert alt attribute
+    while ((img = RegExp(/<img(?!.*\s+alt\s*=)[^>]*>/g).exec(content)) !== null) {
+        const originTag = img[0];
+        const position = originTag.length - 1;
+        let imageTag = originTag.slice(0, position) + altStr + originTag.slice(position);
+        content = content.replace(originTag, imageTag);
+    }
+    return content;
+};

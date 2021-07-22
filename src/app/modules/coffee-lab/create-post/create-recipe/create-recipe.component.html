@@ -266,14 +266,16 @@
                             </div>
                         </div>
                     </div>
-                    <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
+                    <ng-container
+                        *ngFor="let step of recipeForm.controls['steps']['controls']; let i = index; last as isLast"
+                    >
                         <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9 sewn-form-field w-100">
                                 <div>
                                     <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
                                 </div>
                                 <app-forum-editor
-                                    [(content)]="step.description"
+                                    [formControl]="step.get('description')"
                                     [(isUploadingImage)]="isUploadingImage"
                                     [(imageIdList)]="imageIdListStep[i]"
                                     fileModule="recipe-post"
@@ -292,7 +294,11 @@
                                         position-relative
                                     "
                                 >
-                                    <img [src]="step?.coverImageUrl" *ngIf="step?.coverImageUrl" class="cover-image" />
+                                    <img
+                                        [src]="step.value?.coverImageUrl"
+                                        *ngIf="step.value?.coverImageUrl"
+                                        class="cover-image"
+                                    />
                                     <div class="d-block align-items-center justify-content-center pointer-item">
                                         <input
                                             type="file"
@@ -303,7 +309,7 @@
                                         />
                                         <div
                                             class="d-flex flex-column align-items-center px-25"
-                                            *ngIf="!step?.coverImageUrl"
+                                            *ngIf="!step.value?.coverImageUrl"
                                         >
                                             <span (click)="stepImageCover.click()"
                                                 ><img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25"
@@ -497,7 +503,7 @@
             </div>
         </div>
 
-        <ng-container *ngFor="let step of recipeForm?.value?.steps; let i = index; last as isLast">
+        <ng-container *ngFor="let step of recipeForm.controls['steps']['controls']; let i = index; last as isLast">
             <div
                 class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs flex-wrap"
                 *ngIf="recipeForm?.value?.preparation_method == 'steps'"
@@ -507,7 +513,7 @@
                         <label>{{ 'step' | translate }} {{ i + 1 }}<span class="star">*</span></label>
                     </div>
                     <app-forum-editor
-                        [(content)]="step.description"
+                        [formControl]="step.get('description')"
                         [(isUploadingImage)]="isUploadingImage"
                         [(imageIdList)]="imageIdListStep[i]"
                         fileModule="recipe-post"
@@ -527,14 +533,14 @@
                             position-relative
                         "
                     >
-                        <div class="step-img-delete d-flex" *ngIf="step?.coverImageUrl">
+                        <div class="step-img-delete d-flex" *ngIf="step.value?.coverImageUrl">
                             <div class="m-3 delete-icon">
                                 <span (click)="deleteStepImage(i)"
                                     ><img src="assets/images/recipe-img-delete.svg"
                                 /></span>
                             </div>
                         </div>
-                        <img [src]="step?.coverImageUrl" *ngIf="step?.coverImageUrl" class="cover-image" />
+                        <img [src]="step.value?.coverImageUrl" *ngIf="step.value?.coverImageUrl" class="cover-image" />
                         <div class="d-block align-items-center justify-content-center pointer-item">
                             <input
                                 type="file"
@@ -543,7 +549,7 @@
                                 #stepImageCover
                                 (change)="onFileChange($event, i, RecipeFileType.StepImage)"
                             />
-                            <div class="d-flex flex-column align-items-center px-25" *ngIf="!step?.coverImageUrl">
+                            <div class="d-flex flex-column align-items-center px-25" *ngIf="!step.value?.coverImageUrl">
                                 <span (click)="stepImageCover.click()"
                                     ><img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25"
                                 /></span>

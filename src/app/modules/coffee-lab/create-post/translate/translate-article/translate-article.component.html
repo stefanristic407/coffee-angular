@@ -64,7 +64,16 @@
                                 ></button>
                             </div>
                             <div
-                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                class="
+                                    bg-f8
+                                    br-4
+                                    py-2
+                                    px-3
+                                    d-flex
+                                    align-items-center
+                                    justify-content-center
+                                    copy-paste-button
+                                "
                                 (click)="pasteCoverImage()"
                             >
                                 <img src="assets/images/paste.svg" class="mr-1" />
@@ -99,7 +108,7 @@
                     </div>
                     <div class="col-12 sewn-form-field p-0">
                         <app-forum-editor
-                            [(content)]="content"
+                            formControlName="content"
                             [(isUploadingImage)]="isUploadingImage"
                             [(imageIdList)]="imageIdList"
                             fileModule="cl-articles"
@@ -114,7 +123,16 @@
                         <div class="position-relative">
                             <img [src]="article?.cover_image_url" class="banner-image" />
                             <div
-                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                                class="
+                                    bg-f8
+                                    br-4
+                                    py-2
+                                    px-3
+                                    d-flex
+                                    align-items-center
+                                    justify-content-center
+                                    copy-paste-button
+                                "
                                 (click)="copyCoverImage()"
                             >
                                 <img src="assets/images/copy.svg" class="mr-1" />

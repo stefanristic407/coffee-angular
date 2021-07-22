@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -10,12 +11,23 @@ import { CroppedImage } from '@models';
     selector: 'app-forum-editor',
     templateUrl: './forum-editor.component.html',
     styleUrls: ['./forum-editor.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ForumEditorComponent),
+            multi: true,
+        },
+    ],
 })
-export class ForumEditorComponent implements OnInit {
+export class ForumEditorComponent implements OnInit, ControlValueAccessor {
     readonly imgRex: RegExp = /<img.*?src="(.*?)"[^>]*>/g;
     readonly base64Rex: RegExp = /data:image\/[a-z]*;base64,[^"]+/g;
-    @Input() content: string;
-    @Output() contentChange = new EventEmitter<string>();
+
+    onChange: any;
+    onTouched: any;
+
+    content: string;
+
     @Input() isUploadingImage = false;
     @Output() isUploadingImageChange = new EventEmitter<boolean>();
     @Input() imageIdList = [];
@@ -25,6 +37,18 @@ export class ForumEditorComponent implements OnInit {
     @Input() height = 213;
     @Input() images = [];
     imagesCount = 0;
+
+    writeValue(value: string): void {
+        this.content = value;
+    }
+
+    registerOnChange(fn: (_: any) => void): void {
+        this.onChange = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
 
     constructor(
         public location: Location,
@@ -45,7 +69,7 @@ export class ForumEditorComponent implements OnInit {
     }
 
     onChangeContent(): void {
-        this.contentChange.emit(this.content);
+        this.onChange(this.content);
         const lastUploadedImage = this.getLastUploadedImage();
         if (lastUploadedImage) {
             this.handleUploadImage(lastUploadedImage);
@@ -79,7 +103,7 @@ export class ForumEditorComponent implements OnInit {
                         this.isUploadingImageChange.emit(false);
                         if (res.success) {
                             this.content = this.content.replace(this.base64Rex, res.result.url);
-                            this.contentChange.emit(this.content);
+                            this.onChange(this.content);
                             const imageIndex = this.images.findIndex((item: any) => item.virtualId === virtualId);
                             if (imageIndex !== -1) {
                                 this.images[imageIndex].id = res.result.id;
@@ -89,14 +113,14 @@ export class ForumEditorComponent implements OnInit {
                         } else {
                             this.content = this.content.replace(this.base64Rex, '');
                             this.imagesCount -= 1;
-                            this.contentChange.emit(this.content);
+                            this.onChange(this.content);
                             this.toastrService.error('Error while upload image');
                         }
                     });
                 } else {
                     this.content = this.content.replace(this.base64Rex, '');
                     this.imagesCount -= 1;
-                    this.contentChange.emit(this.content);
+                    this.onChange(this.content);
                 }
             });
     }

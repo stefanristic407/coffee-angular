@@ -4,6 +4,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService, CoffeeLabService, FileService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { insertAltAttr } from '@utils';
 
 @Component({
     selector: 'app-create-answer',
@@ -82,6 +83,8 @@ export class CreateAnswerComponent implements OnInit {
             this.toastrService.error('Please fill out field.');
             return;
         }
+
+        this.content = insertAltAttr(this.content, `anser image`);
         let data: any = {};
         if (this.forumType === 'answer') {
             data = {

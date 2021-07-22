@@ -10,6 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CropperDialogComponent } from '@app/shared';
 import { CroppedImage } from '@models';
+import { insertAltAttr } from '@utils';
 
 export enum RecipeFileType {
     CoverImage = 'CoverImage',
@@ -491,23 +492,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     checkRichText() {
         (this.recipeForm.get('steps') as FormArray).controls.forEach((item) => {
-            console.log(item);
-            let content = item.value.description;
-            // readonly imgRex: RegExp = /<img.*?src="(.*?)"[^>]*>/g;
-            let img;
-            const altStr = ` alt="${this.recipeForm.get('name').value} step image"`;
-            // Remove alt attribute
-            while ((img = RegExp(/<img.*?(alt=".*?")[^>]*>/g).exec(content)) !== null) {
-                content = content.replace(img[1], '');
-            }
-            // Insert alt attribute
-            while ((img = RegExp(/<img(?!.*\s+alt\s*=)[^>]*>/g).exec(content)) !== null) {
-                const originTag = img[0];
-                const position = originTag.length - 1;
-                let imageTag = originTag.slice(0, position) + altStr + originTag.slice(position);
-                content = content.replace(originTag, imageTag);
-            }
-            item.value.description = content;
+            item.get('description').setValue(
+                insertAltAttr(item.get('description').value, ` ${this.recipeForm.get('name').value} step image`),
+            );
         });
     }
 }

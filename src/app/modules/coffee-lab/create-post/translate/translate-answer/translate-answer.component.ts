@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { APP_LANGUAGES } from '@constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { insertAltAttr } from '@utils';
 
 @Component({
     selector: 'app-translate-answer',
@@ -139,6 +140,7 @@ export class TranslateAnswerComponent implements OnInit {
             this.toastrService.error('Please type your answer.');
             return;
         }
+        this.translatedAnswer = insertAltAttr(this.translatedAnswer, `anser image`);
         const data: any = {
             answer: this.translatedAnswer,
             status,

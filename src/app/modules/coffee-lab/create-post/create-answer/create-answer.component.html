@@ -15,7 +15,7 @@
         <div class="px-0 px-md-4">
             <div *ngIf="forumType === 'answer'">
                 <app-forum-editor
-                    [(content)]="content"
+                    [(ngModel)]="content"
                     [(isUploadingImage)]="isUploadingImage"
                     [(imageIdList)]="imageIdList"
                     [images]="images"
