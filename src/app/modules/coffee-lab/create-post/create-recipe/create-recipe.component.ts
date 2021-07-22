@@ -382,6 +382,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     handlePost(): void {
         this.isPosting = true;
+        this.checkRichText();
         if (this.isTranslate) {
             this.translateRecipe(this.recipeForm.value);
         } else if (this.recipeId) {
@@ -486,5 +487,27 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
+    }
+
+    checkRichText() {
+        (this.recipeForm.get('steps') as FormArray).controls.forEach((item) => {
+            console.log(item);
+            let content = item.value.description;
+            // readonly imgRex: RegExp = /<img.*?src="(.*?)"[^>]*>/g;
+            let img;
+            const altStr = ` alt="${this.recipeForm.get('name').value} step image"`;
+            // Remove alt attribute
+            while ((img = RegExp(/<img.*?(alt=".*?")[^>]*>/g).exec(content)) !== null) {
+                content = content.replace(img[1], '');
+            }
+            // Insert alt attribute
+            while ((img = RegExp(/<img(?!.*\s+alt\s*=)[^>]*>/g).exec(content)) !== null) {
+                const originTag = img[0];
+                const position = originTag.length - 1;
+                let imageTag = originTag.slice(0, position) + altStr + originTag.slice(position);
+                content = content.replace(originTag, imageTag);
+            }
+            item.value.description = content;
+        });
     }
 }
