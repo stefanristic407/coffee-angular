@@ -68,7 +68,7 @@ export class CreateArticleComponent implements OnInit {
                 this.coverImageId = res.result.cover_image_id;
                 this.isCoverImageUploaded = true;
                 this.images = res.result.images ?? [];
-                this.articleForm.patchValue(res.result.title);
+                this.articleForm.patchValue(res.result);
             } else {
                 this.toaster.error('Error while get article');
                 this.location.back();
