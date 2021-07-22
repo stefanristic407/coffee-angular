@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
 import { OrganizationType } from '@enums';
 import { CommonService, ResizeService } from '@services';
 import { DataTableComponent } from '@base-components';
@@ -14,12 +14,17 @@ import { Table } from 'primeng/table/table';
     templateUrl: './order-table.component.html',
     styleUrls: ['./order-table.component.scss'],
 })
-export class OrderTableComponent extends DataTableComponent<OrderSummary> implements OnInit {
+export class OrderTableComponent extends DataTableComponent<OrderSummary> implements OnInit,AfterViewInit {
     readonly OrgTypes = OrganizationType;
 
     orgType: OrganizationType;
+    isMobileView = false;
 
     @ViewChild('ordersTable') ordersTable: Table;
+    @HostListener('window:resize', ['$event'])
+    Resize(event?) {
+        this.updateResize();
+    }
 
     constructor(
         private route: ActivatedRoute,
@@ -28,6 +33,14 @@ export class OrderTableComponent extends DataTableComponent<OrderSummary> implem
         public commonService: CommonService,
     ) {
         super(resizeService);
+    }
+
+    updateResize() {
+        this.isMobileView = window.innerWidth <= 640;
+    }
+    
+    ngAfterViewInit(){
+        this.updateResize();
     }
 
     ngOnInit(): void {
