@@ -9,6 +9,7 @@ import { MyProfileService } from '@modules/my-profile/my-profile.service';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { dataURItoBlob } from '@utils';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-my-profile',
@@ -147,9 +148,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.form.controls.email.setValue(this.profileInfo.email);
         this.form.controls.phone.setValue(this.profileInfo.phone);
         this.form.controls.role.setValue(this.role);
-        if (this.profileInfo.date_of_birth) {
-            this.form.controls.birthday.setValue(new Date(this.profileInfo.date_of_birth));
-        }
+        this.form.controls.birthday.setValue(
+            moment(this.profileInfo.date_of_birth).isValid() ? moment(this.profileInfo.date_of_birth).toDate() : null,
+        );
     }
 
     onSelectFile(event: any): void {
