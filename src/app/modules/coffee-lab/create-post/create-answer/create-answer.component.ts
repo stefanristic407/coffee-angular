@@ -84,7 +84,7 @@ export class CreateAnswerComponent implements OnInit {
             return;
         }
 
-        this.content = insertAltAttr(this.content, `anser image`);
+        this.content = insertAltAttr(this.content, `anwser image`);
         let data: any = {};
         if (this.forumType === 'answer') {
             data = {
