@@ -133,7 +133,7 @@ export class CreateArticleComponent implements OnInit {
     handlePost(status: string) {
         this.articleForm
             .get('content')
-            .setValue(insertAltAttr(this.articleForm.value.content, ` ${this.articleForm.value.title} detail image`));
+            .setValue(insertAltAttr(this.articleForm.value.content, `${this.articleForm.value.title} detail image`));
 
         let data: any = {
             ...this.articleForm.value,
