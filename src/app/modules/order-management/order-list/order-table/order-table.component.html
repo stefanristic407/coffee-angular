@@ -70,7 +70,7 @@
                 </th>
             </ng-container>
             <th pSortableColumn="date_received" width="150px">
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <span class="text-overflow-ellipsis">{{ 'date_ordered' | translate }}</span>
                     <p-sortIcon
                         field="date_received"
@@ -118,7 +118,7 @@
                 </div>
             </th>
             <th *ngIf="orgType === OrgTypes.ESTATE" pSortableColumn="price" width="100px">
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <span class="text-overflow-ellipsis">{{ 'price' | translate }}</span>
                     <p-sortIcon
                         field="price"
@@ -130,7 +130,7 @@
                 </div>
             </th>
             <th pSortableColumn="quantity" width="150px">
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <span class="text-overflow-ellipsis">{{ 'roaster_reference_no' | translate }}</span>
                     <p-sortIcon
                         field="quantity"
@@ -142,7 +142,7 @@
                 </div>
             </th>
             <th pSortableColumn="type" width="100px">
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <span class="text-overflow-ellipsis">{{ 'type' | translate }}</span>
                     <p-sortIcon
                         field="type"
@@ -154,7 +154,7 @@
                 </div>
             </th>
             <th pSortableColumn="status" width="100px">
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
                     <span class="text-overflow-ellipsis">{{ 'status' | translate }}</span>
                     <p-sortIcon
                         field="status"
@@ -165,7 +165,7 @@
                     </p-sortIcon>
                 </div>
             </th>
-            <th class="action-column text-center" width="100px">
+            <th class="action-column text-center" width="150px">
                 <span class="text-overflow-ellipsis">{{ 'action' | translate }}</span>
             </th>
         </tr>
@@ -220,44 +220,80 @@
             </td>
 
             <td *ngIf="orgType === OrgTypes.ESTATE" class="d-none d-md-table-cell text-overflow-ellipsis" width="150px">
-                {{ rowData.estate_name }}
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis"> {{ rowData.estate_name }}</span>
+                </div>
             </td>
             <ng-container *ngIf="orgType === OrgTypes.MICRO_ROASTER">
-                <td class="d-none d-md-table-cell text-overflow-ellipsis" width="150px">{{ rowData.product_name }}</td>
                 <td class="d-none d-md-table-cell text-overflow-ellipsis" width="150px">
-                    {{ rowData.micro_roaster_name }}
+                    <div class="d-flex">
+                        <span class="text-overflow-ellipsis"> {{ rowData.product_name }}</span>
+                    </div>
+                </td>
+                <td class="d-none d-md-table-cell text-overflow-ellipsis" width="150px">
+                    <div class="d-flex">
+                        <span class="text-overflow-ellipsis"> {{ rowData.micro_roaster_name }}</span>
+                    </div>
                 </td>
             </ng-container>
             <td class="d-none d-md-table-cell text-overflow-ellipsis" width="150px">
-                {{ rowData.created_at | date: 'd MMM yyyy' }}
+                <div class="d-flex justify-content-center">
+                    <span class="text-overflow-ellipsis"> {{ rowData.created_at | date: 'd MMM yyyy' }}</span>
+                </div>
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis" width="100px" width="100px">
-                {{ rowData.origin | country }}
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis"> {{ rowData.origin | country }}</span>
+                </div>
             </td>
             <td *ngIf="orgType === OrgTypes.ESTATE" class="d-none d-md-table-cell text-overflow-ellipsis" width="100px">
-                {{ rowData.species }}
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis"> {{ rowData.species }}</span>
+                </div>
             </td>
             <td
                 *ngIf="orgType === OrgTypes.MICRO_ROASTER"
                 class="d-none d-md-table-cell text-overflow-ellipsis"
                 width="100px"
             >
-                {{ rowData.varieties }}
+                <div class="d-flex">
+                    <span class="text-overflow-ellipsis">
+                        {{ rowData.varieties }}
+                    </span>
+                </div>
             </td>
             <td *ngIf="orgType === OrgTypes.ESTATE" class="d-none d-md-table-cell text-overflow-ellipsis" width="100px">
-                {{ getPrice(rowData) | currency: 'USD' }}
+                <div class="d-flex justify-content-center">
+                    <span class="text-overflow-ellipsis">
+                        {{ getPrice(rowData) | currency: 'USD' }}
+                    </span>
+                </div>
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis" width="150px">
-                {{ rowData.order_reference || '-' }}
+                <div class="d-flex justify-content-center">
+                    <span class="text-overflow-ellipsis">
+                        {{ rowData.order_reference || '-' }}
+                    </span>
+                </div>
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis" width="100px">
-                <span class="fnt-14 fnt-600" [ngClass]="rowData.type">&#9679;&nbsp;{{ rowData.type }}</span>
+                <span class="fnt-14 fnt-600" [ngClass]="rowData.type">
+                    <div class="d-flex justify-content-center">
+                        <span class="text-overflow-ellipsis"> &#9679;&nbsp; {{ rowData.type }} </span>
+                    </div>
+                </span>
             </td>
-            <td class="d-none d-md-table-cell text-overflow-ellipsis" width="100px">{{ rowData.status }}</td>
-            <td class="d-none d-md-table-cell" width="100px">
-                <a *ngIf="orgType" class="view-order" [routerLink]="orgType | orderLink: rowData.id">{{
-                    'view_order' | translate
-                }}</a>
+            <td class="d-none d-md-table-cell text-overflow-ellipsis" width="100px">
+                <div class="d-flex justify-content-center">
+                    <span class="text-overflow-ellipsis"> {{ rowData.status }} </span>
+                </div>
+            </td>
+            <td class="d-none d-md-table-cell" width="150px">
+                <div class="d-flex justify-content-center">
+                    <a *ngIf="orgType" class="view-order" [routerLink]="orgType | orderLink: rowData.id">{{
+                        'view_order' | translate
+                    }}</a>
+                </div>
             </td>
         </tr>
     </ng-template>

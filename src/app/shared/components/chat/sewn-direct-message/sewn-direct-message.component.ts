@@ -1,9 +1,9 @@
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import Viewer from 'viewerjs';
+import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { debounce, first, filter, tap } from 'rxjs/operators';
 import { Subscription, fromEvent, interval, Subject, timer } from 'rxjs';
-import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import {
     SocketService,
     ChatHandlerService,
