@@ -1705,6 +1705,19 @@
             font-size: 12px;
             font-weight: 600;
             color: #747588;
+            .dm-hub-org-name-wrapper {
+                width: 100%;
+                display: inline-flex;
+                position: relative;
+                .dm-hub-org-name-text {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: table-cell;
+                    position: relative;
+                    width: 100%;
+                }
+            }
         }
     }
 }
