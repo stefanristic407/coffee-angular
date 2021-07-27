@@ -16,6 +16,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     breadItems = [
         { label: 'Home', routerLink: '/features/welcome-aboard' },
         { label: 'Order Management', routerLink: '/features/welcome-aboard' },
+        { label: 'Order Management', routerLink: '/features/welcome-aboard' },
         { label: 'Order Transactions' },
     ];
 
