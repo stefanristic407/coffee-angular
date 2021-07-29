@@ -63,7 +63,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     @ViewChild('requestTable') requestTable: RequestTableComponent;
 
     get customerPropertyName(): string {
-        return this.orgType === OrganizationType.ESTATE ? 'estate' : 'micro-roaster';
+        return this.orgType === OrganizationType.ESTATE ? 'Estate' : 'Micro Roaster';
     }
 
     constructor(

@@ -14,6 +14,16 @@
     }
 }
 ::ng-deep {
+    .p-datatable table {
+        td.text-overflow-ellipsis {
+            max-width: unset !important;
+        }
+    }
+    td a.view-order {
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
     .p-datatable .p-datatable-thead > tr > th,
     .p-datatable .p-datatable-tbody > tr > td {
         padding: 1.25rem 0.1rem;

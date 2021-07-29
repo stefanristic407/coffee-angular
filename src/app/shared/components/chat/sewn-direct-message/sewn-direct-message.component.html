@@ -412,9 +412,20 @@
                 />
             </div>
 
-            <div class="dm-hub-org-name">
-                {{ openedThread.computed_targetedUser.computed_organization_name }}
-                {{ conditionalHypen(openedThread.computed_targetedUser.org_name) }}
+            <div
+                class="dm-hub-org-name"
+                [title]="
+                    openedThread.computed_targetedUser.computed_organization_name +
+                    '' +
+                    conditionalHypen(openedThread.computed_targetedUser.org_name)
+                "
+            >
+                <div class="dm-hub-org-name-wrapper">
+                    <div class="dm-hub-org-name-text">
+                        {{ openedThread.computed_targetedUser.computed_organization_name }}
+                        {{ conditionalHypen(openedThread.computed_targetedUser.org_name) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
