@@ -17,6 +17,7 @@ import { COUNTRY_LIST } from '@constants';
 import { OrganizationType } from '@enums';
 import { ResizeableComponent } from '@base-components';
 import { environment } from '@env/environment';
+import { AddressType } from 'src/core/enums/availability/address-type.enum';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -93,9 +94,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             }
             if (this.orderType === 'booked' || this.orderType === 'sample') {
                 this.getHarvest();
-            } else if (this.orderType === 'preBooked') {
-                this.getLot();
-                this.getPrebookBatch();
             }
         });
 
@@ -319,15 +317,15 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     placeOrder() {
         if (this.infoForm.valid) {
-            if (!this.billingAddress?.id) {
-                this.toastrService.error('Please update billing address');
-                return;
-            }
             if (!this.infoForm.value.service) {
                 if (!this.deliveryAddress?.id) {
                     this.toastrService.error('Please update delivery address');
                     return;
                 }
+            }
+            if (!this.billingAddress?.id) {
+                this.toastrService.error('Please update billing address');
+                return;
             }
             this.dialogSrv
                 .open(ConfirmComponent, {
@@ -344,8 +342,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                             this.submitOrder();
                         } else if (this.orderType === 'sample') {
                             this.submitSample();
-                        } else if (this.orderType === 'preBooked') {
-                            this.submitPreBook();
                         }
                     }
                 });
@@ -390,22 +386,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         });
     }
 
-    submitPreBook() {
-        const data = {
-            shipping_address_id: this.addressData.id,
-            billing_address_id: this.addressData.id,
-        };
-        if (this.batchId) {
-            this.userService.addPrebookLots(this.roasterId, this.batchId, data).subscribe((res: any) => {
-                if (res.success) {
-                    this.orderPlaced = true;
-                } else {
-                    this.toastrService.error('Error while Placing the prebook order');
-                }
-            });
-        }
-    }
-
     changeCountry() {
         if (this.addressForm.value.country) {
             this.commonService.getCountry(this.addressForm.value.country).cities.forEach((element) => {
@@ -416,7 +396,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     saveAddress() {
         if (this.addressForm.valid) {
-            const type = this.isBilling ? 'billing' : 'delivery';
+            const type = this.isBilling ? AddressType.BILLING : AddressType.SHIPPING;
             const id = this.isBilling ? this.billingAddress?.id : this.deliveryAddress?.id;
             const postData = {
                 type,
@@ -476,30 +456,26 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     getRoAddress(resolve: any = null, requireUpdating?) {
         this.userService.getAddresses(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.deliveryAddress = (res.result || []).find((item) => item.type === 'delivery') ?? {};
-                this.billingAddress = (res.result || []).find((item) => item.type === 'billing') ?? {};
+                const defaultAddress = {
+                    country: this.authService.currentOrganization.country,
+                    state: this.authService.currentOrganization.state,
+                    address_line1: this.authService.currentOrganization.address_line1,
+                    address_line2: this.authService.currentOrganization.address_line2,
+                    city: this.authService.currentOrganization.city,
+                    zipcode: this.authService.currentOrganization.zipcode,
+                };
+                this.deliveryAddress =
+                    (res.result || []).find((item) => item.type === AddressType.SHIPPING) ?? defaultAddress;
+                this.billingAddress =
+                    (res.result || []).find((item) => item.type === AddressType.BILLING) ?? defaultAddress;
                 if (requireUpdating && !this.infoForm.value?.service) {
                     this.addressData = this.deliveryAddress;
                 }
 
-                console.log('this.addressData', this.addressData);
-                console.log('this.deliveryAddress', this.deliveryAddress);
-                console.log('this.billingAddress', this.billingAddress);
                 if (resolve) {
                     resolve();
                 }
             }
         });
-    }
-
-    getPrebookBatch() {
-        this.userService
-            .getPrebookBatchList(this.roasterId, this.sourcing.estateId, this.sourcing.lotId)
-            .subscribe((res: any) => {
-                if (res.success && res.result.length) {
-                    console.log('Batch:', res.result);
-                    this.batchId = res.result[0].id;
-                }
-            });
     }
 }

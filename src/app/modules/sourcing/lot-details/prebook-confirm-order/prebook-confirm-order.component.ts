@@ -10,6 +10,7 @@ import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
 import { ResizeableComponent } from '@base-components';
 import { PrebookStatus } from '@enums';
+import { AddressType } from 'src/core/enums/availability/address-type.enum';
 
 @Component({
     selector: 'app-prebook-confirm-order',
@@ -34,9 +35,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     orderDetail: any;
     totalPrice;
     shipInfo: any;
-    shipAddress: any;
-    roAddress: any;
-    addressData: any;
+    billingAddress: any;
     editAddress = false;
     cities: any[] = [];
 
@@ -93,7 +92,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
         Promise.all(promises).then(() => {
             this.refreshForm();
             this.refreshOrderDetails();
-            this.changeService();
+            this.changeQuantity();
             this.isLoaded = true;
         });
     }
@@ -143,7 +142,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
             city: ['', Validators.compose([Validators.required])],
             zipcode: ['', Validators.compose([Validators.required])],
         });
-        this.addressForm.patchValue(this.roAddress);
+        this.addressForm.patchValue(this.billingAddress);
         this.changeCountry();
         this.editAddress = true;
     }
@@ -157,17 +156,12 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
         });
     }
 
-    changeService() {
-        if (this.infoForm.value.service) {
-            this.addressData = this.shipAddress;
-        } else {
-            this.addressData = this.roAddress;
-        }
-        this.changeQuantity();
-    }
-
     placeOrder() {
         if (this.infoForm.valid) {
+            if (!this.billingAddress?.id) {
+                this.toastrService.error('Please update billing address');
+                return;
+            }
             this.dialogSrv
                 .open(ConfirmComponent, {
                     data: {
@@ -189,8 +183,8 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
 
     submitPreBook() {
         const data = {
-            shipping_address_id: this.addressData.id,
-            billing_address_id: this.addressData.id,
+            shipping_address_id: this.billingAddress.id,
+            billing_address_id: this.billingAddress.id,
         };
         if (this.batchId) {
             this.userService.addPrebookLots(this.roasterId, this.batchId, data).subscribe((res: any) => {
@@ -216,19 +210,21 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     saveAddress() {
         if (this.addressForm.valid) {
             const postData = {
-                type: 'shipping',
+                type: AddressType.BILLING,
                 ...this.addressForm.value,
             };
-            if (this.roAddress?.id) {
-                this.userService.editAddress(this.roasterId, this.roAddress?.id, postData).subscribe((res: any) => {
-                    if (res.success) {
-                        this.toastrService.success('Address has been Edited');
-                        this.getRoAddress();
-                        this.editAddress = false;
-                    } else {
-                        this.toastrService.error('Error while Editing the address');
-                    }
-                });
+            if (this.billingAddress?.id) {
+                this.userService
+                    .editAddress(this.roasterId, this.billingAddress?.id, postData)
+                    .subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success('Address has been Edited');
+                            this.getRoAddress();
+                            this.editAddress = false;
+                        } else {
+                            this.toastrService.error('Error while Editing the address');
+                        }
+                    });
             } else {
                 this.userService.addAddresses(this.roasterId, postData).subscribe((res: any) => {
                     if (res.success) {
@@ -258,7 +254,16 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     getRoAddress(resolve: any = null) {
         this.userService.getAddresses(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.roAddress = res.result[0];
+                const defaultAddress = {
+                    country: this.authService.currentOrganization.country,
+                    state: this.authService.currentOrganization.state,
+                    address_line1: this.authService.currentOrganization.address_line1,
+                    address_line2: this.authService.currentOrganization.address_line2,
+                    city: this.authService.currentOrganization.city,
+                    zipcode: this.authService.currentOrganization.zipcode,
+                };
+                this.billingAddress =
+                    (res.result || []).find((item) => item.type === AddressType.BILLING) ?? defaultAddress;
                 if (resolve) {
                     resolve();
                 }
