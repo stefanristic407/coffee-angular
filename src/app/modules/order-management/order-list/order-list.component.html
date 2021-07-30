@@ -195,10 +195,12 @@
 
         <ng-template pTemplate="footer">
             <button class="btn-stroked" type="button" (click)="displayExportDialog = !displayExportDialog">
-                Cancel
+                {{ 'cancel' | translate }}
             </button>
 
-            <button class="btn-raised" type="button" (click)="downloadOrderClicked()">Download order</button>
+            <button class="btn-raised" type="button" (click)="downloadOrderClicked()" [disabled]="isDownloading">
+                <span>{{ 'download_order' | translate }}</span>
+            </button>
         </ng-template>
     </p-dialog>
 </form>

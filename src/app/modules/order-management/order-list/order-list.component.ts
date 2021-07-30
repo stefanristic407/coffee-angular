@@ -59,6 +59,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     orgType = OrganizationType.ESTATE;
     queryParams: any = {};
     displayExportDialog = false;
+    isDownloading = false;
 
     @ViewChild('appOrderTable') appOrderTable: OrderTableComponent;
     @ViewChild('requestTable') requestTable: RequestTableComponent;
@@ -135,6 +136,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
 
     downloadOrderClicked(): void {
         const form = this.exportForm.value;
+        this.isDownloading = true;
         this.orderService
             .downloadOrders(this.orgType, form.export_type, form.from_date, form.to_date)
             .subscribe((res: ApiResponse<any>) => {
@@ -147,13 +149,17 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
                         (response: Download) => {
                             if (response.state === 'DONE') {
                                 this.toastrService.success('Downloaded successfully');
+                                this.displayExportDialog = false;
+                                this.isDownloading = false;
                             }
                         },
                         (error) => {
                             this.toastrService.error('Download failed');
+                            this.isDownloading = false;
                         },
                     );
                 }
+                this.isDownloading = false;
             });
     }
 
