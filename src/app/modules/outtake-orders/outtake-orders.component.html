@@ -18,7 +18,15 @@
     </div>
     <section>
         <div
-            class="d-md-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mt-45 mt-md-3 mb-md-4 mb-lg-475"
+            class="
+                d-md-flex
+                flex-column flex-md-row
+                justify-content-between
+                align-items-end
+                mb-3
+                mt-45 mt-md-3
+                mb-md-4 mb-lg-475
+            "
         >
             <div>
                 <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
@@ -71,6 +79,7 @@
                 selectionMode="range"
                 [formControl]="searchForm.controls['dates']"
                 [showButtonBar]="true"
+                [showIcon]="true"
                 [styleClass]="
                     'round-border mb-25 mb-md-3 mb-lg-4' +
                     (queryParams.from_date || queryParams.to_date ? ' highlight' : '')
