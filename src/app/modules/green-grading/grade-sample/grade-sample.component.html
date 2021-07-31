@@ -1,16 +1,19 @@
 <div class="sewn-container prime-grid">
     <div class="bg-fff content-wrapper">
-        <div class="d-flex flex-wrap justify-content-between pb-2 pb-md-0">
+        <div class="d-flex justify-content-between pb-2 pb-md-0">
             <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
-            <span class="custom-search d-none d-md-inline-block">
-                <input
-                    type="text"
-                    pInputText
-                    [placeholder]="'search_by_id_name' | translate"
-                    [(ngModel)]="term"
-                    (ngModelChange)="onFilter()"
-                />
-            </span>
+            <div class="col-lg-4 w-100">
+                <span class="custom-search d-none d-md-inline-block w-100">
+                    <input
+                        type="text"
+                        pInputText
+                        class="w-100"
+                        [placeholder]="'search_by_id_name' | translate"
+                        [(ngModel)]="term"
+                        (ngModelChange)="onFilter()"
+                    />
+                </span>
+            </div>
         </div>
         <section class="grading__total pt-4 pt-lg-25">
             <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
