@@ -90,10 +90,7 @@
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-12">
-                        <div
-                            *ngIf="sourcing.estate?.gps_coordinates != ''"
-                            class="br-2 overflow-hidden d-none d-md-block"
-                        >
+                        <div class="br-2 overflow-hidden d-none d-md-block">
                             <agm-map [latitude]="sourcing.estate?.latitude" [longitude]="sourcing.estate?.longitude">
                                 <agm-marker
                                     [latitude]="sourcing.estate?.latitude"
