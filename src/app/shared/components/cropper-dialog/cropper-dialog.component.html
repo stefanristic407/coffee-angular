@@ -5,7 +5,11 @@
         [format]="cropperConfig.format"
         [aspectRatio]="cropperConfig.aspectRatio"
         [maintainAspectRatio]="cropperConfig.maintainAspectRatio"
+        [resizeToWidth]="cropperConfig.resizeToWidth"
+        [resizeToHeight]="cropperConfig.resizeToHeight"
+        [roundCropper]="cropperConfig.roundCropper"
         (imageCropped)="imageCropped($event)"
+        class="image-cropper-wrap"
     ></image-cropper>
 </div>
 

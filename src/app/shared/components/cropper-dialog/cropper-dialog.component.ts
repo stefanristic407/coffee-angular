@@ -18,6 +18,9 @@ export class CropperDialogComponent implements OnInit {
         format: 'png',
         aspectRatio: 1 / 1,
         maintainAspectRatio: true,
+        resizeToWidth: 0,
+        resizeToHeight: 0,
+        roundCropper: false,
     };
 
     constructor(
