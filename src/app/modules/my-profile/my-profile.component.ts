@@ -1,22 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, OnInit } from '@angular/core';
 import { formatDate, Location } from '@angular/common';
-import { MyProfileService } from '@modules/my-profile/my-profile.service';
-import { MenuItem } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { dataURItoBlob } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { AuthService, GlobalsService, UserService } from '@services';
 import * as moment from 'moment';
+import { CropperDialogComponent } from '@shared';
+import { CroppedImage } from '@models';
 
 @Component({
     selector: 'app-my-profile',
     templateUrl: './my-profile.component.html',
     styleUrls: ['./my-profile.component.scss'],
 })
-export class MyProfileComponent implements OnInit, OnDestroy {
+export class MyProfileComponent implements OnInit {
     isEditMode = false;
     isLoading = false;
     isUpdatingProfile = false;
@@ -24,13 +23,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     avatarFileError?: string;
     file?: any;
     profileInfo?: any;
-    form: FormGroup;
+    infoForm: FormGroup;
     genders = [
         { name: 'Male', value: 'male' },
         { name: 'Female', value: 'female' },
         { name: 'Other', value: 'other' },
     ];
-    profilePictureSavedEvent$?: Subscription;
     roasterId: any;
     role: any;
     userId: any;
@@ -41,19 +39,17 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     queryOrganization: any;
 
     constructor(
-        private formBuilder: FormBuilder,
-        public location: Location,
-        private toastr: ToastrService,
-        public globals: GlobalsService,
-        private userService: UserService,
-        private cookieService: CookieService,
-        public myProfileService: MyProfileService,
-        private authService: AuthService,
-        private roasterService: RoasterserviceService,
         private activateRoute: ActivatedRoute,
+        private authService: AuthService,
+        private dialogService: DialogService,
+        private formBuilder: FormBuilder,
         private router: Router,
+        private toastr: ToastrService,
+        private userService: UserService,
+        public globals: GlobalsService,
+        public location: Location,
     ) {
-        this.form = this.formBuilder.group({
+        this.infoForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             aboutMe: [''],
             email: ['', [Validators.required, Validators.email]],
@@ -73,9 +69,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
             { label: this.globals.languageJson?.my_profile },
         ];
-        this.profilePictureSavedEvent$ = this.myProfileService.profilePictureSavedEvent.subscribe(() => {
-            this.handleCroppedProfilePicture();
-        });
     }
 
     getUserInfo(): void {
@@ -143,30 +136,35 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     setFormFields(): void {
-        this.form.controls.firstName.setValue(this.profileInfo.firstname);
-        this.form.controls.aboutMe.setValue(this.profileInfo.about_me);
-        this.form.controls.email.setValue(this.profileInfo.email);
-        this.form.controls.phone.setValue(this.profileInfo.phone);
-        this.form.controls.role.setValue(this.role);
-        this.form.controls.birthday.setValue(
+        this.infoForm.controls.firstName.setValue(this.profileInfo.firstname);
+        this.infoForm.controls.aboutMe.setValue(this.profileInfo.about_me);
+        this.infoForm.controls.email.setValue(this.profileInfo.email);
+        this.infoForm.controls.phone.setValue(this.profileInfo.phone);
+        this.infoForm.controls.role.setValue(this.role);
+        this.infoForm.controls.birthday.setValue(
             moment(this.profileInfo.date_of_birth).isValid() ? moment(this.profileInfo.date_of_birth).toDate() : null,
         );
     }
 
     onSelectFile(event: any): void {
-        const inputElement = event.target;
-        this.avatarFileError = '';
-        this.file = inputElement.files[0];
-        if (!this.file) {
+        if (!event.target.files?.length) {
             return;
         }
-        this.myProfileService.imageChangedEvent = event;
-        this.myProfileService.displayCropImageDialog = true;
-    }
-
-    handleCroppedProfilePicture(): void {
-        this.previewUrl = this.myProfileService.croppedImage;
-        this.file = dataURItoBlob(this.previewUrl);
+        this.dialogService
+            .open(CropperDialogComponent, {
+                data: {
+                    imageChangedEvent: event,
+                    resizeToWidth: 256,
+                    resizeToHeight: 256,
+                    roundCropper: true,
+                },
+            })
+            .onClose.subscribe((data: CroppedImage) => {
+                if (data.status) {
+                    this.previewUrl = data.croppedImgUrl;
+                    this.file = data.croppedImgFile;
+                }
+            });
     }
 
     handleCancel(): void {
@@ -188,34 +186,30 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     }
 
     handleSubmit(): void {
-        this.form.markAllAsTouched();
-        if (this.form.invalid) {
-            console.log('invalid');
+        this.infoForm.markAllAsTouched();
+        if (this.infoForm.invalid) {
             return;
         }
 
         const userInfo = { ...this.profileInfo };
 
-        userInfo.email = this.form.controls.email.value;
-        userInfo.firstname = this.form.controls.firstName.value;
+        userInfo.email = this.infoForm.controls.email.value;
+        userInfo.firstname = this.infoForm.controls.firstName.value;
         userInfo.lastname = '';
-        userInfo.about_me = this.form.controls.aboutMe.value;
-        userInfo.phone = this.form.controls.phone.value;
-        if (this.form.controls.birthday.value) {
-            userInfo.date_of_birth = formatDate(this.form.controls.birthday.value, 'yyyy-MM-dd', 'en-US');
+        userInfo.about_me = this.infoForm.controls.aboutMe.value;
+        userInfo.phone = this.infoForm.controls.phone.value;
+        if (this.infoForm.controls.birthday.value) {
+            userInfo.date_of_birth = formatDate(this.infoForm.controls.birthday.value, 'yyyy-MM-dd', 'en-US');
         }
 
         if (this.file) {
             this.isUpdatingProfile = true;
-            let newProfileImageUrl = '';
             const formData: FormData = new FormData();
             formData.append('file', this.file);
             formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
             formData.append('token', this.authService.token);
             this.userService.uploadProfileImage(formData).subscribe((res: any) => {
-                if (res.success) {
-                    newProfileImageUrl = res.result.file_path;
-                } else {
+                if (!res.success) {
                     this.toastr.error('Failed to upload profile image.');
                 }
                 this.userService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res2: any) => {
@@ -238,9 +232,5 @@ export class MyProfileComponent implements OnInit, OnDestroy {
                 }
             });
         }
-    }
-
-    ngOnDestroy(): void {
-        this.profilePictureSavedEvent$?.unsubscribe();
     }
 }
