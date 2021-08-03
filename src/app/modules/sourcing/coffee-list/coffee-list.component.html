@@ -32,7 +32,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
+            <tr routerLink="/sourcing/coffee-details/{{ rowData.harvest_id }}">
                 <td
                     *ngFor="let col of columns"
                     [ngSwitch]="col.field"

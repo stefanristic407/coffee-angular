@@ -16,16 +16,7 @@
             <div class="fnt-14 fnt-muli text-clr588 mb-4">{{ 'earned' | translate }} in the last 7 days</div>
         </div>
         <div
-            class="
-                fnt-14 fnt-bold
-                text-clr334
-                br-4
-                bg-f8
-                py-1
-                d-md-none d-flex
-                justify-content-between
-                align-items-center
-            "
+            class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 py-1 d-md-none d-flex justify-content-between align-items-center"
         >
             <div class="ml-25">{{ 'total_sales' | translate }}</div>
             <div>
@@ -152,19 +143,11 @@
                                 </div>
                                 <ng-template #blank>
                                     <div
-                                        class="
-                                            flex-fill
-                                            d-flex
-                                            flex-column
-                                            justify-content-center
-                                            align-items-center
-                                            text-center
-                                            p-5
-                                        "
+                                        class="flex-fill d-flex flex-column justify-content-center align-items-center text-center"
                                     >
                                         <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
                                         <p class="fnt-14 fnt-muli fnt-normal text-gray588 mb-4 col-md-6">
-                                            You'll be able to see you sales stats and customer insights once you get
+                                            aYou'll be able to see you sales stats and customer insights once you get
                                             orders. List your products to kick-start your sales.
                                         </p>
 
@@ -183,16 +166,4 @@
             </div>
         </div>
     </div>
-
-    <ng-template #blank>
-        <div class="flex-fill d-flex flex-column justify-content-center align-items-center text-center p-5">
-            <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
-            <p class="fnt-14 fnt-muli fnt-normal text-clr588 mb-4 col-md-6">
-                You'll be able to see you sales stats and customer insights once you get orders. List your products to
-                kick-start your sales.
-            </p>
-
-            <button class="btn-raised" routerLink="/e-commerce/product-list">Manage inventory</button>
-        </div>
-    </ng-template>
 </div>

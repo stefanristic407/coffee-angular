@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrganizationType } from '@enums';
+import { environment } from '@env/environment';
 import { UserPreference } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
@@ -59,5 +62,15 @@ export class AuthService {
         );
     }
 
-    constructor(private cookieService: CookieService) {}
+    constructor(private cookieService: CookieService, private route: ActivatedRoute, private router: Router) {}
+
+    goToLogin(destUrl?: string) {
+        const redirectTo = destUrl || this.route.snapshot.queryParams.redirect_to || this.router.url;
+        window.open(
+            `${environment.ssoWeb}/login?orgType=${OrganizationType.ROASTER}&redirect_to=${encodeURIComponent(
+                redirectTo,
+            )}`,
+            '_self',
+        );
+    }
 }

@@ -317,8 +317,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.coverImageUrl = res.result.url;
                 } else if (type === RecipeFileType.StepImage) {
                     const step = this.recipeForm.get('steps') as FormArray;
-                    step.controls[index].value.image_id = res.result.id;
-                    step.controls[index].value.coverImageUrl = res.result.url;
+                    step.controls[index].get('image_id').setValue(res.result.id);
+                    step.controls[index].get('coverImageUrl').setValue(res.result.url);
                 } else {
                     this.isShowVideo = true;
                     this.videoUrl = res.result.url;
@@ -461,14 +461,14 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     pasteStepImage(index: number) {
         const step = this.recipeForm.get('steps') as FormArray;
-        step.controls[index].value.image_id = this.copiedStepImageId;
-        step.controls[index].value.coverImageUrl = this.copiedStepImageUrl;
+        step.controls[index].get('image_id').setValue(this.copiedStepImageId);
+        step.controls[index].get('coverImageUrl').setValue(this.copiedStepImageUrl);
     }
 
     deleteStepImage(index) {
         const step = this.recipeForm.get('steps') as FormArray;
-        step.controls[index].value.image_id = null;
-        step.controls[index].value.coverImageUrl = null;
+        step.controls[index].get('image_id').setValue(null);
+        step.controls[index].get('coverImageUrl').setValue(null);
     }
 
     deleteIngredient(index) {

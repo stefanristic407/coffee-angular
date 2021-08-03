@@ -51,7 +51,7 @@ export class CuppingReportComponent implements OnInit {
         private router: Router,
         private greenGradingService: GreenGradingService,
         private authService: AuthService,
-        public downloadService: DownloadService,
+        private downloadService: DownloadService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -229,6 +229,13 @@ export class CuppingReportComponent implements OnInit {
         this.router.navigate([`/green-grading/cupping-service`], navigationExtras);
     }
 
+    viewPdf(data: any) {
+        const a = document.createElement('a');
+        a.href = data;
+        a.target = '_blank';
+        a.click();
+    }
+
     reGrade(item) {
         if (this.activeIndex === 0) {
             this.greenGradingService.recupSample(this.roasterId, item.gc_order_id).subscribe((res: any) => {
@@ -289,13 +296,6 @@ export class CuppingReportComponent implements OnInit {
             },
         ];
         return [{ items }];
-    }
-
-    viewPdf(data: any) {
-        const a = document.createElement('a');
-        a.href = data;
-        a.target = '_blank';
-        a.click();
     }
 
     downloadFile(item: any) {

@@ -133,7 +133,6 @@ export interface EstateOrganizationProfile {
     final_score: number;
     founded_on: number;
     full_time_employee_count: number;
-    gps_coordinates: string;
     grade_range: string;
     green_initiatives: string;
     has_export_license: boolean;

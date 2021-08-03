@@ -19,6 +19,7 @@
         selectionMode="range"
         [formControl]="searchForm.controls['dates']"
         [showButtonBar]="true"
+        [showIcon]="true"
         [styleClass]="
             'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.from_date || queryParams.to_date ? ' highlight' : '')
         "

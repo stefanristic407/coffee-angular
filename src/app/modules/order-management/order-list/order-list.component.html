@@ -144,7 +144,7 @@
     <p-dialog
         header="Export orders"
         [(visible)]="displayExportDialog"
-        [style]="{ width: '431px' }"
+        [style]="{ width: '450px' }"
         [baseZIndex]="10000"
         [modal]="true"
         styleClass="export-p-dialog"
@@ -195,10 +195,12 @@
 
         <ng-template pTemplate="footer">
             <button class="btn-stroked" type="button" (click)="displayExportDialog = !displayExportDialog">
-                Cancel
+                {{ 'cancel' | translate }}
             </button>
 
-            <button class="btn-raised" type="button" (click)="downloadOrderClicked()">Download order</button>
+            <button class="btn-raised" type="button" (click)="downloadOrderClicked()" [disabled]="isDownloading">
+                <span>{{ 'download_order' | translate }}</span>
+            </button>
         </ng-template>
     </p-dialog>
 </form>
