@@ -65,11 +65,14 @@ export class AuthService {
     constructor(private cookieService: CookieService, private route: ActivatedRoute, private router: Router) {}
 
     goToLogin(destUrl?: string) {
-        const redirectTo = destUrl || this.route.snapshot.queryParams.redirect_to || this.router.url;
+        let redirectTo: string = destUrl || this.route.snapshot.queryParams.redirect_to || this.router.url;
+        if (redirectTo.startsWith('/gate')) {
+            redirectTo = null;
+        }
         window.open(
-            `${environment.ssoWeb}/login?orgType=${OrganizationType.ROASTER}&redirect_to=${encodeURIComponent(
-                redirectTo,
-            )}`,
+            `${environment.ssoWeb}/login?orgType=${OrganizationType.ROASTER}${
+                redirectTo ? '&redirect_to=' + encodeURIComponent(redirectTo) : ''
+            }`,
             '_self',
         );
     }
