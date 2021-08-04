@@ -58,6 +58,10 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
         if (isValidPhoneNumber(this.nationalNumber, this.countryCode)) {
             return null;
         }
+        if (!value) {
+            // Have to remove required error when input only a number
+            return { invalid: true, required: false };
+        }
         return { invalid: true };
     }
 
@@ -77,6 +81,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     }
 
     refreshTemplate() {
+        // Generate the template and placehoder of the input mask from tel-input component.
         const temp = this.inputObj.a.placeholder || '';
         // Remove first zero
         this.placeholder = temp.replace(/^0/, '');
@@ -88,7 +93,13 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
     }
 
     onCountryChange(value: any): void {
-        this.countryCode = value.iso2.toUpperCase() as CountryCode;
+        const newCode = value.iso2.toUpperCase() as CountryCode;
+        if (this.countryCode === newCode) {
+            // This is required to prevent losing the national number by the input mask when the template is changed.
+            const tempNumber = '' + this.nationalNumber;
+            setTimeout(() => (this.nationalNumber = tempNumber));
+        }
+        this.countryCode = newCode;
         if (this.nationalNumber && !isValidPhoneNumber(this.nationalNumber, this.countryCode)) {
             this.nationalNumber = null;
         }
