@@ -11,28 +11,32 @@
             <div class="row gutter-16">
                 <div class="col-md-auto mb-3">
                     <button
-                        class="btn dashboard-button"
+                        class="dashboard-button d-flex align-items-center justify-content-between"
                         [routerLink]="['/features/roaster-quick-setup', OrgType.MICRO_ROASTER]"
                     >
-                        <img class="logo-img float-left" src="assets/images/group-19.svg" />
-                        <span class="fnt-16 fnt-md-20 fnt-600 ml-2 mr-3 mr-md-45">{{
-                            'micro_roasters' | translate
-                        }}</span>
-                        <img class="icon-img float-right" src="assets/images/cta-arrow.svg" />
-                        <img class="icon-img-filled float-right" src="assets/images/cta-arrow-hover.svg" />
+                        <div class="d-flex align-items-center">
+                            <img src="assets/images/group-19.svg" />
+                            <span class="fnt-16 fnt-md-20 fnt-600 ml-2 mr-3 mr-md-45">{{
+                                'micro_roasters' | translate
+                            }}</span>
+                        </div>
+                        <img class="icon-img" src="assets/images/cta-arrow.svg" />
+                        <img class="icon-img-filled" src="assets/images/cta-arrow-hover.svg" />
                     </button>
                 </div>
                 <div class="col-md-auto mb-3">
                     <button
-                        class="btn dashboard-button"
+                        class="dashboard-button d-flex align-items-center justify-content-between"
                         [routerLink]="['/features/roaster-quick-setup', OrgType.HORECA]"
                     >
-                        <img class="logo-img float-left" src="assets/images/group-7.svg" />
-                        <span class="fnt-16 fnt-md-20 fnt-600 ml-2 mr-3 mr-md-45">{{
-                            'roasted_coffee_customers' | translate
-                        }}</span>
-                        <img class="icon-img float-right" src="assets/images/cta-arrow.svg" />
-                        <img class="icon-img-filled float-right" src="assets/images/cta-arrow-hover.svg" />
+                        <div class="d-flex align-items-center">
+                            <img src="assets/images/group-7.svg" />
+                            <span class="fnt-16 fnt-md-20 fnt-600 ml-2 mr-3 mr-md-45">{{
+                                'roasted_coffee_customers' | translate
+                            }}</span>
+                        </div>
+                        <img class="icon-img" src="assets/images/cta-arrow.svg" />
+                        <img class="icon-img-filled" src="assets/images/cta-arrow-hover.svg" />
                     </button>
                 </div>
             </div>

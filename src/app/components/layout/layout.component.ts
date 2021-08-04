@@ -78,7 +78,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 this.init();
             })
             .catch(() => {
-                this.router.navigateByUrl('/gate');
+                this.authService.goToLogin();
             });
     }
 
@@ -212,7 +212,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 this.authService.organizationSubject.next(res.result);
                 resolve();
             } else {
-                this.router.navigate(['/gate']);
+                this.authService.goToLogin();
             }
         });
     }

@@ -1,12 +1,17 @@
 .p-calendar {
     border: 1px solid $primary-border-color;
     border-radius: 3px;
-    &:hover {
-        border-color: $primary-color;
+    &:not(.p-calendar-disabled) {
+        &:hover,
+        &.highlight {
+            border-color: $primary-color;
+        }
     }
-
-    &.highlight {
-        border-color: $primary-color;
+    &.p-calendar-disabled {
+        opacity: 0.5;
+        .p-component:disabled {
+            opacity: 1;
+        }
     }
 }
 .round-border.p-calendar {
@@ -33,8 +38,6 @@
 }
 .p-calendar-w-btn .p-inputtext {
     padding-right: 0;
-    padding-left: 0;
-    margin-left: 1rem;
 }
 // Date picker
 .p-datepicker table td {

@@ -133,6 +133,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     images = [];
     maxVideoSize = 15;
     destroy$: Subject<boolean> = new Subject<boolean>();
+    clicked = false;
 
     constructor(
         private authService: AuthService,
@@ -317,8 +318,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.coverImageUrl = res.result.url;
                 } else if (type === RecipeFileType.StepImage) {
                     const step = this.recipeForm.get('steps') as FormArray;
-                    step.controls[index].value.image_id = res.result.id;
-                    step.controls[index].value.coverImageUrl = res.result.url;
+                    step.controls[index].get('image_id').setValue(res.result.id);
+                    step.controls[index].get('coverImageUrl').setValue(res.result.url);
                 } else {
                     this.isShowVideo = true;
                     this.videoUrl = res.result.url;
@@ -395,6 +396,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     updateRecipe(data: any): void {
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
+        data.inline_images = data.inline_images.filter((i) => i !== undefined);
         this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
@@ -409,6 +411,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     translateRecipe(data: any): void {
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
+        data.inline_images = data.inline_images.filter((i) => i !== undefined);
         this.coffeeLabService.translateForum('recipe', this.originRecipeId, data).subscribe((res: any) => {
             if (res.success) {
                 this.toaster.success('You have translated a coffee recipe successfully.');
@@ -437,6 +440,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     createNewRecipe(data: any): void {
         data.language = this.coffeeLabService.currentForumLanguage;
         data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
+        data.steps.map((item: any, index: number) => {
+            item.image_id = data.inline_images[index];
+            return item;
+        });
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
             if (res.success) {
                 this.toaster.success('You have posted a coffee recipe successfully.');
@@ -461,14 +468,14 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     pasteStepImage(index: number) {
         const step = this.recipeForm.get('steps') as FormArray;
-        step.controls[index].value.image_id = this.copiedStepImageId;
-        step.controls[index].value.coverImageUrl = this.copiedStepImageUrl;
+        step.controls[index].get('image_id').setValue(this.copiedStepImageId);
+        step.controls[index].get('coverImageUrl').setValue(this.copiedStepImageUrl);
     }
 
     deleteStepImage(index) {
         const step = this.recipeForm.get('steps') as FormArray;
-        step.controls[index].value.image_id = null;
-        step.controls[index].value.coverImageUrl = null;
+        step.controls[index].get('image_id').setValue(null);
+        step.controls[index].get('coverImageUrl').setValue(null);
     }
 
     deleteIngredient(index) {

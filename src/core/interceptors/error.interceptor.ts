@@ -9,22 +9,22 @@ import {
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, mergeMap, retry } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { CODEMESSAGE, VALIDATION_LIST } from '@constants';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '@services';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
-        private router: Router,
-        private route: ActivatedRoute,
         private injector: Injector,
         private toastrService: ToastrService,
         private translateService: TranslateService,
+        private authService: AuthService,
     ) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -35,21 +35,14 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (event instanceof HttpResponse) {
                     const { body } = event;
                     switch (event.body.response_code) {
-                        case 200: {
-                            break;
-                        }
                         case 401: {
                             this.showErrorMessage(body.messages);
-                            this.goToGate();
+                            this.authService.goToLogin();
                             break;
                         }
                         case 403: {
                             this.showCodeMessage(body.response_code);
-                            this.goToGate();
-                            break;
-                        }
-                        case 404: {
-                            // this.showCodeMessage(body.response_code);
+                            this.authService.goToLogin();
                             break;
                         }
                         case 422: {
@@ -61,39 +54,14 @@ export class ErrorInterceptor implements HttpInterceptor {
                 return of(event);
             }),
             catchError((error: HttpErrorResponse) => {
-                let errorMessage = '';
-                switch (error.status) {
-                    case 401: {
-                        this.showErrorMessage(error.error.messages);
-                        this.goToGate();
-                        break;
-                    }
-                    case 403: {
-                        this.showCodeMessage(error.status);
-                        break;
-                    }
-                    case 404: {
-                        this.showErrorMessage(error.error.messages);
-                        break;
-                    }
-                    case 422: {
-                        this.showErrorMessage(error.error.messages);
-                        break;
-                    }
-                    default: {
-                        if (error.error instanceof ErrorEvent || error.message === 'URL_NOT_FOUND') {
-                            router.navigate(['/error/internal-server-error']);
-                            errorMessage = `Error: ${error.error.message}`;
-                        } else if (error.url && error.url.startsWith(environment.agroUrl)) {
-                            console.log('Agro service error');
-                        } else {
-                            router.navigate(['/error/network-connection-error']);
-                            errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
-                        }
-                    }
+                if (error.error instanceof ErrorEvent || error.message === 'URL_NOT_FOUND') {
+                    router.navigate(['/error/internal-server-error']);
+                } else if (error.url && error.url.startsWith(environment.agroUrl)) {
+                    console.log('Agro service error');
+                } else {
+                    router.navigate(['/error/network-connection-error']);
                 }
-
-                return throwError(errorMessage);
+                return throwError(error);
             }),
         );
     }
@@ -111,14 +79,5 @@ export class ErrorInterceptor implements HttpInterceptor {
             errorTexts.push(`${this.translateService.instant(key)} ${errors}.`);
         });
         this.toastrService.error(errorTexts.join('\n'));
-    }
-
-    goToGate() {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                returnUrl: this.router.url,
-            },
-        };
-        this.router.navigate(['/gate'], this.route.snapshot.queryParams.returnUrl ? {} : navigationExtras);
     }
 }

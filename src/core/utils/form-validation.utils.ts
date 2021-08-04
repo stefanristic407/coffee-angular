@@ -45,14 +45,14 @@ export function minValidator(limitKey: string) {
     };
 }
 
-export function urlValidator(): ValidatorFn {
+export function urlValidator(isHttps: boolean = false): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-        const uriRegEx = RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');
+        const uriRegEx = isHttps
+            ? RegExp('(https://)([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')
+            : RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');
         const result = uriRegEx.test(control.value);
 
-        console.log(result);
-
-        if (!result) {
+        if (control.value && !result) {
             return { url: true };
         }
 

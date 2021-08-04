@@ -158,16 +158,13 @@
                                 >
                                     {{ 'you_can_upload' | translate }}
                                 </div>
-                                <div *ngIf="avatarFileError" class="mt-2 text-danger text-center">
-                                    {{ avatarFileError }}
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8 col-lg-8">
                         <div class="right-container">
                             <div *ngIf="isEditMode">
-                                <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+                                <form [formGroup]="infoForm" (ngSubmit)="handleSubmit()">
                                     <div class="row gutter-16 gutter-lg-24">
                                         <div class="col-md-12 col-lg-6">
                                             <label class="fnt-14 text-clr588" style="font-weight: 600"
@@ -181,7 +178,7 @@
                                                     required
                                                     formControlName="firstName"
                                                 />
-                                                <div *ngIf="form.controls.firstName.invalid" class="p-error">
+                                                <div *ngIf="infoForm.controls.firstName.invalid" class="p-error">
                                                     Required field
                                                 </div>
                                             </div>
@@ -213,9 +210,9 @@
                                                     required
                                                     formControlName="email"
                                                 />
-                                                <div *ngIf="form.controls.email.invalid" class="p-error">
+                                                <div *ngIf="infoForm.controls.email.invalid" class="p-error">
                                                     {{
-                                                        form.controls.email.hasError('required')
+                                                        infoForm.controls.email.hasError('required')
                                                             ? 'Required field'
                                                             : 'Invalid email'
                                                     }}
@@ -227,7 +224,7 @@
                                             <div class="mb-4 mb-md-45 sewn-form-field w-100">
                                                 <label class="fnt-14 text-clr588">Phone number</label>
                                                 <app-phone-number formControlName="phone"></app-phone-number>
-                                                <div *ngIf="form.controls.phone.invalid" class="p-error">
+                                                <div *ngIf="infoForm.controls.phone.invalid" class="p-error">
                                                     Please enter valid phone number
                                                 </div>
                                             </div>
@@ -364,36 +361,5 @@
         </div>
     </div>
 </div>
-
-<p-dialog
-    header="Edit Photo"
-    [visible]="myProfileService.displayCropImageDialog"
-    [modal]="true"
-    [style]="{ width: '50vw' }"
-    appendTo="body"
-    [baseZIndex]="10000"
-    [draggable]="false"
-    [resizable]="false"
->
-    <p-header>
-        <div class="text-right">
-            <img
-                class="cursor-pointer"
-                src="assets/images/close.svg"
-                alt="close-image"
-                (click)="myProfileService.displayCropImageDialog = false"
-            />
-        </div>
-    </p-header>
-    <div class="px-4">
-        <app-image-crop-dialog></app-image-crop-dialog>
-    </div>
-    <ng-template pTemplate="footer">
-        <div class="text-right">
-            <button (click)="fileInput.click()" class="btn-stroked mr-3 px-4">Change Photo</button>
-            <button (click)="myProfileService.saveProfilePicture()" class="btn-raised px-4">Save Photo</button>
-        </div>
-    </ng-template>
-</p-dialog>
 
 <input hidden type="file" accept="image/png, image/jpeg" #fileInput (change)="onSelectFile($event)" />

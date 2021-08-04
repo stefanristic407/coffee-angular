@@ -3,12 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AclService, AuthService, DashboardService } from '@services';
+import { AuthService, DashboardService } from '@services';
 import { GeneralService } from '@services';
 import { UserService } from '@services';
 import { DestroyableComponent } from '@base-components';
-import { environment } from '@env/environment';
-import { OrganizationType, UserStatus } from '@enums';
+import { UserStatus } from '@enums';
 
 @Component({
     selector: 'app-gate',
@@ -26,7 +25,6 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         private dashboardSrv: DashboardService,
         private generalSrv: GeneralService,
         private userSrv: UserService,
-        private aclService: AclService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
         private authService: AuthService,
@@ -46,7 +44,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                     this.authService.isSimulated = true;
                 }
                 if (!this.authService.isAuthenticated) {
-                    this.goToLogin();
+                    this.authService.goToLogin();
                 }
 
                 const cookies = this.cookieService.getAll();
@@ -60,7 +58,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                 this.authService.setOrgId(orgId);
                 this.getData();
             } else {
-                this.goToLogin();
+                this.authService.goToLogin();
             }
         });
     }
@@ -82,7 +80,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                 this.checkTermsAccepted();
             })
             .catch(() => {
-                this.goToLogin();
+                this.authService.goToLogin();
             });
     }
 
@@ -150,10 +148,8 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                         (res.result.added_details && res.result.added_team_members) ||
                         (this.isAddedDetails === 'true' && this.isAddedTeamMembers === 'true')
                     ) {
-                        if (localStorage.getItem('redirectUrl')) {
-                            const url = localStorage.getItem('redirectUrl');
-                            localStorage.removeItem('redirectUrl');
-                            this.router.navigate([url]);
+                        if (this.route.snapshot.queryParams.redirect_to) {
+                            this.router.navigate([this.route.snapshot.queryParams.redirect_to]);
                         } else {
                             this.router.navigate(['/roaster-dashboard']);
                         }
@@ -168,9 +164,5 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                 this.router.navigate(['/welcome-aboard']);
             },
         );
-    }
-
-    goToLogin() {
-        window.open(`${environment.ssoWeb}/login?orgType=${OrganizationType.ROASTER}`, '_self');
     }
 }

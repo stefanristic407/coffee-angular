@@ -234,14 +234,6 @@ export class CuppingReportComponent implements OnInit {
         a.click();
     }
 
-    downloadFile(item: any) {
-        const a = document.createElement('a');
-        a.href = item;
-        a.download = 'Report' + '.pdf';
-        a.target = '_blank';
-        a.click();
-    }
-
     reGrade(item) {
         if (this.activeIndex === 0) {
             this.greenGradingService.recupSample(this.roasterId, item.gc_order_id).subscribe((res: any) => {
@@ -291,7 +283,7 @@ export class CuppingReportComponent implements OnInit {
             {
                 label: 'Download PDF',
                 command: () => {
-                    this.downloadFile(item.url);
+                    this.downloadFile(item);
                 },
             },
             {
@@ -302,5 +294,13 @@ export class CuppingReportComponent implements OnInit {
             },
         ];
         return [{ items }];
+    }
+
+    downloadFile(item: any) {
+        const a = document.createElement('a');
+        a.href = item.url;
+        a.download = 'Report' + '.pdf';
+        a.target = '_blank';
+        a.click();
     }
 }

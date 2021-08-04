@@ -1,9 +1,9 @@
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonService, GlobalsService, ResizeService } from '@services';
+import { CommonService, DownloadService, GlobalsService, ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { MenuItem } from 'primeng/api';
-import { ApiResponse, LabelValue } from '@models';
+import { ApiResponse, Download, LabelValue } from '@models';
 import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS, MR_ORDER_TYPE_ITEMS, MR_ORDER_STATUS_ITEMS } from '@constants';
 import { ResizeableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { OrderTableComponent } from './order-table/order-table.component';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestTableComponent } from './request-table/request-table.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-order-list',
@@ -58,6 +59,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     orgType = OrganizationType.ESTATE;
     queryParams: any = {};
     displayExportDialog = false;
+    isDownloading = false;
 
     @ViewChild('appOrderTable') appOrderTable: OrderTableComponent;
     @ViewChild('requestTable') requestTable: RequestTableComponent;
@@ -67,10 +69,12 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     }
 
     constructor(
-        private router: Router,
-        private route: ActivatedRoute,
+        private downloadService: DownloadService,
         private fb: FormBuilder,
         private orderService: OrderManagementService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toastrService: ToastrService,
         protected resizeService: ResizeService,
         public commonService: CommonService,
         public globals: GlobalsService,
@@ -132,12 +136,30 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
 
     downloadOrderClicked(): void {
         const form = this.exportForm.value;
+        this.isDownloading = true;
         this.orderService
             .downloadOrders(this.orgType, form.export_type, form.from_date, form.to_date)
-            .subscribe((response: ApiResponse<any>) => {
-                if (response.success) {
-                    window.open(response.result.url, '_blank');
+            .subscribe((res: ApiResponse<any>) => {
+                if (res.success && res.result.url) {
+                    const url = res.result.url;
+                    const fileName = url.split('?')[0].split('/').pop();
+                    const mime = form.export_type === 'pdf' ? 'application/pdf' : 'text/plain';
+
+                    this.downloadService.download(res.result.url, fileName, mime).subscribe(
+                        (response: Download) => {
+                            if (response.state === 'DONE') {
+                                this.toastrService.success('Downloaded successfully');
+                                this.displayExportDialog = false;
+                                this.isDownloading = false;
+                            }
+                        },
+                        (error) => {
+                            this.toastrService.error('Download failed');
+                            this.isDownloading = false;
+                        },
+                    );
                 }
+                this.isDownloading = false;
             });
     }
 

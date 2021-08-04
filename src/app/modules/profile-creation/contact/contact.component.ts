@@ -49,8 +49,8 @@ export class ContactComponent implements OnInit {
             address_line2: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],
             zipcode: [''],
-            fb_profile: ['', Validators.compose([urlValidator()])],
-            ig_profile: ['', Validators.compose([urlValidator()])],
+            fb_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
+            ig_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
         });
 
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {
