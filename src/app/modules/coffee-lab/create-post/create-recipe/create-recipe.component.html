@@ -280,7 +280,17 @@
                                     [(imageIdList)]="imageIdListStep[i]"
                                     fileModule="recipe-post"
                                     [height]="150"
+                                    [ngClass]="{
+                                        'text-area':
+                                            recipeForm.get('steps').value[i].description?.length <= 8 && clicked
+                                    }"
                                 ></app-forum-editor>
+                                <small
+                                    *ngIf="recipeForm.get('steps').value[i].description?.length <= 8 && clicked"
+                                    class="p-error"
+                                >
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 sewn-form-field w-100">
                                 <label>{{ 'add_image' | translate }}</label>
@@ -519,7 +529,13 @@
                         fileModule="recipe-post"
                         [height]="150"
                         [images]="images"
+                        [ngClass]="{
+                            'text-area': recipeForm.get('steps').value[i].description?.length <= 8 && clicked
+                        }"
                     ></app-forum-editor>
+                    <small *ngIf="recipeForm.get('steps').value[i].description?.length <= 8 && clicked" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 pl-md-2 pl-lg-3 sewn-form-field w-100">
                     <label>{{ 'add_image' | translate }}</label>
@@ -636,7 +652,7 @@
                     </button>
                     <button
                         [disabled]="isPosting"
-                        (click)="onSave('published')"
+                        (click)="onSave('published'); clicked = true"
                         class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
                         {{ (recipeId ? (isTranslate ? 'post_translation' : 'save_changes') : 'submit') | translate }}

@@ -133,6 +133,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     images = [];
     maxVideoSize = 15;
     destroy$: Subject<boolean> = new Subject<boolean>();
+    clicked = false;
 
     constructor(
         private authService: AuthService,
