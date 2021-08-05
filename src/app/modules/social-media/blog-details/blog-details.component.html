@@ -1,12 +1,7 @@
 <div class="main-block">
     <div *ngIf="blog">
-        <div class="d-flex justify-content-between mb-4">
+        <div class="mb-4 mb-md-45">
             <a class="back-page" (click)="location.back()"> {{ 'back' | translate }}</a>
-            <div class="text-right float-md-right d-none d-sm-flex">
-                <span class="btn-trans-icon download-icon" [cdkCopyToClipboard]="'article url'">{{
-                    'download_as_doc' | translate
-                }}</span>
-            </div>
         </div>
 
         <div class="mb-3">
