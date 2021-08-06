@@ -232,7 +232,14 @@
                                     pInputText
                                 />
                                 <span
-                                    class="p-inputgroup-addon border-0 cursor-pointer pi pi-angle-right text-clr97 fnt-100 fnt-20"
+                                    class="
+                                        p-inputgroup-addon
+                                        border-0
+                                        cursor-pointer
+                                        pi pi-angle-right
+                                        text-clr97
+                                        fnt-100 fnt-20
+                                    "
                                 ></span>
                             </div>
                         </div>
@@ -271,14 +278,30 @@
                                         placeholder="{{ 'price_paid_by_the_customer' | translate }}"
                                     ></p-inputNumber>
                                     <span
-                                        class="fnt-600 p-inputgroup-addon text-clr334 br-4 m-1 right-dropdown-background lh-1"
+                                        class="
+                                            fnt-600
+                                            p-inputgroup-addon
+                                            text-clr334
+                                            br-4
+                                            m-1
+                                            right-dropdown-background
+                                            lh-1
+                                        "
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
                                         >SEK / kg</span
                                     >
                                     <span
-                                        class="p-inputgroup-addon fnt-600 br-4 text-clr334 m-1 right-dropdown-background lh-1"
+                                        class="
+                                            p-inputgroup-addon
+                                            fnt-600
+                                            br-4
+                                            text-clr334
+                                            m-1
+                                            right-dropdown-background
+                                            lh-1
+                                        "
                                         *ngIf="outtakeOrderDetails?.unit_currency && outtakeOrderDetails?.quantity_unit"
                                         >{{ outtakeOrderDetails?.unit_currency }} /
                                         {{ outtakeOrderDetails?.quantity_unit }}</span
@@ -305,14 +328,31 @@
                                 >
                                 <div class="p-inputgroup custom-addon">
                                     <span
-                                        class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334 br-4 m-1 right-dropdown-background lh-1"
+                                        class="
+                                            p-inputgroup-addon
+                                            fnt-14 fnt-600 fnt-muli
+                                            text-clr334
+                                            br-4
+                                            m-1
+                                            right-dropdown-background
+                                            lh-1
+                                        "
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
                                         >SEK</span
                                     >
                                     <span
-                                        class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334 br-4 m-1 right-dropdown-background fnt-600 lh-1"
+                                        class="
+                                            p-inputgroup-addon
+                                            fnt-14 fnt-600 fnt-muli
+                                            text-clr334
+                                            br-4
+                                            m-1
+                                            right-dropdown-background
+                                            fnt-600
+                                            lh-1
+                                        "
                                         *ngIf="outtakeOrderDetails?.total_price_currency"
                                         >{{ outtakeOrderDetails?.total_price_currency }}</span
                                     >
@@ -455,7 +495,12 @@
                                             {{ 'share_story_text' | translate }}
                                         </label>
                                         <div
-                                            class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center"
+                                            class="
+                                                copy-link__value
+                                                d-flex d-md-column d-lg-row
+                                                flex-wrap
+                                                align-items-center
+                                            "
                                         >
                                             <input
                                                 class="tab-input"
@@ -472,11 +517,26 @@
                                 <div class="tab-width-right">
                                     <div class="scan-qr-link text-center">
                                         <span
-                                            class="mx-auto fnt-12 fnt-600 fnt-muli text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
+                                            class="
+                                                mx-auto
+                                                fnt-12 fnt-600 fnt-muli
+                                                text-clr334
+                                                mb-3
+                                                mt-3 mt-md-0
+                                                mb-lg-4
+                                                text-capitalize
+                                                hideTabView
+                                            "
                                             >or</span
                                         >
                                         <p
-                                            class="text-md-left fnt-14 fnt-600 fnt-muli text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
+                                            class="
+                                                text-md-left
+                                                fnt-14 fnt-600 fnt-muli
+                                                text-clr334
+                                                mb-3 mb-lg-4
+                                                tab-bottom-margin
+                                            "
                                         >
                                             {{ 'scan_download_text' | translate }}
                                         </p>
@@ -680,7 +740,13 @@
                     </div>
                     <div
                         *ngIf="addOrdersForm.get('customer_id').value"
-                        class="col-lg-12 col-md-6 mob-form-top-margin d-lg-block d-md-block d-none d-sm-none d-xl-block ml-lg-0 ml-md-2 px-0"
+                        class="
+                            col-lg-12 col-md-6
+                            mob-form-top-margin
+                            d-lg-block d-md-block d-none d-sm-none d-xl-block
+                            ml-lg-0 ml-md-2
+                            px-0
+                        "
                     >
                         <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
                     </div>
@@ -712,11 +778,27 @@
                         <div class="tab-width-right">
                             <div class="scan-qr-link text-center">
                                 <span
-                                    class="d-lg-inline-block d-none d-lg-block mx-auto fnt-12 fnt-600 fnt-muli text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
+                                    class="
+                                        d-lg-inline-block d-none d-lg-block
+                                        mx-auto
+                                        fnt-12 fnt-600 fnt-muli
+                                        text-clr334
+                                        mb-3
+                                        mt-3 mt-md-0
+                                        mb-lg-4
+                                        text-capitalize
+                                        hideTabView
+                                    "
                                     >or</span
                                 >
                                 <p
-                                    class="text-md-left fnt-14 fnt-600 fnt-muli text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
+                                    class="
+                                        text-md-left
+                                        fnt-14 fnt-600 fnt-muli
+                                        text-clr334
+                                        mb-3 mb-lg-4
+                                        tab-bottom-margin
+                                    "
                                 >
                                     {{ 'scan_download_text' | translate }}
                                 </p>
@@ -891,7 +973,13 @@
                 <div class="d-flex">
                     <app-avatar
                         [size]="36"
-                        [src]="customerDetails?.company_image_thumbnail_url || 'assets/images/default-avatar.png'"
+                        [src]="
+                            customerDetails?.company_image_thumbnail_url
+                                ? customerDetails?.company_image_thumbnail_url
+                                : customerDetails?.sourcing_image_url
+                                ? customerDetails?.sourcing_image_url
+                                : 'assets/images/default-avatar.png'
+                        "
                     >
                     </app-avatar>
                     <div>

@@ -36,7 +36,11 @@
             <div class="mb-2 border-top-main border-bottom-main py-4 px-0 px-md-45">
                 <div class="d-flex align-items-center">
                     <img
-                        [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
+                        [src]="
+                            authService.currentUser?.profile_image_thumb_url
+                                ? authService.currentUser?.profile_image_thumb_url
+                                : authService.currentUser?.profile_image_url || 'assets/images/default-avatar.png'
+                        "
                         alt="avatar"
                         class="rounded-circle mr-3 mr-md-35"
                         width="40"

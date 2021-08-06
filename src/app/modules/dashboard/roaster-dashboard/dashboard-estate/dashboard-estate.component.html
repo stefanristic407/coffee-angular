@@ -33,7 +33,11 @@
                                 <div class="cursor-pointer" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
                                     <app-avatar
                                         [size]="36"
-                                        [src]="item.company_image_thumbnail_url"
+                                        [src]="
+                                            item.company_image_thumbnail_url
+                                                ? item.company_image_thumbnail_url
+                                                : item.sourcing_image_url
+                                        "
                                         [name]="item.name"
                                     ></app-avatar>
                                 </div>

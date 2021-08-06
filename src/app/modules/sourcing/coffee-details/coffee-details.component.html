@@ -11,7 +11,11 @@
                     <div class="d-inline-block mr-2 pr-1">
                         <app-avatar
                             [size]="(isMobile$ | async) ? 48 : 54"
-                            [src]="sourcing.harvestDetail?.estate_profile_image_thumbnail_url"
+                            [src]="
+                                sourcing.harvestDetail?.estate_profile_image_thumbnail_url
+                                    ? sourcing.estate?.company_image_thumbnail_url
+                                    : sourcing.estate?.sourcing_image_url
+                            "
                             [name]="sourcing.harvestDetail?.estate_name"
                         ></app-avatar>
                     </div>

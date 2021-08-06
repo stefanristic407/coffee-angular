@@ -14,7 +14,11 @@
                                     class="cursor-pointer"
                                     (click)="routeToEstateProfile()"
                                     [size]="(isMobile$ | async) ? 90 : 54"
-                                    [src]="sourcing.estate?.company_image_thumbnail_url"
+                                    [src]="
+                                        sourcing.estate?.company_image_thumbnail_url
+                                            ? sourcing.estate?.company_image_thumbnail_url
+                                            : sourcing.estate?.sourcing_image_url
+                                    "
                                     [name]="sourcing.estate?.name"
                                 ></app-avatar>
                             </div>

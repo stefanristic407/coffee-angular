@@ -6,7 +6,11 @@
         <div class="col-lg-8">
             <div class="p-3 bg-f8 br-4 d-flex align-items-center">
                 <img
-                    [src]="authService.currentUser?.profile_image_thumb_url || 'assets/images/default-avatar.png'"
+                    [src]="
+                        authService.currentUser?.profile_image_thumb_url
+                            ? authService.currentUser?.profile_image_thumb_url
+                            : authService.currentUser?.profile_image_url || 'assets/images/default-avatar.png'
+                    "
                     alt="avatar"
                     class="rounded-circle mr-3"
                     width="40"
@@ -38,7 +42,15 @@
     </div>
 
     <div
-        class="d-none d-md-flex flex-column align-items-center flex-md-row justify-content-md-between pb-lg-3 pb-md-0 pt-md-4 pt-lg-45"
+        class="
+            d-none d-md-flex
+            flex-column
+            align-items-center
+            flex-md-row
+            justify-content-md-between
+            pb-lg-3 pb-md-0
+            pt-md-4 pt-lg-45
+        "
     >
         <h1 class="fnt-18 fnt-md-24 fnt-muli fnt-bold text-clr334 mb-0">
             {{ 'brewing_guides' | translate }}
@@ -112,8 +124,8 @@
     <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!isLoading && !coffeeRecipeData.length" class="text-center my-4 fnt-muli text-clr24">
         <app-empty
-                [title]="(keyword ? 'no_data_available' : 'you_have_not_posted_anything_yet') | translate"
-                [description]="(keyword ? '' : 'no_any_posts_to_show_description') | translate"
+            [title]="(keyword ? 'no_data_available' : 'you_have_not_posted_anything_yet') | translate"
+            [description]="(keyword ? '' : 'no_any_posts_to_show_description') | translate"
         ></app-empty>
     </div>
 </div>

@@ -96,8 +96,10 @@
                                 <app-avatar
                                     [size]="38"
                                     [src]="
-                                        authService.currentUser?.profile_image_thumb_url ||
-                                        'assets/images/default-avatar.png'
+                                        authService.currentUser?.profile_image_thumb_url
+                                            ? authService.currentUser?.profile_image_thumb_url
+                                            : authService.currentUser?.profile_image_url ||
+                                              'assets/images/default-avatar.png'
                                     "
                                 >
                                 </app-avatar>
