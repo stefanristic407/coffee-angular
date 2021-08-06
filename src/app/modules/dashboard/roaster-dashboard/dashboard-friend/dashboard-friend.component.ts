@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-friend',

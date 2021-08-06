@@ -48,7 +48,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     }
     public refreshData() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
+            { label: 'Home', routerLink: '/' },
             { label: 'Inventory' },
             { label: 'Green coffee Inventory', routerLink: '/green-coffee-management/green-coffee-inventory' },
             {

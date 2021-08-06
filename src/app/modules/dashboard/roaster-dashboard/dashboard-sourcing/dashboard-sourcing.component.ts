@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Browser } from '@syncfusion/ej2-base';
 import { GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 import * as _ from 'underscore';
 import { COUNTRY_LIST } from '@constants';
 
@@ -15,10 +14,10 @@ export class DashboardSourcingComponent implements OnInit, OnDestroy {
     chartData: any[] = [];
     sourcing: any;
     sourcingSub: Subscription;
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    constructor(public globals: GlobalsService, private mDashboardSrv: MDashboardService) {}
 
     ngOnInit(): void {
-        this.sourcingSub = this.welcomeSrv.sourcing$.subscribe((res: any) => {
+        this.sourcingSub = this.mDashboardSrv.sourcing$.subscribe((res: any) => {
             if (res && res.sourcing_stats) {
                 this.sourcing = res;
                 this.makeChartData(res.sourcing_stats);

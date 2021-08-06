@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-review',
@@ -16,10 +16,10 @@ export class DashboardReviewComponent implements OnInit, OnDestroy {
     reviewStars: any[] = [];
     colors = ['#ff1e5a', '#ffa001', '#649a2b'];
 
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    constructor(public globals: GlobalsService, private mDashboardSrv: MDashboardService) {}
 
     ngOnInit(): void {
-        this.reviewsSummarySub = this.welcomeSrv.reviewsSummary$.subscribe((res: any) => {
+        this.reviewsSummarySub = this.mDashboardSrv.reviewsSummary$.subscribe((res: any) => {
             this.reviewsSummary = res;
             if (this.reviewsSummary) {
                 this.reviewStars = [];

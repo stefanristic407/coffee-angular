@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 import { Table } from 'primeng/table';
 import { ACTIVITY_TYPE } from '@constants';
 
@@ -19,7 +19,7 @@ export class DashboardActivityComponent implements OnInit, OnDestroy {
     @ViewChild('activeDT') activeTable: Table;
     selectedMetaData: any[];
 
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    constructor(public globals: GlobalsService, private welcomeSrv: MDashboardService) {}
 
     ngOnInit(): void {
         this.recentActivitiesSub = this.welcomeSrv.recentActivities$.subscribe((res: any) => {

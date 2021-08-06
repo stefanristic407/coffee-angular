@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CommonService, GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-estate',
@@ -18,18 +18,18 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
 
     constructor(
         public globals: GlobalsService,
-        private welcomeSrv: WelcomeService,
+        private mDashboardSrv: MDashboardService,
         private commonService: CommonService,
     ) {}
 
     ngOnInit(): void {
-        this.sourcingSub = this.welcomeSrv.sourcing$.subscribe((res: any) => {
+        this.sourcingSub = this.mDashboardSrv.sourcing$.subscribe((res: any) => {
             this.sourcing = res;
             if (this.sourcing) {
                 this.makeChartData();
             }
         });
-        this.estatesSub = this.welcomeSrv.estates$.subscribe((res: any) => {
+        this.estatesSub = this.mDashboardSrv.estates$.subscribe((res: any) => {
             if (res) {
                 const estateData: any = res;
                 estateData.length > 4 ? (this.estates = estateData.slice(0, 4)) : (this.estates = estateData);

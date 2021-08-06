@@ -57,7 +57,7 @@ export class CuppingReportComponent implements OnInit {
     ngOnInit(): void {
         this.primengConfig.ripple = true;
         this.breadCrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/features/roaster-dashboard' },
+            { label: this.globals.languageJson?.home, routerLink: '/' },
             { label: this.globals.languageJson?.menu_sourcing },
             { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
             { label: this.globals.languageJson?.my_cupping_reports },

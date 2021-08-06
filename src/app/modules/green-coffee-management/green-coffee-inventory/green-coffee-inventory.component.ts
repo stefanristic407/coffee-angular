@@ -18,11 +18,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     loader: boolean;
     searchText: string;
     searchString = '';
-    breadItems = [
-        { label: 'Home', routerLink: '/roaster-dashboard' },
-        { label: 'Inventory' },
-        { label: 'Green Coffee Inventory' },
-    ];
+    breadItems = [{ label: 'Home', routerLink: '/' }, { label: 'Inventory' }, { label: 'Green Coffee Inventory' }];
     selectedTab = 0;
     isProcuredTab = true;
     @ViewChild(CoffeeProcuredTabComponent, { static: false }) procureTab;

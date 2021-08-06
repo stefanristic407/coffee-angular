@@ -139,7 +139,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                     const isAddedMembers = !!localStorage.getItem('isAddedMembers') || res.result.added_team_members;
                     const isAddedDetails = !!localStorage.getItem('isAddedDetails') || res.result.added_details;
                     if (isAddedMembers && isAddedDetails) {
-                        this.router.navigate([this.route.snapshot.queryParams.redirect_to || '/roaster-dashboard']);
+                        this.router.navigate([this.route.snapshot.queryParams.redirect_to || '/dashboard']);
                     } else {
                         if (res.result.added_team_members) {
                             localStorage.setItem('isAddedMembers', 'true');

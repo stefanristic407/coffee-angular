@@ -30,7 +30,7 @@ export class RoastingProfilesComponent implements OnInit {
         5: 'Dark',
     };
     breadItems = [
-        { label: 'Home', routerLink: '/roaster-dashboard' },
+        { label: 'Home', routerLink: '/' },
         { label: 'Inventory' },
         { label: 'Roasted coffee', routerLink: '/roasted-coffee-batch/roasted-coffee-batchs' },
         { label: 'Roasting profiles' },

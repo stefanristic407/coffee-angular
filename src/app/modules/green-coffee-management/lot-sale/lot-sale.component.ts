@@ -167,7 +167,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
 
     refreshBreadcrumb() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
+            { label: 'Home', routerLink: '/' },
             { label: 'Inventory' },
             { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
             {

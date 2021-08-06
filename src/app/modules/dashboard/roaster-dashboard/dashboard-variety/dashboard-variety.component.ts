@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-variety',
@@ -13,7 +13,7 @@ export class DashboardVarietyComponent implements OnInit, OnDestroy {
     varietiesSub: Subscription;
     chartData: any[] = [];
 
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    constructor(public globals: GlobalsService, private welcomeSrv: MDashboardService) {}
 
     ngOnInit(): void {
         this.varietiesSub = this.welcomeSrv.varieties$.subscribe((res: any) => {

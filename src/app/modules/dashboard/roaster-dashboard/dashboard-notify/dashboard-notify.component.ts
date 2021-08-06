@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GlobalsService, ChatHandlerService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-notify',
@@ -21,10 +21,14 @@ export class DashboardNotifyComponent implements OnInit, OnDestroy {
         },
     ];
 
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService, public chat: ChatHandlerService) {}
+    constructor(
+        public globals: GlobalsService,
+        private mDashboardSrv: MDashboardService,
+        public chat: ChatHandlerService,
+    ) {}
 
     ngOnInit(): void {
-        this.disputesSub = this.welcomeSrv.disputes$.subscribe((res: any) => {
+        this.disputesSub = this.mDashboardSrv.disputes$.subscribe((res: any) => {
             console.log('dispute observable: ', res);
             if (res) {
                 this.disputes = res;

@@ -2,7 +2,7 @@ import { MenuType } from '@enums';
 import { Menu } from '@models';
 
 export const menuItems = [
-    new Menu(1, 'menu_dashboard', '/roaster-dashboard', null, null, null, false, 0, null),
+    new Menu(1, 'menu_dashboard', '/dashboard', null, null, null, false, 0, null),
 
     new Menu(2, 'menu_sourcing', null, null, null, null, true, 0, 'sourcing-management'),
     new Menu(21, 'menu_gc_sourcing', '/sourcing', null, null, null, false, 2, null),

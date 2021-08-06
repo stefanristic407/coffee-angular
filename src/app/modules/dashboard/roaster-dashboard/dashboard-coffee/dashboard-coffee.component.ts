@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-coffee',
@@ -29,16 +29,16 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
             name: 'Prebook',
         },
     };
-    constructor(private router: Router, public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    constructor(private router: Router, public globals: GlobalsService, private mDashboardSrv: MDashboardService) {}
 
     ngOnInit(): void {
-        this.stockSub = this.welcomeSrv.stock$.subscribe((res: any) => {
+        this.stockSub = this.mDashboardSrv.stock$.subscribe((res: any) => {
             if (res) {
                 this.stock = res;
                 this.makeChartData();
             }
         });
-        this.ordersSub = this.welcomeSrv.orders$.subscribe((res: any) => {
+        this.ordersSub = this.mDashboardSrv.orders$.subscribe((res: any) => {
             if (res) {
                 const orderData: any = res;
                 const sortedOrdersData = orderData.sort((a: any, b: any) => {

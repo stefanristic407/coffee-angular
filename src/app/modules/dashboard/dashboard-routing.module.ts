@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@guards';
-
-import { RoasterDashboardComponent } from './roaster-dashboard/roaster-dashboard.component';
 
 const routes: Routes = [
     {
-        path: 'roaster-dashboard',
-        component: RoasterDashboardComponent,
-        canActivate: [AuthGuard],
+        path: 'dashboard',
+        loadChildren: () =>
+            import('./roaster-dashboard/roaster-dashboard.module').then((m) => m.RoasterDashboardModule),
     },
     {
         path: 'welcome',
@@ -16,7 +13,7 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: 'roaster-dashboard',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
     },
 ];
