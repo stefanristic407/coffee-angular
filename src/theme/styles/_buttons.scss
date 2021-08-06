@@ -55,7 +55,7 @@
 }
 
 .btn-stroked {
-    @include btn-stroked($primary-color, $white, $primary-color);
+    @include btn-stroked($primary-color, transparent, $primary-color);
 
     img.svg {
         filter: invert(44%) sepia(40%) saturate(601%) hue-rotate(99deg) brightness(90%) contrast(89%);
