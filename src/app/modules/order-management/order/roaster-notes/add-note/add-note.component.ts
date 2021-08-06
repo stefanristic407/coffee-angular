@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrderManagementService } from '@app/modules/order-management/order-management.service';
-import { OrganizationDetails, UserProfile } from '@models';
+import { UserProfile } from '@models';
 import { DestroyableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
 

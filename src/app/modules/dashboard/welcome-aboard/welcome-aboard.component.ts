@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@services';
 
 @Component({
     selector: 'app-welcome-aboard',
@@ -29,13 +28,17 @@ export class WelcomeAboardComponent implements OnInit {
         },
     ];
 
-    constructor(private authService: AuthService) {}
+    constructor() {}
 
     ngOnInit(): void {
-        const addedDetails = this.authService.currentUser.added_details;
-        const addedTeamMembers = this.authService.currentUser.added_team_members;
-        if (!addedTeamMembers && addedDetails) {
+        const isAddedMembers = !!localStorage.getItem('isAddedMembers');
+        const isAddedDetails = !!localStorage.getItem('isAddedDetails');
+        if (isAddedMembers && !isAddedDetails) {
             this.welcomeBoardStatus = 1;
         }
+    }
+
+    skip(value: 'isAddedMembers' | 'isAddedDetails') {
+        localStorage.setItem(value, 'true');
     }
 }

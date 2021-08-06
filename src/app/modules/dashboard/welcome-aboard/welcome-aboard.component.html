@@ -7,7 +7,7 @@
                 <p class="fnt-18 fnt-700 fnt-muli mb-2">{{ 'add_roles_team_members' | translate }}</p>
                 <p class="fnt-14 text-clr588 create-txt mb-4 mb-lg-45">{{ 'dashboard_text' | translate }}!</p>
                 <div class="text-center">
-                    <button class="btn-stroked mr-3" (click)="welcomeBoardStatus = 1">
+                    <button class="btn-stroked mr-3" (click)="welcomeBoardStatus = 1; skip('isAddedMembers')">
                         {{ 'skip' | translate }}
                     </button>
                     <button class="btn-raised" routerLink="/team-management/create-role">
@@ -22,10 +22,10 @@
                     {{ 'roaster_welcome_detail_description' | translate }}
                 </p>
                 <div class="text-center">
-                    <button class="btn-stroked mr-3" routerLink="/roaster-dashboard">
+                    <button class="btn-stroked mr-3" routerLink="/roaster-dashboard" (click)="skip('isAddedDetails')">
                         {{ 'skip' | translate }}
                     </button>
-                    <button class="btn-raised" routerLink="/micro-roastery-profile">
+                    <button class="btn-raised" routerLink="/roastery-profile">
                         {{ 'add_details' | translate }}
                     </button>
                 </div>

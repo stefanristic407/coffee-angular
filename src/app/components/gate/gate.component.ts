@@ -17,8 +17,6 @@ import { UserStatus } from '@enums';
 export class GateComponent extends DestroyableComponent implements OnInit {
     userTermsAccepted: boolean;
     orgTermsAccepted: boolean;
-    isAddedDetails: string;
-    isAddedTeamMembers: string;
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -138,22 +136,17 @@ export class GateComponent extends DestroyableComponent implements OnInit {
             (res: any) => {
                 if (res.success) {
                     this.toastrService.success('Logged in Successfully');
-                    this.isAddedDetails = localStorage.getItem('isAddedDetails')
-                        ? localStorage.getItem('isAddedDetails')
-                        : 'false';
-                    this.isAddedTeamMembers = localStorage.getItem('isAddedTeamMembers')
-                        ? localStorage.getItem('isAddedTeamMembers')
-                        : 'false';
-                    if (
-                        (res.result.added_details && res.result.added_team_members) ||
-                        (this.isAddedDetails === 'true' && this.isAddedTeamMembers === 'true')
-                    ) {
-                        if (this.route.snapshot.queryParams.redirect_to) {
-                            this.router.navigate([this.route.snapshot.queryParams.redirect_to]);
-                        } else {
-                            this.router.navigate(['/roaster-dashboard']);
-                        }
+                    const isAddedMembers = !!localStorage.getItem('isAddedMembers') || res.result.added_team_members;
+                    const isAddedDetails = !!localStorage.getItem('isAddedDetails') || res.result.added_details;
+                    if (isAddedMembers && isAddedDetails) {
+                        this.router.navigate([this.route.snapshot.queryParams.redirect_to || '/roaster-dashboard']);
                     } else {
+                        if (res.result.added_team_members) {
+                            localStorage.setItem('isAddedMembers', 'true');
+                        }
+                        if (res.result.added_details) {
+                            localStorage.setItem('isAddedDetails', 'true');
+                        }
                         this.router.navigate(['/welcome-aboard']);
                     }
                 } else {

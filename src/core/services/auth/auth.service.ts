@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationType } from '@enums';
 import { environment } from '@env/environment';
-import { UserPreference } from '@models';
+import { OrganizationProfile, UserPreference, UserProfile } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -12,8 +12,8 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
     isSimulated = false;
     private orgId: number;
-    userSubject = new BehaviorSubject(null);
-    organizationSubject = new BehaviorSubject(null);
+    userSubject: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
+    organizationSubject: BehaviorSubject<OrganizationProfile> = new BehaviorSubject(null);
     preferenceSubject: BehaviorSubject<UserPreference> = new BehaviorSubject(null);
 
     get token(): any {
@@ -44,11 +44,11 @@ export class AuthService {
         return !!this.token;
     }
 
-    get currentUser(): any {
+    get currentUser(): UserProfile {
         return this.userSubject.value;
     }
 
-    get currentOrganization(): any {
+    get currentOrganization(): OrganizationProfile {
         return this.organizationSubject.value;
     }
 

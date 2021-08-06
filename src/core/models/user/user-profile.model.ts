@@ -1,26 +1,29 @@
+import { UserStatus } from '@enums';
+
 export interface UserProfile {
-    aboutMe: string;
+    about_me: string;
     address1: string;
     address2: string;
     city: string;
     country: string;
-    createdAt: string;
-    dateOfBirth: string;
+    created_at: string;
+    date_of_birth: string;
     email: string;
-    emailVerified: boolean;
-    firstName: string;
+    email_verified: boolean;
+    firstname: string;
     gender: string;
-    hasSystemRole: boolean;
+    has_system_role: boolean;
     id: number;
     language: string;
-    lastLoginAt: string;
-    lastName: string;
+    last_login_at: string;
+    lastname: string;
     organization_id: number;
     phone: string;
-    profileImageThumbUrl: string;
-    profileImageUrl: string;
-    referralCode: string;
-    state: string;
+    profile_image_thumb_url: string;
+    profile_image_url: string;
+    referral_code: string;
+    state: UserStatus;
     status: string; // TODO: Add enum
+    terms_accepted: boolean;
     timezone: string;
 }
