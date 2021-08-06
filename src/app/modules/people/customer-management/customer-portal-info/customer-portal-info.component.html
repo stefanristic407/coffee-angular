@@ -5,7 +5,9 @@
             src="{{
                 data?.company_image_thumbnail_url
                     ? data?.company_image_thumbnail_url
-                    : data?.sourcing_image_url || 'assets/images/ft-roastry-profile.png'
+                    : data?.sourcing_image_url
+                    ? data?.sourcing_image_url
+                    : 'assets/images/ft-roastry-profile.png'
             }}"
         />
         <div class="pl-lg-35 d-flex flex-column align-items-center align-items-lg-start">

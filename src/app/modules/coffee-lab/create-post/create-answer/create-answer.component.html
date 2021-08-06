@@ -5,7 +5,9 @@
                 [src]="
                     authService.currentUser?.profile_image_thumb_url
                         ? authService.currentUser?.profile_image_thumb_url
-                        : authService.currentUser?.profile_image_url || 'assets/images/default-avatar.png'
+                        : authService.currentUser?.profile_image_url
+                        ? authService.currentUser?.profile_image_url
+                        : 'assets/images/default-avatar.png'
                 "
                 alt="avatar"
                 class="rounded-circle mr-3"
