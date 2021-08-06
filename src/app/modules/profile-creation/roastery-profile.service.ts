@@ -35,7 +35,6 @@ export class RoasteryProfileService {
 
     cities: Array<any> = [];
 
-    userId: number;
     roasterId: number;
     roasterUsers: any = [];
     topContacts: any = [];
@@ -56,7 +55,6 @@ export class RoasteryProfileService {
         private authService: AuthService,
         private newUserService: UserService,
     ) {
-        this.userId = this.authService.userId;
         this.roasterId = this.authService.getOrgId();
         this.roasterProfile();
         this.countryList = COUNTRY_LIST;
