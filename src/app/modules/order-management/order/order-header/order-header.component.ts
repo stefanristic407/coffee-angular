@@ -54,7 +54,7 @@ export class OrderHeaderComponent implements OnInit {
 
     ngOnInit(): void {
         this.breadcrumbs = [
-            { label: 'Home', routerLink: '/features/welcome-aboard' },
+            { label: 'Home', routerLink: '/' },
             { label: 'Order Management', routerLink: `/orders/${this.organizationType}` },
             { label: `Order ${this.orderId}` },
         ];

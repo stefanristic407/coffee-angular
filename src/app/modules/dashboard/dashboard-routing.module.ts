@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@guards';
 
 import { RoasterDashboardComponent } from './roaster-dashboard/roaster-dashboard.component';
-import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
 
 const routes: Routes = [
     {
@@ -12,9 +11,8 @@ const routes: Routes = [
         canActivate: [AuthGuard],
     },
     {
-        path: 'welcome-aboard',
-        component: WelcomeAboardComponent,
-        canActivate: [AuthGuard],
+        path: 'welcome',
+        loadChildren: () => import('./welcome/welcome.module').then((m) => m.WelcomeModule),
     },
     {
         path: '',

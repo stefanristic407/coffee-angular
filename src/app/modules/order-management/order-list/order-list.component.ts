@@ -92,7 +92,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
             }
 
             this.items = [
-                { label: 'Home', routerLink: '/features/welcome-aboard' },
+                { label: 'Home', routerLink: '/' },
                 { label: 'Order Management' }, // Do we need this item while we have no page for it?
                 {
                     label:

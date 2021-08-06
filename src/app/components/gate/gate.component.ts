@@ -147,14 +147,14 @@ export class GateComponent extends DestroyableComponent implements OnInit {
                         if (res.result.added_details) {
                             localStorage.setItem('isAddedDetails', 'true');
                         }
-                        this.router.navigate(['/welcome-aboard']);
+                        this.router.navigate(['/welcome']);
                     }
                 } else {
-                    this.router.navigate(['/welcome-aboard']);
+                    this.router.navigate(['/welcome']);
                 }
             },
             (err) => {
-                this.router.navigate(['/welcome-aboard']);
+                this.router.navigate(['/welcome']);
             },
         );
     }

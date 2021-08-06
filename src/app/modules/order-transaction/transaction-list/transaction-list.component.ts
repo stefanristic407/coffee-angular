@@ -14,9 +14,9 @@ import * as moment from 'moment';
 })
 export class TransactionListComponent extends ResizeableComponent implements OnInit {
     breadItems = [
-        { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Order Management', routerLink: '/features/welcome-aboard' },
-        { label: 'Order Management', routerLink: '/features/welcome-aboard' },
+        { label: 'Home', routerLink: '/' },
+        { label: 'Order Management', routerLink: '/' },
+        { label: 'Order Management', routerLink: '/' },
         { label: 'Order Transactions' },
     ];
 

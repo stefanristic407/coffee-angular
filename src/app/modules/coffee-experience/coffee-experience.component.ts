@@ -12,7 +12,7 @@ import { CoffeeExpService } from './coffee-experience.service';
 })
 export class CoffeeExperienceComponent implements OnInit {
     items = [
-        { label: this.globals.languageJson.home, routerLink: '/features/welcome-aboard' },
+        { label: this.globals.languageJson.home, routerLink: '/' },
         { label: this.globals.languageJson.brand_experience },
         { label: this.globals.languageJson.the_coffee_experience },
     ];

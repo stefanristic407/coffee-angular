@@ -18,7 +18,6 @@ import { DashboardSourcingComponent } from './roaster-dashboard/dashboard-sourci
 import { DashboardInviteComponent } from './roaster-dashboard/dashboard-invite/dashboard-invite.component';
 import { DashboardBlogComponent } from './roaster-dashboard/dashboard-blog/dashboard-blog.component';
 import { DashboardActivityComponent } from './roaster-dashboard/dashboard-activity/dashboard-activity.component';
-import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +35,6 @@ import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.componen
         DashboardInviteComponent,
         DashboardBlogComponent,
         DashboardActivityComponent,
-        WelcomeAboardComponent,
     ],
     imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })

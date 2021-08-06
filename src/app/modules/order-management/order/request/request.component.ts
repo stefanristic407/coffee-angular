@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class RequestComponent extends DestroyableComponent implements OnInit {
     readonly RequestStatus = AvailabilityRequestStatus;
     readonly breadcrumbs: MenuItem[] = [
-        { label: 'Home', routerLink: '/features/welcome-aboard' },
+        { label: 'Home', routerLink: '/' },
         { label: 'Order Management', routerLink: '/orders/mr' },
     ];
 

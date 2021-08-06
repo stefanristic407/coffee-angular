@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-welcome-aboard',
-    templateUrl: './welcome-aboard.component.html',
-    styleUrls: ['./welcome-aboard.component.scss'],
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.scss'],
 })
-export class WelcomeAboardComponent implements OnInit {
+export class WelcomeComponent implements OnInit {
     welcomeBoardStatus = 0;
     cards: any[] = [
         {
