@@ -3,7 +3,6 @@ import { AuthService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
 import { BehaviorSubject } from 'rxjs';
@@ -29,6 +28,8 @@ export class RoasteryProfileService {
     public contactFormInvalid = false;
     public toUpdateProfileData: OrganizationProfile;
     public organizationProfile: OrganizationProfile;
+    public orgImgPrevUrl: any;
+    public orgImgCroppedFile: File;
 
     public invalidSumEmployee = false;
 
@@ -51,7 +52,6 @@ export class RoasteryProfileService {
         public cookieService: CookieService,
         public roasterService: RoasterserviceService,
         public toastrService: ToastrService,
-        public profilePhotoService: ProfilePhotoService,
         public router: Router,
         private authService: AuthService,
         private newUserService: UserService,
@@ -76,11 +76,9 @@ export class RoasteryProfileService {
     roasterProfile() {
         this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
             if (result.success) {
-                console.log('roaster details: ', result);
                 this.organizationProfile = result.result;
                 this.toUpdateProfileData = result.result;
-
-                this.profilePhotoService.croppedImage = this.organizationProfile.company_image_url;
+                this.orgImgPrevUrl = this.organizationProfile.company_image_url;
 
                 this.single = [
                     {
@@ -120,30 +118,6 @@ export class RoasteryProfileService {
 
     changeCountry(count) {
         this.cities = COUNTRY_LIST.find((con) => con.isoCode === count).cities;
-    }
-
-    b64toBlob(b64Data, contentType, sliceSize) {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
-
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            const byteArray = new Uint8Array(byteNumbers);
-
-            byteArrays.push(byteArray);
-        }
-
-        const blob = new Blob(byteArrays, { type: contentType });
-        return blob;
     }
 
     saveRoasterProfile() {
@@ -230,24 +204,16 @@ export class RoasteryProfileService {
             }),
         );
 
-        const base64Rejex =
-            /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
-        const isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
-        if (isBase64Valid) {
-            const ImageURL = this.profilePhotoService.croppedImage;
-            const block = ImageURL.split(';');
-            const contentType = block[0].split(':')[1];
-            const realData = block[1].split(',')[1];
-            // Convert it to a blob to upload
-            const blob = this.b64toBlob(realData, contentType, 0);
+        if (this.orgImgCroppedFile) {
             const formData: FormData = new FormData();
-            formData.append('file', blob);
+            formData.append('file', this.orgImgCroppedFile);
             formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
             formData.append('token', this.authService.token);
             promises.push(
                 new Promise((resolve, reject) => {
                     this.userService.uploadProfileImage(formData).subscribe((result: any) => {
                         if (result.success) {
+                            this.orgImgCroppedFile = null;
                             resolve(result.success);
                         } else {
                             reject();
@@ -323,7 +289,8 @@ export class RoasteryProfileService {
 
     preview() {
         this.bannerUrl = this.organizationProfile.banner_url;
-        this.profilePhotoService.croppedImage = this.organizationProfile.company_image_url;
+        this.orgImgPrevUrl = this.organizationProfile.company_image_url;
+        this.orgImgCroppedFile = null;
         this.editMode.next(true);
         this.saveMode.next(false);
     }
