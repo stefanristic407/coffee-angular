@@ -1,48 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, UserService } from '@services';
+import { AuthService } from '@services';
+
 @Component({
     selector: 'app-welcome-aboard',
     templateUrl: './welcome-aboard.component.html',
     styleUrls: ['./welcome-aboard.component.scss'],
 })
 export class WelcomeAboardComponent implements OnInit {
-    appLanguage?: any;
-    welcomeActive: any = 0;
-    roasterId: number;
     welcomeBoardStatus = 0;
-    constructor(
-        private router: Router,
-        private cookieService: CookieService,
-        public globals: GlobalsService,
-        private userSrv: UserService,
-        private toastrService: ToastrService,
-        private authService: AuthService,
-    ) {}
+    cards: any[] = [
+        {
+            routerLink: '/sourcing',
+            img: 'assets/images/welcome_source_green_coffee.png',
+            title: 'source_green_coffee',
+            description: 'welcome_source_green_coffee_description',
+        },
+        {
+            routerLink: '/e-commerce',
+            img: 'assets/images/welcome_ecommer.png',
+            title: 'ecommerce',
+            description: 'welcome_ecommerce_description',
+        },
+        {
+            routerLink: '/people/customer-management',
+            img: 'assets/images/welcome_onboard_customers.png',
+            title: 'onboard_customers',
+            description: 'welcome_onboard_customers_description',
+        },
+    ];
+
+    constructor(private authService: AuthService) {}
 
     ngOnInit(): void {
-        this.roasterId = this.authService.getOrgId();
-
-        this.appLanguage = this.globals.languageJson;
-        this.getStats();
-    }
-
-    getStats() {
-        this.userSrv.getStats(this.roasterId).subscribe((res: any) => {
-            console.log('get stats: ', res);
-            if (res && res.success) {
-                if (!res.result.added_details && res.result.added_team_members) {
-                    this.welcomeBoardStatus = 1;
-                }
-            } else {
-                this.toastrService.error('Error while getting stats');
-            }
-        });
-    }
-
-    skip(value: string) {
-        localStorage.setItem(value, 'true');
+        const addedDetails = this.authService.currentUser.added_details;
+        const addedTeamMembers = this.authService.currentUser.added_team_members;
+        if (!addedTeamMembers && addedDetails) {
+            this.welcomeBoardStatus = 1;
+        }
     }
 }
