@@ -1,3 +1,13 @@
+p-calendar {
+    .p-calendar {
+        width: 136px;
+    }
+}
+p-calendar[selectionmode='range'] {
+    .p-calendar {
+        width: 230px;
+    }
+}
 .p-calendar {
     border: 1px solid $primary-border-color;
     border-radius: 3px;
@@ -17,28 +27,28 @@
 .round-border.p-calendar {
     border-radius: 20px;
 }
-.single-calendar {
-    display: inline-block;
-    width: 136px;
-}
-.p-calendar .p-inputtext {
-    border: none;
-}
-.p-calendar .p-button {
-    color: $button-icon-color;
-    background-color: transparent;
-    border: none;
-}
-.p-calendar .p-button:enabled:hover {
-    color: $button-icon-color;
-    background-color: transparent;
-}
-.p-calendar .p-button-icon {
-    font-size: 14px;
+.p-calendar {
+    .p-inputtext {
+        border: none;
+        background: none;
+    }
+    .p-button {
+        color: $button-icon-color;
+        background-color: transparent;
+        border: none;
+        &:enabled:hover {
+            color: $button-icon-color;
+            background-color: transparent;
+        }
+    }
+    .p-button-icon {
+        font-size: 14px;
+    }
 }
 .p-calendar-w-btn .p-inputtext {
     padding-right: 0;
 }
+
 // Date picker
 .p-datepicker table td {
     padding: 0.1rem;
@@ -51,64 +61,13 @@
 // Time range
 .time-range {
     border-radius: 3px;
-    border: 1px solid #d6d6d6;
-    background-color: #ffffff;
+    border: 1px solid $primary-border-color;
+    background-color: $white;
 
     &.opened {
-        border: 1px solid #30855c;
+        border: 1px solid $primary-color;
     }
     .p-calendar {
         border: none;
-    }
-}
-.round-border.p-calendar {
-    border-radius: 20px;
-    input {
-        background: none;
-    }
-}
-.p-calendar {
-    &.p-calendar-full-width {
-        max-width: 100%;
-        min-width: 100%;
-    }
-
-    &.p-calendar-left-icon {
-        flex-direction: row-reverse;
-
-        .p-inputtext {
-            margin-left: 0;
-        }
-    }
-
-    &.p-calendar-has-left-icon {
-        .p-inputtext {
-            margin-left: 38px;
-        }
-    }
-
-    &.p-inputtext-black {
-        .p-inputtext {
-            color: #232334;
-            opacity: 1;
-            padding: 15px 16px;
-            @media (max-width: 767px) {
-                padding: 13px 16px;
-            }
-        }
-    }
-    &.big-padding {
-        .p-inputtext {
-            padding: 15px 16px;
-            @media (max-width: 767px) {
-                padding: 13px 16px;
-            }
-        }
-    }
-
-    &.p-calendar-transparent {
-        .p-inputtext {
-            background: transparent;
-        }
     }
 }

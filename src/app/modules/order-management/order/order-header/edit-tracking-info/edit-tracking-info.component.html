@@ -19,9 +19,7 @@
             [readonlyInput]="true"
             [showButtonBar]="true"
             placeholder="{{ 'select_shipping_date' | translate }}"
-            styleClass="w-100 p-calendar-w-btn br-4 single-calendar ml-0 export-calendar py-1 {{
-                shippingDate ? 'highlight' : ''
-            }}"
+            styleClass="w-100 p-calendar-w-btn br-4 ml-0 export-calendar py-1 {{ shippingDate ? 'highlight' : '' }}"
             [disabled]="!!orderDetails?.shipment_date"
             [(ngModel)]="shippingDate"
         >
