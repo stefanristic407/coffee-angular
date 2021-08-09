@@ -121,6 +121,19 @@
                                     </div>
                                 </div>
                             </span>
+                            <span *ngSwitchCase="'created_at'" (click)="editMember(rowData.id)">
+                                <span class="d-none d-sm-none d-md-block tableDataFont">
+                                    {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a' }}
+                                </span>
+                                <div class="d-flex d-sm-flex d-md-none">
+                                    <span class="prime-table-label w-50 mobileLable"> Last Login </span>
+                                    <div class="w-50 d-flex">
+                                        <span class="tableDataFont">
+                                            {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </span>
                             <span *ngSwitchCase="'roles'" (click)="editMember(rowData.id)">
                                 <span class="d-none d-sm-none d-md-block tableDataFont">{{
                                     rowData['roleLable']
@@ -171,7 +184,7 @@
             </p-table>
         </div>
     </div>
-    <button class="btn-stroked d-none d-md-block" *ngIf="isAddMember" routerLink="/team-management/manage-role">
+    <button class="btn-stroked d-none d-md-block mt-4" *ngIf="isAddMember" routerLink="/team-management/manage-role">
         Cancel
     </button>
 </div>
