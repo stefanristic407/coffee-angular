@@ -27,6 +27,15 @@ const routes: Routes = [
             {
                 path: 'user-management',
                 component: UserManagementComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'accepted',
+                        pathMatch: 'full',
+                    },
+                    { path: 'accepted', component: TeamMemberTableComponent },
+                    { path: 'pending-invitations', component: TeamMemberTableComponent },
+                ],
                 canActivate: [AuthGuard],
             },
             {
@@ -37,15 +46,6 @@ const routes: Routes = [
             {
                 path: 'team-members',
                 component: UserManagementComponent,
-                children: [
-                    {
-                        path: '',
-                        redirectTo: 'accepted',
-                        pathMatch: 'full',
-                    },
-                    { path: 'accepted', component: TeamMemberTableComponent },
-                    { path: 'pending-invitations', component: TeamMemberTableComponent },
-                ],
                 canActivate: [AuthGuard],
             },
             {

@@ -78,7 +78,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         this.statusFilterArray = [
             { name: 'Active', value: 'active' },
             { name: 'Inactive', value: 'Inactive' },
-            { name: 'Pending', value: 'pending' },
         ];
         this.loginId = this.authService.userId;
         this.roasterID = this.authService.getOrgId();
