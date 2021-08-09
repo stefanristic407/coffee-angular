@@ -1,8 +1,6 @@
 <div class="main-block" [formGroup]="uiForm">
     <div class="d-flex justify-content-between">
-        <div class="breadcrumb-container">
-            <p-breadcrumb [model]="breadItems"></p-breadcrumb>
-        </div>
+        <p-breadcrumb [model]="breadItems"></p-breadcrumb>
         <div class="col-md-4 col-lg-4 px-0 web-farm">
             <span class="custom-search">
                 <input
@@ -17,23 +15,9 @@
         </div>
     </div>
     <section>
-        <div
-            class="
-                d-md-flex
-                flex-column flex-md-row
-                justify-content-between
-                align-items-end
-                mb-3
-                mt-3
-                mb-md-4 mb-lg-475
-            "
-        >
-            <div>
-                <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">Order Transactions</div>
-                <div class="text-clr334 fnt-md-14 fnt-12 fnt-600 fnt-muli mb-3 mb-md-0">
-                    View all your transactions here
-                </div>
-            </div>
+        <div class="mt-3 mb-3 mb-md-4 mb-lg-475">
+            <div class="fnt-md-18 fnt-16 fnt-bold mb-2 mb-md-1">Order Transactions</div>
+            <div class="fnt-md-14 fnt-12 fnt-600 mb-3 mb-md-0">View all your transactions here</div>
         </div>
         <div class="d-block d-md-none mb-3">
             <span class="custom-search mobile-bord">
@@ -49,23 +33,19 @@
         </div>
     </section>
 
-    <div>
-        <div class="mt-4">
+    <div class="mt-4 mb-3 d-md-flex justify-content-between">
+        <div class="row gutter-12 v-gutter-12">
             <p-dropdown
                 [options]="channelItemList"
                 [showClear]="true"
                 formControlName="fCchannel"
-                optionLabel="label"
-                optionValue="value"
                 value="value"
                 scrollHeight="225px"
                 placeholder="Channel"
                 [autoDisplayFirst]="false"
-                styleClass="filter-component round-border mb-3 {{
-                    fCchannel.dirty && fCchannel.value ? 'highlight' : ''
-                }}"
+                class="col-auto"
+                styleClass="round-border {{ fCchannel.dirty && fCchannel.value ? 'highlight' : '' }}"
             ></p-dropdown>
-
             <p-calendar
                 class="partner-calendar"
                 [readonlyInput]="true"
@@ -75,294 +55,282 @@
                 [showButtonBar]="true"
                 [showIcon]="true"
                 icon="pi pi-calendar"
-                styleClass="filter-component round-border mb-25 mb-md-3 mb-lg-4 {{
-                    isDateSelected ? ' highlight' : ''
-                }}"
+                class="col-auto"
+                styleClass="round-border {{ isDateSelected ? ' highlight' : '' }}"
             >
             </p-calendar>
             <p-dropdown
                 [options]="orderTypeItemList"
                 [showClear]="true"
                 formControlName="fCOrderType"
-                optionLabel="label"
-                optionValue="value"
-                value="value"
                 scrollHeight="225px"
                 placeholder="Order type"
                 [autoDisplayFirst]="false"
-                styleClass="filter-component round-border mb-3 {{
-                    fCOrderType.dirty && fCOrderType.value ? 'highlight' : ''
-                }}"
+                class="col-auto"
+                styleClass="round-border {{ fCOrderType.dirty && fCOrderType.value ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-dropdown
                 [options]="paymentTypeList"
                 [showClear]="true"
                 formControlName="fcPaymentType"
-                optionLabel="label"
-                optionValue="value"
-                value="value"
                 scrollHeight="225px"
                 placeholder="Payment mode"
                 [autoDisplayFirst]="false"
-                styleClass="filter-component round-border mb-3 {{
-                    fcPaymentType.dirty && fcPaymentType.value ? 'highlight' : ''
-                }}"
+                class="col-auto"
+                styleClass="round-border {{ fcPaymentType.dirty && fcPaymentType.value ? 'highlight' : '' }}"
             ></p-dropdown>
-
-            <div class="float-right d-none d-md-block">
-                <p-dropdown
-                    [options]="perPageItemList"
-                    [showClear]="false"
-                    formControlName="fCperPage"
-                    optionLabel="label"
-                    optionValue="value"
-                    value="value"
-                    scrollHeight="225px"
-                    placeholder="Display"
-                    [autoDisplayFirst]="false"
-                    styleClass="round-border mb-3 {{ fCperPage.dirty ? ' highlight' : '' }}"
-                ></p-dropdown>
-            </div>
         </div>
-        <p-table
-            #markedTable
-            [class.table-mobile]="primeTableService.isMobileView"
-            [value]="primeTableService?.records"
-            [columns]="primeTableService.allColumns"
-            [(selection)]="primeTableService.selectedRecords"
-            dataKey="id"
-            styleClass="ui-table-customers"
-            [rows]="primeTableService.rows"
-            [showCurrentPageReport]="false"
-            [loading]="primeTableService.loading"
-            [paginator]="primeTableService.paginationValue"
-            [lazy]="true"
-            (onLazyLoad)="primeTableService.getData($event)"
-            [totalRecords]="primeTableService.totalRecords"
-            [responsive]="primeTableService.isMobileView"
-            [scrollable]="!primeTableService.isMobileView"
-        >
-            <ng-template pTemplate="colgroup" let-columns>
-                <colgroup>
-                    <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
-                </colgroup>
-            </ng-template>
+        <div class="d-none d-md-block">
+            <p-dropdown
+                [options]="perPageItemList"
+                [showClear]="false"
+                formControlName="fCperPage"
+                scrollHeight="225px"
+                placeholder="Display"
+                [autoDisplayFirst]="false"
+                styleClass="round-border {{ fCperPage.dirty ? ' highlight' : '' }}"
+            ></p-dropdown>
+        </div>
+    </div>
 
-            <ng-template pTemplate="header" let-columns>
-                <tr class="top-row">
-                    <th colspan="3" class="right-border">
-                        <span class="primeng-table-header">Customer Details</span>
-                    </th>
-                    <th colspan="4" class="right-border">
-                        <span class="primeng-table-header"> Order Details</span>
-                    </th>
-                    <th colspan="4" class="right-border">
-                        <span class="primeng-table-header"> Payment Details</span>
-                    </th>
-                </tr>
-                <tr class="bottom-row">
-                    <th
-                        *ngFor="let col of columns"
-                        [pSortableColumn]="col.sortable === true ? col.field : null"
-                        [ngClass]="{ 'right-border': col.field === 'channel' || col.field === 'order_type' }"
+    <p-table
+        #markedTable
+        [class.table-mobile]="primeTableService.isMobileView"
+        [value]="primeTableService?.records"
+        [columns]="primeTableService.allColumns"
+        [(selection)]="primeTableService.selectedRecords"
+        dataKey="id"
+        styleClass="ui-table-customers"
+        [rows]="primeTableService.rows"
+        [showCurrentPageReport]="false"
+        [loading]="primeTableService.loading"
+        [paginator]="primeTableService.paginationValue"
+        [lazy]="true"
+        (onLazyLoad)="primeTableService.getData($event)"
+        [totalRecords]="primeTableService.totalRecords"
+        [responsive]="primeTableService.isMobileView"
+        [scrollable]="!primeTableService.isMobileView"
+    >
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
+            </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr class="top-row">
+                <th colspan="3" class="right-border">
+                    <span class="primeng-table-header">Customer Details</span>
+                </th>
+                <th colspan="4" class="right-border">
+                    <span class="primeng-table-header"> Order Details</span>
+                </th>
+                <th colspan="4" class="right-border">
+                    <span class="primeng-table-header"> Payment Details</span>
+                </th>
+            </tr>
+            <tr class="bottom-row">
+                <th
+                    *ngFor="let col of columns"
+                    [pSortableColumn]="col.sortable === true ? col.field : null"
+                    [ngClass]="{ 'right-border': col.field === 'channel' || col.field === 'order_type' }"
+                >
+                    <span class="primeng-table-header">{{ col.header }}</span>
+                    <p-sortIcon
+                        *ngIf="col.sortable === true"
+                        [field]="col.field"
+                        ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"
                     >
-                        <span class="primeng-table-header">{{ col.header }}</span>
-                        <p-sortIcon
-                            *ngIf="col.sortable === true"
-                            [field]="col.field"
-                            ariaLabel="Activate to sort"
-                            ariaLabelDesc="Activate to sort in descending order"
-                            ariaLabelAsc="Activate to sort in ascending order"
-                        >
-                        </p-sortIcon>
-                        <span class="vat-included-message" *ngIf="col.field === 'total_amount'">(Inc. VAT)</span>
-                    </th>
-                </tr>
-            </ng-template>
+                    </p-sortIcon>
+                    <span class="vat-included-message" *ngIf="col.field === 'total_amount'">(Inc. VAT)</span>
+                </th>
+            </tr>
+        </ng-template>
 
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr>
-                    <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                        <span *ngSwitchCase="'mobile-details'">
-                            <div class="d-md-none">
-                                <div class="d-flex justify-content-between mobile-header br-4 p-2 fnt-14">
-                                    <div>
-                                        <span class="pl-1"> Cust. ID #{{ rowData['account_number'] || '--' }} </span>
-                                    </div>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'mobile-details'">
+                        <div class="d-md-none">
+                            <div class="d-flex justify-content-between mobile-header br-4 p-2 fnt-14">
+                                <div>
+                                    <span class="pl-1"> Cust. ID #{{ rowData['account_number'] || '--' }} </span>
                                 </div>
                             </div>
-                        </span>
-                        <span *ngSwitchCase="'account_number'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Cust. ID
-                                </span>
-                                <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['account_number'] || '--' }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'account_name'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Cust. Name
-                                </span>
-                                <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['account_name'] || '--' }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'channel'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Channel
-                                </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'account_number'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Cust. ID
+                            </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['account_number'] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'account_name'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Cust. Name
+                            </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['account_name'] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'channel'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Channel
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ channelItemMap[rowData['channel']] || '--' }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'document_number'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Doc. no.
-                                </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ channelItemMap[rowData['channel']] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'document_number'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Doc. no.
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['document_number'] || '--' }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'document_date'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Doc. date
-                                </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['document_number'] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'document_date'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Doc. date
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ (rowData['document_date'] | date: 'd MMM y') || '--' }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'document_type'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Doc. type
-                                </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ (rowData['document_date'] | date: 'd MMM y') || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'document_type'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Doc. type
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['document_type'] || '--' }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'order_type'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Order type
-                                </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['document_type'] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'order_type'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Order type
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['order_type'] || '--' }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'payment_type'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Mode
-                                </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['order_type'] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'payment_type'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Mode
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ paymentTypeMap[rowData['payment_type']] || '--' }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'total_amount'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Total amt.
-                                </span>
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ paymentTypeMap[rowData['payment_type']] || '--' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'total_amount'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Total amt.
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{
-                                        rowData['total_amount']
-                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
-                                    }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'vat_amount'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    VAT
-                                </span>
+                            <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
+                                {{
+                                    rowData['total_amount']
+                                        | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'vat_amount'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                VAT
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{
-                                        rowData['vat_amount']
-                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
-                                    }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'commission_amount'">
-                            <div class="d-flex">
-                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    Commission
-                                </span>
+                            <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
+                                {{
+                                    rowData['vat_amount']
+                                        | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'commission_amount'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Commission
+                            </span>
 
-                                <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{
-                                        rowData['commission_amount']
-                                            | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
-                                    }}
-                                </span>
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage" let-columns>
-                <tr>
-                    <td [attr.colspan]="columns.length">
-                        <app-empty title="No Records found"></app-empty>
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="footer" let-columns>
-                <tr class="footer-row">
-                    <th colspan="6" class="no-background-color"></th>
-                    <th>
-                        <span class="primeng-table-footer">Total</span>
-                    </th>
-                    <th colspan="1"></th>
-                    <th>
-                        <span class="primeng-table-footer"
-                            >{{
-                                primeTableService.result?.grand_total || 0
-                                    | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
-                            }}
-                        </span>
-                    </th>
-                    <th>
-                        <span class="primeng-table-footer">
-                            {{
-                                primeTableService.result?.total_vat || 0
-                                    | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
-                            }}
-                        </span>
-                    </th>
-                    <th>
-                        <span class="primeng-table-footer">
-                            {{
-                                primeTableService.result?.total_commission || 0
-                                    | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
-                            }}
-                        </span>
-                    </th>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+                            <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
+                                {{
+                                    rowData['commission_amount']
+                                        | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
+                                }}
+                            </span>
+                        </div>
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columns.length">
+                    <app-empty title="No Records found"></app-empty>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" let-columns>
+            <tr class="footer-row">
+                <th colspan="6" class="no-background-color"></th>
+                <th>
+                    <span class="primeng-table-footer">Total</span>
+                </th>
+                <th colspan="1"></th>
+                <th>
+                    <span class="primeng-table-footer"
+                        >{{
+                            primeTableService.result?.grand_total || 0
+                                | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
+                        }}
+                    </span>
+                </th>
+                <th>
+                    <span class="primeng-table-footer">
+                        {{
+                            primeTableService.result?.total_vat || 0
+                                | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
+                        }}
+                    </span>
+                </th>
+                <th>
+                    <span class="primeng-table-footer">
+                        {{
+                            primeTableService.result?.total_commission || 0
+                                | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
+                        }}
+                    </span>
+                </th>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
