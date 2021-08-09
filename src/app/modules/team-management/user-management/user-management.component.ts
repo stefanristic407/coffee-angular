@@ -13,11 +13,11 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
 
 @Component({
-    selector: 'app-team-member-table',
-    templateUrl: './team-member-table.component.html',
-    styleUrls: ['./team-member-table.component.scss'],
+    selector: 'app-user-management',
+    templateUrl: './user-management.component.html',
+    styleUrls: ['./user-management.component.scss'],
 })
-export class TeamMemberTableComponent implements OnInit, AfterViewInit {
+export class UserManagementComponent implements OnInit, AfterViewInit {
     readonly UserStatus = UserStatus;
     roasterID: any;
     breadCrumbItem: MenuItem[] = [];
@@ -43,6 +43,17 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     popupDetails = { message: '', buttonName: '', showIcon: false };
     assignedUsers = [];
     @ViewChild('input') input: ElementRef;
+    menuItems = [
+        {
+            label: 'user_management',
+            routerLink: 'accepted',
+        },
+        {
+            label: 'pending_invitations',
+            routerLink: 'pending-invitations',
+        },
+    ];
+
     constructor(
         public router: Router,
         private roasterService: RoasterserviceService,
@@ -75,73 +86,44 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             this.currentRoleID = Number(params.roleID);
             this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;
             this.assignedUsers = [];
-            if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
-                this.tableColumns = [
-                    {
-                        field: 'name',
-                        header: 'Name',
-                        sortable: false,
-                    },
-                    {
-                        field: 'created_at',
-                        header: 'Sent on',
-                        sortable: true,
-                    },
-                    {
-                        field: 'email',
-                        header: 'Email',
-                    },
-                    {
-                        field: 'role',
-                        header: 'Role',
-                        sortable: false,
-                    },
-                    {
-                        field: 'actions',
-                        header: 'Actions',
-                        sortable: false,
-                    },
-                ];
-            } else {
-                this.tableColumns = [
-                    {
-                        field: 'name',
-                        header: 'Name',
-                        sortable: false,
-                        width: '150px',
-                    },
-                    {
-                        field: 'last_login_at',
-                        header: 'Last login',
-                        sortable: false,
-                        width: '15%',
-                    },
-                    {
-                        field: 'email',
-                        header: 'Email',
-                        width: '25%',
-                    },
-                    {
-                        field: 'status',
-                        header: 'Status',
-                        sortable: false,
-                        width: '15%',
-                    },
-                    {
-                        field: 'roles',
-                        header: '',
-                        sortable: false,
-                        width: '20%',
-                    },
-                ];
-                if (!this.isAddMember) {
-                    this.tableColumns.push({
-                        field: 'actions',
-                        header: 'Actions',
-                        sortable: false,
-                        width: 10,
-                    });
-                }
+            this.tableColumns = [
+                {
+                    field: 'name',
+                    header: 'Name',
+                    sortable: false,
+                    width: 20,
+                },
+                {
+                    field: 'last_login_at',
+                    header: 'Last login',
+                    sortable: false,
+                    width: 15,
+                },
+                {
+                    field: 'email',
+                    header: 'Email',
+                    width: 25,
+                },
+                {
+                    field: 'status',
+                    header: 'Status',
+                    sortable: false,
+                    width: 15,
+                },
+                {
+                    field: 'roles',
+                    header: '',
+                    sortable: false,
+                    width: 20,
+                },
+            ];
+            if (!this.isAddMember) {
+                this.tableColumns.push({
+                    field: 'actions',
+                    header: 'Actions',
+                    sortable: false,
+                    width: 10,
+                });
             }
             this.supplyBreadCrumb();
             this.listRoles();
@@ -167,78 +149,69 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         );
     }
     getTableData(event?): void {
-        if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
-            this.roasterService.getInvitedUserLists(this.roasterID).subscribe((res: any) => {
-                this.tableValue = res?.result.map((element) => {
-                    element.name = element.firstname + ' ' + element.lastname;
-                    return element;
-                });
-            });
-        } else {
-            this.selectedUsers = [];
-            this.roasterUsers = [];
-            this.tableValue = [];
-            const postData: any = {};
-            postData.role_id = this.termRole ? this.termRole : '';
-            postData.name = this.termSearch ? this.termSearch : '';
-            postData.per_page = 10;
-            if (event) {
-                const currentPage = event.first / this.tableRows;
-                postData.page = currentPage + 1;
-            }
-            postData.status = this.termStatus ? this.termStatus : undefined;
-            this.roasterService.getRoasterUsers(this.roasterID, postData).subscribe(
-                (result: any) => {
-                    if (result.success) {
-                        const userData = result.result;
-                        if (userData && userData.length > 0) {
-                            this.totalCount = result.result_info.total_count;
-                            this.roasterUsers = [];
-                            userData.forEach((element, index) => {
-                                const tempData: any = {};
-                                tempData.id = element.id;
-                                tempData.name = element.firstname + ' ' + element.lastname;
-                                tempData.email = element.email;
-                                tempData.status = element.status;
-                                tempData.last_login_at = element.last_login_at;
-                                const roleList = [];
-                                if (element.roles) {
-                                    const rolesName = element.roles.split(',');
-                                    let roleLable = '';
-                                    rolesName.forEach((ele, roleIndex) => {
-                                        const getRoles = this.roleList.find((item) => item.name === ele);
-                                        if (getRoles) {
-                                            roleList.push(getRoles);
-                                        }
-                                        if (roleIndex < 2) {
-                                            roleLable = roleLable + ele;
-                                            if (roleIndex !== rolesName.length - 1) {
-                                                roleLable = roleLable + ', ';
-                                            }
-                                        }
-                                        if (roleIndex === 2) {
-                                            roleLable = roleLable + '+2';
-                                        }
-                                    });
-                                    tempData.roleLable = roleLable;
-                                }
-                                tempData.roles = roleList;
-                                this.roasterUsers.push(tempData);
-                            });
-                        }
-                        if (this.isAddMember) {
-                            this.filterSelectedRoleUser();
-                        }
-                        this.tableValue = this.roasterUsers;
-                    } else {
-                        this.toastrService.error('Unable to fetch users data');
-                    }
-                },
-                (err) => {
-                    console.error(err);
-                },
-            );
+        this.selectedUsers = [];
+        this.roasterUsers = [];
+        this.tableValue = [];
+        const postData: any = {};
+        postData.role_id = this.termRole ? this.termRole : '';
+        postData.name = this.termSearch ? this.termSearch : '';
+        postData.per_page = 10;
+        if (event) {
+            const currentPage = event.first / this.tableRows;
+            postData.page = currentPage + 1;
         }
+        postData.status = this.termStatus ? this.termStatus : undefined;
+        this.roasterService.getRoasterUsers(this.roasterID, postData).subscribe(
+            (result: any) => {
+                if (result.success) {
+                    const userData = result.result;
+                    if (userData && userData.length > 0) {
+                        this.totalCount = result.result_info.total_count;
+                        this.roasterUsers = [];
+                        userData.forEach((element, index) => {
+                            const tempData: any = {};
+                            tempData.id = element.id;
+                            tempData.name = element.firstname + ' ' + element.lastname;
+                            tempData.email = element.email;
+                            tempData.status = element.status;
+                            tempData.last_login_at = element.last_login_at;
+                            const roleList = [];
+                            if (element.roles) {
+                                const rolesName = element.roles.split(',');
+                                let roleLable = '';
+                                rolesName.forEach((ele, roleIndex) => {
+                                    const getRoles = this.roleList.find((item) => item.name === ele);
+                                    if (getRoles) {
+                                        roleList.push(getRoles);
+                                    }
+                                    if (roleIndex < 2) {
+                                        roleLable = roleLable + ele;
+                                        if (roleIndex !== rolesName.length - 1) {
+                                            roleLable = roleLable + ', ';
+                                        }
+                                    }
+                                    if (roleIndex === 2) {
+                                        roleLable = roleLable + '+2';
+                                    }
+                                });
+                                tempData.roleLable = roleLable;
+                            }
+                            tempData.roles = roleList;
+                            this.roasterUsers.push(tempData);
+                        });
+                    }
+                    if (this.isAddMember) {
+                        this.filterSelectedRoleUser();
+                    }
+                    this.tableValue = this.roasterUsers;
+                } else {
+                    this.toastrService.error('Unable to fetch users data');
+                }
+            },
+            (err) => {
+                console.error(err);
+            },
+        );
     }
     filterSelectedRoleUser(): void {
         this.assignedUsers = [];

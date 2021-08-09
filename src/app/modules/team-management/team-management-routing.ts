@@ -7,6 +7,7 @@ import { RoleListComponent } from './role-list/role-list.component';
 import { SendRecoveryEmailComponent } from './send-recovery-email/send-recovery-email.component';
 import { TeamManagementComponent } from './team-management/team-management.component';
 import { TeamMemberTableComponent } from './team-member-table/team-member-table.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 const routes: Routes = [
     {
         path: '',
@@ -25,7 +26,16 @@ const routes: Routes = [
             },
             {
                 path: 'user-management',
-                component: TeamMemberTableComponent,
+                component: UserManagementComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'accepted',
+                        pathMatch: 'full',
+                    },
+                    { path: 'accepted', component: TeamMemberTableComponent },
+                    { path: 'pending-invitations', component: TeamMemberTableComponent },
+                ],
                 canActivate: [AuthGuard],
             },
             {

@@ -64,6 +64,16 @@ export class RoasterserviceService extends ApiService {
         };
         return this.http.post(this.url, data);
     }
+
+    getInvitedUserLists(id: any, postData?) {
+        const data = {
+            api_call: `/ro/${id}/users/invite-list?${this.serlialise(postData)}`,
+            method: 'GET',
+            token: this.authService.token,
+        };
+        return this.http.post(this.url, data);
+    }
+
     serlialise(obj) {
         const str = [];
         for (const p in obj) {

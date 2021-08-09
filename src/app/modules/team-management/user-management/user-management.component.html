@@ -1,0 +1,155 @@
+<div class="main-block">
+    <div class="d-flex justify-content-between">
+        <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+        <div class="custom-search d-none d-md-block" [ngClass]="{ 'd-lg-none': isAddMember }">
+            <input
+                type="text"
+                pInputText
+                #input
+                name="search"
+                [(ngModel)]="termSearch"
+                (ngModelChange)="filterCall()"
+                placeholder="{{ 'search_name_role' | translate }}"
+            />
+        </div>
+    </div>
+    <div class="d-flex justify-content-between mt-4 mt-md-2 mt-lg-4">
+        <div class="w-mob-100">
+            <div *ngIf="isAddMember">
+                <span class="d-none d-md-flex fnt-18 fnt-700 mb-1">
+                    {{ 'add_team_members_to' | translate }}&nbsp;
+                    <p-dropdown
+                        [options]="roleList"
+                        optionLabel="name"
+                        optionValue="id"
+                        (onChange)="filterSelectedRoleUser()"
+                        scrollHeight="225px"
+                        placeholder="All Roles"
+                        [(ngModel)]="currentRoleID"
+                        styleClass="no-border no-padding accent role-selector"
+                    >
+                    </p-dropdown>
+                </span>
+                <div class="fnt-600 text-clr588">{{ 'select_members_role' | translate }}</div>
+            </div>
+            <div *ngIf="!isAddMember" class="d-inline primary_txt p-0">{{ 'user_management' | translate }}</div>
+            <div class="d-flex d-md-none mt-4 flex-column">
+                <button class="btn btn-raised mb-3" (click)="inviteNewMembers()" *ngIf="isAddMember">
+                    <span class="update_text">{{ 'invite_new_members' | translate }}</span>
+                </button>
+                <button
+                    class="btn-raised mb-3"
+                    routerLink="/team-management/team-members"
+                    [queryParams]="{ roleID: 6, isAddMember: true }"
+                    *ngIf="!isAddMember"
+                >
+                    {{ 'add_new_member' | translate }}
+                </button>
+                <div class="custom-search">
+                    <input
+                        type="text"
+                        pInputText
+                        #input
+                        name="search"
+                        class="w-100"
+                        [(ngModel)]="termSearch"
+                        (ngModelChange)="filterCall()"
+                        placeholder="{{ 'search_name_role' | translate }}"
+                    />
+                </div>
+            </div>
+            <div class="d-flex align-items-center mt-3 mt-md-45">
+                <p-dropdown
+                    [options]="statusFilterArray"
+                    optionLabel="name"
+                    optionValue="value"
+                    [(ngModel)]="termStatus"
+                    (onChange)="filterCall()"
+                    scrollHeight="225px"
+                    [showClear]="true"
+                    placeholder="Status"
+                    styleClass="round-border mr-2 {{ termStatus ? 'highlight' : '' }}"
+                >
+                </p-dropdown>
+                <p-dropdown
+                    [options]="roleList"
+                    optionLabel="name"
+                    optionValue="id"
+                    [(ngModel)]="termRole"
+                    (onChange)="filterCall()"
+                    scrollHeight="225px"
+                    [showClear]="true"
+                    placeholder="Role"
+                    styleClass="round-border mr-2 {{ termRole ? 'highlight' : '' }}"
+                >
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="flex-1 d-flex flex-column">
+            <div class="d-none d-md-flex flex-wrap flex-row-reverse h-fit-content align-items-end">
+                <button
+                    class="btn-raised w-fit-content inviteBtn ml-3"
+                    (click)="inviteNewMembers()"
+                    *ngIf="isAddMember"
+                >
+                    <span class="update_text">{{ 'invite_new_members' | translate }}</span>
+                </button>
+                <div class="custom-search d-none" [ngClass]="{ 'd-lg-block': isAddMember }">
+                    <input
+                        type="text"
+                        pInputText
+                        #input
+                        name="search"
+                        [(ngModel)]="termSearch"
+                        (ngModelChange)="filterCall()"
+                        placeholder="{{ 'search_name_role' | translate }}"
+                    />
+                </div>
+            </div>
+            <div
+                *ngIf="selectedUsers && selectedUsers.length > 0"
+                class="d-none d-md-flex align-items-center justify-content-end p-0 pt-4"
+            >
+                <span class="fnt-600 text-clr588 float-right mr-3">
+                    Selected: {{ selectedUsers.length | number: '2.0' }}
+                </span>
+                <button
+                    *ngIf="selectedUsers.length > 0"
+                    type="button"
+                    class="btn btn-raised float-right"
+                    (click)="assignUsersToRole()"
+                >
+                    {{ 'assign' | translate }}
+                </button>
+            </div>
+            <div class="flex-1 d-none d-md-flex justify-content-end align-items-end" *ngIf="!isAddMember">
+                <button
+                    class="btn-raised inviteBtn"
+                    routerLink="/team-management/team-members"
+                    [queryParams]="{ roleID: 6, isAddMember: true }"
+                >
+                    {{ 'add_new_member' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selectedUsers && selectedUsers.length > 0" class="d-flex d-sm-flex d-md-none pt-3 align-items-center">
+        <span class="fnt-600 text-clr588"> {{ selectedUsers.length }} selected </span>
+        <button
+            *ngIf="selectedUsers.length > 0"
+            type="button"
+            class="btn btn-raised pull-right ml-auto w-50"
+            (click)="assignUsersToRole()"
+        >
+            {{ 'assign' | translate }}
+        </button>
+    </div>
+    <div class="my-4">
+        <p-tabMenu [model]="menuItems" styleClass="tabmenu-coffee-lab">
+            <ng-template pTemplate="item" let-item let-i="index">
+                <span class="pl-1 d-none d-md-block">{{ item.label | translate }}</span>
+            </ng-template>
+        </p-tabMenu>
+    </div>
+    <router-outlet></router-outlet>
+</div>
