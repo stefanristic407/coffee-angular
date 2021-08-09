@@ -36,7 +36,7 @@ const routes: Routes = [
             },
             {
                 path: 'team-members',
-                component: TeamMemberTableComponent,
+                component: UserManagementComponent,
                 children: [
                     {
                         path: '',
