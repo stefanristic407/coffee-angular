@@ -150,7 +150,7 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
+            <tr [routerLink]="['/order-transaction', rowData.id]">
                 <td *ngFor="let col of columns" [ngSwitch]="col.field">
                     <span *ngSwitchCase="'mobile-details'">
                         <div class="d-md-none">
