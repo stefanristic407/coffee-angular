@@ -72,6 +72,9 @@
                                         formControlName="state"
                                         placeholder="{{ 'select_state' | translate }}"
                                     ></p-dropdown>
+                                    <small *ngIf="profileForm.controls.state.errors?.required" class="p-error">
+                                        {{ 'required' | translate }}
+                                    </small>
                                 </div>
                                 <div class="col-12 col-md-6 sewn-form-field">
                                     <label>{{ 'address' | translate }}<span class="star">*</span></label>

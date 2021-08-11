@@ -322,7 +322,7 @@
                                                 *ngIf="addressForm.controls.country.errors?.required"
                                                 class="p-error"
                                             >
-                                                Please select your country
+                                                {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
@@ -333,6 +333,9 @@
                                                 placeholder="{{ 'select_state' | translate }}"
                                                 styleClass="w-100"
                                             ></p-dropdown>
+                                            <small *ngIf="addressForm.controls.state.errors?.required" class="p-error">
+                                                {{ 'required' | translate }}
+                                            </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
                                             <label>{{ 'address' | translate }}<span class="star">*</span></label>
@@ -348,7 +351,7 @@
                                                 *ngIf="addressForm.controls.address_line1.errors?.required"
                                                 class="p-error"
                                             >
-                                                Please enter address
+                                                {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
@@ -371,7 +374,7 @@
                                                 styleClass="w-100"
                                             />
                                             <small *ngIf="addressForm.controls.city.errors?.required" class="p-error">
-                                                Please enter city
+                                                {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div class="col-6 col-md-3 sewn-form-field">
@@ -387,7 +390,7 @@
                                                 *ngIf="addressForm.controls.zipcode.errors?.required"
                                                 class="p-error"
                                             >
-                                                Please enter zipcode
+                                                {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div
