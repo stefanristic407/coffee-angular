@@ -1,7 +1,14 @@
 import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { AuthService, CommonService, GlobalsService, RoasterserviceService, UserService } from '@services';
+import {
+    AuthService,
+    CommonService,
+    GlobalsService,
+    ResizeService,
+    RoasterserviceService,
+    UserService,
+} from '@services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -11,13 +18,17 @@ import { ChatHandlerService } from '@services';
 import { OrganizationType, UserStatus } from '@enums';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
+import { UserManagementSearchService } from '../user-management-service';
+import { takeUntil } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-team-member-table',
     templateUrl: './team-member-table.component.html',
     styleUrls: ['./team-member-table.component.scss'],
 })
-export class TeamMemberTableComponent implements OnInit, AfterViewInit {
+export class TeamMemberTableComponent extends ResizeableComponent implements OnInit, AfterViewInit {
     readonly UserStatus = UserStatus;
     roasterID: any;
     breadCrumbItem: MenuItem[] = [];
@@ -56,9 +67,15 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         public dialogSrv: DialogService,
         private commonService: CommonService,
         private authService: AuthService,
-    ) {}
+        protected resizeService: ResizeService,
+        private userManagementSearchService: UserManagementSearchService,
+        public location: Location,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
+        this.allFunction();
         this.sharedService.windowWidth = window.innerWidth;
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
@@ -67,7 +84,6 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         this.statusFilterArray = [
             { name: 'Active', value: 'active' },
             { name: 'Inactive', value: 'Inactive' },
-            { name: 'Pending', value: 'pending' },
         ];
         this.loginId = this.authService.userId;
         this.roasterID = this.authService.getOrgId();
@@ -143,8 +159,30 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                     });
                 }
             }
-            this.supplyBreadCrumb();
             this.listRoles();
+        });
+    }
+
+    allFunction() {
+        this.userManagementSearchService.clearSearch();
+        this.userManagementSearchService.search$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((search: any) => {
+            this.termSearch = search;
+            this.getTableData();
+        });
+
+        this.userManagementSearchService.role$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((role: any) => {
+            this.termRole = role;
+            this.filterCall();
+        });
+
+        this.userManagementSearchService.allrole$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((allrole: any) => {
+            this.currentRoleID = allrole;
+            this.filterSelectedRoleUser();
+        });
+
+        this.userManagementSearchService.status$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((status: any) => {
+            this.termStatus = status;
+            this.filterCall();
         });
     }
     listRoles(): void {
@@ -168,7 +206,8 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     }
     getTableData(event?): void {
         if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
-            this.roasterService.getInvitedUserLists(this.roasterID).subscribe((res: any) => {
+            const params = { name: this.termSearch };
+            this.roasterService.getInvitedUserLists(this.roasterID, params).subscribe((res: any) => {
                 this.tableValue = res?.result.map((element) => {
                     element.name = element.firstname + ' ' + element.lastname;
                     return element;
@@ -249,34 +288,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             }
         });
     }
-    supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
-            routerLink: '/',
-            disabled: false,
-        };
-        const obj2: MenuItem = {
-            label: this.globals.languageJson?.team_management,
-            routerLink: '//team-management/manage-role',
-            disabled: false,
-        };
-        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
-        if (!this.isAddMember) {
-            obj4.label = this.globals.languageJson?.user_management;
-        }
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj4);
-    }
 
-    inviteNewMembers() {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                roleID: encodeURIComponent(this.currentRoleID),
-            },
-        };
-        this.router.navigate(['/team-management/invite-member'], navigationExtras);
-    }
     assignUsersToRole(): void {
         let count = 0;
         this.selectedUsers.forEach((ele) => {

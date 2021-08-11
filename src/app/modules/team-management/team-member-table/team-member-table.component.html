@@ -1,3 +1,28 @@
+<div
+    *ngIf="selectedUsers && selectedUsers.length > 0"
+    class="d-none d-md-flex align-items-center justify-content-end p-0 pt-4"
+>
+    <span class="fnt-600 text-clr588 float-right mr-3"> Selected: {{ selectedUsers.length | number: '2.0' }} </span>
+    <button
+        *ngIf="selectedUsers.length > 0"
+        type="button"
+        class="btn btn-raised float-right"
+        (click)="assignUsersToRole()"
+    >
+        {{ 'assign' | translate }}
+    </button>
+</div>
+<div *ngIf="selectedUsers && selectedUsers.length > 0" class="d-flex d-sm-flex d-md-none pt-3 align-items-center">
+    <span class="fnt-600 text-clr588"> {{ selectedUsers.length }} selected </span>
+    <button
+        *ngIf="selectedUsers.length > 0"
+        type="button"
+        class="btn btn-raised pull-right ml-auto w-50"
+        (click)="assignUsersToRole()"
+    >
+        {{ 'assign' | translate }}
+    </button>
+</div>
 <div>
     <div *ngIf="roleList && roleList.length" class="table-wrapper mt-4">
         <div class="table-container userTable p-0">
@@ -184,9 +209,7 @@
             </p-table>
         </div>
     </div>
-    <button class="btn-stroked d-none d-md-block mt-4" *ngIf="isAddMember" routerLink="/team-management/manage-role">
-        Cancel
-    </button>
+    <button class="btn-stroked d-none d-md-block mt-4" *ngIf="isAddMember" (click)="location.back()">Cancel</button>
 </div>
 
 <ng-template #popTpl let-rowData="rowData">

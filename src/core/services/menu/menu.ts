@@ -103,7 +103,7 @@ export const menuItems = [
     new Menu(
         82,
         'menu_user_management',
-        '/team-management/user-management',
+        '/team-management/team-members',
         null,
         null,
         null,

@@ -1,14 +1,16 @@
 <div class="main-block">
     <div class="d-flex justify-content-between">
         <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
-        <div class="flex-1 d-none d-md-flex justify-content-end align-items-end" *ngIf="!isAddMember">
-            <button
-                class="btn-raised inviteBtn"
-                routerLink="/team-management/team-members"
-                [queryParams]="{ roleID: 6, isAddMember: true }"
-            >
-                {{ 'add_new_member' | translate }}
-            </button>
+        <div class="custom-search d-none d-md-block" [ngClass]="{ 'd-lg-none': isAddMember }">
+            <input
+                type="text"
+                pInputText
+                #input
+                name="search"
+                [(ngModel)]="termSearch"
+                (input)="onSearch($event)"
+                placeholder="{{ 'search_name_role' | translate }}"
+            />
         </div>
     </div>
     <div class="d-flex justify-content-between mt-4 mt-md-2 mt-lg-4">
@@ -20,7 +22,7 @@
                         [options]="roleList"
                         optionLabel="name"
                         optionValue="id"
-                        (onChange)="filterSelectedRoleUser()"
+                        (onChange)="onAllRole()"
                         scrollHeight="225px"
                         placeholder="All Roles"
                         [(ngModel)]="currentRoleID"
@@ -51,7 +53,7 @@
                         name="search"
                         class="w-100"
                         [(ngModel)]="termSearch"
-                        (ngModelChange)="filterCall()"
+                        (input)="onSearch($event)"
                         placeholder="{{ 'search_name_role' | translate }}"
                     />
                 </div>
@@ -62,7 +64,7 @@
                     optionLabel="name"
                     optionValue="value"
                     [(ngModel)]="termStatus"
-                    (onChange)="filterCall()"
+                    (onChange)="onStatus()"
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="Status"
@@ -74,7 +76,7 @@
                     optionLabel="name"
                     optionValue="id"
                     [(ngModel)]="termRole"
-                    (onChange)="filterCall()"
+                    (onChange)="onRole()"
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="Role"
@@ -99,286 +101,30 @@
                         #input
                         name="search"
                         [(ngModel)]="termSearch"
-                        (ngModelChange)="filterCall()"
+                        (input)="onSearch($event)"
                         placeholder="{{ 'search_name_role' | translate }}"
                     />
                 </div>
             </div>
-            <div
-                *ngIf="selectedUsers && selectedUsers.length > 0"
-                class="d-none d-md-flex align-items-center justify-content-end p-0 pt-4"
-            >
-                <span class="fnt-600 text-clr588 float-right mr-3">
-                    Selected: {{ selectedUsers.length | number: '2.0' }}
-                </span>
+
+            <div class="flex-1 d-none d-md-flex justify-content-end align-items-end" *ngIf="!isAddMember">
                 <button
-                    *ngIf="selectedUsers.length > 0"
-                    type="button"
-                    class="btn btn-raised float-right"
-                    (click)="assignUsersToRole()"
+                    class="btn-raised inviteBtn"
+                    routerLink="/team-management/team-members"
+                    [queryParams]="{ roleID: 6, isAddMember: true }"
                 >
-                    {{ 'assign' | translate }}
+                    {{ 'add_new_member' | translate }}
                 </button>
             </div>
-
-            <div class="flex-1 d-none d-md-flex justify-content-end align-items-end">
-                <div class="custom-search d-none d-md-block" [ngClass]="{ 'd-lg-none': isAddMember }">
-                    <input
-                        type="text"
-                        pInputText
-                        #input
-                        name="search"
-                        [(ngModel)]="termSearch"
-                        (ngModelChange)="filterCall()"
-                        placeholder="{{ 'search_name_role' | translate }}"
-                    />
-                </div>
-            </div>
         </div>
-    </div>
-    <div *ngIf="selectedUsers && selectedUsers.length > 0" class="d-flex d-sm-flex d-md-none pt-3 align-items-center">
-        <span class="fnt-600 text-clr588"> {{ selectedUsers.length }} selected </span>
-        <button
-            *ngIf="selectedUsers.length > 0"
-            type="button"
-            class="btn btn-raised pull-right ml-auto w-50"
-            (click)="assignUsersToRole()"
-        >
-            {{ 'assign' | translate }}
-        </button>
-    </div>
-    <div *ngIf="!isAddMember">
-        <div class="my-4">
-            <p-tabMenu [model]="menuItems" styleClass="tabmenu-coffee-lab">
-                <ng-template pTemplate="item" let-item let-i="index">
-                    <span class="pl-1 d-none d-md-block">{{ item.label | translate }}</span>
-                </ng-template>
-            </p-tabMenu>
-        </div>
-        <router-outlet></router-outlet>
-    </div>
-    <div *ngIf="isAddMember">
-        <div *ngIf="roleList && roleList.length" class="table-wrapper mt-4">
-            <div class="table-container userTable p-0">
-                <p-table
-                    #myTable
-                    [class.table-mobile]="true"
-                    [value]="tableValue"
-                    [columns]="tableColumns"
-                    dataKey="id"
-                    [resizableColumns]="true"
-                    styleClass="ui-table-customers"
-                    [showCurrentPageReport]="false"
-                    [paginator]="true"
-                    [rows]="tableRows"
-                    [lazy]="true"
-                    (onLazyLoad)="getTableData($event)"
-                    [totalRecords]="totalCount"
-                    selectionMode="multiple"
-                    [(selection)]="selectedUsers"
-                    [responsive]="true"
-                >
-                    <ng-template pTemplate="header" let-columns>
-                        <tr class="d-none d-sm-none d-md-table-row">
-                            <th
-                                *ngIf="isAddMember"
-                                style="width: 5%; padding-right: 0.625rem !important"
-                                class="checkBoxClass"
-                            >
-                                <p-checkbox (click)="selectRows(e.checked)" #e></p-checkbox>
-                            </th>
-                            <th
-                                *ngFor="let col of columns"
-                                [style.width]="col.width ? col.width + '%' : '30%'"
-                                [ngClass]="{
-                                    'd-md-none': col.field == 'add_user',
-                                    'curosr-pointer': col.field == 'roles'
-                                }"
-                            >
-                                <span class="primeng-table-header">{{ col.header }}</span>
-                                <p-sortIcon
-                                    *ngIf="col.sortable === true"
-                                    [field]="col.field"
-                                    ariaLabel="Activate to sort"
-                                    ariaLabelDesc="Activate to sort in descending order"
-                                    ariaLabelAsc="Activate to sort in ascending order"
-                                >
-                                </p-sortIcon>
-                                <p-dropdown
-                                    *ngIf="col.field == 'roles'"
-                                    [options]="roleList"
-                                    optionLabel="name"
-                                    optionValue="id"
-                                    (onChange)="filterCall()"
-                                    scrollHeight="225px"
-                                    placeholder="All Roles"
-                                    [(ngModel)]="termRole"
-                                    appendTo="body"
-                                    styleClass="round-border mr-2 mb-3 mb-md-4 ui-column-filter headerFilter"
-                                >
-                                    <ng-template pTemplate="selectedItem">
-                                        <span class="fnt-700">{{ termRoleName }}</span>
-                                    </ng-template>
-                                </p-dropdown>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-columns="columns">
-                        <tr class="cursor-pointer">
-                            <td *ngIf="isAddMember" class="d-none d-sm-none d-md-table-cell checkBoxClass">
-                                <p-tableCheckbox
-                                    [value]="rowData"
-                                    [disabled]="assignedUsers.includes(rowData.id)"
-                                    (click)="selectRow(rowData.roles)"
-                                ></p-tableCheckbox>
-                            </td>
-                            <td
-                                *ngFor="let col of columns"
-                                [ngSwitch]="col.field"
-                                [style.width]="col.width ? col.width + '%' : '30%'"
-                                [ngClass]="{
-                                    'd-none': col.field == 'status' || col.field == 'actions',
-                                    'd-sm-none': col.field == 'status' || col.field == 'actions',
-                                    'd-md-table-cell': col.field == 'status' || col.field == 'actions',
-                                    rolesColumn: col.field == 'roles',
-                                    nameMobileHeader: col.field == 'name',
-                                    emailMobileClass: col.field == 'email',
-                                    mobileData: col.field !== 'name',
-                                    'text-clrb7': assignedUsers.includes(rowData.id)
-                                }"
-                            >
-                                <span *ngSwitchCase="'name'">
-                                    <span class="d-none d-md-block tableDataFont" (click)="editMember(rowData.id)">
-                                        {{ rowData[col.field] }}
-                                    </span>
-                                    <div class="d-block d-md-none mobileNameDiv">
-                                        <span (click)="editMember(rowData.id)">{{ rowData[col.field] }}</span>
-                                        <span class="tableDataFont status-badge ml-3 {{ rowData['status'] }}"
-                                            >{{ rowData['status'] | titlecase }}
-                                        </span>
-                                        <p-tableCheckbox
-                                            *ngIf="isAddMember"
-                                            class="float-right"
-                                            [value]="rowData"
-                                            [disabled]="assignedUsers.includes(rowData.id)"
-                                            (click)="selectRow(rowData.roles)"
-                                        ></p-tableCheckbox>
-                                        <div *ngIf="!isAddMember" class="float-right">
-                                            <ng-container
-                                                *ngTemplateOutlet="popTpl; context: { rowData: rowData }"
-                                            ></ng-container>
-                                        </div>
-                                    </div>
-                                </span>
-                                <span *ngSwitchCase="'last_login_at'" (click)="editMember(rowData.id)">
-                                    <span class="d-none d-sm-none d-md-block tableDataFont">
-                                        {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a' }}
-                                    </span>
-                                    <div class="d-flex d-sm-flex d-md-none">
-                                        <span class="prime-table-label w-50 mobileLable"> Last Login </span>
-                                        <div class="w-50 d-flex">
-                                            <span class="tableDataFont">
-                                                {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a' }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </span>
-                                <span *ngSwitchCase="'roles'" (click)="editMember(rowData.id)">
-                                    <span class="d-none d-sm-none d-md-block tableDataFont">{{
-                                        rowData['roleLable']
-                                    }}</span>
-                                    <div class="d-flex d-sm-flex d-md-none">
-                                        <span class="prime-table-label w-50 mobileLable"> All Roles </span>
-                                        <span class="w-50 tableDataFont">
-                                            {{ rowData['roleLable'] }}
-                                        </span>
-                                    </div>
-                                </span>
-                                <span *ngSwitchCase="'email'" (click)="editMember(rowData.id)">
-                                    <span class="d-none d-sm-none d-md-block tableDataFont">
-                                        {{ rowData[col.field] }}
-                                    </span>
-                                    <div class="d-flex d-sm-flex d-md-none">
-                                        <span class="prime-table-label w-50 mobileLable"> Email </span>
-                                        <span class="w-50 tableDataFont">
-                                            {{ rowData[col.field] }}
-                                        </span>
-                                    </div>
-                                </span>
-                                <span
-                                    *ngSwitchCase="'status'"
-                                    class="d-none d-sm-none d-md-block"
-                                    (click)="editMember(rowData.id)"
-                                >
-                                    <span class="tableDataFont status-badge {{ rowData['status'] }}"
-                                        >{{ rowData['status'] | titlecase }}
-                                    </span>
-                                </span>
-                                <span *ngSwitchDefault>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </span>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-        </div>
-        <button class="btn-stroked d-none d-md-block" *ngIf="isAddMember" routerLink="/team-management/manage-role">
-            Cancel
-        </button>
     </div>
 
-    <ng-template #popTpl let-rowData="rowData">
-        <a
-            class="menu-arrow d-md-block w-50"
-            [popover]="poplistTemplate"
-            placement="left"
-            [outsideClick]="true"
-            #pop11="bs-popover"
-        >
-            <i class="pi pi-ellipsis-v text-clr588"></i>
-        </a>
-        <ng-template #poplistTemplate>
-            <div id="popover-mobile-content">
-                <ul class="menu-list">
-                    <li>
-                        <a class="cursor-pointer" (click)="editMember(rowData.id)">{{ 'edit' | translate }}</a>
-                    </li>
-                    <li *ngIf="rowData.id != loginId">
-                        <a class="cursor-pointer" (click)="sendDirectMessage(rowData.id); pop11.hide()">{{
-                            'send_a_message' | translate
-                        }}</a>
-                    </li>
-                    <li>
-                        <a class="cursor-pointer" (click)="sendMail(rowData.id)">{{
-                            'send_recovery_email' | translate
-                        }}</a>
-                    </li>
-                    <li *ngIf="rowData.status == UserStatus.ACTIVE && rowData.id != loginId">
-                        <a class="cursor-pointer" (click)="showPopup(rowData.id, 'disable'); pop11.hide()">{{
-                            'disable_account' | translate
-                        }}</a>
-                    </li>
-                    <li *ngIf="rowData.status == UserStatus.INACTIVE && rowData.id != loginId">
-                        <a class="cursor-pointer" (click)="showPopup(rowData.id, 'enable'); pop11.hide()">{{
-                            'enable_account' | translate
-                        }}</a>
-                    </li>
-                    <li *ngIf="rowData.status == UserStatus.ACTIVE && rowData.id != loginId">
-                        <a class="cursor-pointer" (click)="simulatedLogin(rowData.id)">{{
-                            'simulated_login' | translate
-                        }}</a>
-                    </li>
-                    <li>
-                        <a class="cursor-pointer" (click)="makeAdmin(rowData)">{{ 'make_admin' | translate }}</a>
-                    </li>
-                    <li *ngIf="rowData.id != loginId">
-                        <a class="cursor-pointer" (click)="showPopup(rowData.id, 'delete'); pop11.hide()">{{
-                            'delete' | translate
-                        }}</a>
-                    </li>
-                </ul>
-            </div>
-        </ng-template>
-    </ng-template>
+    <div *ngIf="!isAddMember" class="my-4">
+        <p-tabMenu [model]="menuItems" styleClass="tabmenu-coffee-lab">
+            <ng-template pTemplate="item" let-item let-i="index">
+                <span class="pl-1 d-none d-md-block">{{ item.label | translate }}</span>
+            </ng-template>
+        </p-tabMenu>
+    </div>
+    <router-outlet></router-outlet>
 </div>

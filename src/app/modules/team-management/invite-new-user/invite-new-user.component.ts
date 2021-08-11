@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
+import { Location } from '@angular/common';
 import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
 import { EditUserDetailsComponent } from '../edit-user-details/edit-user-details.component';
 
@@ -28,6 +29,7 @@ export class InviteNewUserComponent implements OnInit {
         public userService: UserService,
         private toastrService: ToastrService,
         private authService: AuthService,
+        public location: Location,
     ) {}
 
     ngOnInit(): void {
