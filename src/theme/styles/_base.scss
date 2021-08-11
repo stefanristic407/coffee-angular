@@ -404,3 +404,14 @@ input[type='number'] {
 .copying-image .clipboard-img-p::before {
     cursor: not-allowed;
 }
+
+#deskpro-container {
+    @media (max-width: 767px) {
+        span:nth-child(1) iframe {
+            bottom: 120px !important;
+        }
+        span:nth-child(2) iframe {
+            bottom: 52px !important;
+        }
+    }
+}
