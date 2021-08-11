@@ -97,7 +97,7 @@
                                                 [style.width]="col.width ? col.width : 'unset'"
                                                 [pSortableColumn]="col.sortable === true ? col.field : null"
                                             >
-                                                <span class="primeng-table-header">{{ col.header }}</span>
+                                                <span class="primeng-table-header">{{ col.header | translate }}</span>
                                                 <p-sortIcon
                                                     *ngIf="col.sortable === true"
                                                     [field]="col.field"
@@ -121,7 +121,7 @@
                                                     >
                                                         <span class="prime-table-label w-50 d-flex align-items-center">
                                                             <p class="mb-0">
-                                                                {{ col.header }} {{ rowData[col.field] }}
+                                                                {{ col.header | translate }} {{ rowData[col.field] }}
                                                             </p>
                                                         </span>
                                                         <span class="d-flex align-items-center">
@@ -150,7 +150,7 @@
                                                 </span>
                                                 <span class="d-flex" *ngSwitchCase="'evaluators'">
                                                     <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                                        {{ col.header }}
+                                                        {{ col.header | translate }}
                                                     </span>
 
                                                     <span *ngFor="let eval of rowData.evaluators | slice: 0:1">
@@ -162,7 +162,7 @@
                                                 </span>
                                                 <span class="d-flex" *ngSwitchCase="'origin'">
                                                     <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                                        {{ col.header }}
+                                                        {{ col.header | translate }}
                                                     </span>
 
                                                     <span>
@@ -171,7 +171,7 @@
                                                 </span>
                                                 <span class="d-flex" *ngSwitchDefault>
                                                     <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                                        {{ col.header }}
+                                                        {{ col.header | translate }}
                                                     </span>
 
                                                     <span>

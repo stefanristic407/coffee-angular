@@ -1,11 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Location } from '@angular/common';
-import { GlobalsService, GreenGradingService, AclService } from '@services';
+import { GreenGradingService, AclService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { LabelValue } from '@models';
 import { OrderType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-assign-orders',
@@ -44,20 +45,20 @@ export class AssignOrdersComponent implements OnInit {
     }
 
     constructor(
-        public globals: GlobalsService,
         public generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
         private toaster: ToastrService,
         private location: Location,
         private aclService: AclService,
+        private translateService: TranslateService,
     ) {}
 
     ngOnInit(): void {
         this.breadCrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
-            { label: this.globals.languageJson?.menu_sourcing },
-            { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
-            { label: this.globals.languageJson?.assign_orders },
+            { label: this.translateService.instant('home'), routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.translateService.instant('menu_sourcing') },
+            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
+            { label: this.translateService.instant('assign_orders') },
         ];
         if (!this.aclService.checkPermission('cupping-management')) {
             this.toaster.error('You have no permission.');
