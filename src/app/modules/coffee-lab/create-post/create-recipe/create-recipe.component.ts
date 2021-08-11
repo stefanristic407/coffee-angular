@@ -291,7 +291,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 .open(CropperDialogComponent, {
                     data: {
                         imageChangedEvent: event,
-                        aspectRatio: 674 / 276,
+                        aspectRatio: 672 / 276,
+                        resizeToWidth: 672,
                     },
                 })
                 .onClose.subscribe((data: CroppedImage) => {

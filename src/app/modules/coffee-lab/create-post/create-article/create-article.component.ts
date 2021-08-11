@@ -84,7 +84,8 @@ export class CreateArticleComponent implements OnInit {
             .open(CropperDialogComponent, {
                 data: {
                     imageChangedEvent: event,
-                    aspectRatio: 674 / 276,
+                    aspectRatio: 672 / 276,
+                    resizeToWidth: 672,
                 },
             })
             .onClose.subscribe((data: CroppedImage) => {

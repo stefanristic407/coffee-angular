@@ -82,6 +82,7 @@ export class ForumEditorComponent implements OnInit, ControlValueAccessor {
                 data: {
                     imageBase64: imageURL,
                     maintainAspectRatio: false,
+                    resizeToWidth: 672,
                 },
             })
             .onClose.subscribe((data: CroppedImage) => {
