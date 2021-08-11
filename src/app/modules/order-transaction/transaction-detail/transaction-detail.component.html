@@ -1,0 +1,13 @@
+<div class="main-block">
+    <div class="back-page mb-4 mb-md-25" [routerLink]="['/order-transaction']">
+        {{ 'back' | translate }}
+    </div>
+    <div class="d-md-flex justify-content-between align-items-center mb-3 mb-md-4">
+        <h1 class="fnt-16 fnt-md-18 fnt-bold mb-3 mb-md-0">
+            {{ 'Document number' | translate }} - {{ transaction?.document_number }}
+        </h1>
+        <button class="btn-raised w-mob-100" (click)="export()">{{ 'export' | translate }}</button>
+    </div>
+
+    <div class="fnt-30 fnt-bold text-clr588 text-center">Developing</div>
+</div>
