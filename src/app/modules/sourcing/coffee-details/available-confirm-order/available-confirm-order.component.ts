@@ -78,7 +78,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     }
 
     ngOnInit(): void {
-        console.log(this.authService.currentOrganization);
         this.roasterId = this.authService.getOrgId();
         this.route.data.subscribe((data) => {
             this.orderType = data.orderType;
@@ -388,8 +387,12 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     changeCountry() {
         if (this.addressForm.value.country) {
-            this.commonService.getCountry(this.addressForm.value.country).cities.forEach((element) => {
-                this.cities.push({ label: element, value: element });
+            this.cities = this.commonService.getCountry(this.addressForm.value.country).cities;
+            if (this.cities.indexOf(this.addressForm.value.state) < 0) {
+                this.addressForm.get('state').setValue(null);
+            }
+            this.cities = this.cities.map((element) => {
+                return { label: element, value: element };
             });
         }
     }

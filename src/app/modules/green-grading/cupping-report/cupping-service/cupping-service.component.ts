@@ -1,12 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { AuthService, GlobalsService } from '@services';
+import { AuthService } from '@services';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { GreenGradingService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { GenerateReportService } from '../../generate-report/generate-report.service';
 import { MenuItem } from 'primeng/api';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-cupping-service',
@@ -138,15 +138,14 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     constructor(
-        public globals: GlobalsService,
         private router: Router,
         private route: ActivatedRoute,
-        private cookieService: CookieService,
         public generateReportService: GenerateReportService,
         private location: Location,
         private toastrService: ToastrService,
         private greenGradingService: GreenGradingService,
         private authService: AuthService,
+        private translateService: TranslateService,
     ) {
         this.route.queryParams.subscribe((params) => {
             this.serviceId = params.serviceId;
@@ -166,9 +165,9 @@ export class CuppingServiceComponent implements OnInit {
     ngOnInit(): void {
         this.initializeTable();
         this.breadCrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
-            { label: this.globals.languageJson?.menu_sourcing },
-            { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
+            { label: this.translateService.instant('home'), routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.translateService.instant('menu_sourcing') },
+            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
             { label: 'My Cupping Reports', routerLink: '/green-grading/cupping-reports' },
             { label: `Order iD #${this.serviceId}` },
         ];

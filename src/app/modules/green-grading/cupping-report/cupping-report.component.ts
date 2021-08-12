@@ -1,12 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService, GlobalsService, GreenGradingService } from '@services';
+import { AuthService, GreenGradingService } from '@services';
 import { GenerateReportService } from '../generate-report/generate-report.service';
-import { MenuItem, SelectItemGroup, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
 
 import { COUNTRY_LIST } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-cupping-report',
@@ -42,14 +42,13 @@ export class CuppingReportComponent implements OnInit {
     }
 
     constructor(
-        public globals: GlobalsService,
         public generateReportService: GenerateReportService,
-        private cookieService: CookieService,
         private toastrService: ToastrService,
         private primengConfig: PrimeNGConfig,
         private router: Router,
         private greenGradingService: GreenGradingService,
         private authService: AuthService,
+        private translateService: TranslateService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -57,10 +56,10 @@ export class CuppingReportComponent implements OnInit {
     ngOnInit(): void {
         this.primengConfig.ripple = true;
         this.breadCrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.menu_sourcing },
-            { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
-            { label: this.globals.languageJson?.my_cupping_reports },
+            { label: this.translateService.instant('home'), routerLink: '/' },
+            { label: this.translateService.instant('menu_sourcing') },
+            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
+            { label: this.translateService.instant('my_cupping_reports') },
         ];
         this.countries = COUNTRY_LIST;
         this.getReportsData();
@@ -73,33 +72,27 @@ export class CuppingReportComponent implements OnInit {
         this.tableColumns = [
             {
                 field: 'cupping_report_id',
-                header: this.globals.languageJson?.service_id,
-                sortable: false,
+                header: 'service_id',
             },
             {
                 field: 'estate_name',
-                header: this.globals.languageJson?.estate_name,
-                sortable: false,
+                header: 'estate_name',
             },
             {
                 field: 'region',
-                header: this.globals.languageJson?.region,
-                sortable: false,
+                header: 'region',
             },
             {
                 field: 'evaluators',
-                header: this.globals.languageJson?.evaluators,
-                sortable: false,
+                header: 'evaluators',
             },
             {
                 field: 'completed_on',
-                header: this.globals.languageJson?.date_conducted,
-                sortable: false,
+                header: 'date_conducted',
             },
             {
                 field: 'average_score',
-                header: this.globals.languageJson?.avg_cup_score,
-                sortable: false,
+                header: 'avg_cup_score',
             },
         ];
     }
@@ -135,33 +128,27 @@ export class CuppingReportComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'cupping_report_id',
-                    header: this.globals.languageJson?.service_id,
-                    sortable: false,
+                    header: 'service_id',
                 },
                 {
                     field: 'estate_name',
-                    header: this.globals.languageJson?.estate_name,
-                    sortable: false,
+                    header: 'estate_name',
                 },
                 {
                     field: 'region',
-                    header: this.globals.languageJson?.region,
-                    sortable: false,
+                    header: 'region',
                 },
                 {
                     field: 'evaluators',
-                    header: this.globals.languageJson?.evaluators,
-                    sortable: false,
+                    header: 'evaluators',
                 },
                 {
                     field: 'completed_on',
-                    header: this.globals.languageJson?.date_conducted,
-                    sortable: false,
+                    header: 'date_conducted',
                 },
                 {
                     field: 'average_score',
-                    header: this.globals.languageJson?.avg_cup_score,
-                    sortable: false,
+                    header: 'avg_cup_score',
                 },
             ];
         } else {
@@ -170,27 +157,22 @@ export class CuppingReportComponent implements OnInit {
                 {
                     field: 'cupping_report_id',
                     header: 'ID',
-                    sortable: false,
                 },
                 {
                     field: 'estate_name',
-                    header: this.globals.languageJson?.estate_name,
-                    sortable: false,
+                    header: 'estate_name',
                 },
                 {
                     field: 'origin',
-                    header: this.globals.languageJson?.origin,
-                    sortable: false,
+                    header: 'origin',
                 },
                 {
                     field: 'completed_on',
-                    header: this.globals.languageJson?.date_conducted,
-                    sortable: false,
+                    header: 'date_conducted',
                 },
                 {
                     field: 'average_score',
                     header: 'Cup Score',
-                    sortable: false,
                 },
             ];
         }

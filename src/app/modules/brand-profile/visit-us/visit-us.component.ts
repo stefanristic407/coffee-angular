@@ -147,14 +147,18 @@ export class VisitUsComponent implements OnInit {
                 });
         } else {
             this.infoForm.markAllAsTouched();
+            this.profileForm.markAllAsTouched();
         }
     }
 
     changeCountry() {
         if (this.profileForm.value.country) {
-            this.cities = [];
-            this.commonService.getCountry(this.profileForm.value.country).cities.forEach((element) => {
-                this.cities.push({ label: element, value: element });
+            this.cities = this.commonService.getCountry(this.profileForm.value.country).cities;
+            if (this.cities.indexOf(this.profileForm.value.state) < 0) {
+                this.profileForm.get('state').setValue(null);
+            }
+            this.cities = this.cities.map((element) => {
+                return { label: element, value: element };
             });
         }
     }
