@@ -48,7 +48,12 @@
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr>
                     <td *ngIf="!isMobileView && tableRecords.length > 1" class="pl-2">
-                        <p-tableCheckbox [value]="rowData.evaluator_id"></p-tableCheckbox>
+                        <p-checkbox
+                            name="group1"
+                            [value]="rowData.evaluator_id"
+                            [(ngModel)]="selectedEvaluators"
+                            [inputId]="rowData.evaluator_id"
+                        ></p-checkbox>
                     </td>
                     <td *ngFor="let col of columns" [ngSwitch]="col.field">
                         <span class="d-flex" *ngSwitchCase="'fragrance_score'">
