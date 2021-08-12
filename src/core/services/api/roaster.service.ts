@@ -1247,6 +1247,19 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
+    exportOuttakeOrders(roasterId: number, exportType: string, dateFrom: string, dateTo: string) {
+        const paramsObj = {
+            from_date: dateFrom ? moment(dateFrom).format('yyyy-MM-DD') : '',
+            to_date: dateTo ? moment(dateTo).format('yyyy-MM-DD') : '',
+        };
+        const data = {
+            api_call: `/ro/${roasterId}/orders/export/${exportType}?${this.serlialise(paramsObj)}`,
+            token: this.authService.token,
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
+
     // Delete Procured Coffee.
     deleteProcuredCoffee(roaster_id: any, orderId: any): Observable<any> {
         const data = {

@@ -1,5 +1,12 @@
 import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { AuthService, GlobalsService, PrimeTableService, ResizeService, RoasterserviceService } from '@services';
+import {
+    AuthService,
+    DownloadService,
+    GlobalsService,
+    PrimeTableService,
+    ResizeService,
+    RoasterserviceService,
+} from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -8,6 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { ResizeableComponent } from '@base-components';
+import { ApiResponse, Download, LabelValue } from '@models';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-outtake-orders',
@@ -44,6 +53,16 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     startDate: string;
     endDate: string;
     queryParams: any = {};
+    displayExportDialog = false;
+    isDownloading = false;
+
+    readonly OrgType = OrganizationType;
+    readonly exportForm = this.fb.group({
+        from_date: this.fb.control(''),
+        to_date: this.fb.control(''),
+        export_type: this.fb.control('csv'),
+    });
+
     @Input('form')
     set form(value: FormGroup) {
         this.forms = value;
@@ -64,6 +83,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
         private authService: AuthService,
+        private downloadService: DownloadService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
@@ -267,5 +287,37 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
                 this.toastrService.error(this.globals.languageJson?.product_deleting_err);
             },
         );
+    }
+    showExportDialog(): void {
+        this.displayExportDialog = true;
+    }
+
+    downloadOrderClicked(): void {
+        const form = this.exportForm.value;
+        this.isDownloading = true;
+        this.roasterService
+            .exportOuttakeOrders(this.roasterId, form.export_type, form.from_date, form.to_date)
+            .subscribe((res: ApiResponse<any>) => {
+                if (res.success && res.result.url) {
+                    const url = res.result.url;
+                    const fileName = url.split('?')[0].split('/').pop();
+                    const mime = form.export_type === 'pdf' ? 'application/pdf' : 'text/plain';
+
+                    this.downloadService.download(res.result.url, fileName, mime).subscribe(
+                        (response: Download) => {
+                            if (response.state === 'DONE') {
+                                this.toastrService.success('Downloaded successfully');
+                                this.displayExportDialog = false;
+                                this.isDownloading = false;
+                            }
+                        },
+                        (error) => {
+                            this.toastrService.error('Download failed');
+                            this.isDownloading = false;
+                        },
+                    );
+                }
+                this.isDownloading = false;
+            });
     }
 }
