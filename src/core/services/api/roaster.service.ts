@@ -1253,7 +1253,7 @@ export class RoasterserviceService extends ApiService {
             to_date: dateTo ? moment(dateTo).format('yyyy-MM-DD') : '',
         };
         const data = {
-            api_call: `/ro/${roasterId}/orders/export/${exportType}?${this.serlialise(paramsObj)}`,
+            api_call: `/ro/${roasterId}/outtake-orders/export/${exportType}?${this.serlialise(paramsObj)}`,
             token: this.authService.token,
             method: 'GET',
         };

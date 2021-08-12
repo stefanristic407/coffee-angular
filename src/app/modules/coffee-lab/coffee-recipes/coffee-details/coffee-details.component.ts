@@ -98,10 +98,6 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     getJustText(content: any) {
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
-        const images = contentElement.querySelectorAll('img');
-        images.forEach((image) => {
-            image.parentNode.removeChild(image);
-        });
         return contentElement.innerHTML;
     }
 
