@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -30,8 +31,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     readonly env = environment;
     breadItems: any[];
     serviceItems: any[] = [
-        { label: 'Import & Delivery service', value: true },
-        { label: 'I don’t need Import & delivery service', value: false },
+        { label: 'Import & Delivery service', value: true, disabled: false },
+        { label: 'I don’t need Import & delivery service', value: false, disabled: false },
     ];
 
     roasterId: any;
@@ -247,7 +248,13 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                     ]),
                 ),
             );
-            this.infoForm.addControl('service', new FormControl(true));
+            if (this.shipInfo) {
+                this.serviceItems[0].disabled = false;
+                this.infoForm.addControl('service', new FormControl(true));
+            } else {
+                this.serviceItems[0].disabled = true;
+                this.infoForm.addControl('service', new FormControl(false));
+            }
         }
         this.changeQuantity();
     }
@@ -443,9 +450,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     }
 
     getShipInfo(resolve: any = null) {
-        this.userService
-            .getShippingInfo(this.roasterId, this.sourcing.harvestDetail.estate_id)
-            .subscribe((res: any) => {
+        this.userService.getShippingInfo(this.roasterId, this.sourcing.harvestDetail.estate_id).subscribe(
+            (res: any) => {
                 if (res.success) {
                     this.shipInfo = res.result;
                     this.shipAddress = res.result.warehouse_address;
@@ -453,7 +459,11 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 if (resolve) {
                     resolve();
                 }
-            });
+            },
+            (error: HttpErrorResponse) => {
+                resolve();
+            },
+        );
     }
 
     getRoAddress(resolve: any = null, requireUpdating?) {
