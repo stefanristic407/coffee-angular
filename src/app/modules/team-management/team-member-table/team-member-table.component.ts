@@ -44,7 +44,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     roleList: any = [];
     selectedUsers: any = [];
     roasterUsers: any = [];
-    statusFilterArray: any = [];
     isAddMember = false;
     modalRef: BsModalRef;
     modalUserRoasterId = '';
@@ -81,10 +80,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             this.sharedService.isMobileView = true;
         }
         this.tableRows = 10;
-        this.statusFilterArray = [
-            { name: 'Active', value: 'active' },
-            { name: 'Inactive', value: 'Inactive' },
-        ];
         this.loginId = this.authService.userId;
         this.roasterID = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {

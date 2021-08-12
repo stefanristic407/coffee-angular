@@ -75,7 +75,7 @@ export class UserManagementComponent implements OnInit {
         });
     }
 
-    onSearch(search) {
+    onSearch() {
         this.userManagementSearchService.setSearch(this.termSearch);
     }
 
