@@ -128,7 +128,7 @@
                     <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-3 pb-md-2">{{ 'directions' | translate }}</p>
                     <div *ngFor="let st of detailsData?.steps; index as i">
                         <p class="m-0 pb-1">{{ 'step' | translate }} {{ i + 1 }}:</p>
-                        <p class="m-0 pb-2" [innerHTML]="st?.description"></p>
+                        <div class="m-0 pb-2 inner-width" [innerHTML]="st?.description"></div>
                         <span *ngIf="st.image_url"><img [src]="st.image_url" class="w-100 pb-3" /></span>
                     </div>
                 </div>

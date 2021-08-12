@@ -113,3 +113,8 @@
         }
     }
 }
+::ng-deep .inner-width {
+    img {
+        width: 100%;
+    }
+}
