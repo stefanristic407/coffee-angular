@@ -33,7 +33,7 @@
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th style="width: 30px" *ngIf="!isMobileView && tableRecords.length > 1">
+                    <th class="pl-2" style="width: 30px" *ngIf="!isMobileView && tableRecords.length > 1">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
                     <th
@@ -47,7 +47,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr>
-                    <td *ngIf="!isMobileView && tableRecords.length > 1">
+                    <td *ngIf="!isMobileView && tableRecords.length > 1" class="pl-2">
                         <p-tableCheckbox [value]="rowData.evaluator_id"></p-tableCheckbox>
                     </td>
                     <td *ngFor="let col of columns" [ngSwitch]="col.field">
