@@ -39,6 +39,7 @@ import {
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { mergeMap, tap } from 'rxjs/operators';
+import { AddressType } from 'src/core/enums/availability/address-type.enum';
 
 @Injectable({
     providedIn: 'root',
@@ -188,10 +189,10 @@ export class OrderManagementService {
         return this.addressesSrv.getAddresses().pipe(
             mergeMap((res) => {
                 if (res.success && res.result) {
-                    const shippingAddress = res.result.find((x) => x.type === 'shipping');
+                    const shippingAddress = res.result.find((x) => x.type === AddressType.SHIPPING);
                     if (shippingAddress) {
                         address.id = shippingAddress.id;
-                        address.type = 'shipping';
+                        address.type = AddressType.SHIPPING;
                         return this.addressesSrv.updateAddress(shippingAddress.id, address).pipe(
                             mergeMap(() => {
                                 return this.purchaseSrv.updateOrderDetails(orderId, {
