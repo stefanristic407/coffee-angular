@@ -61,10 +61,7 @@
     </div>
 </ng-template>
 
-<div
-    class="in-order mt-3 pb-lg-2 br-4"
-    *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected"
->
+<div class="in-order mt-3 br-4" *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected">
     <div class="row">
         <div class="col-12 col-md-12">
             <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
