@@ -18,7 +18,7 @@ export class SelectOrdersComponent implements OnInit {
     @Output() closeEvent = new EventEmitter<any>();
     @Input() selectedType;
     estateterm: any;
-    loader = true;
+    loading = true;
     estatetermStatus: any;
     estatetermType: any;
     estatetermOrigin: any;
@@ -285,6 +285,7 @@ export class SelectOrdersComponent implements OnInit {
         if (this.selectedType === 'sales-member') {
             selectedType = 'users';
         }
+        this.loading = true;
         this.roasterService.getListOrderDetails(this.roasterId, selectedType, postData).subscribe((data: any) => {
             if (data.success && data.result && data.result.length > 0) {
                 this.tableValue = [];
@@ -297,8 +298,8 @@ export class SelectOrdersComponent implements OnInit {
                     this.totalCount = data.result_info?.total_count;
                     this.tableValue = data.result;
                 }
-                this.loader = false;
             }
+            this.loading = false;
         });
     }
 
