@@ -264,8 +264,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                             this.filterSelectedRoleUser();
                         }
                         this.tableValue = this.roasterUsers;
-                    } else {
-                        this.toastrService.error('Unable to fetch users data');
                     }
                 },
                 (err) => {
