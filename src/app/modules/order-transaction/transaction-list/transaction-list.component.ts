@@ -16,7 +16,6 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     breadItems = [
         { label: this.globals.languageJson?.home, routerLink: '/' },
         { label: this.globals.languageJson?.order_management, routerLink: '/' },
-        { label: this.globals.languageJson?.order_management, routerLink: '/' },
         { label: this.globals.languageJson?.order_transactions },
     ];
 
