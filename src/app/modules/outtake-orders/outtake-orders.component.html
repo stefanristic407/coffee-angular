@@ -78,7 +78,7 @@
                 [(ngModel)]="customerStatus"
                 (onChange)="setStatus()"
                 scrollHeight="225px"
-                placeholder="Customer Type"
+                placeholder="{{ 'customer_type' | translate }}"
                 [autoDisplayFirst]="false"
                 styleClass="round-border mr-2 mb-3 {{ customerStatus ? 'highlight' : '' }}"
             ></p-dropdown>

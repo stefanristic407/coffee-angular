@@ -15,8 +15,8 @@
 
     <div class="row no-gutters" [formGroup]="searchForm">
         <div class="col-12 col-md-4 px-0 d-flex align-items-center">
-            <h4 class="fnt-18 fnt-bold text-clr334 m-0 text-capitalize">
-                {{ (orgType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate | titlecase }}
+            <h4 class="fnt-18 fnt-bold text-clr334 m-0">
+                {{ (orgType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate }}
             </h4>
         </div>
         <div class="col-12 px-0 mt-25 d-md-none">
@@ -97,7 +97,7 @@
                         pInputText
                         class="w-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
                         type="text"
-                        placeholder="Search by order ID, {{ customerPropertyName }}, etc"
+                        placeholder="Search by order ID, {{ customerPropertyName | lowercase }}, etc"
                         formControlName="search_query"
                     />
                 </span>

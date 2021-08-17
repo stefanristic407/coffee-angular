@@ -14,10 +14,10 @@ import * as moment from 'moment';
 })
 export class TransactionListComponent extends ResizeableComponent implements OnInit {
     breadItems = [
-        { label: 'Home', routerLink: '/' },
-        { label: 'Order Management', routerLink: '/' },
-        { label: 'Order Management', routerLink: '/' },
-        { label: 'Order Transactions' },
+        { label: this.globals.languageJson?.home, routerLink: '/' },
+        { label: this.globals.languageJson?.order_management, routerLink: '/' },
+        { label: this.globals.languageJson?.order_management, routerLink: '/' },
+        { label: this.globals.languageJson?.order_transactions },
     ];
 
     public readonly perPageItemList = [
@@ -148,7 +148,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         const commonColumns = [
             {
                 field: 'account_name',
-                header: 'Cust. Name',
+                header: 'Cust. name',
                 sortable: false,
                 width: 100,
             },

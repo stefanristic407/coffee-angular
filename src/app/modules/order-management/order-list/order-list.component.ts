@@ -92,12 +92,12 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
             }
 
             this.items = [
-                { label: 'Home', routerLink: '/' },
-                { label: 'Order Management' }, // Do we need this item while we have no page for it?
+                { label: this.globals.languageJson?.home, routerLink: '/' },
+                { label: this.globals.languageJson?.order_management }, // Do we need this item while we have no page for it?
                 {
                     label:
                         this.orgType === OrganizationType.ESTATE
-                            ? 'Purchased Orders of Estates'
+                            ? 'Purchased orders of estates'
                             : this.globals.languageJson?.orders_by_mr,
                 },
             ];

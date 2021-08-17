@@ -41,7 +41,7 @@
                     [(ngModel)]="customerType"
                     scrollHeight="225px"
                     [showClear]="true"
-                    placeholder="Customer Type"
+                    placeholder="{{ 'customer_type' | translate }}"
                     styleClass="round-border mr-2 {{ customerType ? 'highlight' : '' }}"
                 >
                 </p-dropdown>
