@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { CoffeeLabService, GlobalsService } from '@services';
-import { TitleCasePipe } from '@angular/common';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { CoffeeLabGlobalSearchResult } from '@models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-overview',
     templateUrl: './overview.component.html',
     styleUrls: ['./overview.component.scss'],
-    providers: [TitleCasePipe],
 })
 export class OverviewComponent implements OnInit {
     menuItems = [
@@ -62,11 +61,10 @@ export class OverviewComponent implements OnInit {
     searchResult: CoffeeLabGlobalSearchResult;
 
     constructor(
-        public globals: GlobalsService,
-        private titleCasePipe: TitleCasePipe,
         private coffeeLabService: CoffeeLabService,
         private router: Router,
         private route: ActivatedRoute,
+        private translateService: TranslateService,
     ) {
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
             this.startSearch();
@@ -80,9 +78,9 @@ export class OverviewComponent implements OnInit {
 
     ngOnInit(): void {
         this.breadcrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.brand_and_experience },
-            { label: this.titleCasePipe.transform(this.globals.languageJson?.the_coffee_lab) },
+            { label: this.translateService.instant('home'), routerLink: '/' },
+            { label: this.translateService.instant('brand_and_experience') },
+            { label: this.translateService.instant('the_coffee_lab') },
         ];
     }
 
