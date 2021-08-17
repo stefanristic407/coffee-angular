@@ -17,7 +17,9 @@
             </ng-container>
 
             <ng-container *ngIf="welcomeBoardStatus === 1">
-                <p class="fnt-18 fnt-700 fnt-muli mb-2">{{ 'add' | translate }} {{ 'roastery_details' | translate }}</p>
+                <p class="fnt-18 fnt-700 mb-2">
+                    {{ 'add' | translate }} {{ 'roastery_details' | translate | lowercase }}
+                </p>
                 <p class="fnt-14 text-clr588 create-txt mb-4 mb-lg-45">
                     {{ 'roaster_welcome_detail_description' | translate }}
                 </p>

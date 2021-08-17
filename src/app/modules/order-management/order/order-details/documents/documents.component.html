@@ -72,9 +72,12 @@
             </ng-template>
 
             <ng-template pTemplate="summary">
-                <div *ngIf="showLoadMore" class="text-center mt-1">
-                    <span class="navigation-link" (click)="loadMore()">{{ 'load_more' | translate }}</span>
+                <div *ngIf="documents?.length; else empty">
+                    <div *ngIf="showLoadMore" class="text-center mt-1">
+                        <span class="navigation-link" (click)="loadMore()">{{ 'load_more' | translate }}</span>
+                    </div>
                 </div>
+                <ng-template #empty><app-empty [title]="'no_data' | translate"></app-empty></ng-template>
             </ng-template>
         </p-table>
     </div>

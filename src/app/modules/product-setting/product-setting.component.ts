@@ -26,7 +26,7 @@ export class ProductSettingComponent implements OnInit {
         index: 0,
     };
     selectedIndex = 0;
-    details: FormGroup;
+    detailsForm: FormGroup;
     shippingDetails = {
         id: '',
         name: '',
@@ -87,7 +87,7 @@ export class ProductSettingComponent implements OnInit {
                 if (this.shippData.length !== 0) {
                     this.shippingDetails = this.shippData[0];
                     this.shipId = this.shippingDetails.id;
-                    this.details = this.fb.group({
+                    this.detailsForm = this.fb.group({
                         name: [this.shippingDetails.name, Validators.compose([Validators.required])],
                         day_min: [this.shippingDetails.day_min, Validators.compose([Validators.required])],
                         day_max: [this.shippingDetails.day_max, Validators.compose([Validators.required])],
@@ -95,7 +95,7 @@ export class ProductSettingComponent implements OnInit {
                         price_unit: ['SEK', Validators.compose([Validators.required])],
                     });
                 } else {
-                    this.details = this.fb.group({
+                    this.detailsForm = this.fb.group({
                         name: ['', Validators.compose([Validators.required])],
                         day_min: [null, Validators.compose([Validators.required])],
                         day_max: [null, Validators.compose([Validators.required])],
@@ -107,9 +107,14 @@ export class ProductSettingComponent implements OnInit {
         });
     }
     saveShippingInfo() {
+        if (this.detailsForm.invalid) {
+            this.detailsForm.markAllAsTouched();
+            this.toastrService.error('Please fill mandatory fields.');
+            return;
+        }
         if (this.shippData.length === 0) {
             this.resetButtonValue = 'Saving';
-            const body = this.details.value;
+            const body = this.detailsForm.value;
             this.userService.addRoasterShippingDetails(this.roasterId, body).subscribe((response) => {
                 if (response.success) {
                     this.resetButtonValue = 'Save';
@@ -125,7 +130,7 @@ export class ProductSettingComponent implements OnInit {
         } else {
             if (this.shipId) {
                 this.resetButtonValue = 'Saving';
-                const data = this.details.value;
+                const data = this.detailsForm.value;
                 this.userService.updateRoasterShippingTypes(this.roasterId, this.shipId, data).subscribe((res) => {
                     if (res.success) {
                         this.resetButtonValue = 'Save';
@@ -147,7 +152,7 @@ export class ProductSettingComponent implements OnInit {
         this.editshippingmode = false;
     }
     get detailsFormControl() {
-        return this.details.controls;
+        return this.detailsForm.controls;
     }
     selectTabs() {
         if (this.selectedTab.index === 0) {

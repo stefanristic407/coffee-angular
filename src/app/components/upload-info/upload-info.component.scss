@@ -4,11 +4,11 @@
     position: fixed;
     right: 10px;
     bottom: 10px;
+    z-index: 1009;
 
     .upload-wrap {
         background-color: $brown-color;
         color: $white;
-
         width: 200px;
     }
 }

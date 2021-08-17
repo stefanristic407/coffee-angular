@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OrderManagementService } from '../../order-management.service';
 import { CommonService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-shipping-address-editor',
@@ -16,20 +17,21 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./shipping-address-editor.component.scss'],
 })
 export class ShippingAddressEditorComponent extends DestroyableComponent implements OnInit {
-    readonly countries = this.commonSrv.getCountryList();
+    public readonly COUNTRY_LIST = COUNTRY_LIST;
     readonly editorForm: FormGroup = this.fb.group({
         country: this.fb.control('', [Validators.required]),
         state: this.fb.control('', [Validators.required]),
         address_line1: this.fb.control('', [Validators.required]),
         address_line2: this.fb.control(''),
         city: this.fb.control('', [Validators.required]),
-        zipcode: this.fb.control(''),
+        zipcode: this.fb.control('', [Validators.required]),
     });
 
     orderId: number;
     orgType: OrganizationType;
     breadcrumbs: MenuItem[];
     status: string;
+    cities: any[] = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -56,8 +58,8 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
                             this.status = details.status;
                             this.editorForm.patchValue({
                                 ...details.shipping_address,
-                                country: details.shipping_address.country.toUpperCase(),
                             });
+                            this.changeCountry();
                         }
                     },
                 });
@@ -72,8 +74,21 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
         });
     }
 
+    changeCountry() {
+        if (this.editorForm.value.country) {
+            this.cities = this.commonSrv.getCountry(this.editorForm.value.country).cities;
+            if (this.cities.indexOf(this.editorForm.value.state) < 0) {
+                this.editorForm.get('state').setValue(null);
+            }
+            this.cities = this.cities.map((element) => {
+                return { label: element, value: element };
+            });
+        }
+    }
+
     save(): void {
         if (this.editorForm.invalid) {
+            this.editorForm.markAllAsTouched();
             this.toastrSrv.error('Please fill in all required fields.');
             return;
         } else if (
