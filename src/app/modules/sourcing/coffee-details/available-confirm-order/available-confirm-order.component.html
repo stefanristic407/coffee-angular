@@ -100,27 +100,53 @@
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
                                     <div class="sewn-form-field mb-md-45">
                                         <label class="fnt-bold">{{ 'order_quantity' | translate }}:</label>
-                                        <div class="p-inputgroup custom-addon">
-                                            <p-inputNumber
-                                                formControlName="quantity"
-                                                (onInput)="changeQuantity($event)"
-                                                min="0"
-                                                placeholder="0"
+                                        <div class="input-and-select">
+                                            <div class="p-inputgroup custom-addon">
+                                                <span class="p-inputgroup-addon gray">Bags</span>
+                                                <input
+                                                    type="number"
+                                                    pInputText
+                                                    formControlName="quantity"
+                                                    min="0"
+                                                    placeholder="0"
+                                                />
+                                            </div>
+                                            <small
+                                                *ngIf="
+                                                    infoForm.controls.quantity.errors?.valid &&
+                                                    infoForm.controls.quantity.touched
+                                                "
+                                                class="p-error d-block"
                                             >
-                                            </p-inputNumber>
-                                            <span class="p-inputgroup-addon">Bags</span>
-                                            <small *ngIf="infoForm.controls.quantity.errors?.required" class="p-error">
-                                                {{ 'required' | translate }}
+                                                {{ infoForm.controls.quantity.errors?.valid }}
                                             </small>
-                                            <small *ngIf="infoForm.controls.quantity.errors?.max" class="p-error">
-                                                {{ 'quantity_max_error' | translate }}
+                                            <small
+                                                *ngIf="infoForm.controls.quantity.errors?.min_purchase"
+                                                class="p-error d-block"
+                                            >
+                                                {{ infoForm.controls.quantity.errors?.min_purchase }}
                                             </small>
-                                            <small *ngIf="infoForm.controls.quantity.errors?.min" class="p-error">
-                                                {{ 'minimum_quantity_for_import_is' | translate }}
-                                                {{ minimumQuantity }} bags
+                                            <small
+                                                *ngIf="infoForm.controls.quantity.errors?.max_purchase"
+                                                class="p-error d-block"
+                                            >
+                                                {{ infoForm.controls.quantity.errors?.max_purchase }}
+                                            </small>
+                                            <small
+                                                *ngIf="infoForm.controls.quantity.errors?.min_shipping"
+                                                class="p-error d-block"
+                                            >
+                                                {{ infoForm.controls.quantity.errors?.min_shipping }}
+                                            </small>
+                                            <small
+                                                *ngIf="infoForm.controls.quantity.errors?.max_shipping"
+                                                class="p-error d-block"
+                                            >
+                                                {{ infoForm.controls.quantity.errors?.max_shipping }}
                                             </small>
                                         </div>
                                     </div>
+
                                     <div class="fnt-14 fnt-bold text-clr334 form-middle">
                                         &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;${{
                                             sourcing.harvestDetail?.price * sourcing.harvestDetail?.quantity
@@ -151,7 +177,7 @@
                                         ></p-dropdown>
                                     </div>
                                     <div *ngIf="infoForm.value.service" class="fnt-14 fnt-bold text-clr334 form-middle">
-                                        &nbsp;&nbsp;&nbsp;${{ this.shipInfo.unit_price | number: '1.0-2' }} per kg
+                                        &nbsp;&nbsp;&nbsp;${{ shipInfo.unit_price | number: '1.0-2' }} per kg
                                     </div>
                                 </div>
                                 <div

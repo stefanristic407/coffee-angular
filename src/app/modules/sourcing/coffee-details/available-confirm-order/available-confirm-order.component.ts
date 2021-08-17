@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
+import {
+    FormGroup,
+    FormBuilder,
+    FormControl,
+    Validators,
+    AbstractControl,
+    ValidatorFn,
+    ValidationErrors,
+} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
@@ -19,6 +27,7 @@ import { OrganizationType } from '@enums';
 import { ResizeableComponent } from '@base-components';
 import { environment } from '@env/environment';
 import { AddressType } from 'src/core/enums/availability/address-type.enum';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -57,6 +66,21 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     editAddress = false;
     isBilling = false;
     cities: any[] = [];
+    quantityFcSubscription: Subscription;
+    priceTiers: {
+        amount: number;
+        max_quantity: number;
+        min_quantity: number;
+    }[] = [];
+    InDRestrictions = {
+        maxQuanity: null as number | null,
+        minQuanity: null as number | null,
+        maxQuanityByUnit: null as number | null, // Based on Kg per Bag
+        minQuanityByUnit: null as number | null, // Based on Kg per Bag
+    };
+
+    LB_TO_KG = 0.453592;
+    TON_TO_KG = 1016.05;
 
     // Variables for only prebook order
     batchId: string;
@@ -236,18 +260,17 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             terms: [null, Validators.compose([Validators.required])],
         });
         if (this.orderType === 'booked') {
-            this.calcMinimumQuanity();
-            this.infoForm.addControl(
-                'quantity',
-                new FormControl(
-                    null,
-                    Validators.compose([
-                        Validators.required,
-                        (control: AbstractControl) => Validators.min(this.minimumQuantity)(control),
-                        Validators.max(this.sourcing.harvestDetail.quantity_count),
-                    ]),
-                ),
-            );
+            const quantityFc = new FormControl(null, {
+                validators: this.quantityValidator,
+                updateOn: 'change',
+            });
+            this.infoForm.addControl('quantity', quantityFc);
+            if (this.quantityFcSubscription && this.quantityFcSubscription.unsubscribe) {
+                this.quantityFcSubscription.unsubscribe();
+            }
+            this.quantityFcSubscription = quantityFc.valueChanges.subscribe(() => {
+                this.changeQuantity();
+            });
             if (this.shipInfo) {
                 this.serviceItems[0].disabled = false;
                 this.infoForm.addControl('service', new FormControl(true));
@@ -258,6 +281,37 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         }
         this.changeQuantity();
     }
+
+    quantityValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {
+        const countValue = parseInt(control.value, 10);
+        const errors = [];
+        if (!/^\d+$/.test(control.value) || parseInt(control.value, 10) < 1) {
+            errors['valid'] = 'Please provide a valid value';
+        }
+        if (countValue < this.sourcing.harvestDetail.minimum_purchase_quantity) {
+            errors[
+                'min_purchase'
+            ] = `The minimum purchase is at least ${this.sourcing.harvestDetail.minimum_purchase_quantity} ${this.sourcing.harvestDetail.quantity_type}`;
+        }
+        if (countValue > this.sourcing.harvestDetail.quantity_count) {
+            errors[
+                'max_purchase'
+            ] = `Only ${this.sourcing.harvestDetail.quantity_count} ${this.sourcing.harvestDetail.quantity_type} of coffee are available for the purchase`;
+        }
+        if (this.infoForm.value.service) {
+            if (countValue < this.InDRestrictions.minQuanityByUnit) {
+                errors[
+                    'min_shipping'
+                ] = `Shipping is only available on purchasing at least ${this.InDRestrictions.minQuanityByUnit} ${this.sourcing.harvestDetail.quantity_type}`;
+            }
+            if (countValue > this.InDRestrictions.maxQuanityByUnit) {
+                errors[
+                    'max_shipping'
+                ] = `Shipping is available for a maximum of ${this.InDRestrictions.maxQuanityByUnit} ${this.sourcing.harvestDetail.quantity_type}`;
+            }
+        }
+        return errors;
+    };
 
     refreshAddressForm(isBilling) {
         this.addressForm = this.fb.group({
@@ -275,15 +329,22 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     }
 
     changeQuantity(event: any = null) {
-        if (event) {
-            this.infoForm.value.quantity = event.value;
-        }
+        // if (event) {
+        //     this.infoForm.value.quantity = event.value;
+        // }
         setTimeout(() => {
             if (this.orderType === 'booked') {
-                const mass = this.sourcing.harvestDetail.quantity * this.infoForm.value.quantity;
-                this.coffeePrice = this.sourcing.harvestDetail.price * mass;
+                let totalKg = Number(this.sourcing.harvestDetail.quantity) * this.infoForm.value.quantity;
+
+                if (this.sourcing.harvestDetail.quantity_unit === 'lb') {
+                    totalKg = totalKg * this.LB_TO_KG;
+                } else if (this.sourcing.harvestDetail.quantity_unit === 'ton') {
+                    totalKg = totalKg * this.TON_TO_KG;
+                }
+                this.updateShipmentUnitPrice(totalKg);
+                this.coffeePrice = this.sourcing.harvestDetail.price * totalKg;
                 if (this.infoForm.value.service) {
-                    this.shipmentPrice = this.shipInfo.unit_price * mass;
+                    this.shipmentPrice = this.shipInfo.unit_price * totalKg;
                 } else {
                     this.shipmentPrice = 0;
                 }
@@ -296,6 +357,15 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         });
     }
 
+    updateShipmentUnitPrice(itemInKg: number) {
+        const tier = this.priceTiers.find((tier) => itemInKg >= tier.min_quantity && itemInKg <= tier.max_quantity);
+        if (tier) {
+            this.shipInfo.unit_price = tier.amount;
+        } else {
+            this.shipInfo.unit_price = 0;
+        }
+    }
+
     changeService() {
         if (this.infoForm.value.service) {
             this.addressData = this.shipAddress;
@@ -303,22 +373,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             this.addressData = this.deliveryAddress;
         }
         this.changeQuantity();
-        this.calcMinimumQuanity();
-    }
-
-    calcMinimumQuanity() {
-        if (this.infoForm.value.service) {
-            this.minimumQuantity = Math.max(
-                this.shipInfo.minimum_quantity || 0,
-                this.sourcing.harvestDetail.minimum_purchase_quantity || 0,
-            );
-        } else {
-            this.minimumQuantity = this.sourcing.harvestDetail.minimum_purchase_quantity || 0;
-        }
-        const quantityControl = this.infoForm.get('quantity');
-        if (quantityControl) {
-            quantityControl.setValue(this.infoForm.value.quantity);
-        }
+        this.infoForm.controls.quantity.updateValueAndValidity();
     }
 
     placeOrder() {
@@ -378,6 +433,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     submitSample() {
         const doneData = {
+            shipping_price: this.shipmentPrice,
             shipping_address_id: this.deliveryAddress.id,
             billing_address_id: this.billingAddress.id,
             prebook_order_id: this.prebookOrderId,
@@ -449,12 +505,42 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         });
     }
 
+    get priceRateByTier(): null | number {
+        return null;
+    }
+
     getShipInfo(resolve: any = null) {
         this.userService.getShippingInfo(this.roasterId, this.sourcing.harvestDetail.estate_id).subscribe(
             (res: any) => {
                 if (res.success) {
                     this.shipInfo = res.result;
                     this.shipAddress = res.result.warehouse_address;
+                    this.priceTiers = res.result.price_tiers;
+                    this.priceTiers.forEach((tier) => {
+                        if (
+                            this.InDRestrictions.maxQuanity === null ||
+                            this.InDRestrictions.maxQuanity < tier.max_quantity
+                        ) {
+                            this.InDRestrictions.maxQuanity = tier.max_quantity;
+                        }
+                        if (
+                            this.InDRestrictions.minQuanity === null ||
+                            this.InDRestrictions.minQuanity > tier.min_quantity
+                        ) {
+                            this.InDRestrictions.minQuanity = tier.min_quantity;
+                        }
+                    });
+
+                    let kgInBg = 0;
+                    if (this.sourcing.harvestDetail.quantity_unit === 'kg') {
+                        kgInBg = this.sourcing.harvestDetail.quantity;
+                    } else if (this.sourcing.harvestDetail.quantity_unit === 'lb') {
+                        kgInBg = Number(this.sourcing.harvestDetail.quantity) * this.LB_TO_KG;
+                    } else if (this.sourcing.harvestDetail.quantity_unit === 'ton') {
+                        kgInBg = Number(this.sourcing.harvestDetail.quantity) * this.TON_TO_KG;
+                    }
+                    this.InDRestrictions.maxQuanityByUnit = Math.floor(this.InDRestrictions.maxQuanity / kgInBg);
+                    this.InDRestrictions.minQuanityByUnit = Math.ceil(this.InDRestrictions.minQuanity / kgInBg);
                 }
                 if (resolve) {
                     resolve();
