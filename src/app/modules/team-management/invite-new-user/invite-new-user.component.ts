@@ -76,13 +76,17 @@ export class InviteNewUserComponent implements OnInit {
     onInvite() {
         if (this.userDetails.userForm.valid) {
             const getArrayLength = this.userDetails.userForm.value.items;
-            this.userDetails.userForm.value.items.forEach((ele, index) => {
-                const userInput = this.getUserInputObj(ele);
-                this.addUserToRoaster(userInput);
-                if (index === getArrayLength - 1) {
-                    this.router.navigate(['/team-management/user-management']);
-                }
-            });
+            if (this.currentRoleID !== '') {
+                this.userDetails.userForm.value.items.forEach((ele, index) => {
+                    const userInput = this.getUserInputObj(ele);
+                    this.addUserToRoaster(userInput);
+                    if (index === getArrayLength - 1) {
+                        this.router.navigate(['/team-management/user-management']);
+                    }
+                });
+            } else {
+                this.toastrService.error('Please assign a role to new user');
+            }
         } else {
             this.userDetails.userForm.markAllAsTouched();
             this.toastrService.error('Please fill correct data');
