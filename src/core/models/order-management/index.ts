@@ -11,3 +11,4 @@ export * from './order-summary.model';
 export * from './organization-details.model';
 export * from './recent-activity.model';
 export * from './transaction.model';
+export * from './price-tiers.model';

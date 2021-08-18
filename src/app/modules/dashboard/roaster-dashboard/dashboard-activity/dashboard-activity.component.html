@@ -1,10 +1,10 @@
 <div>
-    <p class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-2 mb-md-3 d-none d-md-block">
+    <p class="fnt-16 fnt-md-18 fnt-bold mb-2 mb-md-3 d-none d-md-block">
         {{ 'recent_activity' | translate }}
     </p>
 
     <div class="p-3 p-md-0 border-main border-md-none br-4 h-100">
-        <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-2 mb-md-3 d-md-none">{{ 'recent_activity' | translate }}</p>
+        <p class="fnt-16 fnt-bold mb-4 d-md-none">{{ 'recent_activity' | translate }}</p>
         <div class="d-none d-md-block">
             <p-table
                 *ngIf="recentActivities"
@@ -50,25 +50,29 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="summary">
+                    <ng-container *ngIf="recentActivities?.length; else empty"></ng-container>
+                </ng-template>
             </p-table>
         </div>
 
         <div class="d-md-none">
-            <div *ngFor="let item of recentActivities.slice(0, 5)" class="d-flex activity-wrap">
-                <div class="mr-2">
-                    <app-avatar [size]="36" [src]="item.profile_image" [name]="item.user_name"></app-avatar>
-                </div>
-                <div>
-                    <p class="fnt-12 fnt-bold text-clr588 mb-0">
-                        {{ item.created_at | date: 'd MMM h:mm a' }}
-                    </p>
-                    <p class="fnt-14 fnt-bold fnt-muli text-clr334 mb-0">{{ item.user_name }}</p>
-                    <p class="fnt-12 fnt-600 fnt-muli text-clr588 mb-0">{{ item.organisation_name }}</p>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-2 text-break">
+            <ng-container *ngIf="recentActivities?.length; else empty">
+                <div *ngFor="let item of recentActivities.slice(0, 5)" class="activity-wrap">
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="fnt-semi-bold">{{ item.user_name }}</div>
+                        <div class="fnt-12 fnt-semi-bold text-clr588">
+                            {{ item.created_at | date: 'd MMM h:mm a' }}
+                        </div>
+                    </div>
+                    <p class="fnt-12 fnt-600 text-clr588 mb-25">{{ item.organisation_name }}</p>
+                    <p class="fnt-600 mb-3 text-break">
                         {{ ACTIVITY_TYPE[item.description] ? ACTIVITY_TYPE[item.description].name : item.description }}
                     </p>
                 </div>
-            </div>
+            </ng-container>
         </div>
     </div>
 </div>
+
+<ng-template #empty> <app-empty [title]="'no_data' | translate"></app-empty> </ng-template>

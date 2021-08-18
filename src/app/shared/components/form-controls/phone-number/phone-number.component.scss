@@ -42,7 +42,7 @@
     }
 }
 
-::ng-deep .ng-invalid.ng-dirty > .phone-number-wrap {
+::ng-deep .ng-invalid.ng-touched > .phone-number-wrap {
     .input-mask-wrap .p-inputmask {
         border: 1px solid $error-border-color !important;
         &:hover {
