@@ -27,5 +27,6 @@ export * from './roaster-orders.service';
 export * from './roaster.service';
 export * from './shipping-details.service';
 export * from './simulated-login.service';
+export * from './transaction.service';
 export * from './user.service';
 export * from './variety.service';
