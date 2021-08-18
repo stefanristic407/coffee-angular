@@ -28,3 +28,15 @@
 .order-sec {
     padding: 8rem 0;
 }
+::ng-deep .price-tier-overlay-panel {
+    max-width: 500px;
+    width: 80%;
+    margin: 2px;
+    th,
+    td {
+        font-size: 12px;
+    }
+    .p-overlaypanel-close.p-link {
+        background-color: #80460b;
+    }
+}
