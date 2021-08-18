@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
     FormGroup,
@@ -28,6 +28,7 @@ import { ResizeableComponent } from '@base-components';
 import { environment } from '@env/environment';
 import { AddressType } from 'src/core/enums/availability/address-type.enum';
 import { Subscription } from 'rxjs';
+import { PriceTier } from '@models';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -67,11 +68,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     isBilling = false;
     cities: any[] = [];
     quantityFcSubscription: Subscription;
-    priceTiers: {
-        amount: number;
-        max_quantity: number;
-        min_quantity: number;
-    }[] = [];
+    priceTiers: PriceTier[] = [];
+    activePriceTier: PriceTier | null = null;
     InDRestrictions = {
         maxQuanity: null as number | null,
         minQuanity: null as number | null,
@@ -344,7 +342,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 this.updateShipmentUnitPrice(totalKg);
                 this.coffeePrice = this.sourcing.harvestDetail.price * totalKg;
                 if (this.infoForm.value.service) {
-                    this.shipmentPrice = this.shipInfo.unit_price * totalKg;
+                    this.shipmentPrice = this.activePriceTier?.amount || 0;
                 } else {
                     this.shipmentPrice = 0;
                 }
@@ -360,9 +358,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     updateShipmentUnitPrice(itemInKg: number) {
         const tier = this.priceTiers.find((tier) => itemInKg >= tier.min_quantity && itemInKg <= tier.max_quantity);
         if (tier) {
-            this.shipInfo.unit_price = tier.amount;
+            this.activePriceTier = tier;
         } else {
-            this.shipInfo.unit_price = 0;
+            this.activePriceTier = null;
         }
     }
 
@@ -413,7 +411,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     submitOrder() {
         const data: any = {
-            shipping_price: this.shipmentPrice,
+            shipping_price: this.activePriceTier.amount,
             quantity_count: this.infoForm.value.quantity,
             billing_address_id: this.billingAddress.id,
             prebook_order_id: this.prebookOrderId,
