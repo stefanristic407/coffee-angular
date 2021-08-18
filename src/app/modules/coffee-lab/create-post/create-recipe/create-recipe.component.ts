@@ -292,6 +292,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     data: {
                         imageChangedEvent: event,
                         aspectRatio: 672 / 276,
+                        maintainAspectRatio: type !== RecipeFileType.StepImage,
                         resizeToWidth: 672,
                     },
                 })
