@@ -413,6 +413,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     submitOrder() {
         const data: any = {
+            shipping_price: this.shipmentPrice,
             quantity_count: this.infoForm.value.quantity,
             billing_address_id: this.billingAddress.id,
             prebook_order_id: this.prebookOrderId,
@@ -433,7 +434,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     submitSample() {
         const doneData = {
-            shipping_price: this.shipmentPrice,
             shipping_address_id: this.deliveryAddress.id,
             billing_address_id: this.billingAddress.id,
             prebook_order_id: this.prebookOrderId,
