@@ -90,12 +90,15 @@
     .p-calendar {
         width: 100%;
     }
+
+    // Validation
     .p-error {
         display: none;
         font-size: 14px;
         font-weight: 600;
     }
-    .ng-invalid.ng-touched {
+    .ng-invalid.ng-touched,
+    .ng-invalid.ng-dirty {
         & + .p-error,
         & ~ .p-error {
             display: block !important;
