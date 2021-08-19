@@ -1,5 +1,5 @@
-<section *ngIf="!showOrder">
-    <div *ngIf="!isLoadingCoffeeBatch" class="main-block">
+<section *ngIf="!showOrder" class="main-block">
+    <div *ngIf="!isLoadingCoffeeBatch; else loader">
         <div class="row pb-md-3 pb-1">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 overflow-auto d-flex flex-nowrap breadCrumb">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
@@ -36,7 +36,9 @@
                         </div>
                         <div class="row">
                             <div class="col-12 mb-1">
-                                <span class="primary_txt mb-1">{{ 'order_id' | translate }}*</span>
+                                <span class="primary_txt mb-1"
+                                    >{{ 'order_id' | translate }}<span class="text-clr-invalid">*</span></span
+                                >
                             </div>
                             <div class="col-12 mb-3">
                                 <span class="fnt-14 fnt-muli black fnt-normal mb-3"
@@ -44,15 +46,17 @@
                                 >
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                                <div class="p-inputgroup custom-addon cursor-pointer" (click)="selectOrder()">
+                                <div class="p-inputgroup custom-addon cursor-pointer" (click)="showOrder = true">
                                     <p-inputNumber
                                         placeholder="Select the order"
-                                        [(ngModel)]="ordId"
-                                        [ngModelOptions]="{ standalone: true }"
+                                        formControlName="order_id"
                                     ></p-inputNumber>
                                     <span class="p-inputgroup-addon">
                                         <img src="assets/images/icon-arrow-right.svg" alt="" />
                                     </span>
+                                    <small *ngIf="batchForm.controls['order_id'].errors?.required" class="p-error">
+                                        {{ 'required' | translate }}
+                                    </small>
                                 </div>
                             </div>
                             <div *ngIf="ordId" class="col-12 d-md-none mt-4">
@@ -317,9 +321,6 @@
             </button>
         </div>
     </div>
-    <div *ngIf="isLoadingCoffeeBatch">
-        <app-loading></app-loading>
-    </div>
 </section>
 <app-select-order-table *ngIf="showOrder" (orderSelectEvent)="setOrder($event)"></app-select-order-table>
 
@@ -445,3 +446,5 @@
         </div>
     </div>
 </ng-template>
+
+<ng-template #loader><app-loading></app-loading></ng-template>

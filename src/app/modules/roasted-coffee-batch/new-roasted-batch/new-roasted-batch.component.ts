@@ -85,6 +85,7 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
         this.getData();
         this.batchForm = this.fb.group({
             roast_batch_name: ['', Validators.compose([Validators.required])],
+            order_id: [this.ordId || null, Validators.compose([Validators.required])],
             roasting_profile_id: ['', Validators.compose([Validators.required])],
             green_coffee_quantity: [
                 null,
@@ -133,7 +134,6 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
     getRoastedBatch() {
         this.isLoadingCoffeeBatch = true;
         this.userService.getRoastedBatchDetail(this.roasterId, this.batchId).subscribe((res) => {
-            console.log('roasted batch >>>>', res);
             this.isLoadingCoffeeBatch = false;
             if (res && res.result) {
                 this.breadItems[3].label = this.capitalizeFirstLetter(res.result.roast_batch_name);
@@ -171,7 +171,6 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
                 };
                 this.roastProfileArray.push(button);
                 if (this.ordId) {
-                    console.log('get order details ...', this.ordId);
                     this.getOrderDetails();
                 }
                 if (this.batchId) {
@@ -212,7 +211,6 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
         this.roasterService.getViewOrderDetails(this.roasterId, this.ordId).subscribe((response) => {
             if (response.success) {
                 this.orderDetails = response.result;
-                console.log('Orderdetail:', this.orderDetails);
                 this.getRatingData(this.orderDetails.estate_id);
                 this.batchForm.controls.roaster_ref_no.setValue(this.orderDetails.order_reference);
             } else {
@@ -247,7 +245,6 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
     updateRoastedBatch(productObj) {
         this.userService.updateRoastedBatchDetail(this.roasterId, this.batchId, productObj).subscribe(
             (res) => {
-                console.log('update res >>>>>>>>>>>', res);
                 if (res && res.success) {
                     this.toastrService.success('The Roasted Batch has been updated.');
                     this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batchs']);
@@ -281,66 +278,43 @@ export class NewRoastedBatchComponent implements OnInit, OnDestroy {
         );
     }
 
-    validateForms() {
-        let returnFlag = true;
-        if (!this.batchForm.valid) {
-            returnFlag = false;
-            return returnFlag;
-        }
-        return returnFlag;
-    }
-
     onSave() {
-        if (this.validateForms()) {
-            this.flavourProfileArray = this.langChips.map((ele) => {
-                return ele.id;
-            });
-            const productObj = this.batchForm.value;
-            productObj.flavour_profile = this.flavourProfileArray;
-            // delete productObj.batch_ref_no;
-            productObj.order_id = Number(this.ordId);
-            productObj.roasting_profile_unit = this.unit;
-            productObj.green_coffee_unit = this.unit;
-            productObj.waste_quantity =
-                this.batchForm.controls.green_coffee_quantity.value -
-                this.batchForm.controls.roasting_profile_quantity.value;
-            for (const [key, value] of Object.entries(productObj)) {
-                if (!value) {
-                    delete productObj[key];
-                }
-            }
-            console.log('lets save...', productObj);
-            if (this.batchId) {
-                this.updateRoastedBatch(productObj);
-            } else {
-                // delete productObj.batch_ref_no;
-                this.createRoastedBatch(productObj);
-            }
-        } else {
+        if (this.batchForm.invalid) {
             this.batchForm.markAllAsTouched();
             this.toastrService.error('Please fill all data');
+            return;
+        }
+
+        this.flavourProfileArray = this.langChips.map((ele) => {
+            return ele.id;
+        });
+        const productObj = {
+            ...this.batchForm.value,
+            flavour_profile: this.flavourProfileArray,
+            roasting_profile_unit: this.unit,
+            green_coffee_unit: this.unit,
+            waste_quantity:
+                this.batchForm.controls.green_coffee_quantity.value -
+                this.batchForm.controls.roasting_profile_quantity.value,
+        };
+
+        for (const [key, value] of Object.entries(productObj)) {
+            if (!value) {
+                delete productObj[key];
+            }
+        }
+        if (this.batchId) {
+            this.updateRoastedBatch(productObj);
+        } else {
+            this.createRoastedBatch(productObj);
         }
     }
 
-    selectOrder() {
-        this.showOrder = true;
-        // if (this.ordId && this.batchId) {
-        //     const navigationExtras: NavigationExtras = {
-        //         queryParams: {
-        //             batchId: this.batchId ? this.batchId : '',
-        //             ordId: this.ordId ? this.ordId : '',
-        //         },
-        //     };
-        //     this.router.navigate(['/roasted-coffee-batch/select-order-list'], navigationExtras);
-        // } else {
-        //     this.router.navigate(['/roasted-coffee-batch/select-order-list']);
-        // }
-    }
-
-    setOrder(id: string) {
+    setOrder(id: number) {
         this.showOrder = false;
         if (id) {
             this.ordId = id;
+            this.batchForm.get('order_id').setValue(id);
             this.getOrderDetails();
         }
     }
