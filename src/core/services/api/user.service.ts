@@ -552,13 +552,8 @@ export class UserService extends ApiService {
         return this.http.post(this.orgPostUrl, data);
     }
 
-    getAvailableEstateList(roasterId: any, estateId: any): Observable<any> {
-        const data = {
-            api_call: '/ro/' + roasterId + '/estates/' + estateId,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+    getAvailableEstateList(estateId: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `estates/${estateId}`);
     }
 
     getUserPermissionPromise(roasterId: any) {
@@ -726,40 +721,20 @@ export class UserService extends ApiService {
         return this.post(this.postUrl, `general/certificate-types`);
     }
 
-    updateRoastedBatchDetail(roaster_id: any, id: any, body: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasted-batches/${id}`,
-            token: this.authService.token,
-            data: body,
-            method: 'PUT',
-        };
-        return this.http.put(this.orgPutUrl, data);
-    }
-    getRoastedBatchDetail(roaster_id: any, id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasted-batches/${id}`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.orgPostUrl, data);
+    updateRoastedBatchDetail(id: number, body: any): Observable<any> {
+        return this.putWithOrg(this.orgPutUrl, `roasted-batches/${id}`, 'PUT', body);
     }
 
-    addRoastedBatches(roaster_id: any, body: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasted-batches`,
-            token: this.authService.token,
-            data: body,
-            method: 'POST',
-        };
-        return this.http.post(this.orgPostUrl, data);
+    getRoastedBatchDetail(id: number): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasted-batches/${id}`);
     }
-    getRoasterFlavourProfile(roaster_id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/flavour-profile`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    addRoastedBatches(body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasted-batches`, 'POST', body);
+    }
+
+    getRoasterFlavourProfile(): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `flavour-profile`);
     }
 
     getPageDetails(roaster_id: any, slug: any) {

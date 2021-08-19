@@ -83,7 +83,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
     }
 
     getEstate(estateId) {
-        this.userSrv.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
+        this.userSrv.getAvailableEstateList(estateId).subscribe((res: any) => {
             if (res.success) {
                 this.companyImg = res.result.company_image_thumbnail_url;
                 this.rating = res.result.rating;

@@ -9,11 +9,11 @@
             <div class="left-container">
                 <div class="row mt-4">
                     <div class="col-12">
-                        <div *ngIf="!batchDetails" class="primary_txt mb-1">
+                        <div *ngIf="!batchId" class="primary_txt mb-1">
                             {{ 'create_roasted_batch' | translate }}
                         </div>
-                        <div *ngIf="batchDetails">
-                            <div class="fnt-500 mb-1">{{ 'batch' | translate }} # {{ batchDetails.id }}</div>
+                        <div *ngIf="batchId">
+                            <div class="fnt-500 mb-1">{{ 'batch' | translate }} # {{ batchId }}</div>
                             <div class="primary_txt mb-1">{{ batchForm.controls['roast_batch_name'].value }}</div>
                         </div>
                     </div>
@@ -246,24 +246,24 @@
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-12 col-lg-10 d-flex flex-column">
-                                <p-dropdown
-                                    #myDropdown
+                                <p-multiSelect
                                     [options]="roasterFlavourProfile"
-                                    (onChange)="addLangProfile($event)"
-                                    styleClass="p-descriptors-dropdown"
-                                    placeholder="Add Descriptors"
-                                    optionLabel="name"
-                                    [filter]="true"
-                                    filterBy="name"
+                                    [(ngModel)]="flavourProfile"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    dataKey="id"
+                                    scrollHeight="225px"
                                     dropdownIcon="pi pi-plus"
+                                    placeholder="Add Descriptors"
+                                    styleClass="p-descriptors-dropdown"
                                 >
-                                    <ng-template pTemplate="selectedItem">Add Descriptors</ng-template>
-                                </p-dropdown>
+                                    <ng-template let-value pTemplate="selectedItems">
+                                        <div>Add Descriptors</div>
+                                    </ng-template>
+                                </p-multiSelect>
                                 <p-chips
-                                    [(ngModel)]="langChips"
+                                    [(ngModel)]="flavourProfile"
                                     [ngModelOptions]="{ standalone: true }"
                                     field="name"
-                                    addOnBlur
                                     [allowDuplicate]="false"
                                     styleClass="p-descriptors-chips"
                                 >

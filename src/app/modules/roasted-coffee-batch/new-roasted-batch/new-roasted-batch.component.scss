@@ -314,18 +314,18 @@
     }
 }
 
-::ng-deep .p-dropdown.p-descriptors-dropdown {
-    border: solid 1px #747588;
+::ng-deep .p-multiselect.p-descriptors-dropdown {
+    border: solid 1px $muted-text-color;
     flex-direction: row-reverse;
 
-    .p-dropdown-label {
+    .p-multiselect-label {
         padding: 0.5rem 0.75rem 0.5rem 0;
-        color: #232334;
+        color: $general-text-color;
         font-weight: bold;
     }
 
-    .p-dropdown-trigger-icon {
-        color: #232334;
+    .p-multiselect-trigger-icon {
+        color: $general-text-color;
     }
 }
 

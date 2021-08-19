@@ -91,7 +91,7 @@ export class SourcingService {
 
     // Estate detail apis
     estateDetailList() {
-        this.userService.getAvailableEstateList(this.roasterId, this.estateId).subscribe((res: any) => {
+        this.userService.getAvailableEstateList(this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.estate = res.result;
             }

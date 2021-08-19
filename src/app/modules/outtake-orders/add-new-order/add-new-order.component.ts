@@ -174,8 +174,8 @@ export class AddNewOrderComponent implements OnInit {
         }
     }
 
-    getRatingData(value: any) {
-        this.userService.getAvailableEstateList(this.roasterId, value).subscribe((data) => {
+    getRatingData(estateId: number) {
+        this.userService.getAvailableEstateList(estateId).subscribe((data) => {
             if (data.success) {
                 this.rating = data.result.rating;
             } else {
