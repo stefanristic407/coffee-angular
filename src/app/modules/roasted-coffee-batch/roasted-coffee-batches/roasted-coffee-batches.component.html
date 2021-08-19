@@ -113,13 +113,11 @@
     <div class="table-container userTable mt-md-1 mt-2 mb-2 pt-0 roastedCoffeeTable">
         <p-table
             #myTable
-            [class.table-mobile]="sharedService.isMobileView"
             [value]="tableValue"
             [columns]="tableColumns"
             [(selection)]="selectedProfiles"
             dataKey="id"
             [resizableColumns]="true"
-            styleClass="ui-table-customers"
             [showCurrentPageReport]="false"
             [paginator]="true"
             [rows]="10"
@@ -128,7 +126,8 @@
             (onLazyLoad)="getData($event)"
             [totalRecords]="totalCount"
             selectionMode="multiple"
-            [responsive]="sharedService.isMobileView"
+            [responsive]="true"
+            styleClass="mobile-card-view"
         >
             <ng-template pTemplate="header" let-columns>
                 <tr class="d-none d-sm-none d-md-table-row">

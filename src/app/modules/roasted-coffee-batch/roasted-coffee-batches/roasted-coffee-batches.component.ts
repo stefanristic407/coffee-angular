@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, ResizeService, RoasterserviceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -9,14 +9,14 @@ import { SharedServiceService } from '@app/shared/services/shared-service.servic
 import { MenuItem } from 'primeng/api';
 import { ConfirmComponent } from '@shared';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-roasted-coffee-batches',
     templateUrl: './roasted-coffee-batches.component.html',
     styleUrls: ['./roasted-coffee-batches.component.scss'],
 })
-export class RoastedCoffeeBatchesComponent implements OnInit {
-    appLanguage?: any;
+export class RoastedCoffeeBatchesComponent extends ResizeableComponent implements OnInit {
     roasterId: number;
     batchId: string | number | boolean;
     profileArray: any = [];
@@ -34,19 +34,20 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         { label: 'Inventory', routerLink: '/' },
         { label: 'Roasted coffee batches' },
     ];
-    isLoadingRoastedBatches = false;
+    isLoadingRoastedBatches = true;
 
     constructor(
         public router: Router,
         public cookieService: CookieService,
         private roasterService: RoasterserviceService,
         private toastrService: ToastrService,
-        public globals: GlobalsService,
         private fb: FormBuilder,
         public sharedService: SharedServiceService,
         private dialogService: DialogService,
         private authService: AuthService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterId = this.authService.getOrgId();
     }
 
@@ -55,7 +56,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
-        this.appLanguage = this.globals.languageJson;
         this.loadFilterValues();
         this.tableColumns = [
             {
