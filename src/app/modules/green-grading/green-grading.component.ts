@@ -15,7 +15,7 @@ export class GreenGradingComponent implements OnInit {
     ngOnInit(): void {
         // Breadcrumb
         this.items = [
-            { label: this.translateService.instant('home'), routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.translateService.instant('home'), routerLink: '/' },
             { label: this.translateService.instant('menu_sourcing') },
             { label: this.translateService.instant('quality_control') },
         ];

@@ -55,7 +55,7 @@ export class AssignOrdersComponent implements OnInit {
 
     ngOnInit(): void {
         this.breadCrumbItems = [
-            { label: this.translateService.instant('home'), routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.translateService.instant('home'), routerLink: '/' },
             { label: this.translateService.instant('menu_sourcing') },
             { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
             { label: this.translateService.instant('assign_orders') },
