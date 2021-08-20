@@ -81,7 +81,7 @@
     </tr>
 </table>
 
-<p class="pb-md-2 mb-0 mt-5 mt-md-3">
+<p *ngIf="harvestId" class="pb-md-2 mb-0 mt-5 mt-md-3">
     <a class="navigation-link" [routerLink]="['/sourcing/coffee-details', harvestId]">{{
         'view_availability_details' | translate
     }}</a>

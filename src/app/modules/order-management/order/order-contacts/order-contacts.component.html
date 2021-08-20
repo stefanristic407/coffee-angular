@@ -15,26 +15,26 @@
             *ngIf="order"
             [companyName]="roaster?.name"
             [rating]="roaster?.rating"
-            [companyImageThumbnailUrl]="roaster?.company_image_thumbnail_url"
+            [companyImageThumbnailUrl]="roaster?.companyImageThumbnailUrl"
             [orgType]="orgType"
             [orderId]="order?.id"
-            [userId]="roaster?.admin_id"
+            [userId]="roaster?.adminId"
             [estateId]="roaster?.id"
         ></app-roaster-details>
 
         <div class="d-flex flex-column mt-3 fnt-14" *ngIf="orgType === OrgType.ESTATE">
             <div class="d-flex border-top py-3">
                 <div class="w-50 fnt-500 text-clr588">{{ 'company_number' | translate }}&nbsp;:</div>
-                <div class="w-50 fnt-600 text-clr334">{{ roaster?.company_number }}</div>
+                <div class="w-50 fnt-600 text-clr334">{{ roaster?.companyNumber }}</div>
             </div>
             <div class="d-flex border-top py-3">
                 <div class="w-50 fnt-500 text-clr588">{{ 'belongs_to' | translate }}&nbsp;:</div>
-                <div class="w-50 fnt-600 text-clr334">{{ roaster?.belongs_to }}</div>
+                <div class="w-50 fnt-600 text-clr334">{{ roaster?.belongsTo }}</div>
             </div>
             <div class="d-flex border-top py-3">
                 <div class="w-50 fnt-500 text-clr588">{{ 'address' | translate }}&nbsp;:</div>
                 <div class="w-50 fnt-600 text-clr334">
-                    {{ roaster?.address_line1 }}, {{ roaster?.address_line2 }}, {{ roaster?.zipcode }} -
+                    {{ roaster?.addressLine1 }}, {{ roaster?.addressLine2 }}, {{ roaster?.zipcode }} -
                     {{ roaster?.country | country }}
                 </div>
             </div>

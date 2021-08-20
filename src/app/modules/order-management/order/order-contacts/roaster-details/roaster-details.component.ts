@@ -28,7 +28,7 @@ export class RoasterDetailsComponent {
         });
     }
 
-    routeToEstateProfile() {
-        this.router.navigate([`profile-creation/es/${this.estateId}`]);
+    routeToOrgProfile() {
+        this.router.navigate([`profile-creation/${this.orgType}/${this.estateId}`]);
     }
 }

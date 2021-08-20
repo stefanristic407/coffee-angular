@@ -15,9 +15,9 @@
                                     (click)="routeToEstateProfile()"
                                     [size]="(isMobile$ | async) ? 90 : 54"
                                     [src]="
-                                        sourcing.estate?.company_image_thumbnail_url
-                                            ? sourcing.estate?.company_image_thumbnail_url
-                                            : sourcing.estate?.sourcing_image_url
+                                        sourcing.estate?.companyImageThumbnailUrl
+                                            ? sourcing.estate?.companyImageThumbnailUrl
+                                            : sourcing.estate?.sourcingImageUrl
                                     "
                                     [name]="sourcing.estate?.name"
                                 ></app-avatar>
@@ -59,8 +59,8 @@
 
                 <div class="banner-img br-2 order-1 order-md-2 mt-3 mx-n3 mx-md-0">
                     <img
-                        *ngIf="sourcing.estate?.banner_url"
-                        [src]="sourcing.estate?.banner_url"
+                        *ngIf="sourcing.estate?.bannerUrl"
+                        [src]="sourcing.estate?.bannerUrl"
                         alt="Estate"
                         class="br-2"
                     />

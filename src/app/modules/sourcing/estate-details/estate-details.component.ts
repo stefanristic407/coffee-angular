@@ -57,9 +57,9 @@ export class EstateDetailsComponent extends ResizeableComponent implements OnIni
     }
 
     chatWithEstate() {
-        if (this.sourcing.estate.admin_id) {
+        if (this.sourcing.estate.adminId) {
             this.chatSrv.openChatThread({
-                user_id: +this.sourcing.estate.admin_id,
+                user_id: +this.sourcing.estate.adminId,
                 org_type: OrganizationType.ESTATE,
                 org_id: +this.sourcing.estateId,
             });

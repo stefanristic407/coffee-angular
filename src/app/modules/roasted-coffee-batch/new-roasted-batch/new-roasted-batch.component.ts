@@ -200,15 +200,15 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     }
 
     getRatingData(estateId: number) {
-        this.organizationService
-            .getProfile(estateId, OrganizationType.ESTATE)
-            .subscribe((res: ApiResponse<OrganizationDetails>) => {
-                if (res.success) {
-                    this.rating = res.result.rating;
+        this.organizationService.getProfile(estateId, OrganizationType.ESTATE).subscribe({
+            next: (result) => {
+                if (result) {
+                    this.rating = result.rating;
                 } else {
                     this.rating = 0.0;
                 }
-            });
+            },
+        });
     }
 
     getRoastedBatchStory() {

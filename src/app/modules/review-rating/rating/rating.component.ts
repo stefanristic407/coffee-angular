@@ -94,16 +94,16 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
     }
 
     getOrganization() {
-        this.organizationService
-            .getProfile(this.orgId, this.orgType)
-            .subscribe((res: ApiResponse<OrganizationDetails>) => {
-                if (res.success) {
-                    this.companyImg = res.result.company_image_thumbnail_url;
-                    this.rating = res.result.rating;
-                    this.country = res.result.country;
-                    this.adminId = res.result.admin_id;
+        this.organizationService.getGeneralProfile(this.orgId, this.orgType).subscribe({
+            next: (result) => {
+                if (result) {
+                    this.companyImg = result.companyImageThumbnailUrl;
+                    this.rating = result.rating;
+                    this.country = result.country;
+                    this.adminId = result.adminId;
                 }
-            });
+            },
+        });
     }
 
     getReview() {

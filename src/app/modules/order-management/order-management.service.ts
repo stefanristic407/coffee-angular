@@ -22,7 +22,6 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { OrganizationType, OrderType, OrderStatus, ShippingStatus } from '@enums';
 import {
     AvailabilityService,
-    BrandProfileService,
     GeneralCuppingService,
     OrderService,
     PurchaseService,
@@ -35,6 +34,7 @@ import {
     FileService,
     RoasterOrdersService,
     ShippingDetailsService,
+    OrganizationService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -70,7 +70,6 @@ export class OrderManagementService {
     constructor(
         protected cookieSrv: CookieService,
         private availabilitySrv: AvailabilityService,
-        private brandProfileSrv: BrandProfileService,
         private cuppingSrv: GeneralCuppingService,
         private orderSrv: OrderService,
         private purchaseSrv: PurchaseService,
@@ -83,6 +82,7 @@ export class OrderManagementService {
         private fileSrv: FileService,
         private roasterOrdersSrv: RoasterOrdersService,
         private shippingDetailsSrv: ShippingDetailsService,
+        private organizationService: OrganizationService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -382,15 +382,15 @@ export class OrderManagementService {
     }
 
     private loadEstateDetails(id: number): void {
-        this.brandProfileSrv.getEstateProfile(id).subscribe({
-            next: (result) => this.estateDetailsSubject.next(result),
+        this.organizationService.getProfile(id, OrganizationType.ESTATE).subscribe({
+            next: (result) => this.estateDetailsSubject.next(result as OrganizationDetails),
         });
     }
 
     private loadMicroRoasterDetails(id: number): void {
         if (id) {
-            this.brandProfileSrv.getMrProfile(id).subscribe({
-                next: (result) => this.microRoasterDetailsSubject.next(result),
+            this.organizationService.getProfile(id, OrganizationType.MICRO_ROASTER).subscribe({
+                next: (result) => this.microRoasterDetailsSubject.next(result as OrganizationDetails),
             });
         }
     }

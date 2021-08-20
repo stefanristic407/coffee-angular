@@ -11,7 +11,7 @@
                             {{ 'founded_in' | translate }}
                         </label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-1">
-                            {{ profileCreationService.organizationProfile?.founded_on }}
+                            {{ profileCreationService.organizationProfile?.foundedOn }}
                         </p>
                     </div>
 
@@ -20,13 +20,23 @@
                             {{ 'owner_name' | translate }}
                         </label>
                         <p class="fnt-14 fnt-600 text-clr334 mb-1">
-                            {{ profileCreationService.organizationProfile?.owner_name }}
+                            {{ profileCreationService.organizationProfile?.ownerName }}
                         </p>
                     </div>
                 </div>
 
                 <div
-                    class="row border-md-main border-md-none br-4 mb-3 mb-md-45 m-0 mt-3 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
+                    class="
+                        row
+                        border-md-main border-md-none
+                        br-4
+                        mb-3 mb-md-45
+                        m-0
+                        mt-3 mt-md-0
+                        p-0 p-md-0
+                        mr-md-0
+                        ml-md-0
+                    "
                 >
                     <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
                         <label class="fnt-12 fnt-md-14" for="summary">Estate Summary </label>
@@ -56,8 +66,8 @@
                             <img src="assets/images/total_farm_area.svg" />
                             <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Total from area</p>
                             <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
-                                {{ profileCreationService.organizationProfile?.total_area }}
-                                {{ profileCreationService.organizationProfile?.total_area_unit }}
+                                {{ profileCreationService.organizationProfile?.totalArea }}
+                                {{ profileCreationService.organizationProfile?.totalAreaUnit }}
                             </p>
                         </div>
                     </div>
@@ -66,8 +76,8 @@
                             <img src="assets/images/total_coffee_area.svg" />
                             <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Total coffee area</p>
                             <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
-                                {{ profileCreationService.organizationProfile?.coffee_area }}
-                                {{ profileCreationService.organizationProfile?.coffee_area_unit }}
+                                {{ profileCreationService.organizationProfile?.coffeeArea }}
+                                {{ profileCreationService.organizationProfile?.coffeeAreaUnit }}
                             </p>
                         </div>
                     </div>
@@ -76,8 +86,8 @@
                             <img src="assets/images/altitude_range.svg" />
                             <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Altitude range</p>
                             <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
-                                {{ profileCreationService.organizationProfile?.altitude_start }} -
-                                {{ profileCreationService.organizationProfile?.altitude_end }}
+                                {{ profileCreationService.organizationProfile?.altitudeStart }} -
+                                {{ profileCreationService.organizationProfile?.altitudeEnd }}
                                 m
                             </p>
                         </div>
@@ -87,8 +97,8 @@
                             <img src="assets/images/harvested_year.svg" />
                             <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Harvested year</p>
                             <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
-                                {{ profileCreationService.organizationProfile?.crop_year_start | month: 'MMMM' }} -
-                                {{ profileCreationService.organizationProfile?.crop_year_end | month: 'MMMM' }}
+                                {{ profileCreationService.organizationProfile?.cropYearStart | month: 'MMMM' }} -
+                                {{ profileCreationService.organizationProfile?.cropYearEnd | month: 'MMMM' }}
                             </p>
                         </div>
                     </div>
@@ -104,8 +114,8 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.total_production }}
-                                    {{ profileCreationService.organizationProfile?.total_production_unit }}
+                                    {{ profileCreationService.organizationProfile?.totalProduction }}
+                                    {{ profileCreationService.organizationProfile?.totalProductionUnit }}
                                 </p>
                             </div>
                         </div>
@@ -115,8 +125,8 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.coffee_production }}
-                                    {{ profileCreationService.organizationProfile?.coffee_production_unit }}
+                                    {{ profileCreationService.organizationProfile?.coffeeProduction }}
+                                    {{ profileCreationService.organizationProfile?.coffeeProductionUnit }}
                                 </p>
                             </div>
                         </div>
@@ -126,7 +136,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.agronomist_access }}
+                                    {{ profileCreationService.organizationProfile?.agronomistAccess }}
                                 </p>
                             </div>
                         </div>
@@ -136,7 +146,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.wild_animals }}
+                                    {{ profileCreationService.organizationProfile?.wildAnimals }}
                                 </p>
                             </div>
                         </div>
@@ -146,7 +156,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.family_member_count }}
+                                    {{ profileCreationService.organizationProfile?.familyMemberCount }}
                                 </p>
                             </div>
                         </div>
@@ -158,7 +168,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.estate_family_member_count }}
+                                    {{ profileCreationService.organizationProfile?.estateFamilyMemberCount }}
                                 </p>
                             </div>
                         </div>
@@ -173,7 +183,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.company_name }}
+                                    {{ profileCreationService.organizationProfile?.companyName }}
                                 </p>
                             </div>
                         </div>
@@ -185,7 +195,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.company_number }}
+                                    {{ profileCreationService.organizationProfile?.companyNumber }}
                                 </p>
                             </div>
                         </div>
@@ -195,7 +205,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.legal_entity }}
+                                    {{ profileCreationService.organizationProfile?.legalEntity }}
                                 </p>
                             </div>
                         </div>
@@ -205,7 +215,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.belongs_to }}
+                                    {{ profileCreationService.organizationProfile?.belongsTo }}
                                 </p>
                             </div>
                         </div>
@@ -217,7 +227,7 @@
                             </div>
                             <div class="col-6 p-0">
                                 <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
-                                    {{ profileCreationService.organizationProfile?.cluster_cop_name }}
+                                    {{ profileCreationService.organizationProfile?.clusterCopName }}
                                 </p>
                             </div>
                         </div>
@@ -316,7 +326,7 @@
                     <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
                         <div class="w-50 border-right">
                             <p class="m-0 fnt-24 fnt-md-32 fnt-bold text-clr334">
-                                {{ profileCreationService.organizationProfile?.total_employees }}
+                                {{ profileCreationService.organizationProfile?.totalEmployees }}
                             </p>
                             <p class="mt-2 mb-0 fnt-14 fnt-md-18 fnt-600 text-clr588">
                                 {{ 'total_employees' | translate }}
@@ -334,8 +344,8 @@
                 <div class="w-100">
                     <div
                         *ngIf="
-                            this.profileCreationService.organizationProfile?.part_time_employee_count == null &&
-                            this.profileCreationService.organizationProfile?.full_time_employee_count == null
+                            this.profileCreationService.organizationProfile?.partTimeEmployeeCount == null &&
+                            this.profileCreationService.organizationProfile?.fullTimeEmployeeCount == null
                         "
                     >
                         <p class="fnt-18 fnt-bold text-center">{{ 'no_data_display' | translate }}</p>

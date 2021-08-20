@@ -11,7 +11,7 @@ import {
 } from '@services';
 import * as _ from 'underscore';
 import { OrganizationType, QuantityUnit } from '@enums';
-import { ApiResponse, OrganizationDetails } from '@models';
+import { ApiResponse, EstateOrganizationProfile } from '@models';
 import { DropdownItem } from 'primeng/dropdown';
 
 @Injectable({
@@ -45,7 +45,7 @@ export class SourcingService {
 
     // Details of an estate
     estateId: number;
-    estate: any;
+    estate: EstateOrganizationProfile;
     estateCertify: any;
     estateHomepage: any;
     estateAboutUs: any;
@@ -100,13 +100,14 @@ export class SourcingService {
 
     // Estate detail apis
     estateDetailList() {
-        this.organizationService
-            .getProfile(this.estateId, OrganizationType.ESTATE)
-            .subscribe((res: ApiResponse<OrganizationDetails>) => {
-                if (res.success) {
-                    this.estate = res.result;
+        this.organizationService.getProfile(this.estateId, OrganizationType.ESTATE).subscribe({
+            next: (result) => {
+                if (result) {
+                    this.estate = result as EstateOrganizationProfile;
+                    console.log(this.estate);
                 }
-            });
+            },
+        });
     }
 
     getEachEstateCertify() {

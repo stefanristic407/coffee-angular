@@ -14,9 +14,9 @@
                         <app-avatar
                             [size]="(isMobile$ | async) ? 48 : 54"
                             [src]="
-                                sourcing.estate?.company_image_thumbnail_url
-                                    ? sourcing.estate?.company_image_thumbnail_url
-                                    : sourcing.estate?.sourcing_image_url
+                                sourcing.estate?.companyImageThumbnailUrl
+                                    ? sourcing.estate?.companyImageThumbnailUrl
+                                    : sourcing.estate?.sourcingImageUrl
                             "
                             [name]="sourcing.estate?.name"
                         ></app-avatar>
