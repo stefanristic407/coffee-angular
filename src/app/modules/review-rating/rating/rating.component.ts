@@ -3,9 +3,18 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, ResizeService, RoasterserviceService, UserService } from '@services';
+import {
+    AuthService,
+    ChatHandlerService,
+    GlobalsService,
+    OrganizationService,
+    ResizeService,
+    RoasterserviceService,
+    UserService,
+} from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
 import { ResizeableComponent } from '@base-components';
+import { ApiResponse, OrganizationDetails } from '@models';
 
 @Component({
     selector: 'app-rating',
@@ -21,6 +30,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
     orderStatus: OrderStatus;
     orgName: string;
     companyImg: string;
+    adminId: number;
     rating: number;
     country: string;
     submitted = false;
@@ -38,6 +48,8 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
         private authService: AuthService,
+        private chatService: ChatHandlerService,
+        private organizationService: OrganizationService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
@@ -68,38 +80,30 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
                     this.orgName = res.result.estate_name;
                     this.orderType = res.result.order_type;
                     this.orderStatus = res.result.status;
-                    this.getEstate(res.result.estate_id);
-                } else if (this.orgType === OrganizationType.MICRO_ROASTER) {
+                } else {
                     this.orgId = res.result.micro_roaster_id;
                     this.orgName = res.result.micro_roaster_name;
                     this.orderType = res.result.type;
                     this.orderStatus = res.result.status;
-                    this.getMicroRoaster(res.result.micro_roaster_id);
                 }
+                this.getOrganization();
             } else {
                 this.router.navigateByUrl('/');
             }
         });
     }
 
-    getEstate(estateId) {
-        this.userSrv.getAvailableEstateList(estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.companyImg = res.result.company_image_thumbnail_url;
-                this.rating = res.result.rating;
-                this.country = res.result.country;
-            }
-        });
-    }
-
-    getMicroRoaster(estateId) {
-        this.userSrv.getMicroDetails(this.roasterId, estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.companyImg = res.result.company_image_thumbnail_url;
-                this.rating = res.result.rating;
-                this.country = res.result.country;
-            }
-        });
+    getOrganization() {
+        this.organizationService
+            .getGeneralProfile(this.orgId, this.orgType)
+            .subscribe((res: ApiResponse<OrganizationDetails>) => {
+                if (res.success) {
+                    this.companyImg = res.result.company_image_thumbnail_url;
+                    this.rating = res.result.rating;
+                    this.country = res.result.country;
+                    this.adminId = res.result.admin_id;
+                }
+            });
     }
 
     getReview() {
@@ -146,5 +150,13 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         } else {
             this.infoForm.markAllAsTouched();
         }
+    }
+
+    openChat() {
+        this.chatService.openChatThread({
+            user_id: this.adminId,
+            org_type: this.orgType,
+            org_id: this.orgId,
+        });
     }
 }

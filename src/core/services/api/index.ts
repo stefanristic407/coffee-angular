@@ -20,6 +20,7 @@ export * from './idm.service';
 export * from './invite-friends.service';
 export * from './lots.service';
 export * from './order.service';
+export * from './organization.service';
 export * from './origin.service';
 export * from './purchase.service';
 export * from './reviews.service';
