@@ -8,13 +8,14 @@ import {
     AuthService,
     CoffeeStoryService,
     DownloadService,
+    OrganizationService,
     PurchaseService,
     RoasterserviceService,
     UserService,
 } from '@services';
 import { SelectOrderTableComponent } from '../select-order-table/select-order-table.component';
 import { ConfirmComponent } from '@shared';
-import { ApiResponse, Download, OrderDetails } from '@models';
+import { ApiResponse, Download, OrderDetails, OrganizationDetails } from '@models';
 import { environment } from '@env/environment';
 import { maxValidator, minValidator } from '@utils';
 import { Subject } from 'rxjs';
@@ -65,12 +66,13 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         private dialogSrv: DialogService,
         private downloadService: DownloadService,
         private fb: FormBuilder,
+        private organizationService: OrganizationService,
+        private purchaseService: PurchaseService,
         private roasterService: RoasterserviceService,
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
         private userService: UserService,
-        private purchaseService: PurchaseService,
     ) {
         super();
     }
@@ -198,13 +200,15 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     }
 
     getRatingData(estateId: number) {
-        this.userService.getAvailableEstateList(estateId).subscribe((data) => {
-            if (data.success) {
-                this.rating = data.result.rating;
-            } else {
-                this.rating = 0.0;
-            }
-        });
+        this.organizationService
+            .getProfile(estateId, OrganizationType.ESTATE)
+            .subscribe((res: ApiResponse<OrganizationDetails>) => {
+                if (res.success) {
+                    this.rating = res.result.rating;
+                } else {
+                    this.rating = 0.0;
+                }
+            });
     }
 
     getRoastedBatchStory() {

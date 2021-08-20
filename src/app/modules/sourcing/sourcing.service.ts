@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { GlobalsService, OriginService, CommonService, AuthService, VarietyService, UserService } from '@services';
+import {
+    GlobalsService,
+    OriginService,
+    CommonService,
+    AuthService,
+    VarietyService,
+    UserService,
+    OrganizationService,
+} from '@services';
 import * as _ from 'underscore';
 import { OrganizationType, QuantityUnit } from '@enums';
-import { ApiResponse } from '@models';
+import { ApiResponse, OrganizationDetails } from '@models';
 import { DropdownItem } from 'primeng/dropdown';
 
 @Injectable({
@@ -61,12 +69,13 @@ export class SourcingService {
     lot: any;
 
     constructor(
-        public userService: UserService,
-        public globals: GlobalsService,
-        private commonService: CommonService,
-        private originService: OriginService,
         private authService: AuthService,
+        private commonService: CommonService,
+        private organizationService: OrganizationService,
+        private originService: OriginService,
         private varietyService: VarietyService,
+        public globals: GlobalsService,
+        public userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.getEstateCertificates();
@@ -91,11 +100,13 @@ export class SourcingService {
 
     // Estate detail apis
     estateDetailList() {
-        this.userService.getAvailableEstateList(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.estate = res.result;
-            }
-        });
+        this.organizationService
+            .getProfile(this.estateId, OrganizationType.ESTATE)
+            .subscribe((res: ApiResponse<OrganizationDetails>) => {
+                if (res.success) {
+                    this.estate = res.result;
+                }
+            });
     }
 
     getEachEstateCertify() {

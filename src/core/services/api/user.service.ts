@@ -552,10 +552,6 @@ export class UserService extends ApiService {
         return this.http.post(this.orgPostUrl, data);
     }
 
-    getAvailableEstateList(estateId: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `estates/${estateId}`);
-    }
-
     getUserPermissionPromise(roasterId: any) {
         const data = {
             api_call: '/ro/' + roasterId + '/users/permissions',
@@ -638,12 +634,6 @@ export class UserService extends ApiService {
     // API Function Name :  Flavour Profile
     // API Description: This API call helps get list of flavour profile.
     getFlavourProfile() {
-        // const data = {
-        //     api_call: '/general/flavour-profile',
-        //     method: 'GET',
-        //     token: this.authService.token,
-        // };
-        // return this.http.post(this.orgPostUrl, data);
         return this.post(this.postUrl, `general/flavour-profile`);
     }
 

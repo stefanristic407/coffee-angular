@@ -14,11 +14,6 @@ export class OrganizationService extends ApiService {
         super(http, authService);
     }
 
-    // General endpoint to view the details of company
-    getGeneralProfile(orgId: number, orgType: OrganizationType): Observable<ApiResponse<OrganizationDetails>> {
-        return this.post(this.postUrl, `general/${orgType}/${orgId}/profile`, 'GET');
-    }
-
     // Return the organization details
     getProfile(orgId: number, orgType: OrganizationType): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `${this.getOrgEndpoint(orgType)}/${orgId}`, 'GET');
