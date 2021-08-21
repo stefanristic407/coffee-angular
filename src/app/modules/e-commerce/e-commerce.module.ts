@@ -7,6 +7,7 @@ import { ECommerceRoutingModule } from './e-commerce-routing.module';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { VariantDetailsComponent } from './variant-details/variant-details.component';
+import { ProductImageComponent } from './product-image/product-image.component';
 import { OtherProductDetailsComponent } from './other-product-details/other-product-details.component';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { OtherProductDetailsComponent } from './other-product-details/other-prod
         ProductListComponent,
         ProductDetailsComponent,
         VariantDetailsComponent,
+        ProductImageComponent,
         OtherProductDetailsComponent,
     ],
     imports: [CommonModule, FormsModule, SharedModule, ECommerceRoutingModule],

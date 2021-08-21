@@ -289,110 +289,37 @@
                         </span>
                     </div>
                     <p-divider type="dashed" class="col-12 p-0" styleClass="mt-3 mb-0 d-md-none"></p-divider>
-                    <div class="w-100 mt-4 mt-lg-45 d-flex flex-wrap">
+                    <div class="w-100 mt-4 mt-lg-45">
                         <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
                             {{ 'add_images' | translate }}
                         </div>
                         <div class="row gutter-16 flex-nowrap overflow-auto pb-2 pb-md-25 pb-lg-3">
-                            <div class="col">
+                            <div class="col sewn-form-field mb-0">
                                 <label class="text-nowrap"
                                     >{{ ((isMobile$ | async) ? 'feature_image' : 'upload_feature_image') | translate
                                     }}<span class="star">*</span></label
                                 >
-                                <div
-                                    *ngIf="!currentForm?.value?.fileDetails"
-                                    class="addImageContainer d-flex align-items-center justify-content-center imagesDiv"
+                                <app-product-image
+                                    formControlName="featured_image_id"
+                                    accept="image/png, image/jpeg"
+                                    (ngModelChange)="uploadDisabled = false"
+                                ></app-product-image>
+                                <small
+                                    *ngIf="currentForm.controls.featured_image_id.errors?.required"
+                                    class="p-error"
+                                    >{{ 'required' | translate }}</small
                                 >
-                                    <label class="d-flex align-items-center justify-content-center pointer-item">
-                                        <input
-                                            type="file"
-                                            accept="image/png, image/jpeg"
-                                            style="display: none"
-                                            #featureImage
-                                            (change)="handleRoasterFile($event, 0, 'featured_image')"
-                                        />
-                                        <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                            <img src="assets/images/upload_icon.svg" />
-                                            <span
-                                                class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1"
-                                                >{{ 'drag_drop_image' | translate }}</span
-                                            >
-                                        </div>
-                                    </label>
-                                </div>
-
-                                <div *ngIf="currentForm?.value?.fileDetails" class="addImageContainer">
-                                    <img [src]="currentForm?.value?.fileDetails?.image_url" alt="" class="uploadImg" />
-                                    <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
-                                        <span class="ellipsis">
-                                            {{
-                                                (currentForm?.value?.fileDetails &&
-                                                    currentForm?.value?.fileDetails[0]?.name) ||
-                                                    trackFileName(currentForm?.value?.fileDetails?.image_url)
-                                            }}
-                                        </span>
-                                        <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
-                                    </div>
-                                    <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                                        <ng-template pTemplate>
-                                            <div
-                                                class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                                (click)="deleteImage(0, 'featured_image')"
-                                            >
-                                                Delete
-                                            </div>
-                                        </ng-template>
-                                    </p-overlayPanel>
-                                </div>
                             </div>
                             <div
-                                class="col"
-                                *ngFor="let product_image of currentForm?.value?.product_images; let m = index"
+                                class="col sewn-form-field mb-0"
+                                *ngFor="let productImage of currentForm?.get('product_images').controls"
                             >
                                 <label>{{ 'product_images' | translate }}</label>
-                                <div
-                                    *ngIf="!product_image['fileDetails']"
-                                    class="addImageContainer d-flex align-items-center justify-content-center"
-                                >
-                                    <label class="d-flex align-items-center justify-content-center pointer-item">
-                                        <input
-                                            type="file"
-                                            accept="image/png, image/jpeg"
-                                            style="display: none"
-                                            #featureImage
-                                            (change)="handleRoasterFile($event, m, 'product_image')"
-                                        />
-                                        <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                            <img src="assets/images/upload_icon.svg" />
-                                            <span
-                                                class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1"
-                                                >{{ 'drag_drop_image' | translate }}</span
-                                            >
-                                        </div>
-                                    </label>
-                                </div>
-                                <div *ngIf="product_image['fileDetails']" class="addImageContainer">
-                                    <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
-                                    <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
-                                        <span class="ellipsis">
-                                            {{
-                                                (product_image?.fileDetails && product_image?.fileDetails[0]?.name) ||
-                                                    trackFileName(product_image['fileDetails']['image_url'])
-                                            }}
-                                        </span>
-                                        <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
-                                    </div>
-                                    <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                                        <ng-template pTemplate>
-                                            <div
-                                                class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                                (click)="deleteImage(m, 'product_image')"
-                                            >
-                                                Delete
-                                            </div>
-                                        </ng-template>
-                                    </p-overlayPanel>
-                                </div>
+                                <app-product-image
+                                    [formControl]="productImage"
+                                    accept="image/png, image/jpeg"
+                                    (ngModelChange)="uploadDisabled = false"
+                                ></app-product-image>
                             </div>
                         </div>
                         <button

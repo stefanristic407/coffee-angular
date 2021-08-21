@@ -11,6 +11,12 @@ export function maxWordCountValidator(limit: number): ValidatorFn {
     };
 }
 
+export function fileRequired(): ValidatorFn {
+    return ({ value }: AbstractControl): { [key: string]: boolean } | null => {
+        return value && value.image_url ? null : { required: true };
+    };
+}
+
 export function fileCountValidator(limit: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
         return control.value?.length === limit ? null : { fileCount: true };
