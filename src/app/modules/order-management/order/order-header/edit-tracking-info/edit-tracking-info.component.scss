@@ -1,15 +1,16 @@
 :host {
+    margin-top: 8px;
+    margin-bottom: 8px;
     @media all and (min-width: 768px) {
         margin-top: 10px;
         margin-bottom: 10px;
     }
-
     @media all and (min-width: 992px) {
         margin-top: 32px;
         margin-bottom: 32px;
     }
 
-    .no-text-wrap {
-        white-space: nowrap;
+    .btn-raised {
+        padding: 13px 16px;
     }
 }

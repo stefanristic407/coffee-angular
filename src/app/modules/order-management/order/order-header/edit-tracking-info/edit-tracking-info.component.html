@@ -1,31 +1,43 @@
-<div class="w-100 clearfix d-flex flex-column flex-md-row bg-f0">
+<div class="w-100 clearfix d-flex flex-column flex-lg-row bg-f0">
     <div class="d-flex flex-1 fnt-12 fnt-md-14 fnt-600 text-clr334 align-items-center">
         {{ 'when_ready_to_be_shipped' | translate }}
     </div>
-    <div class="d-flex flex-column flex-md-row mt-3 mt-md-0 flex-1">
-        <input
-            pInputText
-            type="text"
-            class="w-100 mx-md-2 py-1 px-3 br-4 {{ trackingUrl ? 'highlight' : '' }}"
-            placeholder="{{ 'enter_tracking_link' | translate }}"
-            [(ngModel)]="trackingUrl"
-            [disabled]="!editable && !!orderDetails?.shipment_date"
-        />
-        <p-calendar
-            class="mr-md-2 mt-2 mt-md-0 w-100 bg-white"
-            [minDate]="today"
-            [showIcon]="true"
-            dateFormat="dd MM yy"
-            [readonlyInput]="true"
-            [showButtonBar]="true"
-            placeholder="{{ 'select_shipping_date' | translate }}"
-            styleClass="w-100 p-calendar-w-btn br-4 ml-0 export-calendar py-1 {{ shippingDate ? 'highlight' : '' }}"
-            [disabled]="!!orderDetails?.shipment_date"
-            [(ngModel)]="shippingDate"
-        >
-        </p-calendar>
-        <button class="btn-raised px-2 px-lg-4 mt-2 mt-md-0 no-text-wrap" (click)="update()">
-            {{ (!!orderDetails?.shipment_date ? (editable ? 'save' : 'edit') : 'update') | translate }}
-        </button>
+    <div class="row gutter-8 v-gutter-8 mt-3 mt-lg-0 flex-1" [formGroup]="infoForm">
+        <div class="col-12 col-md-5 sewn-form-field mb-0">
+            <input
+                pInputText
+                type="text"
+                class="bg-white"
+                placeholder="{{ 'enter_tracking_link' | translate }}"
+                formControlName="trackingUrl"
+            />
+            <small *ngIf="infoForm.controls.trackingUrl.errors?.required" class="p-error">{{
+                'required' | translate
+            }}</small>
+            <small *ngIf="infoForm.controls.trackingUrl.errors?.url" class="p-error">{{
+                'invalid_url_format' | translate
+            }}</small>
+        </div>
+        <div class="col-12 col-md-5 sewn-form-field mb-0">
+            <p-calendar
+                [minDate]="today"
+                [showIcon]="true"
+                dateFormat="dd MM yy"
+                [showButtonBar]="true"
+                placeholder="{{ 'select_shipping_date' | translate }}"
+                formControlName="shippingDate"
+                styleClass="bg-white {{ !orderDetails?.shipment_date || 'p-calendar-disabled' }}"
+            >
+            </p-calendar>
+            <small *ngIf="infoForm.controls.shippingDate.errors?.required" class="p-error">{{
+                'required' | translate
+            }}</small>
+        </div>
+
+        <div class="col-12 col-md-2">
+            <button class="btn-raised w-100" (click)="update()">
+                {{ (!!orderDetails?.shipment_date ? (editable ? 'save' : 'edit') : 'update') | translate }}
+            </button>
+        </div>
     </div>
 </div>
