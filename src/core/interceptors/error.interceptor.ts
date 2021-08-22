@@ -74,7 +74,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         const errorTexts: string[] = [];
         Object.keys(messages).forEach((key) => {
             const errors = messages[key]
-                .map((value) => this.translateService.instant(VALIDATION_LIST[value]))
+                .map((value) => this.translateService.instant(VALIDATION_LIST[value] || value))
                 .join(' and ');
             errorTexts.push(`${this.translateService.instant(key)} ${errors}.`);
         });
