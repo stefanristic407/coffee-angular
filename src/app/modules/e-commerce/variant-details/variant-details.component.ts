@@ -1,16 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import {
-    AbstractControl,
-    FormArray,
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    ValidatorFn,
-    Validators,
-} from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalsService, ResizeService, FileService, AuthService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { ResizeService, FileService, AuthService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
 import { fileRequired, quantityMinValidator, trackFileName } from '@utils';
@@ -52,14 +43,12 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     uploadDisabled = true;
 
     constructor(
+        private authService: AuthService,
         private fb: FormBuilder,
+        private fileService: FileService,
         private route: ActivatedRoute,
         private toaster: ToastrService,
-        public globals: GlobalsService,
-        private cookieService: CookieService,
-        private fileService: FileService,
         protected resizeService: ResizeService,
-        private authService: AuthService,
     ) {
         super(resizeService);
         this.roasterID = this.authService.getOrgId();
