@@ -184,11 +184,12 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             this.updateCrate(0);
         }
     }
-    loadGrindVariants(grindForm, item, isPublic): void {
+
+    loadGrindVariants(grindForm, items, isPublic): void {
         this.grindVariants = grindForm as FormArray;
-        this.grindVariants.removeAt(0);
-        if (item && item.length > 0) {
-            item.forEach((variant) => {
+        if (items?.length > 0) {
+            this.grindVariants.removeAt(0);
+            items.forEach((variant) => {
                 const formGrind = this.createEmptyGrindVariant(isPublic);
                 this.grindVariantFields.forEach((field) => {
                     formGrind.controls[field].setValue(variant[field]);
@@ -198,6 +199,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             });
         }
     }
+
     addNewWeights(): void {
         this.weights = this.weightForm.get('weights') as FormArray;
         this.weights.push(this.createEmptyWeights());
@@ -210,6 +212,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             this.currentVariantIndex = this.weights.length - 1;
         }, 0);
     }
+
     deleteWeightVariant(index) {
         this.weights = this.weightForm.get('weights') as FormArray;
         const weight = this.weights.controls[index];
@@ -229,6 +232,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             this.weightVariantArray = weightVariantArray;
         }, 200);
     }
+
     addNewGrindVariants(isHide): void {
         this.displayDelete = true;
         this.grindVariants = (this.weightForm.get('weights') as FormArray).controls[this.currentVariantIndex].get(
@@ -236,7 +240,8 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         ) as FormArray;
         this.grindVariants.push(this.createEmptyGrindVariant(!isHide));
     }
-    createEmptyWeights(isPublic?) {
+
+    createEmptyWeights(isPublic: boolean = false): FormGroup {
         const emptyVariantID = '_' + Math.random().toString(36).substr(2, 9);
         const emptyWeight: FormGroup = this.fb.group({
             weight_name: 'weight - 0 lb',
@@ -254,7 +259,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 this.isPublished ? 'IN-STOCK' : 'IN-DRAFT',
                 Validators.compose(isPublic ? [Validators.required] : []),
             ],
-            is_hide: [true],
+            is_hide: [!isPublic],
             is_default_product: [false, Validators.compose(isPublic ? [Validators.required] : [])],
             grind_variants: this.fb.array([this.createEmptyGrindVariant()]),
         });
@@ -263,6 +268,66 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             productImages.push(new FormControl(null));
         }
         return emptyWeight;
+    }
+
+    // Enable validating when publish
+    setValidators() {
+        (this.weightForm.get('weights') as FormArray).controls.forEach((weightForm: FormGroup) => {
+            this.setWeightValidators(weightForm);
+        });
+    }
+
+    // Enable validating when publish
+    clearValidators() {
+        (this.weightForm.get('weights') as FormArray).controls.forEach((weightForm: FormGroup) => {
+            this.clearWeightValidators(weightForm);
+        });
+    }
+
+    // Validate individuel weight form
+    private setWeightValidators(weightForm: FormGroup) {
+        if (weightForm.get('is_hide').value) {
+            this.clearWeightValidators(weightForm);
+        } else {
+            weightForm.get('featured_image_id').setValidators(fileRequired());
+            weightForm.get('weight').setValidators([Validators.required, quantityMinValidator('weight_unit', 0.1)]);
+            weightForm.get('status').setValidators([Validators.required]);
+            weightForm.get('is_default_product').setValidators([Validators.required]);
+            weightForm.updateValueAndValidity();
+            Object.keys(weightForm.controls).forEach((key) => {
+                weightForm.get(key).updateValueAndValidity();
+            });
+
+            const grindVariants = weightForm.get('grind_variants') as FormArray;
+            grindVariants.controls.forEach((variant: FormGroup) => {
+                variant.get('price').setValidators([Validators.required]);
+                variant.get('grind').setValidators([Validators.required]);
+                variant.get('available_quantity').setValidators([Validators.required, Validators.min(1)]);
+                variant.get('sku_number').setValidators([Validators.required]);
+                Object.keys(variant.controls).forEach((key) => {
+                    variant.get(key).updateValueAndValidity();
+                });
+            });
+        }
+    }
+
+    private clearWeightValidators(weightForm: FormGroup) {
+        Object.keys(weightForm.controls).forEach((key) => {
+            weightForm.get(key).clearValidators();
+            weightForm.get(key).updateValueAndValidity();
+        });
+
+        const grindVariants = weightForm.get('grind_variants') as FormArray;
+        grindVariants.controls.forEach((variant: FormGroup) => {
+            Object.keys(variant.controls).forEach((key) => {
+                variant.get(key).clearValidators();
+                variant.get(key).updateValueAndValidity();
+            });
+        });
+    }
+
+    markAllAsTouched() {
+        this.weightForm.markAllAsTouched();
     }
 
     setProductImages(productArray) {
@@ -279,8 +344,8 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         return this.fb.group({
             grind_variant_id: '',
             price: [0, Validators.compose(isPublic ? [Validators.required] : [])],
-            grind: ['', Validators.compose(isPublic ? [Validators.required] : [])],
-            available_quantity: [0, Validators.compose(isPublic ? [Validators.required] : [])],
+            grind: [null, Validators.compose(isPublic ? [Validators.required] : [])],
+            available_quantity: [0, Validators.compose(isPublic ? [Validators.required, Validators.min(1)] : [])],
             available_quantity_type: this.type === 'b2b' ? 'boxes' : 'bags',
             sku_number: ['', Validators.compose(isPublic ? [Validators.required] : [])],
         });
@@ -388,34 +453,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     handleHideProduct() {
-        const weights = this.weightForm.get('weights') as FormArray;
-        const weight = weights.controls[this.currentVariantIndex] as FormGroup;
-        if (weight.get('is_hide').value) {
-            Object.keys(weight.controls).forEach((key) => {
-                weight.get(key).clearValidators();
-            });
-            const grindVariants = weight.get('grind_variants') as FormArray;
-            grindVariants.controls.forEach((variant: FormGroup) => {
-                Object.keys(variant.controls).forEach((key) => {
-                    variant.get(key).clearValidators();
-                });
-                variant.updateValueAndValidity();
-            });
-            weight.updateValueAndValidity();
-        } else {
-            weight.get('featured_image_id').setValidators(Validators.compose([Validators.required]));
-            weight.get('weight').setValidators(Validators.compose([Validators.required]));
-            weight.get('status').setValidators(Validators.compose([Validators.required]));
-            weight.updateValueAndValidity();
-            const grindVariants = weight.get('grind_variants') as FormArray;
-            grindVariants.controls.forEach((variant: FormGroup) => {
-                variant.get('price').setValidators(Validators.compose([Validators.required]));
-                variant.get('grind').setValidators(Validators.compose([Validators.required]));
-                variant.get('available_quantity').setValidators(Validators.compose([Validators.required]));
-                variant.get('sku_number').setValidators(Validators.compose([Validators.required]));
-                variant.updateValueAndValidity();
-            });
-        }
-        console.log(weight);
+        const weight = (this.weightForm.get('weights') as FormArray).controls[this.currentVariantIndex] as FormGroup;
+        this.setWeightValidators(weight);
     }
 }

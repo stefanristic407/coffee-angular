@@ -1,5 +1,6 @@
 import { AbstractControl, ControlContainer, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { LBUNIT } from '@constants';
+import { convertKg } from './common.utils';
 
 export function maxWordCountValidator(limit: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
@@ -68,16 +69,12 @@ export function urlValidator(isHttps: boolean = false): ValidatorFn {
 
 export function quantityMinValidator(unitKey: string, limit: number) {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-        return control.value &&
+        return control.value !== null &&
+            control.value !== undefined &&
             control.parent &&
             control.parent.get(unitKey) &&
             control.parent.get(unitKey).value + '' &&
-            control.value <
-                (control.parent.get(unitKey).value === 'lb'
-                    ? limit / LBUNIT
-                    : control.parent.get(unitKey).value === 'g'
-                    ? limit * 1000
-                    : limit)
+            +control.value < convertKg(limit, control.parent.get(unitKey).value)
             ? {
                   min: true,
               }

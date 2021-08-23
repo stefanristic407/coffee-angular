@@ -71,7 +71,6 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         { label: 'No', value: true },
     ];
     productForm: FormGroup;
-    crates: FormArray;
     roasterId: any = '';
     vatSettings: any = [];
     roastedBatches: any = [];
@@ -184,9 +183,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         });
 
         this.variantComponent.forEach((child) => {
-            (child.weightForm.get('weights') as FormArray).controls.forEach((weightForm) => {
-                weightForm.get('featured_image_id').setValidators(fileRequired());
-            });
+            child.setValidators();
         });
     }
 
@@ -214,10 +211,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         });
 
         this.variantComponent.forEach((child) => {
-            (child.weightForm.get('weights') as FormArray).controls.forEach((weightForm) => {
-                weightForm.get('featured_image_id').clearValidators();
-                weightForm.get('featured_image_id').updateValueAndValidity();
-            });
+            child.clearValidators();
         });
     }
 
@@ -266,12 +260,10 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     }
 
     getVatData(resolve, reject) {
-        this.eCommerceService.getVatSettings().subscribe((res) => {
-            this.vatSettings = [];
-            if (res && res.result) {
-                res.result.forEach((ele) => {
-                    const vatObj = { label: ele.vat_percentage + '% ' + ele.transaction_type, value: ele.id };
-                    this.vatSettings.push(vatObj);
+        this.eCommerceService.getVatSettings().subscribe((res: ApiResponse<any>) => {
+            if (res.success) {
+                this.vatSettings = (res.result || []).map((ele) => {
+                    return { label: ele.vat_percentage + '% ' + ele.transaction_type, value: ele.id };
                 });
                 resolve();
             } else {
@@ -284,8 +276,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         this.eCommerceService.getRoastedBatches({ per_page: 10000 }).subscribe(
             (res) => {
                 if (res.success) {
-                    this.roastedBatches = res.result ? res.result : [];
-                    this.roastedBatches.map((item) => {
+                    this.roastedBatches = (res.result || []).map((item) => {
                         item.roast_batch_name = `Batch #${item.id} - ${item.roast_batch_name}`;
                         return item;
                     });
@@ -423,9 +414,9 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                     }
 
                     if (!productDetails.is_external_product) {
-                        this.crates = this.productForm.get('crates') as FormArray;
-                        this.crates.removeAt(0);
-                        if (productDetails.crates) {
+                        const crateFormArray = this.productForm.get('crates') as FormArray;
+                        if (productDetails.crates?.length) {
+                            crateFormArray.removeAt(0);
                             for (const crate of productDetails.crates) {
                                 if (crate.has_weight) {
                                     const crateForm = this.createEmptyCrate();
@@ -438,7 +429,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                                         crate_capacity: crate.crate_capacity,
                                         variant_name: crate.variant_name,
                                     });
-                                    this.crates.push(crateForm);
+                                    crateFormArray.push(crateForm);
                                 }
                             }
                         }
@@ -541,18 +532,12 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     createEmptyCrate() {
         return this.fb.group({
             id: '',
-            weight: [
-                0,
-                Validators.compose(this.type === ProductType.b2c || !this.isPublished ? [] : [Validators.required]),
-            ],
+            weight: [0, Validators.compose(!this.isPublished ? [] : [Validators.required])],
             crate_unit: 'lb',
             boxField: '1 box',
             weight_name: '0 lb',
             product_weight_variant_id: '',
-            crate_capacity: [
-                0,
-                Validators.compose(this.type === ProductType.b2c || !this.isPublished ? [] : [Validators.required]),
-            ],
+            crate_capacity: [0, Validators.compose(!this.isPublished ? [] : [Validators.required])],
             variant_name: '',
         });
     }
@@ -570,10 +555,10 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 return;
             }
         });
-        this.crates = this.productForm.get('crates') as FormArray;
+        const crateFormArray = this.productForm.get('crates') as FormArray;
         if (canRemove) {
-            this.crates.removeAt(
-                this.crates.value.findIndex((item) => item.product_weight_variant_id === event.productWeightVariantId),
+            crateFormArray.removeAt(
+                crateFormArray.value.findIndex((ix) => ix.product_weight_variant_id === event.productWeightVariantId),
             );
         }
         if (!event.isNew) {
@@ -583,52 +568,38 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
 
     onWeightCreate(event) {
         if (this.type === ProductType.b2b) {
-            this.crates = this.productForm.get('crates') as FormArray;
-            const getObjs = this.crates.value.filter(
-                (ele) => ele.weight === event.value && ele.crate_unit === event.unit,
+            const crateFormArray = this.productForm.get('crates') as FormArray;
+            const sameItems = crateFormArray.value.filter(
+                (ix) => ix.weight === event.value && ix.crate_unit === event.unit,
             );
-            if (!event.modify) {
-                if (!getObjs?.length) {
-                    const getCrate = this.createEmptyCrate();
-                    getCrate.patchValue({
-                        weight: event.value,
-                        crate_unit: event.unit,
-                        weight_name: `${event.value} ${event.unit}`,
-                        product_weight_variant_id: event.product_weight_variant_id,
-                        variant_name: event.variant_name,
-                    });
-                    this.crates.push(getCrate);
-                }
-            } else {
-                const getObj = this.crates.value.find(
-                    (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
-                );
-                const indexValue = this.crates.value.indexOf(getObj);
-                if (getObj) {
-                    if (
-                        getObjs?.length &&
-                        getObjs.find((item) => item.product_weight_variant_id !== event.product_weight_variant_id)
-                    ) {
-                        this.crates.removeAt(indexValue);
-                    } else {
-                        this.crates.controls[indexValue].patchValue({
-                            crate_unit: event.unit,
-                            weight: event.value,
-                            weight_name: `${event.value} ${event.unit}`,
-                        });
-                    }
+            const existingItem = crateFormArray.value.find(
+                (ix) => ix.product_weight_variant_id === event.product_weight_variant_id,
+            );
+            if (!sameItems?.length && !existingItem) {
+                const getCrate = this.createEmptyCrate();
+                getCrate.patchValue({
+                    weight: event.value || 0,
+                    crate_unit: event.unit,
+                    weight_name: `${event.value || 0} ${event.unit}`,
+                    product_weight_variant_id: event.product_weight_variant_id,
+                    variant_name: event.variant_name,
+                });
+                crateFormArray.push(getCrate);
+            }
+
+            if (event.modify && existingItem) {
+                const indexValue = crateFormArray.value.indexOf(existingItem);
+                if (
+                    sameItems?.length &&
+                    sameItems.find((ix) => ix.product_weight_variant_id !== event.product_weight_variant_id)
+                ) {
+                    crateFormArray.removeAt(indexValue);
                 } else {
-                    if (!getObjs?.length) {
-                        const getCrate = this.createEmptyCrate();
-                        getCrate.patchValue({
-                            weight: event.value,
-                            crate_unit: event.unit,
-                            weight_name: `${event.value} ${event.unit}`,
-                            product_weight_variant_id: event.product_weight_variant_id,
-                            variant_name: event.variant_name,
-                        });
-                        this.crates.push(getCrate);
-                    }
+                    crateFormArray.controls[indexValue].patchValue({
+                        crate_unit: event.unit,
+                        weight: event.value || 0,
+                        weight_name: `${event.value || 0} ${event.unit}`,
+                    });
                 }
             }
         }
@@ -665,7 +636,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         if (!this.validateForms()) {
             this.productForm.markAllAsTouched();
             this.variantComponent.forEach((child) => {
-                child.weightForm.markAllAsTouched();
+                child.markAllAsTouched();
             });
             this.toasterService.error('Please fill all Data and upload feature image.');
             return;
@@ -680,6 +651,8 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         }
         if (this.type === ProductType.b2b) {
             const crates: Crate[] = productObj.crates || [];
+            // productObj.crates = crates
+            // Anastasia will solve this once https://www.bugherd.com/projects/234279/tasks/816 is solved
             productObj.crates = (this.allCrates || [])
                 .filter((ix) => !crates.find((iy) => iy.weight === ix.weight && iy.crate_unit === ix.crate_unit))
                 .concat(crates)
