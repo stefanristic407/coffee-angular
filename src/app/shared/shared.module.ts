@@ -201,16 +201,17 @@ import { ChatHighlighterDirective } from './directives/chat-highlighter/chat-hig
 import { ImageFallbackDirective } from './directives/image-fallback/image-fallback.directive';
 import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
 import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
-import { AclDirective } from './directives';
+import { AclDirective, InputNumberDirective } from './directives';
 const DIRECTIVES = [
     AclDirective,
     ChatHighlighterDirective,
     CopyImageToClipboardDirective,
     FullImgWrapperDirective,
+    ImageFallbackDirective,
+    InputNumberDirective,
     LifecyclehookDirective,
     RatingDirective,
     WordLimitDirective,
-    ImageFallbackDirective,
 ];
 
 import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
