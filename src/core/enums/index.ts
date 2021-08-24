@@ -9,6 +9,7 @@ export * from './order-chat';
 export * from './orders';
 export * from './organization';
 export * from './product';
+export * from './service';
 export * from './shipping';
 export * from './unit';
 export * from './user';

@@ -1,4 +1,4 @@
-import { ShippingStatus } from '@enums';
+import { ShipmentStatus } from '@enums';
 
 export interface ShippingDetails {
     ico_number: string;
@@ -12,7 +12,7 @@ export interface ShippingDetails {
     container_number: number;
     container_requirements: string;
     shipping_instructions: string;
-    shipment_status: ShippingStatus;
+    shipment_status: ShipmentStatus;
     estimated_pickup_date: string;
     exporter_fc_name: string;
     import_fc_name: string;

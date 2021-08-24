@@ -19,7 +19,7 @@ import {
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { OrganizationType, OrderType, OrderStatus, ShippingStatus } from '@enums';
+import { OrganizationType, OrderType, OrderStatus, ShipmentStatus, ServiceRequestStatus } from '@enums';
 import {
     AvailabilityService,
     GeneralCuppingService,
@@ -285,7 +285,12 @@ export class OrderManagementService {
                         this.loadUserProfile();
                         this.checkReviews(orderId, orgType);
 
-                        if (details.estimated_departure_date || details.estimated_pickup_date) {
+                        if (
+                            details.estimated_departure_date ||
+                            details.estimated_pickup_date ||
+                            details.exporter_status === ServiceRequestStatus.COMPLETED ||
+                            details.exporter_status === ServiceRequestStatus.CLOSED
+                        ) {
                             this.loadShippingDetails(orderId);
                         }
 
@@ -441,14 +446,18 @@ export class OrderManagementService {
 
             if (
                 order.status !== OrderStatus.Received &&
-                (order.shipment_status === ShippingStatus.SHIPPED || departureDate <= today)
+                (order.shipment_status === ShipmentStatus.SHIPPED ||
+                    departureDate <= today ||
+                    order.exporter_status === ServiceRequestStatus.COMPLETED)
             ) {
                 order.status = OrderStatus.Shipped;
             }
 
             if (
                 order.status !== OrderStatus.Received &&
-                (order.shipment_status === ShippingStatus.DELIVERED || pickupDate <= today)
+                (order.shipment_status === ShipmentStatus.DELIVERED ||
+                    pickupDate <= today ||
+                    order.exporter_status === ServiceRequestStatus.CLOSED)
             ) {
                 order.status = OrderStatus.Delivered;
             }
