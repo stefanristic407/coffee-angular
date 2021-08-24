@@ -282,30 +282,22 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     quantityValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {
         const countValue = parseInt(control.value, 10);
-        const errors = [];
+        const errors: any = {};
         if (!/^\d+$/.test(control.value) || parseInt(control.value, 10) < 1) {
-            errors['valid'] = 'Please provide a valid value';
+            errors.valid = 'Please provide a valid value';
         }
         if (countValue < this.sourcing.harvestDetail.minimum_purchase_quantity) {
-            errors[
-                'min_purchase'
-            ] = `The minimum purchase is at least ${this.sourcing.harvestDetail.minimum_purchase_quantity} ${this.sourcing.harvestDetail.quantity_type}`;
+            errors.min_purchase = `The minimum purchase is at least ${this.sourcing.harvestDetail.minimum_purchase_quantity} ${this.sourcing.harvestDetail.quantity_type}`;
         }
         if (countValue > this.sourcing.harvestDetail.quantity_count) {
-            errors[
-                'max_purchase'
-            ] = `Only ${this.sourcing.harvestDetail.quantity_count} ${this.sourcing.harvestDetail.quantity_type} of coffee are available for the purchase`;
+            errors.max_purchase = `Only ${this.sourcing.harvestDetail.quantity_count} ${this.sourcing.harvestDetail.quantity_type} of coffee are available for the purchase`;
         }
         if (this.infoForm.value.service) {
             if (countValue < this.InDRestrictions.minQuanityByUnit) {
-                errors[
-                    'min_shipping'
-                ] = `Shipping is only available on purchasing at least ${this.InDRestrictions.minQuanityByUnit} ${this.sourcing.harvestDetail.quantity_type}`;
+                errors.min_shipping = `Shipping is only available on purchasing at least ${this.InDRestrictions.minQuanityByUnit} ${this.sourcing.harvestDetail.quantity_type}`;
             }
             if (countValue > this.InDRestrictions.maxQuanityByUnit) {
-                errors[
-                    'max_shipping'
-                ] = `Shipping is available for a maximum of ${this.InDRestrictions.maxQuanityByUnit} ${this.sourcing.harvestDetail.quantity_type}`;
+                errors.max_shipping = `Shipping is available for a maximum of ${this.InDRestrictions.maxQuanityByUnit} ${this.sourcing.harvestDetail.quantity_type}`;
             }
         }
         return errors;
@@ -327,9 +319,11 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     }
 
     changeQuantity(event: any = null) {
-        // if (event) {
-        //     this.infoForm.value.quantity = event.value;
-        // }
+        if (event) {
+            this.infoForm.get('quantity').setValue(event.value);
+            this.infoForm.get('quantity').markAsTouched();
+            return;
+        }
         setTimeout(() => {
             if (this.orderType === 'booked') {
                 let totalKg = Number(this.sourcing.harvestDetail.quantity) * this.infoForm.value.quantity;

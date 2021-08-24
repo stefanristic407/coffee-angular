@@ -100,49 +100,20 @@
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
                                     <div class="sewn-form-field mb-md-45">
                                         <label class="fnt-bold">{{ 'order_quantity' | translate }}:</label>
-                                        <div class="input-and-select">
-                                            <div class="p-inputgroup custom-addon">
-                                                <span class="p-inputgroup-addon gray">Bags</span>
-                                                <input
-                                                    type="number"
-                                                    pInputText
-                                                    formControlName="quantity"
-                                                    min="0"
-                                                    placeholder="0"
-                                                />
-                                            </div>
-                                            <small
-                                                *ngIf="
-                                                    infoForm.controls.quantity.errors?.valid &&
-                                                    infoForm.controls.quantity.touched
-                                                "
-                                                class="p-error d-block"
+                                        <div class="p-inputgroup custom-addon">
+                                            <span class="p-inputgroup-addon gray">Bags</span>
+                                            <p-inputNumber
+                                                formControlName="quantity"
+                                                (onInput)="changeQuantity($event)"
+                                                min="0"
+                                                placeholder="0"
                                             >
-                                                {{ infoForm.controls.quantity.errors?.valid }}
-                                            </small>
+                                            </p-inputNumber>
                                             <small
-                                                *ngIf="infoForm.controls.quantity.errors?.min_purchase"
-                                                class="p-error d-block"
+                                                *ngFor="let item of infoForm.controls.quantity.errors | keyvalue"
+                                                class="p-error"
                                             >
-                                                {{ infoForm.controls.quantity.errors?.min_purchase }}
-                                            </small>
-                                            <small
-                                                *ngIf="infoForm.controls.quantity.errors?.max_purchase"
-                                                class="p-error d-block"
-                                            >
-                                                {{ infoForm.controls.quantity.errors?.max_purchase }}
-                                            </small>
-                                            <small
-                                                *ngIf="infoForm.controls.quantity.errors?.min_shipping"
-                                                class="p-error d-block"
-                                            >
-                                                {{ infoForm.controls.quantity.errors?.min_shipping }}
-                                            </small>
-                                            <small
-                                                *ngIf="infoForm.controls.quantity.errors?.max_shipping"
-                                                class="p-error d-block"
-                                            >
-                                                {{ infoForm.controls.quantity.errors?.max_shipping }}
+                                                {{ item.value }}
                                             </small>
                                         </div>
                                     </div>
@@ -158,7 +129,6 @@
                                     class="
                                         col-4 col-lg-3 col-xl-2
                                         fnt-16 fnt-md-18 fnt-bold
-                                        text-clr334
                                         form-middle
                                         d-none d-md-block
                                     "
@@ -168,7 +138,7 @@
 
                                 <!-- Service -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
-                                    <div class="sewn-form-field mb-md-45">
+                                    <div class="sewn-form-field mb-md-45 flex-fill service-wrap">
                                         <label class="fnt-bold">{{ 'select_service' | translate }}:</label>
                                         <p-dropdown
                                             [options]="serviceItems"
@@ -177,7 +147,14 @@
                                         ></p-dropdown>
                                     </div>
                                 </div>
-                                <div class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold d-none d-md-block">
+                                <div
+                                    class="
+                                        col-4 col-lg-3 col-xl-2
+                                        fnt-16 fnt-md-18 fnt-bold
+                                        form-middle
+                                        d-none d-md-block
+                                    "
+                                >
                                     ${{ shipmentPrice | number: '1.0-2' }}
                                 </div>
 
