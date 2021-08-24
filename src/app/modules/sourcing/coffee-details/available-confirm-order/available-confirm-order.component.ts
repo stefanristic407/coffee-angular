@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
     FormGroup,
@@ -10,25 +10,18 @@ import {
     ValidationErrors,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
-import {
-    GlobalsService,
-    ResizeService,
-    AuthService,
-    RoasterserviceService,
-    CommonService,
-    UserService,
-} from '@services';
+import { ResizeService, AuthService, RoasterserviceService, CommonService, UserService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
-import { OrganizationType } from '@enums';
+import { AddressType, OrderType, OrganizationType } from '@enums';
 import { ResizeableComponent } from '@base-components';
 import { environment } from '@env/environment';
-import { AddressType } from 'src/core/enums/availability/address-type.enum';
-import { Subscription } from 'rxjs';
 import { PriceTier } from '@models';
+import { convertKg } from '@utils';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -38,6 +31,7 @@ import { PriceTier } from '@models';
 export class AvailableConfirmOrderComponent extends ResizeableComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     public readonly OrganizationType = OrganizationType;
+    readonly OrderType = OrderType;
     readonly env = environment;
     breadItems: any[];
     serviceItems: any[] = [
@@ -46,8 +40,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     ];
 
     roasterId: any;
-    orderType: string;
-    prebookOrderId: any;
+    orderType: OrderType;
+    prebookOrderId = 0;
     infoForm: FormGroup;
     addressForm: FormGroup;
     orderSettings: any;
@@ -67,7 +61,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     editAddress = false;
     isBilling = false;
     cities: any[] = [];
-    quantityFcSubscription: Subscription;
     priceTiers: PriceTier[] = [];
     activePriceTier: PriceTier | null = null;
     InDRestrictions = {
@@ -77,25 +70,19 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         minQuanityByUnit: null as number | null, // Based on Kg per Bag
     };
 
-    LB_TO_KG = 0.453592;
-    TON_TO_KG = 1016.05;
-
-    // Variables for only prebook order
-    batchId: string;
-
     constructor(
-        public dialogSrv: DialogService,
+        private commonService: CommonService,
+        private dialogSrv: DialogService,
         private fb: FormBuilder,
-        public router: Router,
-        public globals: GlobalsService,
-        private route: ActivatedRoute,
-        public sourcing: SourcingService,
-        private toastrService: ToastrService,
         private roasterService: RoasterserviceService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
         private userService: UserService,
         protected resizeService: ResizeService,
         public authService: AuthService,
-        private commonService: CommonService,
+        public sourcing: SourcingService,
     ) {
         super(resizeService);
     }
@@ -110,16 +97,10 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             if (params.has('gc_id')) {
                 this.sourcing.harvestId = +params.get('gc_id');
             }
-            if (params.has('estateId') && params.has('lotId')) {
-                this.sourcing.estateId = +params.get('estateId');
-                this.sourcing.lotId = +params.get('lotId');
-            }
-            if (this.orderType === 'booked' || this.orderType === 'sample') {
+            if (this.orderType === OrderType.Booked || this.orderType === OrderType.Sample) {
                 this.getHarvest();
             }
         });
-
-        this.prebookOrderId = 0;
     }
 
     getHarvest() {
@@ -138,20 +119,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         }
     }
 
-    getLot() {
-        if (this.sourcing.lotId) {
-            new Promise((resolve) => this.sourcing.getLotDetails(resolve)).then(() => {
-                this.refreshBreadCrumb();
-                this.getBasicData();
-            });
-        } else {
-            this.router.navigateByUrl('/error');
-        }
-    }
-
     getBasicData() {
         const promises = [];
-        if (this.orderType === 'booked') {
+        if (this.orderType === OrderType.Booked) {
             promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
         }
         promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
@@ -166,83 +136,58 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     refreshBreadCrumb() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/' },
-            { label: 'Sourcing Module', routerLink: '/sourcing' },
-            this.orderType === 'preBooked'
-                ? {
-                      label: this.sourcing.lot.name,
-                      routerLink: `/sourcing/estate-details/${this.sourcing.lot.estate_id}`,
-                  }
-                : {
-                      label: this.sourcing.harvestDetail.name,
-                      routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.id}`,
-                  },
-            { label: 'Confirm order' },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('sourcing'), routerLink: '/sourcing' },
+            {
+                label: this.sourcing.harvestDetail.name,
+                routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.id}`,
+            },
+            { label: this.translator.instant('confirm_order') },
         ];
     }
 
     refreshOrderDetails() {
-        if (this.orderType === 'preBooked') {
-            this.orderDetail = [
-                {
-                    field: 'customer',
-                    label: this.globals.languageJson?.customer,
-                    value: this.sourcing.lot.estate_name,
-                },
-                { field: 'origin', label: this.globals.languageJson?.origin, value: this.sourcing.lot.country },
-                {
-                    field: 'variety',
-                    label: this.globals.languageJson?.variety,
-                    value: this.sourcing.lot.varietiesStr,
-                },
-                { field: 'species', label: this.globals.languageJson?.species, value: this.sourcing.lot.species },
-                { field: 'cupScore', label: 'Avg, grade', value: this.sourcing.lot.avg_cup_score },
-                { field: 'production', label: 'Avg. Production', value: this.sourcing.lot.avg_precipitation },
-                { field: 'token', label: 'Token amount', value: `$${this.orderSettings.token_amount}` },
-            ];
-        } else {
-            this.orderDetail = [
-                {
-                    field: 'customer',
-                    label: this.globals.languageJson?.customer,
-                    value: this.sourcing.harvestDetail.estate_name,
-                },
-                {
-                    field: 'origin',
-                    label: this.globals.languageJson?.origin,
-                    value: this.sourcing.harvestDetail.country,
-                },
-                {
-                    field: 'variety',
-                    label: this.globals.languageJson?.variety,
-                    value: this.sourcing.harvestDetail.varieties,
-                },
-                {
-                    field: 'species',
-                    label: this.globals.languageJson?.species,
-                    value: this.sourcing.harvestDetail.species,
-                },
-                {
-                    field: 'cupScore',
-                    label: this.globals.languageJson?.cupping_score,
-                    value: this.sourcing.harvestDetail.cupping.cup_score,
-                },
-            ];
-        }
-        if (this.orderType === 'booked') {
+        this.orderDetail = [
+            {
+                field: 'customer',
+                label: this.translator.instant('customer'),
+                value: this.sourcing.harvestDetail.estate_name,
+            },
+            {
+                field: 'origin',
+                label: this.translator.instant('origin'),
+                value: this.sourcing.harvestDetail.country,
+            },
+            {
+                field: 'variety',
+                label: this.translator.instant('variety'),
+                value: this.sourcing.harvestDetail.varieties,
+            },
+            {
+                field: 'species',
+                label: this.translator.instant('species'),
+                value: this.sourcing.harvestDetail.species,
+            },
+            {
+                field: 'cupScore',
+                label: this.translator.instant('cupping_score'),
+                value: this.sourcing.harvestDetail.cupping.cup_score,
+            },
+        ];
+        if (this.orderType === OrderType.Booked) {
             this.orderDetail = this.orderDetail.concat([
                 {
                     field: 'quantity',
-                    label: this.globals.languageJson?.available_quantity,
+                    label: this.translator.instant('available_quantity'),
                     value: `${this.sourcing.harvestDetail.quantity_count}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
                 },
                 {
                     field: 'price',
-                    label: this.globals.languageJson?.rate_per_kg,
+                    label: this.translator.instant('rate_per_kg'),
                     value: `$${this.sourcing.harvestDetail.price}USD/kg`,
                 },
             ]);
-        } else if (this.orderType === 'sample') {
+        } else if (this.orderType === OrderType.Sample) {
             this.orderDetail = this.orderDetail.concat([
                 {
                     field: 'sample_price',
@@ -257,18 +202,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         this.infoForm = this.fb.group({
             terms: [null, Validators.compose([Validators.required])],
         });
-        if (this.orderType === 'booked') {
-            const quantityFc = new FormControl(null, {
-                validators: this.quantityValidator,
-                updateOn: 'change',
-            });
+        if (this.orderType === OrderType.Booked) {
+            const quantityFc = new FormControl(null, [this.quantityValidator]);
             this.infoForm.addControl('quantity', quantityFc);
-            if (this.quantityFcSubscription && this.quantityFcSubscription.unsubscribe) {
-                this.quantityFcSubscription.unsubscribe();
-            }
-            this.quantityFcSubscription = quantityFc.valueChanges.subscribe(() => {
-                this.changeQuantity();
-            });
             if (this.shipInfo) {
                 this.serviceItems[0].disabled = false;
                 this.infoForm.addControl('service', new FormControl(true));
@@ -318,21 +254,14 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         this.isBilling = isBilling;
     }
 
-    changeQuantity(event: any = null) {
-        if (event) {
-            this.infoForm.get('quantity').setValue(event.value);
-            this.infoForm.get('quantity').markAsTouched();
-            return;
-        }
+    changeQuantity() {
         setTimeout(() => {
-            if (this.orderType === 'booked') {
-                let totalKg = Number(this.sourcing.harvestDetail.quantity) * this.infoForm.value.quantity;
+            if (this.orderType === OrderType.Booked) {
+                const totalKg = convertKg(
+                    +this.sourcing.harvestDetail.quantity * this.infoForm.value.quantity,
+                    this.sourcing.harvestDetail.quantity_unit,
+                );
 
-                if (this.sourcing.harvestDetail.quantity_unit === 'lb') {
-                    totalKg = totalKg * this.LB_TO_KG;
-                } else if (this.sourcing.harvestDetail.quantity_unit === 'ton') {
-                    totalKg = totalKg * this.TON_TO_KG;
-                }
                 this.updateShipmentUnitPrice(totalKg);
                 this.coffeePrice = this.sourcing.harvestDetail.price * totalKg;
                 if (this.infoForm.value.service) {
@@ -341,7 +270,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                     this.shipmentPrice = 0;
                 }
                 this.totalPrice = this.coffeePrice + this.shipmentPrice;
-            } else if (this.orderType === 'sample') {
+            } else if (this.orderType === OrderType.Sample) {
                 this.totalPrice = this.orderSettings.sample_price;
             } else {
                 this.totalPrice = this.orderSettings.token_amount;
@@ -350,7 +279,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     }
 
     updateShipmentUnitPrice(itemInKg: number) {
-        const tier = this.priceTiers.find((tier) => itemInKg >= tier.min_quantity && itemInKg <= tier.max_quantity);
+        const tier = this.priceTiers.find((item) => itemInKg >= item.min_quantity && itemInKg <= item.max_quantity);
         if (tier) {
             this.activePriceTier = tier;
         } else {
@@ -369,38 +298,36 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     }
 
     placeOrder() {
-        if (this.infoForm.valid) {
-            if (!this.infoForm.value.service) {
-                if (!this.deliveryAddress?.id) {
-                    this.toastrService.error('Please update delivery address');
-                    return;
-                }
-            }
-            if (!this.billingAddress?.id) {
-                this.toastrService.error('Please update billing address');
-                return;
-            }
-            this.dialogSrv
-                .open(ConfirmComponent, {
-                    data: {
-                        title: this.globals.languageJson.confirm_order,
-                        desp: this.globals.languageJson.are_you_sure,
-                    },
-                    showHeader: false,
-                    styleClass: 'confirm-dialog',
-                })
-                .onClose.subscribe((action: any) => {
-                    if (action === 'yes') {
-                        if (this.orderType === 'booked') {
-                            this.submitOrder();
-                        } else if (this.orderType === 'sample') {
-                            this.submitSample();
-                        }
-                    }
-                });
-        } else {
+        if (this.infoForm.invalid) {
             this.infoForm.markAllAsTouched();
+            return;
         }
+        if (!this.infoForm.value.service && !this.deliveryAddress?.id) {
+            this.toastrService.error('Please update delivery address');
+            return;
+        }
+        if (!this.billingAddress?.id) {
+            this.toastrService.error('Please update billing address');
+            return;
+        }
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: this.translator.instant('confirm_order'),
+                    desp: this.translator.instant('are_you_sure'),
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    if (this.orderType === OrderType.Booked) {
+                        this.submitOrder();
+                    } else if (this.orderType === OrderType.Sample) {
+                        this.submitSample();
+                    }
+                }
+            });
     }
 
     submitOrder() {
@@ -523,14 +450,10 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                         }
                     });
 
-                    let kgInBg = 0;
-                    if (this.sourcing.harvestDetail.quantity_unit === 'kg') {
-                        kgInBg = this.sourcing.harvestDetail.quantity;
-                    } else if (this.sourcing.harvestDetail.quantity_unit === 'lb') {
-                        kgInBg = Number(this.sourcing.harvestDetail.quantity) * this.LB_TO_KG;
-                    } else if (this.sourcing.harvestDetail.quantity_unit === 'ton') {
-                        kgInBg = Number(this.sourcing.harvestDetail.quantity) * this.TON_TO_KG;
-                    }
+                    const kgInBg = convertKg(
+                        +this.sourcing.harvestDetail.quantity,
+                        this.sourcing.harvestDetail.quantity_unit,
+                    );
                     this.InDRestrictions.maxQuanityByUnit = Math.floor(this.InDRestrictions.maxQuanity / kgInBg);
                     this.InDRestrictions.minQuanityByUnit = Math.ceil(this.InDRestrictions.minQuanity / kgInBg);
                 }
