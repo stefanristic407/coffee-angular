@@ -182,7 +182,7 @@
                         <p-inputNumber
                             formControlName="quantity_count"
                             placeholder="Enter a number"
-                            (onInput)="changeQuantity($event)"
+                            (ngModelChange)="changeQuantity()"
                         ></p-inputNumber>
                         <p-dropdown
                             [options]="quantityUnitArray"

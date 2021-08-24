@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { ApiService } from './api.service';
 import { AuthService } from '../auth';
 import { OrganizationType } from '@enums';
+import { ApiResponse, ProcuredCoffee } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -937,13 +938,9 @@ export class RoasterserviceService extends ApiService {
         obj['data'] = data;
         return this.http.post(this.url, obj);
     }
-    //Get MarkFor Sale order details
-    getMarkForSaleDetails(roaster_id: any, orderID): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
-        return this.http.post(this.url, data);
+    // Get Mark For Sale order details
+    getMarkForSaleDetails(orderID): Observable<ApiResponse<ProcuredCoffee>> {
+        return this.postWithOrg(this.orgPostUrl, `procured-coffees/${orderID}/sale`);
     }
 
     //upate Mark for Sale from Procured Coffee

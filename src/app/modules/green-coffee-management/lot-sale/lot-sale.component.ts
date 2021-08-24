@@ -21,6 +21,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     roasterID: any = '';
     orderDetails: any;
     orderID: any = '';
+    soldQuantity = 0;
     showDropdown = false;
     orderStatus = 'IN_STOCK';
     statusLabel = '';
@@ -180,37 +181,17 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     getSaleOrderDetails(resolve) {
-        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getMarkForSaleDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     const lotDetails = response.result;
-                    this.lotSaleForm.patchValue(lotDetails);
+                    console.log('lotDetails', lotDetails);
+                    this.soldQuantity = lotDetails.initial_quantity_count - lotDetails.quantity_count;
+                    this.lotSaleForm.patchValue({ ...lotDetails, quantity_count: lotDetails.initial_quantity_count });
                     this.orderStatus = response.result.status;
                     this.availablityName = lotDetails.name;
                     this.statusLabel = this.formatStatus(this.orderStatus);
-                    if (lotDetails.quantity_type.toLowerCase() === 'bags') {
-                        const remaining = lotDetails.quantity_count;
-                        if (remaining > 0) {
-                            this.remaining = `${remaining} Bags`;
-                        } else {
-                            this.remaining = '0 Bags';
-                        }
-                        this.lotSaleForm.patchValue(
-                            { quantity_type: lotDetails.quantity_type.toLowerCase() },
-                            { emitEvent: false },
-                        );
-                    } else if (lotDetails.quantity_type.toLowerCase() === 'kg') {
-                        const remaining = lotDetails.quantity_count;
-                        if (remaining > 0) {
-                            this.remaining = `${remaining} kg`;
-                        } else {
-                            this.remaining = '0 kg';
-                        }
-                        this.lotSaleForm.patchValue(
-                            { quantity_type: lotDetails.quantity_type.toLowerCase() },
-                            { emitEvent: false },
-                        );
-                    }
+                    this.changeQuantity();
                     this.refreshBreadcrumb();
                 }
                 resolve();
@@ -354,28 +335,31 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
 
     quantityTypeChange() {
         this.quantityType = this.lotSaleForm.value.quantity_type;
-        this.changeQuantity(this.lotSaleForm.value.quantity_count);
+        this.changeQuantity();
     }
 
-    changeQuantity(event) {
-        if (this.quantityType === 'kg') {
-            const remaining = event.value;
-            this.remaining = `${remaining} kg`;
-            if (this.orderDetails.quantity_count * this.orderDetails.quantity - event.value < 0) {
-                this.toasterService.error('Please check quantity available with you');
-                this.remaining = '0 kg';
-            } else if (event.value <= 0) {
-                this.remaining = '0 kg';
+    changeQuantity() {
+        setTimeout(() => {
+            const quantityCnt = this.lotSaleForm.value.quantity_count;
+            if (this.quantityType === 'kg') {
+                const remaining = quantityCnt - this.soldQuantity;
+                this.remaining = `${remaining} kg`;
+                if (this.orderDetails.quantity_count * this.orderDetails.quantity - quantityCnt < 0) {
+                    this.toasterService.error('Please check quantity available with you');
+                    this.remaining = '0 kg';
+                } else if (quantityCnt <= 0) {
+                    this.remaining = '0 kg';
+                }
+            } else {
+                const remaining = quantityCnt - this.soldQuantity;
+                this.remaining = `${remaining} bags`;
+                if (this.orderDetails.quantity_count - quantityCnt < 0) {
+                    this.toasterService.error('Please check quantity available with you');
+                    this.remaining = '0 bags';
+                } else if (quantityCnt <= 0) {
+                    this.remaining = '0 bags';
+                }
             }
-        } else {
-            const remaining = event.value;
-            this.remaining = `${remaining} bags`;
-            if (this.orderDetails.quantity_count - event.value < 0) {
-                this.toasterService.error('Please check quantity available with you');
-                this.remaining = '0 bags';
-            } else if (event.value <= 0) {
-                this.remaining = '0 bags';
-            }
-        }
+        });
     }
 }

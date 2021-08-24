@@ -59,6 +59,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             { label: this.saleInformation.name ? this.saleInformation.name : '' },
         ];
     }
+
     language() {
         this.appLanguage = this.globals.languageJson;
         this.procuredActive++;
@@ -66,8 +67,9 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         this.getProcuredOrderDetails();
         this.getRoasterNotes();
     }
+
     getSaleOrderDetails() {
-        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getMarkForSaleDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     this.saleInformation = response.result;
