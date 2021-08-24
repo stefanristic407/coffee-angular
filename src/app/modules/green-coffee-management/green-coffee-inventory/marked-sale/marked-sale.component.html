@@ -133,14 +133,19 @@
                         <div
                             class="d-flex"
                             tooltipStyleClass="custom-tooltip"
-                            pTooltip="{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] }} /
-                                {{ rowData['quantity'] }} kg"
+                            [pTooltip]="
+                                rowData['quantity_count'] +
+                                ' ' +
+                                rowData['quantity_type'] +
+                                ' / ' +
+                                rowData['quantity'] +
+                                ' kg'
+                            "
                             tooltipPosition="top"
                         >
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                {{ rowData['quantity'] || 'NA' }}
-
-                                <span *ngIf="rowData['quantity']">{{ rowData['quantity_type'] }}</span>
+                                {{ rowData['quantity_count'] || 'NA' }}
+                                <span *ngIf="rowData['quantity_count']">{{ rowData['quantity_type'] }}</span>
                             </span>
                         </div>
                     </span>
