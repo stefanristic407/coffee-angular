@@ -189,9 +189,12 @@
                                         >
                                         <small
                                             *ngIf="grind_variant['controls']['price'].errors?.required"
-                                            class="position-absolute p-error"
+                                            class="p-error"
                                         >
                                             {{ 'required' | translate }}
+                                        </small>
+                                        <small *ngIf="grind_variant['controls']['price'].errors?.min" class="p-error">
+                                            {{ 'must_be_greater_than' | translate }} 0
                                         </small>
                                     </div>
                                 </div>

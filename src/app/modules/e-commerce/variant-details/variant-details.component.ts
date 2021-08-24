@@ -300,7 +300,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
 
             const grindVariants = weightForm.get('grind_variants') as FormArray;
             grindVariants.controls.forEach((variant: FormGroup) => {
-                variant.get('price').setValidators([Validators.required]);
+                variant.get('price').setValidators([Validators.required, Validators.min(1)]);
                 variant.get('grind').setValidators([Validators.required]);
                 variant.get('available_quantity').setValidators([Validators.required, Validators.min(1)]);
                 variant.get('sku_number').setValidators([Validators.required]);
@@ -343,7 +343,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     createEmptyGrindVariant(isPublic?) {
         return this.fb.group({
             grind_variant_id: '',
-            price: [0, Validators.compose(isPublic ? [Validators.required] : [])],
+            price: [0, Validators.compose(isPublic ? [Validators.required, Validators.min(1)] : [])],
             grind: [null, Validators.compose(isPublic ? [Validators.required] : [])],
             available_quantity: [0, Validators.compose(isPublic ? [Validators.required, Validators.min(1)] : [])],
             available_quantity_type: this.type === 'b2b' ? 'boxes' : 'bags',
