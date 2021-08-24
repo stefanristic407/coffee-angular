@@ -179,7 +179,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 {
                     field: 'quantity',
                     label: this.translator.instant('available_quantity'),
-                    value: `${this.sourcing.harvestDetail.quantity_count}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
+                    value: `${this.sourcing.harvestDetail.quantity_count}${this.sourcing.harvestDetail.quantity_type}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
                 },
                 {
                     field: 'price',
@@ -198,6 +198,19 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         }
     }
 
+    get shippingError(): string {
+        if (!this.shipInfo) {
+            return 'Import & Delivery service is not available for this estate';
+        }
+        if (
+            this.InDRestrictions.maxQuanityByUnit < this.sourcing.harvestDetail.minimum_purchase_quantity ||
+            this.InDRestrictions.minQuanityByUnit > this.sourcing.harvestDetail.quantity_count
+        ) {
+            return `Import & Delivery service is not proper for this purchase(Shipping quantity: ${this.InDRestrictions.minQuanity}kg-${this.InDRestrictions.maxQuanity}kg)`;
+        }
+        return null;
+    }
+
     refreshForm() {
         this.infoForm = this.fb.group({
             terms: [null, Validators.compose([Validators.required])],
@@ -205,12 +218,12 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         if (this.orderType === OrderType.Booked) {
             const quantityFc = new FormControl(null, [this.quantityValidator]);
             this.infoForm.addControl('quantity', quantityFc);
-            if (this.shipInfo) {
-                this.serviceItems[0].disabled = false;
-                this.infoForm.addControl('service', new FormControl(true));
-            } else {
+            if (this.shippingError) {
                 this.serviceItems[0].disabled = true;
                 this.infoForm.addControl('service', new FormControl(false));
+            } else {
+                this.serviceItems[0].disabled = false;
+                this.infoForm.addControl('service', new FormControl(true));
             }
         }
         this.changeQuantity();
@@ -433,6 +446,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             (res: any) => {
                 if (res.success) {
                     this.shipInfo = res.result;
+                    console.log('ship info:', this.shipInfo);
                     this.shipAddress = res.result.warehouse_address;
                     this.priceTiers = res.result.price_tiers;
                     this.priceTiers.forEach((tier) => {
@@ -456,6 +470,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                     );
                     this.InDRestrictions.maxQuanityByUnit = Math.floor(this.InDRestrictions.maxQuanity / kgInBg);
                     this.InDRestrictions.minQuanityByUnit = Math.ceil(this.InDRestrictions.minQuanity / kgInBg);
+
+                    console.log('InDRestrictions', this.InDRestrictions);
                 }
                 if (resolve) {
                     resolve();
