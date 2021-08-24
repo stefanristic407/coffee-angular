@@ -23,12 +23,13 @@ import {
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
-import { OrganizationType } from '@enums';
+import { OrganizationType, QuantityUnit } from '@enums';
 import { ResizeableComponent } from '@base-components';
 import { environment } from '@env/environment';
 import { AddressType } from 'src/core/enums/availability/address-type.enum';
 import { Subscription } from 'rxjs';
 import { PriceTier } from '@models';
+import { convert2Kg } from '@utils';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -328,11 +329,12 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             if (this.orderType === 'booked') {
                 let totalKg = Number(this.sourcing.harvestDetail.quantity) * this.infoForm.value.quantity;
 
-                if (this.sourcing.harvestDetail.quantity_unit === 'lb') {
-                    totalKg = totalKg * this.LB_TO_KG;
-                } else if (this.sourcing.harvestDetail.quantity_unit === 'ton') {
-                    totalKg = totalKg * this.TON_TO_KG;
+                if (this.sourcing.harvestDetail.quantity_unit === QuantityUnit.lb) {
+                    totalKg = convert2Kg(totalKg, QuantityUnit.lb);
+                } else if (this.sourcing.harvestDetail.quantity_unit === QuantityUnit.ton) {
+                    totalKg = convert2Kg(totalKg, QuantityUnit.ton);
                 }
+
                 this.updateShipmentUnitPrice(totalKg);
                 this.coffeePrice = this.sourcing.harvestDetail.price * totalKg;
                 if (this.infoForm.value.service) {
@@ -524,12 +526,12 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                     });
 
                     let kgInBg = 0;
-                    if (this.sourcing.harvestDetail.quantity_unit === 'kg') {
+                    if (this.sourcing.harvestDetail.quantity_unit === QuantityUnit.kg) {
                         kgInBg = this.sourcing.harvestDetail.quantity;
-                    } else if (this.sourcing.harvestDetail.quantity_unit === 'lb') {
-                        kgInBg = Number(this.sourcing.harvestDetail.quantity) * this.LB_TO_KG;
-                    } else if (this.sourcing.harvestDetail.quantity_unit === 'ton') {
-                        kgInBg = Number(this.sourcing.harvestDetail.quantity) * this.TON_TO_KG;
+                    } else if (this.sourcing.harvestDetail.quantity_unit === QuantityUnit.lb) {
+                        kgInBg = convert2Kg(Number(this.sourcing.harvestDetail.quantity), QuantityUnit.lb);
+                    } else if (this.sourcing.harvestDetail.quantity_unit === QuantityUnit.ton) {
+                        kgInBg = convert2Kg(Number(this.sourcing.harvestDetail.quantity), QuantityUnit.ton);
                     }
                     this.InDRestrictions.maxQuanityByUnit = Math.floor(this.InDRestrictions.maxQuanity / kgInBg);
                     this.InDRestrictions.minQuanityByUnit = Math.ceil(this.InDRestrictions.minQuanity / kgInBg);
