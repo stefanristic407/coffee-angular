@@ -161,7 +161,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             { label: this.translator.instant('home'), routerLink: '/' },
             { label: this.translator.instant('inventory') },
             {
-                label: this.translator.instant('green_coffee_management'),
+                label: this.translator.instant('green_coffee_inventory'),
                 routerLink: '/green-coffee-management/green-coffee-inventory',
             },
             {
