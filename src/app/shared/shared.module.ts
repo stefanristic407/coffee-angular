@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -85,7 +84,6 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 const THIRDMODULES = [
     AccordionModule,
     AccumulationChartAllModule,
-    AnimateOnScrollModule,
     AutocompleteLibModule,
     AutoCompleteModule,
     AvatarModule,

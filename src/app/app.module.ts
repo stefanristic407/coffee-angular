@@ -14,7 +14,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
-import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -61,7 +60,6 @@ export function StartupServiceFactory(startupService: StartupService) {
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        AnimateOnScrollModule.forRoot(),
         CarouselModule.forRoot(),
         ModalModule.forRoot(),
         PopoverModule.forRoot(),
