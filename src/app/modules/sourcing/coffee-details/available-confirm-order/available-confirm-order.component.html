@@ -119,7 +119,7 @@
 
                                 <!-- Service -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
-                                    <div class="sewn-form-field mb-md-45 flex-fill service-wrap">
+                                    <div class="sewn-form-field flex-fill service-wrap">
                                         <label class="fnt-bold">{{ 'select_service' | translate }}:</label>
                                         <p-dropdown
                                             [options]="serviceItems"
@@ -139,13 +139,13 @@
                                     ${{ shipmentPrice | number: '1.0-2' }}
                                 </div>
 
-                                <div *ngIf="shippingError" class="col-12 mb-4">
+                                <div *ngIf="shippingError" class="col-12">
                                     <p class="fnt-semi-bold text-invalid">
                                         {{ 'note' | translate }} - {{ shippingError }}
                                     </p>
                                 </div>
 
-                                <div class="col-12 mb-4" *ngIf="infoForm.value.service">
+                                <div class="col-12" *ngIf="infoForm.value.service">
                                     <a
                                         href="javscript:void(0)"
                                         class="custom-link fnt-12"
@@ -154,7 +154,7 @@
                                         Shipping price tiers
                                     </a>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mt-4 mt-md-45">
                                     <div class="solid-divider w-100 mb-4"></div>
                                 </div>
                             </ng-container>
