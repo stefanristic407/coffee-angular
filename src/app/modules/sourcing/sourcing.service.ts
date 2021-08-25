@@ -104,7 +104,6 @@ export class SourcingService {
             next: (result) => {
                 if (result) {
                     this.estate = result as EstateOrganizationProfile;
-                    console.log(this.estate);
                 }
             },
         });
