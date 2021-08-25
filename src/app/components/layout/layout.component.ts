@@ -238,7 +238,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     getNotificationList() {
         const options = {
-            per_page: 1000,
+            per_page: 10,
         };
         let isUnread = false;
         this.userService.getNofitication(options).subscribe((res: any) => {
