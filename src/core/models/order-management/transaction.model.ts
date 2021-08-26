@@ -1,10 +1,12 @@
+import { TransactionChannel } from '@enums';
+
 export interface Transaction {
     account_name: string;
     account_number: string;
     address_line1: string;
     address_line2: string;
     amount_exclude_vat: number;
-    channel: string;
+    channel: TransactionChannel;
     city: string;
     commission_amount: number;
     commission_rate: number;
@@ -20,17 +22,19 @@ export interface Transaction {
     document_number: string;
     document_type: string;
     id: number;
+    order_id: number;
+    order_items: TransactionOrder[];
     order_type: string;
     org_number: string;
     payment_date: string;
     payment_type: string;
     phone_number: string;
+    roaster_reference_number: string;
     status: string;
     total_amount: number;
     transaction_type: string;
     vat_amount: number;
     zipode: string;
-    order_items: TransactionOrder[];
 }
 
 export interface TransactionOrder {

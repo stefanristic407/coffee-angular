@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { CommonService, ResizeService, TransactionService } from '@services';
+import { CommonService, PurchaseService, ResizeService, TransactionService } from '@services';
 import { ResizeableComponent } from '@base-components';
 import { ApiResponse, Transaction } from '@models';
 import { SelectItem } from 'primeng/api';
-import { getOrgName } from '@utils';
+import { getOrgName, noWhitespaceValidator } from '@utils';
 import { OrganizationType } from '@enums';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -37,8 +37,9 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
         private titleCasePipe: TitleCasePipe,
         private toastr: ToastrService,
         private transactionService: TransactionService,
-        protected resizeService: ResizeService,
         private translateService: TranslateService,
+        protected resizeService: ResizeService,
+        private purchaseSrv: PurchaseService,
     ) {
         super(resizeService);
     }
@@ -46,7 +47,9 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
     ngOnInit(): void {
         this.initializeTable();
         this.makeData();
-        this.referenceForm = this.fb.group({ reference_number: '' });
+        this.referenceForm = this.fb.group({
+            roaster_reference_number: ['', [Validators.required, noWhitespaceValidator()]],
+        });
         this.route.paramMap.subscribe((params) => {
             if (params.has('transactionId')) {
                 this.transactionId = +params.get('transactionId');
@@ -119,6 +122,7 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
         this.transactionService.getTransaction(this.transactionId).subscribe((res: ApiResponse<Transaction>) => {
             if (res.success) {
                 this.transaction = res.result;
+                this.referenceForm.patchValue(this.transaction);
                 this.makeData();
                 this.orderItems = this.transaction.order_items;
                 const sum = this.orderItems.reduce((x, accum) => {
@@ -192,5 +196,13 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
             this.toastr.error('Please enter reference number.');
             return;
         }
+        const refNo = this.referenceForm.value.roaster_reference_number.trim();
+        this.transactionService
+            .createReferenceNumber(this.transaction.channel, this.transaction.order_id, refNo)
+            .subscribe((res) => {
+                if (res.success) {
+                    this.toastr.success('Order reference number has been updated.');
+                }
+            });
     }
 }

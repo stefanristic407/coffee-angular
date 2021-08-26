@@ -81,3 +81,11 @@ export function quantityMinValidator(unitKey: string, limit: number) {
             : null;
     };
 }
+
+export function noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+        const isWhitespace = ((control && control.value && control.value.toString()) || '').trim().length === 0;
+        const isValid = !isWhitespace;
+        return isValid ? null : { whitespace: true };
+    };
+}
