@@ -27,7 +27,8 @@
                     #myTable
                     [value]="tableValue"
                     [columns]="tableColumns"
-                    styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable"
+                    [scrollable]="isTablet$ | async"
+                    styleClass="p-datatable-responsive-single"
                 >
                     <ng-template pTemplate="header" let-columns>
                         <tr class="d-none d-sm-none d-md-table-row">

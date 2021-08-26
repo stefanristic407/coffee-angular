@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, PurchaseService } from '@services';
+import { PurchaseService, ResizeService } from '@services';
 import { GlobalsService } from '@services';
 import * as moment from 'moment';
 import { COUNTRY_LIST } from '@constants';
 import { OrganizationType } from '@enums';
 import { LazyLoadEvent } from 'primeng/api';
 import { ApiResponse, OrderSummary } from '@models';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-select-order',
     templateUrl: './select-order.component.html',
     styleUrls: ['./select-order.component.scss'],
 })
-export class SelectOrderComponent implements OnInit {
+export class SelectOrderComponent extends ResizeableComponent implements OnInit {
     orgType: OrganizationType = OrganizationType.ESTATE;
     orderId: number;
     loading = true;
@@ -34,12 +35,15 @@ export class SelectOrderComponent implements OnInit {
     totalRecords;
 
     constructor(
-        public globals: GlobalsService,
-        public router: Router,
-        public route: ActivatedRoute,
-        public activeRoute: ActivatedRoute,
         private purchaseService: PurchaseService,
-    ) {}
+        protected resizeService: ResizeService,
+        public activeRoute: ActivatedRoute,
+        public globals: GlobalsService,
+        public route: ActivatedRoute,
+        public router: Router,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
         this.loadFilterValues();

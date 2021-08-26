@@ -15,7 +15,8 @@
     [scrollable]="!isMobileView"
     sortField="date_received"
     sortOrder="-1"
-    styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable p-datatable-custom-paginator"
+    [scrollable]="isTablet$ | async"
+    styleClass="p-datatable-responsive-single p-datatable-custom-paginator"
 >
     <ng-template pTemplate="header" let-columns>
         <tr>

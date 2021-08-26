@@ -50,7 +50,8 @@
                             *ngIf="orderDetail"
                             [value]="[orderDetail]"
                             [autoLayout]="isTablet$ | async"
-                            styleClass="p-datatable-responsive-single  p-datatable-tablet-scrollable"
+                            [scrollable]="isTablet$ | async"
+                            styleClass="p-datatable-responsive-single"
                         >
                             <ng-template pTemplate="header">
                                 <tr>

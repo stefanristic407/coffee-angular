@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { GlobalsService, ApiRequestService, AuthService } from '@services';
+import { GlobalsService, ApiRequestService, AuthService, ResizeService } from '@services';
 import * as moment from 'moment';
+import { ResizeableComponent } from '@base-components';
 @Component({
     selector: 'app-api-key-requests',
     templateUrl: './api-key-requests.component.html',
     styleUrls: ['./api-key-requests.component.scss'],
 })
-export class ApiKeyRequestsComponent implements OnInit, OnChanges {
+export class ApiKeyRequestsComponent extends ResizeableComponent implements OnInit, OnChanges {
     @Input() searchRequestId;
     @Input() filterData;
     @Input() dateRange;
@@ -31,12 +32,14 @@ export class ApiKeyRequestsComponent implements OnInit, OnChanges {
     sortOrder = '';
     sortType = '';
     constructor(
-        public cookieService: CookieService,
         private apiRequestService: ApiRequestService,
-        public router: Router,
-        public globals: GlobalsService,
         private authService: AuthService,
+        protected resizeService: ResizeService,
+        public cookieService: CookieService,
+        public globals: GlobalsService,
+        public router: Router,
     ) {
+        super(resizeService);
         this.termStatus = '';
         this.display = '10';
         this.roasterID = this.authService.getOrgId();
