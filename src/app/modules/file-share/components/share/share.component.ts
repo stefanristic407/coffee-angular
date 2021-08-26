@@ -123,10 +123,15 @@ export class ShareComponent implements OnInit {
     }
 
     getUsersList(event: any) {
-        this.idmService.getUsersList(event.query).subscribe((res: any) => {
+        const searchStr: string = (event?.query || '').trim();
+        if (searchStr.length < 4) {
+            this.usersList = [];
+            return;
+        }
+        this.idmService.getUsersList(searchStr).subscribe((res: any) => {
             if (res.success) {
                 this.usersList = res.result;
-                this.usersList.map((element) => (element.name = `${element.firstname} ${element.lastname}`));
+                this.usersList.map((ix) => (ix.name = `${ix.firstname} ${ix.lastname}`.trim()));
             } else {
                 this.toastrService.error('Error while fetching users list');
             }

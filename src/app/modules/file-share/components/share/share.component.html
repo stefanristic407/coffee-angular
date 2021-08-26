@@ -10,9 +10,20 @@
                 (completeMethod)="getUsersList($event)"
                 (onShow)="isOpened = true"
                 (onHide)="isOpened = false"
-                placeholder="{{ 'Enter a name or email' | translate }}"
+                placeholder="{{ 'enter_name_email' | translate }}"
                 scrollHeight="225px"
             >
+                <ng-template let-item pTemplate="item">
+                    <div class="d-flex">
+                        <app-avatar [src]="item.profile_image_url" [size]="36"></app-avatar>
+                        <div class="ml-2">
+                            <div class="fnt-bold mb-1">{{ item.name }}</div>
+                            <div class="fnt-12 fnt-600 text-clr588">
+                                {{ item.organization_type | orgType }} - {{ item.organization_name }}
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
             </p-autoComplete>
             <p-dropdown
                 [options]="permissionItems.slice(0, 2)"
