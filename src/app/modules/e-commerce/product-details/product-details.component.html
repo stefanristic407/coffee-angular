@@ -290,28 +290,37 @@
                                 <span class="primary_txt fnt-16">{{ 'tasting_notes' | translate }}</span>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
-                                <label>{{ 'body' | translate }}</label>
+                                <label
+                                    >{{ 'body' | translate }}<span *ngIf="isExternalFlag" class="star">*</span></label
+                                >
                                 <p-inputNumber formControlName="body"></p-inputNumber>
                                 <small *ngIf="variant['controls']['body'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
-                                <label>{{ 'acidity' | translate }}</label>
+                                <label
+                                    >{{ 'acidity' | translate
+                                    }}<span *ngIf="isExternalFlag" class="star">*</span></label
+                                >
                                 <p-inputNumber formControlName="acidity"></p-inputNumber>
                                 <small *ngIf="variant['controls']['acidity'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
-                                <label>{{ 'aroma' | translate }}</label>
+                                <label
+                                    >{{ 'aroma' | translate }}<span *ngIf="isExternalFlag" class="star">*</span></label
+                                >
                                 <p-inputNumber formControlName="aroma"></p-inputNumber>
                                 <small *ngIf="variant['controls']['aroma'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
                             <div class="col-12 col-md-4 col-lg sewn-form-field">
-                                <label>{{ 'flavor' | translate }}</label>
+                                <label
+                                    >{{ 'flavor' | translate }}<span *ngIf="isExternalFlag" class="star">*</span></label
+                                >
                                 <p-inputNumber formControlName="flavour"></p-inputNumber>
                                 <small *ngIf="variant['controls']['flavour'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
