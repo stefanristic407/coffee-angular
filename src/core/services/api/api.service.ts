@@ -40,7 +40,12 @@ export class ApiService {
         this.simulatedLoginUrl = `${environment.apiURL}/simulated-login`;
     }
 
-    protected post(url: string, apiCall: string, method: HttpMethod = '', data?: object): Observable<ApiResponse<any>> {
+    protected post(
+        url: string,
+        apiCall: string,
+        method: HttpMethod = 'GET',
+        data?: object,
+    ): Observable<ApiResponse<any>> {
         const dto = this.getDto(apiCall, method, data);
 
         return this.http.post<ApiResponse<any>>(`${url}`, dto);
