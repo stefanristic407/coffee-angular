@@ -19,10 +19,9 @@ export interface Transaction {
     delivery_country: string;
     delivery_zipcode: string;
     document_date: string;
-    document_number: string;
+    document_number: number;
     document_type: string;
     id: number;
-    order_id: number;
     order_items: TransactionOrder[];
     order_type: string;
     org_number: string;

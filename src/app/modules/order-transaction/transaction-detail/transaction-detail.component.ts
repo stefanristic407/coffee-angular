@@ -198,7 +198,7 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
         }
         const refNo = this.referenceForm.value.roaster_reference_number.trim();
         this.transactionService
-            .createReferenceNumber(this.transaction.channel, this.transaction.order_id, refNo)
+            .createReferenceNumber(this.transaction.channel, this.transaction.document_number, refNo)
             .subscribe((res) => {
                 if (res.success) {
                     this.toastr.success('Order reference number has been updated.');
