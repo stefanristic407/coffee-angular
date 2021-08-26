@@ -126,3 +126,7 @@
 .p-dropdown:not(.p-dropdown-open) .p-dropdown-clear-icon + .p-dropdown-trigger {
     opacity: 0;
 }
+
+.p-dropdown .p-dropdown-filter {
+    padding: 0.625rem !important;
+}
