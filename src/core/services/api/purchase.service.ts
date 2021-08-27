@@ -71,7 +71,6 @@ export class PurchaseService extends ApiService {
                     const arr = res.result.map((x) => ({
                         ...x,
                         status: this.getLabel(ORDER_STATUS_ITEMS, x.status),
-                        type: this.getLabel(ORDER_TYPE_ITEMS, x.type),
                     }));
 
                     return { ...res, result: arr };

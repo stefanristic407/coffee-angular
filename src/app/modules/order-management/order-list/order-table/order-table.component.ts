@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
-import { OrganizationType } from '@enums';
+import { OrderType, OrganizationType } from '@enums';
 import { CommonService, ResizeService } from '@services';
 import { DataTableComponent } from '@base-components';
 import { OrderSummary } from '@models';
@@ -14,8 +14,9 @@ import { Table } from 'primeng/table/table';
     templateUrl: './order-table.component.html',
     styleUrls: ['./order-table.component.scss'],
 })
-export class OrderTableComponent extends DataTableComponent<OrderSummary> implements OnInit,AfterViewInit {
+export class OrderTableComponent extends DataTableComponent<OrderSummary> implements OnInit, AfterViewInit {
     readonly OrgTypes = OrganizationType;
+    readonly OrderType = OrderType;
 
     orgType: OrganizationType;
     isMobileView = false;
@@ -38,8 +39,8 @@ export class OrderTableComponent extends DataTableComponent<OrderSummary> implem
     updateResize() {
         this.isMobileView = window.innerWidth <= 640;
     }
-    
-    ngAfterViewInit(){
+
+    ngAfterViewInit() {
         this.updateResize();
     }
 

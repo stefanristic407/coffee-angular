@@ -538,7 +538,8 @@ span.star {
     }
 
     &.active,
-    &.ACTIVE {
+    &.ACTIVE,
+    &.GC_ORDER {
         color: #649a2b;
         &::before {
             background: #649a2b;
@@ -546,7 +547,8 @@ span.star {
     }
 
     &.pending,
-    &.PENDING {
+    &.PENDING,
+    &.GC_ORDER_SAMPLE {
         color: #f19634;
         &::before {
             background: #f19634;
@@ -558,6 +560,13 @@ span.star {
         color: #979797;
         &::before {
             background: #979797;
+        }
+    }
+
+    &.PREBOOK_LOT {
+        color: #7c6be8;
+        &::before {
+            background: #7c6be8;
         }
     }
 }
