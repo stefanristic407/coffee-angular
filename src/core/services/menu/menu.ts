@@ -66,7 +66,7 @@ export const menuItems = [
         0,
         'apikey-management|micro-roaster-management|horeca-management',
     ),
-    new Menu(51, 'menu_sales', null, null, '/se/produkter', null, false, 5, null, MenuType.SHOPLINK),
+    new Menu(51, 'menu_sales', null, null, '/produkter', null, false, 5, null, MenuType.SHOPLINK),
     new Menu(
         52,
         'menu_sales_contracts',
