@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalsService } from '@services';
+import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
 
 @Component({
     selector: 'app-edit-user-details',
@@ -10,7 +11,11 @@ import { GlobalsService } from '@services';
 export class EditUserDetailsComponent implements OnInit {
     userForm: FormGroup;
     items: FormArray;
-    constructor(private fb: FormBuilder, public globals: GlobalsService) {}
+    constructor(
+        private fb: FormBuilder,
+        public globals: GlobalsService,
+        private validateService: ValidateEmailService,
+    ) {}
     ngOnInit(): void {
         this.userForm = this.fb.group({
             items: this.fb.array([this.createItem()]),
@@ -23,7 +28,7 @@ export class EditUserDetailsComponent implements OnInit {
     createItem(): FormGroup {
         return this.fb.group({
             name: ['', Validators.compose([Validators.required])],
-            email: ['', Validators.compose([Validators.required, Validators.email])],
+            email: ['', Validators.compose([Validators.required]), ValidateEmail.createValidator(this.validateService)],
         });
     }
     deleteEmail(idx): void {

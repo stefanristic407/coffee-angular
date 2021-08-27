@@ -10,6 +10,7 @@ import { maxWordCountValidator } from '@utils';
 import { AuthService, BrandService, CommonService, GeneralService, GlobalsService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 import * as _ from 'underscore';
+import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
 
 @Component({
     selector: 'app-visit-us',
@@ -45,6 +46,7 @@ export class VisitUsComponent implements OnInit {
         private brandService: BrandService,
         private authService: AuthService,
         private commonService: CommonService,
+        private validateService: ValidateEmailService
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -67,7 +69,7 @@ export class VisitUsComponent implements OnInit {
             address_line2: [''],
             city: ['', Validators.compose([Validators.required])],
             zipcode: ['', Validators.compose([Validators.required])],
-            email: ['', Validators.compose([Validators.required, Validators.email])],
+            email: ['', Validators.compose([Validators.required]), ValidateEmail.createValidator(this.validateService)],
             phone: ['', Validators.compose([Validators.required])],
         });
         this.getVisitDetails();

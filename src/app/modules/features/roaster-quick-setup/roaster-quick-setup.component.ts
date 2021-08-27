@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrganizationType } from '@enums';
+import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
 
 @Component({
     selector: 'app-roaster-quick-setup',
@@ -38,6 +39,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         public globals: GlobalsService,
         private fb: FormBuilder,
         private authService: AuthService,
+        private validateService: ValidateEmailService
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -67,7 +69,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         this.inviteFormArray.push(
             new FormGroup({
                 name: new FormControl('', [Validators.required]),
-                email: new FormControl('', [Validators.required, Validators.email]),
+                email: new FormControl('', [Validators.required], ValidateEmail.createValidator(this.validateService)),
                 type: new FormControl(),
             }),
         );

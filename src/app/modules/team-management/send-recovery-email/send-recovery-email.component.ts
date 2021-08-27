@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { GlobalsService, RoasterserviceService, AuthService, UserService } from '@services';
 import { Location } from '@angular/common';
+import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
 
 @Component({
     selector: 'app-send-recovery-email',
@@ -35,6 +36,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         private fb: FormBuilder,
         public location: Location,
         private authService: AuthService,
+        private validateService: ValidateEmailService,
     ) {}
 
     ngOnInit(): void {
@@ -51,7 +53,8 @@ export class SendRecoveryEmailComponent implements OnInit {
             ),
             email: new FormControl(
                 { value: '', disabled: !this.isEdit || !this.statusToggle },
-                Validators.compose([Validators.required, Validators.email]),
+                Validators.compose([Validators.required]),
+                ValidateEmail.createValidator(this.validateService),
             ),
         });
         this.userDetails = { last_activated: '', roles: [], status: '' };

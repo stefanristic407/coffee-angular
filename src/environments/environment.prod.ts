@@ -26,6 +26,7 @@ export const environment = {
     supportEmailAddress: 'support@eraofwe.com',
     shopWeb: 'https://sewnstagingshop.com/shop',
     support: 'https://support.eraofwe.com/',
+    EMAIL_API_KEY: 'ev-d04e109c77add42b91078744f992933c',
     version: 'v1.0',
     production: true,
 };

@@ -9,6 +9,7 @@ import { AuthService, GlobalsService, UserService } from '@services';
 import * as moment from 'moment';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
+import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
 
 @Component({
     selector: 'app-my-profile',
@@ -48,11 +49,12 @@ export class MyProfileComponent implements OnInit {
         private userService: UserService,
         public globals: GlobalsService,
         public location: Location,
+        private validateService: ValidateEmailService
     ) {
         this.infoForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             aboutMe: [''],
-            email: ['', [Validators.required, Validators.email]],
+            email: ['', [Validators.required], ValidateEmail.createValidator(this.validateService)],
             role: [{ value: '', disabled: true }],
             phone: [''],
             birthday: [''],
