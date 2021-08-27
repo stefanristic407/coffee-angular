@@ -231,6 +231,7 @@ import {
     AvailabilityTypePipe,
     EstateBrandLinkPipe,
     GcBrandLinkPipe,
+    HtmlStringWordCountPipe,
     LotBrandLinkPipe,
     OrderLinkPipe,
     OrderRatingLinkPipe,
@@ -241,8 +242,8 @@ import {
     ReviewLinkPipe,
     RoasterBrandCmsLinkPipe,
     RoasterBrandLinkPipe,
+    SentenceCasePipe,
     ShopLinkPipe,
-    HtmlStringWordCountPipe,
 } from './pipes';
 
 const PIPES = [
@@ -255,6 +256,7 @@ const PIPES = [
     FileIconPipe,
     FileNamePipe,
     GcBrandLinkPipe,
+    HtmlStringWordCountPipe,
     LotBrandLinkPipe,
     MonthPipe,
     OrderLinkPipe,
@@ -269,13 +271,13 @@ const PIPES = [
     RoasterBrandCmsLinkPipe,
     RoasterBrandLinkPipe,
     SafeHtmlPipe,
+    SafeHtmlPipe,
     SearchFilterPipe,
+    SentenceCasePipe,
     ShopLinkPipe,
     StringReplacePipe,
     ThousandSuffPipe,
     WordCountPipe,
-    SafeHtmlPipe,
-    HtmlStringWordCountPipe,
 ];
 
 @NgModule({

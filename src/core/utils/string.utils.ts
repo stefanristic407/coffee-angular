@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export const trimCharRight = (str: string, char: string): string => {
     const regex = new RegExp(`${char}+$`, 'gi');
     return str.replace(regex, '');
@@ -45,4 +47,9 @@ export const insertAltAttr = (content: string, alt: string): string => {
         content = content.replace(originTag, imageTag);
     }
     return content;
+};
+
+export const toSentenceCase = (str: string = '', decodeSnake: boolean = true): any => {
+    // decodeSnake: To remove special characters(undersocre and dash)
+    return decodeSnake ? _.upperFirst(_.lowerCase(str)) : _.upperFirst(str.toLocaleLowerCase());
 };
