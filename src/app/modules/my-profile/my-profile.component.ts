@@ -5,11 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService, GlobalsService, UserService } from '@services';
+import { AuthService, GlobalsService, UserService, ValidateEmailService } from '@services';
 import * as moment from 'moment';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
-import { ValidateEmailService } from '@services';
 import { ValidateEmail } from '@utils';
 
 @Component({

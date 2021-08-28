@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
-import { GlobalsService } from '@services';
+import { GlobalsService, ValidateEmailService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
 import { Country } from '@models';
-import { urlValidator } from '@utils';
-import { ValidateEmailService } from '@services';
-import { ValidateEmail } from '@utils';
+import { urlValidator, ValidateEmail } from '@utils';
 @Component({
     selector: 'app-sewn-contact',
     templateUrl: './contact.component.html',

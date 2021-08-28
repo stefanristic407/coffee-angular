@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GlobalsService } from '@services';
-import { ValidateEmailService } from '@services';
+import { GlobalsService, ValidateEmailService } from '@services';
 import { ValidateEmail } from '@utils';
 
 @Component({

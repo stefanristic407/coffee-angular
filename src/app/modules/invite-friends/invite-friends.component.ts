@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { InviteFriendsService } from '@services';
-import { ValidateEmailService } from '@services';
+import { InviteFriendsService, ValidateEmailService } from '@services';
 import { ValidateEmail } from '@utils';
 
 @Component({

@@ -6,12 +6,10 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
-import { maxWordCountValidator } from '@utils';
-import { AuthService, BrandService, CommonService, GeneralService, GlobalsService, UserService } from '@services';
+import { maxWordCountValidator, ValidateEmail } from '@utils';
+import { AuthService, BrandService, CommonService, ValidateEmailService, GeneralService, GlobalsService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 import * as _ from 'underscore';
-import { ValidateEmailService } from '@services';
-import { ValidateEmail } from '@utils';
 
 @Component({
     selector: 'app-visit-us',

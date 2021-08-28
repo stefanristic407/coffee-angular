@@ -4,9 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService, RoasterserviceService, AuthService, UserService } from '@services';
+import { GlobalsService, RoasterserviceService, AuthService, UserService, ValidateEmailService } from '@services';
 import { Location } from '@angular/common';
-import { ValidateEmailService } from '@services';
 import { ValidateEmail } from '@utils';
 
 @Component({
