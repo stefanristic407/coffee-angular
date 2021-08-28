@@ -18,7 +18,7 @@
                         <input type="text" placeholder="you@example.com" formControlName="email" pInputText />
                         <small *ngIf="item['controls']['email'].errors?.required" class="p-error"> Required </small>
                         <small *ngIf="item['controls']['email'].errors?.email" class="p-error"
-                            >Invalid email address</small
+                            >{{ 'please_fill_valid_email' | translate }}</small
                         >
                     </div>
                 </div>

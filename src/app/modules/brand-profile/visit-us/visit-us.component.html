@@ -168,7 +168,7 @@
                                         Please enter email
                                     </small>
                                     <small *ngIf="profileForm.controls.email.errors?.email" class="p-error">
-                                        Please enter valid email
+                                        {{ 'please_fill_valid_email' | translate }}
                                     </small>
                                 </div>
                                 <div class="col-12 col-md-6 sewn-form-field">
