@@ -6,7 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { GlobalsService, RoasterserviceService, AuthService, UserService } from '@services';
 import { Location } from '@angular/common';
-import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
+import { ValidateEmailService } from '@services';
+import { ValidateEmail } from '@utils';
 
 @Component({
     selector: 'app-send-recovery-email',

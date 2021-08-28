@@ -9,7 +9,8 @@ import { AuthService, GlobalsService, UserService } from '@services';
 import * as moment from 'moment';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
-import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
+import { ValidateEmailService } from '@services';
+import { ValidateEmail } from '@utils';
 
 @Component({
     selector: 'app-my-profile',

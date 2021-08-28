@@ -6,7 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrganizationType } from '@enums';
-import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
+import { ValidateEmailService } from '@services';
+import { ValidateEmail } from '@utils';
 
 @Component({
     selector: 'app-roaster-quick-setup',

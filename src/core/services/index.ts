@@ -13,3 +13,4 @@ export * from './resize';
 export * from './socket';
 export * from './startup';
 export * from './upload';
+export * from './email-validator.service';

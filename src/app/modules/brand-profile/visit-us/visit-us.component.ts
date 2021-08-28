@@ -10,7 +10,8 @@ import { maxWordCountValidator } from '@utils';
 import { AuthService, BrandService, CommonService, GeneralService, GlobalsService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 import * as _ from 'underscore';
-import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
+import { ValidateEmailService } from '@services';
+import { ValidateEmail } from '@utils';
 
 @Component({
     selector: 'app-visit-us',

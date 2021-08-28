@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalsService } from '@services';
-import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
+import { ValidateEmailService } from '@services';
+import { ValidateEmail } from '@utils';
 
 @Component({
     selector: 'app-edit-user-details',

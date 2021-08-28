@@ -1,5 +1,8 @@
-import { AbstractControl, ControlContainer, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, ControlContainer, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { LBUNIT } from '@constants';
+import { ValidateEmailService } from '@services';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { convertKg } from './common.utils';
 
 export function maxWordCountValidator(limit: number): ValidatorFn {
@@ -88,4 +91,28 @@ export function noWhitespaceValidator(): ValidatorFn {
         const isValid = !isWhitespace;
         return isValid ? null : { whitespace: true };
     };
+}
+
+export class ValidateEmail {
+    static createValidator(validateService: ValidateEmailService): AsyncValidatorFn {
+        return (control: AbstractControl): Observable<ValidationErrors> => {
+            return new Observable<any>((observer) => {
+                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(control.value)) {
+                    observer.next({ email: 'invalid' });
+                    observer.complete();
+                } else {
+                    validateService.validate(control.value).subscribe((res: any) => {
+                        if (res.status !== 200 && res.status !== 207) {
+                            observer.next({ email: 'invalid' });
+                        } else {
+                            observer.next(null);
+                        }
+                        observer.complete();
+                    });
+                }
+            }).pipe(
+                map((res) => res)
+            );
+        };
+    }
 }

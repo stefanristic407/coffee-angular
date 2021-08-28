@@ -5,7 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
 import { Country } from '@models';
 import { urlValidator } from '@utils';
-import { ValidateEmail, ValidateEmailService } from '@app/shared/services/email-validator.service';
+import { ValidateEmailService } from '@services';
+import { ValidateEmail } from '@utils';
 @Component({
     selector: 'app-sewn-contact',
     templateUrl: './contact.component.html',
