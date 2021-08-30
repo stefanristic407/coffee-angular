@@ -3,9 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, IdmService } from '@services';
-import { FileService } from '@services';
-import { RoasterserviceService } from '@services';
+import { FileService, GlobalsService, IdmService } from '@services';
 import { FileShareService } from '../file-share.service';
 
 @Component({
@@ -19,7 +17,6 @@ export class EditFolderComponent implements OnInit {
     shareForm: FormGroup;
     record: any;
     invite = false;
-    roasterId: string;
     permissionItems = [];
     usersList: any[];
     submitted = false;
@@ -35,11 +32,9 @@ export class EditFolderComponent implements OnInit {
         private toastrService: ToastrService,
         private globals: GlobalsService,
         private fileSrv: FileService,
-        private roasterSrv: RoasterserviceService,
         private idmService: IdmService,
         private fileShareSrv: FileShareService,
     ) {
-        this.roasterId = this.cookieSrv.get('roaster_id');
         this.route.paramMap.subscribe((params) => {
             if (params.has('folderId')) {
                 this.fileShareSrv.folderId = +params.get('folderId');
@@ -93,7 +88,7 @@ export class EditFolderComponent implements OnInit {
                     }
                 });
             } else {
-                this.roasterSrv.updateFolderDetails(this.roasterId, this.record.id, postData).subscribe((res: any) => {
+                this.fileSrv.updateFolder(this.record.id, postData).subscribe((res: any) => {
                     if (res.success) {
                         if (this.invite) {
                             this.record = res.result;
@@ -135,7 +130,7 @@ export class EditFolderComponent implements OnInit {
             company_type: this.shareForm.value.user.organization_type,
             company_id: this.shareForm.value.user.organization_id,
         };
-        this.roasterSrv.shareFolder(this.roasterId, fileId, postData).subscribe((res: any) => {
+        this.fileSrv.shareFileFolder(fileId, postData).subscribe((res: any) => {
             this.submitted = false;
             if (res.success) {
                 this.toastrService.success('Successfully shared.');
@@ -170,10 +165,15 @@ export class EditFolderComponent implements OnInit {
     }
 
     getUsersList(event: any) {
-        this.idmService.getUsersList(event.query).subscribe((res: any) => {
+        const searchStr: string = (event?.query || '').trim();
+        if (searchStr.length < 4) {
+            this.usersList = [];
+            return;
+        }
+        this.idmService.getUsersList(searchStr).subscribe((res: any) => {
             if (res.success) {
                 this.usersList = res.result;
-                this.usersList.map((element) => (element.name = `${element.firstname} ${element.lastname}`));
+                this.usersList.map((ix) => (ix.name = `${ix.firstname} ${ix.lastname}`.trim()));
             } else {
                 this.toastrService.error('Error while fetching users list');
             }
