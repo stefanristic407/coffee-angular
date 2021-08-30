@@ -5,7 +5,6 @@ import { GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { FilterComponent } from '../filter/filter.component';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { extend } from 'hammerjs';
 import { DestroyableComponent } from '@base-components';
 import { GRADE_ITEMS, MONTH_LIST } from '@constants';
 
