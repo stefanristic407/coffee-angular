@@ -23,10 +23,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: 'Yes', value: 1 },
         { label: 'No', value: 0 },
     ];
-    shippingAvailableItems: any[] = [
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
-    ];
+    shippingAvailableItems: any[] = [{ label: 'Yes', value: true }];
     weightItems: any[] = [
         { label: 'lb', value: 'lb' },
         { label: 'kg', value: 'kg' },
