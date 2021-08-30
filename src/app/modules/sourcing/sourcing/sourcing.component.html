@@ -95,6 +95,15 @@
                 placeholder="Available coffee"
                 styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
             ></p-dropdown>
+            <p-dropdown
+                *ngIf="sourcingSrv.showShippingFilter"
+                [options]="shippingAvailableItems"
+                [(ngModel)]="queryParams.shipping_available"
+                (onChange)="filterCall()"
+                [showClear]="true"
+                [placeholder]="'shipping_available' | translate"
+                styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.shipping_available ? 'highlight' : '' }}"
+            ></p-dropdown>
             <p-selectButton
                 *ngIf="sourcingSrv.showUnitFilter"
                 [options]="weightItems"

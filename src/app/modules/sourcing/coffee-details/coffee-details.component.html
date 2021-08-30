@@ -396,7 +396,7 @@
                 class="btn-raised w-100"
                 routerLink="/sourcing/buy-gc"
                 [queryParams]="{ gc_id: sourcing.harvestId }"
-                [disabled]="sourcing.harvestDetail?.minimum_purchase_quantity > sourcing.harvestDetail?.quantity_count"
+                [disabled]="!buyable"
             >
                 {{ 'buy' | translate }}
             </button>
@@ -405,7 +405,7 @@
 </ng-template>
 
 <ng-template #loading>
-    <app-loading></app-loading>
+    <div class="main-block"><app-loading></app-loading></div>
 </ng-template>
 
 <ng-template #noOtherCoffee>

@@ -23,6 +23,10 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: 'Yes', value: 1 },
         { label: 'No', value: 0 },
     ];
+    shippingAvailableItems: any[] = [
+        { label: 'Yes', value: true },
+        { label: 'No', value: false },
+    ];
     weightItems: any[] = [
         { label: 'lb', value: 'lb' },
         { label: 'kg', value: 'kg' },
@@ -46,6 +50,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         ];
         this.sourcingSrv.showUnitFilter = false;
         this.sourcingSrv.showAvailableFilter = true;
+        this.sourcingSrv.showAvailableFilter = false;
         this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();
