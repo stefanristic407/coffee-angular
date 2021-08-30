@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { CommonService, PurchaseService, ResizeService, TransactionService } from '@services';
+import { CommonService, DownloadService, ResizeService, TransactionService } from '@services';
 import { ResizeableComponent } from '@base-components';
-import { ApiResponse, Transaction } from '@models';
+import { ApiResponse, Download, Transaction } from '@models';
 import { SelectItem } from 'primeng/api';
-import { getOrgName, noWhitespaceValidator } from '@utils';
+import { getOrgName, noWhitespaceValidator, trackFileName } from '@utils';
 import { OrganizationType } from '@enums';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -28,10 +28,12 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
     referenceForm: FormGroup;
     orderItems: any[];
     orderSummary: SelectItem[];
+    isDownloading = false;
 
     constructor(
         private commonService: CommonService,
         private decimalPipe: DecimalPipe,
+        private downloadService: DownloadService,
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private titleCasePipe: TitleCasePipe,
@@ -39,7 +41,6 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
         private transactionService: TransactionService,
         private translateService: TranslateService,
         protected resizeService: ResizeService,
-        private purchaseSrv: PurchaseService,
     ) {
         super(resizeService);
     }
@@ -187,7 +188,26 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
     }
 
     export() {
-        console.log('export');
+        this.isDownloading = true;
+        this.transactionService.exportTransaction(this.transactionId).subscribe((res) => {
+            if (res.success && res.result.url) {
+                const fileName = trackFileName(res.result.url);
+                this.downloadService.download(res.result.url, fileName, 'application/pdf').subscribe(
+                    (response: Download) => {
+                        if (response.state === 'DONE') {
+                            this.toastr.success('Downloaded successfully');
+                            this.isDownloading = false;
+                        }
+                    },
+                    (error) => {
+                        this.toastr.error('Download failed');
+                        this.isDownloading = false;
+                    },
+                );
+            } else {
+                this.isDownloading = false;
+            }
+        });
     }
 
     saveReference() {

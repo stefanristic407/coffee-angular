@@ -6,7 +6,9 @@
         <h1 class="fnt-16 fnt-md-18 fnt-bold mb-3 mb-md-0">
             {{ 'Document number' | translate }} - {{ transaction?.document_number }}
         </h1>
-        <button class="btn-raised w-mob-100" (click)="export()">{{ 'export' | translate }}</button>
+        <button class="btn-raised w-mob-100" (click)="export()" [disabled]="isDownloading">
+            {{ 'export' | translate }}
+        </button>
     </div>
 
     <div class="row gutter-20 v-gutter-16">

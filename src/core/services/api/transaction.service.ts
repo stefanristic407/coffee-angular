@@ -19,9 +19,9 @@ export class TransactionService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `transactions/${transactionId}`);
     }
 
-    // Return the list of transaction details
-    exportTransaction(transactionId: number): Observable<ApiResponse<Transaction>> {
-        return this.postWithOrg(this.orgPostUrl, `transactions/export/${transactionId}`);
+    // Export RO transactions details as PDF
+    exportTransaction(transactionId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `transactions/${transactionId}/export/pdf`);
     }
 
     createReferenceNumber(channel: TransactionChannel, orderId: number, refNo: string): Observable<ApiResponse<any>> {

@@ -7,9 +7,7 @@ export const trimCharRight = (str: string, char: string): string => {
 
 export const trackFileName = (url: string): string => {
     if (url) {
-        const strArr = url.split('/');
-        const lastItem = strArr[strArr.length - 1];
-        return lastItem.split('?')[0];
+        return url.split('?')[0].split('/').pop();
     }
     return '';
 };
