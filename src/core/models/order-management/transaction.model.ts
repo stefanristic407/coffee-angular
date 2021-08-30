@@ -2,7 +2,7 @@ import { TransactionChannel } from '@enums';
 
 export interface Transaction {
     account_name: string;
-    account_number: string;
+    account_number: number;
     address_line1: string;
     address_line2: string;
     amount_exclude_vat: number;
