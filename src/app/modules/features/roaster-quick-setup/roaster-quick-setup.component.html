@@ -58,6 +58,9 @@
                                     <small class="p-error" *ngIf="invite.controls.email.errors?.required">
                                         Please enter the email
                                     </small>
+                                    <small class="p-error" *ngIf="invite.controls.email.errors?.email">
+                                        {{ 'please_enter_valid_mail_address' | translate }}
+                                    </small>
                                 </div>
                                 <div class="sewn-form-field col-md-3" *ngIf="orgType == OrgType.HORECA">
                                     <label>{{ 'enter_yoru_work_type' | translate }}</label>
@@ -97,7 +100,7 @@
                                 class="invite-btn btn-raised mb-3 w-mob-100 order-1 order-md-2"
                                 [class.loading]="inviteStatus === 'SENDING'"
                                 (click)="sendInvite()"
-                                [disabled]="inviteFormArray.invalid || inviteStatus === 'SENDING'"
+                                [disabled]="inviteStatus === 'SENDING'"
                             >
                                 <span>{{ (inviteStatus === 'SENDING' ? 'sending' : 'send_invites') | translate }}</span>
                             </button>
