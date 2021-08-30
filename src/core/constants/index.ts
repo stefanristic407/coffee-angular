@@ -8,6 +8,7 @@ export * from './month-list';
 export * from './organization-types';
 export * from './organization';
 export * from './permission-description';
+export * from './product-status-items';
 export * from './quantity-unit-list';
 export * from './validation-list';
 export * from './weight-convertion';

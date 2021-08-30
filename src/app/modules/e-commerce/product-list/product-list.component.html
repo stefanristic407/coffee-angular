@@ -53,9 +53,7 @@
             </div>
             <div class="dropdown-col">
                 <p-dropdown
-                    [options]="statusArray"
-                    optionLabel="label"
-                    optionValue="value"
+                    [options]="PRODUCT_STATUS_ITEMS"
                     [(ngModel)]="selectedStatus"
                     [autoDisplayFirst]="false"
                     [showClear]="true"

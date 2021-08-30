@@ -5,7 +5,8 @@ import { GlobalsService, ECommerceService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { ConfirmComponent } from '@shared';
-import { COUNTRY_LIST, LBUNIT } from '@constants';
+import { COUNTRY_LIST, LBUNIT, PRODUCT_STATUS_ITEMS } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-product-list',
@@ -13,6 +14,7 @@ import { COUNTRY_LIST, LBUNIT } from '@constants';
     styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
+    readonly PRODUCT_STATUS_ITEMS = PRODUCT_STATUS_ITEMS;
     appLanguage: any;
     breadCrumbItems: MenuItem[];
     tableData: any[] = [];
@@ -52,11 +54,6 @@ export class ProductListComponent implements OnInit {
         { label: '$0-$500', value: { price_min: '0', price_max: '500' } },
         { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },
     ];
-    statusArray: any[] = [
-        { label: 'In Stock', value: 'IN-STOCK' },
-        { label: 'Sold', value: 'SOLD' },
-        { label: 'In Draft', value: 'IN-DRAFT' },
-    ];
 
     roastLevelArray = {
         1: 'Light',
@@ -68,11 +65,11 @@ export class ProductListComponent implements OnInit {
 
     visibilityArray: any[] = [
         {
-            label: 'Public',
+            label: this.translator.instant('public'),
             value: true,
         },
         {
-            label: 'Not Public',
+            label: this.translator.instant('not_public'),
             value: false,
         },
     ];
@@ -87,12 +84,12 @@ export class ProductListComponent implements OnInit {
     }
 
     constructor(
-        public dialogSrv: DialogService,
-        public router: Router,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
         private activatedRoute: ActivatedRoute,
+        private dialogSrv: DialogService,
         private eCommerceService: ECommerceService,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
     ) {}
 
     ngOnInit(): void {
@@ -104,15 +101,15 @@ export class ProductListComponent implements OnInit {
             this.keywords = '';
             this.visibilityStatus = null;
             this.breadCrumbItems = [
-                { label: this.globals.languageJson?.home, routerLink: '/' },
+                { label: this.translator.instant('home'), routerLink: '/' },
                 {
-                    label: this.globals.languageJson?.ecommerce,
+                    label: this.translator.instant('ecommerce'),
                 },
                 {
                     label:
                         this.type === 'other'
-                            ? this.globals.languageJson?.other_products
-                            : this.globals.languageJson[`${this.type}_product_catalog`],
+                            ? this.translator.instant('other_products')
+                            : this.translator.instant(`${this.type}_product_catalog`),
                 },
             ];
             this.initializeTable();
@@ -297,13 +294,13 @@ export class ProductListComponent implements OnInit {
     getMenuItemsForItem(item) {
         const items = [
             {
-                label: this.globals.languageJson?.edit_product,
+                label: this.translator.instant('edit_product'),
                 command: () => {
                     this.onViewDetails(item);
                 },
             },
             {
-                label: this.globals.languageJson?.delete,
+                label: this.translator.instant('delete'),
                 command: () => {
                     this.deleteproduct(item.id);
                 },
