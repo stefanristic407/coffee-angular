@@ -4,6 +4,8 @@ import { ApiService } from './api.service';
 import { environment } from '@env/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../auth';
+import { ApiResponse } from '@models';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -23,5 +25,12 @@ export class GeneralService extends ApiService {
     // Edit organization profile
     updateProfile(body: any) {
         return this.postWithOrg(this.orgPostUrl, `profile`, 'PUT', body);
+    }
+
+    // ------------ Roasting Level ------------
+
+    // Common endpoint to get Roasting level details
+    getRoastLevels(): Observable<ApiResponse<any>> {
+        return this.post(this.orgPostUrl, `general/roast-levels`, 'GET');
     }
 }

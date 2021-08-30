@@ -656,39 +656,21 @@ export class UserService extends ApiService {
         };
         return this.http.put(this.orgPutUrl, data);
     }
-    addRoastingProfile(roaster_id: any, body: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasting-profile`,
-            token: this.authService.token,
-            data: body,
-            method: 'POST',
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    addRoastingProfile(body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile`, 'POST', body);
     }
-    getRoastingProfileDetail(roaster_id: any, id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    getRoastingProfileDetail(id: number): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`);
     }
-    updateRoastingProfileDetail(roaster_id: any, id: any, body: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
-            token: this.authService.token,
-            data: body,
-            method: 'PUT',
-        };
-        return this.http.put(this.orgPutUrl, data);
+
+    updateRoastingProfileDetail(id: number, body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`, 'PUT', body);
     }
-    deleteRoastingProfile(roaster_id: any, id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
-            method: 'DELETE',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgDeleteUrl, data);
+
+    deleteRoastingProfile(id: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`, 'DELETE');
     }
 
     getGreenCoffee(roaster_id: any, detailestateId: any) {
