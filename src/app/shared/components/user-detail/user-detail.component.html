@@ -71,7 +71,7 @@
                     <div class="p-1" *ngFor="let language of data?.converse_languages">
                         <div class="border-main px-25 py-1 language-item">
                             <p class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 mb-0">
-                                {{ globalsService.getLanguage(language) }}
+                                {{ language | language }}
                             </p>
                         </div>
                     </div>

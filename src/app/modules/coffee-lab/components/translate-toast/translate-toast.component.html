@@ -4,7 +4,7 @@
             <img [src]="'assets/images/' + language + '-flag.svg'" class="flag-image" />
             <div class="pl-25 pl-md-4">
                 <p class="fnt-muli fnt-18 fnt-md-24 fnt-bold lh-142 text-clr334 mb-2">
-                    You are now in the {{ globalsService.getLanguage(language) }} Coffee Lab
+                    You are now in the {{ language | language }} Coffee Lab
                 </p>
                 <p class="fnt-muli fnt-14 fnt-normal lh-157 text-clr334 mb-0">
                     {{ 'translated_description' | translate }}

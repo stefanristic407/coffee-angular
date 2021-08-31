@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div *ngIf="!isLoading">
+        <div *ngIf="!isLoading; else loading">
             <div *ngIf="!isEditMode">
                 <div class="row gutter-16">
                     <div class="col-md-6 col-lg-4">
@@ -118,145 +118,148 @@
                     </div>
                 </div>
             </div>
+
             <div *ngIf="isEditMode">
                 <div class="row gutter-16">
-                    <div class="col-md-4 col-lg-4">
-                        <div *ngIf="isEditMode">
-                            <div class="upload-picture-container">
-                                <div class="d-flex justify-content-center mb-3">
-                                    <div class="position-relative">
-                                        <img
-                                            src="assets/images/icon-camera.svg"
-                                            alt="icon"
-                                            class="camera"
-                                            (click)="fileInput.click()"
-                                        />
-                                        <img
-                                            *ngIf="!previewUrl"
-                                            src="assets/images/default-avatar.png"
-                                            class="avatar"
-                                            alt="icon"
-                                            width="90"
-                                            height="90"
-                                        />
-                                        <img
-                                            *ngIf="previewUrl"
-                                            [src]="previewUrl"
-                                            class="avatar"
-                                            alt="icon"
-                                            width="90"
-                                            height="90"
-                                        />
-                                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <div class="upload-picture-container">
+                            <div class="d-flex justify-content-center mb-3">
+                                <div class="position-relative">
+                                    <img
+                                        src="assets/images/icon-camera.svg"
+                                        alt="icon"
+                                        class="camera"
+                                        (click)="fileInput.click()"
+                                    />
+                                    <img
+                                        *ngIf="!previewUrl"
+                                        src="assets/images/default-avatar.png"
+                                        class="avatar"
+                                        alt="icon"
+                                        width="90"
+                                        height="90"
+                                    />
+                                    <img
+                                        *ngIf="previewUrl"
+                                        [src]="previewUrl"
+                                        class="avatar"
+                                        alt="icon"
+                                        width="90"
+                                        height="90"
+                                    />
                                 </div>
-                                <div class="text-clr24 text-center fnt-16 font-weight-bold">
-                                    {{ 'upload_your_picture' | translate }}
-                                </div>
-                                <div
-                                    *ngIf="!profileInfo?.profile_image_url"
-                                    class="text-clr588 text-center fnt-14 mt-2"
-                                >
-                                    {{ 'you_can_upload' | translate }}
-                                </div>
+                            </div>
+                            <div class="text-clr24 text-center fnt-16 font-weight-bold">
+                                {{ 'upload_your_picture' | translate }}
+                            </div>
+                            <div *ngIf="!profileInfo?.profile_image_url" class="text-clr588 text-center fnt-14 mt-2">
+                                {{ 'you_can_upload' | translate }}
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8 col-lg-8">
-                        <div class="right-container">
-                            <div *ngIf="isEditMode">
-                                <form [formGroup]="infoForm" (ngSubmit)="handleSubmit()">
-                                    <div class="row gutter-16 gutter-lg-24">
-                                        <div class="col-md-12 col-lg-6">
-                                            <label class="fnt-14 text-clr588" style="font-weight: 600"
-                                                >Name <span class="text-danger">*</span></label
-                                            >
-                                            <div class="mb-4 mb-md-45 sewn-form-field w-100">
-                                                <input
-                                                    class="w-100"
-                                                    type="text"
-                                                    pInputText
-                                                    required
-                                                    formControlName="firstName"
-                                                />
-                                                <div *ngIf="infoForm.controls.firstName.invalid" class="p-error">
-                                                    Required field
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="col-md-8 col-lg-9">
+                        <form [formGroup]="infoForm" (ngSubmit)="handleSubmit()">
+                            <div class="right-container">
+                                <div class="fnt-16 fnt-bold">{{ 'personal_details' | translate }}</div>
+                                <div class="fnt-semi-bold text-clr588 mt-1">
+                                    {{ 'introduce_yourself' | translate }}!
+                                </div>
 
-                                        <div class="col-12">
-                                            <div class="mb-4 mb-md-45 sewn-form-field w-100">
-                                                <label class="fnt-14 text-clr588"
-                                                    >Tell us a bit about yourself! (Optional)</label
-                                                >
-                                                <textarea
-                                                    pInputTextarea
-                                                    rows="3"
-                                                    class="w-100 about-text-box"
-                                                    formControlName="aboutMe"
-                                                ></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label class="fnt-14 text-clr588"
-                                                >Email address <span class="text-danger">*</span></label
-                                            >
-                                            <div class="mb-4 mb-md-45 sewn-form-field w-100">
-                                                <input
-                                                    class="w-100"
-                                                    type="text"
-                                                    pInputText
-                                                    required
-                                                    formControlName="email"
-                                                />
-                                                <div *ngIf="infoForm.controls.email.invalid" class="p-error">
-                                                    {{
-                                                        infoForm.controls.email.hasError('required')
-                                                            ? 'Required field'
-                                                            : 'Invalid email'
-                                                    }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="mb-4 mb-md-45 sewn-form-field w-100">
-                                                <label class="fnt-14 text-clr588">Phone number</label>
-                                                <app-phone-number formControlName="phone"></app-phone-number>
-                                                <div *ngIf="infoForm.controls.phone.invalid" class="p-error">
-                                                    Please enter valid phone number
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="mb-0 sewn-form-field w-100">
-                                                <label class="fnt-14 text-clr588">Date of birth</label>
-                                                <div class="mb-4 mb-md-45">
-                                                    <p-calendar
-                                                        class="w-100 birthday-input"
-                                                        [monthNavigator]="true"
-                                                        [yearNavigator]="true"
-                                                        yearRange="1950:2020"
-                                                        dateFormat="dd/mm/yy"
-                                                        [showIcon]="true"
-                                                        formControlName="birthday"
-                                                        [placeholder]="'select_date_birth' | translate"
-                                                    ></p-calendar>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label class="fnt-14 text-clr588">{{ 'role' | translate }}</label>
-                                            <div class="mb-4 mb-md-45 sewn-form-field w-100">
-                                                <input class="w-100" type="text" pInputText formControlName="role" />
-                                            </div>
+                                <div class="row gutter-16 gutter-lg-24 mt-4">
+                                    <div class="col-md-6 sewn-form-field">
+                                        <label>{{ 'first_name' | translate }}<span class="star">*</span></label>
+                                        <input type="text" pInputText formControlName="firstname" />
+                                        <small *ngIf="infoForm.controls.firstname.errors?.required" class="p-error">
+                                            {{ 'required' | translate }}
+                                        </small>
+                                    </div>
+                                    <div class="col-md-6 sewn-form-field">
+                                        <label>{{ 'second_name' | translate }}<span class="star">*</span></label>
+                                        <input type="text" pInputText formControlName="lastname" />
+                                        <small *ngIf="infoForm.controls.lastname.errors?.required" class="p-error">
+                                            {{ 'required' | translate }}
+                                        </small>
+                                    </div>
+                                    <div class="col-12 sewn-form-field w-100">
+                                        <label
+                                            >{{ 'tell_us_a_bit_about_yourself' | translate }}! ({{
+                                                'optional' | translate
+                                            }})</label
+                                        >
+                                        <textarea pInputTextarea rows="4" formControlName="about_me"></textarea>
+                                    </div>
+                                    <div class="col-md-6 sewn-form-field mb-md-0">
+                                        <label>{{ 'email_address' | translate }}<span class="star">*</span></label>
+                                        <input type="text" pInputText required formControlName="email" />
+                                        <small *ngIf="infoForm.controls.email.errors?.required" class="p-error">
+                                            {{ 'required' | translate }}
+                                        </small>
+                                        <small *ngIf="infoForm.controls.email.errors?.email" class="p-error">
+                                            {{ 'please_enter_valid_mail_address' | translate }}
+                                        </small>
+                                    </div>
+                                    <div class="col-md-6 sewn-form-field mb-md-0">
+                                        <label>{{ 'phone_number' | translate }}</label>
+                                        <app-phone-number formControlName="phone"></app-phone-number>
+                                        <div *ngIf="infoForm.controls.phone.errors?.invalid" class="p-error">
+                                            {{ 'please_enter_valid_phone_number' | translate }}
                                         </div>
                                     </div>
-                                </form>
-                                <div class="border-bottom-dashed-sub-secondary mb-4 mb-md-45"></div>
+                                </div>
+                            </div>
+
+                            <div class="right-container mt-4">
+                                <div class="fnt-16 fnt-bold">
+                                    {{ 'location' | translate }} {{ 'and' | translate | lowercase }}
+                                    {{ 'language' | translate }}
+                                </div>
+                                <div class="fnt-semi-bold text-clr588 mt-1">
+                                    {{ 'profile_location_language_description' | translate }}!
+                                </div>
+
+                                <div class="row gutter-16 gutter-lg-24 mt-4">
+                                    <div class="col-md-6 sewn-form-field">
+                                        <label>{{ 'country' | translate }}</label>
+                                        <p-dropdown
+                                            [options]="COUNTRY_LIST"
+                                            optionLabel="name"
+                                            optionValue="isoCode"
+                                            filter="true"
+                                            formControlName="country"
+                                            placeholder="{{ 'select_your_country' | translate }}"
+                                        ></p-dropdown>
+                                        <small *ngIf="infoForm.controls.country.errors?.required" class="p-error">
+                                            {{ 'required' | translate }}
+                                        </small>
+                                    </div>
+                                    <div class="col-md-6 sewn-form-field">
+                                        <label>{{ 'city' | translate }}</label>
+                                        <input type="text" pInputText formControlName="city" />
+                                        <small *ngIf="infoForm.controls.city.errors?.required" class="p-error">
+                                            {{ 'required' | translate }}
+                                        </small>
+                                    </div>
+
+                                    <div class="col-12 sewn-form-field mb-0">
+                                        <label>{{ 'languages_you_can_converse_in' | translate }}</label>
+                                        <app-select-language formControlName="converseLanguages"></app-select-language>
+                                        <small
+                                            *ngIf="infoForm.controls.converseLanguages.errors?.required"
+                                            class="p-error"
+                                        >
+                                            {{ 'required' | translate }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="right-container mt-4">
+                            <div class="fnt-16 fnt-bold">{{ 'certificates' | translate }}</div>
+                            <div class="fnt-semi-bold text-clr588 mt-1">
+                                {{ 'profile_certificates_description' | translate }}!
+                            </div>
+                            <div class="mt-4">
                                 <app-profile-certificates-edit
                                     [certificationArray]="certificationArray"
                                 ></app-profile-certificates-edit>
@@ -331,11 +334,7 @@
         </div>
         <!-- Profile Info Area for mobile end -->
 
-        <div *ngIf="isLoading" class="border-main">
-            <app-loading></app-loading>
-        </div>
-
-        <div *ngIf="!queryUserId" class="d-block d-md-none">
+        <div *ngIf="!queryUserId" class="d-block d-md-none mt-4">
             <div *ngIf="!isEditMode">
                 <button (click)="isEditMode = true" type="button" class="btn-raised w-100">
                     {{ 'edit_profile' | translate }}
@@ -363,3 +362,5 @@
 </div>
 
 <input hidden type="file" accept="image/png, image/jpeg" #fileInput (change)="onSelectFile($event)" />
+
+<ng-template #loading><app-loading></app-loading></ng-template>

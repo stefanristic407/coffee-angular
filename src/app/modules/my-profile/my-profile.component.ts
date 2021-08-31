@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { formatDate, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService, GlobalsService, UserService, ValidateEmailService } from '@services';
-import * as moment from 'moment';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
-import { ValidateEmail } from '@utils';
+import { getLanguage, ValidateEmail } from '@utils';
+import { COUNTRY_LIST, LANGUAGES } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-my-profile',
@@ -17,7 +18,9 @@ import { ValidateEmail } from '@utils';
     styleUrls: ['./my-profile.component.scss'],
 })
 export class MyProfileComponent implements OnInit {
-    isEditMode = false;
+    public readonly COUNTRY_LIST = COUNTRY_LIST;
+    public readonly LANGUAGES = LANGUAGES;
+    isEditMode = true;
     isLoading = false;
     isUpdatingProfile = false;
     previewUrl?: string;
@@ -31,11 +34,9 @@ export class MyProfileComponent implements OnInit {
         { name: 'Other', value: 'other' },
     ];
     roasterId: any;
-    role: any;
     userId: any;
     breadcrumbItems: MenuItem[];
     certificationArray: any[] = [];
-    apiCount = 0;
     queryUserId: any;
     queryOrganization: any;
 
@@ -49,21 +50,13 @@ export class MyProfileComponent implements OnInit {
         private userService: UserService,
         public globals: GlobalsService,
         public location: Location,
-        private validateService: ValidateEmailService
+        private validateService: ValidateEmailService,
+        private translator: TranslateService,
     ) {
-        this.infoForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            aboutMe: [''],
-            email: ['', [Validators.required], ValidateEmail.createValidator(this.validateService)],
-            role: [{ value: '', disabled: true }],
-            phone: [''],
-            birthday: [''],
-        });
         this.roasterId = this.authService.getOrgId();
         this.userId = this.authService.userId;
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.queryOrganization = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
-        this.getUserInfo();
     }
 
     ngOnInit(): void {
@@ -71,32 +64,48 @@ export class MyProfileComponent implements OnInit {
             { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
             { label: this.globals.languageJson?.my_profile },
         ];
+
+        this.infoForm = this.formBuilder.group({
+            firstname: ['', Validators.required],
+            lastname: ['', Validators.required],
+            about_me: [''],
+            email: ['', [Validators.required], ValidateEmail.createValidator(this.validateService)],
+            phone: [''],
+            country: [''],
+            city: [''],
+            converseLanguages: [null, [Validators.required]],
+        });
+
+        this.getUserInfo();
     }
 
     getUserInfo(): void {
         this.isLoading = true;
-        this.apiCount = 0;
-        this.getUserDetail();
-        if (this.queryUserId) {
-            this.apiCount += 1;
-        } else {
-            this.getCertificates();
+        const promises = [];
+        promises.push();
+        if (!this.queryUserId) {
+            promises.push(this.getCertificates());
         }
+        Promise.all(promises)
+            .then(() => {
+                this.isLoading = false;
+            })
+            .catch(() => {
+                this.isLoading = false;
+            });
+        this.getUserDetail();
+        this.getConverseLanguages();
     }
 
     getUserDetail(): void {
         this.userService.getUserDetail(this.queryUserId, this.queryOrganization).subscribe((res: any) => {
-            this.apiCount += 1;
             if (res.success) {
                 this.profileInfo = res.result;
+                this.infoForm.patchValue(this.profileInfo);
                 this.previewUrl = this.profileInfo.profile_image_url;
                 if (this.queryUserId) {
-                    this.apiCount += 1;
                     this.certificationArray = res.result?.certificates || [];
-                } else {
-                    this.getUserBasedRoles();
                 }
-                this.checkApiCompletion();
             } else {
                 this.toastr.error('Error while fetching profile');
                 this.router.navigate(['/']);
@@ -104,48 +113,23 @@ export class MyProfileComponent implements OnInit {
         });
     }
 
-    getUserBasedRoles(): void {
-        this.userService.getUserRoles().subscribe((res: any) => {
-            this.apiCount += 1;
-            if (res.success) {
-                this.role = res.result[0].name;
-            } else {
-                this.toastr.error('Error while fetching role');
+    getConverseLanguages(): void {
+        this.isLoading = true;
+        this.userService.getConverseLanguage().subscribe((res: any) => {
+            if (res.result?.languages?.length) {
+                this.infoForm.patchValue({ converseLanguages: res.result?.languages });
             }
-            this.checkApiCompletion();
         });
     }
 
     getCertificates(): void {
         this.userService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
-            this.apiCount += 1;
             if (res.success) {
                 this.certificationArray = res.result;
             } else {
                 this.toastr.error('Error while fetching certificates');
             }
-            console.log('certificates >>>>>>>>', res);
-            this.checkApiCompletion();
         });
-    }
-
-    checkApiCompletion(): void {
-        if (this.apiCount === 3) {
-            this.isLoading = false;
-            this.setFormFields();
-            this.apiCount = 0;
-        }
-    }
-
-    setFormFields(): void {
-        this.infoForm.controls.firstName.setValue(this.profileInfo.firstname);
-        this.infoForm.controls.aboutMe.setValue(this.profileInfo.about_me);
-        this.infoForm.controls.email.setValue(this.profileInfo.email);
-        this.infoForm.controls.phone.setValue(this.profileInfo.phone);
-        this.infoForm.controls.role.setValue(this.role);
-        this.infoForm.controls.birthday.setValue(
-            moment(this.profileInfo.date_of_birth).isValid() ? moment(this.profileInfo.date_of_birth).toDate() : null,
-        );
     }
 
     onSelectFile(event: any): void {
@@ -181,58 +165,72 @@ export class MyProfileComponent implements OnInit {
             this.profileInfo = res.result;
             this.isEditMode = false;
             this.authService.userSubject.next(res.result);
-            this.apiCount = 2;
             this.getCertificates();
             this.toastr.success('Successfully saved');
         });
     }
 
     handleSubmit(): void {
-        this.infoForm.markAllAsTouched();
         if (this.infoForm.invalid) {
+            this.infoForm.markAllAsTouched();
+            this.toastr.error(this.translator.instant('please_check_form_data'));
             return;
         }
 
-        const userInfo = { ...this.profileInfo };
-
-        userInfo.email = this.infoForm.controls.email.value;
-        userInfo.firstname = this.infoForm.controls.firstName.value;
-        userInfo.lastname = '';
-        userInfo.about_me = this.infoForm.controls.aboutMe.value;
-        userInfo.phone = this.infoForm.controls.phone.value;
-        if (this.infoForm.controls.birthday.value) {
-            userInfo.date_of_birth = formatDate(this.infoForm.controls.birthday.value, 'yyyy-MM-dd', 'en-US');
-        }
-
+        const promises = [];
+        promises.push();
         if (this.file) {
-            this.isUpdatingProfile = true;
-            const formData: FormData = new FormData();
-            formData.append('file', this.file);
-            formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
-            formData.append('token', this.authService.token);
-            this.userService.uploadProfileImage(formData).subscribe((res: any) => {
-                if (!res.success) {
-                    this.toastr.error('Failed to upload profile image.');
-                }
-                this.userService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res2: any) => {
-                    if (res2.success) {
-                        this.handleProfileUpdateSuccess();
-                    } else {
-                        this.isUpdatingProfile = false;
-                        this.toastr.error('Failed to update profile.');
-                    }
-                });
-            });
-        } else {
-            this.isUpdatingProfile = true;
-            this.userService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res: any) => {
-                if (res.success) {
-                    this.handleProfileUpdateSuccess();
-                } else {
-                    this.isUpdatingProfile = false;
-                    this.toastr.error('Failed to save data');
-                }
-            });
+            promises.push(new Promise((resolve, reject) => this.uploadProfileImage(resolve, reject)));
         }
+        promises.push(new Promise((resolve, reject) => this.updateRoasterProfile(resolve, reject)));
+        promises.push(new Promise((resolve, reject) => this.saveConverseLanguages(resolve, reject)));
+
+        this.isUpdatingProfile = true;
+        Promise.all(promises)
+            .then(() => {
+                this.handleProfileUpdateSuccess();
+            })
+            .catch(() => {
+                this.isUpdatingProfile = false;
+            });
+    }
+
+    uploadProfileImage(resolve, reject) {
+        const formData: FormData = new FormData();
+        formData.append('file', this.file);
+        formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
+        formData.append('token', this.authService.token);
+        this.userService.uploadProfileImage(formData).subscribe((res: any) => {
+            if (res.success) {
+                resolve();
+            } else {
+                reject();
+            }
+        });
+    }
+
+    updateRoasterProfile(resolve, reject) {
+        const userInfo = { ...this.profileInfo, ...this.infoForm.value };
+        this.userService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res: any) => {
+            if (res.success) {
+                resolve();
+            } else {
+                reject();
+            }
+        });
+    }
+
+    saveConverseLanguages(resolve, reject): void {
+        this.userService
+            .addConverseLanguage({
+                languages: this.infoForm.value.converseLanguages,
+            })
+            .subscribe((res) => {
+                if (res.success) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
     }
 }

@@ -1,0 +1,53 @@
+@import 'variables';
+
+:host ::ng-deep {
+    .p-multiselect.p-language-dropdown {
+        border: solid 1px $muted-text-color;
+        flex-direction: row-reverse;
+        width: unset;
+
+        .p-multiselect-label {
+            padding: 0.5rem 0.75rem 0.5rem 0;
+            color: $general-text-color;
+            font-weight: 600;
+        }
+
+        .p-multiselect-trigger-icon {
+            color: $general-text-color;
+        }
+    }
+
+    .p-chips.p-language-chips {
+        margin-bottom: -0.5rem;
+        .p-chips-multiple-container {
+            padding: 0;
+
+            &.p-inputtext {
+                border: none;
+            }
+
+            &.p-focus {
+                border-color: transparent !important;
+                box-shadow: none !important;
+            }
+
+            .p-chips-token {
+                padding: 8px 12px;
+                border-radius: 17px;
+                border: solid 1px $muted-text-color;
+                color: $muted-text-color;
+                background: $white;
+                font-weight: 500;
+                margin: 0 0 0.5rem 0.5rem;
+
+                .p-chips-token-icon::before {
+                    content: '\e90b';
+                }
+            }
+
+            .p-chips-input-token {
+                display: none;
+            }
+        }
+    }
+}

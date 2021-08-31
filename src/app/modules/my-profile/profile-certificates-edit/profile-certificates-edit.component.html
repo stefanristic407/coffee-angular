@@ -1,113 +1,89 @@
 <div class="license-content-wrapper">
     <div>
-        <ng-container *ngFor="let certificationItem of certificationArray; let i = index">
-            <div
-                class="certification-item justify-content-between d-flex align-items-center"
-                *ngIf="i !== editingRowIndex; else addAndEditTemplate"
-            >
-                <div class="d-flex align-items-center">
-                    <div class="fnt-muli fnt-600 fnt-14 text-clr334">{{ certificationItem.name }}</div>
-                    <div class="vertical-divider mx-3"></div>
-                    <div class="fnt-muli fnt-600 fnt-14 text-clr334">{{ certificationItem.year }}</div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span
-                        class="fnt-muli d-flex fnt-14 fnt-600 lh-normal text-clr97 cursor-pointer"
-                        (click)="onEdit(i)"
-                    >
-                        <img class="mr-2" src="assets/images/icon-edit.svg" alt="icon" />
-                        Edit
-                    </span>
-                    <div class="vertical-divider ml-3 mr-25"></div>
-                    <span
-                        class="fnt-muli d-flex fnt-14 fnt-600 lh-normal text-clr97 cursor-pointer"
-                        (click)="onDelete(i)"
-                    >
-                        <img class="mr-2" src="assets/images/icon-delete.svg" alt="icon" />
-                        Delete
-                    </span>
+        <div class="row v-gutter-8">
+            <div *ngFor="let certificationItem of certificationArray; let i = index" class="col-12">
+                <div
+                    class="certification-item justify-content-between d-flex align-items-center"
+                    *ngIf="i !== editingRowIndex; else addAndEditTemplate"
+                >
+                    <div class="d-flex align-items-center">
+                        <div class="fnt-600">{{ certificationItem.name }}</div>
+                        <div class="vertical-divider mx-3"></div>
+                        <div class="fnt-600">{{ certificationItem.year }}</div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="d-flex fnt-600 text-clr97 cursor-pointer" (click)="onEdit(i)">
+                            <img class="mr-2" src="assets/images/icon-edit.svg" alt="icon" />
+                            {{ 'edit' | translate }}
+                        </span>
+                        <div class="vertical-divider ml-3 mr-25"></div>
+                        <span class="d-flex fnt-600 text-clr97 cursor-pointer" (click)="onDelete(i)">
+                            <img class="mr-2" src="assets/images/icon-delete.svg" alt="icon" />
+                            {{ 'delete' | translate }}
+                        </span>
+                    </div>
                 </div>
             </div>
-        </ng-container>
-        <div class="mt-2" *ngIf="editingRowIndex === -1 || !certificationArray.length; else addAnotherCertificate">
+        </div>
+        <div class="mt-3" *ngIf="editingRowIndex === -1 || !certificationArray.length; else addAnotherCertificate">
             <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
         </div>
         <ng-template #addAnotherCertificate>
-            <div class="pt-2 pb-45 pb-md-0">
-                <span class="fnt-muli fnt-14 fnt-bold text-clr60b cursor-pointer" (click)="onAdd()">
+            <div class="mt-3 pb-45 pb-md-0">
+                <span class="fnt-14 fnt-bold brown-cta" (click)="onEdit()">
                     <i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>
-                    Add another certificate
+                    {{ 'add_another_certificate' | translate }}
                 </span>
             </div>
         </ng-template>
     </div>
-    <input #myFileInput type="file" hidden accept="image/png, image/jpeg" (change)="onFileChange($event)" />
 </div>
 
 <ng-template #addAndEditTemplate>
-    <div class="row gutter-24 pt-2">
-        <div class="col-md-6">
-            <div class="mb-4 mb-md-45 sewn-form-field w-100">
-                <label class="fnt-14 text-clr588 fnt-muli"> Certification name </label>
-                <input
-                    class="w-100"
-                    type="text"
-                    pInputText
-                    placeholder="Please type certificate name"
-                    [(ngModel)]="selectedCertificationName"
-                />
-            </div>
+    <div class="row gutter-16 pt-2" [formGroup]="certificateForm">
+        <div class="col-md-6 col-lg-4 sewn-form-field">
+            <label> {{ 'certification_name' | translate }} </label>
+            <input
+                type="text"
+                pInputText
+                [placeholder]="'enter_your_certificate_name' | translate"
+                formControlName="name"
+            />
+            <small *ngIf="certificateForm.controls.name.errors?.required" class="p-error">{{
+                'required' | translate
+            }}</small>
         </div>
-        <div class="col-md-6">
-            <div class="mb-4 mb-md-45 sewn-form-field w-100">
-                <label class="fnt-14 text-clr588 fnt-muli"> Year of certification </label>
-                <p-dropdown
-                    [options]="yearList"
-                    optionLabel="label"
-                    optionValue="value"
-                    [(ngModel)]="
-                        editingRowIndex < 0 ? selectedCertificationYear : certificationArray[editingRowIndex].year
-                    "
-                    styleClass="p-dropdown-full"
-                    placeholder="Please select year"
-                    [autoDisplayFirst]="false"
-                    (onChange)="onChangeYear($event)"
-                ></p-dropdown>
-            </div>
+        <div class="col-md-6 col-lg-3 sewn-form-field">
+            <label> {{ 'year' | translate }} </label>
+            <p-dropdown
+                [options]="yearList"
+                formControlName="year"
+                [placeholder]="'select_year' | translate"
+                [autoDisplayFirst]="false"
+            ></p-dropdown>
+            <small *ngIf="certificateForm.controls.year.errors?.required" class="p-error">{{
+                'required' | translate
+            }}</small>
         </div>
-        <div class="col-12">
-            <div class="mb-3">
-                <label class="fnt-14 text-clr588 fnt-muli"> Upload certificate </label>
-                <div class="d-flex align-items-center flex-column flex-md-row">
-                    <div class="file-name mr-3" *ngIf="file || certificationArray[editingRowIndex]?.public_url">
-                        <span class="fnt-muli fnt-600 fnt-14 text-clr588 lh-normal mb-0 text-overflow-ellipsis">
-                            {{ 'attachment' | translate }}
-                        </span>
-                        <i class="pi pi-times fnt-14 text-clr588 ml-25 cursor-pointer" (click)="onRemoveFile()"></i>
-                    </div>
-                    <div
-                        class="file-attach-btn mr-0 mr-md-3"
-                        (click)="onUpload()"
-                        *ngIf="!file && !certificationArray[editingRowIndex]?.public_url"
-                    >
-                        <img src="assets/images/shape.svg" alt="icon" />
-                        Attach
-                    </div>
-                    <div class="d-block d-md-flex btn-container">
-                        <button
-                            class="btn-raised px-4 mr-2 mt-3 mt-md-0"
-                            [disabled]="isSavingCertificate"
-                            (click)="onSave()"
-                        >
-                            Save
-                        </button>
-                        <button class="btn-stroked px-4 mt-3 mt-md-0" (click)="onCancel()" *ngIf="editingRowIndex > -1">
-                            Cancel
-                        </button>
-                    </div>
+        <div class="col-md-6 col-lg-auto sewn-form-field">
+            <label> {{ 'upload_certificate' | translate }} </label>
+            <app-uploader formControlName="file" accept="application/pdf, image/jpeg, image/png"></app-uploader>
+            <small *ngIf="certificateForm.controls.file.errors?.required" class="p-error">{{
+                'required' | translate
+            }}</small>
+        </div>
+        <div class="col-md-6 col-lg-auto ml-auto sewn-form-field mb-0">
+            <label class="text-white"> Buttons </label>
+            <div class="row gutter-16 v-gutter-16 justify-content-end align-items-start">
+                <div class="col-6 col-lg-auto">
+                    <button class="btn-raised" [disabled]="isSavingCertificate" (click)="onSave()">
+                        {{ 'save' | translate }}
+                    </button>
                 </div>
-                <div class="d-none d-md-block mt-2 fnt-10 text-clr588 upload-description">
-                    You can upload a JPG or PNG, file. Max file size limit 2MB
+                <div class="col-6 col-lg-auto">
+                    <button class="btn-stroked" (click)="onCancel()">
+                        {{ 'cancel' | translate }}
+                    </button>
                 </div>
             </div>
         </div>

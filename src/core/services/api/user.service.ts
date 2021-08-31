@@ -498,14 +498,11 @@ export class UserService extends ApiService {
         };
         return this.http.post(this.orgPostUrl, data);
     }
-    addConverseLanguage(body: any) {
-        const data = {
-            api_call: '/users/converse-languages',
-            token: this.authService.token,
-            data: body,
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    addConverseLanguage(body: any): Observable<ApiResponse<any>> {
+        return this.post(this.orgPostUrl, 'users/converse-languages', 'POST', body);
     }
+
     getConverseLanguage() {
         const data = {
             api_call: '/users/converse-languages',

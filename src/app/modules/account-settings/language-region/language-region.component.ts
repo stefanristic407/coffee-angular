@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment-timezone';
 import { AuthService, GlobalsService, I18NService, UserService } from '@services';
 import { Location } from '@angular/common';
-import { APP_LANGUAGES, languages } from '@constants';
+import { APP_LANGUAGES, LANGUAGES } from '@constants';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -12,7 +12,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class LanguageRegionComponent implements OnInit {
     applicationLanguages: any[] = APP_LANGUAGES;
-    languages: any[] = languages.sort((a: any, b: any) => (a.name < b.name ? -1 : 1));
+    languages: any[] = LANGUAGES.sort((a: any, b: any) => (a.name < b.name ? -1 : 1));
     timezones: any[] = [];
     selectedConverseLanguages?: any = [];
     isLoading?: boolean;

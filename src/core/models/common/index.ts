@@ -5,5 +5,6 @@ export * from './country.model';
 export * from './cropped-img.model';
 export * from './ecommerce';
 export * from './label-value.model';
+export * from './lanuage.model';
 export * from './organization-profile';
 export * from './page-info.model';
