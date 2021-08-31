@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AuthService, UserService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@services';
-import { ToastrService } from 'ngx-toastr';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { COUNTRY_LIST } from '@constants';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService, RoasterserviceService, UserService } from '@services';
+import { COUNTRY_LIST } from '@constants';
 import { OrganizationProfile } from '@models';
 import { ContactGroup } from '@enums';
+
 @Injectable({
     providedIn: 'root',
 })
@@ -26,12 +27,16 @@ export class RoasteryProfileService {
     public mainSubFormInvalid = false;
     public aboutFormInvalid = false;
     public contactFormInvalid = false;
+    public invalidSumEmployee = false;
+
+    subProfileForm: FormGroup;
+    aboutForm: FormGroup;
+    contactForm: FormGroup;
+
     public toUpdateProfileData: OrganizationProfile;
     public organizationProfile: OrganizationProfile;
     public orgImgPrevUrl: any;
     public orgImgCroppedFile: File;
-
-    public invalidSumEmployee = false;
 
     cities: Array<any> = [];
 
@@ -121,6 +126,9 @@ export class RoasteryProfileService {
     saveRoasterProfile() {
         if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid || this.invalidSumEmployee) {
             this.toastrService.error('Please fill all correct values for required fields');
+            this.subProfileForm?.markAllAsTouched();
+            this.aboutForm?.markAllAsTouched();
+            this.contactForm?.markAllAsTouched();
             return;
         }
         this.isSaving = true;

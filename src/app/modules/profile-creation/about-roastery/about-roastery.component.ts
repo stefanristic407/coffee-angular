@@ -162,6 +162,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
             capacity_unit: ['', Validators.compose([Validators.required])],
             capabilities: ['', Validators.compose([Validators.required])],
         });
+        this.roasteryProfileService.aboutForm = this.aboutForm;
 
         this.aboutForm.valueChanges.subscribe((changedData: any) => {
             this.roasteryProfileService.aboutFormInvalid = this.aboutForm.invalid;

@@ -70,6 +70,8 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
             name: ['', Validators.compose([Validators.required])],
             website: [''],
         });
+        this.roasteryProfileService.subProfileForm = this.subProfileForm;
+
         this.subProfileForm.valueChanges.subscribe((changedData: any) => {
             this.roasteryProfileService.mainSubFormInvalid = this.subProfileForm.invalid;
             this.roasteryProfileService.editProfileData(changedData);

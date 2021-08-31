@@ -23,7 +23,7 @@ export class ContactComponent implements OnInit {
         private fb: FormBuilder,
         public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
-        private validateService: ValidateEmailService
+        private validateService: ValidateEmailService,
     ) {}
 
     ngOnInit(): void {
@@ -53,6 +53,7 @@ export class ContactComponent implements OnInit {
             fb_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
             ig_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
         });
+        this.roasteryProfileService.contactForm = this.contactForm;
 
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {
             this.countryList.forEach((countryItem: Country) => {
