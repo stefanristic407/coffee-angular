@@ -42,6 +42,10 @@ export class ProfileCertificatesEditComponent implements OnInit {
             ];
         }
 
+        this.refreshForm();
+    }
+
+    refreshForm() {
         this.certificateForm = this.fb.group({
             name: [null, Validators.required],
             year: [null, Validators.required],
@@ -49,9 +53,9 @@ export class ProfileCertificatesEditComponent implements OnInit {
         });
     }
 
-    onEdit(index?): void {
-        this.editingRowIndex = index || -1;
-        this.certificateForm.reset();
+    onEdit(index = -1): void {
+        this.editingRowIndex = index;
+        this.refreshForm();
         if (this.editingRowIndex > -1) {
             this.certificateForm.patchValue({
                 ...this.certificationArray[index],
@@ -80,7 +84,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
                         .subscribe((res: any) => {
                             if (res.success) {
                                 this.certificationArray.splice(index, 1);
-                                this.editingRowIndex = -1;
+                                this.onCancel();
                                 this.toastrService.success('The selected certificate has been deleted successfully');
                             } else {
                                 this.toastrService.error('Something went wrong while deleting the certificate');
@@ -108,7 +112,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
         if (this.certificateForm.value.file.file) {
             formData.append('file', this.certificateForm.value.file.file);
         }
-        if (this.editingRowIndex === -1) {
+        if (this.editingRowIndex < 0) {
             formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/certificates`);
             formData.append('method', 'POST');
             this.isSavingCertificate = true;

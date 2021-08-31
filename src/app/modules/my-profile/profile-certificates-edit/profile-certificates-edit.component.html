@@ -41,47 +41,52 @@
 
 <ng-template #addAndEditTemplate>
     <div class="row gutter-16 pt-2" [formGroup]="certificateForm">
-        <div class="col-md-6 col-lg-4 sewn-form-field">
-            <label> {{ 'certification_name' | translate }} </label>
-            <input
-                type="text"
-                pInputText
-                [placeholder]="'enter_your_certificate_name' | translate"
-                formControlName="name"
-            />
-            <small *ngIf="certificateForm.controls.name.errors?.required" class="p-error">{{
-                'required' | translate
-            }}</small>
+        <div class="col-xl-6">
+            <div class="row gutter-16">
+                <div class="col-md-7 sewn-form-field">
+                    <label> {{ 'certification_name' | translate }} </label>
+                    <input
+                        type="text"
+                        pInputText
+                        [placeholder]="'enter_your_certificate_name' | translate"
+                        formControlName="name"
+                    />
+                    <small *ngIf="certificateForm.controls.name.errors?.required" class="p-error">{{
+                        'required' | translate
+                    }}</small>
+                </div>
+                <div class="col-md-5 sewn-form-field">
+                    <label> {{ 'year' | translate }} </label>
+                    <p-dropdown
+                        [options]="yearList"
+                        formControlName="year"
+                        [placeholder]="'select_year' | translate"
+                        [autoDisplayFirst]="false"
+                    ></p-dropdown>
+                    <small *ngIf="certificateForm.controls.year.errors?.required" class="p-error">{{
+                        'required' | translate
+                    }}</small>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 col-lg-3 sewn-form-field">
-            <label> {{ 'year' | translate }} </label>
-            <p-dropdown
-                [options]="yearList"
-                formControlName="year"
-                [placeholder]="'select_year' | translate"
-                [autoDisplayFirst]="false"
-            ></p-dropdown>
-            <small *ngIf="certificateForm.controls.year.errors?.required" class="p-error">{{
-                'required' | translate
-            }}</small>
-        </div>
-        <div class="col-md-6 col-lg-auto sewn-form-field">
+
+        <div class="col-md-6 col-xl-auto sewn-form-field">
             <label> {{ 'upload_certificate' | translate }} </label>
             <app-uploader formControlName="file" accept="application/pdf, image/jpeg, image/png"></app-uploader>
             <small *ngIf="certificateForm.controls.file.errors?.required" class="p-error">{{
                 'required' | translate
             }}</small>
         </div>
-        <div class="col-md-6 col-lg-auto ml-auto sewn-form-field mb-0">
-            <label class="text-white"> Buttons </label>
-            <div class="row gutter-16 v-gutter-16 justify-content-end align-items-start">
-                <div class="col-6 col-lg-auto">
-                    <button class="btn-raised" [disabled]="isSavingCertificate" (click)="onSave()">
+        <div class="col-md-6 col-xl-auto ml-auto sewn-form-field">
+            <label class="text-white d-none d-md-block"> Buttons </label>
+            <div class="row gutter-12 v-gutter-16 justify-content-end align-items-start">
+                <div class="col-6 col-md-auto">
+                    <button class="btn-raised w-mob-100" [disabled]="isSavingCertificate" (click)="onSave()">
                         {{ 'save' | translate }}
                     </button>
                 </div>
-                <div class="col-6 col-lg-auto">
-                    <button class="btn-stroked" (click)="onCancel()">
+                <div class="col-6 col-md-auto">
+                    <button class="btn-stroked w-mob-100" (click)="onCancel()">
                         {{ 'cancel' | translate }}
                     </button>
                 </div>
