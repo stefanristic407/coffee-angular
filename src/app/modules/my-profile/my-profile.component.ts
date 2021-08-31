@@ -23,16 +23,12 @@ export class MyProfileComponent implements OnInit {
     isEditMode = true;
     isLoading = false;
     isUpdatingProfile = false;
-    previewUrl?: string;
-    avatarFileError?: string;
-    file?: any;
-    profileInfo?: any;
+    bannerUrl: string;
+    bannerFile: File;
+    profileUrl: string;
+    profileFile: File;
+    profileInfo: any;
     infoForm: FormGroup;
-    genders = [
-        { name: 'Male', value: 'male' },
-        { name: 'Female', value: 'female' },
-        { name: 'Other', value: 'other' },
-    ];
     roasterId: any;
     userId: any;
     breadcrumbItems: MenuItem[];
@@ -48,7 +44,6 @@ export class MyProfileComponent implements OnInit {
         private router: Router,
         private toastr: ToastrService,
         private userService: UserService,
-        public globals: GlobalsService,
         public location: Location,
         private validateService: ValidateEmailService,
         private translator: TranslateService,
@@ -61,8 +56,8 @@ export class MyProfileComponent implements OnInit {
 
     ngOnInit(): void {
         this.breadcrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
-            { label: this.globals.languageJson?.my_profile },
+            { label: this.translator.instant('home'), routerLink: '/dashboard' },
+            { label: this.translator.instant('my_profile') },
         ];
 
         this.infoForm = this.formBuilder.group({
@@ -102,7 +97,7 @@ export class MyProfileComponent implements OnInit {
             if (res.success) {
                 this.profileInfo = res.result;
                 this.infoForm.patchValue(this.profileInfo);
-                this.previewUrl = this.profileInfo.profile_image_url;
+                this.profileUrl = this.profileInfo.profile_image_url;
                 if (this.queryUserId) {
                     this.certificationArray = res.result?.certificates || [];
                 }
@@ -132,6 +127,26 @@ export class MyProfileComponent implements OnInit {
         });
     }
 
+    onSelectBanner(event: any): void {
+        if (!event.target.files?.length) {
+            return;
+        }
+        this.dialogService
+            .open(CropperDialogComponent, {
+                data: {
+                    imageChangedEvent: event,
+                    resizeToWidth: 1144,
+                    maintainAspectRatio: false,
+                },
+            })
+            .onClose.subscribe((data: CroppedImage) => {
+                if (data.status) {
+                    this.bannerUrl = data.croppedImgUrl;
+                    this.bannerFile = data.croppedImgFile;
+                }
+            });
+    }
+
     onSelectFile(event: any): void {
         if (!event.target.files?.length) {
             return;
@@ -147,14 +162,17 @@ export class MyProfileComponent implements OnInit {
             })
             .onClose.subscribe((data: CroppedImage) => {
                 if (data.status) {
-                    this.previewUrl = data.croppedImgUrl;
-                    this.file = data.croppedImgFile;
+                    this.profileUrl = data.croppedImgUrl;
+                    this.profileFile = data.croppedImgFile;
                 }
             });
     }
 
     handleCancel(): void {
-        this.previewUrl = this.profileInfo.profile_image_url;
+        this.bannerUrl = this.profileInfo.profile_image_url;
+        this.bannerFile = null;
+        this.profileUrl = this.profileInfo.profile_image_url;
+        this.profileFile = null;
         this.isEditMode = false;
         this.getUserInfo();
     }
@@ -179,7 +197,10 @@ export class MyProfileComponent implements OnInit {
 
         const promises = [];
         promises.push();
-        if (this.file) {
+        // if (this.bannerFile) {
+        //     promises.push(new Promise((resolve, reject) => this.uploadBanner(resolve, reject)));
+        // }
+        if (this.profileFile) {
             promises.push(new Promise((resolve, reject) => this.uploadProfileImage(resolve, reject)));
         }
         promises.push(new Promise((resolve, reject) => this.updateRoasterProfile(resolve, reject)));
@@ -195,9 +216,23 @@ export class MyProfileComponent implements OnInit {
             });
     }
 
+    uploadBanner(resolve, reject) {
+        const formData: FormData = new FormData();
+        formData.append('file', this.bannerFile);
+        formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
+        formData.append('token', this.authService.token);
+        this.userService.uploadProfileImage(formData).subscribe((res: any) => {
+            if (res.success) {
+                resolve();
+            } else {
+                reject();
+            }
+        });
+    }
+
     uploadProfileImage(resolve, reject) {
         const formData: FormData = new FormData();
-        formData.append('file', this.file);
+        formData.append('file', this.profileFile);
         formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
         formData.append('token', this.authService.token);
         this.userService.uploadProfileImage(formData).subscribe((res: any) => {

@@ -56,13 +56,13 @@
                             <div class="avatar-name-container mb-45">
                                 <div>
                                     <img
-                                        *ngIf="!previewUrl"
+                                        *ngIf="!profileUrl"
                                         src="assets/images/default-avatar.png"
                                         alt="icon"
                                         width="90"
                                         height="90"
                                     />
-                                    <img *ngIf="previewUrl" [src]="previewUrl" alt="icon" width="90" height="90" />
+                                    <img *ngIf="profileUrl" [src]="profileUrl" alt="icon" width="90" height="90" />
                                 </div>
                                 <div class="text-clr24 fnt-16 font-weight-bold profile-name">
                                     {{ profileInfo?.firstname + ' ' + profileInfo?.lastname }}
@@ -120,7 +120,30 @@
             </div>
 
             <div *ngIf="isEditMode">
-                <div class="row gutter-16">
+                <div class="row gutter-16 v-gutter-24">
+                    <div class="col-12">
+                        <div *ngIf="bannerUrl" class="banner-container">
+                            <img [src]="bannerUrl" alt="banner" />
+                            <div class="edit-btn-group">
+                                <button class="btn-raised" (click)="bannerInput.click()">
+                                    {{ 'replace_image' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="!bannerUrl" class="upload-banner-container text-center">
+                            <img
+                                class="plus-circle cursor-pointer"
+                                src="assets/images/plus-circle.svg"
+                                (click)="bannerInput.click()"
+                            />
+                            <p class="fnt-16 fnt-bold mt-35">
+                                {{ 'upload_a_cover_photo' | translate }}
+                            </p>
+                            <p class="upload-desciption text-clr588 mt-25 mx-auto">
+                                {{ 'profile_banner_description' | translate }}
+                            </p>
+                        </div>
+                    </div>
                     <div class="col-md-4 col-lg-3">
                         <div class="upload-picture-container">
                             <div class="d-flex justify-content-center mb-3">
@@ -129,10 +152,10 @@
                                         src="assets/images/icon-camera.svg"
                                         alt="icon"
                                         class="camera"
-                                        (click)="fileInput.click()"
+                                        (click)="profileInput.click()"
                                     />
                                     <img
-                                        *ngIf="!previewUrl"
+                                        *ngIf="!profileUrl"
                                         src="assets/images/default-avatar.png"
                                         class="avatar"
                                         alt="icon"
@@ -140,8 +163,8 @@
                                         height="90"
                                     />
                                     <img
-                                        *ngIf="previewUrl"
-                                        [src]="previewUrl"
+                                        *ngIf="profileUrl"
+                                        [src]="profileUrl"
                                         class="avatar"
                                         alt="icon"
                                         width="90"
@@ -275,14 +298,14 @@
             <div class="py-4 text-center border-top-dashed-primary border-bottom-dashed-primary">
                 <div class="mb-2">
                     <img
-                        *ngIf="!previewUrl"
+                        *ngIf="!profileUrl"
                         src="assets/images/default-avatar.png"
                         class="avatar-img"
                         alt="icon"
                         width="90"
                         height="90"
                     />
-                    <img *ngIf="previewUrl" [src]="previewUrl" class="avatar-img" alt="icon" width="90" height="90" />
+                    <img *ngIf="profileUrl" [src]="profileUrl" class="avatar-img" alt="icon" width="90" height="90" />
                 </div>
                 <div class="text-clr24 fnt-16 font-weight-bold profile-name">
                     {{ profileInfo?.firstname + ' ' + profileInfo?.lastname }}
@@ -361,6 +384,7 @@
     </div>
 </div>
 
-<input hidden type="file" accept="image/png, image/jpeg" #fileInput (change)="onSelectFile($event)" />
+<input hidden type="file" accept="image/png, image/jpeg" #bannerInput (change)="onSelectBanner($event)" />
+<input hidden type="file" accept="image/png, image/jpeg" #profileInput (change)="onSelectFile($event)" />
 
 <ng-template #loading><app-loading></app-loading></ng-template>

@@ -28,6 +28,39 @@
     border-radius: 50%;
 }
 
+.banner-container {
+    position: relative;
+    height: 160px;
+    @media (min-width: 768px) {
+        height: 274px;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 4px;
+    }
+    .edit-btn-group {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+    }
+}
+
+.upload-banner-container {
+    border: 1px dashed $secondary-border-color;
+    padding: 48px 32px 32px;
+    border-radius: 4px;
+    @media (min-width: 768px) {
+        padding: 90px 48px 65px;
+    }
+
+    .upload-desciption {
+        max-width: 200px;
+    }
+}
+
 .upload-picture-container {
     border: 1px dashed $secondary-border-color;
     padding: 44px;
