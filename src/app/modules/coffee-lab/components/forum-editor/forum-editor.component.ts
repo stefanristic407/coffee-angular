@@ -6,6 +6,11 @@ import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
+import Quill from 'quill';
+import ImageResize from 'quill-image-resize-module';
+import { ImageDrop } from 'quill-image-drop-module';
+Quill.register('modules/imageResize', ImageResize);
+Quill.register('modules/imageDrop', ImageDrop);
 
 @Component({
     selector: 'app-forum-editor',
@@ -27,6 +32,7 @@ export class ForumEditorComponent implements OnInit, ControlValueAccessor {
     onTouched: any;
 
     content: string;
+    modules = {};
 
     @Input() isUploadingImage = false;
     @Output() isUploadingImageChange = new EventEmitter<boolean>();
@@ -56,7 +62,14 @@ export class ForumEditorComponent implements OnInit, ControlValueAccessor {
         private coffeeLabService: CoffeeLabService,
         private toastrService: ToastrService,
         public authService: AuthService,
-    ) {}
+    ) {
+        this.modules = {
+            imageResize: {
+                modules: ['Resize', 'DisplaySize'],
+            },
+            imageDrop: true,
+        };
+    }
 
     ngOnInit(): void {
         if (this.images?.length) {
