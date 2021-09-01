@@ -42,7 +42,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         }
                         case 403: {
                             this.showCodeMessage(body.response_code);
-                            this.authService.goToLogin();
+                            router.navigate(['/']);
                             break;
                         }
                         case 422: {
