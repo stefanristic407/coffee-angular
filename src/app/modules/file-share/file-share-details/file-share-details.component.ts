@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { FileService, GlobalsService, ResizeService } from '@services';
+import { FileService, ResizeService } from '@services';
 import { FileShareService } from '../file-share.service';
 import { Action } from '@enums';
 import { ResizeableComponent } from '@base-components';
@@ -28,11 +29,11 @@ export class FileShareDetailsComponent extends ResizeableComponent implements On
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        public toastrService: ToastrService,
-        public fileShareSrv: FileShareService,
-        public fileService: FileService,
-        public globals: GlobalsService,
+        private translator: TranslateService,
         protected resizeService: ResizeService,
+        public fileService: FileService,
+        public fileShareSrv: FileShareService,
+        public toastrService: ToastrService,
     ) {
         super(resizeService);
     }
@@ -78,11 +79,11 @@ export class FileShareDetailsComponent extends ResizeableComponent implements On
     refreshMenuItems() {
         this.menuItems = [
             {
-                label: this.globals.languageJson?.documents,
+                label: this.translator.instant('documents'),
                 routerLink: [`/file-share/file-share-details/${this.fileShareSrv.folderId}/documents`],
             },
             {
-                label: this.globals.languageJson?.videos,
+                label: this.translator.instant('videos'),
                 routerLink: [`/file-share/file-share-details/${this.fileShareSrv.folderId}/videos`],
             },
         ];
@@ -90,9 +91,9 @@ export class FileShareDetailsComponent extends ResizeableComponent implements On
 
     refreshBreadCrumb() {
         this.breadItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.brand_experience },
-            { label: this.globals.languageJson?.file_share, routerLink: '/file-share' },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('brand_experience') },
+            { label: this.translator.instant('education_collaboration'), routerLink: '/file-share' },
         ];
         const folder = this.fileShareSrv.fileTree[this.fileShareSrv.folderId];
         if (folder?.parents) {

@@ -54,7 +54,7 @@
                         [(ngModel)]="queryParams.sort_by"
                         (onChange)="filterCall()"
                         scrollHeight="225px"
-                        placeholder="{{ globals.languageJson?.sort_by }}"
+                        [placeholder]="'sort_by' | translate"
                         styleClass="round-border mr-25"
                     ></p-dropdown>
                     <p-selectButton
