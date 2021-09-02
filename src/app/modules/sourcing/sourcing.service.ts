@@ -36,7 +36,6 @@ export class SourcingService {
 
     showUnitFilter = false;
     showAvailableFilter = false;
-    showShippingFilter = false;
 
     flavourList: any[];
     generalFlavourList: any[];
@@ -94,7 +93,7 @@ export class SourcingService {
             grade: null,
             crop_year: null,
             available_coffee: null,
-            shipping_available: null,
+            shipping_available: true,
             sort_by: 'name',
             sort_order: 'asc',
         });
