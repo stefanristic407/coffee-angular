@@ -25,7 +25,8 @@
     }
     .copy-paste-button {
         position: absolute;
-        bottom: 16px;
+        bottom: 5px;
+        padding: 10.5px 17.5px;
         right: 16px;
         cursor: pointer;
         @media (max-width: 768px) {
@@ -77,10 +78,14 @@
         height: 100%;
         object-fit: cover;
     }
-
-    label {
-        color: #747589 !important;
+    .translate-hgt {
+        height: 276px !important;
+        border-radius: 4px;
     }
+
+    // label {
+    //     color: #747589 !important;
+    // }
     ::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
         padding: 5px !important;
     }
@@ -170,5 +175,18 @@
 }
 
 .text-area {
-    border: 1px solid $error-border-color;
+    border: 1px solid $error-border-color !important;
+}
+
+.align-another {
+    position: relative;
+    bottom: 27px;
+}
+
+.req-ratio {
+    border-color: $error-border-color !important;
+}
+
+.no-brew {
+    color: $error-border-color !important;
 }

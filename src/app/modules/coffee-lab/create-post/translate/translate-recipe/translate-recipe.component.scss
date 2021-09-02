@@ -1,0 +1,24 @@
+::ng-deep .bg-tabView .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background-color: rgba(48, 133, 92, 0.16) !important;
+    border: 0px !important;
+}
+
+::ng-deep .bg-tabView .p-tabview .p-tabview-nav {
+    background: #f8f8f8 !important;
+    padding-left: 1.5rem;
+}
+
+::ng-deep .bg-tabView .p-tabview .p-tabview-panels {
+    overflow-x: hidden;
+    border-left: 1px solid #dedede;
+}
+::ng-deep .p-tabview .p-tabview-nav li {
+    margin-right: 0px !important;
+}
+::ng-deep .bg-tabView .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border-right: 1px solid #d8d8d8;
+    @media (min-width: 768px) {
+        padding: 18px 24px 18px 24px !important;
+    }
+}

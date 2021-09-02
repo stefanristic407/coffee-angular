@@ -1,7 +1,11 @@
 <div>
     <div [formGroup]="articleForm" novalidate>
         <div class="col-12 sewn-form-field p-0">
-            <div class="addImageContainer d-flex align-items-center justify-content-center">
+            <label>{{ 'cover_image' | translate }}</label>
+            <div
+                class="addImageContainer d-flex align-items-center justify-content-center"
+                [ngClass]="{ 'text-area': !coverImageId && clicked }"
+            >
                 <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image" />
                 <label class="cursor-pointer">
                     <input
@@ -11,14 +15,11 @@
                         hidden
                         (change)="onFileChange($event)"
                     />
-                    <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
+                    <div class="d-flex flex-column align-items-center mt-2" *ngIf="!coverImageUrl">
                         <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
-                            >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
-                        >
-                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
-                            >({{ 'max_size' | translate }} 2mb)</span
-                        >
+                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25">{{
+                            'add_cover_image' | translate
+                        }}</span>
                     </div>
                 </label>
                 <img
@@ -46,22 +47,26 @@
             </div>
         </div>
         <div class="col-12 sewn-form-field p-0">
+            <label>{{ 'title' | translate }}</label>
             <textarea
+                class="min-hght"
                 [placeholder]="'give_a_title' | translate"
                 pInputTextarea
                 formControlName="title"
-                [rows]="1"
+                autoResize="autoResize"
             ></textarea>
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
+            <label>{{ 'subtitle' | translate }}</label>
             <textarea
-                [placeholder]="'subtitle' | translate"
+                class="min-hght"
+                placeholder="Add a short description about your article"
                 pInputTextarea
                 formControlName="subtitle"
-                [rows]="1"
+                autoResize="autoResize"
             ></textarea>
             <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
@@ -71,24 +76,36 @@
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
+            <label>{{ 'body' | translate }}</label>
             <app-forum-editor
                 formControlName="content"
                 [(isUploadingImage)]="isUploadingImage"
+                [placeholder]="'Start typing your article'"
                 [(imageIdList)]="imageIdList"
                 fileModule="cl-articles"
                 [images]="images"
+                [ngClass]="{ 'text-area': !articleForm.get('content').value && clicked }"
             ></app-forum-editor>
         </div>
-        <div class="d-flex align-items-center">
-            <p-checkbox
-                [binary]="true"
-                [label]="globals.languageJson?.allow_translations_by_other_authors"
-                formControlName="allow_translation"
-            ></p-checkbox>
-            <app-info-tooltip
-                [title]="'translations' | translate"
-                [description]="'translation-tooltip' | translate"
-            ></app-info-tooltip>
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
+            <div class="d-flex">
+                <p-checkbox
+                    [binary]="true"
+                    [label]="globals.languageJson?.allow_translations_by_other_authors"
+                    formControlName="allow_translation"
+                ></p-checkbox>
+                <app-info-tooltip
+                    [title]="'translations' | translate"
+                    [description]="'translation-tooltip' | translate"
+                ></app-info-tooltip>
+            </div>
+            <div class="mt-3 mt-md-0">
+                <p-checkbox
+                    [binary]="true"
+                    [label]="'era_of_we_blog' | translate"
+                    formControlName="is_era_of_we"
+                ></p-checkbox>
+            </div>
         </div>
         <div class="row pt-45 pt-lg-5">
             <div class="col-md-6 order-2 order-md-1">
@@ -108,7 +125,7 @@
                     <button
                         [disabled]="isPosting"
                         (click)="onPost('published')"
-                        class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                        class="btn-raised px-4 ml-md-3 mr-md-2 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
                         {{ (articleId ? 'save_changes' : 'submit') | translate }}
                     </button>

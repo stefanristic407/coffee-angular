@@ -1,120 +1,321 @@
 @import 'variables';
 .page-wrapper {
-    background: $white;
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-    min-height: 100vh;
-    padding-bottom: 150px;
-    .pr-45 {
-        padding-right: 45px !important;
+    @media screen and(max-width:767px) {
+        .recipe-info-wrapper {
+            background-color: $primary-bg-color;
+            margin: 0 -8px;
+            padding: 0 8px;
+        }
     }
-    .preparation-sm {
-        white-space: nowrap;
-    }
-
-    .visibility-hidden {
-        visibility: hidden;
-    }
-
-    .ingredient-block {
-        .ingredient-details {
-            max-width: 313px;
-            min-width: auto;
-            margin: 16px 0 0;
-            padding: 24px;
-            border-radius: 4px;
-            border: solid 1px $secondary-border-color;
-            .saprator {
-                margin: 16px 0;
-                border-bottom: solid 1px $secondary-border-color;
+    @media (min-width: 768px) {
+        .recipe-info-wrapper {
+            background-color: $primary-bg-color;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 1rem 3rem 1rem 5rem;
+            @media (min-width: 768px) {
+                margin: 0 -3rem;
             }
-            .name {
-                width: 150px;
-                color: #636363;
-                text-transform: capitalize;
+            @media (max-width: 767px) {
+                .recipe-info-item {
+                    width: 50%;
+                    &:nth-child(1) {
+                        padding: 0 19px 12px 4px !important;
+                        border-bottom: solid 1px $primary-border-color;
+                        border-right: solid 1px $primary-border-color;
+                    }
+                    &:nth-child(2) {
+                        padding: 0 0 12px 19px !important;
+                        border-bottom: solid 1px $primary-border-color;
+                    }
+                    &:nth-child(3) {
+                        padding: 12px 19px 0 8px !important;
+                        border-right: solid 1px $primary-border-color;
+                    }
+                    &:nth-child(4) {
+                        padding: 12px 0 0 19px !important;
+                    }
+                    p {
+                        word-break: break-word;
+                    }
+                }
             }
-        }
-    }
-    .background-header {
-        padding: 11px 15px;
-        border-radius: 4px;
-        background-color: $primary-bg-color;
-    }
-    .expertise-level-block {
-        display: flex;
-        align-items: center;
-        padding: 24px;
-        border-radius: 4px;
-        background-color: $primary-bg-color;
-        .expertise-level {
-            font-family: Muli;
-            font-size: 18px;
-            font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
-            color: $general-text-color;
-        }
-        .expertise {
-            font-family: Muli;
-            font-size: 14px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.57;
-            letter-spacing: normal;
-            color: #636363;
-        }
-    }
-
-    .coffee-name {
-        font-family: Muli;
-        font-size: 18px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: $general-text-color;
-    }
-    @media (max-width: 767px) {
-        .ingredient-block {
-            .ingredient-details {
-                .name {
-                    width: auto;
+            @media only screen and (max-width: 1280px) and (min-width: 992px) {
+                .recipe-info-item {
+                    width: 25%;
                 }
             }
         }
     }
 
-    @media (max-width: 768px) {
-        padding-bottom: 0 !important;
-        .expert-sm {
-            border-bottom: solid 1px $primary-border-color;
-            padding: 0 16px 16px 8px !important;
-            white-space: break-spaces;
+    .ingredients-wrapper {
+        .ingredients-item {
+            border-bottom: 1px solid #d8d8d8;
         }
-        .preparation-sm {
-            padding: 8px 0px 16px 8px !important;
-            border-bottom: solid 1px $primary-border-color;
-            white-space: break-spaces;
+        @media (max-width: 767px) {
+            width: 100%;
         }
-        .serving-sm {
-            padding: 8px 0px 16px 8px !important;
+    }
+
+    .step-wrapper {
+        img {
+            height: 276px;
+            object-fit: cover;
         }
-        .expertise-level-block {
-            flex-wrap: wrap;
-            padding: 12px 22px !important;
-        }
-        .cooking-time {
-            white-space: initial;
+        @media (max-width: 767px) {
+            img {
+                height: 256px;
+            }
         }
     }
 }
-::ng-deep .inner-width {
+
+::ng-deep .step-desc {
+    border-bottom: 1px solid #d8d8d8 !important;
+    padding-bottom: 1rem !important;
+    word-break: break-word;
     img {
-        width: 100%;
+        max-width: 100%;
+        margin-top: 1rem;
     }
+}
+.recipe-content .recipe-img {
+    object-fit: cover;
+}
+.user-details {
+    @media (min-width: 768px) {
+        position: relative;
+        top: -4rem;
+        border: solid 1px #e5e5e5;
+    }
+}
+.user-header {
+    font-family: Cormorant Garamond;
+    font-size: 48px;
+    @media (max-width: 768px) {
+        font-size: 32px;
+    }
+}
+
+.p-articles img {
+    width: 89px;
+    height: 89px;
+    object-fit: cover;
+}
+
+.background-header {
+    border-top: 2px solid #232334;
+}
+
+.recipe-answer {
+    border-top: 1px solid #232334;
+    border-bottom: 2px solid #232334;
+}
+
+.author-image img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.add-comment {
+    height: 50px;
+    object-fit: contain;
+    border: 1px solid transparent !important;
+    border-radius: 25px;
+    background-color: rgba(116, 117, 136, 0.08);
+}
+
+.answer-wrapper {
+    border-bottom: 1px solid #d8d8d8;
+    &:first-child {
+        border-top: 1px solid #d8d8d8;
+    }
+}
+
+.published {
+    color: #797a8d;
+    line-height: 1.57;
+}
+
+.button-list {
+    margin: 0 4px 5px 0;
+    padding: 7px 10px 8px;
+    border-radius: 4px;
+    background-color: #eaeaea;
+    border: none;
+    @media (min-width: 768px) {
+        margin: 0 12px 0 0;
+        padding: 10px 15px;
+    }
+}
+
+.view-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 16px;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    cursor: pointer;
+    color: #30855c;
+    background: #ffffff;
+    &:hover {
+        background: #30855c;
+        color: #ffffff;
+    }
+}
+
+.user-wrapper {
+    @media (min-width: 768px) {
+        width: 175px;
+        position: sticky;
+        top: 40%;
+        margin-top: 4rem;
+        height: fit-content;
+    }
+}
+
+.icon-mob img {
+    @media (max-width: 767px) {
+        width: 29px;
+        height: 29px;
+    }
+}
+
+.comment-hgt {
+    height: 50px !important;
+}
+
+.comment-border {
+    border-bottom: solid 0.5px #d8d8d8;
+}
+
+.message-icon img {
+    @media (min-width: 768px) {
+        width: 21px;
+        height: 34px;
+    }
+}
+
+.mob-height {
+    @media screen and (max-width: 767px) {
+        height: 52px;
+    }
+}
+
+.mob-b-boder {
+    @media screen and (max-width: 767px) {
+        border-top: 1px solid #d8d8d8;
+        margin-top: 1rem;
+        margin-right: 0px;
+    }
+}
+
+.cursor-point {
+    cursor: pointer;
+}
+
+.bg-f8 {
+    background-color: #f8f8f8;
+}
+
+.flavour-profiles {
+    border: 1px dashed #ebebeb;
+    a {
+        color: #154faa;
+        text-decoration: underline !important;
+    }
+}
+
+.footer-border {
+    border-bottom: solid 0.5px #d8d8d8;
+}
+
+.cust-flex-grow {
+    flex-grow: 0.9;
+}
+
+.sticky-divder {
+    border-bottom: 1px solid #232334;
+}
+
+.divder {
+    border-bottom: 1px solid #dedede;
+}
+
+.recip-img {
+    height: 198px;
+    @media (min-width: 991px) {
+        height: 494px;
+    }
+}
+
+.check-icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 16px 0 0;
+    border-radius: 50%;
+    border: solid 1px #d8d8d8;
+    background-color: #fff;
+}
+
+::ng-deep .p-inputtextarea:enabled:hover,
+::ng-deep .p-inputtextarea:enabled:focus {
+    border: 1px solid #30855c !important;
+}
+
+.back-page::before {
+    top: -4px !important;
+    width: 20px !important;
+    height: 20px !important;
+    padding: 15px !important;
+    background-repeat: no-repeat !important;
+    background-size: auto !important;
+}
+
+.back-page:hover::before {
+    border-radius: 50%;
+    background-color: rgba(128, 70, 11, 0.14);
+}
+
+.hover-message-icon {
+    padding: 2px 8px 2px 9px;
+    border-radius: 50%;
+    background-color: rgba(116, 117, 136, 0.08);
+    &:hover {
+        background-color: rgba(48, 133, 92, 0.16);
+    }
+}
+
+.hover-save-icon {
+    padding: 6px 9px 8px 12px;
+    border-radius: 50%;
+    background-color: rgba(116, 117, 136, 0.08);
+    &:hover {
+        background-color: rgba(48, 133, 92, 0.16);
+    }
+}
+
+.hover-share-icon {
+    padding: 9px 11px 9px 12px;
+    border-radius: 50%;
+    background-color: rgba(116, 117, 136, 0.08);
+    &:hover {
+        background-color: rgba(48, 133, 92, 0.16);
+    }
+}
+
+.flavour-profiles {
+    border: 2px dashed #d6d6d6;
+    a {
+        cursor: pointer;
+        text-decoration: underline;
+        color: #154faa;
+    }
+}
+
+.message-top {
+    margin-top: 6px;
 }

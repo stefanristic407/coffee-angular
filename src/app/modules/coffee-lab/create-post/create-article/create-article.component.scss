@@ -1,6 +1,9 @@
 .addImageContainer {
-    background: #fff;
-    height: 253px;
+    background: #ffffff;
+    height: 255px;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    text-align: center;
     position: relative;
     .cover-image {
         position: absolute;
@@ -34,4 +37,12 @@
     position: absolute;
     right: 12px;
     top: 7px;
+}
+
+.min-hght {
+    min-height: 50px;
+}
+
+.text-area {
+    border: 1px solid #d50000 !important;
 }

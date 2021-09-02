@@ -8,8 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class UserHeaderComponent implements OnInit {
     @Input() prop: any;
     @Input() enableEllipsis = true;
+    @Input() total: any;
+    orgType: string;
 
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.orgType =
+            this.prop?.company_name ||
+            this.prop?.organization_name ||
+            this.prop?.organisation_name ||
+            this.prop?.org_type;
+    }
 }

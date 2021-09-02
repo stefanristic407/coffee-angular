@@ -46,6 +46,9 @@ import { MyRecipesComponent } from './my-posts/my-recipes/my-recipes.component';
 import { SavedArticlesComponent } from './saved-posts/saved-articles/saved-articles.component';
 import { SavedRecipesComponent } from './saved-posts/saved-recipes/saved-recipes.component';
 import { GlobalSearchResultComponent } from './overview/global-search-result/global-search-result.component';
+import { LikeDividerComponent } from './components/like-divider/like-divider.component';
+import { JoinCommunityComponent } from './components/join-community/join-community.component';
+import { PublishForumComponent } from './components/publish-forum/publish-forum.component';
 
 @NgModule({
     declarations: [
@@ -92,6 +95,9 @@ import { GlobalSearchResultComponent } from './overview/global-search-result/glo
         SavedArticlesComponent,
         SavedRecipesComponent,
         GlobalSearchResultComponent,
+        LikeDividerComponent,
+        JoinCommunityComponent,
+        PublishForumComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule],
 })

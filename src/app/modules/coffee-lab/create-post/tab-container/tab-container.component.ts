@@ -17,10 +17,10 @@ export class TabContainerComponent implements OnInit {
             if (type === 'question') {
                 this.selectedIndex = 0;
             }
-            if (type === 'recipe') {
+            if (type === 'article') {
                 this.selectedIndex = 1;
             }
-            if (type === 'article') {
+            if (type === 'recipe') {
                 this.selectedIndex = 2;
             }
         });

@@ -1,51 +1,41 @@
 <div class="coffee-wrapper">
-    <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of displayData">
-        <div
-            class="border-main br-4 p-3 py-md-4 px-lg-4 coffee-item"
-            [routerLink]="'/coffee-lab/recipes/' + coffee.slug"
-        >
-            <div class="d-flex justify-content-between">
-                <div class="flex-1 overflow-hidden">
-                    <app-user-header [prop]="coffee"></app-user-header>
-                </div>
-                <app-forum-menu
-                    [selectedItem]="coffee"
-                    forumType="recipe"
-                    [enableEdit]="
-                        organizationId == coffee.organisation_id &&
-                        coffee.organisation_type === coffeeLabService.organization &&
-                        coffee.posted_by == authService.currentUser.id
-                    "
-                    [enableDelete]="
-                        organizationId == coffee.organisation_id &&
-                        coffee.organisation_type === coffeeLabService.organization &&
-                        coffee.posted_by == authService.currentUser.id
-                    "
-                    [enableSave]="pageDesc !== 'saved-posts'"
-                    [enableDeleteSave]="pageDesc === 'saved-posts'"
-                ></app-forum-menu>
-            </div>
+    <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of displayData; let i = index">
+        <div class="border-main coffee-item text-non-underline" (click)="openRecipe(coffee.slug)">
             <div class="w-100 position-relative">
-                <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4 object-fit-cover" />
+                <img [src]="coffee.cover_image_url" class="w-100" [alt]="coffee?.name" />
                 <span class="expertise fnt-12"> {{ coffee.expertise }} </span>
             </div>
-            <a class="fnt-muli fnt-lg-14 fnt-16 fnt-bold text-clr334 cursor-pointer">
-                {{ coffee?.name }}
-                <div class="py-3 m-0 d-flex">
-                    <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'brew_time' | translate }}:</div>
-                    <span class="fnt-600"> {{ coffee?.coffee_ratio }}:{{ coffee?.water_ratio }} </span>
+            <div class="m-3 m-md-4">
+                <div class="d-flex justify-content-between mb-4">
+                    <div class="recipe-name fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334">
+                        <span class="mb-1">{{ coffee?.name | convertToShortDescription: 4 }}</span>
+                        <span class="fnt-14 fnt-600 fnt-muli text-clr334 mb-45 mb-md-4 mt-2">
+                            {{ coffee?.equipment_name | titlecase | convertToShortDescription: 4 }}
+                        </span>
+                    </div>
+                    <div class="bookmark-icon hover-save-icon" *ngIf="!coffee?.is_saved">
+                        <img
+                            (click)="onSave(coffee.id, i)"
+                            class="cursor-point"
+                            src="assets/images/save.svg"
+                            alt="save"
+                        />
+                    </div>
+                    <div class="bookmark-icon hover-save-icon" *ngIf="coffee?.is_saved">
+                        <img
+                            (click)="onSameSave(coffee.id, i)"
+                            class="cursor-point"
+                            width="36"
+                            height="36"
+                            src="assets/images/saved-item.svg"
+                            alt="saved"
+                        />
+                    </div>
+                    <!-- <div class="bookmark-icon">
+                        <img src="assets/images/save.svg" alt="save" />
+                    </div> -->
                 </div>
-                <div class="m-0 d-flex">
-                    <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'ingredients' | translate }}:</div>
-                    <span class="value fnt-muli fnt-14 fnt-600">
-                        {{ coffee.ingredients }}
-                    </span>
-                </div>
-            </a>
-            <div class="coffee-content-wrapper">
-                <p class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0" [innerHTML]="coffee.description"></p>
-
-                <label class="mb-0 brown-cta pt-2">{{ 'read_more' | translate }}</label>
+                <app-user-header [prop]="coffee"></app-user-header>
             </div>
         </div>
     </div>

@@ -3,37 +3,41 @@
     [style.width]="size + 'px'"
     [style.height]="size + 'px'"
     [style.border]="hasBorder ? '2px solid #fff' : 'none'"
-    (mouseenter)="showPopup(myOp, $event)"
-    *ngIf="type !== 'text' && type !== 'customerText'"
+    (mouseenter)="show($event)"
+    (mouseleave)="hide()"
+    *ngIf="type !== 'text'"
 >
     <img
-        *ngIf="data?.profile_image_thumb_url || data?.profile_image_url || imageUrl"
+        *ngIf="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url"
         [src]="imageUrl || data?.profile_image_thumb_url || data?.profile_image_url"
         [appImageFallback]="defaultProfileImage"
         [alt]="name && name.length ? name.slice(0, 1) : 'AV'"
-        [style.borderRadius]="shape === 'rectangle' ? '2px' : '50%'"
+        [style.borderRadius]="shape === 'rectangle' ? 'unset' : '50%'"
     />
-    <ng-container *ngIf="!data?.profile_image_thumb_url && !data?.profile_image_url && !imageUrl">
-        <div *ngIf="type == 'contact'; else noContact" class="contact-img-wrap">
-            <img class="placeholder" src="assets/images/contact-placeholder.svg" />
-        </div>
-        <ng-template #noContact>
-            <span class="text-white" [style.font-size]="size / 1.5 + 'px'">{{
-                name && name.length ? name.slice(0, 1) : ''
-            }}</span></ng-template
-        >
-    </ng-container>
+    <span
+        *ngIf="!data?.profile_image_thumb_url && !data?.profile_image_url"
+        class="text-white"
+        [style.font-size]="size / 1.5 + 'px'"
+        >{{ name && name.length ? name.slice(0, 1) : '' }}</span
+    >
 </div>
 <span
-    class="text-underline cursor-pointer"
-    *ngIf="(type === 'text' || type === 'customerText') && data"
-    (mouseenter)="showPopup(myOp, $event)"
+    class="fnt-700 text-clr55c fnt-14 fnt-md-18 fnt-muli mb-md-1 mb-0 text-underline cursor-pointer user-name-text"
+    *ngIf="type === 'text' && data"
+    (mouseenter)="show($event)"
+    (mouseleave)="hide()"
 >
-    {{ type === 'customerText' ? 'Admin:' : '' }} {{ name }}
+    Admin: {{ name }}
 </span>
-<p-overlayPanel #myOp styleClass="user-details-overlay" appendTo="body">
+<p-overlayPanel
+    #myOp
+    styleClass="user-details-overlay"
+    appendTo="body"
+    (onShow)="isOpened = true"
+    (onHide)="isOpened = false"
+>
     <ng-template pTemplate>
-        <div class="py-2 py-md-0 user-details-wrapper">
+        <div class="py-2 py-md-0 user-details-wrapper" (mouseenter)="show($event)" (mouseleave)="hide()">
             <div class="p-3 p-md-4 d-flex">
                 <img
                     class="user-image"
@@ -51,14 +55,17 @@
                             {{ data?.firstname }} {{ data?.lastname }}
                         </p>
                         <p class="fnt-muli fnt-14 fnt-normal lh-normal text-clr334 mb-25">
-                            Employee {{ data?.organization_name ? '@' + data?.organization_name : '' }}
+                            {{ data?.organization_name ? data?.organization_name : '' }}
                         </p>
                         <span class="fnt-muli fnt-14 fnt-normal lh-normal text-clr588 mb-0">
-                            {{ orgName }}<img class="ml-2" src="assets/images/position.svg" />
-                            {{ data?.organization_country | country }}
+                            <img class="location-image" src="assets/images/map-pin.svg" />
+                            <span class="location-align ml-2"
+                                >{{ data?.city || data?.organization_city }},
+                                {{ commonService.getCountryName(data?.organization_country) }}</span
+                            >
                         </span>
                     </div>
-                    <i class="pi pi-times fnt-16 fnt-bold text-clr334 cursor-pointer" (click)="myOp.hide()"></i>
+                    <!-- <i class="pi pi-times fnt-16 fnt-bold text-clr334 cursor-pointer" (click)="myOp.hide()"></i> -->
                 </div>
             </div>
             <p-divider styleClass="m-0"></p-divider>
@@ -66,12 +73,12 @@
                 <p class="fnt-muli fnt-14 fnt-600 lh-15 text-clr588 pt-z5 mb-3" *ngIf="data?.about_me">
                     {{ data?.about_me | convertToShortDescription: 13 }}
                 </p>
-                <p class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-25">{{ 'languages_spoken' | translate }}:</p>
+                <p class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-25">{{ 'can_converse_in' | translate }}:</p>
                 <div class="language-wrapper">
                     <div class="p-1" *ngFor="let language of data?.converse_languages">
                         <div class="border-main px-25 py-1 language-item">
                             <p class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 mb-0">
-                                {{ language | language }}
+                                {{ globalService.getLanguage(language) }}
                             </p>
                         </div>
                     </div>

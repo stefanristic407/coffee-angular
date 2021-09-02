@@ -26,6 +26,7 @@ export class CreateArticleComponent implements OnInit {
     articleId: any;
     article: any;
     isLoading = false;
+    clicked = false;
     images = [];
 
     constructor(
@@ -55,6 +56,7 @@ export class CreateArticleComponent implements OnInit {
             subtitle: ['', Validators.compose([maxWordCountValidator(30)])],
             content: [''],
             allow_translation: [true, Validators.compose([Validators.required])],
+            is_era_of_we: [false],
         });
     }
 
@@ -117,7 +119,9 @@ export class CreateArticleComponent implements OnInit {
         }
         this.articleForm.controls.subtitle.updateValueAndValidity();
         this.articleForm.markAllAsTouched();
+        this.clicked = true;
         if (this.articleForm.invalid) {
+            this.toaster.error('Please fill content.');
             return;
         }
         if (!this.articleForm.value.content && status === 'published') {

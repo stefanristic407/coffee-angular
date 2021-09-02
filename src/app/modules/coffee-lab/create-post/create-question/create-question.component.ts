@@ -17,7 +17,7 @@ export class CreateQuestionComponent implements OnInit {
     questionId: any;
     isLoading = false;
     languageCode?: string;
-
+    isQuestion = false;
     constructor(
         public location: Location,
         public dialogService: DialogService,
@@ -57,6 +57,7 @@ export class CreateQuestionComponent implements OnInit {
 
     onPostQuestion(status: string): void {
         if (!this.content) {
+            this.isQuestion = true;
             this.toastrService.error('Please type your question.');
             return;
         }
@@ -64,10 +65,7 @@ export class CreateQuestionComponent implements OnInit {
             this.toastrService.error('Question is too short.');
             return;
         }
-        if (this.content.length > 300) {
-            this.toastrService.error('Question is too long.');
-            return;
-        }
+
         const data = {
             question: this.content,
             allow_translation: this.isAllowTranslation ? 1 : 0,
@@ -89,7 +87,11 @@ export class CreateQuestionComponent implements OnInit {
             this.coffeeLabService.postForum('question', data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toastrService.success('You have posted a question successfully.');
+                    if (status === 'PUBLISHED') {
+                        this.toastrService.success('You have posted a question successfully.');
+                    } else if (status === 'DRAFT') {
+                        this.toastrService.success('Your question is saved as draft successfully.');
+                    }
                     this.router.navigate(['/coffee-lab']);
                 } else {
                     this.toastrService.error('Failed to post question.');

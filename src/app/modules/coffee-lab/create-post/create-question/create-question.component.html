@@ -1,14 +1,17 @@
-<div *ngIf="!isLoading">
+<div class="mt-4" *ngIf="!isLoading">
     <div class="mb-3 mb-md-4 sewn-form-field w-100">
+        <label>{{ 'question' | translate }}</label>
         <textarea
             class="w-100"
             type="text"
             pInputTextarea
             required
             rows="8"
-            [placeholder]="'ask_your_question_bla' | translate"
+            [placeholder]="'post_your_question' | translate"
             [(ngModel)]="content"
+            [ngClass]="{ 'req-ratio': isQuestion }"
         ></textarea>
+        <small *ngIf="isQuestion" class="no-brew fnt-14 fnt-muli fnt-600">{{ 'required' | translate }} </small>
     </div>
     <div class="d-flex align-items-center mb-4 mb-md-5">
         <p-checkbox

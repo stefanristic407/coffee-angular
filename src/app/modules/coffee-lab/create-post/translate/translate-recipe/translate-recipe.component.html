@@ -1,37 +1,61 @@
-<div class="bg-f8 pt-4">
-    <p-tabView class="toggle" [(activeIndex)]="selectedTab">
-        <p-tabPanel [header]="'translation' | translate">
-            <div class="py-3 p-lg-4 p-md-3 bg-f8" *ngIf="id">
-                <app-create-recipe [isTranslate]="true"></app-create-recipe>
-            </div>
-        </p-tabPanel>
-        <p-tabPanel [header]="'see_original_post' | translate">
-            <div class="py-3 p-lg-4 p-md-3 bg-f8" *ngIf="id">
-                <app-recipe-original-post [recipeId]="id"></app-recipe-original-post>
-                <div class="row mt-2 py-2 px-md-0 px-2 col-sm-12 m-0">
-                    <div class="col-md-6 order-2 order-md-1 p-0">
-                        <button
-                            routerLink="/coffee-lab/overview/qa-forum"
-                            class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0"
-                        >
-                            {{ 'cancel' | translate }}
-                        </button>
-                    </div>
-                    <div class="col-md-6 order-1 order-md-2 p-0">
-                        <div class="d-flex justify-content-end flex-column flex-md-row">
-                            <button class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0">
-                                {{ 'save_as_draft' | translate }}
-                            </button>
-                            <button
-                                (click)="onSave()"
-                                class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
-                            >
-                                {{ 'submit' | translate }}
-                            </button>
-                        </div>
-                    </div>
+<div class="ml-3 border-main br-4 row">
+    <div class="col-12 col-md-6 px-md-0">
+        <app-recipe-original-post
+            (checkTranslationExits)="checkTranslationExits($event)"
+            [recipeId]="id"
+        ></app-recipe-original-post>
+    </div>
+
+    <div class="col-12 col-md-6 px-md-0">
+        <p-tabView class="toggle bg-tabView" [(activeIndex)]="selectedTab" (onChange)="onChangeTab($event)">
+            <p-tabPanel [header]="'swedish' | translate" *ngIf="!tranalatedLangs.includes('sv')">
+                <div class="py-md-2 px-md-4 bg-f8" *ngIf="selectedTab === 0">
+                    <app-create-recipe [translateLang]="'sv'" [isTranslate]="true"></app-create-recipe>
                 </div>
-            </div>
-        </p-tabPanel>
-    </p-tabView>
+            </p-tabPanel>
+            <p-tabPanel [header]="'spanish' | translate" *ngIf="!tranalatedLangs.includes('es')">
+                <div
+                    class="py-md-2 px-md-4 bg-f8"
+                    *ngIf="
+                        (tranalatedLangs.includes('sv') && selectedTab === 0) ||
+                        (!tranalatedLangs.includes('sv') && selectedTab === 1)
+                    "
+                >
+                    <app-create-recipe [translateLang]="'es'" [isTranslate]="true"></app-create-recipe>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel [header]="'portuguese' | translate" *ngIf="!tranalatedLangs.includes('pt')">
+                <div
+                    class="py-md-2 px-md-4 bg-f8"
+                    *ngIf="
+                        (tranalatedLangs.includes('sv') && tranalatedLangs.includes('es') && selectedTab === 0) ||
+                        (tranalatedLangs.includes('sv') && !tranalatedLangs.includes('es') && selectedTab === 1) ||
+                        (tranalatedLangs.includes('sv') &&
+                            tranalatedLangs.includes('es') &&
+                            tranalatedLangs.includes('pt') &&
+                            selectedTab === 2)
+                    "
+                >
+                    <app-create-recipe [translateLang]="'pt'" [isTranslate]="true"></app-create-recipe>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>
+<div class="row mt-2 py-2 px-md-0 px-2 col-sm-12 my-3 my-md-45 my-lg-5">
+    <div class="col-md-6 order-2 order-md-1 p-0">
+        <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
+            {{ 'cancel' | translate }}
+        </button>
+    </div>
+    <div class="col-md-6 order-1 order-md-2 p-0">
+        <div class="d-flex justify-content-end flex-column flex-md-row">
+            <button class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0">
+                {{ 'save_as_draft' | translate }}
+            </button>
+            <button (click)="onSave()" class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0">
+                {{ 'submit' | translate }}
+            </button>
+        </div>
+    </div>
 </div>

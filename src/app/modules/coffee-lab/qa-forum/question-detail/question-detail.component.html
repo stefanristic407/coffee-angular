@@ -1,27 +1,26 @@
-<div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content">
-    <a (click)="location.back()">
-        {{ 'back' | translate }}
+<div class="mt-1 mt-lg-3 pb-4 pb-lg-5 w-fit-content" *ngIf="!isLoading">
+    <a class="back-page" (click)="location.back()">
+        <span class="ml-2">{{ 'back_to_forum' | translate }}</span>
     </a>
 </div>
 
-<div *ngIf="!isLoading" class="row">
-    <div class="col-lg-8 mb-4 mb-lg-0">
-        <div class="border-main br-4 p-3 py-md-45 px-lg-45">
-            <div class="mb-3 d-flex justify-content-between align-items-center">
-                <div class="flex-1 overflow-hidden">
+<div *ngIf="!isLoading" class="d-block d-lg-flex justify-content-between">
+    <div class="pr-lg-2 flex-1 mb-4 col-md-7 col-12 pl-md-0 pl-0 pr-0 pr-md-3">
+        <div class="border-question-view">
+            <div class="d-flex justify-content-between p-3 pt-lg-4 px-lg-4">
+                <div class="flex-1">
                     <app-user-header [prop]="detailsData"></app-user-header>
                 </div>
                 <div>
                     <app-forum-menu
                         [selectedItem]="detailsData"
                         forumType="question"
+                        [enableSave]="false"
                         [enableEdit]="
-                            organizationId == detailsData.org_id &&
                             detailsData.org_type === coffeeLabService.organization &&
                             detailsData.user_id == authService.currentUser.id
                         "
                         [enableDelete]="
-                            organizationId == detailsData.org_id &&
                             detailsData.org_type === coffeeLabService.organization &&
                             detailsData.user_id == authService.currentUser.id
                         "
@@ -30,123 +29,179 @@
                 </div>
             </div>
             <div
-                class="fnt-muli fnt-16 fnt-md-18 font-weight-bold text-clr334 mb-4"
+                class="fnt-muli fnt-16 fnt-md-18 font-weight-bold text-clr334 pb-3 px-4"
                 [innerHTML]="detailsData.question"
             ></div>
-            <div class="mb-2 border-top-main border-bottom-main py-4 px-0 px-md-45">
-                <div class="d-flex align-items-center">
+            <app-like-divider [question]="detailsData"></app-like-divider>
+            <div class="border-top-main py-4 px-0 px-md-45">
+                <div class="d-flex justify-content-center">
                     <img
                         [src]="
                             authService.currentUser?.profile_image_thumb_url
                                 ? authService.currentUser?.profile_image_thumb_url
-                                : authService.currentUser?.profile_image_url
-                                ? authService.currentUser?.profile_image_url
-                                : 'assets/images/default-avatar.png'
+                                : authService.currentUser?.profile_image_url || 'assets/images/default-avatar.png'
                         "
                         alt="avatar"
-                        class="rounded-circle mr-3 mr-md-35"
+                        class="rounded-circle mt-1"
                         width="40"
                         height="40"
                     />
-                    <div class="sewn-form-field w-100 mb-0">
-                        <input
-                            type="text"
-                            pInputText
-                            routerLink="/coffee-lab/create-post/answer"
-                            [queryParams]="{
-                                parentForumId: detailsData.id,
-                                parentForumType: 'question',
-                                forumType: 'answer'
-                            }"
-                            [placeholder]="'leave_a_comment' | translate"
-                        />
+                    <div class="sewn-form-field width-comment mb-0">
+                        <textarea
+                            id="text-focus"
+                            class="add-comment active-comment"
+                            [ngClass]="{ 'comment-hgt': !comment }"
+                            [(ngModel)]="comment"
+                            [placeholder]="'add_a_comment' | translate"
+                            pInputTextarea
+                            autoResize="autoResize"
+                        ></textarea>
                     </div>
                 </div>
+
+                <div *ngIf="comment" class="d-flex justify-content-between align-items-center mt-4">
+                    <p-checkbox
+                        class="d-flex align-items-start ml-md-5"
+                        [(ngModel)]="isAllowTranslation"
+                        [binary]="true"
+                        [label]="'allow_translations_by_other_authors' | translate"
+                    ></p-checkbox>
+                    <button (click)="onPost()" class="btn-raised">
+                        {{ 'add_comment' | translate }}
+                    </button>
+                </div>
             </div>
-            <div
-                *ngFor="let answer of detailsData.answers; let last = last"
-                [id]="answer.id"
-                class="py-4"
-                [ngClass]="{ 'border-bottom-dashed': !last }"
-            >
-                <div class="d-flex justify-content-between align-items-center mb-3 mb-md-4">
-                    <div class="flex-1 overflow-hidden">
-                        <app-user-header [prop]="answer"></app-user-header>
-                    </div>
-                    <div>
-                        <div class="d-flex flex-column align-items-end">
-                            <div class="mb-2">
-                                <app-forum-menu
-                                    [selectedItem]="answer"
-                                    forumType="answer"
-                                    [extraInfo]="detailsData"
-                                    [enableSave]="false"
-                                    [enableEdit]="
-                                        organizationId == answer.org_id &&
-                                        answer.org_type === coffeeLabService.organization &&
-                                        answer.user_id == authService.currentUser.id
-                                    "
-                                    [enableDelete]="
-                                        organizationId == answer.org_id &&
-                                        answer.org_type === coffeeLabService.organization &&
-                                        answer.user_id == authService.currentUser.id
-                                    "
-                                    [enableTranslation]="answer?.allow_translation && answer?.translations?.length < 3"
-                                    [enableStopPropagation]="false"
-                                ></app-forum-menu>
-                            </div>
-                            <div
-                                *ngIf="answer?.allow_translation && answer?.translations?.length"
-                                class="d-none d-md-block"
-                            >
-                                <app-translation-dropdown
-                                    forumType="question"
-                                    [translatedList]="answer?.translations"
-                                ></app-translation-dropdown>
+            <div *ngIf="detailsData?.answers">
+                <div
+                    *ngFor="let answer of detailsData.answers; let last = last"
+                    [id]="'answer-' + answer.id"
+                    class="mb-4 mx-3 ml-md-5 mr-md-4 answer-wrapper"
+                >
+                    <div class="d-flex flex-wrap w-100 mt-3">
+                        <div class="d-flex justify-content-between align-items-md-end w-100">
+                            <app-user-header [prop]="answer"></app-user-header>
+                            <div class="d-flex flex-column align-items-end">
+                                <div class="mb-2">
+                                    <app-forum-menu
+                                        [selectedItem]="answer"
+                                        forumType="answer"
+                                        [extraInfo]="detailsData"
+                                        [enableSave]="false"
+                                        [enableEdit]="
+                                            answer.org_type === coffeeLabService.organization &&
+                                            answer.user_id == authService.currentUser.id
+                                        "
+                                        [enableDelete]="
+                                            answer.org_type === coffeeLabService.organization &&
+                                            answer.user_id == authService.currentUser.id
+                                        "
+                                        [enableTranslation]="
+                                            answer?.allow_translation && answer?.translations?.length < 3
+                                        "
+                                        [enableStopPropagation]="false"
+                                    ></app-forum-menu>
+                                </div>
+                                <div
+                                    *ngIf="answer?.allow_translation && answer?.translations?.length"
+                                    class="d-none d-md-block"
+                                >
+                                    <app-translation-dropdown
+                                        forumType="question"
+                                        [translatedList]="answer?.translations"
+                                    ></app-translation-dropdown>
+                                </div>
                             </div>
                         </div>
+                        <div
+                            *ngIf="answer?.allow_translation && answer?.translations?.length"
+                            class="d-block d-md-none border-top-main border-bottom-main py-3 mb-3 text-center"
+                        >
+                            <app-translation-dropdown
+                                forumType="question"
+                                [translatedList]="answer?.translations"
+                            ></app-translation-dropdown>
+                        </div>
                     </div>
-                </div>
-                <div
-                    *ngIf="answer?.allow_translation && answer?.translations?.length"
-                    class="d-block d-md-none border-top-main border-bottom-main py-3 mb-3 text-center"
-                >
-                    <app-translation-dropdown
-                        forumType="question"
-                        [translatedList]="answer?.translations"
-                    ></app-translation-dropdown>
-                </div>
-                <div class="fnt-muli fnt-14 text-clr334 lh-15" appFullImgWrapper [innerHTML]="answer.answer"></div>
-                <div class="pt-4" *ngIf="answer?.parent_answer_id">
-                    <app-original-view
-                        [translations]="answer.translations"
-                        [parentAnswerId]="answer.parent_answer_id"
-                        forumType="question"
-                    ></app-original-view>
+                    <div
+                        class="fnt-muli fnt-14 text-clr334 lh-15 pt-4 px-0"
+                        [ngClass]="{ 'mb-2': !last }"
+                        appFullImgWrapper
+                        [innerHTML]="answer.answer"
+                    ></div>
+                    <div class="d-flex justify-content-between my-3 my-md-4">
+                        <div class="d-flex">
+                            <!-- <div class="d-flex">
+                            <img
+                                (click)="onFocus()"
+                                class="cursor-point"
+                                src="assets/images/thumbsup.svg"
+                                alt="thumbs-up"
+                            />
+                            <span class="d-flex align-items-lg-end ml-3 mb-1">2</span>
+                        </div> -->
+                            <div class="align-items-center d-flex ml-0 hover-save-icon">
+                                <img (click)="onFocus()" class="cursor-point" src="assets/images/save.svg" alt="save" />
+                            </div>
+                        </div>
+                        <div class="d-flex hover-share-icon">
+                            <img (click)="onShare()" class="cursor-point" src="assets/images/share.svg" alt="upload" />
+                        </div>
+                    </div>
+                    <!-- <div
+                        *ngIf="answerDetail && answerDetail?.original_answer_state === 'ACTIVE'"
+                        class="border-main br-4 p-4 mb-4 d-none d-md-block w-100"
+                    >
+                        <div class="d-flex justify-content-between mb-4">
+                            <div class="d-flex">
+                                <img src="assets/images/qa-forum.svg" alt="question-image" />
+                                <p
+                                    class="
+                                        align-items-center
+                                        d-flex
+                                        text-nowrap
+                                        fnt-muli fnt-bold fnt-14
+                                        text-clr334
+                                        ml-2
+                                    "
+                                >
+                                    {{ 'read_the_original_answer' | translate }}
+                                </p>
+                            </div>
+                            <div class="bg-f8 px-25 py-2">
+                                <p class="fnt-600 fnt-12 fnt-muli text-clr334">
+                                    {{ 'original_language' | translate }} :
+                                    {{ globalsService.getLanguage(answerDetail?.original_details?.language) }}
+                                </p>
+                            </div>
+                        </div>
+                        <app-user-header [prop]="answerDetail"></app-user-header>
+                        <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
+                            <a
+                                class="fnt-14 fnt-600 fnt-muli"
+                                [routerLink]="
+                                    getLink(
+                                        answerDetail?.original_details.language,
+                                        answerDetail?.original_details?.question_slug
+                                    )
+                                "
+                                >{{ answerDetail?.original_details?.question | titlecase }}</a
+                            >
+                        </div>
+                    </div> -->
                 </div>
             </div>
+            <button
+                (click)="onFocusCommentBox()"
+                class="cursor-point"
+                class="bg-transparent border-0 fnt-14 fnt-bold fnt-muli mb-4 ml-4 mt-3 text-clr60b text-underline"
+            >
+                {{ 'write_comment' | translate }}
+            </button>
         </div>
     </div>
-    <div class="col-lg-4">
-        <div class="br-4 border-main">
-            <div class="bg-f8 fnt-18 fnt-muli font-weight-bold text-clr334 mt-1 ml-1 mr-1 py-25 px-3">
-                {{ 'recent_discussions_on_forum' | translate }}
-            </div>
-            <div
-                *ngFor="let question of recentQuestions; let last = last"
-                class="mx-3"
-                [ngClass]="{ 'border-bottom-dashed': !last }"
-            >
-                <div
-                    class="fnt-muli fnt-600 mb-0 recent-question-item my-4"
-                    [routerLink]="'/coffee-lab/questions/' + question.slug"
-                    [innerHTML]="question.question"
-                ></div>
-            </div>
-            <div *ngIf="!recentQuestions.length" class="text-center my-4 fnt-muli text-clr24">
-                {{ 'no_data_is_available' | translate }}
-            </div>
-        </div>
+
+    <div *ngIf="!isLoading" class="col-lg-5 px-0 pl-md-5">
+        <app-join-community [detailType]="'question-detail'" [type]="'question'"></app-join-community>
     </div>
 </div>
 

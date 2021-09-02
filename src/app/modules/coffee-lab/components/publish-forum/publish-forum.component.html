@@ -1,0 +1,24 @@
+<div class="p-3 p-md-4 bg-f34 br-4 d-flex">
+    <div class="w-100">
+        <div class="ask-question d-flex mb-0 sewn-form-field flex-row w-100">
+            <img
+                [src]="
+                    authService.currentUser?.profile_image_thumb_url
+                        ? authService.currentUser?.profile_image_thumb_url
+                        : authService.currentUser?.profile_image_url || 'assets/images/default-avatar.png'
+                "
+                alt="avatar"
+                class="rounded-circle mr-3 mt-1"
+                width="36"
+                height="36"
+            />
+            <input type="text" pInputText [placeholder]="placeHolderValue" class="cursor-point" (focus)="onFocus()" />
+        </div>
+        <div class="d-none d-md-block ml-5">
+            <button (focus)="onFirstBtn()" class="cursor-point" class="post-btn">
+                {{ firstBtnValue }}
+            </button>
+            <button (focus)="onSecondBtn()" class="post-btn cursor-point">{{ secondBtnValue }}</button>
+        </div>
+    </div>
+</div>
