@@ -4,16 +4,21 @@
     margin: -8px;
 
     .article-item {
+        border: solid 1px #d0d0d0;
+        border-radius: 14px;
         height: 100%;
-
         img {
             height: 243px;
             object-fit: cover;
         }
 
         &:hover {
+            border: 0px !important;
+            box-shadow: 0 22px 34px 0 rgb(0 0 0 / 16%);
             cursor: pointer;
-            box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+            h3.article-title-text {
+                text-decoration: underline;
+            }
         }
     }
 
@@ -31,5 +36,27 @@
 
     p {
         margin-bottom: 0 !important;
+    }
+}
+
+.thumb-icon img {
+    height: 21px !important;
+}
+
+.icon-saves img {
+    width: 19px !important;
+    height: 24px !important;
+}
+
+.cursor-point {
+    cursor: pointer;
+}
+
+.hover-save-icon {
+    padding: 6px 9px 8px 12px;
+    border-radius: 50%;
+    background-color: rgba(116, 117, 136, 0.08);
+    &:hover {
+        background-color: rgba(116, 117, 136, 0.19);
     }
 }

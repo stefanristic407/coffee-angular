@@ -93,6 +93,7 @@ export class QaPostComponent implements OnInit, OnDestroy {
                             item.answers.push(answerObj2);
                             item.total_answers += 1;
                         }
+                        item.is_saved = true;
                         return item;
                     });
                 } else {

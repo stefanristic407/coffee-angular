@@ -3,13 +3,15 @@
     optionLabel="language"
     [autoDisplayFirst]="false"
     styleClass="p-dropdown-translate"
-    [placeholder]="globalsService.languageJson.translated_answer_available"
+    [placeholder]="globalsService.languageJson.select_language"
     (onChange)="onChangeTranslate($event)"
+    [dropdownIcon]="false"
+    class="mob-padd"
 >
     <ng-template pTemplate="selectedItem">
         <span class="fnt-14 fnt-muli fnt-bold text-clr60b pr-2">
             <img src="assets/images/translate.svg" class="translate-icon" />
-            {{ 'translated_answer_available' | translate }}
+            {{ 'select_language' | translate }}
         </span>
     </ng-template>
     <ng-template let-translateItem pTemplate="item">

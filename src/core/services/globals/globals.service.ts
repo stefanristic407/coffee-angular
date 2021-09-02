@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { LANGUAGES } from '@constants';
 
 @Injectable({
     providedIn: 'root',
@@ -14,5 +15,15 @@ export class GlobalsService {
         } else if (deviceSrv.isTablet()) {
             this.device = 'tablet';
         }
+    }
+
+    getLanguage(code: string): string {
+        if (code) {
+            const language = LANGUAGES.find((c) => c.value === code.toLowerCase());
+            if (language) {
+                return language.name;
+            }
+        }
+        return '';
     }
 }

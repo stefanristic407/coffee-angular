@@ -6,27 +6,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    & > img {
+    img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 50%;
         margin: 0;
-    }
-}
-
-.contact-img-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: #eeeeee;
-    border-radius: 2px;
-
-    .placeholder {
-        width: 38px;
-        height: 38px;
     }
 }
 

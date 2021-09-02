@@ -3,98 +3,138 @@
 </div>
 
 <div *ngIf="!isLoading">
-    <div *ngIf="needToTranslateQuestion" class="mb-25 mb-md-45">
-        <div class="border-main p-3 p-md-4 fnt-muli fnt-14 d-flex flex-column flex-md-row">
-            <div class="font-weight-bold text-clr334 mr-2 mb-2 mb-md-0">{{ 'note' | translate }}</div>
-            <div class="text-clr588 lh-15">
-                {{ 'translate_answer_description' | translate }}
+    <div class="border-main bg-f8 pb-4 br-4 row mx-0">
+        <div class="col-12 col-md-6 px-md-0">
+            <div class="w-100">
+                <div class="d-flex justify-content-between border-btm pt-35 pr-25">
+                    <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-3">
+                        {{ 'original_language' | translate }} - English
+                    </p>
+                    <img class="swap-img" src="assets/images/swap_horiz_black_24dp.svg" alt="swap_horiz" />
+                </div>
+            </div>
+            <div class="px-2 py-3 p-md-4 bg-white mr-4 border-right">
+                <!-- Don't remove -->
+                <!-- <div class="mt-4">
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-3">Categories</p>
+                    <div>
+                        <span *ngFor="let btn of buttonList">
+                            <button class="p-2 button-list fnt-12 fnt-muli fnt-600 text-clr334">
+                                {{ btn.button }}
+                            </button>
+                        </span>
+                    </div>
+                </div> -->
+                <div class="sewn-form-field w-100 mb-3 mb-md-4">
+                    <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
+                        'question' | translate
+                    }}</label>
+                    <input
+                        class="w-100"
+                        type="text"
+                        pInputText
+                        [placeholder]="'translate_the_question' | translate"
+                        [value]="originAnswer?.question"
+                        [readonly]="true"
+                        disabled
+                    />
+                </div>
+                <div class="fnt-600 fnt-14 mb-2">
+                    {{ 'answer' | translate | titlecase }}
+                </div>
+                <div class="border-main bg-f8 px-3 py-4 br-4">
+                    <div
+                        appCopyImageToClipboard
+                        appFullImgWrapper
+                        [innerHTML]="originAnswer.answer"
+                        class="disable-color"
+                    ></div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="bg-f8 py-4">
-        <p-tabView>
-            <p-tabPanel [header]="'translation' | translate">
-                <div class="px-2 py-3 p-md-4 bg-f8">
-                    <form [formGroup]="form">
-                        <div class="sewn-form-field language-container mb-3 mb-md-4">
-                            <p-dropdown
-                                [options]="applicationLanguages"
-                                (onChange)="onChangeTranslationLanguage($event.value)"
-                                class="w-100"
-                                formControlName="language"
-                                required
-                                [placeholder]="'select_translation_language' | translate"
-                                optionLabel="label"
-                                optionValue="value"
-                            ></p-dropdown>
-                            <div *ngIf="form.controls.language.invalid" class="p-error">
-                                {{ 'required' | translate }}
-                            </div>
-                        </div>
-                        <div *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-3 mb-md-4">
-                            <input
-                                class="w-100"
-                                type="text"
-                                pInputText
-                                [placeholder]="'translate_the_question' | translate"
-                                formControlName="question"
-                            />
-                            <div *ngIf="form.controls.question.invalid" class="p-error">
-                                {{ 'required' | translate }}
-                            </div>
-                        </div>
-                        <div>
-                            <app-forum-editor
-                                [(ngModel)]="translatedAnswer"
-                                [(isUploadingImage)]="isUploadingImage"
-                                [(imageIdList)]="imageIdList"
-                                fileModule="qa-forum"
-                                [placeholder]="'leave_an_answer_bla' | translate"
-                            ></app-forum-editor>
-                        </div>
-                    </form>
-                </div>
-            </p-tabPanel>
-            <p-tabPanel [header]="'see_original_post' | translate">
-                <div class="px-2 py-3 p-md-4 bg-f8">
-                    <div class="border-main bg-white p-3 br-4 fnt-14 fnt-muli text-clr334 mb-4">
-                        <div class="font-weight-bold mb-3">{{ 'original_question' | translate }}:</div>
-                        <div>{{ originAnswer.question }}</div>
+        <div class="col-md-6 col-12 px-md-0">
+            <p-tabView class="bg-tabView-question" (onChange)="handleChange($event)">
+                <p-tabPanel [header]="'swedish' | translate" *ngIf="!translatedLangArray.includes('sv')">
+                    <div class="px-2 py-3 py-md-4 pr-md-4 pl-md-0 bg-f8">
+                        <ng-container *ngTemplateOutlet="qaQuestion"></ng-container>
                     </div>
-                    <div class="border-main bg-white p-4 br-4">
-                        <div class="font-weight-bold mb-3">
-                            {{ 'translating_answer_by' | translate }} {{ this.authService.currentUser.firstname }}
-                        </div>
-                        <div appCopyImageToClipboard appFullImgWrapper [innerHTML]="originAnswer.answer"></div>
+                </p-tabPanel>
+                <p-tabPanel [header]="'spanish' | translate" *ngIf="!translatedLangArray.includes('es')">
+                    <div class="px-2 py-3 py-md-4 pr-md-4 pl-md-0 bg-f8">
+                        <ng-container *ngTemplateOutlet="qaQuestion"></ng-container>
                     </div>
-                </div>
-            </p-tabPanel>
-        </p-tabView>
-        <div class="row mt-2 px-2 px-md-4">
-            <div class="col-md-6 order-2 order-md-1">
-                <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
-                    {{ 'cancel' | translate }}
-                </button>
-            </div>
-            <div class="col-md-6 order-1 order-md-2">
-                <div class="d-flex justify-content-end flex-column flex-md-row">
-                    <!-- <button
-                        [disabled]="isPosting || isUploadingImage || isInvalidTranslation"
-                        (click)="onPost('DRAFT')"
-                        class="btn-stroked px-4 mr-md-3 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
-                    >
-                        {{ 'save_as_draft' | translate }}
-                    </button>-->
-                    <button
-                        [disabled]="isPosting || isUploadingImage || isInvalidTranslation"
-                        (click)="onPost('PUBLISHED')"
-                        class="btn-raised px-4 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
-                    >
-                        {{ 'submit' | translate }}
-                    </button>
-                </div>
-            </div>
+                </p-tabPanel>
+                <p-tabPanel [header]="'portuguese' | translate" *ngIf="!translatedLangArray.includes('pt')">
+                    <div class="px-2 py-3 py-md-4 pr-md-4 pl-md-0 bg-f8">
+                        <ng-container *ngTemplateOutlet="qaQuestion"></ng-container>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
         </div>
     </div>
 </div>
+
+<div class="row mt-2 mx-0 my-lg-5 my-md-4 my-3">
+    <div class="col-md-6 order-2 order-md-1">
+        <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
+            {{ 'cancel' | translate }}
+        </button>
+    </div>
+    <div class="col-md-6 order-1 order-md-2">
+        <div class="d-flex justify-content-end flex-column flex-md-row">
+            <button
+                [disabled]="isPosting || isUploadingImage"
+                (click)="onPost('DRAFT')"
+                class="btn-stroked px-4 mr-md-3 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+            >
+                {{ 'save_as_draft' | translate }}
+            </button>
+            <button
+                [disabled]="isPosting || isUploadingImage"
+                (click)="onPost('PUBLISHED')"
+                class="btn-raised px-4 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+            >
+                {{ 'submit' | translate }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #qaQuestion>
+    <div>
+        <!-- Don't remove -->
+        <!-- <div class="mt-4">
+            <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-3">Categories</p>
+            <div>
+                <span *ngFor="let btn of buttonList">
+                    <button class="p-2 button-list fnt-12 fnt-muli fnt-600 text-clr334">
+                        {{ btn.button }}
+                    </button>
+                </span>
+            </div>
+        </div> -->
+        <div [formGroup]="form" *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-3 mb-md-4">
+            <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{ 'question' | translate }}</label>
+            <input
+                class="w-100"
+                type="text"
+                pInputText
+                [placeholder]="'translate_the_question' | translate"
+                formControlName="question"
+            />
+            <div *ngIf="form.controls.question.invalid" class="p-error">
+                {{ 'required' | translate }}
+            </div>
+        </div>
+        <div>
+            <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{ 'body' | translate }}</label>
+            <app-forum-editor
+                [(ngModel)]="translatedAnswer"
+                [(isUploadingImage)]="isUploadingImage"
+                [(imageIdList)]="imageIdList"
+                fileModule="qa-forum"
+                [placeholder]="'leave_an_answer_bla' | translate"
+            ></app-forum-editor>
+        </div>
+    </div>
+</ng-template>
