@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, UserService } from '@services';
+import { AuthService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { AnyARecord } from 'dns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-product-setting',
@@ -21,7 +22,7 @@ export class ProductSettingComponent implements OnInit {
     breadItems: any[];
     options: any;
     selectedTab = {
-        name: this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management,
+        name: this.translator.instant('vat') + ' ' + this.translator.instant('management'),
         code: '',
         index: 0,
     };
@@ -43,8 +44,8 @@ export class ProductSettingComponent implements OnInit {
         public cookieService: CookieService,
         private route: ActivatedRoute,
         public fb: FormBuilder,
-        public globals: GlobalsService,
         private authService: AuthService,
+        private translator: TranslateService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -52,8 +53,8 @@ export class ProductSettingComponent implements OnInit {
     ngOnInit(): void {
         this.getShippingInfo();
         this.options = [
-            { name: this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management, code: '', index: 0 },
-            { name: this.globals.languageJson?.shipping_details, code: '', index: 1 },
+            { name: this.translator.instant('vat') + ' ' + this.translator.instant('management'), code: '', index: 0 },
+            { name: this.translator.instant('shipping_details'), code: '', index: 1 },
         ];
         this.dayMinListArray = [
             {
@@ -74,9 +75,9 @@ export class ProductSettingComponent implements OnInit {
     }
     settingBreadCrumb(type = null) {
         this.breadItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.inventory },
-            { label: this.globals.languageJson?.product_settings },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('inventory') },
+            { label: this.translator.instant('product_settings') },
         ];
     }
 
@@ -168,12 +169,12 @@ export class ProductSettingComponent implements OnInit {
         this.router.navigate(['/product-setting'], { queryParams: { type: feature } });
     }
     getHeading() {
-        let header = 'Product Settings';
+        let header = this.translator.instant('product_settings');
         if (this.selectedMobileTab) {
             header =
                 this.selectedMobileTab === 'VAT'
-                    ? this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management
-                    : 'Shipment Details';
+                    ? this.translator.instant('vat') + ' ' + this.translator.instant('management')
+                    : this.translator.instant('shipment_details');
         }
         return header;
     }
