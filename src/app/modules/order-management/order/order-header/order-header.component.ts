@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -52,11 +53,13 @@ export class OrderHeaderComponent implements OnInit {
         return this.orderStatus !== OrderStatus.Shipped && this.orderStatus !== OrderStatus.Received;
     }
 
+    constructor(private translator: TranslateService) {}
+
     ngOnInit(): void {
         this.breadcrumbs = [
-            { label: 'Home', routerLink: '/' },
-            { label: 'Order Management', routerLink: `/orders/${this.organizationType}` },
-            { label: `Order ${this.orderId}` },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('order_management'), routerLink: `/orders/${this.organizationType}` },
+            { label: `${this.translator.instant('order')} ${this.orderId}` },
         ];
     }
 }
