@@ -54,8 +54,4 @@ export class QuestionsComponent implements OnInit {
     paginate(event: any) {
         this.displayData = this.questions.slice(event.first, event.first + event.rows);
     }
-
-    wordCount(description) {
-        // return getWordCount(description);
-    }
 }
