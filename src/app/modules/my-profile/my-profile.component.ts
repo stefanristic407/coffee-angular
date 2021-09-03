@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService, GlobalsService, UserService, ValidateEmailService } from '@services';
+import { AuthService, UserService, ValidateEmailService } from '@services';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
-import { getLanguage, ValidateEmail } from '@utils';
+import { ValidateEmail } from '@utils';
 import { COUNTRY_LIST, LANGUAGES } from '@constants';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-my-profile',
@@ -20,7 +20,10 @@ import { TranslateService } from '@ngx-translate/core';
 export class MyProfileComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     public readonly LANGUAGES = LANGUAGES;
-    isEditMode = true;
+
+    @ViewChild('bannerInput', { static: false }) bannerInput: ElementRef;
+    @ViewChild('profileInput', { static: false }) profileInput: ElementRef;
+    isEditMode = false;
     isLoading = false;
     isUpdatingProfile = false;
     bannerUrl: string;
@@ -97,6 +100,7 @@ export class MyProfileComponent implements OnInit {
             if (res.success) {
                 this.profileInfo = res.result;
                 this.infoForm.patchValue(this.profileInfo);
+                this.bannerUrl = this.profileInfo.banner_url;
                 this.profileUrl = this.profileInfo.profile_image_url;
                 if (this.queryUserId) {
                     this.certificationArray = res.result?.certificates || [];
@@ -140,10 +144,11 @@ export class MyProfileComponent implements OnInit {
                 },
             })
             .onClose.subscribe((data: CroppedImage) => {
-                if (data.status) {
+                if (data?.status) {
                     this.bannerUrl = data.croppedImgUrl;
                     this.bannerFile = data.croppedImgFile;
                 }
+                this.bannerInput.nativeElement.value = '';
             });
     }
 
@@ -161,15 +166,16 @@ export class MyProfileComponent implements OnInit {
                 },
             })
             .onClose.subscribe((data: CroppedImage) => {
-                if (data.status) {
+                if (data?.status) {
                     this.profileUrl = data.croppedImgUrl;
                     this.profileFile = data.croppedImgFile;
                 }
+                this.profileInput.nativeElement.value = '';
             });
     }
 
     handleCancel(): void {
-        this.bannerUrl = this.profileInfo.profile_image_url;
+        this.bannerUrl = this.profileInfo.banner_url;
         this.bannerFile = null;
         this.profileUrl = this.profileInfo.profile_image_url;
         this.profileFile = null;
@@ -197,9 +203,9 @@ export class MyProfileComponent implements OnInit {
 
         const promises = [];
         promises.push();
-        // if (this.bannerFile) {
-        //     promises.push(new Promise((resolve, reject) => this.uploadBanner(resolve, reject)));
-        // }
+        if (this.bannerFile) {
+            promises.push(new Promise((resolve, reject) => this.uploadBanner(resolve, reject)));
+        }
         if (this.profileFile) {
             promises.push(new Promise((resolve, reject) => this.uploadProfileImage(resolve, reject)));
         }
@@ -219,7 +225,7 @@ export class MyProfileComponent implements OnInit {
     uploadBanner(resolve, reject) {
         const formData: FormData = new FormData();
         formData.append('file', this.bannerFile);
-        formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
+        formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/banner-image`);
         formData.append('token', this.authService.token);
         this.userService.uploadProfileImage(formData).subscribe((res: any) => {
             if (res.success) {
@@ -233,7 +239,7 @@ export class MyProfileComponent implements OnInit {
     uploadProfileImage(resolve, reject) {
         const formData: FormData = new FormData();
         formData.append('file', this.profileFile);
-        formData.append('api_call', '/ro/' + this.roasterId + '/users/' + this.userId + '/profile-image');
+        formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/profile-image`);
         formData.append('token', this.authService.token);
         this.userService.uploadProfileImage(formData).subscribe((res: any) => {
             if (res.success) {
