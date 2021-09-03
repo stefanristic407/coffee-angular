@@ -34,6 +34,8 @@ export class UserDetailComponent implements OnInit, OnChanges {
 
     ngOnChanges(): void {
         if (this.userId && this.orgType) {
+            this.orgType = this.orgType.toLowerCase() as OrganizationType;
+            this.orgType = this.orgType.toLowerCase() as OrganizationType;
             this.userService.getUserDetail(this.userId, this.orgType).subscribe((res) => {
                 if (res.success) {
                     this.data = res.result;
