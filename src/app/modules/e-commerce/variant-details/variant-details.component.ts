@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ResizeService, FileService, AuthService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
-import { fileRequired, quantityMinValidator, trackFileName } from '@utils';
+import { fileRequired, quantityMinValidator } from '@utils';
 import { FileModule } from '@enums';
 
 @Component({
@@ -40,7 +40,6 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     ];
     weightVariantArray: any = [];
     displayDelete = false;
-    uploadDisabled = true;
 
     constructor(
         private authService: AuthService,
@@ -185,7 +184,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         }
     }
 
-    loadGrindVariants(grindForm, items, isPublic): void {
+    private loadGrindVariants(grindForm, items, isPublic): void {
         this.grindVariants = grindForm as FormArray;
         if (items?.length > 0) {
             this.grindVariants.removeAt(0);
@@ -241,7 +240,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.grindVariants.push(this.createEmptyGrindVariant(!isHide));
     }
 
-    createEmptyWeights(isPublic: boolean = false): FormGroup {
+    private createEmptyWeights(isPublic: boolean = false): FormGroup {
         const emptyVariantID = '_' + Math.random().toString(36).substr(2, 9);
         const emptyWeight: FormGroup = this.fb.group({
             weight_name: 'weight - 0 lb',
@@ -330,7 +329,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.weightForm.markAllAsTouched();
     }
 
-    setProductImages(productArray) {
+    private setProductImages(productArray) {
         const productEmptyArray = [];
         const startIndex = productArray ? productArray.length : 0;
         for (let i = startIndex; i < 3; i++) {
@@ -357,60 +356,48 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         grindVariants.removeAt(idx);
     }
 
-    uploadImages() {
-        const currentWeightForm = (this.weightForm.get('weights') as FormArray).controls[this.currentVariantIndex];
-        const featuredControl = currentWeightForm.get('featured_image_id');
-        if (featuredControl.invalid) {
-            featuredControl.markAsTouched();
-            return;
-        }
-        const promises: any[] = [];
-        if (featuredControl.value?.file) {
-            promises.push(
-                new Promise((resolve, reject) => {
-                    this.uploadImage(featuredControl, resolve, reject);
-                }),
-            );
-        }
-        if (featuredControl.value?.image_id && (!featuredControl.value?.image_url || featuredControl.value?.file)) {
-            promises.push(
-                new Promise((resolve, reject) => {
-                    this.deleteFile(featuredControl.value.image_id, resolve, reject);
-                }),
-            );
-        }
-        (currentWeightForm.get('product_images') as FormArray).controls.forEach((imageControl) => {
-            if (imageControl.value?.file) {
+    uploadImages(pResolve, pReject) {
+        (this.weightForm.get('weights') as FormArray).controls.forEach((currentWeightForm) => {
+            const promises: any[] = [];
+            const featuredControl = currentWeightForm.get('featured_image_id');
+            if (featuredControl.value?.file) {
                 promises.push(
                     new Promise((resolve, reject) => {
-                        this.uploadImage(imageControl, resolve, reject);
+                        this.uploadImage(featuredControl, resolve, reject);
                     }),
                 );
             }
-            if (imageControl.value?.image_id && (!imageControl.value?.image_url || imageControl.value?.file)) {
+            if (featuredControl.value?.image_id && (!featuredControl.value?.image_url || featuredControl.value?.file)) {
                 promises.push(
                     new Promise((resolve, reject) => {
-                        this.deleteFile(imageControl.value.image_id, resolve, reject);
+                        this.deleteFile(featuredControl.value.image_id, resolve, reject);
                     }),
                 );
             }
-        });
+            (currentWeightForm.get('product_images') as FormArray).controls.forEach((imageControl) => {
+                if (imageControl.value?.file) {
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            this.uploadImage(imageControl, resolve, reject);
+                        }),
+                    );
+                }
+                if (imageControl.value?.image_id && (!imageControl.value?.image_url || imageControl.value?.file)) {
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            this.deleteFile(imageControl.value.image_id, resolve, reject);
+                        }),
+                    );
+                }
+            });
 
-        Promise.all(promises)
-            .then(() => {
-                Promise.all(promises)
-                    .then(() => {
-                        if (promises.length) {
-                            this.toaster.success('Image uploaded successfully');
-                            this.uploadDisabled = true;
-                        }
-                    })
-                    .catch(() => {});
-            })
-            .catch(() => {});
+            Promise.all(promises)
+                .then(() => pResolve())
+                .catch(() => pReject());
+        });
     }
 
-    uploadImage(formControl: AbstractControl, resolve, reject) {
+    private uploadImage(formControl: AbstractControl, resolve, reject) {
         const file = formControl.value.file;
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
@@ -428,7 +415,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
-    deleteFile(fileId: number, resolve, reject) {
+    private deleteFile(fileId: number, resolve, reject) {
         this.fileService.deleteFile(fileId).subscribe((res) => {
             if (res.success) {
                 resolve();
@@ -438,7 +425,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
-    createWeightVariantArray() {
+    private createWeightVariantArray() {
         const weight = this.weightForm.get('weights') as FormArray;
         const weightVariantArray = weight.value.map((ele, index) => {
             const weightName = 'Weight -' + (ele.weight ? ele.weight : 0) + ' ' + ele.weight_unit;
@@ -446,10 +433,6 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         });
         weightVariantArray.push({ label: '', value: 'button' });
         this.weightVariantArray = weightVariantArray;
-    }
-
-    trackFileName(name) {
-        return trackFileName(name);
     }
 
     handleHideProduct() {

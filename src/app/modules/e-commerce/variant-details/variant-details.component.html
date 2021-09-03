@@ -302,7 +302,6 @@
                                 <app-product-image
                                     formControlName="featured_image_id"
                                     accept="image/png, image/jpeg"
-                                    (ngModelChange)="uploadDisabled = false"
                                 ></app-product-image>
                                 <small
                                     *ngIf="currentForm.controls.featured_image_id.errors?.required"
@@ -318,18 +317,9 @@
                                 <app-product-image
                                     [formControl]="productImage"
                                     accept="image/png, image/jpeg"
-                                    (ngModelChange)="uploadDisabled = false"
                                 ></app-product-image>
                             </div>
                         </div>
-                        <button
-                            type="button"
-                            (click)="uploadImages()"
-                            [disabled]="uploadDisabled"
-                            class="btn-stroked mt-2 mt-md-25 mt-lg-3"
-                        >
-                            {{ 'upload_images' | translate }}
-                        </button>
                     </div>
                 </div>
             </p-tabPanel>

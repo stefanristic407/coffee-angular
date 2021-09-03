@@ -642,6 +642,30 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             return;
         }
 
+        // First have to upload all product images
+        this.uploadImages();
+    }
+
+    uploadImages() {
+        const promises = [];
+        this.variantComponent.forEach((child) => {
+            promises.push(new Promise((resolve, reject) => child.uploadImages(resolve, reject)));
+        });
+
+        Promise.all(promises)
+            .then(() => {
+                Promise.all(promises)
+                    .then(() => {
+                        this.saveProduct();
+                    })
+                    .catch(() => {
+                        this.toasterService.error('Error while uploading images');
+                    });
+            })
+            .catch(() => {});
+    }
+
+    saveProduct() {
         const productObj = JSON.parse(JSON.stringify(this.productForm.value));
         delete productObj.variants;
         for (const key of Object.keys(productObj)) {
