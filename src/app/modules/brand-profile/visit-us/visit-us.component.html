@@ -18,7 +18,11 @@
                         <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field">
-                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
+                            <app-brand-uploader
+                                formControlName="banner_file"
+                                [width]="1440"
+                                [height]="465"
+                            ></app-brand-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>

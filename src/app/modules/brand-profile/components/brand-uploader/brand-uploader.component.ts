@@ -10,18 +10,18 @@ import * as moment from 'moment';
 import { ResizeableComponent } from '@base-components';
 
 @Component({
-    selector: 'app-uploader',
-    templateUrl: './uploader.component.html',
-    styleUrls: ['./uploader.component.scss'],
+    selector: 'app-brand-uploader',
+    templateUrl: './brand-uploader.component.html',
+    styleUrls: ['./brand-uploader.component.scss'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => UploaderComponent),
+            useExisting: forwardRef(() => BrandUploaderComponent),
             multi: true,
         },
     ],
 })
-export class UploaderComponent extends ResizeableComponent implements OnInit, ControlValueAccessor {
+export class BrandUploaderComponent extends ResizeableComponent implements OnInit, ControlValueAccessor {
     @ViewChild('fileInput', { static: false }) fileInput;
     inputId = Math.random() * 1000;
     onChange: any;

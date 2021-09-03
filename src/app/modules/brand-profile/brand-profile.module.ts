@@ -13,7 +13,7 @@ import { VisitUsComponent } from './visit-us/visit-us.component';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { BrandProfileHeaderComponent } from './components/brand-profile-header/brand-profile-header.component';
 import { BrandProfileFooterComponent } from './components/brand-profile-footer/brand-profile-footer.component';
-import { UploaderComponent } from './components/uploader/uploader.component';
+import { BrandUploaderComponent } from './components/brand-uploader/brand-uploader.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +25,7 @@ import { UploaderComponent } from './components/uploader/uploader.component';
         FeaturedProductsComponent,
         BrandProfileHeaderComponent,
         BrandProfileFooterComponent,
-        UploaderComponent,
+        BrandUploaderComponent,
     ],
     imports: [CommonModule, BrandProfileRoutingModule, SharedModule, AgmCoreModule],
 })
