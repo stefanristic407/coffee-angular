@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService, RoasterserviceService } from '@services';
 
 @Component({
     selector: 'app-brand-profile',
@@ -39,22 +38,21 @@ export class BrandProfileComponent implements OnInit {
     infoForm: FormGroup;
 
     constructor(
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        private cookieService: CookieService,
-        private roasterSrv: RoasterserviceService,
         private authService: AuthService,
         private fb: FormBuilder,
+        private roasterSrv: RoasterserviceService,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
     ) {
         this.roasterId = this.authService.getOrgId();
-        // this.roasterSlug = this.authService.currentOrganization.slug;
+        this.roasterSlug = this.authService.currentOrganization.slug;
     }
 
     ngOnInit(): void {
         this.breadItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.brand_experience },
-            { label: this.globals.languageJson?.brand_profile },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('brand_experience') },
+            { label: this.translator.instant('brand_profile') },
         ];
         this.infoForm = this.fb.group({
             slug: [this.roasterSlug, [Validators.required, Validators.pattern(/^[a-z_-]+$/)]],
@@ -76,7 +74,6 @@ export class BrandProfileComponent implements OnInit {
                 }
             });
         } else {
-            console.log(this.infoForm.controls.slug);
             if (this.infoForm.controls.slug.errors?.required) {
                 this.toastrService.error('Please enter slug');
             } else if (this.infoForm.controls.slug.errors?.pattern) {
