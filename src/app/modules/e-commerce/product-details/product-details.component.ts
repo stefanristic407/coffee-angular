@@ -638,7 +638,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             this.variantComponent.forEach((child) => {
                 child.markAllAsTouched();
             });
-            this.toasterService.error('Please fill all Data and upload feature image.');
+            this.toasterService.error(this.translator.instant('please_check_form_data'));
             return;
         }
 

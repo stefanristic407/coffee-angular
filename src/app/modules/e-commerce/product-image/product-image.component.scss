@@ -33,3 +33,7 @@
     justify-content: space-between;
     align-items: center;
 }
+
+::ng-deep .ng-invalid.ng-touched > .addImageContainer {
+    border-color: $error-border-color;
+}

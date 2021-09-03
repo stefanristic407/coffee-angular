@@ -8,7 +8,7 @@
 
 <div [formGroup]="weightForm" class="d-flex flex-wrap flex-lg-nowrap" *ngIf="weightForm.get('weights')">
     <div class="d-none d-lg-block productWeightDiv">
-        <div *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
+        <div *ngFor="let weight of this.weightForm['value']['weights']; let i = index" class="mb-3">
             <a
                 class="
                     d-flex
@@ -18,10 +18,10 @@
                     br-4
                     border-main
                     cursor-pointer
-                    mb-3
                     weight-item
                 "
                 [ngClass]="{ active: currentVariantIndex == i }"
+                [class.invalid]="isInvalidWeightVariant(i)"
                 (click)="currentVariantIndex = i"
             >
                 <div class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334">

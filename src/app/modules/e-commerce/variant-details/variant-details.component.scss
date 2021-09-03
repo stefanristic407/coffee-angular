@@ -1,11 +1,20 @@
+@import 'variables';
+
 .weight-form-wrapper {
     width: calc(100% - 200px);
 }
 
 .weight-item.active {
-    border-color: #30855c !important;
+    border-color: $primary-color !important;
     & > div {
-        color: #30855c !important;
+        color: $primary-color !important;
+    }
+}
+
+.weight-item.invalid {
+    border-color: $error-border-color !important;
+    & > div {
+        color: $invalid-color !important;
     }
 }
 
@@ -99,8 +108,8 @@
     }
 
     .weightVariantBtn {
-        border: solid 1px #30855c;
-        color: #30855c;
+        border: solid 1px $primary-color;
+        color: $primary-color;
         padding: 0.5rem 2rem;
         display: flex;
         border-radius: 4px;

@@ -435,6 +435,11 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         this.weightVariantArray = weightVariantArray;
     }
 
+    isInvalidWeightVariant(index: number): boolean {
+        const weightVarientForm = (this.weightForm.get('weights') as FormArray).controls[index];
+        return weightVarientForm.invalid && weightVarientForm.touched;
+    }
+
     handleHideProduct() {
         const weight = (this.weightForm.get('weights') as FormArray).controls[this.currentVariantIndex] as FormGroup;
         this.setWeightValidators(weight);
