@@ -41,7 +41,7 @@ export class DraftPostsComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?',
+                    desp: `Are you sure you want to remove this ${draft.post_type}?`,
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
@@ -51,7 +51,7 @@ export class DraftPostsComponent implements OnInit {
                     this.coffeeLabService.deleteForumById(draft.post_type, draft.post_id).subscribe((res: any) => {
                         if (res.success) {
                             this.drafts = this.drafts.filter((item: any) => item.post_id !== draft.post_id);
-                            this.toastService.success(`You have deleted a forum successfully.`);
+                            this.toastService.success(`Draft ${draft.post_type} deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
                         } else {
                             this.toastService.error(`Failed to delete a forum.`);

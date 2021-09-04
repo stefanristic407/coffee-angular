@@ -3,8 +3,15 @@
 </div>
 
 <div *ngIf="!isLoading">
-    <div class="border-main row br-4 bg-f8 mx-0">
-        <div class="col-12 col-md-6 px-0">
+    <div class="row border-md-main br-4 mt-4 mt-md-0 mx-0">
+        <div *ngIf="isMobile" class="col-12 bg-f8 mb-4 px-0 border-main br-4">
+            <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
+                <p-tabPanel *ngFor="let item of remainingLangugage" [header]="item.label | translate">
+                    <ng-container *ngTemplateOutlet="createArticle"></ng-container>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div class="col-12 bg-f8 col-md-6 px-0 border-mob">
             <div class="bg-f8 w-100">
                 <div class="d-flex justify-content-between border-btm pt-4 pr-45">
                     <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-25">
@@ -13,7 +20,7 @@
                     <img class="swap-img" src="assets/images/swap_horiz_black_24dp.svg" alt="swap_horiz" />
                 </div>
             </div>
-            <div class="bg-white border-right mr-md-4 p-2 py-3 px-md-4">
+            <div class="bg-white border-right mr-md-4 p-2 pt-3 pb-4 p px-md-4">
                 <!-- Don't remove -->
                 <!-- <div class="mt-4">
                     <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-3">Categories</p>
@@ -26,7 +33,7 @@
                     </div>
                 </div> -->
                 <div>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">Cover Image</p>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
                     <div class="position-relative border-main br-4">
                         <img [src]="article?.cover_image_url" class="banner-image br-4" />
                         <div
@@ -71,7 +78,7 @@
                                 'subtitle' | translate
                             }}</label>
                             <textarea
-                                [placeholder]="'subtitle' | translate"
+                                [placeholder]="'translate_answer' | translate"
                                 pInputTextarea
                                 formControlName="subtitle"
                                 [readonly]="true"
@@ -98,15 +105,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-6 px-0">
+        <div *ngIf="!isMobile" class="col-12 bg-f8 col-md-6 px-0">
             <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
-                <p-tabPanel [header]="'swedish' | translate" *ngIf="!isTranslationArticle.includes('sv')">
-                    <ng-container *ngTemplateOutlet="createArticle"></ng-container>
-                </p-tabPanel>
-                <p-tabPanel [header]="'spanish' | translate" *ngIf="!isTranslationArticle.includes('es')">
-                    <ng-container *ngTemplateOutlet="createArticle"></ng-container>
-                </p-tabPanel>
-                <p-tabPanel [header]="'portuguese' | translate" *ngIf="!isTranslationArticle.includes('pt')">
+                <p-tabPanel *ngFor="let item of remainingLangugage" [header]="item.label | translate">
                     <ng-container *ngTemplateOutlet="createArticle"></ng-container>
                 </p-tabPanel>
             </p-tabView>
@@ -140,8 +141,8 @@
 </div>
 
 <ng-template #createArticle>
-    <div class="p-2 py-3 pr-md-4 pl-md-0 bg-f8" [formGroup]="articleForm" novalidate>
-        <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">Cover Image</p>
+    <div class="px-2 pt-3 pr-md-4 pl-md-0 bg-f8" [formGroup]="articleForm" novalidate>
+        <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
         <div class="col-12 sewn-form-field p-0">
             <div class="addImageContainer d-flex align-items-center justify-content-center border-main br-4">
                 <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image br-4" />
@@ -201,7 +202,7 @@
         <div class="col-12 sewn-form-field p-0">
             <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'subtitle' | translate }}</label>
             <textarea
-                [placeholder]="'subtitle' | translate"
+                [placeholder]="'translate_answer' | translate"
                 pInputTextarea
                 formControlName="subtitle"
                 autoResize="autoResize"

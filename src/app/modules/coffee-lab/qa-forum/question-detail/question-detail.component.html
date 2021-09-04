@@ -1,5 +1,5 @@
 <div class="mt-1 mt-lg-3 pb-4 pb-lg-5 w-fit-content" *ngIf="!isLoading">
-    <a class="back-page" (click)="location.back()">
+    <a class="back-page" (click)="onBack()">
         <span class="ml-2">{{ 'back_to_forum' | translate }}</span>
     </a>
 </div>
@@ -29,12 +29,12 @@
                 </div>
             </div>
             <div
-                class="fnt-muli fnt-16 fnt-md-18 font-weight-bold text-clr334 pb-3 px-4"
+                class="fnt-muli fnt-16 fnt-md-18 fnt-700 text-clr334 pb-4 px-md-4 px-3"
                 [innerHTML]="detailsData.question"
             ></div>
             <app-like-divider [question]="detailsData"></app-like-divider>
             <div class="border-top-main py-4 px-0 px-md-45">
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center ml-md-3">
                     <img
                         [src]="
                             authService.currentUser?.profile_image_thumb_url
@@ -59,7 +59,10 @@
                     </div>
                 </div>
 
-                <div *ngIf="comment" class="d-flex justify-content-between align-items-center mt-4">
+                <div
+                    *ngIf="comment"
+                    class="d-flex justify-content-between ml-35 mr-2 ml-md-0 mr-md-0 align-items-center mt-4"
+                >
                     <p-checkbox
                         class="d-flex align-items-start ml-md-5"
                         [(ngModel)]="isAllowTranslation"
@@ -75,13 +78,13 @@
                 <div
                     *ngFor="let answer of detailsData.answers; let last = last"
                     [id]="'answer-' + answer.id"
-                    class="mb-4 mx-3 ml-md-5 mr-md-4 answer-wrapper"
+                    class="mb-35 mx-3 ml-md-5 mr-md-4 answer-wrapper"
                 >
-                    <div class="d-flex flex-wrap w-100 mt-3">
+                    <div class="d-flex flex-wrap w-100 mt-35">
                         <div class="d-flex justify-content-between align-items-md-end w-100">
                             <app-user-header [prop]="answer"></app-user-header>
-                            <div class="d-flex flex-column align-items-end">
-                                <div class="mb-2">
+                            <div class="d-flex flex-column align-items-end icon-height">
+                                <div>
                                     <app-forum-menu
                                         [selectedItem]="answer"
                                         forumType="answer"
@@ -114,7 +117,7 @@
                         </div>
                         <div
                             *ngIf="answer?.allow_translation && answer?.translations?.length"
-                            class="d-block d-md-none border-top-main border-bottom-main py-3 mb-3 text-center"
+                            class="d-block d-md-none pt-3 text-center"
                         >
                             <app-translation-dropdown
                                 forumType="question"
@@ -123,12 +126,12 @@
                         </div>
                     </div>
                     <div
-                        class="fnt-muli fnt-14 text-clr334 lh-15 pt-4 px-0"
+                        class="fnt-muli fnt-14 text-clr334 lh-15 pt-md-4 pt-25 px-0"
                         [ngClass]="{ 'mb-2': !last }"
                         appFullImgWrapper
                         [innerHTML]="answer.answer"
                     ></div>
-                    <div class="d-flex justify-content-between my-3 my-md-4">
+                    <div class="d-flex justify-content-end my-3 my-md-4">
                         <div class="d-flex">
                             <!-- <div class="d-flex">
                             <img
@@ -139,15 +142,15 @@
                             />
                             <span class="d-flex align-items-lg-end ml-3 mb-1">2</span>
                         </div> -->
-                            <div class="align-items-center d-flex ml-0 hover-save-icon">
+                            <!-- <div class="align-items-center d-flex ml-0 hover-save-icon">
                                 <img (click)="onFocus()" class="cursor-point" src="assets/images/save.svg" alt="save" />
-                            </div>
+                            </div> -->
                         </div>
                         <div class="d-flex hover-share-icon">
                             <img (click)="onShare()" class="cursor-point" src="assets/images/share.svg" alt="upload" />
                         </div>
                     </div>
-                    <!-- <div
+                    <div
                         *ngIf="answerDetail && answerDetail?.original_answer_state === 'ACTIVE'"
                         class="border-main br-4 p-4 mb-4 d-none d-md-block w-100"
                     >
@@ -178,22 +181,25 @@
                         <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
                             <a
                                 class="fnt-14 fnt-600 fnt-muli"
-                                [routerLink]="
-                                    getLink(
-                                        answerDetail?.original_details.language,
-                                        answerDetail?.original_details?.question_slug
-                                    )
-                                "
+                                (click)="onRealtedRoute(answerDetail?.original_details?.question_slug)"
                                 >{{ answerDetail?.original_details?.question | titlecase }}</a
                             >
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <button
                 (click)="onFocusCommentBox()"
                 class="cursor-point"
-                class="bg-transparent border-0 fnt-14 fnt-bold fnt-muli mb-4 ml-4 mt-3 text-clr60b text-underline"
+                class="
+                    bg-transparent
+                    border-0
+                    fnt-14 fnt-bold fnt-muli
+                    mb-4
+                    ml-4 ml-md-5
+                    pl-md-0
+                    text-clr60b text-underline
+                "
             >
                 {{ 'write_comment' | translate }}
             </button>

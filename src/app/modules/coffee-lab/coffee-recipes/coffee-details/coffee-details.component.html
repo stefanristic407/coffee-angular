@@ -1,5 +1,5 @@
 <main>
-    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" (click)="location.back()">
+    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" (click)="onBack()">
         <a>
             <span class="ml-2">{{ 'back_to_forum' | translate }}</span>
         </a>
@@ -189,7 +189,10 @@
                                         class="py-3 px-0 ingredients-item"
                                         *ngFor="let ingredientsItem of detailsData.ingredients"
                                     >
-                                        <label class="fnt-muli fnt-14 fnt-bold text-clr334 mb-0 pr-3">
+                                        <label
+                                            class="fnt-muli fnt-14 fnt-bold text-clr334 mb-0 pr-3"
+                                            *ngIf="ingredientsItem.quantity !== '-'"
+                                        >
                                             {{ ingredientsItem.quantity }} {{ ingredientsItem.quantity_unit }}
                                         </label>
                                         <label class="fnt-muli fnt-14 fnt-600 text-clr334 mb-0">{{
@@ -213,7 +216,7 @@
                             </h2>
                             <div
                                 class="pb-4 step-wrapper"
-                                *ngFor="let step of detailsData?.steps; let i = index"
+                                *ngFor="let step of detailsData?.steps; let i = index; let last = last"
                                 [id]="'step' + (i + 1)"
                             >
                                 <div class="d-flex">
@@ -223,14 +226,13 @@
                                     <div
                                         class="
                                             ml-md-3 ml-25
-                                            fnt-muli fnt-14 fnt-md-16
-                                            mt-1
-                                            fnt-semi-bold
+                                            fnt-muli fnt-14 fnt-md-16 fnt-semi-bold
                                             text-clr334
                                             lh-157
                                             mb-0
                                             step-desc
                                         "
+                                        [ngClass]="{ 'no-border': last }"
                                         [innerHTML]="step.description"
                                     ></div>
                                 </div>
@@ -266,7 +268,17 @@
                                     />
                                 </div>
                                 <div>
-                                    <p class="fnt-14 fnt-bold fnt-muli text-clr334 cursor-point text-underline mb-2">
+                                    <p
+                                        class="fnt-14 fnt-bold fnt-muli text-clr334 cursor-point text-underline mb-2"
+                                        routerLink="/user-profile"
+                                        [queryParams]="{
+                                            user_id: detailsData?.user_id || detailsData?.posted_by,
+                                            organization:
+                                                detailsData?.org_type ||
+                                                detailsData?.organisation_type ||
+                                                detailsData?.organization_type
+                                        }"
+                                    >
                                         {{ detailsData?.original_details?.firstname || stickData?.firstname }}
                                         {{ detailsData?.original_details?.lastname || stickData?.lastname }}
                                     </p>
@@ -413,7 +425,7 @@
                         >
                             <div class="d-flex flex-wrap w-100 mt-3">
                                 <div class="d-flex justify-content-between align-items-md-end w-100">
-                                    <app-user-header [prop]="postItem"></app-user-header>
+                                    <app-user-header [prop]="postItem" [isRecipeDetail]="true"></app-user-header>
                                 </div>
                             </div>
                             <div class="mt-3 px-0 forum-content mb-4 ml-md-5 pl-md-1">

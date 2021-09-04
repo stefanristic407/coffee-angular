@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GlobalsService } from '@services';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-translation-dropdown',
@@ -10,16 +10,43 @@ import { Router } from '@angular/router';
 export class TranslationDropdownComponent implements OnInit {
     @Input() translatedList: any[] = [];
     @Input() forumType?: string;
+    isPostType: any;
 
-    constructor(public globalsService: GlobalsService, private router: Router) {}
+    constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+        this.activatedRoute.queryParams.subscribe((res) => {
+            this.isPostType = res;
+        });
+    }
 
     ngOnInit(): void {}
 
     onChangeTranslate(event: any): void {
-        if (this.forumType === 'question') {
-            this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`]);
+        if (this.isPostType.isMyPost) {
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                    queryParams: { isMyPost: this.isPostType.isMyPost },
+                });
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                    queryParams: { isMyPost: this.isPostType.isMyPost },
+                });
+            }
+        } else if (this.isPostType.isSavePost) {
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                    queryParams: { isSavePost: this.isPostType.isSavePost },
+                });
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                    queryParams: { isSavePost: this.isPostType.isSavePost },
+                });
+            }
         } else {
-            this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`]);
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`]);
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`]);
+            }
         }
     }
 }

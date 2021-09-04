@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
-import { AuthService, CoffeeLabService, GoogletranslateService } from '@services';
+import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Location } from '@angular/common';
 import { takeUntil } from 'rxjs/operators';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CropperDialogComponent } from '@app/shared';
+import { ConfirmComponent, CropperDialogComponent } from '@app/shared';
 import { CroppedImage } from '@models';
 import { insertAltAttr } from '@utils';
 
@@ -79,20 +79,12 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
     ];
     qualityArray: any[] = [
         {
-            label: 'ounces',
-            value: 'ounces',
-        },
-        {
-            label: 'lbs',
-            value: 'lbs',
-        },
-        {
-            label: 'tbsp',
-            value: 'tbsp',
-        },
-        {
             label: 'cups',
             value: 'cups',
+        },
+        {
+            label: 'glasses',
+            value: 'glasses',
         },
         {
             label: 'grams',
@@ -103,20 +95,36 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
             value: 'kg',
         },
         {
-            label: 'units',
-            value: 'units',
+            label: 'ltr',
+            value: 'ltr',
+        },
+        {
+            label: 'lbs',
+            value: 'lbs',
         },
         {
             label: 'ml',
             value: 'ml',
         },
         {
-            label: 'L',
-            value: 'L',
+            label: 'ounces',
+            value: 'ounces',
         },
         {
-            label: 'glasses',
-            value: 'glasses',
+            label: 'piece',
+            value: 'piece',
+        },
+        {
+            label: 'tbsp',
+            value: 'tbsp',
+        },
+        {
+            label: 'tsp',
+            value: 'tsp',
+        },
+        {
+            label: 'units',
+            value: 'units',
         },
         {
             label: 'N/A',
@@ -156,6 +164,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
         private coffeeLabService: CoffeeLabService,
         private router: Router,
         private route: ActivatedRoute,
+        private globals: GlobalsService,
         private location: Location,
         private dialogService: DialogService,
         private gtrans: GoogletranslateService,
@@ -216,7 +225,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
                 this.coverImageUrl = res.result.cover_image_url;
                 if (this.isTranslate) {
                     // Put all data im one array which we have to translate from response
-
+                    if (this.recipe.user_id !== this.authService.currentUser.id) {
+                        this.copyCoverImage('noCopy');
+                    }
                     const translateData = [
                         res.result.name,
                         res.result.expertise,
@@ -293,6 +304,26 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
+    copyCoverImage(copy?: string) {
+        // if (this.isCopying) {
+        //     return;
+        // }
+        // this.isCopying = true;
+        this.coffeeLabService.copyFile(this.recipe.cover_image_id).subscribe((res: any) => {
+            // this.isCopying = false;
+            if (res.success) {
+                this.copiedCoverImageId = res.result.id;
+                this.copiedCoverImageUrl = res.result.url;
+                this.recipeForm.get('cover_image_id').setValue(this.copiedCoverImageId);
+                if (!copy) {
+                    this.toaster.success('Copied cover image successfully.');
+                }
+            } else {
+                this.toaster.error('Failed to copy cover image.');
+            }
+        });
+    }
+
     createRecipeForm(): void {
         this.recipeForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
@@ -363,11 +394,29 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
             }
         }
         this.brewRatio = this.recipeForm.get('coffee_ratio').value + ':' + this.recipeForm.get('water_ratio').value;
+        if (this.isTranslate) {
+            this.recipeForm.get('equipment_name').disable();
+            this.recipeForm.get('serves').disable();
+        }
     }
 
     deleteCoverImage() {
-        this.coverImageUrl = null;
-        this.recipeForm.controls.cover_image_id.setValue(null);
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globals.languageJson?.are_you_sure_delete + ' cover image?',
+                    yesButton: 'Remove',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coverImageUrl = null;
+                    this.recipeForm.controls.cover_image_id.setValue(null);
+                }
+            });
     }
 
     onFileChange(event: any, index: number, type: RecipeFileType) {
@@ -473,7 +522,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
             }
             if (this.recipeForm.invalid) {
                 this.recipeForm.markAllAsTouched();
-                this.toaster.error('Please fill all Data');
+                this.toaster.error('Please fill all data');
                 return;
             } else {
                 this.handlePost();
@@ -509,12 +558,14 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     translateRecipe(data: any): void {
+        data.equipment_name = this.recipe.equipment_name;
+        data.serves = this.recipe.serves;
         // data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         // data.inline_images = data.inline_images.filter((i) => i !== undefined);
         this.coffeeLabService.translateForum('recipe', this.originRecipeId, data).subscribe((res: any) => {
             if (res.success) {
                 this.toaster.success('You have translated a coffee recipe successfully.');
-                this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
+                this.router.navigate([`/coffee-lab/recipes/${this.recipe.slug}`]);
             } else {
                 this.isPosting = false;
             }

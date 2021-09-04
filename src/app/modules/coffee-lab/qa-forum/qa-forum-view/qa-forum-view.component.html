@@ -34,23 +34,13 @@
                                 optionValue="value"
                             ></p-dropdown>
                         </div>
-                        <div class="ml-3">
-                            <p-dropdown
-                                [options]="filterAssignedOptions"
-                                [(ngModel)]="coffeeLabService.qaForumViewSortBy"
-                                [showClear]="true"
-                                (ngModelChange)="getQuestions()"
-                                styleClass="round-border text-clr588"
-                                [placeholder]="'sort_by' | translate"
-                                optionLabel="label"
-                                optionValue="value"
-                            ></p-dropdown>
-                        </div>
                         <div class="ml-md-3 d-none d-md-block">
                             <p-dropdown
                                 [options]="sortOptions"
                                 [(ngModel)]="coffeeLabService.qaForumViewSortBy"
                                 (ngModelChange)="getQuestions()"
+                                [showClear]="true"
+                                [placeholder]="'sort_by' | translate"
                                 styleClass="round-border text-clr588"
                                 optionLabel="label"
                                 optionValue="value"
@@ -63,6 +53,8 @@
                             [(ngModel)]="coffeeLabService.qaForumViewSortBy"
                             (ngModelChange)="getQuestions()"
                             styleClass="round-border text-clr588"
+                            [showClear]="true"
+                            [placeholder]="'sort_by' | translate"
                             optionLabel="label"
                             optionValue="value"
                         ></p-dropdown>

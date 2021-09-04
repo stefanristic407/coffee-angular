@@ -12,11 +12,17 @@ export class TranslateRecipeComponent implements OnInit {
     selectedTab = 0;
     tranalatedLangs = [];
     id: any;
-    hideTab1 = false;
-    hideTab2 = false;
-    hideTab3 = false;
+    isMobile = false;
+    allLanguage = [
+        { label: 'swedish', value: 'sv' },
+        { label: 'spanish', value: 'es' },
+        { label: 'portuguese', value: 'pt' },
+    ];
+    remainingLangugage = [];
+
     constructor(private route: ActivatedRoute, public router: Router, private coffeeLabService: CoffeeLabService) {
         this.id = this.route.snapshot.queryParamMap.get('origin_id');
+        this.isMobile = window.innerWidth < 767;
     }
 
     ngOnInit(): void {}
@@ -28,7 +34,12 @@ export class TranslateRecipeComponent implements OnInit {
         this.selectedTab = event.index;
     }
 
-    checkTranslationExits(lang) {
-        this.tranalatedLangs.push(lang);
+    checkTranslationExits(translatedArray) {
+        this.allLanguage.forEach((item) => {
+            const isTranslate = translatedArray?.find((trans) => item.value === trans.language);
+            if (!isTranslate) {
+                this.remainingLangugage.push(item);
+            }
+        });
     }
 }

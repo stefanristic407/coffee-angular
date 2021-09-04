@@ -1,5 +1,10 @@
 @import 'variables';
 .recipe-post-wrapper {
+    .recipe-mob {
+        @media screen and (max-width: 767px) {
+            margin-left: 0px;
+        }
+    }
     .addImageContainer {
         background: $white;
         height: 255px;
@@ -81,13 +86,20 @@
     .translate-hgt {
         height: 276px !important;
         border-radius: 4px;
+        @media (max-width: 768px) {
+            height: 100% !important;
+        }
+    }
+
+    .min-hght {
+        min-height: 70px;
     }
 
     // label {
     //     color: #747589 !important;
     // }
     ::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
-        padding: 5px !important;
+        padding: 4px !important;
     }
     ::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
         position: relative;
@@ -137,7 +149,7 @@
             .p-tabview-nav {
                 li {
                     @media (max-width: 767px) {
-                        padding-top: 16px;
+                        // padding-top: 16px;
                         border-right: none !important;
                     }
                 }
@@ -157,16 +169,14 @@
         .addImageContainer,
         .stepAddImageContainer {
             width: auto !important;
-            height: 120px !important;
         }
         .step-mb {
-            display: inherit !important;
             ::ng-deep .p-component {
                 width: 100%;
             }
         }
         .step-xs {
-            display: none;
+            margin-top: 16px;
         }
         ::ng-deep .ql-toolbar.ql-snow .ql-formats {
             margin-right: 0 !important;
@@ -180,7 +190,7 @@
 
 .align-another {
     position: relative;
-    bottom: 27px;
+    bottom: 18px;
 }
 
 .req-ratio {
@@ -189,4 +199,21 @@
 
 .no-brew {
     color: $error-border-color !important;
+}
+.bring-top {
+    position: relative;
+    z-index: 1;
+}
+
+.cust-algin-ing {
+    @media (max-width: 768px) {
+        position: relative;
+        bottom: 20px;
+    }
+}
+
+::ng-deep .text-area-mobile .forum-editor {
+    @media screen and (min-width: 767px) {
+        left: 8px;
+    }
 }

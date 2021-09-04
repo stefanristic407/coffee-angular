@@ -1,13 +1,11 @@
-<div *ngIf="!isLoading" class="border-md-main br-4 p-0 p-md-4">
+<div *ngIf="!isLoading" class="cust-marg br-4 p-0 p-md-4">
     <div class="bg-f8 br-4 px-2 py-25 p-md-4 mb-0 mb-md-45">
         <div class="d-flex align-items-center mb-3">
             <img
                 [src]="
                     authService.currentUser?.profile_image_thumb_url
                         ? authService.currentUser?.profile_image_thumb_url
-                        : authService.currentUser?.profile_image_url
-                        ? authService.currentUser?.profile_image_url
-                        : 'assets/images/default-avatar.png'
+                        : authService.currentUser?.profile_image_url || 'assets/images/default-avatar.png'
                 "
                 alt="avatar"
                 class="rounded-circle mr-3"

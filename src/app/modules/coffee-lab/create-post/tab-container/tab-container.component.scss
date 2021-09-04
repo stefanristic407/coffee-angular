@@ -3,7 +3,7 @@
 .container-marg {
     margin: 0 8.5rem;
     @media (max-width: 768px) {
-        margin: 0;
+        margin: 1.5rem -0.5rem 0 -0.5rem;
     }
 }
 ::ng-deep {
@@ -12,7 +12,7 @@
             li {
                 margin-right: 0;
                 @media (max-width: 767px) {
-                    padding-top: 16px;
+                    // padding-top: 16px;
                     border-right: 1px solid $secondary-border-color;
                 }
                 &:nth-child(3) {

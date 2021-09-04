@@ -28,6 +28,15 @@ export class TranslateAnswerComponent implements OnInit {
     originLanguage: string;
     translateLangCode = 'sv';
     translatedLangArray = [];
+    allLanguage = [
+        { label: 'swedish', value: 'sv' },
+        { label: 'spanish', value: 'es' },
+        { label: 'portuguese', value: 'pt' },
+    ];
+    remainingAnswerLangugage = [];
+    selectedTab = 0;
+    isMobile = false;
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -42,6 +51,7 @@ export class TranslateAnswerComponent implements OnInit {
             language: ['', Validators.required],
             question: ['', Validators.required],
         });
+        this.isMobile = window.innerWidth < 767;
     }
 
     ngOnInit(): void {
@@ -60,6 +70,11 @@ export class TranslateAnswerComponent implements OnInit {
                 this.answer = res.result;
                 this.answer?.translations?.forEach((element) => {
                     this.translatedLangArray.push(element.language);
+                });
+                this.allLanguage.forEach((item) => {
+                    if (!this.translatedLangArray?.includes(item.value)) {
+                        this.remainingAnswerLangugage.push(item);
+                    }
                 });
                 this.originLanguage = res.result?.original_details?.language || res.result.lang_code;
                 if (res.result.parent_answer_id) {
@@ -85,6 +100,7 @@ export class TranslateAnswerComponent implements OnInit {
                         this.isLoading = false;
                         if (questionRes.success) {
                             this.question = questionRes.result;
+                            this.checkQuestionTranslated(0);
                         } else {
                             this.toastrService.error('Error while get parent question');
                         }
@@ -97,24 +113,23 @@ export class TranslateAnswerComponent implements OnInit {
         });
     }
 
-    handleChange(e?) {
-        if (
-            (!this.translatedLangArray.includes('es') && this.translatedLangArray.includes('sv') && e?.index === 0) ||
-            (!this.translatedLangArray.includes('sv') && e?.index === 1)
-        ) {
-            this.translateLangCode = 'es';
-        } else if (
-            (this.translatedLangArray.includes('sv') && this.translatedLangArray.includes('es') && e?.index === 0) ||
-            (this.translatedLangArray.includes('sv') && !this.translatedLangArray.includes('es') && e?.index === 1) ||
-            (!this.translatedLangArray.includes('sv') &&
-                !this.translatedLangArray.includes('es') &&
-                !this.translatedLangArray.includes('pt') &&
-                e?.index === 2)
-        ) {
-            this.translateLangCode = 'pt';
+    checkQuestionTranslated(ind) {
+        const isTranslate = this.question?.translations?.find(
+            (item) => item.language === this.remainingAnswerLangugage[ind].value,
+        );
+        if (isTranslate) {
+            this.form.get('question').disable();
+            return true;
         } else {
-            this.translateLangCode = 'sv';
+            this.form.get('question').enable();
+            return false;
         }
+    }
+
+    handleChange(e?) {
+        this.checkQuestionTranslated(e.index);
+        this.selectedTab = e.index;
+        this.translateLangCode = this.remainingAnswerLangugage[e.index].value;
         const translateData = [this.originAnswer.question, this.originAnswer.answer];
         this.gtrans.translateCoffeeLab(translateData, this.translateLangCode).subscribe((translatedOutput: any) => {
             this.form.patchValue({
@@ -148,20 +163,21 @@ export class TranslateAnswerComponent implements OnInit {
             status,
             images: this.imageIdList,
             language: this.translateLangCode,
-            question: '',
         };
-        if (this.question.translations) {
-            this.question.translations.forEach((element) => {
-                // this.question.answers
-                if (element.language !== this.translateLangCode) {
-                    delete data.question;
-                } else {
-                    data.question = this.form.controls.question.value;
-                }
-            });
-        } else {
+        // if (this.question.translations) {
+        //     this.question.translations.forEach((element) => {
+        //         // this.question.answers
+        //         if (element.language !== this.translateLangCode) {
+        //             delete data.question;
+        //         } else {
+        //             data.question = this.form.controls.question.value;
+        //         }
+        //     });
+        // } else {
+        if (!this.checkQuestionTranslated(this.selectedTab)) {
             data.question = this.form.controls.question.value;
         }
+        // }
 
         this.isPosting = true;
         this.coffeeLabService.translateForum('answer', this.answerId, data).subscribe((res: any) => {

@@ -3,6 +3,9 @@
     height: 3px;
     margin: 6px 6px 6px 8px;
     background-color: #232334;
+    @media (max-width: 768px) {
+        margin: 6px 4px 6px 4px;
+    }
 }
 
 .aling-time {

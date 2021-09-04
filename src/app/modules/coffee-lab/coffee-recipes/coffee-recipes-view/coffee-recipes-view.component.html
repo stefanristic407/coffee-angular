@@ -53,6 +53,8 @@
                     optionLabel="label"
                     optionValue="value"
                     [(ngModel)]="coffeeLabService.recipeViewSortBy"
+                    placeholder="{{ 'sort_by' | translate }}"
+                    [showClear]="true"
                     (onChange)="reloadPageData()"
                     styleClass="round-border mobile-ui"
                 >
@@ -76,7 +78,7 @@
         <app-recipes [recipes]="coffeeRecipeData"></app-recipes>
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
-    <div *ngIf="!isLoading && !coffeeRecipeData.length" class="text-center my-4 fnt-muli text-clr24">
+    <div *ngIf="!isLoading && !coffeeRecipeData.length" class="text-center my-4 fnt-muli text-clr334">
         <app-empty
             [title]="(keyword ? 'no_data_available' : 'you_have_not_posted_anything_yet') | translate"
             [description]="(keyword ? '' : 'no_any_posts_to_show_description') | translate"

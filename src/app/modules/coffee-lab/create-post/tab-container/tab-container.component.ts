@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-tab-container',
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TabContainerComponent implements OnInit {
     selectedIndex: number;
 
-    constructor(private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
@@ -23,6 +23,22 @@ export class TabContainerComponent implements OnInit {
             if (type === 'recipe') {
                 this.selectedIndex = 2;
             }
+        });
+    }
+
+    onTabChage(event) {
+        let selectedType: string;
+        if (event.index === 0) {
+            selectedType = 'question';
+        }
+        if (event.index === 1) {
+            selectedType = 'article';
+        }
+        if (event.index === 2) {
+            selectedType = 'recipe';
+        }
+        this.router.navigate(['/coffee-lab/create-post/tab'], {
+            queryParams: { type: selectedType },
         });
     }
 }

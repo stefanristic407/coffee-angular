@@ -88,7 +88,10 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             ingredient: this.searchIngredient,
             translations_available: this.coffeeLabService.recipeViewIsAvailableTranslation,
             sort_by: 'created_at',
-            sort_order: this.coffeeLabService.recipeViewSortBy === 'latest' ? 'desc' : 'asc',
+            sort_order:
+                this.coffeeLabService.recipeViewSortBy === '' || this.coffeeLabService.recipeViewSortBy === 'latest'
+                    ? 'desc'
+                    : 'asc',
             level: this.coffeeLabService.recipeViewLevel?.toLowerCase(),
             publish: true,
             page: 1,

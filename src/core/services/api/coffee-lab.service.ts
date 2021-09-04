@@ -18,12 +18,12 @@ export class CoffeeLabService extends ApiService {
     organization = this.orgType;
     // filterBy and sortBy
     qaForumViewFilterBy = '';
-    qaForumViewSortBy = 'latest';
+    qaForumViewSortBy = '';
     articleViewFilterBy = '';
-    articleViewSortBy = 'latest';
+    articleViewSortBy = '';
     recipeViewIsAvailableTranslation = '';
     recipeViewLevel = '';
-    recipeViewSortBy = 'latest';
+    recipeViewSortBy = '';
     qaPostSortBy = 'latest';
     assignedToMeSortBy = 'latest';
     myAnswersSortBy = 'desc';

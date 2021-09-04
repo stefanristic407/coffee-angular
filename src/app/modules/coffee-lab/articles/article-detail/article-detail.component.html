@@ -1,5 +1,5 @@
 <main>
-    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" (click)="location.back()">
+    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" (click)="onBack()">
         <a>
             <span class="ml-2">{{ 'back_to_forum' | translate }}</span>
         </a>
@@ -104,15 +104,21 @@
                                         <img
                                             class="br-4"
                                             [src]="
-                                                detailsData?.profile_image_url ||
-                                                detailsData?.profile_image_thumb_url ||
-                                                detailsData?.posted_user_profile_image_url
+                                                detailsData?.profile_image_url || detailsData?.profile_image_thumb_url
                                             "
                                             alt="Author-image"
                                         />
                                     </div>
                                     <div>
                                         <p
+                                            routerLink="/user-profile"
+                                            [queryParams]="{
+                                                user_id: detailsData?.user_id || detailsData?.posted_by,
+                                                organization:
+                                                    detailsData?.org_type ||
+                                                    detailsData?.organisation_type ||
+                                                    detailsData?.organization_type
+                                            }"
                                             class="
                                                 fnt-14 fnt-bold fnt-muli
                                                 text-clr334
@@ -270,7 +276,7 @@
                             >
                                 <div class="d-flex flex-wrap w-100 mt-3">
                                     <div class="d-flex justify-content-between align-items-md-end w-100">
-                                        <app-user-header [prop]="postItem"></app-user-header>
+                                        <app-user-header [prop]="postItem" [isArticleDetail]="true"></app-user-header>
                                     </div>
                                 </div>
                                 <div class="px-0 mt-3 mb-4 forum-content ml-md-5 pl-md-1">
@@ -345,7 +351,9 @@
                     <div class="d-flex pb-4 footer-border" (click)="onRealtedRoute(forum.slug)">
                         <div class="p-articles pr-2 cursor-point"><img [src]="forum?.cover_image_url" alt="" /></div>
                         <div class="cursor-point d-flex flex-column">
-                            <p class="fnt-fly fnt-bold text-clr334 cust-flex-grow">{{ forum?.title }}</p>
+                            <p class="fnt-fly fnt-bold text-clr334 cust-flex-grow">
+                                {{ forum?.title | convertToShortDescription: 6 }}
+                            </p>
                             <p class="fnt-14 fnt-600 fnt-muli text-clr334 text-underline">
                                 {{ forum?.user_name }}
                             </p>

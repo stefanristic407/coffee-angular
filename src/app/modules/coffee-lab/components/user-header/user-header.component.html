@@ -14,7 +14,7 @@
             <div class="d-flex align-items-center mr-3 text-nowrap">
                 <div
                     [ngClass]="{ ellipsis: enableEllipsis }"
-                    class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1"
+                    class="fnt-muli font-weight-bold fnt-14 text-clr334 mr-md-3 mr-1"
                 >
                     {{
                         prop?.user_name ||
@@ -52,20 +52,15 @@
                     [ngClass]="{ ellipsis: enableEllipsis }"
                     >@{{ orgType === 'sa' || !orgType ? 'Era of We' : orgType }}</span
                 >
-                <span *ngIf="prop?.question || prop?.answer" class="d-none d-md-block time-point"></span>
-                <span
-                    *ngIf="prop?.question || prop?.answer"
-                    class="fnt-muli fnt-14 fnt-600 text-clr588 d-none d-md-block aling-time"
-                >
+                <div class="d-flex" *ngIf="prop?.question || prop?.answer || isArticleDetail || isRecipeDetail"></div>
+                <span class="d-none d-md-block time-point"></span>
+                <span class="fnt-muli fnt-14 fnt-600 text-clr588 d-none d-md-block aling-time">
                     {{ prop?.posted_at || prop?.created_at | amTimeAgo: true }}
                 </span>
             </div>
         </div>
     </div>
     <div>
-        <!-- <div *ngIf="prop?.question" class="fnt-muli fnt-14 text-clr588 d-none d-md-block time-text">
-            {{ prop?.posted_at || prop?.created_at | date: 'mediumDate' }}
-        </div> -->
         <div *ngIf="total">
             <img src="assets/images/thumbs-up-button.svg" alt="thumbs-up-button" />
         </div>

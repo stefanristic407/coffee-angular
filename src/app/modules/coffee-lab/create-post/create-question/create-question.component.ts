@@ -90,7 +90,7 @@ export class CreateQuestionComponent implements OnInit {
                     if (status === 'PUBLISHED') {
                         this.toastrService.success('You have posted a question successfully.');
                     } else if (status === 'DRAFT') {
-                        this.toastrService.success('Your question is saved as draft successfully.');
+                        this.toastrService.success('Your question is successfully saved in draft.');
                     }
                     this.router.navigate(['/coffee-lab']);
                 } else {

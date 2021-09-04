@@ -12,6 +12,8 @@ import { ConfirmComponent } from '@shared';
 })
 export class RecipesComponent implements OnInit {
     @Input() recipes: any[] = [];
+    @Input() isMypost = false;
+    @Input() isSavepost = false;
     totalRecords = 0;
     displayData: any[] = [];
     pageDesc: string | undefined;
@@ -38,7 +40,17 @@ export class RecipesComponent implements OnInit {
 
     openRecipe(slug: string) {
         if (!this.isSaveBtn) {
-            this.router.navigateByUrl('/coffee-lab/recipes/' + slug);
+            if (this.isMypost) {
+                this.router.navigate(['/coffee-lab/recipes/' + slug], {
+                    queryParams: { isMyPost: this.isMypost },
+                });
+            } else if (this.isSavepost) {
+                this.router.navigate(['/coffee-lab/recipes/' + slug], {
+                    queryParams: { isSavePost: this.isSavepost },
+                });
+            } else {
+                this.router.navigateByUrl('/coffee-lab/recipes/' + slug);
+            }
         }
     }
 

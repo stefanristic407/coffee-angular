@@ -1,5 +1,5 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="page-wrapper m-0 p-2 p-md-0" *ngIf="!isLoading">
+<div class="page-wrapper m-0 p-0 border-mob" *ngIf="!isLoading">
     <div class="bg-f8 w-100">
         <div class="d-flex justify-content-between border-btm mt-4">
             <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-25 align-original">
@@ -53,6 +53,7 @@
                             pInputTextarea
                             formControlName="description"
                             [readonly]="true"
+                            autoResize="autoResize"
                             placeholder="Give a small description about the recipe..."
                         ></textarea>
                         <small *ngIf="recipeForm.controls['description'].errors?.required" class="p-error">
@@ -197,6 +198,7 @@
                                             formControlName="quantity_unit"
                                             [readonly]="true"
                                             class="inputFieldBox"
+                                            [dropdownIcon]="false"
                                             [style]="{
                                                 width: '100%',
                                                 height: '40px',

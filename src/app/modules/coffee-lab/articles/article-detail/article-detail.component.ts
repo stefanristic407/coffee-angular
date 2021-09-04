@@ -27,6 +27,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     language: string;
     stickData: any;
     isSaveArticle = false;
+    isPostType: any;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -46,6 +47,9 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             this.language = language || this.coffeeLabService.currentForumLanguage;
             this.getDetails(true);
             this.getArticleList();
+        });
+        this.activatedRoute.queryParams.subscribe((res) => {
+            this.isPostType = res;
         });
     }
 
@@ -185,5 +189,35 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             org_type: this.stickData.organization_type.toLowerCase(),
             org_id: this.stickData.organization_id,
         });
+    }
+
+    onBack() {
+        if (this.isPostType.isMyPost) {
+            if (this.detailsData.original_article) {
+                this.router.navigate(['/coffee-lab/articles/' + this.detailsData.original_article.slug], {
+                    queryParams: { isMyPost: this.isPostType.isMyPost },
+                });
+            } else {
+                this.router.navigateByUrl('/coffee-lab/overview/my-posts/article');
+            }
+        } else if (this.isPostType.isSavePost) {
+            if (this.detailsData.original_article) {
+                this.router.navigate(['/coffee-lab/articles/' + this.detailsData.original_article.slug], {
+                    queryParams: { isSavePost: this.isPostType.isSavePost },
+                });
+            } else {
+                this.router.navigateByUrl('/coffee-lab/overview/saved-posts/article');
+            }
+        } else {
+            if (this.detailsData.original_article) {
+                this.router.navigateByUrl('/coffee-lab/articles/' + this.detailsData.original_article.slug);
+            } else {
+                if (this.detailsData.is_era_of_we) {
+                    this.router.navigateByUrl('/coffee-lab/overview/about-era-of-we');
+                } else {
+                    this.router.navigateByUrl('/coffee-lab/overview/articles');
+                }
+            }
+        }
     }
 }

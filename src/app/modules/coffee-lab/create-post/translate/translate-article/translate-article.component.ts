@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, CoffeeLabService, GoogletranslateService } from '@services';
+import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { insertAltAttr, maxWordCountValidator } from '@utils';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@app/shared';
 
 @Component({
     selector: 'app-translate-article',
@@ -30,7 +32,14 @@ export class TranslateArticleComponent implements OnInit {
     copiedCoverImageUrl: any;
     images = [];
     selectedTabArticle = 'sv';
+    allLanguage = [
+        { label: 'swedish', value: 'sv' },
+        { label: 'spanish', value: 'es' },
+        { label: 'portuguese', value: 'pt' },
+    ];
     isTranslationArticle = [];
+    remainingLangugage = [];
+    isMobile = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -41,7 +50,10 @@ export class TranslateArticleComponent implements OnInit {
         private location: Location,
         public authService: AuthService,
         private gtrans: GoogletranslateService,
+        public globals: GlobalsService,
+        private dialogService: DialogService,
     ) {
+        this.isMobile = window.innerWidth < 767;
         this.articleForm = this.formBuilder.group({
             language: [''],
             title: ['', Validators.compose([Validators.required])],
@@ -77,13 +89,18 @@ export class TranslateArticleComponent implements OnInit {
                 this.article = res.result;
                 this.articleFormOriginal.patchValue(res.result);
                 this.coverImageUrl = res.result.cover_image_url;
-                this.article.translated_articles.forEach((element) => {
+                this.article?.translated_articles?.forEach((element) => {
                     this.isTranslationArticle.push(element.language);
+                });
+                this.allLanguage.forEach((item) => {
+                    if (!this.isTranslationArticle?.includes(item.value)) {
+                        this.remainingLangugage.push(item);
+                    }
                 });
                 if (this.article.user_id !== this.authService.currentUser.id) {
                     this.copyCoverImage('noCopy');
                 }
-                this.handleChange();
+                this.handleChange({ index: 0 });
                 this.articleFormOriginal.disable();
             } else {
                 this.toastrService.error('Error while get article');
@@ -93,7 +110,7 @@ export class TranslateArticleComponent implements OnInit {
     }
 
     handleChange(e?) {
-        this.selectedTabArticle = e?.index === 1 ? 'es' : e?.index === 2 ? 'pt' : 'sv';
+        this.selectedTabArticle = this.remainingLangugage[e.index].value;
         const translateData = [this.article.title, this.article.subtitle, this.article.content];
         this.gtrans.translateCoffeeLab(translateData, this.selectedTabArticle).subscribe((translatedOutput: any) => {
             this.articleForm.patchValue({
@@ -229,10 +246,24 @@ export class TranslateArticleComponent implements OnInit {
     }
 
     deleteCoverImage(element: any) {
-        this.coverImage = null;
-        this.coverImageUrl = null;
-        this.isCoverImageUploaded = false;
-        this.coverImageId = null;
-        element.value = '';
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globals.languageJson?.are_you_sure_delete + ' cover image?',
+                    yesButton: 'Remove',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coverImage = null;
+                    this.coverImageUrl = null;
+                    this.isCoverImageUploaded = false;
+                    this.coverImageId = null;
+                    element.value = '';
+                }
+            });
     }
 }

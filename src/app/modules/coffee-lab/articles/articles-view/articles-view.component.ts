@@ -70,7 +70,10 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             query: this.keyword,
             translations_available: this.coffeeLabService.articleViewFilterBy,
             sort_by: 'created_at',
-            sort_order: this.coffeeLabService.articleViewSortBy === 'latest' ? 'desc' : 'asc',
+            sort_order:
+                this.coffeeLabService.articleViewSortBy === '' || this.coffeeLabService.articleViewSortBy === 'latest'
+                    ? 'desc'
+                    : 'asc',
             publish: true,
             page: 1,
             per_page: 10000,

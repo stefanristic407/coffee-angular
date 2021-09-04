@@ -6,7 +6,16 @@
 
 ::ng-deep .bg-tabView .p-tabview .p-tabview-nav {
     background: #f8f8f8 !important;
-    padding-left: 1.5rem;
+    @media (min-width: 992px) {
+        padding-left: 1.5rem;
+    }
+}
+
+::ng-deep .bg-tabView .p-tabview {
+    @media screen and (max-width: 768px) {
+        border: 1px solid #d8d8d8;
+        border-radius: 0.25rem;
+    }
 }
 
 ::ng-deep .bg-tabView .p-tabview .p-tabview-panels {
@@ -18,7 +27,5 @@
 }
 ::ng-deep .bg-tabView .p-tabview .p-tabview-nav li .p-tabview-nav-link {
     border-right: 1px solid #d8d8d8;
-    @media (min-width: 768px) {
-        padding: 18px 24px 18px 24px !important;
-    }
+    padding: 18px 24px 18px 24px !important;
 }

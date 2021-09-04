@@ -1,5 +1,5 @@
 <div class="recipe-post-wrapper p-2 p-md-0 bg-f8" [ngClass]="{ 'mt-475': isTranslate }">
-    <div class="row" [formGroup]="recipeForm" (ngSubmit)="onSave()" novalidate>
+    <div class="row recipe-mob" [formGroup]="recipeForm" (ngSubmit)="onSave()" novalidate>
         <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100" *ngIf="isTranslate">
             <p-dropdown
                 [options]="applicationLanguages"
@@ -19,11 +19,11 @@
             }}</label>
             <div
                 class="addImageContainer d-flex align-items-center justify-content-center imagesDiv"
-                [ngClass]="{ 'mt-3': isTranslate, 'text-area': !coverImageUrl && clicked }"
+                [ngClass]="{ 'mt-md-3': isTranslate, 'mt-0': isTranslate, 'text-area': !coverImageUrl && clicked }"
             >
                 <div class="edit-btn-group d-flex m-3" *ngIf="coverImageUrl">
                     <button
-                        class="btn-raised d-none d-md-flex mr-2"
+                        class="btn-raised d-flex mr-2"
                         pButton
                         (click)="bannerFileInput.click()"
                         label="{{ 'replace_image' | translate }}"
@@ -32,7 +32,7 @@
                         pButton
                         icon="pi pi-trash"
                         iconPos="left"
-                        class="fnt-14 btn-trans-nb d-none d-md-flex pr-0"
+                        class="fnt-14 btn-trans-nb d-flex pr-0"
                         (click)="deleteCoverImage()"
                         label="{{ 'delete' | translate }}"
                     ></button>
@@ -89,9 +89,11 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
             <label>{{ 'description' | translate }}</label>
             <textarea
+                class="min-hght"
                 pInputTextarea
                 formControlName="description"
                 placeholder="Add a short description about your brewing guide"
+                autoResize="autoResize"
             ></textarea>
             <small *ngIf="recipeForm.controls['description'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
@@ -144,6 +146,7 @@
                 [(ngModel)]="brewRatio"
                 [ngModelOptions]="{ standalone: true }"
                 pInputText
+                [disabled]="isTranslate"
             />
             <!-- <p-inputNumber
                 placeholder="Eg - if the brew is 1:1 ratio of all ingreditents"
@@ -169,7 +172,7 @@
             </small>
         </div> -->
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-flex">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-flex pl-0 pl-md-3">
             <span class="primary_txt fnt-14 text-underline">{{ 'list_of_ingredients' | translate }}</span>
         </div>
         <ng-container
@@ -180,7 +183,7 @@
                 [formGroupName]="i"
                 class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap align-items-center"
             >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 mb-md-3 pr-lg-3">
                     <label>{{ 'ingredient' | translate }}</label>
                     <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
                         <input type="text" placeholder="Enter an ingredient name" pInputText formControlName="name" />
@@ -191,14 +194,14 @@
                 </div>
 
                 <div
-                    class="col-sm-12 sewn-form-field w-100 pl-md-2 pr-md-2 pl-lg-3 pr-lg-2"
+                    class="col-sm-12 sewn-form-field w-100 pl-md-2 pr-md-2 pl-lg-3 mb-3 pr-lg-2"
                     [ngClass]="{ 'col-md-5': !isTranslate, 'col-md-6': isTranslate }"
                 >
                     <label>{{ 'quantity' | translate }}</label>
                     <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
                         <input
                             type="text"
-                            placeholder="Enter the ingredient quantity"
+                            placeholder="Eg - quantity can 200 or 200-300"
                             pInputText
                             formControlName="quantity"
                         />
@@ -224,7 +227,14 @@
 
                 <div
                     *ngIf="recipeForm.controls.ingredients.value?.length > 1 && !isTranslate && i > 0"
-                    class="d-flex col-sm-12 col-md-1 col-lg-1 col-xl-1 w-100 pl-md-0 pl-lg-2 align-items-md-center"
+                    class="
+                        d-flex
+                        col-sm-12 col-md-1 col-lg-1 col-xl-1
+                        w-100
+                        pl-md-0 pl-lg-2
+                        align-items-md-center
+                        justify-content-end
+                    "
                 >
                     <div class="fnt-muli">
                         <span class="editBtn cursor-pointer" (click)="deleteIngredient(i)">
@@ -235,14 +245,17 @@
             </div>
         </ng-container>
 
-        <div *ngIf="!isTranslate" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-md-3 mb-0 d-flex">
+        <div
+            *ngIf="!isTranslate"
+            class="col-12 col-sm-12 col-md-12 col-lg-12 mb-md-3 col-xl-12 mb-0 d-flex pl-0 pl-md-3 cust-algin-ing"
+        >
             <span class="fnt-14"
                 ><span class="editBtn cursor-pointer" (click)="addIngredient()">{{
                     'add_ingredients' | translate
                 }}</span></span
             >
         </div>
-        <div *ngIf="isTranslate" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3 d-flex mb-md-3 mb-0">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-md-3 mt-0 d-flex mb-md-3 mb-0 pl-0 pl-md-3">
             <span class="primary_txt fnt-14 text-underline">{{ 'directions' | translate }}</span>
         </div>
 
@@ -260,7 +273,7 @@
                 {{ 'required' | translate }}
             </small>
         </div> -->
-        <div *ngIf="!isTranslate" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 d-flex step-mb">
+        <div *ngIf="!isTranslate" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 pl-0 d-flex step-mb">
             <p-tabView styleClass="tabview-create-recipe" class="w-100">
                 <p-tabPanel header="instruction steps & video">
                     <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pt-4">
@@ -327,7 +340,7 @@
                     >
                         <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <div
-                                class="col-sm-12 col-md-12 col-lg-12 sewn-form-field w-100"
+                                class="col-sm-12 col-md-12 col-lg-12 sewn-form-field w-100 text-area-mobile"
                                 [ngClass]="{ 'col-xl-9': !isTranslate, 'col-xl-12': isTranslate }"
                             >
                                 <div>
@@ -415,7 +428,7 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="col-12 mt-2 mb-3 d-none d-md-flex">
+                            <div class="col-12 mt-2 mb-3 d-flex">
                                 <div class="fnt-muli d-flex justify-content-between">
                                     <span class="fnt-14"
                                         ><span class="editBtn cursor-pointer" (click)="addStep()">{{
@@ -589,7 +602,7 @@
                 <!-- <p *ngIf="isTranslate" class="fnt-14 fnt-muli fnt-bold text-clr334 mt-4 px-25 pb-3 text-underline">
                     {{ 'directions' | translate }}
                 </p> -->
-                <div class="col-12 pr-md-2 pr-lg-3 sewn-form-field w-100">
+                <div class="col-12 pr-md-2 pr-lg-3 sewn-form-field w-100 mb-3">
                     <div>
                         <label>{{ 'step' | translate }} {{ i + 1 }}</label>
                     </div>
@@ -672,16 +685,13 @@
                         </div>
                     </div>
                 </div> -->
-                <div
-                    class="col-12 d-none d-md-flex justify-content-end"
-                    *ngIf="recipeForm?.value?.preparation_method == 'steps'"
-                >
+                <div class="col-12 d-flex justify-content-end" *ngIf="recipeForm?.value?.preparation_method == 'steps'">
                     <!-- <div class="fnt-muli" *ngIf="!isTranslate">
                         <span class="editBtn cursor-pointer" (click)="addStep()">{{
                             'add_another_step' | translate
                         }}</span>
                     </div> -->
-                    <div class="fnt-muli" *ngIf="!isTranslate">
+                    <div class="fnt-muli bring-top" *ngIf="!isTranslate">
                         <span
                             class="editBtn cursor-pointer"
                             *ngIf="recipeForm.controls.steps.value?.length > 1 && i > 0"
@@ -695,7 +705,7 @@
         </ng-container>
 
         <div
-            class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-3 d-none d-md-flex"
+            class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-md-45 d-md-flex pl-0 pl-md-3"
             [ngClass]="{ 'align-another': recipeForm.controls['steps']['controls']?.length >= 2 }"
             *ngIf="recipeForm?.value?.preparation_method == 'steps'"
         >
@@ -720,7 +730,10 @@
                 {{ 'required' | translate }}
             </small>
         </div>
-        <div *ngIf="!isTranslate" class="d-flex col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center my-4">
+        <div
+            *ngIf="!isTranslate"
+            class="d-flex col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center my-4 pl-0 pl-md-3"
+        >
             <p-checkbox
                 [binary]="true"
                 label="Allow translations by other authors"
@@ -731,7 +744,7 @@
                 [description]="'translation-tooltip' | translate"
             ></app-info-tooltip>
         </div>
-        <div *ngIf="!isTranslate" class="row mt-2 col-sm-12 m-0">
+        <div *ngIf="!isTranslate" class="row mt-2 col-sm-12 m-0 pl-0 pl-md-3">
             <div class="col-md-6 order-2 order-md-1 p-0">
                 <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
                     {{ 'cancel' | translate }}

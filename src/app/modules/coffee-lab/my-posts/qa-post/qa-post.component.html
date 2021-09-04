@@ -15,17 +15,29 @@
                     styleClass="no-border no-padding"
                     optionLabel="label"
                     optionValue="value"
+                    styleClass="round-border"
                 ></p-dropdown>
             </div>
         </div>
     </div>
     <div *ngIf="!isLoading">
-        <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
+        <app-questions
+            *ngIf="pageDesc === 'my-posts'"
+            [questions]="questions"
+            [isMypost]="true"
+            [viewMode]="viewMode"
+        ></app-questions>
+        <app-questions
+            *ngIf="pageDesc === 'saved-posts'"
+            [questions]="questions"
+            [isSavepost]="true"
+            [viewMode]="viewMode"
+        ></app-questions>
     </div>
     <div *ngIf="isLoading">
         <app-loading></app-loading>
     </div>
-    <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
+    <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr334">
         <app-empty
             [title]="
                 (pageDesc === 'saved-posts'

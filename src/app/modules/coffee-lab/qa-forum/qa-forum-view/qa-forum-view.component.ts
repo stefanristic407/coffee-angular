@@ -26,16 +26,6 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
             value: true,
         },
     ];
-    filterAssignedOptions = [
-        {
-            label: 'Assigned',
-            value: 'assigned',
-        },
-        {
-            label: 'Unassigned',
-            value: 'unassigned',
-        },
-    ];
     questions: any[] = [];
     isLoading = false;
     keyword = '';
@@ -75,7 +65,8 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
             sort_order:
                 this.coffeeLabService.qaForumViewSortBy === 'most_answered'
                     ? 'desc'
-                    : this.coffeeLabService.qaForumViewSortBy === 'latest'
+                    : this.coffeeLabService.qaForumViewSortBy === 'latest' ||
+                      this.coffeeLabService.qaForumViewSortBy === ''
                     ? 'desc'
                     : 'asc',
             publish: true,

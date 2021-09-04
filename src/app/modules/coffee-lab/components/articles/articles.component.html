@@ -1,6 +1,6 @@
 <div class="articles-wrapper">
     <div
-        class="col-12 col-xl-4 px-0 py-25 p-md-2 article-item-wrapper col-md-6"
+        class="col-12 col-xl-4 px-0 py-25 p-md-2 mb-3 article-item-wrapper col-md-6"
         *ngFor="let article of displayData; let i = index"
     >
         <div (click)="openArticle(article.slug)" class="py-3 py-md-4 article-item">
@@ -22,7 +22,7 @@
                     />
                 </div>
             </div>
-            <img [src]="article.cover_image_url" class="br-4 w-100 my-3" [alt]="article.title" />
+            <img [src]="article.cover_image_url" class="w-100 my-3" [alt]="article.title" />
             <div class="mx-4">
                 <div class="d-flex">
                     <!-- <div class="thumb-icon">

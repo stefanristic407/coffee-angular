@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { insertAltAttr, maxWordCountValidator } from '@utils';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CropperDialogComponent } from '@shared';
+import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
 
 @Component({
@@ -34,10 +34,10 @@ export class CreateArticleComponent implements OnInit {
         private toaster: ToastrService,
         private coffeeLabService: CoffeeLabService,
         public globals: GlobalsService,
+        private dialogService: DialogService,
         private router: Router,
         private route: ActivatedRoute,
         private location: Location,
-        private dialogService: DialogService,
     ) {}
 
     ngOnInit(): void {
@@ -53,7 +53,7 @@ export class CreateArticleComponent implements OnInit {
 
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
-            subtitle: ['', Validators.compose([maxWordCountValidator(30)])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(30), Validators.required])],
             content: [''],
             allow_translation: [true, Validators.compose([Validators.required])],
             is_era_of_we: [false],
@@ -176,10 +176,24 @@ export class CreateArticleComponent implements OnInit {
     }
 
     deleteCoverImage(element: any) {
-        this.coverImage = null;
-        this.coverImageUrl = null;
-        this.isCoverImageUploaded = false;
-        this.coverImageId = null;
-        element.value = '';
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globals.languageJson?.are_you_sure_delete + ' cover image?',
+                    yesButton: 'Remove',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coverImage = null;
+                    this.coverImageUrl = null;
+                    this.isCoverImageUploaded = false;
+                    this.coverImageId = null;
+                    element.value = '';
+                }
+            });
     }
 }

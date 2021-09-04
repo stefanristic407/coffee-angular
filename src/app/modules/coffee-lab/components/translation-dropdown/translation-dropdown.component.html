@@ -3,7 +3,7 @@
     optionLabel="language"
     [autoDisplayFirst]="false"
     styleClass="p-dropdown-translate"
-    [placeholder]="globalsService.languageJson.select_language"
+    [placeholder]="'select_language' | translate"
     (onChange)="onChangeTranslate($event)"
     [dropdownIcon]="false"
     class="mob-padd"

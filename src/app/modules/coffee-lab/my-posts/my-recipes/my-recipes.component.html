@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="!isLoading">
-    <app-recipes [recipes]="recipes"></app-recipes>
+    <app-recipes [isMypost]="true" [recipes]="recipes"></app-recipes>
 </div>
 
 <div *ngIf="!isLoading && !recipes.length" class="text-center my-4 fnt-muli text-clr24">

@@ -12,12 +12,19 @@ import { AuthService, CoffeeLabService } from '@services';
 export class QuestionsComponent implements OnInit {
     @Input() questions: any[] = [];
     @Input() viewMode = 'list';
+    @Input() isMypost = false;
+    @Input() isSavepost = false;
     questionMenuItems: MenuItem[] = [];
     pageDesc: string;
     totalRecords = 0;
     displayData: any[] = [];
 
-    constructor(private router: Router, public coffeeLabService: CoffeeLabService, public authService: AuthService) {
+    constructor(
+        private router: Router,
+        public coffeeLabService: CoffeeLabService,
+        public authService: AuthService,
+        private toastrService: ToastrService,
+    ) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 
@@ -28,5 +35,19 @@ export class QuestionsComponent implements OnInit {
 
     paginate(event: any) {
         this.displayData = this.questions.slice(event.first, event.first + event.rows);
+    }
+
+    onQuestionNavigate(slug) {
+        if (this.isMypost) {
+            this.router.navigate(['/coffee-lab/questions/' + slug], {
+                queryParams: { isMyPost: this.isMypost },
+            });
+        } else if (this.isSavepost) {
+            this.router.navigate(['/coffee-lab/questions/' + slug], {
+                queryParams: { isSavePost: this.isSavepost },
+            });
+        } else {
+            this.router.navigateByUrl('/coffee-lab/questions/' + slug);
+        }
     }
 }

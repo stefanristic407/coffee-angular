@@ -71,10 +71,17 @@
     }
 }
 
+::ng-deep .no-border {
+    border: 0px !important;
+}
+
 ::ng-deep .step-desc {
-    border-bottom: 1px solid #d8d8d8 !important;
+    border-bottom: 1px solid #d8d8d8;
     padding-bottom: 1rem !important;
     word-break: break-word;
+    p {
+        font-weight: 500 !important;
+    }
     img {
         max-width: 100%;
         margin-top: 1rem;

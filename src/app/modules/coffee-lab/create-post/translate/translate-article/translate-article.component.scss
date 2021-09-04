@@ -60,7 +60,16 @@
 }
 
 .border-right {
-    border-right: 1px solid #e3e3e3;
+    @media (min-width: 768px) {
+        border-right: 1px solid #e3e3e3;
+    }
+}
+
+.border-mob {
+    @media (max-width: 768px) {
+        border: 1px solid #e3e3e3;
+        border-radius: 0.25rem;
+    }
 }
 
 .border-btm {
@@ -72,9 +81,7 @@
     background-color: rgba(48, 133, 92, 0.16) !important;
 }
 ::ng-deep .bg-tabView-artical .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    @media (min-width: 768px) {
-        padding: 18px 24px 18px 24px !important;
-    }
+    padding: 18px 24px 18px 24px !important;
 }
 
 .swap-img {

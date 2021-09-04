@@ -1,48 +1,28 @@
-<div class="ml-3 border-main br-4 row">
-    <div class="col-12 col-md-6 px-md-0">
+<div class="ml-md-3 border-md-main br-4 row">
+    <div *ngIf="!isMobile" class="col-md-6 px-md-0">
         <app-recipe-original-post
             (checkTranslationExits)="checkTranslationExits($event)"
             [recipeId]="id"
         ></app-recipe-original-post>
     </div>
 
-    <div class="col-12 col-md-6 px-md-0">
+    <div class="col-12 col-md-6 px-md-0 mt-4 mt-md-0">
         <p-tabView class="toggle bg-tabView" [(activeIndex)]="selectedTab" (onChange)="onChangeTab($event)">
-            <p-tabPanel [header]="'swedish' | translate" *ngIf="!tranalatedLangs.includes('sv')">
-                <div class="py-md-2 px-md-4 bg-f8" *ngIf="selectedTab === 0">
-                    <app-create-recipe [translateLang]="'sv'" [isTranslate]="true"></app-create-recipe>
-                </div>
-            </p-tabPanel>
-            <p-tabPanel [header]="'spanish' | translate" *ngIf="!tranalatedLangs.includes('es')">
-                <div
-                    class="py-md-2 px-md-4 bg-f8"
-                    *ngIf="
-                        (tranalatedLangs.includes('sv') && selectedTab === 0) ||
-                        (!tranalatedLangs.includes('sv') && selectedTab === 1)
-                    "
-                >
-                    <app-create-recipe [translateLang]="'es'" [isTranslate]="true"></app-create-recipe>
-                </div>
-            </p-tabPanel>
-            <p-tabPanel [header]="'portuguese' | translate" *ngIf="!tranalatedLangs.includes('pt')">
-                <div
-                    class="py-md-2 px-md-4 bg-f8"
-                    *ngIf="
-                        (tranalatedLangs.includes('sv') && tranalatedLangs.includes('es') && selectedTab === 0) ||
-                        (tranalatedLangs.includes('sv') && !tranalatedLangs.includes('es') && selectedTab === 1) ||
-                        (tranalatedLangs.includes('sv') &&
-                            tranalatedLangs.includes('es') &&
-                            tranalatedLangs.includes('pt') &&
-                            selectedTab === 2)
-                    "
-                >
-                    <app-create-recipe [translateLang]="'pt'" [isTranslate]="true"></app-create-recipe>
+            <p-tabPanel *ngFor="let item of remainingLangugage; let i = index" [header]="item.label | translate">
+                <div class="py-md-2 px-md-4 bg-f8" *ngIf="selectedTab === i">
+                    <app-create-recipe [translateLang]="item.value" [isTranslate]="true"></app-create-recipe>
                 </div>
             </p-tabPanel>
         </p-tabView>
     </div>
+    <div *ngIf="isMobile" class="col-12 br-4 mt-4">
+        <app-recipe-original-post
+            (checkTranslationExits)="checkTranslationExits($event)"
+            [recipeId]="id"
+        ></app-recipe-original-post>
+    </div>
 </div>
-<div class="row mt-2 py-2 px-md-0 px-2 col-sm-12 my-3 my-md-45 my-lg-5">
+<div class="row ml-0 mt-2 py-2 px-md-0 p-0 col-sm-12 my-3 my-md-45 my-lg-5">
     <div class="col-md-6 order-2 order-md-1 p-0">
         <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
             {{ 'cancel' | translate }}
