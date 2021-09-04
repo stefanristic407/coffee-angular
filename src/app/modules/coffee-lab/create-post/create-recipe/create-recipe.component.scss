@@ -217,3 +217,8 @@
         left: 8px;
     }
 }
+
+::ng-deep .sewn-form-field .p-inputgroup.custom-addon .p-inputnumber-input,
+.sewn-form-field .p-inputgroup.custom-addon .p-inputtext {
+    padding-right: 0 !important;
+}

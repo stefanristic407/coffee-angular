@@ -437,13 +437,13 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
                 })
                 .onClose.subscribe((data: CroppedImage) => {
                     if (data.status) {
-                        this.uploadFile(data.croppedImgFile, index, type);
+                        this.uploadFile(data.croppedImgFile, index, type, event.target.files[0]?.name);
                     }
                 });
         }
     }
 
-    uploadFile(file: any, index: number, type): void {
+    uploadFile(file: any, index: number, type, fileName?: string): void {
         const maximumFileSize = type === RecipeFileType.Video ? this.maxVideoSize * 1024 : 2 * 1024;
         const fileSize = Math.round(file.size / 1024);
         // Check max file size
@@ -453,7 +453,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
         }
         this.coffeeLabService.uploadFile(file, 'recipe-post').subscribe((res: any) => {
             if (res.success === true) {
-                this.toaster.success('The file ' + file.name + ' uploaded successfully');
+                this.toaster.success('The file ' + fileName + ' uploaded successfully');
                 if (type === RecipeFileType.CoverImage) {
                     this.recipeForm.controls.cover_image_id.setValue(res.result.id);
                     this.coverImageUrl = res.result.url;

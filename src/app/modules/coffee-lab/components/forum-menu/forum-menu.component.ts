@@ -120,7 +120,7 @@ export class ForumMenuComponent implements OnInit {
                 this.toastService.success('Successfully saved');
             } else {
                 if (res?.messages.length && res?.messages?.[`${this.forumType}_id`][0] === 'already_exists') {
-                    this.toastService.error('You already saved this post');
+                    this.toastService.error('You already saved this ' + this.forumType);
                 } else {
                     this.toastService.error('Error while save post');
                 }
@@ -195,7 +195,7 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?',
+                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' ' + this.forumType + '?',
                     yesButton: 'Remove',
                 },
                 showHeader: false,
@@ -222,7 +222,7 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?',
+                    desp: 'Are you sure you want to remove this ' + this.forumType + '?',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
