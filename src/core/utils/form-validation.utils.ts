@@ -102,7 +102,7 @@ export class ValidateEmail {
                     observer.complete();
                 } else {
                     validateService.validate(control.value).subscribe((res: any) => {
-                        if (res.status !== 200 && res.status !== 207) {
+                        if (![200, 207, 114].includes(res.status)) {
                             observer.next({ email: 'invalid' });
                         } else {
                             observer.next(null);
