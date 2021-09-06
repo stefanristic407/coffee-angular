@@ -9,7 +9,7 @@ export class ValidateEmailService {
     constructor(private http: HttpClient) {}
 
     validate(email) {
-        const url = `https://api.email-validator.net/api/verify?EmailAddress=${email}&APIKey=${environment.EMAIL_API_KEY}`;
+        const url = `https://api.email-validator.net/api/verify?EmailAddress=${email.replace('+', '%2B')}&APIKey=${environment.EMAIL_API_KEY}`;
         return this.http.get(url);
     }
 }
