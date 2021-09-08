@@ -62,12 +62,9 @@
                 </div>
                 <div class="d-none d-lg-block empty-join-wrapper pl-lg-2"></div>
             </div>
-            <div class="row ml-25 mr-25 ml-md-3 mr-md-0">
+            <div class="d-block ml-25 mr-25 ml-md-3 mr-md-0">
                 <div *ngIf="!isLoading">
                     <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
-                </div>
-                <div *ngIf="isLoading">
-                    <app-loading></app-loading>
                 </div>
                 <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
                     <app-empty
@@ -94,4 +91,8 @@
         </div>
         <div class="col-lg-8" [ngClass]="{ 'col-lg-8': viewMode === 'list', 'col-12': viewMode === 'grid' }"></div>
     </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-loading></app-loading>
 </div>

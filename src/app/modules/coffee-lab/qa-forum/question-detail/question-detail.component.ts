@@ -24,14 +24,14 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
     comment: string;
     answerDetail: any;
-    isPostType: any;
+    canGoBack: boolean;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
         private activatedRoute: ActivatedRoute,
         @Inject(DOCUMENT) private document: any,
         public globalsService: GlobalsService,
-        public location: Location,
+        private location: Location,
         private toastService: ToastrService,
         public authService: AuthService,
         private messageService: MessageService,
@@ -48,17 +48,21 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParams.subscribe((queryParams) => {
             const language = this.activatedRoute.snapshot.queryParamMap.get('language');
             this.language = language || this.coffeeLabService.currentForumLanguage;
-            this.isPostType = queryParams;
             if (!this.isLoading) {
                 this.getDetails();
             }
         });
+        this.canGoBack = !!this.router.getCurrentNavigation()?.previousNavigation;
     }
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            this.getDetails();
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+            if (res === 'answer') {
+                this.getDetails();
+            } else {
+                this.onBack();
+            }
         });
     }
 
@@ -191,44 +195,11 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    onRealtedRoute(slug) {
-        if (this.isPostType.isMyPost) {
-            this.router.navigate(['/coffee-lab/questions' + slug], {
-                queryParams: { isMyPost: this.isPostType.isMyPost },
-            });
-        } else if (this.isPostType.isSavePost) {
-            this.router.navigate(['/coffee-lab/questions' + slug], {
-                queryParams: { isSavePost: this.isPostType.isSavePost },
-            });
-        } else {
-            this.router.navigateByUrl('/coffee-lab/questions' + slug);
-        }
-        window.scrollTo(0, 0);
-    }
-
     onBack() {
-        if (this.isPostType.isMyPost) {
-            if (this.answerDetail?.original_details) {
-                this.router.navigate(['/coffee-lab/questions/' + this.answerDetail?.original_details.question_slug], {
-                    queryParams: { isMyPost: this.isPostType.isMyPost },
-                });
-            } else {
-                this.router.navigateByUrl('/coffee-lab/overview/my-posts/qa-post');
-            }
-        } else if (this.isPostType.isSavePost) {
-            if (this.answerDetail?.original_details) {
-                this.router.navigate(['/coffee-lab/questions/' + this.answerDetail?.original_details.question_slug], {
-                    queryParams: { isSavePost: this.isPostType.isSavePost },
-                });
-            } else {
-                this.router.navigateByUrl('/coffee-lab/overview/saved-posts/qa-post');
-            }
+        if (this.canGoBack) {
+            this.location.back();
         } else {
-            if (this.answerDetail?.original_details) {
-                this.router.navigateByUrl('/coffee-lab/questions/' + this.answerDetail?.original_details.question_slug);
-            } else {
-                this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
-            }
+            this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
         }
     }
 }

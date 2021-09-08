@@ -21,18 +21,7 @@
         </div>
     </div>
     <div *ngIf="!isLoading">
-        <app-questions
-            *ngIf="pageDesc === 'my-posts'"
-            [questions]="questions"
-            [isMypost]="true"
-            [viewMode]="viewMode"
-        ></app-questions>
-        <app-questions
-            *ngIf="pageDesc === 'saved-posts'"
-            [questions]="questions"
-            [isSavepost]="true"
-            [viewMode]="viewMode"
-        ></app-questions>
+        <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
     </div>
     <div *ngIf="isLoading">
         <app-loading></app-loading>

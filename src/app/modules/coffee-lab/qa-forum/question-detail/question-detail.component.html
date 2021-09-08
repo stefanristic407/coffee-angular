@@ -181,7 +181,7 @@
                         <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
                             <a
                                 class="fnt-14 fnt-600 fnt-muli"
-                                (click)="onRealtedRoute(answerDetail?.original_details?.question_slug)"
+                                [routerLink]="getLink(answerDetail?.original_details?.question_slug)"
                                 >{{ answerDetail?.original_details?.question | titlecase }}</a
                             >
                         </div>

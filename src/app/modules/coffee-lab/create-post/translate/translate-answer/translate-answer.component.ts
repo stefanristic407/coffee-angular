@@ -28,11 +28,7 @@ export class TranslateAnswerComponent implements OnInit {
     originLanguage: string;
     translateLangCode = 'sv';
     translatedLangArray = [];
-    allLanguage = [
-        { label: 'swedish', value: 'sv' },
-        { label: 'spanish', value: 'es' },
-        { label: 'portuguese', value: 'pt' },
-    ];
+    allLanguage: any[] = APP_LANGUAGES;
     remainingAnswerLangugage = [];
     selectedTab = 0;
     isMobile = false;
@@ -72,7 +68,7 @@ export class TranslateAnswerComponent implements OnInit {
                     this.translatedLangArray.push(element.language);
                 });
                 this.allLanguage.forEach((item) => {
-                    if (!this.translatedLangArray?.includes(item.value)) {
+                    if (!this.translatedLangArray?.includes(item.value) && this.answer.lang_code !== item.value) {
                         this.remainingAnswerLangugage.push(item);
                     }
                 });
@@ -164,20 +160,10 @@ export class TranslateAnswerComponent implements OnInit {
             images: this.imageIdList,
             language: this.translateLangCode,
         };
-        // if (this.question.translations) {
-        //     this.question.translations.forEach((element) => {
-        //         // this.question.answers
-        //         if (element.language !== this.translateLangCode) {
-        //             delete data.question;
-        //         } else {
-        //             data.question = this.form.controls.question.value;
-        //         }
-        //     });
-        // } else {
+
         if (!this.checkQuestionTranslated(this.selectedTab)) {
             data.question = this.form.controls.question.value;
         }
-        // }
 
         this.isPosting = true;
         this.coffeeLabService.translateForum('answer', this.answerId, data).subscribe((res: any) => {

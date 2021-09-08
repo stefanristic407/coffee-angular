@@ -1,19 +1,17 @@
 <div class="recipe-post-wrapper p-2 p-md-0 bg-f8" [ngClass]="{ 'mt-475': isTranslate }">
     <div class="row recipe-mob" [formGroup]="recipeForm" (ngSubmit)="onSave()" novalidate>
-        <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100" *ngIf="isTranslate">
+        <div *ngIf="!isTranslate" class="mb-3 mb-md-4 sewn-form-field col-md-5 col-12 w-100 pl-0 pl-md-3">
+            <label>{{ 'language' | translate }}</label>
             <p-dropdown
-                [options]="applicationLanguages"
+                [options]="languageList"
                 optionLabel="label"
-                placeholder="Select translate language"
                 optionValue="value"
                 formControlName="language"
                 class="inputFieldBox"
-            ></p-dropdown>
-            <small *ngIf="recipeForm.controls['language'].errors?.required" class="p-error">
-                {{ 'required' | translate }}
-            </small>
-        </div> -->
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
+            >
+            </p-dropdown>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" [ngClass]="{ 'mb-25': isTranslate }">{{
                 'cover_image' | translate
             }}</label>
@@ -79,14 +77,14 @@
                 </span>
             </div>
         </div> -->
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label [ngClass]="{ 'mt-2': isTranslate }">{{ 'recipe_name' | translate }}</label>
             <input type="text" placeholder="What’s your guide called?" pInputText formControlName="name" />
             <small *ngIf="recipeForm.controls['name'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label>{{ 'description' | translate }}</label>
             <textarea
                 class="min-hght"
@@ -99,7 +97,7 @@
                 {{ 'required' | translate }}
             </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3">
             <label>{{ 'brewing_equipment' | translate }}</label>
             <p-dropdown
                 [options]="brewingMethodArray"
@@ -131,7 +129,7 @@
                 {{ 'required' | translate }}
             </small>
         </div> -->
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3 pl-0">
             <label class="d-flex"
                 >{{ 'brew_ratio' | translate }}
                 <app-info-tooltip
@@ -148,15 +146,11 @@
                 pInputText
                 [disabled]="isTranslate"
             />
-            <!-- <p-inputNumber
-                placeholder="Eg - if the brew is 1:1 ratio of all ingreditents"
-                formControlName="coffee_ratio"
-            ></p-inputNumber> -->
             <small *ngIf="isbrewRatio" class="no-brew fnt-muli fnt-14 fnt-600">
                 {{ 'required' | translate }}
             </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3 pl-0">
             <label>{{ 'yield' | translate }}</label>
             <input type="text" placeholder="Enter how many servings can be made" formControlName="serves" pInputText />
             <small *ngIf="recipeForm.controls['serves'].errors?.required" class="p-error">
@@ -183,7 +177,17 @@
                 [formGroupName]="i"
                 class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap align-items-center"
             >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 mb-md-3 pr-lg-3">
+                <div
+                    class="
+                        col-sm-12 col-md-6 col-lg-6 col-xl-6
+                        sewn-form-field
+                        w-100
+                        pr-md-2
+                        mb-md-3
+                        pr-lg-3
+                        pl-0 pl-md-3
+                    "
+                >
                     <label>{{ 'ingredient' | translate }}</label>
                     <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
                         <input type="text" placeholder="Enter an ingredient name" pInputText formControlName="name" />
@@ -194,7 +198,7 @@
                 </div>
 
                 <div
-                    class="col-sm-12 sewn-form-field w-100 pl-md-2 pr-md-2 pl-lg-3 mb-3 pr-lg-2"
+                    class="col-sm-12 sewn-form-field w-100 pl-md-2 pr-md-2 pl-lg-3 mb-3 pr-lg-2 pl-0 pl-md-3"
                     [ngClass]="{ 'col-md-5': !isTranslate, 'col-md-6': isTranslate }"
                 >
                     <label>{{ 'quantity' | translate }}</label>
@@ -237,7 +241,7 @@
                     "
                 >
                     <div class="fnt-muli">
-                        <span class="editBtn cursor-pointer" (click)="deleteIngredient(i)">
+                        <span class="editBtn cursor-pointer bring-top" (click)="deleteIngredient(i)">
                             {{ 'delete' | translate }}
                         </span>
                     </div>
@@ -340,7 +344,13 @@
                     >
                         <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <div
-                                class="col-sm-12 col-md-12 col-lg-12 sewn-form-field w-100 text-area-mobile"
+                                class="
+                                    col-sm-12 col-md-12 col-lg-12
+                                    sewn-form-field
+                                    w-100
+                                    text-area-mobile
+                                    pl-0 pl-md-3
+                                "
                                 [ngClass]="{ 'col-xl-9': !isTranslate, 'col-xl-12': isTranslate }"
                             >
                                 <div>
@@ -602,7 +612,7 @@
                 <!-- <p *ngIf="isTranslate" class="fnt-14 fnt-muli fnt-bold text-clr334 mt-4 px-25 pb-3 text-underline">
                     {{ 'directions' | translate }}
                 </p> -->
-                <div class="col-12 pr-md-2 pr-lg-3 sewn-form-field w-100 mb-3">
+                <div class="col-12 pr-md-2 pr-lg-3 sewn-form-field w-100 mb-3 pl-0 pl-md-3">
                     <div>
                         <label>{{ 'step' | translate }} {{ i + 1 }}</label>
                     </div>
@@ -705,7 +715,7 @@
         </ng-container>
 
         <div
-            class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-md-45 d-md-flex pl-0 pl-md-3"
+            class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-md-45 d-md-flex mb-3 pl-0 pl-md-3"
             [ngClass]="{ 'align-another': recipeForm.controls['steps']['controls']?.length >= 2 }"
             *ngIf="recipeForm?.value?.preparation_method == 'steps'"
         >
@@ -715,7 +725,10 @@
                 }}</span></span
             >
         </div>
-        <div *ngIf="!isTranslate" class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3">
+        <div
+            *ngIf="!isTranslate"
+            class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3"
+        >
             <label>{{ 'expertise' | translate }}</label>
             <p-dropdown
                 [options]="expertiseArray"

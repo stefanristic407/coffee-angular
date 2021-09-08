@@ -71,7 +71,7 @@
     }
 }
 
-::ng-deep .no-border {
+::ng-deep .remove-border {
     border: 0px !important;
 }
 
@@ -81,6 +81,7 @@
     word-break: break-word;
     p {
         font-weight: 500 !important;
+        padding-top: 0.3rem;
     }
     img {
         max-width: 100%;
@@ -291,6 +292,9 @@
     padding: 2px 8px 2px 9px;
     border-radius: 50%;
     background-color: rgba(116, 117, 136, 0.08);
+    @media (max-width: 768px) {
+        padding: 7px 8px 2px 9px;
+    }
     &:hover {
         background-color: rgba(48, 133, 92, 0.16);
     }

@@ -208,7 +208,7 @@ export class ForumMenuComponent implements OnInit {
                         .subscribe((res: any) => {
                             if (res.success) {
                                 this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
-                                this.coffeeLabService.forumDeleteEvent.emit();
+                                this.coffeeLabService.forumDeleteEvent.emit(this.forumType);
                             } else {
                                 this.toastService.error(`Failed to delete a ${this.forumType}.`);
                             }

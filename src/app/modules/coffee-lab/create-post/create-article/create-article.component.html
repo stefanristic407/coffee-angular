@@ -1,5 +1,16 @@
 <div>
     <div [formGroup]="articleForm" novalidate>
+        <div class="mb-3 mb-md-4 sewn-form-field pl-0 col-md-5 col-12 w-100">
+            <label>{{ 'language' | translate }}</label>
+            <p-dropdown
+                [options]="languageList"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="language"
+                class="inputFieldBox"
+            >
+            </p-dropdown>
+        </div>
         <div class="col-12 sewn-form-field p-0">
             <label>{{ 'cover_image' | translate }}</label>
             <div

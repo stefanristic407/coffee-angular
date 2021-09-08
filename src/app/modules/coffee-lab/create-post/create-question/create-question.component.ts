@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CoffeeLabService } from '@services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { APP_LANGUAGES } from '@constants';
 
 @Component({
     selector: 'app-create-question',
@@ -18,6 +19,7 @@ export class CreateQuestionComponent implements OnInit {
     isLoading = false;
     languageCode?: string;
     isQuestion = false;
+    languageList: any[] = APP_LANGUAGES;
     constructor(
         public location: Location,
         public dialogService: DialogService,
@@ -36,6 +38,8 @@ export class CreateQuestionComponent implements OnInit {
             }
             if (this.questionId) {
                 this.getQuestionById();
+            } else {
+                this.languageCode = this.coffeeLabService.currentForumLanguage;
             }
         });
     }
@@ -70,7 +74,7 @@ export class CreateQuestionComponent implements OnInit {
             question: this.content,
             allow_translation: this.isAllowTranslation ? 1 : 0,
             status,
-            language: this.languageCode || this.coffeeLabService.currentForumLanguage,
+            language: this.languageCode,
         };
         this.isPosting = true;
         if (this.questionId) {

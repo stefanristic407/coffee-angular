@@ -16,7 +16,7 @@ export class QaPostComponent implements OnInit, OnDestroy {
     isLoading = false;
     sortOptions = [
         { label: 'Latest', value: 'latest' },
-        { label: 'Most Answered', value: 'most_answered' },
+        { label: 'Most answered', value: 'most_answered' },
         { label: 'Oldest', value: 'oldest' },
     ];
     pageDesc: string | undefined;

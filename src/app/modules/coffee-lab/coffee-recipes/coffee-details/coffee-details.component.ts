@@ -46,7 +46,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
             key: 'serves',
         },
     ];
-    isPostType: any;
+    canGoBack: boolean;
 
     constructor(
         public router: Router,
@@ -67,9 +67,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
             this.getCoffeeDetails(true);
             this.getCoffeeRecipesData();
         });
-        this.activatedRoute.queryParams.subscribe((res) => {
-            this.isPostType = res;
-        });
+        this.canGoBack = !!this.router.getCurrentNavigation()?.previousNavigation;
     }
 
     ngOnInit(): void {
@@ -219,34 +217,16 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     openChat() {
         this.chatHandler.openChatThread({
             user_id: this.detailsData.user_id,
-            org_type: this.stickData.organization_type.toLowerCase(),
-            org_id: this.stickData.organization_id,
+            org_type: this.detailsData.organisation_type.toLowerCase(),
+            org_id: this.detailsData.organisation_id,
         });
     }
 
     onBack() {
-        if (this.isPostType.isMyPost) {
-            if (this.detailsData.original_details) {
-                this.router.navigate(['/coffee-lab/recipes/' + this.detailsData.original_details.slug], {
-                    queryParams: { isMyPost: this.isPostType.isMyPost },
-                });
-            } else {
-                this.router.navigateByUrl('/coffee-lab/overview/my-posts/recipe');
-            }
-        } else if (this.isPostType.isSavePost) {
-            if (this.detailsData.original_details) {
-                this.router.navigate(['/coffee-lab/recipes/' + this.detailsData.original_details.slug], {
-                    queryParams: { isSavePost: this.isPostType.isSavePost },
-                });
-            } else {
-                this.router.navigateByUrl('/coffee-lab/overview/saved-posts/recipe');
-            }
+        if (this.canGoBack) {
+            this.location.back();
         } else {
-            if (this.detailsData.original_details) {
-                this.router.navigateByUrl('/coffee-lab/recipes/' + this.detailsData.original_details.slug);
-            } else {
-                this.router.navigateByUrl('/coffee-lab/overview/coffee-recipes');
-            }
+            this.router.navigateByUrl('/coffee-lab/overview/coffee-recipes');
         }
     }
 }

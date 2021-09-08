@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { insertAltAttr, maxWordCountValidator } from '@utils';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
+import { APP_LANGUAGES } from '@constants';
 
 @Component({
     selector: 'app-translate-article',
@@ -32,11 +33,7 @@ export class TranslateArticleComponent implements OnInit {
     copiedCoverImageUrl: any;
     images = [];
     selectedTabArticle = 'sv';
-    allLanguage = [
-        { label: 'swedish', value: 'sv' },
-        { label: 'spanish', value: 'es' },
-        { label: 'portuguese', value: 'pt' },
-    ];
+    allLanguage: any[] = APP_LANGUAGES;
     isTranslationArticle = [];
     remainingLangugage = [];
     isMobile = false;
@@ -93,7 +90,7 @@ export class TranslateArticleComponent implements OnInit {
                     this.isTranslationArticle.push(element.language);
                 });
                 this.allLanguage.forEach((item) => {
-                    if (!this.isTranslationArticle?.includes(item.value)) {
+                    if (!this.isTranslationArticle?.includes(item.value) && this.article.language !== item.value) {
                         this.remainingLangugage.push(item);
                     }
                 });
@@ -169,12 +166,6 @@ export class TranslateArticleComponent implements OnInit {
             this.toastrService.error('Please fill content.');
             return;
         }
-        // if (this.article.user_id !== this.authService.currentUser.id) {
-        //     if (!this.isCoverImageUploaded && status === 'published') {
-        //         this.toastrService.error('Please upload cover image.');
-        //         return;
-        //     }
-        // }
 
         this.isPosting = true;
         this.handlePost(status);

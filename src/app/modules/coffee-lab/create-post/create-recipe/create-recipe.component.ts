@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
@@ -23,7 +23,7 @@ export enum RecipeFileType {
     templateUrl: './create-recipe.component.html',
     styleUrls: ['./create-recipe.component.scss'],
 })
-export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
+export class CreateRecipeComponent implements OnInit, OnDestroy {
     readonly RecipeFileType = RecipeFileType;
     @Input() isTranslate;
     @Input() saveOriginalPost;
@@ -53,16 +53,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
     copiedStepImageUrl: string;
     copiedVideoId: number;
     copiedVideoUrl: string;
-    preparationMethods: any[] = [
-        {
-            label: 'Video Recipe',
-            value: 'video',
-        },
-        {
-            label: 'Add step by step introduction & video',
-            value: 'steps',
-        },
-    ];
+    languageList: any[] = APP_LANGUAGES;
     expertiseArray: any[] = [
         {
             label: 'Easy',
@@ -131,16 +122,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
             value: '',
         },
     ];
-    preparationArray: any[] = [
-        {
-            label: 'mins',
-            value: 'mins',
-        },
-        {
-            label: 'hours',
-            value: 'hours',
-        },
-    ];
+
     brewingMethodArray = [
         { label: 'Pour Over', value: 'pour-over' },
         { label: 'Espresso', value: 'espresso' },
@@ -172,9 +154,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
         this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
     }
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log('Method not implemented.');
-    }
 
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
@@ -203,6 +182,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
                 }
             }
         });
+        this.recipeForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
     }
 
     setAppLanguages(): void {
@@ -587,7 +567,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     createNewRecipe(data: any): void {
-        data.language = this.coffeeLabService.currentForumLanguage;
         // data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         // data.steps.map((item: any, index: number) => {
         //     item.image_id = data.inline_images[index];

@@ -8,6 +8,7 @@ import { insertAltAttr, maxWordCountValidator } from '@utils';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
+import { APP_LANGUAGES } from '@constants';
 
 @Component({
     selector: 'app-create-article',
@@ -28,6 +29,7 @@ export class CreateArticleComponent implements OnInit {
     isLoading = false;
     clicked = false;
     images = [];
+    languageList: any[] = APP_LANGUAGES;
 
     constructor(
         private fb: FormBuilder,
@@ -55,9 +57,12 @@ export class CreateArticleComponent implements OnInit {
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([maxWordCountValidator(30), Validators.required])],
             content: [''],
+            language: [],
             allow_translation: [true, Validators.compose([Validators.required])],
             is_era_of_we: [false],
         });
+
+        this.articleForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
     }
 
     getArticleById(): void {
@@ -144,7 +149,6 @@ export class CreateArticleComponent implements OnInit {
             ...this.articleForm.value,
             images: this.imageIdList,
             status,
-            language: this.articleId ? this.article?.language : this.coffeeLabService.currentForumLanguage,
         };
         if (this.isCoverImageUploaded) {
             data = {

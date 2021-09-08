@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { APP_LANGUAGES } from '@constants';
 import { CoffeeLabService } from '@services';
 import { TreeModule } from 'primeng/tree';
 
@@ -13,11 +14,7 @@ export class TranslateRecipeComponent implements OnInit {
     tranalatedLangs = [];
     id: any;
     isMobile = false;
-    allLanguage = [
-        { label: 'swedish', value: 'sv' },
-        { label: 'spanish', value: 'es' },
-        { label: 'portuguese', value: 'pt' },
-    ];
+    allLanguage: any[] = APP_LANGUAGES;
     remainingLangugage = [];
 
     constructor(private route: ActivatedRoute, public router: Router, private coffeeLabService: CoffeeLabService) {
@@ -34,10 +31,10 @@ export class TranslateRecipeComponent implements OnInit {
         this.selectedTab = event.index;
     }
 
-    checkTranslationExits(translatedArray) {
+    checkTranslationExits(emitedObject) {
         this.allLanguage.forEach((item) => {
-            const isTranslate = translatedArray?.find((trans) => item.value === trans.language);
-            if (!isTranslate) {
+            const isTranslate = emitedObject?.translation?.find((trans) => item.value === trans.language);
+            if (!isTranslate && emitedObject.lang_code !== item.value) {
                 this.remainingLangugage.push(item);
             }
         });

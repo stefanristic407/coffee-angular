@@ -10,8 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ArticlesComponent implements OnInit {
     @Input() articles: any;
-    @Input() isMypost = false;
-    @Input() isSavepost = false;
     totalRecords = 0;
     displayData: any[] = [];
     pageDesc: string | undefined;
@@ -37,17 +35,7 @@ export class ArticlesComponent implements OnInit {
 
     openArticle(slug: string) {
         if (!this.isSaveBtn) {
-            if (this.isMypost) {
-                this.router.navigate(['/coffee-lab/articles/' + slug], {
-                    queryParams: { isMyPost: this.isMypost },
-                });
-            } else if (this.isSavepost) {
-                this.router.navigate(['/coffee-lab/articles/' + slug], {
-                    queryParams: { isSavePost: this.isSavepost },
-                });
-            } else {
-                this.router.navigateByUrl('/coffee-lab/articles/' + slug);
-            }
+            this.router.navigateByUrl('/coffee-lab/articles/' + slug);
         }
     }
 

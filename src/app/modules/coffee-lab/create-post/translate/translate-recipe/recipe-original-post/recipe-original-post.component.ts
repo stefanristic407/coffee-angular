@@ -97,7 +97,11 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
         this.coffeeLabService.getForumDetails('recipe', this.recipeId).subscribe((res: any) => {
             if (res.success) {
                 this.detailsData = res.result;
-                this.checkTranslationExits.emit(this.detailsData?.translations);
+                const emitObject = {
+                    translation: this.detailsData?.translations,
+                    lang_code: this.detailsData?.lang_code,
+                };
+                this.checkTranslationExits.emit(emitObject);
                 this.recipeForm.patchValue({
                     name: res.result.name,
                     description: res.result.description,
