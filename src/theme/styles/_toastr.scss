@@ -48,6 +48,15 @@
             background-image: url('/assets/images/toastr-success.svg');
         }
 
+        .toast-message {
+            display: flex;
+            align-items: center;
+            min-height: 24px;
+            @media (min-width: 768px) {
+                min-height: 30px;
+            }
+        }
+
         .toast-close-button {
             position: absolute;
             top: 6px;
