@@ -574,3 +574,10 @@ span.star {
 .cursor-not-allowed {
     cursor: not-allowed !important;
 }
+
+.text-overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 117px;
+}
