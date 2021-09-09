@@ -5,7 +5,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { RatingModule } from 'ng-starrating';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { ToastrModule } from 'ngx-toastr';
 import { OrderManagementRoutingModule } from './order-management-routing.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -31,7 +30,6 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
         MatTooltipModule,
         AutocompleteLibModule,
         TypeaheadModule.forRoot(),
-        ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
         SharedModule,
     ],
 })
