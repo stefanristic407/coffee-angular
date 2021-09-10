@@ -104,7 +104,9 @@ export class ApiService {
                 obj.hasOwnProperty(prop) &&
                 !_.isNull(obj[prop]) &&
                 !_.isUndefined(obj[prop]) &&
-                !(_.isArray(obj[prop]) && _.isEmpty(obj[prop]))
+                !(_.isArray(obj[prop]) && _.isEmpty(obj[prop])) &&
+                obj[prop] !== undefined &&
+                obj[prop] !== ''
             ) {
                 str.push(
                     encodeURIComponent(prop) +
