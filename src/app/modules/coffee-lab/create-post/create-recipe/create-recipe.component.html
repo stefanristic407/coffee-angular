@@ -1,14 +1,13 @@
 <div class="recipe-post-wrapper p-2 p-md-0 bg-f8" [ngClass]="{ 'mt-475': isTranslate }">
     <div class="row recipe-mob" [formGroup]="recipeForm" (ngSubmit)="onSave()" novalidate>
-        <div *ngIf="!isTranslate" class="mb-3 mb-md-4 sewn-form-field col-12 w-100 pl-0 mt-4 pl-md-3">
-            <label class="mb-1">{{ 'language' | translate }}</label>
-            <span class="text-clr588 mb-3">{{ 'language_down_text' | translate }}</span>
+        <div *ngIf="!isTranslate" class="mb-3 mb-md-4 sewn-form-field col-md-5 col-12 w-100 pl-0 pl-md-3">
+            <label>{{ 'language' | translate }}</label>
             <p-dropdown
                 [options]="languageList"
                 optionLabel="label"
                 optionValue="value"
                 formControlName="language"
-                class="inputFieldBox col-md-5 col-12 pl-0"
+                class="inputFieldBox"
             >
             </p-dropdown>
         </div>

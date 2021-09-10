@@ -1,14 +1,13 @@
 <div>
     <div [formGroup]="articleForm" novalidate>
-        <div class="mb-3 mb-md-4 sewn-form-field pl-0 mt-4 col-12 w-100">
-            <label class="mb-1">{{ 'language' | translate }}</label>
-            <span class="text-clr588 mb-3">{{ 'language_down_text' | translate }}</span>
+        <div class="mb-3 mb-md-4 sewn-form-field pl-0 col-md-5 col-12 w-100">
+            <label>{{ 'language' | translate }}</label>
             <p-dropdown
                 [options]="languageList"
                 optionLabel="label"
                 optionValue="value"
                 formControlName="language"
-                class="inputFieldBox col-md-5 col-12 pl-0"
+                class="inputFieldBox"
             >
             </p-dropdown>
         </div>
