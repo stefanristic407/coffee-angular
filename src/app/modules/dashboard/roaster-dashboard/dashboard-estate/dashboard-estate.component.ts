@@ -56,7 +56,7 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
 
     makeChartData() {
         const tempData = [];
-        this.sourcing.sourcing_stats.forEach((element) => {
+        (this.sourcing.sourcing_stats || []).forEach((element) => {
             const countryName = this.commonService.getCountryName(element.origin) || element.origin;
             tempData.push({
                 name: countryName,
