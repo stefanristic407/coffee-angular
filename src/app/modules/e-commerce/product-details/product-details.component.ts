@@ -342,7 +342,8 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                     this.allCrates = [];
                     for (const key of Object.keys(res.result.variants)) {
                         const getVariant = res.result.variants[key];
-                        let coffeeBatchID = getVariant[0].weight_variants[0].rc_batch_id || null;
+                        let coffeeBatchID =
+                            (getVariant[0].weight_variants && getVariant[0].weight_variants[0]?.rc_batch_id) || null;
                         const getBatchDetails = this.roastedBatches.find((ele) => ele.id === coffeeBatchID);
                         if ((coffeeBatchID && !getBatchDetails) || productDetails.is_external_product) {
                             coffeeBatchID = null;
@@ -393,7 +394,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
 
                         const variantForm = this.createEmptyVariant(productDetails.is_external_product);
                         variantForm.patchValue(variant);
-                        const weightVariants = getVariant[0].weight_variants;
+                        const weightVariants = getVariant[0].weight_variants || [];
                         weightVariants.forEach((ele) => {
                             if (!productDetails.is_external_product) {
                                 const getCrate = productDetails.crates?.find(
