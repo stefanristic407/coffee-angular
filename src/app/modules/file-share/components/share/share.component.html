@@ -41,12 +41,18 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <app-user-detail
-                    [imageUrl]="record.thumb_image"
-                    [userId]="record.user_id"
-                    [orgType]="record.company_type"
+                    [imageUrl]="record.owner_profile_image_thumb_url"
+                    [userId]="record.created_by_id"
+                    [orgType]="record.owner_organization_type"
                     size="35"
                 ></app-user-detail>
-                <span class="fnt-14 fnt-md-16 fnt-600 text-clr334 ml-2">{{ record.owner_name }}</span>
+                <div class="ml-2">
+                    <div class="fnt-bold mb-1">{{ record.owner_name }}</div>
+                    <div class="fnt-12 fnt-600 text-clr588">
+                        {{ record.owner_organization_type | orgType }} -
+                        {{ record.owner_organization_name }}
+                    </div>
+                </div>
             </div>
             <div class="fnt-600 bg-f8 br-4 owner-wrap">{{ 'owner' | translate }}</div>
         </div>
