@@ -131,7 +131,7 @@
             align-items: center;
             color: $muted-text-color;
             &.gray {
-                padding: 0 0.75rem 0 0.5rem;
+                padding: 0 0.75rem;
                 background-color: $primary-bg-color;
                 border: none;
                 top: 4px;
@@ -145,9 +145,24 @@
         .p-inputnumber {
             width: 100%;
         }
-        .p-inputtext,
-        .p-inputnumber-input {
-            padding-right: 4rem;
+        &.left-align {
+            .p-inputgroup-addon {
+                left: 1px;
+                right: unset !important;
+                &.gray {
+                    left: 4px;
+                }
+            }
+            .p-inputtext,
+            .p-inputnumber-input {
+                padding-left: 4rem;
+            }
+        }
+        &:not(.left-align) {
+            .p-inputtext,
+            .p-inputnumber-input {
+                padding-right: 4rem;
+            }
         }
     }
     // Input and select
