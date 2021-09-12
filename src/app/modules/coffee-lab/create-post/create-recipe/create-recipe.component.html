@@ -174,86 +174,59 @@
             formArrayName="ingredients"
             *ngFor="let ingredient of recipeForm.controls['ingredients']['controls']; let i = index; last as isLast"
         >
-            <div
-                [formGroupName]="i"
-                class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap align-items-center"
-            >
-                <div
-                    class="
-                        col-sm-12 col-md-6 col-lg-6 col-xl-6
-                        sewn-form-field
-                        w-100
-                        pr-md-2
-                        mb-md-3
-                        pr-lg-3
-                        pl-0 pl-md-3
-                    "
-                >
-                    <label>{{ 'ingredient' | translate }}</label>
-                    <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
+            <div [formGroupName]="i" class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field pr-md-2 mb-md-3 pr-lg-3 pl-0 pl-md-3">
+                    <label
+                        >{{ 'ingredient' | translate }}
+                        <span
+                            *ngIf="i > 0"
+                            class="d-md-none editBtn cursor-pointer float-right"
+                            (click)="deleteIngredient(i)"
+                        >
+                            {{ 'delete' | translate }}
+                        </span>
+                    </label>
+                    <div class="">
                         <input type="text" placeholder="Enter an ingredient name" pInputText formControlName="name" />
-                        <small *ngIf="ingredient.controls['name'].errors?.required" class="position-absolute p-error">
+                        <small *ngIf="ingredient.controls['name'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
                     </div>
                 </div>
 
                 <div
-                    class="col-sm-12 sewn-form-field w-100 pl-md-2 pr-md-2 pl-lg-3 mb-3 pr-lg-2 pl-0 pl-md-3"
+                    class="col-sm-12 sewn-form-field pl-md-2 pr-md-2 pl-lg-3 mb-3 pr-lg-2 pl-0 pl-md-3"
                     [ngClass]="{ 'col-md-5': !isTranslate, 'col-md-6': isTranslate }"
                 >
                     <label>{{ 'quantity' | translate }}</label>
-                    <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
+                    <div class="input-and-select gray">
                         <input
                             type="text"
                             placeholder="Eg - quantity can 200 or 200-300"
                             pInputText
                             formControlName="quantity"
                         />
-                        <span class="p-inputgroup-addon">
-                            <p-dropdown
-                                [options]="qualityArray"
-                                optionLabel="label"
-                                optionValue="value"
-                                formControlName="quantity_unit"
-                                class="inputFieldBox"
-                                [style]="{ width: '100%', height: '40px', border: '0px', background: '#f8f8f8' }"
-                            ></p-dropdown>
-                        </span>
-                        <small
-                            *ngIf="ingredient.controls['quantity'].errors?.required"
-                            class="position-absolute p-error"
-                        >
+                        <p-dropdown
+                            [options]="qualityArray"
+                            optionLabel="label"
+                            optionValue="value"
+                            formControlName="quantity_unit"
+                        ></p-dropdown>
+                        <small *ngIf="ingredient.controls['quantity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
-                        <div class="w-100"></div>
                     </div>
                 </div>
 
-                <div
-                    *ngIf="recipeForm.controls.ingredients.value?.length > 1 && !isTranslate && i > 0"
-                    class="
-                        d-flex
-                        col-sm-12 col-md-1 col-lg-1 col-xl-1
-                        w-100
-                        pl-md-0 pl-lg-2
-                        align-items-md-center
-                        justify-content-end
-                    "
-                >
-                    <div class="fnt-muli">
-                        <span class="editBtn cursor-pointer bring-top" (click)="deleteIngredient(i)">
-                            {{ 'delete' | translate }}
-                        </span>
-                    </div>
+                <div *ngIf="i > 0" class="col-md-1 pl-md-0 pl-lg-2 d-none d-md-flex justify-content-end form-middle">
+                    <span class="editBtn cursor-pointer" (click)="deleteIngredient(i)">
+                        {{ 'delete' | translate }}
+                    </span>
                 </div>
             </div>
         </ng-container>
 
-        <div
-            *ngIf="!isTranslate"
-            class="col-12 col-sm-12 col-md-12 col-lg-12 mb-md-3 col-xl-12 mb-0 d-flex pl-0 pl-md-3 cust-algin-ing"
-        >
+        <div *ngIf="!isTranslate" class="col-12 mb-3 d-flex pl-0 pl-md-3">
             <span class="fnt-14"
                 ><span class="editBtn cursor-pointer" (click)="addIngredient()">{{
                     'add_ingredients' | translate

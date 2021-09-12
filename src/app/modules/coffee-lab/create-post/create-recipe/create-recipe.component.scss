@@ -89,16 +89,6 @@
         min-height: 70px;
     }
 
-    // label {
-    //     color: #747589 !important;
-    // }
-    ::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
-        padding: 4px !important;
-    }
-    ::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
-        position: relative;
-        bottom: 4px;
-    }
     .step-border {
         margin: 4px 15px 16px 15px;
         border-bottom: dashed 2px #d6d6d6;
@@ -199,20 +189,17 @@
     z-index: 1;
 }
 
-.cust-algin-ing {
-    @media (max-width: 768px) {
-        position: relative;
-        bottom: 20px;
-    }
-}
-
 ::ng-deep .text-area-mobile .forum-editor {
     @media screen and (min-width: 767px) {
         left: 8px;
     }
 }
 
-::ng-deep .sewn-form-field .p-inputgroup.custom-addon .p-inputnumber-input,
-.sewn-form-field .p-inputgroup.custom-addon .p-inputtext {
-    padding-right: 0 !important;
+.form-middle {
+    @media screen and (max-width: 767px) {
+        margin-top: -18px;
+    }
+    @media screen and (min-width: 768px) {
+        padding-top: 40px;
+    }
 }
