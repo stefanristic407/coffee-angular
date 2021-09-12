@@ -51,8 +51,8 @@
                                         placeholder="Select the order"
                                         formControlName="order_id"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon">
-                                        <img src="assets/images/icon-arrow-right.svg" alt="" />
+                                    <span class="p-inputgroup-addon"
+                                        ><i class="pi pi-chevron-right text-clr97"></i>
                                     </span>
                                     <small *ngIf="batchForm.controls['order_id'].errors?.required" class="p-error">
                                         {{ 'required' | translate }}

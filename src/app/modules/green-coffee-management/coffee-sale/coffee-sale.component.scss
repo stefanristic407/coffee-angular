@@ -34,15 +34,8 @@
 .text-underline {
     text-decoration: underline;
 }
-::ng-deep .breadCrumb .p-breadcrumb ul {
-    width: max-content;
-}
 ::ng-deep .productListTable .p-datatable table tr td {
     white-space: normal;
-}
-
-::ng-deep .sewn-form-field .p-inputgroup.custom-addon .p-inputgroup-addon {
-    padding: 0.3rem 0.75rem !important;
 }
 
 /****************************    Media Queries   ****************************/
