@@ -112,7 +112,10 @@
                                     >{{ 'average_annual_production_coffee' | translate }} :</label
                                 >
                                 <label class="d-md-none">Average annual prodcution :</label>
-                                <p>{{ (sourcing.estate?.coffeeProduction || 0) + ' tons' }}</p>
+                                <p>
+                                    {{ sourcing.estate?.coffeeProduction | number }}
+                                    {{ sourcing.estate?.coffeeProductionUnit }}
+                                </p>
                             </li>
                             <li>
                                 <label>{{ 'access_to_agronomist' | translate }} :</label>
@@ -136,7 +139,10 @@
                             </li>
                             <li>
                                 <label>{{ 'average_annual_production_crops' | translate }} :</label>
-                                <p>{{ sourcing.estate?.totalProduction + ' tons' || 'NA' }}</p>
+                                <p>
+                                    {{ sourcing.estate?.totalProduction | number }}
+                                    {{ sourcing.estate?.totalProductionUnit }}
+                                </p>
                             </li>
                         </ul>
                     </div>
