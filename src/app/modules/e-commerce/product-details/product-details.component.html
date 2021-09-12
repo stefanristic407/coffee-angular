@@ -132,7 +132,7 @@
             class="d-block d-md-none mt-3"
             *ngIf="productForm.value.is_variants_included && productForm.get('variants').value.length > 1"
         >
-            <span class="fnt-700 editBtn cursor-pointer align-items-center" (click)="removeVariant(currentVariant)">
+            <span class="fnt-700 editBtn align-items-center" (click)="removeVariant(currentVariant)">
                 {{ 'delete_variant' | translate }}
             </span>
         </div>

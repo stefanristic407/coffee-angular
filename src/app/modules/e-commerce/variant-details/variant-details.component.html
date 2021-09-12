@@ -59,7 +59,7 @@
         </p-dropdown>
     </div>
     <span
-        class="fnt-700 editBtn cursor-pointer align-items-center d-flex d-md-none mb-3"
+        class="fnt-700 editBtn align-items-center d-flex d-md-none mb-3"
         *ngIf="weights?.length > 1"
         (click)="deleteWeightVariant(currentVariantIndex)"
     >
@@ -252,7 +252,7 @@
                                     *ngIf="i != 0 || !isLast"
                                 >
                                     <span
-                                        class="fnt-700 editBtn cursor-pointer mb-2"
+                                        class="fnt-700 editBtn mb-2"
                                         *ngIf="i != 0 || !isLast"
                                         (click)="deleteGrindVariant(i)"
                                     >
@@ -270,7 +270,7 @@
                                 *ngIf="i != 0 || !isLast"
                             >
                                 <span
-                                    class="fnt-700 editBtn cursor-pointer mb-2"
+                                    class="fnt-700 editBtn mb-2"
                                     *ngIf="i != 0 || !isLast"
                                     (click)="deleteGrindVariant(i)"
                                 >
@@ -282,7 +282,7 @@
                     <div>
                         <img src="assets/images/add-partner.svg" />
                         <span
-                            class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer"
+                            class="ml-2 fnt-muli fnt-700 fnt-14 editBtn"
                             (click)="addNewGrindVariants(currentForm.value.is_hide)"
                         >
                             {{ 'add_grind_variant' | translate }}
