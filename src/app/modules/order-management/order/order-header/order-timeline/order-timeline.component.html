@@ -28,13 +28,14 @@
                                 class="mb-0 fnt-14 fnt-sm-12 text-muted fnt-bold d-lg-block d-md-none d-sm-block"
                                 *ngIf="(index < 2 || index === 3) && getStatusAuthor(point) as statusAuthor"
                             >
-                                <ng-container *ngIf="index < 2 && statusAuthor.id">By :</ng-container>
+                                <ng-container *ngIf="index < 2 && statusAuthor.id">By : </ng-container>
                                 <app-user-detail
                                     *ngIf="index < 2"
                                     [userId]="statusAuthor.id"
+                                    [name]="statusAuthor.name"
                                     [orgType]="statusAuthor.orgType"
                                     type="text"
-                                    class="text-clr334"
+                                    class="fnt-14 fnt-md-18 text-clr55c"
                                 ></app-user-detail>
                             </p>
                             <p

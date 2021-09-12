@@ -515,7 +515,8 @@
                                 <div class="employ-profile">
                                     <app-user-detail
                                         [userId]="contact?.user_id"
-                                        orgType="ro"
+                                        [imageUrl]="contact?.profile_image_thumb_url"
+                                        [orgType]="OrgType.ROASTER"
                                         shape="rectangle"
                                         type="contact"
                                         size="150"

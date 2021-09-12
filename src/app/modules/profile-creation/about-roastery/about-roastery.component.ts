@@ -19,6 +19,7 @@ import { QUANTIRY_UNIT_LIST } from '@constants';
 })
 export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
+    readonly OrgType = OrganizationType;
     ownerName?: string;
     foundedIn?: any;
     summary: string;
