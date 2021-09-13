@@ -11,6 +11,7 @@ export * from './customer.service';
 export * from './dashboard.service';
 export * from './dispute.service';
 export * from './e-commerce.service';
+export * from './email-validator.service';
 export * from './estate.service';
 export * from './file.service';
 export * from './general-cupping.service';

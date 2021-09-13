@@ -10,7 +10,7 @@ import { OrganizationType } from '@enums';
 type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export class ApiService {
-    protected orgType: string;
+    readonly orgType = OrganizationType.ROASTER;
     protected certificatesUrl: string;
     protected deleteUrl: string;
     protected fileUploadUrl: string;
@@ -25,7 +25,6 @@ export class ApiService {
     protected simulatedLoginUrl: string;
 
     constructor(protected http: HttpClient, protected authService: AuthService) {
-        this.orgType = 'ro';
         this.certificatesUrl = `${environment.apiURL}/${this.orgType}/certificates`;
         this.deleteUrl = `${environment.apiURL}/deleteapi`;
         this.fileUploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;

@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { AuthService, UserService, ValidateEmailService } from '@services';
 import { OrganizationType } from '@enums';
-import { ValidateEmail } from '@utils';
+import { validateEmail } from '@utils';
 
 @Component({
     selector: 'app-roaster-quick-setup',
@@ -66,7 +66,7 @@ export class RoasterQuickSetupComponent implements OnInit {
         this.inviteFormArray.push(
             new FormGroup({
                 name: new FormControl('', [Validators.required]),
-                email: new FormControl('', [Validators.required], ValidateEmail.createValidator(this.validateService)),
+                email: new FormControl('', [Validators.required], validateEmail(this.validateService)),
                 type: new FormControl(),
             }),
         );

@@ -9,7 +9,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService, UserService, ValidateEmailService } from '@services';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
-import { ValidateEmail } from '@utils';
+import { validateEmail } from '@utils';
 import { COUNTRY_LIST, LANGUAGES } from '@constants';
 
 @Component({
@@ -67,7 +67,7 @@ export class MyProfileComponent implements OnInit {
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
             about_me: [''],
-            email: ['', [Validators.required], ValidateEmail.createValidator(this.validateService)],
+            email: ['', [Validators.required], validateEmail(this.validateService)],
             phone: [''],
             country: [''],
             city: [''],

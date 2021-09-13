@@ -6,8 +6,16 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
-import { maxWordCountValidator, ValidateEmail } from '@utils';
-import { AuthService, BrandService, CommonService, ValidateEmailService, GeneralService, GlobalsService, UserService } from '@services';
+import { maxWordCountValidator, validateEmail } from '@utils';
+import {
+    AuthService,
+    BrandService,
+    CommonService,
+    ValidateEmailService,
+    GeneralService,
+    GlobalsService,
+    UserService,
+} from '@services';
 import { ConfirmComponent } from '@shared';
 import * as _ from 'underscore';
 
@@ -45,7 +53,7 @@ export class VisitUsComponent implements OnInit {
         private brandService: BrandService,
         private authService: AuthService,
         private commonService: CommonService,
-        private validateService: ValidateEmailService
+        private validateService: ValidateEmailService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -68,7 +76,7 @@ export class VisitUsComponent implements OnInit {
             address_line2: [''],
             city: ['', Validators.compose([Validators.required])],
             zipcode: ['', Validators.compose([Validators.required])],
-            email: ['', Validators.compose([Validators.required]), ValidateEmail.createValidator(this.validateService)],
+            email: ['', Validators.compose([Validators.required]), validateEmail(this.validateService)],
             phone: ['', Validators.compose([Validators.required])],
         });
         this.getVisitDetails();
