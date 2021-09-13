@@ -78,3 +78,24 @@
         }
     }
 }
+
+@keyframes down-enter {
+    0% {
+        max-height: 0;
+        overflow: hidden;
+    }
+    100% {
+        max-height: 300px;
+        overflow: visible;
+    }
+}
+
+.detail-slide-down {
+    max-height: 0;
+    overflow: hidden;
+    &.fadeIn {
+        max-height: 300px;
+        overflow: visible;
+        animation: 800ms down-enter ease;
+    }
+}

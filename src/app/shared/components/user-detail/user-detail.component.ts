@@ -9,6 +9,7 @@ import { OverlayPanel } from 'primeng/overlaypanel';
     styleUrls: ['./user-detail.component.scss'],
 })
 export class UserDetailComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     @ViewChild('myOp', { static: false }) myOp: OverlayPanel;
     @Input() userId: number;
     @Input() orgType: OrganizationType;
@@ -22,6 +23,7 @@ export class UserDetailComponent implements OnInit {
     data: any;
     isOpened = false;
     hiding = false;
+    showMore: boolean;
     public defaultProfileImage = 'assets/images/profile.svg';
 
     constructor(
@@ -59,6 +61,8 @@ export class UserDetailComponent implements OnInit {
         if (!this.isOpened) {
             this.getUserData();
             this.myOp.show(event);
+            this.showMore = false;
+            setTimeout(() => (this.showMore = true), 800);
         }
     }
 
