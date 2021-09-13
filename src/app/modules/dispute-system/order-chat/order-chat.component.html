@@ -49,7 +49,7 @@
                         [ngStyle]="{ 'z-index': threadUserList.length - i }"
                     >
                         <app-user-detail
-                            [imageUrl]="user.profile_pic || 'assets/images/profile.svg'"
+                            [imageUrl]="user.profile_pic"
                             [userId]="user.user_id"
                             [orgType]="user.org_type"
                             size="36"
@@ -109,7 +109,7 @@
                         }"
                     >
                         <app-user-detail
-                            [imageUrl]="user.profile_pic || 'assets/images/profile.svg'"
+                            [imageUrl]="user.profile_pic"
                             [userId]="user.user_id"
                             [orgType]="user.org_type"
                             size="36"

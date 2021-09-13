@@ -56,9 +56,8 @@ export class UserDetailComponent implements OnInit {
     }
 
     show(event) {
-        const userId = +this.authService.currentUser.id;
         this.hiding = false;
-        if (!this.isOpened) {
+        if (!this.isOpened && this.userId) {
             this.getUserData();
             this.myOp.show(event);
             this.showMore = false;
