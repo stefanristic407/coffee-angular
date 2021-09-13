@@ -33,13 +33,8 @@ export class RoasterserviceService extends ApiService {
     //API Function Name : Role List
     //API Description: This API calls helps to get all roles to the user.
 
-    getRoles(id: any, postData?) {
-        const data = {
-            api_call: `/ro/${id}/roles?${this.serlialise(postData)}`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    getRoles(postData?) {
+        return this.postWithOrg(this.orgPostUrl, `roles?${this.serlialise(postData)}`);
     }
 
     //API Function Name : Delete Role

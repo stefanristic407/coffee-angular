@@ -256,16 +256,9 @@ export class UserService extends ApiService {
         return this.http.post(this.orgPostUrl, data);
     }
 
-    // API Function Name :ADD Members
-    // API Description: This API calls helps to add new users.
-
-    addUserRoaster(body: any) {
-        const data = {
-            api_call: '/users',
-            token: this.authService.token,
-            data: body,
-        };
-        return this.http.post(this.orgPostUrl, data);
+    // Add team Member
+    inviteTeamMember(body: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `users/invite-token`, 'POST', body);
     }
 
     getUser(params: any): Observable<ApiResponse<any>> {

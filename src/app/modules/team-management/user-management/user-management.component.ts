@@ -92,7 +92,7 @@ export class UserManagementComponent implements OnInit {
     }
 
     listRoles(): void {
-        this.roasterService.getRoles(this.roasterID).subscribe(
+        this.roasterService.getRoles().subscribe(
             (response: any) => {
                 if (response.success) {
                     const getCurrentRole: any = response.result.find((ele) => ele.id === this.currentRoleID);

@@ -67,7 +67,7 @@ export class AssignUserComponent implements OnInit {
     }
 
     getRoleList() {
-        this.roasterService.getRoles(this.roasterId).subscribe((res: any) => {
+        this.roasterService.getRoles().subscribe((res: any) => {
             if (res.success === true) {
                 this.roleList = res.result;
             }

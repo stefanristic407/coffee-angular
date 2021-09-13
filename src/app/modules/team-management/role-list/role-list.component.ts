@@ -78,7 +78,7 @@ export class RoleListComponent implements OnInit {
             const currentPage = event.first / 10;
             postData.page = currentPage + 1;
         }
-        this.roasterService.getRoles(this.roasterId, postData).subscribe(
+        this.roasterService.getRoles(postData).subscribe(
             (res: any) => {
                 this.loader = false;
                 if (res.success === true) {

@@ -90,7 +90,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         });
     }
     listRoles(): void {
-        this.roasterService.getRoles(this.roasterID).subscribe(
+        this.roasterService.getRoles().subscribe(
             (response: any) => {
                 if (response.success) {
                     const getCurrentRole = response.result.find((ele) => ele.id === this.currentRoleID);

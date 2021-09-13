@@ -304,7 +304,7 @@ export class SelectOrdersComponent implements OnInit {
     }
 
     getRoleList() {
-        this.roasterService.getRoles(this.roasterId).subscribe((res: any) => {
+        this.roasterService.getRoles().subscribe((res: any) => {
             if (res.success) {
                 this.roleType = res.result.map((item) => {
                     const type = { label: item.name, value: item.id };

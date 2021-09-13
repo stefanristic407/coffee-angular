@@ -181,7 +181,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
         });
     }
     listRoles(): void {
-        this.roasterService.getRoles(this.roasterID).subscribe(
+        this.roasterService.getRoles().subscribe(
             (response: any) => {
                 if (response.success) {
                     const getCurrentRole: any = response.result.find((ele) => ele.id === this.currentRoleID);

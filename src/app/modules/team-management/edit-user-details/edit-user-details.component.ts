@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { OrderType, OrganizationType } from '@enums';
 import { GlobalsService, ValidateEmailService } from '@services';
-import { ValidateEmail } from '@utils';
+import { validateEmail } from '@utils';
 
 @Component({
     selector: 'app-edit-user-details',
@@ -27,8 +28,15 @@ export class EditUserDetailsComponent implements OnInit {
     }
     createItem(): FormGroup {
         return this.fb.group({
-            name: ['', Validators.compose([Validators.required])],
-            email: ['', Validators.compose([Validators.required]), ValidateEmail.createValidator(this.validateService)],
+            firstname: ['', Validators.compose([Validators.required])],
+            lastname: ['', Validators.compose([Validators.required])],
+            email: [
+                '',
+                Validators.compose([Validators.required]),
+                Validators.composeAsync([
+                    validateEmail(this.validateService, `${OrganizationType.ROASTER},${OrganizationType.CONSUMER}`),
+                ]),
+            ],
         });
     }
     deleteEmail(idx): void {
