@@ -251,10 +251,11 @@
                                 <div class="employ-profile">
                                     <div class="p-gal">
                                         <app-user-detail
-                                            [imageUrl]="contact.profile_image_url"
+                                            [imageUrl]="contact?.profile_image_thumb_url"
                                             [userId]="contact?.user_id"
                                             orgType="es"
                                             shape="rectangle"
+                                            type="contact"
                                             size="120"
                                         ></app-user-detail>
                                     </div>
