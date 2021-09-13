@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderType, OrganizationType } from '@enums';
 import { GlobalsService, ValidateEmailService } from '@services';
-import { validateEmail } from '@utils';
+import { emailValidator } from '@utils';
 
 @Component({
     selector: 'app-edit-user-details',
@@ -34,7 +34,7 @@ export class EditUserDetailsComponent implements OnInit {
                 '',
                 Validators.compose([Validators.required]),
                 Validators.composeAsync([
-                    validateEmail(this.validateService, `${OrganizationType.ROASTER},${OrganizationType.CONSUMER}`),
+                    emailValidator(this.validateService, `${OrganizationType.ROASTER},${OrganizationType.CONSUMER}`),
                 ]),
             ],
         });

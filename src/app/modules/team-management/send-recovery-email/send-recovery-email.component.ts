@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { GlobalsService, RoasterserviceService, AuthService, UserService, ValidateEmailService } from '@services';
 import { Location } from '@angular/common';
-import { validateEmail } from '@utils';
+import { emailValidator } from '@utils';
 
 @Component({
     selector: 'app-send-recovery-email',
@@ -54,7 +54,7 @@ export class SendRecoveryEmailComponent implements OnInit {
             email: new FormControl(
                 { value: '', disabled: !this.isEdit || !this.statusToggle },
                 Validators.compose([Validators.required]),
-                validateEmail(this.validateService),
+                emailValidator(this.validateService),
             ),
         });
         this.userDetails = { last_activated: '', roles: [], status: '' };

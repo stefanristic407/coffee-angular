@@ -102,7 +102,7 @@ export function noWhitespaceValidator(): ValidatorFn {
     };
 }
 
-export function validateEmail(validateService: ValidateEmailService, existenceOrgQuery: string = ''): AsyncValidatorFn {
+export function emailValidator(validateService: ValidateEmailService, existenceQuery: string = ''): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors> => {
         return new Observable<any>((observer) => {
             if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(control.value)) {
@@ -114,8 +114,8 @@ export function validateEmail(validateService: ValidateEmailService, existenceOr
                         observer.next({ email: 'invalid' });
                         observer.complete();
                     } else {
-                        if (existenceOrgQuery) {
-                            validateService.getUsersList(control.value, existenceOrgQuery).subscribe((res: any) => {
+                        if (existenceQuery) {
+                            validateService.getUsersList(control.value, existenceQuery).subscribe((res: any) => {
                                 if (res.success && res.result?.length) {
                                     observer.next({ exist: true });
                                 } else {

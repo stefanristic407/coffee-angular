@@ -4,7 +4,7 @@ import { GlobalsService, ValidateEmailService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
 import { Country } from '@models';
-import { urlValidator, validateEmail } from '@utils';
+import { urlValidator, emailValidator } from '@utils';
 @Component({
     selector: 'app-sewn-contact',
     templateUrl: './contact.component.html',
@@ -42,7 +42,7 @@ export class ContactComponent implements OnInit {
 
     initialForm() {
         this.contactForm = this.fb.group({
-            email: ['', Validators.compose([Validators.required]), validateEmail(this.validateService)],
+            email: ['', Validators.compose([Validators.required]), emailValidator(this.validateService)],
             phone: ['', Validators.compose([Validators.required])],
             country: ['', Validators.compose([Validators.required])],
             state: [''],

@@ -6,7 +6,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
-import { maxWordCountValidator, validateEmail } from '@utils';
+import { maxWordCountValidator, emailValidator } from '@utils';
 import {
     AuthService,
     BrandService,
@@ -76,7 +76,7 @@ export class VisitUsComponent implements OnInit {
             address_line2: [''],
             city: ['', Validators.compose([Validators.required])],
             zipcode: ['', Validators.compose([Validators.required])],
-            email: ['', Validators.compose([Validators.required]), validateEmail(this.validateService)],
+            email: ['', Validators.compose([Validators.required]), emailValidator(this.validateService)],
             phone: ['', Validators.compose([Validators.required])],
         });
         this.getVisitDetails();
