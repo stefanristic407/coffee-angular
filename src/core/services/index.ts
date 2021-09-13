@@ -14,4 +14,3 @@ export * from './socket';
 export * from './startup';
 export * from './google-translate';
 export * from './upload';
-export * from './email-validator.service';
