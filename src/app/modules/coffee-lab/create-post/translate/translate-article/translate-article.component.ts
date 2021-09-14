@@ -204,7 +204,7 @@ export class TranslateArticleComponent implements OnInit {
                 this.isPosting = false;
                 if (res.success) {
                     this.toastrService.success('You have posted a translated article successfully.');
-                    this.router.navigate(['/coffee-lab/overview/articles']);
+                    this.router.navigate([`/coffee-lab/articles/${this.article.slug}`]);
                 } else {
                     this.toastrService.error('Failed to post translated article.');
                 }

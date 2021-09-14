@@ -28,11 +28,11 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     stickySecData: any;
     orginalUserData: any;
     isSaveArticle = false;
-    canGoBack: boolean;
+    isMyPost = false;
+    isSavedPost = false;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
-        private location: Location,
         public authService: AuthService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -49,7 +49,10 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             this.getDetails(true);
             this.getArticleList();
         });
-        this.canGoBack = !!this.router.getCurrentNavigation()?.previousNavigation;
+        this.activatedRoute.queryParams.subscribe((queryParams) => {
+            this.isMyPost = queryParams.isMyPost;
+            this.isSavedPost = queryParams.isSavedPost;
+        });
     }
 
     ngOnInit(): void {
@@ -117,7 +120,21 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }
 
     onRealtedRoute(slug) {
-        this.router.navigateByUrl('/coffee-lab/articles/' + slug);
+        if (this.isMyPost) {
+            this.router.navigate(['/coffee-lab/articles/' + slug], {
+                queryParams: {
+                    isMyPost: true,
+                },
+            });
+        } else if (this.isSavedPost) {
+            this.router.navigate(['/coffee-lab/articles/' + slug], {
+                queryParams: {
+                    isSavedPost: true,
+                },
+            });
+        } else {
+            this.router.navigateByUrl('/coffee-lab/articles/' + slug);
+        }
         window.scrollTo(0, 0);
     }
 
@@ -200,8 +217,10 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }
 
     onBack() {
-        if (this.canGoBack) {
-            this.location.back();
+        if (this.isMyPost) {
+            this.router.navigateByUrl('/coffee-lab/overview/my-posts/article');
+        } else if (this.isSavedPost) {
+            this.router.navigateByUrl('/coffee-lab/overview/saved-posts/article');
         } else {
             this.router.navigateByUrl('/coffee-lab/overview/articles');
         }

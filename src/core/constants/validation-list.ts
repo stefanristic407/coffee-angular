@@ -1,6 +1,6 @@
 export const VALIDATION_LIST: any = {
     required: 've_required',
-    too_long: 've_too_long',
+    ve_too_long: 'too_long',
     too_short: 've_too_short',
     different_length: 've_different_length',
     too_large: 've_too_large',

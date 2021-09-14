@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, CoffeeLabService, GlobalsService } from '@services';
-import { DOCUMENT, Location } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
@@ -24,14 +24,14 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
     comment: string;
     answerDetail: any;
-    canGoBack: boolean;
-
+    isMyPost = false;
+    isSavedPost = false;
+    isAssignedToMe = false;
     constructor(
         public coffeeLabService: CoffeeLabService,
         private activatedRoute: ActivatedRoute,
         @Inject(DOCUMENT) private document: any,
         public globalsService: GlobalsService,
-        private location: Location,
         private toastService: ToastrService,
         public authService: AuthService,
         private messageService: MessageService,
@@ -48,11 +48,13 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParams.subscribe((queryParams) => {
             const language = this.activatedRoute.snapshot.queryParamMap.get('language');
             this.language = language || this.coffeeLabService.currentForumLanguage;
+            this.isMyPost = queryParams.isMyPost;
+            this.isSavedPost = queryParams.isSavedPost;
+            this.isAssignedToMe = queryParams.isAssignedToMe;
             if (!this.isLoading) {
                 this.getDetails();
             }
         });
-        this.canGoBack = !!this.router.getCurrentNavigation()?.previousNavigation;
     }
 
     ngOnInit(): void {
@@ -196,8 +198,12 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     onBack() {
-        if (this.canGoBack) {
-            this.location.back();
+        if (this.isMyPost) {
+            this.router.navigateByUrl('/coffee-lab/overview/my-posts/qa-post');
+        } else if (this.isSavedPost) {
+            this.router.navigateByUrl('/coffee-lab/overview/saved-posts/qa-post');
+        } else if (this.isAssignedToMe) {
+            this.router.navigateByUrl('/coffee-lab/overview/assigned-to-me');
         } else {
             this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
         }

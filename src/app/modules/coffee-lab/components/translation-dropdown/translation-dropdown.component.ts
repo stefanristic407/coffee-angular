@@ -31,14 +31,24 @@ export class TranslationDropdownComponent implements OnInit {
                     queryParams: { isMyPost: this.isPostType.isMyPost },
                 });
             }
-        } else if (this.isPostType.isSavePost) {
+        } else if (this.isPostType.isSavedPost) {
             if (this.forumType === 'question') {
                 this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
-                    queryParams: { isSavePost: this.isPostType.isSavePost },
+                    queryParams: { isSavedPost: this.isPostType.isSavedPost },
                 });
             } else {
                 this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
-                    queryParams: { isSavePost: this.isPostType.isSavePost },
+                    queryParams: { isSavedPost: this.isPostType.isSavedPost },
+                });
+            }
+        } else if (this.isPostType.isAssignedToMe) {
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                    queryParams: { isAssignedToMe: this.isPostType.isAssignedToMe },
+                });
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                    queryParams: { isAssignedToMe: this.isPostType.isAssignedToMe },
                 });
             }
         } else {

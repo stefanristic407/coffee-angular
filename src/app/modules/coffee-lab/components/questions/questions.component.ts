@@ -11,6 +11,9 @@ import { AuthService, CoffeeLabService } from '@services';
 })
 export class QuestionsComponent implements OnInit {
     @Input() questions: any[] = [];
+    @Input() isMyPost = false;
+    @Input() isSavedPost = false;
+    @Input() isAssignedToMe = false;
     @Input() viewMode = 'list';
     questionMenuItems: MenuItem[] = [];
     pageDesc: string;
@@ -36,6 +39,26 @@ export class QuestionsComponent implements OnInit {
     }
 
     onQuestionNavigate(slug) {
-        this.router.navigateByUrl('/coffee-lab/questions/' + slug);
+        if (this.isMyPost) {
+            this.router.navigate(['/coffee-lab/questions/' + slug], {
+                queryParams: {
+                    isMyPost: true,
+                },
+            });
+        } else if (this.isSavedPost) {
+            this.router.navigate(['/coffee-lab/questions/' + slug], {
+                queryParams: {
+                    isSavedPost: true,
+                },
+            });
+        } else if (this.isAssignedToMe) {
+            this.router.navigate(['/coffee-lab/questions/' + slug], {
+                queryParams: {
+                    isAssignedToMe: true,
+                },
+            });
+        } else {
+            this.router.navigateByUrl('/coffee-lab/questions/' + slug);
+        }
     }
 }

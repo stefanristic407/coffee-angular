@@ -12,6 +12,8 @@ import { ConfirmComponent } from '@shared';
 })
 export class RecipesComponent implements OnInit {
     @Input() recipes: any[] = [];
+    @Input() isMyPost = false;
+    @Input() isSavedPost = false;
     totalRecords = 0;
     displayData: any[] = [];
     pageDesc: string | undefined;
@@ -22,7 +24,6 @@ export class RecipesComponent implements OnInit {
         public authService: AuthService,
         private router: Router,
         private toastService: ToastrService,
-        private dialogService: DialogService,
     ) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }

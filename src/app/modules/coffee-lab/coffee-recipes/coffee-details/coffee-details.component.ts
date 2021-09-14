@@ -27,8 +27,9 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     allComments: any[] = [];
     showCommentBtn = true;
     isSaveRecipe = false;
-    canGoBack: boolean;
     orginalUserData: any;
+    isMyPost = false;
+    isSavedPost = false;
     buttonList = [{ button: 'Roasting' }, { button: 'Coffee grinding' }, { button: 'Brewing' }];
     infoData: any[] = [
         {
@@ -54,7 +55,6 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         public coffeeLabService: CoffeeLabService,
         private messageService: MessageService,
-        public location: Location,
         public authService: AuthService,
         public globalsService: GlobalsService,
         private userService: UserService,
@@ -68,7 +68,10 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
             this.getCoffeeDetails(true);
             this.getCoffeeRecipesData();
         });
-        this.canGoBack = !!this.router.getCurrentNavigation()?.previousNavigation;
+        this.activatedRoute.queryParams.subscribe((queryParams) => {
+            this.isMyPost = queryParams.isMyPost;
+            this.isSavedPost = queryParams.isSavedPost;
+        });
     }
 
     ngOnInit(): void {
@@ -131,7 +134,21 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     }
 
     onRealtedRoute(slug) {
-        this.router.navigateByUrl('/coffee-lab/recipes/' + slug);
+        if (this.isMyPost) {
+            this.router.navigate(['/coffee-lab/recipes/' + slug], {
+                queryParams: {
+                    isMyPost: true,
+                },
+            });
+        } else if (this.isSavedPost) {
+            this.router.navigate(['/coffee-lab/recipes/' + slug], {
+                queryParams: {
+                    isSavedPost: true,
+                },
+            });
+        } else {
+            this.router.navigateByUrl('/coffee-lab/recipes/' + slug);
+        }
         window.scrollTo(0, 0);
     }
 
@@ -233,8 +250,10 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     }
 
     onBack() {
-        if (this.canGoBack) {
-            this.location.back();
+        if (this.isMyPost) {
+            this.router.navigateByUrl('/coffee-lab/overview/my-posts/recipe');
+        } else if (this.isSavedPost) {
+            this.router.navigateByUrl('/coffee-lab/overview/saved-posts/recipe');
         } else {
             this.router.navigateByUrl('/coffee-lab/overview/coffee-recipes');
         }

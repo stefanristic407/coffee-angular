@@ -14,7 +14,7 @@
         </div>
     </div>
     <div *ngIf="!isLoading">
-        <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
+        <app-questions [isAssignedToMe]="true" [questions]="questions" [viewMode]="viewMode"></app-questions>
     </div>
     <div *ngIf="isLoading">
         <app-loading></app-loading>
