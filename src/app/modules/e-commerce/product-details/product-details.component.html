@@ -151,7 +151,7 @@
                 >
                     <ng-template pTemplate="header">
                         <span
-                            >{{ variant['value']['variant_name'] }}
+                            >{{ 'variant' | translate }} {{ i + 1 }}
                             <span
                                 (click)="$event.stopPropagation(); removeVariant(i)"
                                 *ngIf="productForm.get('variants').value.length > 1"

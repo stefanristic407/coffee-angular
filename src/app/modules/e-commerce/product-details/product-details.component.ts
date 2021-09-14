@@ -81,12 +81,12 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     currentVariant = 0;
     allCrates: Crate[] = [];
     productName: any = '';
-    removedWeightVariants: any = [];
+    removedWeightVariantIds: number[] = [];
     flavoursList: any[];
     isPublished = false;
     thisYear = new Date().getFullYear();
     countryArray: any[] = COUNTRY_LIST;
-    variantCnt = 0;
+    maxVariantId = 0;
     isSetDefault = false;
 
     constructor(
@@ -318,7 +318,6 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             (res: ApiResponse<any>) => {
                 if (res.success && res.result) {
                     const productDetails = res.result;
-                    this.variantCnt = Object.keys(res.result?.variants).length;
                     this.isPublished = !!res.result.is_published;
                     if (this.isPublished) {
                         this.setValidators();
@@ -348,13 +347,16 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                         if ((coffeeBatchID && !getBatchDetails) || productDetails.is_external_product) {
                             coffeeBatchID = null;
                         }
+                        if (getVariant[0].variant_details.variant_id > this.maxVariantId) {
+                            this.maxVariantId = getVariant[0].variant_details.variant_id;
+                        }
                         const variant: any = {
+                            id: getVariant[0].variant_details.variant_id,
                             rc_batch_id: coffeeBatchID,
                             weight_variants: getVariant[0].weight_variants,
                             roaster_recommendation: getVariant[0].variant_details.roaster_recommendation ?? '',
                             brewing_method: getVariant[0].variant_details.brewing_method ?? '',
                             recipes: getVariant[0].variant_details.recipes ?? '',
-                            variant_name: 'Variant ' + (variantsFormArray.length + 1),
                         };
                         if (getBatchDetails) {
                             this.roastedFields.forEach((ele) => {
@@ -501,10 +503,9 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     }
 
     createEmptyVariant(isExternalProduct?: boolean) {
-        this.variantCnt++;
         return this.fb.group({
+            id: null,
             rc_batch_id: [null, Validators.compose(this.isPublished ? [Validators.required] : [])],
-            variant_name: 'Variant ' + this.variantCnt,
             roaster_ref_no: '',
             batch_ref_no: { value: '', disabled: true },
             roasting_profile_name: { value: '', disabled: true },
@@ -563,7 +564,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             );
         }
         if (!event.isNew) {
-            this.removedWeightVariants.push(event.productWeightVariantId);
+            this.removedWeightVariantIds.push(event.productWeightVariantId);
         }
     }
 
@@ -743,6 +744,9 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 break;
             }
         }
+
+        // Variant id for the new variant
+        let variantId = this.maxVariantId;
         this.variantComponent.forEach((child, childIndex) => {
             const variantForm = child.weightForm.value;
             const getWeightArray = variantForm.weights;
@@ -758,7 +762,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                     .map((item) => item.image_id);
                 weightObj.status =
                     weightObj.status === 'IN-DRAFT' && this.productForm.value.is_public ? 'IN-STOCK' : weightObj.status;
-                weightObj.variant_id = childIndex + 1;
+                weightObj.variant_id = getVariantDetails.id || ++variantId;
                 if (!!getVariantDetails.rc_batch_id && !this.productForm.value.is_external_product) {
                     weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
                 } else {
@@ -838,10 +842,10 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 }
             });
         });
-        for (const weightVariant of this.removedWeightVariants) {
+        for (const weightVariantId of this.removedWeightVariantIds) {
             promises.push(
                 new Promise((resolve, reject) => {
-                    this.deleteWeightVariant(this.productID, weightVariant, resolve, reject);
+                    this.deleteWeightVariant(this.productID, weightVariantId, resolve, reject);
                 }),
             );
         }
@@ -888,9 +892,13 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             );
     }
 
-    deleteWeightVariant(productID, weightVariant, resolve, reject) {
-        this.eCommerceService.deleteProductWeightVariants(productID, weightVariant, this.type).subscribe((res) => {
+    deleteWeightVariant(productID, weightVariantId, resolve, reject) {
+        this.eCommerceService.deleteProductWeightVariants(productID, weightVariantId, this.type).subscribe((res) => {
             if (res.success) {
+                const idx = this.removedWeightVariantIds.findIndex((ix) => ix === weightVariantId);
+                if (idx > -1) {
+                    this.removedWeightVariantIds.splice(idx, 1);
+                }
                 resolve();
             } else {
                 this.toasterService.error('Errow while removing weight variants');
