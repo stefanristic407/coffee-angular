@@ -23,8 +23,13 @@ export class TranslateRecipeComponent implements OnInit {
     }
 
     ngOnInit(): void {}
-    onSave(): void {
-        this.coffeeLabService.originalPost.next(true);
+
+    onSave(status: boolean): void {
+        if (status) {
+            this.coffeeLabService.originalPost.next(true);
+        } else {
+            this.coffeeLabService.draftPost.next(true);
+        }
     }
 
     onChangeTab(event) {

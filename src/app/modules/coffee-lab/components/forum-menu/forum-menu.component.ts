@@ -26,6 +26,7 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableStopPropagation = true;
     items: MenuItem[] = [];
     @ViewChild('menu', { static: false }) menu: Menu;
+    isClicked = false;
 
     constructor(
         public globalsService: GlobalsService,

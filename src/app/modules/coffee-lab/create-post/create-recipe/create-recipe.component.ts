@@ -167,6 +167,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                         this.onSave();
                     }
                 });
+                this.coffeeLabService.draftPost.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+                    if (res && this.isTranslate) {
+                        this.onSave('draft');
+                    }
+                });
                 this.coffeeLabService.copyCoverImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
                     this.copyFile(data);
                 });
@@ -575,7 +580,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         data.inline_images = [];
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
             if (res.success) {
-                this.toaster.success('You have posted a coffee recipe successfully.');
+                if (data.publish) {
+                    this.toaster.success('You have posted a coffee recipe successfully.');
+                } else if (!data.publish) {
+                    this.toaster.success('Your recipe is successfully saved in draft');
+                }
                 this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
             } else {
                 this.isPosting = false;
@@ -632,5 +641,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 insertAltAttr(item.get('description').value, ` ${this.recipeForm.get('name').value} step image`),
             );
         });
+    }
+
+    changeLanguage(value) {
+        this.coffeeLabService.forumLanguage.next(this.recipeForm.get('language').value);
     }
 }

@@ -193,7 +193,7 @@ export class TranslateArticleComponent implements OnInit {
             this.coffeeLabService.updateForum('article', this.draftId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toastrService.success('You have updated a draft successfully.');
+                    this.toastrService.success('Your translated article is successfully saved in draft.');
                     this.location.back();
                 } else {
                     this.toastrService.error('Failed to update draft.');

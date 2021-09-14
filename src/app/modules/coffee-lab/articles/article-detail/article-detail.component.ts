@@ -25,7 +25,8 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     buttonList = [{ button: 'Roasting' }, { button: 'Coffee grinding' }, { button: 'Milling' }, { button: 'Brewing' }];
     comment: string;
     language: string;
-    stickData: any;
+    stickySecData: any;
+    orginalUserData: any;
     isSaveArticle = false;
     canGoBack: boolean;
 
@@ -83,7 +84,10 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             if (res.success) {
                 this.detailsData = res.result;
                 this.isSaveArticle = this.detailsData.is_saved;
-                this.getUserDetail();
+                if (this.detailsData?.original_article_state && this.detailsData?.original_article_state === 'ACTIVE') {
+                    this.getOriginalUserDetail(this.detailsData.original_article);
+                }
+                this.getUserDetail(this.detailsData);
                 this.getCommentsData();
                 if (res.result.original_article_id) {
                     this.messageService.clear();
@@ -122,14 +126,20 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         this.showCommentBtn = false;
     }
 
-    getUserDetail(): void {
-        this.userService
-            .getUserDetail(this.detailsData.user_id, this.detailsData.organisation_type)
-            .subscribe((res) => {
-                if (res.success) {
-                    this.stickData = res.result;
-                }
-            });
+    getOriginalUserDetail(userDetails: any): void {
+        this.userService.getUserDetail(userDetails.user_id, userDetails.organisation_type).subscribe((res) => {
+            if (res.success) {
+                this.orginalUserData = res.result;
+            }
+        });
+    }
+
+    getUserDetail(userDetails: any): void {
+        this.userService.getUserDetail(userDetails.user_id, userDetails.organisation_type).subscribe((res) => {
+            if (res.success) {
+                this.stickySecData = res.result;
+            }
+        });
     }
 
     onPost(): void {
@@ -183,9 +193,9 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     openChat() {
         this.chatHandler.openChatThread({
-            user_id: this.detailsData.user_id,
-            org_type: this.stickData.organization_type.toLowerCase(),
-            org_id: this.stickData.organization_id,
+            user_id: this.stickySecData.id,
+            org_type: this.stickySecData.organization_type.toLowerCase(),
+            org_id: this.stickySecData.organization_id,
         });
     }
 

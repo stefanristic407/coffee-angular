@@ -8,18 +8,11 @@
                 <div class="flex-1 overflow-hidden">
                     <app-user-header [prop]="article"></app-user-header>
                 </div>
-                <div class="icon-saves hover-save-icon" *ngIf="!article?.is_saved">
-                    <img (click)="onSave(article.id, i)" class="cursor-point" src="assets/images/save.svg" alt="save" />
+                <div class="icon-saves hover-save-icon" (click)="onSave(article.id, i)" *ngIf="!article?.is_saved">
+                    <img class="cursor-point" src="assets/images/save.svg" alt="save" />
                 </div>
-                <div class="icon-saves hover-save-icon" *ngIf="article?.is_saved">
-                    <img
-                        (click)="onSameSave(article.id, i)"
-                        class="cursor-point"
-                        width="36"
-                        height="36"
-                        src="assets/images/saved-item.svg"
-                        alt="saved"
-                    />
+                <div class="icon-saves hover-save-icon" (click)="onSameSave(article.id, i)" *ngIf="article?.is_saved">
+                    <img class="cursor-point" width="36" height="36" src="assets/images/saved-item.svg" alt="saved" />
                 </div>
             </div>
             <img [src]="article.cover_image_url" class="w-100 my-3" [alt]="article.title" />

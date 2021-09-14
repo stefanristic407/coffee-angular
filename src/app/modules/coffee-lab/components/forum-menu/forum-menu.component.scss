@@ -3,10 +3,16 @@
     @media (max-width: 768px) {
         padding: 0 0.625rem 0.625rem 0.625rem;
     }
+
     &:hover {
         border-radius: 50%;
         background-color: rgba(184, 184, 184, 0.16);
     }
+}
+
+.click-color {
+    border-radius: 50%;
+    background-color: #e4e4e4;
 }
 
 ::ng-deep .p-menu-overlay {

@@ -12,6 +12,7 @@ import { AuthService } from '../auth';
 })
 export class CoffeeLabService extends ApiService {
     @Output() originalPost = new EventEmitter();
+    @Output() draftPost = new EventEmitter();
     forumDeleteEvent = new EventEmitter();
     copyCoverImage = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');

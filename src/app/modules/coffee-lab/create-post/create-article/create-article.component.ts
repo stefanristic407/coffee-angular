@@ -170,7 +170,11 @@ export class CreateArticleComponent implements OnInit {
             this.coffeeLabService.postForum('article', data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toaster.success('You have posted an article successfully.');
+                    if (status === 'draft') {
+                        this.toaster.success('Your article is successfully saved in draft');
+                    } else {
+                        this.toaster.success('You have posted an article successfully.');
+                    }
                     this.router.navigate(['/coffee-lab/overview/articles']);
                 } else {
                     this.toaster.error('Failed to post article.');
@@ -199,5 +203,9 @@ export class CreateArticleComponent implements OnInit {
                     element.value = '';
                 }
             });
+    }
+
+    changeLanguage(value) {
+        this.coffeeLabService.forumLanguage.next(this.articleForm.get('language').value);
     }
 }

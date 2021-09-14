@@ -7,7 +7,8 @@
             optionLabel="label"
             optionValue="value"
             [(ngModel)]="languageCode"
-            class="inputFieldBox col-md-5 pl-0"
+            (onChange)="changeLanguage($event)"
+            class="inputFieldBox bg-white col-md-5 pl-0"
         >
         </p-dropdown>
     </div>

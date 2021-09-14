@@ -103,4 +103,8 @@ export class CreateQuestionComponent implements OnInit {
             });
         }
     }
+
+    changeLanguage(value) {
+        this.coffeeLabService.forumLanguage.next(this.languageCode);
+    }
 }

@@ -169,7 +169,11 @@ export class TranslateAnswerComponent implements OnInit {
         this.coffeeLabService.translateForum('answer', this.answerId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
-                this.toastrService.success('You have translated an answer successfully.');
+                if (status === 'draft') {
+                    this.toastrService.success('Your translated answer is successfully saved in draft');
+                } else {
+                    this.toastrService.success('You have translated an answer successfully.');
+                }
                 this.location.back();
             } else {
                 this.toastrService.error('Failed to translate answer.');

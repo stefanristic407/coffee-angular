@@ -30,10 +30,10 @@
     </div>
     <div class="col-md-6 order-1 order-md-2 p-0">
         <div class="d-flex justify-content-end flex-column flex-md-row">
-            <button class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0">
+            <button (click)="onSave(false)" class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0">
                 {{ 'save_as_draft' | translate }}
             </button>
-            <button (click)="onSave()" class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0">
+            <button (click)="onSave(true)" class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0">
                 {{ 'submit' | translate }}
             </button>
         </div>

@@ -21,12 +21,14 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     isLoading = true;
     commentData: any[] = [];
     destroy$: Subject<boolean> = new Subject<boolean>();
-    stickData: any;
+    stickySecData: any;
     comment: string;
     language: string;
     allComments: any[] = [];
     showCommentBtn = true;
     isSaveRecipe = false;
+    canGoBack: boolean;
+    orginalUserData: any;
     buttonList = [{ button: 'Roasting' }, { button: 'Coffee grinding' }, { button: 'Brewing' }];
     infoData: any[] = [
         {
@@ -46,7 +48,6 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
             key: 'serves',
         },
     ];
-    canGoBack: boolean;
 
     constructor(
         public router: Router,
@@ -88,6 +89,10 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
                 this.detailsData = res.result;
                 this.detailsData.description = this.getJustText(this.detailsData.description);
                 this.isSaveRecipe = this.detailsData.is_saved;
+                if (this.detailsData?.original_recipe_state && this.detailsData?.original_recipe_state === 'ACTIVE') {
+                    this.getOriginalUserDetail(this.detailsData.original_details);
+                }
+                this.getUserDetail(this.detailsData);
                 this.getCommentsData();
                 if (this.detailsData?.steps && this.detailsData?.steps.length > 0) {
                     this.detailsData.steps.map((item) => {
@@ -103,7 +108,6 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
                         closable: false,
                     });
                 }
-                this.getUserDetail();
             }
             this.isLoading = false;
         });
@@ -165,14 +169,20 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         this.destroy$.unsubscribe();
     }
 
-    getUserDetail(): void {
-        this.userService
-            .getUserDetail(this.detailsData.user_id, this.detailsData.organisation_type)
-            .subscribe((res) => {
-                if (res.success) {
-                    this.stickData = res.result;
-                }
-            });
+    getUserDetail(userDatils: any): void {
+        this.userService.getUserDetail(userDatils.user_id, userDatils.organisation_type).subscribe((res) => {
+            if (res.success) {
+                this.stickySecData = res.result;
+            }
+        });
+    }
+
+    getOriginalUserDetail(userDetails: any): void {
+        this.userService.getUserDetail(userDetails.user_id, userDetails.organisation_type).subscribe((res) => {
+            if (res.success) {
+                this.orginalUserData = res.result;
+            }
+        });
     }
 
     onPost(): void {
@@ -216,9 +226,9 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
 
     openChat() {
         this.chatHandler.openChatThread({
-            user_id: this.detailsData.user_id,
-            org_type: this.detailsData.organisation_type.toLowerCase(),
-            org_id: this.detailsData.organisation_id,
+            user_id: this.stickySecData.id,
+            org_type: this.stickySecData.organization_type.toLowerCase(),
+            org_id: this.stickySecData.organization_id,
         });
     }
 
