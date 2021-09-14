@@ -731,7 +731,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         );
     }
 
-    grindVariantsDetails(isNew) {
+    grindVariantsDetails(isCreateProduct: boolean) {
         const promises: any[] = [];
         let includeDefault = false;
         for (const variantComponet of this.variantComponent) {
@@ -752,6 +752,9 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             const getWeightArray = variantForm.weights;
             const getVariantDetails = child.variantDetails.value;
             getWeightArray.forEach((weight, index) => {
+                if (!getVariantDetails.id && !index) {
+                    ++variantId;
+                }
                 const weightObj = Object.assign({}, weight);
                 if (!includeDefault && childIndex === 0 && index === 0) {
                     weightObj.is_default_product = true;
@@ -762,7 +765,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                     .map((item) => item.image_id);
                 weightObj.status =
                     weightObj.status === 'IN-DRAFT' && this.productForm.value.is_public ? 'IN-STOCK' : weightObj.status;
-                weightObj.variant_id = getVariantDetails.id || ++variantId;
+                weightObj.variant_id = getVariantDetails.id || variantId;
                 if (!!getVariantDetails.rc_batch_id && !this.productForm.value.is_external_product) {
                     weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
                 } else {
@@ -830,7 +833,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 if (weight.isNew) {
                     promises.push(
                         new Promise((resolve, reject) => {
-                            this.addNewGrindVariant(this.productID, weightObj, resolve, reject);
+                            this.addNewGrindVariant(this.productID, weightObj, childIndex, index, resolve, reject);
                         }),
                     );
                 } else if (weightVariantID) {
@@ -851,16 +854,22 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         }
         Promise.all(promises)
             .then(() => {
-                this.toasterService.success(`Product ${isNew ? 'created' : 'updated'} successfully`);
+                this.toasterService.success(`Product ${isCreateProduct ? 'created' : 'updated'} successfully`);
                 this.router.navigate([`/e-commerce/product-list/${this.type}`]);
             })
             .catch(() => {});
     }
 
-    addNewGrindVariant(productID, weightObj, resolve, reject) {
+    addNewGrindVariant(productID, weightObj, variantIdx, weightIdx, resolve, reject) {
         this.eCommerceService.addProductWeightVariants(productID, weightObj, this.type).subscribe(
             (res) => {
                 if (res.success) {
+                    const weightVariantForm = (
+                        this.variantComponent.toArray()[variantIdx].weightForm.get('weights') as FormArray
+                    ).controls[weightIdx];
+                    if (weightVariantForm) {
+                        weightVariantForm.patchValue({ isNew: false, product_weight_variant_id: res.result.id });
+                    }
                     resolve();
                 } else {
                     this.toasterService.error('Errow while adding weight variants');
