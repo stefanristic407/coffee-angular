@@ -25,6 +25,7 @@ export class AppComponent extends DestroyableComponent implements OnInit {
         if (environment.production) {
             dynamicScripts.push('https://www.bugherd.com/sidebarv2.js?apikey=tm7bqtpbmlhxkgxgen68xg');
             dynamicScripts.push('https://cmp.osano.com/6olZFSThsdZWqs/d3243605-8fd0-446a-9b25-a172e9ae3d67/osano.js');
+            dynamicScripts.push('https://www.googletagmanager.com/gtm.js?id=GTM-KB5PD89');
         }
 
         for (const value of dynamicScripts) {
