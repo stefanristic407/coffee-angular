@@ -9,7 +9,7 @@
                 optionValue="value"
                 formControlName="language"
                 (onChange)="changeLanguage($event)"
-                class="inputFieldBox bg-white col-md-5 col-12 pl-0"
+                class="inputFieldBox bg-white col-md-5 col-12 pl-0 pr-0"
             >
             </p-dropdown>
         </div>
@@ -112,13 +112,6 @@
                     [description]="'translation-tooltip' | translate"
                 ></app-info-tooltip>
             </div>
-            <div class="mt-3 mt-md-0">
-                <p-checkbox
-                    [binary]="true"
-                    [label]="'era_of_we_blog' | translate"
-                    formControlName="is_era_of_we"
-                ></p-checkbox>
-            </div>
         </div>
         <div class="row pt-45 pt-lg-5">
             <div class="col-md-6 order-2 order-md-1">
@@ -140,7 +133,16 @@
                         (click)="onPost('published')"
                         class="btn-raised px-4 ml-md-3 mr-md-2 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
-                        {{ (articleId ? 'save_changes' : 'submit') | translate }}
+                        {{
+                            (articleId && article?.status === 'DRAFT'
+                                ? 'publish'
+                                : articleId
+                                ? 'save_changes'
+                                : 'submit'
+                            )
+                                | translate
+                                | titlecase
+                        }}
                     </button>
                 </div>
             </div>

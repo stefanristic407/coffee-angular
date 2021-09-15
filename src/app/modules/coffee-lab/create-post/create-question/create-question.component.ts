@@ -81,7 +81,11 @@ export class CreateQuestionComponent implements OnInit {
             this.coffeeLabService.updateForum('question', this.questionId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toaster.success('You have updated a question successfully.');
+                    if (data.status === 'draft') {
+                        this.toaster.success('Your changes have been successfully updated to the draft.');
+                    } else {
+                        this.toaster.success('You have updated a question successfully.');
+                    }
                     this.router.navigate(['/coffee-lab']);
                 } else {
                     this.toaster.error('Failed to update question.');

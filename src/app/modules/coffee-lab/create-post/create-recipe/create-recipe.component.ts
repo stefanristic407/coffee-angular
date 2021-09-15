@@ -533,7 +533,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
-                this.toaster.success('You have updated an recipe successfully.');
+                if (data.publish) {
+                    this.toaster.success('You have updated an recipe successfully.');
+                } else {
+                    this.toaster.success('Your changes have been successfully updated to the draft.');
+                }
                 this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
             } else {
                 this.isPosting = false;

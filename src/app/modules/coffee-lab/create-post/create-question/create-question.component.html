@@ -8,7 +8,7 @@
             optionValue="value"
             [(ngModel)]="languageCode"
             (onChange)="changeLanguage($event)"
-            class="inputFieldBox bg-white col-md-5 pl-0"
+            class="inputFieldBox bg-white col-md-5 pl-0 pr-0"
         >
         </p-dropdown>
     </div>
@@ -57,7 +57,11 @@
                     (click)="onPostQuestion('PUBLISHED')"
                     class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                 >
-                    {{ (questionId ? 'save_changes' : 'submit') | translate }}
+                    {{
+                        (questionId && content?.status === 'DRAFT' ? 'publish' : questionId ? 'save_changes' : 'submit')
+                            | translate
+                            | titlecase
+                    }}
                 </button>
             </div>
         </div>

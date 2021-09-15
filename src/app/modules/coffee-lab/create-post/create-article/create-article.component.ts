@@ -160,7 +160,11 @@ export class CreateArticleComponent implements OnInit {
             this.coffeeLabService.updateForum('article', this.articleId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toaster.success('You have updated an article successfully.');
+                    if (data.status === 'draft') {
+                        this.toaster.success('Your changes have been successfully updated to the draft.');
+                    } else {
+                        this.toaster.success('You have updated an article successfully.');
+                    }
                     this.router.navigate(['/coffee-lab/overview/articles']);
                 } else {
                     this.toaster.error('Failed to update article.');

@@ -9,7 +9,7 @@
                 optionValue="value"
                 formControlName="language"
                 (onChange)="changeLanguage($event)"
-                class="inputFieldBox bg-white col-md-5 col-12 pl-0"
+                class="inputFieldBox bg-white col-md-5 col-12 pl-0 pr-0"
             >
             </p-dropdown>
         </div>
@@ -744,7 +744,11 @@
                         (click)="onSave('published'); clicked = true"
                         class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
-                        {{ (recipeId ? (isTranslate ? 'post_translation' : 'save_changes') : 'submit') | translate }}
+                        {{
+                            (recipeId && !recipe?.publish ? 'publish' : recipeId ? 'save_changes' : 'submit')
+                                | translate
+                                | titlecase
+                        }}
                     </button>
                 </div>
             </div>
