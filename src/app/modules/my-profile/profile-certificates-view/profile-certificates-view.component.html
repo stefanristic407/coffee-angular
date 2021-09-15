@@ -1,12 +1,17 @@
-<div *ngIf="certificationArray.length">
-    <div class="fnt-muli fnt-600 fnt-14 text-clr588 certificates-title">Certificates</div>
-    <div
-        class="certificate-item mt-3"
-        *ngFor="let certificate of certificationArray"
-        (click)="onClickCertificate(certificate)"
-    >
-        <div class="text-clr334 fnt-muli fnt-14 fnt-600">{{ certificate.name }}</div>
-        <div class="vertical-divider mx-25"></div>
-        <div class="text-clr334 fnt-muli fnt-14 fnt-600">{{ certificate.year }}</div>
+<div class="border-main br-4">
+    <div class="header fnt-bold m-1">{{ 'certificates_awards' | translate }}</div>
+    <div class="p-3">
+        <div *ngFor="let certificate of certificationArray; let i = index">
+            <div [ngClass]="{ 'border-top-dashed-main pt-4': i }" class="mb-2">
+                <ul class="no-bullet-ul">
+                    <li class="fnt-bold">
+                        <a [href]="certificate.public_url" target="_blank">{{ certificate.name }}</a>
+                    </li>
+                    <li class="fnt-12 fnt-semi-bold text-clr588 mt-1">
+                        {{ certificate.year }}
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

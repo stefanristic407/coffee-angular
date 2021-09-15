@@ -8,9 +8,10 @@ import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService, UserService, ValidateEmailService } from '@services';
 import { CropperDialogComponent } from '@shared';
-import { CroppedImage } from '@models';
+import { CroppedImage, UserProfile } from '@models';
 import { emailValidator } from '@utils';
 import { COUNTRY_LIST, LANGUAGES } from '@constants';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-my-profile',
@@ -30,14 +31,31 @@ export class MyProfileComponent implements OnInit {
     bannerFile: File;
     profileUrl: string;
     profileFile: File;
-    profileInfo: any;
+    profileInfo: UserProfile;
     infoForm: FormGroup;
     roasterId: any;
     userId: any;
     breadcrumbItems: MenuItem[];
     certificationArray: any[] = [];
     queryUserId: any;
-    queryOrganization: any;
+    orgType: any;
+    menuItems = [
+        {
+            label: 'qa_forum',
+            icon: 'assets/images/qa-forum.svg',
+            activeIcon: 'assets/images/qa-forum-active.svg',
+        },
+        {
+            label: 'posts',
+            icon: 'assets/images/article.svg',
+            activeIcon: 'assets/images/article-active.svg',
+        },
+        {
+            label: 'brewing_guides',
+            icon: 'assets/images/coffee-recipe.svg',
+            activeIcon: 'assets/images/coffee-recipe-active.svg',
+        },
+    ];
 
     constructor(
         private activateRoute: ActivatedRoute,
@@ -54,7 +72,7 @@ export class MyProfileComponent implements OnInit {
         this.roasterId = this.authService.getOrgId();
         this.userId = this.authService.userId;
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
-        this.queryOrganization = this.activateRoute.snapshot.queryParamMap.get('organization') || 'ro';
+        this.orgType = this.activateRoute.snapshot.queryParamMap.get('organization') || OrganizationType.ROASTER;
     }
 
     ngOnInit(): void {
@@ -96,7 +114,7 @@ export class MyProfileComponent implements OnInit {
     }
 
     getUserDetail(): void {
-        this.userService.getUserDetail(this.queryUserId, this.queryOrganization).subscribe((res: any) => {
+        this.userService.getUserDetail(this.queryUserId, this.orgType).subscribe((res) => {
             if (res.success) {
                 this.profileInfo = res.result;
                 this.infoForm.patchValue(this.profileInfo);

@@ -4,12 +4,14 @@ export interface UserProfile {
     about_me: string;
     address1: string;
     address2: string;
+    banner_url: string;
+    certificates: any;
     city: string;
     country: string;
     created_at: string;
     date_of_birth: string;
-    email: string;
     email_verified: boolean;
+    email: string;
     firstname: string;
     gender: string;
     has_system_role: boolean;

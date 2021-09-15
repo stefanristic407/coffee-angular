@@ -1,23 +1,7 @@
-.certificates-title {
-    margin: 20px 0 2px;
-}
+@import 'variables';
 
-.certificate-item {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+.header {
     border-radius: 4px;
-    background-color: #f8f8f8;
-    padding: 14px 16px;
-    .vertical-divider {
-        height: 18px;
-        border-left: 1px solid #d6d6d6;
-    }
-}
-
-@media (max-width: 767px) {
-    .certificates-title {
-        margin-bottom: 0;
-        margin-top: 32px;
-    }
+    background-color: $primary-bg-color;
+    padding: 1rem 0.75rem;
 }
