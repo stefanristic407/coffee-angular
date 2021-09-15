@@ -180,8 +180,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 }
                 if (this.draftRecipeId) {
                     this.getRecipeById(this.draftRecipeId);
-                }
-                if (this.originRecipeId) {
+                } else if (this.originRecipeId) {
                     this.setAppLanguages();
                     this.getRecipeById(this.originRecipeId);
                 }
@@ -296,6 +295,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         // this.isCopying = true;
         this.coffeeLabService.copyFile(this.recipe.cover_image_id).subscribe((res: any) => {
             // this.isCopying = false;
+            console.log(res);
             if (res.success) {
                 this.copiedCoverImageId = res.result.id;
                 this.copiedCoverImageUrl = res.result.url;
