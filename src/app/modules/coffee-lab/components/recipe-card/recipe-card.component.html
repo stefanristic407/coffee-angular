@@ -1,0 +1,26 @@
+<div class="coffee-item text-non-underline" (click)="openRecipe(recipe.slug)">
+    <div class="w-100 position-relative">
+        <img [src]="recipe.cover_image_url" class="w-100" [alt]="recipe?.name" />
+        <span class="expertise fnt-12"> {{ recipe.expertise }} </span>
+    </div>
+    <div class="m-3 m-md-4">
+        <div class="d-flex justify-content-between mb-4">
+            <div class="recipe-name fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334">
+                <span class="mb-1 d-flex recipe-title">{{ recipe?.name }}</span>
+                <span class="fnt-14 fnt-600 fnt-muli text-clr334 mb-45 mb-md-4 mt-2">
+                    {{ recipe?.equipment_name | titlecase | convertToShortDescription: 1 }}
+                </span>
+            </div>
+            <div class="bookmark-icon hover-save-icon h-100" (click)="onSave(recipe.id)" *ngIf="!recipe?.is_saved">
+                <img class="cursor-point" src="assets/images/save.svg" alt="save" />
+            </div>
+            <div class="bookmark-icon hover-save-icon h-100" (click)="onSameSave(recipe.id)" *ngIf="recipe?.is_saved">
+                <img class="cursor-point" width="36" height="36" src="assets/images/saved-item.svg" alt="saved" />
+            </div>
+            <!-- <div class="bookmark-icon">
+                        <img src="assets/images/save.svg" alt="save" />
+                    </div> -->
+        </div>
+        <app-user-header [prop]="recipe"></app-user-header>
+    </div>
+</div>

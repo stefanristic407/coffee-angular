@@ -1,45 +1,6 @@
-<div class="coffee-wrapper">
-    <div class="col-md-6 col-xl-4 px-0 mb-3 py-2 p-md-2" *ngFor="let coffee of displayData; let i = index">
-        <div class="coffee-item text-non-underline" (click)="openRecipe(coffee.slug)">
-            <div class="w-100 position-relative">
-                <img [src]="coffee.cover_image_url" class="w-100" [alt]="coffee?.name" />
-                <span class="expertise fnt-12"> {{ coffee.expertise }} </span>
-            </div>
-            <div class="m-3 m-md-4">
-                <div class="d-flex justify-content-between mb-4">
-                    <div class="recipe-name fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334">
-                        <span class="mb-1 d-flex recipe-title">{{ coffee?.name }}</span>
-                        <span class="fnt-14 fnt-600 fnt-muli text-clr334 mb-45 mb-md-4 mt-2">
-                            {{ coffee?.equipment_name | titlecase | convertToShortDescription: 1 }}
-                        </span>
-                    </div>
-                    <div
-                        class="bookmark-icon hover-save-icon h-100"
-                        (click)="onSave(coffee.id, i)"
-                        *ngIf="!coffee?.is_saved"
-                    >
-                        <img class="cursor-point" src="assets/images/save.svg" alt="save" />
-                    </div>
-                    <div
-                        class="bookmark-icon hover-save-icon h-100"
-                        (click)="onSameSave(coffee.id, i)"
-                        *ngIf="coffee?.is_saved"
-                    >
-                        <img
-                            class="cursor-point"
-                            width="36"
-                            height="36"
-                            src="assets/images/saved-item.svg"
-                            alt="saved"
-                        />
-                    </div>
-                    <!-- <div class="bookmark-icon">
-                        <img src="assets/images/save.svg" alt="save" />
-                    </div> -->
-                </div>
-                <app-user-header [prop]="coffee"></app-user-header>
-            </div>
-        </div>
+<div class="row gutter-16 v-gutter-24">
+    <div class="col-md-6 col-xl-4" *ngFor="let coffee of displayData; let i = index">
+        <app-recipe-card [isMyPost]="isMyPost" [isSavedPost]="isSavedPost" [recipe]="coffee"></app-recipe-card>
     </div>
 </div>
 <div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">

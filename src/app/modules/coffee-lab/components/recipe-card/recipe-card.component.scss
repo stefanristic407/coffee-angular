@@ -1,0 +1,65 @@
+@import 'variables';
+
+.coffee-item {
+    border-radius: 14px;
+    min-height: 415px;
+    transition: transform 420ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid #d0d0d0;
+    img {
+        height: 234px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .recipe-name {
+        .recipe-title {
+            height: 40px;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+        border: 0px !important;
+        transform: scale(1.05);
+        box-shadow: 0 0 2rem rgb(0 0 0 / 20%);
+        .recipe-name {
+            .recipe-title {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.bookmark-icon img {
+    width: 19px !important;
+    height: 24px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    @media screen and (max-width: 767px) {
+        width: 29px !important;
+        height: 29px !important;
+    }
+}
+
+.expertise {
+    text-transform: capitalize;
+    font-weight: 600;
+    position: absolute;
+    left: 0;
+    margin: 16px;
+    padding: 8px 16px;
+    border-radius: 14px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(116, 117, 136, 0.45);
+    color: $white;
+}
+
+.hover-save-icon {
+    padding: 6px 8px 8px 11px;
+    border-radius: 50%;
+    background-color: rgba(116, 117, 136, 0.08);
+    &:hover {
+        background-color: rgba(48, 133, 92, 0.16);
+    }
+}

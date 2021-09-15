@@ -1,0 +1,46 @@
+<div class="border-box">
+    <div class="p-md-4 p-3">
+        <div class="d-flex justify-content-between">
+            <div class="flex-1">
+                <app-user-header [prop]="question"></app-user-header>
+            </div>
+            <div class="mobile-dot">
+                <app-forum-menu
+                    [selectedItem]="question"
+                    forumType="question"
+                    [enableSave]="false"
+                    [enableEdit]="
+                        question?.org_type === coffeeLabService.organization &&
+                        question?.posted_by === authService.currentUser.id
+                    "
+                    [enableDelete]="
+                        question?.org_type === coffeeLabService.organization &&
+                        question?.posted_by === authService.currentUser.id
+                    "
+                    [enableDeleteSave]="isSavedPost"
+                    [enableStopPropagation]="false"
+                ></app-forum-menu>
+            </div>
+        </div>
+        <div
+            class="fnt-muli fnt-16 fnt-md-18 fnt-700 text-clr334 mt-4 cursor-pointer hover-underline"
+            (click)="onQuestionNavigate(question.slug)"
+            [innerHTML]="question?.question"
+        ></div>
+    </div>
+    <app-like-divider [question]="question" [total]="question.total_answers"></app-like-divider>
+    <div *ngIf="question.total_answers > 0" class="pt-md-4 pb-md-0 py-3 pl-3 pl-md-5 pr-md-4 pr-3 border-top-main">
+        <div
+            *ngFor="let answer of question?.answers; let last = last; let ansInd = index"
+            [ngClass]="{ 'border-bottom-main': !last }"
+            class="mb-4"
+        >
+            <div class="mb-4 flex-1 overflow-hidden">
+                <app-user-header [prop]="answer"></app-user-header>
+            </div>
+            <div class="fnt-muli fnt-14 text-clr334 mb-4 lh-15">
+                <span [innerHTML]="answer?.answer | convertToShortDescription: 25"></span>
+            </div>
+        </div>
+    </div>
+</div>

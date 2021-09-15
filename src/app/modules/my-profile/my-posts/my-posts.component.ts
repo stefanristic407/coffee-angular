@@ -1,19 +1,21 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PostType } from '@enums';
 import { CoffeeLabService } from '@services';
-import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-my-posts',
     templateUrl: './my-posts.component.html',
     styleUrls: ['./my-posts.component.scss'],
 })
-export class MyPostsComponent implements OnInit, OnDestroy {
+export class MyPostsComponent implements OnInit {
     readonly PostType = PostType;
     @Input() postType: PostType;
     posts: any[] = [];
     isLoading = true;
-    destroy$: Subject<boolean> = new Subject<boolean>();
+
+    totalRecords = 0;
+    page = 1;
+    rows = 6;
 
     constructor(private coffeeLabService: CoffeeLabService) {}
 
@@ -26,8 +28,8 @@ export class MyPostsComponent implements OnInit, OnDestroy {
             sort_by: 'created_at',
             sort_order: 'desc',
             publish: true,
-            page: 1,
-            per_page: 10000,
+            page: this.page,
+            per_page: this.rows,
         };
         this.isLoading = true;
         this.coffeeLabService.getMyForumList(this.postType, params).subscribe((res) => {
@@ -36,13 +38,14 @@ export class MyPostsComponent implements OnInit, OnDestroy {
                     item.content = this.coffeeLabService.getJustText(item.content);
                     return item;
                 });
+                this.totalRecords = res.result_info.total_count;
             }
             this.isLoading = false;
         });
     }
 
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
+    paginate(event: any) {
+        this.page = event.page + 1;
+        this.getPosts();
     }
 }

@@ -1,7 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
 
 @Component({
@@ -15,19 +12,10 @@ export class QuestionsComponent implements OnInit {
     @Input() isSavedPost = false;
     @Input() isAssignedToMe = false;
     @Input() viewMode = 'list';
-    questionMenuItems: MenuItem[] = [];
-    pageDesc: string;
     totalRecords = 0;
     displayData: any[] = [];
 
-    constructor(
-        private router: Router,
-        public coffeeLabService: CoffeeLabService,
-        public authService: AuthService,
-        private toastrService: ToastrService,
-    ) {
-        this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
-    }
+    constructor(public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
     ngOnInit(): void {
         this.displayData = this.questions.slice(0, 10);
@@ -36,29 +24,5 @@ export class QuestionsComponent implements OnInit {
 
     paginate(event: any) {
         this.displayData = this.questions.slice(event.first, event.first + event.rows);
-    }
-
-    onQuestionNavigate(slug) {
-        if (this.isMyPost) {
-            this.router.navigate(['/coffee-lab/questions/' + slug], {
-                queryParams: {
-                    isMyPost: true,
-                },
-            });
-        } else if (this.isSavedPost) {
-            this.router.navigate(['/coffee-lab/questions/' + slug], {
-                queryParams: {
-                    isSavedPost: true,
-                },
-            });
-        } else if (this.isAssignedToMe) {
-            this.router.navigate(['/coffee-lab/questions/' + slug], {
-                queryParams: {
-                    isAssignedToMe: true,
-                },
-            });
-        } else {
-            this.router.navigateByUrl('/coffee-lab/questions/' + slug);
-        }
     }
 }

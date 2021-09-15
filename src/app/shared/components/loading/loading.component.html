@@ -10,6 +10,10 @@
 </ng-template>
 
 <div [ngSwitch]="type">
+    <div *ngSwitchCase="'overlay'" class="overlay-loader">
+        <ng-container *ngTemplateOutlet="ring"></ng-container>
+    </div>
+
     <div *ngSwitchCase="'header'" class="stricky bg-white">
         <div class="container">
             <div class="d-flex justify-content-between py-3">
