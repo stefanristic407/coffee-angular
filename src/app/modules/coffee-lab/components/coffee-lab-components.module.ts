@@ -29,7 +29,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    exports: [...COMPONENTS],
+    exports: [...COMPONENTS, CoffeeLabSharedModule],
     imports: [CommonModule, FormsModule, SharedModule, CoffeeLabSharedModule],
 })
 export class CoffeeLabComponentsModule {}
