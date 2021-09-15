@@ -11,7 +11,7 @@ import { CropperDialogComponent } from '@shared';
 import { CroppedImage, UserProfile } from '@models';
 import { emailValidator } from '@utils';
 import { COUNTRY_LIST, LANGUAGES } from '@constants';
-import { OrganizationType } from '@enums';
+import { OrganizationType, PostType } from '@enums';
 
 @Component({
     selector: 'app-my-profile',
@@ -42,16 +42,19 @@ export class MyProfileComponent implements OnInit {
     menuItems = [
         {
             label: 'qa_forum',
+            postType: PostType.QA,
             icon: 'assets/images/qa-forum.svg',
             activeIcon: 'assets/images/qa-forum-active.svg',
         },
         {
             label: 'posts',
+            postType: PostType.ARTICLE,
             icon: 'assets/images/article.svg',
             activeIcon: 'assets/images/article-active.svg',
         },
         {
             label: 'brewing_guides',
+            postType: PostType.RECIPE,
             icon: 'assets/images/coffee-recipe.svg',
             activeIcon: 'assets/images/coffee-recipe-active.svg',
         },

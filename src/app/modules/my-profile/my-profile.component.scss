@@ -24,18 +24,17 @@
 ::ng-deep {
     .p-tabview {
         &.tabview-coffee-lab {
-            @media (min-width: 992px) {
-                margin-top: -54px;
-            }
             .p-tabview-nav {
+                margin-top: 1.5rem;
+                @media (min-width: 992px) {
+                    margin-top: -54px;
+                }
+                background: $primary-bg-color;
                 border: none !important;
                 li {
                     margin-right: 0;
                     .p-tabview-nav-link {
-                        padding: 11px 16px 11px 16px !important;
-                        @media (min-width: 768px) {
-                            padding: 11px 16px 11px 16px !important;
-                        }
+                        padding: 15px 16px !important;
                         img {
                             display: inline-block;
                             &.active-icon {

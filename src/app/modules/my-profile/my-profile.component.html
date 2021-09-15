@@ -55,7 +55,7 @@
                 </div>
                 <div class="coffee-lab-menu bg-f8 d-none d-lg-block"></div>
             </div>
-            <div class="row gutter-16">
+            <div class="row gutter-32">
                 <div class="col-lg-4 banner-overlay">
                     <div class="avatar-name-container bg-white border-main br-4 text-center p-4">
                         <div>
@@ -100,11 +100,11 @@
                     <p-tabView styleClass="tabview-coffee-lab">
                         <p-tabPanel *ngFor="let labMenu of menuItems" header="labMenu">
                             <ng-template pTemplate="header">
-                                <img [src]="labMenu.icon" alt="icon" />
-                                <img [src]="labMenu.activeIcon" alt="icon" class="active-icon" />
+                                <img [src]="labMenu.icon" alt="icon" width="24" height="24" />
+                                <img [src]="labMenu.activeIcon" alt="icon" class="active-icon" width="24" height="24" />
                                 <span class="pl-1 d-none d-md-block">{{ labMenu.label | translate }}</span>
                             </ng-template>
-                            {{ labMenu.label | translate }}
+                            <app-my-posts [postType]="labMenu.postType"></app-my-posts>
                         </p-tabPanel>
                     </p-tabView>
                 </div>
