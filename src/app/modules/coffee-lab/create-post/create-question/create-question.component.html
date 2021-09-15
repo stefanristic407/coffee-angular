@@ -57,11 +57,7 @@
                     (click)="onPostQuestion('PUBLISHED')"
                     class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                 >
-                    {{
-                        (questionId && content?.status === 'DRAFT' ? 'publish' : questionId ? 'save_changes' : 'submit')
-                            | translate
-                            | titlecase
-                    }}
+                    {{ (questionId ? 'save_changes' : 'submit') | translate }}
                 </button>
             </div>
         </div>
