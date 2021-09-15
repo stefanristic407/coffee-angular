@@ -203,7 +203,11 @@ export class TranslateArticleComponent implements OnInit {
             this.coffeeLabService.translateForum('article', this.articleId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toastrService.success('You have posted a translated article successfully.');
+                    if (data.status === 'draft') {
+                        this.toastrService.success('Your translated article is successfully saved in draft.');
+                    } else {
+                        this.toastrService.success('You have posted a translated article successfully.');
+                    }
                     this.router.navigate([`/coffee-lab/articles/${this.article.slug}`]);
                 } else {
                     this.toastrService.error('Failed to post translated article.');
