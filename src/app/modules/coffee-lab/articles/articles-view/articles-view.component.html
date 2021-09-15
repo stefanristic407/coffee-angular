@@ -24,7 +24,6 @@
                 [options]="translationsList"
                 optionLabel="label"
                 optionValue="value"
-                [showClear]="true"
                 [(ngModel)]="coffeeLabService.articleViewFilterBy"
                 (ngModelChange)="reloadPageData()"
                 placeholder="{{ 'translations_available' | translate }}"
@@ -40,7 +39,6 @@
                     [(ngModel)]="coffeeLabService.articleViewSortBy"
                     (ngModelChange)="reloadPageData()"
                     placeholder="{{ 'sort_by' | translate }}"
-                    [showClear]="true"
                     styleClass="round-border"
                 >
                 </p-dropdown>

@@ -4,12 +4,12 @@
         <div class="mt-2">
             <p-dropdown
                 [options]="sortOptions"
-                [(ngModel)]="coffeeLabService.assignedToMeSortBy"
+                [(ngModel)]="coffeeLabService.qaForumViewSortBy"
                 (ngModelChange)="getQuestions()"
-                styleClass="no-border no-padding"
+                styleClass="round-border text-clr588"
+                [placeholder]="'sort_by' | translate"
                 optionLabel="label"
                 optionValue="value"
-                class="text-clr588 cust-drop"
             ></p-dropdown>
         </div>
     </div>

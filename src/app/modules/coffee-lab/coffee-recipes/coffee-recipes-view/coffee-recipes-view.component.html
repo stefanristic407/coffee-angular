@@ -25,7 +25,6 @@
                         [options]="levels"
                         optionLabel="label"
                         optionValue="value"
-                        [showClear]="true"
                         [(ngModel)]="coffeeLabService.recipeViewLevel"
                         (ngModelChange)="reloadPageData()"
                         placeholder="Levels"
@@ -38,7 +37,6 @@
                         [options]="translationsList"
                         optionLabel="label"
                         optionValue="value"
-                        [showClear]="true"
                         [(ngModel)]="coffeeLabService.recipeViewIsAvailableTranslation"
                         (ngModelChange)="reloadPageData()"
                         [placeholder]="'translation_available' | translate"
@@ -54,7 +52,6 @@
                     optionValue="value"
                     [(ngModel)]="coffeeLabService.recipeViewSortBy"
                     placeholder="{{ 'sort_by' | translate }}"
-                    [showClear]="true"
                     (onChange)="reloadPageData()"
                     styleClass="round-border mobile-ui"
                 >
