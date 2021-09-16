@@ -42,15 +42,8 @@
                             }
                         }
                     }
-                    .p-tabview-nav-link-active {
-                        img {
-                            display: none;
-                            &.active-icon {
-                                display: inline-block;
-                            }
-                        }
-                    }
-                    &:hover {
+                    &.p-highlight .p-tabview-nav-link,
+                    &:hover .p-tabview-nav-link {
                         img {
                             display: none;
                             &.active-icon {
