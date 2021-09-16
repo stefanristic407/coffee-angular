@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostType } from '@enums';
+import { OrganizationType, PostType } from '@enums';
 import { CoffeeLabService } from '@services';
 
 @Component({
@@ -10,6 +10,8 @@ import { CoffeeLabService } from '@services';
 export class MyPostsComponent implements OnInit {
     readonly PostType = PostType;
     @Input() postType: PostType;
+    @Input() queryUserId: number;
+    @Input() orgType: OrganizationType;
     posts: any[] = [];
     isLoading = true;
 
@@ -32,7 +34,17 @@ export class MyPostsComponent implements OnInit {
             per_page: this.rows,
         };
         this.isLoading = true;
-        this.coffeeLabService.getMyForumList(this.postType, params).subscribe((res) => {
+        let requestApi;
+        if (this.queryUserId) {
+            requestApi = this.coffeeLabService.getForumList(this.postType, {
+                ...params,
+                user_id: this.queryUserId,
+                organization_type: this.orgType,
+            });
+        } else {
+            requestApi = this.coffeeLabService.getMyForumList(this.postType, params);
+        }
+        requestApi.subscribe((res) => {
             if (res.success) {
                 this.posts = ((this.postType === PostType.QA ? res.result.questions : res.result) ?? []).map((item) => {
                     item.content = this.coffeeLabService.getJustText(item.content);

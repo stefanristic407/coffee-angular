@@ -38,7 +38,7 @@ export class MyProfileComponent implements OnInit {
     breadcrumbItems: MenuItem[];
     certificationArray: any[] = [];
     queryUserId: any;
-    orgType: any;
+    orgType: OrganizationType;
     menuItems = [
         {
             label: 'qa_forum',
@@ -75,7 +75,9 @@ export class MyProfileComponent implements OnInit {
         this.roasterId = this.authService.getOrgId();
         this.userId = this.authService.userId;
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
-        this.orgType = this.activateRoute.snapshot.queryParamMap.get('organization') || OrganizationType.ROASTER;
+        this.orgType =
+            (this.activateRoute.snapshot.queryParamMap.get('organization') as OrganizationType) ||
+            OrganizationType.ROASTER;
     }
 
     ngOnInit(): void {
