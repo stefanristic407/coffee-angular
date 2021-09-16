@@ -12,9 +12,6 @@ export class ArticleCardComponent implements OnInit {
     @Input() article: any;
     @Input() isMyPost = false;
     @Input() isSavedPost = false;
-    totalRecords = 0;
-    displayData: any[] = [];
-    pageDesc: string | undefined;
     isSaveBtn = false;
 
     constructor(
@@ -22,9 +19,7 @@ export class ArticleCardComponent implements OnInit {
         public authService: AuthService,
         private router: Router,
         private toastService: ToastrService,
-    ) {
-        this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
-    }
+    ) {}
 
     ngOnInit(): void {}
 

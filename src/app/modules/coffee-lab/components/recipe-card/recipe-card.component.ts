@@ -2,8 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AuthService, CoffeeLabService } from '@services';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-recipe-card',
@@ -14,9 +12,6 @@ export class RecipeCardComponent implements OnInit {
     @Input() recipe: any;
     @Input() isMyPost = false;
     @Input() isSavedPost = false;
-    totalRecords = 0;
-    displayData: any[] = [];
-    pageDesc: string | undefined;
     isSaveBtn = false;
 
     constructor(
@@ -24,9 +19,7 @@ export class RecipeCardComponent implements OnInit {
         public authService: AuthService,
         private router: Router,
         private toastService: ToastrService,
-    ) {
-        this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
-    }
+    ) {}
 
     ngOnInit(): void {}
 

@@ -15,8 +15,6 @@ export class QuestionCardComponent implements OnInit {
     @Input() isSavedPost = false;
     @Input() isAssignedToMe = false;
     questionMenuItems: MenuItem[] = [];
-    totalRecords = 0;
-    displayData: any[] = [];
 
     constructor(private router: Router, public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
