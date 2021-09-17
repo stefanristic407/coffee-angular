@@ -133,7 +133,7 @@ export class MyProfileComponent implements OnInit {
 
     getConverseLanguages(): void {
         this.isLoading = true;
-        this.userService.getConverseLanguage().subscribe((res: any) => {
+        this.userService.getConverseLanguages().subscribe((res: any) => {
             if (res.result?.languages?.length) {
                 this.infoForm.patchValue({ converseLanguages: res.result?.languages });
             }

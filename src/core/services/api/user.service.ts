@@ -486,13 +486,8 @@ export class UserService extends ApiService {
         return this.post(this.orgPostUrl, 'users/converse-languages', 'POST', body);
     }
 
-    getConverseLanguage() {
-        const data = {
-            api_call: '/users/converse-languages',
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+    getConverseLanguages() {
+        return this.post(this.orgPostUrl, `users/converse-languages`);
     }
 
     sendMicroRoasterInvite(roasterId: any, email: any, name: any) {

@@ -62,7 +62,7 @@ export class LanguageRegionComponent implements OnInit {
 
     getConverseLanguages(): void {
         this.isLoading = true;
-        this.userService.getConverseLanguage().subscribe((res: any) => {
+        this.userService.getConverseLanguages().subscribe((res: any) => {
             this.apiCount += 1;
             if (this.apiCount === 2) {
                 this.isLoading = false;
