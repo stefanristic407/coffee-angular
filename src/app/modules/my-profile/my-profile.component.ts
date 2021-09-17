@@ -73,7 +73,7 @@ export class MyProfileComponent implements OnInit {
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.orgType =
             (this.activateRoute.snapshot.queryParamMap.get('organization') as OrganizationType) ||
-            OrganizationType.ROASTER;
+            this.authService.orgType;
     }
 
     ngOnInit(): void {

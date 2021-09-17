@@ -11,6 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
     isSimulated = false;
+    readonly orgType = OrganizationType.ROASTER;
     private orgId: number;
     userSubject: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
     organizationSubject: BehaviorSubject<OrganizationProfile> = new BehaviorSubject(null);

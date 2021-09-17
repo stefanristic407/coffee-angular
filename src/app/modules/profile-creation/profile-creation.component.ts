@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RoasteryProfileService } from './roastery-profile.service';
-import { AuthService, GlobalsService, UserService } from '@services';
+import { GlobalsService, UserService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -31,14 +30,11 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
     isEditMode: boolean;
 
     subProfileForm: FormGroup;
-    roasterId: number;
     isAdminRole = false;
 
     constructor(
-        private authService: AuthService,
         private dialogService: DialogService,
         private fb: FormBuilder,
-        private toastrService: ToastrService,
         private userService: UserService,
         public cookieService: CookieService,
         public globals: GlobalsService,
@@ -48,7 +44,6 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.detectMode();
         this.initialForm();
-        this.roasterId = this.authService.getOrgId();
         this.checkAdminRole();
     }
 
