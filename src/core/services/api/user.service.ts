@@ -43,6 +43,11 @@ export class UserService extends ApiService {
         }
     }
 
+    // Edit user profile
+    updateUserProfile(body: any): Observable<ApiResponse<any>> {
+        return this.putWithOrg(this.orgPutUrl, `users/profile`, 'PUT', body);
+    }
+
     // ------------ User Groups ------------
 
     // Add an employee to contact group.
@@ -140,19 +145,6 @@ export class UserService extends ApiService {
                 this.socketService.destorySocket();
             }),
         );
-    }
-
-    // API Function Name :Update Roaster Profile
-    // API Description: This API calls helps to update Roaster User Profile.
-
-    updateRoasterProfile(roaster_id: any, body: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/users/profile',
-            token: this.authService.token,
-            method: 'PUT',
-            data: body,
-        };
-        return this.http.put(this.orgPutUrl, data);
     }
 
     // API Function Name : Update Password
@@ -370,14 +362,14 @@ export class UserService extends ApiService {
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    getCertificates() {
+    getUserCertificates() {
         return this.postWithOrg(this.orgPostUrl, `users/${this.getUserId()}/certificates`);
     }
 
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    deleteCertificate(certificateId: any) {
+    deleteUserCertificate(certificateId: any) {
         return this.postWithOrg(this.orgPostUrl, `users/${this.getUserId()}/certificates/${certificateId}`, 'DELETE');
     }
 
@@ -482,7 +474,7 @@ export class UserService extends ApiService {
         return this.http.post(this.orgPostUrl, data);
     }
 
-    addConverseLanguage(body: any): Observable<ApiResponse<any>> {
+    updateConverseLanguages(body: any): Observable<ApiResponse<any>> {
         return this.post(this.orgPostUrl, 'users/converse-languages', 'POST', body);
     }
 

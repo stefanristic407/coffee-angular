@@ -64,7 +64,7 @@ export class ApiService {
     protected putWithOrg(
         url: string,
         apiCall: string,
-        method: HttpMethod = '',
+        method: HttpMethod = 'PUT',
         data?: object,
     ): Observable<ApiResponse<any>> {
         const dto = this.getDtoWithOrg(apiCall, method, data);

@@ -141,7 +141,7 @@ export class MyProfileComponent implements OnInit {
     }
 
     getCertificates(): void {
-        this.userService.getCertificates().subscribe((res: any) => {
+        this.userService.getUserCertificates().subscribe((res: any) => {
             if (res.success) {
                 this.certificationArray = res.result;
             } else {
@@ -227,7 +227,7 @@ export class MyProfileComponent implements OnInit {
         if (this.profileFile) {
             promises.push(new Promise((resolve, reject) => this.uploadProfileImage(resolve, reject)));
         }
-        promises.push(new Promise((resolve, reject) => this.updateRoasterProfile(resolve, reject)));
+        promises.push(new Promise((resolve, reject) => this.updateUserProfile(resolve, reject)));
         promises.push(new Promise((resolve, reject) => this.saveConverseLanguages(resolve, reject)));
 
         this.isUpdatingProfile = true;
@@ -268,9 +268,9 @@ export class MyProfileComponent implements OnInit {
         });
     }
 
-    updateRoasterProfile(resolve, reject) {
+    updateUserProfile(resolve, reject) {
         const userInfo = { ...this.profileInfo, ...this.infoForm.value };
-        this.userService.updateRoasterProfile(this.userService.orgId, userInfo).subscribe((res: any) => {
+        this.userService.updateUserProfile(userInfo).subscribe((res: any) => {
             if (res.success) {
                 resolve();
             } else {
@@ -280,12 +280,14 @@ export class MyProfileComponent implements OnInit {
     }
 
     saveConverseLanguages(resolve, reject): void {
-        this.userService.addConverseLanguage({ languages: this.infoForm.value.converseLanguages }).subscribe((res) => {
-            if (res.success) {
-                resolve();
-            } else {
-                reject();
-            }
-        });
+        this.userService
+            .updateConverseLanguages({ languages: this.infoForm.value.converseLanguages })
+            .subscribe((res) => {
+                if (res.success) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
     }
 }

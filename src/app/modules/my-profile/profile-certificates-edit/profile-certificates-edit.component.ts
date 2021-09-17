@@ -72,7 +72,7 @@ export class ProfileCertificatesEditComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.userService.deleteCertificate(this.certificationArray[index].id).subscribe((res: any) => {
+                    this.userService.deleteUserCertificate(this.certificationArray[index].id).subscribe((res: any) => {
                         if (res.success) {
                             this.certificationArray.splice(index, 1);
                             this.onCancel();

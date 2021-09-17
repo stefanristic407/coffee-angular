@@ -89,15 +89,14 @@ export class LanguageRegionComponent implements OnInit {
     }
 
     onChangeUserInfo(): void {
-        console.log('update user info >>>', this.userInfo);
-        this.userService.updateRoasterProfile(this.roasterId, this.userInfo).subscribe();
+        this.userService.updateUserProfile(this.userInfo).subscribe();
         this.i18n.use(this.userInfo.language);
     }
 
     handleSaveConverseLanguages(): void {
         if (this.selectedConverseLanguages.length) {
             this.userService
-                .addConverseLanguage({
+                .updateConverseLanguages({
                     languages: this.selectedConverseLanguages.map((item: any) => item.value),
                 })
                 .subscribe();
