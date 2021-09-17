@@ -143,7 +143,7 @@ export class MyProfileComponent implements OnInit {
     getCertificates(): void {
         this.userService.getUserCertificates().subscribe((res: any) => {
             if (res.success) {
-                this.certificationArray = res.result;
+                this.certificationArray = res.result || [];
             } else {
                 this.toastr.error('Error while fetching certificates');
             }
