@@ -805,16 +805,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                         ? moment(getVariantDetails.harvest_year).format('yyyy-MM-DD')
                         : null;
                 }
-                const grindVariants: any = [];
-                for (const grind of weightObj.grind_variants) {
-                    if (grind.available_quantity && grind.sku_number) {
-                        if (!grind.grind_variant_id) {
-                            delete grind.grind_variant_id;
-                        }
-                        grindVariants.push(grind);
-                    }
-                }
-                weightObj.grind_variants = grindVariants;
+
                 delete weightObj.product_weight_variant_id;
                 delete weightObj.fileDetails;
                 weightObj.status = weightObj.status.toUpperCase();
