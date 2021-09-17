@@ -370,25 +370,15 @@ export class UserService extends ApiService {
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    getCertificates(organizationId: any, userId: any) {
-        const data = {
-            api_call: `/ro/${organizationId}/users/${userId}/certificates`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+    getCertificates() {
+        return this.postWithOrg(this.orgPostUrl, `users/${this.getUserId()}/certificates`);
     }
 
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    deleteCertificate(roaster_id: any, userId: any, certificateId: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/users/' + userId + '/certificates/' + certificateId,
-            method: 'DELETE',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgDeleteUrl, data);
+    deleteCertificate(certificateId: any) {
+        return this.postWithOrg(this.orgPostUrl, `users/${this.getUserId()}/certificates/${certificateId}`, 'DELETE');
     }
 
     // API Function Name :Profile Image Delete

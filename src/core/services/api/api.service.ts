@@ -117,6 +117,22 @@ export class ApiService {
         return str.join('&');
     }
 
+    get apiCallPrefix(): string {
+        return `/${this.orgType}/${this.orgId}`;
+    }
+
+    get orgId(): number {
+        return this.authService.getOrgId();
+    }
+
+    get userId(): number {
+        return this.authService.userId;
+    }
+
+    get token(): string {
+        return this.authService.token;
+    }
+
     protected getOrgId(): number {
         return this.authService.getOrgId();
     }

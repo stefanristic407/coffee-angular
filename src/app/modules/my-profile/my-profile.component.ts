@@ -33,8 +33,6 @@ export class MyProfileComponent implements OnInit {
     profileFile: File;
     profileInfo: UserProfile;
     infoForm: FormGroup;
-    roasterId: any;
-    userId: any;
     breadcrumbItems: MenuItem[];
     certificationArray: any[] = [];
     queryUserId: any;
@@ -67,13 +65,11 @@ export class MyProfileComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private toastr: ToastrService,
-        private userService: UserService,
-        public location: Location,
-        private validateService: ValidateEmailService,
         private translator: TranslateService,
+        private userService: UserService,
+        private validateService: ValidateEmailService,
+        public location: Location,
     ) {
-        this.roasterId = this.authService.getOrgId();
-        this.userId = this.authService.userId;
         this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.orgType =
             (this.activateRoute.snapshot.queryParamMap.get('organization') as OrganizationType) ||
@@ -145,7 +141,7 @@ export class MyProfileComponent implements OnInit {
     }
 
     getCertificates(): void {
-        this.userService.getCertificates(this.roasterId, this.userId).subscribe((res: any) => {
+        this.userService.getCertificates().subscribe((res: any) => {
             if (res.success) {
                 this.certificationArray = res.result;
             } else {
@@ -225,7 +221,6 @@ export class MyProfileComponent implements OnInit {
         }
 
         const promises = [];
-        promises.push();
         if (this.bannerFile) {
             promises.push(new Promise((resolve, reject) => this.uploadBanner(resolve, reject)));
         }
@@ -248,7 +243,7 @@ export class MyProfileComponent implements OnInit {
     uploadBanner(resolve, reject) {
         const formData: FormData = new FormData();
         formData.append('file', this.bannerFile);
-        formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/banner-image`);
+        formData.append('api_call', `${this.userService.apiCallPrefix}/users/${this.userService.userId}/banner-image`);
         formData.append('token', this.authService.token);
         this.userService.uploadProfileImage(formData).subscribe((res: any) => {
             if (res.success) {
@@ -262,7 +257,7 @@ export class MyProfileComponent implements OnInit {
     uploadProfileImage(resolve, reject) {
         const formData: FormData = new FormData();
         formData.append('file', this.profileFile);
-        formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/profile-image`);
+        formData.append('api_call', `${this.userService.apiCallPrefix}/users/${this.userService.userId}/profile-image`);
         formData.append('token', this.authService.token);
         this.userService.uploadProfileImage(formData).subscribe((res: any) => {
             if (res.success) {
@@ -275,7 +270,7 @@ export class MyProfileComponent implements OnInit {
 
     updateRoasterProfile(resolve, reject) {
         const userInfo = { ...this.profileInfo, ...this.infoForm.value };
-        this.userService.updateRoasterProfile(this.roasterId, userInfo).subscribe((res: any) => {
+        this.userService.updateRoasterProfile(this.userService.orgId, userInfo).subscribe((res: any) => {
             if (res.success) {
                 resolve();
             } else {
@@ -285,16 +280,12 @@ export class MyProfileComponent implements OnInit {
     }
 
     saveConverseLanguages(resolve, reject): void {
-        this.userService
-            .addConverseLanguage({
-                languages: this.infoForm.value.converseLanguages,
-            })
-            .subscribe((res) => {
-                if (res.success) {
-                    resolve();
-                } else {
-                    reject();
-                }
-            });
+        this.userService.addConverseLanguage({ languages: this.infoForm.value.converseLanguages }).subscribe((res) => {
+            if (res.success) {
+                resolve();
+            } else {
+                reject();
+            }
+        });
     }
 }

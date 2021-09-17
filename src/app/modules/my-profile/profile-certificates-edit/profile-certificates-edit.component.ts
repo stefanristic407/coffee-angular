@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService, UserService } from '@services';
+import { UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 
 @Component({
@@ -11,8 +11,6 @@ import { ConfirmComponent } from '@shared';
     styleUrls: ['./profile-certificates-edit.component.scss'],
 })
 export class ProfileCertificatesEditComponent implements OnInit {
-    roasterId: any;
-    userId: any;
     @Input() certificationArray;
     editingRowIndex = -2;
     yearList: any[] = [];
@@ -20,15 +18,11 @@ export class ProfileCertificatesEditComponent implements OnInit {
     certificateForm: FormGroup;
 
     constructor(
-        private authService: AuthService,
         private dialogSrv: DialogService,
         private fb: FormBuilder,
         private toastrService: ToastrService,
         private userService: UserService,
-    ) {
-        this.roasterId = this.authService.getOrgId();
-        this.userId = this.authService.userId;
-    }
+    ) {}
 
     ngOnInit(): void {
         const currentYear = new Date().getFullYear();
@@ -78,18 +72,15 @@ export class ProfileCertificatesEditComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    const certificateId = this.certificationArray[index].id;
-                    this.userService
-                        .deleteCertificate(this.roasterId, this.userId, certificateId)
-                        .subscribe((res: any) => {
-                            if (res.success) {
-                                this.certificationArray.splice(index, 1);
-                                this.onCancel();
-                                this.toastrService.success('The selected certificate has been deleted successfully');
-                            } else {
-                                this.toastrService.error('Something went wrong while deleting the certificate');
-                            }
-                        });
+                    this.userService.deleteCertificate(this.certificationArray[index].id).subscribe((res: any) => {
+                        if (res.success) {
+                            this.certificationArray.splice(index, 1);
+                            this.onCancel();
+                            this.toastrService.success('The selected certificate has been deleted successfully');
+                        } else {
+                            this.toastrService.error('Something went wrong while deleting the certificate');
+                        }
+                    });
                 }
             });
     }
@@ -108,12 +99,15 @@ export class ProfileCertificatesEditComponent implements OnInit {
         const formData: FormData = new FormData();
         formData.append('name', this.certificateForm.value.name);
         formData.append('year', this.certificateForm.value.year.toString());
-        formData.append('token', this.authService.token);
+        formData.append('token', this.userService.token);
         if (this.certificateForm.value.file.file) {
             formData.append('file', this.certificateForm.value.file.file);
         }
         if (this.editingRowIndex < 0) {
-            formData.append('api_call', `/ro/${this.roasterId}/users/${this.userId}/certificates`);
+            formData.append(
+                'api_call',
+                `${this.userService.apiCallPrefix}/users/${this.userService.userId}/certificates`,
+            );
             formData.append('method', 'POST');
             this.isSavingCertificate = true;
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
@@ -132,12 +126,11 @@ export class ProfileCertificatesEditComponent implements OnInit {
                 this.onCancel();
             });
         } else {
-            formData.append('certificate_id', this.certificationArray[this.editingRowIndex].id);
+            const certificateId = this.certificationArray[this.editingRowIndex].id;
+            formData.append('certificate_id', certificateId);
             formData.append(
                 'api_call',
-                `/ro/${this.roasterId}/users/${this.userId}/certificates/${
-                    this.certificationArray[this.editingRowIndex].id
-                }`,
+                `${this.userService.apiCallPrefix}/users/${this.userService.userId}/certificates/${certificateId}`,
             );
             formData.append('method', 'PUT');
             this.isSavingCertificate = true;
