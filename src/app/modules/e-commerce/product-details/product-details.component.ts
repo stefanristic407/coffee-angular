@@ -824,11 +824,6 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                     ele.id = ele.grind_variant_id ? ele.grind_variant_id : undefined;
                     ele.grind_variant_id = ele.grind_variant_id ? ele.grind_variant_id : undefined;
                 });
-                for (const key of Object.keys(weightObj)) {
-                    if (!weightObj[key]) {
-                        delete weightObj[key];
-                    }
-                }
 
                 if (weight.isNew) {
                     promises.push(
