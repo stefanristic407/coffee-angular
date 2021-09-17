@@ -11,7 +11,7 @@ import { CropperDialogComponent } from '@shared';
 import { CroppedImage, UserProfile } from '@models';
 import { emailValidator } from '@utils';
 import { COUNTRY_LIST, LANGUAGES } from '@constants';
-import { OrganizationType, PostType } from '@enums';
+import { OrganizationType, PostType, ProfileImageType } from '@enums';
 
 @Component({
     selector: 'app-my-profile',
@@ -21,6 +21,7 @@ import { OrganizationType, PostType } from '@enums';
 export class MyProfileComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     public readonly LANGUAGES = LANGUAGES;
+    readonly OrgType = OrganizationType;
 
     @ViewChild('bannerInput', { static: false }) bannerInput: ElementRef;
     @ViewChild('profileInput', { static: false }) profileInput: ElementRef;
@@ -99,10 +100,11 @@ export class MyProfileComponent implements OnInit {
     getUserInfo(): void {
         this.isLoading = true;
         const promises = [];
-        promises.push();
         if (!this.queryUserId) {
             promises.push(this.getCertificates());
         }
+        promises.push(new Promise((resolve, reject) => this.getUserDetail(resolve, reject)));
+        promises.push(new Promise((resolve, reject) => this.getConverseLanguages(resolve, reject)));
         Promise.all(promises)
             .then(() => {
                 this.isLoading = false;
@@ -110,11 +112,9 @@ export class MyProfileComponent implements OnInit {
             .catch(() => {
                 this.isLoading = false;
             });
-        this.getUserDetail();
-        this.getConverseLanguages();
     }
 
-    getUserDetail(): void {
+    getUserDetail(resolve, reject): void {
         this.userService.getUserDetail(this.queryUserId, this.orgType).subscribe((res) => {
             if (res.success) {
                 this.profileInfo = res.result;
@@ -124,19 +124,21 @@ export class MyProfileComponent implements OnInit {
                 if (this.queryUserId) {
                     this.certificationArray = res.result?.certificates || [];
                 }
+                resolve();
             } else {
                 this.toastr.error('Error while fetching profile');
                 this.router.navigate(['/']);
+                reject();
             }
         });
     }
 
-    getConverseLanguages(): void {
-        this.isLoading = true;
-        this.userService.getConverseLanguages().subscribe((res: any) => {
-            if (res.result?.languages?.length) {
+    getConverseLanguages(resolve, reject): void {
+        this.userService.getConverseLanguages().subscribe((res) => {
+            if (res.success && res.result?.languages?.length) {
                 this.infoForm.patchValue({ converseLanguages: res.result?.languages });
             }
+            resolve();
         });
     }
 
@@ -222,10 +224,18 @@ export class MyProfileComponent implements OnInit {
 
         const promises = [];
         if (this.bannerFile) {
-            promises.push(new Promise((resolve, reject) => this.uploadBanner(resolve, reject)));
+            promises.push(
+                new Promise((resolve, reject) =>
+                    this.uploadProfileImage(this.bannerFile, ProfileImageType.BANNER, resolve, reject),
+                ),
+            );
         }
         if (this.profileFile) {
-            promises.push(new Promise((resolve, reject) => this.uploadProfileImage(resolve, reject)));
+            promises.push(
+                new Promise((resolve, reject) =>
+                    this.uploadProfileImage(this.profileFile, ProfileImageType.PROFILE, resolve, reject),
+                ),
+            );
         }
         promises.push(new Promise((resolve, reject) => this.updateUserProfile(resolve, reject)));
         promises.push(new Promise((resolve, reject) => this.saveConverseLanguages(resolve, reject)));
@@ -240,27 +250,14 @@ export class MyProfileComponent implements OnInit {
             });
     }
 
-    uploadBanner(resolve, reject) {
-        const formData: FormData = new FormData();
-        formData.append('file', this.bannerFile);
-        formData.append('api_call', `${this.userService.apiCallPrefix}/users/${this.userService.userId}/banner-image`);
-        formData.append('token', this.authService.token);
-        this.userService.uploadProfileImage(formData).subscribe((res: any) => {
+    uploadProfileImage(file: File, type: ProfileImageType, resolve, reject) {
+        this.userService.uploadProfileImage(file, type).subscribe((res) => {
             if (res.success) {
-                resolve();
-            } else {
-                reject();
-            }
-        });
-    }
-
-    uploadProfileImage(resolve, reject) {
-        const formData: FormData = new FormData();
-        formData.append('file', this.profileFile);
-        formData.append('api_call', `${this.userService.apiCallPrefix}/users/${this.userService.userId}/profile-image`);
-        formData.append('token', this.authService.token);
-        this.userService.uploadProfileImage(formData).subscribe((res: any) => {
-            if (res.success) {
+                if (type === ProfileImageType.BANNER) {
+                    this.bannerFile = null;
+                } else if (type === ProfileImageType.PROFILE) {
+                    this.profileFile = null;
+                }
                 resolve();
             } else {
                 reject();

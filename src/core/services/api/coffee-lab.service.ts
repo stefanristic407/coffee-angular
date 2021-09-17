@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
-import { UplaodService } from '../upload';
+import { UploadService } from '../upload';
 import { AuthService } from '../auth';
 
 @Injectable({
@@ -37,7 +37,7 @@ export class CoffeeLabService extends ApiService {
     constructor(
         protected http: HttpClient,
         protected authService: AuthService,
-        private uploadService: UplaodService,
+        private uploadService: UploadService,
         private toastService: ToastrService,
     ) {
         super(http, authService);
