@@ -165,16 +165,7 @@
                         (click)="onPost('published')"
                         class="btn-raised px-4 ml-md-3 mr-md-2 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
-                        {{
-                            (articleId && article?.status === 'DRAFT'
-                                ? 'publish'
-                                : articleId
-                                ? 'save_changes'
-                                : 'submit'
-                            )
-                                | translate
-                                | titlecase
-                        }}
+                        {{ (articleId ? 'save_publish_changes' : 'publish') | translate | titlecase }}
                     </button>
                 </div>
             </div>

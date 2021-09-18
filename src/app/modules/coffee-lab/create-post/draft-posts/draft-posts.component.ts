@@ -75,6 +75,7 @@ export class DraftPostsComponent implements OnInit {
                 queryParams: {
                     id: draft.post_id,
                     type: draft.post_type,
+                    status: 'draft',
                 },
             });
         }

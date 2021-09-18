@@ -56,7 +56,7 @@ export class CreatePostComponent implements OnInit {
 
     onBack() {
         let type: string;
-        if (this.selectedType === 'question') {
+        if (this.selectedType === 'question' || this.selectedType === 'answer') {
             type = 'qa-forum';
         } else if (this.selectedType === 'recipe') {
             type = 'coffee-recipes';

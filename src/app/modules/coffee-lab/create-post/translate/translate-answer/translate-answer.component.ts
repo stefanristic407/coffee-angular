@@ -170,7 +170,7 @@ export class TranslateAnswerComponent implements OnInit {
             this.isPosting = false;
             if (res.success) {
                 if (status === 'draft') {
-                    this.toastrService.success('Your translated answer is successfully saved in draft');
+                    this.toastrService.success('Your translated Q/A post is successfully saved in draft');
                 } else {
                     this.toastrService.success('You have translated an answer successfully.');
                 }

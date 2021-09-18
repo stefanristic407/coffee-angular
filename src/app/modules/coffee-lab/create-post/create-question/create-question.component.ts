@@ -23,6 +23,8 @@ export class CreateQuestionComponent implements OnInit {
     categoryList: any;
     categoryValue: any;
     selectedCategory: string;
+    status: string;
+
     constructor(
         public location: Location,
         public dialogService: DialogService,
@@ -38,6 +40,7 @@ export class CreateQuestionComponent implements OnInit {
             const type = params.type;
             if (type === 'question') {
                 this.questionId = params.id;
+                this.status = params.status;
             }
             if (this.questionId) {
                 this.getQuestionById();
@@ -100,7 +103,7 @@ export class CreateQuestionComponent implements OnInit {
                 this.isPosting = false;
                 if (res.success) {
                     if (status === 'PUBLISHED') {
-                        this.toastrService.success('You have posted a question successfully.');
+                        this.toastrService.success('Your question have been posted successfully.');
                     } else if (status === 'DRAFT') {
                         this.toastrService.success('Your question is successfully saved in draft.');
                     }

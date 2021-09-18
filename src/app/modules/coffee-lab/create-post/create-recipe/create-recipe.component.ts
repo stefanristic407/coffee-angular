@@ -591,9 +591,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
                 if (res.success) {
                     if (data.publish) {
-                        this.toaster.success('You have posted a coffee recipe successfully.');
-                    } else if (!data.publish) {
-                        this.toaster.success('Your recipe is successfully saved in draft');
+                        this.toaster.success('Your recipe have been posted successfully');
+                    } else if (!data.publish && this.isTranslate) {
+                        this.toaster.success('Your translated recipe successfully saved in draft.');
+                    } else {
+                        this.toaster.success('Your recipe is successfully saved in draft.');
                     }
                     this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
                 } else {

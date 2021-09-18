@@ -135,7 +135,7 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'article':
                 this.router.navigate(['/coffee-lab/create-post/translate-article'], {
-                    queryParams: { origin_id: this.selectedItem.id },
+                    queryParams: { origin_id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'recipe':
@@ -145,7 +145,7 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'answer':
                 this.router.navigate(['/coffee-lab/create-post/translate-answer'], {
-                    queryParams: { origin_id: this.selectedItem.id },
+                    queryParams: { origin_id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'comment':

@@ -18,14 +18,14 @@
             <div class="d-flex" (click)="onClickDraft(draft)">
                 <div class="mr-3">
                     <img
-                        *ngIf="draft.post_type === 'question'"
+                        *ngIf="draft.post_type === 'question' || draft.post_type === 'answer'"
                         src="assets/images/qa-forum.svg"
                         alt="icon"
                         width="32"
                         height="32"
                     />
                     <img
-                        *ngIf="draft.post_type === 'article' || draft.post_type === 'answer'"
+                        *ngIf="draft.post_type === 'article'"
                         src="assets/images/article.svg"
                         alt="icon"
                         width="32"

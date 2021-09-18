@@ -180,7 +180,7 @@ export class CreateArticleComponent implements OnInit {
                     if (status === 'draft') {
                         this.toaster.success('Your article is successfully saved in draft');
                     } else {
-                        this.toaster.success('You have posted an article successfully.');
+                        this.toaster.success('Your article posted successfully');
                     }
                     this.router.navigate(['/coffee-lab/overview/articles']);
                 } else {
