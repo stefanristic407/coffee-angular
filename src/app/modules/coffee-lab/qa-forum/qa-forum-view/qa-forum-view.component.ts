@@ -52,6 +52,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
             this.getQuestions();
         });
+        this.getCategory();
     }
 
     handleSearch(): void {
@@ -71,6 +72,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
                     ? 'desc'
                     : 'asc',
             publish: true,
+            category_slug: this.coffeeLabService.qaForumViewCategory,
             page: 1,
             per_page: 10000,
         };

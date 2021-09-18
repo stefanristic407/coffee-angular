@@ -36,11 +36,12 @@
                         </div>
                         <p-dropdown
                             [options]="categoryList"
-                            (ngModelChange)="getQuestions()"
+                            (onChange)="getQuestions()"
+                            [(ngModel)]="coffeeLabService.qaForumViewCategory"
                             styleClass="round-border text-clr588"
                             [placeholder]="'category' | translate"
                             optionLabel="name"
-                            optionValue="parent_id"
+                            optionValue="slug"
                             class="ml-3"
                             [showClear]="true"
                         ></p-dropdown>

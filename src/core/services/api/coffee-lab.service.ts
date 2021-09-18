@@ -124,6 +124,10 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/unlike`, 'PUT');
     }
 
+    markBrewed(type, recipeId) {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${recipeId}/mark-brewed`, 'PUT');
+    }
+
     postForum(type: string, data: any): Observable<any> {
         return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s`, 'POST', data);
     }

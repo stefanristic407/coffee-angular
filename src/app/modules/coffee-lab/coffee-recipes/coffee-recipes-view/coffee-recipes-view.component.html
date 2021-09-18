@@ -22,6 +22,19 @@
             <div class="d-flex">
                 <div class="mb-25 mb-md-0">
                     <p-dropdown
+                        [options]="categoryList"
+                        (onChange)="getCoffeeRecipesData()"
+                        [(ngModel)]="coffeeLabService.recipeViewCategory"
+                        styleClass="round-border text-clr588"
+                        [placeholder]="'category' | translate"
+                        optionLabel="name"
+                        optionValue="slug"
+                        class="ml-0 mr-3"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </div>
+                <div class="mb-25 mb-md-0">
+                    <p-dropdown
                         [options]="levels"
                         optionLabel="label"
                         optionValue="value"

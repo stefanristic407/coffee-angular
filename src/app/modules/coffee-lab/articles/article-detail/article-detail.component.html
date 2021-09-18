@@ -144,15 +144,27 @@
                         <div class="w-100">
                             <div class="d-flex justify-content-between mt-3 mb-4">
                                 <div class="d-flex">
-                                    <!-- <div class="d-flex">
-                                        <img
-                                            (click)="onFocus()"
-                                            class="cursor-point"
-                                            src="assets/images/thumbsup.svg"
-                                            alt="thumbsup"
-                                        />
-                                        <span class="d-flex align-items-end ml-1 mb-1">42</span>
-                                    </div> -->
+                                    <div class="d-flex align-like">
+                                        <div class="like-int">
+                                            <img
+                                                (click)="onLike(detailsData.id)"
+                                                *ngIf="!detailsData.is_liked"
+                                                class="cursor-point like"
+                                                src="assets/images/thumbsup.svg"
+                                                alt="thumbs-up"
+                                            />
+                                            <img
+                                                (click)="onUnLike(detailsData.id)"
+                                                *ngIf="detailsData.is_liked"
+                                                class="cursor-point like"
+                                                src="assets/images/thumbs-up-1.svg"
+                                                alt="thumbs-up"
+                                            />
+                                        </div>
+                                        <span class="d-flex mt-3 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
+                                            detailsData.likes
+                                        }}</span>
+                                    </div>
                                     <div class="align-items-center">
                                         <div *ngIf="!isSaveArticle" class="hover-save-icon">
                                             <img
@@ -420,10 +432,25 @@
             </div>
             <div class="divder"></div>
             <div class="d-flex my-4">
-                <!-- <div class="d-flex">
-                    <img (click)="onFocus()" class="cursor-point" src="assets/images/thumbsup.svg" alt="thumb" />
-                    <span class="d-flex align-items-lg-end ml-1 mb-1">2</span>
-                </div> -->
+                <div class="d-flex align-like">
+                    <div class="like-int">
+                        <img
+                            (click)="onLike(detailsData.id)"
+                            *ngIf="!detailsData.is_liked"
+                            class="cursor-point like"
+                            src="assets/images/thumbsup.svg"
+                            alt="thumbs-up"
+                        />
+                        <img
+                            (click)="onUnLike(detailsData.id)"
+                            *ngIf="detailsData.is_liked"
+                            class="cursor-point like"
+                            src="assets/images/thumbs-up-1.svg"
+                            alt="thumbs-up"
+                        />
+                    </div>
+                    <span class="d-flex mt-3 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>
+                </div>
                 <div class="message-icon hover-message-icon">
                     <img
                         (click)="onFocusCommentBox()"

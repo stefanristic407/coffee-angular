@@ -36,6 +36,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
     searchInput$: Subject<any> = new Subject<any>();
     forumLanguage: string;
+    categoryList: any;
     constructor(
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
@@ -54,6 +55,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
             this.getData();
         });
+        this.getCategory();
     }
 
     handleSearch(): void {
@@ -62,6 +64,14 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
 
     reloadPageData(): void {
         this.getData();
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory().subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
     }
 
     getData(): void {
@@ -75,6 +85,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
                     ? 'desc'
                     : 'asc',
             publish: true,
+            category_slug: this.coffeeLabService.articleViewCategory,
             page: 1,
             per_page: 10000,
         };

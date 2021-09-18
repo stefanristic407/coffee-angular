@@ -71,7 +71,31 @@ export class ArticleCardComponent implements OnInit {
                 }
             });
         }, 100);
-        if (!this.isSaveBtn) {
-        }
+    }
+
+    onLike(articleId: number) {
+        this.isSaveBtn = true;
+        setTimeout(() => {
+            this.coffeeLabService.updateLike('article', articleId).subscribe((res) => {
+                if (res.success) {
+                    this.article.is_liked = true;
+                    this.article.likes = this.article.likes + 1;
+                    this.isSaveBtn = false;
+                }
+            });
+        }, 100);
+    }
+
+    onUnLike(articleId: number) {
+        this.isSaveBtn = true;
+        setTimeout(() => {
+            this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
+                if (res.success) {
+                    this.article.is_liked = false;
+                    this.article.likes = this.article.likes - 1;
+                    this.isSaveBtn = false;
+                }
+            });
+        }, 100);
     }
 }

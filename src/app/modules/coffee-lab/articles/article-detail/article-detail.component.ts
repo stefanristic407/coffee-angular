@@ -226,6 +226,24 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         }
     }
 
+    onLike(articleId: number) {
+        this.coffeeLabService.updateLike('article', articleId).subscribe((res) => {
+            if (res.success) {
+                this.detailsData.is_liked = true;
+                this.detailsData.likes = this.detailsData.likes + 1;
+            }
+        });
+    }
+
+    onUnLike(articleId: number) {
+        this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
+            if (res.success) {
+                this.detailsData.is_liked = false;
+                this.detailsData.likes = this.detailsData.likes - 1;
+            }
+        });
+    }
+
     onCategoryClick(slug: string) {
         this.router.navigateByUrl('/coffee-lab/category/' + slug);
     }

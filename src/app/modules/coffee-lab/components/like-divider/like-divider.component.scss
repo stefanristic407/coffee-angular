@@ -54,10 +54,17 @@
 }
 
 .align-like {
-    .like {
-        position: relative;
-        top: 10px;
-        height: 22px;
+    .like-int {
+        padding: 0 10.5px;
+        border-radius: 50%;
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
+        .like {
+            position: relative;
+            top: 10px;
+            height: 22px;
+        }
     }
 }
 

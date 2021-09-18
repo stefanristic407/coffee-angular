@@ -267,6 +267,22 @@
     border-radius: 50%;
     border: solid 1px #d8d8d8;
     background-color: #fff;
+    i {
+        font-weight: 700;
+    }
+}
+
+.active-check-icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 16px 0 0;
+    border-radius: 50%;
+    border: solid 1px #d8d8d8;
+    background-color: #30855c;
+    i {
+        color: white;
+        font-weight: 700;
+    }
 }
 
 ::ng-deep .p-inputtextarea:enabled:hover,
@@ -332,13 +348,30 @@
 }
 
 .category-btn {
-    margin: 5px 0px 0 0;
     padding: 8px 10px 8px 10px;
     border-radius: 4px;
     border: none;
+    margin-bottom: 0.75rem !important;
     @media (max-width: 768px) {
         margin: 0 12px 0 0;
         padding: 8px 10px 8px 10px;
         background-color: #eaeaea;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+.align-like {
+    .like-int {
+        padding: 0 8.5px;
+        border-radius: 50%;
+        background-color: rgba(116, 117, 136, 0.08);
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
+        .like {
+            position: relative;
+            top: 7px;
+            height: 22px;
+        }
     }
 }

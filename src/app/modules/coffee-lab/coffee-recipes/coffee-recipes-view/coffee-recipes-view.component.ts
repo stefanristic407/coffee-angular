@@ -52,6 +52,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             value: 'oldest',
         },
     ];
+    categoryList: any;
 
     constructor(
         private toastService: ToastrService,
@@ -71,6 +72,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
             this.getCoffeeRecipesData();
         });
+        this.getCategory();
     }
 
     handleSearch(): void {
@@ -79,6 +81,14 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
 
     reloadPageData(): void {
         this.getCoffeeRecipesData();
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory().subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
     }
 
     getCoffeeRecipesData(): void {
@@ -94,6 +104,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                     : 'asc',
             level: this.coffeeLabService.recipeViewLevel?.toLowerCase(),
             publish: true,
+            category_slug: this.coffeeLabService.recipeViewCategory,
             page: 1,
             per_page: 10000,
         };

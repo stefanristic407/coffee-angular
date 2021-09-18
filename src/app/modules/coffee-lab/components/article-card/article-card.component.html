@@ -12,10 +12,26 @@
     </div>
     <img [src]="article.cover_image_url" class="w-100 my-3" [alt]="article.title" />
     <div class="mx-4">
-        <div class="d-flex">
-            <!-- <div class="thumb-icon">
-                        <img src="assets/images/thumbsup.svg" alt="thumbs" />
-                    </div> -->
+        <div class="d-flex justify-content-between">
+            <div class="d-flex align-like-card">
+                <div class="like-int">
+                    <img
+                        (click)="onLike(article.id)"
+                        *ngIf="!article.is_liked"
+                        class="cursor-point like"
+                        src="assets/images/thumbsup.svg"
+                        alt="thumbs-up"
+                    />
+                    <img
+                        (click)="onUnLike(article.id)"
+                        *ngIf="article.is_liked"
+                        class="cursor-point like"
+                        src="assets/images/thumbs-up-1.svg"
+                        alt="thumbs-up"
+                    />
+                </div>
+                <span class="d-flex mt-3 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ article.likes }}</span>
+            </div>
             <span class="fnt-muli fnt-14 text-clr588">{{
                 article?.posted_at || article?.created_at | date: 'longDate'
             }}</span>
