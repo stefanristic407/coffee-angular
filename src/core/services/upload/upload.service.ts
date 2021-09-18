@@ -7,7 +7,7 @@ import { Upload } from '@models';
 @Injectable({
     providedIn: 'root',
 })
-export class UplaodService {
+export class UploadService {
     private uuid = 1;
     private readonly processesSubject = new BehaviorSubject<Upload[]>([]);
     get processes$(): Observable<Upload[]> {

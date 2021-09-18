@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService, RoasterserviceService, UserService } from '@services';
 import { COUNTRY_LIST } from '@constants';
 import { OrganizationProfile } from '@models';
-import { ContactGroup } from '@enums';
+import { ContactGroup, ProfileImageType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -211,20 +211,18 @@ export class RoasteryProfileService {
         );
 
         if (this.orgImgCroppedFile) {
-            const formData: FormData = new FormData();
-            formData.append('file', this.orgImgCroppedFile);
-            formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
-            formData.append('token', this.authService.token);
             promises.push(
                 new Promise((resolve, reject) => {
-                    this.userService.uploadProfileImage(formData).subscribe((result: any) => {
-                        if (result.success) {
-                            this.orgImgCroppedFile = null;
-                            resolve(result.success);
-                        } else {
-                            reject();
-                        }
-                    });
+                    this.userService
+                        .uploadProfileImage(this.orgImgCroppedFile, ProfileImageType.COMPANY)
+                        .subscribe((result: any) => {
+                            if (result.success) {
+                                this.orgImgCroppedFile = null;
+                                resolve(result.success);
+                            } else {
+                                reject();
+                            }
+                        });
                 }),
             );
         }

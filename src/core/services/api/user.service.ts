@@ -4,10 +4,11 @@ import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiResponse, UserProfile } from '@models';
-import { ContactGroup, OrganizationType } from '@enums';
+import { ContactGroup, OrganizationType, ProfileImageType } from '@enums';
 import { AuthService } from '../auth';
 import { SocketService } from '../socket';
 import { map, tap } from 'rxjs/operators';
+import { UploadService } from '../upload';
 
 @Injectable({
     providedIn: 'root',
@@ -18,6 +19,7 @@ export class UserService extends ApiService {
         protected authService: AuthService,
         private socketService: SocketService,
         private cookieService: CookieService,
+        private uploadService: UploadService,
     ) {
         super(http, authService);
     }
@@ -343,12 +345,25 @@ export class UserService extends ApiService {
 
     // API Function Name : Upload Profile Image API.
     // API Description   : This API call helps to upload the Profile Image.
-    uploadProfileImage(formData: any) {
-        const httpOptions = {
-            headers: new HttpHeaders({ Accept: 'application/json' }),
-        };
-        return this.http.post(this.profileImageUrl, formData, httpOptions);
+    uploadProfileImage(file: File, type: ProfileImageType): Observable<ApiResponse<any>> {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append(
+            'api_call',
+            `${this.apiCallPrefix}${type === ProfileImageType.COMPANY ? '' : '/users/' + this.userId}/${type}`,
+        );
+        formData.append('token', this.authService.token);
+        const processId = this.uploadService.addProcess(type);
+        return this.http
+            .post(this.profileImageUrl, formData, {
+                headers: new HttpHeaders({ Accept: 'application/json' }),
+                reportProgress: true,
+                observe: 'events',
+            })
+            .pipe(this.uploadService.upload(processId));
     }
+
+    // formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
 
     // API Function Name : Upload License and Certificates API.
     // API Description   : This API call helps to upload the license and certificates details.
@@ -478,7 +493,7 @@ export class UserService extends ApiService {
         return this.post(this.orgPostUrl, 'users/converse-languages', 'POST', body);
     }
 
-    getConverseLanguages() {
+    getConverseLanguages(): Observable<ApiResponse<any>> {
         return this.post(this.orgPostUrl, `users/converse-languages`);
     }
 
