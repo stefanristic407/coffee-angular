@@ -21,7 +21,15 @@
                     />
                 </div>
                 <div *ngIf="!showSearch" class="d-md-none ml-auto">
-                    <img src="assets/images/search.svg" class="img d-inline-block" (click)="openSearchPanel()" />
+                    <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-search"
+                        class="p-button-rounded p-button-text"
+                        (click)="openSearchPanel()"
+                    ></button>
+                    <!-- <img src="assets/images/search.svg" class="img d-inline-block" (click)="openSearchPanel()" /> -->
                 </div>
                 <ul class="header-profile-links ml-md-auto d-flex align-items-center px-3">
                     <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
@@ -221,7 +229,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
-                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">
+                                    <p class="mb-0 fnt-10 fnt-600">
                                         {{ 'dashboard' | translate }}
                                     </p>
                                 </div>
@@ -232,7 +240,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-coffeelab.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-coffeelab.svg" />
-                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">
+                                    <p class="mb-0 fnt-10 fnt-600">
                                         {{ 'coffee_lab' | translate | titlecase }}
                                     </p>
                                 </div>
@@ -240,28 +248,23 @@
                         </li>
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'MESSAGES' }">
                             <a class="d-inline-block" (click)="toggleMessagePanel()">
-                                <div class="d-flex flex-column align-items-center start-messaging">
-                                    <img
-                                        class="in-active"
-                                        *ngIf="(chat.unReadCount | async) === 0"
-                                        src="assets/images/mess.svg"
-                                    />
-                                    <img
-                                        class="in-active"
-                                        *ngIf="(chat.unReadCount | async) > 0"
-                                        src="assets/images/mess-active.svg"
-                                    />
-                                    <img class="active" src="assets/images/ft-icon-active-message.svg" />
-                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">{{ 'messages' | translate }}</p>
+                                <div class="d-flex flex-column align-items-center">
+                                    <div [class.red-mark]="(chat.unReadCount | async) > 0">
+                                        <img class="in-active" src="assets/images/ft-icon-message.svg" />
+                                        <img class="active" src="assets/images/ft-icon-active-message.svg" />
+                                    </div>
+                                    <p class="mb-0 fnt-10 fnt-600">{{ 'messages' | translate }}</p>
                                 </div>
                             </a>
                         </li>
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'NOTIFICATIONS' }">
                             <a (click)="myOp.toggle($event)" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
-                                    <img class="in-active" src="assets/images/notification.svg" />
-                                    <img class="active" src="assets/images/ft-icon-active-notification.svg" />
-                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">
+                                    <div [class.red-mark]="hasUnreadNotification">
+                                        <img class="in-active" src="assets/images/ft-icon-notification.svg" />
+                                        <img class="active" src="assets/images/ft-icon-active-notification.svg" />
+                                    </div>
+                                    <p class="mb-0 fnt-10 fnt-600">
                                         {{ 'notifications' | translate }}
                                     </p>
                                 </div>
@@ -286,7 +289,7 @@
                         </li>
 
                         <li
-                            *ngIf="aclService.checkPermission('profile-management'); else myProfileTpl"
+                            *ngIf="aclService.checkPermission('brand-profile-management'); else myProfileTpl"
                             class="footer-links__item"
                             [ngClass]="{ active: activeLink === 'PROFILES' }"
                         >
@@ -302,7 +305,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
-                                    <p class="mb-0 fnt-10 fnt-600 text-clr588">{{ 'profile' | translate }}</p>
+                                    <p class="mb-0 fnt-10 fnt-600">{{ 'profile' | translate }}</p>
                                 </div>
                             </a>
 
@@ -334,7 +337,7 @@
                                     <div class="d-flex flex-column align-items-center">
                                         <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                         <img class="active" src="assets/images/ft-icon-active-profile.svg" />
-                                        <p class="mb-0 fnt-10 fnt-600 text-clr588">{{ 'profile' | translate }}</p>
+                                        <p class="mb-0 fnt-10 fnt-600">{{ 'profile' | translate }}</p>
                                     </div>
                                 </a>
                             </li>

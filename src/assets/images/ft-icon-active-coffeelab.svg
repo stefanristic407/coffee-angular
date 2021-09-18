@@ -1,45 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>C7849225-CD14-415E-BEB8-9244DC738A85</title>
-    <defs>
-        <rect id="path-1" x="0" y="0" width="16" height="16"></rect>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="01_Coffee-lab---Q/A" transform="translate(-101.000000, -1287.000000)">
-            <g id="Group-16-Copy" transform="translate(0.000000, 1275.000000)">
-                <g id="Group-22" transform="translate(72.000000, 0.000000)">
-                    <g id="Group-10-Copy" transform="translate(11.000000, 12.000000)">
-                        <g id="coffee-loader" transform="translate(18.000000, 0.000000)">
-                            <mask id="mask-2" fill="white">
-                                <use xlink:href="#path-1"></use>
-                            </mask>
-                            <g id="Mask"></g>
-                            <g mask="url(#mask-2)" stroke-linecap="round" stroke-linejoin="round">
-                                <g transform="translate(2.000000, 1.000000)">
-                                    <g id="small_line" transform="translate(3.492720, 13.994320)">
-                                        <line x1="0.051744" y1="0.077616" x2="3.440976" y2="0.077616" id="Small_line" stroke="#30855C" stroke-width="1.1"></line>
-                                    </g>
-                                    <g id="big_line" transform="translate(0.000000, 12.577520)">
-                                        <line x1="0.090552" y1="0.077616" x2="10.387608" y2="0.077616" id="Big_line_1_" stroke="#30855C" stroke-width="1.1"></line>
-                                    </g>
-                                    <g id="Right_vapour" transform="translate(6.856080, 0.000000)">
-                                        <path d="M0.103488,0.103488 C0.103488,0.103488 0.84084,0.58212 0.3234,1.073688 C-0.284592,1.655808 0.19404,2.018016 0.284592,2.212056" id="Stroke-9" stroke="#30855C" stroke-width="0.77"></path>
-                                    </g>
-                                    <g id="center_vapour" transform="translate(4.527600, 0.000000)">
-                                        <path d="M0.142296,0.103488 C0.142296,0.103488 0.879648,0.58212 0.362208,1.073688 C-0.245784,1.655808 0.232848,2.018016 0.3234,2.212056" id="Stroke-11" stroke="#30855C" stroke-width="0.77"></path>
-                                    </g>
-                                    <g id="Left_vapour" transform="translate(2.199120, 0.000000)">
-                                        <path d="M0.181104,0.103488 C0.181104,0.103488 0.918456,0.58212 0.401016,1.073688 C-0.206976,1.655808 0.271656,2.018016 0.362208,2.212056" id="Stroke-13" stroke="#30855C" stroke-width="0.77"></path>
-                                    </g>
-                                    <g id="Group" transform="translate(0.776160, 3.457200)" stroke="#30855C" stroke-width="1.1">
-                                        <path d="M3.94548,7.231224 L3.94548,7.231224 C1.823976,7.231224 0.103488,5.510736 0.103488,3.389232 L0.103488,0.038808 L7.77460847,0.038808 L7.77460847,3.389232 C7.787472,5.510736 6.066984,7.231224 3.94548,7.231224 Z" id="Stroke-1_1_"></path>
-                                        <path d="M7.813344,1.371216 C7.813344,1.371216 9.676128,-0.58212 10.115952,1.604064 C10.568712,3.777312 7.645176,4.501728 7.645176,4.501728" id="Stroke-3"></path>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </g>
+<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>8423EA3B-B78A-45FB-BD0F-AF979CC8E7C0</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="03_Mobile-nav" transform="translate(-101.000000, -595.000000)" stroke="#30855C" stroke-width="1.4">
+            <g id="coffee" transform="translate(102.000000, 596.000000)">
+                <path d="M14,6 L15,6 C17.209139,6 19,7.56700338 19,9.5 C19,11.4329966 17.209139,13 15,13 L14,13" id="Path"></path>
+                <path d="M0,6 L14,6 L14,14.3076923 C14,16.3468975 12.4329966,18 10.5,18 L3.5,18 C1.56700338,18 0,16.3468975 0,14.3076923 L0,6 Z" id="Path"></path>
+                <line x1="3.5" y1="0" x2="3.5" y2="3" id="Path"></line>
+                <line x1="7.5" y1="0" x2="7.5" y2="3" id="Path"></line>
+                <line x1="10.5" y1="0" x2="10.5" y2="3" id="Path"></line>
             </g>
         </g>
     </g>

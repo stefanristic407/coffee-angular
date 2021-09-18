@@ -265,5 +265,19 @@
                 margin-bottom: 2px;
             }
         }
+
+        &:not(.active) .red-mark {
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: #e02f1f;
+            }
+        }
     }
 }
