@@ -138,6 +138,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     maxVideoSize = 15;
     destroy$: Subject<boolean> = new Subject<boolean>();
     clicked = false;
+    categoryList: any;
+    categoryValue: any;
 
     constructor(
         private authService: AuthService,
@@ -186,6 +188,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 }
             }
         });
+        this.getCategory();
         this.recipeForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
     }
 
@@ -326,6 +329,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             video_id: [null],
             inline_images: [[]],
             language: [],
+            categories: [''],
             publish: [true],
         });
     }
@@ -344,6 +348,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             steps: value.steps ? value.steps : [],
             cover_image_id: value.cover_image_id,
             video_id: value.video_id,
+            categories: value.categories,
             allow_translation: value.allow_translation,
         });
         if (value?.ingredients && value?.ingredients.length > 0) {
@@ -582,19 +587,20 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         //     return item;
         // });
         data.inline_images = [];
-        this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
-            if (res.success) {
-                if (data.publish) {
-                    this.toaster.success('You have posted a coffee recipe successfully.');
-                } else if (!data.publish) {
-                    this.toaster.success('Your recipe is successfully saved in draft');
+        (data.categories = this.categoryValue.map((item) => item.id)),
+            this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
+                if (res.success) {
+                    if (data.publish) {
+                        this.toaster.success('You have posted a coffee recipe successfully.');
+                    } else if (!data.publish) {
+                        this.toaster.success('Your recipe is successfully saved in draft');
+                    }
+                    this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
+                } else {
+                    this.isPosting = false;
+                    this.toaster.error('Failed to post coffee recipe.');
                 }
-                this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
-            } else {
-                this.isPosting = false;
-                this.toaster.error('Failed to post coffee recipe.');
-            }
-        });
+            });
     }
 
     pasteCoverImage(): void {
@@ -645,6 +651,18 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 insertAltAttr(item.get('description').value, ` ${this.recipeForm.get('name').value} step image`),
             );
         });
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory().subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
+    }
+
+    resetCategory() {
+        this.categoryValue = null;
     }
 
     changeLanguage(value) {

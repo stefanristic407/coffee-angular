@@ -6,11 +6,16 @@
     </div>
     <div class="container article-main-block" *ngIf="!isLoading">
         <div>
-            <!-- <div class="mx-md-4 mb-0 mb-md-4 text-md-center">
-                <span *ngFor="let btn of buttonList">
-                    <button class="button-list fnt-12 fnt-muli fnt-600 text-clr334">{{ btn.button }}</button>
-                </span>
-            </div> -->
+            <div *ngIf="detailsData?.categories" class="row mx-0 justify-content-lg-center">
+                <div *ngFor="let category of detailsData?.categories; let i = index" class="mr-2">
+                    <button
+                        class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334"
+                        (click)="onCategoryClick(category.slug)"
+                    >
+                        {{ category.name }}
+                    </button>
+                </div>
+            </div>
             <div class="px-0 px-md-475">
                 <h1 class="main-heading bg-transparent fnt-bold text-clr334 px-0 px-lg-5 mt-md-4 mt-35 mb-md-3 mb-2">
                     <!-- Starting your coffee tasting journey is easy! -->

@@ -258,4 +258,8 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/coffee-lab/overview/coffee-recipes');
         }
     }
+
+    onCategoryClick(slug: string) {
+        this.router.navigateByUrl('/coffee-lab/category/' + slug);
+    }
 }

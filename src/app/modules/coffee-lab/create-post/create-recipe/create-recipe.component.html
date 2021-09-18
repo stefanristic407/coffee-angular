@@ -152,7 +152,7 @@
                 {{ 'required' | translate }}
             </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3 pl-0">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-md-3 pl-0">
             <label>{{ 'yield' | translate }}</label>
             <input type="text" placeholder="Enter how many servings can be made" formControlName="serves" pInputText />
             <small *ngIf="recipeForm.controls['serves'].errors?.required" class="p-error">
@@ -692,6 +692,41 @@
                 ><span class="editBtn" (click)="addStep()">{{ 'add_another_step' | translate }}</span></span
             >
         </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3 mt-1">
+            <label class="mb-1">{{ 'category' | translate }}</label>
+            <p-multiSelect
+                [options]="categoryList"
+                [(ngModel)]="categoryValue"
+                optionLabel="name"
+                dataKey="id"
+                [ngModelOptions]="{ standalone: true }"
+                [filter]="false"
+                [maxSelectedLabels]="0"
+                scrollHeight="225px"
+                [showHeader]="false"
+                placeholder="Select relevant categories"
+                styleClass="category-dropdown"
+                class="category-multi"
+            >
+                <ng-template pTemplate="footer">
+                    <span class="d-block w-100 text-center my-2 navigation-link" (click)="resetCategory()">
+                        {{ 'clear' | translate }}
+                    </span>
+                </ng-template>
+            </p-multiSelect>
+        </div>
+        <div class="row mx-0 d-md-none">
+            <p-chips
+                *ngIf="categoryValue"
+                [(ngModel)]="categoryValue"
+                field="name"
+                [ngModelOptions]="{ standalone: true }"
+                [allowDuplicate]="false"
+                styleClass="p-category-chips"
+                class="mt-2"
+            >
+            </p-chips>
+        </div>
         <div
             *ngIf="!isTranslate"
             class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3"
@@ -709,6 +744,18 @@
             <small *ngIf="recipeForm.controls['expertise'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
+        </div>
+        <div class="row mx-3 d-none d-md-block">
+            <p-chips
+                *ngIf="categoryValue"
+                [(ngModel)]="categoryValue"
+                field="name"
+                [ngModelOptions]="{ standalone: true }"
+                [allowDuplicate]="false"
+                styleClass="p-category-chips"
+                class="mt-2"
+            >
+            </p-chips>
         </div>
         <div
             *ngIf="!isTranslate"
