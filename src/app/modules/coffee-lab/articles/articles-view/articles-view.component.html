@@ -28,6 +28,7 @@
                 (ngModelChange)="reloadPageData()"
                 placeholder="{{ 'translations_available' | translate }}"
                 styleClass="round-border"
+                [showClear]="true"
             >
             </p-dropdown>
             <div class="mt-25 mt-md-0">
@@ -40,6 +41,7 @@
                     (ngModelChange)="reloadPageData()"
                     placeholder="{{ 'sort_by' | translate }}"
                     styleClass="round-border"
+                    [showClear]="true"
                 >
                 </p-dropdown>
             </div>

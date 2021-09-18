@@ -31,8 +31,19 @@
                                 (ngModelChange)="getQuestions()"
                                 styleClass="round-border text-clr588"
                                 [placeholder]="'posted_by' | translate"
+                                [showClear]="true"
                             ></p-dropdown>
                         </div>
+                        <p-dropdown
+                            [options]="categoryList"
+                            (ngModelChange)="getQuestions()"
+                            styleClass="round-border text-clr588"
+                            [placeholder]="'category' | translate"
+                            optionLabel="name"
+                            optionValue="parent_id"
+                            class="ml-3"
+                            [showClear]="true"
+                        ></p-dropdown>
                         <div class="ml-md-3 d-none d-md-block">
                             <p-dropdown
                                 [options]="sortOptions"
@@ -42,6 +53,7 @@
                                 styleClass="round-border text-clr588"
                                 optionLabel="label"
                                 optionValue="value"
+                                [showClear]="true"
                             ></p-dropdown>
                         </div>
                     </div>
@@ -54,6 +66,7 @@
                             [placeholder]="'sort_by' | translate"
                             optionLabel="label"
                             optionValue="value"
+                            [showClear]="true"
                         ></p-dropdown>
                     </div>
                 </div>

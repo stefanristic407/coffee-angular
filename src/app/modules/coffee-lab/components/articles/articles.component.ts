@@ -16,11 +16,11 @@ export class ArticlesComponent implements OnInit {
     constructor(public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
     ngOnInit(): void {
-        this.displayData = this.articles.slice(0, 9);
-        this.totalRecords = this.articles.length;
+        this.displayData = this.articles?.slice(0, 9);
+        this.totalRecords = this.articles?.length;
     }
 
     paginate(event: any) {
-        this.displayData = this.articles.slice(event.first, event.first + event.rows);
+        this.displayData = this.articles?.slice(event.first, event.first + event.rows);
     }
 }

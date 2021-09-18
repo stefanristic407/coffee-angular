@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
@@ -42,5 +41,9 @@ export class QuestionCardComponent implements OnInit {
         } else {
             this.router.navigateByUrl('/coffee-lab/questions/' + slug);
         }
+    }
+
+    onCategoryClick(slug: string) {
+        this.router.navigateByUrl('/coffee-lab/category/' + slug);
     }
 }

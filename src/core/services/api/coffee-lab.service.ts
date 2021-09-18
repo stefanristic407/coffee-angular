@@ -18,13 +18,16 @@ export class CoffeeLabService extends ApiService {
     forumLanguage = new BehaviorSubject('en');
     organization = this.orgType;
     // filterBy and sortBy
-    qaForumViewFilterBy = '';
-    qaForumViewSortBy = '';
-    articleViewFilterBy = '';
-    articleViewSortBy = '';
-    recipeViewIsAvailableTranslation = '';
-    recipeViewLevel = '';
-    recipeViewSortBy = '';
+    qaForumViewFilterBy = null;
+    qaForumViewSortBy = null;
+    qaForumViewCategory = null;
+    articleViewCategory = null;
+    recipeViewCategory = null;
+    articleViewFilterBy = null;
+    articleViewSortBy = null;
+    recipeViewIsAvailableTranslation = null;
+    recipeViewLevel = null;
+    recipeViewSortBy = null;
     qaPostSortBy = 'latest';
     assignedToMeSortBy = 'latest';
     myAnswersSortBy = 'desc';
@@ -103,6 +106,22 @@ export class CoffeeLabService extends ApiService {
             'POST',
             data,
         );
+    }
+
+    getCategory(): Observable<any> {
+        return this.post(this.orgPostUrl, `general/categories`, 'GET');
+    }
+
+    getTopWriters(options): Observable<any> {
+        return this.post(this.orgPostUrl, `general/coffee-lab/top-writers?${this.serializeParams(options)}`, 'GET');
+    }
+
+    updateLike(type, id) {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/like`, 'PUT');
+    }
+
+    updateUnLike(type, id) {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/unlike`, 'PUT');
     }
 
     postForum(type: string, data: any): Observable<any> {

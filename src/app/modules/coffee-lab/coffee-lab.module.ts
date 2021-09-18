@@ -36,6 +36,8 @@ import { TabContainerComponent } from './create-post/tab-container/tab-container
 import { TranslateAnswerComponent } from './create-post/translate/translate-answer/translate-answer.component';
 import { TranslateArticleComponent } from './create-post/translate/translate-article/translate-article.component';
 import { TranslateRecipeComponent } from './create-post/translate/translate-recipe/translate-recipe.component';
+import { CategoryViewComponent } from './category/category-view/category-view.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
     declarations: [
@@ -69,6 +71,8 @@ import { TranslateRecipeComponent } from './create-post/translate/translate-reci
         TranslateAnswerComponent,
         TranslateArticleComponent,
         TranslateRecipeComponent,
+        CategoryViewComponent,
+        CategoryComponent,
     ],
     imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule, CoffeeLabComponentsModule],
 })

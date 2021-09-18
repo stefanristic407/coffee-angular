@@ -30,6 +30,8 @@ export class CreateArticleComponent implements OnInit {
     clicked = false;
     images = [];
     languageList: any[] = APP_LANGUAGES;
+    categoryList: any;
+    categoryValue: any;
 
     constructor(
         private fb: FormBuilder,
@@ -52,7 +54,7 @@ export class CreateArticleComponent implements OnInit {
                 this.getArticleById();
             }
         });
-
+        this.getCategory();
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([maxWordCountValidator(30), Validators.required])],
@@ -149,6 +151,7 @@ export class CreateArticleComponent implements OnInit {
             ...this.articleForm.value,
             images: this.imageIdList,
             status,
+            categories: this.categoryValue.map((item) => item.id),
         };
         if (this.isCoverImageUploaded) {
             data = {
@@ -207,6 +210,18 @@ export class CreateArticleComponent implements OnInit {
                     element.value = '';
                 }
             });
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory().subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
+    }
+
+    resetCategory() {
+        this.categoryValue = null;
     }
 
     changeLanguage(value) {

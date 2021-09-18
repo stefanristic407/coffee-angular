@@ -21,7 +21,6 @@ export class LikeDividerComponent implements OnInit {
         private activateRoute: ActivatedRoute,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
-        private dialogService: DialogService,
     ) {}
 
     ngOnInit(): void {
@@ -40,11 +39,22 @@ export class LikeDividerComponent implements OnInit {
         };
     }
 
-    onFocus() {
-        // this.dialogSrv.open(SignupModalComponent, {
-        //     showHeader: false,
-        //     styleClass: 'signup-dialog',
-        // });
+    onLike() {
+        this.coffeeLabService.updateLike('question', this.question.id).subscribe((res) => {
+            if (res.success) {
+                this.question.is_liked = true;
+                this.question.likes = this.question.likes + 1;
+            }
+        });
+    }
+
+    onUnLike() {
+        this.coffeeLabService.updateUnLike('question', this.question.id).subscribe((res) => {
+            if (res.success) {
+                this.question.is_liked = false;
+                this.question.likes = this.question.likes - 1;
+            }
+        });
     }
 
     onSave(): void {

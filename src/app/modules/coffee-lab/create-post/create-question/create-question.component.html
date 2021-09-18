@@ -26,6 +26,38 @@
         ></textarea>
         <small *ngIf="isQuestion" class="no-brew fnt-14 fnt-muli fnt-600">{{ 'required' | translate }} </small>
     </div>
+    <div class="mb-3 mb-md-4 sewn-form-field pl-0 col-12 w-100">
+        <label class="mb-1">{{ 'category' | translate }}</label>
+        <p-multiSelect
+            [options]="categoryList"
+            [(ngModel)]="categoryValue"
+            optionLabel="name"
+            dataKey="id"
+            [ngModelOptions]="{ standalone: true }"
+            [filter]="false"
+            [maxSelectedLabels]="0"
+            scrollHeight="225px"
+            [showHeader]="false"
+            placeholder="Select relevant categories"
+            styleClass="category-dropdown"
+        >
+            <ng-template pTemplate="footer">
+                <span class="d-block w-100 text-center my-2 navigation-link" (click)="resetCategory()">
+                    {{ 'clear' | translate }}
+                </span>
+            </ng-template>
+        </p-multiSelect>
+        <p-chips
+            *ngIf="categoryValue"
+            [(ngModel)]="categoryValue"
+            field="name"
+            [ngModelOptions]="{ standalone: true }"
+            [allowDuplicate]="false"
+            styleClass="p-category-chips"
+            class="mt-2"
+        >
+        </p-chips>
+    </div>
     <div class="d-flex align-items-center mb-4 mb-md-5">
         <p-checkbox
             [(ngModel)]="isAllowTranslation"

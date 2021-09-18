@@ -9,11 +9,24 @@
 </div> -->
 <div class="like-box py-1 py-md-225 px-3 d-flex justify-content-between" [ngClass]="{ 'border-l8': total < 1 }">
     <div class="d-flex">
-        <!-- <div class="d-flex">
-            <img (click)="onFocus()" class="cursor-point" src="assets/images/thumbsup.svg" alt="thumbs-up" />
-            <span class="d-flex align-items-end ml-md-2 ml-1 mb-05">42</span>
-        </div> -->
-        <div class="align-items-center hover-message-icon d-flex">
+        <div class="d-flex align-like">
+            <img
+                (click)="onLike()"
+                *ngIf="!question.is_liked"
+                class="cursor-point like"
+                src="assets/images/thumbsup.svg"
+                alt="thumbs-up"
+            />
+            <img
+                (click)="onUnLike()"
+                *ngIf="question.is_liked"
+                class="cursor-point"
+                src="assets/images/thumbs-up-1.svg"
+                alt="thumbs-up"
+            />
+            <span class="d-flex mt-3 ml-md-2 ml-1 mb-05 fnt-300 text-clr334">{{ question.likes }}</span>
+        </div>
+        <div class="align-items-center hover-message-icon d-flex ml-3">
             <img (click)="onJoin()" class="cursor-point" src="assets/images/message.svg" alt="message" />
         </div>
         <div class="align-items-center ml-md-1 hover-save-icon d-flex" *ngIf="!question?.is_saved">

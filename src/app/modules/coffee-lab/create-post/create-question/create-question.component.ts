@@ -20,6 +20,9 @@ export class CreateQuestionComponent implements OnInit {
     languageCode?: string;
     isQuestion = false;
     languageList: any[] = APP_LANGUAGES;
+    categoryList: any;
+    categoryValue: any;
+    selectedCategory: string;
     constructor(
         public location: Location,
         public dialogService: DialogService,
@@ -42,6 +45,7 @@ export class CreateQuestionComponent implements OnInit {
                 this.languageCode = this.coffeeLabService.currentForumLanguage;
             }
         });
+        this.getCategory();
     }
 
     getQuestionById(): void {
@@ -69,12 +73,12 @@ export class CreateQuestionComponent implements OnInit {
             this.toastrService.error('Question is too short.');
             return;
         }
-
         const data = {
             question: this.content,
             allow_translation: this.isAllowTranslation ? 1 : 0,
             status,
             language: this.languageCode,
+            categories: this.categoryValue.map((item) => item.id),
         };
         this.isPosting = true;
         if (this.questionId) {
@@ -106,6 +110,18 @@ export class CreateQuestionComponent implements OnInit {
                 }
             });
         }
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory().subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
+    }
+
+    resetCategory() {
+        this.categoryValue = null;
     }
 
     changeLanguage(value) {

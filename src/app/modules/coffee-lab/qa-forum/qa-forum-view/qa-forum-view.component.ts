@@ -32,6 +32,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
     searchInput$: Subject<any> = new Subject<any>();
+    categoryList: any;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -66,7 +67,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
                 this.coffeeLabService.qaForumViewSortBy === 'most_answered'
                     ? 'desc'
                     : this.coffeeLabService.qaForumViewSortBy === 'latest' ||
-                      this.coffeeLabService.qaForumViewSortBy === ''
+                      this.coffeeLabService.qaForumViewSortBy === null
                     ? 'desc'
                     : 'asc',
             publish: true,
@@ -87,5 +88,13 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory().subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
     }
 }

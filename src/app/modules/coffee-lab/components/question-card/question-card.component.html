@@ -27,6 +27,16 @@
             (click)="onQuestionNavigate(question.slug)"
             [innerHTML]="question?.question"
         ></div>
+        <div *ngIf="question?.categories" class="d-flex pt-4">
+            <div *ngFor="let category of question?.categories; let i = index" [ngClass]="{ 'ml-2': i > 0 }">
+                <button
+                    class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334"
+                    (click)="onCategoryClick(category.slug)"
+                >
+                    {{ category.name }}
+                </button>
+            </div>
+        </div>
     </div>
     <app-like-divider [question]="question" [total]="question.total_answers"></app-like-divider>
     <div *ngIf="question.total_answers > 0" class="pt-md-4 pb-md-0 py-3 pl-3 pl-md-5 pr-md-4 pr-3 border-top-main">

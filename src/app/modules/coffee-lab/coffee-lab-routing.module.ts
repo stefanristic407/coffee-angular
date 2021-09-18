@@ -24,6 +24,7 @@ import { MyArticlesComponent } from '@modules/coffee-lab/my-posts/my-articles/my
 import { SavedArticlesComponent } from '@modules/coffee-lab/saved-posts/saved-articles/saved-articles.component';
 import { MyRecipesComponent } from '@modules/coffee-lab/my-posts/my-recipes/my-recipes.component';
 import { SavedRecipesComponent } from '@modules/coffee-lab/saved-posts/saved-recipes/saved-recipes.component';
+import { CategoryComponent } from './category/category.component';
 
 const routes: Routes = [
     {
@@ -134,6 +135,10 @@ const routes: Routes = [
                 ],
             },
         ],
+    },
+    {
+        path: 'category/:slug',
+        component: CategoryComponent,
     },
 ];
 

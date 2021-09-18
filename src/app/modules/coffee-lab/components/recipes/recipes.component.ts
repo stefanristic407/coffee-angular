@@ -16,11 +16,11 @@ export class RecipesComponent implements OnInit {
     constructor(public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
     ngOnInit(): void {
-        this.displayData = this.recipes.slice(0, 9);
-        this.totalRecords = this.recipes.length;
+        this.displayData = this.recipes?.slice(0, 9);
+        this.totalRecords = this.recipes?.length;
     }
 
     paginate(event: any) {
-        this.displayData = this.recipes.slice(event.first, event.first + event.rows);
+        this.displayData = this.recipes?.slice(event.first, event.first + event.rows);
     }
 }
