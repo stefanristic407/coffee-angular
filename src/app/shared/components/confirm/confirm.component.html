@@ -1,15 +1,19 @@
 <ng-container [ngSwitch]="config.data.type">
-    <div *ngSwitchCase="'delete'" class="text-center dialog-wrap">
-        <img src="/assets/images/delete-role.svg" alt="" />
-        <div class="title lh-normal fnt-bold text-clr02 fnt-play mt-3">
-            {{ config.data.title || ('oh_no' | translate) }}
+    <div *ngSwitchCase="'delete'">
+        <div class="d-flex justify-content-between align-items-start px-45 pt-45 pb-4">
+            <div class="content-wrap">
+                <div class="fnt-20 fnt-bold">
+                    {{ config.data.title || ('confirm_delete' | translate) }}
+                </div>
+                <div class="fnt-14 fnt-md-16 lh-15 text-clr588 mt-25">
+                    {{ config.data.desp || ('confirm_delete_desp' | translate) }}
+                </div>
+            </div>
+            <img src="/assets/images/trash-icon.svg" alt="" />
         </div>
-        <div class="fnt-14 fnt-md-16 lh-15 text-clr5d pt-3">
-            {{ config.data.desp || ('confirm_delete' | translate) }}
-        </div>
-        <div class="pt-45 pt-md-5">
+        <div class="bg-f8 py-4 px-45">
             <button class="btn-stroked mr-3" (click)="close('no')">
-                {{ config.data.noButton || ('cancel' | translate) }}
+                {{ config.data.noButton || ('no_donot_delete' | translate) }}
             </button>
             <button class="btn-raised" (click)="close('yes')">
                 {{ config.data.yesButton || ('delete' | translate) }}
@@ -19,10 +23,10 @@
 
     <div *ngSwitchCase="'logout'" class="text-center dialog-wrap">
         <img src="/assets/images/attention.svg" alt="" />
-        <div class="title lh-normal fnt-bold text-clr02 fnt-play mt-3">
+        <div class="fnt-20 fnt-bold mt-3">
             {{ config.data.title || ('attention_user' | translate) }}
         </div>
-        <div class="fnt-14 fnt-md-16 lh-15 text-clr5d pt-3">
+        <div class="fnt-14 fnt-md-16 lh-15 text-clr588 mt-25">
             {{ config.data.desp || ('confirm_logout' | translate) }}
         </div>
         <div class="text-left pl-md-35 pt-4">
@@ -38,20 +42,23 @@
         </div>
     </div>
 
-    <div *ngSwitchDefault class="text-center dialog-wrap">
-        <img src="/assets/images/confirm-icon.svg" alt="" />
-        <div class="title lh-normal fnt-bold text-clr02 fnt-play mt-35">
-            {{ config.data.title }}
+    <div *ngSwitchDefault>
+        <div class="px-45 pt-45 pb-4">
+            <div class="content-wrap">
+                <div class="fnt-20 fnt-bold">
+                    {{ config.data.title }}
+                </div>
+                <div class="fnt-14 fnt-md-16 lh-15 text-clr588 mt-25">
+                    {{ config.data.desp }}
+                </div>
+            </div>
         </div>
-        <div class="fnt-14 fnt-md-16 lh-15 text-clr5d pt-3">
-            {{ config.data.desp }}
-        </div>
-        <div class="pt-45 pt-md-5">
+        <div class="bg-f8 py-4 px-45">
             <button class="btn-stroked mr-3" (click)="close('no')">
                 {{ config.data.noButton || ('cancel' | translate) }}
             </button>
             <button class="btn-raised" (click)="close('yes')">
-                {{ config.data.yesButton || ('yes' | translate) }}
+                {{ config.data.yesButton || ('confirm' | translate) }}
             </button>
         </div>
     </div>
