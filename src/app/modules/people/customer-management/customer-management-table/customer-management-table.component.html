@@ -22,7 +22,7 @@
                             [pSortableColumn]="col.sortable === true ? col.field : null"
                             [style.width]="col.width ? col.width + 'px' : 'unset'"
                         >
-                            <span class="primeng-table-header">{{ col.header }}</span>
+                            <span class="primeng-table-header">{{ col.header | translate }}</span>
                             <p-sortIcon
                                 *ngIf="col.sortable === true"
                                 [field]="col.field"
@@ -52,7 +52,7 @@
                             <span *ngSwitchCase="'organization_type'">
                                 <div class="d-flex">
                                     <span *ngIf="isMobileView" class="text-clr588 prime-table-label w-50">
-                                        {{ col.header }}
+                                        {{ col.header | translate }}
                                     </span>
                                     <span [class.w-50]="isMobileView">
                                         {{ getOrgName(rowData['organization_type']) }}
@@ -114,7 +114,7 @@
                                     </div>
                                     <div class="d-flex">
                                         <span *ngIf="isMobileView" class="text-clr588 prime-table-label w-50">
-                                            {{ col.header }}
+                                            {{ col.header | translate }}
                                         </span>
                                         <span [class.w-50]="isMobileView">
                                             {{ rowData[col.field] || '--' }}
@@ -125,7 +125,7 @@
                             <span *ngSwitchDefault>
                                 <div class="d-flex">
                                     <span *ngIf="isMobileView" class="text-clr588 prime-table-label w-50">
-                                        {{ col.header }}
+                                        {{ col.header | translate }}
                                     </span>
                                     <span [class.w-50]="isMobileView">
                                         {{ rowData[col.field] || '--' }}

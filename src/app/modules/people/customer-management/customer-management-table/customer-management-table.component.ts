@@ -97,23 +97,23 @@ export class CustomerManagementTableComponent implements OnInit {
                 ? [
                       {
                           field: 'email',
-                          header: 'Email address',
+                          header: 'email_address',
                           sortable: false,
                       },
                       {
                           field: 'created_at',
-                          header: 'Created On',
+                          header: 'created_on',
                           sortable: false,
                       },
                       {
                           field: 'organization_type',
-                          header: 'Organisation type',
+                          header: 'organization_type',
                           sortable: false,
                           width: 200,
                       },
                       {
                           field: 'actions',
-                          header: 'Actions',
+                          header: 'actions',
                           sortable: false,
                           width: 150,
                       },
@@ -121,23 +121,23 @@ export class CustomerManagementTableComponent implements OnInit {
                 : [
                       {
                           field: 'admin_id',
-                          header: 'Customer Id',
+                          header: 'customer_id',
                           sortable: false,
                           width: 150,
                       },
                       {
                           field: 'name',
-                          header: 'Name',
+                          header: 'name',
                           sortable: false,
                       },
                       {
                           field: 'created_at',
-                          header: 'Created On',
+                          header: 'created_on',
                           sortable: true,
                       },
                       {
                           field: 'status',
-                          header: 'Status',
+                          header: 'status',
                           sortable: false,
                           width: 130,
                       },
@@ -148,13 +148,13 @@ export class CustomerManagementTableComponent implements OnInit {
                       },
                       {
                           field: 'active_users',
-                          header: 'Active Users',
+                          header: 'active_users',
                           sortable: false,
                           width: 130,
                       },
                       {
                           field: 'actions',
-                          header: 'Actions',
+                          header: 'actions',
                           sortable: false,
                           width: 150,
                       },

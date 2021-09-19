@@ -3,6 +3,12 @@
     display: flex;
     flex-direction: column;
 
+    .custom-search input {
+        @media (min-width: 768px) {
+            min-width: 300px;
+        }
+    }
+
     .dropdown-wrapper {
         display: flex;
         flex-wrap: wrap;
