@@ -203,7 +203,12 @@
                                             'optional' | translate
                                         }})</label
                                     >
-                                    <textarea pInputTextarea rows="4" formControlName="about_me"></textarea>
+                                    <textarea
+                                        pInputTextarea
+                                        rows="4"
+                                        autoResize="true"
+                                        formControlName="about_me"
+                                    ></textarea>
                                 </div>
                                 <div class="col-md-6 sewn-form-field mb-md-0">
                                     <label>{{ 'email_address' | translate }}<span class="star">*</span></label>
