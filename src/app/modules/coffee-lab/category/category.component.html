@@ -39,16 +39,12 @@
                         *ngIf="!isLoading"
                         class="col-12 col-md-4 px-0 mx-auto w-min-content d-none d-lg-block h-fit-content"
                     >
-                        <div class="border-main">
-                            <div class="row bg-f4f5 py-3 pl-3 m-1 fnt-16 fnt-bold fnt-muli">
+                        <div class="other-category py-4">
+                            <div class="row mx-0 fnt-16 fnt-bold fnt-muli">
                                 {{ 'other_categories' | translate }}
                             </div>
-                            <div class="row mx-0">
-                                <div
-                                    *ngFor="let item of otherCategories; let isLast = last"
-                                    [ngClass]="{ 'mb-4': isLast }"
-                                    class="ml-3"
-                                >
+                            <div class="row mx-0 mt-4">
+                                <div *ngFor="let item of otherCategories; let isLast = last" class="mr-3">
                                     <button
                                         class="category-btn fnt-600 text-clr334 mb-2"
                                         (click)="onCategoryClick(item.slug)"
@@ -113,7 +109,7 @@
     <div class="d-flex mb-md-4 ml-3">
         <div class="d-md-flex justify-content-md-between align-items-center pr-lg-2 flex-1">
             <div class="d-flex">
-                <div>
+                <!-- <div>
                     <p-dropdown
                         [options]="categoryList"
                         (onChange)="getQuestions()"
@@ -131,7 +127,7 @@
                         class="ml-0"
                         [showClear]="true"
                     ></p-dropdown>
-                </div>
+                </div> -->
                 <div class="ml-md-3" *ngIf="selectedTab === 1">
                     <p-dropdown
                         [options]="translationsList"

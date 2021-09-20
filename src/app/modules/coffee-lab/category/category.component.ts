@@ -106,7 +106,7 @@ export class CategoryComponent implements OnInit {
                     ? 'desc'
                     : 'asc',
             publish: true,
-            category_slug: this.coffeeLabService.qaForumViewCategory || this.slug,
+            // category_slug: this.coffeeLabService.qaForumViewCategory || this.slug,
             page: 1,
             per_page: 10000,
         };

@@ -34,3 +34,19 @@
         background-color: #eaeaea;
     }
 }
+
+.align-like {
+    .like-int {
+        padding: 0 12.4px;
+        border-radius: 50%;
+        background-color: rgba(116, 117, 136, 0.08);
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
+        .like {
+            position: relative;
+            top: 9px;
+            height: 20px;
+        }
+    }
+}
