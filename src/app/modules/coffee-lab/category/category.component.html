@@ -7,9 +7,7 @@
     <div class="mt-1 mt-md-2 mb-4 mb-lg-5 pb-1">
         <h1 class="title-header text-clr334 fnt-700">{{ categoryName | titlecase }}</h1>
         <p class="text-clr334 col-md-8 pl-1 col-12">
-            Coffee roasting is the process of heating the coffee cherry seeds to augment aroma and flavor and ultimately
-            increase solubility. Why do we keep talking about solubility? Because it is the essential element of coffee
-            brewing.
+            {{ 'coffee_roasting_is_the_process' | translate }}
         </p>
     </div>
     <p-tabView [(activeIndex)]="selectedTab" (onChange)="onChangeTab($event.index)">
@@ -42,7 +40,9 @@
                         class="col-12 col-md-4 px-0 mx-auto w-min-content d-none d-lg-block h-fit-content"
                     >
                         <div class="border-main">
-                            <div class="row bg-f4f5 py-3 pl-3 m-1 fnt-16 fnt-bold fnt-muli">Other Categories</div>
+                            <div class="row bg-f4f5 py-3 pl-3 m-1 fnt-16 fnt-bold fnt-muli">
+                                {{ 'other_categories' | translate }}
+                            </div>
                             <div class="row mx-0">
                                 <div
                                     *ngFor="let item of otherCategories; let isLast = last"
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="top-writer mt-4">
-                            <div class="fnt-muli fnt-16 fnt-bold mb-2 mt-3">Top writers</div>
+                            <div class="fnt-muli fnt-16 fnt-bold mb-2 mt-3">{{ 'top_writers' | translate }}</div>
                             <div
                                 *ngFor="let user of topWriters; let isLast = last"
                                 [ngClass]="{ 'border-0': isLast, 'mb-25': isLast }"
