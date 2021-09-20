@@ -151,7 +151,7 @@ export class CreateArticleComponent implements OnInit {
             ...this.articleForm.value,
             images: this.imageIdList,
             status,
-            categories: this.categoryValue.map((item) => item.id),
+            categories: this.categoryValue?.map((item) => item.id),
         };
         if (this.isCoverImageUploaded) {
             data = {
@@ -163,7 +163,7 @@ export class CreateArticleComponent implements OnInit {
             this.coffeeLabService.updateForum('article', this.articleId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    if (data.status === 'DRAFT') {
+                    if (data.status === 'draft') {
                         this.toaster.success('Your changes have been successfully updated to the draft.');
                     } else {
                         this.toaster.success('You have updated an article successfully.');

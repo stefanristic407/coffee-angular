@@ -81,8 +81,9 @@ export class CreateQuestionComponent implements OnInit {
             allow_translation: this.isAllowTranslation ? 1 : 0,
             status,
             language: this.languageCode,
-            categories: this.categoryValue.map((item) => item.id),
+            categories: this.categoryValue?.map((item) => item.id) || [],
         };
+
         this.isPosting = true;
         if (this.questionId) {
             this.coffeeLabService.updateForum('question', this.questionId, data).subscribe((res: any) => {
