@@ -10,9 +10,9 @@
     }
 }
 
-.click-color {
-    border-radius: 50%;
-    background-color: #e4e4e4;
+[tabindex]:focus {
+    border-radius: 50% !important;
+    background-color: #e4e4e4 !important;
 }
 
 ::ng-deep .p-menu-overlay {
