@@ -34,6 +34,7 @@ export class CreateArticleComponent implements OnInit {
     languageList: any[] = APP_LANGUAGES;
     categoryList: any[] = [];
     categoryValue: any[] = [];
+    status: string;
 
     constructor(
         private fb: FormBuilder,
@@ -51,6 +52,7 @@ export class CreateArticleComponent implements OnInit {
             const type = params.type;
             if (type === 'article') {
                 this.articleId = params.id;
+                this.status = params.status;
             }
             if (this.articleId) {
                 this.getCompleteData();
@@ -185,6 +187,8 @@ export class CreateArticleComponent implements OnInit {
                 if (res.success) {
                     if (data.status === 'draft') {
                         this.toaster.success('Your changes have been successfully updated to the draft.');
+                    } else if (this.status === 'draft') {
+                        this.toaster.success('Your article have been posted successfully.');
                     } else {
                         this.toaster.success('You have updated an article successfully.');
                     }
@@ -200,7 +204,7 @@ export class CreateArticleComponent implements OnInit {
                     if (status === 'draft') {
                         this.toaster.success('Your article is successfully saved in draft');
                     } else {
-                        this.toaster.success('Your article posted successfully');
+                        this.toaster.success('Your article have been posted successfully');
                     }
                     this.router.navigate(['/coffee-lab/overview/articles']);
                 } else {

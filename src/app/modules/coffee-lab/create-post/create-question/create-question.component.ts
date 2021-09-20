@@ -110,6 +110,8 @@ export class CreateQuestionComponent implements OnInit {
                 if (res.success) {
                     if (data.status === 'DRAFT') {
                         this.toaster.success('Your changes have been successfully updated to the draft.');
+                    } else if (this.status === 'draft') {
+                        this.toastrService.success('Your question have been posted successfully.');
                     } else {
                         this.toaster.success('You have updated a question successfully.');
                     }

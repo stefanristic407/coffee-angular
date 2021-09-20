@@ -692,7 +692,10 @@
                 ><span class="editBtn" (click)="addStep()">{{ 'add_another_step' | translate }}</span></span
             >
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3 mt-1">
+        <div
+            *ngIf="!isTranslate"
+            class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3 mt-1"
+        >
             <label class="mb-1">{{ 'category' | translate }}</label>
             <p-multiSelect
                 [options]="categoryList"

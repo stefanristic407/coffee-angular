@@ -140,6 +140,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     clicked = false;
     categoryList: any;
     categoryValue: any;
+    status: string;
 
     constructor(
         private authService: AuthService,
@@ -164,6 +165,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 this.recipeId = params.id;
                 this.originRecipeId = params.origin_id;
                 this.draftRecipeId = params.draft_id;
+                this.status = params.status;
                 this.coffeeLabService.originalPost.pipe(takeUntil(this.destroy$)).subscribe((res) => {
                     if (res && this.isTranslate) {
                         this.onSave();
@@ -555,10 +557,12 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
-                if (data.publish) {
-                    this.toaster.success('You have updated an recipe successfully.');
-                } else {
+                if (!data.publish) {
                     this.toaster.success('Your changes have been successfully updated to the draft.');
+                } else if (this.status === 'draft') {
+                    this.toaster.success('Your recipe have been posted successfully.');
+                } else {
+                    this.toaster.success('You have updated an recipe successfully.');
                 }
                 this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
             } else {
@@ -576,7 +580,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         // data.inline_images = data.inline_images.filter((i) => i !== undefined);
         this.coffeeLabService.translateForum('recipe', this.originRecipeId, data).subscribe((res: any) => {
             if (res.success) {
-                this.toaster.success('You have translated a coffee recipe successfully.');
+                if (data.publish) {
+                    this.toaster.success('You have translated a coffee recipe successfully.');
+                } else {
+                    this.toaster.success('Your translated recipe successfully saved in draft.');
+                }
                 this.router.navigate([`/coffee-lab/recipes/${this.recipe.slug}`]);
             } else {
                 this.isPosting = false;
@@ -609,7 +617,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
             if (res.success) {
                 if (data.publish) {
-                    this.toaster.success('Your recipe have been posted successfully');
+                    this.toaster.success('Your recipe have been posted successfully.');
                 } else if (!data.publish && this.isTranslate) {
                     this.toaster.success('Your translated recipe successfully saved in draft.');
                 } else {
