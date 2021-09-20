@@ -536,7 +536,7 @@
                         >
                             <span *ngIf="stickySecData?.organisation_name">@</span>
                             {{ stickySecData?.city || stickySecData?.organization_city }},
-                            {{ stickySecData?.country }}
+                            {{ stickySecData?.country | country }}
                         </p>
                     </div>
                 </div>
