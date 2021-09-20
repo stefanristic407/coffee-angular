@@ -525,6 +525,12 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.chat.toggle();
     }
 
+    onHideNotification() {
+        if (this.activeLink === 'NOTIFICATIONS') {
+            this.activeLink = 'UNSET';
+        }
+    }
+
     redirect(event: any) {
         this.router.navigateByUrl(event.routerLink);
     }

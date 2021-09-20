@@ -281,3 +281,44 @@
         }
     }
 }
+
+.header-button {
+    height: 38px;
+    width: 38px;
+    padding: 0;
+    background: rgba(184, 184, 184, 0.11);
+    box-shadow: none;
+    border: none;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    &:enabled.active {
+        background: rgba(48, 133, 92, 0.08) !important;
+    }
+
+    &.red-mark {
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #e02f1f;
+        }
+    }
+
+    img {
+        display: none;
+    }
+
+    &:not(.active) img.in-active-icon {
+        display: block;
+    }
+    &.active img.active-icon {
+        display: block;
+    }
+}

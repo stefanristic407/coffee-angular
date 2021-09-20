@@ -248,14 +248,13 @@ textarea {
 .header-search {
     position: relative;
     &::before {
-        content: '';
-        background-image: url(/assets/images/search.svg);
-        width: 30px;
-        height: 30px;
+        content: '\e908';
+        font-family: 'primeicons';
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: 8px;
+        left: 16px;
+        font-size: 18px;
     }
     & > .p-inputtext {
         padding-left: 3.125rem;
@@ -272,11 +271,11 @@ textarea {
         font-size: 16px;
         font-weight: normal;
         width: 100%;
+        background: #f4f4f5 !important;
+        border-radius: 19px;
+        border: none;
         @media (min-width: 768px) {
-            width: 180px;
-        }
-        @media (min-width: 992px) {
-            width: 378px;
+            width: 165px;
         }
     }
     input::placeholder {

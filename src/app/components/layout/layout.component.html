@@ -11,169 +11,163 @@
                         <img src="assets/images/era-we-black.svg" alt="Comany-Logo" />
                     </a>
                 </div>
-                <div class="d-md-inline-block header-search" [class.d-none]="!showSearch">
-                    <input
-                        type="text"
-                        [(ngModel)]="searchString"
-                        [placeholder]="'search' | translate"
-                        (keyup)="search()"
-                        pInputText
-                    />
-                </div>
-                <div *ngIf="!showSearch" class="d-md-none ml-auto">
-                    <button
-                        pButton
-                        pRipple
-                        type="button"
-                        icon="pi pi-search"
-                        class="p-button-rounded p-button-text"
-                        (click)="openSearchPanel()"
-                    ></button>
-                    <!-- <img src="assets/images/search.svg" class="img d-inline-block" (click)="openSearchPanel()" /> -->
-                </div>
-                <ul class="header-profile-links ml-md-auto d-flex align-items-center px-3">
-                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                        <a
+                <div class="d-flex align-items-center ml-md-auto">
+                    <div class="d-md-inline-block header-search" [class.d-none]="!showSearch">
+                        <input
+                            type="text"
+                            [(ngModel)]="searchString"
+                            [placeholder]="'search' | translate"
+                            (keyup)="search()"
+                            pInputText
+                        />
+                    </div>
+                    <div *ngIf="!showSearch" class="d-md-none ml-auto">
+                        <button
+                            pButton
+                            pRipple
+                            type="button"
+                            icon="pi pi-search"
+                            class="p-button-rounded p-button-text"
+                            (click)="openSearchPanel()"
+                        ></button>
+                    </div>
+                    <div class="d-flex align-items-center ml-25">
+                        <button
+                            type="button"
+                            class="header-button mr-25"
                             [routerLink]="['/team-management/team-members']"
                             [queryParams]="{ roleID: 21, isAddMember: true }"
-                            class="d-inline-block image-card"
+                            routerLinkActive="active"
                         >
-                            <img class="img" src="assets/images/add.svg" />
-                        </a>
-                    </li>
-                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                        <a href="javascript:void(0)" (click)="toggleMessagePanel()" class="image-card">
-                            <img
-                                class="img"
-                                *ngIf="chat.unReadCount.value === 0 && !chat.isOpen.value"
-                                src="assets/images/mess.svg"
-                            />
-                            <img
-                                class="img"
-                                *ngIf="chat.unReadCount.value > 0 && !chat.isOpen.value"
-                                src="assets/images/mess-active.svg"
-                            />
-                            <img class="img" *ngIf="chat.isOpen.value" src="assets/images/mess-desktop-active.svg" />
-                        </a>
-                    </li>
-                    <li
-                        class="
-                            header-profile-links__item
-                            d-inline-block
-                            ml-md-3 ml-lg-4
-                            pl-xl-2
-                            zoom-effect-container
-                            position-relative
-                            overflow-visible
-                        "
-                    >
-                        <a href="javascript:void(0)" class="d-inline-block image-card" (click)="myOp.toggle($event)">
-                            <img
-                                class="img"
-                                [src]="
-                                    hasUnreadNotification
-                                        ? 'assets/images/notification.svg'
-                                        : 'assets/images/notification-normal.svg'
-                                "
-                            />
-                        </a>
-                        <p-overlayPanel #myOp styleClass="notification-overlay">
-                            <div class="notification-header">
-                                <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">
-                                    {{ 'notifications' | translate }}
-                                </span>
-                                <div class="d-flex">
-                                    <div class="custom-link fnt-14 mr-3" (click)="makeAsAllRead(myOp)">
-                                        {{ 'mark_all_read' | translate }}
+                            <img class="in-active-icon" src="assets/images/add.svg" />
+                            <img class="active-icon" src="assets/images/add-active.svg" />
+                        </button>
+                        <button
+                            type="button"
+                            class="header-button mr-25"
+                            [class.red-mark]="(chat.unReadCount | async) > 0"
+                            [ngClass]="{ active: activeLink === 'MESSAGES' }"
+                            (click)="toggleMessagePanel()"
+                        >
+                            <img class="in-active-icon" src="assets/images/ft-icon-message.svg" />
+                            <img class="active-icon" src="assets/images/ft-icon-active-message.svg" />
+                        </button>
+                        <button
+                            type="button"
+                            class="header-button"
+                            [class.red-mark]="hasUnreadNotification"
+                            [ngClass]="{ active: activeLink === 'NOTIFICATIONS' }"
+                            (click)="myOp.toggle($event); closeMessagePanel()"
+                        >
+                            <img class="in-active-icon" src="assets/images/ft-icon-notification.svg" />
+                            <img class="active-icon" src="assets/images/ft-icon-active-notification.svg" />
+                            <div class="text-left">
+                                <p-overlayPanel
+                                    #myOp
+                                    styleClass="notification-overlay"
+                                    (onShow)="activeLink = 'NOTIFICATIONS'"
+                                    (onHide)="onHideNotification()"
+                                >
+                                    <div class="notification-header">
+                                        <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">
+                                            {{ 'notifications' | translate }}
+                                        </span>
+                                        <div class="d-flex">
+                                            <div class="custom-link fnt-14 mr-3" (click)="makeAsAllRead(myOp)">
+                                                {{ 'mark_all_read' | translate }}
+                                            </div>
+                                            <div class="cursor-pointer" (click)="myOp.hide()">
+                                                <img src="assets/images/notif-close-icon.svg" />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="cursor-pointer" (click)="myOp.hide()">
-                                        <img src="assets/images/notif-close-icon.svg" />
+                                    <div class="notification-body px-1 py-2">
+                                        <ng-container
+                                            *ngTemplateOutlet="notificationTemplate; context: { myOp: myOp }"
+                                        ></ng-container>
                                     </div>
+                                </p-overlayPanel>
+                            </div>
+                        </button>
+                    </div>
+                    <ul class="header-profile-links d-flex align-items-center ml-4">
+                        <li class="header-profile-links__item d-inline-block">
+                            <div class="profile-link d-flex align-items-center">
+                                <div class="d-inline-block mr-md-2">
+                                    <app-avatar
+                                        [size]="38"
+                                        [src]="
+                                            authService.currentUser?.profile_image_thumb_url
+                                                ? authService.currentUser?.profile_image_thumb_url
+                                                : authService.currentUser?.profile_image_url
+                                                ? authService.currentUser?.profile_image_url
+                                                : 'assets/images/default-avatar.png'
+                                        "
+                                    >
+                                    </app-avatar>
+                                </div>
+                                <div class="profile-link__info pl-lg-1 float-right">
+                                    <a
+                                        class="profile-name"
+                                        role="button"
+                                        [popover]="popTemplate"
+                                        placement="bottom"
+                                        #pop2="bs-popover"
+                                        container="body"
+                                        [outsideClick]="true"
+                                    >
+                                        <h6 class="d-block fnt-14 fnt-md-16 fnt-600 text-clr24 m-0">
+                                            {{ authService.currentUser?.firstname }}
+                                            <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
+                                        </h6>
+                                        <span
+                                            class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
+                                            style="transform: translateY(-10px)"
+                                            >{{ rolename | titlecase }}</span
+                                        >
+                                    </a>
+                                    <ng-template #popTemplate>
+                                        <div id="popover-mobile-content">
+                                            <ul class="menu-list bottom">
+                                                <li
+                                                    *appAclIf="'brand-profile-management'"
+                                                    [routerLink]="['/roastery-profile']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
+                                                >
+                                                    {{ 'menu_roastery_profile' | translate }}
+                                                </li>
+                                                <li
+                                                    [routerLink]="['/my-profile']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
+                                                >
+                                                    {{ 'menu_my_profile' | translate }}
+                                                </li>
+                                                <li
+                                                    [routerLink]="['/account-settings']"
+                                                    routerLinkActive="highlight"
+                                                    (click)="pop2.hide()"
+                                                >
+                                                    {{ 'menu_account_settings' | translate }}
+                                                </li>
+                                                <li
+                                                    *ngFor="let item of orgData"
+                                                    (click)="switchPortal(item.orgType, item.id)"
+                                                >
+                                                    {{ 'switch_to' | translate }}&nbsp;{{
+                                                        item.orgType | orgType
+                                                    }}&nbsp;{{ 'portal' | translate }}
+                                                </li>
+                                                <li (click)="userLogout(); pop2.hide()">{{ 'logout' | translate }}</li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
                                 </div>
                             </div>
-                            <div class="notification-body px-1 py-2">
-                                <ng-container
-                                    *ngTemplateOutlet="notificationTemplate; context: { myOp: myOp }"
-                                ></ng-container>
-                            </div>
-                        </p-overlayPanel>
-                    </li>
-                    <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
-                        <div class="profile-link d-flex align-items-center">
-                            <div class="d-inline-block mr-md-2">
-                                <app-avatar
-                                    [size]="38"
-                                    [src]="
-                                        authService.currentUser?.profile_image_thumb_url
-                                            ? authService.currentUser?.profile_image_thumb_url
-                                            : authService.currentUser?.profile_image_url
-                                            ? authService.currentUser?.profile_image_url
-                                            : 'assets/images/default-avatar.png'
-                                    "
-                                >
-                                </app-avatar>
-                            </div>
-                            <div class="profile-link__info pl-lg-1 float-right">
-                                <a
-                                    class="profile-name"
-                                    role="button"
-                                    [popover]="popTemplate"
-                                    placement="bottom"
-                                    #pop2="bs-popover"
-                                    container="body"
-                                    [outsideClick]="true"
-                                >
-                                    <h6 class="d-block fnt-14 fnt-md-16 fnt-600 text-clr24 m-0">
-                                        {{ authService.currentUser?.firstname }}
-                                        <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
-                                    </h6>
-                                    <span
-                                        class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
-                                        style="transform: translateY(-10px)"
-                                        >{{ rolename | titlecase }}</span
-                                    >
-                                </a>
-                                <ng-template #popTemplate>
-                                    <div id="popover-mobile-content">
-                                        <ul class="menu-list bottom">
-                                            <li
-                                                *appAclIf="'brand-profile-management'"
-                                                [routerLink]="['/roastery-profile']"
-                                                routerLinkActive="highlight"
-                                                (click)="pop2.hide()"
-                                            >
-                                                {{ 'menu_roastery_profile' | translate }}
-                                            </li>
-                                            <li
-                                                [routerLink]="['/my-profile']"
-                                                routerLinkActive="highlight"
-                                                (click)="pop2.hide()"
-                                            >
-                                                {{ 'menu_my_profile' | translate }}
-                                            </li>
-                                            <li
-                                                [routerLink]="['/account-settings']"
-                                                routerLinkActive="highlight"
-                                                (click)="pop2.hide()"
-                                            >
-                                                {{ 'menu_account_settings' | translate }}
-                                            </li>
-                                            <li
-                                                *ngFor="let item of orgData"
-                                                (click)="switchPortal(item.orgType, item.id)"
-                                            >
-                                                {{ 'switch_to' | translate }}&nbsp;{{ item.orgType | orgType }}&nbsp;{{
-                                                    'portal' | translate
-                                                }}
-                                            </li>
-                                            <li (click)="userLogout(); pop2.hide()">{{ 'logout' | translate }}</li>
-                                        </ul>
-                                    </div>
-                                </ng-template>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -258,7 +252,7 @@
                             </a>
                         </li>
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'NOTIFICATIONS' }">
-                            <a (click)="myOp.toggle($event)" class="d-inline-block">
+                            <a (click)="myOp.toggle($event); activeLink = 'NOTIFICATIONS'" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <div [class.red-mark]="hasUnreadNotification">
                                         <img class="in-active" src="assets/images/ft-icon-notification.svg" />
