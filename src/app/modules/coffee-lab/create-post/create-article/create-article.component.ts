@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoffeeLabService, GlobalsService } from '@services';
@@ -9,6 +9,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
 import { APP_LANGUAGES } from '@constants';
+import { combineLatest } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-create-article',
@@ -30,8 +32,8 @@ export class CreateArticleComponent implements OnInit {
     clicked = false;
     images = [];
     languageList: any[] = APP_LANGUAGES;
-    categoryList: any;
-    categoryValue: any;
+    categoryList: any[] = [];
+    categoryValue: any[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -51,10 +53,11 @@ export class CreateArticleComponent implements OnInit {
                 this.articleId = params.id;
             }
             if (this.articleId) {
-                this.getArticleById();
+                this.getCompleteData();
+            } else {
+                this.getCategory();
             }
         });
-        this.getCategory();
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.required])],
             subtitle: ['', Validators.compose([maxWordCountValidator(30), Validators.required])],
@@ -67,20 +70,37 @@ export class CreateArticleComponent implements OnInit {
         this.articleForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
     }
 
-    getArticleById(): void {
+    getCompleteData() {
         this.isLoading = true;
-        this.coffeeLabService.getForumDetails('article', this.articleId).subscribe((res: any) => {
-            this.isLoading = false;
-            if (res.success) {
-                this.article = res.result;
-                this.coverImageUrl = res.result.cover_image_url;
-                this.coverImageId = res.result.cover_image_id;
-                this.isCoverImageUploaded = true;
-                this.images = res.result.images ?? [];
-                this.articleForm.patchValue(res.result);
-            } else {
-                this.toaster.error('Error while get article');
-                this.location.back();
+        combineLatest([
+            this.coffeeLabService.getForumDetails('article', this.articleId),
+            this.coffeeLabService.getCategory(),
+        ])
+            .pipe(take(1))
+            .subscribe(([res, category]: [any, any]) => {
+                if (category.success) {
+                    this.categoryList = category.result;
+                }
+                if (res.success) {
+                    this.article = res.result;
+                    this.coverImageUrl = res.result.cover_image_url;
+                    this.coverImageId = res.result.cover_image_id;
+                    this.isCoverImageUploaded = true;
+                    this.images = res.result.images ?? [];
+                    this.articleForm.patchValue(res.result);
+                    this.categoryValue = res.result.categories;
+                } else {
+                    this.toaster.error('Error while get article');
+                    this.location.back();
+                }
+                this.isLoading = false;
+            });
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory().subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
             }
         });
     }
@@ -210,14 +230,6 @@ export class CreateArticleComponent implements OnInit {
                     element.value = '';
                 }
             });
-    }
-
-    getCategory() {
-        this.coffeeLabService.getCategory().subscribe((category) => {
-            if (category.success) {
-                this.categoryList = category.result;
-            }
-        });
     }
 
     resetCategory() {

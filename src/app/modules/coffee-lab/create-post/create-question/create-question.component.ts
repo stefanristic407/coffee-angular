@@ -5,6 +5,8 @@ import { CoffeeLabService } from '@services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { APP_LANGUAGES } from '@constants';
+import { combineLatest } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-create-question',
@@ -43,25 +45,42 @@ export class CreateQuestionComponent implements OnInit {
                 this.status = params.status;
             }
             if (this.questionId) {
-                this.getQuestionById();
+                this.getCompleteData();
             } else {
                 this.languageCode = this.coffeeLabService.currentForumLanguage;
+                this.getCategory();
             }
         });
-        this.getCategory();
     }
 
-    getQuestionById(): void {
+    getCompleteData() {
         this.isLoading = true;
-        this.coffeeLabService.getForumDetails('question', this.questionId).subscribe((res: any) => {
-            this.isLoading = false;
-            if (res.success) {
-                this.content = res.result.question;
-                this.languageCode = res.result.lang_code;
-                this.isAllowTranslation = res.result?.allow_translation;
-            } else {
-                this.toaster.error('Error while get question');
-                this.location.back();
+        combineLatest([
+            this.coffeeLabService.getForumDetails('question', this.questionId),
+            this.coffeeLabService.getCategory(),
+        ])
+            .pipe(take(1))
+            .subscribe(([res, category]: [any, any]) => {
+                if (category.success) {
+                    this.categoryList = category.result;
+                }
+                if (res.success) {
+                    this.content = res.result.question;
+                    this.languageCode = res.result.lang_code;
+                    this.isAllowTranslation = res.result?.allow_translation;
+                    this.categoryValue = res.result.categories;
+                } else {
+                    this.toaster.error('Error while get question');
+                    this.location.back();
+                }
+                this.isLoading = false;
+            });
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory().subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
             }
         });
     }
@@ -114,14 +133,6 @@ export class CreateQuestionComponent implements OnInit {
                 }
             });
         }
-    }
-
-    getCategory() {
-        this.coffeeLabService.getCategory().subscribe((category) => {
-            if (category.success) {
-                this.categoryList = category.result;
-            }
-        });
     }
 
     resetCategory() {

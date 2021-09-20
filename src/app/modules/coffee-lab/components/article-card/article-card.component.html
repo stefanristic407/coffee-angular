@@ -10,9 +10,9 @@
             <img class="cursor-point" width="36" height="36" src="assets/images/saved-item.svg" alt="saved" />
         </div>
     </div>
-    <img [src]="article.cover_image_url" class="w-100 my-3" [alt]="article.title" />
+    <img [src]="article.cover_image_url" class="w-100 mt-3" [alt]="article.title" />
     <div class="mx-4">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mt-25">
             <div class="d-flex align-like-card">
                 <div class="like-int">
                     <img
@@ -32,7 +32,7 @@
                 </div>
                 <span class="d-flex mt-3 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ article.likes }}</span>
             </div>
-            <span class="fnt-muli fnt-14 text-clr588">{{
+            <span class="align-items-center d-flex fnt-14 fnt-muli mt-2 text-clr588">{{
                 article?.posted_at || article?.created_at | date: 'longDate'
             }}</span>
         </div>
