@@ -175,6 +175,24 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         document.getElementById('text-focus').focus();
     }
 
+    onLike(answer) {
+        this.coffeeLabService.updateLike('answer', answer.id).subscribe((res) => {
+            if (res.success) {
+                answer.is_liked = true;
+                answer.likes = answer.likes + 1;
+            }
+        });
+    }
+
+    onUnLike(answer) {
+        this.coffeeLabService.updateUnLike('answer', answer.id).subscribe((res) => {
+            if (res.success) {
+                answer.is_liked = false;
+                answer.likes = answer.likes - 1;
+            }
+        });
+    }
+
     onSave(id: number): void {
         this.coffeeLabService.saveForum('answer', id).subscribe((res: any) => {
             if (res.success) {

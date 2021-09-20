@@ -24,7 +24,7 @@ export class CreatePostComponent implements OnInit {
         private router: Router,
     ) {
         this.activateRoute.queryParams.subscribe((res) => {
-            this.selectedType = res?.type;
+            this.selectedType = res?.type || res.forumType;
             this.orignId = res?.origin_id;
         });
     }

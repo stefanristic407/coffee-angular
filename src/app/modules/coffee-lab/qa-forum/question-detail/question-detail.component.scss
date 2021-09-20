@@ -98,3 +98,19 @@
         height: 47px;
     }
 }
+
+.align-like {
+    .like-int {
+        padding: 0 9.5px;
+        border-radius: 50%;
+        background-color: rgba(116, 117, 136, 0.08);
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
+        .like {
+            position: relative;
+            top: 8px;
+            height: 20px;
+        }
+    }
+}
