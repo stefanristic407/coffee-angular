@@ -553,7 +553,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     updateRecipe(data: any): void {
         // data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         // data.inline_images = data.inline_images.filter((i) => i !== undefined);
-        data.categories = this.categoryValue?.map((item) => item.id);
+        if (this.categoryValue) {
+            data.categories = this.categoryValue?.map((item) => item.id);
+        }
         this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
@@ -575,7 +577,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     translateRecipe(data: any): void {
         data.equipment_name = this.recipe.equipment_name;
         data.serves = this.recipe.serves;
-        data.categories = this.categoryValue?.map((item) => item.id);
+        if (data.categories) {
+            delete data.categories;
+        }
+
         // data.inline_images = [].concat(this.imageIdList, ...this.imageIdListStep);
         // data.inline_images = data.inline_images.filter((i) => i !== undefined);
         this.coffeeLabService.translateForum('recipe', this.originRecipeId, data).subscribe((res: any) => {
@@ -613,7 +618,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         //     return item;
         // });
         data.inline_images = [];
-        data.categories = this.categoryValue?.map((item) => item.id);
+        if (this.categoryValue) {
+            data.categories = this.categoryValue?.map((item) => item.id);
+        }
         this.coffeeLabService.postCoffeeRecipe(data).subscribe((res: any) => {
             if (res.success) {
                 if (data.publish) {
