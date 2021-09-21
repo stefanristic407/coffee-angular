@@ -134,17 +134,11 @@
                     <div class="d-flex justify-content-between my-3 my-md-4">
                         <div class="d-flex">
                             <div class="d-flex align-like">
-                                <div class="like-int">
+                                <div class="like-int" (click)="onLike(answer)" *ngIf="!answer.is_liked">
+                                    <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
+                                </div>
+                                <div class="like-int" (click)="onUnLike(answer)" *ngIf="answer.is_liked">
                                     <img
-                                        (click)="onLike(answer)"
-                                        *ngIf="!answer.is_liked"
-                                        class="cursor-point like"
-                                        src="assets/images/thumbsup.svg"
-                                        alt="thumbs-up"
-                                    />
-                                    <img
-                                        (click)="onUnLike(answer)"
-                                        *ngIf="answer.is_liked"
                                         class="cursor-point like"
                                         src="assets/images/thumbs-up-1.svg"
                                         alt="thumbs-up"

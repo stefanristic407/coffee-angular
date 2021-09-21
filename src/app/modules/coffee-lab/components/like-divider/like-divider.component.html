@@ -10,21 +10,11 @@
 <div class="like-box py-1 py-md-225 px-3 d-flex justify-content-between" [ngClass]="{ 'border-l8': total < 1 }">
     <div class="d-flex">
         <div class="d-flex align-like">
-            <div class="like-int">
-                <img
-                    (click)="onLike()"
-                    *ngIf="!question.is_liked"
-                    class="cursor-point like"
-                    src="assets/images/thumbsup.svg"
-                    alt="thumbs-up"
-                />
-                <img
-                    (click)="onUnLike()"
-                    *ngIf="question.is_liked"
-                    class="cursor-point like"
-                    src="assets/images/thumbs-up-1.svg"
-                    alt="thumbs-up"
-                />
+            <div class="like-int" (click)="onLike()" *ngIf="!question.is_liked">
+                <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
+            </div>
+            <div class="like-int" (click)="onUnLike()" *ngIf="question.is_liked">
+                <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
             </div>
             <span class="d-flex mt-3 ml-md-2 ml-1 mb-05 fnt-300 text-clr334">{{ question.likes }}</span>
         </div>

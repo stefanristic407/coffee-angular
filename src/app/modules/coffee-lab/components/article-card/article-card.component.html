@@ -14,21 +14,11 @@
     <div class="mx-4">
         <div class="d-flex justify-content-between mt-25">
             <div class="d-flex align-like-card">
-                <div class="like-int">
-                    <img
-                        (click)="onLike(article.id)"
-                        *ngIf="!article.is_liked"
-                        class="cursor-point like"
-                        src="assets/images/thumbsup.svg"
-                        alt="thumbs-up"
-                    />
-                    <img
-                        (click)="onUnLike(article.id)"
-                        *ngIf="article.is_liked"
-                        class="cursor-point like"
-                        src="assets/images/thumbs-up-1.svg"
-                        alt="thumbs-up"
-                    />
+                <div class="like-int" *ngIf="!article.is_liked" (click)="onLike(article.id)">
+                    <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
+                </div>
+                <div class="like-int" *ngIf="article.is_liked" (click)="onUnLike(article.id)">
+                    <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                 </div>
                 <span class="d-flex mt-3 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ article.likes }}</span>
             </div>
