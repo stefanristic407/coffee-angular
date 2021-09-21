@@ -25,6 +25,11 @@
     position: absolute;
     right: 24px;
     bottom: 24px;
+    @media (max-width: 768px) {
+        right: 10px;
+        top: 20px;
+        bottom: unset;
+    }
 }
 
 .mv-change-icon {
