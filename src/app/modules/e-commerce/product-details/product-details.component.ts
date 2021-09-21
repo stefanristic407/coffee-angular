@@ -670,11 +670,6 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     saveProduct() {
         const productObj = JSON.parse(JSON.stringify(this.productForm.value));
         delete productObj.variants;
-        for (const key of Object.keys(productObj)) {
-            if (!productObj[key]) {
-                delete productObj[key];
-            }
-        }
         if (this.type === ProductType.b2b) {
             const crates: Crate[] = productObj.crates || [];
             // productObj.crates = crates
