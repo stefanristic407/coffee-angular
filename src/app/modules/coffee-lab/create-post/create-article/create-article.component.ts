@@ -127,7 +127,7 @@ export class CreateArticleComponent implements OnInit {
                         if (res.result) {
                             this.coverImageId = res.result.id;
                             this.isCoverImageUploaded = true;
-                            this.toaster.success('Cover image has been successfully uploaded.');
+                            this.toaster.success('The file ' + event.target.files[0]?.name + ' uploaded successfully');
                         } else {
                             this.toaster.error('failed to upload cover image.');
                             this.coverImage = null;
