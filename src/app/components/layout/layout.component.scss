@@ -175,6 +175,7 @@
                 padding: 0;
                 .notification-body {
                     max-height: calc(100vh - 160px);
+                    min-height: calc(100vh - 160px);
                     padding: 18px 16px 0;
                     & > div {
                         background: #fff;
@@ -226,7 +227,7 @@
 
         &.active {
             border-bottom: 2px solid $primary-color;
-            background: #ebebeb;
+            background: #eff6f2;
 
             img.active {
                 display: block !important;
@@ -311,7 +312,7 @@
         }
     }
 
-    img {
+    & > img {
         display: none;
     }
 

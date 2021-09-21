@@ -73,7 +73,11 @@
                                             {{ 'notifications' | translate }}
                                         </span>
                                         <div class="d-flex">
-                                            <div class="custom-link fnt-14 mr-3" (click)="makeAsAllRead(myOp)">
+                                            <div
+                                                *ngIf="hasUnreadNotification"
+                                                class="custom-link fnt-14 mr-3"
+                                                (click)="makeAsAllRead(myOp)"
+                                            >
                                                 {{ 'mark_all_read' | translate }}
                                             </div>
                                             <div class="cursor-pointer" (click)="myOp.hide()">
@@ -252,7 +256,7 @@
                             </a>
                         </li>
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'NOTIFICATIONS' }">
-                            <a (click)="myOp.toggle($event); activeLink = 'NOTIFICATIONS'" class="d-inline-block">
+                            <a (click)="myOp.toggle($event); closeMessagePanel()" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <div [class.red-mark]="hasUnreadNotification">
                                         <img class="in-active" src="assets/images/ft-icon-notification.svg" />
@@ -263,13 +267,23 @@
                                     </p>
                                 </div>
                             </a>
-                            <p-overlayPanel #myOp styleClass="mobile-notification-overlay" appendTo="body">
+                            <p-overlayPanel
+                                #myOp
+                                styleClass="mobile-notification-overlay"
+                                appendTo="body"
+                                (onShow)="activeLink = 'NOTIFICATIONS'"
+                                (onHide)="onHideNotification()"
+                            >
                                 <div class="notification-header m-0 p-3">
                                     <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">
                                         {{ 'notifications' | translate }}
                                     </span>
                                     <div class="d-flex">
-                                        <div class="custom-link fnt-14" (click)="makeAsAllRead(myOp)">
+                                        <div
+                                            *ngIf="hasUnreadNotification"
+                                            class="custom-link fnt-14"
+                                            (click)="makeAsAllRead(myOp)"
+                                        >
                                             {{ 'mark_all_read' | translate }}
                                         </div>
                                     </div>
