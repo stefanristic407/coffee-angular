@@ -718,7 +718,7 @@
                 </ng-template>
             </p-multiSelect>
         </div>
-        <div class="row mx-0 d-md-none">
+        <div class="row mx-0 d-md-none" *ngIf="!isTranslate">
             <p-chips
                 *ngIf="categoryValue"
                 [(ngModel)]="categoryValue"
