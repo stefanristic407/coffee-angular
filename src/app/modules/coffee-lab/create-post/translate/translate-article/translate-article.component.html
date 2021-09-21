@@ -21,17 +21,6 @@
                 </div>
             </div>
             <div class="bg-white mr-md-2 p-2 pt-3 pb-4 px-md-4">
-                <!-- Don't remove -->
-                <!-- <div class="mt-4">
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-3">Categories</p>
-                    <div>
-                        <span *ngFor="let btn of buttonList">
-                            <button class="p-2 button-list fnt-12 fnt-muli fnt-600 text-clr334">
-                                {{ btn.button }}
-                            </button>
-                        </span>
-                    </div>
-                </div> -->
                 <div>
                     <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
                     <div class="position-relative border-main br-4">
@@ -164,12 +153,6 @@
                         >
                     </div>
                 </label>
-                <!-- <img
-                    class="mv-change-icon d-md-none cursor-pointer"
-                    *ngIf="coverImageUrl"
-                    (click)="coverFileInput.click()"
-                    src="assets/images/camera.svg"
-                /> -->
                 <div class="image-btn-group d-flex" *ngIf="coverImageUrl">
                     <button class="btn-raised d-md-flex mr-2" (click)="coverFileInput.click()">
                         {{ 'replace_image' | translate }}

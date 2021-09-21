@@ -21,8 +21,6 @@ export class CreateAnswerComponent implements OnInit {
     isLoading: boolean;
     language: string;
     parentQuestionIsAllowTranslation = false;
-
-    // these 4 parameters are mandatory to use forum-editor
     content: any;
     isUploadingImage = false;
     imageIdList = [];

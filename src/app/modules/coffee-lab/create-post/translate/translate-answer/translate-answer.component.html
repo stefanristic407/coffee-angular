@@ -23,17 +23,6 @@
                 </div>
             </div>
             <div class="px-2 py-3 p-md-4 bg-white mr-md-4 border-right">
-                <!-- Don't remove -->
-                <!-- <div class="mt-4">
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-3">Categories</p>
-                    <div>
-                        <span *ngFor="let btn of buttonList">
-                            <button class="p-2 button-list fnt-12 fnt-muli fnt-600 text-clr334">
-                                {{ btn.button }}
-                            </button>
-                        </span>
-                    </div>
-                </div> -->
                 <div class="sewn-form-field w-100 mb-3 mb-md-4">
                     <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
                         'question' | translate
@@ -101,17 +90,6 @@
 
 <ng-template #qaQuestion>
     <div>
-        <!-- Don't remove -->
-        <!-- <div class="mt-4">
-            <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-3">Categories</p>
-            <div>
-                <span *ngFor="let btn of buttonList">
-                    <button class="p-2 button-list fnt-12 fnt-muli fnt-600 text-clr334">
-                        {{ btn.button }}
-                    </button>
-                </span>
-            </div>
-        </div> -->
         <div [formGroup]="form" *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-3 mb-md-4">
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{ 'question' | translate }}</label>
             <input

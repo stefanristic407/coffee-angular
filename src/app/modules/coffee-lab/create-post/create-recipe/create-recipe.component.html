@@ -68,17 +68,6 @@
                 </div>
             </div>
         </div>
-        <!-- Don't remove -->
-        <!-- <div class="mt-4">
-            <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-3">Categories</p>
-            <div class="mb-md-4 mb-3">
-                <span *ngFor="let btn of buttonList">
-                    <button class="p-2 button-list fnt-12 fnt-muli fnt-600 text-clr334">
-                        {{ btn.button }}
-                    </button>
-                </span>
-            </div>
-        </div> -->
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label [ngClass]="{ 'mt-2': isTranslate }">{{ 'recipe_name' | translate }}</label>
             <input type="text" placeholder="What’s your guide called?" pInputText formControlName="name" />
@@ -112,25 +101,10 @@
                 optionValue="value"
             >
             </p-dropdown>
-            <!-- <p-dropdown
-                [options]="expertiseArray"
-                optionLabel="label"
-                placeholder="Select level"
-                [style]="{ width: '100%' }"
-                optionValue="value"
-                class="inputFieldBox"
-            ></p-dropdown> -->
             <small *ngIf="recipeForm.controls['equipment_name'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
         </div>
-        <!-- <div *ngIf="!isTranslate" class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3">
-            <label>{{ 'brew_ratio' | translate }}</label>
-            <input type="text" placeholder="Enter number of servings" formControlName="serves" pInputText />
-            <small *ngIf="recipeForm.controls['serves'].errors?.required" class="p-error">
-                {{ 'required' | translate }}
-            </small>
-        </div> -->
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pl-md-2 pl-lg-3 pl-0">
             <label class="d-flex"
                 >{{ 'brew_ratio' | translate }}
@@ -159,14 +133,6 @@
                 {{ 'required' | translate }}
             </small>
         </div>
-
-        <!-- <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 pl-md-2 pl-lg-3">
-            <label style="color: transparent !important">lorem</label>
-            <p-inputNumber formControlName="water_ratio"></p-inputNumber>
-            <small *ngIf="recipeForm.controls['water_ratio'].errors?.required" class="p-error">
-                {{ 'required' | translate }}
-            </small>
-        </div> -->
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-flex pl-0 pl-md-3">
             <span class="primary_txt fnt-14 text-underline">{{ 'list_of_ingredients' | translate }}</span>
@@ -231,83 +197,9 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-md-3 mt-0 d-flex mb-md-3 mb-0 pl-0 pl-md-3">
             <span class="primary_txt fnt-14 text-underline">{{ 'directions' | translate }}</span>
         </div>
-
-        <!-- <div *ngIf="!isTranslate" class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 d-none d-md-block">
-            <p-dropdown
-                [options]="preparationMethods"
-                optionLabel="label"
-                placeholder="Add step by step introduction & video"
-                [style]="{ width: '100%' }"
-                optionValue="value"
-                class="inputFieldBox"
-                formControlName="preparation_method"
-            ></p-dropdown>
-            <small *ngIf="recipeForm.controls['preparation_method'].errors?.required" class="p-error">
-                {{ 'required' | translate }}
-            </small>
-        </div> -->
         <div *ngIf="!isTranslate" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 pl-0 d-flex step-mb">
             <p-tabView styleClass="tabview-create-recipe" class="w-100">
                 <p-tabPanel header="instruction steps & video">
-                    <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pt-4">
-                        <label>{{ 'upload_recipe_video' | translate }}</label>
-                        <div
-                            class="
-                                addImageContainer
-                                d-flex
-                                align-items-center
-                                justify-content-center
-                                imagesDiv
-                                position-relative
-                            "
-                        >
-                            <video
-                                class="w-100 cover-image"
-                                playsinline
-                                controls
-                                data-poster="/path/to/poster.jpg"
-                                *ngIf="isShowVideo"
-                            >
-                                <source [src]="videoUrl" type="video/mp4" />
-                            </video>
-                            <div class="align-items-center justify-content-center pointer-item">
-                                <input
-                                    type="file"
-                                    class="d-none"
-                                    accept="video/*"
-                                    (change)="onFileChange($event, 0, RecipeFileType.Video)"
-                                />
-                                <div class="d-flex flex-column align-items-center">
-                                    <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1">{{
-                                        'add_a_video' | translate
-                                    }}</span>
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1"
-                                        >({{ 'max_size' | translate }} {{ maxVideoSize }}mb)</span
-                                    >
-                                </div>
-                                <div
-                                    *ngIf="isTranslate"
-                                    class="
-                                        bg-f8
-                                        br-4
-                                        py-2
-                                        px-3
-                                        d-flex
-                                        align-items-center
-                                        justify-content-center
-                                        copy-paste-button
-                                    "
-                                    (click)="pasteVideo()"
-                                >
-                                    <img src="assets/images/paste.svg" class="mr-1" />
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
-                                        'paste' | translate
-                                    }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                     <ng-container
                         *ngFor="let step of recipeForm.controls['steps']['controls']; let i = index; last as isLast"
                     >
@@ -344,69 +236,6 @@
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
-                            <!-- <div
-                                *ngIf="!isTranslate"
-                                class="col-sm-12 col-md-12 col-lg-12 col-xl-3 sewn-form-field w-100"
-                            >
-                                <label>{{ 'add_image' | translate }}</label>
-                                <div
-                                    class="
-                                        stepAddImageContainer
-                                        d-flex
-                                        align-items-center
-                                        justify-content-center
-                                        imagesDiv
-                                        position-relative
-                                    "
-                                >
-                                    <img
-                                        [src]="step.value?.coverImageUrl"
-                                        *ngIf="step.value?.coverImageUrl"
-                                        class="cover-image"
-                                    />
-                                    <div class="d-block align-items-center justify-content-center pointer-item">
-                                        <input
-                                            type="file"
-                                            accept="image/png, image/jpeg"
-                                            class="d-none"
-                                            #stepImageCover
-                                            (change)="onFileChange($event, 0, RecipeFileType.StepImage)"
-                                        />
-                                        <div
-                                            class="d-flex flex-column align-items-center px-25"
-                                            *ngIf="!step.value?.coverImageUrl"
-                                        >
-                                            <span (click)="stepImageCover.click()"
-                                                ><img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25"
-                                            /></span>
-                                            <span
-                                                class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1"
-                                                (click)="stepImageCover.click()"
-                                                >{{ 'upload_an_image' | translate }}</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div
-                                        *ngIf="isTranslate"
-                                        class="
-                                            bg-f8
-                                            br-4
-                                            py-2
-                                            px-3
-                                            d-flex
-                                            align-items-center
-                                            justify-content-center
-                                            copy-paste-button
-                                        "
-                                        (click)="pasteStepImage(i)"
-                                    >
-                                        <img src="assets/images/paste.svg" class="mr-1" />
-                                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
-                                            'paste' | translate
-                                        }}</span>
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="col-12 mt-2 mb-3 d-flex">
                                 <div class="fnt-muli d-flex justify-content-between">
                                     <span class="fnt-14"
@@ -426,161 +255,14 @@
                             <div class="step-border"></div>
                         </div>
                     </ng-container>
-                    <!-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-md-none">
-                        <span class="fnt-14"
-                            ><span class="editBtn " (click)="addStep()">{{
-                                'add_another_step' | translate
-                            }}</span></span
-                        >
-                    </div> -->
                 </p-tabPanel>
-                <!-- <p-tabPanel header="video recipe">
-                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pt-4">
-                        <label>{{ 'upload_recipe_video' | translate }}</label>
-                        <div
-                            class="
-                                addImageContainer
-                                d-flex
-                                align-items-center
-                                justify-content-center
-                                imagesDiv
-                                position-relative
-                            "
-                        >
-                            <video
-                                class="w-100 cover-image"
-                                playsinline
-                                controls
-                                data-poster="/path/to/poster.jpg"
-                                *ngIf="isShowVideo"
-                            >
-                                <source [src]="videoUrl" type="video/mp4" />
-                            </video>
-                            <div class="align-items-center justify-content-center pointer-item">
-                                <input
-                                    type="file"
-                                    class="d-none"
-                                    accept="video/*"
-                                    (change)="onFileChange($event, 0, RecipeFileType.Video)"
-                                />
-                                <div class="d-flex flex-column align-items-center">
-                                    <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1">{{
-                                        'add_a_video' | translate
-                                    }}</span>
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1"
-                                        >({{ 'max_size' | translate }} {{ maxVideoSize }}mb)</span
-                                    >
-                                </div>
-                                <div
-                                    *ngIf="isTranslate"
-                                    class="
-                                        bg-f8
-                                        br-4
-                                        py-2
-                                        px-3
-                                        d-flex
-                                        align-items-center
-                                        justify-content-center
-                                        copy-paste-button
-                                    "
-                                    (click)="pasteVideo()"
-                                >
-                                    <img src="assets/images/paste.svg" class="mr-1" />
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
-                                        'paste' | translate
-                                    }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </p-tabPanel> -->
             </p-tabView>
         </div>
-        <!-- <div *ngIf="!isTranslate" class="row col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs">
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-0">
-                <label>{{ 'upload_recipe_video' | translate }}</label>
-                <div
-                    class="
-                        addImageContainer
-                        d-flex
-                        align-items-center
-                        justify-content-center
-                        imagesDiv
-                        position-relative
-                    "
-                >
-                    <video
-                        class="w-100 cover-image"
-                        playsinline
-                        controls
-                        data-poster="/path/to/poster.jpg"
-                        *ngIf="isShowVideo"
-                    >
-                        <source [src]="videoUrl" type="video/mp4" />
-                    </video>
-                    <div class="align-items-center justify-content-center pointer-item">
-                        <input
-                            type="file"
-                            class="d-none"
-                            #recipeVideo
-                            accept="video/*"
-                            (change)="onFileChange($event, 0, RecipeFileType.Video)"
-                        />
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="step-img-delete d-flex" *ngIf="isShowVideo">
-                                <div class="m-3 delete-icon">
-                                    <span (click)="deleteVideo()"
-                                        ><img src="assets/images/recipe-img-delete.svg"
-                                    /></span>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column align-items-center px-25" *ngIf="!isShowVideo">
-                                <img
-                                    (click)="recipeVideo.click()"
-                                    src="assets/images/plus-circle.svg"
-                                    class="mb-2 mb-md-25"
-                                />
-                                <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1">{{
-                                    'add_a_video' | translate
-                                }}</span>
-                                <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1"
-                                    >({{ 'max_size' | translate }} {{ maxVideoSize }}mb)</span
-                                >
-                                <div
-                                    *ngIf="isTranslate"
-                                    class="
-                                        bg-f8
-                                        br-4
-                                        py-2
-                                        px-3
-                                        d-flex
-                                        align-items-center
-                                        justify-content-center
-                                        copy-paste-button
-                                    "
-                                    (click)="pasteVideo()"
-                                >
-                                    <img src="assets/images/paste.svg" class="mr-1" />
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
-                                        'paste' | translate
-                                    }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <ng-container *ngFor="let step of recipeForm.controls['steps']['controls']; let i = index; last as isLast">
             <div
                 class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs flex-wrap"
                 *ngIf="recipeForm?.value?.preparation_method == 'steps'"
             >
-                <!-- <p *ngIf="isTranslate" class="fnt-14 fnt-muli fnt-bold text-clr334 mt-4 px-25 pb-3 text-underline">
-                    {{ 'directions' | translate }}
-                </p> -->
                 <div class="col-12 pr-md-2 pr-lg-3 sewn-form-field w-100 mb-3 pl-0 pl-md-3">
                     <div>
                         <label>{{ 'step' | translate }} {{ i + 1 }}</label>
@@ -601,75 +283,7 @@
                         {{ 'required' | translate }}
                     </small>
                 </div>
-                <!-- <div
-                    *ngIf="!isTranslate"
-                    class="col-sm-12 col-md-4 col-lg-4 col-xl-3 pl-md-2 pl-lg-3 sewn-form-field w-100"
-                >
-                    <label>{{ 'add_image' | translate }}</label>
-                    <div
-                        class="
-                            stepAddImageContainer
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                            imagesDiv
-                            position-relative
-                        "
-                    >
-                        <div class="step-img-delete d-flex" *ngIf="step.value?.coverImageUrl">
-                            <div class="m-3 delete-icon">
-                                <span (click)="deleteStepImage(i)"
-                                    ><img src="assets/images/recipe-img-delete.svg"
-                                /></span>
-                            </div>
-                        </div>
-                        <img [src]="step.value?.coverImageUrl" *ngIf="step.value?.coverImageUrl" class="cover-image" />
-                        <div class="d-block align-items-center justify-content-center pointer-item">
-                            <input
-                                type="file"
-                                accept="image/png, image/jpeg"
-                                class="d-none"
-                                #stepImageCover
-                                (change)="onFileChange($event, i, RecipeFileType.StepImage)"
-                            />
-                            <div class="d-flex flex-column align-items-center px-25" *ngIf="!step.value?.coverImageUrl">
-                                <span (click)="stepImageCover.click()"
-                                    ><img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25"
-                                /></span>
-                                <span
-                                    class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1"
-                                    (click)="stepImageCover.click()"
-                                    >{{ 'upload_an_image' | translate }}</span
-                                >
-                            </div>
-                        </div>
-                        <div
-                            *ngIf="isTranslate"
-                            class="
-                                bg-f8
-                                br-4
-                                py-2
-                                px-3
-                                d-flex
-                                align-items-center
-                                justify-content-center
-                                copy-paste-button
-                            "
-                            (click)="pasteStepImage(i)"
-                        >
-                            <img src="assets/images/paste.svg" class="mr-1" />
-                            <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
-                                'paste' | translate
-                            }}</span>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="col-12 d-flex justify-content-end" *ngIf="recipeForm?.value?.preparation_method == 'steps'">
-                    <!-- <div class="fnt-muli" *ngIf="!isTranslate">
-                        <span class="editBtn " (click)="addStep()">{{
-                            'add_another_step' | translate
-                        }}</span>
-                    </div> -->
                     <div class="fnt-muli bring-top" *ngIf="!isTranslate">
                         <span
                             class="editBtn"
@@ -679,7 +293,6 @@
                         </span>
                     </div>
                 </div>
-                <!-- <div class="step-border w-100"></div> -->
             </div>
         </ng-container>
 

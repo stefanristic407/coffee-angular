@@ -22,17 +22,6 @@
                         >{{ 'copy' | translate }}</span
                     >
                 </div>
-                <!-- Don't remove -->
-                <!-- <div class="mt-4">
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-3">Categories</p>
-                    <div>
-                        <span *ngFor="let btn of buttonList">
-                            <button class="p-2 button-list fnt-12 fnt-muli fnt-600 text-clr334">
-                                {{ btn.button }}
-                            </button>
-                        </span>
-                    </div>
-                </div> -->
                 <div class="mt-md-4 mt-3" [formGroup]="recipeForm">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-md-0 sewn-form-field w-100">
                         <label>{{ 'recipe_name' | translate }}</label>
@@ -60,21 +49,6 @@
                             {{ 'required' | translate }}
                         </small>
                     </div>
-                    <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field pl-md-0 w-100 pr-md-2 pr-lg-3">
-                        <label>{{ 'expertise' | translate }}</label>
-                        <p-dropdown
-                            [options]="expertiseArray"
-                            optionLabel="label"
-                            placeholder="Select level"
-                            [style]="{ width: '100%' }"
-                            optionValue="value"
-                            class="inputFieldBox"
-                            formControlName="expertise"
-                        ></p-dropdown>
-                        <small *ngIf="recipeForm.controls['expertise'].errors?.required" class="p-error">
-                            {{ 'required' | translate }}
-                        </small>
-                    </div> -->
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 pl-md-0 sewn-form-field w-100">
                         <label>{{ 'brewing_equipment' | translate }}</label>
                         <input
@@ -105,14 +79,6 @@
                             pInputText
                         />
                     </div>
-                    <!-- <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 pr-md-0 sewn-form-field w-100 pl-md-2 pl-lg-3">
-                        <label style="color: transparent !important">lorem</label>
-                        <p-inputNumber formControlName="water_ratio" disabled></p-inputNumber>
-                        <small *ngIf="recipeForm.controls['water_ratio'].errors?.required" class="p-error">
-                            {{ 'required' | translate }}
-                        </small>
-                    </div> -->
-
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 pl-md-0 sewn-form-field w-100">
                         <label>{{ 'yield' | translate }}</label>
                         <input
@@ -216,98 +182,10 @@
                                     <div class="w-100"></div>
                                 </div>
                             </div>
-
-                            <!-- <div
-                                *ngIf="recipeForm.controls.ingredients.value?.length > 1"
-                                class="
-                                    d-flex
-                                    col-sm-12 col-md-1 col-lg-1 col-xl-1
-                                    w-100
-                                    pl-md-0 pl-lg-2
-                                    align-items-md-center
-                                "
-                            >
-                                <div class="fnt-muli">
-                                    <span class="editBtn" (click)="deleteIngredient(i)"> Delete </span>
-                                </div>
-                            </div> -->
                         </div>
                     </ng-container>
-
-                    <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-md-0 mt-2 mb-md-3 mb-0 d-flex">
-                        <span class="fnt-14"
-                            ><span class="editBtn" (click)="addIngredient()">{{
-                                'add_ingredients' | translate
-                            }}</span></span
-                        >
-                    </div> -->
-                </div>
-                <!-- <div class="mt-3 expertise-level-block">
-                    <div class="d-flex w-100">
-                        <div class="pr-45 pr-md-3 expert-sm">
-                            <div class="m-0 d-flex">
-                                <span><img src="/assets/images/beginner-expertise.svg" /></span>
-                                <div class="expertise pl-2">{{ 'expertise_level' | translate }}</div>
-                            </div>
-                            <div class="expertise-level m-0 d-flex">
-                                <span style="visibility: hidden"
-                                    ><img src="/assets/images/beginner-expertise.svg"
-                                /></span>
-                                <div class="pl-2">{{ detailsData?.expertise }}</div>
-                            </div>
-                        </div>
-                        <div class="pr-45 preparation-sm">
-                            <div class="m-0 d-flex">
-                                <span><img src="/assets/images/p-time.svg" /></span>
-                                <div class="expertise pl-2">{{ 'brew_ratio' | translate }}</div>
-                            </div>
-                            <div class="expertise-level m-0">
-                                <span style="visibility: hidden"
-                                    ><img src="/assets/images/beginner-expertise.svg"
-                                /></span>
-                                <span class="pl-2">{{ detailsData?.coffee_ratio }}:{{ detailsData?.water_ratio }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex w-100">
-                        <div class="d-flex flex-wrap serving-sm">
-                            <div class="m-0 d-flex">
-                                <span><img src="/assets/images/beginner-expertise.svg" /></span>
-                                <div class="expertise pl-2">{{ 'serving' | translate }}</div>
-                            </div>
-                            <div class="expertise-level m-0 d-flex">
-                                <span style="visibility: hidden"
-                                    ><img src="/assets/images/beginner-expertise.svg"
-                                /></span>
-                                <div class="pl-2">{{ detailsData?.serves }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="fnt-14 fnt-muli pt-3 mb-2" [innerHTML]="detailsData?.description"></p> -->
-            </div>
-            <!-- <div class="ingredient-block">
-                <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334">{{ 'ingredients' | translate }}</p>
-                <div class="ingredient-details bg-white">
-                    <div class="m-0" *ngFor="let ing of detailsData?.ingredients; let last = last">
-                        <span class="d-flex">
-                            <div class="name fnt-14 fnt-muli">{{ ing?.name }}</div>
-                            <div class="qty fnt-14 fnt-muli fnt-bold">{{ ing?.quantity }}{{ ing?.quantity_unit }}</div>
-                        </span>
-                        <div class="saprator" *ngIf="!last"></div>
-                    </div>
                 </div>
             </div>
-            <div *ngIf="detailsData?.video_url" class="pt-3 pt-md-4 pt-lg-45 position-relative">
-                <div class="fnt-14 fnt-muli fnt-bold text-clr334 mb-3">{{ 'see_recipe_video' | translate }}</div>
-                <video class="w-100" [src]="detailsData?.video_url" controls></video>
-                <span
-                    class="copy-btn fnt-14 fnt-muli fnt-bold"
-                    (click)="copyImage(detailsData.video_id, 'video')"
-                    [ngClass]="{ 'cursor-not-allowed': isCopying }"
-                    ><span><img class="mr-2" src="assets/images/group-18.svg" /></span>{{ 'copy' | translate }}</span
-                >
-            </div> -->
             <div
                 class="directions mt-3"
                 *ngIf="detailsData?.steps && detailsData?.steps.length && detailsData?.steps[0]?.description"
@@ -321,13 +199,6 @@
                         <p class="m-0 pb-2 fnt-14 fnt-600 fnt-muli disable-color" [innerHTML]="step?.description"></p>
                         <div class="w-100 position-relative mb-3" *ngIf="step.image_url">
                             <img [src]="step.image_url" class="w-100" />
-                            <!-- <span
-                                class="copy-btn fnt-14 fnt-muli fnt-bold"
-                                (click)="copyImage(step.image_id, 'step')"
-                                [ngClass]="{ 'cursor-not-allowed': isCopying }"
-                                ><span><img class="mr-2" src="assets/images/group-18.svg" /></span
-                                >{{ 'copy' | translate }}</span
-                            > -->
                         </div>
                     </div>
                 </div>
