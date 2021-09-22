@@ -31,6 +31,7 @@ export class UserManagementComponent implements OnInit {
     modalRef: BsModalRef;
     loginId: any;
     tableRows;
+    showAddbutton = true;
     @ViewChild('input') input: ElementRef;
     menuItems = [
         {
@@ -73,6 +74,8 @@ export class UserManagementComponent implements OnInit {
             this.supplyBreadCrumb();
             this.listRoles();
         });
+        this.showAddbutton =
+            this.router.routerState.snapshot.url === '/team-management/team-members/accepted' ? true : false;
     }
 
     onSearch() {
@@ -135,5 +138,13 @@ export class UserManagementComponent implements OnInit {
             },
         };
         this.router.navigate(['/team-management/invite-member'], navigationExtras);
+    }
+
+    tabChange(index) {
+        if (index === 1) {
+            this.showAddbutton = false;
+        } else {
+            this.showAddbutton = true;
+        }
     }
 }
