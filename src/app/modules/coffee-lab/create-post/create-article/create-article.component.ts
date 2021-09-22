@@ -76,7 +76,7 @@ export class CreateArticleComponent implements OnInit {
         this.isLoading = true;
         combineLatest([
             this.coffeeLabService.getForumDetails('article', this.articleId),
-            this.coffeeLabService.getCategory(),
+            this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage),
         ])
             .pipe(take(1))
             .subscribe(([res, category]: [any, any]) => {
@@ -100,7 +100,7 @@ export class CreateArticleComponent implements OnInit {
     }
 
     getCategory() {
-        this.coffeeLabService.getCategory().subscribe((category) => {
+        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
             }
@@ -242,5 +242,6 @@ export class CreateArticleComponent implements OnInit {
 
     changeLanguage(value) {
         this.coffeeLabService.forumLanguage.next(this.articleForm.get('language').value);
+        this.getCategory();
     }
 }

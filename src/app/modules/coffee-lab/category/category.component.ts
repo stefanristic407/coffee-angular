@@ -166,7 +166,7 @@ export class CategoryComponent implements OnInit {
     getCategories() {
         this.otherCategories = [];
         this.categoryName = '';
-        this.coffeeLabService.getCategory().subscribe((res) => {
+        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((res) => {
             if (res.success) {
                 this.otherCategories = res.result.filter((item) => item.slug !== this.slug);
                 this.categoryList = res.result;

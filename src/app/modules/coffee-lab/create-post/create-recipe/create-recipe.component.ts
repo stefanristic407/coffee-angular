@@ -206,7 +206,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     getCompleteData(id: number) {
         console.log('completed called');
-        combineLatest([this.coffeeLabService.getForumDetails('recipe', id), this.coffeeLabService.getCategory()])
+        combineLatest([
+            this.coffeeLabService.getForumDetails('recipe', id),
+            this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage),
+        ])
             .pipe(take(1))
             .subscribe(([res, category]: [any, any]) => {
                 if (category.success) {
@@ -295,7 +298,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     getCategory() {
         console.log('cat called');
-        this.coffeeLabService.getCategory().subscribe((category) => {
+        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
             }

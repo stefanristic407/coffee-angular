@@ -67,7 +67,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     }
 
     getCategory() {
-        this.coffeeLabService.getCategory().subscribe((category) => {
+        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
             }
