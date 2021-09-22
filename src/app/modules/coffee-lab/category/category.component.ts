@@ -79,19 +79,20 @@ export class CategoryComponent implements OnInit {
 
     ngOnInit(): void {
         this.onChangeTab(0);
+        this.getCategories();
+        this.getAllTopWriters();
     }
 
     onChangeTab(index: number) {
         this.selectedTab = index;
         if (this.selectedTab === 0) {
             this.getQuestions();
-            this.getCategories();
-            this.getAllTopWriters();
         } else if (this.selectedTab === 1) {
             this.getArticles();
         } else if (this.selectedTab === 2) {
             this.getRecipes();
         }
+        window.scroll(0, 0);
     }
 
     getQuestions(): void {
@@ -102,11 +103,11 @@ export class CategoryComponent implements OnInit {
                 this.coffeeLabService.qaForumViewSortBy === 'most_answered'
                     ? 'desc'
                     : this.coffeeLabService.qaForumViewSortBy === 'latest' ||
-                      this.coffeeLabService.qaForumViewSortBy === ''
+                      this.coffeeLabService.qaForumViewSortBy === null
                     ? 'desc'
                     : 'asc',
             publish: true,
-            // category_slug: this.coffeeLabService.qaForumViewCategory || this.slug,
+            category_slug: this.slug,
             page: 1,
             per_page: 10000,
         };
@@ -124,10 +125,14 @@ export class CategoryComponent implements OnInit {
     getArticles(): void {
         const params = {
             sort_by: 'created_at',
-            sort_order: 'desc',
+            sort_order:
+                this.coffeeLabService.articleViewFilterBy === 'latest' ||
+                this.coffeeLabService.articleViewFilterBy === null
+                    ? 'desc'
+                    : 'asc',
             translations_available: this.coffeeLabService.articleViewFilterBy,
             publish: true,
-            category_slug: this.coffeeLabService.articleViewCategory || this.slug,
+            category_slug: this.slug,
             page: 1,
             per_page: 10000,
         };
@@ -145,10 +150,13 @@ export class CategoryComponent implements OnInit {
     getRecipes(): void {
         const params = {
             sort_by: 'created_at',
-            sort_order: 'desc',
+            sort_order:
+                this.coffeeLabService.recipeViewSortBy === 'latest' || this.coffeeLabService.recipeViewSortBy === null
+                    ? 'desc'
+                    : 'asc',
             publish: true,
             translations_available: this.coffeeLabService.recipeViewIsAvailableTranslation,
-            category_slug: this.coffeeLabService.recipeViewCategory || this.slug,
+            category_slug: this.slug,
             page: 1,
             per_page: 10000,
         };

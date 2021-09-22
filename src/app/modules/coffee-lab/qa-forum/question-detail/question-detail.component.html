@@ -29,9 +29,19 @@
                 </div>
             </div>
             <div
-                class="fnt-muli fnt-16 fnt-md-18 fnt-700 text-clr334 question-name pb-4 px-md-4 px-3"
+                class="fnt-muli fnt-16 fnt-md-18 fnt-700 text-clr334 question-name px-md-4 px-3"
                 [innerHTML]="detailsData.question"
             ></div>
+            <div *ngIf="detailsData?.categories" class="row mb-4 ml-4 mt-3">
+                <div *ngFor="let category of detailsData?.categories; let i = index" class="mr-2">
+                    <button
+                        class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334"
+                        (click)="onCategoryClick(category.slug)"
+                    >
+                        {{ category.name }}
+                    </button>
+                </div>
+            </div>
             <app-like-divider [question]="detailsData"></app-like-divider>
             <div class="border-top-main py-4 px-0 px-md-45">
                 <div class="d-flex justify-content-center ml-md-3">
@@ -144,6 +154,7 @@
                                         alt="thumbs-up"
                                     />
                                 </div>
+                                <span class="d-flex mt-25 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>
                             </div>
                             <!-- <div class="align-items-center d-flex ml-0 hover-save-icon">
                                 <img (click)="onFocus()" class="cursor-point" src="assets/images/save.svg" alt="save" />

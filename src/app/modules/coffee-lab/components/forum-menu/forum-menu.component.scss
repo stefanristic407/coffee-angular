@@ -1,9 +1,5 @@
 .hover-icon {
     padding: 0.625rem;
-    @media (max-width: 768px) {
-        padding: 0 0.625rem 0.625rem 0.625rem;
-    }
-
     &:hover {
         border-radius: 50%;
         background-color: rgba(184, 184, 184, 0.16);

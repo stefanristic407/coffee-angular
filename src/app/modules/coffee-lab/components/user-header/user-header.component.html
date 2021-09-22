@@ -13,19 +13,41 @@
         <div class="flex-1 overflow-hidden">
             <div class="d-flex align-items-center mr-3 text-nowrap">
                 <div
-                    [ngClass]="{ ellipsis: enableEllipsis }"
+                    [ngClass]="{ ellipsis: enableEllipsis, 'cursor-pointer': isTopWriters }"
                     class="fnt-muli font-weight-bold fnt-14 text-clr334 mr-md-3 mr-1"
                 >
-                    {{
-                        prop?.user_name ||
-                            prop?.question_user ||
-                            prop?.posted_user ||
-                            prop?.first_name ||
-                            prop?.firstname ||
-                            prop?.lastname ||
-                            'Unknown User'
-                    }}
-                    {{ prop?.last_name }}
+                    <a
+                        *ngIf="isTopWriters"
+                        routerLink="/user-profile"
+                        [queryParams]="{
+                            user_id: prop?.user_id,
+                            organization: prop?.org_type,
+                            organization_id: prop?.org_id
+                        }"
+                    >
+                        {{
+                            prop?.user_name ||
+                                prop?.question_user ||
+                                prop?.posted_user ||
+                                prop?.first_name ||
+                                prop?.firstname ||
+                                prop?.lastname ||
+                                'Unknown User'
+                        }}
+                        {{ prop?.last_name }}</a
+                    >
+                    <span *ngIf="!isTopWriters">
+                        {{
+                            prop?.user_name ||
+                                prop?.question_user ||
+                                prop?.posted_user ||
+                                prop?.first_name ||
+                                prop?.firstname ||
+                                prop?.lastname ||
+                                'Unknown User'
+                        }}
+                        {{ prop?.last_name }}
+                    </span>
                 </div>
             </div>
             <div

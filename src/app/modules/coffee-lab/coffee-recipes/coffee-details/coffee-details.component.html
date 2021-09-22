@@ -33,7 +33,8 @@
                         </p>
                         <div class="d-md-flex mb-4 mb-md-0">
                             <div class="fnt-14 fnt-muli fnt-600 text-clr588 mb-md-45">
-                                Published {{ detailsData?.posted_at || detailsData?.created_at | date: 'longDate' }}
+                                {{ 'published' | translate }}
+                                {{ detailsData?.posted_at || detailsData?.created_at | date: 'longDate' }}
                             </div>
                             <div
                                 class="translate-mob-wrapper pl-2"
@@ -46,7 +47,7 @@
                             </div>
                         </div>
                         <div class="d-md-flex justify-content-md-between align-items-md-end w-100">
-                            <app-user-header [prop]="detailsData"></app-user-header>
+                            <app-user-header [prop]="stickySecData"></app-user-header>
                             <div class="row justify-content-between ml-1 mob-b-boder">
                                 <div class="d-flex mt-3 mb-45 d-md-none icon-mob">
                                     <div class="d-flex align-like">
@@ -541,12 +542,14 @@
                         <p class="fnt-muli fnt-14 fnt-bold text-clr334 mb-1">
                             {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
                         </p>
-                        <p class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1">{{ stickySecData?.organisation_name }}</p>
+                        <p class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1">
+                            {{ stickySecData?.organisation_name || stickySecData?.organization_name }}
+                        </p>
                         <p
                             *ngIf="stickySecData?.country || stickySecData?.city"
                             class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1"
                         >
-                            <span *ngIf="stickySecData?.organisation_name">@</span>
+                            <span *ngIf="stickySecData?.organisation_name || stickySecData?.organization_name">@</span>
                             {{ stickySecData?.city || stickySecData?.organization_city }},
                             {{ stickySecData?.country | country }}
                         </p>

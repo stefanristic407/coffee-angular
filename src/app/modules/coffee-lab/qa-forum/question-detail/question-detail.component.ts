@@ -226,4 +226,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
         }
     }
+
+    onCategoryClick(slug: string) {
+        this.router.navigateByUrl('/coffee-lab/category/' + slug);
+    }
 }

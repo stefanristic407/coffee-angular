@@ -28,7 +28,8 @@
             </div>
             <div class="d-md-flex justify-content-md-center mt-35 mt-md-4 mb-4">
                 <div class="published fnt-14 fnt-muli mr-3">
-                    Published {{ detailsData?.posted_at || detailsData?.created_at | date: 'longDate' }}
+                    {{ 'published' | translate }}
+                    {{ detailsData?.posted_at || detailsData?.created_at | date: 'longDate' }}
                 </div>
                 <div
                     class="mt-2 mt-md-0"
@@ -58,7 +59,7 @@
                 <span>
                     <div class="d-flex flex-wrap w-100 innter-box">
                         <div class="d-flex justify-content-between align-items-md-end w-100">
-                            <app-user-header [prop]="detailsData"></app-user-header>
+                            <app-user-header [prop]="stickySecData"></app-user-header>
                             <div class="d-flex flex-column align-items-end">
                                 <app-forum-menu
                                     [selectedItem]="detailsData"
@@ -77,17 +78,6 @@
                                         detailsData.user_id === authService.currentUser.id
                                     "
                                 ></app-forum-menu>
-                                <!-- <div
-                                    class="d-none d-md-block mt-2"
-                                    *ngIf="
-                                        detailsData?.allow_translation && detailsData?.translated_articles?.length > 0
-                                    "
-                                >
-                                    <app-translation-dropdown
-                                        forumType="article"
-                                        [translatedList]="detailsData?.translated_articles"
-                                    ></app-translation-dropdown>
-                                </div> -->
                             </div>
                         </div>
                         <div class="forum-content w-100 pt-4 mb-5">
@@ -199,11 +189,6 @@
                                     />
                                 </div>
                             </div>
-                            <!-- <span *ngFor="let btn of buttonList">
-                                <button class="p-2 button-list fnt-12 fnt-muli fnt-600 text-clr334">
-                                    {{ btn.button }}
-                                </button>
-                            </span> -->
                         </div>
 
                         <div
@@ -303,44 +288,7 @@
                                 </div>
                                 <div class="px-0 mt-3 mb-4 forum-content ml-md-5 pl-md-1">
                                     <div [innerHTML]="postItem.comment"></div>
-                                    <!-- <ng-container *ngIf="postItem.images">
-                                        <img
-                                            class="w-100 mb-3"
-                                            *ngFor="let img of postItem.images"
-                                            [src]="img.thumb_file || img.file"
-                                            alt="answer image"
-                                        />
-                                    </ng-container> -->
                                 </div>
-                                <!-- <div class="d-flex justify-content-between mb-3">
-                                    <div class="d-flex">
-                                        <div class="d-flex">
-                                            <img src="assets/images/thumbsup.svg" alt="thumbs-up" />
-                                            <span class="d-flex align-items-lg-end ml-3 mb-1">2</span>
-                                        </div>
-                                        <div class="align-items-center d-flex">
-                                            <div *ngIf="!isSaveArticle" class="hover-save-icon">
-                                                <img
-                                                    (click)="onSave(detailsData.id)"
-                                                    class="cursor-point"
-                                                    src="assets/images/save.svg"
-                                                    alt="save"
-                                                />
-                                            </div>
-                                            <div *ngIf="isSaveArticle">
-                                                <img
-                                                    (click)="onSameSave(detailsData.id)"
-                                                    class="cursor-point"
-                                                    src="assets/images/saved-item.svg"
-                                                    alt="saved"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex">
-                                        <img src="assets/images/share-black.svg" alt="ubload" />
-                                    </div>
-                                </div> -->
                             </div>
                             <div class="text-center w-100" *ngIf="showCommentBtn">
                                 <button
@@ -400,12 +348,14 @@
                         <p class="fnt-muli fnt-14 fnt-bold text-clr334 mb-1">
                             {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
                         </p>
-                        <p class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1">{{ stickySecData?.organisation_name }}</p>
+                        <p class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1">
+                            {{ stickySecData?.organisation_name || stickySecData?.organization_name }}
+                        </p>
                         <p
                             *ngIf="stickySecData?.country || stickySecData?.city"
                             class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1"
                         >
-                            <span *ngIf="stickySecData?.organisation_name">@</span>
+                            <span *ngIf="stickySecData?.organisation_name || stickySecData?.organization_name">@</span>
                             {{ stickySecData?.city || stickySecData?.organization_city }},
                             {{ stickySecData?.country | country }}
                         </p>
