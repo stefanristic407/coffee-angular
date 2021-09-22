@@ -1,4 +1,4 @@
-<div class="recipe-post-wrapper p-2 p-md-0 bg-f8" [ngClass]="{ 'mt-475': isTranslate }">
+<div class="recipe-post-wrapper p-2 p-md-0 bg-f8" [ngClass]="{ 'trans-margin': isTranslate }">
     <div class="row recipe-mob" [formGroup]="recipeForm" (ngSubmit)="onSave()" novalidate>
         <div *ngIf="!isTranslate" class="mb-3 mb-md-4 sewn-form-field col-12 w-100 pl-0 mt-4 pl-md-3">
             <label class="mb-1">{{ 'language' | translate }}</label>
@@ -263,7 +263,7 @@
                 class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs flex-wrap"
                 *ngIf="recipeForm?.value?.preparation_method == 'steps'"
             >
-                <div class="col-12 pr-md-2 pr-lg-3 sewn-form-field w-100 mb-3 pl-0 pl-md-3">
+                <div class="col-12 pr-md-2 pr-lg-3 sewn-form-field w-100 mb-0 mb-md-3 pl-0 pl-md-3">
                     <div>
                         <label>{{ 'step' | translate }} {{ i + 1 }}</label>
                     </div>

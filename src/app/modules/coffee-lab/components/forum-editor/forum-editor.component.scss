@@ -48,7 +48,12 @@
     }
 }
 
-::ng-deep .forum-editor .p-editor-content .ql-editor:before {
-    color: #747588 !important;
-    font-size: 14px;
+::ng-deep .forum-editor .p-editor-content .ql-editor {
+    p {
+        color: #232334 !important;
+    }
+    &:before {
+        color: #747588 !important;
+        font-size: 14px;
+    }
 }

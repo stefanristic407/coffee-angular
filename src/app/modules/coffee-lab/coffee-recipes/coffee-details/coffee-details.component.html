@@ -6,7 +6,7 @@
     </div>
     <app-loading *ngIf="isLoading"></app-loading>
     <div class="page-wrapper m-0" *ngIf="!isLoading">
-        <article class="flex-1 mb-4">
+        <article class="flex-1">
             <div class="w-100">
                 <div class="recip-content pt-2 pt-lg-45">
                     <img
@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex">
-                                    <div class="d-flex mob-height align-items-center mr-3 mt-1">
+                                    <div class="d-flex mob-height align-items-center mr-3">
                                         <app-forum-menu
                                             [selectedItem]="detailsData"
                                             forumType="recipe"
@@ -464,7 +464,7 @@
                             </p>
                         </div>
                         <div
-                            class="answer-wrapper my-45"
+                            class="answer-wrapper mt-45"
                             *ngFor="let postItem of commentData; let isLast = last"
                             [ngClass]="{
                                 'border-bottom-0': isLast && !showCommentBtn,
@@ -507,7 +507,7 @@
         </article>
     </div>
     <article class="row" *ngIf="!isLoading">
-        <div class="col-12 col-md-8 px-md-3">
+        <div class="col-12 col-md-8 px-md-3 mt-md-45">
             <div class="fnt-16 fnt-muli fnt-bold text-clr334 pt-3 pb-45 background-header">
                 {{ 'popular_brewing_guides' | translate }}
             </div>
@@ -525,7 +525,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-4 mb-4 px-md-3">
+        <div class="col-12 col-md-4 mb-4 px-md-3 mt-md-45">
             <app-join-community [type]="'recipe'"></app-join-community>
         </div>
     </article>
@@ -578,7 +578,7 @@
                 </div>
             </div>
             <div class="sticky-divder"></div>
-            <div class="d-flex my-4">
+            <div class="d-flex justify-content-around my-4">
                 <div class="d-flex align-like">
                     <div class="like-int" (click)="onLike(detailsData.id)" *ngIf="!detailsData.is_liked">
                         <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
@@ -586,7 +586,9 @@
                     <div class="like-int" (click)="onUnLike(detailsData.id)" *ngIf="detailsData.is_liked">
                         <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                     </div>
-                    <span class="d-flex mt-3 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>
+                    <span class="d-flex mt-25 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
+                        detailsData.likes
+                    }}</span>
                 </div>
                 <div class="message-icon hover-message-icon">
                     <img
