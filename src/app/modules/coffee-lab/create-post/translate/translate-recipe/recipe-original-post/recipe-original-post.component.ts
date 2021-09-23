@@ -142,7 +142,7 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
         this.coffeeLabService.copyFile(id).subscribe((res: any) => {
             this.isCopying = false;
             if (res.success) {
-                this.toaster.success('Copied file successfully.');
+                this.toaster.success('Copied cover image successfully');
                 this.coffeeLabService.copyCoverImage.emit({
                     imageId: res.result.id,
                     imageUrl: res.result.url,
