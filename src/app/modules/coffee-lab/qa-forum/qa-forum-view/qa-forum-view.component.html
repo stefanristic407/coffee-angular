@@ -22,18 +22,6 @@
             <div class="d-flex mb-md-4 ml-3">
                 <div class="d-md-flex justify-content-md-between align-items-center pr-lg-2 flex-1">
                     <div class="d-flex">
-                        <div>
-                            <p-dropdown
-                                [options]="filterPostedByOptions"
-                                optionLabel="label"
-                                optionValue="value"
-                                [(ngModel)]="coffeeLabService.qaForumViewFilterBy"
-                                (ngModelChange)="getQuestions()"
-                                styleClass="round-border text-clr588"
-                                [placeholder]="'posted_by' | translate"
-                                [showClear]="true"
-                            ></p-dropdown>
-                        </div>
                         <p-dropdown
                             [options]="categoryList"
                             (onChange)="getQuestions()"
@@ -42,9 +30,20 @@
                             [placeholder]="'category' | translate"
                             optionLabel="name"
                             optionValue="slug"
-                            class="ml-3"
                             [showClear]="true"
                         ></p-dropdown>
+                        <p-dropdown
+                            [options]="filterPostedByOptions"
+                            optionLabel="label"
+                            optionValue="value"
+                            [(ngModel)]="coffeeLabService.qaForumViewFilterBy"
+                            (ngModelChange)="getQuestions()"
+                            styleClass="round-border text-clr588"
+                            [placeholder]="'posted_by' | translate"
+                            [showClear]="true"
+                            class="ml-3"
+                        ></p-dropdown>
+
                         <div class="ml-md-3 d-none d-md-block">
                             <p-dropdown
                                 [options]="sortOptions"

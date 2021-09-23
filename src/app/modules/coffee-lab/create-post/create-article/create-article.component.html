@@ -65,6 +65,9 @@
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
+            <small *ngIf="articleForm.controls['title'].errors?.maxWordCount" class="p-error">
+                Please input 120 words
+            </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
             <label>{{ 'subtitle' | translate }}</label>

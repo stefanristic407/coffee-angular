@@ -24,6 +24,33 @@
                 <span>{{ menu.label | translate }}</span>
             </ng-template>
             <div class="mt-45" *ngIf="selectedTab === 0">
+                <div *ngIf="!isLoading" class="col-12 col-md-4 px-0 mx-auto w-min-content d-lg-none h-fit-content">
+                    <div class="other-category py-4">
+                        <div class="row mx-0 fnt-16 fnt-bold fnt-muli">
+                            {{ 'other_categories' | translate }}
+                        </div>
+                        <div class="row mx-0 mt-4">
+                            <div *ngFor="let item of otherCategories; let isLast = last" class="mr-md-25 mr-2">
+                                <button
+                                    class="category-btn fnt-600 text-clr334 mb-2"
+                                    (click)="onCategoryClick(item.slug)"
+                                >
+                                    {{ item.name }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top-writer mb-4">
+                        <div class="fnt-muli fnt-16 fnt-bold mb-2 mt-3">{{ 'top_writers' | translate }}</div>
+                        <div
+                            *ngFor="let user of topWriters; let isLast = last"
+                            [ngClass]="{ 'border-0': isLast, 'mb-25': isLast }"
+                            class="border-bottom mt-3 pb-3"
+                        >
+                            <app-user-header [isTopWriters]="true" [prop]="user"></app-user-header>
+                        </div>
+                    </div>
+                </div>
                 <div class="row mb-475 mb-md-0">
                     <ng-container *ngTemplateOutlet="filterDropdowns"></ng-container>
                 </div>
@@ -50,7 +77,7 @@
                                 {{ 'other_categories' | translate }}
                             </div>
                             <div class="row mx-0 mt-4">
-                                <div *ngFor="let item of otherCategories; let isLast = last" class="mr-3">
+                                <div *ngFor="let item of otherCategories; let isLast = last" class="mr-md-25 mr-2">
                                     <button
                                         class="category-btn fnt-600 text-clr334 mb-2"
                                         (click)="onCategoryClick(item.slug)"

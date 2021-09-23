@@ -61,7 +61,7 @@ export class CreateArticleComponent implements OnInit {
             }
         });
         this.articleForm = this.fb.group({
-            title: ['', Validators.compose([Validators.required])],
+            title: ['', Validators.compose([maxWordCountValidator(120), Validators.required])],
             subtitle: ['', Validators.compose([maxWordCountValidator(30), Validators.required])],
             content: [''],
             language: [],

@@ -18,14 +18,16 @@
         }
     }
 
-    &:hover {
-        cursor: pointer;
-        border: 0px !important;
-        transform: scale(1.05);
-        box-shadow: 0 0 2rem rgb(0 0 0 / 20%);
-        .recipe-name {
-            .recipe-title {
-                text-decoration: underline;
+    @media (min-width: 992px) {
+        &:hover {
+            cursor: pointer;
+            border: 0px !important;
+            transform: scale(1.05);
+            box-shadow: 0 0 2rem rgb(0 0 0 / 20%);
+            .recipe-name {
+                .recipe-title {
+                    text-decoration: underline;
+                }
             }
         }
     }

@@ -77,30 +77,26 @@
                                             detailsData.likes
                                         }}</span>
                                     </div>
-                                    <div class="message-icon hover-message-icon">
-                                        <img
-                                            (click)="onFocusCommentBox()"
-                                            class="cursor-point"
-                                            src="assets/images/message.svg"
-                                            alt="message"
-                                        />
+                                    <div
+                                        class="message-icon hover-message-icon cursor-point"
+                                        (click)="onFocusCommentBox()"
+                                    >
+                                        <img src="assets/images/message.svg" alt="message" />
                                     </div>
                                     <div class="ml-3">
-                                        <div *ngIf="!isSaveRecipe" class="hover-save-icon">
-                                            <img
-                                                (click)="onSave(detailsData.id)"
-                                                class="cursor-point"
-                                                src="assets/images/save.svg"
-                                                alt="save"
-                                            />
+                                        <div
+                                            *ngIf="!isSaveRecipe"
+                                            class="hover-save-icon cursor-point"
+                                            (click)="onSave(detailsData.id)"
+                                        >
+                                            <img src="assets/images/save.svg" alt="save" />
                                         </div>
-                                        <div *ngIf="isSaveRecipe" class="hover-save-icon">
-                                            <img
-                                                (click)="onSameSave(detailsData.id)"
-                                                class="cursor-point"
-                                                src="assets/images/saved-item.svg"
-                                                alt="saved"
-                                            />
+                                        <div
+                                            *ngIf="isSaveRecipe"
+                                            class="hover-save-icon cursor-point"
+                                            (click)="onSameSave(detailsData.id)"
+                                        >
+                                            <img src="assets/images/saved-item.svg" alt="saved" />
                                         </div>
                                     </div>
                                 </div>
@@ -125,21 +121,19 @@
                                         ></app-forum-menu>
                                     </div>
                                     <div class="d-none d-md-block message-top hover-save-icon">
-                                        <div *ngIf="!isSaveRecipe">
-                                            <img
-                                                (click)="onSave(detailsData.id)"
-                                                class="cursor-point"
-                                                src="assets/images/save.svg"
-                                                alt="save"
-                                            />
+                                        <div
+                                            *ngIf="!isSaveRecipe"
+                                            class="cursor-point"
+                                            (click)="onSave(detailsData.id)"
+                                        >
+                                            <img src="assets/images/save.svg" alt="save" />
                                         </div>
-                                        <div *ngIf="isSaveRecipe">
-                                            <img
-                                                (click)="onSameSave(detailsData.id)"
-                                                class="cursor-point"
-                                                src="assets/images/saved-item.svg"
-                                                alt="saved"
-                                            />
+                                        <div
+                                            *ngIf="isSaveRecipe"
+                                            class="cursor-point"
+                                            (click)="onSameSave(detailsData.id)"
+                                        >
+                                            <img src="assets/images/saved-item.svg" alt="saved" />
                                         </div>
                                     </div>
                                 </div>
@@ -348,31 +342,24 @@
                                     }}</span>
                                 </div>
                                 <div class="align-items-center">
-                                    <div *ngIf="!isSaveRecipe" class="hover-save-icon">
-                                        <img
-                                            (click)="onSave(detailsData.id)"
-                                            class="cursor-point"
-                                            src="assets/images/save.svg"
-                                            alt="save"
-                                        />
+                                    <div
+                                        *ngIf="!isSaveRecipe"
+                                        class="hover-save-icon cursor-point"
+                                        (click)="onSave(detailsData.id)"
+                                    >
+                                        <img src="assets/images/save.svg" alt="save" />
                                     </div>
-                                    <div *ngIf="isSaveRecipe" class="hover-save-icon">
-                                        <img
-                                            (click)="onSameSave(detailsData.id)"
-                                            class="cursor-point"
-                                            src="assets/images/saved-item.svg"
-                                            alt="saved"
-                                        />
+                                    <div
+                                        *ngIf="isSaveRecipe"
+                                        class="hover-save-icon cursor-point"
+                                        (click)="onSameSave(detailsData.id)"
+                                    >
+                                        <img src="assets/images/saved-item.svg" alt="saved" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex hover-share-icon">
-                                <img
-                                    (click)="onShare()"
-                                    class="cursor-point"
-                                    src="assets/images/share.svg"
-                                    alt="upload"
-                                />
+                            <div class="d-flex hover-share-icon cursor-point" (click)="onShare()">
+                                <img src="assets/images/share.svg" alt="upload" />
                             </div>
                         </div>
                         <div *ngIf="detailsData?.categories" class="row mb-4 mb-md-45 mx-0">
@@ -572,11 +559,11 @@
                         {{ 'view_profile' | translate }}
                     </button>
                     <button
-                        class="btn-raised fnt-14 fnt-muli"
+                        class="btn-raised fnt-14 fnt-muli cursor-point"
                         *ngIf="detailsData?.user_id !== authService?.currentUser.id"
                         (click)="openChat()"
                     >
-                        <img class="cursor-point" src="assets/images/message-icon-white.svg" />
+                        <img src="assets/images/message-icon-white.svg" />
                     </button>
                 </div>
             </div>
@@ -593,30 +580,15 @@
                         detailsData.likes
                     }}</span>
                 </div>
-                <div class="message-icon hover-message-icon">
-                    <img
-                        (click)="onFocusCommentBox()"
-                        class="cursor-point"
-                        src="assets/images/message.svg"
-                        alt="message"
-                    />
+                <div class="message-icon hover-message-icon cursor-point" (click)="onFocusCommentBox()">
+                    <img src="assets/images/message.svg" alt="message" />
                 </div>
                 <div class="ml-3">
-                    <div *ngIf="!isSaveRecipe" class="hover-save-icon">
-                        <img
-                            (click)="onSave(detailsData.id)"
-                            class="cursor-point"
-                            src="assets/images/save.svg"
-                            alt="save"
-                        />
+                    <div *ngIf="!isSaveRecipe" class="hover-save-icon cursor-point" (click)="onSave(detailsData.id)">
+                        <img src="assets/images/save.svg" alt="save" />
                     </div>
-                    <div *ngIf="isSaveRecipe" class="hover-save-icon">
-                        <img
-                            (click)="onSameSave(detailsData.id)"
-                            class="cursor-point"
-                            src="assets/images/saved-item.svg"
-                            alt="saved"
-                        />
+                    <div *ngIf="isSaveRecipe" class="hover-save-icon cursor-point" (click)="onSameSave(detailsData.id)">
+                        <img src="assets/images/saved-item.svg" alt="saved" />
                     </div>
                 </div>
             </div>
