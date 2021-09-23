@@ -301,8 +301,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.categoryList = [];
         this.coffeeLabService.getCategory(this.translateLang).subscribe((category) => {
             if (category.success) {
-                category.result.forEach((item) => {
-                    this.categoryValue.forEach((element) => {
+                category.result?.forEach((item) => {
+                    this.categoryValue?.forEach((element) => {
                         if (item.parent_id === element.id) {
                             this.translatedCategory.push(item);
                         }
@@ -574,7 +574,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         data.equipment_name = this.recipe.equipment_name;
         data.serves = this.recipe.serves;
         if (this.translatedCategory && this.translatedCategory.length > 0) {
-            data.categories = this.translatedCategory;
+            data.categories = this.translatedCategory?.map((item) => item.id);
         }
         this.coffeeLabService.translateForum('recipe', this.originRecipeId, data).subscribe((res: any) => {
             if (res.success) {

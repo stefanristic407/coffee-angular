@@ -183,7 +183,7 @@ export class TranslateAnswerComponent implements OnInit {
         }
 
         if (this.categoryList && this.categoryList.length > 0) {
-            data.categories = this.categoryList;
+            data.categories = this.categoryList?.map((item) => item.id);
         }
 
         this.isPosting = true;
