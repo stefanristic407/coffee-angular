@@ -182,6 +182,10 @@ export class TranslateAnswerComponent implements OnInit {
             data.question = this.form.controls.question.value;
         }
 
+        if (this.categoryList && this.categoryList.length > 0) {
+            data.categories = this.categoryList;
+        }
+
         this.isPosting = true;
         this.coffeeLabService.translateForum('answer', this.answerId, data).subscribe((res: any) => {
             this.isPosting = false;

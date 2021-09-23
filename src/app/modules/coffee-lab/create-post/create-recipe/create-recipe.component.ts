@@ -573,8 +573,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     translateRecipe(data: any): void {
         data.equipment_name = this.recipe.equipment_name;
         data.serves = this.recipe.serves;
-        if (data.categories) {
-            delete data.categories;
+        if (this.translatedCategory && this.translatedCategory.length > 0) {
+            data.categories = this.translatedCategory;
         }
         this.coffeeLabService.translateForum('recipe', this.originRecipeId, data).subscribe((res: any) => {
             if (res.success) {

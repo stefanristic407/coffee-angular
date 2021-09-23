@@ -206,6 +206,9 @@ export class TranslateArticleComponent implements OnInit {
             ...data,
             cover_image_id: coverImageId,
         };
+        if (this.categoryList && this.categoryList.length > 0) {
+            data.categories = this.categoryList;
+        }
         if (status === 'draft' && this.draftId) {
             this.coffeeLabService.updateForum('article', this.draftId, data).subscribe((res: any) => {
                 this.isPosting = false;
