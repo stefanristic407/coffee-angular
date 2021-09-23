@@ -670,5 +670,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     changeLanguage(value) {
         this.coffeeLabService.forumLanguage.next(this.recipeForm.get('language').value);
+        this.getCategory();
     }
 }

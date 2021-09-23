@@ -160,7 +160,11 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field pr-md-2 mb-md-3 pr-lg-3 pl-0 pl-md-3">
                     <label
                         >{{ 'ingredient' | translate }}
-                        <span *ngIf="i > 0" class="d-md-none editBtn float-right" (click)="deleteIngredient(i)">
+                        <span
+                            *ngIf="i > 0 && !isTranslate"
+                            class="d-md-none editBtn float-right"
+                            (click)="deleteIngredient(i)"
+                        >
                             {{ 'delete' | translate }}
                         </span>
                     </label>
@@ -196,7 +200,10 @@
                     </div>
                 </div>
 
-                <div *ngIf="i > 0" class="col-md-1 pl-md-0 pl-lg-2 d-none d-md-flex justify-content-end form-middle">
+                <div
+                    *ngIf="i > 0 && !isTranslate"
+                    class="col-md-1 pl-md-0 pl-lg-2 d-none d-md-flex justify-content-end form-middle"
+                >
                     <span class="editBtn" (click)="deleteIngredient(i)">
                         {{ 'delete' | translate }}
                     </span>
@@ -324,7 +331,7 @@
             *ngIf="!isTranslate"
             class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3 mt-1"
         >
-            <label class="mb-1">{{ 'category' | translate }}</label>
+            <label class="mb-1">{{ 'categories' | translate }}</label>
             <p-multiSelect
                 [options]="categoryList"
                 [(ngModel)]="categoryValue"

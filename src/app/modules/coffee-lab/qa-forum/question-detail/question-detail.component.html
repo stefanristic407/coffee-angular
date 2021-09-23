@@ -30,6 +30,7 @@
             </div>
             <div
                 class="fnt-muli fnt-16 fnt-md-18 fnt-700 text-clr334 question-name px-md-4 px-3"
+                [ngClass]="{ 'mb-4': !detailsData?.categories }"
                 [innerHTML]="detailsData.question"
             ></div>
             <div *ngIf="detailsData?.categories" class="row mb-4 ml-4 mt-3">
