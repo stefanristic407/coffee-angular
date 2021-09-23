@@ -31,6 +31,7 @@ export class TranslateAnswerComponent implements OnInit {
     allLanguage: any[] = APP_LANGUAGES;
     remainingAnswerLangugage = [];
     selectedTab = 0;
+    categoryList: any[] = [];
     isMobile = false;
 
     constructor(
@@ -122,11 +123,27 @@ export class TranslateAnswerComponent implements OnInit {
         }
     }
 
+    getCategory() {
+        this.categoryList = [];
+        this.coffeeLabService.getCategory(this.translateLangCode).subscribe((category) => {
+            if (category.success) {
+                category.result.forEach((item) => {
+                    this.question.categories.forEach((element) => {
+                        if (item.parent_id === element.id) {
+                            this.categoryList.push(item);
+                        }
+                    });
+                });
+            }
+        });
+    }
+
     handleChange(e?) {
         this.checkQuestionTranslated(e.index);
         this.selectedTab = e.index;
         this.translateLangCode = this.remainingAnswerLangugage[e.index].value;
         const translateData = [this.originAnswer.question, this.originAnswer.answer];
+        this.getCategory();
         this.gtrans.translateCoffeeLab(translateData, this.translateLangCode).subscribe((translatedOutput: any) => {
             this.form.patchValue({
                 question: translatedOutput[0].translatedText,
@@ -163,6 +180,10 @@ export class TranslateAnswerComponent implements OnInit {
 
         if (!this.checkQuestionTranslated(this.selectedTab)) {
             data.question = this.form.controls.question.value;
+        }
+
+        if (this.categoryList && this.categoryList.length > 0) {
+            data.categories = this.categoryList;
         }
 
         this.isPosting = true;

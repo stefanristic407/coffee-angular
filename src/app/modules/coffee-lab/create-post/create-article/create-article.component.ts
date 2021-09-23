@@ -100,6 +100,7 @@ export class CreateArticleComponent implements OnInit {
     }
 
     getCategory() {
+        this.categoryList = [];
         this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;

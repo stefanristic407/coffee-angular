@@ -36,6 +36,7 @@ export class TranslateArticleComponent implements OnInit {
     allLanguage: any[] = APP_LANGUAGES;
     isTranslationArticle = [];
     remainingLangugage = [];
+    categoryList: any[] = [];
     isMobile = false;
 
     constructor(
@@ -106,9 +107,25 @@ export class TranslateArticleComponent implements OnInit {
         });
     }
 
+    getCategory() {
+        this.categoryList = [];
+        this.coffeeLabService.getCategory(this.selectedTabArticle).subscribe((category) => {
+            if (category.success) {
+                category.result.forEach((item) => {
+                    this.article.categories.forEach((element) => {
+                        if (item.parent_id === element.id) {
+                            this.categoryList.push(item);
+                        }
+                    });
+                });
+            }
+        });
+    }
+
     handleChange(e?) {
         this.selectedTabArticle = this.remainingLangugage[e.index].value;
         const translateData = [this.article.title, this.article.subtitle, this.article.content];
+        this.getCategory();
         this.gtrans.translateCoffeeLab(translateData, this.selectedTabArticle).subscribe((translatedOutput: any) => {
             this.articleForm.patchValue({
                 title: translatedOutput[0].translatedText,
@@ -189,6 +206,9 @@ export class TranslateArticleComponent implements OnInit {
             ...data,
             cover_image_id: coverImageId,
         };
+        if (this.categoryList && this.categoryList.length > 0) {
+            data.categories = this.categoryList;
+        }
         if (status === 'draft' && this.draftId) {
             this.coffeeLabService.updateForum('article', this.draftId, data).subscribe((res: any) => {
                 this.isPosting = false;
