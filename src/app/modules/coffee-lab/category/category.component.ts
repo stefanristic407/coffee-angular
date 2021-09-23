@@ -199,4 +199,14 @@ export class CategoryComponent implements OnInit {
         this.router.navigateByUrl('/coffee-lab/category/' + slug);
         this.onChangeTab(0);
     }
+
+    onBack() {
+        if (this.selectedTab === 0) {
+            this.router.navigateByUrl('coffee-lab/overview/qa-forum');
+        } else if (this.selectedTab === 1) {
+            this.router.navigateByUrl('coffee-lab/overview/articles');
+        } else if (this.selectedTab === 2) {
+            this.router.navigateByUrl('coffee-lab/overview/coffee-recipes');
+        }
+    }
 }

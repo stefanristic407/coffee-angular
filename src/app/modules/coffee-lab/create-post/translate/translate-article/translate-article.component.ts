@@ -125,7 +125,9 @@ export class TranslateArticleComponent implements OnInit {
     handleChange(e?) {
         this.selectedTabArticle = this.remainingLangugage[e.index].value;
         const translateData = [this.article.title, this.article.subtitle, this.article.content];
-        this.getCategory();
+        if (this.article.categories) {
+            this.getCategory();
+        }
         this.gtrans.translateCoffeeLab(translateData, this.selectedTabArticle).subscribe((translatedOutput: any) => {
             this.articleForm.patchValue({
                 title: translatedOutput[0].translatedText,

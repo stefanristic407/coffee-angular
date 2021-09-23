@@ -56,8 +56,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     maxVideoSize = 15;
     destroy$: Subject<boolean> = new Subject<boolean>();
     clicked = false;
-    categoryList: any;
-    categoryValue: any;
+    categoryList: any[] = [];
+    categoryValue: any[] = [];
     status: string;
     translatedCategory: any[] = [];
     expertiseArray: any[] = [
@@ -289,7 +289,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                         this.patchRecipeForm(res.result);
                     }
                     this.categoryValue = res.result.categories;
-                    this.getTranslateCategory();
+                    if (this.categoryValue && this.categoryValue?.length > 0) {
+                        this.getTranslateCategory();
+                    }
                 } else {
                     this.toaster.error('Error while get recipe');
                     this.location.back();

@@ -19,10 +19,10 @@ export class JoinCommunityComponent implements OnInit {
     constructor(@Inject(DOCUMENT) private document: Document, public coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
-        this.getQaList();
+        this.getList();
     }
 
-    getQaList() {
+    getList() {
         this.coffeeLabService
             .getForumList(this.type, {
                 page: this.pages ? this.pages + 1 : 2,
