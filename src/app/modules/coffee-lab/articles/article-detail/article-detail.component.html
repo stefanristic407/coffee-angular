@@ -149,7 +149,7 @@
                                         >
                                             <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                                         </div>
-                                        <span class="d-flex mt-25 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
+                                        <span class="d-flex mt-3 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
                                             detailsData.likes
                                         }}</span>
                                     </div>
@@ -391,9 +391,7 @@
                     <div class="like-int cursor-point" (click)="onUnLike(detailsData.id)" *ngIf="detailsData.is_liked">
                         <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                     </div>
-                    <span class="d-flex mt-25 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
-                        detailsData.likes
-                    }}</span>
+                    <span class="d-flex mt-3 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>
                 </div>
                 <div class="message-icon hover-message-icon cursor-point" (click)="onFocusCommentBox()">
                     <img src="assets/images/message.svg" alt="message" />

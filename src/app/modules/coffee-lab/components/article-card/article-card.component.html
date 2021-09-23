@@ -20,7 +20,7 @@
                 <div class="like-int" *ngIf="article.is_liked" (click)="onUnLike(article.id)">
                     <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                 </div>
-                <span class="d-flex mt-25 ml-md-2 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ article.likes }}</span>
+                <span class="d-flex ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ article.likes }}</span>
             </div>
             <span class="align-items-center d-flex fnt-14 fnt-muli mt-2 text-clr588">{{
                 article?.posted_at || article?.created_at | date: 'longDate'
