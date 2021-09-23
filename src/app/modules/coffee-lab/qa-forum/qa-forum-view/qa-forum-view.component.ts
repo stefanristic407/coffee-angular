@@ -45,6 +45,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getQuestions();
+            this.getCategory();
         });
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getQuestions();
@@ -52,7 +53,6 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
             this.getQuestions();
         });
-        this.getCategory();
     }
 
     handleSearch(): void {

@@ -65,6 +65,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getCoffeeRecipesData();
+            this.getCategory();
         });
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getCoffeeRecipesData();

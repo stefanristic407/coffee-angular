@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-category',
@@ -10,6 +12,17 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
+    destroy$: Subject<boolean> = new Subject<boolean>();
+    isLoading = false;
+    questions: any[] = [];
+    articles: any;
+    recipes: any;
+    selectedTab = 0;
+    slug: string;
+    selectedSlugId: number;
+    otherCategories: any[] = [];
+    categoryName: string;
+    topWriters: any[] = [];
     menuItems = [
         {
             label: 'qa_forum',
@@ -27,16 +40,6 @@ export class CategoryComponent implements OnInit {
             activeIcon: 'assets/images/coffee-recipe-active.svg',
         },
     ];
-    isLoading = false;
-    questions: any[] = [];
-    forumLanguage: string;
-    articles: any;
-    recipes: any;
-    selectedTab = 0;
-    slug: string;
-    otherCategories: any[] = [];
-    categoryName: string;
-    topWriters: any[] = [];
     sortOptions = [
         { label: 'Latest', value: 'latest' },
         { label: 'Most answered', value: 'most_answered' },
@@ -62,7 +65,6 @@ export class CategoryComponent implements OnInit {
             value: false,
         },
     ];
-    categoryList: any;
 
     constructor(
         public location: Location,
@@ -78,15 +80,17 @@ export class CategoryComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.onChangeTab(0);
-        this.getCategories();
-        this.getAllTopWriters();
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+            this.onChangeTab(0);
+        });
     }
 
     onChangeTab(index: number) {
         this.selectedTab = index;
         if (this.selectedTab === 0) {
+            this.getCategories();
             this.getQuestions();
+            this.getAllTopWriters();
         } else if (this.selectedTab === 1) {
             this.getArticles();
         } else if (this.selectedTab === 2) {
@@ -112,14 +116,16 @@ export class CategoryComponent implements OnInit {
             per_page: 10000,
         };
         this.isLoading = true;
-        this.coffeeLabService.getForumList('question', params, this.forumLanguage).subscribe((res: any) => {
-            this.isLoading = false;
-            if (res.success) {
-                this.questions = res.result?.questions;
-            } else {
-                this.toastService.error('Cannot get forum data');
-            }
-        });
+        this.coffeeLabService
+            .getForumList('question', params, this.coffeeLabService.currentForumLanguage)
+            .subscribe((res: any) => {
+                this.isLoading = false;
+                if (res.success) {
+                    this.questions = res.result?.questions;
+                } else {
+                    this.toastService.error('Cannot get forum data');
+                }
+            });
     }
 
     getArticles(): void {
@@ -176,13 +182,26 @@ export class CategoryComponent implements OnInit {
         this.categoryName = '';
         this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((res) => {
             if (res.success) {
+                // this.updateSlug(res.result);
                 this.otherCategories = res.result.filter((item) => item.slug !== this.slug);
-                this.categoryList = res.result;
                 res.result.filter((item) => {
                     if (item.slug === this.slug) {
                         this.categoryName = item.name;
                     }
                 });
+                res.result.filter((item) => {
+                    if (item.slug === this.slug) {
+                        this.selectedSlugId = item.parent_id;
+                    }
+                });
+            }
+        });
+    }
+
+    updateSlug(data) {
+        data.filter((item) => {
+            if (item.parent_id === this.selectedSlugId) {
+                this.slug = item.slug;
             }
         });
     }
