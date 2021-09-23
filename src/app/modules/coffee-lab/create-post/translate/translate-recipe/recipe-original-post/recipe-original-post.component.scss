@@ -163,6 +163,10 @@
     opacity: 1;
 }
 
+::ng-deep.p-component:disabled {
+    opacity: 0.8;
+}
+
 .description {
     min-height: 207px;
 }

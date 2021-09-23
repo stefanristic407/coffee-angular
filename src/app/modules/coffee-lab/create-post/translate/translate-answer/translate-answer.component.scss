@@ -35,6 +35,10 @@
     }
 }
 
+::ng-deep.p-component:disabled {
+    opacity: 0.8;
+}
+
 ::ng-deep .bg-tabView-question .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
 .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
     background-color: rgba(48, 133, 92, 0.16) !important;
