@@ -48,14 +48,14 @@
     bottom: 8px;
 }
 
-.button-list {
-    margin: 0 4px 5px 0;
-    padding: 7px 10px 8px;
+.category-btn {
+    margin: 5px 0px 0 0;
+    padding: 8px 10px 8px 10px;
     border-radius: 4px;
-    background-color: #eaeaea;
     border: none;
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
         margin: 0 12px 0 0;
-        padding: 10px 15px;
+        padding: 8px 10px 8px 10px;
+        background-color: #eaeaea;
     }
 }

@@ -59,6 +59,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     categoryList: any;
     categoryValue: any;
     status: string;
+    translatedCategory: any[] = [];
     expertiseArray: any[] = [
         {
             label: 'Easy',
@@ -205,7 +206,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     getCompleteData(id: number) {
-        console.log('completed called');
         combineLatest([
             this.coffeeLabService.getForumDetails('recipe', id),
             this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage),
@@ -289,6 +289,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                         this.patchRecipeForm(res.result);
                     }
                     this.categoryValue = res.result.categories;
+                    this.getTranslateCategory();
                 } else {
                     this.toaster.error('Error while get recipe');
                     this.location.back();
@@ -296,8 +297,23 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             });
     }
 
+    getTranslateCategory() {
+        this.categoryList = [];
+        this.coffeeLabService.getCategory(this.translateLang).subscribe((category) => {
+            if (category.success) {
+                category.result.forEach((item) => {
+                    this.categoryValue.forEach((element) => {
+                        if (item.parent_id === element.id) {
+                            this.translatedCategory.push(item);
+                        }
+                    });
+                });
+            }
+        });
+    }
+
     getCategory() {
-        console.log('cat called');
+        this.categoryList = [];
         this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;

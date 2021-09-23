@@ -23,6 +23,18 @@
                 </div>
             </div>
             <div class="px-2 py-3 p-md-4 bg-white mr-md-4 border-right">
+                <div *ngIf="question?.categories" class="mx-3 mb-md-4">
+                    <div class="row">
+                        <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
+                    </div>
+                    <div class="row">
+                        <div *ngFor="let category of question?.categories; let i = index" class="mr-2">
+                            <button class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334">
+                                {{ category.name }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div class="sewn-form-field w-100 mb-3 mb-md-4">
                     <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
                         'question' | translate
@@ -90,6 +102,18 @@
 
 <ng-template #qaQuestion>
     <div>
+        <div *ngIf="categoryList && categoryList.length > 0" class="mb-md-3 mx-3">
+            <div class="row">
+                <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
+            </div>
+            <div class="row">
+                <div *ngFor="let category of categoryList; let i = index" class="mr-2">
+                    <button class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334">
+                        {{ category.name }}
+                    </button>
+                </div>
+            </div>
+        </div>
         <div [formGroup]="form" *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-3 mb-md-4">
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{ 'question' | translate }}</label>
             <input

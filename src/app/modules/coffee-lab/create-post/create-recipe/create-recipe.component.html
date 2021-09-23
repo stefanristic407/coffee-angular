@@ -68,6 +68,18 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="translatedCategory && translatedCategory.length > 0" class="mx-425 mt-2 mb-md-4">
+            <div class="row">
+                <label class="fnt-600 mb-3"> {{ 'categories' | translate }}</label>
+            </div>
+            <div class="row">
+                <div *ngFor="let category of translatedCategory; let i = index" class="mr-2">
+                    <button class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334">
+                        {{ category.name }}
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label [ngClass]="{ 'mt-2': isTranslate }">{{ 'recipe_name' | translate }}</label>
             <input type="text" placeholder="What’s your guide called?" pInputText formControlName="name" />
