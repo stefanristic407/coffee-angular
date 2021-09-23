@@ -122,7 +122,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
             sort_order: 'desc',
             publish: true,
         };
-        this.coffeeLabService.getForumList('recipe', params).subscribe((res) => {
+        this.coffeeLabService.getPopularList('recipe', params).subscribe((res) => {
             if (res.success) {
                 this.relatedData = res.result.filter((item: any) => item.slug !== this.slug).slice(0, 4);
                 this.relatedData.map((item) => {

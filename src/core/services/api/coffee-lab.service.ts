@@ -68,6 +68,18 @@ export class CoffeeLabService extends ApiService {
 
     getForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
         const data = {
+            api_call: `/general/${type}s?${this.serializeParams(options)}`,
+            method: 'GET',
+            token: this.authService.token,
+        };
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Accept-Language': language }),
+        };
+        return this.http.post(this.orgPostUrl, data, httpOptions);
+    }
+
+    getPopularList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
+        const data = {
             api_call: `/general/coffee-lab/popular-posts/${type}s?${this.serializeParams(options)}`,
             method: 'GET',
             token: this.authService.token,
