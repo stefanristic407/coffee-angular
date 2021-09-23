@@ -47,6 +47,8 @@
 }
 
 .language-drop {
-    position: relative;
-    top: 1.5rem;
+    @media (min-width: 992px) {
+        position: relative;
+        top: 1.5rem;
+    }
 }
