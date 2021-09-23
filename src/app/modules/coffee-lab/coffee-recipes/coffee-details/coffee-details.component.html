@@ -504,9 +504,11 @@
                     <div class="d-flex pb-4 footer-border" (click)="onRealtedRoute(forum.slug)">
                         <div class="p-articles pr-2"><img [src]="forum?.cover_image_url" alt="" /></div>
                         <div class="cursor-point d-flex flex-column">
-                            <p class="fnt-fly fnt-bold text-clr334 cust-flex-grow">{{ forum?.name }}</p>
+                            <p class="fnt-fly fnt-bold text-clr334 cust-flex-grow">
+                                {{ forum?.title | convertToShortDescription: 6 }}
+                            </p>
                             <p class="fnt-14 fnt-600 fnt-muli text-clr334 text-underline">
-                                {{ forum?.posted_user }}
+                                {{ forum?.user_name }}
                             </p>
                         </div>
                     </div>

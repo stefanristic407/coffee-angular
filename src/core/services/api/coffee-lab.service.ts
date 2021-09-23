@@ -68,7 +68,7 @@ export class CoffeeLabService extends ApiService {
 
     getForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
         const data = {
-            api_call: `/general/${type}s?${this.serializeParams(options)}`,
+            api_call: `/general/coffee-lab/popular-posts/${type}s?${this.serializeParams(options)}`,
             method: 'GET',
             token: this.authService.token,
         };
