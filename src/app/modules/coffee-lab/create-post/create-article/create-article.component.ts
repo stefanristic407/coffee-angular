@@ -45,6 +45,7 @@ export class CreateArticleComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private location: Location,
+        private globalsService: GlobalsService,
     ) {}
 
     ngOnInit(): void {
@@ -161,8 +162,23 @@ export class CreateArticleComponent implements OnInit {
             this.toaster.error('Please upload cover image.');
             return;
         }
-        this.isPosting = true;
-        this.handlePost(status);
+        const confirmText = this.status === 'draft' ? 'save this article as draft?' : 'publish this article?';
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.isPosting = true;
+                    this.handlePost(status);
+                } else {
+                    this.isPosting = false;
+                }
+            });
     }
     handlePost(status: string) {
         this.articleForm
@@ -232,6 +248,31 @@ export class CreateArticleComponent implements OnInit {
                     this.isCoverImageUploaded = false;
                     this.coverImageId = null;
                     element.value = '';
+                }
+            });
+    }
+
+    onDeleteDraft(): void {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' article?',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService.deleteForumById('article', this.articleId).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toaster.success(`Draft article deleted successfully`);
+                            this.coffeeLabService.forumDeleteEvent.emit();
+                            this.router.navigateByUrl('/coffee-lab/overview/article');
+                        } else {
+                            this.toaster.error(`Failed to delete a forum.`);
+                        }
+                    });
                 }
             });
     }

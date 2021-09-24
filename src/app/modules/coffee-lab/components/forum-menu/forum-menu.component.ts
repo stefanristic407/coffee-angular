@@ -196,7 +196,6 @@ export class ForumMenuComponent implements OnInit {
                 data: {
                     type: 'delete',
                     desp: this.globalsService.languageJson?.are_you_sure_delete + ' ' + this.forumType + '?',
-                    yesButton: 'Remove',
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

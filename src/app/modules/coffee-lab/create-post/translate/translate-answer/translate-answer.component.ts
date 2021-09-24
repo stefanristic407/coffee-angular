@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, CoffeeLabService, GoogletranslateService } from '@services';
+import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { APP_LANGUAGES } from '@constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { insertAltAttr } from '@utils';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@app/shared';
 
 @Component({
     selector: 'app-translate-answer',
@@ -15,6 +17,7 @@ import { insertAltAttr } from '@utils';
 export class TranslateAnswerComponent implements OnInit {
     answerId: any;
     answer: any;
+    draftId: string;
     originAnswer: any;
     isLoading = false;
     applicationLanguages = [];
@@ -43,6 +46,8 @@ export class TranslateAnswerComponent implements OnInit {
         private location: Location,
         public authService: AuthService,
         private gtrans: GoogletranslateService,
+        private dialogService: DialogService,
+        private globalsService: GlobalsService,
     ) {
         this.form = this.formBuilder.group({
             language: ['', Validators.required],
@@ -53,6 +58,7 @@ export class TranslateAnswerComponent implements OnInit {
 
     ngOnInit(): void {
         this.answerId = this.route.snapshot.queryParamMap.get('origin_id');
+        this.draftId = this.route.snapshot.queryParamMap.get('draft_id');
         if (!this.answerId) {
             this.router.navigate(['/coffee-lab']);
         } else {
@@ -202,5 +208,30 @@ export class TranslateAnswerComponent implements OnInit {
                 this.toastrService.error('Failed to translate answer.');
             }
         });
+    }
+
+    onDeleteDraft(): void {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' answer?',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService.deleteForumById('answer', this.draftId).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success(`Draft answer deleted successfully`);
+                            this.coffeeLabService.forumDeleteEvent.emit();
+                            this.router.navigateByUrl('/coffee-lab/overview/article');
+                        } else {
+                            this.toastrService.error(`Failed to delete a forum.`);
+                        }
+                    });
+                }
+            });
     }
 }

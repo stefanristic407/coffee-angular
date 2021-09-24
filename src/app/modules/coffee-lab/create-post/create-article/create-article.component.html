@@ -147,6 +147,13 @@
                 <button routerLink="/coffee-lab/overview/articles" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
                     {{ 'cancel' | translate }}
                 </button>
+                <button
+                    *ngIf="status === 'draft'"
+                    (click)="onDeleteDraft()"
+                    class="btn-stroked ml-3 px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+                >
+                    {{ 'delete' | translate }}
+                </button>
             </div>
             <div class="col-md-6 order-1 order-md-2">
                 <div class="d-flex justify-content-end flex-column flex-md-row">
@@ -155,7 +162,7 @@
                         (click)="onPost('draft')"
                         class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
                     >
-                        {{ 'save_as_draft' | translate }}
+                        {{ (status === 'draft' ? 'save_changes' : 'save_as_draft') | translate }}
                     </button>
                     <button
                         [disabled]="isPosting"

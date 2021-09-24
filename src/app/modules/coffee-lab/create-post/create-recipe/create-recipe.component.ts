@@ -151,6 +151,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         private location: Location,
         private dialogService: DialogService,
         private gtrans: GoogletranslateService,
+        private globalsService: GlobalsService,
     ) {
         this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
@@ -521,7 +522,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 return;
             } else {
                 this.recipeForm.controls.publish.setValue(false);
-                this.handlePost();
+                this.openCconfirmDialog();
             }
         } else {
             if (this.isTranslate) {
@@ -533,9 +534,28 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 this.toaster.error('Please fill all data');
                 return;
             } else {
-                this.handlePost();
+                this.openCconfirmDialog();
             }
         }
+    }
+
+    openCconfirmDialog() {
+        const confirmText = this.status === 'draft' ? 'save this recipe as draft?' : 'publish this recipe?';
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.handlePost();
+                } else {
+                    this.isPosting = false;
+                }
+            });
     }
 
     handlePost(): void {
@@ -653,11 +673,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.steps.removeAt(index);
     }
 
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
-    }
-
     checkRichText() {
         (this.recipeForm.get('steps') as FormArray).controls.forEach((item) => {
             item.get('description').setValue(
@@ -673,5 +688,35 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     changeLanguage(value) {
         this.coffeeLabService.forumLanguage.next(this.recipeForm.get('language').value);
         this.getCategory();
+    }
+
+    onDeleteDraft(): void {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' recipe?',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService.deleteForumById('recipe', this.draftRecipeId).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toaster.success(`Draft recipe deleted successfully`);
+                            this.coffeeLabService.forumDeleteEvent.emit();
+                            this.router.navigateByUrl('/coffee-lab/overview/coffee-recipes');
+                        } else {
+                            this.toaster.error(`Failed to delete a forum.`);
+                        }
+                    });
+                }
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

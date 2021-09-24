@@ -50,6 +50,7 @@ export class TranslateArticleComponent implements OnInit {
         private gtrans: GoogletranslateService,
         public globals: GlobalsService,
         private dialogService: DialogService,
+        private globalsService: GlobalsService,
     ) {
         this.isMobile = window.innerWidth < 767;
         this.articleForm = this.formBuilder.group({
@@ -281,6 +282,31 @@ export class TranslateArticleComponent implements OnInit {
                     this.isCoverImageUploaded = false;
                     this.coverImageId = null;
                     element.value = '';
+                }
+            });
+    }
+
+    onDeleteDraft(): void {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' article?',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService.deleteForumById('article', this.draftId).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success(`Draft article deleted successfully`);
+                            this.coffeeLabService.forumDeleteEvent.emit();
+                            this.router.navigateByUrl('/coffee-lab/overview/article');
+                        } else {
+                            this.toastrService.error(`Failed to delete a forum.`);
+                        }
+                    });
                 }
             });
     }
