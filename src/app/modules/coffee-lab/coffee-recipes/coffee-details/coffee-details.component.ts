@@ -237,15 +237,26 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
-    updateMarkBrewed(recipeId) {
-        this.coffeeLabService.markBrewed('recipe', recipeId).subscribe((res: any) => {
-            if (res.success) {
-                this.detailsData.is_brewed = true;
-                this.toastrService.success('Mark brewed update successfully');
-            } else {
-                this.toastrService.error('Error while update mark brewed');
-            }
-        });
+    updateMarkBrewed(recipeId: number, isBrewed: boolean) {
+        if (isBrewed) {
+            this.coffeeLabService.unMarkBrewed('recipe', recipeId).subscribe((res: any) => {
+                if (res.success) {
+                    this.detailsData.is_brewed = false;
+                    this.toastrService.success(this.detailsData?.name + 'un-marked as brewed successfully');
+                } else {
+                    this.toastrService.error('Error while update mark brewed');
+                }
+            });
+        } else {
+            this.coffeeLabService.markBrewed('recipe', recipeId).subscribe((res: any) => {
+                if (res.success) {
+                    this.detailsData.is_brewed = true;
+                    this.toastrService.success(this.detailsData?.name + 'marked as brewed successfully');
+                } else {
+                    this.toastrService.error('Error while update mark brewed');
+                }
+            });
+        }
     }
 
     onSave(recipeId: number): void {

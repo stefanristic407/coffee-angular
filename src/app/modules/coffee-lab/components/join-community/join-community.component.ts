@@ -24,32 +24,25 @@ export class JoinCommunityComponent implements OnInit {
 
     getList() {
         this.coffeeLabService
-            .getForumList(this.type, {
+            .getForumList('question', {
                 page: this.pages ? this.pages + 1 : 2,
                 per_page: 5,
+                category_slug: this.coffeeLabService.qaForumViewCategory,
             })
             .subscribe((res: any) => {
                 if (res.success) {
-                    if (this.type === 'question') {
-                        this.relatedData = res.result.questions;
-                    } else {
-                        this.relatedData = res.result;
-                    }
+                    this.relatedData = res.result.questions;
                 }
             });
     }
 
     getLink(item: any, answer: any) {
-        const url = `/coffee-lab/${this.type}s/${item.slug}`;
+        const url = `/coffee-lab/questions/${item.slug}`;
         return {
             url,
             queryParmas: {
                 answer: answer?.id,
             },
         };
-    }
-
-    gotoSignup() {
-        this.document.location.href = `${environment.ssoWeb}/sign-up`;
     }
 }
