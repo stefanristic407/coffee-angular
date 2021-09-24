@@ -19,9 +19,10 @@ export class CategoryComponent implements OnInit {
     recipes: any;
     selectedTab = 0;
     slug: string;
-    selectedSlugId: number;
+    currentCategory: any;
     otherCategories: any[] = [];
-    categoryName: string;
+    isCategoryCall = 0;
+    cuurentLangCode: string;
     topWriters: any[] = [];
     menuItems = [
         {
@@ -76,19 +77,26 @@ export class CategoryComponent implements OnInit {
     ) {
         this.activateRoute.params.subscribe((parmas) => {
             this.slug = parmas.slug;
+            if (this.isCategoryCall !== 1) {
+                this.getCategories(this.cuurentLangCode !== this.coffeeLabService.currentForumLanguage);
+            }
+            this.isCategoryCall++;
         });
+        this.cuurentLangCode = this.coffeeLabService.currentForumLanguage;
     }
 
     ngOnInit(): void {
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
-            this.onChangeTab(0);
+            if (this.isCategoryCall !== 1) {
+                this.getCategories(this.cuurentLangCode !== language);
+            }
+            this.isCategoryCall++;
         });
     }
 
     onChangeTab(index: number) {
         this.selectedTab = index;
         if (this.selectedTab === 0) {
-            this.getCategories();
             this.getQuestions();
             this.getAllTopWriters();
         } else if (this.selectedTab === 1) {
@@ -177,33 +185,32 @@ export class CategoryComponent implements OnInit {
         });
     }
 
-    getCategories() {
+    getCategories(isLangChanged: boolean) {
         this.otherCategories = [];
-        this.categoryName = '';
         this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((res) => {
             if (res.success) {
-                // this.updateSlug(res.result);
-                this.otherCategories = res.result.filter((item) => item.slug !== this.slug);
-                res.result.filter((item) => {
-                    if (item.slug === this.slug) {
-                        this.categoryName = item.name;
+                if (isLangChanged) {
+                    const isCategory = res.result.find(
+                        (element) => element.parent_id === this.currentCategory?.parent_id,
+                    );
+                    if (isCategory) {
+                        this.router.navigateByUrl('/coffee-lab/category/' + isCategory.slug);
+                        this.currentCategory = isCategory;
+                        this.cuurentLangCode = isCategory.language;
+                    } else {
+                        this.asssignCategories(res.result);
                     }
-                });
-                res.result.filter((item) => {
-                    if (item.slug === this.slug) {
-                        this.selectedSlugId = item.parent_id;
-                    }
-                });
+                } else {
+                    this.asssignCategories(res.result);
+                }
             }
         });
     }
 
-    updateSlug(data) {
-        data.filter((item) => {
-            if (item.parent_id === this.selectedSlugId) {
-                this.slug = item.slug;
-            }
-        });
+    asssignCategories(data: any) {
+        this.otherCategories = data.filter((element) => element.slug !== this.slug);
+        this.currentCategory = data.find((item) => item.slug === this.slug);
+        this.onChangeTab(0);
     }
 
     getAllTopWriters() {
@@ -212,11 +219,6 @@ export class CategoryComponent implements OnInit {
                 this.topWriters = res.result;
             }
         });
-    }
-
-    onCategoryClick(slug: string) {
-        this.router.navigateByUrl('/coffee-lab/category/' + slug);
-        this.onChangeTab(0);
     }
 
     onBack() {

@@ -216,7 +216,10 @@
                 ><span class="editBtn" (click)="addIngredient()">{{ 'add_ingredients' | translate }}</span></span
             >
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-md-3 mt-0 d-flex mb-md-3 mb-0 pl-0 pl-md-3">
+        <div
+            *ngIf="recipeForm?.value?.preparation_method == 'steps'"
+            class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-md-3 mt-0 d-flex mb-md-3 mb-0 pl-0 pl-md-3"
+        >
             <span class="primary_txt fnt-14 text-underline">{{ 'directions' | translate }}</span>
         </div>
         <div *ngIf="!isTranslate" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 pl-0 d-flex step-mb">

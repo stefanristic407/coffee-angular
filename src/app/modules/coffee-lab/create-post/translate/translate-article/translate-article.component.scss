@@ -23,6 +23,17 @@
     background: #f8f8f8 !important;
 }
 
+::ng-deep .custom-hgt {
+    .clipboard-img-p {
+        display: block !important;
+    }
+    .clipboard-img-p:before {
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+    }
+}
+
 .custom-hgt {
     color: #676767;
     @media (min-width: 768px) {

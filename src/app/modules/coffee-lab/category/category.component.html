@@ -6,7 +6,7 @@
     </div>
     <div class="d-block d-md-flex">
         <div class="mt-1 mt-md-2 mb-4 mb-lg-5 pb-1">
-            <h1 class="title-header text-clr334 fnt-700">{{ categoryName | titlecase }}</h1>
+            <h1 class="title-header text-clr334 fnt-700">{{ currentCategory?.name | titlecase }}</h1>
             <p class="text-clr334 col-md-8 pl-1 col-12">
                 {{ 'coffee_roasting_is_the_process' | translate }}
             </p>
@@ -50,13 +50,10 @@
                                 {{ 'other_categories' | translate }}
                             </div>
                             <div class="row mx-0 mt-4">
-                                <div *ngFor="let item of otherCategories; let isLast = last" class="mr-md-25 mr-2">
-                                    <button
-                                        class="category-btn fnt-600 text-clr334 mb-2"
-                                        (click)="onCategoryClick(item.slug)"
-                                    >
+                                <div *ngFor="let item of otherCategories; let isLast = last" class="mr-md-25 mb-4 mr-2">
+                                    <a class="category-btn fnt-600 text-clr334 mb-2" [routerLink]="['../' + item.slug]">
                                         {{ item.name }}
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

@@ -18,7 +18,7 @@ export class LikeDividerComponent implements OnInit {
     isSaved = false;
     constructor(
         private router: Router,
-        private activateRoute: ActivatedRoute,
+        public activateRoute: ActivatedRoute,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
     ) {}

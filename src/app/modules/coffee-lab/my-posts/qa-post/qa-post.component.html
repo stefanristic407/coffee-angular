@@ -12,10 +12,11 @@
                     [options]="sortOptions"
                     [(ngModel)]="coffeeLabService.qaPostSortBy"
                     (ngModelChange)="getPosts()"
-                    styleClass="no-border no-padding"
+                    styleClass="round-border text-clr588"
+                    [placeholder]="'sort_by' | translate"
                     optionLabel="label"
                     optionValue="value"
-                    styleClass="round-border"
+                    [showClear]="true"
                 ></p-dropdown>
             </div>
         </div>

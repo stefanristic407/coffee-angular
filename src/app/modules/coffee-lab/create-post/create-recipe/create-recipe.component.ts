@@ -189,8 +189,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.getCompleteData(this.originRecipeId);
                 }
             }
+            this.recipeForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
         });
-        this.recipeForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
     }
 
     setAppLanguages(): void {
@@ -316,7 +316,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     getCategory() {
         this.categoryList = [];
-        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
+        this.coffeeLabService.getCategory(this.recipeForm.get('language').value).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
             }

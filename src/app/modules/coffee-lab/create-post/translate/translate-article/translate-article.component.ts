@@ -125,7 +125,7 @@ export class TranslateArticleComponent implements OnInit {
     handleChange(e?) {
         this.selectedTabArticle = this.remainingLangugage[e.index].value;
         const translateData = [this.article.title, this.article.subtitle, this.article.content];
-        if (this.article.categories) {
+        if (this.article?.categories) {
             this.getCategory();
         }
         this.gtrans.translateCoffeeLab(translateData, this.selectedTabArticle).subscribe((translatedOutput: any) => {
@@ -147,6 +147,7 @@ export class TranslateArticleComponent implements OnInit {
                 this.articleForm.patchValue(res.result);
             } else {
                 this.toastrService.error('Error while get draft');
+                this.location.back();
             }
         });
     }

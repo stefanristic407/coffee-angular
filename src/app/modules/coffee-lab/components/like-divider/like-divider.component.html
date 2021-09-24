@@ -32,7 +32,12 @@
             <img class="cursor-point" src="assets/images/saved-item.svg" alt="saved" />
         </div>
     </div>
-    <div class="d-flex cust-btn" *ngIf="showJoinBtn" (click)="onJoin()">
+    <div
+        class="d-flex cust-btn"
+        [ngClass]="{ 'qa-cust-btn': activateRoute.snapshot.routeConfig.path === 'qa-post' }"
+        *ngIf="showJoinBtn"
+        (click)="onJoin()"
+    >
         <p class="align-items-center d-flex cursor-point w-100">
             <span class="mr-2 d-none d-md-block fnt-600">{{ 'join_the_discussion' | translate }}</span>
         </p>

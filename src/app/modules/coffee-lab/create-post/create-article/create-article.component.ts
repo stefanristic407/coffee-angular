@@ -48,6 +48,14 @@ export class CreateArticleComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.articleForm = this.fb.group({
+            title: ['', Validators.compose([maxWordCountValidator(120), Validators.required])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(30), Validators.required])],
+            content: [''],
+            language: [],
+            allow_translation: [true, Validators.compose([Validators.required])],
+            is_era_of_we: [false],
+        });
         this.route.queryParams.subscribe((params) => {
             const type = params.type;
             if (type === 'article') {
@@ -59,17 +67,8 @@ export class CreateArticleComponent implements OnInit {
             } else {
                 this.getCategory();
             }
+            this.articleForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
         });
-        this.articleForm = this.fb.group({
-            title: ['', Validators.compose([maxWordCountValidator(120), Validators.required])],
-            subtitle: ['', Validators.compose([maxWordCountValidator(30), Validators.required])],
-            content: [''],
-            language: [],
-            allow_translation: [true, Validators.compose([Validators.required])],
-            is_era_of_we: [false],
-        });
-
-        this.articleForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
     }
 
     getCompleteData() {
@@ -101,7 +100,7 @@ export class CreateArticleComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
-        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
+        this.coffeeLabService.getCategory(this.articleForm.get('language').value).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
             }

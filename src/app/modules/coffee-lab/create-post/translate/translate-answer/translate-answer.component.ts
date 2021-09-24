@@ -143,7 +143,7 @@ export class TranslateAnswerComponent implements OnInit {
         this.selectedTab = e.index;
         this.translateLangCode = this.remainingAnswerLangugage[e.index].value;
         const translateData = [this.originAnswer.question, this.originAnswer.answer];
-        if (this.question.categories) {
+        if (this.question?.categories) {
             this.getCategory();
         }
         this.gtrans.translateCoffeeLab(translateData, this.translateLangCode).subscribe((translatedOutput: any) => {

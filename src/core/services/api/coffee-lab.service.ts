@@ -28,7 +28,7 @@ export class CoffeeLabService extends ApiService {
     recipeViewIsAvailableTranslation = null;
     recipeViewLevel = null;
     recipeViewSortBy = null;
-    qaPostSortBy = 'latest';
+    qaPostSortBy = null;
     assignedToMeSortBy = 'latest';
     myAnswersSortBy = 'desc';
     myCommentsSortBy = 'desc';

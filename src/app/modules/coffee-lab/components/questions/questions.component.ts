@@ -18,8 +18,8 @@ export class QuestionsComponent implements OnInit {
     constructor(public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
     ngOnInit(): void {
-        this.displayData = this.questions.slice(0, 10);
-        this.totalRecords = this.questions.length;
+        this.displayData = this.questions?.slice(0, 10);
+        this.totalRecords = this.questions?.length;
     }
 
     paginate(event: any) {
