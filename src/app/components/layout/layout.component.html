@@ -160,7 +160,7 @@
                                                     (click)="switchPortal(item.orgType, item.id)"
                                                 >
                                                     {{ 'switch_to' | translate }}&nbsp;{{
-                                                        item.orgType | orgType
+                                                        item.orgType | orgType | lowercase
                                                     }}&nbsp;{{ 'portal' | translate }}
                                                 </li>
                                                 <li (click)="userLogout(); pop2.hide()">{{ 'logout' | translate }}</li>
