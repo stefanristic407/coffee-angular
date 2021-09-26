@@ -171,26 +171,31 @@ export class EditFolderComponent implements OnInit {
             this.usersList = [];
             return;
         }
-        this.idmService.getUsersList(searchStr).subscribe((res: any) => {
-            if (res.success) {
-                this.usersList = res.result
-                    .filter(
-                        (ix) =>
-                            (this.shareForm.value.user || []).findIndex(
-                                (iy) => ix.id === iy.id && ix.organization_id === iy.organization_id,
-                            ) < 0,
-                    )
-                    .map((ix) => {
-                        return {
-                            ...ix,
-                            name: `${ix.firstname} ${ix.lastname}`.trim(),
-                            nameWithOrg: `${ix.firstname} ${ix.lastname}`.trim() + `(${ix.organization_name})`,
-                            permission: this.shareForm.value.permission,
-                        };
-                    });
-            } else {
-                this.toastrService.error('Error while fetching users list');
-            }
-        });
+        this.idmService
+            .getUsersList(
+                searchStr,
+                `${OrganizationType.ROASTER},${OrganizationType.ESTATE},${OrganizationType.MICRO_ROASTER},${OrganizationType.FACILITATOR},${OrganizationType.HORECA},${OrganizationType.SEWN_ADMIN}`,
+            )
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.usersList = res.result
+                        .filter(
+                            (ix) =>
+                                (this.shareForm.value.user || []).findIndex(
+                                    (iy) => ix.id === iy.id && ix.organization_id === iy.organization_id,
+                                ) < 0,
+                        )
+                        .map((ix) => {
+                            return {
+                                ...ix,
+                                name: `${ix.firstname} ${ix.lastname}`.trim(),
+                                nameWithOrg: `${ix.firstname} ${ix.lastname}`.trim() + `(${ix.organization_name})`,
+                                permission: this.shareForm.value.permission,
+                            };
+                        });
+                } else {
+                    this.toastrService.error('Error while fetching users list');
+                }
+            });
     }
 }
