@@ -113,7 +113,7 @@ export const menuItems = [
     ),
 
     // Dropdown Menu
-    new Menu(10001, 'menu_roastery_profile', '/roastery-profile', null, null, null, false, 1000, null),
+    new Menu(10001, 'roastery_profile', '/roastery-profile', null, null, null, false, 1000, null),
     new Menu(10002, 'my_profile', '/my-profile', null, null, null, false, 1000, null),
     new Menu(10003, 'menu_account_settings', '/account-settings', null, null, null, false, 1000, null),
 ];
