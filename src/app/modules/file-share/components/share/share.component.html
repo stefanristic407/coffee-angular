@@ -18,7 +18,12 @@
                         <div class="ml-2">
                             <div class="fnt-bold mb-1">{{ item.name }}</div>
                             <div class="fnt-12 fnt-600 text-clr588">
-                                {{ item.organization_type | orgType }} - {{ item.organization_name }}
+                                {{
+                                    (item.organization_type | lowercase) === OrgType.SEWN_ADMIN
+                                        ? 'Era of We'
+                                        : (item.organization_type | orgType)
+                                }}
+                                {{ item.organization_name ? '- ' + item.organization_name : '' }}
                             </div>
                         </div>
                     </div>
@@ -49,8 +54,12 @@
                 <div class="ml-2">
                     <div class="fnt-bold mb-1">{{ record.owner_name }}</div>
                     <div class="fnt-12 fnt-600 text-clr588">
-                        {{ record.owner_organization_type | orgType }} -
-                        {{ record.owner_organization_name }}
+                        {{
+                            (record.owner_organization_type | lowercase) === OrgType.SEWN_ADMIN
+                                ? 'Era of We'
+                                : (record.owner_organization_type | orgType)
+                        }}
+                        {{ record.owner_organization_name ? '- ' + record.owner_organization_name : '' }}
                     </div>
                 </div>
             </div>
@@ -70,8 +79,12 @@
                     <div class="ml-2">
                         <div class="fnt-bold mb-1">{{ item.name }}</div>
                         <div class="fnt-12 fnt-600 text-clr588">
-                            {{ item.organization_type | orgType }} -
-                            {{ item.organization_name }}
+                            {{
+                                (item.organization_type | lowercase) === OrgType.SEWN_ADMIN
+                                    ? 'Era of We'
+                                    : (item.organization_type | orgType)
+                            }}
+                            {{ item.organization_name ? '- ' + item.organization_name : '' }}
                         </div>
                     </div>
                 </div>
@@ -96,8 +109,12 @@
                     <div class="ml-2">
                         <div class="fnt-bold mb-1">{{ item.firstname }} {{ item.lastname }}</div>
                         <div class="fnt-12 fnt-600 text-clr588">
-                            {{ item.company_type | orgType }} -
-                            {{ item.company_name }}
+                            {{
+                                (item.company_type | lowercase) === OrgType.SEWN_ADMIN
+                                    ? 'Era of We'
+                                    : (item.company_type | orgType)
+                            }}
+                            {{ item.company_name ? '- ' + item.company_name : '' }}
                         </div>
                     </div>
                 </div>

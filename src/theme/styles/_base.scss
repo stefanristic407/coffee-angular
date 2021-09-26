@@ -38,6 +38,7 @@ select:focus,
 textarea:focus,
 button:focus {
     box-shadow: none !important;
+    outline: none;
 }
 
 ul,

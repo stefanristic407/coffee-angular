@@ -5,6 +5,7 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { FileService, IdmService } from '@services';
 import { TranslateService } from '@ngx-translate/core';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-share',
@@ -12,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./share.component.scss'],
 })
 export class ShareComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     infoForm: FormGroup;
     record: any;
     permissionItems = [];

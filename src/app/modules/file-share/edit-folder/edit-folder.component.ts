@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { FileService, IdmService } from '@services';
 import { FileShareService } from '../file-share.service';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-edit-folder',
@@ -12,6 +13,7 @@ import { FileShareService } from '../file-share.service';
     styleUrls: ['./edit-folder.component.scss'],
 })
 export class EditFolderComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     isCreate = true;
     infoForm: FormGroup;
     shareForm: FormGroup;

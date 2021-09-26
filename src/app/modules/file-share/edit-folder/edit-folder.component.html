@@ -94,8 +94,12 @@
                                             <div class="ml-2">
                                                 <div class="fnt-bold mb-1">{{ item.name }}</div>
                                                 <div class="fnt-12 fnt-600 text-clr588">
-                                                    {{ item.organization_type | orgType }} -
-                                                    {{ item.organization_name }}
+                                                    {{
+                                                        (item.organization_type | lowercase) === OrgType.SEWN_ADMIN
+                                                            ? 'Era of We'
+                                                            : (item.organization_type | orgType)
+                                                    }}
+                                                    {{ item.organization_name ? '- ' + item.organization_name : '' }}
                                                 </div>
                                             </div>
                                         </div>
@@ -123,8 +127,12 @@
                                 <div class="ml-2">
                                     <div class="fnt-bold mb-1">{{ item.name }}</div>
                                     <div class="fnt-12 fnt-600 text-clr588">
-                                        {{ item.organization_type | orgType }} -
-                                        {{ item.organization_name }}
+                                        {{
+                                            (item.organization_type | lowercase) === OrgType.SEWN_ADMIN
+                                                ? 'Era of We'
+                                                : (item.organization_type | orgType)
+                                        }}
+                                        {{ item.organization_name ? '- ' + item.organization_name : '' }}
                                     </div>
                                 </div>
                             </div>
