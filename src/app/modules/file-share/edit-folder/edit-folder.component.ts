@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { FileService, GlobalsService, IdmService } from '@services';
+import { FileService, IdmService } from '@services';
 import { FileShareService } from '../file-share.service';
 
 @Component({
@@ -26,14 +26,13 @@ export class EditFolderComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private cookieSrv: CookieService,
-        private toastrService: ToastrService,
-        private globals: GlobalsService,
+        private fileShareSrv: FileShareService,
         private fileSrv: FileService,
         private idmService: IdmService,
-        private fileShareSrv: FileShareService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
     ) {
         this.route.paramMap.subscribe((params) => {
             if (params.has('folderId')) {
@@ -45,11 +44,11 @@ export class EditFolderComponent implements OnInit {
     ngOnInit(): void {
         this.permissionItems = [
             {
-                label: this.globals.languageJson.can_view,
+                label: this.translator.instant('can_view'),
                 value: 'VIEW',
             },
             {
-                label: this.globals.languageJson.can_edit,
+                label: this.translator.instant('can_edit'),
                 value: 'EDIT',
             },
         ];
