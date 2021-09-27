@@ -40,8 +40,7 @@
                             <span class="greyText">{{ 'account_activated' | translate }}</span
                             >&nbsp;
                             <span *ngIf="userDetails && userDetails['last_activated']" class="dateFont">{{
-                                userDetails['last_activated'] | date: 'd MMM , y, h:mm
-                                a'
+                                userDetails['last_activated'] | date: 'd MMM , y, h:mm a'
                             }}</span>
                         </div>
                     </div>
@@ -107,7 +106,7 @@
                             </p-dropdown>
                         </div>
                         <div
-                            *ngIf="isEdit && statusToggle"
+                            *ngIf="isEdit && statusToggle && (i || userDetails['roles']?.length > 1)"
                             class="d-md-flex justify-content-center sewn-form-field removeRoleBtn"
                         >
                             <div class="delete-wrap fnt-muli">
