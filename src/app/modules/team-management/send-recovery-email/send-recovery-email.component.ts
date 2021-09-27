@@ -114,7 +114,7 @@ export class SendRecoveryEmailComponent implements OnInit {
             routerLink: '//team-management/manage-role',
         };
         const obj3: MenuItem = {
-            label: 'User Management',
+            label: this.globals.languageJson?.user_management,
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);

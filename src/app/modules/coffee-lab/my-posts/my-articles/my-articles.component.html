@@ -3,6 +3,20 @@
 </div>
 
 <div *ngIf="!isLoading">
+    <div class="d-flex justify-content-end mt-25 mt-md-0 mb-45">
+        <p-dropdown
+            class="pl-md-3"
+            [options]="orderList"
+            optionLabel="label"
+            optionValue="value"
+            [(ngModel)]="coffeeLabService.articleViewSortBy"
+            (ngModelChange)="getData()"
+            placeholder="{{ 'sort_by' | translate }}"
+            styleClass="round-border"
+            [showClear]="true"
+        >
+        </p-dropdown>
+    </div>
     <app-articles [isMyPost]="true" [articles]="articles"></app-articles>
 </div>
 
