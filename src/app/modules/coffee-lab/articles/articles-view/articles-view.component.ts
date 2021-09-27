@@ -78,7 +78,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         const params = {
             query: this.keyword,
-            translations_available: this.coffeeLabService.articleViewFilterBy || '',
+            translations_available: this.coffeeLabService.articleViewFilterBy,
             sort_by: 'created_at',
             sort_order:
                 this.coffeeLabService.articleViewSortBy === null || this.coffeeLabService.articleViewSortBy === 'latest'

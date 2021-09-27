@@ -215,7 +215,10 @@ export class TranslateAnswerComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' answer?',
+                    desp:
+                        this.globalsService.languageJson?.are_you_sure_delete +
+                        ' answer?' +
+                        this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

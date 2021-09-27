@@ -63,3 +63,11 @@
         padding: 8px 10px 8px 10px;
     }
 }
+
+::ng-deep .question-body h1,
+p {
+    font-size: 2rem;
+    @media (max-width: 768px) {
+        font-size: 1rem;
+    }
+}

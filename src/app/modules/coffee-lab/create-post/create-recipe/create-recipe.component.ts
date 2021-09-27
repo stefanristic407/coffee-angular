@@ -522,7 +522,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 return;
             } else {
                 this.recipeForm.controls.publish.setValue(false);
-                this.openCconfirmDialog();
+                this.openCconfirmDialog(status);
             }
         } else {
             if (this.isTranslate) {
@@ -534,13 +534,13 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 this.toaster.error('Please fill all data');
                 return;
             } else {
-                this.openCconfirmDialog();
+                this.openCconfirmDialog(status);
             }
         }
     }
 
-    openCconfirmDialog() {
-        const confirmText = this.status === 'draft' ? 'save this recipe as draft?' : 'publish this recipe?';
+    openCconfirmDialog(status: string) {
+        const confirmText = status === 'draft' ? 'save this recipe in draft?' : 'publish this recipe?';
         this.dialogService
             .open(ConfirmComponent, {
                 data: {
@@ -695,7 +695,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' recipe?',
+                    desp:
+                        this.globalsService.languageJson?.are_you_sure_delete +
+                        ' recipe?' +
+                        this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

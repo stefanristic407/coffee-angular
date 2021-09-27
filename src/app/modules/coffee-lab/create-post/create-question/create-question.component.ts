@@ -105,7 +105,7 @@ export class CreateQuestionComponent implements OnInit {
             language: this.languageCode,
             categories: this.categoryValue?.map((item) => item.id) || [],
         };
-        const confirmText = this.status === 'draft' ? 'save this question as draft?' : 'publish this question?';
+        const confirmText = status === 'DRAFT' ? 'save this question in draft?' : 'publish this question?';
         this.dialogService
             .open(ConfirmComponent, {
                 data: {
@@ -159,7 +159,10 @@ export class CreateQuestionComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' question?',
+                    desp:
+                        this.globalsService.languageJson?.are_you_sure_delete +
+                        ' question?' +
+                        this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

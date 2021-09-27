@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-my-posts-view',
     templateUrl: './my-posts-view.component.html',
     styleUrls: ['./my-posts-view.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 })
 export class MyPostsViewComponent implements OnInit, AfterViewInit {
     menuItems = [

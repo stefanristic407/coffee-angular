@@ -162,7 +162,7 @@ export class CreateArticleComponent implements OnInit {
             this.toaster.error('Please upload cover image.');
             return;
         }
-        const confirmText = this.status === 'draft' ? 'save this article as draft?' : 'publish this article?';
+        const confirmText = status === 'draft' ? 'save this article in draft?' : 'publish this article?';
         this.dialogService
             .open(ConfirmComponent, {
                 data: {
@@ -257,7 +257,10 @@ export class CreateArticleComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' article?',
+                    desp:
+                        this.globalsService.languageJson?.are_you_sure_delete +
+                        ' article?' +
+                        this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

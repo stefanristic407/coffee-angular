@@ -195,7 +195,11 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' ' + this.forumType + '?',
+                    desp: this.globalsService.languageJson?.are_you_sure_delete +
+                        ' ' +
+                        this.forumType +
+                        '?' +
+                        this.globalsService.languageJson?.are_you_sure_delete,
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

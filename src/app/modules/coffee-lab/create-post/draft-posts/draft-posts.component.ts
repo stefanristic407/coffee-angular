@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
-import { CoffeeLabService } from '@services';
+import { CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 interface Draft {
@@ -29,6 +29,7 @@ export class DraftPostsComponent implements OnInit {
         private dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
+        private globalsService: GlobalsService,
         private router: Router,
     ) {}
 
@@ -41,7 +42,13 @@ export class DraftPostsComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: `Are you sure you want to remove this ${draft.post_type}?`,
+                    desp:
+                        this.globalsService.languageJson?.are_you_sure_delete +
+                        ' ' +
+                        draft.post_type +
+                        '?' +
+                        ' ' +
+                        this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',

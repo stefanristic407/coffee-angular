@@ -103,7 +103,7 @@ export class TranslateArticleComponent implements OnInit {
                 this.articleFormOriginal.disable();
             } else {
                 this.toastrService.error('Error while get article');
-                this.router.navigate(['/coffee-lab']);
+                this.router.navigate(['/coffee-lab/overview/articles']);
             }
         });
     }
@@ -291,7 +291,10 @@ export class TranslateArticleComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.are_you_sure_delete + ' article?',
+                    desp:
+                        this.globalsService.languageJson?.are_you_sure_delete +
+                        ' article?' +
+                        this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
                 showHeader: false,
                 styleClass: 'confirm-dialog',
