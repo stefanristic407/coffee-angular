@@ -111,8 +111,6 @@ export class CreateQuestionComponent implements OnInit {
                 data: {
                     title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -164,8 +162,6 @@ export class CreateQuestionComponent implements OnInit {
                         ' question?' +
                         this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

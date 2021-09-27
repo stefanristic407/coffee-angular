@@ -390,8 +390,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                     noButton: this.globals.languageJson?.cancel,
                     yesButton: this.popupDetails.buttonName,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

@@ -127,8 +127,6 @@ export class RoleListComponent implements OnInit {
                     noButton: 'Cancel',
                     yesButton: 'Delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

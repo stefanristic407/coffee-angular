@@ -279,8 +279,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

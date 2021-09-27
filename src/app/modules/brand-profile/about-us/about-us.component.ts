@@ -249,8 +249,6 @@ export class AboutUsComponent implements OnInit {
                     title: 'Confirm delete',
                     desp: 'Are you sure want to delete certificate',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

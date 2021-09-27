@@ -186,8 +186,6 @@ export class RoastedCoffeeBatchesComponent extends ResizeableComponent implement
                     type: 'delete',
                     desp: 'Are you sure you want to delete this batch?',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

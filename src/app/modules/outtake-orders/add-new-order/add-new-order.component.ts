@@ -346,8 +346,6 @@ export class AddNewOrderComponent implements OnInit {
                     title: this.globals.languageJson?.please_confirm,
                     desp: this.globals.languageJson?.are_you,
                 },
-                showHeader: false,
-                styleClass: this.globals.languageJson?.confirm_dialog,
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

@@ -17,7 +17,10 @@ export class ConfirmComponent implements OnInit {
         public globals: GlobalsService,
         private userService: UserService,
         private authService: AuthService,
-    ) {}
+    ) {
+        this.config.showHeader = false;
+        this.config.styleClass = `confirm-dialog ${this.config.data.type}`;
+    }
 
     ngOnInit(): void {}
 

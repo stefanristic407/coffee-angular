@@ -421,8 +421,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     desp: this.globals.languageJson?.are_you_sure_delete + ' cover image?',
                     yesButton: 'Remove',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -546,8 +544,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 data: {
                     title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -700,8 +696,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                         ' recipe?' +
                         this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

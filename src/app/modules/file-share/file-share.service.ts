@@ -308,8 +308,6 @@ export class FileShareService {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -329,8 +327,6 @@ export class FileShareService {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

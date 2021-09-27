@@ -300,8 +300,6 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
                     title: 'Please confirm!',
                     desp: 'Are you sure want to download',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

@@ -326,11 +326,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         this.dialogSrv
             .open(ConfirmComponent, {
                 data: {
-                    title: this.translator.instant('confirm_order'),
-                    desp: this.translator.instant('are_you_sure'),
+                    title: this.translator.instant('confirm_your_purchase'),
+                    desp: this.translator.instant('ro_confirm_purchase_desp'),
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

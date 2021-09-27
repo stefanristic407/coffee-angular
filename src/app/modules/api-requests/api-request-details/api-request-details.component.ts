@@ -204,8 +204,6 @@ export class ApiRequestDetailsComponent implements OnInit {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 console.log('action--->>', action);

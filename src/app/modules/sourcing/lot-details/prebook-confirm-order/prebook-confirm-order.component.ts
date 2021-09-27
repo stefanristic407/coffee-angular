@@ -168,8 +168,6 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
                         title: this.globals.languageJson.confirm_order,
                         desp: this.globals.languageJson.are_you_sure,
                     },
-                    showHeader: false,
-                    styleClass: 'confirm-dialog',
                 })
                 .onClose.subscribe((action: any) => {
                     if (action === 'yes') {

@@ -561,8 +561,6 @@ export class DefaultSettingsComponent implements OnInit {
                     title: 'Please confirm!',
                     desp: 'Are you sure want to download',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

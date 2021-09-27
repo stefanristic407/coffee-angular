@@ -50,8 +50,6 @@ export class DraftPostsComponent implements OnInit {
                         ' ' +
                         this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

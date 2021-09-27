@@ -467,8 +467,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                     data: {
                         type: 'logout',
                     },
-                    showHeader: false,
-                    styleClass: 'confirm-dialog logout',
                 })
                 .onClose.subscribe((action: any) => {
                     if (action === 'yes') {

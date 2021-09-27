@@ -269,8 +269,6 @@ export class ProductListComponent implements OnInit {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

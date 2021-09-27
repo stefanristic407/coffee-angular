@@ -272,8 +272,6 @@ export class TranslateArticleComponent implements OnInit {
                     desp: this.globals.languageJson?.are_you_sure_delete + ' cover image?',
                     yesButton: 'Remove',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -296,8 +294,6 @@ export class TranslateArticleComponent implements OnInit {
                         ' article?' +
                         this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

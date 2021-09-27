@@ -154,8 +154,6 @@ export class RoastingProfilesComponent extends ResizeableComponent implements On
                     type: 'delete',
                     desp: 'Are you sure you want to delete this profile?',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

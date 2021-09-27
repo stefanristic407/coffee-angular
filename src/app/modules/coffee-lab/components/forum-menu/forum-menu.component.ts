@@ -195,14 +195,13 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.are_you_sure_delete +
+                    desp:
+                        this.globalsService.languageJson?.are_you_sure_delete +
                         ' ' +
                         this.forumType +
                         '?' +
                         this.globalsService.languageJson?.are_you_sure_delete,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -227,8 +226,6 @@ export class ForumMenuComponent implements OnInit {
                     type: 'delete',
                     desp: 'Are you sure you want to remove this ' + this.forumType + '?',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
