@@ -1,7 +1,7 @@
 <div class="border-box">
     <div class="p-md-4 p-3">
         <div class="d-flex justify-content-between">
-            <div class="flex-1">
+            <div class="flex-1 mob-ques-header">
                 <app-user-header [prop]="question"></app-user-header>
             </div>
             <div class="mobile-dot">
@@ -42,10 +42,10 @@
     <div *ngIf="question.total_answers > 0" class="pt-md-4 pb-md-0 py-3 pl-3 pl-md-5 pr-md-4 pr-3 border-top-main">
         <div
             *ngFor="let answer of question?.answers; let last = last; let ansInd = index"
-            [ngClass]="{ 'border-bottom-main': !last }"
-            class="mb-4"
+            [ngClass]="{ 'border-bottom-main': !last, 'mb-3': !last }"
+            class="mb-md-4"
         >
-            <div class="mb-4 flex-1 overflow-hidden d-flex justify-content-between">
+            <div class="mb-md-4 mb-3 flex-1 overflow-hidden d-flex justify-content-between">
                 <div class="mob-ans-fnt-12"><app-user-header [prop]="answer"></app-user-header></div>
                 <div class="d-flex align-like">
                     <div class="like-int" (click)="onLike(answer)" *ngIf="!answer.is_liked">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="fnt-muli fnt-14 text-clr334 mb-4 lh-15">
+            <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-md-4" [ngClass]="{ 'mb-3': !last }">
                 <span [innerHTML]="answer?.answer | convertToShortDescription: 25"></span>
             </div>
         </div>

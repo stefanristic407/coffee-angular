@@ -36,6 +36,9 @@
 }
 
 .align-like {
+    @media (max-width: 767px) {
+        height: 41px;
+    }
     .like-int {
         cursor: pointer;
         padding: 0 11px;
@@ -54,10 +57,24 @@
         }
     }
 }
-
-::ng-deep .mob-ans-fnt-12 span {
+::ng-deep .mob-ques-header .extra-mob,
+::ng-deep .mob-ans-fnt-12 .extra-mob {
     @media screen and (max-width: 767px) {
-        font-size: 12px !important;
-        line-height: normal;
+        width: 190px;
+    }
+}
+::ng-deep .mob-ans-fnt-12 .extra-mob {
+    span {
+        @media screen and (max-width: 767px) {
+            font-size: 12px !important;
+            line-height: normal;
+        }
+    }
+}
+
+.comment-marg {
+    margin-bottom: 1.5rem;
+    &:last-child {
+        margin-bottom: 0 !important;
     }
 }

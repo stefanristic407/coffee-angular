@@ -52,7 +52,7 @@
             </div>
             <div
                 *ngIf="prop?.org_type !== 'co' && prop?.organisation_type !== 'co' && prop?.organization_type !== 'co'"
-                class="fnt-14 fnt-muli lh-1 text-clr588 mt-2 d-flex text-nowrap"
+                class="fnt-14 fnt-muli lh-1 text-clr588 mt-2 d-flex text-nowrap extra-mob"
             >
                 <span class="font-semi-bold mr-1" *ngIf="prop?.orgType !== 'co'">{{
                     'coffee_experts' | translate
@@ -65,6 +65,7 @@
                         prop?.org_type !== 'sa' && prop?.organisation_type !== 'sa' && prop?.organization_type !== 'sa'
                     "
                     [ngClass]="{ ellipsis: enableEllipsis }"
+                    class="pb-1"
                     >@{{
                         prop?.company_name || prop?.organization_name || prop?.organisation_name || prop?.org_type
                     }}</span
@@ -74,6 +75,7 @@
                         prop?.org_type === 'sa' || prop?.organisation_type === 'sa' || prop?.organization_type === 'sa'
                     "
                     [ngClass]="{ ellipsis: enableEllipsis }"
+                    class="pb-1"
                     >@{{ orgType === 'sa' || !orgType ? 'Era of We' : orgType }}</span
                 >
                 <div class="d-flex" *ngIf="prop?.question || prop?.answer || isArticleDetail || isRecipeDetail">
