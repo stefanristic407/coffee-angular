@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService, UserService, ValidateEmailService } from '@services';
+import { AuthService, ChatHandlerService, UserService, ValidateEmailService } from '@services';
 import { CropperDialogComponent } from '@shared';
 import { CroppedImage, UserProfile } from '@models';
 import { emailValidator } from '@utils';
@@ -62,6 +62,7 @@ export class MyProfileComponent implements OnInit {
     constructor(
         private activateRoute: ActivatedRoute,
         private authService: AuthService,
+        private chatHandler: ChatHandlerService,
         private dialogService: DialogService,
         private formBuilder: FormBuilder,
         private router: Router,
@@ -286,5 +287,13 @@ export class MyProfileComponent implements OnInit {
                     reject();
                 }
             });
+    }
+
+    openChat(): void {
+        this.chatHandler.openChatThread({
+            user_id: this.profileInfo.id,
+            org_type: this.orgType,
+            org_id: this.profileInfo.organization_id,
+        });
     }
 }

@@ -49,16 +49,16 @@
 
     <div *ngIf="!isLoading; else loading">
         <div *ngIf="!isEditMode">
-            <div class="full-width">
+            <div class="full-width position-relative">
                 <div class="banner-container bg-f8">
                     <img *ngIf="bannerUrl" [src]="bannerUrl" alt="banner" />
                 </div>
-                <div class="coffee-lab-menu bg-f8 d-none d-lg-block"></div>
+                <div class="coffee-lab-menu position-absolute bg-f8 d-none d-lg-block"></div>
             </div>
             <div class="row gutter-32">
                 <div class="col-lg-4 banner-overlay">
                     <div class="avatar-name-container bg-white border-main br-4 text-center p-4">
-                        <div>
+                        <div class="d-flex flex-column align-items-center">
                             <img
                                 *ngIf="!profileUrl"
                                 src="assets/images/default-avatar.png"
@@ -67,6 +67,9 @@
                                 height="120"
                             />
                             <img *ngIf="profileUrl" [src]="profileUrl" alt="icon" width="120" height="120" />
+                            <div *ngIf="queryUserId" class="position-relative">
+                                <div class="btn-trans-icon message-icon" (click)="openChat()"></div>
+                            </div>
                         </div>
                         <div class="fnt-16 fnt-bold mt-4">
                             {{ profileInfo?.firstname + ' ' + profileInfo?.lastname }}
@@ -96,14 +99,20 @@
                         ></app-profile-certificates-view>
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    <p-tabView styleClass="tabview-coffee-lab">
+                <div class="col-lg-8 mt-4 mt-md-0">
+                    <p-tabView styleClass="tabview-coffee-lab position-relative">
                         <p-tabPanel *ngFor="let labMenu of menuItems" header="labMenu">
                             <ng-template pTemplate="header">
-                                <img [src]="labMenu.icon" alt="icon" width="24" height="24" />
-                                <img [src]="labMenu.activeIcon" alt="icon" class="active-icon" width="24" height="24" />
+                                <img [src]="labMenu.icon" alt="icon" />
+                                <img [src]="labMenu.activeIcon" alt="icon" class="active-icon" />
                                 <span class="pl-1 d-none d-md-block">{{ labMenu.label | translate }}</span>
                             </ng-template>
+                            <div
+                                class="btn-raised write-post-btn w-mob-100 mb-4 mb-md-0"
+                                [routerLink]="['/coffee-lab/create-post/tab?type=article']"
+                            >
+                                {{ 'write_post' | translate }}
+                            </div>
                             <app-my-posts
                                 [postType]="labMenu.postType"
                                 [queryUserId]="queryUserId"
