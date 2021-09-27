@@ -4,7 +4,10 @@
         <span *ngIf="detailType !== 'question-detail'">{{ 'recent_discussions_on_forum' | translate }}</span>
     </p>
     <div class="question-list" *ngFor="let data of relatedData; let ind = index">
-        <p class="pb-3" [ngClass]="{ 'pt-4': ind === 0, 'pt-3': ind > 0, 'pb-4': ind === relatedData.length }">
+        <p
+            class="pb-3 hover-underline"
+            [ngClass]="{ 'pt-4': ind === 0, 'pt-3': ind > 0, 'pb-4': ind === relatedData.length }"
+        >
             <a [routerLink]="[getLink(data, null).url]" class="fnt-14 fnt-muli fnt-600 text-clr24">{{
                 data.question ? data.question : data.title ? data.title : data.name
             }}</a>
