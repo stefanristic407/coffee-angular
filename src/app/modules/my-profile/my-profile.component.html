@@ -107,12 +107,12 @@
                                 <img [src]="labMenu.activeIcon" alt="icon" class="active-icon" />
                                 <span class="pl-1 d-none d-md-block">{{ labMenu.label | translate }}</span>
                             </ng-template>
-                            <div
+                            <button
                                 class="btn-raised write-post-btn w-mob-100 mb-4 mb-md-0"
                                 [routerLink]="['/coffee-lab/create-post/tab?type=article']"
                             >
                                 {{ 'write_post' | translate }}
-                            </div>
+                            </button>
                             <app-my-posts
                                 [postType]="labMenu.postType"
                                 [queryUserId]="queryUserId"
