@@ -273,7 +273,7 @@ textarea {
         width: 100%;
         background: #f4f4f5 !important;
         border-radius: 19px;
-        border: none;
+        border: 1px solid transparent;
         @media (min-width: 768px) {
             width: 165px;
         }
