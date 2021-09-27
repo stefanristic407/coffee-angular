@@ -43,6 +43,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     eligibleArray = [
         { label: 'One Time', value: 'one-time' },
         { label: 'Subscription', value: 'subscription' },
+        { label: 'Both', value: 'both' },
     ];
     brewingMethodArray = [
         { label: 'Pour Over', value: 'pour-over' },
