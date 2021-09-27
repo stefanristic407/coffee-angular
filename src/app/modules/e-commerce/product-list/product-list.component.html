@@ -81,12 +81,12 @@
         <div class="table-responsive">
             <p-table
                 #myTable
-                [class.table-mobile]="isMobileView"
+                [class.table-mobile]="isMobile$ | async"
                 [value]="tableData"
                 [columns]="tableColumns"
                 dataKey="id"
                 [loading]="loading"
-                [responsive]="isMobileView"
+                [responsive]="isMobile$ | async"
                 [paginator]="true"
                 [rows]="10"
                 [lazy]="true"
@@ -99,21 +99,12 @@
                     <tr>
                         <th
                             *ngFor="let col of columns"
-                            [pSortableColumn]="col.sortable === true ? col.field : null"
+                            [pSortableColumn]="col.sortable ? col.field : null"
                             [style.width]="col.width ? col.width : 'unset'"
                         >
                             <div class="d-flex">
-                                <span class="primeng-table-header text-overflow-ellipsis">{{
-                                    col.header | translate
-                                }}</span>
-                                <p-sortIcon
-                                    *ngIf="col.sortable === true"
-                                    [field]="col.field"
-                                    ariaLabel="Activate to sort"
-                                    ariaLabelDesc="Activate to sort in descending order"
-                                    ariaLabelAsc="Activate to sort in ascending order"
-                                >
-                                </p-sortIcon>
+                                <span>{{ col.header | translate }}</span>
+                                <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
                             </div>
                         </th>
                         <th [style.width]="'50px'"></th>
@@ -133,13 +124,15 @@
                                     "
                                 >
                                     <div class="d-flex align-items-center">
-                                        <span class="fnt-bold mr-2"> {{ rowData[col.field] }} </span>
-                                        <img src="assets/images/star-1.svg" alt="" *ngIf="type !== 'other'" />
-                                        <span class="pl-2" *ngIf="type !== 'other'">
-                                            {{ rowData.rating }}
-                                        </span>
+                                        <span class="fnt-bold ellipsis mr-2"> {{ rowData[col.field] || '--' }} </span>
+                                        <ng-container *ngIf="type !== 'other'">
+                                            <i class="pi pi-star" style="color: #ffc107"></i>
+                                            <span class="pl-1">
+                                                {{ rowData.rating | number: '1.1-1' }}
+                                            </span>
+                                        </ng-container>
                                     </div>
-                                    <div *ngIf="isMobileView" style="position: relative">
+                                    <div *ngIf="isMobile$ | async" style="position: relative">
                                         <p-menu
                                             #menu
                                             popup="popup"
@@ -162,12 +155,12 @@
                                         class="product-image"
                                         [src]="rowData['featured_image'] || 'assets/images/empty.svg'"
                                     />
-                                    <div>
-                                        {{ rowData[col.field] }}
+                                    <div class="ellipsis">
+                                        {{ rowData[col.field] || '--' }}
                                         <div class="mt-2" *ngIf="type !== 'other'">
-                                            <img src="assets/images/star-1.svg" alt="" />
-                                            <span class="pl-2">
-                                                {{ rowData.rating }}
+                                            <i class="pi pi-star" style="color: #ffc107"></i>
+                                            <span class="pl-1">
+                                                {{ rowData.rating | number: '1.1-1' }}
                                             </span>
                                         </div>
                                     </div>
@@ -243,7 +236,7 @@
 
                             <span *ngSwitchDefault (click)="onViewDetails(rowData)">
                                 <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
-                                    <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588">
+                                    <span *ngIf="isMobile$ | async" class="fnt-muli fnt-14 fnt-bold text-clr588">
                                         {{ col.header | translate }}
                                     </span>
 
@@ -253,7 +246,7 @@
                                 </div>
                             </span>
                         </td>
-                        <td *ngIf="!isMobileView">
+                        <td *ngIf="!(isMobile$ | async)">
                             <div style="position: relative">
                                 <p-menu
                                     #menu
