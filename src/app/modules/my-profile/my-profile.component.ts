@@ -22,6 +22,7 @@ export class MyProfileComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     public readonly LANGUAGES = LANGUAGES;
     readonly OrgType = OrganizationType;
+    readonly postType = PostType;
 
     @ViewChild('bannerInput', { static: false }) bannerInput: ElementRef;
     @ViewChild('profileInput', { static: false }) profileInput: ElementRef;

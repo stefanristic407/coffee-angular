@@ -109,7 +109,8 @@
                             </ng-template>
                             <button
                                 class="btn-raised write-post-btn w-mob-100 mb-4 mb-md-0"
-                                [routerLink]="['/coffee-lab/create-post/tab?type=article']"
+                                [routerLink]="['/coffee-lab/create-post/tab']"
+                                [queryParams]="{ type: postType.ARTICLE }"
                             >
                                 {{ 'write_post' | translate }}
                             </button>
