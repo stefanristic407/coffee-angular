@@ -27,6 +27,10 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isMyPost = false;
     isSavedPost = false;
     isAssignedToMe = false;
+    answerComment: any;
+    answerAllowTranslation: boolean;
+    answerLanguage: any;
+
     constructor(
         public coffeeLabService: CoffeeLabService,
         private activatedRoute: ActivatedRoute,
@@ -225,6 +229,57 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         } else {
             this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
         }
+    }
+
+    onEditAnswer(event: any, index?: number) {
+        if (event) {
+            const isEdit = 'isEdit';
+            this.detailsData.answers[index][isEdit] = true;
+            this.getForumById(this.detailsData.answers[index].id);
+        }
+    }
+
+    getForumById(forumId: number): void {
+        this.coffeeLabService.getForumDetails('answer', forumId).subscribe((res: any) => {
+            if (res.success) {
+                this.answerLanguage = res.result.lang_code;
+                this.answerComment = res.result.answer;
+                this.answerAllowTranslation = res.result?.allow_translation;
+            } else {
+                this.toastrService.error('Error while get comment');
+                // this.location.back();
+            }
+        });
+    }
+
+    onEditPost(forumId: number): void {
+        if (!this.answerComment) {
+            this.toastrService.error('Please fill out field.');
+            return;
+        }
+        let data: any = {};
+        data = {
+            answer: this.answerComment,
+            allow_translation: this.answerAllowTranslation ? (this.answerAllowTranslation ? 1 : 0) : 0,
+            status: 'PUBLISHED',
+            language: this.language,
+        };
+
+        this.isLoading = true;
+        if (forumId) {
+            this.coffeeLabService.updateForum('answer', forumId, data).subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success('You have updated an article successfully.');
+                    this.getDetails();
+                } else {
+                    this.toastrService.error('Failed to update article.');
+                }
+            });
+        }
+    }
+
+    onCancel(index: number) {
+        this.detailsData.answers[index].isEdit = false;
     }
 
     onCategoryClick(slug: string) {

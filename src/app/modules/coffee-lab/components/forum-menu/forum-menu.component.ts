@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { environment } from '@env/environment';
@@ -24,6 +24,7 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
     @Input() enableStopPropagation = true;
+    @Output() editAnswer = new EventEmitter();
     items: MenuItem[] = [];
     @ViewChild('menu', { static: false }) menu: Menu;
 
@@ -170,14 +171,15 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'answer':
-                this.router.navigate(['/coffee-lab/create-post/answer'], {
-                    queryParams: {
-                        forumId: this.selectedItem.answer_id || this.selectedItem.id,
-                        parentForumType: 'question',
-                        parentForumId: this.extraInfo?.id || this.selectedItem?.question_id,
-                        forumType: 'answer',
-                    },
-                });
+                this.editAnswer.emit(true);
+                // this.router.navigate(['/coffee-lab/create-post/answer'], {
+                //     queryParams: {
+                //         forumId: this.selectedItem.answer_id || this.selectedItem.id,
+                //         parentForumType: 'question',
+                //         parentForumId: this.extraInfo?.id || this.selectedItem?.question_id,
+                //         forumType: 'answer',
+                //     },
+                // });
                 break;
             case 'comment':
                 this.router.navigate(['/coffee-lab/create-post/comment'], {

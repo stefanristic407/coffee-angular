@@ -87,7 +87,7 @@
             </div>
             <div *ngIf="detailsData?.answers">
                 <div
-                    *ngFor="let answer of detailsData.answers; let last = last"
+                    *ngFor="let answer of detailsData.answers; let last = last; let i = index"
                     [id]="'answer-' + answer.id"
                     class="mb-35 mx-3 ml-md-5 mr-md-4 answer-wrapper"
                 >
@@ -97,6 +97,7 @@
                             <div class="d-flex flex-column align-items-end icon-height">
                                 <div>
                                     <app-forum-menu
+                                        (editAnswer)="onEditAnswer($event, i)"
                                         [selectedItem]="answer"
                                         forumType="answer"
                                         [extraInfo]="detailsData"
@@ -137,11 +138,42 @@
                         </div>
                     </div>
                     <div
+                        *ngIf="!answer.isEdit"
                         class="fnt-muli fnt-14 text-clr334 lh-15 pt-md-4 question-name pt-25 px-0"
                         [ngClass]="{ 'mb-2': !last }"
                         appFullImgWrapper
                         [innerHTML]="answer.answer"
                     ></div>
+                    <div *ngIf="answer.isEdit" class="border-top-main py-4 px-0 px-md-45">
+                        <div class="d-flex justify-content-center">
+                            <div class="sewn-form-field width-comment mb-0">
+                                <textarea
+                                    id="text-focus"
+                                    class="add-comment active-comment"
+                                    [ngClass]="{ 'comment-hgt': !answerComment }"
+                                    [(ngModel)]="answerComment"
+                                    [placeholder]="'add_a_comment' | translate"
+                                    pInputTextarea
+                                    autoResize="autoResize"
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mr-2 mr-md-0 align-items-center mt-4">
+                            <p-checkbox
+                                class="d-flex align-items-start ml-md-3"
+                                [(ngModel)]="answerAllowTranslation"
+                                [binary]="true"
+                                [label]="'allow_translations_by_other_authors' | translate"
+                            ></p-checkbox>
+                            <button (click)="onCancel(i)" class="btn-stroked">
+                                {{ 'cancel' | translate }}
+                            </button>
+                            <button (click)="onEditPost(answer.id)" class="btn-raised">
+                                {{ 'update' | translate }}
+                            </button>
+                        </div>
+                    </div>
                     <div class="d-flex justify-content-between my-3 my-md-4">
                         <div class="d-flex">
                             <div class="d-flex align-like">

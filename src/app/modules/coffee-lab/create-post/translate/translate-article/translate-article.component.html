@@ -202,7 +202,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 sewn-form-field p-0 mt-4">
+        <div class="col-12 sewn-form-field p-0" [ngClass]="{ 'mt-4': categoryList && categoryList.length > 0 }">
             <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'title' | translate }}</label>
             <input type="text" placeholder="Give a title" pInputText formControlName="title" />
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
