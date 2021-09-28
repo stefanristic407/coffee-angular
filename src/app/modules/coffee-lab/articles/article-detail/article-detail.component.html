@@ -57,7 +57,7 @@
             <div class="w-100 d-md-none">
                 <div class="d-flex justify-content-between mb-4">
                     <div class="d-flex">
-                        <div class="d-flex align-like mr-25">
+                        <div class="d-flex align-like mr-1">
                             <div
                                 class="like-int cursor-point"
                                 (click)="onLike(detailsData.id)"
@@ -72,7 +72,9 @@
                             >
                                 <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                             </div>
-                            <!-- <span class="d-flex mt-3 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span> -->
+                            <span class="d-flex mt-25 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
+                                detailsData.likes
+                            }}</span>
                         </div>
                         <div class="message-icon hover-message-icon cursor-point mr-25" (click)="onFocusCommentBox()">
                             <img class="pt-2" src="assets/images/message.svg" alt="message" />
