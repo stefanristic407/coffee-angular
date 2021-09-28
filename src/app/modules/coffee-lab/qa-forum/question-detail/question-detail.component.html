@@ -170,10 +170,18 @@
                     <div class="d-flex justify-content-between my-3 my-md-4">
                         <div class="d-flex">
                             <div class="d-flex align-like">
-                                <div class="like-int" (click)="onLike(answer)" *ngIf="!answer.is_liked">
+                                <div
+                                    class="like-int d-none"
+                                    (click)="onLike(answer)"
+                                    [ngClass]="{ 'd-block': !answer.is_liked }"
+                                >
                                     <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
                                 </div>
-                                <div class="like-int" (click)="onUnLike(answer)" *ngIf="answer.is_liked">
+                                <div
+                                    class="like-int d-none"
+                                    (click)="onUnLike(answer)"
+                                    [ngClass]="{ 'd-block': answer.is_liked }"
+                                >
                                     <img
                                         class="cursor-point like"
                                         src="assets/images/thumbs-up-1.svg"

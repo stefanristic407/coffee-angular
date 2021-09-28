@@ -52,16 +52,16 @@
                     <div class="d-flex">
                         <div class="d-flex align-like mr-1">
                             <div
-                                class="like-int cursor-point"
+                                class="like-int cursor-point d-none"
                                 (click)="onLike(detailsData.id)"
-                                *ngIf="!detailsData.is_liked"
+                                [ngClass]="{ 'd-block': !detailsData.is_liked }"
                             >
                                 <img class="like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
                             </div>
                             <div
-                                class="like-int cursor-point"
+                                class="like-int cursor-point d-none"
                                 (click)="onUnLike(detailsData.id)"
-                                *ngIf="detailsData.is_liked"
+                                [ngClass]="{ 'd-block': detailsData.is_liked }"
                             >
                                 <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                             </div>
@@ -74,15 +74,15 @@
                         </div>
                         <div class="align-items-center">
                             <div
-                                *ngIf="!isSaveArticle"
-                                class="hover-save-icon cursor-point"
+                                [ngClass]="{ 'd-block': !isSaveArticle }"
+                                class="hover-save-icon cursor-point d-none"
                                 (click)="onSave(detailsData.id)"
                             >
                                 <img src="assets/images/save.svg" alt="save" />
                             </div>
                             <div
-                                *ngIf="isSaveArticle"
-                                class="hover-save-icon cursor-point"
+                                [ngClass]="{ 'd-block': isSaveArticle }"
+                                class="hover-save-icon cursor-point d-none"
                                 (click)="onSameSave(detailsData.id)"
                             >
                                 <img src="assets/images/saved-item.svg" alt="saved" />
@@ -197,16 +197,16 @@
                                 <div class="d-flex">
                                     <div class="d-flex align-like">
                                         <div
-                                            class="like-int cursor-point"
+                                            class="like-int cursor-point d-none"
                                             (click)="onLike(detailsData.id)"
-                                            *ngIf="!detailsData.is_liked"
+                                            [ngClass]="{ 'd-block': !detailsData.is_liked }"
                                         >
                                             <img class="like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
                                         </div>
                                         <div
-                                            class="like-int cursor-point"
+                                            class="like-int cursor-point d-none"
                                             (click)="onUnLike(detailsData.id)"
-                                            *ngIf="detailsData.is_liked"
+                                            [ngClass]="{ 'd-block': detailsData.is_liked }"
                                         >
                                             <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                                         </div>
@@ -216,15 +216,15 @@
                                     </div>
                                     <div class="align-items-center">
                                         <div
-                                            *ngIf="!isSaveArticle"
-                                            class="hover-save-icon cursor-point"
+                                            [ngClass]="{ 'd-block': !isSaveArticle }"
+                                            class="hover-save-icon cursor-point d-none"
                                             (click)="onSave(detailsData.id)"
                                         >
                                             <img src="assets/images/save.svg" alt="save" />
                                         </div>
                                         <div
-                                            *ngIf="isSaveArticle"
-                                            class="hover-save-icon cursor-point"
+                                            [ngClass]="{ 'd-block': isSaveArticle }"
+                                            class="hover-save-icon cursor-point d-none"
                                             (click)="onSameSave(detailsData.id)"
                                         >
                                             <img src="assets/images/saved-item.svg" alt="saved" />
@@ -439,10 +439,18 @@
             <div class="divder"></div>
             <div class="d-flex my-4">
                 <div class="d-flex align-like">
-                    <div class="like-int cursor-point" (click)="onLike(detailsData.id)" *ngIf="!detailsData.is_liked">
+                    <div
+                        class="like-int cursor-point d-none"
+                        (click)="onLike(detailsData.id)"
+                        [ngClass]="{ 'd-block': !detailsData.is_liked }"
+                    >
                         <img class="like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
                     </div>
-                    <div class="like-int cursor-point" (click)="onUnLike(detailsData.id)" *ngIf="detailsData.is_liked">
+                    <div
+                        class="like-int cursor-point d-none"
+                        (click)="onUnLike(detailsData.id)"
+                        [ngClass]="{ 'd-block': detailsData.is_liked }"
+                    >
                         <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                     </div>
                     <span class="d-flex mt-3 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>

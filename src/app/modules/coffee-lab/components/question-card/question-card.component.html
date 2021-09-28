@@ -41,10 +41,10 @@
             <div class="mb-md-4 mb-3 flex-1 overflow-hidden d-flex justify-content-between">
                 <div class="mob-ans-fnt-12"><app-user-header [prop]="answer"></app-user-header></div>
                 <div class="d-flex align-like">
-                    <div class="like-int" (click)="onLike(answer)" *ngIf="!answer.is_liked">
+                    <div class="like-int d-none" (click)="onLike(answer)" [ngClass]="{ 'd-block': !answer.is_liked }">
                         <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
                     </div>
-                    <div class="like-int" (click)="onUnLike(answer)" *ngIf="answer.is_liked">
+                    <div class="like-int d-none" (click)="onUnLike(answer)" [ngClass]="{ 'd-block': answer.is_liked }">
                         <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                     </div>
                 </div>
