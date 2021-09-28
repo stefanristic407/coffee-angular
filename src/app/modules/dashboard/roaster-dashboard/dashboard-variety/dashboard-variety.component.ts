@@ -30,6 +30,7 @@ export class DashboardVarietyComponent implements OnInit, OnDestroy {
 
     makeChartData() {
         const tempData = [];
+        let otherValue = 0;
         this.varieties.variety_stats.forEach((element, index) => {
             if (index <= 4) {
                 tempData.push({
@@ -37,11 +38,12 @@ export class DashboardVarietyComponent implements OnInit, OnDestroy {
                     value: element.order_count,
                 });
             } else {
-                tempData.push({
-                    name: 'Other',
-                    value: (element.order_count += element.order_count),
-                });
+                otherValue += element.order_count;
             }
+        });
+        tempData.push({
+            name: 'Other',
+            value: otherValue,
         });
         this.chartData = tempData;
     }

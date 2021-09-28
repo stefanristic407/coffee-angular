@@ -56,8 +56,8 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
     }
 
     makeChartData() {
-        console.log(this.sourcing.sourcing_stats);
         const tempData = [];
+        let otherValue = 0;
         (this.sourcing.sourcing_stats || []).forEach((element, index) => {
             const countryName = this.commonService.getCountryName(element.origin) || element.origin;
             if (index <= 4) {
@@ -66,11 +66,12 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
                     value: (element.available_quantity / 1000).toFixed(0),
                 });
             } else {
-                tempData.push({
-                    name: 'Other',
-                    value: ((element.available_quantity += element.available_quantity) / 1000).toFixed(0),
-                });
+                otherValue += element.available_quantity / 1000;
             }
+        });
+        tempData.push({
+            name: 'Other',
+            value: otherValue.toFixed(0),
         });
         this.chartData = tempData;
     }
