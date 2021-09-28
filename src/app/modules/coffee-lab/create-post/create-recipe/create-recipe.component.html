@@ -84,14 +84,28 @@
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
-            <label [ngClass]="{ 'mt-2': isTranslate }">{{ 'recipe_name' | translate }}</label>
+            <label [ngClass]="{ 'mt-2': isTranslate }"
+                >{{ 'recipe_name' | translate }}
+                <span class="pull-right text-clr588"
+                    >{{ recipeForm.get('name')?.value?.length }}/120
+                    {{ 'characters' | translate }}
+                </span></label
+            >
             <input type="text" placeholder="What’s your guide called?" pInputText formControlName="name" />
             <small *ngIf="recipeForm.controls['name'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
+            <small *ngIf="recipeForm.controls['name'].errors?.maxlength" class="p-error">
+                Please input 120 characters
+            </small>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
-            <label>{{ 'description' | translate }}</label>
+            <label
+                >{{ 'description' | translate }}
+                <span class="pull-right text-clr588">
+                    {{ recipeForm.get('description')?.value | wordCount }}/60 words
+                </span></label
+            >
             <textarea
                 class="min-hght"
                 pInputTextarea
@@ -101,6 +115,9 @@
             ></textarea>
             <small *ngIf="recipeForm.controls['description'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
+            </small>
+            <small *ngIf="recipeForm.controls['description'].errors?.maxWordCount" class="p-error">
+                Please input 60 words
             </small>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3">

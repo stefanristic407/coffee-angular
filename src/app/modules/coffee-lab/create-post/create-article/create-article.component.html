@@ -54,7 +54,13 @@
             </div>
         </div>
         <div class="col-12 sewn-form-field p-0">
-            <label>{{ 'title' | translate }}</label>
+            <label
+                >{{ 'title' | translate }}
+                <span class="pull-right text-clr588"
+                    >{{ articleForm.get('title')?.value?.length }}/120
+                    {{ 'characters' | translate }}
+                </span>
+            </label>
             <textarea
                 class="min-hght"
                 [placeholder]="'give_a_title' | translate"
@@ -65,12 +71,17 @@
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
-            <small *ngIf="articleForm.controls['title'].errors?.maxWordCount" class="p-error">
-                Please input 120 words
+            <small *ngIf="articleForm.controls['title'].errors?.maxlength" class="p-error">
+                Please input 120 characters
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
-            <label>{{ 'subtitle' | translate }}</label>
+            <label
+                >{{ 'subtitle' | translate }}
+                <span class="pull-right text-clr588">
+                    {{ articleForm.get('subtitle')?.value | wordCount }}/60 words
+                </span>
+            </label>
             <textarea
                 class="min-hght"
                 placeholder="Add a short description about your article"
@@ -82,7 +93,7 @@
                 {{ 'required' | translate }}
             </small>
             <small *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount" class="p-error">
-                Please input 30 words
+                Please input 60 words
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">

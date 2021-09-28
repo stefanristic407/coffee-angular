@@ -10,7 +10,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent, CropperDialogComponent } from '@app/shared';
 import { CroppedImage } from '@models';
-import { insertAltAttr } from '@utils';
+import { insertAltAttr, maxWordCountValidator } from '@utils';
 
 export enum RecipeFileType {
     CoverImage = 'CoverImage',
@@ -339,7 +339,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     createRecipeForm(): void {
         this.recipeForm = this.fb.group({
-            name: ['', Validators.compose([Validators.required])],
+            name: ['', Validators.compose([Validators.required, Validators.maxLength(120)])],
             expertise: ['', Validators.compose([Validators.required])],
             serves: ['', Validators.compose([Validators.required])],
             equipment_name: ['', Validators.compose([Validators.required])],
@@ -348,7 +348,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             brew_ratio: ['', Validators.compose([Validators.required, Validators.pattern('[0-9][:][0-9]$')])],
             preparation_method: ['steps', Validators.compose([Validators.required])],
             cover_image_id: [null, Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required])],
+            description: ['', Validators.compose([maxWordCountValidator(60), Validators.required])],
             ingredients: this.fb.array([this.createCoffeeIngredient()]),
             steps: this.fb.array([this.createCoffeeStep()]),
             allow_translation: [true],

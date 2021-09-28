@@ -50,16 +50,9 @@
                     </span>
                 </div>
             </div>
-            <div
-                *ngIf="prop?.org_type !== 'co' && prop?.organisation_type !== 'co' && prop?.organization_type !== 'co'"
-                class="fnt-14 fnt-muli lh-1 text-clr588 mt-2 d-flex text-nowrap extra-mob"
-            >
-                <span class="font-semi-bold mr-1" *ngIf="prop?.orgType !== 'co'">{{
-                    'coffee_experts' | translate
-                }}</span>
-                <span class="font-semi-bold mr-1" *ngIf="prop?.orgType === 'co'">{{
-                    'coffee_consumer' | translate
-                }}</span>
+            <div class="fnt-14 fnt-muli lh-1 text-clr588 mt-2 d-flex text-nowrap extra-mob">
+                <span class="font-semi-bold mr-1" *ngIf="orgType !== 'co'">{{ 'coffee_experts' | translate }}</span>
+                <span class="font-semi-bold mr-1" *ngIf="orgType === 'co'">{{ 'coffee_consumer' | translate }}</span>
                 <span
                     *ngIf="
                         prop?.org_type !== 'sa' && prop?.organisation_type !== 'sa' && prop?.organization_type !== 'sa'

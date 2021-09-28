@@ -50,8 +50,8 @@ export class CreateArticleComponent implements OnInit {
 
     ngOnInit(): void {
         this.articleForm = this.fb.group({
-            title: ['', Validators.compose([maxWordCountValidator(120), Validators.required])],
-            subtitle: ['', Validators.compose([maxWordCountValidator(30), Validators.required])],
+            title: ['', Validators.compose([Validators.maxLength(120), Validators.required])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(60), Validators.required])],
             content: [''],
             language: [],
             allow_translation: [true, Validators.compose([Validators.required])],
