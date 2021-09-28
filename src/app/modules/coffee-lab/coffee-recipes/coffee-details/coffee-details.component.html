@@ -73,7 +73,7 @@
                                                 alt="thumbs-up"
                                             />
                                         </div>
-                                        <span class="d-flex mt-3 mr-2 ml-1 mb-05 fnt-300 text-clr334">{{
+                                        <span class="d-flex mt-25 mr-2 ml-1 mb-05 fnt-300 text-clr334">{{
                                             detailsData.likes
                                         }}</span>
                                     </div>
@@ -102,6 +102,12 @@
                                 </div>
                                 <div class="d-flex">
                                     <div class="d-flex mob-height align-items-center mr-3">
+                                        <div
+                                            class="d-flex d-md-none mr-1 hover-share-icon cursor-point"
+                                            (click)="onShare()"
+                                        >
+                                            <img src="assets/images/share.svg" alt="upload" />
+                                        </div>
                                         <app-forum-menu
                                             [selectedItem]="detailsData"
                                             forumType="recipe"
