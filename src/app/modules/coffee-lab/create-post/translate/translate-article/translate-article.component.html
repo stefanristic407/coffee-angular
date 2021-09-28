@@ -70,9 +70,6 @@
                                 pInputText
                                 formControlName="title"
                             />
-                            <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
-                                {{ 'required' | translate }}
-                            </small>
                         </div>
                         <div class="col-12 sewn-form-field p-0">
                             <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{
@@ -84,16 +81,8 @@
                                 formControlName="subtitle"
                                 [readonly]="true"
                                 autoResize="autoResize"
+                                [ngClass]="{ 'subtitle-hgt': articleForm.controls['subtitle']?.value?.length < 50 }"
                             ></textarea>
-                            <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
-                                {{ 'required' | translate }}
-                            </small>
-                            <small
-                                *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount"
-                                class="p-error text-clrb1f"
-                            >
-                                Please input 30 words
-                            </small>
                         </div>
                     </div>
                     <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'body' | translate }}</label>
@@ -216,6 +205,7 @@
                 pInputTextarea
                 formControlName="subtitle"
                 autoResize="autoResize"
+                [ngClass]="{ 'subtitle-hgt': articleForm.controls['subtitle']?.value?.length < 50 }"
             ></textarea>
             <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
