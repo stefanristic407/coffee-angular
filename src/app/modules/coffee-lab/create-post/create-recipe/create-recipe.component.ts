@@ -42,8 +42,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     recipeId: any;
     draftRecipeId: any;
     originRecipeId: any;
-    brewRatio: string;
-    isbrewRatio = false;
     recipe: any;
     copiedCoverImageId: number;
     copiedCoverImageUrl: string;
@@ -368,6 +366,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             equipment_name: value.equipment_name,
             coffee_ratio: value.coffee_ratio,
             water_ratio: value.water_ratio,
+            brew_ratio: value.coffee_ratio + ':' + value.water_ratio,
             preparation_method: value.preparation_method,
             description: value.description,
             language: value.lang_code,
@@ -407,10 +406,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 j++;
             }
         }
-        this.brewRatio = this.recipeForm.get('coffee_ratio').value + ':' + this.recipeForm.get('water_ratio').value;
         if (this.isTranslate) {
             this.recipeForm.get('equipment_name').disable();
             this.recipeForm.get('serves').disable();
+            this.recipeForm.get('brew_ratio').disable();
         }
     }
 
@@ -508,13 +507,13 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     onSave(status?: string): void {
         this.recipeForm.markAsUntouched();
-        if (status !== 'draft' && !this.brewRatio) {
-            this.isbrewRatio = true;
-        }
-        if (this.brewRatio) {
-            // this.recipeForm.get('coffee_ratio').setValue(parseInt(this.brewRatio.split(':')[0], 10));
-            // this.recipeForm.get('water_ratio').setValue(parseInt(this.brewRatio.split(':')[1], 10));
-        }
+        this.recipeForm
+            .get('coffee_ratio')
+            .setValue(parseInt(this.recipeForm.get('brew_ratio').value.split(':')[0], 10));
+        this.recipeForm
+            .get('water_ratio')
+            .setValue(parseInt(this.recipeForm.get('brew_ratio').value.split(':')[1], 10));
+
         if (status === 'draft') {
             if (!this.recipeForm.value.name) {
                 this.toaster.error('Please fill recipe name');
