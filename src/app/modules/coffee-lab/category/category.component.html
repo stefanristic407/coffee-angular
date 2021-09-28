@@ -49,12 +49,8 @@
                             <div class="row mx-0 fnt-16 fnt-bold fnt-muli">
                                 {{ 'other_categories' | translate }}
                             </div>
-                            <div class="row mx-0 mt-4">
-                                <div *ngFor="let item of otherCategories; let isLast = last" class="mr-md-25 mb-4 mr-2">
-                                    <a class="category-btn fnt-600 text-clr334 mb-2" [routerLink]="['../' + item.slug]">
-                                        {{ item.name }}
-                                    </a>
-                                </div>
+                            <div class="mt-4">
+                                <app-category-list [categoryList]="otherCategories"></app-category-list>
                             </div>
                         </div>
                         <div class="top-writer mt-4 mx-md-0 mx-3">

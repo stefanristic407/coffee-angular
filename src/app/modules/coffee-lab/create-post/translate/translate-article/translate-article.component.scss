@@ -109,18 +109,6 @@
     }
 }
 
-.category-btn {
-    margin: 5px 0px 0 0;
-    padding: 8px 10px 8px 10px;
-    border-radius: 4px;
-    border: none;
-    background-color: #eaeaea;
-    @media (max-width: 768px) {
-        margin: 0 12px 0 0;
-        padding: 8px 10px 8px 10px;
-    }
-}
-
 ::ng-deep.p-component:disabled {
     opacity: 0.8;
 }

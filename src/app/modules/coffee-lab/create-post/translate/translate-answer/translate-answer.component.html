@@ -27,13 +27,7 @@
                     <div class="row">
                         <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
                     </div>
-                    <div class="row">
-                        <div *ngFor="let category of question?.categories; let i = index" class="mr-2 mb-2 mb-md-0">
-                            <button class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334">
-                                {{ category.name }}
-                            </button>
-                        </div>
-                    </div>
+                    <app-category-list [categoryList]="question?.categories"></app-category-list>
                 </div>
                 <div class="sewn-form-field w-100 mb-3 mb-md-4">
                     <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
@@ -109,13 +103,7 @@
             <div class="row">
                 <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
             </div>
-            <div class="row">
-                <div *ngFor="let category of categoryList; let i = index" class="mr-2 mb-2 mb-md-0">
-                    <button class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334">
-                        {{ category.name }}
-                    </button>
-                </div>
-            </div>
+            <app-category-list [categoryList]="categoryList"></app-category-list>
         </div>
         <div [formGroup]="form" *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-3 mb-md-4">
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{ 'question' | translate }}</label>

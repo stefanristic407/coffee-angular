@@ -50,13 +50,7 @@
                         <div class="row">
                             <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
                         </div>
-                        <div class="row">
-                            <div *ngFor="let category of article?.categories; let i = index" class="mb-2 mb-md-0 mr-2">
-                                <button class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334">
-                                    {{ category.name }}
-                                </button>
-                            </div>
-                        </div>
+                        <app-category-list [categoryList]="article?.categories"></app-category-list>
                     </div>
                     <div [formGroup]="articleFormOriginal" class="mt-4">
                         <div class="col-12 sewn-form-field p-0">
@@ -183,13 +177,7 @@
             <div class="row">
                 <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
             </div>
-            <div class="row">
-                <div *ngFor="let category of categoryList; let i = index" class="mr-2 mb-2 mb-md-0">
-                    <button class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334">
-                        {{ category.name }}
-                    </button>
-                </div>
-            </div>
+            <app-category-list [categoryList]="categoryList"></app-category-list>
         </div>
         <div class="col-12 sewn-form-field p-0" [ngClass]="{ 'mt-4': categoryList && categoryList.length > 0 }">
             <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'title' | translate }}</label>

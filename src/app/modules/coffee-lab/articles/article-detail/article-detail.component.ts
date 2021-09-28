@@ -243,8 +243,4 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             }
         });
     }
-
-    onCategoryClick(slug: string) {
-        this.router.navigateByUrl('/coffee-lab/category/' + slug);
-    }
 }

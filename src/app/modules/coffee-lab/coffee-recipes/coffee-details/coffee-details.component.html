@@ -16,14 +16,7 @@
                     />
                     <div class="user-details p-md-45 mt-45 mt-md-0 ml-md-5 bg-white col-md-7 w-100 br-4 px-0">
                         <div *ngIf="detailsData?.categories" class="row mb-4 mb-md-45 mx-0">
-                            <div *ngFor="let category of detailsData?.categories; let i = index" class="mr-2">
-                                <button
-                                    class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334"
-                                    (click)="onCategoryClick(category.slug)"
-                                >
-                                    {{ category.name }}
-                                </button>
-                            </div>
+                            <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
                         </div>
                         <h1 class="fnt-bold text-clr334 mb-0 user-header mt-0">
                             {{ detailsData?.name | titlecase }}
@@ -369,14 +362,7 @@
                             </div>
                         </div>
                         <div *ngIf="detailsData?.categories" class="row mb-4 mb-md-45 mx-0">
-                            <div *ngFor="let category of detailsData?.categories; let i = index" class="mr-2">
-                                <button
-                                    class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334"
-                                    (click)="onCategoryClick(category.slug)"
-                                >
-                                    {{ category.name }}
-                                </button>
-                            </div>
+                            <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
                         </div>
                         <div
                             *ngIf="

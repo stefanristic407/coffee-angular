@@ -28,14 +28,7 @@
             [innerHTML]="question?.question"
         ></div>
         <div *ngIf="question?.categories" class="row mx-0 pt-4">
-            <div *ngFor="let category of question?.categories; let i = index" class="mr-0 mr-md-2 mb-2 mb-md-0">
-                <button
-                    class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334"
-                    (click)="onCategoryClick(category.slug)"
-                >
-                    {{ category.name }}
-                </button>
-            </div>
+            <app-category-list [categoryList]="question?.categories"></app-category-list>
         </div>
     </div>
     <app-like-divider [question]="question" [total]="question.total_answers"></app-like-divider>

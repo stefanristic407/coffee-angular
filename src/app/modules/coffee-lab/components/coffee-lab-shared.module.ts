@@ -11,6 +11,7 @@ import { LikeDividerComponent } from './like-divider/like-divider.component';
 import { QuestionCardComponent } from './question-card/question-card.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 const COMPONENTS = [
     ArticleCardComponent,
@@ -20,6 +21,7 @@ const COMPONENTS = [
     QuestionCardComponent,
     RecipeCardComponent,
     UserHeaderComponent,
+    CategoryListComponent,
 ];
 
 @NgModule({

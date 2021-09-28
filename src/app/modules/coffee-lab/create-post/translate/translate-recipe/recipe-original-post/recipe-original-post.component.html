@@ -26,13 +26,7 @@
                     <div class="row">
                         <label class="fnt-600 mb-3"> {{ 'categories' | translate }}</label>
                     </div>
-                    <div class="row">
-                        <div *ngFor="let category of detailsData?.categories; let i = index" class="mr-2 mb-2 mb-md-0">
-                            <button class="category-btn fnt-12 fnt-md-14 fnt-600 text-clr334">
-                                {{ category.name }}
-                            </button>
-                        </div>
-                    </div>
+                    <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
                 </div>
                 <div class="mt-md-4 mt-3" [formGroup]="recipeForm">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-0 sewn-form-field w-100">
