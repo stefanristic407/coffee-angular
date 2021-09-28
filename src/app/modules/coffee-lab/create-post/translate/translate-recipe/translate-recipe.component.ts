@@ -54,6 +54,9 @@ export class TranslateRecipeComponent implements OnInit {
                 this.remainingLangugage.push(item);
             }
         });
+        if (this.remainingLangugage.length === 0) {
+            this.router.navigateByUrl('/coffee-lab/overview/coffee-recipes');
+        }
     }
 
     onDeleteDraft(): void {
