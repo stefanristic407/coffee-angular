@@ -174,8 +174,10 @@
     padding: 9px 11px 9px 12px;
     border-radius: 50%;
     background-color: rgba(116, 117, 136, 0.08);
-    &:hover {
-        background-color: rgba(48, 133, 92, 0.12);
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
     }
 }
 
@@ -183,8 +185,10 @@
     padding: 2px 8px 2px 9px;
     border-radius: 50%;
     background-color: rgba(116, 117, 136, 0.08);
-    &:hover {
-        background-color: rgba(48, 133, 92, 0.16);
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.16);
+        }
     }
 }
 
@@ -192,8 +196,10 @@
     padding: 6px 9px 8px 12px;
     border-radius: 50%;
     background-color: rgba(116, 117, 136, 0.08);
-    &:hover {
-        background-color: rgba(48, 133, 92, 0.16);
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.16);
+        }
     }
 }
 
@@ -219,8 +225,10 @@
         padding: 0 8.5px;
         border-radius: 50%;
         background-color: rgba(116, 117, 136, 0.08);
-        &:hover {
-            background-color: rgba(48, 133, 92, 0.12);
+        @media (min-width: 992px) {
+            &:hover {
+                background-color: rgba(48, 133, 92, 0.12);
+            }
         }
         .like {
             position: relative;

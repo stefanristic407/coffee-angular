@@ -9,13 +9,15 @@
         object-fit: cover;
     }
 
-    &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 2rem rgb(0 0 0 / 20%);
-        border: 0px !important;
-        cursor: pointer;
-        h3.article-title-text {
-            text-decoration: underline;
+    @media (min-width: 992px) {
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 2rem rgb(0 0 0 / 20%);
+            border: 0px !important;
+            cursor: pointer;
+            h3.article-title-text {
+                text-decoration: underline;
+            }
         }
     }
 }
@@ -50,8 +52,10 @@
     padding: 6px 9px 10px 12px;
     border-radius: 50%;
     background-color: rgba(116, 117, 136, 0.08);
-    &:hover {
-        background-color: rgba(48, 133, 92, 0.12);
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
     }
 }
 

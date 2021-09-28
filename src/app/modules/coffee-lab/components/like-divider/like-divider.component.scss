@@ -40,16 +40,20 @@
 .hover-message-icon {
     padding: 10px;
     border-radius: 50%;
-    &:hover {
-        background-color: rgba(48, 133, 92, 0.12);
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
     }
 }
 
 .hover-save-icon {
     padding: 6px 11px 8px 13px;
     border-radius: 50%;
-    &:hover {
-        background-color: rgba(48, 133, 92, 0.12);
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
     }
 }
 
@@ -58,9 +62,12 @@
         cursor: pointer;
         padding: 0 10.5px;
         border-radius: 50%;
-        &:hover {
-            background-color: rgba(48, 133, 92, 0.12);
+        @media (min-width: 992px) {
+            &:hover {
+                background-color: rgba(48, 133, 92, 0.12);
+            }
         }
+
         .like {
             position: relative;
             top: 10px;
