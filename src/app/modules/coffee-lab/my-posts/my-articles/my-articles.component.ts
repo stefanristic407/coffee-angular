@@ -24,7 +24,7 @@ export class MyArticlesComponent implements OnInit, OnDestroy {
     isLoading = true;
     destroy$: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
+    constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getArticles();
         });
