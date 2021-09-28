@@ -54,13 +54,79 @@
                     [alt]="detailsData?.title + ' cover image'"
                 />
             </div>
+            <div class="w-100 d-md-none">
+                <div class="d-flex justify-content-between mb-4">
+                    <div class="d-flex">
+                        <div class="d-flex align-like mr-2">
+                            <div
+                                class="like-int cursor-point"
+                                (click)="onLike(detailsData.id)"
+                                *ngIf="!detailsData.is_liked"
+                            >
+                                <img class="like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
+                            </div>
+                            <div
+                                class="like-int cursor-point"
+                                (click)="onUnLike(detailsData.id)"
+                                *ngIf="detailsData.is_liked"
+                            >
+                                <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
+                            </div>
+                            <!-- <span class="d-flex mt-3 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span> -->
+                        </div>
+                        <div class="message-icon hover-message-icon cursor-point mr-2" (click)="onFocusCommentBox()">
+                            <img class="pt-2" src="assets/images/message.svg" alt="message" />
+                        </div>
+                        <div class="align-items-center">
+                            <div
+                                *ngIf="!isSaveArticle"
+                                class="hover-save-icon cursor-point"
+                                (click)="onSave(detailsData.id)"
+                            >
+                                <img src="assets/images/save.svg" alt="save" />
+                            </div>
+                            <div
+                                *ngIf="isSaveArticle"
+                                class="hover-save-icon cursor-point"
+                                (click)="onSameSave(detailsData.id)"
+                            >
+                                <img src="assets/images/saved-item.svg" alt="saved" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="d-flex hover-share-icon cursor-point" (click)="onShare()">
+                            <img src="assets/images/share.svg" alt="upload" />
+                        </div>
+                        <div>
+                            <app-forum-menu
+                                [selectedItem]="detailsData"
+                                forumType="article"
+                                [enableSave]="false"
+                                [enableTranslation]="
+                                    detailsData?.allow_translation &&
+                                    (detailsData?.translated_articles || []).length < 3
+                                "
+                                [enableEdit]="
+                                    detailsData?.organisation_type === coffeeLabService.organization &&
+                                    detailsData.user_id === authService.currentUser.id
+                                "
+                                [enableDelete]="
+                                    detailsData?.organisation_type === coffeeLabService.organization &&
+                                    detailsData.user_id === authService.currentUser.id
+                                "
+                            ></app-forum-menu>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="d-flex">
                 <ng-container *ngTemplateOutlet="userWrapper"></ng-container>
                 <span>
                     <div class="d-flex flex-wrap w-100 innter-box">
                         <div class="d-flex justify-content-between align-items-md-end w-100">
                             <app-user-header [prop]="stickySecData"></app-user-header>
-                            <div class="d-flex flex-column align-items-end">
+                            <div class="d-none d-md-block d-lg-flex flex-column align-items-end">
                                 <app-forum-menu
                                     [selectedItem]="detailsData"
                                     forumType="article"
