@@ -94,10 +94,6 @@ export class CreateQuestionComponent implements OnInit {
             this.toastrService.error('Please type your question.');
             return;
         }
-        if (this.content.length < 10) {
-            this.toastrService.error('Question is too short.');
-            return;
-        }
         const data = {
             question: this.content,
             allow_translation: this.isAllowTranslation ? 1 : 0,

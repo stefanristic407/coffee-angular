@@ -201,8 +201,8 @@ export class ForumMenuComponent implements OnInit {
                         this.globalsService.languageJson?.are_you_sure_delete +
                         ' ' +
                         this.forumType +
-                        '?' +
-                        this.globalsService.languageJson?.are_you_sure_delete,
+                        '? ' +
+                        this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
             })
             .onClose.subscribe((action: any) => {
