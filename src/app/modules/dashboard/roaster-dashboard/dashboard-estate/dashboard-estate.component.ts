@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CommonService, GlobalsService } from '@services';
 import { MDashboardService } from '../m-dashboard.service';
+import { colorSets } from '@swimlane/ngx-charts';
 
 @Component({
     selector: 'app-dashboard-estate',
@@ -55,13 +56,21 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
     }
 
     makeChartData() {
+        console.log(this.sourcing.sourcing_stats);
         const tempData = [];
-        (this.sourcing.sourcing_stats || []).forEach((element) => {
+        (this.sourcing.sourcing_stats || []).forEach((element, index) => {
             const countryName = this.commonService.getCountryName(element.origin) || element.origin;
-            tempData.push({
-                name: countryName,
-                value: (element.available_quantity / 1000).toFixed(0),
-            });
+            if (index <= 4) {
+                tempData.push({
+                    name: countryName,
+                    value: (element.available_quantity / 1000).toFixed(0),
+                });
+            } else {
+                tempData.push({
+                    name: 'Other',
+                    value: ((element.available_quantity += element.available_quantity) / 1000).toFixed(0),
+                });
+            }
         });
         this.chartData = tempData;
     }

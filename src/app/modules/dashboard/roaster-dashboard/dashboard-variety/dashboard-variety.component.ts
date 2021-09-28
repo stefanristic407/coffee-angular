@@ -30,11 +30,18 @@ export class DashboardVarietyComponent implements OnInit, OnDestroy {
 
     makeChartData() {
         const tempData = [];
-        this.varieties.variety_stats.forEach((element) => {
-            tempData.push({
-                name: element.variety,
-                value: element.order_count,
-            });
+        this.varieties.variety_stats.forEach((element, index) => {
+            if (index <= 4) {
+                tempData.push({
+                    name: element.variety,
+                    value: element.order_count,
+                });
+            } else {
+                tempData.push({
+                    name: 'Other',
+                    value: (element.order_count += element.order_count),
+                });
+            }
         });
         this.chartData = tempData;
     }
