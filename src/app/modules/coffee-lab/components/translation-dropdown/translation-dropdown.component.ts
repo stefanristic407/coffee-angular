@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GlobalsService } from '@services';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
