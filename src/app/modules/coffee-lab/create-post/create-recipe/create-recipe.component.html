@@ -129,16 +129,17 @@
                 ></app-info-tooltip
             ></label>
             <input
-                [ngClass]="{ 'req-ratio': isbrewRatio }"
                 type="text"
                 placeholder="Eg - if the brew is 1:1 ratio of all ingreditents"
-                [(ngModel)]="brewRatio"
-                [ngModelOptions]="{ standalone: true }"
+                formControlName="brew_ratio"
                 pInputText
                 [disabled]="isTranslate"
             />
-            <small *ngIf="isbrewRatio" class="no-brew fnt-muli fnt-14 fnt-600">
+            <small *ngIf="recipeForm.controls['brew_ratio'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
+            </small>
+            <small *ngIf="recipeForm.controls['brew_ratio'].errors?.pattern" class="p-error">
+                {{ 'brew_ratio_pattern' | translate }}
             </small>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-md-3 pl-0">

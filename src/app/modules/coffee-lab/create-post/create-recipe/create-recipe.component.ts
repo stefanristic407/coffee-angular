@@ -347,6 +347,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             equipment_name: ['', Validators.compose([Validators.required])],
             coffee_ratio: [''],
             water_ratio: [''],
+            brew_ratio: ['', Validators.compose([Validators.required, Validators.pattern('[0-9][:][0-9]$')])],
             preparation_method: ['steps', Validators.compose([Validators.required])],
             cover_image_id: [null, Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
@@ -511,8 +512,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             this.isbrewRatio = true;
         }
         if (this.brewRatio) {
-            this.recipeForm.get('coffee_ratio').setValue(parseInt(this.brewRatio.split(':')[0], 10));
-            this.recipeForm.get('water_ratio').setValue(parseInt(this.brewRatio.split(':')[1], 10));
+            // this.recipeForm.get('coffee_ratio').setValue(parseInt(this.brewRatio.split(':')[0], 10));
+            // this.recipeForm.get('water_ratio').setValue(parseInt(this.brewRatio.split(':')[1], 10));
         }
         if (status === 'draft') {
             if (!this.recipeForm.value.name) {
