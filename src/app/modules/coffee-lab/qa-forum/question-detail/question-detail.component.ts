@@ -269,7 +269,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         if (forumId) {
             this.coffeeLabService.updateForum('answer', forumId, data).subscribe((res: any) => {
                 if (res.success) {
-                    this.toastrService.success('You have updated an article successfully.');
+                    this.toastrService.success('Your comment updated successfully');
                     this.getDetails();
                 } else {
                     this.toastrService.error('Failed to update article.');
