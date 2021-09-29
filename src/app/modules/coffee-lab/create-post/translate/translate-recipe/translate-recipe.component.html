@@ -17,7 +17,7 @@
     </div>
     <div *ngIf="showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
         <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">
-            No language available to be translated
+            {{ 'no_language_available_translated' | translate }}
         </div>
     </div>
     <div *ngIf="isMobile" class="col-12 br-4 mt-4">

@@ -102,7 +102,7 @@ export class TranslateArticleComponent implements OnInit {
                 }
                 if (this.remainingLangugage.length === 0) {
                     this.showNoDataSection = true;
-                    this.toastrService.error('There is no language available to be translated');
+                    this.toastrService.error(this.globalsService.languageJson?.no_language_available_translated);
                 }
                 this.handleChange({ index: 0 });
                 this.articleFormOriginal.disable();

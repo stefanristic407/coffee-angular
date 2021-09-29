@@ -57,7 +57,7 @@ export class TranslateRecipeComponent implements OnInit {
         });
         if (this.remainingLangugage.length === 0) {
             this.showNoDataSection = true;
-            this.toastService.error('There is no language available to be translated');
+            this.toastService.error(this.globalsService.languageJson?.no_language_available_translated);
         }
     }
 

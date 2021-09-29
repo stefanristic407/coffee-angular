@@ -153,7 +153,7 @@ export class GoogletranslateService {
                     this.translateURL,
                     {
                         q: text,
-                        target: lang || this.defaultLang,
+                        target: lang === 'pt' ? 'pt-br' : lang || this.defaultLang,
                     },
                     {
                         params: {

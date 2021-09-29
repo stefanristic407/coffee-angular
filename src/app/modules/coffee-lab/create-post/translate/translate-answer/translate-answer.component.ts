@@ -82,7 +82,7 @@ export class TranslateAnswerComponent implements OnInit {
                 });
                 if (this.remainingAnswerLangugage.length === 0) {
                     this.showNoDataSection = true;
-                    this.toastrService.error('There is no language available to be translated');
+                    this.toastrService.error(this.globalsService.languageJson?.no_language_available_translated);
                 }
                 this.originLanguage = res.result?.original_details?.language || res.result.lang_code;
                 if (res.result.parent_answer_id) {
