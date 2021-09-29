@@ -14,17 +14,17 @@
                     </label>
                     <input
                         type="text"
-                        [placeholder]="'first_name' | translate"
+                        [placeholder]="'please_enter_first_name' | translate"
                         formControlName="firstname"
                         pInputText
                     />
                     <small *ngIf="item['controls']['firstname'].errors?.required" class="p-error"> Required </small>
                 </div>
                 <div class="sewn-form-field col-lg-3">
-                    <label>{{ 'second_name' | translate }}<span class="star">*</span></label>
+                    <label>{{ 'last_name' | translate }}<span class="star">*</span></label>
                     <input
                         type="text"
-                        [placeholder]="'second_name' | translate"
+                        [placeholder]="'please_enter_last_name' | translate"
                         formControlName="lastname"
                         pInputText
                     />

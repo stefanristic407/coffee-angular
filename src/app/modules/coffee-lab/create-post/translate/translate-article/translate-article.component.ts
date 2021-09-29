@@ -301,7 +301,7 @@ export class TranslateArticleComponent implements OnInit {
                         if (res.success) {
                             this.toastrService.success(`Draft article deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
-                            this.router.navigateByUrl('/coffee-lab/overview/article');
+                            this.router.navigateByUrl('/coffee-lab/overview/articles');
                         } else {
                             this.toastrService.error(`Failed to delete a forum.`);
                         }
