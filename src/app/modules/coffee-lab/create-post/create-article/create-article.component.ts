@@ -51,7 +51,7 @@ export class CreateArticleComponent implements OnInit {
     ngOnInit(): void {
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.maxLength(120), Validators.required])],
-            subtitle: ['', Validators.compose([maxWordCountValidator(60), Validators.required])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(20), Validators.required])],
             content: [''],
             language: [],
             allow_translation: [true, Validators.compose([Validators.required])],
@@ -265,7 +265,7 @@ export class CreateArticleComponent implements OnInit {
                         if (res.success) {
                             this.toaster.success(`Draft article deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
-                            this.router.navigateByUrl('/coffee-lab/overview/article');
+                            this.router.navigateByUrl('/coffee-lab/overview/articles');
                         } else {
                             this.toaster.error(`Failed to delete a forum.`);
                         }

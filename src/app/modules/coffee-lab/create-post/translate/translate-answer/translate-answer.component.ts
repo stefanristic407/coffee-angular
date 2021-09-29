@@ -215,10 +215,7 @@ export class TranslateAnswerComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp:
-                        this.globalsService.languageJson?.are_you_sure_delete +
-                        ' answer?' +
-                        this.globalsService.languageJson?.delete_from_coffee_lab,
+                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
             })
             .onClose.subscribe((action: any) => {
@@ -227,7 +224,7 @@ export class TranslateAnswerComponent implements OnInit {
                         if (res.success) {
                             this.toastrService.success(`Draft answer deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
-                            this.router.navigateByUrl('/coffee-lab/overview/article');
+                            this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
                         } else {
                             this.toastrService.error(`Failed to delete a forum.`);
                         }
