@@ -151,6 +151,7 @@ import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-o
 import { SoilChartComponent } from './components/remote-sensoring/soil-chart/soil-chart.component';
 import { TimeRangeComponent } from './components/time-range/time-range.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
+import { UrlInputComponent } from './components/form-controls/url-input/url-input.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UvChartComponent } from './components/remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './components/remote-sensoring/vegetation-chart/vegetation-chart.component';
@@ -187,6 +188,7 @@ const COMPONENTS = [
     SoilChartComponent,
     TimeRangeComponent,
     UploaderComponent,
+    UrlInputComponent,
     UserDetailComponent,
     UvChartComponent,
     VegetationChartComponent,

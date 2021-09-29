@@ -110,29 +110,24 @@
                     <div class="row">
                         <div class="sewn-form-field col-md-12">
                             <label>{{ 'facebook_link' | translate }}</label>
-                            <input type="text" pInputText formControlName="fb_profile" placeholder="Add facebook URL" />
+                            <app-url-input formControlName="fb_profile" placeholder="Add facebook URL"></app-url-input>
                             <small *ngIf="isControlHasError('fb_profile', 'required')" class="p-error">
                                 {{ 'required' | translate }}
                             </small>
                             <small *ngIf="isControlHasError('fb_profile', 'url')" class="p-error">
-                                {{ 'make_sure_https' | translate }}
+                                {{ 'url_must_be_in_a_valid_format' | translate }}
                             </small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="sewn-form-field col-md-12">
                             <label for="instagram">{{ 'instagram_link' | translate }}</label>
-                            <input
-                                type="text"
-                                pInputText
-                                formControlName="ig_profile"
-                                placeholder="Add instagram URL"
-                            />
+                            <app-url-input formControlName="ig_profile" placeholder="Add instagram URL"></app-url-input>
                             <small *ngIf="isControlHasError('ig_profile', 'required')" class="p-error">
                                 {{ 'required' | translate }}
                             </small>
                             <small *ngIf="isControlHasError('ig_profile', 'url')" class="p-error">
-                                {{ 'make_sure_https' | translate }}
+                                {{ 'url_must_be_in_a_valid_format' | translate }}
                             </small>
                         </div>
                     </div>
