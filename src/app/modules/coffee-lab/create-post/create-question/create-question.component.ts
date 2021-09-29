@@ -15,7 +15,6 @@ import { ConfirmComponent } from '@app/shared';
     styleUrls: ['./create-question.component.scss'],
 })
 export class CreateQuestionComponent implements OnInit {
-    isAllowTranslation = true;
     content?: string;
     isPosting = false;
     questionId: any;
@@ -69,7 +68,6 @@ export class CreateQuestionComponent implements OnInit {
                 if (res.success) {
                     this.content = res.result.question;
                     this.languageCode = res.result.lang_code;
-                    this.isAllowTranslation = res.result?.allow_translation;
                     this.categoryValue = res.result.categories;
                 } else {
                     this.toaster.error('Error while get question');
@@ -96,7 +94,7 @@ export class CreateQuestionComponent implements OnInit {
         }
         const data = {
             question: this.content,
-            allow_translation: this.isAllowTranslation ? 1 : 0,
+            allow_translation: 1,
             status,
             language: this.languageCode,
             categories: this.categoryValue?.map((item) => item.id) || [],
