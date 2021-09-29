@@ -202,7 +202,7 @@ export class OrderManagementService {
                         );
                     }
                 } else {
-                    return of({ success: false, result: null, result_info: null });
+                    return of(res);
                 }
             }),
         );
