@@ -195,14 +195,24 @@
                             <div class="row gutter-16 gutter-lg-24 mt-4">
                                 <div class="col-md-6 sewn-form-field">
                                     <label>{{ 'first_name' | translate }}<span class="star">*</span></label>
-                                    <input type="text" pInputText formControlName="firstname" />
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        formControlName="firstname"
+                                        [placeholder]="'please_enter_your_first_name' | translate"
+                                    />
                                     <small *ngIf="infoForm.controls.firstname.errors?.required" class="p-error">
                                         {{ 'required' | translate }}
                                     </small>
                                 </div>
                                 <div class="col-md-6 sewn-form-field">
-                                    <label>{{ 'second_name' | translate }}<span class="star">*</span></label>
-                                    <input type="text" pInputText formControlName="lastname" />
+                                    <label>{{ 'last_name' | translate }}<span class="star">*</span></label>
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        formControlName="lastname"
+                                        [placeholder]="'please_enter_your_last_name' | translate"
+                                    />
                                     <small *ngIf="infoForm.controls.lastname.errors?.required" class="p-error">
                                         {{ 'required' | translate }}
                                     </small>
