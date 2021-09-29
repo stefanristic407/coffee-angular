@@ -35,6 +35,7 @@ export class TranslateAnswerComponent implements OnInit {
     remainingAnswerLangugage = [];
     selectedTab = 0;
     categoryList: any[] = [];
+    showNoDataSection = false;
     isMobile = false;
 
     constructor(
@@ -79,6 +80,10 @@ export class TranslateAnswerComponent implements OnInit {
                         this.remainingAnswerLangugage.push(item);
                     }
                 });
+                if (this.remainingAnswerLangugage.length === 0) {
+                    this.showNoDataSection = true;
+                    this.toastrService.error('There is no language available to be translated');
+                }
                 this.originLanguage = res.result?.original_details?.language || res.result.lang_code;
                 if (res.result.parent_answer_id) {
                     this.coffeeLabService

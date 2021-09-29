@@ -37,6 +37,7 @@ export class TranslateArticleComponent implements OnInit {
     isTranslationArticle = [];
     remainingLangugage = [];
     categoryList: any[] = [];
+    showNoDataSection = false;
     isMobile = false;
 
     constructor(
@@ -98,6 +99,10 @@ export class TranslateArticleComponent implements OnInit {
                 });
                 if (this.article.user_id !== this.authService.currentUser.id) {
                     this.copyCoverImage('noCopy');
+                }
+                if (this.remainingLangugage.length === 0) {
+                    this.showNoDataSection = true;
+                    this.toastrService.error('There is no language available to be translated');
                 }
                 this.handleChange({ index: 0 });
                 this.articleFormOriginal.disable();

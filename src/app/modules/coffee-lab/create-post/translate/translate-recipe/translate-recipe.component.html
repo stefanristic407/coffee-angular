@@ -6,7 +6,7 @@
         ></app-recipe-original-post>
     </div>
 
-    <div class="col-12 col-md-6 px-md-0 mt-4 mt-md-0">
+    <div *ngIf="!showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0">
         <p-tabView class="toggle bg-tabView" [(activeIndex)]="selectedTab" (onChange)="onChangeTab($event)">
             <p-tabPanel *ngFor="let item of remainingLangugage; let i = index" [header]="item.label | translate">
                 <div class="py-md-2 px-md-4 bg-f8" *ngIf="selectedTab === i">
@@ -14,6 +14,11 @@
                 </div>
             </p-tabPanel>
         </p-tabView>
+    </div>
+    <div *ngIf="showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
+        <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">
+            No language available to be translated
+        </div>
     </div>
     <div *ngIf="isMobile" class="col-12 br-4 mt-4">
         <app-recipe-original-post
@@ -24,7 +29,7 @@
 </div>
 <div class="row ml-0 ml-lg-3 mt-2 py-2 px-md-0 p-0 col-sm-12 my-3 my-md-45 my-lg-5">
     <div class="col-md-6 order-2 order-md-1 p-0">
-        <button routerLink="/coffee-lab/overview/qa-forum" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
+        <button routerLink="/coffee-lab/overview/coffee-recipes" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
             {{ 'cancel' | translate }}
         </button>
         <button (click)="onDeleteDraft()" class="btn-stroked ml-md-3 px-4 order-2 order-md-1 w-mob-100 mt-2 mt-md-0">
@@ -36,7 +41,11 @@
             <button (click)="onSave(false)" class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0">
                 {{ (draftId ? 'save_changes' : 'save_as_draft') | translate }}
             </button>
-            <button (click)="onSave(true)" class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0">
+            <button
+                (click)="onSave(true)"
+                [disabled]="showNoDataSection"
+                class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+            >
                 {{ 'publish' | translate }}
             </button>
         </div>

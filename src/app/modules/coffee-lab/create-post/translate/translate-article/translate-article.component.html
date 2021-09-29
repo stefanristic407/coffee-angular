@@ -4,12 +4,17 @@
 
 <div *ngIf="!isLoading">
     <div class="row border-md-main br-4 mt-4 mt-md-0 mx-0">
-        <div *ngIf="isMobile" class="col-12 bg-f8 mb-4 px-0 border-main br-4">
+        <div *ngIf="isMobile && !showNoDataSection" class="col-12 bg-f8 mb-4 px-0 border-main br-4">
             <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
                 <p-tabPanel *ngFor="let item of remainingLangugage" [header]="item.label | translate">
                     <ng-container *ngTemplateOutlet="createArticle"></ng-container>
                 </p-tabPanel>
             </p-tabView>
+        </div>
+        <div *ngIf="isMobile && showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
+            <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">
+                No language available to be translated
+            </div>
         </div>
         <div class="col-12 col-md-6 px-0 border-mob">
             <div class="bg-f8 w-100">
@@ -89,12 +94,17 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="!isMobile" class="col-12 bg-f8 col-md-6 px-0 border-left">
+        <div *ngIf="!isMobile && !showNoDataSection" class="col-12 bg-f8 col-md-6 px-0 border-left">
             <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
                 <p-tabPanel *ngFor="let item of remainingLangugage" [header]="item.label | translate">
                     <ng-container *ngTemplateOutlet="createArticle"></ng-container>
                 </p-tabPanel>
             </p-tabView>
+        </div>
+        <div *ngIf="!isMobile; showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
+            <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">
+                No language available to be translated
+            </div>
         </div>
     </div>
 </div>
@@ -117,7 +127,7 @@
                 {{ (draftId ? 'save_changes' : 'save_as_draft') | translate }}
             </button>
             <button
-                [disabled]="isPosting || isUploadingImage"
+                [disabled]="(isPosting || isUploadingImage) && showNoDataSection"
                 (click)="onPost('published')"
                 class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
             >

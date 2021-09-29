@@ -17,6 +17,7 @@ export class TranslateRecipeComponent implements OnInit {
     id: any;
     draftId: string;
     isMobile = false;
+    showNoDataSection = false;
     allLanguage: any[] = APP_LANGUAGES;
     remainingLangugage = [];
 
@@ -55,7 +56,8 @@ export class TranslateRecipeComponent implements OnInit {
             }
         });
         if (this.remainingLangugage.length === 0) {
-            this.router.navigateByUrl('/coffee-lab/overview/coffee-recipes');
+            this.showNoDataSection = true;
+            this.toastService.error('There is no language available to be translated');
         }
     }
 
