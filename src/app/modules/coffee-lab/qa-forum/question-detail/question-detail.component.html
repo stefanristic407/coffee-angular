@@ -33,7 +33,7 @@
                 [ngClass]="{ 'mb-4': !detailsData?.categories }"
                 [innerHTML]="detailsData.question"
             ></div>
-            <div *ngIf="detailsData?.categories" class="row mb-4 ml-4 mt-3">
+            <div *ngIf="detailsData?.categories" class="row mb-md-4 ml-3 mr-1 mr-md-4 ml-md-4 mt-3">
                 <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
             </div>
             <app-like-divider [question]="detailsData"></app-like-divider>

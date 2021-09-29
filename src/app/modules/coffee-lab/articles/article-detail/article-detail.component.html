@@ -5,12 +5,12 @@
         </a>
     </div>
     <div class="container article-main-block" *ngIf="!isLoading">
-        <div class="mt-lg-425">
+        <div class="mt-4 mt-lg-425">
             <div *ngIf="detailsData?.categories" class="row mx-0 mx-md-5 px-md-5 justify-content-lg-center">
                 <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
             </div>
             <div class="px-0 px-md-475">
-                <h1 class="main-heading bg-transparent fnt-bold text-clr334 px-0 px-lg-5 mt-md-4 mt-35 mb-md-3 mb-2">
+                <h1 class="main-heading bg-transparent fnt-bold text-clr334 px-0 px-lg-5 mt-md-4 mt-25 mb-md-3 mb-2">
                     <!-- Starting your coffee tasting journey is easy! -->
                     {{ detailsData?.title }}
                 </h1>
@@ -210,7 +210,7 @@
                                         >
                                             <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                                         </div>
-                                        <span class="d-flex mt-3 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
+                                        <span class="d-flex mt-25 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
                                             detailsData.likes
                                         }}</span>
                                     </div>
@@ -280,7 +280,7 @@
                             <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
                         </div>
 
-                        <div class="mt-md-5 mt-45 mb-4 w-100">
+                        <div class="mt-md-5 mt-4 mb-4 w-100">
                             <div class="w-100">
                                 <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-25">{{ 'comments' | translate }}</p>
                             </div>
@@ -453,7 +453,7 @@
                     >
                         <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                     </div>
-                    <span class="d-flex mt-3 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>
+                    <span class="d-flex mt-25 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>
                 </div>
                 <div class="message-icon hover-message-icon cursor-point" (click)="onFocusCommentBox()">
                     <img src="assets/images/message.svg" alt="message" />
