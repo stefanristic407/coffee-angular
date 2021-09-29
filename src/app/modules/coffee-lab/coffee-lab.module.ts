@@ -12,7 +12,7 @@ import { AssignedToMeViewComponent } from './assigned-to-me/assigned-to-me-view/
 import { CoffeeDetailsComponent } from './coffee-recipes/coffee-details/coffee-details.component';
 import { CoffeeLabComponent } from './coffee-lab.component';
 import { CoffeeRecipesViewComponent } from './coffee-recipes/coffee-recipes-view/coffee-recipes-view.component';
-import { CreateAnswerComponent } from './create-post/create-answer/create-answer.component';
+
 import { CreateArticleComponent } from './create-post/create-article/create-article.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { CreateQuestionComponent } from './create-post/create-question/create-question.component';
@@ -46,7 +46,6 @@ import { CategoryComponent } from './category/category.component';
         CoffeeDetailsComponent,
         CoffeeLabComponent,
         CoffeeRecipesViewComponent,
-        CreateAnswerComponent,
         CreateArticleComponent,
         CreatePostComponent,
         CreateQuestionComponent,
