@@ -1,18 +1,8 @@
-import {
-    AbstractControl,
-    AsyncValidatorFn,
-    ControlContainer,
-    FormControl,
-    FormGroup,
-    ValidationErrors,
-    ValidatorFn,
-} from '@angular/forms';
-import { LBUNIT } from '@constants';
-import { IdmService, ValidateEmailService } from '@services';
+import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { CommonService, ValidateEmailService } from '@services';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { convertKg } from './common.utils';
-import { OrganizationType } from '@enums';
 
 export function maxWordCountValidator(limit: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
@@ -131,5 +121,14 @@ export function emailValidator(validateService: ValidateEmailService, existenceQ
                 });
             }
         }).pipe(map((res) => res));
+    };
+}
+
+export function editorRequired(commonservice: CommonService): ValidatorFn {
+    return ({ value }: AbstractControl): { [key: string]: boolean } | null => {
+        return value &&
+            (commonservice.getJustText(value)?.trim() || new RegExp(/<img.*?src="(.*?)"[^>]*>/g).test(value))
+            ? null
+            : { required: true };
     };
 }

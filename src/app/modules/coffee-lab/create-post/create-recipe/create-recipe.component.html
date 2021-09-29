@@ -261,15 +261,8 @@
                                     [placeholder]="'Start typing your instructions'"
                                     fileModule="recipe-post"
                                     [height]="150"
-                                    [ngClass]="{
-                                        'text-area':
-                                            recipeForm.get('steps').value[i].description?.length <= 8 && clicked
-                                    }"
                                 ></app-forum-editor>
-                                <small
-                                    *ngIf="recipeForm.get('steps').value[i].description?.length <= 8 && clicked"
-                                    class="p-error"
-                                >
+                                <small *ngIf="step.get('description').errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
                             </div>
@@ -312,11 +305,8 @@
                         fileModule="recipe-post"
                         [height]="150"
                         [images]="images"
-                        [ngClass]="{
-                            'text-area': recipeForm.get('steps').value[i].description?.length <= 8 && clicked
-                        }"
                     ></app-forum-editor>
-                    <small *ngIf="recipeForm.get('steps').value[i].description?.length <= 8 && clicked" class="p-error">
+                    <small *ngIf="step.get('description').errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
                 </div>
@@ -451,7 +441,7 @@
                         (click)="onSave('published'); clicked = true"
                         class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
-                        <span *ngIf="isTranslate">{{'publish' | translate}</span>
+                        <span *ngIf="isTranslate">{{ 'publish' | translate }}</span>
                         <span *ngIf="!isTranslate">
                             {{ (recipeId ? 'save_publish_changes' : 'publish') | translate }}
                         </span>

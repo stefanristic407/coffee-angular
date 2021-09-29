@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
-import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
+import { AuthService, CoffeeLabService, CommonService, GlobalsService, GoogletranslateService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { combineLatest, Subject } from 'rxjs';
 import { Location } from '@angular/common';
@@ -10,7 +10,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent, CropperDialogComponent } from '@app/shared';
 import { CroppedImage } from '@models';
-import { insertAltAttr, maxWordCountValidator } from '@utils';
+import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
 
 export enum RecipeFileType {
     CoverImage = 'CoverImage',
@@ -140,16 +140,17 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     constructor(
         private authService: AuthService,
-        private fb: FormBuilder,
-        private toaster: ToastrService,
         private coffeeLabService: CoffeeLabService,
-        private router: Router,
-        private route: ActivatedRoute,
-        private globals: GlobalsService,
-        private location: Location,
+        private commonService: CommonService,
         private dialogService: DialogService,
-        private gtrans: GoogletranslateService,
+        private fb: FormBuilder,
+        private globals: GlobalsService,
         private globalsService: GlobalsService,
+        private gtrans: GoogletranslateService,
+        private location: Location,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toaster: ToastrService,
     ) {
         this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
@@ -481,7 +482,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     createCoffeeStep() {
         return this.fb.group({
-            description: [''],
+            description: ['', [editorRequired(this.commonService)]],
             image_id: [null],
             coverImageUrl: [null],
         });

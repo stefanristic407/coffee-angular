@@ -57,3 +57,12 @@
         font-size: 14px;
     }
 }
+
+::ng-deep {
+    .ng-invalid.ng-touched,
+    .ng-invalid.ng-dirty {
+        & > div > p-editor .forum-editor.p-editor-container {
+            border-color: $error-border-color !important;
+        }
+    }
+}

@@ -1,26 +1,27 @@
 @import 'variables';
 
 .forum-editor {
+    border: solid 1px $primary-border-color !important;
+    border-radius: 4px;
     position: relative;
     .p-editor-toolbar {
+        position: relative;
         padding: 16px 24px;
         background-color: white;
-        border-color: $primary-border-color;
-        border-bottom-width: 0 !important;
-        white-space: nowrap;
-        overflow-x: auto;
+        border: none !important;
         &:before {
             content: '';
             display: block;
             border-bottom: 1px dashed $primary-border-color;
             position: absolute;
-            top: 56px;
+            bottom: 0px;
             width: calc(100% - 48px);
         }
     }
     .p-editor-content {
         background-color: white;
         font-family: Muli;
+        border: none !important;
         .ql-editor {
             padding: 24px;
             &:before {
