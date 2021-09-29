@@ -123,11 +123,7 @@
     </div>
 
     <div *ngIf="!isAddMember" class="my-4">
-        <p-tabMenu [model]="menuItems" styleClass="tabmenu-coffee-lab" class="tabMenue">
-            <ng-template pTemplate="item" let-item let-i="index">
-                <span class="pl-1" (click)="tabChange(i)">{{ item.label | translate }}</span>
-            </ng-template>
-        </p-tabMenu>
+        <p-tabMenu [model]="menuItems"> </p-tabMenu>
     </div>
     <router-outlet></router-outlet>
 </div>

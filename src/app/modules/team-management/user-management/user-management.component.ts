@@ -9,6 +9,7 @@ import { ChatHandlerService } from '@services';
 import { UserStatus } from '@enums';
 import { DialogService } from 'primeng/dynamicdialog';
 import { UserManagementSearchService } from '../user-management-service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-user-management',
@@ -33,16 +34,7 @@ export class UserManagementComponent implements OnInit {
     tableRows;
     showAddbutton = true;
     @ViewChild('input') input: ElementRef;
-    menuItems = [
-        {
-            label: 'user_management',
-            routerLink: 'accepted',
-        },
-        {
-            label: 'pending_invitations',
-            routerLink: 'pending-invitations',
-        },
-    ];
+    menuItems: MenuItem[];
 
     constructor(
         public router: Router,
@@ -54,9 +46,22 @@ export class UserManagementComponent implements OnInit {
         public dialogSrv: DialogService,
         private authService: AuthService,
         private userManagementSearchService: UserManagementSearchService,
+        private translator: TranslateService,
     ) {}
 
     ngOnInit(): void {
+        this.menuItems = [
+            {
+                label: this.translator.instant('user_management'),
+                routerLink: 'accepted',
+                command: () => (this.showAddbutton = true),
+            },
+            {
+                label: this.translator.instant('pending_invitations'),
+                routerLink: 'pending-invitations',
+                command: () => (this.showAddbutton = false),
+            },
+        ];
         this.sharedService.windowWidth = window.innerWidth;
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
@@ -138,13 +143,5 @@ export class UserManagementComponent implements OnInit {
             },
         };
         this.router.navigate(['/team-management/invite-member'], navigationExtras);
-    }
-
-    tabChange(index) {
-        if (index === 1) {
-            this.showAddbutton = false;
-        } else {
-            this.showAddbutton = true;
-        }
     }
 }
