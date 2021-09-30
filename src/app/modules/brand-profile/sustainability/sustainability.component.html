@@ -110,7 +110,7 @@
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
-                            {{ 'your_work_in_sustainability' | translate | titlecase }}
+                            {{ 'your_work_in_sustainability' | translate }}
                         </h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Give a brief intro about your sustainability practises
@@ -240,11 +240,13 @@
                     </div>
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-4">Product Labels</h4>
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-4">
+                            {{ 'product_labels' | translate }}
+                        </h4>
 
                         <div class="w-100 sewn-form-field">
                             <label>
-                                {{ 'short_description' | translate | titlecase }}<span class="star">*</span>
+                                {{ 'short_description' | translate }}<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('product_short_description').value | wordCount }}/40 words
                                 </span>
