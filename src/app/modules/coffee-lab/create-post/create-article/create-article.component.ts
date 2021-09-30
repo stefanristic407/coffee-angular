@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CoffeeLabService, GlobalsService } from '@services';
+import { CoffeeLabService, CommonService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
-import { insertAltAttr, maxWordCountValidator } from '@utils';
+import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
@@ -46,13 +46,14 @@ export class CreateArticleComponent implements OnInit {
         private route: ActivatedRoute,
         private location: Location,
         private globalsService: GlobalsService,
+        private commonService: CommonService,
     ) {}
 
     ngOnInit(): void {
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.maxLength(120), Validators.required])],
             subtitle: ['', Validators.compose([maxWordCountValidator(20), Validators.required])],
-            content: [''],
+            content: ['', [editorRequired(this.commonService)]],
             language: [],
             allow_translation: [true, Validators.compose([Validators.required])],
             is_era_of_we: [false],

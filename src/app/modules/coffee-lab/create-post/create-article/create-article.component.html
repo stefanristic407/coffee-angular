@@ -105,8 +105,10 @@
                 [(imageIdList)]="imageIdList"
                 fileModule="cl-articles"
                 [images]="images"
-                [ngClass]="{ 'text-area': !articleForm.get('content').value && clicked }"
             ></app-forum-editor>
+            <small *ngIf="articleForm.get('content').errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
         <div class="mb-3 mb-md-4 sewn-form-field pl-0 col-12 w-100">
             <label class="mb-1">{{ 'categories' | translate }}</label>
