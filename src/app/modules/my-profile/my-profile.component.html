@@ -1,5 +1,5 @@
 <div class="main-block">
-    <div *ngIf="!queryUserId">
+    <div *ngIf="isMyProfile">
         <div class="mb-45 fnt-14 d-none d-md-block">
             <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
         </div>
@@ -10,13 +10,13 @@
             </a>
         </div>
     </div>
-    <div *ngIf="queryUserId" class="mb-4">
+    <div *ngIf="!isMyProfile" class="mb-4">
         <a class="back-page" (click)="location.back()">
             {{ 'back' | translate }}
         </a>
     </div>
 
-    <div *ngIf="!queryUserId" class="row">
+    <div *ngIf="isMyProfile" class="row">
         <div class="col-md-6 mb-4">
             <div class="text-clr24 mb-2 mb-md-25 fnt-16 fnt-md-18 fnt-bold line-height-normal">
                 {{ 'my_profile' | translate }}
@@ -67,7 +67,7 @@
                                 height="120"
                             />
                             <img *ngIf="profileUrl" [src]="profileUrl" alt="icon" width="120" height="120" />
-                            <div *ngIf="queryUserId" class="position-relative">
+                            <div *ngIf="!isMyProfile" class="position-relative">
                                 <div class="btn-trans-icon message-icon" (click)="openChat()"></div>
                             </div>
                         </div>
@@ -309,7 +309,7 @@
         </div>
     </div>
 
-    <div *ngIf="!queryUserId" class="d-block d-md-none mt-4">
+    <div *ngIf="isMyProfile" class="d-block d-md-none mt-4">
         <div *ngIf="!isEditMode">
             <button (click)="isEditMode = true" type="button" class="btn-raised w-100">
                 {{ 'edit_profile' | translate }}

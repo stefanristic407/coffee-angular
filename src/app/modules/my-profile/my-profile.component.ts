@@ -37,8 +37,9 @@ export class MyProfileComponent implements OnInit {
     infoForm: FormGroup;
     breadcrumbItems: MenuItem[];
     certificationArray: any[] = [];
-    queryUserId: any;
+    queryUserId: number;
     orgType: OrganizationType;
+    isMyProfile = true;
     menuItems = [
         {
             label: 'qa_forum',
@@ -73,10 +74,18 @@ export class MyProfileComponent implements OnInit {
         private validateService: ValidateEmailService,
         public location: Location,
     ) {
-        this.queryUserId = this.activateRoute.snapshot.queryParamMap.get('user_id');
+        this.queryUserId = +this.activateRoute.snapshot.queryParamMap.get('user_id');
         this.orgType =
             (this.activateRoute.snapshot.queryParamMap.get('organization') as OrganizationType) ||
             this.authService.orgType;
+
+        this.isMyProfile = true;
+        if (
+            this.queryUserId &&
+            (this.queryUserId !== this.authService.userId || this.orgType !== this.authService.orgType)
+        ) {
+            this.isMyProfile = false;
+        }
     }
 
     ngOnInit(): void {
