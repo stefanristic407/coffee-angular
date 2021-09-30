@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { EventEmitter, Inject, Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
 import { OrganizationType } from '@enums';
 import { environment } from '@env/environment';
@@ -12,16 +12,12 @@ import { AuthService } from '../auth';
     providedIn: 'root',
 })
 export class CommonService {
-    profileUpdateEvent: EventEmitter<any>;
-
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private authService: AuthService,
         private cookieService: CookieService,
         private simulatedLoginService: SimulatedLoginService,
-    ) {
-        this.profileUpdateEvent = new EventEmitter<any>();
-    }
+    ) {}
 
     getCountryList(): LabelValue[] {
         return COUNTRY_LIST.map((x) => ({
