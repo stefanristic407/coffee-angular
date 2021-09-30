@@ -14,12 +14,13 @@ import {
 } from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
 import { ResizeableComponent } from '@base-components';
-import { ApiResponse, OrganizationDetails } from '@models';
+import { OrderLinkPipe } from '@shared';
 
 @Component({
     selector: 'app-rating',
     templateUrl: './rating.component.html',
     styleUrls: ['./rating.component.scss'],
+    providers: [OrderLinkPipe],
 })
 export class RatingComponent extends ResizeableComponent implements OnInit {
     roasterId: any;
@@ -50,6 +51,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         private authService: AuthService,
         private chatService: ChatHandlerService,
         private organizationService: OrganizationService,
+        private orderLinkPipe: OrderLinkPipe,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
@@ -134,6 +136,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
                     if (res.success) {
                         this.review = res.result;
                         this.toastrService.success('Rate and Review of order submitted successfully');
+                        this.router.navigate([this.orderLinkPipe.transform(this.orgType, this.orderId)]);
                     } else if (!res.success) {
                         if (res.messages.order_id && res.messages.order_id.find((element) => element === 'not_found')) {
                             this.toastrService.error('Order Id not found.');
