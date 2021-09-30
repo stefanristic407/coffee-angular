@@ -11,10 +11,8 @@
 }
 
 ::ng-deep .category-dropdown {
-    width: 40%;
-    padding: 5px 0;
-    @media (max-width: 768px) {
-        width: 100%;
+    @media (min-width: 768px) {
+        width: 40% !important;
     }
 }
 
