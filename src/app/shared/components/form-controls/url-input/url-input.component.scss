@@ -7,3 +7,11 @@
         }
     }
 }
+::ng-deep {
+    .ng-invalid.ng-touched,
+    .ng-invalid.ng-dirty {
+        & > .url-input > input {
+            border-color: $error-border-color !important;
+        }
+    }
+}
