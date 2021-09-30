@@ -194,7 +194,7 @@
 
                             <div class="row gutter-16 gutter-lg-24 mt-4">
                                 <div class="col-md-6 sewn-form-field">
-                                    <label>{{ 'first_name' | translate }}<span class="star">*</span></label>
+                                    <label>{{ 'first_name' | translate }}</label>
                                     <input
                                         type="text"
                                         pInputText
@@ -206,7 +206,7 @@
                                     </small>
                                 </div>
                                 <div class="col-md-6 sewn-form-field">
-                                    <label>{{ 'last_name' | translate }}<span class="star">*</span></label>
+                                    <label>{{ 'last_name' | translate }}</label>
                                     <input
                                         type="text"
                                         pInputText
@@ -231,7 +231,7 @@
                                     ></textarea>
                                 </div>
                                 <div class="col-md-6 sewn-form-field mb-md-0">
-                                    <label>{{ 'email_address' | translate }}<span class="star">*</span></label>
+                                    <label>{{ 'email_address' | translate }}</label>
                                     <input type="text" pInputText required formControlName="email" />
                                     <small *ngIf="infoForm.controls.email.errors?.required" class="p-error">
                                         {{ 'required' | translate }}
