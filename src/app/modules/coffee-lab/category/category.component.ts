@@ -210,7 +210,7 @@ export class CategoryComponent implements OnInit {
     asssignCategories(data: any) {
         this.otherCategories = data.filter((element) => element.slug !== this.slug);
         this.currentCategory = data.find((item) => item.slug === this.slug);
-        this.onChangeTab(0);
+        this.onChangeTab(this.selectedTab);
     }
 
     getAllTopWriters() {

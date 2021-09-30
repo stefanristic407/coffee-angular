@@ -68,11 +68,8 @@
                 </div>
             </div>
         </div>
-        <div
-            *ngIf="isTranslate && translatedCategory && translatedCategory.length > 0"
-            class="mx-3 mx-md-45 mt-2 mb-md-4"
-        >
-            <div class="row">
+        <div *ngIf="isTranslate && translatedCategory && translatedCategory.length > 0" class="mx-3 mt-2 mb-md-4">
+            <div class="row mx-0">
                 <label class="fnt-600 mb-3"> {{ 'categories' | translate }}</label>
             </div>
             <app-category-list [categoryList]="translatedCategory"></app-category-list>

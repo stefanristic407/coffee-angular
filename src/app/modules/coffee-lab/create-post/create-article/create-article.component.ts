@@ -234,7 +234,7 @@ export class CreateArticleComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globals.languageJson?.are_you_sure_delete + ' cover image?',
+                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
                     yesButton: 'Remove',
                 },
             })

@@ -28,8 +28,8 @@
                 </div>
             </div>
             <div class="px-2 py-3 p-md-4 bg-white mr-md-4 border-right">
-                <div *ngIf="question?.categories" class="mx-3 mb-md-4">
-                    <div class="row">
+                <div *ngIf="question?.categories" class="mb-md-3">
+                    <div class="row mx-0">
                         <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
                     </div>
                     <app-category-list [categoryList]="question?.categories"></app-category-list>
@@ -109,8 +109,8 @@
 
 <ng-template #qaQuestion>
     <div>
-        <div *ngIf="categoryList && categoryList.length > 0" class="mb-md-3 mx-3">
-            <div class="row">
+        <div *ngIf="categoryList && categoryList.length > 0" class="mb-md-3">
+            <div class="row mx-0">
                 <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
             </div>
             <app-category-list [categoryList]="categoryList"></app-category-list>
