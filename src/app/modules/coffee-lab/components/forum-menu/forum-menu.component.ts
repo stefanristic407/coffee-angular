@@ -172,14 +172,6 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'answer':
                 this.editAnswer.emit(true);
-                // this.router.navigate(['/coffee-lab/create-post/answer'], {
-                //     queryParams: {
-                //         forumId: this.selectedItem.answer_id || this.selectedItem.id,
-                //         parentForumType: 'question',
-                //         parentForumId: this.extraInfo?.id || this.selectedItem?.question_id,
-                //         forumType: 'answer',
-                //     },
-                // });
                 break;
             case 'comment':
                 this.router.navigate(['/coffee-lab/create-post/comment'], {
@@ -197,12 +189,7 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp:
-                        this.globalsService.languageJson?.are_you_sure_delete +
-                        ' ' +
-                        this.forumType +
-                        '? ' +
-                        this.globalsService.languageJson?.delete_from_coffee_lab,
+                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
             })
             .onClose.subscribe((action: any) => {

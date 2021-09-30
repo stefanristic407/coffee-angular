@@ -66,10 +66,7 @@ export class TranslateRecipeComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp:
-                        this.globalsService.languageJson?.are_you_sure_delete +
-                        ' recipe?' +
-                        this.globalsService.languageJson?.delete_from_coffee_lab,
+                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
             })
             .onClose.subscribe((action: any) => {
