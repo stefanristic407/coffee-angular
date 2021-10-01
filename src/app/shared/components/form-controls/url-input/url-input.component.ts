@@ -30,7 +30,9 @@ export class UrlInputComponent implements OnInit, ControlValueAccessor {
     }
 
     writeValue(value: string = ''): void {
-        if (!value.startsWith(this.prefix)) {
+        if (!value) {
+            this.shortUrl = '';
+        } else if (!value.startsWith(this.prefix)) {
             this.shortUrl = value;
             this.emitChange();
         } else {
