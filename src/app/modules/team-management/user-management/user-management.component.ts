@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { AuthService, RoasterserviceService } from '@services';
+import { RoasterserviceService } from '@services';
 import { UserStatus } from '@enums';
 import { UserManagementSearchService } from '../user-management-service';
 
@@ -79,7 +79,6 @@ export class UserManagementComponent implements OnInit {
         this.roasterService.getRoles().subscribe(
             (response: any) => {
                 if (response.success) {
-                    const getCurrentRole: any = response.result.find((ele) => ele.id === this.currentRoleID);
                     if (!this.isAddMember) {
                         this.termRole = this.currentRoleID;
                     }
@@ -96,8 +95,15 @@ export class UserManagementComponent implements OnInit {
         this.breadCrumbItem = [
             { label: this.translator.instant('home'), routerLink: '/' },
             { label: this.translator.instant('team_management') },
-            { label: this.translator.instant(this.isAddMember ? 'manage_roles' : 'user_management') },
         ];
+        if (this.isAddMember) {
+            this.breadCrumbItem = this.breadCrumbItem.concat([
+                { label: this.translator.instant('manage_roles'), routerLink: '/team-management/manage-role' },
+                { label: this.translator.instant('add_member') },
+            ]);
+        } else {
+            this.breadCrumbItem = this.breadCrumbItem.concat([{ label: this.translator.instant('user_management') }]);
+        }
     }
 
     inviteNewMembers() {
