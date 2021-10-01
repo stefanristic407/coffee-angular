@@ -91,7 +91,6 @@ export class TranslateAnswerComponent implements OnInit {
                         .subscribe((originAnswerRes: any) => {
                             if (originAnswerRes.success) {
                                 this.originAnswer = originAnswerRes.result;
-                                this.handleChange({ index: 0 });
                                 this.setLanguageOptions();
                             } else {
                                 this.toastrService.error('Error while get origin answer');
@@ -99,7 +98,6 @@ export class TranslateAnswerComponent implements OnInit {
                         });
                 } else {
                     this.originAnswer = this.answer;
-                    this.handleChange({ index: 0 });
                     this.setLanguageOptions();
                 }
                 this.coffeeLabService
@@ -108,6 +106,7 @@ export class TranslateAnswerComponent implements OnInit {
                         this.isLoading = false;
                         if (questionRes.success) {
                             this.question = questionRes.result;
+                            this.handleChange({ index: 0 });
                             this.checkQuestionTranslated(0);
                         } else {
                             this.toastrService.error('Error while get parent question');
