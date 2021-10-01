@@ -140,7 +140,7 @@ export class TranslateAnswerComponent implements OnInit {
             if (category.success) {
                 category.result.forEach((item) => {
                     this.question.categories.forEach((element) => {
-                        if (item.parent_id === element.id) {
+                        if (item.parent_id === element.parent_id) {
                             this.categoryList.push(item);
                         }
                     });

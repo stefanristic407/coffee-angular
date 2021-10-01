@@ -305,7 +305,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             if (category.success) {
                 category.result?.forEach((item) => {
                     this.categoryValue?.forEach((element) => {
-                        if (item.parent_id === element.id) {
+                        if (item.parent_id === element.parent_id) {
                             this.translatedCategory.push(item);
                         }
                     });

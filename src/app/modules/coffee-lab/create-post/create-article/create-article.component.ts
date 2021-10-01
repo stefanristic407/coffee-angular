@@ -105,6 +105,17 @@ export class CreateArticleComponent implements OnInit {
         this.coffeeLabService.getCategory(this.articleForm.get('language').value).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
+                if (this.categoryValue) {
+                    const changedCategoryValue = [];
+                    this.categoryList.forEach((item) => {
+                        this.categoryValue.forEach((element) => {
+                            if (item.parent_id === element.parent_id) {
+                                changedCategoryValue.push(item);
+                            }
+                        });
+                    });
+                    this.categoryValue = changedCategoryValue;
+                }
             }
         });
     }

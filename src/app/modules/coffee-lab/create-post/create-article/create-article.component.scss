@@ -46,6 +46,12 @@
     border: 1px solid #d50000 !important;
 }
 
+::ng-deep .article-dropdown {
+    @media (min-width: 768px) {
+        width: 40% !important;
+    }
+}
+
 ::ng-deep .p-chips.p-category-chips .p-chips-multiple-container {
     background-color: transparent !important;
     border: 0px !important;
