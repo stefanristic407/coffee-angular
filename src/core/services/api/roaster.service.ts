@@ -34,7 +34,7 @@ export class RoasterserviceService extends ApiService {
     //API Description: This API calls helps to get all roles to the user.
 
     getRoles(postData?) {
-        return this.postWithOrg(this.orgPostUrl, `roles?${this.serlialise(postData)}`);
+        return this.postWithOrg(this.orgPostUrl, `roles?${this.serializeParams(postData)}`);
     }
 
     //API Function Name : Delete Role
@@ -54,7 +54,7 @@ export class RoasterserviceService extends ApiService {
 
     getRoasterUsers(id: any, postData?) {
         const data = {
-            api_call: `/ro/${id}/users?${this.serlialise(postData)}`,
+            api_call: `/ro/${id}/users?${this.serializeParams(postData)}`,
             method: 'GET',
             token: this.authService.token,
         };
@@ -63,22 +63,11 @@ export class RoasterserviceService extends ApiService {
 
     getInvitedUserLists(id: any, postData?) {
         const data = {
-            api_call: `/ro/${id}/users/invite-list?${this.serlialise(postData)}`,
+            api_call: `/ro/${id}/users/invite-list?${this.serializeParams(postData)}`,
             method: 'GET',
             token: this.authService.token,
         };
         return this.http.post(this.url, data);
-    }
-
-    serlialise(obj) {
-        const str = [];
-        for (const p in obj) {
-            // eslint-disable-next-line no-prototype-builtins
-            if (obj.hasOwnProperty(p)) {
-                str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
-            }
-        }
-        return str.join('&');
     }
 
     //API Function Name : Create Role
@@ -306,7 +295,7 @@ export class RoasterserviceService extends ApiService {
     // Get all reviews posted by organization
     getRoasterReviews(roasterId: any, queryParams = {}): Observable<any> {
         const data = {
-            api_call: `/ro/${roasterId}/your-reviews?${this.serlialise(queryParams)}`,
+            api_call: `/ro/${roasterId}/your-reviews?${this.serializeParams(queryParams)}`,
             method: 'GET',
             token: this.authService.token,
         };
@@ -606,7 +595,7 @@ export class RoasterserviceService extends ApiService {
 
     getMicroRoasters(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
-        data.api_call = `/ro/${roasterId}/micro-roasters?${this.serlialise(postData)}`;
+        data.api_call = `/ro/${roasterId}/micro-roasters?${this.serializeParams(postData)}`;
         data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
@@ -622,7 +611,7 @@ export class RoasterserviceService extends ApiService {
 
     getPartnerDetails(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
-        data.api_call = `/ro/${roasterId}/hrc?${this.serlialise(postData)}`;
+        data.api_call = `/ro/${roasterId}/hrc?${this.serializeParams(postData)}`;
         data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
@@ -637,11 +626,11 @@ export class RoasterserviceService extends ApiService {
     }
 
     getRoastingProfile(postData?): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile?${this.serlialise(postData)}`);
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile?${this.serializeParams(postData)}`);
     }
 
     getRoasterCoffeeBatchs(postData?) {
-        return this.postWithOrg(this.orgPostUrl, `roasted-batches?${this.serlialise(postData)}`);
+        return this.postWithOrg(this.orgPostUrl, `roasted-batches?${this.serializeParams(postData)}`);
     }
 
     getSelectOrderListTable(roaster_id: any) {
@@ -657,7 +646,7 @@ export class RoasterserviceService extends ApiService {
     // Get the list of all default products
     getDefaultProducts(roaster_id: any, postData?) {
         const data = {
-            api_call: `/ro/${roaster_id}/products/default?${this.serlialise(postData)}`,
+            api_call: `/ro/${roaster_id}/products/default?${this.serializeParams(postData)}`,
             token: this.authService.token,
         };
         return this.http.post(this.url, data);
@@ -675,9 +664,9 @@ export class RoasterserviceService extends ApiService {
 
     getEstateOrders(roaster_id: any, postData = null, orderType = '') {
         const data: any = {};
-        data.api_call = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
+        data.api_call = '/ro/' + roaster_id + '/orders?' + this.serializeParams(postData);
         if (orderType == 'MR') {
-            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
+            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serializeParams(postData);
         }
         data.token = this.authService.token;
         data.method = 'GET';
@@ -686,7 +675,7 @@ export class RoasterserviceService extends ApiService {
 
     getCoffeeExperienceOrders(roasterId: any, orderType: string, queryParams?: any) {
         const data = { api_call: '', method: '', token: '' };
-        data.api_call = `/ro/${roasterId}/${orderType}?` + this.serlialise(queryParams);
+        data.api_call = `/ro/${roasterId}/${orderType}?` + this.serializeParams(queryParams);
         data.method = 'GET';
         data.token = this.authService.token;
         return this.http.post(this.url, data);
@@ -815,7 +804,7 @@ export class RoasterserviceService extends ApiService {
 
     getListOrderDetails(roasterId: any, orderType: string, postData = null): Observable<any> {
         const data = {
-            api_call: `/ro/${roasterId}/${orderType}?` + this.serlialise(postData),
+            api_call: `/ro/${roasterId}/${orderType}?` + this.serializeParams(postData),
             token: this.authService.token,
             method: 'GET',
         };
@@ -1245,7 +1234,7 @@ export class RoasterserviceService extends ApiService {
             to_date: dateTo ? moment(dateTo).format('yyyy-MM-DD') : '',
         };
         const data = {
-            api_call: `/ro/${roasterId}/outtake-orders/export/${exportType}?${this.serlialise(paramsObj)}`,
+            api_call: `/ro/${roasterId}/outtake-orders/export/${exportType}?${this.serializeParams(paramsObj)}`,
             token: this.authService.token,
             method: 'GET',
         };
