@@ -426,20 +426,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     deleteCoverImage() {
-        this.dialogService
-            .open(ConfirmComponent, {
-                data: {
-                    type: 'delete',
-                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
-                    yesButton: 'Remove',
-                },
-            })
-            .onClose.subscribe((action: any) => {
-                if (action === 'yes') {
-                    this.coverImageUrl = null;
-                    this.recipeForm.controls.cover_image_id.setValue(null);
-                }
-            });
+        this.coverImageUrl = null;
+        this.recipeForm.controls.cover_image_id.setValue(null);
     }
 
     onFileChange(event: any, index: number, type: RecipeFileType) {

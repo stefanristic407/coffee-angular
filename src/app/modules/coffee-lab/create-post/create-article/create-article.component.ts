@@ -241,23 +241,11 @@ export class CreateArticleComponent implements OnInit {
     }
 
     deleteCoverImage(element: any) {
-        this.dialogService
-            .open(ConfirmComponent, {
-                data: {
-                    type: 'delete',
-                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
-                    yesButton: 'Remove',
-                },
-            })
-            .onClose.subscribe((action: any) => {
-                if (action === 'yes') {
-                    this.coverImage = null;
-                    this.coverImageUrl = null;
-                    this.isCoverImageUploaded = false;
-                    this.coverImageId = null;
-                    element.value = '';
-                }
-            });
+        this.coverImage = null;
+        this.coverImageUrl = null;
+        this.isCoverImageUploaded = false;
+        this.coverImageId = null;
+        element.value = '';
     }
 
     onDeleteDraft(): void {
