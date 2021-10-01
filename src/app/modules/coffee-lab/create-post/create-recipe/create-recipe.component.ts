@@ -319,6 +319,17 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.coffeeLabService.getCategory(this.recipeForm.get('language').value).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
+                if (this.categoryValue) {
+                    const changedCategoryValue = [];
+                    this.categoryList.forEach((item) => {
+                        this.categoryValue.forEach((element) => {
+                            if (item.parent_id === element.parent_id) {
+                                changedCategoryValue.push(item);
+                            }
+                        });
+                    });
+                    this.categoryValue = changedCategoryValue;
+                }
             }
         });
     }
