@@ -113,7 +113,11 @@
         <button [routerLink]="'/coffee-lab/articles/' + article?.slug" class="btn-stroked px-4 w-mob-100">
             {{ 'cancel' | translate }}
         </button>
-        <button (click)="onDeleteDraft()" class="btn-stroked ml-md-3 px-4 order-2 order-md-1 w-mob-100 mt-2 mt-md-0">
+        <button
+            *ngIf="draftId"
+            (click)="onDeleteDraft()"
+            class="btn-stroked ml-md-3 px-4 order-2 order-md-1 w-mob-100 mt-2 mt-md-0"
+        >
             {{ 'delete' | translate }}
         </button>
     </div>
