@@ -141,6 +141,7 @@
                 placeholder="Eg - if the brew is 1:1 ratio of all ingredients"
                 formControlName="brew_ratio"
                 pInputText
+                class="brew-dis"
                 [disabled]="isTranslate"
             />
             <small *ngIf="recipeForm.controls['brew_ratio'].errors?.required" class="p-error">
