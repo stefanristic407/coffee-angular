@@ -79,6 +79,7 @@ export class CreateQuestionComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
+        this.languageCode = this.languageCode ? this.languageCode : 'en';
         this.coffeeLabService.getCategory(this.languageCode).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;

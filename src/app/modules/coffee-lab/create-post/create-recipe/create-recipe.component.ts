@@ -137,6 +137,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         { label: 'Chemix', value: 'chemex' },
         { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
     ];
+    langCode: any;
 
     constructor(
         private authService: AuthService,
@@ -316,7 +317,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     getCategory() {
         this.categoryList = [];
-        this.coffeeLabService.getCategory(this.recipeForm.get('language').value).subscribe((category) => {
+        this.langCode = this.recipeForm.get('language').value ? this.recipeForm.get('language').value : 'en';
+        this.coffeeLabService.getCategory(this.langCode).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
                 if (this.categoryValue) {
