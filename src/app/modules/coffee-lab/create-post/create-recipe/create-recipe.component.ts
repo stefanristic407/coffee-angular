@@ -137,7 +137,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         { label: 'Chemix', value: 'chemex' },
         { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
     ];
-    langCode: any;
 
     constructor(
         private authService: AuthService,
@@ -165,6 +164,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 this.originRecipeId = params.origin_id;
                 this.draftRecipeId = params.draft_id;
                 this.status = params.status;
+                this.recipeForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
                 this.coffeeLabService.originalPost.pipe(takeUntil(this.destroy$)).subscribe((res) => {
                     if (res && this.isTranslate) {
                         this.onSave();
@@ -190,7 +190,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.getCompleteData(this.originRecipeId);
                 }
             }
-            this.recipeForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
         });
     }
 
@@ -291,7 +290,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     }
                     this.categoryValue = res.result.categories;
                     if (this.categoryValue && this.categoryValue?.length > 0) {
-                        this.getTranslateCategory();
+                        if (this.isTranslate) {
+                            this.getTranslateCategory();
+                        }
                     }
                 } else {
                     this.toaster.error('Error while get recipe');
@@ -317,8 +318,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
     getCategory() {
         this.categoryList = [];
-        this.langCode = this.recipeForm.get('language').value ? this.recipeForm.get('language').value : 'en';
-        this.coffeeLabService.getCategory(this.langCode).subscribe((category) => {
+        this.coffeeLabService.getCategory(this.recipeForm.get('language').value).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
                 if (this.categoryValue) {

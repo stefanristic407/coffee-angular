@@ -70,11 +70,8 @@ export class LikeDividerComponent implements OnInit {
 
     onJoin() {
         if (this.question) {
-            this.router.navigate([this.getLink(this.question, this.question.answer).url], {
-                queryParams: this.getLink(this.question, this.question.answer).queryParmas,
-            });
+            this.router.navigate([this.getLink(this.question, this.question.answer).url]);
         }
-        document.getElementById('text-focus').focus();
     }
 
     onSameSave(): void {

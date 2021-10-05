@@ -35,7 +35,6 @@ export class CreateArticleComponent implements OnInit {
     categoryList: any[] = [];
     categoryValue: any[] = [];
     status: string;
-    langCode: any;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -64,15 +63,14 @@ export class CreateArticleComponent implements OnInit {
             if (type === 'article') {
                 this.articleId = params.id;
                 this.status = params.status;
+                this.articleForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
+                if (params.id) {
+                    this.getCompleteData();
+                } else {
+                    this.getCategory();
+                }
             }
-            if (this.articleId) {
-                this.getCompleteData();
-            } else {
-                this.getCategory();
-            }
-            this.articleForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
         });
-        console.log(this.categoryList);
     }
 
     getCompleteData() {
@@ -104,8 +102,7 @@ export class CreateArticleComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
-        this.langCode = this.articleForm.get('language').value ? this.articleForm.get('language').value : 'en';
-        this.coffeeLabService.getCategory(this.langCode).subscribe((category) => {
+        this.coffeeLabService.getCategory(this.articleForm.get('language').value).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
                 if (this.categoryValue) {

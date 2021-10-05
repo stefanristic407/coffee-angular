@@ -138,11 +138,11 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             const screenWidth = window.innerWidth;
             let offsetTop = 0;
             if (screenWidth > 991) {
-                offsetTop = element.offsetTop - 136;
+                offsetTop = element?.offsetTop - 136;
             } else if (screenWidth > 767) {
-                offsetTop = element.offsetTop - 70;
+                offsetTop = element?.offsetTop - 70;
             } else {
-                offsetTop = element.offsetTop - 56;
+                offsetTop = element?.offsetTop - 56;
             }
             window.scroll(0, offsetTop);
         }

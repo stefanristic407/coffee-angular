@@ -44,12 +44,12 @@ export class CreateQuestionComponent implements OnInit {
             if (type === 'question') {
                 this.questionId = params.id;
                 this.status = params.status;
-            }
-            if (this.questionId) {
-                this.getCompleteData();
-            } else {
-                this.languageCode = this.coffeeLabService.currentForumLanguage;
-                this.getCategory();
+                if (this.questionId) {
+                    this.getCompleteData();
+                } else {
+                    this.languageCode = this.coffeeLabService.currentForumLanguage;
+                    this.getCategory();
+                }
             }
         });
     }
