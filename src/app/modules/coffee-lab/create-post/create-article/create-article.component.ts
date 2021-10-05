@@ -124,33 +124,44 @@ export class CreateArticleComponent implements OnInit {
         if (!event.target.files?.length) {
             return;
         }
-        this.dialogService
-            .open(CropperDialogComponent, {
-                data: {
-                    imageChangedEvent: event,
-                    aspectRatio: 672 / 276,
-                    resizeToWidth: 672,
-                },
-            })
-            .onClose.subscribe((data: CroppedImage) => {
-                if (data.status) {
-                    this.coverImageUrl = data.croppedImgUrl;
-                    this.coverImage = data.croppedImgFile;
-                    this.coffeeLabService.uploadFile(this.coverImage, 'cl-articles').subscribe((res) => {
-                        if (res.result) {
-                            this.coverImageId = res.result.id;
-                            this.isCoverImageUploaded = true;
-                            this.toaster.success('The file ' + event.target.files[0]?.name + ' uploaded successfully');
-                        } else {
-                            this.toaster.error('failed to upload cover image.');
-                            this.coverImage = null;
-                            this.coverImageId = null;
-                            this.coverImageUrl = null;
-                            this.isCoverImageUploaded = false;
-                        }
-                    });
-                }
-            });
+        console.log(event.target.files[0].type);
+        if (
+            event.target.files[0].type === 'image/png' ||
+            event.target.files[0].type === 'image/jpg' ||
+            event.target.files[0].type === 'image/jpeg'
+        ) {
+            this.dialogService
+                .open(CropperDialogComponent, {
+                    data: {
+                        imageChangedEvent: event,
+                        aspectRatio: 672 / 276,
+                        resizeToWidth: 672,
+                    },
+                })
+                .onClose.subscribe((data: CroppedImage) => {
+                    if (data?.status) {
+                        this.coverImageUrl = data.croppedImgUrl;
+                        this.coverImage = data.croppedImgFile;
+                        this.coffeeLabService.uploadFile(this.coverImage, 'cl-articles').subscribe((res) => {
+                            if (res.result) {
+                                this.coverImageId = res.result.id;
+                                this.isCoverImageUploaded = true;
+                                this.toaster.success(
+                                    'The file ' + event.target.files[0]?.name + ' uploaded successfully',
+                                );
+                            } else {
+                                this.toaster.error('failed to upload cover image.');
+                                this.coverImage = null;
+                                this.coverImageId = null;
+                                this.coverImageUrl = null;
+                                this.isCoverImageUploaded = false;
+                            }
+                        });
+                    }
+                });
+        } else {
+            this.toaster.error('Please upload only image files with extension png,jpg,jpeg');
+        }
     }
 
     onPost(status: string): void {

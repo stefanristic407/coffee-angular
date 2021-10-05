@@ -18,8 +18,8 @@
                 {{ 'no_language_available_translated' | translate }}
             </div>
         </div>
-        <div class="col-12 bg-f8 col-md-6 px-0 border-mob">
-            <div class="w-100">
+        <div class="col-12 col-md-6 px-0 border-mob">
+            <div class="w-100 bg-f8">
                 <div class="d-flex justify-content-between border-btm pt-35 pr-25">
                     <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-3">
                         {{ 'original_language' | translate }} - {{ answer?.lang_code | language }}
@@ -27,7 +27,7 @@
                     <img class="swap-img" src="assets/images/swap_horiz_black_24dp.svg" alt="swap_horiz" />
                 </div>
             </div>
-            <div class="px-2 py-3 p-md-4 bg-white mr-md-4 border-right">
+            <div class="px-2 py-3 p-md-4 bg-white mr-md-4">
                 <div *ngIf="question?.categories" class="mb-md-3">
                     <div class="row mx-0">
                         <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
@@ -61,10 +61,10 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="!isMobile && !showNoDataSection" class="col-md-6 col-12 bg-f8 px-md-0">
+        <div *ngIf="!isMobile && !showNoDataSection" class="col-md-6 col-12 bg-f8 px-md-0 border-left">
             <p-tabView class="bg-tabView-question" (onChange)="handleChange($event)">
                 <p-tabPanel *ngFor="let item of remainingAnswerLangugage" [header]="item.label | translate">
-                    <div class="px-2 py-3 py-md-4 pr-md-4 pl-md-0 bg-f8">
+                    <div class="px-2 py-3 py-md-4 pr-md-4 pl-md-0 pl-md-4 bg-f8">
                         <ng-container *ngTemplateOutlet="qaQuestion"></ng-container>
                     </div>
                 </p-tabPanel>

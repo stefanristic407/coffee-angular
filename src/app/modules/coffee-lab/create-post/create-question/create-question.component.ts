@@ -99,6 +99,7 @@ export class CreateQuestionComponent implements OnInit {
     }
 
     onPostQuestion(status: string): void {
+        this.content = this.content.trim();
         if (!this.content) {
             this.isQuestion = true;
             this.toastrService.error('Please type your question.');

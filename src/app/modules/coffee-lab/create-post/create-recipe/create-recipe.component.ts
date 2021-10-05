@@ -436,23 +436,31 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         if (!event.target.files?.length) {
             return;
         }
-        if (type === RecipeFileType.Video) {
-            this.uploadFile(event.target.files[0], index, type);
+        if (
+            event.target.files[0].type === 'image/png' ||
+            event.target.files[0].type === 'image/jpg' ||
+            event.target.files[0].type === 'image/jpeg'
+        ) {
+            if (type === RecipeFileType.Video) {
+                this.uploadFile(event.target.files[0], index, type);
+            } else {
+                this.dialogService
+                    .open(CropperDialogComponent, {
+                        data: {
+                            imageChangedEvent: event,
+                            aspectRatio: 672 / 276,
+                            maintainAspectRatio: type !== RecipeFileType.StepImage,
+                            resizeToWidth: 672,
+                        },
+                    })
+                    .onClose.subscribe((data: CroppedImage) => {
+                        if (data.status) {
+                            this.uploadFile(data.croppedImgFile, index, type, event.target.files[0]?.name);
+                        }
+                    });
+            }
         } else {
-            this.dialogService
-                .open(CropperDialogComponent, {
-                    data: {
-                        imageChangedEvent: event,
-                        aspectRatio: 672 / 276,
-                        maintainAspectRatio: type !== RecipeFileType.StepImage,
-                        resizeToWidth: 672,
-                    },
-                })
-                .onClose.subscribe((data: CroppedImage) => {
-                    if (data.status) {
-                        this.uploadFile(data.croppedImgFile, index, type, event.target.files[0]?.name);
-                    }
-                });
+            this.toaster.error('Please upload only image files with extension png,jpg,jpeg');
         }
     }
 

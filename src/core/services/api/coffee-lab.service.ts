@@ -16,6 +16,7 @@ export class CoffeeLabService extends ApiService {
     forumDeleteEvent = new EventEmitter();
     copyCoverImage = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
+    allDrafts = new BehaviorSubject([]);
     organization = this.orgType;
     // filterBy and sortBy
     qaForumViewFilterBy = null;

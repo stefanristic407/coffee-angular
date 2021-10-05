@@ -76,7 +76,7 @@ export class TranslateArticleComponent implements OnInit {
         this.route.queryParams.subscribe(() => {
             this.draftId = this.route.snapshot.queryParamMap.get('draft_id');
             if (this.draftId) {
-                this.getDraftById();
+                this.getDraftById(this.draftId);
             }
         });
     }
@@ -129,11 +129,17 @@ export class TranslateArticleComponent implements OnInit {
     }
 
     handleChange(e?) {
-        this.selectedTabArticle = this.remainingLangugage[e.index].value;
-        const translateData = [this.article.title, this.article.subtitle, this.article.content];
         if (this.article?.categories) {
             this.getCategory();
         }
+        // const draft = this.coffeeLabService.allDrafts.value.find((item) => {
+        //     return item.parent_id === +this.articleId && item.post_type === 'article';
+        // });
+        // if (draft) {
+        //     this.getDraftById(draft.post_id);
+        // } else {
+        this.selectedTabArticle = this.remainingLangugage[e.index].value;
+        const translateData = [this.article.title, this.article.subtitle, this.article.content];
         this.gtrans.translateCoffeeLab(translateData, this.selectedTabArticle).subscribe((translatedOutput: any) => {
             this.articleForm.patchValue({
                 title: translatedOutput[0].translatedText,
@@ -141,10 +147,11 @@ export class TranslateArticleComponent implements OnInit {
                 content: translatedOutput[2].translatedText,
             });
         });
+        // }
     }
 
-    getDraftById(): void {
-        this.coffeeLabService.getForumDetails('article', this.draftId).subscribe((res: any) => {
+    getDraftById(draftId: number): void {
+        this.coffeeLabService.getForumDetails('article', draftId).subscribe((res: any) => {
             if (res.success) {
                 this.coverImageUrl = res.result.cover_image_url;
                 this.coverImageId = res.result.cover_image_id;
