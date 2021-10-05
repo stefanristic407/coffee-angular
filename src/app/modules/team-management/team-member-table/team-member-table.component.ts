@@ -13,7 +13,6 @@ import {
     UserService,
 } from '@services';
 import { ConfirmComponent } from '@shared';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -42,11 +41,8 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     selectedUsers: any = [];
     roasterUsers: any = [];
     isAddMember = false;
-    modalRef: BsModalRef;
-    modalUserRoasterId = '';
-    modalUserRoasterName = '';
     loginId: any;
-    tableRows;
+    tableRows = 10;
     popupDetails = { message: '', buttonName: '', showIcon: false };
     assignedUsers = [];
 
@@ -55,7 +51,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
         private commonService: CommonService,
         private dialogSrv: DialogService,
         private messageService: ChatHandlerService,
-        private modalService: BsModalService,
         private roasterService: RoasterserviceService,
         private router: Router,
         private toastrService: ToastrService,
@@ -71,7 +66,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
 
     ngOnInit(): void {
         this.allFunction();
-        this.tableRows = 10;
         this.loginId = this.authService.userId;
         this.roasterID = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
@@ -172,9 +166,10 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             this.filterCall();
         });
     }
+
     listRoles(): void {
         this.roasterService.getRoles().subscribe(
-            (response: any) => {
+            (response) => {
                 if (response.success) {
                     const getCurrentRole: any = response.result.find((ele) => ele.id === this.currentRoleID);
                     if (!this.isAddMember) {
@@ -311,12 +306,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
 
             this.router.navigate(['/team-management/edit-members'], navigationExtras);
         }
-    }
-
-    openModal(template: TemplateRef<any>, userId: any, userName: any) {
-        this.modalRef = this.modalService.show(template);
-        this.modalUserRoasterId = userId;
-        this.modalUserRoasterName = userName;
     }
 
     userDisable(disableId) {
