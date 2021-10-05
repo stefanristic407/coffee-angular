@@ -29,7 +29,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isAssignedToMe = false;
     answerComment: any;
     answerAllowTranslation: boolean;
-    answerLanguage: any;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -242,7 +241,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     getForumById(forumId: number): void {
         this.coffeeLabService.getForumDetails('answer', forumId).subscribe((res: any) => {
             if (res.success) {
-                this.answerLanguage = res.result.lang_code;
                 this.answerComment = res.result.answer;
                 this.answerAllowTranslation = res.result?.allow_translation;
             } else {

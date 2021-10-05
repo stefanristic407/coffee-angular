@@ -107,7 +107,7 @@ export class ForumMenuComponent implements OnInit {
                 url = `${environment.roasterWeb}/coffee-lab/recipes/${this.selectedItem.slug}`;
                 break;
             case 'answer':
-                url = `${environment.roasterWeb}/coffee-lab/questions/${this.extraInfo.slug}?answer=${this.selectedItem.id}`;
+                url = `${environment.roasterWeb}/coffee-lab/questions/${this.selectedItem.slug}`;
                 break;
             case 'comment':
                 break;
