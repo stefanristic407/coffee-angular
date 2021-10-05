@@ -3,3 +3,8 @@ export enum UserStatus {
     PENDING = 'PENDING',
     INACTIVE = 'INACTIVE',
 }
+
+export enum InvitationStatus {
+    PENDING = 'PENDING',
+    CONSUMED = 'CONSUMED',
+}

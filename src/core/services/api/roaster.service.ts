@@ -61,13 +61,9 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    getInvitedUserLists(id: any, postData?) {
-        const data = {
-            api_call: `/ro/${id}/users/invite-list?${this.serializeParams(postData)}`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    // List invited users by organisations
+    getInvitedUserLists(postData?): Observable<ApiResponse<any[]>> {
+        return this.postWithOrg(this.orgPostUrl, `users/invite-list?${this.serializeParams(postData)}`);
     }
 
     //API Function Name : Create Role

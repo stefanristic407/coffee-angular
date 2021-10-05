@@ -192,7 +192,9 @@
                             </span>
                             <span *ngSwitchCase="'actions'">
                                 <div *ngIf="route.snapshot.routeConfig.path === 'pending-invitations'">
-                                    <a class="brown-cta">Resend invite</a>
+                                    <div class="brown-cta" (click)="inviteTeamMember(rowData)">
+                                        {{ 'resend_invite' | translate }}
+                                    </div>
                                 </div>
                                 <div *ngIf="route.snapshot.routeConfig.path !== 'pending-invitations'">
                                     <ng-container

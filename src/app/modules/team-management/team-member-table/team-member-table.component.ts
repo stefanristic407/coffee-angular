@@ -1,34 +1,31 @@
-import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
+import { Location } from '@angular/common';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
+import { InvitationStatus, OrganizationType, UserStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
 import {
     AuthService,
+    ChatHandlerService,
     CommonService,
-    GlobalsService,
     ResizeService,
     RoasterserviceService,
     UserService,
 } from '@services';
+import { ConfirmComponent } from '@shared';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
-import { ChatHandlerService } from '@services';
-import { OrganizationType, UserStatus } from '@enums';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@shared';
-import { UserManagementSearchService } from '../user-management-service';
 import { takeUntil } from 'rxjs/operators';
-import { Location } from '@angular/common';
-import { ResizeableComponent } from '@base-components';
+import { UserManagementSearchService } from '../user-management-service';
 
 @Component({
     selector: 'app-team-member-table',
     templateUrl: './team-member-table.component.html',
     styleUrls: ['./team-member-table.component.scss'],
 })
-export class TeamMemberTableComponent extends ResizeableComponent implements OnInit, AfterViewInit {
+export class TeamMemberTableComponent extends ResizeableComponent implements OnInit {
     readonly UserStatus = UserStatus;
     roasterID: any;
     breadCrumbItem: MenuItem[] = [];
@@ -52,33 +49,28 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     tableRows;
     popupDetails = { message: '', buttonName: '', showIcon: false };
     assignedUsers = [];
-    @ViewChild('input') input: ElementRef;
+
     constructor(
-        public router: Router,
-        private roasterService: RoasterserviceService,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        public route: ActivatedRoute,
-        public userService: UserService,
-        private modalService: BsModalService,
-        private messageService: ChatHandlerService,
-        public sharedService: SharedServiceService,
-        public dialogSrv: DialogService,
-        private commonService: CommonService,
         private authService: AuthService,
-        protected resizeService: ResizeService,
+        private commonService: CommonService,
+        private dialogSrv: DialogService,
+        private messageService: ChatHandlerService,
+        private modalService: BsModalService,
+        private roasterService: RoasterserviceService,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
         private userManagementSearchService: UserManagementSearchService,
+        private userService: UserService,
+        protected resizeService: ResizeService,
         public location: Location,
+        public route: ActivatedRoute,
     ) {
         super(resizeService);
     }
 
     ngOnInit(): void {
         this.allFunction();
-        this.sharedService.windowWidth = window.innerWidth;
-        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
-            this.sharedService.isMobileView = true;
-        }
         this.tableRows = 10;
         this.loginId = this.authService.userId;
         this.roasterID = this.authService.getOrgId();
@@ -201,13 +193,16 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     }
     getTableData(event?): void {
         if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
-            const params = { name: this.termSearch };
-            this.roasterService.getInvitedUserLists(this.roasterID, params).subscribe((res: any) => {
-                this.tableValue = res?.result.map((element) => {
-                    element.name = element.firstname + ' ' + element.lastname;
-                    return element;
+            this.roasterService
+                .getInvitedUserLists({ name: this.termSearch, status: InvitationStatus.PENDING })
+                .subscribe((res) => {
+                    if (res.success) {
+                        this.tableValue = (res.result || []).map((element) => {
+                            element.name = element.firstname + ' ' + element.lastname;
+                            return element;
+                        });
+                    }
                 });
-            });
         } else {
             this.selectedUsers = [];
             this.roasterUsers = [];
@@ -304,8 +299,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             );
         });
     }
-    // Function Name : Edit Member
-    // Description: This function helps to redirect to edit member page with user id as route params
+
     editMember(size: any) {
         if (!this.isAddMember) {
             const userID = size;
@@ -318,15 +312,13 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             this.router.navigate(['/team-management/edit-members'], navigationExtras);
         }
     }
-    // Function Name : Open Modal
-    // Description: This function helps to get the Role Id from user management page
+
     openModal(template: TemplateRef<any>, userId: any, userName: any) {
         this.modalRef = this.modalService.show(template);
         this.modalUserRoasterId = userId;
         this.modalUserRoasterName = userName;
     }
-    // Function Name : user Disable
-    // Description: This function helps to disable the selected user.
+
     userDisable(disableId) {
         this.roasterService.disableAdminUsers(this.roasterID, disableId).subscribe((result: any) => {
             if (result.success) {
@@ -337,6 +329,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             }
         });
     }
+
     userEnable(enableId) {
         this.roasterService.enableAdminUser(this.roasterID, enableId).subscribe((result: any) => {
             if (result.success) {
@@ -347,6 +340,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             }
         });
     }
+
     makeAdmin(userDetails: any) {
         let findAdmin = false;
         if (userDetails && userDetails.roles && userDetails.roles.length > 0) {
@@ -366,8 +360,8 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             }
         }
     }
+
     showPopup(userID, flag) {
-        // this.popupDisplay = true;
         if (flag === 'delete') {
             this.popupDetails.message = 'You sure you really want to delete this?';
             this.popupDetails.buttonName = 'Delete';
@@ -387,7 +381,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                     title: flag === 'delete' ? 'Oh noh :(' : 'Are you sure?',
                     desp: this.popupDetails.message,
                     type: flag === 'delete' ? 'delete' : 'confirm',
-                    noButton: this.globals.languageJson?.cancel,
+                    noButton: this.translator.instant('cancel'),
                     yesButton: this.popupDetails.buttonName,
                 },
             })
@@ -412,6 +406,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
         };
         this.messageService.openChatThread(payLoad);
     }
+
     deleteRoasterUser(userID: any) {
         this.roasterService.deleteRoasterUser(this.roasterID, userID).subscribe((response: any) => {
             if (response.success) {
@@ -422,25 +417,13 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             }
         });
     }
+
     filterCall() {
         if (this.termRole) {
             const getRole = this.roleList.find((ele) => ele.id === this.termRole);
             this.termRoleName = getRole && getRole.name ? getRole.name : '';
         }
         this.getTableData();
-    }
-    ngAfterViewInit() {
-        // server-side search
-        fromEvent(this.input.nativeElement, 'keyup')
-            .pipe(
-                filter(Boolean),
-                debounceTime(400),
-                distinctUntilChanged(),
-                tap((text) => {
-                    this.getTableData();
-                }),
-            )
-            .subscribe();
     }
 
     selectRows(checkValue) {
@@ -479,6 +462,22 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                 this.toastrService.error('Error while sending email to the User');
             },
         );
+    }
+
+    inviteTeamMember(userData) {
+        const postData = {
+            firstname: userData.firstname,
+            lastname: userData.lastname,
+            email: userData.email,
+            role_id: userData.role_id,
+        };
+        this.userService.inviteTeamMember(postData).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('Invite sent successfully');
+            } else {
+                this.toastrService.error('Error while sending invite');
+            }
+        });
     }
 
     simulatedLogin(userId) {

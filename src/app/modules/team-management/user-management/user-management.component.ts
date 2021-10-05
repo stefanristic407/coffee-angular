@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
-import { RoasterserviceService } from '@services';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { UserStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { RoasterserviceService } from '@services';
+import { MenuItem } from 'primeng/api';
 import { UserManagementSearchService } from '../user-management-service';
 
 @Component({
