@@ -193,14 +193,28 @@
             <app-category-list [categoryList]="categoryList"></app-category-list>
         </div>
         <div class="col-12 sewn-form-field p-0" [ngClass]="{ 'mt-4': categoryList && categoryList.length > 0 }">
-            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'title' | translate }}</label>
+            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title"
+                >{{ 'title' | translate
+                }}<span class="pull-right text-clr588"
+                    >{{ articleForm.get('title')?.value?.length }}/120
+                    {{ 'characters' | translate }}
+                </span></label
+            >
             <input type="text" placeholder="Give a title" pInputText formControlName="title" />
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
+            <small *ngIf="articleForm.controls['title'].errors?.maxlength" class="p-error">
+                Please input 120 characters
+            </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
-            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'subtitle' | translate }}</label>
+            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title"
+                >{{ 'subtitle' | translate }}
+                <span class="pull-right text-clr588">
+                    {{ articleForm.get('subtitle')?.value | wordCount }}/20 words
+                </span></label
+            >
             <textarea
                 [placeholder]="'translate_answer' | translate"
                 pInputTextarea
@@ -212,7 +226,7 @@
                 {{ 'required' | translate }}
             </small>
             <small *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount" class="p-error text-clrb1f">
-                Please input 30 words
+                Please input 20 words
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">

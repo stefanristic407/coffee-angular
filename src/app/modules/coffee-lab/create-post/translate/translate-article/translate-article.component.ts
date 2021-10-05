@@ -56,8 +56,8 @@ export class TranslateArticleComponent implements OnInit {
         this.isMobile = window.innerWidth < 767;
         this.articleForm = this.formBuilder.group({
             language: [''],
-            title: ['', Validators.compose([Validators.required])],
-            subtitle: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
+            title: ['', Validators.compose([Validators.maxLength(120), Validators.required])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(20), Validators.required])],
             content: [''],
         });
     }

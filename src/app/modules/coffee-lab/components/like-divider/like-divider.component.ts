@@ -13,9 +13,11 @@ import { ConfirmComponent } from '@shared';
 export class LikeDividerComponent implements OnInit {
     @Input() total: any;
     @Input() question: any;
-    buttonList = [{ button: 'Roasting' }, { button: 'Coffee grinding' }, { button: 'Milling' }, { button: 'Brewing' }];
+    @Input() isMyPost = false;
+    @Input() isSavedPost = false;
+    @Input() isAssignedToMe = false;
     showJoinBtn = true;
-    isSaved = false;
+
     constructor(
         private router: Router,
         public activateRoute: ActivatedRoute,
@@ -70,7 +72,27 @@ export class LikeDividerComponent implements OnInit {
 
     onJoin() {
         if (this.question) {
-            this.router.navigate([this.getLink(this.question, this.question.answer).url]);
+            if (this.isSavedPost) {
+                this.router.navigate([this.getLink(this.question, this.question.answer).url], {
+                    queryParams: {
+                        isSavedPost: true,
+                    },
+                });
+            } else if (this.isMyPost) {
+                this.router.navigate([this.getLink(this.question, this.question.answer).url], {
+                    queryParams: {
+                        isMyPost: true,
+                    },
+                });
+            } else if (this.isAssignedToMe) {
+                this.router.navigate([this.getLink(this.question, this.question.answer).url], {
+                    queryParams: {
+                        isAssignedToMe: true,
+                    },
+                });
+            } else {
+                this.router.navigate([this.getLink(this.question, this.question.answer).url]);
+            }
         }
     }
 

@@ -302,7 +302,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     getTranslateCategory() {
-        this.categoryList = [];
+        this.translatedCategory = [];
         this.coffeeLabService.getCategory(this.translateLang).subscribe((category) => {
             if (category.success) {
                 category.result?.forEach((item) => {
@@ -355,7 +355,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.recipeForm = this.fb.group({
             name: ['', Validators.compose([Validators.required, Validators.maxLength(120)])],
             expertise: ['', Validators.compose([Validators.required])],
-            serves: ['', Validators.compose([Validators.required])],
+            serves: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]*$|^[0-9]*[-][0-9]*$')])],
             equipment_name: ['', Validators.compose([Validators.required])],
             coffee_ratio: [''],
             water_ratio: [''],

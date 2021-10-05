@@ -14,7 +14,7 @@
             </p-dropdown>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
-            <label class="fnt-14 fnt-600 fnt-muli text-clr334" [ngClass]="{ 'mb-0': isTranslate }">{{
+            <label class="fnt-14 fnt-600 fnt-muli text-clr334" [ngClass]="{ 'mb-25': isTranslate }">{{
                 'cover_image' | translate
             }}</label>
             <div
@@ -75,7 +75,7 @@
             <app-category-list [categoryList]="translatedCategory"></app-category-list>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
-            <label [ngClass]="{ 'mt-2': isTranslate }"
+            <label [ngClass]="{ 'mt-25': isTranslate }"
                 >{{ 'recipe_name' | translate }}
                 <span class="pull-right text-clr588"
                     >{{ recipeForm.get('name')?.value?.length }}/120
@@ -162,6 +162,9 @@
             />
             <small *ngIf="recipeForm.controls['serves'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
+            </small>
+            <small *ngIf="recipeForm.controls['serves'].errors?.pattern" class="p-error">
+                {{ 'yield_pattern' | translate }}
             </small>
         </div>
 

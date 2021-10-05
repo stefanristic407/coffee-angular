@@ -30,7 +30,7 @@
                 </div>
                 <div class="mt-md-4 mt-3" [formGroup]="recipeForm">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-0 sewn-form-field w-100">
-                        <label>{{ 'recipe_name' | translate }}</label>
+                        <label class="mt-2">{{ 'recipe_name' | translate }}</label>
                         <input
                             type="text"
                             placeholder="Enter Recipe Name"
@@ -179,7 +179,7 @@
                 </div>
             </div>
             <div
-                class="directions mt-3"
+                class="directions"
                 *ngIf="detailsData?.steps && detailsData?.steps.length && detailsData?.steps[0]?.description"
             >
                 <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2 text-underline">
@@ -187,7 +187,7 @@
                 </p>
                 <div *ngFor="let step of detailsData?.steps; index as i">
                     <p class="m-0 pb-1 fnt-14 fnt-muli fnt-600 mt-2 mb-1">{{ 'step' | translate }} {{ i + 1 }}</p>
-                    <div class="border-main pt-4 pb-25 px-3 bg-f8 mb-4 br-4 description">
+                    <div class="border-main pt-4 pb-25 px-3 bg-f8 mb-3 br-4 description">
                         <p class="m-0 pb-2 fnt-14 fnt-600 fnt-muli disable-color" [innerHTML]="step?.description"></p>
                         <div class="w-100 position-relative mb-3" *ngIf="step.image_url">
                             <img [src]="step.image_url" class="w-100" />

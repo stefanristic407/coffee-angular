@@ -31,7 +31,12 @@
             <app-category-list [categoryList]="question?.categories"></app-category-list>
         </div>
     </div>
-    <app-like-divider [question]="question" [total]="question.answers"></app-like-divider>
+    <app-like-divider
+        [question]="question"
+        [isSavedPost]="isSavedPost"
+        [isMyPost]="isMyPost"
+        [total]="question.answers"
+    ></app-like-divider>
     <div
         *ngIf="question.answers && question.answers.length > 0"
         class="pt-md-4 pb-md-0 py-3 pl-3 pl-md-5 pr-md-4 pr-3 border-top-main"
