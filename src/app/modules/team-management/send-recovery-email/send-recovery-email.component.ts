@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService, RoasterserviceService, AuthService, UserService, ValidateEmailService } from '@services';
+import { GlobalsService, RoasterService, AuthService, UserService, ValidateEmailService } from '@services';
 import { Location } from '@angular/common';
 import { emailValidator } from '@utils';
 
@@ -17,16 +17,16 @@ export class SendRecoveryEmailComponent implements OnInit {
     currentRoleID: any = '';
     selectedRole: any = 'Select Role';
     roleList: any = [];
-    roasterID: any = '';
+    roasterID: number;
     breadCrumbItem: MenuItem[] = [];
     isEdit = false;
     statusToggle = false;
     userDetails: any;
-    userID = '';
+    userID: number;
     deleteRoles: any = [];
     userForm: FormGroup;
     constructor(
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private router: Router,
         public globals: GlobalsService,
@@ -63,7 +63,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         });
         this.userDetails = { last_activated: '', roles: [], status: '' };
         if (this.route.snapshot.queryParams.userID) {
-            this.userID = decodeURIComponent(this.route.snapshot.queryParams.userID);
+            this.userID = +decodeURIComponent(this.route.snapshot.queryParams.userID);
         } else {
             this.toastrService.error('Error in getting the user Id');
             this.router.navigate(['/team-management/user-management']);
@@ -205,7 +205,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         const getNewRoles = this.userDetails.roles.filter((ele) => ele.isNew && ele.id);
         getNewRoles.forEach((ele) => {
             const roleID = Number(ele.id);
-            this.roasterService.assignUserBasedUserRoles(this.roasterID, roleID, this.userID).subscribe(
+            this.roasterService.assignUserBasedUserRoles(roleID, this.userID).subscribe(
                 (result: any) => {
                     if (result.success) {
                         this.toastrService.success('Role has been assigned to the user.');
@@ -222,7 +222,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         });
     }
     enableUser() {
-        this.roasterService.enableAdminUser(this.roasterID, this.userID).subscribe(
+        this.roasterService.enableAdminUser(this.userID).subscribe(
             (response: any) => {
                 if (response.success) {
                     this.toastrService.success('User has been enabled');
@@ -237,7 +237,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         );
     }
     disableUser() {
-        this.roasterService.disableAdminUsers(this.roasterID, this.userID).subscribe(
+        this.roasterService.disableAdminUsers(this.userID).subscribe(
             (value: any) => {
                 if (value.success) {
                     this.toastrService.success('User has been disabled');

@@ -2,7 +2,7 @@ import { ProfileService } from './../profile.service';
 import { Injectable } from '@angular/core';
 import { AuthService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
@@ -25,7 +25,7 @@ export class MicroProfileService {
     constructor(
         public userService: UserService,
         public cookieService: CookieService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public toastrService: ToastrService,
         public router: Router,
         private profileService: ProfileService,

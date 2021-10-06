@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, Input, ViewChild } from '@angu
 import { DataTableDirective } from 'angular-datatables';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import * as moment from 'moment';
@@ -59,7 +59,7 @@ export class SelectOrdersComponent implements OnInit {
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public route: ActivatedRoute,

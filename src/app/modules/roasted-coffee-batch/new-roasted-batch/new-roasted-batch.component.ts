@@ -10,7 +10,7 @@ import {
     DownloadService,
     OrganizationService,
     PurchaseService,
-    RoasterserviceService,
+    RoasterService,
     UserService,
 } from '@services';
 import { SelectOrderTableComponent } from '../select-order-table/select-order-table.component';
@@ -68,7 +68,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         private fb: FormBuilder,
         private organizationService: OrganizationService,
         private purchaseService: PurchaseService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,

@@ -17,8 +17,7 @@ import { ApiResponse, ProcuredCoffee } from '@models';
 @Injectable({
     providedIn: 'root',
 })
-export class RoasterserviceService extends ApiService {
-    //API call URL's
+export class RoasterService extends ApiService {
     private url = environment.apiURL + '/ro/api';
     private putUrl = environment.apiURL + '/ro/putapi';
     private fileuploadUrl = environment.apiURL + '/ro/filesfolders';
@@ -49,16 +48,9 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.orgDeleteUrl, data);
     }
 
-    //API Function Name : Roaster User Data
-    //API Description: This API calls helps to get the all Roaster user data.
-
-    getRoasterUsers(id: any, postData?) {
-        const data = {
-            api_call: `/ro/${id}/users?${this.serializeParams(postData)}`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    // Get list of all organization users and search functionality
+    getOrgUsers(postData: object = {}) {
+        return this.postWithOrg(this.orgPostUrl, `users?${this.serializeParams(postData)}`);
     }
 
     // List invited users by organisations
@@ -157,28 +149,14 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : delete user
-    //API Description: This API calls helps to delete the selected user.
-
-    deleteRoasterUser(roaster_id: any, userId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${userId}`,
-            token: this.authService.token,
-            method: 'DELETE',
-        };
-        return this.http.post(this.url, data);
+    // This API calls helps to delete the selected user.
+    deleteOrgUser(userId: number) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}`, 'DELETE');
     }
 
-    //API Function Name : Assign Role
-    //API Description: This API calls helps to assign new role to the selected user.
-
-    assignUserBasedUserRoles(roaster_id: any, roleId: any, userId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${userId}/roles/${roleId}`,
-            token: this.authService.token,
-            method: 'POST',
-        };
-        return this.http.post(this.url, data);
+    // This API calls helps to assign new role to the selected user.
+    assignUserBasedUserRoles(roleId: number, userId: number) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/roles/${roleId}`, 'POST');
     }
 
     //API Function Name : Delete user role
@@ -193,28 +171,14 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : Enable Admin User
-    //API Description: This API calls helps to Enable the selected user.
-
-    enableAdminUser(roaster_id: any, enableUserId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${enableUserId}/enable`,
-            token: this.authService.token,
-            method: 'PUT',
-        };
-        return this.http.put(this.putUrl, data);
+    // This API calls helps to Enable the selected user.
+    enableAdminUser(userId: any) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/enable`, 'PUT');
     }
 
-    //API Function Name : Disable Admin User
-    //API Description: This API calls helps to Disable the selected user.
-
-    disableAdminUsers(roaster_id: any, disableUserId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${disableUserId}/disable`,
-            token: this.authService.token,
-            method: 'PUT',
-        };
-        return this.http.put(this.putUrl, data);
+    // This API calls helps to Disable the selected user.
+    disableAdminUsers(userId: number) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/disable`, 'PUT');
     }
 
     sendRecoveryEmail(userId: any): Observable<any> {

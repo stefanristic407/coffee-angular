@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { AuthService, GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -26,7 +26,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         public lightbox: Lightbox,
         public globals: GlobalsService,
         public route: ActivatedRoute,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private router: Router,
         private authService: AuthService,

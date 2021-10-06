@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, RoasterService } from '@services';
 
 @Component({
     selector: 'app-brand-profile',
@@ -40,7 +40,7 @@ export class BrandProfileComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private fb: FormBuilder,
-        private roasterSrv: RoasterserviceService,
+        private roasterSrv: RoasterService,
         private toastrService: ToastrService,
         private translator: TranslateService,
     ) {

@@ -9,7 +9,7 @@ import {
     GlobalsService,
     OrganizationService,
     ResizeService,
-    RoasterserviceService,
+    RoasterService,
     UserService,
 } from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
@@ -43,7 +43,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         public globals: GlobalsService,
-        public roasterSrv: RoasterserviceService,
+        public roasterSrv: RoasterService,
         public userSrv: UserService,
         public cookieService: CookieService,
         private toastrService: ToastrService,

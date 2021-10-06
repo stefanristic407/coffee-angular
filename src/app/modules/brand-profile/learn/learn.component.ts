@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { maxWordCountValidator } from '@utils';
 import { AuthService, GlobalsService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import * as _ from 'lodash';
 @Component({
     selector: 'app-learn',
@@ -25,7 +25,7 @@ export class LearnComponent implements OnInit {
         public cookieService: CookieService,
         public userService: UserService,
         public route: Router,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OrderType, OrganizationType } from '@enums';
-import { GlobalsService, ValidateEmailService } from '@services';
+import { OrganizationType } from '@enums';
+import { AuthService, ValidateEmailService } from '@services';
 import { emailValidator } from '@utils';
 
 @Component({
@@ -12,20 +12,24 @@ import { emailValidator } from '@utils';
 export class EditUserDetailsComponent implements OnInit {
     userForm: FormGroup;
     items: FormArray;
+
     constructor(
+        private authService: AuthService,
         private fb: FormBuilder,
-        public globals: GlobalsService,
         private validateService: ValidateEmailService,
     ) {}
+
     ngOnInit(): void {
         this.userForm = this.fb.group({
             items: this.fb.array([this.createItem()]),
         });
     }
+
     addUser(): void {
         this.items = this.userForm.get('items') as FormArray;
         this.items.push(this.createItem());
     }
+
     createItem(): FormGroup {
         return this.fb.group({
             firstname: ['', Validators.compose([Validators.required])],
@@ -34,11 +38,12 @@ export class EditUserDetailsComponent implements OnInit {
                 '',
                 Validators.compose([Validators.required]),
                 Validators.composeAsync([
-                    emailValidator(this.validateService, `${OrganizationType.ROASTER},${OrganizationType.CONSUMER}`),
+                    emailValidator(this.validateService, `${this.authService.orgType},${OrganizationType.CONSUMER}`),
                 ]),
             ],
         });
     }
+
     deleteEmail(idx): void {
         this.items.removeAt(idx);
     }

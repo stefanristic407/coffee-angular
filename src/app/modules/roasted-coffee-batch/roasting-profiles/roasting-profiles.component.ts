@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { GeneralService, ResizeService, RoasterserviceService, UserService } from '@services';
+import { GeneralService, ResizeService, RoasterService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
@@ -36,7 +36,7 @@ export class RoastingProfilesComponent extends ResizeableComponent implements On
     constructor(
         private dialogService: DialogService,
         private generalService: GeneralService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private router: Router,
         private toastrService: ToastrService,
         private userService: UserService,

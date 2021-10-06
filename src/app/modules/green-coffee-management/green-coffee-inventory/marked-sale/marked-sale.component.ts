@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, HostListener, AfterContentInit } from '@angular/core';
 import { AuthService, GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationExtras, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
@@ -46,7 +46,7 @@ export class MarkedSaleComponent implements OnInit {
     }
     constructor(
         public globals: GlobalsService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private router: Router,
         public primeTableService: PrimeTableService,

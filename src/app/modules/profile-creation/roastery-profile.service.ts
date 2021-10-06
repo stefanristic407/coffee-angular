@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService, RoasterserviceService, UserService } from '@services';
+import { AuthService, RoasterService, UserService } from '@services';
 import { COUNTRY_LIST } from '@constants';
 import { OrganizationProfile } from '@models';
 import { ContactGroup, ProfileImageType } from '@enums';
@@ -54,7 +54,7 @@ export class RoasteryProfileService {
     constructor(
         public userService: UserService,
         public cookieService: CookieService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public toastrService: ToastrService,
         public router: Router,
         private authService: AuthService,
@@ -102,7 +102,7 @@ export class RoasteryProfileService {
             }
         });
 
-        this.roasterService.getRoasterUsers(this.roasterId).subscribe((data: any) => {
+        this.roasterService.getOrgUsers().subscribe((data: any) => {
             if (data.success) {
                 this.roasterUsers = data.result;
             }

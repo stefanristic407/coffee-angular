@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthService, CommonService, RoasterserviceService, SimulatedLoginService, UserService } from '@services';
+import { AuthService, CommonService, RoasterService, SimulatedLoginService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -43,7 +43,7 @@ export class CustomerServiceService {
     pendingType: any;
 
     constructor(
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         public cookieService: CookieService,
         private userService: UserService,
         private simulatedLoginService: SimulatedLoginService,

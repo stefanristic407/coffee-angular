@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, ResizeService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -53,7 +53,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         private authService: AuthService,
         private dialogService: DialogService,
         private fb: FormBuilder,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private route: ActivatedRoute,
         private router: Router,
         private toasterService: ToastrService,

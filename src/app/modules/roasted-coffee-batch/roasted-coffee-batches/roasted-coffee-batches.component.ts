@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, ResizeService, RoasterserviceService } from '@services';
+import { AuthService, ResizeService, RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -39,7 +39,7 @@ export class RoastedCoffeeBatchesComponent extends ResizeableComponent implement
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private toastrService: ToastrService,
         private fb: FormBuilder,
         public sharedService: SharedServiceService,

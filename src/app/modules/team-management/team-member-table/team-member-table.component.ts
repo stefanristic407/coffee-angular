@@ -1,17 +1,10 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { InvitationStatus, OrganizationType, UserStatus } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
-import {
-    AuthService,
-    ChatHandlerService,
-    CommonService,
-    ResizeService,
-    RoasterserviceService,
-    UserService,
-} from '@services';
+import { AuthService, ChatHandlerService, CommonService, ResizeService, RoasterService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -26,7 +19,6 @@ import { UserManagementSearchService } from '../user-management-service';
 })
 export class TeamMemberTableComponent extends ResizeableComponent implements OnInit {
     readonly UserStatus = UserStatus;
-    roasterID: any;
     breadCrumbItem: MenuItem[] = [];
     termStatus;
     termRole;
@@ -51,7 +43,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
         private commonService: CommonService,
         private dialogSrv: DialogService,
         private messageService: ChatHandlerService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private router: Router,
         private toastrService: ToastrService,
         private translator: TranslateService,
@@ -67,7 +59,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     ngOnInit(): void {
         this.allFunction();
         this.loginId = this.authService.userId;
-        this.roasterID = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
             this.currentRoleID = Number(params.roleID);
             this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;
@@ -211,7 +202,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                 postData.page = currentPage + 1;
             }
             postData.status = this.termStatus ? this.termStatus : undefined;
-            this.roasterService.getRoasterUsers(this.roasterID, postData).subscribe(
+            this.roasterService.getOrgUsers(postData).subscribe(
                 (result: any) => {
                     if (result.success) {
                         const userData = result.result;
@@ -275,7 +266,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     assignUsersToRole(): void {
         let count = 0;
         this.selectedUsers.forEach((ele) => {
-            this.roasterService.assignUserBasedUserRoles(this.roasterID, this.currentRoleID, ele.id).subscribe(
+            this.roasterService.assignUserBasedUserRoles(this.currentRoleID, ele.id).subscribe(
                 (res: any) => {
                     count++;
                     if (res.success) {
@@ -309,7 +300,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     }
 
     userDisable(disableId) {
-        this.roasterService.disableAdminUsers(this.roasterID, disableId).subscribe((result: any) => {
+        this.roasterService.disableAdminUsers(disableId).subscribe((result: any) => {
             if (result.success) {
                 this.toastrService.success('Disabled User Account Successfully');
                 this.getTableData();
@@ -320,7 +311,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     }
 
     userEnable(enableId) {
-        this.roasterService.enableAdminUser(this.roasterID, enableId).subscribe((result: any) => {
+        this.roasterService.enableAdminUser(enableId).subscribe((result: any) => {
             if (result.success) {
                 this.toastrService.success('Enabled User Account');
                 this.getTableData();
@@ -339,7 +330,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             } else {
                 const findAdminRole = this.roleList.find((ele) => ele.name === 'Support Admin');
                 this.roasterService
-                    .assignUserBasedUserRoles(this.roasterID, findAdminRole.id, userDetails.id)
+                    .assignUserBasedUserRoles(findAdminRole.id, userDetails.id)
                     .subscribe((data: any) => {
                         if (data.success) {
                             this.toastrService.success('User has been made Admin Successfully!');
@@ -377,7 +368,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
                     if (this.popupDetails.buttonName === 'Delete') {
-                        this.deleteRoasterUser(userID);
+                        this.deleteOrgUser(userID);
                     } else if (this.popupDetails.buttonName === 'Enable') {
                         this.userEnable(userID);
                     } else {
@@ -391,13 +382,13 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
         const payLoad = {
             user_id: userID,
             org_type: OrganizationType.ROASTER,
-            org_id: Number(this.roasterID),
+            org_id: this.authService.getOrgId(),
         };
         this.messageService.openChatThread(payLoad);
     }
 
-    deleteRoasterUser(userID: any) {
-        this.roasterService.deleteRoasterUser(this.roasterID, userID).subscribe((response: any) => {
+    deleteOrgUser(userID: any) {
+        this.roasterService.deleteOrgUser(userID).subscribe((response: any) => {
             if (response.success) {
                 this.toastrService.success('User Deleted successfully!');
                 this.getTableData();

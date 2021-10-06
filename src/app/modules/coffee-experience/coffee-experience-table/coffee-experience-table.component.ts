@@ -1,7 +1,7 @@
 import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerServiceService } from '@app/modules/people/customer-management/customer-service.service';
-import { AuthService, GlobalsService, PrimeTableService, ResizeService, RoasterserviceService } from '@services';
+import { AuthService, GlobalsService, PrimeTableService, ResizeService, RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { COUNTRY_LIST } from '@constants';
@@ -69,7 +69,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         public cookieService: CookieService,
         public toastrService: ToastrService,
         public customer: CustomerServiceService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         public primeTableService: PrimeTableService,
         public fb: FormBuilder,
         public activeRoute: ActivatedRoute,

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { AclService, AuthService, GlobalsService, RoasterserviceService } from '@services';
+import { AclService, AuthService, GlobalsService, RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -23,7 +23,7 @@ export class RoleListComponent implements OnInit {
     loader = true;
     constructor(
         public router: Router,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
         public globals: GlobalsService,

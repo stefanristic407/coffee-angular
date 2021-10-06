@@ -5,7 +5,7 @@ import {
     GlobalsService,
     PrimeTableService,
     ResizeService,
-    RoasterserviceService,
+    RoasterService,
 } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { COUNTRY_LIST } from '@constants';
@@ -76,7 +76,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     });
     constructor(
         private fb: FormBuilder,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private cookieService: CookieService,
         public globals: GlobalsService,
         public primeTableService: PrimeTableService,

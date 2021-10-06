@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService, GlobalsService, ReviewsService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { OrganizationType } from '@enums';
 
 @Component({

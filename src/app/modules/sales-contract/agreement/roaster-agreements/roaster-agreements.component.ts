@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService, CommonService, GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
 
@@ -33,7 +33,7 @@ export class RoasterAgreementsComponent implements OnInit {
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public toastrService: ToastrService,
         public globals: GlobalsService,
         public dialogSrv: DialogService,

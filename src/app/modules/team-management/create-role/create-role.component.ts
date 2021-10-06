@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AclService, AuthService, RoasterserviceService, UserService } from '@services';
+import { AclService, AuthService, RoasterService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
@@ -29,7 +29,7 @@ export class CreateRoleComponent implements OnInit {
 
     constructor(
         public globals: GlobalsService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private aclService: AclService,
         private cookieService: CookieService,
         private route: Router,

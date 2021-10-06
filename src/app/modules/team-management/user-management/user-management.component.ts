@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { UserStatus } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { UserManagementSearchService } from '../user-management-service';
 
@@ -25,7 +25,7 @@ export class UserManagementComponent implements OnInit {
     showAddbutton = true;
 
     constructor(
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private route: ActivatedRoute,
         private router: Router,
         private translator: TranslateService,

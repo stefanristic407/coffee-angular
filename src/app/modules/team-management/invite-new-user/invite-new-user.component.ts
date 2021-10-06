@@ -1,12 +1,11 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { TranslateService } from '@ngx-translate/core';
+import { RoasterService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { Location } from '@angular/common';
-import { AuthService, RoasterserviceService, UserService } from '@services';
 import { EditUserDetailsComponent } from '../edit-user-details/edit-user-details.component';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-invite-new-user',
@@ -16,24 +15,20 @@ import { TranslateService } from '@ngx-translate/core';
 export class InviteNewUserComponent implements OnInit {
     currentRoleID: number;
     roleList: any = [];
-    roasterID: any = '';
     breadCrumbItem: MenuItem[] = [];
     @ViewChild(EditUserDetailsComponent, { static: false }) userDetails;
 
     constructor(
-        public roasterService: RoasterserviceService,
-        public cookieService: CookieService,
+        private roasterService: RoasterService,
+        private route: ActivatedRoute,
         private router: Router,
-        public route: ActivatedRoute,
-        public userService: UserService,
         private toastrService: ToastrService,
-        private authService: AuthService,
-        public location: Location,
         private translator: TranslateService,
+        private userService: UserService,
+        public location: Location,
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.authService.getOrgId();
         this.currentRoleID = this.route.snapshot.queryParams.roleID ? +this.route.snapshot.queryParams.roleID : 0;
         this.supplyBreadCrumb();
         this.listRoles();

@@ -4,7 +4,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { FileService, IdmService, RoasterserviceService } from '@services';
+import { FileService, IdmService, RoasterService } from '@services';
 
 @Component({
     selector: 'app-folder-dialog',

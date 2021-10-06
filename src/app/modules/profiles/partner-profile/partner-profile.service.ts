@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { PartnerOrganizationProfile } from '@models';
@@ -22,7 +22,7 @@ export class PartnerProfileService {
     constructor(
         public userService: UserService,
         public cookieService: CookieService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public toastrService: ToastrService,
         public router: Router,
         private profileService: ProfileService,

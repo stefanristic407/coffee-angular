@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import {
-    RoasterserviceService,
-    SocketService,
-    ChatUtilService,
-    AuthService,
-    DisputeService,
-    ResizeService,
-} from '@services';
+import { RoasterService, SocketService, ChatUtilService, AuthService, DisputeService, ResizeService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -35,7 +28,7 @@ export class RaisedTicketsComponent extends ResizeableComponent implements OnIni
         private authService: AuthService,
         private chatUtil: ChatUtilService,
         private disputeService: DisputeService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private route: ActivatedRoute,
         private router: Router,
         private socket: SocketService,

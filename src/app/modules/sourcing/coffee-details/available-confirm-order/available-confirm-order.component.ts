@@ -13,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
-import { ResizeService, AuthService, RoasterserviceService, CommonService, UserService } from '@services';
+import { ResizeService, AuthService, RoasterService, CommonService, UserService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
@@ -74,7 +74,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         private commonService: CommonService,
         private dialogSrv: DialogService,
         private fb: FormBuilder,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,

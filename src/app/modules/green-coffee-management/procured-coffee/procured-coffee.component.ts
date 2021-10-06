@@ -4,7 +4,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, PrimeTableService, RoasterserviceService, ResizeService } from '@services';
+import { AuthService, PrimeTableService, RoasterService, ResizeService } from '@services';
 import { ResizeableComponent } from '@base-components';
 import { Table } from 'primeng/table';
 
@@ -48,7 +48,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         public gallery: Gallery,
         public lightbox: Lightbox,
         public primeTableService: PrimeTableService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public route: ActivatedRoute,
     ) {
         super(resizeService);

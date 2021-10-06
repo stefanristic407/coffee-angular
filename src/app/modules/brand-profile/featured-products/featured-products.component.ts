@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
+import { AuthService, GlobalsService, RoasterService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import * as _ from 'underscore';
@@ -26,7 +26,7 @@ export class FeaturedProductsComponent implements OnInit {
         public cookieService: CookieService,
         public userService: UserService,
         public router: Router,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AclService, AuthService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { MDashboardService } from './m-dashboard.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class RoasterDashboardComponent implements OnInit {
     constructor(
         private aclService: AclService,
         private mDashboardSrv: MDashboardService,
-        private roasterSrv: RoasterserviceService,
+        private roasterSrv: RoasterService,
         private toastrService: ToastrService,
         private userSrv: UserService,
         public authService: AuthService,

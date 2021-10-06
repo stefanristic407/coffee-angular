@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, GlobalsService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -47,7 +47,7 @@ export class CoffeeSaleComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private router: Router,
         private toasterService: ToastrService,

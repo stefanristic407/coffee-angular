@@ -3,7 +3,7 @@ import { RoasteryProfileService } from '../roastery-profile.service';
 import { AclService, AuthService, ChatHandlerService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { maxWordCountValidator } from '@utils';
@@ -101,7 +101,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         private toastrService: ToastrService,
         private usrService: UserService,
         public globals: GlobalsService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public roasteryProfileService: RoasteryProfileService,
         public userService: UserService,
     ) {
@@ -113,7 +113,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         this.getCertificates();
         this.roasteryProfileService.getcontactList();
         this.getBrands();
-        this.getRoasterUsers();
+        this.getOrgUsers();
         this.initialForm();
         this.detectMode();
     }
@@ -216,8 +216,8 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
         });
     }
 
-    getRoasterUsers() {
-        this.roasterService.getRoasterUsers(this.roasterId).subscribe((data: any) => {
+    getOrgUsers() {
+        this.roasterService.getOrgUsers().subscribe((data: any) => {
             if (data.success === true) {
                 this.allUsers = (data.result || []).map((item) => {
                     return {

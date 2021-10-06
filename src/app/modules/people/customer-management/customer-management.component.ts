@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { USER_STATUS_ITEMS } from '@constants';
 import { OrganizationType } from '@enums';
-import { AuthService, GlobalsService, RoasterserviceService } from '@services';
+import { AuthService, GlobalsService, RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -37,7 +37,7 @@ export class CustomerManagementComponent implements OnInit {
 
     constructor(
         public globals: GlobalsService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
         private route: ActivatedRoute,

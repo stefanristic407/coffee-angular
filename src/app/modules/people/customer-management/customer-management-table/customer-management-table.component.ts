@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, HostListener } from '@angular/core';
-import { GlobalsService, RoasterserviceService } from '@services';
+import { GlobalsService, RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { CustomerServiceService } from '../customer-service.service';
 import { NavigationExtras, Router } from '@angular/router';
@@ -44,7 +44,7 @@ export class CustomerManagementTableComponent implements OnInit {
         public cookieService: CookieService,
         public customer: CustomerServiceService,
         private toasterService: ToastrService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
     ) {}
 
     ngOnInit(): void {

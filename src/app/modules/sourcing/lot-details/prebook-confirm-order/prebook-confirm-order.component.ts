@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService, CommonService, GlobalsService, ResizeService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
@@ -50,7 +50,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
         private route: ActivatedRoute,
         public sourcing: SourcingService,
         private toastrService: ToastrService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private userService: UserService,
         protected resizeService: ResizeService,
         private authService: AuthService,

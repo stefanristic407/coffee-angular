@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angu
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, RoasterserviceService } from '@services';
+import { AuthService, GlobalsService, RoasterService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -33,7 +33,7 @@ export class RoasterAgreementFormComponent implements OnInit, OnChanges {
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public toastrService: ToastrService,
         private formBuilder: FormBuilder,
         private activatedRoute: ActivatedRoute,

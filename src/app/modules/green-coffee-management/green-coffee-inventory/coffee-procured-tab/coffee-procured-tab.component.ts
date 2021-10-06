@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { AuthService, GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { PrimeTableService } from '@services';
@@ -40,7 +40,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
 
     constructor(
         public globals: GlobalsService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public router: Router,
         public cookieService: CookieService,
         public primeTableService: PrimeTableService,
