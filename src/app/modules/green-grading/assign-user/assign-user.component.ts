@@ -105,12 +105,12 @@ export class AssignUserComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: 'Name',
+                    header: this.globals.languageJson?.name,
                     sortable: true,
                 },
                 {
                     field: 'last_login_at',
-                    header: 'Last Login',
+                    header: this.globals.languageJson?.last_login,
                     sortable: true,
                 },
                 {
@@ -123,27 +123,27 @@ export class AssignUserComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: 'Name',
+                    header: this.globals.languageJson?.name,
                     sortable: true,
                 },
                 {
                     field: 'last_login_at',
-                    header: 'Last Login',
+                    header: this.globals.languageJson?.last_login,
                     sortable: true,
                 },
                 {
                     field: 'email',
-                    header: 'Email',
+                    header: this.globals.languageJson?.email,
                     sortable: false,
                 },
                 {
                     field: 'status',
-                    header: 'Status',
+                    header: this.globals.languageJson?.status,
                     sortable: false,
                 },
                 {
                     field: 'roles',
-                    header: 'All Roles',
+                    header: this.globals.languageJson?.all_roles,
                     sortable: true,
                 },
             ];

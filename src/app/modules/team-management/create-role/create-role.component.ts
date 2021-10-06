@@ -42,7 +42,7 @@ export class CreateRoleComponent implements OnInit {
         this.roasterID = this.authService.getOrgId();
         this.activeRoute.params.subscribe((params) => {
             this.roleID = params.id ? params.id : '';
-            this.btnValue = this.roleID ? 'Update Role' : 'Add Role';
+            this.btnValue = this.roleID ? this.globals.languageJson?.update_role : this.globals.languageJson?.add_role;
             if (this.roleID) {
                 this.getRolePermission(this.roleID);
             } else {
@@ -51,7 +51,7 @@ export class CreateRoleComponent implements OnInit {
         });
         if (this.activeRoute.snapshot.queryParams.duplicate) {
             this.isDuplicate = true;
-            this.btnValue = 'Add Role';
+            this.btnValue = this.globals.languageJson?.add_role;
         }
     }
 

@@ -74,7 +74,7 @@
                                 optionValue="id"
                                 (onChange)="filterCall()"
                                 scrollHeight="225px"
-                                placeholder="All Roles"
+                                placeholder="{{ 'all_roles' | translate }}"
                                 [(ngModel)]="termRole"
                                 appendTo="body"
                                 styleClass="round-border mr-2 mb-3 mb-md-4 ui-column-filter headerFilter"
@@ -164,7 +164,9 @@
                                     rowData['roleLable']
                                 }}</span>
                                 <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 mobileLable"> All Roles </span>
+                                    <span class="prime-table-label w-50 mobileLable">
+                                        {{ 'all_roles' | translate }}
+                                    </span>
                                     <span class="w-50 tableDataFont">
                                         {{ rowData['roleLable'] }}
                                     </span>

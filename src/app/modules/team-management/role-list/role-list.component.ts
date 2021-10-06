@@ -122,7 +122,7 @@ export class RoleListComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     title: 'Oh noh :(',
-                    desp: 'You sure you really want to delete this?',
+                    desp: 'Are you sure you really want to delete this?',
                     type: 'delete',
                     noButton: 'Cancel',
                     yesButton: 'Delete',

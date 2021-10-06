@@ -352,7 +352,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
 
     showPopup(userID, flag) {
         if (flag === 'delete') {
-            this.popupDetails.message = 'You sure you really want to delete this?';
+            this.popupDetails.message = 'Are you sure you really want to delete this?';
             this.popupDetails.buttonName = 'Delete';
             this.popupDetails.showIcon = true;
         } else if (flag === 'enable') {
