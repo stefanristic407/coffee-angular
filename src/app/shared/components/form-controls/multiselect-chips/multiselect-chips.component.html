@@ -1,22 +1,26 @@
 <p-chips
-    [formControl]="chipsControl"
+    [(ngModel)]="selectedItems"
+    [ngModelOptions]="{ standalone: true }"
     [field]="optionLabel"
     [addOnBlur]="addOnBlur"
     [allowDuplicate]="allowDuplicate"
-    styleClass="p-descriptors-chips"
-    (onRemove)="chipsRemoved()"
+    (onRemove)="change()"
 ></p-chips>
 
-<p-dropdown
-    [class.d-none]="isDisabled"
+<p-multiSelect
+    [(ngModel)]="selectedItems"
+    (ngModelChange)="change()"
+    [ngModelOptions]="{ standalone: true }"
     [options]="itemList"
     [optionLabel]="optionLabel"
-    [optionValue]="optionValue"
+    [dataKey]="optionValue"
     [filter]="true"
-    [autoDisplayFirst]="false"
+    scrollHeight="225px"
+    dropdownIcon="pi pi-plus"
     [placeholder]="placeholder"
-    styleClass="p-dropdown-flavour w-auto"
-    (onChange)="itemSelected($event)"
+    styleClass="p-descriptors-dropdown ml-2 {{ isDisabled ? 'd-none' : '' }} {{ styleClass }}"
 >
-    <ng-template pTemplate="selectedItem">{{ placeholder }}</ng-template>
-</p-dropdown>
+    <ng-template let-value pTemplate="selectedItems">
+        <div>{{ placeholder }}</div>
+    </ng-template>
+</p-multiSelect>

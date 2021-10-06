@@ -348,12 +348,13 @@
                                 </span>
                             </div>
                             <app-multiselect-chips
+                                *ngIf="productForm.get('is_external_product').value"
                                 formControlName="external_flavour_profiles"
-                                [placeholder]="'+ ' + ('add_descriptors' | translate)"
+                                [placeholder]="'add_descriptors' | translate"
                                 optionLabel="flavour_profile_name"
                                 optionValue="flavour_profile_id"
                                 [itemList]="flavoursList"
-                                *ngIf="productForm.get('is_external_product').value"
+                                styleClass="flavor-profile-selector"
                             ></app-multiselect-chips>
                         </div>
                         <div class="row gutter-16 mt-2 mt-lg-3">
