@@ -15,7 +15,7 @@ export class CustomerContactInfoComponent implements OnInit {
     type: any;
     employeeCount = 0;
     customerList: any[] = [];
-    discountPercentage = 0;
+    discountPercentage: any = 0;
     isEdit = false;
 
     constructor(
@@ -40,13 +40,15 @@ export class CustomerContactInfoComponent implements OnInit {
 
     updateDiscount() {
         const orgType = this.type === 'mr' ? 'micro-roasters' : 'hrc';
-        this.customerService.updateDiscount(orgType, this.portalId, this.discountPercentage).subscribe((res) => {
-            if (res.success) {
-                this.data.discount_percentage = this.discountPercentage;
-            } else {
-                this.toastrService.error('Failed to update discount percentage.');
-            }
-            this.isEdit = false;
-        });
+        this.customerService
+            .updateDiscount(orgType, this.portalId, parseInt(this.discountPercentage))
+            .subscribe((res) => {
+                if (res.success) {
+                    this.data.discount_percentage = this.discountPercentage;
+                } else {
+                    this.toastrService.error('Failed to update discount percentage.');
+                }
+                this.isEdit = false;
+            });
     }
 }

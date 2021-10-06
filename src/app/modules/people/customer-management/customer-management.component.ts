@@ -18,6 +18,7 @@ export class CustomerManagementComponent implements OnInit {
     appLanguage?: any;
     customerActive: any = 0;
     searchTerm: any;
+    searchTitle = this.globals.languageJson?.search_by_name_customer;
     selectedTab: any = 0;
 
     selectedStatus: any;
@@ -74,14 +75,17 @@ export class CustomerManagementComponent implements OnInit {
         if (event.index === 0) {
             this.customerType = OrganizationType.MICRO_ROASTER;
             this.pages = 0;
+            this.searchTitle = this.globals.languageJson?.search_by_name_customer;
             this.getMicroRoaster();
         } else if (event.index === 1) {
             this.customerType = OrganizationType.HORECA;
             this.pages = 0;
+            this.searchTitle = this.globals.languageJson?.search_by_name_customer;
             this.getPartnerDetails();
         } else if (event.index === 2) {
             this.customerType = null;
             this.pages = 0;
+            this.searchTitle = this.globals.languageJson?.search_by_email;
             this.getInvitedUsers();
         }
     }
@@ -100,7 +104,7 @@ export class CustomerManagementComponent implements OnInit {
             if (getRoaster.success === true) {
                 if (getRoaster.result == null || getRoaster.result.length === 0) {
                     this.odd = true;
-                    this.toastrService.error('Table Data is empty');
+                    // this.toastrService.error('Table Data is empty');
                 } else {
                     this.odd = false;
                     this.mainData = getRoaster.result;
@@ -129,7 +133,7 @@ export class CustomerManagementComponent implements OnInit {
             if (data.success === true) {
                 if (data.result == null || data.result.length === 0) {
                     this.odd = true;
-                    this.toastrService.error('Table Data is empty');
+                    // this.toastrService.error('Table Data is empty');
                 } else {
                     this.odd = false;
                     this.mainData = data.result;
@@ -159,7 +163,7 @@ export class CustomerManagementComponent implements OnInit {
             if (getRoaster.success === true) {
                 if (getRoaster.result == null || getRoaster.result.length === 0) {
                     this.odd = true;
-                    this.toastrService.error('Table Data is empty');
+                    // this.toastrService.error('Table Data is empty');
                 } else {
                     this.odd = false;
                     this.mainData = getRoaster.result;
@@ -188,6 +192,8 @@ export class CustomerManagementComponent implements OnInit {
             this.getMicroRoaster();
         } else if (this.customerType === 'hrc') {
             this.getPartnerDetails();
+        } else {
+            this.getInvitedUsers();
         }
     }
 }
