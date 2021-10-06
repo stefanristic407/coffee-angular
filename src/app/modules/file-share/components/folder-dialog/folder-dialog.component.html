@@ -48,14 +48,14 @@
 
     <form *ngIf="invite" [formGroup]="shareForm" class="form-container">
         <div class="w-100 sewn-form-field">
-            <label> {{ 'Enter a name or email' | translate }}<span class="star">*</span> </label>
+            <label> {{ 'enter_a_name_and_select' | translate }}<span class="star">*</span> </label>
             <div class="position-relative">
                 <p-autoComplete
                     formControlName="user"
                     [suggestions]="usersList"
                     field="name"
                     (completeMethod)="getUsersList($event)"
-                    placeholder="{{ 'Enter a name or email' | translate }}"
+                    placeholder="{{ 'enter_a_name_and_select' | translate }}"
                     scrollHeight="225px"
                 >
                 </p-autoComplete>
