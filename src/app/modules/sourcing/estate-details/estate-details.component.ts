@@ -44,7 +44,6 @@ export class EstateDetailsComponent extends ResizeableComponent implements OnIni
         this.isLoaded = true;
         this.sourcing.estate = null;
         this.sourcing.lot = null;
-        this.sourcing.estateDetailList();
         this.sourcing.getEstateHomepage();
         this.sourcing.getEstateAboutUs();
         this.sourcing.getLotsList();
@@ -54,6 +53,13 @@ export class EstateDetailsComponent extends ResizeableComponent implements OnIni
         this.sourcing.estateGalleryFiles();
         this.sourcing.getEstateReviews();
         this.sourcing.getEstateSummary();
+        const promises = [];
+        promises.push(new Promise((resolve, reject) => this.sourcing.estateDetailList(resolve)));
+        Promise.all(promises).then(() => {
+            if (this.route.snapshot.queryParamMap.has('goToReviews')) {
+                this.goToReviews();
+            }
+        });
     }
 
     chatWithEstate() {

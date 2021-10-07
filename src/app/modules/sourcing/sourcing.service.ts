@@ -100,11 +100,14 @@ export class SourcingService {
     }
 
     // Estate detail apis
-    estateDetailList() {
+    estateDetailList(resolve?) {
         this.organizationService.getProfile(this.estateId, OrganizationType.ESTATE).subscribe({
             next: (result) => {
                 if (result) {
                     this.estate = result as EstateOrganizationProfile;
+                    if (resolve) {
+                        resolve();
+                    }
                 }
             },
         });
