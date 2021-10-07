@@ -95,7 +95,7 @@ export class FileService extends ApiService {
         return this.postWithOrg(this.orgDeleteUrl, `file-manager/${id}/pin`, 'DELETE');
     }
     // List all files/folders under My files section
-    getFilesandFolders(query?: object) {
+    getMyFiles(query?: object) {
         const params = this.serializeParams(query);
         return this.postWithOrg(this.orgPostUrl, `file-manager/my-files?${params}`, 'GET');
     }

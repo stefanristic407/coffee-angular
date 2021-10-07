@@ -35,7 +35,7 @@ import 'hammerjs';
 import { AuthGuard } from '@guards';
 
 import { AgmCoreModule } from '@agm/core';
-import { getSaver, SAVER } from '@services';
+import { getSaver, SAVER } from '@utils';
 
 import { I18NService, StartupService } from '@services';
 export function StartupServiceFactory(startupService: StartupService) {

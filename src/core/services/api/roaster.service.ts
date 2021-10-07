@@ -274,22 +274,6 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : Get Files/Folders
-    //API Description: This API calls helps to get the files/folders.
-
-    getFilesandFolders(roaster_id: any, parentId: any) {
-        let params = new HttpParams();
-        params = params.append('file_module', 'File-Share');
-        params = params.append('parent_id', parentId);
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/file-manager/my-files?' + params;
-        // data['params'] = params;
-        data['token'] = this.authService.token;
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-
-        return this.http.post(this.url, data);
-    }
-
     //API Function Name : Delete Folder
     //API Description: This API calls helps to delete the Folder.
 

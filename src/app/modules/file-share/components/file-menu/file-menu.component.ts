@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FilePermission } from '@enums';
 import { FileShareService } from '../../file-share.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { FileShareService } from '../../file-share.service';
 export class FileMenuComponent implements OnInit {
     @Input() data;
     @Output() clickEvent = new EventEmitter<any>();
+    readonly FilePermission = FilePermission;
 
     constructor(public fileShareSrv: FileShareService) {}
 

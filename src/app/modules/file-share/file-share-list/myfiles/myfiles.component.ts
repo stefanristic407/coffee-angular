@@ -16,10 +16,10 @@ export class MyfilesComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.actionSub = this.fileShareSrv.action$.subscribe((action: Action) => {
             if (action === Action.REFRESH) {
-                this.fileShareSrv.getFilesandFolders();
+                this.fileShareSrv.getMyFiles();
             }
         });
-        this.fileShareSrv.getFilesandFolders();
+        this.fileShareSrv.getMyFiles();
     }
 
     ngOnDestroy() {
