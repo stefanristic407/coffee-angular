@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, UserService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { AnyARecord } from 'dns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService, UserService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-product-setting',
@@ -21,11 +19,7 @@ export class ProductSettingComponent implements OnInit {
     resetButtonValue = 'Save';
     breadItems: any[];
     options: any;
-    selectedTab = {
-        name: this.translator.instant('vat') + ' ' + this.translator.instant('management'),
-        code: '',
-        index: 0,
-    };
+    selectedTab = { name: this.translator.instant('vat_management'), code: '', index: 0 };
     selectedIndex = 0;
     detailsForm: FormGroup;
     shippingDetails = {
@@ -37,15 +31,15 @@ export class ProductSettingComponent implements OnInit {
     };
     selectedMobileTab = '';
     dayMinListArray = [];
+
     constructor(
+        private authService: AuthService,
+        private fb: FormBuilder,
+        private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
-        public userService: UserService,
-        public cookieService: CookieService,
-        private route: ActivatedRoute,
-        public fb: FormBuilder,
-        private authService: AuthService,
         private translator: TranslateService,
+        private userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -53,7 +47,7 @@ export class ProductSettingComponent implements OnInit {
     ngOnInit(): void {
         this.getShippingInfo();
         this.options = [
-            { name: this.translator.instant('vat') + ' ' + this.translator.instant('management'), code: '', index: 0 },
+            { name: this.translator.instant('vat_management'), code: '', index: 0 },
             { name: this.translator.instant('shipping_details'), code: '', index: 1 },
         ];
         this.dayMinListArray = [
@@ -73,6 +67,7 @@ export class ProductSettingComponent implements OnInit {
             }
         });
     }
+
     settingBreadCrumb(type = null) {
         this.breadItems = [
             { label: this.translator.instant('home'), routerLink: '/' },
@@ -107,6 +102,7 @@ export class ProductSettingComponent implements OnInit {
             }
         });
     }
+
     saveShippingInfo() {
         if (this.detailsForm.invalid) {
             this.detailsForm.markAllAsTouched();
@@ -173,7 +169,7 @@ export class ProductSettingComponent implements OnInit {
         if (this.selectedMobileTab) {
             header =
                 this.selectedMobileTab === 'VAT'
-                    ? this.translator.instant('vat') + ' ' + this.translator.instant('management')
+                    ? this.translator.instant('vat_management')
                     : this.translator.instant('shipment_details');
         }
         return header;
