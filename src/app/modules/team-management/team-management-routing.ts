@@ -25,11 +25,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'user-management',
-                component: UserManagementComponent,
-                canActivate: [AuthGuard],
-            },
-            {
                 path: 'manage-role',
                 component: RoleListComponent,
                 canActivate: [AuthGuard],

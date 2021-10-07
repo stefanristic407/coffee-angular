@@ -78,7 +78,7 @@ export class InviteNewUserComponent implements OnInit {
                 Promise.all(promises)
                     .then(() => {
                         this.toastrService.success('Invite sent successfully');
-                        this.router.navigate(['/team-management/user-management']);
+                        this.router.navigate(['/team-management/team-members']);
                     })
                     .catch(() => {
                         this.toastrService.error('Error while sending Invite to new user');

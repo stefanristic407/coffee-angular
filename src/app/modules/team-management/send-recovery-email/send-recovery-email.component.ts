@@ -66,7 +66,7 @@ export class SendRecoveryEmailComponent implements OnInit {
             this.userID = +decodeURIComponent(this.route.snapshot.queryParams.userID);
         } else {
             this.toastrService.error('Error in getting the user Id');
-            this.router.navigate(['/team-management/user-management']);
+            this.router.navigate(['/team-management/team-members']);
         }
         this.getUserData();
     }
