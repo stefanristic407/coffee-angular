@@ -1,5 +1,5 @@
 <div class="main-block">
-    <div *ngIf="isMyProfile">
+    <div *ngIf="!queryUserId">
         <div class="mb-45 fnt-14 d-none d-md-block">
             <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
         </div>
@@ -10,7 +10,7 @@
             </a>
         </div>
     </div>
-    <div *ngIf="!isMyProfile" class="mb-4">
+    <div *ngIf="queryUserId" class="mb-4">
         <a class="back-page" (click)="location.back()">
             {{ 'back' | translate }}
         </a>
