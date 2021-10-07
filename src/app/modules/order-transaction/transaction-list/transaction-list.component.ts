@@ -136,8 +136,8 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
                 ? moment(value.fCDocumentDateRange[1]).add(1, 'day').format('yyyy-MM-DD')
                 : '';
 
-        this.primeTableService.documentToDate = startDate;
-        this.primeTableService.documentFromDate = endDate;
+        this.primeTableService.documentFromDate = startDate;
+        this.primeTableService.documentToDate = endDate;
         this.primeTableService.paymentMode = value.fcPaymentType;
         this.primeTableService.orderType = value.fCOrderType;
         this.primeTableService.channel = value.fCchannel;
