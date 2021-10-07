@@ -165,7 +165,7 @@
                             *ngIf="answer?.question_state === 'ACTIVE'"
                             class="brown-cta ml-1"
                             [routerLink]="'/coffee-lab/questions/' + answer.question_slug"
-                            [queryParams]="{ answer: answer.answer_id }"
+                            [queryParams]="{ isMyAnswer: true }"
                             >{{ 'read_complete_answer' | translate }}</a
                         >
                         <div *ngIf="answer?.question_state === 'DELETED'" class="fnt-bold fnt-14 text-clr334">

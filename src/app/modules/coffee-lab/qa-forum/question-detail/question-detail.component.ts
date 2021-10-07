@@ -27,6 +27,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isMyPost = false;
     isSavedPost = false;
     isAssignedToMe = false;
+    isMyAnswer = false;
     answerComment: any;
     answerAllowTranslation: boolean;
 
@@ -54,6 +55,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             this.isMyPost = queryParams.isMyPost;
             this.isSavedPost = queryParams.isSavedPost;
             this.isAssignedToMe = queryParams.isAssignedToMe;
+            this.isMyAnswer = queryParams.isMyAnswer;
             if (!this.isLoading) {
                 this.getDetails();
             }
@@ -225,6 +227,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/coffee-lab/overview/saved-posts/qa-post');
         } else if (this.isAssignedToMe) {
             this.router.navigateByUrl('/coffee-lab/overview/assigned-to-me');
+        } else if (this.isMyAnswer) {
+            this.router.navigateByUrl('/coffee-lab/overview/my-posts/answer');
         } else {
             this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
         }
