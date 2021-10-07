@@ -1,15 +1,12 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService, ResizeService, RoasterService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { MenuItem } from 'primeng/api';
-import { ConfirmComponent } from '@shared';
-import { DialogService } from 'primeng/dynamicdialog';
 import { ResizeableComponent } from '@base-components';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, ResizeService, RoasterService } from '@services';
+import { ConfirmComponent } from '@shared';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-roasted-coffee-batches',
@@ -30,32 +27,26 @@ export class RoastedCoffeeBatchesComponent extends ResizeableComponent implement
     disableAction = false;
     ordId: any;
     breadItems = [
-        { label: 'Home', routerLink: '/' },
-        { label: 'Inventory', routerLink: '/' },
-        { label: 'Roasted coffee batches' },
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('inventory') },
+        { label: this.translator.instant('roasted_coffee_batches') },
     ];
     isLoadingRoastedBatches = true;
 
     constructor(
-        public router: Router,
-        public cookieService: CookieService,
+        private router: Router,
         private roasterService: RoasterService,
         private toastrService: ToastrService,
-        private fb: FormBuilder,
-        public sharedService: SharedServiceService,
         private dialogService: DialogService,
         private authService: AuthService,
         protected resizeService: ResizeService,
+        private translator: TranslateService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
-        this.sharedService.windowWidth = window.innerWidth;
-        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
-            this.sharedService.isMobileView = true;
-        }
         this.loadFilterValues();
         this.tableColumns = [
             {

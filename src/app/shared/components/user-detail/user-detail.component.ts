@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { OrganizationType } from '@enums';
 import { AuthService, ChatHandlerService, UserService } from '@services';
 import { OverlayPanel } from 'primeng/overlaypanel';
@@ -26,11 +26,7 @@ export class UserDetailComponent implements OnInit {
     showMore: boolean;
     public defaultProfileImage = 'assets/images/profile.svg';
 
-    constructor(
-        private authService: AuthService,
-        private chatHandler: ChatHandlerService,
-        private userService: UserService,
-    ) {}
+    constructor(private chatHandler: ChatHandlerService, private userService: UserService) {}
 
     ngOnInit(): void {}
 

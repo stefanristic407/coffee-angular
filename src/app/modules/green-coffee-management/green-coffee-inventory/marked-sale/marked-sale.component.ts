@@ -1,13 +1,12 @@
-import { Component, OnInit, Input, ViewChild, HostListener, AfterContentInit } from '@angular/core';
-import { AuthService, GlobalsService } from '@services';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { NavigationExtras, Router } from '@angular/router';
+import { COUNTRY_LIST } from '@constants';
+import { AuthService, PrimeTableService } from '@services';
 import { RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { NavigationExtras, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-import { PrimeTableService } from '@services';
-import { Table } from 'primeng/table';
 import { ToastrService } from 'ngx-toastr';
-import { COUNTRY_LIST } from '@constants';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-marked-sale',
@@ -18,7 +17,6 @@ export class MarkedSaleComponent implements OnInit {
     termStatus: any;
     display: any;
     termOrigin: any;
-    appLanguage?: any;
     mainData: any[] = [];
     roasterID: number;
     deleteId: any;
@@ -45,15 +43,12 @@ export class MarkedSaleComponent implements OnInit {
         return this._form;
     }
     constructor(
-        public globals: GlobalsService,
-        public roasterService: RoasterService,
-        public cookieService: CookieService,
-        private router: Router,
-        public primeTableService: PrimeTableService,
-        private toastrService: ToastrService,
         private authService: AuthService,
+        private roasterService: RoasterService,
+        private router: Router,
+        private toastrService: ToastrService,
+        public primeTableService: PrimeTableService,
     ) {
-        // this.termStatus = '';
         this.display = 10;
         this.roasterID = this.authService.getOrgId();
         this.primeTableService.rows = 10;
@@ -79,25 +74,25 @@ export class MarkedSaleComponent implements OnInit {
             this.primeTableService.allColumns = [
                 {
                     field: 'status',
-                    header: 'Status',
+                    header: 'status',
                     sortable: false,
                     width: 40,
                 },
                 {
                     field: 'product_name',
-                    header: 'Product Name',
+                    header: 'product_name',
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'estate_name',
-                    header: 'Estate Name',
+                    header: 'estate_name',
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'origin',
-                    header: 'Origin',
+                    header: 'origin',
                     sortable: false,
                     width: 50,
                 },
@@ -107,49 +102,49 @@ export class MarkedSaleComponent implements OnInit {
             this.primeTableService.allColumns = [
                 {
                     field: 'product_name',
-                    header: 'Product Name',
+                    header: 'product_name',
                     sortable: false,
                     width: 80,
                 },
                 {
                     field: 'estate_name',
-                    header: 'Estate Name',
+                    header: 'estate_name',
                     sortable: false,
                     width: 80,
                 },
                 {
                     field: 'origin',
-                    header: 'Origin',
+                    header: 'origin',
                     sortable: false,
                     width: 70,
                 },
                 {
                     field: 'varieties',
-                    header: 'Variety',
+                    header: 'variety',
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'quantity',
-                    header: 'Availability',
+                    header: 'availability',
                     sortable: false,
                     width: 40,
                 },
                 {
                     field: 'cup_score',
-                    header: 'Cup score',
+                    header: 'cup_score',
                     sortable: false,
                     width: 40,
                 },
                 {
                     field: 'status',
-                    header: 'Status',
+                    header: 'status',
                     sortable: false,
                     width: 50,
                 },
                 {
                     field: 'actions',
-                    header: 'Actions',
+                    header: 'actions',
                     sortable: false,
                     width: 40,
                 },
@@ -162,10 +157,12 @@ export class MarkedSaleComponent implements OnInit {
             ];
         }
     }
+
     openModal(item) {
         this.popupDisplay = true;
         this.deleteId = item.order_id;
     }
+
     ngOnInit(): void {
         this.primeTableService.isMarkedForSale = false;
         this.primeTableService.url = '';
@@ -180,7 +177,6 @@ export class MarkedSaleComponent implements OnInit {
             }, 100),
         );
 
-        this.appLanguage = this.globals.languageJson;
         this.roasterService.getCoffeeSaleList(this.roasterID).subscribe((res) => {
             res.result.map((org) => {
                 COUNTRY_LIST.find((item) => {

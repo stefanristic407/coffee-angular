@@ -37,10 +37,10 @@ export class GreenCoffeeInventoryComponent implements OnInit {
         if (this.route.snapshot.queryParams.markSale === 'yes') {
             this.selectedTab = 1;
             this.isProcuredTab = false;
-            this.searchText = 'Search by estate name';
+            this.searchText = 'search_by_estate_name';
         } else {
             this.selectedTab = 0;
-            this.searchText = 'Search by order ID';
+            this.searchText = 'search_by_order_id';
         }
     }
 
@@ -54,10 +54,10 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     handleChange(event: any) {
         if (event.index === 0) {
             this.isProcuredTab = true;
-            this.searchText = 'Search by order ID';
+            this.searchText = 'search_by_order_id';
         } else {
             this.isProcuredTab = false;
-            this.searchText = 'Search by estate name';
+            this.searchText = 'search_by_estate_name';
         }
         this.primeTableService.records = [];
     }
