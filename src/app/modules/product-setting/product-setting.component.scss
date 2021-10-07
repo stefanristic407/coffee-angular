@@ -28,10 +28,6 @@
     .rm-0 {
         margin: 0px;
     }
-    ::ng-deep .p-dropdown .p-dropdown-trigger {
-        padding: 0px;
-        padding-right: 4px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -52,9 +48,6 @@
     }
 }
 
-.form-group input {
-    height: 46px;
-}
 .mt-43 {
     margin-top: 43px;
 }
