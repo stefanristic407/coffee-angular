@@ -19,9 +19,6 @@
             <div class="bookmark-icon hover-save-icon h-100" (click)="onSameSave(recipe.id)" *ngIf="recipe?.is_saved">
                 <img class="cursor-point" width="36" height="36" src="assets/images/saved-item.svg" alt="saved" />
             </div>
-            <!-- <div class="bookmark-icon">
-                        <img src="assets/images/save.svg" alt="save" />
-                    </div> -->
         </div>
         <app-user-header [prop]="recipe"></app-user-header>
     </div>

@@ -223,12 +223,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div *ngIf="detailsData?.video_url" class="pt-3 pt-md-4 pt-lg-45">
-                                <div class="fnt-14 fnt-muli fnt-bold text-clr334 mb-3">
-                                    {{ 'see_recipe_video' | translate }}
-                                </div>
-                                <video class="w-100" [src]="detailsData?.video_url" controls></video>
-                            </div> -->
                             <ng-container *ngTemplateOutlet="userWrapper"></ng-container>
                         </div>
 
@@ -459,15 +453,6 @@
                             </div>
                             <div class="mt-3 px-0 forum-content mb-4 ml-5 pl-1">
                                 <div [innerHTML]="postItem.comment"></div>
-                                <!-- Remove after API is confirmed -->
-                                <!-- <ng-container *ngIf="postItem.images">
-                                    <img
-                                        class="w-100 mb-3"
-                                        *ngFor="let img of postItem.images"
-                                        [src]="img.thumb_file || img.file"
-                                        alt="answer image"
-                                    />
-                                </ng-container> -->
                             </div>
                         </div>
                         <div class="text-center w-100" *ngIf="showCommentBtn">
@@ -480,9 +465,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="pt-4" *ngIf="detailsData?.original_details?.id">
-                    <app-original-view [detailsData]="detailsData" forumType="recipe"></app-original-view>
-                </div> -->
             </div>
         </article>
     </div>
