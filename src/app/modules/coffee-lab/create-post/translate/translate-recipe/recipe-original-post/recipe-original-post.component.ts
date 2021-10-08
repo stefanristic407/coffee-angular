@@ -100,6 +100,7 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
                 const emitObject = {
                     translation: this.detailsData?.translations,
                     lang_code: this.detailsData?.lang_code,
+                    slug: this.detailsData?.slug,
                 };
                 this.checkTranslationExits.emit(emitObject);
                 this.recipeForm.patchValue({

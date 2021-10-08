@@ -59,7 +59,13 @@ export class TranslateAnswerComponent implements OnInit {
 
     ngOnInit(): void {
         this.answerId = this.route.snapshot.queryParamMap.get('origin_id');
-        this.draftId = this.route.snapshot.queryParamMap.get('draft_id');
+
+        this.route.queryParams.subscribe(() => {
+            this.draftId = this.route.snapshot.queryParamMap.get('draft_id');
+            if (this.draftId) {
+                this.getDraftById(+this.draftId);
+            }
+        });
         if (!this.answerId) {
             this.router.navigate(['/coffee-lab']);
         } else {
@@ -120,6 +126,18 @@ export class TranslateAnswerComponent implements OnInit {
         });
     }
 
+    getDraftById(draftId: number): void {
+        this.coffeeLabService.getForumDetails('answer', draftId).subscribe((res: any) => {
+            if (res.success) {
+                this.form.get('question').setValue(res.result?.question);
+                this.translatedAnswer = res.result?.answer;
+            } else {
+                this.toastrService.error('Error while get draft');
+                this.location.back();
+            }
+        });
+    }
+
     checkQuestionTranslated(ind) {
         const isTranslate = this.question?.translations?.find(
             (item) => item.language === this.remainingAnswerLangugage[ind].value,
@@ -152,16 +170,39 @@ export class TranslateAnswerComponent implements OnInit {
         this.checkQuestionTranslated(e.index);
         this.selectedTab = e.index;
         this.translateLangCode = this.remainingAnswerLangugage[e.index].value;
-        const translateData = [this.originAnswer.question, this.originAnswer.answer];
         if (this.question?.categories) {
             this.getCategory();
         }
-        this.gtrans.translateCoffeeLab(translateData, this.translateLangCode).subscribe((translatedOutput: any) => {
-            this.form.patchValue({
-                question: translatedOutput[0].translatedText,
-            });
-            this.translatedAnswer = translatedOutput[1].translatedText;
+        const draft = this.coffeeLabService.allDrafts.value.find((item) => {
+            return (
+                item.parent_id === +this.answerId &&
+                item.post_type === 'answer' &&
+                item.language === this.translateLangCode
+            );
         });
+        if (draft) {
+            this.router.navigate(['/coffee-lab/create-post/translate-answer'], {
+                queryParams: {
+                    origin_id: this.answerId,
+                    draft_id: draft.post_id,
+                    type: 'answer',
+                },
+            });
+        } else {
+            this.router.navigate(['/coffee-lab/create-post/translate-answer'], {
+                queryParams: {
+                    origin_id: this.answerId,
+                    type: 'answer',
+                },
+            });
+            const translateData = [this.originAnswer.question, this.originAnswer.answer];
+            this.gtrans.translateCoffeeLab(translateData, this.translateLangCode).subscribe((translatedOutput: any) => {
+                this.form.patchValue({
+                    question: translatedOutput[0].translatedText,
+                });
+                this.translatedAnswer = translatedOutput[1].translatedText;
+            });
+        }
     }
 
     setLanguageOptions(): void {
@@ -199,19 +240,35 @@ export class TranslateAnswerComponent implements OnInit {
         }
 
         this.isPosting = true;
-        this.coffeeLabService.translateForum('answer', this.answerId, data).subscribe((res: any) => {
-            this.isPosting = false;
-            if (res.success) {
-                if (status === 'DRAFT') {
-                    this.toastrService.success('Your translated Q/A post is successfully saved in draft');
+        if ((status === 'DRAFT' || status === 'PUBLISHED') && this.draftId) {
+            this.coffeeLabService.updateForum('answer', this.draftId, data).subscribe((res: any) => {
+                this.isPosting = false;
+                if (res.success) {
+                    if (status === 'DRAFT') {
+                        this.toastrService.success('Your translated Q/A post is updated successfully in draft.');
+                    } else {
+                        this.toastrService.success('You have translated an answer successfully.');
+                    }
+                    this.router.navigate([`/coffee-lab/questions/${this.question.slug}`]);
                 } else {
-                    this.toastrService.success('You have translated an answer successfully.');
+                    this.toastrService.error('Failed to update draft.');
                 }
-                this.location.back();
-            } else {
-                this.toastrService.error('Failed to translate answer.');
-            }
-        });
+            });
+        } else {
+            this.coffeeLabService.translateForum('answer', this.answerId, data).subscribe((res: any) => {
+                this.isPosting = false;
+                if (res.success) {
+                    if (status === 'DRAFT') {
+                        this.toastrService.success('Your translated Q/A post is successfully saved in draft');
+                    } else {
+                        this.toastrService.success('You have translated an answer successfully.');
+                    }
+                    this.router.navigate([`/coffee-lab/questions/${this.question.slug}`]);
+                } else {
+                    this.toastrService.error('Failed to translate answer.');
+                }
+            });
+        }
     }
 
     onDeleteDraft(): void {

@@ -219,11 +219,12 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.recipe = res.result;
                     this.images = res.result.inline_images ? res.result.inline_images : [];
                     this.coverImageUrl = res.result.cover_image_url;
-                    if (this.isTranslate) {
+                    if (this.isTranslate && !this.draftRecipeId) {
                         // Put all data im one array which we have to translate from response
                         if (this.recipe.user_id !== this.authService.currentUser.id) {
                             this.copyCoverImage('noCopy');
                         }
+
                         const translateData = [
                             res.result.name,
                             res.result.expertise,
@@ -568,7 +569,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.isPosting = true;
         this.checkRichText();
         if (this.isTranslate) {
-            this.translateRecipe(this.recipeForm.value);
+            if (this.draftRecipeId) {
+                this.updateRecipe(this.recipeForm.value);
+            } else {
+                this.translateRecipe(this.recipeForm.value);
+            }
         } else if (this.recipeId) {
             this.updateRecipe(this.recipeForm.value);
         } else {
@@ -580,7 +585,18 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         if (this.categoryValue) {
             data.categories = this.categoryValue?.map((item) => item.id);
         }
-        this.coffeeLabService.updateForum('recipe', this.recipeId, data).subscribe((res: any) => {
+        let recipeId = this.recipeId;
+        if (this.isTranslate) {
+            data.equipment_name = this.recipe.equipment_name;
+            data.serves = this.recipe.serves;
+            if (this.translatedCategory && this.translatedCategory.length > 0) {
+                data.categories = this.translatedCategory?.map((item) => item.id);
+            }
+            if (this.draftRecipeId) {
+                recipeId = this.draftRecipeId;
+            }
+        }
+        this.coffeeLabService.updateForum('recipe', recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
                 if (!data.publish) {

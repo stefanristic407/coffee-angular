@@ -19,6 +19,7 @@ export class TranslateRecipeComponent implements OnInit {
     isMobile = false;
     showNoDataSection = false;
     allLanguage: any[] = APP_LANGUAGES;
+    recipeSlug: string;
     remainingLangugage = [];
 
     constructor(
@@ -29,8 +30,11 @@ export class TranslateRecipeComponent implements OnInit {
         private toastService: ToastrService,
         private globalsService: GlobalsService,
     ) {
-        this.id = this.route.snapshot.queryParamMap.get('origin_id');
-        this.draftId = this.route.snapshot.queryParamMap.get('draft_id');
+        this.route.queryParams.subscribe((params) => {
+            this.id = params.origin_id;
+            this.draftId = params.draft_id;
+        });
+
         this.isMobile = window.innerWidth < 767;
     }
 
@@ -46,18 +50,47 @@ export class TranslateRecipeComponent implements OnInit {
 
     onChangeTab(event) {
         this.selectedTab = event.index;
+        this.checkDraft();
     }
 
     checkTranslationExits(emitedObject) {
+        this.recipeSlug = emitedObject?.slug;
         this.allLanguage.forEach((item) => {
             const isTranslate = emitedObject?.translation?.find((trans) => item.value === trans.language);
             if (!isTranslate && emitedObject.lang_code !== item.value) {
                 this.remainingLangugage.push(item);
             }
         });
+        this.checkDraft();
         if (this.remainingLangugage.length === 0) {
             this.showNoDataSection = true;
             this.toastService.error(this.globalsService.languageJson?.no_language_available_translated);
+        }
+    }
+
+    checkDraft() {
+        const draft = this.coffeeLabService.allDrafts.value.find((item) => {
+            return (
+                item.parent_id === +this.id &&
+                item.post_type === 'recipe' &&
+                item.language === this.remainingLangugage[this.selectedTab].value
+            );
+        });
+        if (draft) {
+            this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
+                queryParams: {
+                    origin_id: this.id,
+                    draft_id: draft.post_id,
+                    type: 'recipe',
+                },
+            });
+        } else {
+            this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
+                queryParams: {
+                    origin_id: this.id,
+                    type: 'recipe',
+                },
+            });
         }
     }
 

@@ -109,10 +109,7 @@
                                         [enableStopPropagation]="false"
                                     ></app-forum-menu>
                                 </div>
-                                <div
-                                    *ngIf="answer?.allow_translation && answer?.translations?.length"
-                                    class="d-none d-md-block"
-                                >
+                                <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
                                     <app-translation-dropdown
                                         forumType="question"
                                         [translatedList]="answer?.translations"
@@ -120,10 +117,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            *ngIf="answer?.allow_translation && answer?.translations?.length"
-                            class="d-block d-md-none pt-3 text-center"
-                        >
+                        <div *ngIf="answer?.translations?.length" class="d-block d-md-none pt-3 text-center">
                             <app-translation-dropdown
                                 forumType="question"
                                 [translatedList]="answer?.translations"
@@ -250,6 +244,8 @@
                                         ? { isMyPost: true }
                                         : isSavedPost
                                         ? { isSavedPost: true }
+                                        : isMyAnswer
+                                        ? { isMyAnswer: true }
                                         : ''
                                 "
                                 >{{ answerDetail?.original_details?.question | titlecase }}</a

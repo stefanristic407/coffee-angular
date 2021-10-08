@@ -32,7 +32,7 @@ export class TranslateArticleComponent implements OnInit {
     copiedCoverImageId: any;
     copiedCoverImageUrl: any;
     images = [];
-    selectedTabArticle = 'sv';
+    selectedArticleLangCode = 'sv';
     allLanguage: any[] = APP_LANGUAGES;
     isTranslationArticle = [];
     remainingLangugage = [];
@@ -115,7 +115,7 @@ export class TranslateArticleComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
-        this.coffeeLabService.getCategory(this.selectedTabArticle).subscribe((category) => {
+        this.coffeeLabService.getCategory(this.selectedArticleLangCode).subscribe((category) => {
             if (category.success) {
                 category.result.forEach((item) => {
                     this.article.categories.forEach((element) => {
@@ -129,25 +129,44 @@ export class TranslateArticleComponent implements OnInit {
     }
 
     handleChange(e?) {
+        this.selectedArticleLangCode = this.remainingLangugage[e.index].value;
         if (this.article?.categories) {
             this.getCategory();
         }
-        // const draft = this.coffeeLabService.allDrafts.value.find((item) => {
-        //     return item.parent_id === +this.articleId && item.post_type === 'article';
-        // });
-        // if (draft) {
-        //     this.getDraftById(draft.post_id);
-        // } else {
-        this.selectedTabArticle = this.remainingLangugage[e.index].value;
-        const translateData = [this.article.title, this.article.subtitle, this.article.content];
-        this.gtrans.translateCoffeeLab(translateData, this.selectedTabArticle).subscribe((translatedOutput: any) => {
-            this.articleForm.patchValue({
-                title: translatedOutput[0].translatedText,
-                subtitle: translatedOutput[1].translatedText,
-                content: translatedOutput[2].translatedText,
-            });
+
+        const draft = this.coffeeLabService.allDrafts.value.find((item) => {
+            return (
+                item.parent_id === +this.articleId &&
+                item.post_type === 'article' &&
+                item.language === this.selectedArticleLangCode
+            );
         });
-        // }
+        if (draft) {
+            this.router.navigate(['/coffee-lab/create-post/translate-article'], {
+                queryParams: {
+                    origin_id: this.articleId,
+                    draft_id: draft.post_id,
+                    type: 'article',
+                },
+            });
+        } else {
+            this.router.navigate(['/coffee-lab/create-post/translate-article'], {
+                queryParams: {
+                    origin_id: this.articleId,
+                    type: 'article',
+                },
+            });
+            const translateData = [this.article.title, this.article.subtitle, this.article.content];
+            this.gtrans
+                .translateCoffeeLab(translateData, this.selectedArticleLangCode)
+                .subscribe((translatedOutput: any) => {
+                    this.articleForm.patchValue({
+                        title: translatedOutput[0].translatedText,
+                        subtitle: translatedOutput[1].translatedText,
+                        content: translatedOutput[2].translatedText,
+                    });
+                });
+        }
     }
 
     getDraftById(draftId: number): void {
@@ -209,7 +228,7 @@ export class TranslateArticleComponent implements OnInit {
             .setValue(insertAltAttr(this.articleForm.value.content, `${this.articleForm.value.title} detail image`));
         let data: any = {
             ...this.articleForm.value,
-            language: this.selectedTabArticle,
+            language: this.selectedArticleLangCode,
             status,
         };
         let coverImageId: number;
@@ -225,12 +244,16 @@ export class TranslateArticleComponent implements OnInit {
         if (this.categoryList && this.categoryList.length > 0) {
             data.categories = this.categoryList?.map((item) => item.id);
         }
-        if (status === 'draft' && this.draftId) {
+        if ((status === 'draft' || status === 'published') && this.draftId) {
             this.coffeeLabService.updateForum('article', this.draftId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toastrService.success('Your translated article is successfully saved in draft.');
-                    this.location.back();
+                    if (status === 'draft') {
+                        this.toastrService.success('Your translated article is updated successfully in draft.');
+                    } else {
+                        this.toastrService.success('You have posted a translated article successfully.');
+                    }
+                    this.router.navigate([`/coffee-lab/articles/${this.article.slug}`]);
                 } else {
                     this.toastrService.error('Failed to update draft.');
                 }

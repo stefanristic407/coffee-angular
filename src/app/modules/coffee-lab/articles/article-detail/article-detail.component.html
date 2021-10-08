@@ -37,11 +37,7 @@
                 </div>
                 <div
                     class="mt-2 mt-md-0"
-                    *ngIf="
-                        detailsData?.allow_translation &&
-                        detailsData?.translated_articles &&
-                        detailsData?.translated_articles.length > 0
-                    "
+                    *ngIf="detailsData?.translated_articles && detailsData?.translated_articles.length > 0"
                 >
                     <app-translation-dropdown
                         forumType="article"
