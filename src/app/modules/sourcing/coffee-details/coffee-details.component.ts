@@ -1,13 +1,13 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
-import { Lightbox } from 'ng-gallery/lightbox';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, ResizeService } from '@services';
-import { SourcingService } from '../sourcing.service';
 import { ResizeableComponent } from '@base-components';
 import { CURRENCY_LIST } from '@constants';
-import { Location } from '@angular/common';
+import { AuthService, ResizeService } from '@services';
+import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
+import { Lightbox } from 'ng-gallery/lightbox';
+import { ToastrService } from 'ngx-toastr';
+import { SourcingService } from '../sourcing.service';
 
 @Component({
     selector: 'app-coffee-details',
@@ -21,16 +21,15 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
     buyable = false;
 
     constructor(
+        private authService: AuthService,
         private route: ActivatedRoute,
         private router: Router,
+        private toastrService: ToastrService,
+        protected resizeService: ResizeService,
         public gallery: Gallery,
         public lightbox: Lightbox,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        protected resizeService: ResizeService,
-        public sourcing: SourcingService,
         public location: Location,
-        private authService: AuthService,
+        public sourcing: SourcingService,
     ) {
         super(resizeService);
         this.route.paramMap.subscribe((params) => {

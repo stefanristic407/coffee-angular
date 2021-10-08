@@ -13,6 +13,7 @@ import {
     I18NService,
     IdmService,
     MenuService,
+    RouterService,
     SocketService,
     UserService,
 } from '@services';
@@ -58,6 +59,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private i18NService: I18NService,
         private idmService: IdmService,
         private router: Router,
+        private routerService: RouterService,
         private socket: SocketService,
         private toastrService: ToastrService,
         private userService: UserService,
@@ -113,6 +115,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 this.updateActiveLinkState();
                 this.menuService.expandActiveSubMenu();
                 this.closeSideNav();
+                this.routerService.hasBack = true;
             });
 
         this.updateActiveLinkState();

@@ -1,7 +1,7 @@
 <section *ngIf="isLoaded; else loading">
     <div class="main-block">
         <div class="w-100 pb-3">
-            <a class="back-page" (click)="location.back()"> {{ 'back' | translate }}</a>
+            <app-back-link defaultBackTo="/sourcing/coffee-list"></app-back-link>
         </div>
         <div class="solid-divider d-md-none mx-n3"></div>
 

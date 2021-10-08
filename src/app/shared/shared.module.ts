@@ -124,6 +124,7 @@ const THIRDMODULES = [
 
 import { AppKeyConfirmationComponent } from './components/app-key-confirmation/app-key-confirmation.component';
 import { AvatarComponent } from './components/avatar/avatar.component';
+import { BackLinkComponent } from './components/back-link/back-link.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { BlankComponent } from './components/blank/blank.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
@@ -161,6 +162,7 @@ import { WeatherChartComponent } from './components/remote-sensoring/weather-cha
 const COMPONENTS = [
     AppKeyConfirmationComponent,
     AvatarComponent,
+    BackLinkComponent,
     BarChartComponent,
     BlankComponent,
     BlankComponent,
