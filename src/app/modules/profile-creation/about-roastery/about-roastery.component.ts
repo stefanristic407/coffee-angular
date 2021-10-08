@@ -1,15 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RoasteryProfileService } from '../roastery-profile.service';
-import { AclService, AuthService, ChatHandlerService, UserService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
-import { RoasterService } from '@services';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { QUANTIRY_UNIT_LIST } from '@constants';
+import { OrganizationType } from '@enums';
+import { AclService, AuthService, ChatHandlerService, GlobalsService, RoasterService, UserService } from '@services';
 import { maxWordCountValidator } from '@utils';
 import { ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
-import { OrganizationType } from '@enums';
-import { QUANTIRY_UNIT_LIST } from '@constants';
+import { ToastrService } from 'ngx-toastr';
+import { RoasteryProfileService } from '../roastery-profile.service';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -17,7 +15,7 @@ import { QUANTIRY_UNIT_LIST } from '@constants';
     templateUrl: './about-roastery.component.html',
     styleUrls: ['./about-roastery.component.scss'],
 })
-export class AboutRoasteryComponent implements OnInit, AfterViewInit {
+export class AboutRoasteryComponent implements OnInit {
     readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
     readonly OrgType = OrganizationType;
     ownerName?: string;
@@ -243,7 +241,6 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     getCertificates() {
         if (this.aclService.checkPermission('brand-profile-management')) {
             this.userService.getCompanyCertificates(this.roasterId).subscribe((result: any) => {
-                console.log('certification: ', result);
                 if (result.success === true) {
                     this.certificatesArray = result.result;
                 } else {
@@ -392,7 +389,7 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
     }
 
     getBrands() {
-        this.roasterService.getRoasterBrands(this.roasterId).subscribe((res) => {
+        this.roasterService.getRoasterBrands().subscribe((res) => {
             this.brands = res.success ? res.result : [];
             this.filteredBrands = this.brands;
         });
@@ -439,10 +436,6 @@ export class AboutRoasteryComponent implements OnInit, AfterViewInit {
                 }
             }
         }
-    }
-
-    ngAfterViewInit(): void {
-        console.log('this.brandImageInput: ', this.brandImageInput);
     }
 
     cropImage() {

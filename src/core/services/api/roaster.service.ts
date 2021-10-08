@@ -225,12 +225,8 @@ export class RoasterService extends ApiService {
     //API Function Name : Get Brands
     //API Description: This API calls helps to get the Brands of the Roaster.
 
-    getRoasterBrands(roaster_id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/brands`,
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    getRoasterBrands(): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `brands`);
     }
 
     addRoasterBrand(data: any): Observable<any> {
