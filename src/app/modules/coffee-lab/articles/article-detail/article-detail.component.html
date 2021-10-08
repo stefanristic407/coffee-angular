@@ -218,7 +218,7 @@
                                             <img class="like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
                                         </div>
                                         <span class="d-flex mt-25 ml-1 mb-05 mr-2 fnt-300 text-clr334">{{
-                                            detailsData.likes
+                                            detailsData?.likes
                                         }}</span>
                                     </div>
                                     <div class="align-items-center">
@@ -248,7 +248,7 @@
                             *ngIf="
                                 detailsData?.original_article_state && detailsData?.original_article_state === 'ACTIVE'
                             "
-                            class="border-main br-4 p-4 mt-45 d-none d-md-block w-100"
+                            class="border-main br-4 p-4 mt-45 d-none d-md-block w-100 mb-475"
                         >
                             <div class="d-flex justify-content-between mb-4">
                                 <div class="d-flex">
