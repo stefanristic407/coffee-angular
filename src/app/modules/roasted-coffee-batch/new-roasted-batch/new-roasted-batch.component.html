@@ -94,21 +94,22 @@
                                     <label>Select roasting profile<span class="star">*</span></label>
                                     <p-dropdown
                                         [options]="roastProfileArray"
-                                        optionLabel="label"
-                                        optionValue="value"
                                         placeholder="Select the roasting profile"
-                                        [style]="{ width: '100%' }"
                                         formControlName="roasting_profile_id"
+                                        styleClass="roasting-profile-dropdown"
                                     >
                                         <ng-template let-weight pTemplate="item">
                                             <span *ngIf="weight.label">{{ weight.label }}</span>
-                                            <span *ngIf="!weight.label" class="weightVariantBtn">
-                                                <span
-                                                    class="ml-2 fnt-muli fnt-bold fnt-14 text-highlited cursor-pointer"
-                                                    [routerLink]="['/roasted-coffee-batch/create-roasting-profile']"
-                                                >
-                                                    Add new profile
-                                                </span>
+                                            <span
+                                                *ngIf="!weight.label"
+                                                class="btn-raised w-100"
+                                                (click)="
+                                                    createRoastingProfile();
+                                                    $event.preventDefault();
+                                                    $event.stopPropagation()
+                                                "
+                                            >
+                                                {{ 'add_new_profile' | translate }}
                                             </span>
                                         </ng-template>
                                     </p-dropdown>
