@@ -45,6 +45,6 @@ export class UrlInputComponent implements OnInit, ControlValueAccessor {
     ngOnInit(): void {}
 
     emitChange() {
-        setTimeout(() => this.onChange(`${this.prefix}${this.shortUrl}`));
+        setTimeout(() => this.onChange(`${this.shortUrl ? this.prefix : ''}${this.shortUrl}`));
     }
 }
