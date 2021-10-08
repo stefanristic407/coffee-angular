@@ -98,8 +98,9 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
             acidity: [null],
             body: [null],
             flavour: [null],
+            processing: { value: null, disabled: true },
             roaster_notes: [''],
-            roaster_ref_no: [{ value: '', disabled: true }],
+            roaster_ref_no: { value: '', disabled: true },
             batch_ref_no: [''],
         });
 
@@ -134,7 +135,11 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
             this.isLoadingCoffeeBatch = false;
             if (res && res.result) {
                 this.breadItems[3].label = this.capitalizeFirstLetter(res.result.roast_batch_name);
-                this.batchForm.patchValue(res.result);
+                this.batchForm.patchValue({
+                    ...res.result,
+                    roaster_ref_no: this.orderDetails.order_reference,
+                    processing: this.orderDetails.processing,
+                });
                 this.flavourProfile = (res.result.flavour_profile || []).map((item) => {
                     return { id: item.flavour_profile_id, name: item.flavour_profile_name };
                 });
@@ -193,6 +198,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
                     this.orderDetails = response;
                     this.getRatingData(this.orderDetails.estate_id);
                     this.batchForm.controls.roaster_ref_no.setValue(this.orderDetails.order_reference);
+                    this.batchForm.controls.processing.setValue(this.orderDetails.processing);
                 } else {
                     this.toastrService.error('Error while getting the order list');
                 }
@@ -268,7 +274,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         }
 
         const productObj = {
-            ...this.batchForm.value,
+            ...this.batchForm.getRawValue(),
             flavour_profile: this.flavourProfile?.length ? this.flavourProfile.map((ele) => ele.id) : null,
             roasting_profile_unit: this.unit,
             green_coffee_unit: this.unit,
