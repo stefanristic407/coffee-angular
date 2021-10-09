@@ -78,14 +78,14 @@
     <div class="row pt-1">
         <div class="col-12 col-sm-12 col-md-4 col-lg-12 col-xl-12">
             <p-dropdown
-                [options]="profileArray"
-                optionLabel="label"
-                optionValue="value"
+                [options]="roastLevelArray"
+                optionLabel="name"
+                optionValue="id"
                 [(ngModel)]="profileFilter"
                 (ngModelChange)="getData()"
                 scrollHeight="225px"
                 [showClear]="true"
-                placeholder="Roast level"
+                placeholder="{{ 'roast_level' | translate }}"
                 styleClass="round-border mb-3 {{ profileFilter ? 'highlight' : '' }}"
             >
             </p-dropdown>
@@ -290,7 +290,7 @@
                             <span>{{ rowData[col.field] }} {{ rowData['roasting_profile_unit'] }}</span>
                         </span>
                         <span *ngSwitchDefault>
-                            <span>{{ rowData[col.field] }}</span>
+                            <span>{{ rowData[col.field] || '-' }}</span>
                         </span>
                     </td>
                 </tr>

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, ResizeService, RoasterService } from '@services';
+import { AuthService, GeneralService, ResizeService, RoasterService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { toSentenceCase } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -16,7 +17,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class RoastedCoffeeBatchesComponent extends ResizeableComponent implements OnInit {
     roasterId: number;
     batchId: string | number | boolean;
-    profileArray: any = [];
+    roastLevelArray: MenuItem[] = [];
     profileFilter;
     tableColumns = [];
     tableValue = [];
@@ -34,20 +35,21 @@ export class RoastedCoffeeBatchesComponent extends ResizeableComponent implement
     isLoadingRoastedBatches = true;
 
     constructor(
-        private router: Router,
-        private roasterService: RoasterService,
-        private toastrService: ToastrService,
-        private dialogService: DialogService,
         private authService: AuthService,
-        protected resizeService: ResizeService,
+        private dialogService: DialogService,
+        private generalService: GeneralService,
+        private roasterService: RoasterService,
+        private router: Router,
+        private toastrService: ToastrService,
         private translator: TranslateService,
+        protected resizeService: ResizeService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
-        this.loadFilterValues();
+        this.getRoastLevels();
         this.tableColumns = [
             {
                 field: 'id',
@@ -106,14 +108,12 @@ export class RoastedCoffeeBatchesComponent extends ResizeableComponent implement
         ];
     }
 
-    loadFilterValues() {
-        this.profileArray = [
-            { label: 'Light', value: 1 },
-            { label: 'Light Medium', value: 2 },
-            { label: 'Medium', value: 3 },
-            { label: 'Medium Dark', value: 4 },
-            { label: 'Dark', value: 5 },
-        ];
+    getRoastLevels() {
+        this.generalService.getRoastLevels().subscribe((res) => {
+            if (res.success) {
+                this.roastLevelArray = (res.result || []).map((ix) => ({ ...ix, name: toSentenceCase(ix.name) }));
+            }
+        });
     }
 
     getData(event = null): void {
