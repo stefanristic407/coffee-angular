@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
-import { AuthService, ResizeService, RoasterService } from '@services';
+import { OrderStatus, OrganizationType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, PurchaseService, ResizeService } from '@services';
 import * as moment from 'moment';
 
 @Component({
@@ -10,29 +12,22 @@ import * as moment from 'moment';
     styleUrls: ['./select-order-table.component.scss'],
 })
 export class SelectOrderTableComponent extends ResizeableComponent implements OnInit {
-    estateterm: any;
-    estatetermStatus: any;
-    estatetermType: any;
-    estatetermOrigin: any;
-    displayNumbers: any;
-    selected: Date[];
-    originArray = [];
+    estatetermStatus = '';
+    estatetermType = '';
+    estatetermOrigin = '';
     originFilter = null;
     rangeDates: any;
+    displayFilter = 10;
+    originArray = [];
     displayArray = [];
-    displayFilter: any;
     tableValue = [];
     tableColumns = [];
     selectedOrder: any;
-    roasterID: any;
     totalCount = 0;
-    orderType: any;
-    orderID: any;
+    orgType: OrganizationType;
 
     showDateRange: any;
     roasterId: any;
-    @ViewChild('calendar')
-    calendar: any;
 
     // Static Estate Orders Data List
     public data: any;
@@ -45,7 +40,8 @@ export class SelectOrderTableComponent extends ResizeableComponent implements On
 
     constructor(
         private authService: AuthService,
-        private roasterService: RoasterService,
+        private purchaseService: PurchaseService,
+        private translator: TranslateService,
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
@@ -54,10 +50,6 @@ export class SelectOrderTableComponent extends ResizeableComponent implements On
     }
 
     ngOnInit(): void {
-        this.estatetermStatus = '';
-        this.estatetermOrigin = '';
-        this.estatetermType = '';
-        this.displayNumbers = '10';
         this.loadFilterValues();
         this.createRoasterTable();
         this.getTableData();
@@ -108,9 +100,9 @@ export class SelectOrderTableComponent extends ResizeableComponent implements On
     loadFilterValues() {
         this.originArray = COUNTRY_LIST;
         this.displayArray = [
-            { label: '10', value: 10 },
-            { label: '20', value: 20 },
-            { label: '50', value: 50 },
+            { label: `${this.translator.instant('display')} 10`, value: 10 },
+            { label: `${this.translator.instant('display')} 20`, value: 20 },
+            { label: `${this.translator.instant('display')} 50`, value: 50 },
         ];
     }
 
@@ -121,7 +113,7 @@ export class SelectOrderTableComponent extends ResizeableComponent implements On
         postData.per_page = this.displayFilter || 1000;
         postData.start_date = '';
         postData.end_date = '';
-        postData.status = 'RECEIVED';
+        postData.status = OrderStatus.Received;
         postData.sort_by = 'created_at';
         postData.sort_order = 'desc';
         if (this.rangeDates && this.rangeDates.length === 2) {
@@ -129,7 +121,7 @@ export class SelectOrderTableComponent extends ResizeableComponent implements On
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
         this.isLoadingTableData = true;
-        this.roasterService.getEstateOrders(this.roasterId, postData, this.orderType).subscribe((data: any) => {
+        this.purchaseService.getOrders(this.orgType, postData).subscribe((data: any) => {
             this.isLoadingTableData = false;
             if (data.success && data.result) {
                 this.totalCount = data.result_info.total_count;

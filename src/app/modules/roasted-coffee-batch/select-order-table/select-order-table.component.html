@@ -3,7 +3,7 @@
         <div class="mb-4">
             <div class="back-page" (click)="backRoastedBatch()">{{ 'back' | translate }}</div>
             <div class="primary_txt mt-4 mt-md-45 mb-2">Select an order</div>
-            <div class="secondary_txt">Please select an estate order to create a roaster coffee batch for</div>
+            <div class="secondary_txt">{{ 'select_order_for_roaster_coffee_batch' | translate }}</div>
         </div>
         <div class="d-flex flex-wrap mb-4" *ngIf="selectedOrder">
             <button class="btn-stroked w-mob-100 mr-md-3 order-2 order-md-1" (click)="backRoastedBatch()">
