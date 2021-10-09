@@ -1,11 +1,7 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
+import { AuthService, ResizeService, RoasterService } from '@services';
 import * as moment from 'moment';
 
 @Component({
@@ -13,7 +9,7 @@ import * as moment from 'moment';
     templateUrl: './select-order-table.component.html',
     styleUrls: ['./select-order-table.component.scss'],
 })
-export class SelectOrderTableComponent implements OnInit {
+export class SelectOrderTableComponent extends ResizeableComponent implements OnInit {
     estateterm: any;
     estatetermStatus: any;
     estatetermType: any;
@@ -21,7 +17,7 @@ export class SelectOrderTableComponent implements OnInit {
     displayNumbers: any;
     selected: Date[];
     originArray = [];
-    originFilter = '';
+    originFilter = null;
     rangeDates: any;
     displayArray = [];
     displayFilter: any;
@@ -33,8 +29,6 @@ export class SelectOrderTableComponent implements OnInit {
     orderType: any;
     orderID: any;
 
-    @ViewChild(DataTableDirective, { static: false })
-    datatableElement: DataTableDirective;
     showDateRange: any;
     roasterId: any;
     @ViewChild('calendar')
@@ -42,31 +36,24 @@ export class SelectOrderTableComponent implements OnInit {
 
     // Static Estate Orders Data List
     public data: any;
-    appLanguage?: any;
     selectedEntry: any;
     selectId: any;
-    // batchId: any;
-    // ordId: any;
     @Input() ordId: any;
     @Input() batchId: any;
     @Output() orderSelectEvent = new EventEmitter<string>();
     isLoadingTableData = false;
 
     constructor(
-        public router: Router,
-        public cookieService: CookieService,
-        private roasterService: RoasterService,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        public route: ActivatedRoute,
         private authService: AuthService,
+        private roasterService: RoasterService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterId = this.authService.getOrgId();
         this.data = {};
     }
 
     ngOnInit(): void {
-        this.appLanguage = this.globals.languageJson;
         this.estatetermStatus = '';
         this.estatetermOrigin = '';
         this.estatetermType = '';
@@ -80,45 +67,39 @@ export class SelectOrderTableComponent implements OnInit {
         this.tableColumns = [
             {
                 field: 'id',
-                header: 'Order ID',
-                sortable: false,
+                header: 'order_id',
                 width: 7,
             },
             {
                 field: 'estate_name',
-                header: 'Estate name',
-                sortable: false,
+                header: 'estate_name',
                 width: 14,
             },
             {
                 field: 'created_at',
-                header: 'Date ordered',
+                header: 'date_ordered',
                 width: 10,
             },
             {
                 field: 'origin',
-                header: 'Origin',
-                sortable: false,
+                header: 'origin',
                 width: 10,
             },
             {
                 field: 'varieties',
-                header: 'Variety',
-                sortable: false,
+                header: 'variety',
                 width: 10,
             },
 
             {
                 field: 'quantity',
-                header: 'Quantity',
-                sortable: false,
+                header: 'quantity',
                 width: 8,
             },
 
             {
                 field: 'cup_score',
-                header: 'Cupping Score',
-                sortable: false,
+                header: 'cupping_score',
                 width: 10,
             },
         ];
@@ -131,32 +112,6 @@ export class SelectOrderTableComponent implements OnInit {
             { label: '20', value: 20 },
             { label: '50', value: 50 },
         ];
-    }
-
-    onSelect(orderData) {
-        console.log(orderData);
-    }
-
-    setOrigin(origindata: any) {
-        this.estatetermOrigin = origindata;
-        this.datatableElement.dtInstance.then((table) => {
-            table.column(4).search(origindata).draw();
-        });
-    }
-
-    setDisplay(data: any) {
-        this.displayNumbers = data;
-        $('select').val(data).trigger('change');
-    }
-
-    openCalendar(event: any) {
-        this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
-        event.stopPropagation();
-    }
-
-    onSelectionChange(value: any) {
-        this.selectedEntry = value;
-        console.log(this.selectedEntry);
     }
 
     getTableData() {
@@ -179,7 +134,6 @@ export class SelectOrderTableComponent implements OnInit {
             if (data.success && data.result) {
                 this.totalCount = data.result_info.total_count;
                 this.tableValue = data.result;
-                console.log(this.tableValue);
             }
         });
     }
