@@ -134,7 +134,6 @@ export class EditFolderComponent implements OnInit {
             company_id: user.organization_id,
         };
         this.fileSrv.shareFileFolder(fileId, postData).subscribe((res: any) => {
-            this.submitted = false;
             if (res.success) {
                 resolve();
             } else {
