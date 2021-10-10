@@ -28,11 +28,11 @@
             <div class="d-flex flex-column justify-content-between pl-3">
                 <p
                     class="fnt-14 fnt-muli fnt-bold text-clr334 mb-2"
-                    *ngIf="forumType === 'articles' || forumType === 'qa-forum'"
+                    *ngIf="forumType === 'article' || forumType === 'question'"
                 >
                     {{ translateItem.user_name }}
                 </p>
-                <p class="fnt-14 fnt-muli fnt-bold text-clr334 mb-2" *ngIf="forumType == 'recipes'">
+                <p class="fnt-14 fnt-muli fnt-bold text-clr334 mb-2" *ngIf="forumType == 'recipe'">
                     {{ translateItem.first_name }}
                 </p>
                 <div class="d-flex align-items-center">
