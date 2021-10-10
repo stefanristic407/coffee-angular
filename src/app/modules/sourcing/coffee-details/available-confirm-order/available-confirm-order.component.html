@@ -493,12 +493,14 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th width="170" pSortableColumn="min_quantity">
-                        Minimum Quantity<p-sortIcon field="min_quantity"></p-sortIcon>
+                        {{ 'minimum_quantity' | translate }}<p-sortIcon field="min_quantity"></p-sortIcon>
                     </th>
                     <th width="160" pSortableColumn="max_quantity">
-                        Maximum Quantity<p-sortIcon field="max_quantity"></p-sortIcon>
+                        {{ 'maximum_quantity' | translate }}<p-sortIcon field="max_quantity"></p-sortIcon>
                     </th>
-                    <th width="130" pSortableColumn="amount">Price<p-sortIcon field="amount"></p-sortIcon></th>
+                    <th width="130" pSortableColumn="amount">
+                        {{ 'price' | translate }}<p-sortIcon field="amount"></p-sortIcon>
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-tier>
