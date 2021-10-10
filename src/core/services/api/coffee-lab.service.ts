@@ -130,19 +130,19 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `general/coffee-lab/top-writers?${this.serializeParams(options)}`, 'GET');
     }
 
-    updateLike(type, id) {
+    updateLike(type, id): Observable<any> {
         return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/like`, 'PUT');
     }
 
-    updateUnLike(type, id) {
+    updateUnLike(type, id): Observable<any> {
         return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/unlike`, 'PUT');
     }
 
-    markBrewed(type, recipeId) {
+    markBrewed(type, recipeId): Observable<any> {
         return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${recipeId}/mark-brewed`, 'PUT');
     }
 
-    unMarkBrewed(type, recipeId) {
+    unMarkBrewed(type, recipeId): Observable<any> {
         return this.post(
             this.orgPostUrl,
             `${this.orgType}/${this.getOrgId()}/${type}s/${recipeId}/unmark-brewed`,
