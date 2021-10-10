@@ -52,7 +52,7 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
             .then(() => {
                 this.buyable =
                     this.sourcing.harvestDetail &&
-                    this.sourcing.harvestDetail.minimum_purchase_quantity <
+                    this.sourcing.harvestDetail.minimum_purchase_quantity <=
                         this.sourcing.harvestDetail.quantity_count &&
                     this.sourcing.harvestDetail.shipping_to.find(
                         (ix) => ix.toLowerCase() === this.authService.currentOrganization.country.toLowerCase(),
