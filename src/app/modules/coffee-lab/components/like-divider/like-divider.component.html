@@ -1,22 +1,12 @@
 <div class="like-box py-1 py-md-225 px-3 d-flex justify-content-between" [ngClass]="{ 'border-l8': total < 1 }">
     <div class="d-flex">
         <div class="d-flex align-like">
-            <button
-                class="like-int d-none"
-                (click)="onLike()"
-                [ngClass]="{ 'd-block': !question.is_liked }"
-                [disabled]="!isLikedBtn"
-            >
+            <div class="like-int d-none" (click)="onLike()" [ngClass]="{ 'd-block': !question.is_liked }">
                 <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
-            </button>
-            <button
-                class="like-int d-none"
-                (click)="onUnLike()"
-                [ngClass]="{ 'd-block': question.is_liked }"
-                [disabled]="!isLikedBtn"
-            >
+            </div>
+            <div class="like-int d-none" (click)="onUnLike()" [ngClass]="{ 'd-block': question.is_liked }">
                 <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
-            </button>
+            </div>
             <span class="d-flex mt-3 mb-05 fnt-300 text-clr334">{{ question.likes }}</span>
         </div>
         <div class="align-items-center hover-message-icon d-flex ml-3" (click)="onJoin()">
