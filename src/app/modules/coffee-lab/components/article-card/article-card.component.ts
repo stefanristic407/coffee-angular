@@ -45,17 +45,17 @@ export class ArticleCardComponent implements OnInit {
 
     onSave(articleId: number): void {
         this.isSaveBtn = true;
-        setTimeout(() => {
-            this.coffeeLabService.saveForum('article', articleId).subscribe((res: any) => {
-                if (res.success) {
-                    this.article.is_saved = true;
-                    this.toastService.success('Successfully saved');
-                    this.isSaveBtn = false;
-                } else {
-                    this.toastService.error('Error while save post');
-                }
-            });
-        }, 100);
+        // setTimeout(() => {
+        this.coffeeLabService.saveForum('article', articleId).subscribe((res: any) => {
+            if (res.success) {
+                this.article.is_saved = true;
+                this.toastService.success('Successfully saved');
+                this.isSaveBtn = false;
+            } else {
+                this.toastService.error('Error while save post');
+            }
+        });
+        // }, 100);
     }
 
     onSameSave(articleId: number) {
@@ -75,27 +75,27 @@ export class ArticleCardComponent implements OnInit {
 
     onLike(articleId: number) {
         this.isSaveBtn = true;
-        setTimeout(() => {
-            this.coffeeLabService.updateLike('article', articleId).subscribe((res) => {
-                if (res.success) {
-                    this.article.is_liked = true;
-                    this.article.likes = this.article.likes + 1;
-                    this.isSaveBtn = false;
-                }
-            });
-        }, 100);
+        // setTimeout(() => {
+        this.coffeeLabService.updateLike('article', articleId).subscribe((res) => {
+            if (res.success) {
+                this.article.is_liked = true;
+                this.article.likes = this.article.likes + 1;
+                this.isSaveBtn = false;
+            }
+        });
+        // }, 100);
     }
 
     onUnLike(articleId: number) {
         this.isSaveBtn = true;
-        setTimeout(() => {
-            this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
-                if (res.success) {
-                    this.article.is_liked = false;
-                    this.article.likes = this.article.likes - 1;
-                    this.isSaveBtn = false;
-                }
-            });
-        }, 100);
+        // setTimeout(() => {
+        this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
+            if (res.success) {
+                this.article.is_liked = false;
+                this.article.likes = this.article.likes - 1;
+                this.isSaveBtn = false;
+            }
+        });
+        // }, 100);
     }
 }

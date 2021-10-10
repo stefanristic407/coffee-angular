@@ -17,6 +17,7 @@ export class LikeDividerComponent implements OnInit {
     @Input() isSavedPost = false;
     @Input() isAssignedToMe = false;
     showJoinBtn = true;
+    isLikedBtn = true;
 
     constructor(
         private router: Router,
@@ -42,19 +43,23 @@ export class LikeDividerComponent implements OnInit {
     }
 
     onLike() {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateLike('question', this.question.id).subscribe((res) => {
             if (res.success) {
                 this.question.is_liked = true;
                 this.question.likes = this.question.likes + 1;
+                this.isLikedBtn = true;
             }
         });
     }
 
     onUnLike() {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateUnLike('question', this.question.id).subscribe((res) => {
             if (res.success) {
                 this.question.is_liked = false;
                 this.question.likes = this.question.likes - 1;
+                this.isLikedBtn = true;
             }
         });
     }
