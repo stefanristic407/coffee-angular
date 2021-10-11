@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
     templateUrl: './category.component.html',
     styleUrls: ['./category.component.scss'],
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
     isLoading = false;
     questions: any[] = [];
@@ -229,5 +229,10 @@ export class CategoryComponent implements OnInit {
         } else if (this.selectedTab === 2) {
             this.router.navigateByUrl('coffee-lab/overview/coffee-recipes');
         }
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }
