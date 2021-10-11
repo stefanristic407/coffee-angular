@@ -23,7 +23,6 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableSave = true;
     @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
-    @Input() enableStopPropagation = true;
     @Output() editAnswer = new EventEmitter();
     items: MenuItem[] = [];
     @ViewChild('menu', { static: false }) menu: Menu;
@@ -85,13 +84,6 @@ export class ForumMenuComponent implements OnInit {
                 },
             });
         }
-    }
-
-    onClickMenu(event: any): void {
-        if (this.enableStopPropagation) {
-            event.stopPropagation();
-        }
-        this.menu.toggle(event);
     }
 
     onShare(): void {

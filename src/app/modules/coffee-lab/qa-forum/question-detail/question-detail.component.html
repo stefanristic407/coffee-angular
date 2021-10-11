@@ -24,7 +24,6 @@
                             detailsData.org_type === coffeeLabService.organization &&
                             detailsData.user_id == authService.currentUser.id
                         "
-                        [enableStopPropagation]="false"
                     ></app-forum-menu>
                 </div>
             </div>
@@ -106,7 +105,6 @@
                                         [enableTranslation]="
                                             answer?.allow_translation && answer?.translations?.length < 3
                                         "
-                                        [enableStopPropagation]="false"
                                     ></app-forum-menu>
                                 </div>
                                 <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
