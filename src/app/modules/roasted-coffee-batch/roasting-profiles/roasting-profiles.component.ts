@@ -8,6 +8,7 @@ import { ConfirmComponent } from '@shared';
 import { DialogService } from 'primeng/dynamicdialog';
 import { toSentenceCase } from '@utils';
 import { ResizeableComponent } from '@base-components';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-roasting-profiles',
@@ -39,6 +40,7 @@ export class RoastingProfilesComponent extends ResizeableComponent implements On
         private roasterService: RoasterService,
         private router: Router,
         private toastrService: ToastrService,
+        private translator: TranslateService,
         private userService: UserService,
         protected resizeService: ResizeService,
     ) {
@@ -152,7 +154,7 @@ export class RoastingProfilesComponent extends ResizeableComponent implements On
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to delete this profile?',
+                    desp: this.translator.instant('confirm_delete_roast_profile_desp'),
                 },
             })
             .onClose.subscribe((action: any) => {
