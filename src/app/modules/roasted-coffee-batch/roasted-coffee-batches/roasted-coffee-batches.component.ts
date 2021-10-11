@@ -175,7 +175,7 @@ export class RoastedCoffeeBatchesComponent extends ResizeableComponent implement
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to delete this batch?',
+                    desp: this.translator.instant('confirm_delete_roasted_batch_desp'),
                 },
             })
             .onClose.subscribe((action: any) => {
