@@ -10,6 +10,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class ActionMenuComponent implements OnInit {
     @Input() menuItems: MenuItem[] = [];
+    @Input() icon: 'pi-ellipsis-v' | 'pi-ellipsis-h' = 'pi-ellipsis-v';
     @Input() placement: 'left' | 'bottom' = 'left';
     @Output() clickEvent = new EventEmitter<any>();
 
