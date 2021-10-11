@@ -1,18 +1,4 @@
-.hover-icon {
-    padding: 0.625rem;
-    @media (min-width: 992px) {
-        &:hover {
-            border-radius: 50%;
-            background-color: rgba(184, 184, 184, 0.16);
-        }
-    }
-}
-
 [tabindex]:focus {
     border-radius: 50% !important;
     background-color: #e4e4e4 !important;
-}
-
-::ng-deep .p-menu-overlay {
-    width: fit-content !important;
 }
