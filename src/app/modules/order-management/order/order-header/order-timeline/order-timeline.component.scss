@@ -59,7 +59,7 @@ $icon-size: 34px;
         }
     }
 
-    @media screen and (max-width: 767px) {
+    @media (min-width: 767px) {
         &:last-child:after {
             content: '';
             display: block;
