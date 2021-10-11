@@ -84,6 +84,21 @@ export function quantityMinValidator(unitKey: string, limit: number) {
     };
 }
 
+export function quantityMaxValidator(unitKey: string, limit: number) {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+        return control.value !== null &&
+            control.value !== undefined &&
+            control.parent &&
+            control.parent.get(unitKey) &&
+            control.parent.get(unitKey).value + '' &&
+            +control.value > convertKg(limit, control.parent.get(unitKey).value)
+            ? {
+                  max: true,
+              }
+            : null;
+    };
+}
+
 export function noWhitespaceValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
         const isWhitespace = ((control && control.value && control.value.toString()) || '').trim().length === 0;

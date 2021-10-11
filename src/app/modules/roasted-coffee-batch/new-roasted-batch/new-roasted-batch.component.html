@@ -137,9 +137,8 @@
                                         <p-dropdown
                                             [options]="weightTypeArray"
                                             [autoDisplayFirst]="false"
-                                            [(ngModel)]="unit"
-                                            (ngModelChange)="setWasteQuantityValue()"
-                                            [ngModelOptions]="{ standalone: true }"
+                                            formControlName="green_coffee_unit"
+                                            (ngModelChange)="changeUnit()"
                                             placeholder="{{ 'select_unit' | translate }}"
                                         ></p-dropdown>
                                         <small
@@ -154,24 +153,29 @@
                                         >
                                             Please enter quantity above roasted coffee
                                         </small>
+                                        <small
+                                            *ngIf="batchForm.controls.green_coffee_quantity.errors?.max"
+                                            class="p-error"
+                                        >
+                                            Please enter quantity in range of remaining green coffee({{
+                                                remainingTotalQuantity
+                                                    | convertKg: batchForm.value.green_coffee_unit
+                                                    | number: '1.0-0'
+                                            }}{{ batchForm.value.green_coffee_unit }})
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                     <label>{{ 'roasted_coffee' | translate }}<span class="star">*</span></label>
-                                    <div class="input-and-select gray">
+                                    <div class="p-inputgroup custom-addon">
                                         <p-inputNumber
                                             type="number"
                                             [min]="0"
                                             formControlName="roasting_profile_quantity"
                                         ></p-inputNumber>
-                                        <p-dropdown
-                                            [options]="weightTypeArray"
-                                            [autoDisplayFirst]="false"
-                                            [(ngModel)]="unit"
-                                            (ngModelChange)="setWasteQuantityValue()"
-                                            [ngModelOptions]="{ standalone: true }"
-                                            placeholder="{{ 'select_unit' | translate }}"
-                                        ></p-dropdown>
+                                        <span class="p-inputgroup-addon gray">{{
+                                            batchForm.value.green_coffee_unit
+                                        }}</span>
                                         <small
                                             *ngIf="batchForm.controls.roasting_profile_quantity.errors?.required"
                                             class="p-error"

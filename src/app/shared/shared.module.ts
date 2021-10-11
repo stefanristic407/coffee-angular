@@ -238,6 +238,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import {
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
+    ConvertKgPipe,
     EstateBrandLinkPipe,
     GcBrandLinkPipe,
     HtmlStringWordCountPipe,
@@ -260,6 +261,7 @@ const PIPES = [
     ArrayFilterPipe,
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
+    ConvertKgPipe,
     ConvertToShortDescriptionPipe,
     CountryPipe,
     EstateBrandLinkPipe,
