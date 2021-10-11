@@ -174,7 +174,7 @@
                     <span *ngSwitchCase="'account_name'">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                {{'cust_name' |translate}
+                                {{ 'cust_name' | translate }}
                             </span>
                             <span [class.w-50]="primeTableService.isMobileView">
                                 {{ rowData['account_name'] || '--' }}

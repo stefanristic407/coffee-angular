@@ -1,6 +1,10 @@
 $icon-size: 34px;
 
 .order-tracking {
+    @media all and (max-width: 767px) {
+        width: 100%;
+    }
+
     width: 20%;
     position: relative;
 
