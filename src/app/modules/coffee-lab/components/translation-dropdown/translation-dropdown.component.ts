@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-translation-dropdown',
@@ -11,7 +12,11 @@ export class TranslationDropdownComponent implements OnInit {
     @Input() forumType?: string;
     isPostType: any;
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private coffeeLabService: CoffeeLabService,
+    ) {
         this.activatedRoute.queryParams.subscribe((res) => {
             this.isPostType = res;
         });
@@ -20,6 +25,7 @@ export class TranslationDropdownComponent implements OnInit {
     ngOnInit(): void {}
 
     onChangeTranslate(event: any): void {
+        this.coffeeLabService.forumLanguage.next(event.value.language);
         if (this.isPostType.isMyPost) {
             if (this.forumType === 'question') {
                 this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {

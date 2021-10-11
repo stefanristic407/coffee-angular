@@ -221,16 +221,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
         });
     }
 
-    onBack() {
-        if (this.selectedTab === 0) {
-            this.router.navigateByUrl('coffee-lab/overview/qa-forum');
-        } else if (this.selectedTab === 1) {
-            this.router.navigateByUrl('coffee-lab/overview/articles');
-        } else if (this.selectedTab === 2) {
-            this.router.navigateByUrl('coffee-lab/overview/coffee-recipes');
-        }
-    }
-
     ngOnDestroy() {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();

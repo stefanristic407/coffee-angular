@@ -80,7 +80,10 @@
 
 <div class="row mt-2 mx-0 my-lg-5 my-md-4 my-3">
     <div class="col-md-6 order-2 order-md-1">
-        <button [routerLink]="'/coffee-lab/questions/' + question.slug" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
+        <button
+            [routerLink]="'/coffee-lab/questions/' + question?.slug"
+            class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0"
+        >
             {{ 'cancel' | translate }}
         </button>
         <button

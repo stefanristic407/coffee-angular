@@ -20,7 +20,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isLoading = false;
     detailsData: any;
     recentQuestions: any[] = [];
-    language: string;
     destroy$: Subject<boolean> = new Subject<boolean>();
     comment: string;
     answerDetail: any;
@@ -50,8 +49,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             }
         });
         this.activatedRoute.queryParams.subscribe((queryParams) => {
-            const language = this.activatedRoute.snapshot.queryParamMap.get('language');
-            this.language = language || this.coffeeLabService.currentForumLanguage;
             this.isMyPost = queryParams.isMyPost;
             this.isSavedPost = queryParams.isSavedPost;
             this.isAssignedToMe = queryParams.isAssignedToMe;
@@ -159,7 +156,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             allow_translation: this.isAllowTranslation ? 1 : 0,
             answer: this.comment,
             status: 'PUBLISHED',
-            language: this.language,
+            language: this.coffeeLabService.currentForumLanguage,
         };
         this.coffeeLabService.postComment('question', this.detailsData.id, data).subscribe((res: any) => {
             if (res.success) {
@@ -264,7 +261,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             answer: this.answerComment,
             allow_translation: this.answerAllowTranslation ? (this.answerAllowTranslation ? 1 : 0) : 0,
             status: 'PUBLISHED',
-            language: this.language,
+            language: this.coffeeLabService.currentForumLanguage,
         };
 
         this.isLoading = true;
