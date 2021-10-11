@@ -15,7 +15,7 @@
 
     <div class="row no-gutters" [formGroup]="searchForm">
         <div class="col-12 col-md-4 px-0 d-flex align-items-center">
-            <h4 class="fnt-18 fnt-bold text-clr334 m-0">
+            <h4 class="fnt-18 fnt-bold text-clr334 m-0 mt-4 mt-md-0">
                 {{ (orgType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate }}
             </h4>
         </div>
@@ -73,11 +73,12 @@
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Status"
-                    [styleClass]="'round-border mr-25 mb-25 mb-md-3 mb-lg-4' + (queryParams.status ? ' highlight' : '')"
+                    [styleClass]="'round-border mr-25 mb-4' + (queryParams.status ? ' highlight' : '')"
                     scrollHeight="225px"
                     formControlName="status"
                 ></p-dropdown>
                 <p-calendar
+                    class="order-calendar-width"
                     [readonlyInput]="true"
                     [showIcon]="true"
                     placeholder="Date range"
@@ -85,8 +86,7 @@
                     formControlName="dates"
                     [showButtonBar]="true"
                     [styleClass]="
-                        'round-border mb-25 mb-md-3 mb-lg-4' +
-                        (queryParams.start_date || queryParams.end_date ? ' highlight' : '')
+                        'round-border mb-4' + (queryParams.start_date || queryParams.end_date ? ' highlight' : '')
                     "
                 >
                 </p-calendar>
@@ -128,12 +128,13 @@
                 *ngIf="orgType === OrgType.MICRO_ROASTER"
                 [(activeIndex)]="activeIndex"
                 (onChange)="resetFilter()"
+                class="mob-tab-order"
             >
                 <p-tabPanel [header]="'orders' | translate">
-                    <app-order-table #appOrderTable [searchOptions]="queryParams" class="mt-md-4"> </app-order-table>
+                    <app-order-table #appOrderTable [searchOptions]="queryParams" class="mt-4"> </app-order-table>
                 </p-tabPanel>
                 <p-tabPanel [header]="'requests' | translate">
-                    <app-request-table #requestTable [searchOptions]="queryParams" class="mt-md-4"></app-request-table>
+                    <app-request-table #requestTable [searchOptions]="queryParams" class="mt-4"></app-request-table>
                 </p-tabPanel>
             </p-tabView>
         </div>

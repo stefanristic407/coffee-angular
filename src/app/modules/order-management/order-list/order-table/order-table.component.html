@@ -1,7 +1,7 @@
 <p-table
     #ordersTable
     [class.table-mobile]="isMobile$ | async"
-    class="mt-2"
+    class="mt-2 order-disp"
     [value]="tableData"
     dataKey="id"
     [rows]="rowsPerPage"
@@ -182,36 +182,36 @@
                     [routerLink]="orgType | orderLink: rowData.id"
                 >
                     <div class="d-flex flex-column fnt-12">
-                        <div class="order-header d-flex justify-content-between px-3 py-2">
+                        <div class="order-header d-flex justify-content-between px-3 py-25 m-1 br-4">
                             <span class="fnt-14 fnt-bold text-clr334">
-                                {{ 'Order' | translate }} #{{ rowData.id }}
+                                {{ 'Order' | translate }}# {{ rowData.id }}
                             </span>
                             <span class="fnt-500 status-badge" [ngClass]="rowData.type">{{
                                 rowData.type | orderType
                             }}</span>
                         </div>
 
-                        <div class="px-3">
-                            <div class="d-flex justify-content-between pt-25">
+                        <div class="px-3 pb-1">
+                            <div class="d-flex justify-content-between pt-3">
                                 <span class="text-clr334">{{ rowData.status }}</span>
                                 <span class="text-muted">{{ rowData.created_at | date: 'dd/MM/yyyy' }}</span>
                             </div>
 
-                            <div class="mobile-row py-25 d-flex">
+                            <div class="mobile-row py-3 d-flex">
                                 <span class="text-muted cell-header">{{ 'estate_name' | translate }}</span>
-                                <span class="text-clr334">{{ rowData.estate_name }}</span>
+                                <span class="text-clr334 cell-header-right">{{ rowData.estate_name }}</span>
                             </div>
-                            <div class="mobile-row py-25 d-flex">
+                            <div class="mobile-row py-3 d-flex">
                                 <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
-                                <span class="text-clr334">
+                                <span class="text-clr334 cell-header-right">
                                     {{ rowData.origin | country }}
                                 </span>
                             </div>
-                            <div class="mobile-row py-25 d-flex">
+                            <div class="mobile-row py-3 d-flex">
                                 <span class="text-muted cell-header cell-header">{{ 'variety' | translate }}</span>
-                                <span class="text-clr334">{{ rowData.varieties }}</span>
+                                <span class="text-clr334 cell-header-right">{{ rowData.varieties }}</span>
                             </div>
-                            <div class="py-25 d-flex">
+                            <div class="py-3 d-flex">
                                 <span class="text-muted cell-header">{{ 'roaster_reference_no' | translate }}</span>
                                 <span class="text-clr334">
                                     {{ rowData.order_refence }}

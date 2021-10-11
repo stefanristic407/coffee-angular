@@ -57,3 +57,19 @@
 .order-header {
     background-color: #f8f8f8;
 }
+
+.cell-header-right {
+    @media screen and (max-width: 787px) {
+        width: 60%;
+    }
+}
+
+::ng-deep .order-disp .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+    @media screen and (max-width: 787px) {
+        display: inherit !important;
+        border: 0 !important;
+        td:not(.border-none) {
+            border-bottom: none !important;
+        }
+    }
+}

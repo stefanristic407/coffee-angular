@@ -1,6 +1,6 @@
 <p-table
     [class.table-mobile]="isMobile$ | async"
-    class="mt-2"
+    class="mt-2 req-disp"
     [value]="tableData"
     dataKey="id"
     [rows]="rowsPerPage"
@@ -90,31 +90,32 @@
                 <span class="d-none d-md-inline">{{ rowData.micro_roaster_name }}</span>
                 <div class="p-mobile-row-content border-ebebeb p-0">
                     <div class="d-flex flex-column fnt-12">
-                        <div class="order-header d-flex justify-content-between px-3 py-1">
+                        <div class="order-header d-flex justify-content-between px-3 py-25 m-1 br-4">
                             <span class="fnt-14 fnt-bold text-clr334">
-                                {{ 'Order' | translate }} #{{ rowData.id }}
+                                {{ 'Order' | translate }}# {{ rowData.id }}
                             </span>
+                            <span class="fnt-500 fnt-12 fnt-muli status-pen">{{ getStatus(rowData.status) }}</span>
                         </div>
 
-                        <div class="px-3">
-                            <div class="d-flex justify-content-between pt-2">
-                                <span class="text-clr334"></span>
+                        <div class="px-3 pb-1">
+                            <div class="d-flex justify-content-between pt-3">
+                                <span class="text-muted">{{ 'date_requested' | translate }}</span>
                                 <span class="text-muted">{{ rowData.created_at | date: 'd MMM yyyy' }}</span>
                             </div>
 
-                            <div class="mobile-row py-2 d-flex">
+                            <div class="mobile-row py-3 d-flex">
                                 <span class="text-muted cell-header">{{ 'estate_name' | translate }}</span>
-                                <span class="text-clr334">{{ rowData.estate_name }}</span>
+                                <span class="text-clr334 cell-header-right">{{ rowData.estate_name }}</span>
                             </div>
-                            <div class="mobile-row py-2 d-flex">
+                            <div class="mobile-row py-3 d-flex">
                                 <span class="text-muted cell-header">{{ 'origin' | translate }}</span>
-                                <span class="text-clr334">
+                                <span class="text-clr334 cell-header-right">
                                     {{ rowData.origin | country }}
                                 </span>
                             </div>
-                            <div class="py-2 d-flex">
-                                <span class="text-muted cell-header cell-header">{{ 'variety' | translate }}</span>
-                                <span class="text-clr334">{{ rowData.varieties }}</span>
+                            <div class="py-3 d-flex">
+                                <span class="text-muted cell-header">{{ 'variety' | translate }}</span>
+                                <span class="text-clr334 cell-header-right">{{ rowData.varieties }}</span>
                             </div>
                         </div>
                     </div>

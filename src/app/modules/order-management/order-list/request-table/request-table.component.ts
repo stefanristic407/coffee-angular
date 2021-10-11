@@ -27,4 +27,11 @@ export class RequestTableComponent extends DataTableComponent<AvailabilityReques
         const options = super.getLoadingOptions(event);
         this.orderService.loadRequests(options);
     }
+
+    getStatus(data: any) {
+        if (data) {
+            const particularData = data.replace(/_/g, ' ').toLowerCase();
+            return particularData.charAt(0).toUpperCase() + particularData.slice(1);
+        }
+    }
 }
