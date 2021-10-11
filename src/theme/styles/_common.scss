@@ -392,6 +392,7 @@ span.star {
             font-weight: 600;
             line-height: normal;
             cursor: pointer;
+            white-space: nowrap;
             &:hover,
             &.highlight {
                 color: $general-text-color;

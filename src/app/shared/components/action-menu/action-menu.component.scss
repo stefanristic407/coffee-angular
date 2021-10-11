@@ -1,0 +1,14 @@
+:host {
+    .action-menu-icon {
+        padding: 0.625rem;
+        border-radius: 50%;
+        @media (min-width: 992px) {
+        }
+        &:hover {
+            background-color: #f7f7f7;
+        }
+        &:active {
+            background-color: #eff5f2;
+        }
+    }
+}

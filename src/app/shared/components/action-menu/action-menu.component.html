@@ -1,0 +1,18 @@
+<span>
+    <i
+        class="pi pi-ellipsis-v text-clr588 cursor-pointer action-menu-icon"
+        [popover]="poplistTemplate"
+        [placement]="placement"
+        [outsideClick]="true"
+        (click)="click($event)"
+        #pop="bs-popover"
+    ></i>
+
+    <ng-template #poplistTemplate>
+        <ul class="menu-list">
+            <li *ngFor="let item of menuItems" (click)="pop.hide(); menuClicked(item); $event.stopPropagation()">
+                {{ item.label | translate }}
+            </li>
+        </ul>
+    </ng-template>
+</span>

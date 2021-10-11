@@ -291,7 +291,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
     }
 
     getMenuItemsForItem(item) {
-        const items = [
+        return [
             {
                 label: this.translator.instant('edit_product'),
                 command: () => {
@@ -305,7 +305,6 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
                 },
             },
         ];
-        return [{ items }];
     }
 
     onViewDetails(item) {

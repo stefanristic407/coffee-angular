@@ -158,6 +158,7 @@ import { UvChartComponent } from './components/remote-sensoring/uv-chart/uv-char
 import { VegetationChartComponent } from './components/remote-sensoring/vegetation-chart/vegetation-chart.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
+import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 
 const COMPONENTS = [
     AppKeyConfirmationComponent,
@@ -196,6 +197,7 @@ const COMPONENTS = [
     VegetationChartComponent,
     VideoPlayerComponent,
     WeatherChartComponent,
+    ActionMenuComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 
