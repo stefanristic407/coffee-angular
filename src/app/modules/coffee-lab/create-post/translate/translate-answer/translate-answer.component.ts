@@ -241,7 +241,8 @@ export class TranslateAnswerComponent implements OnInit {
 
         this.isPosting = true;
         if ((status === 'DRAFT' || status === 'PUBLISHED') && this.draftId) {
-            this.coffeeLabService.updateForum('answer', this.draftId, data).subscribe((res: any) => {
+            data.question_id = this.question.id;
+            this.coffeeLabService.translateAnswer(this.draftId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
                     if (status === 'DRAFT') {

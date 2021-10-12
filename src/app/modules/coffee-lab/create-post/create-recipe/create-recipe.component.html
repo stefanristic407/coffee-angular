@@ -10,6 +10,7 @@
                 formControlName="language"
                 (onChange)="changeLanguage($event)"
                 class="inputFieldBox bg-white col-md-5 col-12 pl-0 pr-0"
+                [disabled]="recipe?.original_article?.id"
             >
             </p-dropdown>
         </div>

@@ -58,6 +58,7 @@
                             [placeholder]="'add_a_comment' | translate"
                             pInputTextarea
                             autoResize="autoResize"
+                            [disabled]="detailsData?.parent_question_id > 0"
                         ></textarea>
                     </div>
                 </div>
@@ -255,15 +256,7 @@
             <button
                 (click)="onFocusCommentBox()"
                 class="cursor-point"
-                class="
-                    bg-transparent
-                    border-0
-                    fnt-14 fnt-bold fnt-muli
-                    mb-4
-                    ml-4 ml-md-5
-                    pl-md-0
-                    text-clr60b text-underline
-                "
+                class="bg-transparent border-0 fnt-14 fnt-bold fnt-muli mb-4 ml-4 ml-md-5 pl-md-0 text-clr60b"
             >
                 {{ 'write_comment' | translate }}
             </button>

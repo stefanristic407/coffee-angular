@@ -17,6 +17,7 @@ import { ConfirmComponent } from '@app/shared';
 export class CreateQuestionComponent implements OnInit {
     content?: string;
     isPosting = false;
+    question: any;
     questionId: any;
     isLoading = false;
     languageCode?: string;
@@ -67,6 +68,7 @@ export class CreateQuestionComponent implements OnInit {
                 }
                 if (res.success) {
                     this.content = res.result.question;
+                    this.question = res.result;
                     this.languageCode = res.result.lang_code;
                     this.categoryValue = res.result.categories;
                 } else {

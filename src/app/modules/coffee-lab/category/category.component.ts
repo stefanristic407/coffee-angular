@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -68,7 +67,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
     ];
 
     constructor(
-        public location: Location,
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         public authService: AuthService,
@@ -219,6 +217,16 @@ export class CategoryComponent implements OnInit, OnDestroy {
                 this.topWriters = res.result;
             }
         });
+    }
+
+    onBack() {
+        if (this.selectedTab === 0) {
+            this.router.navigateByUrl('coffee-lab/overview/qa-forum');
+        } else if (this.selectedTab === 1) {
+            this.router.navigateByUrl('coffee-lab/overview/articles');
+        } else if (this.selectedTab === 2) {
+            this.router.navigateByUrl('coffee-lab/overview/coffee-recipes');
+        }
     }
 
     ngOnDestroy() {
