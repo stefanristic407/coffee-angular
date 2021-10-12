@@ -221,7 +221,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.coverImageUrl = res.result.cover_image_url;
                     if (this.isTranslate && !this.draftRecipeId) {
                         // Put all data im one array which we have to translate from response
-                        if (this.recipe.user_id !== this.authService.currentUser.id) {
+                        if (
+                            this.recipe.user_id !== this.authService.currentUser.id ||
+                            this.recipe.organisation_type !== this.authService.orgType
+                        ) {
                             this.copyCoverImage('noCopy');
                         }
 

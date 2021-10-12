@@ -97,7 +97,10 @@ export class TranslateArticleComponent implements OnInit {
                         this.remainingLangugage.push(item);
                     }
                 });
-                if (this.article.user_id !== this.authService.currentUser.id) {
+                if (
+                    this.article.user_id !== this.authService.currentUser.id ||
+                    this.article.organisation_type !== this.authService.orgType
+                ) {
                     this.copyCoverImage('noCopy');
                 }
                 if (this.remainingLangugage.length === 0) {
