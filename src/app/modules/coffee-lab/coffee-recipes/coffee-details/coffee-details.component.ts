@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '@env/environment';
 import { AuthService, ChatHandlerService, CoffeeLabService, GlobalsService, UserService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-coffee-details',
@@ -30,6 +29,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     orginalUserData: any;
     isMyPost = false;
     isSavedPost = false;
+    isLikedBtn = true;
     buttonList = [{ button: 'Roasting' }, { button: 'Coffee grinding' }, { button: 'Brewing' }];
     infoData: any[] = [
         {
@@ -220,19 +220,23 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     }
 
     onLike(recipeId: number) {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateLike('recipe', recipeId).subscribe((res) => {
             if (res.success) {
                 this.detailsData.is_liked = true;
                 this.detailsData.likes = this.detailsData.likes + 1;
+                this.isLikedBtn = true;
             }
         });
     }
 
     onUnLike(recipeId: number) {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateUnLike('recipe', recipeId).subscribe((res) => {
             if (res.success) {
                 this.detailsData.is_liked = false;
                 this.detailsData.likes = this.detailsData.likes - 1;
+                this.isLikedBtn = true;
             }
         });
     }

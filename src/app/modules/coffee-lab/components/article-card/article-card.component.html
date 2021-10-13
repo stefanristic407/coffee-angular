@@ -22,12 +22,22 @@
     <div class="mx-4">
         <div class="d-flex justify-content-between mt-25">
             <div class="d-flex align-like-card">
-                <div class="like-int d-none" [ngClass]="{ 'd-block': !article.is_liked }" (click)="onLike(article.id)">
+                <button
+                    class="like-int d-none"
+                    (click)="onLike(article.id)"
+                    [ngClass]="{ 'd-block': !article.is_liked }"
+                    [disabled]="!isLikedBtn"
+                >
                     <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
-                </div>
-                <div class="like-int d-none" [ngClass]="{ 'd-block': article.is_liked }" (click)="onUnLike(article.id)">
+                </button>
+                <button
+                    class="like-int d-none"
+                    (click)="onUnLike(article.id)"
+                    [ngClass]="{ 'd-block': article.is_liked }"
+                    [disabled]="!isLikedBtn"
+                >
                     <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
-                </div>
+                </button>
                 <span class="d-flex ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ article.likes }}</span>
             </div>
             <span class="align-items-center d-flex fnt-14 fnt-muli mt-2 text-clr588">{{

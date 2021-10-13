@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthService, CoffeeLabService } from '@services';
 import { Router } from '@angular/router';
+import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -13,6 +13,7 @@ export class ArticleCardComponent implements OnInit {
     @Input() isMyPost = false;
     @Input() isSavedPost = false;
     isSaveBtn = false;
+    isLikedBtn = true;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -75,27 +76,26 @@ export class ArticleCardComponent implements OnInit {
 
     onLike(articleId: number) {
         this.isSaveBtn = true;
-        // setTimeout(() => {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateLike('article', articleId).subscribe((res) => {
             if (res.success) {
                 this.article.is_liked = true;
                 this.article.likes = this.article.likes + 1;
                 this.isSaveBtn = false;
+                this.isLikedBtn = true;
             }
         });
-        // }, 100);
     }
 
     onUnLike(articleId: number) {
         this.isSaveBtn = true;
-        // setTimeout(() => {
         this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
             if (res.success) {
                 this.article.is_liked = false;
                 this.article.likes = this.article.likes - 1;
                 this.isSaveBtn = false;
+                this.isLikedBtn = true;
             }
         });
-        // }, 100);
     }
 }

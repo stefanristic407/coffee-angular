@@ -2,9 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@shared';
-
 @Component({
     selector: 'app-like-divider',
     templateUrl: './like-divider.component.html',

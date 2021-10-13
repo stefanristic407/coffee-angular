@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-question-card',
@@ -14,6 +14,7 @@ export class QuestionCardComponent implements OnInit {
     @Input() isSavedPost = false;
     @Input() isAssignedToMe = false;
     questionMenuItems: MenuItem[] = [];
+    isLikedBtn = true;
 
     constructor(private router: Router, public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
@@ -48,19 +49,23 @@ export class QuestionCardComponent implements OnInit {
     }
 
     onLike(answer) {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateLike('answer', answer.id).subscribe((res) => {
             if (res.success) {
                 answer.is_liked = true;
                 answer.likes = answer.likes + 1;
+                this.isLikedBtn = true;
             }
         });
     }
 
     onUnLike(answer) {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateUnLike('answer', answer.id).subscribe((res) => {
             if (res.success) {
                 answer.is_liked = false;
                 answer.likes = answer.likes - 1;
+                this.isLikedBtn = true;
             }
         });
     }
