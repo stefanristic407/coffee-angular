@@ -363,7 +363,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             equipment_name: ['', Validators.compose([Validators.required])],
             coffee_ratio: [''],
             water_ratio: [''],
-            brew_ratio: ['', Validators.compose([Validators.required, Validators.pattern('[0-9][:][0-9]$')])],
+            brew_ratio: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*[:][0-9]*$')])],
             preparation_method: ['steps', Validators.compose([Validators.required])],
             cover_image_id: [null, Validators.compose([Validators.required])],
             description: ['', Validators.compose([maxWordCountValidator(60), Validators.required])],
