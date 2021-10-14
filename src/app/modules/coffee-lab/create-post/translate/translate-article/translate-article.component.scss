@@ -1,6 +1,6 @@
 .addImageContainer {
     background: #fff;
-    height: 253px;
+    height: 276px;
     position: relative;
     .cover-image {
         position: absolute;
@@ -14,7 +14,34 @@
         z-index: 1;
     }
     @media (max-width: 767px) {
-        height: 120px;
+        height: 256px;
+    }
+}
+
+::ng-deep .p-disabled,
+.p-component:disabled {
+    background: #f8f8f8 !important;
+}
+
+::ng-deep .custom-hgt {
+    .clipboard-img-p {
+        display: block !important;
+    }
+    .clipboard-img-p:before {
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+    }
+}
+
+.subtitle-hgt {
+    height: 50px !important;
+}
+
+.custom-hgt {
+    color: #676767;
+    @media (min-width: 768px) {
+        min-height: 120px;
     }
 }
 
@@ -34,15 +61,58 @@
     right: 24px;
     top: 24px;
 }
-.btn-trans-nb {
-    background-color: transparent;
-    border: none;
-    color: #ffffff;
-    padding: 11px 24px;
-}
-
 .mv-change-icon {
     position: absolute;
     right: 12px;
     top: 7px;
+}
+
+.border-right {
+    @media (min-width: 768px) {
+        border-right: 1px solid #e3e3e3;
+    }
+}
+
+.border-mob {
+    @media (max-width: 768px) {
+        border: 1px solid #e3e3e3;
+        border-radius: 0.25rem;
+    }
+}
+
+.border-btm {
+    border-bottom: 1px solid #d6d6d6;
+}
+
+::ng-deep .bg-tabView-artical .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background-color: rgba(48, 133, 92, 0.16) !important;
+}
+::ng-deep .bg-tabView-artical .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    padding: 18px 24px 18px 24px !important;
+}
+
+.swap-img {
+    position: relative;
+    bottom: 8px;
+}
+
+.button-list {
+    margin: 0 4px 5px 0;
+    padding: 7px 10px 8px;
+    border-radius: 4px;
+    background-color: #eaeaea;
+    border: none;
+    @media (min-width: 768px) {
+        margin: 0 12px 0 0;
+        padding: 10px 15px;
+    }
+}
+
+::ng-deep.p-component:disabled {
+    opacity: 0.8;
+}
+
+.noborder-left {
+    border-left: 1px solid #dedede;
 }

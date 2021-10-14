@@ -1,4 +1,4 @@
-<section *ngIf="isLoaded; else loading">
+<section>
     <ng-container *ngIf="!orderPlaced; else OrderSucess">
         <div class="main-block mb-3 d-md-none">
             <a class="back-page" routerLink="/sourcing"> {{ 'back' | translate }}</a>
@@ -19,8 +19,8 @@
         </div>
 
         <div class="main-block">
-            <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
-            <section>
+            <section *ngIf="isLoaded; else loading">
+                <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
                 <div class="bg-fa br-4 confirm-order mt-4 mb-5 d-none d-md-block">
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-12">
@@ -28,12 +28,9 @@
                                 {{ 'confirm_order' | translate }}
                             </h4>
                             <div class="fill-txt text-clr588">
-                                <div *ngIf="orderType === 'booked'">{{ 'please_shippment' | translate }}</div>
-                                <div *ngIf="orderType === 'sample'">
+                                <div *ngIf="orderType === OrderType.Booked">{{ 'please_shippment' | translate }}</div>
+                                <div *ngIf="orderType === OrderType.Sample">
                                     Please verify the details and place your order for coffee sample
-                                </div>
-                                <div *ngIf="orderType === 'preBooked'">
-                                    Please fill in the details to Pre-book the lot.
                                 </div>
                             </div>
                         </div>
@@ -49,7 +46,8 @@
                             *ngIf="orderDetail"
                             [value]="[orderDetail]"
                             [autoLayout]="isTablet$ | async"
-                            styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable"
+                            [scrollable]="isTablet$ | async"
+                            styleClass="p-datatable-responsive-single"
                         >
                             <ng-template pTemplate="header">
                                 <tr>
@@ -75,52 +73,33 @@
                     </div>
                 </div>
 
-                <!-- Prebook lot message -->
-                <div *ngIf="orderType === 'preBooked'" class="row">
-                    <div class="col-12 d-flex">
-                        <span class="fnt-14 fnt-700 text-clr334"> Note:</span>
-                        <div class="col-md-7">
-                            <p class="fnt-14 fnt-400 text-clr334">
-                                A pre-book order makes you eligible to buy all the produce for the booked lot from the
-                                estate. once the beans are ready, you will be notified.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-12 mt-md-3">
-                        <div class="solid-divider w-100"></div>
-                    </div>
-                </div>
-
                 <!-- Form for real order -->
                 <form [formGroup]="infoForm" novalidate>
                     <div class="mt-3">
                         <div class="row">
-                            <ng-container *ngIf="orderType == 'booked'">
+                            <ng-container *ngIf="orderType == OrderType.Booked">
                                 <!-- Quantity -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
                                     <div class="sewn-form-field mb-md-45">
                                         <label class="fnt-bold">{{ 'order_quantity' | translate }}:</label>
                                         <div class="p-inputgroup custom-addon">
+                                            <span class="p-inputgroup-addon gray">Bags</span>
                                             <p-inputNumber
                                                 formControlName="quantity"
-                                                (onInput)="changeQuantity($event)"
                                                 min="0"
                                                 placeholder="0"
+                                                (ngModelChange)="changeQuantity()"
                                             >
                                             </p-inputNumber>
-                                            <span class="p-inputgroup-addon">Bags</span>
-                                            <small *ngIf="infoForm.controls.quantity.errors?.required" class="p-error">
-                                                {{ 'required' | translate }}
-                                            </small>
-                                            <small *ngIf="infoForm.controls.quantity.errors?.max" class="p-error">
-                                                {{ 'quantity_max_error' | translate }}
-                                            </small>
-                                            <small *ngIf="infoForm.controls.quantity.errors?.min" class="p-error">
-                                                {{ 'minimum_quantity_for_import_is' | translate }}
-                                                {{ minimumQuantity }} bags
+                                            <small
+                                                *ngFor="let item of infoForm.controls.quantity.errors | keyvalue"
+                                                class="p-error"
+                                            >
+                                                {{ item.value }}
                                             </small>
                                         </div>
                                     </div>
+
                                     <div class="fnt-14 fnt-bold text-clr334 form-middle">
                                         &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;${{
                                             sourcing.harvestDetail?.price * sourcing.harvestDetail?.quantity
@@ -132,7 +111,6 @@
                                     class="
                                         col-4 col-lg-3 col-xl-2
                                         fnt-16 fnt-md-18 fnt-bold
-                                        text-clr334
                                         form-middle
                                         d-none d-md-block
                                     "
@@ -142,7 +120,7 @@
 
                                 <!-- Service -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
-                                    <div class="sewn-form-field mb-md-45">
+                                    <div class="sewn-form-field flex-fill service-wrap">
                                         <label class="fnt-bold">{{ 'select_service' | translate }}:</label>
                                         <p-dropdown
                                             [options]="serviceItems"
@@ -150,15 +128,11 @@
                                             (onChange)="changeService()"
                                         ></p-dropdown>
                                     </div>
-                                    <div *ngIf="infoForm.value.service" class="fnt-14 fnt-bold text-clr334 form-middle">
-                                        &nbsp;&nbsp;&nbsp;${{ this.shipInfo.unit_price | number: '1.0-2' }} per kg
-                                    </div>
                                 </div>
                                 <div
                                     class="
                                         col-4 col-lg-3 col-xl-2
                                         fnt-16 fnt-md-18 fnt-bold
-                                        text-clr334
                                         form-middle
                                         d-none d-md-block
                                     "
@@ -166,7 +140,22 @@
                                     ${{ shipmentPrice | number: '1.0-2' }}
                                 </div>
 
-                                <div class="col-12">
+                                <div *ngIf="shippingError" class="col-12">
+                                    <p class="fnt-semi-bold text-invalid">
+                                        {{ 'note' | translate }} - {{ shippingError }}
+                                    </p>
+                                </div>
+
+                                <div class="col-12" *ngIf="infoForm.value.service">
+                                    <a
+                                        href="javscript:void(0)"
+                                        class="custom-link fnt-12"
+                                        (click)="$event.preventDefault(); op.toggle($event)"
+                                    >
+                                        Shipping price tiers
+                                    </a>
+                                </div>
+                                <div class="col-12 mt-4 mt-md-45">
                                     <div class="solid-divider w-100 mb-4"></div>
                                 </div>
                             </ng-container>
@@ -200,15 +189,21 @@
                                 "
                             >
                                 <div
-                                    *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'"
+                                    *ngIf="
+                                        (!infoForm.value.service && orderType == OrderType.Booked) ||
+                                        orderType == OrderType.Sample
+                                    "
                                 >
                                     {{ 'delivery_address' | translate }}
                                 </div>
-                                <div *ngIf="infoForm.value.service && orderType == 'booked'">
+                                <div *ngIf="infoForm.value.service && orderType == OrderType.Booked">
                                     {{ 'pickup_address' | translate }}
                                 </div>
                                 <div
-                                    *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'"
+                                    *ngIf="
+                                        (!infoForm.value.service && orderType == OrderType.Booked) ||
+                                        orderType == OrderType.Sample
+                                    "
                                     class="fnt-14 fnt-bold text-clr55c cursor-pointer"
                                     (click)="refreshAddressForm(false)"
                                 >
@@ -322,7 +317,7 @@
                                                 *ngIf="addressForm.controls.country.errors?.required"
                                                 class="p-error"
                                             >
-                                                Please select your country
+                                                {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
@@ -333,6 +328,9 @@
                                                 placeholder="{{ 'select_state' | translate }}"
                                                 styleClass="w-100"
                                             ></p-dropdown>
+                                            <small *ngIf="addressForm.controls.state.errors?.required" class="p-error">
+                                                {{ 'required' | translate }}
+                                            </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
                                             <label>{{ 'address' | translate }}<span class="star">*</span></label>
@@ -348,7 +346,7 @@
                                                 *ngIf="addressForm.controls.address_line1.errors?.required"
                                                 class="p-error"
                                             >
-                                                Please enter address
+                                                {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
@@ -371,7 +369,7 @@
                                                 styleClass="w-100"
                                             />
                                             <small *ngIf="addressForm.controls.city.errors?.required" class="p-error">
-                                                Please enter city
+                                                {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div class="col-6 col-md-3 sewn-form-field">
@@ -387,7 +385,7 @@
                                                 *ngIf="addressForm.controls.zipcode.errors?.required"
                                                 class="p-error"
                                             >
-                                                Please enter zipcode
+                                                {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div
@@ -489,3 +487,29 @@
         </div>
     </section>
 </ng-template>
+<p-overlayPanel #op [showCloseIcon]="true" [dismissable]="true" styleClass="price-tier-overlay-panel">
+    <ng-template pTemplate>
+        <p-table [value]="priceTiers" [scrollable]="true" [rows]="5">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="170" pSortableColumn="min_quantity">
+                        {{ 'minimum_quantity' | translate }}<p-sortIcon field="min_quantity"></p-sortIcon>
+                    </th>
+                    <th width="160" pSortableColumn="max_quantity">
+                        {{ 'maximum_quantity' | translate }}<p-sortIcon field="max_quantity"></p-sortIcon>
+                    </th>
+                    <th width="130" pSortableColumn="amount">
+                        {{ 'price' | translate }}<p-sortIcon field="amount"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-tier>
+                <tr>
+                    <td width="170">{{ tier.min_quantity }} Kg</td>
+                    <td width="160">{{ tier.max_quantity }} Kg</td>
+                    <td width="130">${{ tier.amount | number: '1.0-2' }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-template>
+</p-overlayPanel>

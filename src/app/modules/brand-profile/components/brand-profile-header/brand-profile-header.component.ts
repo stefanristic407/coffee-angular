@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService, GlobalsService } from '@services';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '@services';
 
 @Component({
     selector: 'app-brand-profile-header',
@@ -21,21 +21,17 @@ export class BrandProfileHeaderComponent implements OnInit {
         'visit-us': 'Add details according to respective sections to create your brand profile website',
     };
 
-    constructor(
-        private cookieService: CookieService,
-        public globals: GlobalsService,
-        private authService: AuthService,
-    ) {
+    constructor(private authService: AuthService, private translator: TranslateService) {
         this.roasterSlug = this.authService.currentOrganization.slug;
         this.orgId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
         this.breadItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.brand_experience },
-            { label: this.globals.languageJson?.brand_profile, routerLink: '/brand-profile' },
-            { label: this.globals.languageJson[this.pageSlug.replace('-', '_')] || this.pageSlug },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('brand_experience') },
+            { label: this.translator.instant('brand_profile'), routerLink: '/brand-profile' },
+            { label: this.translator.instant(this.pageSlug.replace('-', '_')) || this.pageSlug },
         ];
     }
 

@@ -1,5 +1,5 @@
 <div class="col-lg-8 col-md px-0">
-    <div class="d-none d-md-block">
+    <div class="">
         <div class="d-flex justify-content-between">
             <h1 *ngIf="pageDesc === 'my-posts'" class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">
                 {{ 'my_posts' | translate }}
@@ -12,20 +12,27 @@
                     [options]="sortOptions"
                     [(ngModel)]="coffeeLabService.qaPostSortBy"
                     (ngModelChange)="getPosts()"
-                    styleClass="no-border no-padding"
+                    styleClass="round-border text-clr588"
+                    [placeholder]="'sort_by' | translate"
                     optionLabel="label"
                     optionValue="value"
+                    [showClear]="true"
                 ></p-dropdown>
             </div>
         </div>
     </div>
     <div *ngIf="!isLoading">
-        <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
+        <app-questions
+            [isMyPost]="pageDesc === 'my-posts'"
+            [isSavedPost]="pageDesc === 'saved-posts'"
+            [questions]="questions"
+            [viewMode]="viewMode"
+        ></app-questions>
     </div>
     <div *ngIf="isLoading">
         <app-loading></app-loading>
     </div>
-    <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
+    <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr334">
         <app-empty
             [title]="
                 (pageDesc === 'saved-posts'

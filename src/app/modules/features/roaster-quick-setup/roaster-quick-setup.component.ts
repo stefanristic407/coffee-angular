@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
-import { ToastrService } from 'ngx-toastr';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService, UserService, ValidateEmailService } from '@services';
 import { OrganizationType } from '@enums';
+import { emailValidator } from '@utils';
 
 @Component({
     selector: 'app-roaster-quick-setup',
@@ -29,15 +30,13 @@ export class RoasterQuickSetupComponent implements OnInit {
     userInvitesArray: string[] = [];
 
     constructor(
-        public roasterService: RoasterserviceService,
-        public cookieService: CookieService,
-        private toastrService: ToastrService,
-        public route: ActivatedRoute,
-        private router: Router,
-        public userService: UserService,
-        public globals: GlobalsService,
-        private fb: FormBuilder,
         private authService: AuthService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        private userService: UserService,
+        private validateService: ValidateEmailService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -50,24 +49,24 @@ export class RoasterQuickSetupComponent implements OnInit {
         }
         this.addNewRow();
         this.navItems = [
-            { label: this.globals.languageJson?.menu_sales_management },
-            { label: this.globals.languageJson?.customer_management, routerLink: '/people/customer-management' },
+            { label: this.translator.instant('menu_sales_management') },
+            { label: this.translator.instant('customer_management'), routerLink: '/people/customer-management' },
             {
                 label: `Invite  ${
                     this.orgType === OrganizationType.MICRO_ROASTER
                         ? 'Micro-Roaster'
-                        : this.globals.languageJson?.roasted_coffee_customers
+                        : this.translator.instant('roasted_coffee_customers')
                 }`,
             },
         ];
-        this.selectedNav = { label: this.globals.languageJson?.home, routerLink: '/' };
+        this.selectedNav = { label: this.translator.instant('home'), routerLink: '/' };
     }
 
     addNewRow(): void {
         this.inviteFormArray.push(
             new FormGroup({
                 name: new FormControl('', [Validators.required]),
-                email: new FormControl('', [Validators.required, Validators.email]),
+                email: new FormControl('', [Validators.required], emailValidator(this.validateService)),
                 type: new FormControl(),
             }),
         );
@@ -80,6 +79,10 @@ export class RoasterQuickSetupComponent implements OnInit {
     }
 
     sendInvite() {
+        if (this.inviteFormArray.invalid) {
+            this.inviteFormArray.markAllAsTouched();
+            return;
+        }
         this.inviteStatus = 'SENDING';
         const promises: any[] = [];
         this.inviteFormArray.controls.forEach((element) => {

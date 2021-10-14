@@ -40,8 +40,10 @@
                             "node_modules/datatables.net/js/jquery.dataTables.js",
                             "node_modules/bootstrap/dist/js/bootstrap.js",
                             "node_modules/intl-tel-input/build/js/intlTelInput.min.js",
+                            "node_modules/intl-tel-input/build/js/utils.js",
                             "node_modules/quill/dist/quill.js",
-                            "node_modules/intl-tel-input/build/js/utils.js"
+                            "node_modules/quill-image-resize-module/image-resize.min.js",
+                            "node_modules/quill-image-drop-module/image-drop.min.js"
                         ]
                     },
                     "configurations": {

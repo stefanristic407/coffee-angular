@@ -1,7 +1,7 @@
 <section *ngIf="isLoaded; else loading">
     <div class="main-block">
         <div class="w-100 pb-3">
-            <a class="back-page" (click)="location.back()"> {{ 'back' | translate }}</a>
+            <app-back-link defaultBackTo="/sourcing/coffee-list"></app-back-link>
         </div>
         <div class="solid-divider d-md-none mx-n3"></div>
 
@@ -11,7 +11,11 @@
                     <div class="d-inline-block mr-2 pr-1">
                         <app-avatar
                             [size]="(isMobile$ | async) ? 48 : 54"
-                            [src]="sourcing.harvestDetail?.estate_profile_image_thumbnail_url"
+                            [src]="
+                                sourcing.harvestDetail?.estate_profile_image_thumbnail_url
+                                    ? sourcing.estate?.companyImageThumbnailUrl
+                                    : sourcing.estate?.sourcingImageUrl
+                            "
                             [name]="sourcing.harvestDetail?.estate_name"
                         ></app-avatar>
                     </div>
@@ -275,48 +279,48 @@
                                 </h3>
                                 <ul class="clearfix">
                                     <li>
-                                        <label>Location :</label>
+                                        <label>{{ 'location' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.state }}</p>
                                     </li>
                                     <li>
-                                        <label>Region :</label>
+                                        <label>{{ 'region' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.region }}</p>
                                     </li>
                                     <li>
-                                        <label>Type :</label>
+                                        <label>{{ 'type' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.type | abailabilityType }}</p>
                                     </li>
                                     <li>
-                                        <label>Listing Status :</label>
+                                        <label>{{ 'listing_status' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.listing_status | abailabilityListingStatus }}</p>
                                     </li>
                                     <li>
-                                        <label>Wet Mill processing :</label>
+                                        <label>{{ 'wet_mill_processing' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.wet_milling?.process }}</p>
                                     </li>
                                     <li>
-                                        <label>Fermentation/hr :</label>
+                                        <label>{{ 'fermentation_hr' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.wet_milling?.fermentation }}</p>
                                     </li>
                                     <li>
-                                        <label>Dry milling process :</label>
+                                        <label>{{ 'dry_milling_process' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.dry_milling?.process }}</p>
                                     </li>
                                     <li>
-                                        <label>Drying period :</label>
+                                        <label>{{ 'drying_period' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.dry_milling?.drying_period }}</p>
                                     </li>
                                     <li>
-                                        <label>Water activity :</label>
+                                        <label>{{ 'water_activity' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.dry_milling?.water_activity }}</p>
                                     </li>
 
                                     <li>
-                                        <label>Moisture :</label>
+                                        <label>{{ 'moisture' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.dry_milling?.moisture_content }}</p>
                                     </li>
                                     <li>
-                                        <label>Packaging :</label>
+                                        <label>{{ 'packaging' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.packaging }}</p>
                                     </li>
                                 </ul>
@@ -392,7 +396,7 @@
                 class="btn-raised w-100"
                 routerLink="/sourcing/buy-gc"
                 [queryParams]="{ gc_id: sourcing.harvestId }"
-                [disabled]="sourcing.harvestDetail?.minimum_purchase_quantity > sourcing.harvestDetail?.quantity_count"
+                [disabled]="!buyable"
             >
                 {{ 'buy' | translate }}
             </button>
@@ -401,7 +405,7 @@
 </ng-template>
 
 <ng-template #loading>
-    <app-loading></app-loading>
+    <div class="main-block"><app-loading></app-loading></div>
 </ng-template>
 
 <ng-template #noOtherCoffee>

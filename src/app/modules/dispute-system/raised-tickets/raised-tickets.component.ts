@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { RoasterserviceService, SocketService, ChatUtilService, AuthService, DisputeService } from '@services';
+import { RoasterService, SocketService, ChatUtilService, AuthService, DisputeService, ResizeService } from '@services';
 import { GlobalsService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ChatMessageType, OrganizationType } from '@enums';
 import { LazyLoadEvent } from 'primeng/api';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-raised-tickets',
     templateUrl: './raised-tickets.component.html',
     styleUrls: ['./raised-tickets.component.scss'],
 })
-export class RaisedTicketsComponent implements OnInit {
+export class RaisedTicketsComponent extends ResizeableComponent implements OnInit {
     tableValue = [];
     tableColumns = [];
     roasterID: any;
@@ -27,14 +28,16 @@ export class RaisedTicketsComponent implements OnInit {
         private authService: AuthService,
         private chatUtil: ChatUtilService,
         private disputeService: DisputeService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private route: ActivatedRoute,
         private router: Router,
         private socket: SocketService,
         private toastrService: ToastrService,
+        protected resizeService: ResizeService,
         public cookieService: CookieService,
         public globals: GlobalsService,
     ) {
+        super(resizeService);
         this.roasterID = this.authService.getOrgId();
     }
 

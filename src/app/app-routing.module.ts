@@ -163,7 +163,7 @@ export const routes: Routes = [
         path: 'error',
         loadChildren: () => import('./modules/error-module/error-module.module').then((m) => m.ErrorModuleModule),
     },
-    { path: '**', redirectTo: 'roaster-dashboard' },
+    { path: '**', redirectTo: 'dashboard' },
 ];
 
 const config: ExtraOptions = {

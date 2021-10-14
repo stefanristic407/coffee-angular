@@ -1,18 +1,19 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ApiRequestService, AuthService } from '@services';
+import { GlobalsService, ApiRequestService, AuthService, ResizeService } from '@services';
 import * as moment from 'moment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
 import { AppKeyConfirmationComponent } from '@app/shared/components/app-key-confirmation/app-key-confirmation.component';
+import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-generated-keys',
     templateUrl: './generated-keys.component.html',
     styleUrls: ['./generated-keys.component.scss'],
 })
-export class GeneratedKeysComponent implements OnInit, OnChanges {
+export class GeneratedKeysComponent extends ResizeableComponent implements OnInit, OnChanges {
     @Input() searchRequestId;
     @Input() filterData;
     @Input() dateRange;
@@ -35,13 +36,15 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
     loader = true;
 
     constructor(
-        private toastrService: ToastrService,
-        public cookieService: CookieService,
         private apiRequestService: ApiRequestService,
-        public globals: GlobalsService,
-        public dialogSrv: DialogService,
         private authService: AuthService,
+        private toastrService: ToastrService,
+        protected resizeService: ResizeService,
+        public cookieService: CookieService,
+        public dialogSrv: DialogService,
+        public globals: GlobalsService,
     ) {
+        super(resizeService);
         this.termStatus = '';
         this.display = '10';
         this.roasterID = this.authService.getOrgId();
@@ -176,8 +179,6 @@ export class GeneratedKeysComponent implements OnInit, OnChanges {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 console.log('action--->>', action);

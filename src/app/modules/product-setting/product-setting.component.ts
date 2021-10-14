@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, UserService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { AnyARecord } from 'dns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, UserService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-product-setting',
@@ -20,13 +19,9 @@ export class ProductSettingComponent implements OnInit {
     resetButtonValue = 'Save';
     breadItems: any[];
     options: any;
-    selectedTab = {
-        name: this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management,
-        code: '',
-        index: 0,
-    };
+    selectedTab = { name: this.translator.instant('vat_management'), code: '', index: 0 };
     selectedIndex = 0;
-    details: FormGroup;
+    detailsForm: FormGroup;
     shippingDetails = {
         id: '',
         name: '',
@@ -36,15 +31,15 @@ export class ProductSettingComponent implements OnInit {
     };
     selectedMobileTab = '';
     dayMinListArray = [];
+
     constructor(
+        private authService: AuthService,
+        private fb: FormBuilder,
+        private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
-        public userService: UserService,
-        public cookieService: CookieService,
-        private route: ActivatedRoute,
-        public fb: FormBuilder,
-        public globals: GlobalsService,
-        private authService: AuthService,
+        private translator: TranslateService,
+        private userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -52,8 +47,8 @@ export class ProductSettingComponent implements OnInit {
     ngOnInit(): void {
         this.getShippingInfo();
         this.options = [
-            { name: this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management, code: '', index: 0 },
-            { name: this.globals.languageJson?.shipping_details, code: '', index: 1 },
+            { name: this.translator.instant('vat_management'), code: '', index: 0 },
+            { name: this.translator.instant('shipping_details'), code: '', index: 1 },
         ];
         this.dayMinListArray = [
             {
@@ -72,11 +67,12 @@ export class ProductSettingComponent implements OnInit {
             }
         });
     }
+
     settingBreadCrumb(type = null) {
         this.breadItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.inventory },
-            { label: this.globals.languageJson?.product_settings },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('inventory') },
+            { label: this.translator.instant('product_settings') },
         ];
     }
 
@@ -87,7 +83,7 @@ export class ProductSettingComponent implements OnInit {
                 if (this.shippData.length !== 0) {
                     this.shippingDetails = this.shippData[0];
                     this.shipId = this.shippingDetails.id;
-                    this.details = this.fb.group({
+                    this.detailsForm = this.fb.group({
                         name: [this.shippingDetails.name, Validators.compose([Validators.required])],
                         day_min: [this.shippingDetails.day_min, Validators.compose([Validators.required])],
                         day_max: [this.shippingDetails.day_max, Validators.compose([Validators.required])],
@@ -95,7 +91,7 @@ export class ProductSettingComponent implements OnInit {
                         price_unit: ['SEK', Validators.compose([Validators.required])],
                     });
                 } else {
-                    this.details = this.fb.group({
+                    this.detailsForm = this.fb.group({
                         name: ['', Validators.compose([Validators.required])],
                         day_min: [null, Validators.compose([Validators.required])],
                         day_max: [null, Validators.compose([Validators.required])],
@@ -106,10 +102,16 @@ export class ProductSettingComponent implements OnInit {
             }
         });
     }
+
     saveShippingInfo() {
+        if (this.detailsForm.invalid) {
+            this.detailsForm.markAllAsTouched();
+            this.toastrService.error('Please fill mandatory fields.');
+            return;
+        }
         if (this.shippData.length === 0) {
             this.resetButtonValue = 'Saving';
-            const body = this.details.value;
+            const body = this.detailsForm.value;
             this.userService.addRoasterShippingDetails(this.roasterId, body).subscribe((response) => {
                 if (response.success) {
                     this.resetButtonValue = 'Save';
@@ -125,7 +127,7 @@ export class ProductSettingComponent implements OnInit {
         } else {
             if (this.shipId) {
                 this.resetButtonValue = 'Saving';
-                const data = this.details.value;
+                const data = this.detailsForm.value;
                 this.userService.updateRoasterShippingTypes(this.roasterId, this.shipId, data).subscribe((res) => {
                     if (res.success) {
                         this.resetButtonValue = 'Save';
@@ -147,7 +149,7 @@ export class ProductSettingComponent implements OnInit {
         this.editshippingmode = false;
     }
     get detailsFormControl() {
-        return this.details.controls;
+        return this.detailsForm.controls;
     }
     selectTabs() {
         if (this.selectedTab.index === 0) {
@@ -163,12 +165,12 @@ export class ProductSettingComponent implements OnInit {
         this.router.navigate(['/product-setting'], { queryParams: { type: feature } });
     }
     getHeading() {
-        let header = 'Product Settings';
+        let header = this.translator.instant('product_settings');
         if (this.selectedMobileTab) {
             header =
                 this.selectedMobileTab === 'VAT'
-                    ? this.globals.languageJson?.vat + ' ' + this.globals.languageJson?.management
-                    : 'Shipment Details';
+                    ? this.translator.instant('vat_management')
+                    : this.translator.instant('shipment_details');
         }
         return header;
     }

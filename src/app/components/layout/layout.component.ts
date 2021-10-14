@@ -13,6 +13,7 @@ import {
     I18NService,
     IdmService,
     MenuService,
+    RouterService,
     SocketService,
     UserService,
 } from '@services';
@@ -58,6 +59,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         private i18NService: I18NService,
         private idmService: IdmService,
         private router: Router,
+        private routerService: RouterService,
         private socket: SocketService,
         private toastrService: ToastrService,
         private userService: UserService,
@@ -78,7 +80,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 this.init();
             })
             .catch(() => {
-                this.router.navigateByUrl('/gate');
+                this.authService.goToLogin();
             });
     }
 
@@ -113,6 +115,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 this.updateActiveLinkState();
                 this.menuService.expandActiveSubMenu();
                 this.closeSideNav();
+                this.routerService.hasBack = true;
             });
 
         this.updateActiveLinkState();
@@ -212,7 +215,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 this.authService.organizationSubject.next(res.result);
                 resolve();
             } else {
-                this.router.navigate(['/gate']);
+                this.authService.goToLogin();
             }
         });
     }
@@ -238,7 +241,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     getNotificationList() {
         const options = {
-            per_page: 1000,
+            per_page: 10,
         };
         let isUnread = false;
         this.userService.getNofitication(options).subscribe((res: any) => {
@@ -467,8 +470,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                     data: {
                         type: 'logout',
                     },
-                    showHeader: false,
-                    styleClass: 'confirm-dialog logout',
                 })
                 .onClose.subscribe((action: any) => {
                     if (action === 'yes') {
@@ -523,6 +524,12 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     toggleMessagePanel() {
         this.chat.toggle();
+    }
+
+    onHideNotification() {
+        if (this.activeLink === 'NOTIFICATIONS') {
+            this.activeLink = 'UNSET';
+        }
     }
 
     redirect(event: any) {

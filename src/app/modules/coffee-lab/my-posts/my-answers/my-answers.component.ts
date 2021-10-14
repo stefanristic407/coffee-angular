@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-my-answers',
@@ -20,10 +20,12 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
     forumDeleteSub: Subscription;
     totalRecords = 0;
     displayData: any[] = [];
+    answerComment: any;
+    answerAllowTranslation: boolean;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
-        private cookieService: CookieService,
+        private toastrService: ToastrService,
         private router: Router,
     ) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
@@ -63,6 +65,56 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
 
     paginate(event: any) {
         this.displayData = this.answers.slice(event.first, event.first + event.rows);
+    }
+
+    onEditAnswer(event: any, index?: number) {
+        if (event) {
+            const isEdit = 'isEdit';
+            this.answers[index][isEdit] = true;
+            this.getForumById(this.answers[index].id);
+        }
+    }
+
+    getForumById(forumId: number): void {
+        this.coffeeLabService.getForumDetails('answer', forumId).subscribe((res: any) => {
+            if (res.success) {
+                this.answerComment = res.result.answer;
+                this.answerAllowTranslation = res.result?.allow_translation;
+            } else {
+                this.toastrService.error('Error while get comment');
+                // this.location.back();
+            }
+        });
+    }
+
+    onEditPost(forumId: number): void {
+        if (!this.answerComment) {
+            this.toastrService.error('Please fill out field.');
+            return;
+        }
+        let data: any = {};
+        data = {
+            answer: this.answerComment,
+            allow_translation: this.answerAllowTranslation ? (this.answerAllowTranslation ? 1 : 0) : 0,
+            status: 'PUBLISHED',
+            language: this.coffeeLabService.currentForumLanguage,
+        };
+
+        this.isLoading = true;
+        if (forumId) {
+            this.coffeeLabService.updateForum('answer', forumId, data).subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success('Your comment updated successfully');
+                    this.getAnswers();
+                } else {
+                    this.toastrService.error('Failed to update article.');
+                }
+            });
+        }
+    }
+
+    onCancel(index: number) {
+        this.answers[index].isEdit = false;
     }
 
     ngOnDestroy(): void {

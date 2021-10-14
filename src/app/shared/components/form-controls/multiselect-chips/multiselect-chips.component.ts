@@ -1,5 +1,5 @@
-import { Component, OnInit, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -21,8 +21,9 @@ export class MultiselectChipsComponent implements OnInit, ControlValueAccessor {
     @Input() addOnBlur = true;
     @Input() allowDuplicate = false;
     @Input() itemList: any[] = [];
+    @Input() styleClass = '';
 
-    readonly chipsControl = this.fb.control([]);
+    selectedItems: any[];
 
     isDisabled = false;
 
@@ -43,40 +44,13 @@ export class MultiselectChipsComponent implements OnInit, ControlValueAccessor {
 
     setDisabledState?(isDisabled: boolean): void {
         this.isDisabled = isDisabled;
-
-        if (this.isDisabled) {
-            this.chipsControl.disable();
-        } else {
-            this.chipsControl.enable();
-        }
     }
 
     writeValue(value: any[]): void {
-        if (!!value) {
-            this.chipsControl.patchValue(value);
-            this.onChange(value.map((x) => x[this.optionValue]));
-        }
+        this.selectedItems = value;
     }
 
-    itemSelected(event: any): void {
-        const currentValue = this.chipsControl.value;
-
-        if (!this.allowDuplicate) {
-            const existingItem = currentValue.find((x) => x[this.optionValue] === event.value);
-            if (existingItem) {
-                return;
-            }
-        }
-
-        const item = this.itemList.find((x) => x[this.optionValue] === event.value);
-        if (item) {
-            this.chipsControl.patchValue([...currentValue, item]);
-            this.onChange(this.chipsControl.value.map((x) => x[this.optionValue]));
-            this.onTouched();
-        }
-    }
-
-    chipsRemoved(): void {
-        this.onChange(this.chipsControl.value.map((x) => x[this.optionValue]));
+    change(): void {
+        this.onChange(this.selectedItems);
     }
 }

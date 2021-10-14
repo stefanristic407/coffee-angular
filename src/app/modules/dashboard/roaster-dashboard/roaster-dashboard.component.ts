@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AclService, AuthService, GlobalsService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
-import { WelcomeService } from './welcome.service';
+import { AclService, AuthService, UserService } from '@services';
+import { RoasterService } from '@services';
+import { MDashboardService } from './m-dashboard.service';
 
 @Component({
     selector: 'app-roaster-dashboard',
@@ -12,25 +10,19 @@ import { WelcomeService } from './welcome.service';
     styleUrls: ['./roaster-dashboard.component.scss'],
 })
 export class RoasterDashboardComponent implements OnInit {
-    appLanguage?: any;
     roasterId: number;
 
     constructor(
-        private router: Router,
-        private cookieService: CookieService,
-        public globals: GlobalsService,
-        private userSrv: UserService,
-        private roasterSrv: RoasterserviceService,
-        private toastrService: ToastrService,
-        private welcomeSrv: WelcomeService,
-        public authService: AuthService,
         private aclService: AclService,
+        private mDashboardSrv: MDashboardService,
+        private roasterSrv: RoasterService,
+        private toastrService: ToastrService,
+        private userSrv: UserService,
+        public authService: AuthService,
     ) {}
 
     ngOnInit(): void {
         this.roasterId = this.authService.getOrgId();
-
-        this.appLanguage = this.globals.languageJson;
 
         const promises = [];
         promises.push(new Promise((resolve) => this.getStats(resolve)));
@@ -47,11 +39,11 @@ export class RoasterDashboardComponent implements OnInit {
     getStats(resolve) {
         this.userSrv.getStats(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.welcomeSrv.disputes.next(res.result.disputes);
-                this.welcomeSrv.sales.next(res.result.sales);
-                this.welcomeSrv.sourcing.next(res.result.sourcing);
-                this.welcomeSrv.stock.next(res.result.stock);
-                this.welcomeSrv.varieties.next(res.result.varieties);
+                this.mDashboardSrv.disputes.next(res.result.disputes);
+                this.mDashboardSrv.sales.next(res.result.sales);
+                this.mDashboardSrv.sourcing.next(res.result.sourcing);
+                this.mDashboardSrv.stock.next(res.result.stock);
+                this.mDashboardSrv.varieties.next(res.result.varieties);
             } else {
                 this.toastrService.error('Error while getting stats');
             }
@@ -68,7 +60,7 @@ export class RoasterDashboardComponent implements OnInit {
         };
         this.userSrv.getAvailableEstates(this.roasterId, params).subscribe((res: any) => {
             if (res.success) {
-                this.welcomeSrv.estates.next(res.result);
+                this.mDashboardSrv.estates.next(res.result);
             } else {
                 this.toastrService.error('Error while getting estates');
             }
@@ -79,7 +71,7 @@ export class RoasterDashboardComponent implements OnInit {
     getReviewsSummary(resolve) {
         this.userSrv.getReviewsSummary(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.welcomeSrv.reviewsSummary.next(res.result.summary);
+                this.mDashboardSrv.reviewsSummary.next(res.result.summary);
             } else {
                 this.toastrService.error('Error while getting reviews');
             }
@@ -90,7 +82,7 @@ export class RoasterDashboardComponent implements OnInit {
     getRecentActivities() {
         this.userSrv.getRecentActivities(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.welcomeSrv.recentActivities.next(res.result);
+                this.mDashboardSrv.recentActivities.next(res.result);
             } else {
                 this.toastrService.error('Error while getting recent activity');
             }
@@ -106,7 +98,7 @@ export class RoasterDashboardComponent implements OnInit {
         };
         this.roasterSrv.getEstateOrders(this.roasterId, params).subscribe((res: any) => {
             if (res.success) {
-                this.welcomeSrv.orders.next(res.result);
+                this.mDashboardSrv.orders.next(res.result);
             } else {
                 this.toastrService.error('Error while getting orders');
             }

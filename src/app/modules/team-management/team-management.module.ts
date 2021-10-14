@@ -10,6 +10,7 @@ import { SendRecoveryEmailComponent } from './send-recovery-email/send-recovery-
 import { SharedModule } from './../../shared/shared.module';
 import { TeamManagementComponent } from './team-management/team-management.component';
 import { TeamManagementRoutingModule } from './team-management-routing';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { TeamManagementRoutingModule } from './team-management-routing';
         EditUserDetailsComponent,
         SendRecoveryEmailComponent,
         TeamManagementComponent,
+        UserManagementComponent,
     ],
     imports: [CommonModule, SharedModule, TeamManagementRoutingModule],
 })

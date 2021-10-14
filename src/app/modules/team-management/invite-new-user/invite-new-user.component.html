@@ -10,7 +10,7 @@
                 optionLabel="name"
                 optionValue="id"
                 scrollHeight="225px"
-                placeholder="All Roles"
+                placeholder="{{ 'all_roles' | translate }}"
                 [(ngModel)]="currentRoleID"
                 styleClass="no-border no-padding accent role-selector"
             >
@@ -39,14 +39,10 @@
     </div>
     <div class="mt-3 mt-md-5">
         <div class="d-flex flex-column-reverse flex-md-row flex-wrap">
-            <button
-                routerLink="/team-management/manage-role"
-                [disabled]="!currentRoleID"
-                class="btn-stroked mb-3 w-mob-100 mr-md-25"
-            >
+            <button (click)="location.back()" class="btn-stroked mb-3 w-mob-100 mr-md-25">
                 {{ 'cancel' | translate }}
             </button>
-            <button (click)="onInvite()" [disabled]="!currentRoleID" class="btn-raised mb-3 w-mob-100">
+            <button (click)="onInvite()" class="btn-raised mb-3 w-mob-100">
                 {{ 'send_invites' | translate }}
             </button>
         </div>

@@ -1,8 +1,4 @@
-<div *ngIf="loader">
-    <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-    <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-</div>
-<div *ngIf="!loader" class="main-block">
+<div class="main-block">
     <div class="d-md-flex justify-content-between align-items-start">
         <div class="mb-4">
             <div class="back-page" (click)="close()">{{ 'back' | translate }}</div>
@@ -121,12 +117,13 @@
             [columns]="tableColumns"
             dataKey="id"
             [resizableColumns]="true"
-            [paginator]="true"
+            [paginator]="totalCount > displayFilter"
             [rows]="displayFilter"
             selectionMode="single"
             [(selection)]="selectedOrder"
             [lazy]="true"
             (onLazyLoad)="getTableData($event)"
+            [loading]="loading"
             [showCurrentPageReport]="false"
             [totalRecords]="totalCount"
             [responsive]="true"
@@ -282,6 +279,10 @@
                         </ng-container>
                     </td>
                 </tr>
+            </ng-template>
+
+            <ng-template pTemplate="summary">
+                <app-empty *ngIf="!loading && !tableValue?.length" [title]="'no_data' | translate"></app-empty>
             </ng-template>
         </p-table>
     </div>

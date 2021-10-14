@@ -1,58 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { CoffeeLabService, GlobalsService } from '@services';
-import { TitleCasePipe } from '@angular/common';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
-import { CoffeeLabGlobalSearchResult } from '@models';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CoffeeLabGlobalSearchResult } from '@models';
+import { TranslateService } from '@ngx-translate/core';
+import { CoffeeLabService } from '@services';
+import { MenuItem } from 'primeng/api';
+import { forkJoin, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app-overview',
     templateUrl: './overview.component.html',
     styleUrls: ['./overview.component.scss'],
-    providers: [TitleCasePipe],
 })
-export class OverviewComponent implements OnInit {
-    menuItems = [
-        {
-            label: 'qa_forum',
-            routerLink: 'qa-forum',
-            icon: 'assets/images/qa-forum.svg',
-            activeIcon: 'assets/images/qa-forum-active.svg',
-        },
-        {
-            label: 'posts',
-            routerLink: 'articles',
-            icon: 'assets/images/article.svg',
-            activeIcon: 'assets/images/article-active.svg',
-        },
-        {
-            label: 'brewing_guides',
-            routerLink: 'coffee-recipes',
-            icon: 'assets/images/coffee-recipe.svg',
-            activeIcon: 'assets/images/coffee-recipe-active.svg',
-        },
-        {
-            label: 'my_posts',
-            routerLink: 'my-posts',
-            icon: 'assets/images/my-posts.svg',
-            activeIcon: 'assets/images/my-posts-active.svg',
-        },
-        {
-            label: 'saved_posts',
-            routerLink: 'saved-posts',
-            icon: 'assets/images/saved-post.svg',
-            activeIcon: 'assets/images/saved-post-active.svg',
-        },
-        {
-            label: 'assigned_to_me',
-            routerLink: 'assigned-to-me',
-            icon: 'assets/images/assigned-to-me.svg',
-            activeIcon: 'assets/images/assigned-to-me-active.svg',
-        },
-    ];
+export class OverviewComponent implements OnInit, OnDestroy {
+    destroy$: Subject<boolean> = new Subject<boolean>();
+    menuItems = [];
     keyword?: string;
     keyword$?: string;
     breadcrumbItems: MenuItem[];
@@ -60,13 +22,13 @@ export class OverviewComponent implements OnInit {
     searchInput$: Subject<any> = new Subject<any>();
     isLoading: boolean;
     searchResult: CoffeeLabGlobalSearchResult;
+    currentTabIndex: number;
 
     constructor(
-        public globals: GlobalsService,
-        private titleCasePipe: TitleCasePipe,
         private coffeeLabService: CoffeeLabService,
         private router: Router,
         private route: ActivatedRoute,
+        private translateService: TranslateService,
     ) {
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
             this.startSearch();
@@ -80,9 +42,62 @@ export class OverviewComponent implements OnInit {
 
     ngOnInit(): void {
         this.breadcrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            { label: this.globals.languageJson?.brand_and_experience },
-            { label: this.titleCasePipe.transform(this.globals.languageJson?.the_coffee_lab) },
+            { label: this.translateService.instant('home'), routerLink: '/' },
+            { label: this.translateService.instant('brand_and_experience') },
+            { label: this.translateService.instant('the_coffee_lab') },
+        ];
+        if (this.route.firstChild.snapshot.routeConfig.path === 'qa-forum') {
+            this.changeH1Title(0);
+        } else if (this.route.firstChild.snapshot.routeConfig.path === 'articles') {
+            this.changeH1Title(1);
+        } else if (this.route.firstChild.snapshot.routeConfig.path === 'coffee-recipes') {
+            this.changeH1Title(2);
+        } else {
+            this.changeH1Title(3);
+        }
+        this.menuItems = [
+            {
+                label: 'qa_forum',
+                routerLink: 'qa-forum',
+                icon: 'assets/images/qa-forum.svg',
+                activeIcon: 'assets/images/qa-forum-active.svg',
+                command: () => this.changeH1Title(0),
+            },
+            {
+                label: 'posts',
+                routerLink: 'articles',
+                icon: 'assets/images/article.svg',
+                activeIcon: 'assets/images/article-active.svg',
+                command: () => this.changeH1Title(1),
+            },
+            {
+                label: 'brewing_guides',
+                routerLink: 'coffee-recipes',
+                icon: 'assets/images/coffee-recipe.svg',
+                activeIcon: 'assets/images/coffee-recipe-active.svg',
+                command: () => this.changeH1Title(2),
+            },
+            {
+                label: 'my_posts',
+                routerLink: 'my-posts',
+                icon: 'assets/images/my-posts.svg',
+                activeIcon: 'assets/images/my-posts-active.svg',
+                command: () => this.changeH1Title(3),
+            },
+            {
+                label: 'saved_posts',
+                routerLink: 'saved-posts',
+                icon: 'assets/images/saved-post.svg',
+                activeIcon: 'assets/images/saved-post-active.svg',
+                command: () => this.changeH1Title(4),
+            },
+            {
+                label: 'assigned_to_me',
+                routerLink: 'assigned-to-me',
+                icon: 'assets/images/assigned-to-me.svg',
+                activeIcon: 'assets/images/assigned-to-me-active.svg',
+                command: () => this.changeH1Title(5),
+            },
         ];
     }
 
@@ -133,5 +148,14 @@ export class OverviewComponent implements OnInit {
         this.isGlobalSearchResultPage = false;
         this.keyword = '';
         this.router.navigate([], { relativeTo: this.route, queryParams: { search: '' }, queryParamsHandling: 'merge' });
+    }
+
+    changeH1Title(index: number) {
+        this.currentTabIndex = index;
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

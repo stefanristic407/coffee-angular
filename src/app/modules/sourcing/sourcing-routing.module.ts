@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '@guards';
+import { OrderType } from '@enums';
 
 import { SourcingComponent } from './sourcing/sourcing.component';
 import { EstateListComponent } from './estate-list/estate-list.component';
@@ -37,13 +38,13 @@ const routes: Routes = [
         path: 'buy-gc',
         component: AvailableConfirmOrderComponent,
         canActivate: [AuthGuard],
-        data: { orderType: 'booked' },
+        data: { orderType: OrderType.Booked },
     },
     {
         path: 'order-gc-sample',
         component: AvailableConfirmOrderComponent,
         canActivate: [AuthGuard],
-        data: { orderType: 'sample' },
+        data: { orderType: OrderType.Sample },
     },
     {
         path: 'prebook-lot/:estateId/:lotId',

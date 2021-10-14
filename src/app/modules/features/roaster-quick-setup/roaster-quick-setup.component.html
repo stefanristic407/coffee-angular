@@ -11,7 +11,7 @@
                         Invite
                         {{
                             orgType === OrgType.MICRO_ROASTER
-                                ? 'Micro-Roaster'
+                                ? 'Micro-roaster'
                                 : ('roasted_coffee_customers' | translate)
                         }}
                     </div>
@@ -34,16 +34,21 @@
                             </div>
                             <div class="row gutter-24 mb-2 mb-md-0">
                                 <div class="sewn-form-field col-md-4">
-                                    <label>{{ 'name' | translate }}<span class="star">*</span></label>
+                                    <label
+                                        >{{
+                                            (orgType === OrgType.MICRO_ROASTER ? 'roastery_name' : 'company_name')
+                                                | translate
+                                        }}<span class="star">*</span></label
+                                    >
                                     <input
                                         pInputText
                                         class="w-100"
-                                        placeholder="Enter your Full Name"
+                                        [placeholder]="'enter_company_name' | translate"
                                         [formControl]="invite.controls.name"
                                         type="text"
                                     />
                                     <small class="p-error" *ngIf="invite.controls.name.errors?.required">
-                                        Please enter the full name
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                                 <div class="sewn-form-field col-md-4">
@@ -56,20 +61,22 @@
                                         [formControl]="invite.controls.email"
                                     />
                                     <small class="p-error" *ngIf="invite.controls.email.errors?.required">
-                                        Please enter the email
+                                        {{ 'required' | translate }}
+                                    </small>
+                                    <small class="p-error" *ngIf="invite.controls.email.errors?.email">
+                                        {{ 'please_enter_valid_mail_address' | translate }}
                                     </small>
                                 </div>
                                 <div class="sewn-form-field col-md-3" *ngIf="orgType == OrgType.HORECA">
-                                    <label>{{ 'enter_yoru_work_type' | translate }}<span class="star">*</span> </label>
+                                    <label>{{ 'enter_yoru_work_type' | translate }}</label>
                                     <p-dropdown
                                         [options]="companyTypeList"
                                         [formControl]="invite.controls.type"
-                                        [style]="{ width: '100%' }"
                                         placeholder="Company Type"
                                     >
                                     </p-dropdown>
                                     <small class="p-error" *ngIf="invite.controls.type.errors?.required">
-                                        Please select a work type
+                                        {{ 'required' | translate }}
                                     </small>
                                 </div>
                                 <div class="col-auto delete-wrap d-none d-md-block" *ngIf="i">
@@ -97,7 +104,7 @@
                                 class="invite-btn btn-raised mb-3 w-mob-100 order-1 order-md-2"
                                 [class.loading]="inviteStatus === 'SENDING'"
                                 (click)="sendInvite()"
-                                [disabled]="inviteFormArray.invalid || inviteStatus === 'SENDING'"
+                                [disabled]="inviteStatus === 'SENDING'"
                             >
                                 <span>{{ (inviteStatus === 'SENDING' ? 'sending' : 'send_invites') | translate }}</span>
                             </button>

@@ -1,5 +1,3 @@
-// Custom Theming for Prime Ng
-
 @import '../variables';
 
 .p-autocomplete-panel {
@@ -22,4 +20,39 @@
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {
     color: $general-text-color;
     background: $primary-bg-color;
+}
+
+.p-autocomplete .p-autocomplete-multiple-container {
+    padding: 0.4375rem 0.625rem 0.1875rem !important;
+
+    &:not(.p-disabled):hover,
+    &:not(.p-disabled).p-focus {
+        box-shadow: none;
+        border-color: $primary-color;
+    }
+
+    .p-autocomplete-input-token {
+        padding: 0.5rem 0;
+        margin-bottom: 4px;
+        input {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: $general-font-family;
+            color: $muted-text-color;
+        }
+    }
+
+    .p-autocomplete-token {
+        padding: 0.5rem 1rem;
+        margin-right: 0.75rem;
+        margin-bottom: 4px;
+        background: rgba(116, 117, 136, 0.16);
+        color: $general-text-color;
+        border-radius: 17px;
+
+        .p-autocomplete-token-icon::before {
+            content: '\e90b';
+            color: $button-icon-color;
+        }
+    }
 }

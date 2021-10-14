@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { languages } from '@constants';
-import { GlobalsService } from '@services';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-translation-dropdown',
@@ -11,17 +10,68 @@ import { Router } from '@angular/router';
 export class TranslationDropdownComponent implements OnInit {
     @Input() translatedList: any[] = [];
     @Input() forumType?: string;
-    languages = languages;
+    isPostType: any;
 
-    constructor(public globalsService: GlobalsService, private router: Router) {}
+    constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private coffeeLabService: CoffeeLabService,
+    ) {
+        this.activatedRoute.queryParams.subscribe((res) => {
+            this.isPostType = res;
+        });
+    }
 
     ngOnInit(): void {}
 
     onChangeTranslate(event: any): void {
-        if (this.forumType === 'question') {
-            this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`]);
+        this.coffeeLabService.forumLanguage.next(event.value.language);
+        if (this.isPostType.isMyPost) {
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                    queryParams: { isMyPost: this.isPostType.isMyPost },
+                });
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                    queryParams: { isMyPost: this.isPostType.isMyPost },
+                });
+            }
+        } else if (this.isPostType.isSavedPost) {
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                    queryParams: { isSavedPost: this.isPostType.isSavedPost },
+                });
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                    queryParams: { isSavedPost: this.isPostType.isSavedPost },
+                });
+            }
+        } else if (this.isPostType.isAssignedToMe) {
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                    queryParams: { isAssignedToMe: this.isPostType.isAssignedToMe },
+                });
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                    queryParams: { isAssignedToMe: this.isPostType.isAssignedToMe },
+                });
+            }
+        } else if (this.isPostType.isMyAnswer) {
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                    queryParams: { isMyAnswer: this.isPostType.isMyAnswer },
+                });
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                    queryParams: { isMyAnswer: this.isPostType.isMyAnswer },
+                });
+            }
         } else {
-            this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`]);
+            if (this.forumType === 'question') {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`]);
+            } else {
+                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`]);
+            }
         }
     }
 }

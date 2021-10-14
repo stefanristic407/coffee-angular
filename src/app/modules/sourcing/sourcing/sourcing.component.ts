@@ -5,7 +5,6 @@ import { GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
 import { FilterComponent } from '../filter/filter.component';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { extend } from 'hammerjs';
 import { DestroyableComponent } from '@base-components';
 import { GRADE_ITEMS, MONTH_LIST } from '@constants';
 
@@ -23,6 +22,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: 'Yes', value: 1 },
         { label: 'No', value: 0 },
     ];
+    shippingAvailableItems: any[] = [{ label: 'Yes', value: true }];
     weightItems: any[] = [
         { label: 'lb', value: 'lb' },
         { label: 'kg', value: 'kg' },
@@ -46,6 +46,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         ];
         this.sourcingSrv.showUnitFilter = false;
         this.sourcingSrv.showAvailableFilter = true;
+        this.sourcingSrv.showAvailableFilter = false;
         this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();

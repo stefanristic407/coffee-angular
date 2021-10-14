@@ -64,7 +64,7 @@ export class PrivacyPolicyComponent implements OnInit {
                 this.userService.updatePrivacyTerms(data).subscribe((res: any) => {
                     if (res.success) {
                         this.toastrService.success('Privacy terms accepted.');
-                        this.router.navigate(['/roaster-dashboard']);
+                        this.router.navigate(['/']);
                     } else {
                         this.toastrService.error('Error in accepting privacy terms. Please try again');
                     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UplaodService } from '@services';
+import { DownloadService, UploadService } from '@services';
 
 @Component({
     selector: 'app-upload-info',
@@ -7,7 +7,7 @@ import { UplaodService } from '@services';
     styleUrls: ['./upload-info.component.scss'],
 })
 export class UploadInfoComponent implements OnInit {
-    constructor(public uploadService: UplaodService) {}
+    constructor(public uploadService: UploadService, public downloadService: DownloadService) {}
 
     ngOnInit(): void {}
 }

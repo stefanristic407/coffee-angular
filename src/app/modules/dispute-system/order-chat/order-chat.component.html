@@ -49,7 +49,7 @@
                         [ngStyle]="{ 'z-index': threadUserList.length - i }"
                     >
                         <app-user-detail
-                            [imageUrl]="user.profile_pic || 'assets/images/profile.svg'"
+                            [imageUrl]="user.profile_pic"
                             [userId]="user.user_id"
                             [orgType]="user.org_type"
                             size="36"
@@ -109,7 +109,7 @@
                         }"
                     >
                         <app-user-detail
-                            [imageUrl]="user.profile_pic || 'assets/images/profile.svg'"
+                            [imageUrl]="user.profile_pic"
                             [userId]="user.user_id"
                             [orgType]="user.org_type"
                             size="36"
@@ -119,14 +119,21 @@
                 </div>
 
                 <div class="orderDiv pl-3">
-                    <p class="fnt-14 fnt-600 text-clr588 nowrap m-0">{{ 'order_type' | translate }}</p>
+                    <p class="fnt-14 fnt-600 text-clr588 nowrap m-0">{{ 'type_of_order' | translate }}</p>
                     <p class="fnt-14 fnt-bold text-clr334 m-0" style="margin-top: 2px !important">
                         {{ orderDetails?.order_type }}&nbsp;
                     </p>
                 </div>
             </div>
             <div
-                class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end p-0"
+                class="
+                    col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4
+                    no-gutters
+                    d-flex
+                    align-items-center
+                    justify-content-end
+                    p-0
+                "
             >
                 <span class="text-highlited pr-3 pr-md-0" (click)="navigateAssignUser()">
                     {{ 'change_assigned_user' | translate }}</span

@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, OnDestroy, Renderer2, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { OrganizationType } from '@enums';
-import { RoasterserviceService, GlobalsService, AuthService } from '@services';
+import { RoasterService, GlobalsService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { fromEvent, interval, Subscription } from 'rxjs';
@@ -36,7 +36,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         public globals: GlobalsService,
         private route: ActivatedRoute,
         public router: Router,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private toasterService: ToastrService,
         private elRef: ElementRef,

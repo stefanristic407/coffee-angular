@@ -18,7 +18,11 @@
                         <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field">
-                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
+                            <app-brand-uploader
+                                formControlName="banner_file"
+                                [width]="1440"
+                                [height]="465"
+                            ></app-brand-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -26,7 +30,7 @@
 
                         <div class="w-100 sewn-form-field mb-0">
                             <label>
-                                Banner Title<span class="star">*</span>
+                                {{ 'banner_title' | translate }}<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('banner_title').value | wordCount }}/10 words
                                 </span>
@@ -100,7 +104,11 @@
                             <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
                                 Size - 495 x 536 px
                             </p>
-                            <app-uploader formControlName="intro_file_1" [width]="495" [height]="536"></app-uploader>
+                            <app-brand-uploader
+                                formControlName="intro_file_1"
+                                [width]="495"
+                                [height]="536"
+                            ></app-brand-uploader>
                             <small *ngIf="infoForm.controls.intro_file_1.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -109,7 +117,7 @@
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
-                            {{ 'who_we_are' | translate | titlecase }}
+                            {{ 'who_we_are' | translate }}
                         </h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             {{ 'give_a_more_detailed_brief_on_your_work' | translate }}
@@ -159,7 +167,11 @@
                             <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
                                 Size - 600 x 543 px
                             </p>
-                            <app-uploader formControlName="file" [width]="600" [height]="543"></app-uploader>
+                            <app-brand-uploader
+                                formControlName="file"
+                                [width]="600"
+                                [height]="543"
+                            ></app-brand-uploader>
                             <small *ngIf="infoForm.controls.file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -168,7 +180,7 @@
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
-                            {{ 'your_team_members' | translate | titlecase }}
+                            {{ 'your_team_members' | translate }}
                         </h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Select your emplyees to display on your website page

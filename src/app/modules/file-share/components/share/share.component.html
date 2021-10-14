@@ -1,53 +1,128 @@
-<form [formGroup]="infoForm" class="mt-4 mt-md-45 mb-2">
+<form [formGroup]="infoForm" class="mt-4 mt-md-45">
     <div class="w-100 sewn-form-field">
-        <label> {{ 'Enter a name or email' | translate }}<span class="star">*</span> </label>
+        <label> {{ 'enter_a_name_and_select' | translate }}<span class="star">*</span> </label>
         <div class="input-and-select">
             <p-autoComplete
-                formControlName="user"
+                formControlName="users"
                 [suggestions]="usersList"
-                field="name"
+                field="nameWithOrg"
                 [forceSelection]="true"
+                [multiple]="true"
                 (completeMethod)="getUsersList($event)"
-                (onShow)="isOpened = true"
-                (onHide)="isOpened = false"
-                placeholder="{{ 'Enter a name or email' | translate }}"
+                placeholder="{{ 'enter_a_name_and_select' | translate }}"
                 scrollHeight="225px"
             >
+                <ng-template let-item pTemplate="item">
+                    <div class="d-flex">
+                        <app-avatar [src]="item.profile_image_url" [size]="36"></app-avatar>
+                        <div class="ml-2">
+                            <div class="fnt-bold mb-1">{{ item.name }}</div>
+                            <div class="fnt-12 fnt-600 text-clr588">
+                                {{
+                                    (item.organization_type | lowercase) === OrgType.SEWN_ADMIN
+                                        ? 'Era of We'
+                                        : (item.organization_type | orgType)
+                                }}
+                                {{ item.organization_name ? '- ' + item.organization_name : '' }}
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
             </p-autoComplete>
             <p-dropdown
                 [options]="permissionItems.slice(0, 2)"
                 formControlName="permission"
                 [style]="{ width: '115px' }"
             ></p-dropdown>
-            <small *ngIf="infoForm.controls.user.errors?.required" class="p-error"> Required </small>
+            <small *ngIf="infoForm.controls.users.errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
     </div>
 </form>
 
 <div [class.existing-min]="usersList?.length && isOpened">
-    <div *ngIf="sharedUsers?.length" class="pb-5">
-        <div class="fnt-14 fnt-md-16 fnt-700 text-clr334 mb-4 mb-lg-45">
-            {{ 'existing_members' | translate }}
+    <div class="pb-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <app-user-detail
+                    [imageUrl]="record.owner_profile_image_thumb_url"
+                    [userId]="record.created_by_id"
+                    [orgType]="record.owner_organization_type"
+                    size="35"
+                ></app-user-detail>
+                <div class="ml-2">
+                    <div class="fnt-bold mb-1">{{ record.owner_name }}</div>
+                    <div class="fnt-12 fnt-600 text-clr588">
+                        {{
+                            (record.owner_organization_type | lowercase) === OrgType.SEWN_ADMIN
+                                ? 'Era of We'
+                                : (record.owner_organization_type | orgType)
+                        }}
+                        {{ record.owner_organization_name ? '- ' + record.owner_organization_name : '' }}
+                    </div>
+                </div>
+            </div>
+            <div class="fnt-600 bg-f8 br-4 owner-wrap">{{ 'owner' | translate }}</div>
         </div>
-        <ng-container *ngFor="let item of sharedUsers; index as i">
-            <div *ngIf="i" class="divider w-100 mt-3 mb-3"></div>
+
+        <ng-container *ngFor="let item of infoForm.value.users; index as i">
+            <div class="divider w-100 mt-3 mb-3"></div>
             <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
+                <div class="d-flex">
+                    <app-user-detail
+                        [imageUrl]="item.profile_image_url"
+                        [userId]="item.created_by_id"
+                        [orgType]="item.organization_type"
+                        size="35"
+                    ></app-user-detail>
+                    <div class="ml-2">
+                        <div class="fnt-bold mb-1">{{ item.name }}</div>
+                        <div class="fnt-12 fnt-600 text-clr588">
+                            {{
+                                (item.organization_type | lowercase) === OrgType.SEWN_ADMIN
+                                    ? 'Era of We'
+                                    : (item.organization_type | orgType)
+                            }}
+                            {{ item.organization_name ? '- ' + item.organization_name : '' }}
+                        </div>
+                    </div>
+                </div>
+                <p-dropdown
+                    [options]="permissionItems"
+                    [(ngModel)]="item.permission"
+                    styleClass="no-border gray"
+                ></p-dropdown>
+            </div>
+        </ng-container>
+
+        <ng-container *ngFor="let item of sharedUsers; index as i">
+            <div class="divider w-100 mt-3 mb-3"></div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex">
                     <app-user-detail
                         [imageUrl]="item.thumb_image"
                         [userId]="item.user_id"
                         [orgType]="item.company_type"
                         size="35"
                     ></app-user-detail>
-                    <span class="fnt-14 fnt-md-16 fnt-600 text-clr334 ml-2"
-                        >{{ item.firstname }} {{ item.lastname }}</span
-                    >
+                    <div class="ml-2">
+                        <div class="fnt-bold mb-1">{{ item.firstname }} {{ item.lastname }}</div>
+                        <div class="fnt-12 fnt-600 text-clr588">
+                            {{
+                                (item.company_type | lowercase) === OrgType.SEWN_ADMIN
+                                    ? 'Era of We'
+                                    : (item.company_type | orgType)
+                            }}
+                            {{ item.company_name ? '- ' + item.company_name : '' }}
+                        </div>
+                    </div>
                 </div>
                 <p-dropdown
                     [options]="permissionItems"
                     [(ngModel)]="item.permission"
                     (ngModelChange)="updatePermission(item)"
-                    styleClass="no-border"
+                    styleClass="no-border gray"
                 ></p-dropdown>
             </div>
         </ng-container>
@@ -60,7 +135,7 @@
     <div class="fnt-mb-12 fnt-600 text-clr588 col-md-8 px-0 m-0 text-center text-md-left pb-5 pb-md-0">
         {{ 'admin_notice_text' | translate }}
     </div>
-    <button type="button" class="btn-raised w-mob-100" [class.loading]="submitted" (click)="share()">
+    <button type="button" class="btn-raised w-mob-100" [class.loading]="submitted" (click)="onShare()">
         <span>{{ 'share' | translate }}</span>
     </button>
 </div>

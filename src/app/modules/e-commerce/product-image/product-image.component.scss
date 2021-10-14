@@ -1,0 +1,39 @@
+@import 'variables';
+
+.addImageContainer {
+    height: 130px;
+    border: 1px solid $primary-border-color;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    @media screen and (max-width: 991px) {
+        width: 212px;
+    }
+    @media screen and (max-width: 767px) {
+        width: 130px;
+    }
+}
+
+.uploadImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.imageLabel {
+    background-color: rgba(116, 117, 136, 0.45);
+    width: calc(100% - 8px);
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    padding: 4px 4px 4px 8px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+::ng-deep .ng-invalid.ng-touched > .addImageContainer {
+    border-color: $error-border-color;
+}

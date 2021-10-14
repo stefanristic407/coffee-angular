@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
-import { GlobalsService } from '@services';
+import { GlobalsService, ValidateEmailService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
 import { Country } from '@models';
-import { urlValidator } from '@utils';
+import { urlValidator, emailValidator } from '@utils';
 @Component({
     selector: 'app-sewn-contact',
     templateUrl: './contact.component.html',
@@ -23,6 +23,7 @@ export class ContactComponent implements OnInit {
         private fb: FormBuilder,
         public roasteryProfileService: RoasteryProfileService,
         public globals: GlobalsService,
+        private validateService: ValidateEmailService,
     ) {}
 
     ngOnInit(): void {
@@ -41,7 +42,7 @@ export class ContactComponent implements OnInit {
 
     initialForm() {
         this.contactForm = this.fb.group({
-            email: ['', Validators.compose([Validators.required, Validators.email])],
+            email: ['', Validators.compose([Validators.required]), emailValidator(this.validateService)],
             phone: ['', Validators.compose([Validators.required])],
             country: ['', Validators.compose([Validators.required])],
             state: [''],
@@ -49,9 +50,10 @@ export class ContactComponent implements OnInit {
             address_line2: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],
             zipcode: [''],
-            fb_profile: ['', Validators.compose([urlValidator()])],
-            ig_profile: ['', Validators.compose([urlValidator()])],
+            fb_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
+            ig_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
         });
+        this.roasteryProfileService.contactForm = this.contactForm;
 
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {
             this.countryList.forEach((countryItem: Country) => {
@@ -68,7 +70,7 @@ export class ContactComponent implements OnInit {
         });
 
         this.contactForm.valueChanges.subscribe((changedData: any) => {
-            this.roasteryProfileService.contactFormInvalid = this.contactForm.invalid;
+            this.roasteryProfileService.contactFormInvalid = !this.contactForm.valid;
             this.roasteryProfileService.editProfileData(changedData);
         });
     }

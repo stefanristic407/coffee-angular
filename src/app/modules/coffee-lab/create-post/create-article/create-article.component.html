@@ -1,7 +1,25 @@
 <div>
     <div [formGroup]="articleForm" novalidate>
+        <div class="mb-3 mb-md-4 sewn-form-field pl-0 mt-4 col-12 w-100">
+            <label class="mb-1">{{ 'language' | translate }}</label>
+            <span class="text-clr588 mb-3">{{ 'language_down_text' | translate }}</span>
+            <p-dropdown
+                [options]="languageList"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="language"
+                (onChange)="changeLanguage($event)"
+                class="inputFieldBox bg-white col-md-5 col-12 pl-0 pr-0"
+                [disabled]="article?.original_article?.id"
+            >
+            </p-dropdown>
+        </div>
         <div class="col-12 sewn-form-field p-0">
-            <div class="addImageContainer d-flex align-items-center justify-content-center">
+            <label>{{ 'cover_image' | translate }}</label>
+            <div
+                class="addImageContainer d-flex align-items-center justify-content-center"
+                [ngClass]="{ 'text-area': !coverImageId && clicked }"
+            >
                 <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image" />
                 <label class="cursor-pointer">
                     <input
@@ -11,25 +29,16 @@
                         hidden
                         (change)="onFileChange($event)"
                     />
-                    <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
+                    <div class="d-flex flex-column align-items-center mt-2" *ngIf="!coverImageUrl">
                         <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
-                            >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
-                        >
-                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
-                            >({{ 'max_size' | translate }} 2mb)</span
-                        >
+                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25">{{
+                            'add_cover_image' | translate
+                        }}</span>
                     </div>
                 </label>
-                <img
-                    class="mv-change-icon d-md-none cursor-pointer"
-                    *ngIf="coverImageUrl"
-                    (click)="coverFileInput.click()"
-                    src="assets/images/camera.svg"
-                />
                 <div class="image-btn-group d-flex" *ngIf="coverImageUrl">
                     <button
-                        class="btn-raised d-none d-md-flex mr-2"
+                        class="btn-raised mr-2"
                         (click)="coverFileInput.click()"
                         pButton
                         label="{{ 'replace_image' | translate }}"
@@ -38,7 +47,7 @@
                         pButton
                         icon="pi pi-trash"
                         iconPos="left"
-                        class="fnt-14 btn-trans-nb d-none d-md-flex"
+                        class="fnt-14 btn-stroked"
                         (click)="deleteCoverImage(coverFileInput)"
                         label="{{ 'delete' | translate }}"
                     ></button>
@@ -46,54 +55,118 @@
             </div>
         </div>
         <div class="col-12 sewn-form-field p-0">
+            <label
+                >{{ 'title' | translate }}
+                <span class="pull-right text-clr588"
+                    >{{ articleForm.get('title')?.value?.length }}/120
+                    {{ 'characters' | translate }}
+                </span>
+            </label>
             <textarea
+                class="min-hght"
                 [placeholder]="'give_a_title' | translate"
                 pInputTextarea
                 formControlName="title"
-                [rows]="1"
+                autoResize="autoResize"
             ></textarea>
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
+            <small *ngIf="articleForm.controls['title'].errors?.maxlength" class="p-error">
+                Please input 120 characters
+            </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
+            <label
+                >{{ 'subtitle' | translate }}
+                <span class="pull-right text-clr588">
+                    {{ articleForm.get('subtitle')?.value | wordCount }}/20 words
+                </span>
+            </label>
             <textarea
-                [placeholder]="'subtitle' | translate"
+                class="min-hght"
+                placeholder="Add a short description about your article"
                 pInputTextarea
                 formControlName="subtitle"
-                [rows]="1"
+                autoResize="autoResize"
             ></textarea>
             <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
             <small *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount" class="p-error">
-                Please input 30 words
+                Please input 20 words
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
+            <label>{{ 'body' | translate }}</label>
             <app-forum-editor
-                [(content)]="content"
+                formControlName="content"
                 [(isUploadingImage)]="isUploadingImage"
+                [placeholder]="'Start typing your article'"
                 [(imageIdList)]="imageIdList"
                 fileModule="cl-articles"
                 [images]="images"
             ></app-forum-editor>
+            <small *ngIf="articleForm.get('content').errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
-        <div class="d-flex align-items-center">
-            <p-checkbox
-                [binary]="true"
-                [label]="globals.languageJson?.allow_translations_by_other_authors"
-                formControlName="allow_translation"
-            ></p-checkbox>
-            <app-info-tooltip
-                [title]="'translations' | translate"
-                [description]="'translation-tooltip' | translate"
-            ></app-info-tooltip>
+        <div class="mb-3 mb-md-4 sewn-form-field pl-0 col-12 w-100">
+            <label class="mb-1">{{ 'categories' | translate }}</label>
+            <p-multiSelect
+                [options]="categoryList"
+                [(ngModel)]="categoryValue"
+                optionLabel="name"
+                dataKey="id"
+                [ngModelOptions]="{ standalone: true }"
+                [filter]="false"
+                [maxSelectedLabels]="0"
+                scrollHeight="225px"
+                [showHeader]="false"
+                placeholder="Select relevant categories"
+                styleClass="article-dropdown"
+            >
+                <ng-template pTemplate="footer">
+                    <span class="d-block w-100 text-center my-2 navigation-link" (click)="resetCategory()">
+                        {{ 'clear' | translate }}
+                    </span>
+                </ng-template>
+            </p-multiSelect>
+            <p-chips
+                *ngIf="categoryValue"
+                [(ngModel)]="categoryValue"
+                field="name"
+                [ngModelOptions]="{ standalone: true }"
+                [allowDuplicate]="false"
+                styleClass="p-category-chips"
+                class="mt-2"
+            >
+            </p-chips>
+        </div>
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
+            <div class="d-flex">
+                <p-checkbox
+                    [binary]="true"
+                    [label]="globals.languageJson?.allow_translations_by_other_authors"
+                    formControlName="allow_translation"
+                ></p-checkbox>
+                <app-info-tooltip
+                    [title]="'translations' | translate"
+                    [description]="'translation-tooltip' | translate"
+                ></app-info-tooltip>
+            </div>
         </div>
         <div class="row pt-45 pt-lg-5">
             <div class="col-md-6 order-2 order-md-1">
                 <button routerLink="/coffee-lab/overview/articles" class="btn-stroked px-4 w-mob-100 mb-2 mb-md-0">
                     {{ 'cancel' | translate }}
+                </button>
+                <button
+                    *ngIf="status === 'draft'"
+                    (click)="onDeleteDraft()"
+                    class="btn-stroked ml-md-3 px-4 order-2 order-md-1 w-mob-100 mt-2 mt-md-0"
+                >
+                    {{ 'delete' | translate }}
                 </button>
             </div>
             <div class="col-md-6 order-1 order-md-2">
@@ -103,14 +176,14 @@
                         (click)="onPost('draft')"
                         class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
                     >
-                        {{ 'save_as_draft' | translate }}
+                        {{ (status === 'draft' ? 'save_changes' : 'save_as_draft') | translate }}
                     </button>
                     <button
                         [disabled]="isPosting"
                         (click)="onPost('published')"
-                        class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+                        class="btn-raised px-4 ml-md-3 mr-md-2 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
                     >
-                        {{ (articleId ? 'save_changes' : 'submit') | translate }}
+                        {{ (articleId ? 'save_publish_changes' : 'publish') | translate }}
                     </button>
                 </div>
             </div>

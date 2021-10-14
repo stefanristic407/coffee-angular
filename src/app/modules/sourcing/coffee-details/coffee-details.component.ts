@@ -1,13 +1,13 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
-import { Lightbox } from 'ng-gallery/lightbox';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ResizeService } from '@services';
-import { SourcingService } from '../sourcing.service';
 import { ResizeableComponent } from '@base-components';
 import { CURRENCY_LIST } from '@constants';
-import { Location } from '@angular/common';
+import { AuthService, ResizeService } from '@services';
+import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
+import { Lightbox } from 'ng-gallery/lightbox';
+import { ToastrService } from 'ngx-toastr';
+import { SourcingService } from '../sourcing.service';
 
 @Component({
     selector: 'app-coffee-details',
@@ -18,17 +18,18 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
     public readonly CURRENCY_LIST = CURRENCY_LIST;
     items: GalleryItem[];
     isLoaded = false;
+    buyable = false;
 
     constructor(
+        private authService: AuthService,
         private route: ActivatedRoute,
         private router: Router,
+        private toastrService: ToastrService,
+        protected resizeService: ResizeService,
         public gallery: Gallery,
         public lightbox: Lightbox,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        protected resizeService: ResizeService,
-        public sourcing: SourcingService,
         public location: Location,
+        public sourcing: SourcingService,
     ) {
         super(resizeService);
         this.route.paramMap.subscribe((params) => {
@@ -49,6 +50,14 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
         this.sourcing.lot = null;
         new Promise((resolve, reject) => this.sourcing.availableDetailList(resolve, reject))
             .then(() => {
+                this.buyable =
+                    this.sourcing.harvestDetail &&
+                    this.sourcing.harvestDetail.minimum_purchase_quantity <=
+                        this.sourcing.harvestDetail.quantity_count &&
+                    this.sourcing.harvestDetail.shipping_to.find(
+                        (ix) => ix.toLowerCase() === this.authService.currentOrganization.country.toLowerCase(),
+                    );
+
                 this.galleryImages();
                 this.sourcing.estateId = this.sourcing.harvestDetail.estate_id;
                 this.sourcing.estateDetailList();

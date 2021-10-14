@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoffeeLabService } from '@services';
+import { ConfirmComponent } from '@app/shared';
+import { APP_LANGUAGES } from '@constants';
+import { CoffeeLabService, GlobalsService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-translate-recipe',
@@ -9,13 +13,107 @@ import { CoffeeLabService } from '@services';
 })
 export class TranslateRecipeComponent implements OnInit {
     selectedTab = 0;
+    tranalatedLangs = [];
     id: any;
-    constructor(private route: ActivatedRoute, public router: Router, private coffeeLabService: CoffeeLabService) {
-        this.id = this.route.snapshot.queryParamMap.get('origin_id');
+    draftId: string;
+    isMobile = false;
+    showNoDataSection = false;
+    allLanguage: any[] = APP_LANGUAGES;
+    recipeSlug: string;
+    remainingLangugage = [];
+
+    constructor(
+        private route: ActivatedRoute,
+        public router: Router,
+        private coffeeLabService: CoffeeLabService,
+        private dialogService: DialogService,
+        private toastService: ToastrService,
+        private globalsService: GlobalsService,
+    ) {
+        this.route.queryParams.subscribe((params) => {
+            this.id = params.origin_id;
+            this.draftId = params.draft_id;
+        });
+
+        this.isMobile = window.innerWidth < 767;
     }
 
     ngOnInit(): void {}
-    onSave(): void {
-        this.coffeeLabService.originalPost.next(true);
+
+    onSave(status: boolean): void {
+        if (status) {
+            this.coffeeLabService.originalPost.next(true);
+        } else {
+            this.coffeeLabService.draftPost.next(true);
+        }
+    }
+
+    onChangeTab(event) {
+        this.selectedTab = event.index;
+        this.checkDraft();
+    }
+
+    checkTranslationExits(emitedObject) {
+        this.recipeSlug = emitedObject?.slug;
+        this.allLanguage.forEach((item) => {
+            const isTranslate = emitedObject?.translation?.find((trans) => item.value === trans.language);
+            if (!isTranslate && emitedObject.lang_code !== item.value) {
+                this.remainingLangugage.push(item);
+            }
+        });
+        this.checkDraft();
+        if (this.remainingLangugage.length === 0) {
+            this.showNoDataSection = true;
+            this.toastService.error(this.globalsService.languageJson?.no_language_available_translated);
+        }
+    }
+
+    checkDraft() {
+        const draft = this.coffeeLabService.allDrafts.value.find((item) => {
+            return (
+                item.parent_id === +this.id &&
+                item.post_type === 'recipe' &&
+                item.language === this.remainingLangugage[this.selectedTab].value
+            );
+        });
+        if (draft) {
+            this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
+                queryParams: {
+                    origin_id: this.id,
+                    draft_id: draft.post_id,
+                    type: 'recipe',
+                },
+            });
+        } else {
+            this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
+                queryParams: {
+                    origin_id: this.id,
+                    type: 'recipe',
+                },
+            });
+        }
+    }
+
+    onDeleteDraft(): void {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService.deleteForumById('recipe', this.draftId).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastService.success(`Draft recipe deleted successfully`);
+                            this.coffeeLabService.forumDeleteEvent.emit();
+                            this.router.navigateByUrl('/coffee-lab/overview/coffee-recipes');
+                        } else {
+                            this.toastService.error(`Failed to delete a forum.`);
+                        }
+                    });
+                }
+            });
     }
 }

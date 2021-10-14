@@ -1,0 +1,21 @@
+@import 'variables';
+
+.file-wrap {
+    position: relative;
+    background: $primary-bg-color;
+    border-radius: 3px;
+    padding: 6px 30px 6px 16px;
+
+    i {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+            transform: translateY(-50%) scale(1.5);
+        }
+    }
+}

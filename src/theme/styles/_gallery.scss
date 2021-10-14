@@ -1,4 +1,4 @@
-/***********Slider Css***********/
+/***********Gallery style***********/
 
 .g-image-item {
     background-size: cover !important;
@@ -12,33 +12,33 @@
 .g-nav-next {
     position: absolute;
     top: auto !important;
-    bottom: 4%;
-    width: 20px;
-    height: 20px;
+    bottom: 5%;
+    left: auto !important;
+    width: 20px !important;
+    height: 20px !important;
     cursor: pointer;
     z-index: 999;
     transform: none !important;
+
+    svg {
+        display: none;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: 99;
+        width: 40px;
+        height: 40px;
+        top: 0;
+    }
 }
 
+.g-nav-next {
+    right: 1.5em !important;
+}
 .g-nav-prev {
-    right: 2.75em;
-    left: auto !important;
-}
-
-.g-nav-prev svg,
-.g-nav-next svg {
-    display: none;
-}
-
-.g-nav-prev:before,
-.g-nav-next:before {
-    content: '';
-    position: absolute;
-    z-index: 99;
-    width: 40px;
-    height: 40px;
-    top: 0;
-    right: 5px;
+    right: 3.5em;
 }
 
 .g-nav-prev:before {
@@ -70,10 +70,21 @@
     border-radius: 2px;
 }
 
-.g-thumbs-container {
-    margin-top: 10px;
-    .ng-star-inserted {
-        padding-right: 12px !important;
-        border-radius: 4px;
+.g-box {
+    margin-bottom: 12px;
+    @media (min-width: 768px) {
+        margin-bottom: 8px;
     }
+}
+
+.g-thumbs-container .ng-star-inserted {
+    padding-right: 12px !important;
+    border-radius: 2px;
+    @media (min-width: 768px) {
+        padding-right: 8px !important;
+    }
+}
+
+gallery-thumb {
+    opacity: 0.7;
 }

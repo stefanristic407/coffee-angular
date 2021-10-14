@@ -22,6 +22,21 @@
     .custom-search {
         max-width: 320px;
     }
+    .custom-search.text-feild-width-fix {
+        min-width: 270px;
+    }
+}
+
+::ng-deep .order-calendar-width {
+    .p-calendar {
+        width: 136px !important;
+    }
+}
+
+::ng-deep .mob-tab-order .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    @media screen and (max-width: 767px) {
+        padding: 0.25rem 2.5rem 0.5rem 2.5rem !important;
+    }
 }
 .extra-width {
     width: 150px;

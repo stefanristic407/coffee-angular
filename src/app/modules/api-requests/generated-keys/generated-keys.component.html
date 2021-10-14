@@ -1,6 +1,5 @@
 <div *ngIf="loader">
-    <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-    <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+    <app-loading></app-loading>
 </div>
 <div class="mb-2 mt-4 generted-key-container" *ngIf="!loader">
     <p-table
@@ -10,7 +9,8 @@
         [paginator]="paginationValue"
         [rows]="rows"
         [totalRecords]="totalRecords"
-        styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable p-datatable-custom-paginator"
+        [scrollable]="isTablet$ | async"
+        styleClass="p-datatable-responsive-single p-datatable-custom-paginator"
     >
         <ng-template pTemplate="header">
             <tr>

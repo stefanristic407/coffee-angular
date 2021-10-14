@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AuthService, UserService } from '@services';
+import { AuthService, OrganizationService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { EstateOrganizationProfile } from '@models';
+import { EstateOrganizationProfile, OrganizationProfile } from '@models';
 import { OrganizationType } from '@enums';
 import { ProfileService } from '../profile.service';
 
@@ -23,37 +23,40 @@ export class EstateProfileService {
     constructor(
         public userService: UserService,
         public cookieService: CookieService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public toastrService: ToastrService,
         public router: Router,
         private profileService: ProfileService,
         private authService: AuthService,
+        private organizationService: OrganizationService,
     ) {
         this.userId = this.authService.userId;
         this.roasterId = this.authService.getOrgId();
     }
 
     estateProfile(estateId) {
-        this.profileService.getGeneralProfileDetails(OrganizationType.ESTATE, estateId).subscribe((result: any) => {
-            if (result.success) {
-                this.organizationProfile = result.result;
+        this.organizationService
+            .getGeneralProfile(estateId, OrganizationType.ESTATE)
+            .subscribe((result: EstateOrganizationProfile) => {
+                if (result) {
+                    this.organizationProfile = result;
 
-                this.single = [
-                    {
-                        name: 'Full time',
-                        value: this.organizationProfile.full_time_employee_count
-                            ? this.organizationProfile.full_time_employee_count
-                            : 0,
-                    },
-                    {
-                        name: 'Part time',
-                        value: this.organizationProfile.part_time_employee_count
-                            ? this.organizationProfile.part_time_employee_count
-                            : 0,
-                    },
-                ];
-            }
-        });
+                    this.single = [
+                        {
+                            name: 'Full time',
+                            value: this.organizationProfile.fullTimeEmployeeCount
+                                ? this.organizationProfile.fullTimeEmployeeCount
+                                : 0,
+                        },
+                        {
+                            name: 'Part time',
+                            value: this.organizationProfile.partTimeEmployeeCount
+                                ? this.organizationProfile.partTimeEmployeeCount
+                                : 0,
+                        },
+                    ];
+                }
+            });
 
         this.getcontactList(estateId);
         this.getVirtualTourFiles(estateId);

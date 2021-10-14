@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { OrderChatType } from '@enums';
@@ -21,7 +21,7 @@ export class AssignUserComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         public cookieService: CookieService,
         private router: Router,
         private toasterService: ToastrService,

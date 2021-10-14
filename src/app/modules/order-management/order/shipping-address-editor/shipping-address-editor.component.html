@@ -7,111 +7,77 @@
 
     <div class="row mt-45">
         <div class="col">
-            <div class="text-clr334 fnt-18 fnt-bold">{{ 'shipping_address' | translate | titlecase }}</div>
+            <div class="fnt-18 fnt-bold">{{ 'shipping_address' | translate | titlecase }}</div>
         </div>
     </div>
 
-    <div class="row no-gutters mt-md-3 mt-lg-45">
-        <div class="col-sm-12 col-md-6 col-lg-4 pr-md-2 pr-lg-3">
-            <div class="d-flex flex-column">
-                <div class="mt-3 mt-md-0 text-clr588 fnt-14">
-                    {{ 'country' | translate }}<span class="text-clr-e5a">*</span>
-                </div>
-                <div class="mt-2">
-                    <p-dropdown
-                        [showClear]="true"
-                        [options]="countries"
-                        optionLabel="label"
-                        optionValue="value"
-                        placeholder="{{ 'country' | translate }}"
-                        styleClass="w-100 py-1"
-                        scrollHeight="225px"
-                        formControlName="country"
-                    ></p-dropdown>
-                </div>
-            </div>
+    <div class="row gutter-16 gutter-lg-32 mt-4 mt-md-5">
+        <div class="sewn-form-field col-sm-12 col-md-6 col-lg-4">
+            <label> {{ 'country' | translate }}<span class="star">*</span> </label>
+            <p-dropdown
+                [options]="COUNTRY_LIST"
+                optionLabel="name"
+                optionValue="isoCode"
+                formControlName="country"
+                (onChange)="changeCountry()"
+                placeholder="{{ 'country' | translate }}"
+            ></p-dropdown>
+            <small *ngIf="editorForm.controls.country.errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-4 pl-md-2 pl-lg-3">
-            <div class="d-flex flex-column">
-                <div class="mt-3 mt-md-0 text-clr588 fnt-14">
-                    {{ 'state' | translate }}<span class="text-clr-e5a">*</span>
-                </div>
-                <div class="mt-2">
-                    <input
-                        type="text"
-                        class="w-100 br-4 p-3"
-                        placeholder="{{ 'state' | translate }}"
-                        pInputText
-                        formControlName="state"
-                    />
-                </div>
-            </div>
+        <div class="sewn-form-field col-sm-12 col-md-6 col-lg-4">
+            <label> {{ 'state' | translate }}<span class="star">*</span> </label>
+            <p-dropdown
+                [options]="cities"
+                formControlName="state"
+                placeholder="{{ 'state' | translate }}"
+                styleClass="w-100"
+            ></p-dropdown>
+            <small *ngIf="editorForm.controls.state.errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
     </div>
 
-    <div class="row no-gutters mt-md-3 mt-lg-45">
-        <div class="col-sm-12 col-md-6 col-lg-4 pr-md-2 pr-lg-3">
-            <div class="d-flex flex-column">
-                <div class="mt-3 mt-md-0 text-clr588 fnt-14">
-                    {{ 'address' | translate }}<span class="text-clr-e5a">*</span>
-                </div>
-                <div class="mt-2">
-                    <input
-                        type="text"
-                        class="w-100 br-4 p-3"
-                        placeholder="{{ 'address_line1' | translate }}"
-                        pInputText
-                        formControlName="address_line1"
-                    />
-                </div>
-            </div>
+    <div class="row gutter-16 gutter-lg-32">
+        <div class="sewn-form-field col-sm-12 col-md-6 col-lg-4">
+            <label> {{ 'address' | translate }}<span class="star">*</span> </label>
+            <input
+                type="text"
+                placeholder="{{ 'address_line1' | translate }}"
+                pInputText
+                formControlName="address_line1"
+            />
+            <small *ngIf="editorForm.controls.address_line1.errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-4 pl-md-2 pl-lg-3">
-            <div class="d-flex flex-column">
-                <div class="d-none d-md-block text-clr588 fnt-14">&nbsp;</div>
-                <div class="mt-3 mt-md-2">
-                    <input
-                        type="text"
-                        class="w-100 br-4 p-3"
-                        placeholder="{{ 'address_line2' | translate }}"
-                        pInputText
-                        formControlName="address_line2"
-                    />
-                </div>
-            </div>
+        <div class="sewn-form-field col-sm-12 col-md-6 col-lg-4">
+            <label>&nbsp;</label>
+            <input
+                type="text"
+                placeholder="{{ 'address_line2' | translate }}"
+                pInputText
+                formControlName="address_line2"
+            />
         </div>
     </div>
 
-    <div class="row no-gutters mt-md-3 mt-lg-45 mb-2">
-        <div class="col-sm-12 col-md-6 col-lg-4 pr-md-2 pr-lg-3">
-            <div class="d-flex flex-column">
-                <div class="mt-3 mt-md-0 text-clr588 fnt-14">
-                    {{ 'city' | translate }}<span class="text-clr-e5a">*</span>
-                </div>
-                <div class="mt-2">
-                    <input
-                        type="text"
-                        class="w-100 br-4 p-3"
-                        placeholder="{{ 'city' | translate }}"
-                        pInputText
-                        formControlName="city"
-                    />
-                </div>
-            </div>
+    <div class="row gutter-16 gutter-lg-32">
+        <div class="sewn-form-field col-sm-12 col-md-6 col-lg-4">
+            <label> {{ 'city' | translate }}<span class="star">*</span> </label>
+            <input type="text" placeholder="{{ 'city' | translate }}" pInputText formControlName="city" />
+            <small *ngIf="editorForm.controls.city.errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-4 pl-md-2 pl-lg-3">
-            <div class="d-flex flex-column">
-                <div class="mt-3 mt-md-0 text-clr588 fnt-14">{{ 'zipcode' | translate }}</div>
-                <div class="mt-2">
-                    <input
-                        type="text"
-                        class="w-100 br-4 p-3"
-                        placeholder="{{ 'zipcode' | translate }}"
-                        pInputText
-                        formControlName="zipcode"
-                    />
-                </div>
-            </div>
+        <div class="sewn-form-field col-sm-12 col-md-6 col-lg-4">
+            <label>{{ 'zipcode' | translate }}<span class="star">*</span></label>
+            <input type="text" placeholder="{{ 'zipcode' | translate }}" pInputText formControlName="zipcode" />
+            <small *ngIf="editorForm.controls.zipcode.errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
         </div>
     </div>
 

@@ -13,7 +13,6 @@ export interface LotDetails {
     village: string;
     region: string;
     sub_region: string;
-    gps_coordinates: string;
     min_altitude: number;
     max_altitude: number;
     crop: string;

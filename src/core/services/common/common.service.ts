@@ -1,4 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
 import { OrganizationType } from '@enums';
 import { environment } from '@env/environment';
@@ -11,15 +12,12 @@ import { AuthService } from '../auth';
     providedIn: 'root',
 })
 export class CommonService {
-    profileUpdateEvent: EventEmitter<any>;
-
     constructor(
-        private simulatedLoginService: SimulatedLoginService,
+        @Inject(DOCUMENT) private document: Document,
         private authService: AuthService,
         private cookieService: CookieService,
-    ) {
-        this.profileUpdateEvent = new EventEmitter<any>();
-    }
+        private simulatedLoginService: SimulatedLoginService,
+    ) {}
 
     getCountryList(): LabelValue[] {
         return COUNTRY_LIST.map((x) => ({
@@ -58,6 +56,16 @@ export class CommonService {
 
     private findCountry(countryCode: string): Country {
         return COUNTRY_LIST.find((x) => x.isoCode === countryCode.toUpperCase());
+    }
+
+    getJustText(content: any) {
+        if (content) {
+            const contentElement = this.document.createElement('div');
+            contentElement.innerHTML = content;
+            return contentElement.textContent;
+        } else {
+            return '';
+        }
     }
 
     userSimulatedLogin(userId: number) {

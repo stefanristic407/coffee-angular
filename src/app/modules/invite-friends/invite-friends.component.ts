@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { InviteFriendsService } from '@services';
+import { InviteFriendsService, ValidateEmailService } from '@services';
+import { emailValidator } from '@utils';
 
 @Component({
     selector: 'app-invite-friends',
@@ -20,16 +21,21 @@ export class InviteFriendsComponent implements OnInit {
         private fb: FormBuilder,
         private toastrService: ToastrService,
         private inviteFriendsService: InviteFriendsService,
+        private validateService: ValidateEmailService,
     ) {}
 
     ngOnInit(): void {
         this.infoForm = this.fb.group({
-            emails: this.fb.array([this.fb.control('', Validators.compose([Validators.required, Validators.email]))]),
+            emails: this.fb.array([
+                this.fb.control('', Validators.compose([Validators.required]), emailValidator(this.validateService)),
+            ]),
         });
     }
 
     addEmail() {
-        this.emails.push(this.fb.control('', Validators.compose([Validators.required, Validators.email])));
+        this.emails.push(
+            this.fb.control('', Validators.compose([Validators.required]), emailValidator(this.validateService)),
+        );
     }
 
     deleteEmail(idx) {

@@ -15,21 +15,26 @@
             <li *ngIf="data.type != 'FOLDER'" (click)="pop.hide(); click(); fileShareSrv.downloadFile(data)">
                 {{ 'download' | translate }}
             </li>
-            <li (click)="pop.hide(); click(); fileShareSrv.openShareModal(data)">
-                {{ 'share' | translate }}
-            </li>
-            <li (click)="pop.hide(); click(); fileShareSrv.pinFileorFolder(data.id)">
+            <li *ngIf="!data.is_pinned" (click)="pop.hide(); click(); fileShareSrv.pinFileorFolder(data.id)">
                 {{ 'pin' | translate }}
             </li>
-            <li *ngIf="data.type == 'FOLDER'" (click)="pop.hide(); click(); fileShareSrv.updateFolder(data)">
-                {{ 'rename' | translate }}
+            <li *ngIf="data.is_pinned" (click)="pop.hide(); click(); fileShareSrv.unpinFileorFolder(data.id)">
+                {{ 'unpin' | translate }}
             </li>
-            <li *ngIf="data.type != 'FOLDER'" (click)="pop.hide(); click(); fileShareSrv.updateFile(data)">
-                {{ 'rename' | translate }}
-            </li>
-            <li (click)="pop.hide(); click(); fileShareSrv.openDeleteModal(data)">
-                {{ 'delete' | translate }}
-            </li>
+            <ng-container *ngIf="data.permission == FilePermission.EDIT">
+                <li (click)="pop.hide(); click(); fileShareSrv.openShareModal(data)">
+                    {{ 'share' | translate }}
+                </li>
+                <li *ngIf="data.type == 'FOLDER'" (click)="pop.hide(); click(); fileShareSrv.updateFolder(data)">
+                    {{ 'rename' | translate }}
+                </li>
+                <li *ngIf="data.type != 'FOLDER'" (click)="pop.hide(); click(); fileShareSrv.updateFile(data)">
+                    {{ 'rename' | translate }}
+                </li>
+                <li (click)="pop.hide(); click(); fileShareSrv.openDeleteModal(data)">
+                    {{ 'delete' | translate }}
+                </li>
+            </ng-container>
         </ul>
     </ng-template>
 </span>

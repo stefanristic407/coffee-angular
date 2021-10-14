@@ -3,10 +3,13 @@
 }
 
 :host ::ng-deep {
-    .p-autocomplete-input {
-        padding-right: 8.429rem;
+    .p-autocomplete-multiple-container {
+        padding-right: 8.429rem !important;
     }
     .p-autocomplete-loader {
         right: 8rem;
     }
+}
+.owner-wrap {
+    padding: 10px 12px;
 }

@@ -184,7 +184,7 @@
                 <input
                     type="text"
                     [(ngModel)]="threadSearchKeyword"
-                    placeholder="Search Messages"
+                    placeholder="Search messages"
                     class="dm-ivtp-thread-search-input"
                 />
                 <img
@@ -287,7 +287,7 @@
         </div>
         <div class="dm-start-chat-panel">
             <button (click)="startNewChat()" class="dm-start-chat-btn">
-                <span>Search Users & Start Chat</span>
+                <span>Search users & start chat</span>
             </button>
         </div>
     </div>
@@ -297,7 +297,7 @@
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
         <div class="dm-sup-back-to-chat" (click)="closeNewChatPanel()">
             <img class="dm-sup-back-img" src="assets/images/dm-back-arrow.svg" />
-            <span class="dm-sup-back-text brown-text"> Back to Conversation</span>
+            <span class="dm-sup-back-text brown-text"> Back to conversation</span>
         </div>
         <div class="dm-sup-top-panel">
             <div class="dm-sup-thread-search-wrapper">
@@ -305,7 +305,7 @@
                 <input
                     type="text"
                     [(ngModel)]="userSearchKeywords"
-                    placeholder="Search Users"
+                    placeholder="Search users"
                     class="dm-sup-thread-search-input"
                     data-element="user-search-input"
                     (input)="userSearchInputSubject.next($event)"
@@ -412,9 +412,20 @@
                 />
             </div>
 
-            <div class="dm-hub-org-name">
-                {{ openedThread.computed_targetedUser.computed_organization_name }}
-                {{ conditionalHypen(openedThread.computed_targetedUser.org_name) }}
+            <div
+                class="dm-hub-org-name"
+                [title]="
+                    openedThread.computed_targetedUser.computed_organization_name +
+                    '' +
+                    conditionalHypen(openedThread.computed_targetedUser.org_name)
+                "
+            >
+                <div class="dm-hub-org-name-wrapper">
+                    <div class="dm-hub-org-name-text">
+                        {{ openedThread.computed_targetedUser.computed_organization_name }}
+                        {{ conditionalHypen(openedThread.computed_targetedUser.org_name) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

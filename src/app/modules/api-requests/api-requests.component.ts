@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { GlobalsService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-api-requests',
@@ -32,7 +32,8 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
     ];
     isApiRequestPage = true;
     displayArray = [];
-    constructor(public globals: GlobalsService, private route: ActivatedRoute) {
+
+    constructor(private route: ActivatedRoute, private translator: TranslateService) {
         this.route.queryParams.subscribe((params) => {
             const paramsData = JSON.parse(JSON.stringify(params));
             if (paramsData.data === 'generated-key') {
@@ -57,13 +58,9 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
 
     supplyBreadCrumb(): void {
         this.breadCrumbItem = [
-            {
-                label: this.globals.languageJson?.home,
-                routerLink: '/',
-            },
-            {
-                label: this.globals.languageJson?.api_requests,
-            }
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('sales_management') },
+            { label: this.translator.instant('api_requests') },
         ];
     }
 

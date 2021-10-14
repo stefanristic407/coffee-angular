@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, OnChanges, Output, Input } from '@angular/core';
-import { RoasterserviceService, GreenGradingService, AuthService } from '@services';
+import { RoasterService, GreenGradingService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
@@ -41,7 +41,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     isEditable = true;
 
     constructor(
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private toastrService: ToastrService,
         private greenGradingService: GreenGradingService,
         public cookieService: CookieService,
@@ -116,7 +116,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
         const options = {
             per_page: 1000,
         };
-        this.roasterService.getRoasterUsers(this.roasterId, options).subscribe((data: any) => {
+        this.roasterService.getOrgUsers(options).subscribe((data: any) => {
             if (data.success === true) {
                 this.usersList = data.result;
             } else {

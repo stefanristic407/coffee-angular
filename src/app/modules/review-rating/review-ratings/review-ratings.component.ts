@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
+import { AuthService, GlobalsService, RoasterService, UserService } from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
 
 @Component({
@@ -26,7 +26,7 @@ export class ReviewRatingsComponent implements OnInit {
         private router: Router,
         public cookieService: CookieService,
         public globals: GlobalsService,
-        public roasterSrv: RoasterserviceService,
+        public roasterSrv: RoasterService,
         public userSrv: UserService,
         private authService: AuthService,
     ) {

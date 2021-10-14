@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject, AfterViewInit, OnDestroy } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '@env/environment';
 import { AuthService, CoffeeLabService, GlobalsService } from '@services';
-import { DOCUMENT, Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
@@ -14,24 +15,32 @@ import { takeUntil } from 'rxjs/operators';
     providers: [MessageService],
 })
 export class QuestionDetailComponent implements OnInit, OnDestroy {
+    isAllowTranslation = true;
     slug?: string;
     isLoading = false;
     detailsData: any;
     recentQuestions: any[] = [];
-    language: string;
-    organizationId: any;
     destroy$: Subject<boolean> = new Subject<boolean>();
+    comment: string;
+    answerDetail: any;
+    isMyPost = false;
+    isSavedPost = false;
+    isAssignedToMe = false;
+    isMyAnswer = false;
+    isLikedBtn = true;
+    answerComment: any;
+    answerAllowTranslation: boolean;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
         private activatedRoute: ActivatedRoute,
         @Inject(DOCUMENT) private document: any,
         public globalsService: GlobalsService,
-        public location: Location,
         private toastService: ToastrService,
         public authService: AuthService,
         private messageService: MessageService,
         public router: Router,
+        private toastrService: ToastrService,
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
@@ -41,8 +50,10 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             }
         });
         this.activatedRoute.queryParams.subscribe((queryParams) => {
-            const language = this.activatedRoute.snapshot.queryParamMap.get('language');
-            this.language = language || this.coffeeLabService.currentForumLanguage;
+            this.isMyPost = queryParams.isMyPost;
+            this.isSavedPost = queryParams.isSavedPost;
+            this.isAssignedToMe = queryParams.isAssignedToMe;
+            this.isMyAnswer = queryParams.isMyAnswer;
             if (!this.isLoading) {
                 this.getDetails();
             }
@@ -51,9 +62,12 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.organizationId = this.authService.getOrgId();
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            this.router.navigate(['/coffee-lab/overview/qa-forum']);
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+            if (res === 'answer') {
+                this.getDetails();
+            } else {
+                this.onBack();
+            }
         });
     }
 
@@ -76,12 +90,21 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
     getDetails(): void {
         this.isLoading = true;
+        this.answerDetail = {};
         this.coffeeLabService.getForumDetails('question', this.slug).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
                 this.detailsData = res.result;
+                if (this.detailsData.parent_question_id > 0) {
+                    this.detailsData.answers.forEach((element) => {
+                        if (element.parent_answer_id > 0) {
+                            this.getAnswerDetail(element.id);
+                        }
+                    });
+                }
                 setTimeout(() => {
                     this.setPagePosition();
+                    document.getElementById('text-focus').focus();
                 }, 500);
                 if (res.result.parent_question_id) {
                     this.messageService.clear();
@@ -97,6 +120,16 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         });
     }
 
+    getAnswerDetail(id: any) {
+        this.coffeeLabService.getForumDetails('answer', id).subscribe((res: any) => {
+            this.answerDetail = res.result;
+        });
+    }
+
+    getLink(slug) {
+        return `/coffee-lab/questions/${slug}`;
+    }
+
     setPagePosition(): void {
         const answerId = this.activatedRoute.snapshot.queryParamMap.get('answer');
         if (answerId) {
@@ -104,11 +137,11 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             const screenWidth = window.innerWidth;
             let offsetTop = 0;
             if (screenWidth > 991) {
-                offsetTop = element.offsetTop - 136;
+                offsetTop = element?.offsetTop - 136;
             } else if (screenWidth > 767) {
-                offsetTop = element.offsetTop - 70;
+                offsetTop = element?.offsetTop - 70;
             } else {
-                offsetTop = element.offsetTop - 56;
+                offsetTop = element?.offsetTop - 56;
             }
             window.scroll(0, offsetTop);
         }
@@ -117,5 +150,143 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
+    }
+
+    onPost(): void {
+        const data = {
+            allow_translation: this.isAllowTranslation ? 1 : 0,
+            answer: this.comment,
+            status: 'PUBLISHED',
+            language: this.coffeeLabService.currentForumLanguage,
+        };
+        this.coffeeLabService.postComment('question', this.detailsData.id, data).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('You have posted a comment successfully.');
+                this.comment = '';
+                this.getDetails();
+            } else {
+                this.toastrService.error('Failed to post comment.');
+            }
+        });
+    }
+
+    onShare(): void {
+        this.coffeeLabService.copyContext(`${environment.adminWeb}/coffee-lab/questions/${this.detailsData.slug}`);
+    }
+
+    onFocusCommentBox() {
+        document.getElementById('text-focus').focus();
+    }
+
+    onLike(answer) {
+        this.isLikedBtn = false;
+        this.coffeeLabService.updateLike('answer', answer.id).subscribe((res) => {
+            if (res.success) {
+                answer.is_liked = true;
+                answer.likes = answer.likes + 1;
+                this.isLikedBtn = true;
+            }
+        });
+    }
+
+    onUnLike(answer) {
+        this.isLikedBtn = false;
+        this.coffeeLabService.updateUnLike('answer', answer.id).subscribe((res) => {
+            if (res.success) {
+                answer.is_liked = false;
+                answer.likes = answer.likes - 1;
+                this.isLikedBtn = true;
+            }
+        });
+    }
+
+    onSave(id: number): void {
+        this.coffeeLabService.saveForum('answer', id).subscribe((res: any) => {
+            if (res.success) {
+                // this.question.is_saved = true;
+                this.toastService.success('Successfully saved');
+            } else {
+                this.toastService.error('Error while save post');
+            }
+        });
+    }
+
+    onSameSave(id: number): void {
+        this.coffeeLabService.unSaveFormByType('question', id).subscribe((res: any) => {
+            if (res.success) {
+                this.toastService.success(`You have removed the question successfully from saved posts.`);
+                // this.question.is_saved = false;
+            } else {
+                this.toastService.error(`Failed to remmove a question from saved posts.`);
+            }
+        });
+    }
+
+    onBack() {
+        if (this.isMyPost) {
+            this.router.navigateByUrl('/coffee-lab/overview/my-posts/qa-post');
+        } else if (this.isSavedPost) {
+            this.router.navigateByUrl('/coffee-lab/overview/saved-posts/qa-post');
+        } else if (this.isAssignedToMe) {
+            this.router.navigateByUrl('/coffee-lab/overview/assigned-to-me');
+        } else if (this.isMyAnswer) {
+            this.router.navigateByUrl('/coffee-lab/overview/my-posts/answer');
+        } else {
+            this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
+        }
+    }
+
+    onEditAnswer(event: any, index?: number) {
+        if (event) {
+            const isEdit = 'isEdit';
+            this.detailsData.answers[index][isEdit] = true;
+            this.getForumById(this.detailsData.answers[index].id);
+        }
+    }
+
+    getForumById(forumId: number): void {
+        this.coffeeLabService.getForumDetails('answer', forumId).subscribe((res: any) => {
+            if (res.success) {
+                this.answerComment = res.result.answer;
+                this.answerAllowTranslation = res.result?.allow_translation;
+            } else {
+                this.toastrService.error('Error while get comment');
+                // this.location.back();
+            }
+        });
+    }
+
+    onEditPost(forumId: number): void {
+        if (!this.answerComment) {
+            this.toastrService.error('Please fill out field.');
+            return;
+        }
+        let data: any = {};
+        data = {
+            answer: this.answerComment,
+            allow_translation: this.answerAllowTranslation ? (this.answerAllowTranslation ? 1 : 0) : 0,
+            status: 'PUBLISHED',
+            language: this.coffeeLabService.currentForumLanguage,
+        };
+
+        this.isLoading = true;
+        if (forumId) {
+            this.coffeeLabService.updateForum('answer', forumId, data).subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success('Your comment updated successfully');
+                    this.getDetails();
+                } else {
+                    this.toastrService.error('Failed to update article.');
+                }
+            });
+        }
+    }
+
+    onCancel(index: number) {
+        this.detailsData.answers[index].isEdit = false;
+    }
+
+    onCategoryClick(slug: string) {
+        this.router.navigateByUrl('/coffee-lab/category/' + slug);
     }
 }

@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GlobalsService } from '@services';
 import * as moment from 'moment';
 import { COUNTRY_LIST } from '@constants';
+import { OrderType } from '@enums';
 
 @Component({
     selector: 'app-select-order',
@@ -53,7 +53,7 @@ export class SelectOrderComponent implements OnInit {
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -169,6 +169,7 @@ export class SelectOrderComponent implements OnInit {
             start_date: '',
             end_date: '',
             status: 'RECEIVED',
+            order_type: OrderType.Booked,
         };
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');

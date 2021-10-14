@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { GlobalsService } from '@services';
 import { MenuItem } from 'primeng/api';
 
@@ -15,7 +15,7 @@ export class AgreementComponent implements OnInit {
     navItems: MenuItem[];
     selectedNav: MenuItem;
 
-    constructor(public roasterService: RoasterserviceService, public globals: GlobalsService) {}
+    constructor(public roasterService: RoasterService, public globals: GlobalsService) {}
 
     ngOnInit(): void {
         this.customerType = 'hrc';

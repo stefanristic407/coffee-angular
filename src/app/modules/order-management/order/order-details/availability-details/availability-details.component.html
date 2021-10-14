@@ -3,6 +3,14 @@
 <table class="recent-time w-100 mb-2">
     <tr>
         <td>
+            <span class="list-que"> {{ 'availability_name' | translate }}: </span>
+        </td>
+        <td>
+            <span class="list-ans">{{ bulk?.name || '-' }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <span class="list-que"> {{ 'flavor_profile' | translate }}: </span>
         </td>
         <td>
@@ -80,9 +88,3 @@
         </td>
     </tr>
 </table>
-
-<p class="pb-md-2 mb-0 mt-5 mt-md-3">
-    <a class="navigation-link" [routerLink]="['/sourcing/coffee-details', harvestId]">{{
-        'view_availability_details' | translate
-    }}</a>
-</p>

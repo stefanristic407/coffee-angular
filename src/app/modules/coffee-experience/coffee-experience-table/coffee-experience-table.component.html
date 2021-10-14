@@ -19,6 +19,7 @@
         selectionMode="range"
         [formControl]="searchForm.controls['dates']"
         [showButtonBar]="true"
+        [showIcon]="true"
         [styleClass]="
             'round-border mb-25 mb-md-3 mb-lg-4' + (queryParams.from_date || queryParams.to_date ? ' highlight' : '')
         "
@@ -289,7 +290,7 @@
                                                             *ngIf="path !== 'orders'"
                                                             class="text-clr588 fnt-600 fnt-14"
                                                             (click)="availabilityPage(rowData)"
-                                                            >{{ 'roaster_update_details' | translate }}</a
+                                                            >{{ 'update_details' | translate }}</a
                                                         >
                                                     </li>
                                                 </ul>
@@ -308,7 +309,7 @@
                         </span>
                         <span *ngIf="path !== 'orders'">
                             <ng-container *ngIf="!primeTableService.isMobileView">
-                                <span class="brown-cta">{{ 'roaster_update_details' | translate }}</span>
+                                <span class="brown-cta">{{ 'update_details' | translate }}</span>
                             </ng-container>
                         </span>
                     </span>

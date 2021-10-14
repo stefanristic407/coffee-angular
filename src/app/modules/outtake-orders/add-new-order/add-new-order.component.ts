@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService, DownloadService, RoasterserviceService, UserService } from '@services';
+import { AuthService, DownloadService, OrganizationService, RoasterService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
-import { Download } from '@models';
+import { ApiResponse, Download, OrganizationDetails } from '@models';
 import { GlobalsService } from '@services';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-add-new-order',
@@ -42,17 +43,18 @@ export class AddNewOrderComponent implements OnInit {
     wasteProduced = '';
 
     constructor(
-        private roasterService: RoasterserviceService,
-        private fb: FormBuilder,
-        public location: Location,
-        private userService: UserService,
-        private toaster: ToastrService,
         private activeRoute: ActivatedRoute,
-        public downloadService: DownloadService,
-        public dialogSrv: DialogService,
-        private router: Router,
-        public globals: GlobalsService,
         private authService: AuthService,
+        private fb: FormBuilder,
+        private organizationService: OrganizationService,
+        private roasterService: RoasterService,
+        private router: Router,
+        private toaster: ToastrService,
+        private userService: UserService,
+        public dialogSrv: DialogService,
+        public downloadService: DownloadService,
+        public globals: GlobalsService,
+        public location: Location,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
@@ -174,13 +176,15 @@ export class AddNewOrderComponent implements OnInit {
         }
     }
 
-    getRatingData(value: any) {
-        this.userService.getAvailableEstateList(this.roasterId, value).subscribe((data) => {
-            if (data.success) {
-                this.rating = data.result.rating;
-            } else {
-                this.rating = 0.0;
-            }
+    getRatingData(estateId: number) {
+        this.organizationService.getProfile(estateId, OrganizationType.ESTATE).subscribe({
+            next: (result) => {
+                if (result) {
+                    this.rating = result.rating;
+                } else {
+                    this.rating = 0.0;
+                }
+            },
         });
     }
 
@@ -342,8 +346,6 @@ export class AddNewOrderComponent implements OnInit {
                     title: this.globals.languageJson?.please_confirm,
                     desp: this.globals.languageJson?.are_you,
                 },
-                showHeader: false,
-                styleClass: this.globals.languageJson?.confirm_dialog,
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

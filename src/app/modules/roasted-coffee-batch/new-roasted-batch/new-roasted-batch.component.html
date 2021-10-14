@@ -1,5 +1,5 @@
-<section *ngIf="!showOrder">
-    <div *ngIf="!isLoadingCoffeeBatch" class="main-block">
+<section *ngIf="!showOrder" class="main-block">
+    <div *ngIf="!isLoadingCoffeeBatch; else loader">
         <div class="row pb-md-3 pb-1">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 overflow-auto d-flex flex-nowrap breadCrumb">
                 <p-breadcrumb [model]="breadItems"></p-breadcrumb>
@@ -9,11 +9,11 @@
             <div class="left-container">
                 <div class="row mt-4">
                     <div class="col-12">
-                        <div *ngIf="!batchDetails" class="primary_txt mb-1">
+                        <div *ngIf="!batchId" class="primary_txt mb-1">
                             {{ 'create_roasted_batch' | translate }}
                         </div>
-                        <div *ngIf="batchDetails">
-                            <div class="fnt-500 mb-1">{{ 'batch' | translate }} # {{ batchDetails.id }}</div>
+                        <div *ngIf="batchId">
+                            <div class="fnt-500 mb-1">{{ 'batch' | translate }} # {{ batchId }}</div>
                             <div class="primary_txt mb-1">{{ batchForm.controls['roast_batch_name'].value }}</div>
                         </div>
                     </div>
@@ -36,7 +36,9 @@
                         </div>
                         <div class="row">
                             <div class="col-12 mb-1">
-                                <span class="primary_txt mb-1">{{ 'order_id' | translate }}*</span>
+                                <span class="primary_txt mb-1"
+                                    >{{ 'order_id' | translate }}<span class="text-invalid">*</span></span
+                                >
                             </div>
                             <div class="col-12 mb-3">
                                 <span class="fnt-14 fnt-muli black fnt-normal mb-3"
@@ -44,15 +46,17 @@
                                 >
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
-                                <div class="p-inputgroup custom-addon cursor-pointer" (click)="selectOrder()">
+                                <div class="p-inputgroup custom-addon cursor-pointer" (click)="showOrder = true">
                                     <p-inputNumber
                                         placeholder="Select the order"
-                                        [(ngModel)]="ordId"
-                                        [ngModelOptions]="{ standalone: true }"
+                                        formControlName="order_id"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon">
-                                        <img src="assets/images/icon-arrow-right.svg" alt="" />
+                                    <span class="p-inputgroup-addon"
+                                        ><i class="pi pi-chevron-right text-clr97"></i>
                                     </span>
+                                    <small *ngIf="batchForm.controls['order_id'].errors?.required" class="p-error">
+                                        {{ 'required' | translate }}
+                                    </small>
                                 </div>
                             </div>
                             <div *ngIf="ordId" class="col-12 d-md-none mt-4">
@@ -90,21 +94,22 @@
                                     <label>Select roasting profile<span class="star">*</span></label>
                                     <p-dropdown
                                         [options]="roastProfileArray"
-                                        optionLabel="label"
-                                        optionValue="value"
                                         placeholder="Select the roasting profile"
-                                        [style]="{ width: '100%' }"
                                         formControlName="roasting_profile_id"
+                                        styleClass="roasting-profile-dropdown"
                                     >
                                         <ng-template let-weight pTemplate="item">
                                             <span *ngIf="weight.label">{{ weight.label }}</span>
-                                            <span *ngIf="!weight.label" class="weightVariantBtn">
-                                                <span
-                                                    class="ml-2 fnt-muli fnt-bold fnt-14 text-highlited cursor-pointer"
-                                                    [routerLink]="['/roasted-coffee-batch/create-roasting-profile']"
-                                                >
-                                                    Add new profile
-                                                </span>
+                                            <span
+                                                *ngIf="!weight.label"
+                                                class="btn-raised w-100"
+                                                (click)="
+                                                    createRoastingProfile();
+                                                    $event.preventDefault();
+                                                    $event.stopPropagation()
+                                                "
+                                            >
+                                                {{ 'add_new_profile' | translate }}
                                             </span>
                                         </ng-template>
                                     </p-dropdown>
@@ -132,9 +137,8 @@
                                         <p-dropdown
                                             [options]="weightTypeArray"
                                             [autoDisplayFirst]="false"
-                                            [(ngModel)]="unit"
-                                            (ngModelChange)="setWasteQuantityValue()"
-                                            [ngModelOptions]="{ standalone: true }"
+                                            formControlName="green_coffee_unit"
+                                            (ngModelChange)="changeUnit()"
                                             placeholder="{{ 'select_unit' | translate }}"
                                         ></p-dropdown>
                                         <small
@@ -149,24 +153,29 @@
                                         >
                                             Please enter quantity above roasted coffee
                                         </small>
+                                        <small
+                                            *ngIf="batchForm.controls.green_coffee_quantity.errors?.max"
+                                            class="p-error"
+                                        >
+                                            Please enter quantity in range of remaining green coffee({{
+                                                remainingTotalQuantity
+                                                    | convertKg: batchForm.value.green_coffee_unit
+                                                    | number: '1.0-0'
+                                            }}{{ batchForm.value.green_coffee_unit }})
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                     <label>{{ 'roasted_coffee' | translate }}<span class="star">*</span></label>
-                                    <div class="input-and-select gray">
+                                    <div class="p-inputgroup custom-addon">
                                         <p-inputNumber
                                             type="number"
                                             [min]="0"
                                             formControlName="roasting_profile_quantity"
                                         ></p-inputNumber>
-                                        <p-dropdown
-                                            [options]="weightTypeArray"
-                                            [autoDisplayFirst]="false"
-                                            [(ngModel)]="unit"
-                                            (ngModelChange)="setWasteQuantityValue()"
-                                            [ngModelOptions]="{ standalone: true }"
-                                            placeholder="{{ 'select_unit' | translate }}"
-                                        ></p-dropdown>
+                                        <span class="p-inputgroup-addon gray">{{
+                                            batchForm.value.green_coffee_unit
+                                        }}</span>
                                         <small
                                             *ngIf="batchForm.controls.roasting_profile_quantity.errors?.required"
                                             class="p-error"
@@ -227,13 +236,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100 mt-lg-3">
                                 <label>Processing</label>
-                                <input
-                                    type="text"
-                                    placeholder=""
-                                    disabled
-                                    [value]="orderDetails?.processing || ''"
-                                    pInputText
-                                />
+                                <input type="text" formControlName="processing" pInputText />
                             </div>
                         </div>
                         <div class="row pt-md-1 pb-1">
@@ -242,24 +245,24 @@
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-12 col-lg-10 d-flex flex-column">
-                                <p-dropdown
-                                    #myDropdown
+                                <p-multiSelect
                                     [options]="roasterFlavourProfile"
-                                    (onChange)="addLangProfile($event)"
-                                    styleClass="p-descriptors-dropdown"
-                                    placeholder="Add Descriptors"
-                                    optionLabel="name"
-                                    [filter]="true"
-                                    filterBy="name"
+                                    [(ngModel)]="flavourProfile"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    dataKey="id"
+                                    scrollHeight="225px"
                                     dropdownIcon="pi pi-plus"
+                                    placeholder="Add Descriptors"
+                                    styleClass="p-descriptors-dropdown"
                                 >
-                                    <ng-template pTemplate="selectedItem">Add Descriptors</ng-template>
-                                </p-dropdown>
+                                    <ng-template let-value pTemplate="selectedItems">
+                                        <div>Add Descriptors</div>
+                                    </ng-template>
+                                </p-multiSelect>
                                 <p-chips
-                                    [(ngModel)]="langChips"
+                                    [(ngModel)]="flavourProfile"
                                     [ngModelOptions]="{ standalone: true }"
                                     field="name"
-                                    addOnBlur
                                     [allowDuplicate]="false"
                                     styleClass="p-descriptors-chips"
                                 >
@@ -268,7 +271,7 @@
                         </div>
                         <div class="row gutter-16 gutter-lg-24 mt-lg-1">
                             <div class="col-12 col-sm-12 col-md-12 sewn-form-field w-100">
-                                <label>Roaster Notes</label>
+                                <label>{{ 'roaster_notes' | translate }}</label>
                                 <textarea
                                     type="text"
                                     class="descriptionText-area"
@@ -317,9 +320,6 @@
             </button>
         </div>
     </div>
-    <div *ngIf="isLoadingCoffeeBatch">
-        <app-loading></app-loading>
-    </div>
 </section>
 <app-select-order-table *ngIf="showOrder" (orderSelectEvent)="setOrder($event)"></app-select-order-table>
 
@@ -345,7 +345,7 @@
                 </div>
                 <div>
                     <p>
-                        <span class="cursor-pointer d-flex align-items-center">
+                        <span class="d-flex align-items-center">
                             <img src="assets/images/star-1.svg" alt="Star" />
                             <span class="fnt-14 fnt-bold pl-1"> {{ rating | number: '1.2-2' }}</span>
                         </span>
@@ -445,3 +445,5 @@
         </div>
     </div>
 </ng-template>
+
+<ng-template #loader><app-loading></app-loading></ng-template>

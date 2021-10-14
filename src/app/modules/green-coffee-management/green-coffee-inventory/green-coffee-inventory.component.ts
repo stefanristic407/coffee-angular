@@ -5,6 +5,7 @@ import { MarkedSaleComponent } from './marked-sale/marked-sale.component';
 import { PrimeTableService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-green-coffee-inventory',
@@ -13,42 +14,36 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GreenCoffeeInventoryComponent implements OnInit {
     searchTerm;
-    appLanguage?: any = {};
-    greenActive: any = 0;
     loader: boolean;
     searchText: string;
     searchString = '';
     breadItems = [
-        { label: 'Home', routerLink: '/roaster-dashboard' },
-        { label: 'Inventory' },
-        { label: 'Green Coffee Inventory' },
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('inventory') },
+        { label: this.translator.instant('green_coffee_inventory') },
     ];
     selectedTab = 0;
     isProcuredTab = true;
     @ViewChild(CoffeeProcuredTabComponent, { static: false }) procureTab;
     @ViewChild(MarkedSaleComponent, { static: false }) markForSaleTab;
     constructor(
-        public globals: GlobalsService,
         public cookieService: CookieService,
         public primeTableService: PrimeTableService,
         public route: ActivatedRoute,
+        private translator: TranslateService,
     ) {}
 
     ngOnInit(): void {
-        this.language();
         if (this.route.snapshot.queryParams.markSale === 'yes') {
             this.selectedTab = 1;
             this.isProcuredTab = false;
-            this.searchText = 'Search by estate name';
+            this.searchText = 'search_by_estate_name';
         } else {
             this.selectedTab = 0;
-            this.searchText = 'Search by order ID';
+            this.searchText = 'search_by_order_id';
         }
     }
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.greenActive++;
-    }
+
     onSearch() {
         if (this.procureTab) {
             this.procureTab.search(this.searchString);
@@ -59,10 +54,10 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     handleChange(event: any) {
         if (event.index === 0) {
             this.isProcuredTab = true;
-            this.searchText = 'Search by order ID';
+            this.searchText = 'search_by_order_id';
         } else {
             this.isProcuredTab = false;
-            this.searchText = 'Search by estate name';
+            this.searchText = 'search_by_estate_name';
         }
         this.primeTableService.records = [];
     }

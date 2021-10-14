@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { GenerateReportService } from './generate-report/generate-report.service';
 
@@ -10,14 +10,14 @@ import { GenerateReportService } from './generate-report/generate-report.service
 })
 export class GreenGradingComponent implements OnInit {
     items: MenuItem[];
-    constructor(public globals: GlobalsService, private generateReportService: GenerateReportService) {}
+    constructor(private translateService: TranslateService, private generateReportService: GenerateReportService) {}
 
     ngOnInit(): void {
         // Breadcrumb
         this.items = [
-            { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
-            { label: this.globals.languageJson?.menu_sourcing },
-            { label: this.globals.languageJson?.green_grading },
+            { label: this.translateService.instant('home'), routerLink: '/' },
+            { label: this.translateService.instant('menu_sourcing') },
+            { label: this.translateService.instant('quality_control') },
         ];
     }
 

@@ -18,7 +18,11 @@
                         <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field">
-                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
+                            <app-brand-uploader
+                                formControlName="banner_file"
+                                [width]="1440"
+                                [height]="465"
+                            ></app-brand-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -93,7 +97,11 @@
                             <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
                                 Size - 500 x 540 px
                             </p>
-                            <app-uploader formControlName="intro_file" [width]="500" [height]="540"></app-uploader>
+                            <app-brand-uploader
+                                formControlName="intro_file"
+                                [width]="500"
+                                [height]="540"
+                            ></app-brand-uploader>
                             <small *ngIf="infoForm.controls.intro_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -102,7 +110,7 @@
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
                         <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
-                            {{ 'your_work_in_sustainability' | translate | titlecase }}
+                            {{ 'your_work_in_sustainability' | translate }}
                         </h4>
                         <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Give a brief intro about your sustainability practises
@@ -215,12 +223,12 @@
                                 <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
                                     Size - {{ i === 3 ? '282 x 460' : '389 x 417' }} px
                                 </p>
-                                <app-uploader
+                                <app-brand-uploader
                                     formControlName="section{{ i }}_file"
                                     [count]="i == 3 ? 2 : 1"
                                     [width]="i === 3 ? 282 : 389"
                                     [height]="i === 3 ? 460 : 417"
-                                ></app-uploader>
+                                ></app-brand-uploader>
                                 <small
                                     *ngIf="infoForm.controls['section' + i + '_file'].errors?.required"
                                     class="p-error"
@@ -232,11 +240,13 @@
                     </div>
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-4">Product Labels</h4>
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-4">
+                            {{ 'product_labels' | translate }}
+                        </h4>
 
                         <div class="w-100 sewn-form-field">
                             <label>
-                                {{ 'short_description' | translate | titlecase }}<span class="star">*</span>
+                                {{ 'short_description' | translate }}<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('product_short_description').value | wordCount }}/40 words
                                 </span>
@@ -268,13 +278,13 @@
                             <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
                                 Size - 100 x 100 px
                             </p>
-                            <app-uploader
+                            <app-brand-uploader
                                 formControlName="product_label_icon"
                                 [count]="4"
                                 type="image"
                                 [width]="100"
                                 [height]="100"
-                            ></app-uploader>
+                            ></app-brand-uploader>
                             <small *ngIf="infoForm.controls.product_label_icon.errors?.required" class="p-error">
                                 Please upload icons
                             </small>

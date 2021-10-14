@@ -13,6 +13,9 @@ export * from './components/remote-sensoring/remote-sensoring.component';
 // Module
 export * from './shared.module';
 
+// Pipes
+export * from './pipes';
+
 // Guards
 
 // Services

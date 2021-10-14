@@ -8,5 +8,7 @@ export * from './order-details.model';
 export * from './order-document.model';
 export * from './order-note.model';
 export * from './order-summary.model';
-export * from './recent-activity.model';
 export * from './organization-details.model';
+export * from './recent-activity.model';
+export * from './transaction.model';
+export * from './price-tiers.model';

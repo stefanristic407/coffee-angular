@@ -1,11 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { GlobalsService, GreenGradingService } from '@services';
+import { GreenGradingService } from '@services';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { LabelValue } from '@models';
 import { OrderType } from '@enums';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-green-coffee-orders',
@@ -45,12 +46,12 @@ export class GreenCoffeeOrdersComponent implements OnInit {
     }
 
     constructor(
-        public globals: GlobalsService,
         public generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
         private toastrService: ToastrService,
         private router: Router,
         private activeRoute: ActivatedRoute,
+        private translateService: TranslateService,
     ) {}
 
     ngOnInit(): void {
@@ -58,10 +59,10 @@ export class GreenCoffeeOrdersComponent implements OnInit {
             this.selectedCuppingReportId = params.cuppingReportId;
         });
         this.breadCrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
-            { label: this.globals.languageJson?.menu_sourcing },
-            { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
-            { label: 'Green coffee orders' },
+            { label: this.translateService.instant('home'), routerLink: '/' },
+            { label: this.translateService.instant('menu_sourcing') },
+            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
+            { label: this.translateService.instant('green_coffee_orders') },
         ];
         this.loadData();
         this.initializeTable();
@@ -74,22 +75,18 @@ export class GreenCoffeeOrdersComponent implements OnInit {
                 {
                     field: 'order_id',
                     header: 'Order ID',
-                    sortable: false,
                 },
                 {
                     field: 'estate_name',
                     header: 'Estate name',
-                    sortable: false,
                 },
                 {
                     field: 'origin',
                     header: 'Origin',
-                    sortable: false,
                 },
                 {
                     field: 'varieties',
                     header: 'Variety',
-                    sortable: false,
                     isCut: true,
                 },
             ];
@@ -99,13 +96,11 @@ export class GreenCoffeeOrdersComponent implements OnInit {
                 {
                     field: 'order_id',
                     header: 'Order ID',
-                    sortable: false,
                     width: '90px',
                 },
                 {
                     field: 'estate_name',
                     header: 'Estate name',
-                    sortable: false,
                     width: '132px',
                 },
                 {
@@ -117,35 +112,29 @@ export class GreenCoffeeOrdersComponent implements OnInit {
                 {
                     field: 'origin',
                     header: 'Origin',
-                    sortable: false,
                 },
 
                 {
                     field: 'varieties',
                     header: 'Variety',
-                    sortable: false,
                 },
                 {
                     field: 'cupping_version',
                     header: 'Cupping version',
-                    sortable: false,
                     width: '128px',
                 },
                 {
                     field: 'cupping_status',
                     header: 'Status',
-                    sortable: false,
                 },
                 {
                     field: 'order_type',
                     header: 'Type of order',
-                    sortable: false,
                 },
 
                 {
                     field: 'type',
                     header: 'Type',
-                    sortable: false,
                 },
             ];
         }

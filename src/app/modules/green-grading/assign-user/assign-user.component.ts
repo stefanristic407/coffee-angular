@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, RoasterserviceService, GreenGradingService, AuthService } from '@services';
+import { GlobalsService, RoasterService, GreenGradingService, AuthService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { LazyLoadEvent } from 'primeng/api';
 import { Location } from '@angular/common';
@@ -46,7 +46,7 @@ export class AssignUserComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         private cookieService: CookieService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private greenGradingService: GreenGradingService,
         private toaster: ToastrService,
         private router: Router,
@@ -67,7 +67,7 @@ export class AssignUserComponent implements OnInit {
     }
 
     getRoleList() {
-        this.roasterService.getRoles(this.roasterId).subscribe((res: any) => {
+        this.roasterService.getRoles().subscribe((res: any) => {
             if (res.success === true) {
                 this.roleList = res.result;
             }
@@ -90,7 +90,7 @@ export class AssignUserComponent implements OnInit {
             sort_by: event?.sortField === 'name' ? 'firstname' : event?.sortField,
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };
-        this.roasterService.getRoasterUsers(this.roasterId, options).subscribe((requestData: any) => {
+        this.roasterService.getOrgUsers(options).subscribe((requestData: any) => {
             if (requestData.success === true) {
                 this.tableData = requestData.result;
                 this.totalCount = requestData.result_info.total_count;
@@ -105,12 +105,12 @@ export class AssignUserComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: 'Name',
+                    header: this.globals.languageJson?.name,
                     sortable: true,
                 },
                 {
                     field: 'last_login_at',
-                    header: 'Last Login',
+                    header: this.globals.languageJson?.last_login,
                     sortable: true,
                 },
                 {
@@ -123,27 +123,27 @@ export class AssignUserComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: 'Name',
+                    header: this.globals.languageJson?.name,
                     sortable: true,
                 },
                 {
                     field: 'last_login_at',
-                    header: 'Last Login',
+                    header: this.globals.languageJson?.last_login,
                     sortable: true,
                 },
                 {
                     field: 'email',
-                    header: 'Email',
+                    header: this.globals.languageJson?.email,
                     sortable: false,
                 },
                 {
                     field: 'status',
-                    header: 'Status',
+                    header: this.globals.languageJson?.status,
                     sortable: false,
                 },
                 {
                     field: 'roles',
-                    header: 'All Roles',
+                    header: this.globals.languageJson?.all_roles,
                     sortable: true,
                 },
             ];

@@ -18,7 +18,15 @@
     </div>
     <section>
         <div
-            class="d-md-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mt-45 mt-md-3 mb-md-4 mb-lg-475"
+            class="
+                d-md-flex
+                flex-column flex-md-row
+                justify-content-between
+                align-items-end
+                mb-3
+                mt-45 mt-md-3
+                mb-md-4 mb-lg-475
+            "
         >
             <div>
                 <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
@@ -29,14 +37,24 @@
                 </div>
             </div>
             <div class="d-md-flex">
-                <button class="btn-stroked px-4 mr-3 w-mob-100 d-none d-md-block">{{ 'export' | translate }}</button>
+                <button
+                    class="btn-stroked px-4 mr-3 w-mob-100 d-none d-md-block"
+                    (click)="displayExportDialog = !displayExportDialog"
+                >
+                    {{ 'export' | translate }}
+                </button>
                 <button
                     class="btn-raised text-nowrap px-4 w-mob-100 mt-3 mt-md-0"
                     routerLink="/outtake-orders/add-order"
                 >
                     {{ 'add_new_order' | translate }}
                 </button>
-                <button class="btn-stroked px-4 mt-3 mr-3 w-mob-100 d-md-none">{{ 'export' | translate }}</button>
+                <button
+                    class="btn-stroked px-4 mt-3 mr-3 w-mob-100 d-md-none"
+                    (click)="displayExportDialog = !displayExportDialog"
+                >
+                    {{ 'export' | translate }}
+                </button>
             </div>
         </div>
         <div class="d-block d-md-none mb-3 mt-4 pt-4 border-top-dashed-d6">
@@ -60,7 +78,7 @@
                 [(ngModel)]="customerStatus"
                 (onChange)="setStatus()"
                 scrollHeight="225px"
-                placeholder="Customer Type"
+                placeholder="{{ 'customer_type' | translate }}"
                 [autoDisplayFirst]="false"
                 styleClass="round-border mr-2 mb-3 {{ customerStatus ? 'highlight' : '' }}"
             ></p-dropdown>
@@ -71,6 +89,7 @@
                 selectionMode="range"
                 [formControl]="searchForm.controls['dates']"
                 [showButtonBar]="true"
+                [showIcon]="true"
                 [styleClass]="
                     'round-border mb-25 mb-md-3 mb-lg-4' +
                     (queryParams.from_date || queryParams.to_date ? ' highlight' : '')
@@ -353,3 +372,68 @@
         </p-table>
     </div>
 </div>
+
+<form class="export-dialog" id="export-dialog" [formGroup]="exportForm">
+    <p-dialog
+        header="Export orders"
+        [(visible)]="displayExportDialog"
+        [style]="{ width: '450px' }"
+        [baseZIndex]="10000"
+        [modal]="true"
+        styleClass="export-p-dialog"
+        [contentStyle]="{ overflow: 'visible' }"
+    >
+        <div class="d-flex flex-column bd-highlight mb-3 pt-2" id="calendar-div">
+            <div class=""><span class="text-clr588">Select start and end date for the order</span></div>
+
+            <div class="d-flex flex-row bd-highlight mb-3 pt-1">
+                <p-calendar
+                    class="mr-2 w-100"
+                    formControlName="from_date"
+                    [maxDate]="exportForm.get('to_date').value"
+                    [showIcon]="true"
+                    dateFormat="dd.mm.yy"
+                    [readonlyInput]="true"
+                    [showButtonBar]="true"
+                    placeholder="Select start date"
+                    styleClass="w-100 p-calendar-w-btn round-border mr-3 export-calendar {{
+                        exportForm.get('from_date').value ? 'highlight' : ''
+                    }}"
+                >
+                </p-calendar>
+                <p-calendar
+                    class="ml-2 w-100"
+                    formControlName="to_date"
+                    [minDate]="exportForm.get('from_date').value"
+                    [showIcon]="true"
+                    dateFormat="dd.mm.yy"
+                    [readonlyInput]="true"
+                    [showButtonBar]="true"
+                    placeholder="Select end date"
+                    styleClass="w-100 p-calendar-w-btn round-border ml-0 export-calendar {{
+                        exportForm.get('to_date').value ? 'highlight' : ''
+                    }}"
+                >
+                </p-calendar>
+            </div>
+            <div class="pt-3"><span class="text-clr588">Export Format</span></div>
+            <div class="pt-1">
+                <span class="w-100 general-text">Select the format you want your orders</span>
+            </div>
+            <div class="pt-3">
+                <p-radioButton label="PDF" value="pdf" formControlName="export_type"></p-radioButton>
+                <p-radioButton class="ml-3" label="CSV" value="csv" formControlName="export_type"></p-radioButton>
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <button class="btn-stroked" type="button" (click)="displayExportDialog = !displayExportDialog">
+                {{ 'cancel' | translate }}
+            </button>
+
+            <button class="btn-raised" type="button" (click)="downloadOrderClicked()" [disabled]="isDownloading">
+                <span>{{ 'download_order' | translate }}</span>
+            </button>
+        </ng-template>
+    </p-dialog>
+</form>

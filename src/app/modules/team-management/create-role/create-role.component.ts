@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AclService, AuthService, RoasterserviceService, UserService } from '@services';
+import { AclService, AuthService, RoasterService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
@@ -29,7 +29,7 @@ export class CreateRoleComponent implements OnInit {
 
     constructor(
         public globals: GlobalsService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private aclService: AclService,
         private cookieService: CookieService,
         private route: Router,
@@ -42,7 +42,7 @@ export class CreateRoleComponent implements OnInit {
         this.roasterID = this.authService.getOrgId();
         this.activeRoute.params.subscribe((params) => {
             this.roleID = params.id ? params.id : '';
-            this.btnValue = this.roleID ? 'Update Role' : 'Add Role';
+            this.btnValue = this.roleID ? this.globals.languageJson?.update_role : this.globals.languageJson?.add_role;
             if (this.roleID) {
                 this.getRolePermission(this.roleID);
             } else {
@@ -51,7 +51,7 @@ export class CreateRoleComponent implements OnInit {
         });
         if (this.activeRoute.snapshot.queryParams.duplicate) {
             this.isDuplicate = true;
-            this.btnValue = 'Add Role';
+            this.btnValue = this.globals.languageJson?.add_role;
         }
     }
 

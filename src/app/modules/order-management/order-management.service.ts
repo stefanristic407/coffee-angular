@@ -19,10 +19,9 @@ import {
 } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { OrganizationType, OrderType, OrderStatus, ShippingStatus } from '@enums';
+import { OrganizationType, OrderType, OrderStatus, ShipmentStatus, ServiceRequestStatus } from '@enums';
 import {
     AvailabilityService,
-    BrandProfileService,
     GeneralCuppingService,
     OrderService,
     PurchaseService,
@@ -35,10 +34,12 @@ import {
     FileService,
     RoasterOrdersService,
     ShippingDetailsService,
+    OrganizationService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { mergeMap, tap } from 'rxjs/operators';
+import { AddressType } from 'src/core/enums/availability/address-type.enum';
 
 @Injectable({
     providedIn: 'root',
@@ -69,7 +70,6 @@ export class OrderManagementService {
     constructor(
         protected cookieSrv: CookieService,
         private availabilitySrv: AvailabilityService,
-        private brandProfileSrv: BrandProfileService,
         private cuppingSrv: GeneralCuppingService,
         private orderSrv: OrderService,
         private purchaseSrv: PurchaseService,
@@ -82,6 +82,7 @@ export class OrderManagementService {
         private fileSrv: FileService,
         private roasterOrdersSrv: RoasterOrdersService,
         private shippingDetailsSrv: ShippingDetailsService,
+        private organizationService: OrganizationService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -188,10 +189,10 @@ export class OrderManagementService {
         return this.addressesSrv.getAddresses().pipe(
             mergeMap((res) => {
                 if (res.success && res.result) {
-                    const shippingAddress = res.result.find((x) => x.type === 'shipping');
+                    const shippingAddress = res.result.find((x) => x.type === AddressType.SHIPPING);
                     if (shippingAddress) {
                         address.id = shippingAddress.id;
-                        address.type = 'shipping';
+                        address.type = AddressType.SHIPPING;
                         return this.addressesSrv.updateAddress(shippingAddress.id, address).pipe(
                             mergeMap(() => {
                                 return this.purchaseSrv.updateOrderDetails(orderId, {
@@ -201,7 +202,7 @@ export class OrderManagementService {
                         );
                     }
                 } else {
-                    return of({ success: false, result: null, result_info: null });
+                    return of(res);
                 }
             }),
         );
@@ -284,7 +285,12 @@ export class OrderManagementService {
                         this.loadUserProfile();
                         this.checkReviews(orderId, orgType);
 
-                        if (details.estimated_departure_date || details.estimated_pickup_date) {
+                        if (
+                            details.estimated_departure_date ||
+                            details.estimated_pickup_date ||
+                            details.exporter_status === ServiceRequestStatus.COMPLETED ||
+                            details.exporter_status === ServiceRequestStatus.CLOSED
+                        ) {
                             this.loadShippingDetails(orderId);
                         }
 
@@ -381,15 +387,15 @@ export class OrderManagementService {
     }
 
     private loadEstateDetails(id: number): void {
-        this.brandProfileSrv.getEstateProfile(id).subscribe({
-            next: (result) => this.estateDetailsSubject.next(result),
+        this.organizationService.getProfile(id, OrganizationType.ESTATE).subscribe({
+            next: (result) => this.estateDetailsSubject.next(result as OrganizationDetails),
         });
     }
 
     private loadMicroRoasterDetails(id: number): void {
         if (id) {
-            this.brandProfileSrv.getMrProfile(id).subscribe({
-                next: (result) => this.microRoasterDetailsSubject.next(result),
+            this.organizationService.getProfile(id, OrganizationType.MICRO_ROASTER).subscribe({
+                next: (result) => this.microRoasterDetailsSubject.next(result as OrganizationDetails),
             });
         }
     }
@@ -440,14 +446,18 @@ export class OrderManagementService {
 
             if (
                 order.status !== OrderStatus.Received &&
-                (order.shipment_status === ShippingStatus.SHIPPED || departureDate <= today)
+                (order.shipment_status === ShipmentStatus.SHIPPED ||
+                    departureDate <= today ||
+                    order.exporter_status === ServiceRequestStatus.COMPLETED)
             ) {
                 order.status = OrderStatus.Shipped;
             }
 
             if (
                 order.status !== OrderStatus.Received &&
-                (order.shipment_status === ShippingStatus.DELIVERED || pickupDate <= today)
+                (order.shipment_status === ShipmentStatus.DELIVERED ||
+                    pickupDate <= today ||
+                    order.exporter_status === ServiceRequestStatus.CLOSED)
             ) {
                 order.status = OrderStatus.Delivered;
             }

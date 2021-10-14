@@ -5260,7 +5260,7 @@ export const COUNTRY_LIST: Country[] = [
     },
     {
         name: 'Wales',
-        isoCode: 'AU',
+        isoCode: 'WL',
         cities: [
             'Blaenau Gwent',
             'Bridgend',

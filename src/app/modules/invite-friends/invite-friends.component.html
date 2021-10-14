@@ -39,7 +39,7 @@
                                         />
                                         <small *ngIf="email.errors?.required" class="p-error"> Required </small>
                                         <small *ngIf="email.errors?.email" class="p-error">
-                                            Invalid email address
+                                            {{ 'please_fill_valid_email' | translate }}
                                         </small>
                                     </div>
                                     <div class="delete-wrap ml-2 d-none d-md-block" *ngIf="i">

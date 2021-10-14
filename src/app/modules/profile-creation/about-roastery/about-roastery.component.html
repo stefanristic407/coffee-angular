@@ -487,7 +487,7 @@
                                 <button
                                     pButton
                                     type="submit"
-                                    class="btn-stroked-transparent"
+                                    class="btn-stroked"
                                     (click)="cancelAssign()"
                                     [label]="'cancel' | translate"
                                 ></button>
@@ -515,7 +515,8 @@
                                 <div class="employ-profile">
                                     <app-user-detail
                                         [userId]="contact?.user_id"
-                                        orgType="ro"
+                                        [imageUrl]="contact?.profile_image_thumb_url"
+                                        [orgType]="OrgType.ROASTER"
                                         shape="rectangle"
                                         type="contact"
                                         size="150"
@@ -811,7 +812,7 @@
 </ng-template>
 <!-- end brand form template -->
 <p-dialog
-    header="Edit Photo"
+    header="Edit photo"
     [(visible)]="isShowBrandImageModal"
     [modal]="true"
     [baseZIndex]="10000"

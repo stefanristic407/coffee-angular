@@ -27,7 +27,8 @@
                     #myTable
                     [value]="tableValue"
                     [columns]="tableColumns"
-                    styleClass="p-datatable-responsive-single p-datatable-tablet-scrollable"
+                    [scrollable]="isTablet$ | async"
+                    styleClass="p-datatable-responsive-single"
                 >
                     <ng-template pTemplate="header" let-columns>
                         <tr class="d-none d-sm-none d-md-table-row">
@@ -178,19 +179,13 @@
             <div class="row gutter-16 gutter-lg-24">
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Quantity for sale<span class="star">*</span></label>
-                    <div class="input-and-select gray">
+                    <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="quantity_count"
                             placeholder="Enter a number"
-                            (onInput)="changeQuantity($event)"
+                            (ngModelChange)="changeQuantity()"
                         ></p-inputNumber>
-                        <p-dropdown
-                            [options]="quantityUnitArray"
-                            placeholder="Bags"
-                            formControlName="quantity_type"
-                            (onChange)="quantityTypeChange()"
-                        >
-                        </p-dropdown>
+                        <span class="p-inputgroup-addon gray">{{ lotSaleForm.value.quantity_type }}</span>
                         <small *ngIf="lotSaleForm.controls['quantity_count'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
@@ -205,19 +200,12 @@
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Minimum order quantity<span class="star">*</span></label>
-                    <div class="input-and-select gray">
+                    <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="minimum_order_quantity_count"
                             placeholder="Enter a number"
                         ></p-inputNumber>
-                        <p-dropdown
-                            [options]="quantityUnitArray"
-                            optionLabel="label"
-                            placeholder="kg"
-                            formControlName="quantity_type"
-                            optionValue="value"
-                        >
-                        </p-dropdown>
+                        <span class="p-inputgroup-addon gray">{{ lotSaleForm.value.quantity_type }}</span>
                         <small
                             *ngIf="lotSaleForm.controls['minimum_order_quantity_count'].errors?.required"
                             class="p-error"

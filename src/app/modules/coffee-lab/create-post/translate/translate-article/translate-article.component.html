@@ -3,163 +3,242 @@
 </div>
 
 <div *ngIf="!isLoading">
-    <div class="bg-f8 py-3 py-md-4">
-        <p-tabView>
-            <p-tabPanel [header]="'translation' | translate">
-                <div class="p-2 py-3 p-md-4 bg-f8" [formGroup]="articleForm" novalidate>
-                    <div class="sewn-form-field col-12 col-md-6 p-0">
-                        <p-dropdown
-                            [options]="applicationLanguages"
-                            class="w-100"
-                            formControlName="language"
-                            [placeholder]="'select_translation_language' | translate"
-                            optionLabel="label"
-                            optionValue="value"
-                        ></p-dropdown>
-                        <div *ngIf="articleForm.controls.language.invalid" class="p-error">
-                            {{ 'required' | translate }}
-                        </div>
-                    </div>
-                    <div class="col-12 sewn-form-field p-0">
-                        <div class="addImageContainer d-flex align-items-center justify-content-center">
-                            <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image" />
-                            <label class="cursor-pointer">
-                                <input
-                                    #coverFileInput
-                                    type="file"
-                                    accept="image/png, image/jpeg"
-                                    style="display: none"
-                                    (change)="onFileChange($event)"
-                                />
-                                <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
-                                    <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
-                                        >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
-                                    >
-                                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
-                                        >({{ 'max_size' | translate }} 2mb)</span
-                                    >
-                                </div>
-                            </label>
-                            <img
-                                class="mv-change-icon d-md-none cursor-pointer"
-                                *ngIf="coverImageUrl"
-                                (click)="coverFileInput.click()"
-                                src="assets/images/camera.svg"
-                            />
-                            <div class="image-btn-group d-flex" *ngIf="coverImageUrl">
-                                <button
-                                    class="btn-raised d-none d-md-flex mr-2"
-                                    (click)="coverFileInput.click()"
-                                    pButton
-                                    label="{{ 'replace_image' | translate }}"
-                                ></button>
-                                <button
-                                    pButton
-                                    icon="pi pi-trash"
-                                    iconPos="left"
-                                    class="fnt-14 btn-trans-nb d-none d-md-flex"
-                                    (click)="deleteCoverImage(coverFileInput)"
-                                    label="{{ 'delete' | translate }}"
-                                ></button>
-                            </div>
-                            <div
-                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
-                                (click)="pasteCoverImage()"
-                            >
-                                <img src="assets/images/paste.svg" class="mr-1" />
-                                <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{
-                                    'paste' | translate
-                                }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 sewn-form-field p-0">
-                        <input type="text" placeholder="Give a title" pInputText formControlName="title" />
-                        <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
-                            {{ 'required' | translate }}
-                        </small>
-                    </div>
-                    <div class="col-12 sewn-form-field p-0">
-                        <textarea
-                            [placeholder]="'subtitle' | translate"
-                            pInputTextarea
-                            formControlName="subtitle"
-                            [rows]="1"
-                        ></textarea>
-                        <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
-                            {{ 'required' | translate }}
-                        </small>
-                        <small
-                            *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount"
-                            class="p-error text-clrb1f"
-                        >
-                            Please input 30 words
-                        </small>
-                    </div>
-                    <div class="col-12 sewn-form-field p-0">
-                        <app-forum-editor
-                            [(content)]="content"
-                            [(isUploadingImage)]="isUploadingImage"
-                            [(imageIdList)]="imageIdList"
-                            fileModule="cl-articles"
-                            [images]="images"
-                        ></app-forum-editor>
-                    </div>
-                </div>
-            </p-tabPanel>
-            <p-tabPanel [header]="'see_original_post' | translate">
-                <div class="p-2 py-3 p-md-4 bg-f8">
-                    <div class="border-main bg-white p-3 p-md-4 br-4">
-                        <div class="position-relative">
-                            <img [src]="article?.cover_image_url" class="banner-image" />
-                            <div
-                                class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
-                                (click)="copyCoverImage()"
-                            >
-                                <img src="assets/images/copy.svg" class="mr-1" />
-                                <span
-                                    class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1"
-                                    [ngClass]="{ 'cursor-not-allowed': isCopying }"
-                                    >{{ 'copy' | translate }}</span
-                                >
-                            </div>
-                        </div>
-                        <p class="fnt-muli fnt-14 fnt-md-18 fnt-bold lh-normal text-clr334 pt-3 mb-2">
-                            {{ article?.title }}
-                        </p>
-                        <p class="fnt-muli fnt-14 fnt-md-18 fnt-normal lh-normal text-clr334 mb-3 mb-md-4">
-                            {{ article?.subtitle }}
-                        </p>
-                        <div appCopyImageToClipboard appFullImgWrapper [innerHTML]="article.content"></div>
-                    </div>
-                </div>
-            </p-tabPanel>
-        </p-tabView>
-        <div class="row mt-2 px-2 px-md-4">
-            <div class="col-md-6 order-2 order-md-1">
-                <button [routerLink]="'/coffee-lab/articles/' + article?.slug" class="btn-stroked px-4 w-mob-100">
-                    {{ 'cancel' | translate }}
-                </button>
+    <div class="row border-md-main br-4 mt-4 mt-md-0 mx-0">
+        <div *ngIf="isMobile && !showNoDataSection" class="col-12 bg-f8 mb-4 px-0 border-main br-4">
+            <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
+                <p-tabPanel *ngFor="let item of remainingLangugage" [header]="item.label | translate">
+                    <ng-container *ngTemplateOutlet="createArticle"></ng-container>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div *ngIf="isMobile && showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
+            <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">
+                {{ 'no_language_available_translated' | translate }}
             </div>
-            <div class="col-md-6 order-1 order-md-2">
-                <div class="d-flex justify-content-end flex-column flex-md-row">
-                    <button
-                        [disabled]="isPosting || isUploadingImage"
-                        (click)="onPost('draft')"
-                        class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
-                    >
-                        {{ 'save_as_draft' | translate }}
-                    </button>
-                    <button
-                        [disabled]="isPosting || isUploadingImage"
-                        (click)="onPost('published')"
-                        class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
-                    >
-                        {{ 'submit' | translate }}
-                    </button>
+        </div>
+        <div class="col-12 col-md-6 px-0 border-mob">
+            <div class="bg-f8 w-100">
+                <div class="d-flex justify-content-between border-btm pt-4 pr-45">
+                    <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-25">
+                        {{ 'original_language' | translate }} - {{ article?.language | language }}
+                    </p>
+                    <img class="swap-img" src="assets/images/swap_horiz_black_24dp.svg" alt="swap_horiz" />
                 </div>
+            </div>
+            <div class="bg-white mr-md-2 p-2 pt-3 pb-4 px-md-4">
+                <div>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
+                    <div class="position-relative border-main br-4">
+                        <img [src]="article?.cover_image_url" class="banner-image br-4" />
+                        <div
+                            class="
+                                bg-f8
+                                br-4
+                                py-2
+                                px-3
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                copy-paste-button
+                            "
+                            (click)="copyCoverImage()"
+                        >
+                            <img src="assets/images/copy.svg" class="mr-1" />
+                            <span
+                                class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1"
+                                [ngClass]="{ 'cursor-not-allowed': isCopying }"
+                                >{{ 'copy' | translate }}</span
+                            >
+                        </div>
+                    </div>
+                    <div *ngIf="article?.categories" class="mt-4">
+                        <div class="row mx-0">
+                            <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
+                        </div>
+                        <app-category-list [categoryList]="article?.categories"></app-category-list>
+                    </div>
+                    <div [formGroup]="articleFormOriginal" class="mt-4">
+                        <div class="col-12 sewn-form-field p-0">
+                            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{
+                                'title' | translate
+                            }}</label>
+                            <input
+                                type="text"
+                                placeholder="Give a title"
+                                [readonly]="true"
+                                pInputText
+                                formControlName="title"
+                            />
+                        </div>
+                        <div class="col-12 sewn-form-field p-0">
+                            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{
+                                'subtitle' | translate
+                            }}</label>
+                            <textarea
+                                [placeholder]="'translate_answer' | translate"
+                                pInputTextarea
+                                formControlName="subtitle"
+                                [readonly]="true"
+                                autoResize="autoResize"
+                                [ngClass]="{ 'subtitle-hgt': articleForm.controls['subtitle']?.value?.length < 50 }"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'body' | translate }}</label>
+                    <div
+                        class="bg-f8 border-main custom-hgt br-4 py-4 px-3"
+                        appFullImgWrapper
+                        [innerHTML]="article.content"
+                    ></div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!isMobile && !showNoDataSection" class="col-12 bg-f8 col-md-6 px-0 border-left">
+            <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
+                <p-tabPanel *ngFor="let item of remainingLangugage" [header]="item.label | translate">
+                    <ng-container *ngTemplateOutlet="createArticle"></ng-container>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div *ngIf="!isMobile && showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
+            <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">
+                {{ 'no_language_available_translated' | translate }}
             </div>
         </div>
     </div>
 </div>
+<div class="row py-3 py-lg-5 py-md-4">
+    <div class="col-md-6 order-2 order-md-1">
+        <button [routerLink]="'/coffee-lab/articles/' + article?.slug" class="btn-stroked px-4 w-mob-100">
+            {{ 'cancel' | translate }}
+        </button>
+        <button
+            *ngIf="draftId"
+            (click)="onDeleteDraft()"
+            class="btn-stroked ml-md-3 px-4 order-2 order-md-1 w-mob-100 mt-2 mt-md-0"
+        >
+            {{ 'delete' | translate }}
+        </button>
+    </div>
+    <div class="col-md-6 order-1 order-md-2">
+        <div class="d-flex justify-content-end flex-column flex-md-row">
+            <button
+                [disabled]="isPosting || isUploadingImage"
+                (click)="onPost('draft')"
+                class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
+            >
+                {{ (draftId ? 'save_changes' : 'save_as_draft') | translate }}
+            </button>
+            <button
+                [disabled]="(isPosting || isUploadingImage) && showNoDataSection"
+                (click)="onPost('published')"
+                class="btn-raised px-4 ml-md-3 order-1 order-md-2 w-mob-100 mb-2 mb-md-0"
+            >
+                {{ 'publish' | translate }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #createArticle>
+    <div class="px-2 px-md-4 pt-3 bg-f8" [formGroup]="articleForm" novalidate>
+        <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
+        <div class="col-12 sewn-form-field p-0">
+            <div class="addImageContainer d-flex align-items-center justify-content-center border-main br-4">
+                <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image br-4" />
+                <label class="cursor-pointer">
+                    <input
+                        #coverFileInput
+                        type="file"
+                        accept="image/png, image/jpeg"
+                        style="display: none"
+                        (change)="onFileChange($event)"
+                    />
+                    <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
+                        <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
+                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                            >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
+                        >
+                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                            >({{ 'max_size' | translate }} 2mb)</span
+                        >
+                    </div>
+                </label>
+                <div class="image-btn-group d-flex" *ngIf="coverImageUrl">
+                    <button class="btn-raised d-md-flex mr-2" (click)="coverFileInput.click()">
+                        {{ 'replace_image' | translate }}
+                    </button>
+                    <button
+                        pButton
+                        icon="pi pi-trash"
+                        iconPos="left"
+                        class="fnt-14 btn-stroked d-md-flex"
+                        (click)="deleteCoverImage(coverFileInput)"
+                        label="{{ 'delete' | translate }}"
+                    ></button>
+                </div>
+                <div
+                    class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
+                    (click)="pasteCoverImage()"
+                >
+                    <img src="assets/images/paste.svg" class="mr-1" />
+                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{ 'paste' | translate }}</span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="categoryList && categoryList.length > 0">
+            <div class="row mx-0">
+                <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
+            </div>
+            <app-category-list [categoryList]="categoryList"></app-category-list>
+        </div>
+        <div class="col-12 sewn-form-field p-0" [ngClass]="{ 'mt-4': categoryList && categoryList.length > 0 }">
+            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title"
+                >{{ 'title' | translate
+                }}<span class="pull-right text-clr588"
+                    >{{ articleForm.get('title')?.value?.length }}/120
+                    {{ 'characters' | translate }}
+                </span></label
+            >
+            <input type="text" placeholder="Give a title" pInputText formControlName="title" />
+            <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
+            <small *ngIf="articleForm.controls['title'].errors?.maxlength" class="p-error">
+                Please input 120 characters
+            </small>
+        </div>
+        <div class="col-12 sewn-form-field p-0">
+            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title"
+                >{{ 'subtitle' | translate }}
+                <span class="pull-right text-clr588">
+                    {{ articleForm.get('subtitle')?.value | wordCount }}/20 words
+                </span></label
+            >
+            <textarea
+                [placeholder]="'translate_answer' | translate"
+                pInputTextarea
+                formControlName="subtitle"
+                autoResize="autoResize"
+                [ngClass]="{ 'subtitle-hgt': articleForm.controls['subtitle']?.value?.length < 50 }"
+            ></textarea>
+            <small *ngIf="articleForm.controls['subtitle'].errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
+            <small *ngIf="articleForm.controls['subtitle'].errors?.maxWordCount" class="p-error text-clrb1f">
+                Please input 20 words
+            </small>
+        </div>
+        <div class="col-12 sewn-form-field p-0">
+            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'body' | translate }}</label>
+            <app-forum-editor
+                formControlName="content"
+                [(isUploadingImage)]="isUploadingImage"
+                [(imageIdList)]="imageIdList"
+                fileModule="cl-articles"
+                height="300"
+                [images]="images"
+            ></app-forum-editor>
+        </div>
+    </div>
+</ng-template>

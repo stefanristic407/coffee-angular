@@ -1,42 +1,20 @@
-// Custom Theming for Prime Ng
-
-@import '../variables';
-
-// Table
-.p-datatable .p-datatable-thead > tr > th {
-    padding: 1rem 0.625rem;
-    border: none;
-    border-radius: 4px;
-    font-weight: 700;
-    line-height: 18px;
-    color: $general-text-color;
-    background-color: transparent;
-    &:first-child {
-        padding-left: 1.625rem;
-    }
-    &:last-child {
-        padding-right: 1.625rem;
-    }
-}
-
 .p-datatable .p-datatable-thead > tr {
     background-color: $primary-bg-color;
     border-radius: 4px;
-}
-
-.p-datatable .p-datatable-tbody > tr > td {
-    padding: 1.25rem 0.625rem;
-    background-color: inherit;
-    border: none;
-    font-weight: 600;
-    line-height: 18px;
-    color: $general-text-color;
-    transition: box-shadow 0.2s;
-    &:first-child {
-        padding-left: 1.625rem;
-    }
-    &:last-child {
-        padding-right: 1.625rem;
+    & > th {
+        padding: 1rem 0.625rem;
+        border: none;
+        border-radius: 4px;
+        font-weight: 700;
+        line-height: 18px;
+        color: $general-text-color;
+        background-color: transparent;
+        &:first-child {
+            padding-left: 1.625rem;
+        }
+        &:last-child {
+            padding-right: 1.625rem;
+        }
     }
 }
 
@@ -46,7 +24,6 @@
 .p-datatable .p-datatable-tbody > tr {
     border-bottom: 1px dashed $primary-border-color;
     background-color: inherit;
-
     &:hover {
         background-color: transparent;
         box-shadow: 0 4px 26px 2px rgba(0, 0, 0, 0.05);
@@ -55,82 +32,34 @@
             visibility: visible;
         }
     }
-
     &:last-child {
         border: none;
     }
-}
-.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
-    background: #ffffff;
-}
-.p-datatable .p-paginator-bottom {
-    background-color: transparent;
-    border-width: 0px;
-}
-
-.p-paginator.p-paginator-bottom {
-    padding: 16px 0;
-}
-
-.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-    background-color: transparent;
-    color: $primary-color;
-    border: none;
-    font-size: $general-font-size;
-}
-
-.p-paginator .p-paginator-pages .p-paginator-page {
-    font-size: $general-font-size;
-    color: $muted-text-color;
-}
-
-.p-paginator-first span,
-.p-paginator-last span {
-    border-radius: 1px;
-    border: solid 1.5px $primary-color;
-    padding: 8px 4px 7px 6px;
-}
-
-.p-datatable-custom-paginator {
-    .p-paginator-first,
-    .p-paginator-last {
-        span {
-            border-width: 0;
+    & > td {
+        padding: 1.25rem 0.625rem;
+        background-color: inherit;
+        border: none;
+        font-weight: 600;
+        line-height: 18px;
+        color: $general-text-color;
+        transition: box-shadow 0.2s;
+        overflow-wrap: break-word;
+        &:first-child {
+            padding-left: 1.625rem;
+        }
+        &:last-child {
+            padding-right: 1.625rem;
         }
     }
 }
 
-.p-datatable .p-sortable-column:focus {
-    box-shadow: none;
-}
-
-.p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
-    background: transparent;
-    color: #747588;
-}
-
-.p-paginator .p-paginator-first:not(.p-disabled):not(.p-highlight):hover,
-.p-paginator .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
-.p-paginator .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
-.p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
-    background: transparent;
+.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: $white;
 }
 
 .p-datatable .p-datatable-footer {
-    border: 0;
-}
-
-@media (max-width: 1270px) and (min-width: 768px) {
-    .e-comm-catlog .p-datatable table {
-        border-collapse: collapse;
-        table-layout: fixed;
-        width: 1100px !important;
-    }
-    .select-order .p-datatable table {
-        border-collapse: collapse;
-        table-layout: auto;
-        width: 1100px !important;
-    }
+    border: none;
+    padding: 0;
 }
 
 @media (min-width: 768px) {
@@ -139,9 +68,7 @@
         border-radius: 4px;
         padding: 4px;
     }
-}
 
-@media (min-width: 768px) {
     .p-datatable-responsive,
     .p-datatable-responsive-single {
         .p-datatable-tbody > tr > td {
@@ -152,6 +79,7 @@
         }
     }
 }
+
 @media (max-width: 767px) {
     .p-datatable.p-datatable-responsive-single {
         .p-datatable-thead > tr > th,
@@ -204,13 +132,13 @@
         }
 
         .p-datatable-tbody > tr {
-            padding: 0 1rem;
+            padding: 4px 16px 0 16px;
             box-shadow: none;
             display: flow-root;
             margin: 16px 0px 0px 0px;
             border: solid 1px $secondary-border-color;
             border-radius: 4px;
-            background-color: #ffffff;
+            background-color: $white;
             &:first-child {
                 margin: 0;
             }
@@ -224,14 +152,21 @@
             width: 100% !important;
             float: left;
             clear: left;
-            border-bottom: 1px dashed $primary-border-color !important;
+            &:not(.border-none) {
+                border-bottom: 2px dashed $primary-border-color !important;
+            }
 
             .p-column-title {
                 min-width: 40% !important;
-                display: inline-block;
+                display: inline-block !important;
                 margin-right: 1rem;
-                font-weight: 500 !important;
+                font-weight: 600 !important;
                 color: $muted-text-color;
+            }
+
+            .p-mobile-row-content {
+                width: 100%;
+                display: block;
             }
 
             &:last-child {
@@ -248,14 +183,17 @@
             border: 0px;
         }
         .p-datatable-tbody > tr {
-            border-bottom: 1px dashed #d6d6d6;
-            display: flow-root;
-            margin: 10px 0px 0px 0px;
-            border: solid 1px #ebebeb;
-            background-color: #ffffff;
+            border-bottom: 1px dashed $primary-border-color;
+            border: solid 1px $secondary-border-color;
+            background-color: $white;
         }
         .p-datatable-tbody > tr > td:first-child {
-            background-color: #f8f8f8;
+            width: calc(100% + 24px) !important;
+            margin: 0 -12px 0 -12px;
+            padding: 8px 12px;
+            background-color: $primary-bg-color;
+            border-radius: 4px;
+            border-bottom: none !important;
         }
         .p-tabview .p-tabview-panels {
             border: none;
@@ -265,6 +203,20 @@
     }
 }
 
+// Scrollable
+.p-datatable-scrollable {
+    .p-datatable-scrollable-wrapper {
+        overflow-x: scroll;
+        .p-datatable-scrollable-view {
+            min-width: 992px;
+        }
+    }
+}
+
+// Sort column
+.p-datatable .p-sortable-column:focus {
+    box-shadow: none;
+}
 .p-datatable .p-sortable-column:not(.p-highlight):hover,
 .p-datatable .p-sortable-column.p-highlight:hover,
 .p-datatable .p-sortable-column.p-highlight {
@@ -278,22 +230,8 @@
 
 .p-sortable-column-icon.pi.pi-fw {
     font-size: 14px;
+    margin-left: 0.25rem;
     &.pi-sort-alt:before {
         content: url('/assets/images/sort-icon.svg');
-    }
-
-    // &.pi-sort-amount-up-alt:before,
-    // &.pi-sort-amount-down:before {
-    //     content: url('/assets/images/sort-icon.svg');
-    // }
-}
-
-@media all and (min-width: 768px) and (max-width: 991px) {
-    .p-datatable-tablet-scrollable {
-        overflow-x: scroll;
-
-        .p-datatable-wrapper {
-            min-width: 992px;
-        }
     }
 }

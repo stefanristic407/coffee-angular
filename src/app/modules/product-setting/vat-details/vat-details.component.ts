@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, UserService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { ApiResponse } from '@models';
+import { AuthService, ResizeService, UserService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-vat-details',
     templateUrl: './vat-details.component.html',
     styleUrls: ['./vat-details.component.scss'],
 })
-export class VatDetailsComponent implements OnInit {
+export class VatDetailsComponent extends ResizeableComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     roasterId: any;
     resetButtonValue = 'Save';
@@ -19,20 +19,21 @@ export class VatDetailsComponent implements OnInit {
     mrList: any;
     editIndex = null;
     transaction: FormGroup;
-    @Input() mobile = false;
     @Input() feature;
+    tableColumns: any[];
 
     get detailsFormControl() {
         return this.transaction.controls;
     }
 
     constructor(
-        private toastrService: ToastrService,
-        public cookieService: CookieService,
-        public userService: UserService,
-        private fb: FormBuilder,
         private authService: AuthService,
+        private fb: FormBuilder,
+        private toastrService: ToastrService,
+        private userService: UserService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterId = this.authService.getOrgId();
     }
 
@@ -44,6 +45,42 @@ export class VatDetailsComponent implements OnInit {
             vat_type: [this.feature],
         });
         this.getVatDetails();
+
+        this.tableColumns = [];
+        if (this.resizeService.isMobile()) {
+            this.tableColumns.push({
+                field: 'title',
+                header: 'title',
+                width: 35,
+            });
+        }
+        this.tableColumns = this.tableColumns.concat([
+            {
+                field: 'country',
+                header: 'country',
+                width: 35,
+                formField: true,
+            },
+            {
+                field: 'transaction_type',
+                header: 'transaction',
+                width: 25,
+                formField: true,
+            },
+            {
+                field: 'vat_percentage',
+                header: 'vat_rate',
+                width: 20,
+                formField: true,
+            },
+        ]);
+        if (!this.resizeService.isMobile()) {
+            this.tableColumns.push({
+                field: 'action',
+                header: 'action',
+                width: 20,
+            });
+        }
     }
 
     getVatDetails() {

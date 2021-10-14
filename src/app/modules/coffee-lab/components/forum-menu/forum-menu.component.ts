@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { CoffeeLabService, GlobalsService } from '@services';
-import { environment } from '@env/environment';
-import { ToastrService } from 'ngx-toastr';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
+import { environment } from '@env/environment';
+import { CoffeeLabService, GlobalsService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Menu } from 'primeng/menu';
 
 @Component({
@@ -23,7 +23,7 @@ export class ForumMenuComponent implements OnInit {
     @Input() enableSave = true;
     @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
-    @Input() enableStopPropagation = true;
+    @Output() editAnswer = new EventEmitter();
     items: MenuItem[] = [];
     @ViewChild('menu', { static: false }) menu: Menu;
 
@@ -86,13 +86,6 @@ export class ForumMenuComponent implements OnInit {
         }
     }
 
-    onClickMenu(event: any): void {
-        if (this.enableStopPropagation) {
-            event.stopPropagation();
-        }
-        this.menu.toggle(event);
-    }
-
     onShare(): void {
         let url = '';
         switch (this.forumType) {
@@ -106,7 +99,7 @@ export class ForumMenuComponent implements OnInit {
                 url = `${environment.roasterWeb}/coffee-lab/recipes/${this.selectedItem.slug}`;
                 break;
             case 'answer':
-                url = `${environment.roasterWeb}/coffee-lab/questions/${this.extraInfo.slug}?answer=${this.selectedItem.id}`;
+                url = `${environment.roasterWeb}/coffee-lab/questions/${this.selectedItem.slug}`;
                 break;
             case 'comment':
                 break;
@@ -120,7 +113,7 @@ export class ForumMenuComponent implements OnInit {
                 this.toastService.success('Successfully saved');
             } else {
                 if (res?.messages.length && res?.messages?.[`${this.forumType}_id`][0] === 'already_exists') {
-                    this.toastService.error('You already saved this post');
+                    this.toastService.error('You already saved this ' + this.forumType);
                 } else {
                     this.toastService.error('Error while save post');
                 }
@@ -134,7 +127,7 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'article':
                 this.router.navigate(['/coffee-lab/create-post/translate-article'], {
-                    queryParams: { origin_id: this.selectedItem.id },
+                    queryParams: { origin_id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'recipe':
@@ -144,7 +137,7 @@ export class ForumMenuComponent implements OnInit {
                 break;
             case 'answer':
                 this.router.navigate(['/coffee-lab/create-post/translate-answer'], {
-                    queryParams: { origin_id: this.selectedItem.id },
+                    queryParams: { origin_id: this.selectedItem.id, type: this.forumType },
                 });
                 break;
             case 'comment':
@@ -170,14 +163,7 @@ export class ForumMenuComponent implements OnInit {
                 });
                 break;
             case 'answer':
-                this.router.navigate(['/coffee-lab/create-post/answer'], {
-                    queryParams: {
-                        forumId: this.selectedItem.answer_id || this.selectedItem.id,
-                        parentForumType: 'question',
-                        parentForumId: this.extraInfo?.id || this.selectedItem?.question_id,
-                        forumType: 'answer',
-                    },
-                });
+                this.editAnswer.emit(true);
                 break;
             case 'comment':
                 this.router.navigate(['/coffee-lab/create-post/comment'], {
@@ -195,11 +181,8 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?',
-                    yesButton: 'Remove',
+                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -208,7 +191,7 @@ export class ForumMenuComponent implements OnInit {
                         .subscribe((res: any) => {
                             if (res.success) {
                                 this.toastService.success(`You have deleted a ${this.forumType} successfully.`);
-                                this.coffeeLabService.forumDeleteEvent.emit();
+                                this.coffeeLabService.forumDeleteEvent.emit(this.forumType);
                             } else {
                                 this.toastService.error(`Failed to delete a ${this.forumType}.`);
                             }
@@ -222,10 +205,8 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?',
+                    desp: 'Are you sure you want to remove this ' + this.forumType + '?',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

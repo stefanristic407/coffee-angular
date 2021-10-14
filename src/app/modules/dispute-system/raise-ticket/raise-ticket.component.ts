@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { AuthService, PurchaseService, RoasterserviceService } from '@services';
+import { AuthService, PurchaseService, RoasterService } from '@services';
 import { GlobalsService, SocketService, ChatUtilService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
@@ -32,7 +32,7 @@ export class RaiseTicketComponent implements OnInit {
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
         private socket: SocketService,

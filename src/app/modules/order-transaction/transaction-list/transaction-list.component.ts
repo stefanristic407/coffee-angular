@@ -14,9 +14,9 @@ import * as moment from 'moment';
 })
 export class TransactionListComponent extends ResizeableComponent implements OnInit {
     breadItems = [
-        { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Order Management', routerLink: '/features/welcome-aboard' },
-        { label: 'Order Transactions' },
+        { label: this.globals.languageJson?.home, routerLink: '/' },
+        { label: this.globals.languageJson?.order_management, routerLink: '/' },
+        { label: this.globals.languageJson?.order_transactions },
     ];
 
     public readonly perPageItemList = [
@@ -55,6 +55,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     fCperPage: FormControl;
     fCchannel: FormControl;
     uiForm: FormGroup;
+    maxDate = new Date();
 
     roasterId: any;
 
@@ -133,11 +134,11 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
                 : '';
         const endDate =
             value.fCDocumentDateRange && value.fCDocumentDateRange[1]
-                ? moment(value.fCDocumentDateRange[1]).add(1, 'day').format('yyyy-MM-DD')
+                ? moment(value.fCDocumentDateRange[1]).format('yyyy-MM-DD')
                 : '';
 
-        this.primeTableService.documentToDate = startDate;
-        this.primeTableService.documentFromDate = endDate;
+        this.primeTableService.documentFromDate = startDate;
+        this.primeTableService.documentToDate = endDate;
         this.primeTableService.paymentMode = value.fcPaymentType;
         this.primeTableService.orderType = value.fCOrderType;
         this.primeTableService.channel = value.fCchannel;
@@ -147,63 +148,54 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         const commonColumns = [
             {
                 field: 'account_name',
-                header: 'Cust. Name',
-                sortable: false,
-                width: 100,
+                header: 'Cust. name',
+                width: 9,
             },
             {
                 field: 'channel',
                 header: 'Channel',
-                sortable: false,
-                width: 100,
+                width: 8,
             },
             {
                 field: 'document_number',
                 header: 'Doc. no.',
-                sortable: false,
-                width: 100,
+                width: 8,
             },
             {
                 field: 'document_date',
                 header: 'Doc. date',
                 sortable: true,
-                width: 120,
+                width: 10,
             },
             {
                 field: 'document_type',
                 header: 'Doc. type',
-                sortable: false,
-                width: 100,
+                width: 8,
             },
             {
                 field: 'order_type',
                 header: 'Order type',
-                sortable: false,
-                width: 100,
+                width: 9,
             },
             {
                 field: 'payment_type',
                 header: 'Mode',
-                sortable: false,
-                width: 100,
+                width: 8,
             },
             {
                 field: 'total_amount',
                 header: 'Total amt.',
-                sortable: false,
-                width: 160,
+                width: 12,
             },
             {
                 field: 'vat_amount',
                 header: 'VAT',
-                sortable: false,
-                width: 140,
+                width: 10,
             },
             {
                 field: 'commission_amount',
                 header: 'Commission',
-                sortable: false,
-                width: 140,
+                width: 10,
             },
         ];
         this.primeTableService.windowWidth = window.innerWidth;
@@ -214,7 +206,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
                     field: 'mobile-details',
                     header: 'Details',
                     sortable: false,
-                    width: 100,
+                    width: 8,
                 },
                 ...commonColumns,
             ];
@@ -225,7 +217,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
                     field: 'account_number',
                     header: 'Cust. ID',
                     sortable: false,
-                    width: 100,
+                    width: 8,
                 },
                 ...commonColumns,
             ];

@@ -288,8 +288,6 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
                         noButton: 'No',
                         yesButton: 'Yes, Generate report',
                     },
-                    showHeader: false,
-                    styleClass: 'confirm-dialog',
                 })
                 .onClose.subscribe((action: any) => {
                     if (action === 'yes') {

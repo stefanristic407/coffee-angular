@@ -1,46 +1,47 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { organizationTypes } from '@constants';
-import { GlobalsService, UserService, ChatHandlerService, AuthService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { OrganizationType } from '@enums';
+import { AuthService, ChatHandlerService, UserService } from '@services';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
     selector: 'app-user-detail',
     templateUrl: './user-detail.component.html',
     styleUrls: ['./user-detail.component.scss'],
 })
-export class UserDetailComponent implements OnInit, OnChanges {
-    @Input() userId: any;
-    @Input() orgType: any;
-    @Input() size: any;
-    @Input() imageUrl: any;
+export class UserDetailComponent implements OnInit {
+    readonly OrgType = OrganizationType;
+    @ViewChild('myOp', { static: false }) myOp: OverlayPanel;
+    @Input() userId: number;
+    @Input() orgType: OrganizationType;
+    @Input() size: number;
+    @Input() imageUrl: string;
+    @Input() name: string;
     @Input() shape: 'rectangle' | 'circle' = 'circle';
-    @Input() type: 'text' | 'contact' | 'customerText' | '' = '';
+    @Input() type: 'text' | 'contact' | 'atatar' = 'atatar';
     @Input() hasBorder: boolean;
-    @Input() isMessage: any;
-    orgName: any;
+    @Input() isMessage: boolean;
     data: any;
-    name: any;
+    isOpened = false;
+    hiding = false;
+    showMore: boolean;
     public defaultProfileImage = 'assets/images/profile.svg';
-    constructor(
-        public globalsService: GlobalsService,
-        private userService: UserService,
-        private chatHandler: ChatHandlerService,
-        private cookieService: CookieService,
-        private authService: AuthService,
-    ) {}
-    ngOnChanges(): void {
-        this.orgName = organizationTypes.find((item) => item.value === this.orgType?.toUpperCase())?.title;
-        if (this.userId && this.orgType) {
-            this.userService.getUserDetail(this.userId, this.orgType.toLowerCase()).subscribe((res) => {
+
+    constructor(private chatHandler: ChatHandlerService, private userService: UserService) {}
+
+    ngOnInit(): void {}
+
+    getUserData() {
+        if (this.userId && this.orgType && !this.data) {
+            this.orgType = this.orgType.toLowerCase() as OrganizationType;
+            this.userService.getUserDetail(this.userId, this.orgType).subscribe((res) => {
                 if (res.success) {
                     this.data = res.result;
+                    this.imageUrl = this.data?.profile_image_url || this.data?.profile_image_thumb_url || this.imageUrl;
                     this.name = `${this.data?.firstname} ${this.data?.lastname}`;
                 }
             });
         }
     }
-
-    ngOnInit(): void {}
 
     openChat(): void {
         this.chatHandler.openChatThread({
@@ -50,10 +51,25 @@ export class UserDetailComponent implements OnInit, OnChanges {
         });
     }
 
-    showPopup(element: any, event: any) {
-        const userId = this.authService.userId;
-        if (this.data?.id !== userId) {
-            element.toggle(event);
+    show(event) {
+        this.hiding = false;
+        if (!this.isOpened && this.userId) {
+            this.getUserData();
+            this.myOp.show(event);
+            this.showMore = false;
+            setTimeout(() => (this.showMore = true), 800);
+        }
+    }
+
+    hide() {
+        if (this.isOpened) {
+            this.hiding = true;
+            setTimeout(() => {
+                if (this.hiding) {
+                    this.myOp.hide();
+                    this.hiding = false;
+                }
+            }, 300);
         }
     }
 }

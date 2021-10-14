@@ -41,10 +41,10 @@
                             <div class="real-estate">
                                 <img src="assets/images/total-farm.svg" />
                                 <h6>{{ 'total_farm_area' | translate }}</h6>
-                                <h3 *ngIf="sourcing.estate?.total_area">
-                                    {{ sourcing.estate?.total_area }} {{ sourcing.estate?.total_area_unit }}
+                                <h3 *ngIf="sourcing.estate?.totalArea">
+                                    {{ sourcing.estate?.totalArea }} {{ sourcing.estate?.totalAreaUnit }}
                                 </h3>
-                                <h3 *ngIf="!sourcing.estate?.total_area">
+                                <h3 *ngIf="!sourcing.estate?.totalArea">
                                     {{ 'NA' }}
                                 </h3>
                             </div>
@@ -53,10 +53,10 @@
                             <div class="real-estate">
                                 <img src="assets/images/farm-yield.svg" />
                                 <h6>{{ 'farm_yield' | translate }} / Ha</h6>
-                                <h3 *ngIf="sourcing.estate?.farm_yield">
-                                    {{ sourcing.estate?.farm_yield || 'NA' }} {{ sourcing.estate?.farm_yield_unit }}
+                                <h3 *ngIf="sourcing.estate?.farmYield">
+                                    {{ sourcing.estate?.farmYield || 'NA' }} {{ sourcing.estate?.farmYieldUnit }}
                                 </h3>
-                                <h3 *ngIf="!sourcing.estate?.farm_yield">
+                                <h3 *ngIf="!sourcing.estate?.farmYield">
                                     {{ 'NA' }}
                                 </h3>
                             </div>
@@ -66,8 +66,8 @@
                                 <img src="assets/images/altitute.svg" />
                                 <h6>{{ 'altitude_range' | translate }}</h6>
                                 <h3>
-                                    {{ sourcing.estate?.altitude_start || 'NA' }} -
-                                    {{ sourcing.estate?.altitude_end || 'NA' }} m
+                                    {{ sourcing.estate?.altitudeStart || 'NA' }} -
+                                    {{ sourcing.estate?.altitudeEnd || 'NA' }} m
                                 </h3>
                             </div>
                         </div>
@@ -76,8 +76,8 @@
                                 <img src="assets/images/harveaster.svg" />
                                 <h6>Harvest Season</h6>
                                 <h3>
-                                    {{ sourcing.estate?.crop_year_start | month: 'MMMM' }} -
-                                    {{ sourcing.estate?.crop_year_end | month: 'MMMM' }}
+                                    {{ sourcing.estate?.cropYearStart | month: 'MMMM' }} -
+                                    {{ sourcing.estate?.cropYearEnd | month: 'MMMM' }}
                                 </h3>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                             <div class="real-estate">
                                 <img src="assets/images/grad-range.svg" />
                                 <h6>{{ 'grade_range' | translate }}</h6>
-                                <h3>{{ sourcing.estate?.grade_range || 'NA' }}</h3>
+                                <h3>{{ sourcing.estate?.gradeRange || 'NA' }}</h3>
                             </div>
                         </div>
                     </div>
@@ -112,15 +112,18 @@
                                     >{{ 'average_annual_production_coffee' | translate }} :</label
                                 >
                                 <label class="d-md-none">Average annual prodcution :</label>
-                                <p>{{ (sourcing.estate?.coffee_production || 0) + ' tons' }}</p>
+                                <p>
+                                    {{ sourcing.estate?.coffeeProduction | number }}
+                                    {{ sourcing.estate?.coffeeProductionUnit }}
+                                </p>
                             </li>
                             <li>
                                 <label>{{ 'access_to_agronomist' | translate }} :</label>
-                                <p>{{ (sourcing.estate?.agronomist_access | titlecase) || 'NA' }}</p>
+                                <p>{{ (sourcing.estate?.agronomistAccess | titlecase) || 'NA' }}</p>
                             </li>
                             <li>
                                 <label>{{ 'total_number_trees' | translate }} :</label>
-                                <p>{{ sourcing.estate?.number_of_trees || 'NA' }}</p>
+                                <p>{{ sourcing.estate?.numberOfTrees || 'NA' }}</p>
                             </li>
                             <li>
                                 <label>Packaging :</label>
@@ -128,15 +131,18 @@
                             </li>
                             <li>
                                 <label>{{ 'other_crops' | translate }} :</label>
-                                <p>{{ sourcing.estate?.other_crops || 'NA' }}</p>
+                                <p>{{ sourcing.estate?.otherCrops || 'NA' }}</p>
                             </li>
                             <li>
                                 <label>Wild animals in the <br />region :</label>
-                                <p>{{ sourcing.estate?.wild_animals || 'NA' }}</p>
+                                <p>{{ sourcing.estate?.wildAnimals || 'NA' }}</p>
                             </li>
                             <li>
                                 <label>{{ 'average_annual_production_crops' | translate }} :</label>
-                                <p>{{ sourcing.estate?.total_production + ' tons' || 'NA' }}</p>
+                                <p>
+                                    {{ sourcing.estate?.totalProduction | number }}
+                                    {{ sourcing.estate?.totalProductionUnit }}
+                                </p>
                             </li>
                         </ul>
                     </div>
@@ -177,10 +183,7 @@
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-12">
-                        <div
-                            *ngIf="sourcing.estate?.gps_coordinates != ''"
-                            class="br-2 overflow-hidden d-none d-md-block"
-                        >
+                        <div class="br-2 overflow-hidden d-none d-md-block">
                             <agm-map [latitude]="sourcing.estate?.latitude" [longitude]="sourcing.estate?.longitude">
                                 <agm-marker
                                     [latitude]="sourcing.estate?.latitude"

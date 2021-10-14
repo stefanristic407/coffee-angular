@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-variety',
@@ -13,7 +13,7 @@ export class DashboardVarietyComponent implements OnInit, OnDestroy {
     varietiesSub: Subscription;
     chartData: any[] = [];
 
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    constructor(public globals: GlobalsService, private welcomeSrv: MDashboardService) {}
 
     ngOnInit(): void {
         this.varietiesSub = this.welcomeSrv.varieties$.subscribe((res: any) => {
@@ -30,11 +30,21 @@ export class DashboardVarietyComponent implements OnInit, OnDestroy {
 
     makeChartData() {
         const tempData = [];
-        this.varieties.variety_stats.forEach((element) => {
-            tempData.push({
-                name: element.variety,
-                value: element.order_count,
-            });
+        let otherValue = 0;
+        this.varieties.variety_stats = this.varieties.variety_stats.sort((a, b) => b.order_count - a.order_count);
+        this.varieties.variety_stats.forEach((element, index) => {
+            if (index <= 4) {
+                tempData.push({
+                    name: element.variety,
+                    value: element.order_count,
+                });
+            } else {
+                otherValue += element.order_count;
+            }
+        });
+        tempData.push({
+            name: 'Other',
+            value: otherValue,
         });
         this.chartData = tempData;
     }

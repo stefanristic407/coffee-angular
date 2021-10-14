@@ -16,7 +16,7 @@ export class QaPostComponent implements OnInit, OnDestroy {
     isLoading = false;
     sortOptions = [
         { label: 'Latest', value: 'latest' },
-        { label: 'Most Answered', value: 'most_answered' },
+        { label: 'Most answered', value: 'most_answered' },
         { label: 'Oldest', value: 'oldest' },
     ];
     pageDesc: string | undefined;
@@ -48,7 +48,7 @@ export class QaPostComponent implements OnInit, OnDestroy {
             sort_order:
                 this.coffeeLabService.qaPostSortBy === 'most_answered'
                     ? 'desc'
-                    : this.coffeeLabService.qaPostSortBy === 'latest'
+                    : this.coffeeLabService.qaPostSortBy === 'latest' || this.coffeeLabService.qaPostSortBy === null
                     ? 'desc'
                     : 'asc',
             page: 1,
@@ -93,6 +93,7 @@ export class QaPostComponent implements OnInit, OnDestroy {
                             item.answers.push(answerObj2);
                             item.total_answers += 1;
                         }
+                        item.is_saved = true;
                         return item;
                     });
                 } else {

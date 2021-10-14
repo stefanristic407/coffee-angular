@@ -160,8 +160,6 @@ export class GeneratedKeyDetailsComponent implements OnInit {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 console.log('action--->>', action);

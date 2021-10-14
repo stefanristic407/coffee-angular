@@ -1,5 +1,10 @@
 @import 'variables';
 .recipe-post-wrapper {
+    .recipe-mob {
+        @media screen and (max-width: 767px) {
+            margin-left: 0px;
+        }
+    }
     .addImageContainer {
         background: $white;
         height: 255px;
@@ -15,17 +20,12 @@
             position: absolute;
             right: 0;
             top: 0;
-            .btn-trans-nb {
-                background-color: transparent;
-                border: none;
-                color: #ffffff;
-                padding: 11px 24px;
-            }
         }
     }
     .copy-paste-button {
         position: absolute;
-        bottom: 16px;
+        bottom: 5px;
+        padding: 10.5px 17.5px;
         right: 16px;
         cursor: pointer;
         @media (max-width: 768px) {
@@ -77,17 +77,18 @@
         height: 100%;
         object-fit: cover;
     }
+    .translate-hgt {
+        height: 276px !important;
+        border-radius: 4px;
+        @media (max-width: 768px) {
+            height: 100% !important;
+        }
+    }
 
-    label {
-        color: #747589 !important;
+    .min-hght {
+        min-height: 70px;
     }
-    ::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
-        padding: 5px !important;
-    }
-    ::ng-deep .p-inputgroup-addon .p-dropdown .p-inputtext {
-        position: relative;
-        bottom: 4px;
-    }
+
     .step-border {
         margin: 4px 15px 16px 15px;
         border-bottom: dashed 2px #d6d6d6;
@@ -132,7 +133,7 @@
             .p-tabview-nav {
                 li {
                     @media (max-width: 767px) {
-                        padding-top: 16px;
+                        // padding-top: 16px;
                         border-right: none !important;
                     }
                 }
@@ -152,19 +153,90 @@
         .addImageContainer,
         .stepAddImageContainer {
             width: auto !important;
-            height: 120px !important;
         }
         .step-mb {
-            display: inherit !important;
             ::ng-deep .p-component {
                 width: 100%;
             }
         }
         .step-xs {
-            display: none;
+            margin-top: 1.5rem;
         }
         ::ng-deep .ql-toolbar.ql-snow .ql-formats {
             margin-right: 0 !important;
         }
     }
+}
+
+.text-area {
+    border: 1px solid $error-border-color !important;
+}
+
+.align-another {
+    position: relative;
+    bottom: 18px;
+}
+
+.req-ratio {
+    border-color: $error-border-color !important;
+}
+
+.bring-top {
+    position: relative;
+    z-index: 1;
+}
+
+::ng-deep .text-area-mobile .forum-editor {
+    @media screen and (min-width: 767px) {
+        left: 8px;
+    }
+}
+
+.form-middle {
+    @media screen and (max-width: 767px) {
+        margin-top: -18px;
+    }
+    @media screen and (min-width: 768px) {
+        padding-top: 40px;
+    }
+}
+
+::ng-deep .p-chips.p-category-chips .p-chips-multiple-container {
+    background-color: transparent !important;
+    border: 0px !important;
+    box-shadow: none !important;
+    padding-left: 0px;
+    .p-chips-token {
+        border-radius: 4px !important;
+        background-color: #eaeaea;
+        border-color: #eaeaea;
+        color: #232334;
+        padding: 10px;
+        margin-bottom: 0.75rem;
+        @media screen and (max-width: 767px) {
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .p-chips-input-token {
+        display: none;
+    }
+}
+
+::ng-deep .category-multi {
+    .p-multiselect {
+        width: 100%;
+    }
+}
+
+.trans-margin {
+    padding-top: 1.5rem !important;
+    @media (min-width: 992px) {
+        margin-top: 1rem;
+    }
+}
+
+.brew-dis.p-component:disabled {
+    opacity: 0.5 !important;
 }

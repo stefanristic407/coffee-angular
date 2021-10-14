@@ -2,7 +2,13 @@
     <div class="w-tab-100 d-flex flex-column flex-lg-row align-items-center pb-4 pb-lg-0">
         <img
             class="profile-image cursor-pointer"
-            src="{{ data?.company_image_thumbnail_url || 'assets/images/ft-roastry-profile.png' }}"
+            src="{{
+                data?.company_image_thumbnail_url
+                    ? data?.company_image_thumbnail_url
+                    : data?.sourcing_image_url
+                    ? data?.sourcing_image_url
+                    : 'assets/images/ft-roastry-profile.png'
+            }}"
         />
         <div class="pl-lg-35 d-flex flex-column align-items-center align-items-lg-start">
             <p class="fnt-bold fnt-md-14 fnt-16 text-clr334 fnt-muli mb-3 mb-md-2 mt-4 mt-lg-0">
@@ -11,8 +17,11 @@
             <p class="fnt-14 fnt-600 text-clr588 fnt-muli mb-3">
                 Owned by {{ data?.owner_name }} &nbsp;&nbsp; &#9679; &nbsp; Founded in {{ data?.founded_on }}
             </p>
-            <app-user-detail class="small-info-text" [userId]="data?.admin_id" [orgType]="orgType" type="customerText">
-            </app-user-detail>
+            <div class="fnt-bold">
+                Admin:
+                <app-user-detail [userId]="data?.admin_id" [name]="data?.admin_name" [orgType]="orgType" type="text">
+                </app-user-detail>
+            </div>
         </div>
     </div>
     <div class="w-mob-100 d-flex flex-md-row-reverse mx-auto mx-lg-0">

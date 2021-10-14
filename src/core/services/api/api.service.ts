@@ -10,7 +10,7 @@ import { OrganizationType } from '@enums';
 type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export class ApiService {
-    protected orgType: string;
+    readonly orgType = OrganizationType.ROASTER;
     protected certificatesUrl: string;
     protected deleteUrl: string;
     protected fileUploadUrl: string;
@@ -25,7 +25,6 @@ export class ApiService {
     protected simulatedLoginUrl: string;
 
     constructor(protected http: HttpClient, protected authService: AuthService) {
-        this.orgType = 'ro';
         this.certificatesUrl = `${environment.apiURL}/${this.orgType}/certificates`;
         this.deleteUrl = `${environment.apiURL}/deleteapi`;
         this.fileUploadUrl = `${environment.apiURL}/${this.orgType}/filesfolders`;
@@ -40,7 +39,12 @@ export class ApiService {
         this.simulatedLoginUrl = `${environment.apiURL}/simulated-login`;
     }
 
-    protected post(url: string, apiCall: string, method: HttpMethod = '', data?: object): Observable<ApiResponse<any>> {
+    protected post(
+        url: string,
+        apiCall: string,
+        method: HttpMethod = 'GET',
+        data?: object,
+    ): Observable<ApiResponse<any>> {
         const dto = this.getDto(apiCall, method, data);
 
         return this.http.post<ApiResponse<any>>(`${url}`, dto);
@@ -60,7 +64,7 @@ export class ApiService {
     protected putWithOrg(
         url: string,
         apiCall: string,
-        method: HttpMethod = '',
+        method: HttpMethod = 'PUT',
         data?: object,
     ): Observable<ApiResponse<any>> {
         const dto = this.getDtoWithOrg(apiCall, method, data);
@@ -99,7 +103,9 @@ export class ApiService {
                 obj.hasOwnProperty(prop) &&
                 !_.isNull(obj[prop]) &&
                 !_.isUndefined(obj[prop]) &&
-                !(_.isArray(obj[prop]) && _.isEmpty(obj[prop]))
+                !(_.isArray(obj[prop]) && _.isEmpty(obj[prop])) &&
+                obj[prop] !== undefined &&
+                obj[prop] !== ''
             ) {
                 str.push(
                     encodeURIComponent(prop) +
@@ -109,6 +115,22 @@ export class ApiService {
             }
         }
         return str.join('&');
+    }
+
+    get apiCallPrefix(): string {
+        return `/${this.orgType}/${this.orgId}`;
+    }
+
+    get orgId(): number {
+        return this.authService.getOrgId();
+    }
+
+    get userId(): number {
+        return this.authService.userId;
+    }
+
+    get token(): string {
+        return this.authService.token;
     }
 
     protected getOrgId(): number {

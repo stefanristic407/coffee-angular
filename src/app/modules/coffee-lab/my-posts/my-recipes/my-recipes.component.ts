@@ -11,10 +11,20 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class MyRecipesComponent implements OnInit, OnDestroy {
     recipes: any[] = [];
+    orderList: any[] = [
+        {
+            label: 'Latest',
+            value: 'latest',
+        },
+        {
+            label: 'Oldest',
+            value: 'oldest',
+        },
+    ];
     isLoading = true;
     destroy$: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
+    constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getRecipes();
         });
@@ -27,7 +37,10 @@ export class MyRecipesComponent implements OnInit, OnDestroy {
     getRecipes(): void {
         const params = {
             sort_by: 'created_at',
-            sort_order: 'desc',
+            sort_order:
+                this.coffeeLabService.recipeViewSortBy === null || this.coffeeLabService.recipeViewSortBy === 'latest'
+                    ? 'desc'
+                    : 'asc',
             publish: true,
             page: 1,
             per_page: 10000,

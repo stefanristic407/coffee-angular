@@ -14,7 +14,11 @@
                                     class="cursor-pointer"
                                     (click)="routeToEstateProfile()"
                                     [size]="(isMobile$ | async) ? 90 : 54"
-                                    [src]="sourcing.estate?.company_image_thumbnail_url"
+                                    [src]="
+                                        sourcing.estate?.companyImageThumbnailUrl
+                                            ? sourcing.estate?.companyImageThumbnailUrl
+                                            : sourcing.estate?.sourcingImageUrl
+                                    "
                                     [name]="sourcing.estate?.name"
                                 ></app-avatar>
                             </div>
@@ -55,8 +59,8 @@
 
                 <div class="banner-img br-2 order-1 order-md-2 mt-3 mx-n3 mx-md-0">
                     <img
-                        *ngIf="sourcing.estate?.banner_url"
-                        [src]="sourcing.estate?.banner_url"
+                        *ngIf="sourcing.estate?.bannerUrl"
+                        [src]="sourcing.estate?.bannerUrl"
                         alt="Estate"
                         class="br-2"
                     />
@@ -115,8 +119,7 @@
 <ng-template #loading>
     <div class="total-loader">
         <div>
-            <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+            <app-loading></app-loading>
         </div>
     </div>
 </ng-template>

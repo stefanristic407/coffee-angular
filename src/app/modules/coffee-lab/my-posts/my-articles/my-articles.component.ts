@@ -11,10 +11,20 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class MyArticlesComponent implements OnInit, OnDestroy {
     articles: any[] = [];
+    orderList: any[] = [
+        {
+            label: 'Latest',
+            value: 'latest',
+        },
+        {
+            label: 'Oldest',
+            value: 'oldest',
+        },
+    ];
     isLoading = true;
     destroy$: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
+    constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getArticles();
         });

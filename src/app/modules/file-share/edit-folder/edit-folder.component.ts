@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, IdmService } from '@services';
-import { FileService } from '@services';
-import { RoasterserviceService } from '@services';
+import { FileService, IdmService } from '@services';
 import { FileShareService } from '../file-share.service';
+import { OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-edit-folder',
@@ -14,12 +13,12 @@ import { FileShareService } from '../file-share.service';
     styleUrls: ['./edit-folder.component.scss'],
 })
 export class EditFolderComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     isCreate = true;
     infoForm: FormGroup;
     shareForm: FormGroup;
     record: any;
     invite = false;
-    roasterId: string;
     permissionItems = [];
     usersList: any[];
     submitted = false;
@@ -29,17 +28,14 @@ export class EditFolderComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
+        private fileShareSrv: FileShareService,
+        private fileSrv: FileService,
+        private idmService: IdmService,
         private route: ActivatedRoute,
         private router: Router,
-        private cookieSrv: CookieService,
         private toastrService: ToastrService,
-        private globals: GlobalsService,
-        private fileSrv: FileService,
-        private roasterSrv: RoasterserviceService,
-        private idmService: IdmService,
-        private fileShareSrv: FileShareService,
+        private translator: TranslateService,
     ) {
-        this.roasterId = this.cookieSrv.get('roaster_id');
         this.route.paramMap.subscribe((params) => {
             if (params.has('folderId')) {
                 this.fileShareSrv.folderId = +params.get('folderId');
@@ -50,11 +46,11 @@ export class EditFolderComponent implements OnInit {
     ngOnInit(): void {
         this.permissionItems = [
             {
-                label: this.globals.languageJson.can_view,
+                label: this.translator.instant('can_view'),
                 value: 'VIEW',
             },
             {
-                label: this.globals.languageJson.can_edit,
+                label: this.translator.instant('can_edit'),
                 value: 'EDIT',
             },
         ];
@@ -63,49 +59,38 @@ export class EditFolderComponent implements OnInit {
             description: [null],
         });
         this.shareForm = this.fb.group({
-            user: [null, Validators.compose([Validators.required])],
+            users: [null],
             permission: ['VIEW'],
         });
     }
 
     save() {
-        if (this.infoForm.valid && (!this.invite || this.shareForm.valid)) {
+        if (this.infoForm.valid) {
             const postData = {
                 ...this.infoForm.value,
                 file_module: 'File-Share',
                 parent_id: +this.fileShareSrv.folderId,
             };
             this.submitted = true;
+
             if (this.isCreate) {
                 this.fileSrv.createFolder(postData).subscribe((res: any) => {
                     if (res.success) {
-                        if (this.invite) {
-                            this.record = res.result;
-                            this.shareAndMap(res.result.id);
-                        } else {
-                            this.submitted = false;
-                            this.toastrService.success('Folder created sucessfully');
-                            this.router.navigateByUrl('/file-share');
-                        }
+                        this.record = res.result;
+                        this.shareAndMap(res.result.id);
                     } else {
                         this.submitted = false;
                         this.toastrService.error('Error while creating folder');
                     }
                 });
             } else {
-                this.roasterSrv.updateFolderDetails(this.roasterId, this.record.id, postData).subscribe((res: any) => {
+                this.fileSrv.updateFolder(this.record.id, postData).subscribe((res: any) => {
                     if (res.success) {
-                        if (this.invite) {
-                            this.record = res.result;
-                            this.shareAndMap(res.result.id);
-                        } else {
-                            this.submitted = false;
-                            this.toastrService.success('Folder details updated sucessfully');
-                            this.router.navigateByUrl('/file-share');
-                        }
+                        this.record = res.result;
+                        this.shareAndMap(res.result.id);
                     } else {
                         this.submitted = false;
-                        this.toastrService.error('Error while updating details');
+                        this.toastrService.error('Error while creating folder');
                     }
                 });
             }
@@ -117,31 +102,41 @@ export class EditFolderComponent implements OnInit {
 
     shareAndMap(fileId) {
         const promises = [];
-        promises.push(new Promise((resolve, reject) => this.shareFolder(fileId, resolve, reject)));
+        if (this.invite && this.shareForm.value.users?.length) {
+            this.shareForm.value.users.forEach((ix) =>
+                promises.push(new Promise((resolve, reject) => this.shareFolder(fileId, ix, resolve, reject))),
+            );
+        }
         if (this.selectedOrderId && !(this.record?.order_ids === this.selectedOrderId)) {
             promises.push(new Promise((resolve, reject) => this.mapOrder(fileId, resolve, reject)));
         }
         Promise.all(promises)
             .then(() => {
+                this.submitted = false;
+                if (this.invite && this.shareForm.value.users?.length) {
+                    this.toastrService.success('Folder created and shared sucessfully');
+                } else {
+                    this.toastrService.success('Folder created sucessfully');
+                }
                 this.router.navigateByUrl('/file-share');
             })
-            .catch(() => {});
+            .catch(() => {
+                this.submitted = false;
+                this.toastrService.success('Folder created sucessfully but error while sharing folder');
+            });
     }
 
-    shareFolder(fileId, resolve, reject) {
+    shareFolder(fileId, user, resolve, reject) {
         const postData = {
-            user_id: this.shareForm.value.user.id,
-            permission: this.shareForm.value.permission,
-            company_type: this.shareForm.value.user.organization_type,
-            company_id: this.shareForm.value.user.organization_id,
+            user_id: user.id,
+            permission: user.permission,
+            company_type: user.organization_type,
+            company_id: user.organization_id,
         };
-        this.roasterSrv.shareFolder(this.roasterId, fileId, postData).subscribe((res: any) => {
-            this.submitted = false;
+        this.fileSrv.shareFileFolder(fileId, postData).subscribe((res: any) => {
             if (res.success) {
-                this.toastrService.success('Successfully shared.');
                 resolve();
             } else {
-                this.toastrService.error('Error! while sharing the created folder');
                 reject();
             }
         });
@@ -170,13 +165,36 @@ export class EditFolderComponent implements OnInit {
     }
 
     getUsersList(event: any) {
-        this.idmService.getUsersList(event.query).subscribe((res: any) => {
-            if (res.success) {
-                this.usersList = res.result;
-                this.usersList.map((element) => (element.name = `${element.firstname} ${element.lastname}`));
-            } else {
-                this.toastrService.error('Error while fetching users list');
-            }
-        });
+        const searchStr: string = (event?.query || '').trim();
+        if (searchStr.length < 3) {
+            this.usersList = [];
+            return;
+        }
+        this.idmService
+            .getUsersList(
+                searchStr,
+                `${OrganizationType.ROASTER},${OrganizationType.ESTATE},${OrganizationType.MICRO_ROASTER},${OrganizationType.FACILITATOR},${OrganizationType.HORECA},${OrganizationType.SEWN_ADMIN}`,
+            )
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.usersList = res.result
+                        .filter(
+                            (ix) =>
+                                (this.shareForm.value.user || []).findIndex(
+                                    (iy) => ix.id === iy.id && ix.organization_id === iy.organization_id,
+                                ) < 0,
+                        )
+                        .map((ix) => {
+                            return {
+                                ...ix,
+                                name: `${ix.firstname} ${ix.lastname}`.trim(),
+                                nameWithOrg: `${ix.firstname} ${ix.lastname}`.trim() + `(${ix.organization_name})`,
+                                permission: this.shareForm.value.permission,
+                            };
+                        });
+                } else {
+                    this.toastrService.error('Error while fetching users list');
+                }
+            });
     }
 }

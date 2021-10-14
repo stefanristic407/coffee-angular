@@ -1,53 +1,6 @@
-<div class="coffee-wrapper">
-    <div class="col-12 col-md-6 col-lg-4 px-0 py-2 p-md-2" *ngFor="let coffee of displayData">
-        <div
-            class="border-main br-4 p-3 py-md-4 px-lg-4 coffee-item"
-            [routerLink]="'/coffee-lab/recipes/' + coffee.slug"
-        >
-            <div class="d-flex justify-content-between">
-                <div class="flex-1 overflow-hidden">
-                    <app-user-header [prop]="coffee"></app-user-header>
-                </div>
-                <app-forum-menu
-                    [selectedItem]="coffee"
-                    forumType="recipe"
-                    [enableEdit]="
-                        organizationId == coffee.organisation_id &&
-                        coffee.organisation_type === coffeeLabService.organization &&
-                        coffee.posted_by == authService.currentUser.id
-                    "
-                    [enableDelete]="
-                        organizationId == coffee.organisation_id &&
-                        coffee.organisation_type === coffeeLabService.organization &&
-                        coffee.posted_by == authService.currentUser.id
-                    "
-                    [enableSave]="pageDesc !== 'saved-posts'"
-                    [enableDeleteSave]="pageDesc === 'saved-posts'"
-                ></app-forum-menu>
-            </div>
-            <div class="w-100 position-relative">
-                <img [src]="coffee.cover_image_url" class="w-100 my-3 my-md-4 object-fit-cover" />
-                <span class="expertise fnt-12"> {{ coffee.expertise }} </span>
-            </div>
-            <a class="fnt-muli fnt-lg-14 fnt-16 fnt-bold text-clr334 cursor-pointer">
-                {{ coffee?.name }}
-                <div class="py-3 m-0 d-flex">
-                    <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'preparation_time' | translate }}:</div>
-                    <span class="fnt-600"> {{ coffee.preparation_time }}{{ coffee.preparation_time_unit }} </span>
-                </div>
-                <div class="m-0 d-flex">
-                    <div class="heading fnt-muli fnt-14 fnt-normal">{{ 'ingredients' | translate }}:</div>
-                    <span class="value fnt-muli fnt-14 fnt-600">
-                        {{ coffee.ingredients }}
-                    </span>
-                </div>
-            </a>
-            <div class="coffee-content-wrapper">
-                <p class="fnt-muli fnt-14 fnt-normal lh-15 text-clr334 mb-0" [innerHTML]="coffee.description"></p>
-
-                <label class="mb-0 brown-cta pt-2">{{ 'read_more' | translate }}</label>
-            </div>
-        </div>
+<div class="row gutter-16 v-gutter-24">
+    <div class="col-md-6 col-xl-4" *ngFor="let coffee of displayData; let i = index">
+        <app-recipe-card [isMyPost]="isMyPost" [isSavedPost]="isSavedPost" [recipe]="coffee"></app-recipe-card>
     </div>
 </div>
 <div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">

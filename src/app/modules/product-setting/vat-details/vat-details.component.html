@@ -1,176 +1,146 @@
-<section>
-    <div class="pt-1">
-        <div class="col-12 pls-note">
-            <p class="fnt-14 fnt-400 fnt-muli text-clr334 m-0">
-                <span class="fnt-700">Please note : </span> Edit VAT rate only when you are sure of a change in the
-                rates. A slight mistake can lead to a penalty from the authorities.
-            </p>
-        </div>
-        <div *ngIf="!mobile">
-            <div class="table-container mb-2 mt-43">
-                <ng-template [ngTemplateOutlet]="vatTable"></ng-template>
-            </div>
-        </div>
-        <div *ngIf="mobile">
-            <div class="row">
-                <!--Mobile View-->
-                <div class="col-12 py-2 d-md-none d-sm-none d-xs-block" *ngFor="let item of mrList; let i = index">
-                    <div class="featureSectionCard" *ngIf="editIndex != i && item.id">
-                        <label for="" class="header header-bg mb-0">
-                            <span class="text-clr334 fnt-14 fnt-bold">Transaction {{ i + 1 }}</span>
-                            <span class="text-highlited pull-right" (click)="editVAT(item, i)"> Edit </span>
-                        </label>
-                        <table class="mtable">
-                            <tr>
-                                <td class="fnt-14 fnt-multi fnt-bold text-clr588">Country</td>
-                                <td class="fnt-14 fnt-multi fnt-bold text-clr334">{{ item.country | country }}</td>
-                            </tr>
-                            <tr>
-                                <td class="fnt-14 fnt-multi fnt-bold text-clr588">Transaction Type</td>
-                                <td class="fnt-14 fnt-multi fnt-bold text-clr334">{{ item.transaction_type }}</td>
-                            </tr>
-                            <tr>
-                                <td class="fnt-14 fnt-multi fnt-bold text-clr588">VAT</td>
-                                <td class="fnt-14 fnt-multi fnt-bold text-clr334">{{ item.vat_percentage }}%</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="featureSectionCard" *ngIf="editIndex == i">
-                        <label for="" class="header mb-0 px-2">
-                            <span class="text-clr334 fnt-14 fnt-md-16 fnt-multi fnt-bold">Transaction {{ i + 1 }}</span>
-                            <span *ngIf="item.id" class="text-highlited pull-right" (click)="deleteEachVat(eachId)"
-                                >{{ 'delete' | translate }}
-                            </span>
-                            <span *ngIf="!item.id" class="text-highlited pull-right" (click)="deleteRow(i)"
-                                >{{ 'delete' | translate }}
-                            </span>
-                        </label>
-                        <form
-                            [formGroup]="transaction"
-                            novalidate
-                            (submit)="saveVATDetails(item.id, transaction.value)"
-                        >
-                            <div class="col-12 sewn-form-field px-2">
-                                <label class="required">Country</label>
-                                <p-dropdown
-                                    [options]="COUNTRY_LIST"
-                                    optionLabel="name"
-                                    optionValue="isoCode"
-                                    formControlName="country"
-                                    placeholder="{{ 'select_country' | translate }}"
-                                ></p-dropdown>
-                                <span class="p-error" *ngIf="detailsFormControl.country.errors?.required">
-                                    {{ 'required' | translate }}
-                                </span>
-                            </div>
-                            <div class="col-12 sewn-form-field px-2">
-                                <label class="required">Transaction type</label>
-                                <input type="text" formControlName="transaction_type" pInputText />
-                                <span class="p-error" *ngIf="detailsFormControl.transaction_type.errors?.required">
-                                    {{ 'required' | translate }}
-                                </span>
-                            </div>
-                            <div class="col-12 sewn-form-field px-2">
-                                <label class="required">VAT Percentage</label>
-                                <input type="number" formControlName="vat_percentage" pInputText />
-                                <span class="p-error" *ngIf="detailsFormControl.vat_percentage.errors?.required">
-                                    {{ 'required' | translate }}
-                                </span>
-                            </div>
-                            <button type="submit" class="col-12 btn btn-raised mb-3" [disabled]="!transaction.valid">
-                                {{ 'save' | translate }}
-                            </button>
-                            <button type="button" class="col-12 btn btn-stroked mb-3" (click)="cancelItem(item, i)">
-                                {{ 'cancel' | translate }}
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <!--Tablet View-->
-                <div class="col-12 p-3 tabletView">
-                    <div class="featureSectionCard">
-                        <ng-template [ngTemplateOutlet]="vatTable"></ng-template>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mt-2">
-                <span class="text-highlited" (click)="addNewTranscation()">Add new transaction </span>
-            </div>
-        </div>
+<div class="pt-1">
+    <div class="col-12 bg-f8 br-4 p-3">
+        <p class="fnt-14 fnt-400 fnt-muli text-clr334 m-0">
+            <span class="fnt-700">Please note : </span> Edit VAT rate only when you are sure of a change in the rates. A
+            slight mistake can lead to a penalty from the authorities.
+        </p>
     </div>
-</section>
 
-<ng-template #vatTable>
-    <form [formGroup]="transaction" novalidate>
-        <p-table [value]="mrList" [lazy]="true" [lazyLoadOnInit]="false">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width: 30%">Country</th>
-                    <th style="width: 25%">Transaction</th>
-                    <th style="width: 25%">{{ 'vat_rate' | translate }}</th>
-                    <th style="width: 20%">Action</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-item let-i="rowIndex">
-                <tr>
-                    <td>
-                        <span *ngIf="editIndex != i"> {{ item.country | country }} </span>
-                        <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex == i">
-                            <p-dropdown
-                                [options]="COUNTRY_LIST"
-                                optionLabel="name"
-                                optionValue="isoCode"
-                                formControlName="country"
-                                placeholder="{{ 'select_country' | translate }}"
-                            ></p-dropdown>
-                            <small *ngIf="detailsFormControl.country.errors?.required" class="p-error">
-                                {{ 'required' | translate }}
-                            </small>
-                        </div>
-                    </td>
-                    <td>
-                        <span *ngIf="editIndex != i"> {{ item.transaction_type }} </span>
-                        <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex == i">
-                            <input type="text" formControlName="transaction_type" pInputText />
-                            <span class="p-error" *ngIf="detailsFormControl.transaction_type.errors?.required">
-                                {{ 'required' | translate }}
+    <div class="mt-2 mt-md-3 mt-lg-475">
+        <form [formGroup]="transaction" novalidate>
+            <p-table
+                [value]="mrList"
+                [columns]="tableColumns"
+                [lazy]="true"
+                [lazyLoadOnInit]="false"
+                [responsive]="true"
+                [scrollable]="isTablet$ | async"
+                styleClass="mobile-card-view"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [style.width]="col.width ? col.width + '%' : '30%'">
+                            {{ col.header | translate }}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-i="rowIndex" let-rowData let-columns="columns">
+                    <tr>
+                        <td
+                            *ngFor="let col of columns"
+                            [ngSwitch]="col.field"
+                            [style.width]="col.width ? col.width + '%' : '30%'"
+                            [ngClass]="editIndex === i && col.formField ? 'border-none pb-0' : ''"
+                        >
+                            <span *ngSwitchCase="'title'">
+                                <span class="fnt-14 fnt-bold">{{ 'transaction' | translate }} {{ i + 1 }}</span>
+                                <span class="pull-right">
+                                    <span
+                                        *ngIf="editIndex !== i; else editCta"
+                                        class="brown-cta"
+                                        (click)="editVAT(rowData, i)"
+                                    >
+                                        {{ 'edit' | translate }}
+                                    </span>
+                                    <ng-template #editCta>
+                                        <span class="brown-cta" (click)="deleteEachVat(eachId)"
+                                            >{{ 'delete' | translate }}
+                                        </span>
+                                    </ng-template>
+                                </span>
                             </span>
-                        </div>
-                    </td>
-                    <td>
-                        <span *ngIf="editIndex != i"> {{ item.vat_percentage }}%</span>
-                        <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex == i">
-                            <input type="number" formControlName="vat_percentage" pInputText />
-                            <span class="p-error" *ngIf="detailsFormControl.vat_percentage.errors?.required">
-                                {{ 'required' | translate }}
+                            <span *ngSwitchCase="'action'">
+                                <span *ngIf="editIndex !== i" class="brown-cta" (click)="editVAT(rowData, i)">{{
+                                    'edit' | translate
+                                }}</span>
+                                <span *ngIf="editIndex === i">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-raised mr-25"
+                                        (click)="saveVATDetails(rowData.id, transaction.value)"
+                                        [disabled]="transaction.invalid"
+                                    >
+                                        {{ 'save' | translate }}
+                                    </button>
+                                    <span *ngIf="rowData.id" class="brown-cta" (click)="deleteEachVat(eachId)"
+                                        >{{ 'delete' | translate }}
+                                    </span>
+                                    <span *ngIf="!rowData.id" class="brown-cta" (click)="deleteRow(i)"
+                                        >{{ 'delete' | translate }}
+                                    </span>
+                                </span>
                             </span>
-                        </div>
-                    </td>
-                    <td>
-                        <span *ngIf="editIndex != i" class="text-highlited" (click)="editVAT(item, i)">{{
-                            'edit' | translate
-                        }}</span>
-                        <span *ngIf="editIndex == i">
-                            <button
-                                type="submit"
-                                class="btn btn-raised mr-25"
-                                (click)="saveVATDetails(item.id, transaction.value)"
-                                [disabled]="transaction.invalid"
-                            >
-                                {{ 'save' | translate }}
-                            </button>
-                            <span *ngIf="item.id" class="text-highlited" (click)="deleteEachVat(eachId)"
-                                >{{ 'delete' | translate }}
+                            <span *ngSwitchCase="'country'">
+                                <span *ngIf="editIndex !== i" class="p-column-title">{{ col.header | translate }}</span>
+                                <span *ngIf="editIndex !== i" class="float-right float-md-left">
+                                    {{ rowData.country | country }}
+                                </span>
+                                <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
+                                    <label class="d-md-none">{{ col.header | translate }}</label>
+                                    <p-dropdown
+                                        [options]="COUNTRY_LIST"
+                                        optionLabel="name"
+                                        optionValue="isoCode"
+                                        filter="true"
+                                        formControlName="country"
+                                        placeholder="{{ 'select_country' | translate }}"
+                                    ></p-dropdown>
+                                    <small *ngIf="detailsFormControl.country.errors?.required" class="p-error">
+                                        {{ 'required' | translate }}
+                                    </small>
+                                </div>
                             </span>
-                            <span *ngIf="!item.id" class="text-highlited" (click)="deleteRow(i)"
-                                >{{ 'delete' | translate }}
+                            <span *ngSwitchCase="'transaction_type'">
+                                <span *ngIf="editIndex !== i" class="p-column-title">{{ col.header | translate }}</span>
+                                <span *ngIf="editIndex !== i" class="float-right float-md-left">
+                                    {{ rowData.transaction_type }}
+                                </span>
+                                <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
+                                    <label class="d-md-none">{{ col.header | translate }}</label>
+                                    <input type="text" formControlName="transaction_type" pInputText />
+                                    <span class="p-error" *ngIf="detailsFormControl.transaction_type.errors?.required">
+                                        {{ 'required' | translate }}
+                                    </span>
+                                </div>
                             </span>
-                        </span>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </form>
-</ng-template>
+                            <span *ngSwitchCase="'vat_percentage'">
+                                <span *ngIf="editIndex !== i" class="p-column-title">{{ col.header | translate }}</span>
+                                <span *ngIf="editIndex !== i" class="float-right float-md-left">
+                                    {{ rowData.vat_percentage }}%</span
+                                >
+                                <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
+                                    <label class="d-md-none">{{ col.header | translate }}</label>
+                                    <input type="number" formControlName="vat_percentage" pInputText />
+                                    <span class="p-error" *ngIf="detailsFormControl.vat_percentage.errors?.required">
+                                        {{ 'required' | translate }}
+                                    </span>
+                                </div>
+                                <div *ngIf="editIndex === i" class="d-md-none">
+                                    <button
+                                        type="submit"
+                                        class="w-100 btn-raised mt-3"
+                                        (click)="saveVATDetails(rowData.id, transaction.value)"
+                                        [disabled]="!transaction.valid"
+                                    >
+                                        {{ 'save' | translate }}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="w-100 btn-stroked mt-3"
+                                        (click)="cancelItem(rowData, i)"
+                                    >
+                                        {{ 'cancel' | translate }}
+                                    </button>
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </form>
+    </div>
+
+    <div class="mt-3">
+        <span class="brown-cta" (click)="addNewTranscation()">{{ 'add_new_transaction' | translate }}</span>
+    </div>
+</div>

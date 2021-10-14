@@ -1,104 +1,495 @@
 <main>
-    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" (click)="location.back()">
+    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" (click)="onBack()">
         <a>
-            <span>{{ 'back' | translate }}</span>
+            <span class="ml-2">{{ 'back_to_forum' | translate }}</span>
         </a>
     </div>
-    <div class="page-wrapper" *ngIf="!isLoading">
-        <article class="col-12 col-lg-8 p-0 pr-lg-3">
-            <div class="p-3 p-lg-45 border-main br-4">
-                <div class="pb-3 pb-md-4 pb-lg-5">
-                    <img class="w-100 banner-image br-4" [src]="detailsData?.cover_image_url" />
-                    <h1 class="fnt-18 fnt-muli fnt-bold text-clr334 pt-3 mb-2">
-                        {{ detailsData?.title }}
-                    </h1>
-                    <h4 class="fnt-18 fnt-muli fnt-normal text-clr334 mb-0">
-                        {{ detailsData?.subtitle }}
-                    </h4>
+    <div class="container article-main-block" *ngIf="!isLoading">
+        <div class="mt-4 mt-lg-425">
+            <div *ngIf="detailsData?.categories" class="row mx-0 mx-md-5 px-md-5 justify-content-lg-center">
+                <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
+            </div>
+            <div class="px-0 px-md-475">
+                <h1
+                    class="
+                        main-heading
+                        bg-transparent
+                        fnt-bold
+                        text-clr334
+                        px-0 px-lg-5
+                        mt-md-4 mt-25
+                        mb-md-3 mb-2
+                        text-break
+                    "
+                >
+                    <!-- Starting your coffee tasting journey is easy! -->
+                    {{ detailsData?.title }}
+                </h1>
+                <p class="fnt-16 fnt-md-20 fnt-600 fnt-muli text-clr334 text-md-center px-0 px-lg-5">
+                    <!-- All about your first steps of coffee! -->
+                    {{ detailsData?.subtitle }}
+                </p>
+            </div>
+            <div class="d-md-flex justify-content-md-center mt-35 mt-md-4 mb-4">
+                <div class="published fnt-14 fnt-muli mr-3">
+                    {{ 'published' | translate }}
+                    {{ detailsData?.posted_at || detailsData?.created_at | date: 'longDate' }}
                 </div>
-                <div class="d-flex flex-wrap w-100">
-                    <div class="d-flex justify-content-between align-items-end w-100">
-                        <div class="flex-1 overflow-hidden">
-                            <app-user-header [prop]="detailsData"></app-user-header>
+                <div
+                    class="mt-2 mt-md-0"
+                    *ngIf="detailsData?.translated_articles && detailsData?.translated_articles.length > 0"
+                >
+                    <app-translation-dropdown
+                        forumType="article"
+                        [translatedList]="detailsData?.translated_articles"
+                    ></app-translation-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 my-4">
+            <div class="pb-45">
+                <img
+                    class="w-100 banner-image"
+                    [src]="detailsData?.cover_image_url"
+                    [alt]="detailsData?.title + ' cover image'"
+                />
+            </div>
+            <div class="w-100 d-md-none">
+                <div class="d-flex justify-content-between mb-4">
+                    <div class="d-flex">
+                        <div class="d-flex align-like mr-1">
+                            <button
+                                class="like-int d-none"
+                                (click)="onLike(detailsData.id)"
+                                [ngClass]="{ 'd-block': !detailsData.is_liked }"
+                                [disabled]="!isLikedBtn"
+                            >
+                                <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
+                            </button>
+                            <button
+                                class="like-int d-none"
+                                (click)="onUnLike(detailsData.id)"
+                                [ngClass]="{ 'd-block': detailsData.is_liked }"
+                                [disabled]="!isLikedBtn"
+                            >
+                                <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
+                            </button>
+                            <span class="d-flex mt-25 ml-1 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>
                         </div>
-                        <div class="d-flex flex-column align-items-end">
+                        <div class="message-icon hover-message-icon cursor-point mr-25" (click)="onFocusCommentBox()">
+                            <img class="pt-2" src="assets/images/message.svg" alt="message" />
+                        </div>
+                        <div class="align-items-center">
+                            <div
+                                [ngClass]="{ 'd-block': !isSaveArticle }"
+                                class="hover-save-icon cursor-point d-none"
+                                (click)="onSave(detailsData.id)"
+                            >
+                                <img src="assets/images/save.svg" alt="save" />
+                            </div>
+                            <div
+                                [ngClass]="{ 'd-block': isSaveArticle }"
+                                class="hover-save-icon cursor-point d-none"
+                                (click)="onSameSave(detailsData.id)"
+                            >
+                                <img src="assets/images/saved-item.svg" alt="saved" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="d-flex hover-share-icon cursor-point mr-1" (click)="onShare()">
+                            <img src="assets/images/share.svg" alt="upload" />
+                        </div>
+                        <div>
                             <app-forum-menu
                                 [selectedItem]="detailsData"
                                 forumType="article"
+                                [enableSave]="false"
                                 [enableTranslation]="
                                     detailsData?.allow_translation &&
                                     (detailsData?.translated_articles || []).length < 3
                                 "
                                 [enableEdit]="
-                                    organizationId === detailsData?.organisation_id &&
                                     detailsData?.organisation_type === coffeeLabService.organization &&
                                     detailsData.user_id === authService.currentUser.id
                                 "
                                 [enableDelete]="
-                                    organizationId === detailsData?.organisation_id &&
                                     detailsData?.organisation_type === coffeeLabService.organization &&
                                     detailsData.user_id === authService.currentUser.id
                                 "
                             ></app-forum-menu>
-                            <div
-                                class="d-none d-md-block mt-2"
-                                *ngIf="detailsData?.allow_translation && detailsData?.translated_articles?.length > 0"
-                            >
-                                <app-translation-dropdown
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <ng-container *ngTemplateOutlet="userWrapper"></ng-container>
+                <span>
+                    <div class="d-flex flex-wrap w-100 innter-box">
+                        <div class="d-flex justify-content-between align-items-md-end w-100">
+                            <app-user-header [prop]="stickySecData"></app-user-header>
+                            <div class="d-none d-md-block d-lg-flex flex-column align-items-end">
+                                <app-forum-menu
+                                    [selectedItem]="detailsData"
                                     forumType="article"
-                                    [translatedList]="detailsData?.translated_articles"
-                                ></app-translation-dropdown>
+                                    [enableSave]="false"
+                                    [enableTranslation]="
+                                        detailsData?.allow_translation &&
+                                        (detailsData?.translated_articles || []).length < 3
+                                    "
+                                    [enableEdit]="
+                                        detailsData?.organisation_type === coffeeLabService.organization &&
+                                        detailsData.user_id === authService.currentUser.id
+                                    "
+                                    [enableDelete]="
+                                        detailsData?.organisation_type === coffeeLabService.organization &&
+                                        detailsData.user_id === authService.currentUser.id
+                                    "
+                                ></app-forum-menu>
+                            </div>
+                        </div>
+                        <div class="forum-content w-100 pt-4 mb-5">
+                            <div
+                                class="fnt-muli fnt-14 fnt-normal text-clr334 lh-157 mb-0"
+                                [innerHTML]="detailsData?.content"
+                            ></div>
+                        </div>
+                        <div class="articles-answer w-100 pt-3 pb-4">
+                            <div>
+                                <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-35">
+                                    {{ 'about_the_author' | translate }}
+                                </p>
+                                <div class="d-flex">
+                                    <div class="author-image mr-3">
+                                        <img
+                                            class="br-4"
+                                            [src]="
+                                                stickySecData?.profile_image_url ||
+                                                stickySecData?.profile_image_thumb_url ||
+                                                stickySecData?.posted_user_profile_image_url
+                                            "
+                                            alt="Author-image"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p
+                                            routerLink="/user-profile"
+                                            [queryParams]="{
+                                                user_id: stickySecData?.id,
+                                                organization:
+                                                    stickySecData?.org_type ||
+                                                    stickySecData?.organisation_type ||
+                                                    stickySecData?.organization_type
+                                            }"
+                                            class="
+                                                fnt-14 fnt-bold fnt-muli
+                                                text-clr334
+                                                cursor-point
+                                                text-underline
+                                                mb-2
+                                            "
+                                        >
+                                            {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
+                                        </p>
+                                        <p class="fnt-14 fnt-600 fnt-muli text-clr334">
+                                            {{ stickySecData?.about_me }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between mt-3 mb-4">
+                                <div class="d-flex">
+                                    <div class="d-flex align-like">
+                                        <button
+                                            class="like-int d-none"
+                                            (click)="onLike(detailsData.id)"
+                                            [ngClass]="{ 'd-block': !detailsData.is_liked }"
+                                            [disabled]="!isLikedBtn"
+                                        >
+                                            <img
+                                                class="cursor-point like"
+                                                src="assets/images/thumbsup.svg"
+                                                alt="thumbs-up"
+                                            />
+                                        </button>
+                                        <button
+                                            class="like-int d-none"
+                                            (click)="onUnLike(detailsData.id)"
+                                            [ngClass]="{ 'd-block': detailsData.is_liked }"
+                                            [disabled]="!isLikedBtn"
+                                        >
+                                            <img
+                                                class="cursor-point like"
+                                                src="assets/images/thumbs-up-1.svg"
+                                                alt="thumbs-up"
+                                            />
+                                        </button>
+                                        <span class="d-flex mt-25 ml-1 mr-2 fnt-300 text-clr334">{{
+                                            detailsData?.likes
+                                        }}</span>
+                                    </div>
+                                    <div class="align-items-center">
+                                        <div
+                                            [ngClass]="{ 'd-block': !isSaveArticle }"
+                                            class="hover-save-icon cursor-point d-none"
+                                            (click)="onSave(detailsData.id)"
+                                        >
+                                            <img src="assets/images/save.svg" alt="save" />
+                                        </div>
+                                        <div
+                                            [ngClass]="{ 'd-block': isSaveArticle }"
+                                            class="hover-save-icon cursor-point d-none"
+                                            (click)="onSameSave(detailsData.id)"
+                                        >
+                                            <img src="assets/images/saved-item.svg" alt="saved" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex hover-share-icon cursor-point" (click)="onShare()">
+                                    <img src="assets/images/share.svg" alt="upload" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            *ngIf="
+                                detailsData?.original_article_state && detailsData?.original_article_state === 'ACTIVE'
+                            "
+                            class="border-main br-4 p-4 mt-45 d-none d-md-block w-100 mb-475"
+                        >
+                            <div class="d-flex justify-content-between mb-4">
+                                <div class="d-flex">
+                                    <img src="assets/images/noun-questions.svg" alt="file-imag" />
+                                    <p
+                                        class="
+                                            align-items-center
+                                            d-flex
+                                            text-nowrap
+                                            fnt-muli fnt-bold fnt-14
+                                            text-clr334
+                                            ml-2
+                                        "
+                                    >
+                                        {{ 'read_the_article' | translate }}
+                                    </p>
+                                </div>
+                                <div class="bg-f8 px-25 py-2">
+                                    <p class="fnt-600 fnt-12 fnt-muli text-clr334">
+                                        {{ 'original_language' | translate }} :
+                                        {{ globalsService.getLanguage(detailsData?.original_article?.language) }}
+                                    </p>
+                                </div>
+                            </div>
+                            <app-user-header [prop]="orginalUserData"></app-user-header>
+                            <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
+                                <a
+                                    class="fnt-14 fnt-600 fnt-muli"
+                                    (click)="onRealtedRoute(detailsData?.original_article?.slug)"
+                                    >{{ detailsData?.original_article?.name | titlecase }}</a
+                                >
+                            </div>
+                        </div>
+
+                        <div *ngIf="detailsData?.categories" class="row mx-0">
+                            <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
+                        </div>
+
+                        <div class="mt-md-5 mt-4 mb-4 w-100">
+                            <div class="w-100">
+                                <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-25">{{ 'comments' | translate }}</p>
+                            </div>
+                            <div class="d-flex">
+                                <div class="d-flex mt-1">
+                                    <app-avatar
+                                        [src]="
+                                            authService.currentUser?.profile_image_url ||
+                                            authService.currentUser?.profile_image_thumb_url
+                                        "
+                                        size="40"
+                                        [name]="authService?.currentUser?.firstname"
+                                    ></app-avatar>
+                                </div>
+
+                                <div class="sewn-form-field w-100 mb-0">
+                                    <textarea
+                                        id="text-article-focus"
+                                        class="add-comment"
+                                        [ngClass]="{ 'comment-hgt': !comment }"
+                                        [(ngModel)]="comment"
+                                        [placeholder]="'share_your_thoughts' | translate"
+                                        pInputTextarea
+                                        autoResize="autoResize"
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <div *ngIf="comment" class="d-flex justify-content-end mt-4">
+                                <button (click)="onPost()" class="btn-raised mr-2">
+                                    {{ 'add_comment' | translate }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Answers -->
+                        <div *ngIf="allComments?.length > 0" class="w-100">
+                            <div class="comment-border pb-1">
+                                <p class="fnt-14 fnt-600 fnt-muli text-clr334">
+                                    {{ allComments?.length }} {{ 'answers' | translate }}
+                                </p>
+                            </div>
+                            <div
+                                class="answer-wrapper my-45"
+                                *ngFor="let postItem of commentData; let isLast = last"
+                                [ngClass]="{
+                                    'border-bottom-0': isLast && !showCommentBtn,
+                                    'border-bottom-primary': !isLast && showCommentBtn
+                                }"
+                                [id]="'answer-' + postItem.id"
+                            >
+                                <div class="d-flex flex-wrap w-100 mt-3">
+                                    <div class="d-flex justify-content-between align-items-md-end w-100">
+                                        <app-user-header [prop]="postItem" [isArticleDetail]="true"></app-user-header>
+                                    </div>
+                                </div>
+                                <div class="px-0 mt-3 mb-4 forum-content ml-5 pl-1">
+                                    <div [innerHTML]="postItem.comment"></div>
+                                </div>
+                            </div>
+                            <div class="text-center w-100" *ngIf="showCommentBtn">
+                                <button
+                                    (click)="viewAllComments()"
+                                    class="
+                                        fnt-14 fnt-bold fnt-muli
+                                        text-clr60b
+                                        mb-4
+                                        bg-transparent
+                                        border-0
+                                        text-underline
+                                    "
+                                >
+                                    {{ 'view_all_comments' | translate }}
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="w-100 d-block d-md-none mt-3 py-3 pr-0 border-top-main border-bottom-main"
-                        *ngIf="detailsData?.allow_translation && detailsData?.translated_articles?.length > 0"
-                    >
-                        <app-translation-dropdown
-                            forumType="article"
-                            [translatedList]="detailsData?.translated_articles"
-                        ></app-translation-dropdown>
-                    </div>
-                </div>
-                <div class="article-content pt-3 pt-md-4">
-                    <div
-                        class="fnt-muli fnt-14 fnt-normal text-clr334 lh-157 mb-0"
-                        [innerHTML]="detailsData?.content"
-                    ></div>
-                </div>
-                <div class="pt-4" *ngIf="detailsData?.original_article_id">
-                    <app-original-view [detailsData]="detailsData" forumType="article"></app-original-view>
-                </div>
-                <div class="pt-4">
-                    <app-comments
-                        [commentData]="commentData"
-                        [forumId]="detailsData?.id"
-                        forumType="article"
-                    ></app-comments>
-                </div>
+                </span>
             </div>
-        </article>
-        <article class="col-12 col-lg-4 p-0 pl-lg-3 mt-4 mt-lg-0">
-            <div class="">
-                <div class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 background-header">
-                    {{ 'recent_articles' | translate }}
-                </div>
-                <div class="d-none d-lg-block">
-                    <div *ngFor="let forum of relatedData" class="py-2">
-                        <app-forum-card [data]="forum" forumType="article"></app-forum-card>
-                    </div>
-                </div>
-                <div class="d-block d-lg-none pt-3">
-                    <p-carousel [value]="relatedData" styleClass="p-carousel-forum" [numVisible]="1" [numScroll]="1">
-                        <ng-template let-forum pTemplate="item">
-                            <app-forum-card [data]="forum" forumType="article"></app-forum-card>
-                        </ng-template>
-                    </p-carousel>
-                </div>
-            </div>
-        </article>
+        </div>
     </div>
+    <article class="w-100 row mx-0" *ngIf="!isLoading">
+        <div class="col-12 col-md-8 px-0 px-md-3">
+            <div class="fnt-16 fnt-muli fnt-bold text-clr334 pt-3 pb-45 background-header">
+                {{ 'recent_articles' | translate }}
+            </div>
+            <div class="row py-2">
+                <div *ngFor="let forum of relatedData" class="col-12 col-md-6 pb-4">
+                    <div class="d-flex pb-4 footer-border" (click)="onRealtedRoute(forum.slug)">
+                        <div class="p-articles pr-2 cursor-point"><img [src]="forum?.cover_image_url" alt="" /></div>
+                        <div class="cursor-point d-flex flex-column">
+                            <p class="fnt-fly fnt-bold text-clr334 cust-flex-grow">
+                                {{ forum?.title | convertToShortDescription: 6 }}
+                            </p>
+                            <p class="fnt-14 fnt-600 fnt-muli text-clr334 text-underline">
+                                {{ forum?.user_name }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 mb-4 px-0 px-md-3">
+            <app-join-community [type]="'article'"></app-join-community>
+        </div>
+    </article>
     <app-loading *ngIf="isLoading"></app-loading>
 </main>
 <app-translate-toast [language]="detailsData?.language"></app-translate-toast>
+<ng-template #userWrapper>
+    <span class="d-flex">
+        <div class="py-2 py-md-0 user-wrapper d-none d-md-block">
+            <div class="pb-4 d-flex">
+                <div class="w-100 d-flex justify-content-between">
+                    <div>
+                        <p class="fnt-muli fnt-14 fnt-bold text-clr334 mb-1">
+                            {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
+                        </p>
+                        <p class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1">
+                            {{ stickySecData?.organisation_name || stickySecData?.organization_name }}
+                        </p>
+                        <p
+                            *ngIf="stickySecData?.country || stickySecData?.city"
+                            class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1"
+                        >
+                            <span *ngIf="stickySecData?.organisation_name || stickySecData?.organization_name">@</span>
+                            {{ stickySecData?.city || stickySecData?.organization_city }},
+                            {{ stickySecData?.country | country }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-4">
+                <div class="d-flex align-items-center">
+                    <button
+                        class="btn-stroked mr-2 fnt-14 fnt-bold fnt-muli"
+                        routerLink="/user-profile"
+                        [queryParams]="{
+                            user_id: detailsData?.user_id || detailsData?.posted_by,
+                            organization:
+                                detailsData?.org_type ||
+                                detailsData?.organisation_type ||
+                                detailsData?.organization_type
+                        }"
+                    >
+                        {{ 'view_profile' | translate }}
+                    </button>
+                    <button
+                        class="btn-raised fnt-14 fnt-muli cursor-point"
+                        *ngIf="detailsData?.user_id !== authService?.currentUser.id"
+                        (click)="openChat()"
+                    >
+                        <img src="assets/images/message-icon-white.svg" />
+                    </button>
+                </div>
+            </div>
+            <div class="divder"></div>
+            <div class="d-flex my-4">
+                <div class="d-flex align-like">
+                    <button
+                        class="like-int d-none"
+                        (click)="onLike(detailsData.id)"
+                        [ngClass]="{ 'd-block': !detailsData.is_liked }"
+                        [disabled]="!isLikedBtn"
+                    >
+                        <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
+                    </button>
+                    <button
+                        class="like-int d-none"
+                        (click)="onUnLike(detailsData.id)"
+                        [ngClass]="{ 'd-block': detailsData.is_liked }"
+                        [disabled]="!isLikedBtn"
+                    >
+                        <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
+                    </button>
+                    <span class="d-flex mt-25 ml-1 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span>
+                </div>
+                <div class="message-icon hover-message-icon cursor-point" (click)="onFocusCommentBox()">
+                    <img src="assets/images/message.svg" alt="message" />
+                </div>
+                <div class="ml-3">
+                    <div *ngIf="!isSaveArticle" class="hover-save-icon cursor-point" (click)="onSave(detailsData.id)">
+                        <img src="assets/images/save.svg" alt="save" />
+                    </div>
+                    <div
+                        *ngIf="isSaveArticle"
+                        class="hover-save-icon cursor-point"
+                        (click)="onSameSave(detailsData.id)"
+                    >
+                        <img src="assets/images/saved-item.svg" alt="saved" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </span>
+</ng-template>

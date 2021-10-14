@@ -1,23 +1,25 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { GlobalsService, ECommerceService } from '@services';
+import { GlobalsService, ECommerceService, ResizeService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, LazyLoadEvent } from 'primeng/api';
 import { ConfirmComponent } from '@shared';
-import { COUNTRY_LIST, LBUNIT } from '@constants';
+import { COUNTRY_LIST, LBUNIT, PRODUCT_STATUS_ITEMS } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
+import { ResizeableComponent } from '@base-components';
+import { ProductType } from '@enums';
 
 @Component({
     selector: 'app-product-list',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
-    appLanguage: any;
+export class ProductListComponent extends ResizeableComponent implements OnInit {
+    readonly PRODUCT_STATUS_ITEMS = PRODUCT_STATUS_ITEMS;
     breadCrumbItems: MenuItem[];
     tableData: any[] = [];
     tableColumns: any[] = [];
-    isMobileView = false;
     loading = false;
 
     selectedOrigin: any;
@@ -52,11 +54,6 @@ export class ProductListComponent implements OnInit {
         { label: '$0-$500', value: { price_min: '0', price_max: '500' } },
         { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },
     ];
-    statusArray: any[] = [
-        { label: 'In Stock', value: 'IN-STOCK' },
-        { label: 'Sold', value: 'SOLD' },
-        { label: 'In Draft', value: 'IN-DRAFT' },
-    ];
 
     roastLevelArray = {
         1: 'Light',
@@ -68,11 +65,11 @@ export class ProductListComponent implements OnInit {
 
     visibilityArray: any[] = [
         {
-            label: 'Public',
+            label: this.translator.instant('public'),
             value: true,
         },
         {
-            label: 'Not Public',
+            label: this.translator.instant('not_public'),
             value: false,
         },
     ];
@@ -81,19 +78,17 @@ export class ProductListComponent implements OnInit {
     originArray: any[];
     type: string;
 
-    @HostListener('window:resize', ['$event'])
-    onResize(event?) {
-        this.initializeTable();
-    }
-
     constructor(
-        public dialogSrv: DialogService,
-        public router: Router,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
         private activatedRoute: ActivatedRoute,
+        private dialogSrv: DialogService,
         private eCommerceService: ECommerceService,
-    ) {}
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params) => {
@@ -104,15 +99,15 @@ export class ProductListComponent implements OnInit {
             this.keywords = '';
             this.visibilityStatus = null;
             this.breadCrumbItems = [
-                { label: this.globals.languageJson?.home, routerLink: '/' },
+                { label: this.translator.instant('home'), routerLink: '/' },
                 {
-                    label: this.globals.languageJson?.ecommerce,
+                    label: this.translator.instant('ecommerce'),
                 },
                 {
                     label:
                         this.type === 'other'
-                            ? this.globals.languageJson?.other_products
-                            : this.globals.languageJson[`${this.type}_product_catalog`],
+                            ? this.translator.instant('other_products')
+                            : this.translator.instant(`${this.type}_product_catalog`),
                 },
             ];
             this.initializeTable();
@@ -121,103 +116,106 @@ export class ProductListComponent implements OnInit {
     }
 
     initializeTable() {
-        this.isMobileView = window.innerWidth <= 767;
-        if (this.isMobileView) {
+        if (this.resizeService.isMobile()) {
             this.tableColumns = [
                 {
                     field: 'name',
                     header: 'product_name',
-                    sortable: false,
                 },
                 {
                     field: 'featured_image',
                     header: 'image',
-                    sortable: false,
                 },
             ];
         } else {
-            this.tableColumns =
-                this.type === 'other'
-                    ? [
-                          {
-                              field: 'name',
-                              header: 'product_name',
-                              sortable: true,
-                              width: '190px',
-                          },
-                          {
-                              field: 'business_type',
-                              header: 'Product for',
-                              sortable: false,
-                          },
-                          {
-                              field: 'manufacturer_name',
-                              header: 'Manufacturer name',
-                              sortable: false,
-                          },
-                          {
-                              field: 'sku_number',
-                              header: 'SKU number',
-                              sortable: false,
-                          },
-                          {
-                              field: 'status',
-                              header: 'Status',
-                              sortable: false,
-                          },
-                          {
-                              field: 'price',
-                              header: 'Price',
-                              sortable: true,
-                          },
-                          {
-                              field: 'actions',
-                              header: 'Actions',
-                              sortable: false,
-                          },
-                      ]
-                    : [
-                          {
-                              field: 'name',
-                              header: 'product_name',
-                              sortable: true,
-                              width: '190px',
-                          },
-                          {
-                              field: 'origin',
-                              header: 'Origin',
-                              sortable: true,
-                          },
-                          {
-                              field: 'estate_name',
-                              header: 'estate_name',
-                          },
-                          {
-                              field: 'roast_level',
-                              header: 'roast_level',
-                              sortable: false,
-                          },
-                          {
-                              field: 'weight',
-                              header: 'Weight',
-                              sortable: true,
-                          },
-                          {
-                              field: 'status',
-                              header: 'Status',
-                              sortable: false,
-                          },
-                          {
-                              field: 'price',
-                              header: 'Price',
-                              sortable: true,
-                          },
-                          {
-                              field: 'actions',
-                              header: 'Actions',
-                              sortable: false,
-                          },
-                      ];
+            if (this.type === ProductType.other) {
+                this.tableColumns = [
+                    {
+                        field: 'name',
+                        header: 'product_name',
+                        sortable: true,
+                        width: '25%',
+                    },
+                    {
+                        field: 'business_type',
+                        header: 'Product for',
+                        width: '11%',
+                    },
+                    {
+                        field: 'manufacturer_name',
+                        header: 'Manufacturer name',
+                        width: '15%',
+                    },
+                    {
+                        field: 'sku_number',
+                        header: 'SKU number',
+                        width: '15%',
+                    },
+                    {
+                        field: 'status',
+                        header: 'Status',
+                        width: '11%',
+                    },
+                    {
+                        field: 'price',
+                        header: 'Price',
+                        sortable: true,
+                        width: '11%',
+                    },
+                    {
+                        field: 'actions',
+                        header: 'Actions',
+                        width: '12%',
+                    },
+                ];
+            } else {
+                this.tableColumns = [
+                    {
+                        field: 'name',
+                        header: 'product_name',
+                        sortable: true,
+                        width: '25%',
+                    },
+                    {
+                        field: 'origin',
+                        header: 'Origin',
+                        sortable: true,
+                        width: '8%',
+                    },
+                    {
+                        field: 'estate_name',
+                        header: 'estate_name',
+                        width: '13%',
+                    },
+                    {
+                        field: 'roast_level',
+                        header: 'roast_level',
+                        width: '12%',
+                    },
+                    {
+                        field: 'weight',
+                        header: 'Weight',
+                        sortable: true,
+                        width: '10%',
+                    },
+                    {
+                        field: 'status',
+                        header: 'Status',
+                        width: '10%',
+                    },
+                    {
+                        field: 'price',
+                        header: 'Price',
+                        sortable: true,
+                        width: '10%',
+                    },
+                    {
+                        field: 'actions',
+                        header: 'Actions',
+                        width: '12%',
+                    },
+                ];
+            }
         }
     }
 
@@ -272,8 +270,6 @@ export class ProductListComponent implements OnInit {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -295,21 +291,20 @@ export class ProductListComponent implements OnInit {
     }
 
     getMenuItemsForItem(item) {
-        const items = [
+        return [
             {
-                label: this.globals.languageJson?.edit_product,
+                label: this.translator.instant('edit_product'),
                 command: () => {
                     this.onViewDetails(item);
                 },
             },
             {
-                label: this.globals.languageJson?.delete,
+                label: this.translator.instant('delete'),
                 command: () => {
                     this.deleteproduct(item.id);
                 },
             },
         ];
-        return [{ items }];
     }
 
     onViewDetails(item) {

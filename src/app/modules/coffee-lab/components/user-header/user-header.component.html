@@ -1,39 +1,88 @@
-<div class="d-flex align-items-center w-100">
-    <div class="mr-25">
-        <app-user-detail
-            [imageUrl]="prop?.profile_image_url || prop?.profile_image_thumb_url || prop?.posted_user_profile_image_url"
-            [userId]="prop?.user_id || prop?.posted_by"
-            [orgType]="prop?.org_type || prop?.organisation_type || prop?.organization_type"
-            size="40"
-        ></app-user-detail>
-    </div>
-    <div class="flex-1 overflow-hidden">
-        <div class="d-flex align-items-center mr-3 text-nowrap">
-            <div
-                [ngClass]="{ ellipsis: enableEllipsis }"
-                class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1"
-            >
-                {{ prop?.user_name || prop?.question_user || prop?.posted_user || prop?.first_name || 'Unknown User' }}
+<div class="d-flex justify-content-between">
+    <div class="d-flex align-items-center w-100">
+        <div class="mr-25">
+            <app-user-detail
+                [imageUrl]="
+                    prop?.profile_image_url || prop?.profile_image_thumb_url || prop?.posted_user_profile_image_url
+                "
+                [userId]="prop?.user_id || prop?.posted_by"
+                [orgType]="prop?.org_type || prop?.organisation_type || prop?.organization_type"
+                size="40"
+            ></app-user-detail>
+        </div>
+        <div class="flex-1 overflow-hidden">
+            <div class="d-flex align-items-center mr-3 text-nowrap">
+                <div
+                    [ngClass]="{ ellipsis: enableEllipsis, 'cursor-pointer': isTopWriters }"
+                    class="fnt-muli font-weight-bold fnt-14 text-clr334 mr-md-3 mr-1"
+                >
+                    <a
+                        *ngIf="isTopWriters"
+                        routerLink="/user-profile"
+                        [queryParams]="{
+                            user_id: prop?.user_id,
+                            organization: prop?.org_type,
+                            organization_id: prop?.org_id
+                        }"
+                    >
+                        {{
+                            prop?.user_name ||
+                                prop?.question_user ||
+                                prop?.posted_user ||
+                                prop?.first_name ||
+                                prop?.firstname ||
+                                prop?.lastname ||
+                                'Unknown User'
+                        }}
+                        {{ prop?.last_name }}</a
+                    >
+                    <span *ngIf="!isTopWriters">
+                        {{
+                            prop?.user_name ||
+                                prop?.question_user ||
+                                prop?.posted_user ||
+                                prop?.first_name ||
+                                prop?.firstname ||
+                                prop?.lastname ||
+                                'Unknown User'
+                        }}
+                        {{ prop?.last_name }}
+                    </span>
+                </div>
             </div>
-            <div class="fnt-muli fnt-12 text-clr588">
-                {{ prop?.posted_at || prop?.created_at | amTimeAgo: true }}
+            <div class="fnt-14 fnt-muli lh-1 text-clr588 mt-2 d-flex text-nowrap extra-mob">
+                <span class="font-semi-bold mr-1" *ngIf="orgType !== 'co'">{{ 'coffee_experts' | translate }}</span>
+                <span class="font-semi-bold mr-1" *ngIf="orgType === 'co'">{{ 'coffee_consumer' | translate }}</span>
+                <span
+                    *ngIf="
+                        prop?.org_type !== 'sa' && prop?.organisation_type !== 'sa' && prop?.organization_type !== 'sa'
+                    "
+                    [ngClass]="{ ellipsis: enableEllipsis }"
+                    class="pb-1"
+                    >@{{
+                        prop?.company_name || prop?.organization_name || prop?.organisation_name || prop?.org_type
+                    }}</span
+                >
+                <span
+                    *ngIf="
+                        prop?.org_type === 'sa' || prop?.organisation_type === 'sa' || prop?.organization_type === 'sa'
+                    "
+                    [ngClass]="{ ellipsis: enableEllipsis }"
+                    class="pb-1"
+                    >@{{ orgType === 'sa' || !orgType ? 'Era of We' : orgType }}</span
+                >
+                <div class="d-flex" *ngIf="prop?.question || prop?.answer || isArticleDetail || isRecipeDetail">
+                    <span class="d-none d-md-block time-point"></span>
+                    <span class="fnt-muli fnt-14 fnt-600 text-clr588 d-none d-md-block aling-time">
+                        {{ prop?.updated_at || prop?.posted_at || prop?.created_at | amTimeAgo: true }}
+                    </span>
+                </div>
             </div>
         </div>
-        <div
-                *ngIf="prop?.org_type !== 'co' && prop?.organisation_type !== 'co' && prop?.organization_type !== 'co'"
-                class="fnt-12 fnt-muli text-clr588 mt-2 d-flex text-nowrap"
-        >
-            <span class="font-weight-bold mr-2">Coffee Expert</span>
-            <span
-                    *ngIf="prop?.org_type !== 'sa' && prop?.organisation_type !== 'sa' && prop?.organization_type !== 'sa'"
-                    [ngClass]="{ ellipsis: enableEllipsis }"
-            >@{{ prop?.company_name || prop?.organization_name || prop?.organisation_name || prop?.org_type }}</span
-            >
-            <span
-                    *ngIf="prop?.org_type === 'sa' || prop?.organisation_type === 'sa' || prop?.organization_type === 'sa'"
-                    [ngClass]="{ ellipsis: enableEllipsis }"
-            >@Era of we</span
-            >
+    </div>
+    <div>
+        <div *ngIf="total">
+            <img src="assets/images/thumbs-up-button.svg" alt="thumbs-up-button" />
         </div>
     </div>
 </div>

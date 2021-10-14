@@ -10,18 +10,19 @@
     <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 d-md-none">{{ 'sourced_coffee' | translate }}</p>
     <div class="row flex-fill">
         <div class="col-12 col-lg-5 col-md-5 mb-3 mb-md-0 pr-md-0 pl-md-0">
-            <div class="br-4 h-100 pr-md-0 pr-lg-2 chart-block">
-                <div class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
-                <div class="h-md-100 d-flex flex-column pt-1 pt-md-2">
-                    <app-pie-chart
-                        [data]="chartData"
-                        [total]="sourcing?.total_coffee"
-                        [description]="'Total coffee available'"
-                        [tooltipDisabled]="false"
-                        [isWeight]="true"
-                    ></app-pie-chart>
-                </div>
-            </div>
+            <a routerLink="/sourcing/coffee-list">
+                <div class="br-4 h-100 pr-md-0 pr-lg-2 chart-block">
+                    <div class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
+                    <div class="h-md-100 d-flex flex-column pt-1 pt-md-2">
+                        <app-pie-chart
+                            [data]="chartData"
+                            [total]="sourcing?.total_coffee"
+                            [description]="'Total coffee available'"
+                            [tooltipDisabled]="false"
+                            [isWeight]="true"
+                        ></app-pie-chart>
+                    </div></div
+            ></a>
         </div>
         <div class="col-12 col-lg-7 col-md-7 mb-3 mb-md-0">
             <div class="estates-block br-4 pt-1 pt-md-2">
@@ -33,7 +34,11 @@
                                 <div class="cursor-pointer" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
                                     <app-avatar
                                         [size]="36"
-                                        [src]="item.company_image_thumbnail_url"
+                                        [src]="
+                                            item.company_image_thumbnail_url
+                                                ? item.company_image_thumbnail_url
+                                                : item.sourcing_image_url
+                                        "
                                         [name]="item.name"
                                     ></app-avatar>
                                 </div>

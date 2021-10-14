@@ -31,7 +31,7 @@
                                         text-clr334
                                     "
                                 >
-                                    {{ 'order' | translate }} #{{ orderId }}
+                                    {{ 'order' | translate }}# {{ orderId }}
                                     <span class="ml-2 fnt-12 fnt-md-14 fnt-600" [ngClass]="typeClass"
                                         >&#9679; {{ typeName }}</span
                                     >
@@ -39,12 +39,12 @@
                             </div>
                             <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
                                 <a *ngIf="invoiceUrl" class="btn-raised pull-right" [href]="invoiceUrl" target="_blank">
-                                    {{ 'order_invoice' | translate | titlecase }}
+                                    {{ 'order_summary' | translate }}
                                 </a>
                             </div>
                         </div>
                         <div class="row" *ngIf="orderType === OrderTypes.Prebook">
-                            <div class="col-12 p-0 mb-2 text-clr-invalid fnt-12">
+                            <div class="col-12 p-0 mb-2 text-invalid fnt-12">
                                 <span class="fnt-bold">{{ 'note' | translate }}</span>
                                 <span class="fnt-400">{{ 'lot_has_been_prebooked' | translate }}</span>
                             </div>

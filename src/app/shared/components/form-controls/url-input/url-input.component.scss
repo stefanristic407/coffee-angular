@@ -1,0 +1,17 @@
+@import 'variables';
+
+:host ::ng-deep {
+    .p-inputgroup.custom-addon.left-align {
+        .p-inputtext {
+            padding-left: 5.175rem;
+        }
+    }
+}
+::ng-deep {
+    .ng-invalid.ng-touched,
+    .ng-invalid.ng-dirty {
+        & > .url-input > input {
+            border-color: $error-border-color !important;
+        }
+    }
+}

@@ -1,20 +1,20 @@
 <div class="col-md-8 px-0">
     <div class="d-flex justify-content-between">
         <h1 class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'assigned_to_me' | translate }}</h1>
-        <div class="mt-2">
+        <div>
             <p-dropdown
                 [options]="sortOptions"
-                [(ngModel)]="coffeeLabService.assignedToMeSortBy"
+                [(ngModel)]="coffeeLabService.qaForumViewSortBy"
                 (ngModelChange)="getQuestions()"
-                styleClass="no-border no-padding"
+                styleClass="round-border text-clr588"
+                [placeholder]="'sort_by' | translate"
                 optionLabel="label"
                 optionValue="value"
-                class="text-clr588 cust-drop"
             ></p-dropdown>
         </div>
     </div>
     <div *ngIf="!isLoading">
-        <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
+        <app-questions [isAssignedToMe]="true" [questions]="questions" [viewMode]="viewMode"></app-questions>
     </div>
     <div *ngIf="isLoading">
         <app-loading></app-loading>

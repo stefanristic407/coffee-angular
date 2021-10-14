@@ -1,13 +1,13 @@
-import { Directive, Input, ElementRef } from '@angular/core';
+import { Directive, Input, ElementRef, OnDestroy } from '@angular/core';
 
 @Directive({
     selector: '[appImageFallback]',
 })
-export class ImageFallbackDirective {
+export class ImageFallbackDirective implements OnDestroy {
     @Input('appImageFallback') imgSrc: string;
     private el: HTMLElement;
-    private isApplied: boolean = false;
-    private EVENT_TYPE: string = 'error';
+    private isApplied = false;
+    private EVENT_TYPE = 'error';
 
     constructor(el: ElementRef) {
         this.el = el.nativeElement;

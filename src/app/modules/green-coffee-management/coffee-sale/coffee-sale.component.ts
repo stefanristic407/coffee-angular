@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, GlobalsService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -47,7 +47,7 @@ export class CoffeeSaleComponent implements OnInit {
     constructor(
         public globals: GlobalsService,
         public route: ActivatedRoute,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private router: Router,
         private toasterService: ToastrService,
@@ -59,7 +59,7 @@ export class CoffeeSaleComponent implements OnInit {
         this.roasterID = this.authService.getOrgId();
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
         this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
+            { label: 'Home', routerLink: '/' },
             { label: 'Inventory' },
             { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
             { label: 'Procured coffee', routerLink: `/green-coffee-management/green-coffee-inventory` },

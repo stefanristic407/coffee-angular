@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrganizationType } from '@enums';
-import { AclService, GlobalsService, RoasterserviceService, ChatHandlerService, UserService } from '@services';
+import { AclService, GlobalsService, RoasterService, ChatHandlerService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { EstateProfileService } from '../estate-profile.service';
 
@@ -21,7 +21,7 @@ export class EstateAboutComponent implements OnInit {
         public profileCreationService: EstateProfileService,
         public userService: UserService,
         public globals: GlobalsService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         private toastrService: ToastrService,
         private aclService: AclService,
         private chatHandler: ChatHandlerService,

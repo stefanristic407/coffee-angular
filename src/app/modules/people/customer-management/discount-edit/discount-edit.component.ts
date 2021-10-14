@@ -39,7 +39,7 @@ export class DiscountEditComponent implements OnInit {
                     if (data.success) {
                         this.toastrService.success('Email has been sent successfully');
                         this.router.navigate(['/people/customer-management']);
-                    } else {
+                    } else if (!data.messages) {
                         this.toastrService.error('Error while sending email to the User');
                     }
                 });
@@ -55,7 +55,7 @@ export class DiscountEditComponent implements OnInit {
                     if (data.success) {
                         this.toastrService.success('Email has been sent successfully');
                         this.router.navigate(['/people/customer-management']);
-                    } else {
+                    } else if (!data.messages) {
                         this.toastrService.error('Error while sending email to the User');
                     }
                 });

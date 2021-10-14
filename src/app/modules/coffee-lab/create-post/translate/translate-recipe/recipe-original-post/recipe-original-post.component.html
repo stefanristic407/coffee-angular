@@ -1,11 +1,19 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="page-wrapper m-0 p-2 p-md-0 bg-f8" *ngIf="!isLoading">
+<div class="page-wrapper m-0 p-0 border-mob" *ngIf="!isLoading">
+    <div class="bg-f8 w-100">
+        <div class="d-flex justify-content-between border-btm mt-4">
+            <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-25 align-original">
+                {{ 'original_language' | translate }} - {{ detailsData?.lang_code | language }}
+            </p>
+            <img src="assets/images/swap_horiz_black_24dp.svg" class="align-arrow" alt="swap_horiz" />
+        </div>
+    </div>
     <article class="col-12 col-lg-12 p-0">
-        <div class="p-2 p-md-4 border-main br-4">
-            <div class="pb-3 coffee-name">{{ detailsData?.name }}</div>
-            <div class="pb-3 pb-md-4 pb-lg-45">
-                <div class="w-100 position-relative">
-                    <img class="w-100 banner-image" id="imgClick" [src]="detailsData?.cover_image_url" />
+        <div class="p-2 px-md-4 pt-md-4">
+            <div class="pb-3 coffee-name mt-4">{{ 'cover_image' | translate }}</div>
+            <div>
+                <div class="w-100 position-relative border-d6">
+                    <img class="w-100 banner-image br-4" id="imgClick" [src]="detailsData?.cover_image_url" />
                     <span
                         class="copy-btn fnt-14 fnt-muli fnt-bold"
                         (click)="copyImage(detailsData.cover_image_id, 'cover')"
@@ -14,86 +22,176 @@
                         >{{ 'copy' | translate }}</span
                     >
                 </div>
-                <div class="mt-3 expertise-level-block">
-                    <div class="d-flex w-100">
-                        <div class="pr-45 pr-md-3 expert-sm">
-                            <div class="m-0 d-flex">
-                                <span><img src="/assets/images/beginner-expertise.svg" /></span>
-                                <div class="expertise pl-2">{{ 'expertise_level' | translate }}</div>
-                            </div>
-                            <div class="expertise-level m-0 d-flex">
-                                <span style="visibility: hidden"
-                                    ><img src="/assets/images/beginner-expertise.svg"
-                                /></span>
-                                <div class="pl-2">{{ detailsData?.expertise }}</div>
-                            </div>
-                        </div>
-                        <div class="pr-45 preparation-sm">
-                            <div class="m-0 d-flex">
-                                <span><img src="/assets/images/p-time.svg" /></span>
-                                <div class="expertise pl-2">{{ 'brew_ratio' | translate }}</div>
-                            </div>
-                            <div class="expertise-level m-0">
-                                <span style="visibility: hidden"
-                                    ><img src="/assets/images/beginner-expertise.svg"
-                                /></span>
-                                <span class="pl-2">{{ detailsData?.coffee_ratio }}:{{ detailsData?.water_ratio }}</span>
-                            </div>
-                        </div>
+                <div *ngIf="detailsData?.categories" class="mt-4 mb-md-4">
+                    <div class="row mx-0">
+                        <label class="fnt-600 mb-3"> {{ 'categories' | translate }}</label>
                     </div>
-                    <div class="d-flex w-100">
-                        <div class="d-flex flex-wrap serving-sm">
-                            <div class="m-0 d-flex">
-                                <span><img src="/assets/images/beginner-expertise.svg" /></span>
-                                <div class="expertise pl-2">{{ 'serving' | translate }}</div>
-                            </div>
-                            <div class="expertise-level m-0 d-flex">
-                                <span style="visibility: hidden"
-                                    ><img src="/assets/images/beginner-expertise.svg"
-                                /></span>
-                                <div class="pl-2">{{ detailsData?.serves }}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
                 </div>
-                <p class="fnt-14 fnt-muli pt-3 mb-2" [innerHTML]="detailsData?.description"></p>
-            </div>
-            <div class="ingredient-block">
-                <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334">{{ 'ingredients' | translate }}</p>
-                <div class="ingredient-details bg-white">
-                    <div class="m-0" *ngFor="let ing of detailsData?.ingredients; let last = last">
-                        <span class="d-flex">
-                            <div class="name fnt-14 fnt-muli">{{ ing?.name }}</div>
-                            <div class="qty fnt-14 fnt-muli fnt-bold">{{ ing?.quantity }}{{ ing?.quantity_unit }}</div>
-                        </span>
-                        <div class="saprator" *ngIf="!last"></div>
+                <div class="mt-md-4 mt-3" [formGroup]="recipeForm">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-0 sewn-form-field w-100">
+                        <label class="mt-2">{{ 'recipe_name' | translate }}</label>
+                        <input
+                            type="text"
+                            placeholder="Enter Recipe Name"
+                            pInputText
+                            formControlName="name"
+                            [readonly]="true"
+                        />
+                        <small *ngIf="recipeForm.controls['name'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                     </div>
-                </div>
-            </div>
-            <div *ngIf="detailsData.video_url" class="pt-3 pt-md-4 pt-lg-45 position-relative">
-                <div class="fnt-14 fnt-muli fnt-bold text-clr334 mb-3">{{ 'see_recipe_video' | translate }}</div>
-                <video class="w-100" [src]="detailsData.video_url" controls></video>
-                <span
-                    class="copy-btn fnt-14 fnt-muli fnt-bold"
-                    (click)="copyImage(detailsData.video_id, 'video')"
-                    [ngClass]="{ 'cursor-not-allowed': isCopying }"
-                    ><span><img class="mr-2" src="assets/images/group-18.svg" /></span>{{ 'copy' | translate }}</span
-                >
-            </div>
-            <div class="directions pt-45" *ngIf="detailsData?.steps && detailsData?.steps.length">
-                <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2">{{ 'directions' | translate }}</p>
-                <div *ngFor="let step of detailsData?.steps; index as i">
-                    <p class="m-0 pb-1 fnt-14 fnt-muli fnt-bold">{{ 'step' | translate }} {{ i + 1 }}:</p>
-                    <p class="m-0 pb-2 fnt-14 fnt-muli" [innerHTML]="step?.description"></p>
-                    <div class="w-100 position-relative mb-3" *ngIf="step.image_url">
-                        <img [src]="step.image_url" class="w-100" />
-                        <span
-                            class="copy-btn fnt-14 fnt-muli fnt-bold"
-                            (click)="copyImage(step.image_id, 'step')"
-                            [ngClass]="{ 'cursor-not-allowed': isCopying }"
-                            ><span><img class="mr-2" src="assets/images/group-18.svg" /></span
-                            >{{ 'copy' | translate }}</span
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-0 sewn-form-field w-100">
+                        <label>{{ 'description' | translate }}</label>
+                        <textarea
+                            pInputTextarea
+                            formControlName="description"
+                            [readonly]="true"
+                            autoResize="autoResize"
+                            placeholder="Give a small description about the recipe..."
+                        ></textarea>
+                        <small *ngIf="recipeForm.controls['description'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 px-0 sewn-form-field w-100">
+                        <label>{{ 'brewing_equipment' | translate }}</label>
+                        <input
+                            type="text"
+                            placeholder="Enter equipment name"
+                            formControlName="equipment_name"
+                            [readonly]="true"
+                            pInputText
+                        />
+                        <small *ngIf="recipeForm.controls['equipment_name'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 px-0 sewn-form-field w-100 pl-md-2 pl-lg-3">
+                        <label class="d-flex"
+                            >{{ 'brew_ratio' | translate }}
+                            <app-info-tooltip
+                                [title]="'brew_ratio' | translate"
+                                [description]="'brew_tooltip' | translate"
+                            ></app-info-tooltip
+                        ></label>
+                        <input
+                            disabled
+                            type="text"
+                            placeholder="Eg - if the brew is 1:1 ratio of all ingreditents"
+                            [(ngModel)]="brewRatio"
+                            [ngModelOptions]="{ standalone: true }"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 px-0 sewn-form-field w-100">
+                        <label>{{ 'yield' | translate }}</label>
+                        <input
+                            type="text"
+                            placeholder="Enter number of servings"
+                            formControlName="serves"
+                            [readonly]="true"
+                            pInputText
+                        />
+                        <small *ngIf="recipeForm.controls['serves'].errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-0 d-flex mb-3">
+                        <span class="primary_txt fnt-14 text-underline">{{ 'list_of_ingredients' | translate }}</span>
+                    </div>
+                    <ng-container
+                        formArrayName="ingredients"
+                        *ngFor="
+                            let ingredient of recipeForm.controls['ingredients']['controls'];
+                            let i = index;
+                            last as isLast
+                        "
+                    >
+                        <div
+                            [formGroupName]="i"
+                            class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-0 d-flex flex-wrap align-items-center"
                         >
+                            <div
+                                class="
+                                    col-sm-12 col-md-6 col-lg-6 col-xl-6
+                                    pl-md-0
+                                    sewn-form-field
+                                    w-100
+                                    px-0
+                                    pr-md-2 pr-lg-3
+                                "
+                            >
+                                <label>{{ 'ingredient' | translate }}</label>
+                                <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
+                                    <input
+                                        type="text"
+                                        placeholder="Ingredient Name"
+                                        pInputText
+                                        formControlName="name"
+                                        [readonly]="true"
+                                    />
+                                    <small
+                                        *ngIf="ingredient.controls['name'].errors?.required"
+                                        class="position-absolute p-error"
+                                    >
+                                        {{ 'required' | translate }}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div
+                                class="
+                                    col-sm-12 col-md-6 col-lg-6 col-xl-6
+                                    px-0
+                                    sewn-form-field
+                                    pl-md-2
+                                    pr-md-2
+                                    pl-lg-3
+                                    pr-lg-2
+                                "
+                            >
+                                <label>{{ 'quantity' | translate }}</label>
+                                <div class="input-and-select gray">
+                                    <input
+                                        type="text"
+                                        placeholder="Eg - quantity can 200 or 200-300"
+                                        pInputText
+                                        formControlName="quantity"
+                                    />
+                                    <p-dropdown
+                                        [options]="qualityArray"
+                                        optionLabel="label"
+                                        optionValue="value"
+                                        formControlName="quantity_unit"
+                                        [readonly]="true"
+                                        [dropdownIcon]="false"
+                                    ></p-dropdown>
+                                    <small *ngIf="ingredient.controls['quantity'].errors?.required" class="p-error">
+                                        {{ 'required' | translate }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div
+                class="directions"
+                *ngIf="detailsData?.steps && detailsData?.steps.length && detailsData?.steps[0]?.description"
+            >
+                <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2 text-underline">
+                    {{ 'directions' | translate }}
+                </p>
+                <div *ngFor="let step of detailsData?.steps; index as i">
+                    <p class="m-0 pb-1 fnt-14 fnt-muli fnt-600 mt-2 mb-1">{{ 'step' | translate }} {{ i + 1 }}</p>
+                    <div class="border-main pt-4 pb-25 px-3 bg-f8 mb-3 br-4 description">
+                        <p class="m-0 pb-2 fnt-14 fnt-600 fnt-muli disable-color" [innerHTML]="step?.description"></p>
+                        <div class="w-100 position-relative mb-3" *ngIf="step.image_url">
+                            <img [src]="step.image_url" class="w-100" />
+                        </div>
                     </div>
                 </div>
             </div>

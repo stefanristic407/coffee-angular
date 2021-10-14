@@ -3,6 +3,12 @@
     display: flex;
     flex-direction: column;
 
+    .custom-search input {
+        @media (min-width: 768px) {
+            min-width: 300px;
+        }
+    }
+
     .dropdown-wrapper {
         display: flex;
         flex-wrap: wrap;
@@ -13,39 +19,6 @@
             @media (max-width: 767px) {
                 max-width: 50%;
             }
-        }
-    }
-
-    .table-container {
-        .table-responsive {
-            overflow: visible;
-            .table-mobile-first-col {
-                @media (max-width: 767px) {
-                    background: #f8f8f8;
-                    padding: 0 0 0 12px;
-                    border-radius: 4px;
-                }
-            }
-            .p-button-text:hover {
-                background: #ffffff !important;
-            }
-        }
-
-        @media (max-width: 767px) {
-            border: none;
-        }
-        @media (min-width: 768px) {
-            overflow-x: auto;
-            .table-responsive {
-                min-width: 1144px;
-            }
-        }
-    }
-
-    .view-details {
-        text-decoration: none !important;
-        &:hover {
-            text-decoration: underline !important;
         }
     }
 }
@@ -59,40 +32,5 @@
         width: 88px;
         height: 138px;
         margin-right: 13px;
-    }
-}
-
-.mob-row-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 16px 0;
-    border-bottom: dashed 1px #d6d6d6;
-    &:first-child {
-        padding-top: 0;
-    }
-    &:last-child {
-        border-bottom: none;
-    }
-}
-
-.w-unset {
-    width: unset;
-}
-
-::ng-deep {
-    .p-datatable.p-table-products.p-datatable-responsive {
-        .p-datatable-tbody > tr {
-            padding: 0;
-            & > td {
-                padding: 16px 12px 0;
-                border-radius: 4px;
-                &:first-child {
-                    padding: 4px 4px 0;
-                    @media (max-width: 767px) {
-                        border-bottom: none !important;
-                    }
-                }
-            }
-        }
     }
 }

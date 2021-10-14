@@ -25,6 +25,8 @@ export const environment = {
     googleTranslationAPIKey: 'AIzaSyBEDVxvYT9-dlcBz83jitndZ4xODAJiqO0',
     supportEmailAddress: 'support@eraofwe.com',
     shopWeb: 'https://sewnstagingshop.com',
+    support: 'https://support.eraofwe.com/',
+    EMAIL_API_KEY: 'ev-d04e109c77add42b91078744f992933c',
     version: 'v1.0',
     production: false,
 };

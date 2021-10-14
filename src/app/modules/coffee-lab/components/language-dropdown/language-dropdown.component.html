@@ -7,10 +7,10 @@
     styleClass="p-dropdown-translate"
     (onChange)="onChangeLanguage()"
 >
-    <ng-template pTemplate="selectedItem">
+    <ng-template let-selectedItem pTemplate="selectedItem">
         <span class="fnt-14 fnt-muli fnt-bold text-clr60b pr-2">
             <i class="pi pi-globe pr-1 align-middle"></i>
-            {{ 'language' | translate }} : {{ selectedLanguage | uppercase }}
+            {{ 'language' | translate }} : {{ selectedItem.label }}
         </span>
     </ng-template>
     <ng-template let-languageItem pTemplate="item">

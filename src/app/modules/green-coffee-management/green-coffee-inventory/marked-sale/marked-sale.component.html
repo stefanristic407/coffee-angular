@@ -7,7 +7,7 @@
         [(ngModel)]="termOrigin"
         (onChange)="setOrigin()"
         scrollHeight="225px"
-        placeholder="{{ globals.languageJson?.all_origins }}"
+        placeholder="{{ 'all_origins' | translate }}"
         [autoDisplayFirst]="false"
         styleClass="round-border mr-2 mb-3 mb-md-4 {{ termOrigin ? 'highlight' : '' }}"
     ></p-dropdown>
@@ -17,7 +17,7 @@
         [(ngModel)]="termStatus"
         (onChange)="setStatus()"
         scrollHeight="225px"
-        placeholder="{{ globals.languageJson?.status }}"
+        placeholder="{{ 'status' | translate }}"
         [autoDisplayFirst]="false"
         styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
     ></p-dropdown>
@@ -63,7 +63,7 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
-                    <span class="primeng-table-header">{{ col.header }}</span>
+                    <span class="primeng-table-header">{{ col.header | translate }}</span>
                     <p-sortIcon
                         *ngIf="col.sortable === true"
                         [field]="col.field"
@@ -133,14 +133,19 @@
                         <div
                             class="d-flex"
                             tooltipStyleClass="custom-tooltip"
-                            pTooltip="{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] }} /
-                                {{ rowData['quantity'] }} kg"
+                            [pTooltip]="
+                                rowData['quantity_count'] +
+                                ' ' +
+                                rowData['quantity_type'] +
+                                ' / ' +
+                                rowData['quantity'] +
+                                ' kg'
+                            "
                             tooltipPosition="top"
                         >
                             <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
-                                {{ rowData['quantity'] || 'NA' }}
-
-                                <span *ngIf="rowData['quantity']">{{ rowData['quantity_type'] }}</span>
+                                {{ rowData['quantity_count'] || 'NA' }}
+                                <span *ngIf="rowData['quantity_count']">{{ rowData['quantity_type'] }}</span>
                             </span>
                         </div>
                     </span>
@@ -156,11 +161,11 @@
 
                     <span *ngSwitchCase="'status'">
                         <span *ngIf="!primeTableService.isMobileView">
-                            {{ formatStatus(rowData[col.field]) | titlecase }}
+                            {{ rowData[col.field] | sentencecase }}
                         </span>
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="mobile-heading w-50">
-                                {{ formatStatus(rowData[col.field]) | titlecase }}
+                                {{ rowData[col.field] | sentencecase }}
                             </span>
                             <span
                                 *ngIf="!primeTableService.isMobileView; else mobile_name"
@@ -171,7 +176,7 @@
                             <ng-template #mobile_name>
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
-                                        <span class="pull-right brown-cta">View </span>
+                                        <span class="pull-right brown-cta">{{ 'view' | translate }}</span>
                                     </ng-container>
                                 </span>
                             </ng-template>
@@ -180,7 +185,7 @@
 
                     <span *ngSwitchCase="'actions'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <span class="brown-cta">View</span>
+                            <span class="brown-cta">{{ 'view' | translate }}</span>
                         </ng-container>
                     </span>
 
@@ -205,7 +210,7 @@
                                             <a
                                                 class="text-clr588 fnt-600 fnt-14"
                                                 (click)="lotSaleReirection(rowData); pop.hide()"
-                                                >Edit</a
+                                                >{{ 'edit' | translate }}</a
                                             >
                                         </li>
                                         <li class="list-group-item">
@@ -213,7 +218,7 @@
                                                 class="text-clr588 fnt-600 fnt-14"
                                                 (click)="openModal(rowData); pop.hide()"
                                             >
-                                                Delete</a
+                                                {{ 'delete' | translate }}</a
                                             >
                                         </li>
                                     </ul>
@@ -247,10 +252,10 @@
             </div>
             <div class="mt-4">
                 <button class="btn btn-stroked" (click)="popupDisplay = false">
-                    {{ globals.languageJson?.cancel }}
+                    {{ 'cancel' | translate }}
                 </button>
                 <button class="btn btn-raised ml-3" (click)="deleteProductFromList(deleteId)">
-                    {{ globals.languageJson?.delete }}
+                    {{ 'delete' | translate }}
                 </button>
             </div>
         </div>

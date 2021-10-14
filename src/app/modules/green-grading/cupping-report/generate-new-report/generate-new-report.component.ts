@@ -110,8 +110,6 @@ export class GenerateNewReportComponent implements OnInit {
                     noButton: 'No',
                     yesButton: 'Yes, Generate report',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

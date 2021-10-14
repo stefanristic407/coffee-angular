@@ -1,5 +1,5 @@
 <div class="total-loader" *ngIf="customerActive != 1">
-    <img class="loader-gif-sub" src="/assets/images/loader.gif" />
+    <app-loading></app-loading>
 </div>
 <div *ngIf="customerActive == 1">
     <div class="main-block">
@@ -14,7 +14,7 @@
                         pInputText
                         class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                         [(ngModel)]="searchTerm"
-                        placeholder="{{ 'search_name_role' | translate }}"
+                        placeholder="{{ searchTitle }}"
                     />
                 </span>
             </div>
@@ -58,7 +58,7 @@
                                 pInputText
                                 class="w-100 {{ searchTerm ? 'highlight' : '' }}"
                                 [(ngModel)]="searchTerm"
-                                placeholder="{{ 'search_name_role' | translate }}"
+                                placeholder="{{ searchTitle }}"
                             />
                         </span>
                     </div>

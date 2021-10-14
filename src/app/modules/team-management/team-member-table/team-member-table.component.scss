@@ -145,3 +145,16 @@
         }
     }
 }
+
+.assign {
+    @media (min-width: 768px) {
+        margin-top: -70px;
+    }
+}
+
+::ng-deep .userTable .tableDataFont {
+    @media screen and (max-width: 767px) {
+        word-break: break-word !important;
+        white-space: initial !important;
+    }
+}

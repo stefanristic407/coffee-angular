@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, CoffeeLabService } from '@services';
+import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { APP_LANGUAGES } from '@constants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { maxWordCountValidator } from '@utils';
+import { insertAltAttr, maxWordCountValidator } from '@utils';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@app/shared';
+import { APP_LANGUAGES } from '@constants';
 
 @Component({
     selector: 'app-translate-article',
@@ -17,9 +19,8 @@ export class TranslateArticleComponent implements OnInit {
     draftId: any;
     article: any;
     isLoading = false;
-    applicationLanguages: any[];
     articleForm: FormGroup;
-    content = '';
+    articleFormOriginal: FormGroup;
     isUploadingImage = false;
     imageIdList = [];
     isPosting = false;
@@ -31,6 +32,13 @@ export class TranslateArticleComponent implements OnInit {
     copiedCoverImageId: any;
     copiedCoverImageUrl: any;
     images = [];
+    selectedArticleLangCode = 'sv';
+    allLanguage: any[] = APP_LANGUAGES;
+    isTranslationArticle = [];
+    remainingLangugage = [];
+    categoryList: any[] = [];
+    showNoDataSection = false;
+    isMobile = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -40,15 +48,25 @@ export class TranslateArticleComponent implements OnInit {
         private formBuilder: FormBuilder,
         private location: Location,
         public authService: AuthService,
+        private gtrans: GoogletranslateService,
+        public globals: GlobalsService,
+        private dialogService: DialogService,
+        private globalsService: GlobalsService,
     ) {
-        this.articleForm = this.articleForm = this.formBuilder.group({
+        this.isMobile = window.innerWidth < 767;
+        this.articleForm = this.formBuilder.group({
             language: [''],
-            title: ['', Validators.compose([Validators.required])],
-            subtitle: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
+            title: ['', Validators.compose([Validators.maxLength(120), Validators.required])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(20), Validators.required])],
+            content: [''],
         });
     }
 
     ngOnInit(): void {
+        this.articleFormOriginal = this.formBuilder.group({
+            title: [''],
+            subtitle: [''],
+        });
         this.articleId = this.route.snapshot.queryParamMap.get('origin_id');
         if (!this.articleId) {
             this.location.back();
@@ -58,7 +76,7 @@ export class TranslateArticleComponent implements OnInit {
         this.route.queryParams.subscribe(() => {
             this.draftId = this.route.snapshot.queryParamMap.get('draft_id');
             if (this.draftId) {
-                this.getDraftById();
+                this.getDraftById(this.draftId);
             }
         });
     }
@@ -69,34 +87,102 @@ export class TranslateArticleComponent implements OnInit {
             this.isLoading = false;
             if (res.success) {
                 this.article = res.result;
-                this.applicationLanguages = APP_LANGUAGES.filter(
-                    (item) =>
-                        item.value !== res.result.language &&
-                        !res.result.translated_articles?.find((lng) => lng.language === item.value),
-                );
+                this.articleFormOriginal.patchValue(res.result);
+                this.coverImageUrl = res.result.cover_image_url;
+                this.article?.translated_articles?.forEach((element) => {
+                    this.isTranslationArticle.push(element.language);
+                });
+                this.allLanguage.forEach((item) => {
+                    if (!this.isTranslationArticle?.includes(item.value) && this.article.language !== item.value) {
+                        this.remainingLangugage.push(item);
+                    }
+                });
+                if (
+                    this.article.user_id !== this.authService.currentUser.id ||
+                    this.article.organisation_type !== this.authService.orgType
+                ) {
+                    this.copyCoverImage('noCopy');
+                }
+                if (this.remainingLangugage.length === 0) {
+                    this.showNoDataSection = true;
+                    this.toastrService.error(this.globalsService.languageJson?.no_language_available_translated);
+                }
+                this.handleChange({ index: 0 });
+                this.articleFormOriginal.disable();
             } else {
                 this.toastrService.error('Error while get article');
-                this.router.navigate(['/coffee-lab']);
+                this.router.navigate(['/coffee-lab/overview/articles']);
             }
         });
     }
 
-    getDraftById(): void {
-        this.coffeeLabService.getForumDetails('article', this.draftId).subscribe((res: any) => {
+    getCategory() {
+        this.categoryList = [];
+        this.coffeeLabService.getCategory(this.selectedArticleLangCode).subscribe((category) => {
+            if (category.success) {
+                category.result.forEach((item) => {
+                    this.article.categories.forEach((element) => {
+                        if (item.parent_id === element.parent_id) {
+                            this.categoryList.push(item);
+                        }
+                    });
+                });
+            }
+        });
+    }
+
+    handleChange(e?) {
+        this.selectedArticleLangCode = this.remainingLangugage[e.index].value;
+        if (this.article?.categories) {
+            this.getCategory();
+        }
+
+        const draft = this.coffeeLabService.allDrafts.value.find((item) => {
+            return (
+                item.parent_id === +this.articleId &&
+                item.post_type === 'article' &&
+                item.language === this.selectedArticleLangCode
+            );
+        });
+        if (draft) {
+            this.router.navigate(['/coffee-lab/create-post/translate-article'], {
+                queryParams: {
+                    origin_id: this.articleId,
+                    draft_id: draft.post_id,
+                    type: 'article',
+                },
+            });
+        } else {
+            this.router.navigate(['/coffee-lab/create-post/translate-article'], {
+                queryParams: {
+                    origin_id: this.articleId,
+                    type: 'article',
+                },
+            });
+            const translateData = [this.article.title, this.article.subtitle, this.article.content];
+            this.gtrans
+                .translateCoffeeLab(translateData, this.selectedArticleLangCode)
+                .subscribe((translatedOutput: any) => {
+                    this.articleForm.patchValue({
+                        title: translatedOutput[0].translatedText,
+                        subtitle: translatedOutput[1].translatedText,
+                        content: translatedOutput[2].translatedText,
+                    });
+                });
+        }
+    }
+
+    getDraftById(draftId: number): void {
+        this.coffeeLabService.getForumDetails('article', draftId).subscribe((res: any) => {
             if (res.success) {
                 this.coverImageUrl = res.result.cover_image_url;
                 this.coverImageId = res.result.cover_image_id;
                 this.isCoverImageUploaded = true;
-                this.content = res.result.content;
                 this.images = res.result.images ?? [];
-                this.articleForm.patchValue({
-                    language: res.result.language,
-                    title: res.result.title,
-                    subtitle: res.result.subtitle,
-                    allow_translation: res.result.allow_translation,
-                });
+                this.articleForm.patchValue(res.result);
             } else {
                 this.toastrService.error('Error while get draft');
+                this.location.back();
             }
         });
     }
@@ -127,49 +213,50 @@ export class TranslateArticleComponent implements OnInit {
     }
 
     onPost(status: string): void {
-        if (status === 'published') {
-            this.articleForm.controls.language.setValidators(Validators.required);
-            this.articleForm.controls.subtitle.setValidators(Validators.required);
-        } else {
-            this.articleForm.controls.language.clearValidators();
-            this.articleForm.controls.subtitle.clearValidators();
-        }
-        this.articleForm.controls.language.updateValueAndValidity();
-        this.articleForm.controls.subtitle.updateValueAndValidity();
         this.articleForm.markAllAsTouched();
         if (this.articleForm.invalid) {
             return;
         }
-        if (!this.content && status === 'published') {
+        if (!this.articleForm.value.content && status === 'published') {
             this.toastrService.error('Please fill content.');
             return;
         }
-        if (!this.isCoverImageUploaded && status === 'published') {
-            this.toastrService.error('Please upload cover image.');
-            return;
-        }
+
         this.isPosting = true;
         this.handlePost(status);
     }
     handlePost(status: string) {
+        this.articleForm
+            .get('content')
+            .setValue(insertAltAttr(this.articleForm.value.content, `${this.articleForm.value.title} detail image`));
         let data: any = {
             ...this.articleForm.value,
-            content: this.content,
-            images: this.imageIdList,
+            language: this.selectedArticleLangCode,
             status,
         };
-        if (this.isCoverImageUploaded) {
-            data = {
-                ...data,
-                cover_image_id: this.coverImageId,
-            };
+        let coverImageId: number;
+        if (this.article.user_id === this.authService.currentUser.id) {
+            coverImageId = this.article.cover_image_id;
+        } else {
+            coverImageId = this.copiedCoverImageId;
         }
-        if (status === 'draft' && this.draftId) {
+        data = {
+            ...data,
+            cover_image_id: coverImageId,
+        };
+        if (this.categoryList && this.categoryList.length > 0) {
+            data.categories = this.categoryList?.map((item) => item.id);
+        }
+        if ((status === 'draft' || status === 'published') && this.draftId) {
             this.coffeeLabService.updateForum('article', this.draftId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toastrService.success('You have updated a draft successfully.');
-                    this.location.back();
+                    if (status === 'draft') {
+                        this.toastrService.success('Your translated article is updated successfully in draft.');
+                    } else {
+                        this.toastrService.success('You have posted a translated article successfully.');
+                    }
+                    this.router.navigate([`/coffee-lab/articles/${this.article.slug}`]);
                 } else {
                     this.toastrService.error('Failed to update draft.');
                 }
@@ -178,8 +265,12 @@ export class TranslateArticleComponent implements OnInit {
             this.coffeeLabService.translateForum('article', this.articleId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
-                    this.toastrService.success('You have posted a translated article successfully.');
-                    this.router.navigate(['/coffee-lab/overview/articles']);
+                    if (data.status === 'draft') {
+                        this.toastrService.success('Your translated article is successfully saved in draft.');
+                    } else {
+                        this.toastrService.success('You have posted a translated article successfully.');
+                    }
+                    this.router.navigate([`/coffee-lab/articles/${this.article.slug}`]);
                 } else {
                     this.toastrService.error('Failed to post translated article.');
                 }
@@ -187,7 +278,7 @@ export class TranslateArticleComponent implements OnInit {
         }
     }
 
-    copyCoverImage() {
+    copyCoverImage(copy?: string) {
         if (this.isCopying) {
             return;
         }
@@ -197,7 +288,9 @@ export class TranslateArticleComponent implements OnInit {
             if (res.success) {
                 this.copiedCoverImageId = res.result.id;
                 this.copiedCoverImageUrl = res.result.url;
-                this.toastrService.success('Copied cover image successfully.');
+                if (!copy) {
+                    this.toastrService.success('Copied cover image successfully.');
+                }
             } else {
                 this.toastrService.error('Failed to copy cover image.');
             }
@@ -210,10 +303,45 @@ export class TranslateArticleComponent implements OnInit {
     }
 
     deleteCoverImage(element: any) {
-        this.coverImage = null;
-        this.coverImageUrl = null;
-        this.isCoverImageUploaded = false;
-        this.coverImageId = null;
-        element.value = '';
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globals.languageJson?.are_you_sure_delete + ' cover image?',
+                    yesButton: 'Remove',
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coverImage = null;
+                    this.coverImageUrl = null;
+                    this.isCoverImageUploaded = false;
+                    this.coverImageId = null;
+                    element.value = '';
+                }
+            });
+    }
+
+    onDeleteDraft(): void {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.coffeeLabService.deleteForumById('article', this.draftId).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success(`Draft article deleted successfully`);
+                            this.coffeeLabService.forumDeleteEvent.emit();
+                            this.router.navigateByUrl('/coffee-lab/overview/articles');
+                        } else {
+                            this.toastrService.error(`Failed to delete a forum.`);
+                        }
+                    });
+                }
+            });
     }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, GlobalsService, UserService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { AuthService, GeneralService, UserService } from '@services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { toSentenceCase } from '@utils';
 
 @Component({
     selector: 'app-create-roasting-profile',
@@ -11,31 +11,24 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     styleUrls: ['./create-roasting-profile.component.scss'],
 })
 export class CreateRoastingProfileComponent implements OnInit {
-    appLanguage?: any;
-    roasterId: number;
-    profileId: string;
+    profileId: number;
     roastingForm: FormGroup;
-    roastLevelArray: any = [];
+    roastLevelArray: any[];
     isLoading = false;
 
     constructor(
-        public globals: GlobalsService,
-        public cookieService: CookieService,
-        public router: Router,
-        public route: ActivatedRoute,
-        private userService: UserService,
-        public toastrService: ToastrService,
         private fb: FormBuilder,
-        private authService: AuthService,
-    ) {
-        this.roasterId = this.authService.getOrgId();
-    }
+        private generalService: GeneralService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toastrService: ToastrService,
+        private userService: UserService,
+    ) {}
 
     ngOnInit(): void {
-        this.appLanguage = this.globals.languageJson;
-
+        this.getRoastLevels();
         if (this.route.snapshot.queryParams.profileID) {
-            this.profileId = decodeURIComponent(this.route.snapshot.queryParams.profileID);
+            this.profileId = +decodeURIComponent(this.route.snapshot.queryParams.profileID);
             this.getRoastingProfile();
         }
 
@@ -46,38 +39,28 @@ export class CreateRoastingProfileComponent implements OnInit {
             roast_duration: ['', Validators.compose([Validators.required])],
             machine_type: ['', Validators.compose([Validators.required])],
         });
-        this.roastLevelArray = [
-            { label: 'Light', value: 1 },
-            { label: 'Light Medium', value: 2 },
-            { label: 'Medium', value: 3 },
-            { label: 'Medium Dark', value: 4 },
-            { label: 'Dark', value: 5 },
-        ];
+    }
+
+    getRoastLevels() {
+        this.generalService.getRoastLevels().subscribe((res) => {
+            if (res.success) {
+                this.roastLevelArray = (res.result || []).map((ix) => ({ ...ix, name: toSentenceCase(ix.name) }));
+            }
+        });
     }
 
     getRoastingProfile() {
         this.isLoading = true;
-        this.userService.getRoastingProfileDetail(this.roasterId, this.profileId).subscribe((res) => {
+        this.userService.getRoastingProfileDetail(this.profileId).subscribe((res) => {
             if (res && res.result) {
-                const productDetails = res.result;
-                const productFields = [
-                    'roast_profile_name',
-                    'roast_level',
-                    'temperature',
-                    'roast_duration',
-                    'machine_type',
-                ];
-                productFields.forEach((ele) => {
-                    const getValue = productDetails[ele];
-                    this.roastingForm.controls[ele].setValue(getValue);
-                });
+                this.roastingForm.patchValue(res.result);
             }
             this.isLoading = false;
         });
     }
 
     createRoastingProfile(productObj) {
-        this.userService.addRoastingProfile(this.roasterId, productObj).subscribe(
+        this.userService.addRoastingProfile(productObj).subscribe(
             (res) => {
                 console.log('create roasting profile response <>>>>>>>>>>>', res);
                 if (res && res.success) {
@@ -92,8 +75,9 @@ export class CreateRoastingProfileComponent implements OnInit {
             },
         );
     }
+
     updateRoastingProfile(productObj) {
-        this.userService.updateRoastingProfileDetail(this.roasterId, this.profileId, productObj).subscribe(
+        this.userService.updateRoastingProfileDetail(this.profileId, productObj).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been updated.');
@@ -107,28 +91,21 @@ export class CreateRoastingProfileComponent implements OnInit {
             },
         );
     }
-    validateForms() {
-        let returnFlag = true;
-        if (!this.roastingForm.valid) {
-            returnFlag = false;
-            return returnFlag;
-        }
-        return returnFlag;
-    }
-    onSave(): void {
-        if (this.validateForms()) {
-            const productObj = this.roastingForm.value;
-            if (this.profileId) {
-                this.updateRoastingProfile(productObj);
-            } else {
-                this.createRoastingProfile(productObj);
-            }
-        } else {
-            this.roastingForm.markAllAsTouched();
 
+    onSave(): void {
+        if (this.roastingForm.invalid) {
+            this.roastingForm.markAllAsTouched();
             this.toastrService.error('Please fill all Data');
+            return;
+        }
+
+        if (this.profileId) {
+            this.updateRoastingProfile(this.roastingForm.value);
+        } else {
+            this.createRoastingProfile(this.roastingForm.value);
         }
     }
+
     onCancel() {
         this.router.navigate(['/roasted-coffee-batch/roasting-profile']);
     }

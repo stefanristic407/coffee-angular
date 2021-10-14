@@ -3,14 +3,24 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, GlobalsService, ResizeService, RoasterserviceService, UserService } from '@services';
+import {
+    AuthService,
+    ChatHandlerService,
+    GlobalsService,
+    OrganizationService,
+    ResizeService,
+    RoasterService,
+    UserService,
+} from '@services';
 import { OrganizationType, OrderType, OrderStatus } from '@enums';
 import { ResizeableComponent } from '@base-components';
+import { OrderLinkPipe } from '@shared';
 
 @Component({
     selector: 'app-rating',
     templateUrl: './rating.component.html',
     styleUrls: ['./rating.component.scss'],
+    providers: [OrderLinkPipe],
 })
 export class RatingComponent extends ResizeableComponent implements OnInit {
     roasterId: any;
@@ -21,6 +31,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
     orderStatus: OrderStatus;
     orgName: string;
     companyImg: string;
+    adminId: number;
     rating: number;
     country: string;
     submitted = false;
@@ -32,12 +43,15 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         public globals: GlobalsService,
-        public roasterSrv: RoasterserviceService,
+        public roasterSrv: RoasterService,
         public userSrv: UserService,
         public cookieService: CookieService,
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
         private authService: AuthService,
+        private chatService: ChatHandlerService,
+        private organizationService: OrganizationService,
+        private orderLinkPipe: OrderLinkPipe,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
@@ -68,37 +82,29 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
                     this.orgName = res.result.estate_name;
                     this.orderType = res.result.order_type;
                     this.orderStatus = res.result.status;
-                    this.getEstate(res.result.estate_id);
-                } else if (this.orgType === OrganizationType.MICRO_ROASTER) {
+                } else {
                     this.orgId = res.result.micro_roaster_id;
                     this.orgName = res.result.micro_roaster_name;
                     this.orderType = res.result.type;
                     this.orderStatus = res.result.status;
-                    this.getMicroRoaster(res.result.micro_roaster_id);
                 }
+                this.getOrganization();
             } else {
                 this.router.navigateByUrl('/');
             }
         });
     }
 
-    getEstate(estateId) {
-        this.userSrv.getAvailableEstateList(this.roasterId, estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.companyImg = res.result.company_image_thumbnail_url;
-                this.rating = res.result.rating;
-                this.country = res.result.country;
-            }
-        });
-    }
-
-    getMicroRoaster(estateId) {
-        this.userSrv.getMicroDetails(this.roasterId, estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.companyImg = res.result.company_image_thumbnail_url;
-                this.rating = res.result.rating;
-                this.country = res.result.country;
-            }
+    getOrganization() {
+        this.organizationService.getGeneralProfile(this.orgId, this.orgType).subscribe({
+            next: (result) => {
+                if (result) {
+                    this.companyImg = result.companyImageThumbnailUrl;
+                    this.rating = result.rating;
+                    this.country = result.country;
+                    this.adminId = result.adminId;
+                }
+            },
         });
     }
 
@@ -130,6 +136,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
                     if (res.success) {
                         this.review = res.result;
                         this.toastrService.success('Rate and Review of order submitted successfully');
+                        this.router.navigate([this.orderLinkPipe.transform(this.orgType, this.orderId)]);
                     } else if (!res.success) {
                         if (res.messages.order_id && res.messages.order_id.find((element) => element === 'not_found')) {
                             this.toastrService.error('Order Id not found.');
@@ -146,5 +153,13 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         } else {
             this.infoForm.markAllAsTouched();
         }
+    }
+
+    openChat() {
+        this.chatService.openChatThread({
+            user_id: this.adminId,
+            org_type: this.orgType,
+            org_id: this.orgId,
+        });
     }
 }

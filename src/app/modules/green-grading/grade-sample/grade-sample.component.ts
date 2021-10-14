@@ -1,12 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { AuthService, CommonService, GlobalsService, GreenGradingService } from '@services';
+import { AuthService, CommonService, GreenGradingService } from '@services';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 import { MenuItem, SortEvent } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
 
 import { COUNTRY_LIST } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-grade-sample',
@@ -45,14 +45,13 @@ export class GradeSampleComponent implements OnInit {
 
     constructor(
         private router: Router,
-        public globals: GlobalsService,
-        private cookieService: CookieService,
         public generateReportService: GenerateReportService,
         private toastrService: ToastrService,
         private greenGradingService: GreenGradingService,
         private activeRoute: ActivatedRoute,
         private authService: AuthService,
         private commonService: CommonService,
+        private translateService: TranslateService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -62,10 +61,10 @@ export class GradeSampleComponent implements OnInit {
             this.selectedCuppingReportId = params.cuppingReportId;
         });
         this.breadCrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/features/micro-roaster-dashboard' },
-            { label: this.globals.languageJson?.menu_sourcing },
-            { label: this.globals.languageJson?.green_grading, routerLink: '/green-grading' },
-            { label: this.globals.languageJson?.score_sample },
+            { label: this.translateService.instant('home'), routerLink: '/' },
+            { label: this.translateService.instant('menu_sourcing') },
+            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
+            { label: this.translateService.instant('score_sample') },
         ];
         this.countries = COUNTRY_LIST;
         this.getExternalReports();

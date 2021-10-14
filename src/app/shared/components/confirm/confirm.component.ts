@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { AuthService, GlobalsService, UserService } from '@services';
+import { AuthService, UserService } from '@services';
 import { ApiResponse } from '@models';
 
 @Component({
@@ -12,12 +12,14 @@ import { ApiResponse } from '@models';
 export class ConfirmComponent implements OnInit {
     logoutAll: boolean;
     constructor(
-        public ref: DynamicDialogRef,
-        public config: DynamicDialogConfig,
-        public globals: GlobalsService,
-        private userService: UserService,
         private authService: AuthService,
-    ) {}
+        private ref: DynamicDialogRef,
+        private userService: UserService,
+        public config: DynamicDialogConfig,
+    ) {
+        this.config.showHeader = false;
+        this.config.styleClass = `confirm-dialog ${this.config.data.type}`;
+    }
 
     ngOnInit(): void {}
 

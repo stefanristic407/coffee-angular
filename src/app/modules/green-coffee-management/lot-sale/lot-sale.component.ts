@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, GlobalsService, ResizeService, UserService } from '@services';
-import { RoasterserviceService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { AuthService, ResizeService, UserService } from '@services';
+import { RoasterService } from '@services';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { ResizeableComponent } from '@base-components';
 import { ApiResponse } from '@models';
 import { ConfirmComponent } from '@app/shared';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ProcuredCoffeeStatus, ProcuredCoffeeUnit } from 'src/core/enums/procured-coffee';
+import { TranslateService } from '@ngx-translate/core';
+import { QuantityUnit } from '@enums';
 
 @Component({
     selector: 'app-lot-sale',
@@ -20,56 +21,49 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     loaded = false;
     roasterID: any = '';
     orderDetails: any;
-    orderID: any = '';
+    orderID: number;
+    soldQuantity = 0;
     showDropdown = false;
-    orderStatus = 'IN_STOCK';
     statusLabel = '';
     saleDetailsPresent = false;
     readOnlyMode = false;
     breadItems: any = [];
-    quantityUnitArray: any = [
-        { label: 'Bags', value: 'bags' },
-        { label: 'kg', value: 'kg' },
-    ];
     priceTypeArray: any = [
-        { label: 'Per kg', value: 'kg' },
-        { label: 'per lb', value: 'lb' },
+        { label: 'Per kg', value: QuantityUnit.kg },
+        { label: 'per lb', value: QuantityUnit.lb },
     ];
     vatDetailsArray: any = [];
     stockTypeArray: any = [
-        { label: 'In stock', value: 'IN_STOCK' },
-        { label: 'Sold', value: 'SOLD' },
-        { label: 'Hidden', value: 'HIDDEN' },
+        { label: 'In stock', value: ProcuredCoffeeStatus.IN_STOCK },
+        { label: 'Sold', value: ProcuredCoffeeStatus.SOLD },
+        { label: 'Hidden', value: ProcuredCoffeeStatus.HIDDEN },
     ];
     weightTypeArray: any = [
-        { label: 'kg', value: 'kg' },
-        { label: 'lb', value: 'lb' },
-        { label: 'tonnes', value: 'tonnes' },
+        { label: 'kg', value: QuantityUnit.kg },
+        { label: 'lb', value: QuantityUnit.lb },
+        { label: 'tonnes', value: QuantityUnit.ton },
     ];
     lotSaleForm: FormGroup;
     availablityName: any;
     tableColumns = [];
     tableValue = [];
     remaining: any = '--';
-    quantityType: any;
 
     constructor(
-        public globals: GlobalsService,
-        public route: ActivatedRoute,
-        public roasterService: RoasterserviceService,
-        public cookieService: CookieService,
-        private router: Router,
-        private toasterService: ToastrService,
-        private fb: FormBuilder,
-        private userService: UserService,
-        public sharedService: SharedServiceService,
-        protected resizeService: ResizeService,
         private authService: AuthService,
         private dialogService: DialogService,
+        private fb: FormBuilder,
+        private roasterService: RoasterService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toasterService: ToastrService,
+        private translator: TranslateService,
+        private userService: UserService,
+        protected resizeService: ResizeService,
     ) {
         super(resizeService);
         this.roasterID = this.authService.getOrgId();
-        this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
+        this.orderID = +decodeURIComponent(this.route.snapshot.queryParams.orderId);
     }
 
     ngOnInit(): void {
@@ -89,58 +83,58 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         this.tableColumns = [
             {
                 field: 'id',
-                header: this.globals.languageJson?.order_id,
+                header: 'order_id',
                 sortable: false,
                 width: 12,
             },
             {
                 field: 'lot_id',
-                header: this.globals.languageJson?.lot_id,
+                header: 'lot_id',
                 sortable: false,
                 width: 10,
             },
             {
                 field: 'estate_name',
-                header: this.globals.languageJson?.estate,
+                header: 'estate',
                 width: 15,
             },
             {
                 field: 'order_reference',
-                header: this.globals.languageJson?.roaster_ref_no,
+                header: 'roaster_ref_no',
                 sortable: false,
                 width: 15,
             },
             {
                 field: 'origin',
-                header: this.globals.languageJson?.origin,
+                header: 'origin',
                 width: 12,
             },
             {
                 field: 'species',
-                header: this.globals.languageJson?.species,
+                header: 'species',
                 sortable: false,
                 width: 12,
             },
             {
                 field: 'varieties',
-                header: this.globals.languageJson?.variety,
+                header: 'variety',
                 sortable: false,
                 width: 12,
             },
             {
                 field: 'price',
-                header: this.globals.languageJson?.buying_price,
+                header: 'buying_price',
                 sortable: false,
                 width: 12,
             },
             {
                 field: 'cup_score',
-                header: this.globals.languageJson?.cupping_score,
+                header: 'cupping_score',
                 width: 11,
             },
             {
                 field: 'quantity',
-                header: this.globals.languageJson?.stock_in_hand,
+                header: 'stock_in_hand',
                 sortable: false,
                 width: 18,
             },
@@ -153,25 +147,25 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             price: ['', Validators.compose([Validators.required])],
             price_per_unit: ['kg', Validators.compose([Validators.required])],
             quantity: ['', Validators.compose([Validators.required])],
-            quantity_type: ['bags', Validators.compose([Validators.required])],
+            quantity_type: [ProcuredCoffeeUnit.bags, Validators.compose([Validators.required])],
             quantity_count: [null, Validators.compose([Validators.required])],
             quantity_unit: ['kg', Validators.compose([Validators.required])],
             minimum_order_quantity_count: ['', Validators.compose([Validators.required])],
             vat_settings_id: [null, Validators.compose([Validators.required])],
             status: ['IN_STOCK', Validators.compose([Validators.required])],
         });
-        this.lotSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
-            this.lotSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
-        });
     }
 
     refreshBreadcrumb() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
-            { label: 'Inventory' },
-            { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('inventory') },
             {
-                label: 'Marked for sale',
+                label: this.translator.instant('green_coffee_inventory'),
+                routerLink: '/green-coffee-management/green-coffee-inventory',
+            },
+            {
+                label: this.translator.instant('marked_for_sale'),
                 routerLink: `/green-coffee-management/green-coffee-inventory`,
                 queryParams: { markSale: 'yes' },
             },
@@ -180,37 +174,15 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     getSaleOrderDetails(resolve) {
-        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getMarkForSaleDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     const lotDetails = response.result;
-                    this.lotSaleForm.patchValue(lotDetails);
-                    this.orderStatus = response.result.status;
+                    this.soldQuantity = lotDetails.initial_quantity_count - lotDetails.quantity_count;
+                    this.lotSaleForm.patchValue({ ...lotDetails, quantity_count: lotDetails.initial_quantity_count });
                     this.availablityName = lotDetails.name;
-                    this.statusLabel = this.formatStatus(this.orderStatus);
-                    if (lotDetails.quantity_type.toLowerCase() === 'bags') {
-                        const remaining = lotDetails.quantity_count;
-                        if (remaining > 0) {
-                            this.remaining = `${remaining} Bags`;
-                        } else {
-                            this.remaining = '0 Bags';
-                        }
-                        this.lotSaleForm.patchValue(
-                            { quantity_type: lotDetails.quantity_type.toLowerCase() },
-                            { emitEvent: false },
-                        );
-                    } else if (lotDetails.quantity_type.toLowerCase() === 'kg') {
-                        const remaining = lotDetails.quantity_count;
-                        if (remaining > 0) {
-                            this.remaining = `${remaining} kg`;
-                        } else {
-                            this.remaining = '0 kg';
-                        }
-                        this.lotSaleForm.patchValue(
-                            { quantity_type: lotDetails.quantity_type.toLowerCase() },
-                            { emitEvent: false },
-                        );
-                    }
+                    this.statusLabel = this.formatStatus(response.result.status);
+                    this.changeQuantity();
                     this.refreshBreadcrumb();
                 }
                 resolve();
@@ -289,7 +261,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
 
     onSave(): void {
         if (this.lotSaleForm.valid) {
-            const productObj = this.lotSaleForm.value;
+            const productObj = { ...this.lotSaleForm.value, quantity_type: ProcuredCoffeeUnit.bags };
             this.updateMarkForSale(productObj);
         } else {
             this.lotSaleForm.markAllAsTouched();
@@ -307,8 +279,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -352,30 +322,17 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         });
     }
 
-    quantityTypeChange() {
-        this.quantityType = this.lotSaleForm.value.quantity_type;
-        this.changeQuantity(this.lotSaleForm.value.quantity_count);
-    }
-
-    changeQuantity(event) {
-        if (this.quantityType === 'kg') {
-            const remaining = event.value;
-            this.remaining = `${remaining} kg`;
-            if (this.orderDetails.quantity_count * this.orderDetails.quantity - event.value < 0) {
-                this.toasterService.error('Please check quantity available with you');
-                this.remaining = '0 kg';
-            } else if (event.value <= 0) {
-                this.remaining = '0 kg';
-            }
-        } else {
-            const remaining = event.value;
+    changeQuantity() {
+        setTimeout(() => {
+            const quantityCnt = this.lotSaleForm.value.quantity_count;
+            const remaining = quantityCnt - this.soldQuantity;
             this.remaining = `${remaining} bags`;
-            if (this.orderDetails.quantity_count - event.value < 0) {
+            if (this.orderDetails.quantity_count - quantityCnt < 0) {
                 this.toasterService.error('Please check quantity available with you');
                 this.remaining = '0 bags';
-            } else if (event.value <= 0) {
+            } else if (quantityCnt <= 0) {
                 this.remaining = '0 bags';
             }
-        }
+        });
     }
 }

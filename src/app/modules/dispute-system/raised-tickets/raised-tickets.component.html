@@ -28,6 +28,7 @@
                 [loading]="loading"
                 [totalRecords]="totalRecords"
                 [responsive]="true"
+                [scrollable]="isTablet$ | async"
             >
                 <ng-template pTemplate="header" let-columns>
                     <tr class="d-none d-sm-none d-md-table-row">

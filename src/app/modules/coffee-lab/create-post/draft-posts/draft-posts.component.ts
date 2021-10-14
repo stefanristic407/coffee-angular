@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
-import { CoffeeLabService } from '@services';
+import { CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 interface Draft {
@@ -29,6 +29,7 @@ export class DraftPostsComponent implements OnInit {
         private dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
+        private globalsService: GlobalsService,
         private router: Router,
     ) {}
 
@@ -41,17 +42,15 @@ export class DraftPostsComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to remove this post?',
+                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
                     this.coffeeLabService.deleteForumById(draft.post_type, draft.post_id).subscribe((res: any) => {
                         if (res.success) {
                             this.drafts = this.drafts.filter((item: any) => item.post_id !== draft.post_id);
-                            this.toastService.success(`You have deleted a forum successfully.`);
+                            this.toastService.success(`Draft ${draft.post_type} deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
                         } else {
                             this.toastService.error(`Failed to delete a forum.`);
@@ -75,6 +74,7 @@ export class DraftPostsComponent implements OnInit {
                 queryParams: {
                     id: draft.post_id,
                     type: draft.post_type,
+                    status: 'draft',
                 },
             });
         }

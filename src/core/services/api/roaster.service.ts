@@ -12,12 +12,12 @@ import * as moment from 'moment';
 import { ApiService } from './api.service';
 import { AuthService } from '../auth';
 import { OrganizationType } from '@enums';
+import { ApiResponse, ProcuredCoffee } from '@models';
 
 @Injectable({
     providedIn: 'root',
 })
-export class RoasterserviceService extends ApiService {
-    //API call URL's
+export class RoasterService extends ApiService {
     private url = environment.apiURL + '/ro/api';
     private putUrl = environment.apiURL + '/ro/putapi';
     private fileuploadUrl = environment.apiURL + '/ro/filesfolders';
@@ -32,13 +32,8 @@ export class RoasterserviceService extends ApiService {
     //API Function Name : Role List
     //API Description: This API calls helps to get all roles to the user.
 
-    getRoles(id: any, postData?) {
-        const data = {
-            api_call: `/ro/${id}/roles?${this.serlialise(postData)}`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    getRoles(postData?) {
+        return this.postWithOrg(this.orgPostUrl, `roles?${this.serializeParams(postData)}`);
     }
 
     //API Function Name : Delete Role
@@ -53,26 +48,14 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.orgDeleteUrl, data);
     }
 
-    //API Function Name : Roaster User Data
-    //API Description: This API calls helps to get the all Roaster user data.
-
-    getRoasterUsers(id: any, postData?) {
-        const data = {
-            api_call: `/ro/${id}/users?${this.serlialise(postData)}`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    // Get list of all organization users and search functionality
+    getOrgUsers(postData: object = {}) {
+        return this.postWithOrg(this.orgPostUrl, `users?${this.serializeParams(postData)}`);
     }
-    serlialise(obj) {
-        const str = [];
-        for (const p in obj) {
-            // eslint-disable-next-line no-prototype-builtins
-            if (obj.hasOwnProperty(p)) {
-                str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
-            }
-        }
-        return str.join('&');
+
+    // List invited users by organisations
+    getInvitedUserLists(postData?): Observable<ApiResponse<any[]>> {
+        return this.postWithOrg(this.orgPostUrl, `users/invite-list?${this.serializeParams(postData)}`);
     }
 
     //API Function Name : Create Role
@@ -166,28 +149,14 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : delete user
-    //API Description: This API calls helps to delete the selected user.
-
-    deleteRoasterUser(roaster_id: any, userId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${userId}`,
-            token: this.authService.token,
-            method: 'DELETE',
-        };
-        return this.http.post(this.url, data);
+    // This API calls helps to delete the selected user.
+    deleteOrgUser(userId: number) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}`, 'DELETE');
     }
 
-    //API Function Name : Assign Role
-    //API Description: This API calls helps to assign new role to the selected user.
-
-    assignUserBasedUserRoles(roaster_id: any, roleId: any, userId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${userId}/roles/${roleId}`,
-            token: this.authService.token,
-            method: 'POST',
-        };
-        return this.http.post(this.url, data);
+    // This API calls helps to assign new role to the selected user.
+    assignUserBasedUserRoles(roleId: number, userId: number) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/roles/${roleId}`, 'POST');
     }
 
     //API Function Name : Delete user role
@@ -202,28 +171,14 @@ export class RoasterserviceService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    //API Function Name : Enable Admin User
-    //API Description: This API calls helps to Enable the selected user.
-
-    enableAdminUser(roaster_id: any, enableUserId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${enableUserId}/enable`,
-            token: this.authService.token,
-            method: 'PUT',
-        };
-        return this.http.put(this.putUrl, data);
+    // This API calls helps to Enable the selected user.
+    enableAdminUser(userId: any) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/enable`, 'PUT');
     }
 
-    //API Function Name : Disable Admin User
-    //API Description: This API calls helps to Disable the selected user.
-
-    disableAdminUsers(roaster_id: any, disableUserId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${disableUserId}/disable`,
-            token: this.authService.token,
-            method: 'PUT',
-        };
-        return this.http.put(this.putUrl, data);
+    // This API calls helps to Disable the selected user.
+    disableAdminUsers(userId: number) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/disable`, 'PUT');
     }
 
     sendRecoveryEmail(userId: any): Observable<any> {
@@ -270,12 +225,8 @@ export class RoasterserviceService extends ApiService {
     //API Function Name : Get Brands
     //API Description: This API calls helps to get the Brands of the Roaster.
 
-    getRoasterBrands(roaster_id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/brands`,
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    getRoasterBrands(): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `brands`);
     }
 
     addRoasterBrand(data: any): Observable<any> {
@@ -300,7 +251,7 @@ export class RoasterserviceService extends ApiService {
     // Get all reviews posted by organization
     getRoasterReviews(roasterId: any, queryParams = {}): Observable<any> {
         const data = {
-            api_call: `/ro/${roasterId}/your-reviews?${this.serlialise(queryParams)}`,
+            api_call: `/ro/${roasterId}/your-reviews?${this.serializeParams(queryParams)}`,
             method: 'GET',
             token: this.authService.token,
         };
@@ -316,22 +267,6 @@ export class RoasterserviceService extends ApiService {
         data['token'] = this.authService.token;
         data['method'] = 'POST';
         data['data'] = body;
-        return this.http.post(this.url, data);
-    }
-
-    //API Function Name : Get Files/Folders
-    //API Description: This API calls helps to get the files/folders.
-
-    getFilesandFolders(roaster_id: any, parentId: any) {
-        let params = new HttpParams();
-        params = params.append('file_module', 'File-Share');
-        params = params.append('parent_id', parentId);
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/file-manager/my-files?' + params;
-        // data['params'] = params;
-        data['token'] = this.authService.token;
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-
         return this.http.post(this.url, data);
     }
 
@@ -600,7 +535,7 @@ export class RoasterserviceService extends ApiService {
 
     getMicroRoasters(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
-        data.api_call = `/ro/${roasterId}/micro-roasters?${this.serlialise(postData)}`;
+        data.api_call = `/ro/${roasterId}/micro-roasters?${this.serializeParams(postData)}`;
         data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
@@ -616,7 +551,7 @@ export class RoasterserviceService extends ApiService {
 
     getPartnerDetails(roasterId: any, postData?) {
         const data = { api_call: '', token: '', method: '' };
-        data.api_call = `/ro/${roasterId}/hrc?${this.serlialise(postData)}`;
+        data.api_call = `/ro/${roasterId}/hrc?${this.serializeParams(postData)}`;
         data.token = this.authService.token;
         data.method = 'GET';
         return this.http.post(this.url, data);
@@ -631,11 +566,11 @@ export class RoasterserviceService extends ApiService {
     }
 
     getRoastingProfile(postData?): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile?${this.serlialise(postData)}`);
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile?${this.serializeParams(postData)}`);
     }
 
     getRoasterCoffeeBatchs(postData?) {
-        return this.postWithOrg(this.orgPostUrl, `roasted-batches?${this.serlialise(postData)}`);
+        return this.postWithOrg(this.orgPostUrl, `roasted-batches?${this.serializeParams(postData)}`);
     }
 
     getSelectOrderListTable(roaster_id: any) {
@@ -651,7 +586,7 @@ export class RoasterserviceService extends ApiService {
     // Get the list of all default products
     getDefaultProducts(roaster_id: any, postData?) {
         const data = {
-            api_call: `/ro/${roaster_id}/products/default?${this.serlialise(postData)}`,
+            api_call: `/ro/${roaster_id}/products/default?${this.serializeParams(postData)}`,
             token: this.authService.token,
         };
         return this.http.post(this.url, data);
@@ -669,9 +604,9 @@ export class RoasterserviceService extends ApiService {
 
     getEstateOrders(roaster_id: any, postData = null, orderType = '') {
         const data: any = {};
-        data.api_call = '/ro/' + roaster_id + '/orders?' + this.serlialise(postData);
+        data.api_call = '/ro/' + roaster_id + '/orders?' + this.serializeParams(postData);
         if (orderType == 'MR') {
-            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serlialise(postData);
+            data.api_call = '/ro/' + roaster_id + '/mr-orders?' + this.serializeParams(postData);
         }
         data.token = this.authService.token;
         data.method = 'GET';
@@ -680,7 +615,7 @@ export class RoasterserviceService extends ApiService {
 
     getCoffeeExperienceOrders(roasterId: any, orderType: string, queryParams?: any) {
         const data = { api_call: '', method: '', token: '' };
-        data.api_call = `/ro/${roasterId}/${orderType}?` + this.serlialise(queryParams);
+        data.api_call = `/ro/${roasterId}/${orderType}?` + this.serializeParams(queryParams);
         data.method = 'GET';
         data.token = this.authService.token;
         return this.http.post(this.url, data);
@@ -809,7 +744,7 @@ export class RoasterserviceService extends ApiService {
 
     getListOrderDetails(roasterId: any, orderType: string, postData = null): Observable<any> {
         const data = {
-            api_call: `/ro/${roasterId}/${orderType}?` + this.serlialise(postData),
+            api_call: `/ro/${roasterId}/${orderType}?` + this.serializeParams(postData),
             token: this.authService.token,
             method: 'GET',
         };
@@ -927,13 +862,9 @@ export class RoasterserviceService extends ApiService {
         obj['data'] = data;
         return this.http.post(this.url, obj);
     }
-    //Get MarkFor Sale order details
-    getMarkForSaleDetails(roaster_id: any, orderID): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
-        return this.http.post(this.url, data);
+    // Get Mark For Sale order details
+    getMarkForSaleDetails(orderID): Observable<ApiResponse<ProcuredCoffee>> {
+        return this.postWithOrg(this.orgPostUrl, `procured-coffees/${orderID}/sale`);
     }
 
     //upate Mark for Sale from Procured Coffee
@@ -1233,6 +1164,19 @@ export class RoasterserviceService extends ApiService {
             api_call: `/ro/${roasterId}/outtake-orders/${outTakeOrderId}`,
             token: this.authService.token,
             method: 'DELETE',
+        };
+        return this.http.post(this.url, data);
+    }
+
+    exportOuttakeOrders(roasterId: number, exportType: string, dateFrom: string, dateTo: string) {
+        const paramsObj = {
+            from_date: dateFrom ? moment(dateFrom).format('yyyy-MM-DD') : '',
+            to_date: dateTo ? moment(dateTo).format('yyyy-MM-DD') : '',
+        };
+        const data = {
+            api_call: `/ro/${roasterId}/outtake-orders/export/${exportType}?${this.serializeParams(paramsObj)}`,
+            token: this.authService.token,
+            method: 'GET',
         };
         return this.http.post(this.url, data);
     }

@@ -17,7 +17,7 @@
                             routerLink="/green-coffee-management/lot-sale"
                             [queryParams]="{ orderId: orderDetails?.id }"
                         >
-                            {{ globals.languageJson?.edit }}
+                            {{ 'edit' | translate }}
                         </button>
                     </div>
                 </div>
@@ -94,13 +94,13 @@
                     </div>
                     <div *ngIf="saleInformation" class="row mt-4 ml-md-0 mr-md-0">
                         <h3 class="pb-1 fnt-16 fnt-md-18 fnt-bold text-clr334">
-                            {{ globals.languageJson?.selling_details }}
+                            {{ 'selling_details' | translate }}
                         </h3>
                         <div class="col-lg-12 border-class">
                             <div class="estate-focus">
                                 <ul class="clearfix">
                                     <li>
-                                        <label>Product Name</label>
+                                        <label>{{ 'product_name' | translate }}</label>
                                         <p>{{ saleInformation.name ? saleInformation.name : 'NA' }}</p>
                                     </li>
                                     <li>
@@ -112,7 +112,7 @@
                                         </p>
                                     </li>
                                     <li>
-                                        <label>Remaining coffee</label>
+                                        <label>{{ 'remaining_coffee' | translate }}</label>
                                         <p>
                                             {{
                                                 saleInformation.quantity && saleInformation.quantity_count
@@ -125,13 +125,13 @@
                                         </p>
                                     </li>
                                     <li>
-                                        <label>Minimum quantity for sale</label>
+                                        <label>{{ 'minimum_quantity_sale' | translate }}</label>
                                         <p>
                                             {{ saleInformation?.minimum_order_quantity_count }}
                                         </p>
                                     </li>
                                     <li>
-                                        <label>Selling price</label>
+                                        <label>{{ 'selling_price' | translate }}</label>
                                         <p>
                                             {{ saleInformation.price_unit ? saleInformation.price_unit : 'NA' }}
                                             {{ saleInformation.price ? saleInformation.price : 'NA' }}
@@ -140,7 +140,7 @@
                                         </p>
                                     </li>
                                     <li>
-                                        <label>VAT</label>
+                                        <label>{{ 'vat' | translate }}</label>
                                         <p>
                                             {{ saleInformation.vat_percentage ? saleInformation.vat_percentage : 'NA' }}
                                             <span *ngIf="saleInformation.vat_percentage">%</span>
@@ -159,22 +159,22 @@
                                 text-clr334
                             "
                         >
-                            Green coffee details
+                            {{ 'green_coffee_details' | translate }}
                         </h3>
                         <div *ngIf="orderDetails" class="col-12 border-class">
                             <p-tabView styleClass=" mt-1 pb-md-2" [(activeIndex)]="selectedTab">
-                                <p-tabPanel header="{{ globals.languageJson?.green_coffee_details }}">
+                                <p-tabPanel header="{{ 'green_coffee_details' | translate }}">
                                     <div class="col-lg-12 px-1 px-md-0 mt-4 mt-md-3">
                                         <div class="estate-focus">
                                             <ul class="clearfix">
                                                 <li>
-                                                    <label>Estate</label>
+                                                    <label>{{ 'estate' | translate }}</label>
                                                     <p>
                                                         {{ orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Origin</label>
+                                                    <label>{{ 'origin' | translate }}</label>
                                                     <p>
                                                         <span *ngIf="orderDetails.origin">{{
                                                             orderDetails.origin | country | translate
@@ -183,7 +183,7 @@
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Lot ID</label>
+                                                    <label>{{ 'lot_id' | translate }}</label>
                                                     <p
                                                         class="cursor-pointer lot-link"
                                                         [routerLink]="'/green-coffee-management/lot-sale'"
@@ -200,7 +200,7 @@
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Availability Name</label>
+                                                    <label>{{ 'availability_name' | translate }}</label>
                                                     <p>
                                                         {{
                                                             orderDetails.availability_name
@@ -210,26 +210,26 @@
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Species</label>
+                                                    <label>{{ 'species' | translate }}</label>
                                                     <p>
                                                         {{ orderDetails.species ? orderDetails.species : 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Variety</label>
+                                                    <label>{{ 'variety' | translate }}</label>
                                                     <p>
                                                         {{ orderDetails.varieties ? orderDetails.varieties : 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Crop year</label>
+                                                    <label>{{ 'crop_year' | translate }}</label>
                                                     <p>
                                                         {{ orderDetails.harvest_year_start | date: 'MMM' }} -
                                                         {{ orderDetails.harvest_year_end | date: 'MMM' }}
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Altitude</label>
+                                                    <label>{{ 'altitude' | translate }}</label>
                                                     <p>
                                                         {{ orderDetails.altitude ? orderDetails.altitude : 'NA' }}
                                                     </p>
@@ -241,19 +241,19 @@
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Wet Mill</label>
+                                                    <label>{{ 'wet_mill' | translate }}</label>
                                                     <p>
                                                         {{ orderDetails.wet_mill ? orderDetails.wet_mill : 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Processing</label>
+                                                    <label>{{ 'processing' | translate }}</label>
                                                     <p>
                                                         {{ orderDetails.processing ? orderDetails.processing : 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
-                                                    <label>Moisture content</label>
+                                                    <label>{{ 'moisture_content' | translate }}</label>
                                                     <p>
                                                         {{ orderDetails.moisture ? orderDetails.moisture : 'NA' }}
                                                     </p>
@@ -264,13 +264,13 @@
                                                     class="brown-cta m-0"
                                                     routerLink="/sourcing/coffee-details/{{ orderDetails.harvest_id }}"
                                                 >
-                                                    View more details
+                                                    {{ 'view_more_details' | translate }}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </p-tabPanel>
-                                <p-tabPanel header="{{ globals.languageJson?.roaster_notes }}">
+                                <p-tabPanel header="{{ 'roaster_notes' | translate }}">
                                     <div class="col-lg-12 px-1 px-md-0 mt-4 mt-md-3">
                                         <div class="estate-focus">
                                             <ul class="clearfix">
@@ -320,7 +320,7 @@
                                             </h6>
                                             <p class="text-clr334 fnt-600 fnt-14 mb-0">
                                                 <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1 text-head"
-                                                    >Cup Score :</span
+                                                    >{{ 'cup_score' | translate }} :</span
                                                 >
                                                 {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
                                             </p>

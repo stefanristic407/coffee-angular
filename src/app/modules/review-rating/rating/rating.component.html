@@ -58,14 +58,7 @@
                                     </span>
                                 </span>
                                 <div class="v-divider mx-2 mx-md-3"></div>
-                                <a
-                                    class="arrow-link"
-                                    [href]="orgType | profileLink: orgId"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    {{ 'contact_details' | translate }}
-                                </a>
+                                <div class="arrow-link" (click)="openChat()">{{ 'send_a_message' | translate }}</div>
                             </li>
                         </ul>
                     </div>

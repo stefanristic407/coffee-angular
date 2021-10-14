@@ -1,13 +1,12 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterserviceService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { MenuItem } from 'primeng/api';
+import { ResizeableComponent } from '@base-components';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, GeneralService, ResizeService, RoasterService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { toSentenceCase } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
@@ -15,11 +14,10 @@ import { DialogService } from 'primeng/dynamicdialog';
     templateUrl: './roasted-coffee-batches.component.html',
     styleUrls: ['./roasted-coffee-batches.component.scss'],
 })
-export class RoastedCoffeeBatchesComponent implements OnInit {
-    appLanguage?: any;
+export class RoastedCoffeeBatchesComponent extends ResizeableComponent implements OnInit {
     roasterId: number;
     batchId: string | number | boolean;
-    profileArray: any = [];
+    roastLevelArray: MenuItem[] = [];
     profileFilter;
     tableColumns = [];
     tableValue = [];
@@ -30,33 +28,28 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     disableAction = false;
     ordId: any;
     breadItems = [
-        { label: 'Home', routerLink: '/' },
-        { label: 'Inventory', routerLink: '/' },
-        { label: 'Roasted coffee batches' },
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('inventory') },
+        { label: this.translator.instant('roasted_coffee_batches') },
     ];
-    isLoadingRoastedBatches = false;
+    isLoadingRoastedBatches = true;
 
     constructor(
-        public router: Router,
-        public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        private fb: FormBuilder,
-        public sharedService: SharedServiceService,
-        private dialogService: DialogService,
         private authService: AuthService,
+        private dialogService: DialogService,
+        private generalService: GeneralService,
+        private roasterService: RoasterService,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterId = this.authService.getOrgId();
     }
 
     ngOnInit(): void {
-        this.sharedService.windowWidth = window.innerWidth;
-        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
-            this.sharedService.isMobileView = true;
-        }
-        this.appLanguage = this.globals.languageJson;
-        this.loadFilterValues();
+        this.getRoastLevels();
         this.tableColumns = [
             {
                 field: 'id',
@@ -66,63 +59,61 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             },
             {
                 field: 'roast_batch_name',
-                header: 'Batch name',
+                header: 'batch_name',
                 sortable: true,
                 width: 14,
             },
             {
                 field: 'order_id',
-                header: 'Order ID',
+                header: 'order_id',
                 sortable: true,
                 width: 9,
             },
             {
                 field: 'estate_name',
-                header: 'Estate name',
+                header: 'estate_name',
                 sortable: true,
                 width: 14,
             },
             {
                 field: 'roaster_ref_no',
-                header: 'Roaster Ref. No.',
+                header: 'roaster_ref_no',
                 sortable: true,
                 width: 15,
             },
             {
                 field: 'created_at',
-                header: 'Created on',
+                header: 'created_on',
                 sortable: true,
                 width: 11,
             },
             {
                 field: 'roasting_profile_quantity',
-                header: 'Quantity',
+                header: 'quantity',
                 sortable: true,
                 width: 9,
             },
             {
                 field: 'roasting_profile_name',
-                header: 'Roasting profile',
+                header: 'roasting_profile',
                 sortable: true,
                 width: 14,
             },
             {
                 field: 'actions',
-                header: 'Actions',
+                header: 'actions',
                 sortable: false,
                 width: 15,
             },
         ];
     }
 
-    loadFilterValues() {
-        this.profileArray = [
-            { label: 'Light', value: 1 },
-            { label: 'Light Medium', value: 2 },
-            { label: 'Medium', value: 3 },
-            { label: 'Medium Dark', value: 4 },
-            { label: 'Dark', value: 5 },
-        ];
+    getRoastLevels() {
+        this.generalService.getRoastLevels().subscribe((res) => {
+            if (res.success) {
+                this.roastLevelArray = (res.result || []).map((ix) => ({ ...ix, name: toSentenceCase(ix.name) }));
+            }
+        });
     }
 
     getData(event = null): void {
@@ -184,10 +175,8 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: 'Are you sure you want to delete this batch?',
+                    desp: this.translator.instant('confirm_delete_roasted_batch_desp'),
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-qa-forum-view',
@@ -11,14 +10,13 @@ import { debounceTime } from 'rxjs/operators';
     styleUrls: ['./qa-forum-view.component.scss'],
 })
 export class QaForumViewComponent implements OnInit, OnDestroy {
-    viewModeItems: any[] = [{ value: 'list' }, { value: 'grid' }];
     viewMode = 'list';
     sortOptions = [
         { label: 'Latest', value: 'latest' },
-        { label: 'Most Answered', value: 'most_answered' },
+        { label: 'Most answered', value: 'most_answered' },
         { label: 'Oldest', value: 'oldest' },
     ];
-    filterOptions = [
+    filterPostedByOptions = [
         {
             label: 'Coffee experts',
             value: false,
@@ -32,8 +30,9 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     isLoading = false;
     keyword = '';
     destroy$: Subject<boolean> = new Subject<boolean>();
-    searchInput$: Subject<any> = new Subject<any>();
     forumLanguage: string;
+    searchInput$: Subject<any> = new Subject<any>();
+    categoryList: any;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -46,6 +45,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getQuestions();
+            this.getCategory();
         });
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getQuestions();
@@ -62,15 +62,17 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     getQuestions(): void {
         const params = {
             query: this.keyword,
-            is_consumer: this.coffeeLabService.qaForumViewFilterBy,
+            is_consumer: this.coffeeLabService.qaForumViewFilterBy || '',
             sort_by: this.coffeeLabService.qaForumViewSortBy === 'most_answered' ? 'most_answered' : 'posted_at',
             sort_order:
                 this.coffeeLabService.qaForumViewSortBy === 'most_answered'
                     ? 'desc'
-                    : this.coffeeLabService.qaForumViewSortBy === 'latest'
+                    : this.coffeeLabService.qaForumViewSortBy === 'latest' ||
+                      this.coffeeLabService.qaForumViewSortBy === null
                     ? 'desc'
                     : 'asc',
             publish: true,
+            category_slug: this.coffeeLabService.qaForumViewCategory,
             page: 1,
             per_page: 10000,
         };
@@ -88,5 +90,13 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.unsubscribe();
+    }
+
+    getCategory() {
+        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
     }
 }

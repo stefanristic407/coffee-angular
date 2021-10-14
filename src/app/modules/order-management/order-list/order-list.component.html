@@ -15,8 +15,8 @@
 
     <div class="row no-gutters" [formGroup]="searchForm">
         <div class="col-12 col-md-4 px-0 d-flex align-items-center">
-            <h4 class="fnt-18 fnt-bold text-clr334 m-0 text-capitalize">
-                {{ (orgType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate | titlecase }}
+            <h4 class="fnt-18 fnt-bold text-clr334 m-0 mt-4 mt-md-0">
+                {{ (orgType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate }}
             </h4>
         </div>
         <div class="col-12 px-0 mt-25 d-md-none">
@@ -26,7 +26,7 @@
                         pInputText
                         class="extra-width h-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
                         type="text"
-                        placeholder="Search by order ID, {{ customerPropertyName }}, etc"
+                        placeholder="Search by order ID, name"
                         formControlName="search_query"
                     />
                 </span>
@@ -73,11 +73,12 @@
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Status"
-                    [styleClass]="'round-border mr-25 mb-25 mb-md-3 mb-lg-4' + (queryParams.status ? ' highlight' : '')"
+                    [styleClass]="'round-border mr-25 mb-4' + (queryParams.status ? ' highlight' : '')"
                     scrollHeight="225px"
                     formControlName="status"
                 ></p-dropdown>
                 <p-calendar
+                    class="order-calendar-width"
                     [readonlyInput]="true"
                     [showIcon]="true"
                     placeholder="Date range"
@@ -85,19 +86,18 @@
                     formControlName="dates"
                     [showButtonBar]="true"
                     [styleClass]="
-                        'round-border mb-25 mb-md-3 mb-lg-4' +
-                        (queryParams.start_date || queryParams.end_date ? ' highlight' : '')
+                        'round-border mb-4' + (queryParams.start_date || queryParams.end_date ? ' highlight' : '')
                     "
                 >
                 </p-calendar>
             </div>
             <div class="d-none d-md-flex align-items-start">
-                <span class="custom-search w-100 mr-2">
+                <span class="custom-search text-feild-width-fix w-100 mr-2">
                     <input
                         pInputText
                         class="w-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
                         type="text"
-                        placeholder="Search by order ID, {{ customerPropertyName }}, etc"
+                        placeholder="Search by order ID, {{ customerPropertyName | lowercase }}, etc"
                         formControlName="search_query"
                     />
                 </span>
@@ -128,12 +128,13 @@
                 *ngIf="orgType === OrgType.MICRO_ROASTER"
                 [(activeIndex)]="activeIndex"
                 (onChange)="resetFilter()"
+                class="mob-tab-order"
             >
                 <p-tabPanel [header]="'orders' | translate">
-                    <app-order-table #appOrderTable [searchOptions]="queryParams" class="mt-md-4"> </app-order-table>
+                    <app-order-table #appOrderTable [searchOptions]="queryParams" class="mt-4"> </app-order-table>
                 </p-tabPanel>
                 <p-tabPanel [header]="'requests' | translate">
-                    <app-request-table #requestTable [searchOptions]="queryParams" class="mt-md-4"></app-request-table>
+                    <app-request-table #requestTable [searchOptions]="queryParams" class="mt-4"></app-request-table>
                 </p-tabPanel>
             </p-tabView>
         </div>
@@ -144,7 +145,7 @@
     <p-dialog
         header="Export orders"
         [(visible)]="displayExportDialog"
-        [style]="{ width: '431px' }"
+        [style]="{ width: '450px' }"
         [baseZIndex]="10000"
         [modal]="true"
         styleClass="export-p-dialog"
@@ -163,7 +164,7 @@
                     [readonlyInput]="true"
                     [showButtonBar]="true"
                     placeholder="Select start date"
-                    styleClass="w-100 p-calendar-w-btn round-border single-calendar mr-3 export-calendar {{
+                    styleClass="w-100 p-calendar-w-btn round-border mr-3 export-calendar {{
                         exportForm.get('from_date').value ? 'highlight' : ''
                     }}"
                 >
@@ -177,7 +178,7 @@
                     [readonlyInput]="true"
                     [showButtonBar]="true"
                     placeholder="Select end date"
-                    styleClass="w-100 p-calendar-w-btn round-border single-calendar ml-0 export-calendar {{
+                    styleClass="w-100 p-calendar-w-btn round-border ml-0 export-calendar {{
                         exportForm.get('to_date').value ? 'highlight' : ''
                     }}"
                 >
@@ -195,10 +196,12 @@
 
         <ng-template pTemplate="footer">
             <button class="btn-stroked" type="button" (click)="displayExportDialog = !displayExportDialog">
-                Cancel
+                {{ 'cancel' | translate }}
             </button>
 
-            <button class="btn-raised" type="button" (click)="downloadOrderClicked()">Download order</button>
+            <button class="btn-raised" type="button" (click)="downloadOrderClicked()" [disabled]="isDownloading">
+                <span>{{ 'download_order' | translate }}</span>
+            </button>
         </ng-template>
     </p-dialog>
 </form>

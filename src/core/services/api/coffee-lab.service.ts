@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
-import { UplaodService } from '../upload';
+import { UploadService } from '../upload';
 import { AuthService } from '../auth';
 
 @Injectable({
@@ -12,19 +12,24 @@ import { AuthService } from '../auth';
 })
 export class CoffeeLabService extends ApiService {
     @Output() originalPost = new EventEmitter();
+    @Output() draftPost = new EventEmitter();
     forumDeleteEvent = new EventEmitter();
     copyCoverImage = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
+    allDrafts = new BehaviorSubject([]);
     organization = this.orgType;
     // filterBy and sortBy
-    qaForumViewFilterBy = '';
-    qaForumViewSortBy = 'latest';
-    articleViewFilterBy = '';
-    articleViewSortBy = 'latest';
-    recipeViewIsAvailableTranslation = '';
-    recipeViewLevel = '';
-    recipeViewSortBy = 'latest';
-    qaPostSortBy = 'latest';
+    qaForumViewFilterBy = null;
+    qaForumViewSortBy = null;
+    qaForumViewCategory = null;
+    articleViewCategory = null;
+    recipeViewCategory = null;
+    articleViewFilterBy = null;
+    articleViewSortBy = null;
+    recipeViewIsAvailableTranslation = null;
+    recipeViewLevel = null;
+    recipeViewSortBy = null;
+    qaPostSortBy = null;
     assignedToMeSortBy = 'latest';
     myAnswersSortBy = 'desc';
     myCommentsSortBy = 'desc';
@@ -36,7 +41,7 @@ export class CoffeeLabService extends ApiService {
     constructor(
         protected http: HttpClient,
         protected authService: AuthService,
-        private uploadService: UplaodService,
+        private uploadService: UploadService,
         private toastService: ToastrService,
     ) {
         super(http, authService);
@@ -74,6 +79,18 @@ export class CoffeeLabService extends ApiService {
         return this.http.post(this.orgPostUrl, data, httpOptions);
     }
 
+    getPopularList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
+        const data = {
+            api_call: `/general/coffee-lab/popular-posts/${type}s?${this.serializeParams(options)}`,
+            method: 'GET',
+            token: this.authService.token,
+        };
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Accept-Language': language }),
+        };
+        return this.http.post(this.orgPostUrl, data, httpOptions);
+    }
+
     getOrganizationForumList(type: string, options?: any, language = this.currentForumLanguage): Observable<any> {
         const data = {
             api_call: `/${this.orgType}/${this.getOrgId()}/${type}s?${this.serializeParams(options)}`,
@@ -101,6 +118,35 @@ export class CoffeeLabService extends ApiService {
             `${this.orgType}/${this.getOrgId()}/${type}s/${id}/${commentType}`,
             'POST',
             data,
+        );
+    }
+
+    getCategory(langCode: string): Observable<any> {
+        const language = { language: langCode };
+        return this.post(this.orgPostUrl, `general/categories?${this.serializeParams(language)}`, 'GET');
+    }
+
+    getTopWriters(options): Observable<any> {
+        return this.post(this.orgPostUrl, `general/coffee-lab/top-writers?${this.serializeParams(options)}`, 'GET');
+    }
+
+    updateLike(type, id): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/like`, 'PUT');
+    }
+
+    updateUnLike(type, id): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${id}/unlike`, 'PUT');
+    }
+
+    markBrewed(type, recipeId): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/${type}s/${recipeId}/mark-brewed`, 'PUT');
+    }
+
+    unMarkBrewed(type, recipeId): Observable<any> {
+        return this.post(
+            this.orgPostUrl,
+            `${this.orgType}/${this.getOrgId()}/${type}s/${recipeId}/unmark-brewed`,
+            'PUT',
         );
     }
 

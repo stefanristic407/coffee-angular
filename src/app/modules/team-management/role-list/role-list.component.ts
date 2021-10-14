@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { AclService, AuthService, GlobalsService, RoasterserviceService } from '@services';
+import { AclService, AuthService, GlobalsService, RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -23,7 +23,7 @@ export class RoleListComponent implements OnInit {
     loader = true;
     constructor(
         public router: Router,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
@@ -78,7 +78,7 @@ export class RoleListComponent implements OnInit {
             const currentPage = event.first / 10;
             postData.page = currentPage + 1;
         }
-        this.roasterService.getRoles(this.roasterId, postData).subscribe(
+        this.roasterService.getRoles(postData).subscribe(
             (res: any) => {
                 this.loader = false;
                 if (res.success === true) {
@@ -122,13 +122,11 @@ export class RoleListComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     title: 'Oh noh :(',
-                    desp: 'You sure you really want to delete this?',
+                    desp: 'Are you sure you really want to delete this?',
                     type: 'delete',
                     noButton: 'Cancel',
                     yesButton: 'Delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

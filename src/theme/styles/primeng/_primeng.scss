@@ -29,6 +29,24 @@
 @import 'primeng_avatar';
 @import 'primeng_chips';
 
+@mixin horizontal-form-field() {
+    flex-direction: row;
+    align-items: flex-start;
+    & > :nth-child(1) {
+        width: 30%;
+        padding-right: 24px;
+        margin-bottom: 0;
+        transform: translateY(calc(25px - 50%));
+
+        @media (min-width: 992px) {
+            padding-right: 48px;
+        }
+    }
+    & > :nth-child(2) {
+        width: 70%;
+    }
+}
+
 // global
 .p-component {
     font-family: $general-font-family;
@@ -65,34 +83,40 @@
         border-radius: 4px;
         width: 100%;
     }
+    .p-multiselect-label {
+        padding: 0.9375rem 0.75rem;
+        padding-right: 0;
+    }
     .p-dropdown .p-inputtext {
         padding-right: 0;
     }
-    .p-inputnumber {
+    .p-inputnumber,
+    .p-calendar,
+    .p-multiselect {
         width: 100%;
     }
+
+    // Validation
     .p-error {
         display: none;
         font-size: 14px;
         font-weight: 600;
     }
-    .ng-dirty ~ .p-error {
-        display: block !important;
-    }
-    .ng-dirty + .p-error {
-        display: block !important;
-    }
-    .ng-touched + .p-error {
-        display: block !important;
-    }
-    .ng-touched ~ .p-error {
-        display: block !important;
+    .ng-invalid.ng-touched,
+    .ng-invalid.ng-dirty {
+        & + .p-error,
+        & ~ .p-error {
+            display: block !important;
+        }
     }
     .p-inputtext.ng-invalid.ng-touched,
     input.ng-invalid.ng-touched,
     input.ng-invalid.ng-touched + .input-group-append,
-    p-inputnumber.ng-invalid.ng-touched .p-inputnumber-input,
-    .ng-invalid.ng-touched .p-dropdown {
+    p-calendar.ng-invalid.ng-touched .p-calendar,
+    p-dropdown.ng-invalid.ng-touched .p-dropdown,
+    p-multiselect.ng-invalid.ng-touched .p-multiselect,
+    p-autocomplete.ng-invalid.ng-touched .p-autocomplete-input,
+    p-inputnumber.ng-invalid.ng-touched .p-inputnumber-input {
         border-color: $error-border-color !important;
     }
 
@@ -102,23 +126,23 @@
         display: inline-block;
         .p-inputgroup-addon {
             position: absolute;
-            padding: 0.9375rem 1rem;
-            top: 0;
-            right: 0;
+            padding: 0 1rem;
+            margin: 0;
+            top: 1px;
+            right: 1px;
+            height: 48px;
             border: none;
-            line-height: 18px;
+            display: flex;
+            align-items: center;
             color: $muted-text-color;
             &.gray {
-                padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+                padding: 0 0.75rem;
                 background-color: $primary-bg-color;
                 border: none;
                 top: 4px;
                 right: 4px;
                 height: 42px;
                 border-radius: 4px;
-                margin: 0;
-                display: flex;
-                align-items: center;
                 color: $general-text-color;
             }
         }
@@ -126,9 +150,24 @@
         .p-inputnumber {
             width: 100%;
         }
-        .p-inputtext,
-        .p-inputnumber-input {
-            padding-right: 4rem;
+        &.left-align {
+            .p-inputgroup-addon {
+                left: 1px;
+                right: unset !important;
+                &.gray {
+                    left: 4px;
+                }
+            }
+            .p-inputtext,
+            .p-inputnumber-input {
+                padding-left: 4rem;
+            }
+        }
+        &:not(.left-align) {
+            .p-inputtext,
+            .p-inputnumber-input {
+                padding-right: 4rem;
+            }
         }
     }
     // Input and select
@@ -178,6 +217,17 @@
     .p-dropdown {
         width: 100%;
     }
+
+    &.horizontal {
+        @media (min-width: 768px) {
+            @include horizontal-form-field();
+        }
+    }
+    &.horizontal-lg {
+        @media (min-width: 992px) {
+            @include horizontal-form-field();
+        }
+    }
 }
 
 .sewn-form-two-field {
@@ -192,10 +242,6 @@
     }
 }
 
-p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
-    border-color: $error-border-color;
-}
-
 textarea {
     &::placeholder,
     &::-webkit-input-placeholder {
@@ -207,14 +253,13 @@ textarea {
 .header-search {
     position: relative;
     &::before {
-        content: '';
-        background-image: url(/assets/images/search.svg);
-        width: 30px;
-        height: 30px;
+        content: '\e908';
+        font-family: 'primeicons';
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: 8px;
+        left: 16px;
+        font-size: 18px;
     }
     & > .p-inputtext {
         padding-left: 3.125rem;
@@ -231,11 +276,11 @@ textarea {
         font-size: 16px;
         font-weight: normal;
         width: 100%;
+        background: #f4f4f5 !important;
+        border-radius: 19px;
+        border: 1px solid transparent;
         @media (min-width: 768px) {
-            width: 180px;
-        }
-        @media (min-width: 992px) {
-            width: 378px;
+            width: 165px;
         }
     }
     input::placeholder {

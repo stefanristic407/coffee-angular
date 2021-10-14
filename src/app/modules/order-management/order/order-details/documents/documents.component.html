@@ -20,7 +20,7 @@
         >
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="card-column" pSortableColumn>{{ 'Document Name' | translate }}</th>
+                    <th class="card-column" pSortableColumn>{{ 'document_name' | translate }}</th>
                     <th class="w-20" pSortableColumn>{{ 'date_added' | translate }}</th>
                     <th class="w-20" pSortableColumn>{{ 'owner' | translate }}</th>
                     <th class="w-action-column text-center">{{ 'action' | translate }}</th>
@@ -72,9 +72,12 @@
             </ng-template>
 
             <ng-template pTemplate="summary">
-                <div *ngIf="showLoadMore" class="text-center mt-1">
-                    <span class="navigation-link" (click)="loadMore()">{{ 'load_more' | translate }}</span>
+                <div *ngIf="documents?.length; else empty" class="p-3">
+                    <div *ngIf="showLoadMore" class="text-center">
+                        <span class="navigation-link" (click)="loadMore()">{{ 'load_more' | translate }}</span>
+                    </div>
                 </div>
+                <ng-template #empty><app-empty [title]="'no_data' | translate"></app-empty></ng-template>
             </ng-template>
         </p-table>
     </div>

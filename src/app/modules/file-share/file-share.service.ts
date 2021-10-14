@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Action, FileModule, FileType } from '@enums';
+import { Download } from '@models';
+import { DownloadService, FileService, GlobalsService } from '@services';
+import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
-import { FileService } from '@services';
-import { DownloadService, GlobalsService } from '@services';
-import { Download } from '@models';
-import { ConfirmComponent } from '@shared';
-import { Action, FileModule, FileType } from '@enums';
-import { MediaPreviewComponent } from './components/media-preview/media-preview.component';
-import { FolderDialogComponent } from './components/folder-dialog/folder-dialog.component';
-import { EditFileComponent } from './components/edit-file/edit-file.component';
-import { ShareComponent } from './components/share/share.component';
+import { BehaviorSubject } from 'rxjs';
 import * as _ from 'underscore';
+import { EditFileComponent } from './components/edit-file/edit-file.component';
+import { FolderDialogComponent } from './components/folder-dialog/folder-dialog.component';
+import { MediaPreviewComponent } from './components/media-preview/media-preview.component';
+import { ShareComponent } from './components/share/share.component';
 
 @Injectable({
     providedIn: 'root',
@@ -37,11 +36,11 @@ export class FileShareService {
     queryParams$: any = this.queryParams.asObservable();
 
     constructor(
-        public dialogSrv: DialogService,
-        public fileSrv: FileService,
-        public globals: GlobalsService,
-        public toastrService: ToastrService,
-        public downloadService: DownloadService,
+        private dialogSrv: DialogService,
+        private downloadService: DownloadService,
+        private fileSrv: FileService,
+        private globals: GlobalsService,
+        private toastrService: ToastrService,
     ) {
         this.queryParams$.subscribe((params: any) => {
             this.filterData();
@@ -106,10 +105,10 @@ export class FileShareService {
             });
     }
 
-    getFilesandFolders() {
+    getMyFiles() {
         this.loading = true;
         this.fileSrv
-            .getFilesandFolders({
+            .getMyFiles({
                 file_module: FileModule.FileShare,
                 sort_by: 'updated_at',
                 sort_order: 'desc',
@@ -192,9 +191,9 @@ export class FileShareService {
 
     uploadFile(event: any) {
         const files = event.target.files;
-        const fileName = files[0].name;
         if (files.length > 0) {
             const file: File = files[0];
+            const fileName = file.name;
             const formData: FormData = new FormData();
             formData.append('file', file, file.name);
             formData.append('name', fileName);
@@ -214,7 +213,7 @@ export class FileShareService {
     downloadFile(item: any) {
         this.downloadService.download(item.url, item.name, item.mime).subscribe(
             (res: Download) => {
-                if (res.state === 'DONE') {
+                if (res?.state === 'DONE') {
                     this.toastrService.success('Downloaded successfully');
                 }
             },
@@ -229,6 +228,7 @@ export class FileShareService {
             if (res.success) {
                 this.toastrService.success('The Selected file/folder is pinned successfully');
                 this.getPinnedFilesorFolders();
+                this.refresh();
             } else {
                 this.toastrService.error('Error while pinning the File/Folder');
             }
@@ -240,6 +240,7 @@ export class FileShareService {
             if (res.success) {
                 this.toastrService.success('The Selected file/folder is unpinned successfully');
                 this.getPinnedFilesorFolders();
+                this.refresh();
             } else {
                 this.toastrService.error('Error while unpinning the File/Folder');
             }
@@ -308,8 +309,6 @@ export class FileShareService {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
@@ -329,8 +328,6 @@ export class FileShareService {
                 data: {
                     type: 'delete',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

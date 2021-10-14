@@ -18,7 +18,11 @@
                         <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field">
-                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
+                            <app-brand-uploader
+                                formControlName="banner_file"
+                                [width]="1440"
+                                [height]="465"
+                            ></app-brand-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -26,14 +30,14 @@
 
                         <div class="w-100 sewn-form-field mb-0">
                             <label>
-                                Banner Title<span class="star">*</span>
+                                {{ 'banner_title' | translate }}<span class="star">*</span>
                                 <span class="pull-right text-clr588">
                                     {{ infoForm.get('banner_title').value | wordCount }}/15 words
                                 </span>
                             </label>
                             <input type="text" formControlName="banner_title" appWordLimit [limit]="15" pInputText />
                             <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
-                                Required
+                                {{ 'required' | translate }}
                             </small>
                             <small *ngIf="infoForm.controls.banner_title.errors?.maxWordCount" class="p-error">
                                 Please input 15 words
@@ -72,6 +76,9 @@
                                         formControlName="state"
                                         placeholder="{{ 'select_state' | translate }}"
                                     ></p-dropdown>
+                                    <small *ngIf="profileForm.controls.state.errors?.required" class="p-error">
+                                        {{ 'required' | translate }}
+                                    </small>
                                 </div>
                                 <div class="col-12 col-md-6 sewn-form-field">
                                     <label>{{ 'address' | translate }}<span class="star">*</span></label>
@@ -153,26 +160,22 @@
 
                             <div class="row gutter-16 gutter-lg-24">
                                 <div class="col-12 col-md-6 sewn-form-field">
-                                    <label>Email Address<span class="star">*</span></label>
+                                    <label>{{ 'email_address' | translate }}<span class="star">*</span></label>
                                     <input
                                         type="text"
                                         placeholder="Roastery email"
                                         formControlName="email"
                                         pInputText
-                                        placeholder="Line 1"
                                     />
                                     <small *ngIf="profileForm.controls.email.errors?.required" class="p-error">
                                         Please enter email
                                     </small>
                                     <small *ngIf="profileForm.controls.email.errors?.email" class="p-error">
-                                        Please enter valid email
+                                        {{ 'please_fill_valid_email' | translate }}
                                     </small>
                                 </div>
                                 <div class="col-12 col-md-6 sewn-form-field">
-                                    <label
-                                        >Phone Number<span class="star">*</span>
-                                        <span class="flag-icon flag-icon-gr"></span>
-                                    </label>
+                                    <label>{{ 'phone_number' | translate }}<span class="star">*</span></label>
                                     <app-phone-number formControlName="phone"></app-phone-number>
                                     <small *ngIf="profileForm.controls.phone.invalid" class="p-error d-block">
                                         Please enter valid phone number
@@ -286,7 +289,9 @@
                 </span>
             </label>
             <input type="text" formControlName="question" appWordLimit [limit]="15" pInputText />
-            <small *ngIf="questionForm.controls.question.errors?.required" class="p-error"> Required </small>
+            <small *ngIf="questionForm.controls.question.errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
             <small *ngIf="questionForm.controls.question.errors?.maxWordCount" class="p-error">
                 Please input 15 words
             </small>
@@ -300,7 +305,9 @@
                 </span>
             </label>
             <textarea formControlName="answer" rows="5" cols="50" appWordLimit [limit]="100" pInputTextarea></textarea>
-            <small *ngIf="questionForm.controls.answer.errors?.required" class="p-error"> Required </small>
+            <small *ngIf="questionForm.controls.answer.errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
             <small *ngIf="questionForm.controls.answer.errors?.maxWordCount" class="p-error">
                 Please input 100 words
             </small>

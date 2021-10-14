@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CommonService, GlobalsService } from '@services';
-import { WelcomeService } from '../welcome.service';
+import { MDashboardService } from '../m-dashboard.service';
+import { colorSets } from '@swimlane/ngx-charts';
 
 @Component({
     selector: 'app-dashboard-estate',
@@ -18,18 +19,18 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
 
     constructor(
         public globals: GlobalsService,
-        private welcomeSrv: WelcomeService,
+        private mDashboardSrv: MDashboardService,
         private commonService: CommonService,
     ) {}
 
     ngOnInit(): void {
-        this.sourcingSub = this.welcomeSrv.sourcing$.subscribe((res: any) => {
+        this.sourcingSub = this.mDashboardSrv.sourcing$.subscribe((res: any) => {
             this.sourcing = res;
             if (this.sourcing) {
                 this.makeChartData();
             }
         });
-        this.estatesSub = this.welcomeSrv.estates$.subscribe((res: any) => {
+        this.estatesSub = this.mDashboardSrv.estates$.subscribe((res: any) => {
             if (res) {
                 const estateData: any = res;
                 estateData.length > 4 ? (this.estates = estateData.slice(0, 4)) : (this.estates = estateData);
@@ -56,12 +57,25 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
 
     makeChartData() {
         const tempData = [];
-        this.sourcing.sourcing_stats.forEach((element) => {
+        let otherValue = 0;
+        this.sourcing.sourcing_stats = this.sourcing.sourcing_stats.sort(
+            (a, b) => b.available_quantity - a.available_quantity,
+        );
+        (this.sourcing.sourcing_stats || []).forEach((element, index) => {
             const countryName = this.commonService.getCountryName(element.origin) || element.origin;
-            tempData.push({
-                name: countryName,
-                value: (element.available_quantity / 1000).toFixed(0),
-            });
+
+            if (index <= 4) {
+                tempData.push({
+                    name: countryName,
+                    value: (element.available_quantity / 1000).toFixed(0),
+                });
+            } else {
+                otherValue += element.available_quantity / 1000;
+            }
+        });
+        tempData.push({
+            name: 'Other',
+            value: otherValue.toFixed(0),
         });
         this.chartData = tempData;
     }

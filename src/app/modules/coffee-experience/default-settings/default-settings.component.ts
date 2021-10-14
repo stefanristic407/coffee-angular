@@ -106,7 +106,7 @@ export class DefaultSettingsComponent implements OnInit {
             { select: false, label: 'Pocket friendly' },
         ];
         this.items = [
-            { label: this.globals.languageJson.home, routerLink: '/features/welcome-aboard' },
+            { label: this.globals.languageJson.home, routerLink: '/' },
             { label: this.globals.languageJson.brand_experience },
             {
                 label: this.globals.languageJson.the_coffee_experience,
@@ -561,8 +561,6 @@ export class DefaultSettingsComponent implements OnInit {
                     title: 'Please confirm!',
                     desp: 'Are you sure want to download',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

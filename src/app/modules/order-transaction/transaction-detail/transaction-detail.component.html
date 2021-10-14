@@ -1,0 +1,157 @@
+<div class="main-block">
+    <div class="back-page mb-4 mb-md-25" [routerLink]="['/order-transaction']">
+        {{ 'back' | translate }}
+    </div>
+    <div class="d-md-flex justify-content-between align-items-center mb-3 mb-md-4">
+        <h1 class="fnt-16 fnt-md-18 fnt-bold mb-3 mb-md-0">
+            {{ 'Document number' | translate }} - {{ transaction?.document_number }}
+        </h1>
+        <button class="btn-raised w-mob-100" (click)="export()" [disabled]="isDownloading">
+            {{ 'export' | translate }}
+        </button>
+    </div>
+
+    <div class="row gutter-20 v-gutter-16">
+        <div class="col-md-6 col-lg-4">
+            <ng-container *ngTemplateOutlet="detailCard; context: { title: 'order_details', items: orderDetails }">
+            </ng-container>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <ng-container *ngTemplateOutlet="detailCard; context: { title: 'payment_details', items: paymentDetails }">
+            </ng-container>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="bg-f8 br-4 p-4" [formGroup]="referenceForm">
+                <div class="fnt-semi-bold">
+                    {{ 'create_reference_number_guide' | translate }}
+                </div>
+                <div class="sewn-form-field w-100 mt-3 mb-0">
+                    <input
+                        type="text"
+                        pInputText
+                        formControlName="roaster_reference_number"
+                        [placeholder]="'create_unique_reference_number' | translate"
+                    />
+                </div>
+                <button class="btn-raised mt-3" (click)="saveReference()">{{ 'save' | translate }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <div class="d-md-none fnt-16 fnt-bold mb-3">{{ 'order_items' | translate }}</div>
+        <p-table
+            [value]="orderItems"
+            [columns]="orderTableColumns"
+            [responsive]="true"
+            [scrollable]="isTablet$ | async"
+            styleClass="mobile-card-view"
+        >
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th
+                        *ngFor="let col of columns"
+                        [style.width]="(col.width || 30) + '%'"
+                        [class.text-right]="col.left"
+                        [class.border-right-main]="col.field !== 'total' && !(isMobile$ | async)"
+                    >
+                        <span>{{ col.header | translate }}</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td
+                        *ngFor="let col of columns"
+                        [ngSwitch]="col.field"
+                        [style.width]="(col.width || 30) + '%'"
+                        [class.text-right]="col.left && !(isMobile$ | async)"
+                        [class.border-right-main]="col.field !== 'total' && !(isMobile$ | async)"
+                        [class.not-has-summary]="rowData.summary && !col.hasSummary"
+                    >
+                        <ng-container *ngSwitchCase="'item_system_id'">
+                            <span class="fnt-bold d-md-none">
+                                <span *ngIf="!rowData.summary">Sr no - </span>{{ rowData[col.field] }}</span
+                            >
+                            <span class="d-none d-md-block">{{ rowData[col.field] }}</span>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                            <span class="p-column-title">
+                                {{ col.header | translate }}
+                            </span>
+                            <span *ngIf="!(rowData.summary && !col.hasSummary)" [class.text-right]="isMobile$ | async">
+                                {{ rowData[col.field] }}
+                            </span>
+                        </ng-container>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <ng-container *ngIf="!orderItems?.length">
+                    <app-empty [title]="'no_data' | translate"></app-empty>
+                </ng-container>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="mt-4">
+        <div class="d-none d-md-block border-main br-4 p-1">
+            <div class="fnt-bold bg-f8 br-4 px-25 px-md-16 py-2 py-md-25">
+                {{ 'customer_information' | translate }}
+            </div>
+            <div class="px-25 px-md-3 py-md-25">
+                <div class="row">
+                    <div class="col-7 col-lg-5">
+                        <ng-container *ngFor="let item of customerDetails; index as i">
+                            <div *ngIf="i" class="d-md-none divider ml-n2"></div>
+                            <div class="row py-3 py-md-2 fnt-600">
+                                <div class="col-6 text-clr588">{{ item.label | translate }}</div>
+                                <div class="col-6 text-right text-md-left">{{ item.value || '--' }}</div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-5 offset-lg-1">
+                        <div class="d-flex py-3 py-md-2 fnt-600">
+                            <div class="text-clr588">{{ 'delivery_address' | translate }} :&nbsp;&nbsp;&nbsp;</div>
+                            <div>
+                                <div>{{ transaction?.delivery_address_line1 }}</div>
+                                <div class="mt-25">{{ transaction?.delivery_zipcode }}</div>
+                                <div class="mt-25">
+                                    {{ transaction?.delivery_country | country }}, {{ transaction?.delivery_city }}
+                                </div>
+                                <div class="mt-25">{{ transaction?.phone_number }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-md-none">
+            <ng-container
+                *ngTemplateOutlet="detailCard; context: { title: 'customer_information', items: customerDetails }"
+            >
+            </ng-container>
+        </div>
+        <div class="d-md-none mt-4">
+            <ng-container *ngTemplateOutlet="detailCard; context: { title: 'delivery_address', items: addressDetails }">
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #detailCard let-title="title" let-items="items">
+    <div class="border-main br-4 p-1">
+        <div class="fnt-bold bg-f8 br-4 px-25 px-md-16 py-2 py-md-25">
+            {{ title | translate }}
+        </div>
+        <div class="px-25 px-md-3 py-md-25">
+            <ng-container *ngFor="let item of items; index as i">
+                <div *ngIf="i" class="d-md-none divider ml-n2"></div>
+                <div class="row py-3 py-md-2 fnt-600">
+                    <div class="col-6 text-clr588">{{ item.label | translate }}</div>
+                    <div class="col-6 text-right text-md-left">{{ item.value || '--' }}</div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>

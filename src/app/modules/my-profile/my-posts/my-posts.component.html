@@ -1,0 +1,19 @@
+<div class="row gutter-24 v-gutter-24 position-relative">
+    <div *ngFor="let item of posts" [ngClass]="postType === PostType.QA ? 'col-12' : 'col-md-6'">
+        <app-question-card *ngIf="postType === PostType.QA" [isMyPost]="true" [question]="item"></app-question-card>
+        <app-article-card *ngIf="postType === PostType.ARTICLE" [isMyPost]="true" [article]="item"></app-article-card>
+        <app-recipe-card *ngIf="postType === PostType.RECIPE" [isMyPost]="true" [recipe]="item"></app-recipe-card>
+    </div>
+    <app-loading *ngIf="isLoading" [type]="'overlay'"></app-loading>
+</div>
+
+<div *ngIf="totalRecords > this.rows" class="pt-3 pt-md-4 text-center">
+    <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
+</div>
+
+<div *ngIf="!isLoading && !posts.length" class="text-center my-4 fnt-muli text-clr24">
+    <app-empty
+        [title]="'you_have_not_posted_anything_yet' | translate"
+        [description]="'no_my_posts_description' | translate"
+    ></app-empty>
+</div>

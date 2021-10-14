@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { ProfilePhotoService } from './profile-photo/profile-photo.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RoasteryProfileService } from './roastery-profile.service';
-import { AuthService, GlobalsService, UserService } from '@services';
+import { GlobalsService, UserService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CropperDialogComponent } from '@app/shared';
+import { CroppedImage } from '@models';
 
 @Component({
     selector: 'app-profile-creation',
@@ -29,25 +30,20 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
     isEditMode: boolean;
 
     subProfileForm: FormGroup;
-    isShowAvatarModal: boolean;
-    roasterId: number;
     isAdminRole = false;
 
     constructor(
-        private toastrService: ToastrService,
-        public profilePhotoService: ProfilePhotoService,
-        public roasteryProfileService: RoasteryProfileService,
-        public globals: GlobalsService,
+        private dialogService: DialogService,
         private fb: FormBuilder,
-        public cookieService: CookieService,
         private userService: UserService,
-        private authService: AuthService,
+        public cookieService: CookieService,
+        public globals: GlobalsService,
+        public roasteryProfileService: RoasteryProfileService,
     ) {}
 
     ngOnInit(): void {
         this.detectMode();
         this.initialForm();
-        this.roasterId = this.authService.getOrgId();
         this.checkAdminRole();
     }
 
@@ -69,6 +65,8 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
             name: ['', Validators.compose([Validators.required])],
             website: [''],
         });
+        this.roasteryProfileService.subProfileForm = this.subProfileForm;
+
         this.subProfileForm.valueChanges.subscribe((changedData: any) => {
             this.roasteryProfileService.mainSubFormInvalid = this.subProfileForm.invalid;
             this.roasteryProfileService.editProfileData(changedData);
@@ -94,19 +92,25 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         this.subProfileForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
     }
 
-    handleFile(e) {
-        if (e.target.files.length > 0) {
-            for (let i = 0; i <= e.target.files.length - 1; i++) {
-                const fsize = e.target.files.item(i).size;
-                const file = Math.round(fsize / 1024);
-                if (file >= 2048) {
-                    this.toastrService.error('File too big, please select a file smaller than 2mb');
-                } else {
-                    this.isShowAvatarModal = true;
-                    this.roasteryProfileService.avatarImageChanged.next(e);
-                }
-            }
+    handleFile(event) {
+        if (!event.target.files?.length) {
+            return;
         }
+        this.dialogService
+            .open(CropperDialogComponent, {
+                data: {
+                    imageChangedEvent: event,
+                    resizeToWidth: 256,
+                    resizeToHeight: 256,
+                    roundCropper: true,
+                },
+            })
+            .onClose.subscribe((data: CroppedImage) => {
+                if (data.status) {
+                    this.roasteryProfileService.orgImgPrevUrl = data.croppedImgUrl;
+                    this.roasteryProfileService.orgImgCroppedFile = data.croppedImgFile;
+                }
+            });
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {

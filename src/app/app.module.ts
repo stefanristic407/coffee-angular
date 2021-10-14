@@ -14,7 +14,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
-import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -36,7 +35,7 @@ import 'hammerjs';
 import { AuthGuard } from '@guards';
 
 import { AgmCoreModule } from '@agm/core';
-import { getSaver, SAVER } from '@services';
+import { getSaver, SAVER } from '@utils';
 
 import { I18NService, StartupService } from '@services';
 export function StartupServiceFactory(startupService: StartupService) {
@@ -61,12 +60,17 @@ export function StartupServiceFactory(startupService: StartupService) {
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        AnimateOnScrollModule.forRoot(),
         CarouselModule.forRoot(),
         ModalModule.forRoot(),
         PopoverModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-        ToastrModule.forRoot({ timeOut: 3000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            preventDuplicates: true,
+            positionClass: 'toast-bottom-right',
+            closeButton: true,
+            tapToDismiss: false,
+        }),
         TranslateModule.forRoot(),
         TypeaheadModule.forRoot(),
         SharedModule,

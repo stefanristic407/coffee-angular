@@ -1,0 +1,52 @@
+@import 'variables';
+
+:host ::ng-deep {
+    .p-datatable {
+        padding-bottom: 0px;
+    }
+
+    @media (min-width: 768px) {
+        .p-datatable .p-datatable-thead > tr > th {
+            padding: 12px 12px;
+        }
+
+        .p-datatable .p-datatable-tbody > tr {
+            &:not(:last-child) {
+                border-bottom: none;
+            }
+            & > td {
+                padding: 0px 12px 24px;
+            }
+            &:first-child {
+                > td {
+                    padding-top: 24px;
+                }
+            }
+            &:last-child {
+                border-top: dashed 1px $primary-border-color;
+                > td {
+                    padding: 14px 12px 18px;
+                    font-weight: 700;
+                    &:nth-child(1),
+                    &:nth-child(2),
+                    &:nth-child(3),
+                    &:nth-child(4) {
+                        border-right: none !important;
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width: 767px) {
+        .p-datatable .p-datatable-tbody > tr > td {
+            display: flex !important;
+            justify-content: space-between;
+            &.not-has-summary {
+                display: none !important;
+            }
+        }
+    }
+    .p-datatable .p-datatable-footer {
+        padding: 0;
+    }
+}

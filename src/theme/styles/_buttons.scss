@@ -1,7 +1,7 @@
 @mixin btn-stroked($border-color, $background-color, $font-color) {
     display: inline-block;
-    padding: 11px 16px;
-    border-radius: 4px;
+    padding: 8px 16px;
+    border-radius: 6px;
     border: solid 1px $border-color;
     font-family: $general-font-family;
     font-size: 14px;
@@ -17,17 +17,11 @@
     color: $font-color;
     background-color: $bg-color;
 }
-@mixin btn-icon($top: 7px, $left: 11px, $width: 17px, $height: 17px) {
-    top: $top;
-    left: $left;
-    width: $width;
-    height: $height;
-}
 
 .btn-raised {
     display: inline-block;
-    padding: 11px 16px;
-    border-radius: 4px;
+    padding: 8px 16px;
+    border-radius: 6px;
     border: solid 1px $primary-color;
     font-family: $general-font-family;
     font-size: 14px;
@@ -55,7 +49,7 @@
 }
 
 .btn-stroked {
-    @include btn-stroked($primary-color, $white, $primary-color);
+    @include btn-stroked($primary-color, transparent, $primary-color);
 
     img.svg {
         filter: invert(44%) sepia(40%) saturate(601%) hue-rotate(99deg) brightness(90%) contrast(89%);
@@ -74,7 +68,7 @@
         opacity: 0.8;
         cursor: not-allowed;
         &:hover {
-            @include btn-stroked($primary-color, $white, $primary-color);
+            @include btn-stroked($primary-color, transparent, $primary-color);
         }
     }
 }
@@ -83,34 +77,17 @@
     @include btn-stroked($muted-text-color, $white, $dark-color);
 }
 
-.btn-stroked-transparent {
-    padding: 11px 16px;
-    border-radius: 4px;
-    border: solid 1px $primary-color;
-    font-family: $general-font-family;
-    font-size: 14px;
-    font-weight: bold;
-    color: $primary-color;
-    background-color: transparent;
-    transition: all 300ms;
-    line-height: 22px;
-
-    &:hover {
-        color: $white;
-        background-color: $primary-color;
-    }
-}
-
 .btn-trans-icon {
-    position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     font-size: 14px;
     line-height: 18px;
-    font-weight: 500;
+    font-weight: 500 !important;
     color: $general-text-color;
     border-radius: 2px;
     border: solid 1px $muted-text-color;
-    padding: 7px 12px 7px 36px;
+    padding: 7px 12px 7px 12px;
+    vertical-align: middle;
     margin: 0;
     cursor: pointer;
     transition: box-shadow all 300ms border-color all 300ms;
@@ -119,44 +96,48 @@
     }
     &::before {
         content: '';
-        position: absolute;
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
+        margin-top: -1px;
+        margin-right: 8px;
+        font-family: 'primeicons';
+        font-size: 17px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
     &.upload-icon::before {
-        @include btn-icon();
-        background-image: url('/assets/images/upload-black.svg');
+        content: '\e934';
     }
     &.download-icon::before {
-        @include btn-icon();
-        background-image: url('/assets/images/dwnd.svg');
+        content: '\e956';
     }
     &.plus-icon::before {
-        @include btn-icon(10px, 13px, 13px, 13px);
-        background-image: url('/assets/images/region-plus.svg');
+        content: '\e90d';
+        font-size: 14px;
     }
     &.zoom-icon::before {
-        @include btn-icon();
         background-image: url('/assets/images/zoom.svg');
+        width: 17px;
+        height: 17px;
     }
     &.share-icon::before {
-        @include btn-icon();
-        background-image: url('/assets/images/share-icon.svg');
+        content: '\e97a';
     }
     &.message-icon::before {
-        @include btn-icon();
         background-image: url('/assets/images/message-icon.svg');
+        width: 17px;
+        height: 17px;
+    }
+    &.delete-icon::before {
+        content: '\e93d';
     }
 
     &.green {
         color: $primary-color;
-        border-radius: 2px;
         border: solid 1px $primary-color;
-
-        &.delete-icon::before {
-            @include btn-icon();
-            background-image: url('/assets/images/delete-role.svg');
+        &::before {
+            color: $primary-color;
         }
     }
 

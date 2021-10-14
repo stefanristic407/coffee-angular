@@ -50,11 +50,11 @@
                     >
                 </span>
                 <div
-                    class="navigation-link mt-2"
                     *ngIf="lot"
-                    [routerLink]="['/sourcing/lot-details/', lot?.estate_id, lot?.lot_id]"
+                    class="navigation-link mt-2"
+                    [routerLink]="['/sourcing/coffee-details', lot.harvest_id]"
                 >
-                    {{ 'view_lot_details' | translate }}
+                    {{ 'view_availability_details' | translate }}
                 </div>
             </div>
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">

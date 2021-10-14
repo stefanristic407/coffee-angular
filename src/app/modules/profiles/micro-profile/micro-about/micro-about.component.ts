@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ChatHandlerService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { MicroProfileService } from '../micro-profile.service';
 import { OrganizationType } from '@enums';
 
@@ -22,7 +22,7 @@ export class MicroAboutComponent implements OnInit {
         public userService: UserService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         private chatHandler: ChatHandlerService,
     ) {}
 

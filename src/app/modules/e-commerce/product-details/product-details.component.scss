@@ -149,3 +149,26 @@
         display: none;
     }
 }
+
+::ng-deep {
+    .p-multiselect.flavor-profile-selector {
+        border: dashed 1px $primary-color !important;
+
+        .p-multiselect-label {
+            color: $primary-color !important;
+        }
+
+        .p-multiselect-trigger-icon {
+            color: $primary-color !important;
+        }
+    }
+    .p-calendar.p-calendar-has-left-icon {
+        .p-inputtext {
+            margin-left: 38px;
+        }
+    }
+
+    .hide-year-selector .p-datepicker-group-container {
+        display: none;
+    }
+}

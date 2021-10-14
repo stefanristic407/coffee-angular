@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col-md-9 col-12">
-                <p class="primary_txt mb-2">{{ getHeading() | titlecase }}</p>
+                <p class="primary_txt mb-2">{{ getHeading() }}</p>
                 <p class="secondary_txt fnt-14 mb-0">
                     {{ getDescription() }}
                 </p>
@@ -26,7 +26,7 @@
                     type="button"
                     class="btn btn-raised pull-right"
                     (click)="saveShippingInfo()"
-                    [disabled]="details.invalid || resetButtonValue === 'Saving'"
+                    [disabled]="detailsForm.invalid || resetButtonValue === 'Saving'"
                 >
                     {{ resetButtonValue }}
                     <img class="loader" *ngIf="resetButtonValue === 'Saving'" src="assets/images/orange-loader.gif" />
@@ -82,7 +82,7 @@
                                         applicable to all green coffee and roasted coffee you sell on the platform.
                                     </p>
                                 </div>
-                                <form [formGroup]="details" novalidate class="w-100">
+                                <form [formGroup]="detailsForm" novalidate class="w-100">
                                     <div class="col-md-12 p-0 mt-43">
                                         <div>
                                             <div class="row">
@@ -109,7 +109,7 @@
                                             <div class="row">
                                                 <div class="col-12 col-md-6 sewn-form-field">
                                                     <label class="fnt-14 fnt-muli fnt-600 text-clr334"
-                                                        >Shipping Price<span class="star">*</span></label
+                                                        >Shipping price<span class="star">*</span></label
                                                     >
                                                     <div class="p-inputgroup custom-addon">
                                                         <p-inputNumber
@@ -276,17 +276,17 @@
                     <p-tabView styleClass="pb-4" [(activeIndex)]="selectedIndex">
                         <p-tabPanel [header]="'micro-roaster' | translate">
                             <div class="pt-3">
-                                <app-vat-details [mobile]="true" feature="mr"> </app-vat-details>
+                                <app-vat-details feature="mr"> </app-vat-details>
                             </div>
                         </p-tabPanel>
                         <p-tabPanel header="B2B e-commerce">
                             <div class="pt-3">
-                                <app-vat-details [mobile]="true" feature="b2b_ecommerce"> </app-vat-details>
+                                <app-vat-details feature="b2b_ecommerce"> </app-vat-details>
                             </div>
                         </p-tabPanel>
                         <p-tabPanel header="B2C e-commerce">
                             <div class="pt-3">
-                                <app-vat-details [mobile]="true" feature="b2c_ecommerce"> </app-vat-details>
+                                <app-vat-details feature="b2c_ecommerce"> </app-vat-details>
                             </div>
                         </p-tabPanel>
                     </p-tabView>
@@ -300,7 +300,7 @@
                             and roasted coffee you sell on the platform.
                         </p>
                     </div>
-                    <form [formGroup]="details" novalidate>
+                    <form [formGroup]="detailsForm" novalidate>
                         <div class="col-md-12 p-0 Onboard-rows mt-43">
                             <div class="Onboard-rows__inputs">
                                 <div class="row">
@@ -378,7 +378,7 @@
                                         type="submit"
                                         class="col-12 fnt-14 fnt-muli fnt-700 btn btn-raised"
                                         (click)="saveShippingInfo()"
-                                        [disabled]="details.invalid || resetButtonValue === 'Saving'"
+                                        [disabled]="detailsForm.invalid || resetButtonValue === 'Saving'"
                                     >
                                         {{ resetButtonValue }}
                                         <img

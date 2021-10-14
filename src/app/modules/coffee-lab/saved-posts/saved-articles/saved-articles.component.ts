@@ -37,6 +37,7 @@ export class SavedArticlesComponent implements OnInit, OnDestroy {
             if (res.success) {
                 this.articles = (res.result ?? []).map((item) => {
                     item.content = this.coffeeLabService.getJustText(item.content);
+                    item.is_saved = true;
                     return item;
                 });
             } else {

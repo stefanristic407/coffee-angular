@@ -1,67 +1,53 @@
-<div class="total-loader" *ngIf="greenActive != 1">
-    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div>
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-    </div>
-</div>
-
-<div *ngIf="greenActive == 1">
-    <section class="mobile-card-view">
-        <div class="main-block">
-            <div class="mb-md-3 mx-1 row">
-                <div class="col-lg-9 col-md-8 p-0">
-                    <div class="overflow-auto flex-nowrap breadCrumb">
-                        <p-breadcrumb [model]="breadItems"></p-breadcrumb>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-3 px-0 web-farm">
-                    <span class="custom-search">
-                        <input
-                            type="text"
-                            pInputText
-                            class="w-100 {{ searchTerm ? 'highlight' : '' }}"
-                            [(ngModel)]="searchString"
-                            placeholder="{{ searchText }}"
-                            (input)="onSearch()"
-                            name="filesTerm"
-                        />
-                    </span>
+<section class="mobile-card-view">
+    <div class="main-block">
+        <div class="mb-md-3 mx-1 row">
+            <div class="col-lg-9 col-md-8 p-0">
+                <div class="overflow-auto flex-nowrap breadCrumb">
+                    <p-breadcrumb [model]="breadItems"></p-breadcrumb>
                 </div>
             </div>
-            <section class="mt-4 mt-lg-0">
-                <h5 class="fnt-16 fnt-md-18 text-clr334 fnt-bold">
-                    {{ 'green_coffee_inventory' | translate | titlecase }}
-                </h5>
-                <p class="fnt-14 text-clr334 fnt-normal mobile-lead">
-                    {{ 'manage_your_procured' | translate }}
-                </p>
-                <div class="d-block d-md-none mb-3">
-                    <span class="custom-search mobile-bord">
-                        <input
-                            type="text"
-                            pInputText
-                            class="w-100 {{ searchTerm ? 'highlight' : '' }} "
-                            placeholder="{{ searchText }}"
-                            [(ngModel)]="searchString"
-                            (input)="onSearch()"
-                            name="filesTerm"
-                        />
-                    </span>
-                </div>
-                <p-tabView
-                    styleClass="mt-45 pb-3 pb-md-4"
-                    [(activeIndex)]="selectedTab"
-                    (onChange)="handleChange($event)"
-                >
-                    <p-tabPanel header="{{ 'sourced_coffee' | translate }}">
-                        <app-coffee-procured-tab *ngIf="isProcuredTab"></app-coffee-procured-tab>
-                    </p-tabPanel>
-                    <p-tabPanel header="{{ 'marked_for_sale_to_mr' | translate }}">
-                        <app-marked-sale *ngIf="!isProcuredTab"></app-marked-sale>
-                    </p-tabPanel>
-                </p-tabView>
-            </section>
+            <div class="col-md-4 col-lg-3 px-0 web-farm">
+                <span class="custom-search">
+                    <input
+                        type="text"
+                        pInputText
+                        class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                        [(ngModel)]="searchString"
+                        placeholder="{{ searchText | translate }}"
+                        (input)="onSearch()"
+                        name="filesTerm"
+                    />
+                </span>
+            </div>
         </div>
-    </section>
-</div>
+        <section class="mt-4 mt-lg-0">
+            <h5 class="fnt-16 fnt-md-18 text-clr334 fnt-bold">
+                {{ 'green_coffee_inventory' | translate }}
+            </h5>
+            <p class="fnt-14 text-clr334 fnt-normal mobile-lead">
+                {{ 'manage_your_procured' | translate }}
+            </p>
+            <div class="d-block d-md-none mb-3">
+                <span class="custom-search mobile-bord">
+                    <input
+                        type="text"
+                        pInputText
+                        class="w-100 {{ searchTerm ? 'highlight' : '' }} "
+                        placeholder="{{ searchText | translate }}"
+                        [(ngModel)]="searchString"
+                        (input)="onSearch()"
+                        name="filesTerm"
+                    />
+                </span>
+            </div>
+            <p-tabView styleClass="mt-45 pb-3 pb-md-4" [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
+                <p-tabPanel header="{{ 'sourced_coffee' | translate }}">
+                    <app-coffee-procured-tab *ngIf="isProcuredTab"></app-coffee-procured-tab>
+                </p-tabPanel>
+                <p-tabPanel header="{{ 'marked_for_sale_to_mr' | translate }}">
+                    <app-marked-sale *ngIf="!isProcuredTab"></app-marked-sale>
+                </p-tabPanel>
+            </p-tabView>
+        </section>
+    </div>
+</section>

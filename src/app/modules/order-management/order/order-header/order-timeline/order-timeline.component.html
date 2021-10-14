@@ -3,7 +3,7 @@
         <div class="transit-maxwidth main-order-tracking-mbVesrion">
             <div class="w-100 d-flex flex-column flex-md-row">
                 <div
-                    class="d-flex flex-column align-items-center order-tracking"
+                    class="d-flex flex-column align-items-md-center order-tracking"
                     [class.completed]="index > currentPointIndex"
                     *ngFor="let point of timelinePoints; let index = index; let last = last"
                 >
@@ -28,13 +28,14 @@
                                 class="mb-0 fnt-14 fnt-sm-12 text-muted fnt-bold d-lg-block d-md-none d-sm-block"
                                 *ngIf="(index < 2 || index === 3) && getStatusAuthor(point) as statusAuthor"
                             >
-                                <ng-container *ngIf="index < 2 && statusAuthor.id">By :</ng-container>
+                                <ng-container *ngIf="index < 2 && statusAuthor.id">By : </ng-container>
                                 <app-user-detail
                                     *ngIf="index < 2"
                                     [userId]="statusAuthor.id"
+                                    [name]="statusAuthor.name"
                                     [orgType]="statusAuthor.orgType"
                                     type="text"
-                                    class="text-clr334"
+                                    class="fnt-14 fnt-md-18 text-clr55c"
                                 ></app-user-detail>
                             </p>
                             <p
@@ -61,10 +62,7 @@
     </div>
 </ng-template>
 
-<div
-    class="in-order mt-3 pb-lg-2 br-4"
-    *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected"
->
+<div class="in-order mt-3 br-4" *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected">
     <div class="row">
         <div class="col-12 col-md-12">
             <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">

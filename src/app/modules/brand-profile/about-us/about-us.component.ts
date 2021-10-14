@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { maxWordCountValidator, fileCountValidator } from '@utils';
-import { AuthService, GlobalsService, RoasterserviceService, UserService } from '@services';
+import { AuthService, GlobalsService, RoasterService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 
 @Component({
@@ -49,7 +49,7 @@ export class AboutUsComponent implements OnInit {
         public cookieService: CookieService,
         public userService: UserService,
         public route: Router,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         private authService: AuthService,
     ) {
         this.roasterId = this.authService.getOrgId();
@@ -199,7 +199,7 @@ export class AboutUsComponent implements OnInit {
         const postData = {
             name: event.query.toLowerCase(),
         };
-        this.roasterService.getRoasterUsers(this.roasterId, postData).subscribe((res: any) => {
+        this.roasterService.getOrgUsers(postData).subscribe((res: any) => {
             if (res.success) {
                 if (res.result?.length) {
                     res.result.forEach((element) => {
@@ -249,8 +249,6 @@ export class AboutUsComponent implements OnInit {
                     title: 'Confirm delete',
                     desp: 'Are you sure want to delete certificate',
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {

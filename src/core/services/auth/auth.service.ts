@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { UserPreference } from '@models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrganizationType } from '@enums';
+import { environment } from '@env/environment';
+import { OrganizationProfile, UserPreference, UserProfile } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -8,9 +11,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
     isSimulated = false;
+    readonly orgType = OrganizationType.ROASTER;
     private orgId: number;
-    userSubject = new BehaviorSubject(null);
-    organizationSubject = new BehaviorSubject(null);
+    userSubject: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
+    organizationSubject: BehaviorSubject<OrganizationProfile> = new BehaviorSubject(null);
     preferenceSubject: BehaviorSubject<UserPreference> = new BehaviorSubject(null);
 
     get token(): any {
@@ -41,11 +45,11 @@ export class AuthService {
         return !!this.token;
     }
 
-    get currentUser(): any {
+    get currentUser(): UserProfile {
         return this.userSubject.value;
     }
 
-    get currentOrganization(): any {
+    get currentOrganization(): OrganizationProfile {
         return this.organizationSubject.value;
     }
 
@@ -59,5 +63,18 @@ export class AuthService {
         );
     }
 
-    constructor(private cookieService: CookieService) {}
+    constructor(private cookieService: CookieService, private route: ActivatedRoute, private router: Router) {}
+
+    goToLogin(destUrl?: string) {
+        let redirectTo: string = destUrl || this.route.snapshot.queryParams.redirect_to || this.router.url;
+        if (redirectTo.startsWith('/gate')) {
+            redirectTo = null;
+        }
+        window.open(
+            `${environment.ssoWeb}/login?orgType=${OrganizationType.ROASTER}${
+                redirectTo ? '&redirect_to=' + encodeURIComponent(redirectTo) : ''
+            }`,
+            '_self',
+        );
+    }
 }

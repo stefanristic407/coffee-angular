@@ -3,7 +3,20 @@
 </div>
 
 <div *ngIf="!isLoading">
-    <app-recipes [recipes]="recipes"></app-recipes>
+    <div class="d-flex justify-content-end mt-25 mt-md-0 mb-45">
+        <p-dropdown
+            [options]="orderList"
+            optionLabel="label"
+            optionValue="value"
+            [(ngModel)]="coffeeLabService.recipeViewSortBy"
+            placeholder="{{ 'sort_by' | translate }}"
+            (onChange)="getRecipes()"
+            styleClass="round-border mobile-ui"
+            [showClear]="true"
+        >
+        </p-dropdown>
+    </div>
+    <app-recipes [isMyPost]="true" [recipes]="recipes"></app-recipes>
 </div>
 
 <div *ngIf="!isLoading && !recipes.length" class="text-center my-4 fnt-muli text-clr24">

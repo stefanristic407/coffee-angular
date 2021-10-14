@@ -12,7 +12,6 @@ import { CoffeeDetailsComponent } from './coffee-recipes/coffee-details/coffee-d
 import { CreatePostComponent } from './create-post/create-post.component';
 import { QuestionDetailComponent } from '@modules/coffee-lab/qa-forum/question-detail/question-detail.component';
 import { TabContainerComponent } from '@modules/coffee-lab/create-post/tab-container/tab-container.component';
-import { CreateAnswerComponent } from '@modules/coffee-lab/create-post/create-answer/create-answer.component';
 import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
 import { TranslateRecipeComponent } from '@modules/coffee-lab/create-post/translate/translate-recipe/translate-recipe.component';
 import { TranslateArticleComponent } from '@modules/coffee-lab/create-post/translate/translate-article/translate-article.component';
@@ -24,6 +23,7 @@ import { MyArticlesComponent } from '@modules/coffee-lab/my-posts/my-articles/my
 import { SavedArticlesComponent } from '@modules/coffee-lab/saved-posts/saved-articles/saved-articles.component';
 import { MyRecipesComponent } from '@modules/coffee-lab/my-posts/my-recipes/my-recipes.component';
 import { SavedRecipesComponent } from '@modules/coffee-lab/saved-posts/saved-recipes/saved-recipes.component';
+import { CategoryComponent } from './category/category.component';
 
 const routes: Routes = [
     {
@@ -112,10 +112,6 @@ const routes: Routes = [
                         component: TabContainerComponent,
                     },
                     {
-                        path: 'answer',
-                        component: CreateAnswerComponent,
-                    },
-                    {
                         path: 'translate-answer',
                         component: TranslateAnswerComponent,
                     },
@@ -127,13 +123,13 @@ const routes: Routes = [
                         path: 'translate-recipe',
                         component: TranslateRecipeComponent,
                     },
-                    {
-                        path: 'comment',
-                        component: CreateAnswerComponent,
-                    },
                 ],
             },
         ],
+    },
+    {
+        path: 'category/:slug',
+        component: CategoryComponent,
     },
 ];
 

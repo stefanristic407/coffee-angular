@@ -1,1 +1,1 @@
-export * from './shipping-status.enum';
+export * from './shipment.enum';

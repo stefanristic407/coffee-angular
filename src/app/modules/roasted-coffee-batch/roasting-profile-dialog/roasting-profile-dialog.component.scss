@@ -1,0 +1,15 @@
+::ng-deep {
+    .roasting-profile-dialog.p-dialog {
+        max-width: 768px;
+        padding: 0;
+    }
+}
+
+.sewn-form-field {
+    margin-bottom: 1rem !important;
+}
+@media screen and (min-width: 1200px) {
+    .mar-top {
+        margin-top: 1rem;
+    }
+}

@@ -36,6 +36,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
     searchInput$: Subject<any> = new Subject<any>();
     forumLanguage: string;
+    categoryList: any;
     constructor(
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
@@ -47,6 +48,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getData();
+            this.getCategory();
         });
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getData();
@@ -64,14 +66,26 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         this.getData();
     }
 
+    getCategory() {
+        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
+    }
+
     getData(): void {
         this.isLoading = true;
         const params = {
             query: this.keyword,
             translations_available: this.coffeeLabService.articleViewFilterBy,
             sort_by: 'created_at',
-            sort_order: this.coffeeLabService.articleViewSortBy === 'latest' ? 'desc' : 'asc',
+            sort_order:
+                this.coffeeLabService.articleViewSortBy === null || this.coffeeLabService.articleViewSortBy === 'latest'
+                    ? 'desc'
+                    : 'asc',
             publish: true,
+            category_slug: this.coffeeLabService.articleViewCategory,
             page: 1,
             per_page: 10000,
         };

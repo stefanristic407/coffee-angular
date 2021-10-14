@@ -1,0 +1,56 @@
+<div (click)="openArticle(article.slug)" class="py-3 py-md-4 article-item">
+    <div class="d-flex justify-content-between mx-4">
+        <div class="flex-1 overflow-hidden">
+            <app-user-header [prop]="article"></app-user-header>
+        </div>
+        <div
+            class="icon-saves hover-save-icon d-none"
+            (click)="onSave(article.id)"
+            [ngClass]="{ 'd-block': !article?.is_saved }"
+        >
+            <img class="cursor-point" src="assets/images/save.svg" alt="save" />
+        </div>
+        <div
+            class="icon-saves hover-save-icon d-none"
+            (click)="onSameSave(article.id)"
+            [ngClass]="{ 'd-block': article?.is_saved }"
+        >
+            <img class="cursor-point" width="36" height="36" src="assets/images/saved-item.svg" alt="saved" />
+        </div>
+    </div>
+    <img [src]="article.cover_image_url" class="w-100 mt-3" [alt]="article.title" />
+    <div class="mx-4">
+        <div class="d-flex justify-content-between mt-25">
+            <div class="d-flex align-like-card">
+                <button
+                    class="like-int d-none"
+                    (click)="onLike(article.id)"
+                    [ngClass]="{ 'd-block': !article.is_liked }"
+                    [disabled]="!isLikedBtn"
+                >
+                    <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
+                </button>
+                <button
+                    class="like-int d-none"
+                    (click)="onUnLike(article.id)"
+                    [ngClass]="{ 'd-block': article.is_liked }"
+                    [disabled]="!isLikedBtn"
+                >
+                    <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
+                </button>
+                <span class="d-flex ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ article.likes }}</span>
+            </div>
+            <span class="align-items-center d-flex fnt-14 fnt-muli mt-2 text-clr588">{{
+                article?.posted_at || article?.created_at | date: 'longDate'
+            }}</span>
+        </div>
+        <h3 class="fnt-muli fnt-14 fnt-bold lh-157 mt-3 text-clr334 cursor-pointer article-title-text text-break">
+            {{ article?.title.length < 65 ? article?.title : article?.title.slice(0, 65).concat('...') }}
+        </h3>
+        <div class="fnt-muli fnt-14 fnt-normal lh-143 text-clr334 mt-2">
+            <a class="article-title-text">
+                {{ article?.subtitle }}
+            </a>
+        </div>
+    </div>
+</div>

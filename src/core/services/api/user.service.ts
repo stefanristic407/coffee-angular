@@ -4,10 +4,11 @@ import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiResponse, UserProfile } from '@models';
-import { ContactGroup, OrganizationType } from '@enums';
+import { ContactGroup, OrganizationType, ProfileImageType } from '@enums';
 import { AuthService } from '../auth';
 import { SocketService } from '../socket';
 import { map, tap } from 'rxjs/operators';
+import { UploadService } from '../upload';
 
 @Injectable({
     providedIn: 'root',
@@ -18,6 +19,7 @@ export class UserService extends ApiService {
         protected authService: AuthService,
         private socketService: SocketService,
         private cookieService: CookieService,
+        private uploadService: UploadService,
     ) {
         super(http, authService);
     }
@@ -41,6 +43,11 @@ export class UserService extends ApiService {
         } else {
             return this.postWithOrg(this.orgPostUrl, `users/profile`, 'GET');
         }
+    }
+
+    // Edit user profile
+    updateUserProfile(body: any): Observable<ApiResponse<any>> {
+        return this.putWithOrg(this.orgPutUrl, `users/profile`, 'PUT', body);
     }
 
     // ------------ User Groups ------------
@@ -140,19 +147,6 @@ export class UserService extends ApiService {
                 this.socketService.destorySocket();
             }),
         );
-    }
-
-    // API Function Name :Update Roaster Profile
-    // API Description: This API calls helps to update Roaster User Profile.
-
-    updateRoasterProfile(roaster_id: any, body: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/users/profile',
-            token: this.authService.token,
-            method: 'PUT',
-            data: body,
-        };
-        return this.http.put(this.orgPutUrl, data);
     }
 
     // API Function Name : Update Password
@@ -256,16 +250,9 @@ export class UserService extends ApiService {
         return this.http.post(this.orgPostUrl, data);
     }
 
-    // API Function Name :ADD Members
-    // API Description: This API calls helps to add new users.
-
-    addUserRoaster(body: any) {
-        const data = {
-            api_call: '/users',
-            token: this.authService.token,
-            data: body,
-        };
-        return this.http.post(this.orgPostUrl, data);
+    // Add team Member
+    inviteTeamMember(body: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `users/invite-token`, 'POST', body);
     }
 
     getUser(params: any): Observable<ApiResponse<any>> {
@@ -358,12 +345,25 @@ export class UserService extends ApiService {
 
     // API Function Name : Upload Profile Image API.
     // API Description   : This API call helps to upload the Profile Image.
-    uploadProfileImage(formData: any) {
-        const httpOptions = {
-            headers: new HttpHeaders({ Accept: 'application/json' }),
-        };
-        return this.http.post(this.profileImageUrl, formData, httpOptions);
+    uploadProfileImage(file: File, type: ProfileImageType): Observable<ApiResponse<any>> {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append(
+            'api_call',
+            `${this.apiCallPrefix}${type === ProfileImageType.COMPANY ? '' : '/users/' + this.userId}/${type}`,
+        );
+        formData.append('token', this.authService.token);
+        const processId = this.uploadService.addProcess(type);
+        return this.http
+            .post(this.profileImageUrl, formData, {
+                headers: new HttpHeaders({ Accept: 'application/json' }),
+                reportProgress: true,
+                observe: 'events',
+            })
+            .pipe(this.uploadService.upload(processId));
     }
+
+    // formData.append('api_call', '/ro/' + this.roasterId + '/company-image');
 
     // API Function Name : Upload License and Certificates API.
     // API Description   : This API call helps to upload the license and certificates details.
@@ -377,25 +377,15 @@ export class UserService extends ApiService {
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    getCertificates(organizationId: any, userId: any) {
-        const data = {
-            api_call: `/ro/${organizationId}/users/${userId}/certificates`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+    getUserCertificates() {
+        return this.postWithOrg(this.orgPostUrl, `users/${this.getUserId()}/certificates`);
     }
 
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    deleteCertificate(roaster_id: any, userId: any, certificateId: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/users/' + userId + '/certificates/' + certificateId,
-            method: 'DELETE',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgDeleteUrl, data);
+    deleteUserCertificate(certificateId: any) {
+        return this.postWithOrg(this.orgPostUrl, `users/${this.getUserId()}/certificates/${certificateId}`, 'DELETE');
     }
 
     // API Function Name :Profile Image Delete
@@ -498,21 +488,13 @@ export class UserService extends ApiService {
         };
         return this.http.post(this.orgPostUrl, data);
     }
-    addConverseLanguage(body: any) {
-        const data = {
-            api_call: '/users/converse-languages',
-            token: this.authService.token,
-            data: body,
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    updateConverseLanguages(body: any): Observable<ApiResponse<any>> {
+        return this.post(this.orgPostUrl, 'users/converse-languages', 'POST', body);
     }
-    getConverseLanguage() {
-        const data = {
-            api_call: '/users/converse-languages',
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    getConverseLanguages(): Observable<ApiResponse<any>> {
+        return this.post(this.orgPostUrl, `users/converse-languages`);
     }
 
     sendMicroRoasterInvite(roasterId: any, email: any, name: any) {
@@ -546,15 +528,6 @@ export class UserService extends ApiService {
         const queryParams = this.serializeParams(query);
         const data = {
             api_call: `/ro/${roasterId}/estates/availability?${queryParams}`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
-    }
-
-    getAvailableEstateList(roasterId: any, estateId: any): Observable<any> {
-        const data = {
-            api_call: '/ro/' + roasterId + '/estates/' + estateId,
             method: 'GET',
             token: this.authService.token,
         };
@@ -643,12 +616,6 @@ export class UserService extends ApiService {
     // API Function Name :  Flavour Profile
     // API Description: This API call helps get list of flavour profile.
     getFlavourProfile() {
-        // const data = {
-        //     api_call: '/general/flavour-profile',
-        //     method: 'GET',
-        //     token: this.authService.token,
-        // };
-        // return this.http.post(this.orgPostUrl, data);
         return this.post(this.postUrl, `general/flavour-profile`);
     }
 
@@ -671,39 +638,21 @@ export class UserService extends ApiService {
         };
         return this.http.put(this.orgPutUrl, data);
     }
-    addRoastingProfile(roaster_id: any, body: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasting-profile`,
-            token: this.authService.token,
-            data: body,
-            method: 'POST',
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    addRoastingProfile(body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile`, 'POST', body);
     }
-    getRoastingProfileDetail(roaster_id: any, id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    getRoastingProfileDetail(id: number): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`);
     }
-    updateRoastingProfileDetail(roaster_id: any, id: any, body: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
-            token: this.authService.token,
-            data: body,
-            method: 'PUT',
-        };
-        return this.http.put(this.orgPutUrl, data);
+
+    updateRoastingProfileDetail(id: number, body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`, 'PUT', body);
     }
-    deleteRoastingProfile(roaster_id: any, id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasting-profile/${id}`,
-            method: 'DELETE',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgDeleteUrl, data);
+
+    deleteRoastingProfile(id: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`, 'DELETE');
     }
 
     getGreenCoffee(roaster_id: any, detailestateId: any) {
@@ -726,40 +675,20 @@ export class UserService extends ApiService {
         return this.post(this.postUrl, `general/certificate-types`);
     }
 
-    updateRoastedBatchDetail(roaster_id: any, id: any, body: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasted-batches/${id}`,
-            token: this.authService.token,
-            data: body,
-            method: 'PUT',
-        };
-        return this.http.put(this.orgPutUrl, data);
-    }
-    getRoastedBatchDetail(roaster_id: any, id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasted-batches/${id}`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.orgPostUrl, data);
+    updateRoastedBatchDetail(id: number, body: any): Observable<any> {
+        return this.putWithOrg(this.orgPutUrl, `roasted-batches/${id}`, 'PUT', body);
     }
 
-    addRoastedBatches(roaster_id: any, body: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/roasted-batches`,
-            token: this.authService.token,
-            data: body,
-            method: 'POST',
-        };
-        return this.http.post(this.orgPostUrl, data);
+    getRoastedBatchDetail(id: number): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasted-batches/${id}`);
     }
-    getRoasterFlavourProfile(roaster_id: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/flavour-profile`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    addRoastedBatches(body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `roasted-batches`, 'POST', body);
+    }
+
+    getRoasterFlavourProfile(): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `flavour-profile`);
     }
 
     getPageDetails(roaster_id: any, slug: any) {

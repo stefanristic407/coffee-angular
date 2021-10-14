@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
 
 @Component({
@@ -10,20 +8,18 @@ import { AuthService, CoffeeLabService } from '@services';
 })
 export class QuestionsComponent implements OnInit {
     @Input() questions: any[] = [];
+    @Input() isMyPost = false;
+    @Input() isSavedPost = false;
+    @Input() isAssignedToMe = false;
     @Input() viewMode = 'list';
-    organizationId: any;
-    pageDesc: string;
     totalRecords = 0;
     displayData: any[] = [];
 
-    constructor(private router: Router, public coffeeLabService: CoffeeLabService, public authService: AuthService) {
-        this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
-    }
+    constructor(public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
     ngOnInit(): void {
-        this.organizationId = this.authService.getOrgId();
-        this.displayData = this.questions.slice(0, 10);
-        this.totalRecords = this.questions.length;
+        this.displayData = this.questions?.slice(0, 10);
+        this.totalRecords = this.questions?.length;
     }
 
     paginate(event: any) {

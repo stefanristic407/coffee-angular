@@ -54,6 +54,13 @@
     @media (min-width: 992px) {
         padding: 32px 48px 24px 48px;
     }
+
+    .full-width {
+        margin: 0 -1rem;
+        @media (min-width: 992px) {
+            margin: 0 -3rem;
+        }
+    }
 }
 
 .fit-sm-screen {
@@ -385,6 +392,7 @@ span.star {
             font-weight: 600;
             line-height: normal;
             cursor: pointer;
+            white-space: nowrap;
             &:hover,
             &.highlight {
                 color: $general-text-color;
@@ -538,7 +546,8 @@ span.star {
     }
 
     &.active,
-    &.ACTIVE {
+    &.ACTIVE,
+    &.GC_ORDER {
         color: #649a2b;
         &::before {
             background: #649a2b;
@@ -546,7 +555,8 @@ span.star {
     }
 
     &.pending,
-    &.PENDING {
+    &.PENDING,
+    &.GC_ORDER_SAMPLE {
         color: #f19634;
         &::before {
             background: #f19634;
@@ -560,8 +570,22 @@ span.star {
             background: #979797;
         }
     }
+
+    &.PREBOOK_LOT {
+        color: #7c6be8;
+        &::before {
+            background: #7c6be8;
+        }
+    }
 }
 
 .cursor-not-allowed {
     cursor: not-allowed !important;
+}
+
+.text-overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 117px;
 }

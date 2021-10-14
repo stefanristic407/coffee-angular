@@ -9,7 +9,7 @@
         <h1 class="fnt-14 fnt-muli fnt-bold text-clr334 mb-0 mb-3">{{ 'filter_by_content' | translate }}</h1>
     </div>
     <div>
-        <p-tabMenu [model]="menuItems" styleClass="inner-menu remove-menu-post mt-3">
+        <p-tabMenu [model]="menuItems" styleClass="inner-menu remove-menu-post mt-3 custom-menu">
             <ng-template pTemplate="item" let-item let-i="index">
                 <span class="pl-1">{{ item.label | translate }}</span>
             </ng-template>

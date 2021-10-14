@@ -1,0 +1,48 @@
+@import 'variables';
+
+:host ::ng-deep {
+    .p-chips {
+        margin-top: 0.5rem;
+
+        .p-chips-multiple-container {
+            padding: 0;
+            &.p-inputtext {
+                border: none;
+            }
+            &.p-focus {
+                border-color: transparent !important;
+                box-shadow: none !important;
+            }
+            .p-chips-token {
+                border-radius: 17px;
+                border: solid 1px $muted-text-color;
+                background-color: $muted-text-color;
+                padding: 0.5rem 0.75rem;
+                margin-bottom: 0.5rem;
+                font-weight: 500;
+                .p-chips-token-icon::before {
+                    content: '\e90b';
+                }
+            }
+            .p-chips-input-token {
+                display: none;
+            }
+        }
+    }
+
+    .p-multiselect.p-descriptors-dropdown {
+        width: unset;
+        border: solid 1px $muted-text-color;
+        flex-direction: row-reverse;
+
+        .p-multiselect-label {
+            padding: 0.5rem 0.75rem 0.5rem 0;
+            color: $general-text-color;
+            font-weight: bold;
+        }
+
+        .p-multiselect-trigger-icon {
+            color: $general-text-color;
+        }
+    }
+}

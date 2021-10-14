@@ -1,25 +1,24 @@
-import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { AuthService, CommonService, GlobalsService, RoasterserviceService, UserService } from '@services';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
+import { InvitationStatus, OrganizationType, UserStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, ChatHandlerService, CommonService, ResizeService, RoasterService, UserService } from '@services';
+import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
-import { ChatHandlerService } from '@services';
-import { OrganizationType, UserStatus } from '@enums';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@shared';
+import { takeUntil } from 'rxjs/operators';
+import { UserManagementSearchService } from '../user-management-service';
 
 @Component({
     selector: 'app-team-member-table',
     templateUrl: './team-member-table.component.html',
     styleUrls: ['./team-member-table.component.scss'],
 })
-export class TeamMemberTableComponent implements OnInit, AfterViewInit {
+export class TeamMemberTableComponent extends ResizeableComponent implements OnInit {
     readonly UserStatus = UserStatus;
-    roasterID: any;
     breadCrumbItem: MenuItem[] = [];
     termStatus;
     termRole;
@@ -33,94 +32,135 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     roleList: any = [];
     selectedUsers: any = [];
     roasterUsers: any = [];
-    statusFilterArray: any = [];
     isAddMember = false;
-    modalRef: BsModalRef;
-    modalUserRoasterId = '';
-    modalUserRoasterName = '';
     loginId: any;
-    tableRows;
+    tableRows = 10;
     popupDetails = { message: '', buttonName: '', showIcon: false };
     assignedUsers = [];
-    @ViewChild('input') input: ElementRef;
+
     constructor(
-        public router: Router,
-        private roasterService: RoasterserviceService,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        public route: ActivatedRoute,
-        public userService: UserService,
-        private modalService: BsModalService,
-        private messageService: ChatHandlerService,
-        public sharedService: SharedServiceService,
-        public dialogSrv: DialogService,
-        private commonService: CommonService,
         private authService: AuthService,
-    ) {}
+        private commonService: CommonService,
+        private dialogSrv: DialogService,
+        private messageService: ChatHandlerService,
+        private roasterService: RoasterService,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        private userManagementSearchService: UserManagementSearchService,
+        private userService: UserService,
+        protected resizeService: ResizeService,
+        public location: Location,
+        public route: ActivatedRoute,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
-        this.sharedService.windowWidth = window.innerWidth;
-        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
-            this.sharedService.isMobileView = true;
-        }
-        this.tableRows = 10;
-        this.statusFilterArray = [
-            { name: 'Active', value: 'active' },
-            { name: 'Inactive', value: 'Inactive' },
-            { name: 'Pending', value: 'pending' },
-        ];
+        this.allFunction();
         this.loginId = this.authService.userId;
-        this.roasterID = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
             this.currentRoleID = Number(params.roleID);
             this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;
             this.assignedUsers = [];
-            this.tableColumns = [
-                {
-                    field: 'name',
-                    header: 'Name',
-                    sortable: false,
-                    width: 20,
-                },
-                {
-                    field: 'last_login_at',
-                    header: 'Last login',
-                    sortable: false,
-                    width: 15,
-                },
-                {
-                    field: 'email',
-                    header: 'Email',
-                    width: 25,
-                },
-                {
-                    field: 'status',
-                    header: 'Status',
-                    sortable: false,
-                    width: 15,
-                },
-                {
-                    field: 'roles',
-                    header: '',
-                    sortable: false,
-                    width: 20,
-                },
-            ];
-            if (!this.isAddMember) {
-                this.tableColumns.push({
-                    field: 'actions',
-                    header: 'Actions',
-                    sortable: false,
-                    width: 10,
-                });
+            if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
+                this.tableColumns = [
+                    {
+                        field: 'name',
+                        header: 'Name',
+                        sortable: false,
+                    },
+                    {
+                        field: 'created_at',
+                        header: 'Sent on',
+                        sortable: true,
+                    },
+                    {
+                        field: 'email',
+                        header: 'Email',
+                    },
+                    {
+                        field: 'role',
+                        header: 'Role',
+                        sortable: false,
+                    },
+                    {
+                        field: 'actions',
+                        header: 'Actions',
+                        sortable: false,
+                    },
+                ];
+            } else {
+                this.tableColumns = [
+                    {
+                        field: 'name',
+                        header: 'Name',
+                        sortable: false,
+                        width: '150px',
+                    },
+                    {
+                        field: 'last_login_at',
+                        header: 'Last login',
+                        sortable: false,
+                        width: '15%',
+                    },
+                    {
+                        field: 'email',
+                        header: 'Email',
+                        width: '25%',
+                    },
+                    {
+                        field: 'status',
+                        header: 'Status',
+                        sortable: false,
+                        width: '15%',
+                    },
+                    {
+                        field: 'roles',
+                        header: '',
+                        sortable: false,
+                        width: '20%',
+                    },
+                ];
+                if (!this.isAddMember) {
+                    this.tableColumns.push({
+                        field: 'actions',
+                        header: 'Actions',
+                        sortable: false,
+                        width: 10,
+                    });
+                }
             }
-            this.supplyBreadCrumb();
             this.listRoles();
         });
     }
+
+    allFunction() {
+        this.userManagementSearchService.clearSearch();
+        this.userManagementSearchService.search$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((search: any) => {
+            this.termSearch = search;
+            this.getTableData();
+        });
+
+        this.userManagementSearchService.role$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((role: any) => {
+            this.termRole = role;
+            this.filterCall();
+        });
+
+        this.userManagementSearchService.allrole$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((allrole: any) => {
+            this.currentRoleID = allrole;
+            this.filterSelectedRoleUser();
+        });
+
+        this.userManagementSearchService.status$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((status: any) => {
+            this.termStatus = status;
+            this.filterCall();
+        });
+    }
+
     listRoles(): void {
-        this.roasterService.getRoles(this.roasterID).subscribe(
-            (response: any) => {
+        this.roasterService.getRoles().subscribe(
+            (response) => {
                 if (response.success) {
                     const getCurrentRole: any = response.result.find((ele) => ele.id === this.currentRoleID);
                     if (!this.isAddMember) {
@@ -138,69 +178,80 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         );
     }
     getTableData(event?): void {
-        this.selectedUsers = [];
-        this.roasterUsers = [];
-        this.tableValue = [];
-        const postData: any = {};
-        postData.role_id = this.termRole ? this.termRole : '';
-        postData.name = this.termSearch ? this.termSearch : '';
-        postData.per_page = 10;
-        if (event) {
-            const currentPage = event.first / this.tableRows;
-            postData.page = currentPage + 1;
-        }
-        postData.status = this.termStatus ? this.termStatus : undefined;
-        this.roasterService.getRoasterUsers(this.roasterID, postData).subscribe(
-            (result: any) => {
-                if (result.success) {
-                    const userData = result.result;
-                    if (userData && userData.length > 0) {
-                        this.totalCount = result.result_info.total_count;
-                        this.roasterUsers = [];
-                        userData.forEach((element, index) => {
-                            const tempData: any = {};
-                            tempData.id = element.id;
-                            tempData.name = element.firstname + ' ' + element.lastname;
-                            tempData.email = element.email;
-                            tempData.status = element.status;
-                            tempData.last_login_at = element.last_login_at;
-                            const roleList = [];
-                            if (element.roles) {
-                                const rolesName = element.roles.split(',');
-                                let roleLable = '';
-                                rolesName.forEach((ele, roleIndex) => {
-                                    const getRoles = this.roleList.find((item) => item.name === ele);
-                                    if (getRoles) {
-                                        roleList.push(getRoles);
-                                    }
-                                    if (roleIndex < 2) {
-                                        roleLable = roleLable + ele;
-                                        if (roleIndex !== rolesName.length - 1) {
-                                            roleLable = roleLable + ', ';
-                                        }
-                                    }
-                                    if (roleIndex === 2) {
-                                        roleLable = roleLable + '+2';
-                                    }
-                                });
-                                tempData.roleLable = roleLable;
-                            }
-                            tempData.roles = roleList;
-                            this.roasterUsers.push(tempData);
+        if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
+            this.roasterService
+                .getInvitedUserLists({ name: this.termSearch, status: InvitationStatus.PENDING })
+                .subscribe((res) => {
+                    if (res.success) {
+                        this.tableValue = (res.result || []).map((element) => {
+                            element.name = element.firstname + ' ' + element.lastname;
+                            return element;
                         });
                     }
-                    if (this.isAddMember) {
-                        this.filterSelectedRoleUser();
+                });
+        } else {
+            this.selectedUsers = [];
+            this.roasterUsers = [];
+            this.tableValue = [];
+            const postData: any = {};
+            postData.role_id = this.termRole ? this.termRole : '';
+            postData.name = this.termSearch ? this.termSearch : '';
+            postData.per_page = 10;
+            if (event) {
+                const currentPage = event.first / this.tableRows;
+                postData.page = currentPage + 1;
+            }
+            postData.status = this.termStatus ? this.termStatus : undefined;
+            this.roasterService.getOrgUsers(postData).subscribe(
+                (result: any) => {
+                    if (result.success) {
+                        const userData = result.result;
+                        if (userData && userData.length > 0) {
+                            this.totalCount = result.result_info.total_count;
+                            this.roasterUsers = [];
+                            userData.forEach((element, index) => {
+                                const tempData: any = {};
+                                tempData.id = element.id;
+                                tempData.name = element.firstname + ' ' + element.lastname;
+                                tempData.email = element.email;
+                                tempData.status = element.status;
+                                tempData.last_login_at = element.last_login_at;
+                                const roleList = [];
+                                if (element.roles) {
+                                    const rolesName = element.roles.split(',');
+                                    let roleLable = '';
+                                    rolesName.forEach((ele, roleIndex) => {
+                                        const getRoles = this.roleList.find((item) => item.name === ele);
+                                        if (getRoles) {
+                                            roleList.push(getRoles);
+                                        }
+                                        if (roleIndex < 2) {
+                                            roleLable = roleLable + ele;
+                                            if (roleIndex !== rolesName.length - 1) {
+                                                roleLable = roleLable + ', ';
+                                            }
+                                        }
+                                        if (roleIndex === 2) {
+                                            roleLable = roleLable + '+2';
+                                        }
+                                    });
+                                    tempData.roleLable = roleLable;
+                                }
+                                tempData.roles = roleList;
+                                this.roasterUsers.push(tempData);
+                            });
+                        }
+                        if (this.isAddMember) {
+                            this.filterSelectedRoleUser();
+                        }
+                        this.tableValue = this.roasterUsers;
                     }
-                    this.tableValue = this.roasterUsers;
-                } else {
-                    this.toastrService.error('Unable to fetch users data');
-                }
-            },
-            (err) => {
-                console.error(err);
-            },
-        );
+                },
+                (err) => {
+                    console.error(err);
+                },
+            );
+        }
     }
     filterSelectedRoleUser(): void {
         this.assignedUsers = [];
@@ -211,38 +262,11 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             }
         });
     }
-    supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
-            routerLink: '/',
-            disabled: false,
-        };
-        const obj2: MenuItem = {
-            label: this.globals.languageJson?.team_management,
-            routerLink: '//team-management/manage-role',
-            disabled: false,
-        };
-        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
-        if (!this.isAddMember) {
-            obj4.label = this.globals.languageJson?.user_management;
-        }
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj4);
-    }
 
-    inviteNewMembers() {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                roleID: encodeURIComponent(this.currentRoleID),
-            },
-        };
-        this.router.navigate(['/team-management/invite-member'], navigationExtras);
-    }
     assignUsersToRole(): void {
         let count = 0;
         this.selectedUsers.forEach((ele) => {
-            this.roasterService.assignUserBasedUserRoles(this.roasterID, this.currentRoleID, ele.id).subscribe(
+            this.roasterService.assignUserBasedUserRoles(this.currentRoleID, ele.id).subscribe(
                 (res: any) => {
                     count++;
                     if (res.success) {
@@ -261,8 +285,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             );
         });
     }
-    // Function Name : Edit Member
-    // Description: This function helps to redirect to edit member page with user id as route params
+
     editMember(size: any) {
         if (!this.isAddMember) {
             const userID = size;
@@ -275,17 +298,9 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             this.router.navigate(['/team-management/edit-members'], navigationExtras);
         }
     }
-    // Function Name : Open Modal
-    // Description: This function helps to get the Role Id from user management page
-    openModal(template: TemplateRef<any>, userId: any, userName: any) {
-        this.modalRef = this.modalService.show(template);
-        this.modalUserRoasterId = userId;
-        this.modalUserRoasterName = userName;
-    }
-    // Function Name : user Disable
-    // Description: This function helps to disable the selected user.
+
     userDisable(disableId) {
-        this.roasterService.disableAdminUsers(this.roasterID, disableId).subscribe((result: any) => {
+        this.roasterService.disableAdminUsers(disableId).subscribe((result: any) => {
             if (result.success) {
                 this.toastrService.success('Disabled User Account Successfully');
                 this.getTableData();
@@ -294,8 +309,9 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             }
         });
     }
+
     userEnable(enableId) {
-        this.roasterService.enableAdminUser(this.roasterID, enableId).subscribe((result: any) => {
+        this.roasterService.enableAdminUser(enableId).subscribe((result: any) => {
             if (result.success) {
                 this.toastrService.success('Enabled User Account');
                 this.getTableData();
@@ -304,6 +320,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             }
         });
     }
+
     makeAdmin(userDetails: any) {
         let findAdmin = false;
         if (userDetails && userDetails.roles && userDetails.roles.length > 0) {
@@ -313,7 +330,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             } else {
                 const findAdminRole = this.roleList.find((ele) => ele.name === 'Support Admin');
                 this.roasterService
-                    .assignUserBasedUserRoles(this.roasterID, findAdminRole.id, userDetails.id)
+                    .assignUserBasedUserRoles(findAdminRole.id, userDetails.id)
                     .subscribe((data: any) => {
                         if (data.success) {
                             this.toastrService.success('User has been made Admin Successfully!');
@@ -323,10 +340,10 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             }
         }
     }
+
     showPopup(userID, flag) {
-        // this.popupDisplay = true;
         if (flag === 'delete') {
-            this.popupDetails.message = 'You sure you really want to delete this?';
+            this.popupDetails.message = 'Are you sure you really want to delete this?';
             this.popupDetails.buttonName = 'Delete';
             this.popupDetails.showIcon = true;
         } else if (flag === 'enable') {
@@ -344,16 +361,14 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                     title: flag === 'delete' ? 'Oh noh :(' : 'Are you sure?',
                     desp: this.popupDetails.message,
                     type: flag === 'delete' ? 'delete' : 'confirm',
-                    noButton: this.globals.languageJson?.cancel,
+                    noButton: this.translator.instant('cancel'),
                     yesButton: this.popupDetails.buttonName,
                 },
-                showHeader: false,
-                styleClass: 'confirm-dialog',
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
                     if (this.popupDetails.buttonName === 'Delete') {
-                        this.deleteRoasterUser(userID);
+                        this.deleteOrgUser(userID);
                     } else if (this.popupDetails.buttonName === 'Enable') {
                         this.userEnable(userID);
                     } else {
@@ -367,12 +382,13 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         const payLoad = {
             user_id: userID,
             org_type: OrganizationType.ROASTER,
-            org_id: Number(this.roasterID),
+            org_id: this.authService.getOrgId(),
         };
         this.messageService.openChatThread(payLoad);
     }
-    deleteRoasterUser(userID: any) {
-        this.roasterService.deleteRoasterUser(this.roasterID, userID).subscribe((response: any) => {
+
+    deleteOrgUser(userID: any) {
+        this.roasterService.deleteOrgUser(userID).subscribe((response: any) => {
             if (response.success) {
                 this.toastrService.success('User Deleted successfully!');
                 this.getTableData();
@@ -381,25 +397,13 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             }
         });
     }
+
     filterCall() {
         if (this.termRole) {
             const getRole = this.roleList.find((ele) => ele.id === this.termRole);
             this.termRoleName = getRole && getRole.name ? getRole.name : '';
         }
         this.getTableData();
-    }
-    ngAfterViewInit() {
-        // server-side search
-        fromEvent(this.input.nativeElement, 'keyup')
-            .pipe(
-                filter(Boolean),
-                debounceTime(400),
-                distinctUntilChanged(),
-                tap((text) => {
-                    this.getTableData();
-                }),
-            )
-            .subscribe();
     }
 
     selectRows(checkValue) {
@@ -438,6 +442,22 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                 this.toastrService.error('Error while sending email to the User');
             },
         );
+    }
+
+    inviteTeamMember(userData) {
+        const postData = {
+            firstname: userData.firstname,
+            lastname: userData.lastname,
+            email: userData.email,
+            role_id: userData.role_id,
+        };
+        this.userService.inviteTeamMember(postData).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('Invite sent successfully');
+            } else {
+                this.toastrService.error('Error while sending invite');
+            }
+        });
     }
 
     simulatedLogin(userId) {

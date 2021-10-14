@@ -1,6 +1,9 @@
 $icon-size: 34px;
 
 .order-tracking {
+    @media all and (max-width: 767px) {
+        width: 100%;
+    }
     width: 20%;
     position: relative;
 
@@ -56,31 +59,33 @@ $icon-size: 34px;
         }
     }
 
-    &:last-child:after {
-        content: '';
-        display: block;
-        height: 3px;
-        background-color: #c29d7a1f;
-        top: 13px;
-        position: absolute;
-        right: calc(-19%);
-        z-index: 0;
-    }
+    @media (min-width: 767px) {
+        &:last-child:after {
+            content: '';
+            display: block;
+            height: 3px;
+            background-color: #c29d7a1f;
+            top: 13px;
+            position: absolute;
+            right: calc(-19%);
+            z-index: 0;
+        }
 
-    &:before {
-        content: '';
-        display: block;
-        background-color: #c29d7a1f;
-        top: 13px;
-        position: absolute;
-        left: calc(-50% - -25px);
-        z-index: 0;
-        width: calc(100% - 50px);
-        border: dashed 0.5px #d6d6d6;
-    }
+        &:before {
+            content: '';
+            display: block;
+            background-color: #c29d7a1f;
+            top: 13px;
+            position: absolute;
+            left: calc(-50% - -25px);
+            z-index: 0;
+            width: calc(100% - 50px);
+            border: dashed 0.5px #d6d6d6;
+        }
 
-    &:first-child:before {
-        display: none;
+        &:first-child:before {
+            display: none;
+        }
     }
 }
 

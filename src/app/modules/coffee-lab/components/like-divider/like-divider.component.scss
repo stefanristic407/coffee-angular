@@ -1,0 +1,85 @@
+.border-btm {
+    border-bottom: solid 1px #d8d8d8 !important;
+}
+
+.border-l8 {
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+
+.button-list {
+    margin: 0 4px 5px 0;
+    padding: 8px 11px 8px 10px;
+    border-radius: 4px;
+    background-color: #eaeaea;
+    border: none;
+    @media (max-width: 768px) {
+        margin: 0 12px 0 0;
+        padding: 8px 10px;
+    }
+}
+
+.cursor-point {
+    cursor: pointer;
+}
+
+.like-box {
+    background-color: #f1f1f1;
+}
+
+.py-md-225 {
+    @media (min-width: 768px) {
+        padding-top: 6px !important;
+        padding-bottom: 5px !important;
+    }
+}
+
+.hover-message-icon {
+    padding: 10px;
+    border-radius: 50%;
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
+    }
+}
+
+.hover-save-icon {
+    padding: 6px 11px 8px 13px;
+    border-radius: 50%;
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(48, 133, 92, 0.12);
+        }
+    }
+}
+
+.align-like {
+    .like-int {
+        cursor: pointer;
+        padding: 0 10.5px;
+        border-radius: 50%;
+        border: 0;
+        @media (min-width: 992px) {
+            &:hover {
+                background-color: rgba(48, 133, 92, 0.12);
+            }
+        }
+
+        .like {
+            height: 22px;
+        }
+    }
+}
+
+.cust-btn {
+    width: 27%;
+}
+
+.qa-cust-btn {
+    width: 23%;
+}
+
+.arrow {
+    margin: 2px 0;
+}

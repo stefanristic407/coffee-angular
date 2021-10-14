@@ -1,73 +1,34 @@
-.file-attach-btn {
-    height: 50px;
-    width: 170px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    color: #232334;
-    cursor: pointer;
-    img {
-        margin-right: 10px;
-    }
-}
-
-.file-name {
-    padding: 6px 13px 6px 16px;
-    border-radius: 3px;
-    background-color: #f8f8f8;
-    display: flex;
-    align-items: center;
-    span {
-        max-width: 150px;
-    }
-}
+@import 'variables';
 
 .certification-item {
-    background-color: #f8f8f8;
+    background-color: $primary-bg-color;
     padding: 16px 24px;
-    margin-bottom: 8px;
+
+    @media (max-width: 991px) {
+        padding: 0 16px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     & > div {
         @media (max-width: 991px) {
             padding: 14px 0;
             width: 100%;
             &:first-child {
-                border-bottom: 1px solid #d6d6d6;
+                border-bottom: 1px solid $primary-border-color;
             }
         }
     }
     .vertical-divider {
         height: 18px;
-        border-left: 1px solid #d6d6d6;
+        border-left: 1px solid $primary-border-color;
     }
 }
 
-.upload-description {
-    width: 160px;
-}
-
-@media (max-width: 991px) {
-    .certification-item {
-        padding: 0 16px;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
-
-@media (max-width: 767px) {
-    .file-attach-btn {
-        width: 100%;
-    }
-    .btn-raised,
-    .btn-stroked,
-    .btn-container {
-        width: 100%;
-    }
-    .certification-item {
-        &:last-child {
-            margin-bottom: 24px;
+:host ::ng-deep {
+    .btn-trans-icon {
+        @media (min-width: 992px) {
+            padding: 15px 24px 15px 24px;
         }
     }
 }

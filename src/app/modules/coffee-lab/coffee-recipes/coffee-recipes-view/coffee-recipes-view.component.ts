@@ -52,6 +52,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             value: 'oldest',
         },
     ];
+    categoryList: any;
 
     constructor(
         private toastService: ToastrService,
@@ -64,6 +65,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getCoffeeRecipesData();
+            this.getCategory();
         });
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.getCoffeeRecipesData();
@@ -71,6 +73,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
             this.getCoffeeRecipesData();
         });
+        this.getCategory();
     }
 
     handleSearch(): void {
@@ -81,16 +84,28 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         this.getCoffeeRecipesData();
     }
 
+    getCategory() {
+        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
+            if (category.success) {
+                this.categoryList = category.result;
+            }
+        });
+    }
+
     getCoffeeRecipesData(): void {
         this.isLoading = true;
         const params = {
             query: this.keyword,
             ingredient: this.searchIngredient,
-            translations_available: this.coffeeLabService.recipeViewIsAvailableTranslation,
+            translations_available: this.coffeeLabService.recipeViewIsAvailableTranslation || '',
             sort_by: 'created_at',
-            sort_order: this.coffeeLabService.recipeViewSortBy === 'latest' ? 'desc' : 'asc',
+            sort_order:
+                this.coffeeLabService.recipeViewSortBy === null || this.coffeeLabService.recipeViewSortBy === 'latest'
+                    ? 'desc'
+                    : 'asc',
             level: this.coffeeLabService.recipeViewLevel?.toLowerCase(),
             publish: true,
+            category_slug: this.coffeeLabService.recipeViewCategory,
             page: 1,
             per_page: 10000,
         };

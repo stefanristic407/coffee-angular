@@ -17,3 +17,18 @@
         background: transparent !important;
     }
 }
+
+.p-button.p-button-rounded.p-button-text {
+    color: $general-text-color;
+    &:enabled:hover {
+        color: $general-text-color !important;
+        background: #f4f4f5 !important;
+    }
+    &:enabled:active {
+        color: $general-text-color !important;
+        background: #e4e4e4 !important;
+    }
+    .p-button-icon {
+        font-size: 18px;
+    }
+}

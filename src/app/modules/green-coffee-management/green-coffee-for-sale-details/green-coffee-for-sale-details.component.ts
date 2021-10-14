@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { AuthService, GlobalsService } from '@services';
-import { RoasterserviceService } from '@services';
+import { RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -26,7 +26,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         public lightbox: Lightbox,
         public globals: GlobalsService,
         public route: ActivatedRoute,
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private router: Router,
         private authService: AuthService,
@@ -48,7 +48,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
     }
     public refreshData() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
+            { label: 'Home', routerLink: '/' },
             { label: 'Inventory' },
             { label: 'Green coffee Inventory', routerLink: '/green-coffee-management/green-coffee-inventory' },
             {
@@ -59,6 +59,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             { label: this.saleInformation.name ? this.saleInformation.name : '' },
         ];
     }
+
     language() {
         this.appLanguage = this.globals.languageJson;
         this.procuredActive++;
@@ -66,8 +67,9 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         this.getProcuredOrderDetails();
         this.getRoasterNotes();
     }
+
     getSaleOrderDetails() {
-        this.roasterService.getMarkForSaleDetails(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getMarkForSaleDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     this.saleInformation = response.result;

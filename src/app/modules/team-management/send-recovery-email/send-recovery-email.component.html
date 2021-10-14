@@ -40,8 +40,7 @@
                             <span class="greyText">{{ 'account_activated' | translate }}</span
                             >&nbsp;
                             <span *ngIf="userDetails && userDetails['last_activated']" class="dateFont">{{
-                                userDetails['last_activated'] | date: 'd MMM , y, h:mm
-                                a'
+                                userDetails['last_activated'] | date: 'd MMM, y, h:mm a'
                             }}</span>
                         </div>
                     </div>
@@ -67,17 +66,39 @@
                     </div>
                 </div>
                 <div [formGroup]="userForm" class="row inputPadding p-0">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                        <div class="sewn-form-field w-100">
-                            <label class="secondary_txt">Name<span class="star">*</span></label>
-                            <input type="text" placeholder="Enter your full name" formControlName="name" pInputText />
-                        </div>
+                    <div class="sewn-form-field col-md-6">
+                        <label>{{ 'first_name' | translate }}<span class="star">*</span></label>
+                        <input
+                            type="text"
+                            [placeholder]="'please_enter_first_name' | translate"
+                            formControlName="firstname"
+                            pInputText
+                        />
+                        <small *ngIf="userForm.controls.firstname.errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                        <div class="sewn-form-field w-100">
-                            <label class="secondary_txt">Enter work e-mail address<span class="star">*</span></label>
-                            <input type="text" placeholder="you@example.com" formControlName="email" pInputText />
-                        </div>
+                    <div class="sewn-form-field col-md-6">
+                        <label>{{ 'last_name' | translate }}<span class="star">*</span></label>
+                        <input
+                            type="text"
+                            [placeholder]="'please_enter_last_name' | translate"
+                            formControlName="lastname"
+                            pInputText
+                        />
+                        <small *ngIf="userForm.controls.lastname.errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field col-md-6">
+                        <label class="secondary_txt">Enter work e-mail address<span class="star">*</span></label>
+                        <input type="text" placeholder="you@example.com" formControlName="email" pInputText />
+                        <small *ngIf="userForm.controls.email.errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                        <small *ngIf="userForm.controls.email.errors?.email" class="p-error">
+                            {{ 'email_must_be_in_a_valid_format' | translate }}
+                        </small>
                     </div>
                 </div>
                 <div>
@@ -107,7 +128,7 @@
                             </p-dropdown>
                         </div>
                         <div
-                            *ngIf="isEdit && statusToggle"
+                            *ngIf="isEdit && statusToggle && (i || userDetails['roles']?.length > 1)"
                             class="d-md-flex justify-content-center sewn-form-field removeRoleBtn"
                         >
                             <div class="delete-wrap fnt-muli">

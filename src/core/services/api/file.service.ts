@@ -6,14 +6,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { ApiResponse } from '@models';
 import { Observable } from 'rxjs';
 import { OrganizationType } from '@enums';
-import { UplaodService } from '../upload';
+import { UploadService } from '../upload';
 import { AuthService } from '../auth';
 
 @Injectable({
     providedIn: 'root',
 })
 export class FileService extends ApiService {
-    constructor(protected http: HttpClient, protected authService: AuthService, private uploadService: UplaodService) {
+    constructor(protected http: HttpClient, protected authService: AuthService, private uploadService: UploadService) {
         super(http, authService);
     }
 
@@ -95,7 +95,7 @@ export class FileService extends ApiService {
         return this.postWithOrg(this.orgDeleteUrl, `file-manager/${id}/pin`, 'DELETE');
     }
     // List all files/folders under My files section
-    getFilesandFolders(query?: object) {
+    getMyFiles(query?: object) {
         const params = this.serializeParams(query);
         return this.postWithOrg(this.orgPostUrl, `file-manager/my-files?${params}`, 'GET');
     }

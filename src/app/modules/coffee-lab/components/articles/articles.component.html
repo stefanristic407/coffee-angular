@@ -1,41 +1,6 @@
-<div class="articles-wrapper">
-    <div class="col-12 col-md-6 col-lg-4 px-0 py-25 p-md-2" *ngFor="let article of displayData">
-        <div
-            class="border-main br-4 p-3 py-md-4 px-lg-4 article-item"
-            [routerLink]="'/coffee-lab/articles/' + article.slug"
-        >
-            <div class="d-flex justify-content-between">
-                <div class="flex-1 overflow-hidden">
-                    <app-user-header [prop]="article"></app-user-header>
-                </div>
-                <app-forum-menu
-                    [selectedItem]="article"
-                    forumType="article"
-                    [enableEdit]="
-                        organizationId == article.organisation_id &&
-                        article.organisation_type === coffeeLabService.organization &&
-                        article.user_id == authService.currentUser.id
-                    "
-                    [enableDelete]="
-                        organizationId == article.organisation_id &&
-                        article.organisation_type === coffeeLabService.organization &&
-                        article.user_id == authService.currentUser.id
-                    "
-                    [enableSave]="pageDesc !== 'saved-posts'"
-                    [enableDeleteSave]="pageDesc === 'saved-posts'"
-                ></app-forum-menu>
-            </div>
-            <img [src]="article.cover_image_url" class="br-4 w-100 my-3 my-md-4" />
-            <div class="fnt-muli fnt-14 fnt-bold lh-157 text-clr334 cursor-pointer article-title-text">
-                {{ article?.title }}
-            </div>
-            <div class="fnt-muli fnt-14 fnt-normal lh-143 text-clr334 mt-3">
-                <a class="article-title-text">
-                    {{ article?.subtitle }}
-                </a>
-                <p class="brown-cta mb-0">{{ 'read_more' | translate }}</p>
-            </div>
-        </div>
+<div class="row gutter-16 v-gutter-24">
+    <div class="col-md-6 col-xl-4" *ngFor="let article of displayData; let i = index">
+        <app-article-card [isMyPost]="isMyPost" [isSavedPost]="isSavedPost" [article]="article"></app-article-card>
     </div>
 </div>
 <div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">

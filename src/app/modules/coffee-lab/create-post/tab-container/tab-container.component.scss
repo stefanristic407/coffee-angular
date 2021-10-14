@@ -1,21 +1,28 @@
 @import 'variables';
 
+.container-marg {
+    margin: 0 8.5rem;
+    @media (max-width: 768px) {
+        margin: 1.5rem -0.5rem 0 -0.5rem;
+    }
+}
 ::ng-deep {
     .tabview-create-post {
         .p-tabview-nav {
             li {
                 margin-right: 0;
                 @media (max-width: 767px) {
-                    padding-top: 16px;
+                    // padding-top: 16px;
                     border-right: 1px solid $secondary-border-color;
                 }
                 &:nth-child(3) {
                     border-right-width: 0;
                 }
                 .p-tabview-nav-link {
-                    padding: 0 16px 4px 16px !important;
+                    padding: 15px 16px 13px 16px !important;
                     img {
                         display: inline-block;
+                        width: 24px;
                         &.active-icon {
                             display: none;
                         }
@@ -29,6 +36,9 @@
                         }
                     }
                 }
+            }
+            .p-highlight {
+                background-color: rgba(48, 133, 92, 0.16) !important;
             }
         }
     }

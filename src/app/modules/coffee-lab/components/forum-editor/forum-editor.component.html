@@ -1,25 +1,47 @@
-<p-editor
-    [(ngModel)]="content"
-    styleClass="forum-editor"
-    id="test"
-    [style]="{ minHeight: height + 'px' }"
-    (ngModelChange)="onChangeContent()"
-    [placeholder]="placeholder"
-    [readonly]="isUploadingImage"
->
-    <p-header>
-        <span class="ql-formats">
-            <button class="ql-bold" aria-label="Bold"></button>
-            <button class="ql-italic" aria-label="Italic"></button>
-            <button class="ql-underline" aria-label="Underline"></button>
-        </span>
-        <span class="ql-formats">
-            <button value="ordered" aria-label="Ordered List" type="button" class="ql-list"></button>
-            <button value="bullet" aria-label="Unordered List" type="button" class="ql-list"></button>
-        </span>
-        <span class="ql-formats">
-            <button aria-label="Insert Link" type="button" class="ql-link"></button>
-            <button aria-label="Insert Image" type="button" class="ql-image"></button>
-        </span>
-    </p-header>
-</p-editor>
+<div class="position-relative">
+    <p-editor
+        [(ngModel)]="content"
+        styleClass="forum-editor"
+        id="test"
+        (ngModelChange)="onChangeContent()"
+        [placeholder]="placeholder"
+        [readonly]="isUploadingImage"
+        [modules]="modules"
+    >
+        <p-header>
+            <span class="ql-formats">
+                <button class="ql-bold" aria-label="Bold"></button>
+                <button class="ql-italic" aria-label="Italic"></button>
+                <button class="ql-underline" aria-label="Underline"></button>
+            </span>
+            <span class="ql-formats">
+                <select class="ql-header">
+                    <option value="1">Heading 1</option>
+                    <option value="2">Heading 2</option>
+                    <option value="3">Heading 3</option>
+                    <option value="4">Heading 4</option>
+                    <option value="5">Heading 5</option>
+                    <option value="6">Heading 6</option>
+                    <option value="">Normal</option>
+                </select>
+            </span>
+            <span class="ql-formats">
+                <button value="ordered" aria-label="Ordered List" type="button" class="ql-list"></button>
+                <button value="bullet" aria-label="Unordered List" type="button" class="ql-list"></button>
+            </span>
+            <span class="ql-formats">
+                <button aria-label="Insert Link" type="button" class="ql-link"></button>
+                <button aria-label="Insert Image" type="button" class="ql-image"></button>
+            </span>
+        </p-header>
+    </p-editor>
+
+    <div *ngIf="isUploadingImage" class="ring-wrap">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>

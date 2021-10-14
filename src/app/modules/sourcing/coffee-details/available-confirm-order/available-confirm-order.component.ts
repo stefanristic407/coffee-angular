@@ -1,22 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+    FormGroup,
+    FormBuilder,
+    FormControl,
+    Validators,
+    AbstractControl,
+    ValidatorFn,
+    ValidationErrors,
+} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
-import {
-    GlobalsService,
-    ResizeService,
-    AuthService,
-    RoasterserviceService,
-    CommonService,
-    UserService,
-} from '@services';
+import { ResizeService, AuthService, RoasterService, CommonService, UserService } from '@services';
 import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 import { COUNTRY_LIST } from '@constants';
-import { OrganizationType } from '@enums';
+import { AddressType, OrderType, OrganizationType } from '@enums';
 import { ResizeableComponent } from '@base-components';
 import { environment } from '@env/environment';
+import { PriceTier } from '@models';
+import { convertKg } from '@utils';
 
 @Component({
     selector: 'app-available-confirm-order',
@@ -26,16 +31,17 @@ import { environment } from '@env/environment';
 export class AvailableConfirmOrderComponent extends ResizeableComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
     public readonly OrganizationType = OrganizationType;
+    readonly OrderType = OrderType;
     readonly env = environment;
     breadItems: any[];
     serviceItems: any[] = [
-        { label: 'Import & Delivery service', value: true },
-        { label: 'I don’t need Import & delivery service', value: false },
+        { label: 'Import & Delivery service', value: true, disabled: false },
+        { label: 'I don’t need Import & delivery service', value: false, disabled: false },
     ];
 
     roasterId: any;
-    orderType: string;
-    prebookOrderId: any;
+    orderType: OrderType;
+    prebookOrderId = 0;
     infoForm: FormGroup;
     addressForm: FormGroup;
     orderSettings: any;
@@ -55,29 +61,33 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     editAddress = false;
     isBilling = false;
     cities: any[] = [];
-
-    // Variables for only prebook order
-    batchId: string;
+    priceTiers: PriceTier[] = [];
+    activePriceTier: PriceTier | null = null;
+    InDRestrictions = {
+        maxQuanity: null as number | null,
+        minQuanity: null as number | null,
+        maxQuanityByUnit: null as number | null, // Based on Kg per Bag
+        minQuanityByUnit: null as number | null, // Based on Kg per Bag
+    };
 
     constructor(
-        public dialogSrv: DialogService,
+        private commonService: CommonService,
+        private dialogSrv: DialogService,
         private fb: FormBuilder,
-        public router: Router,
-        public globals: GlobalsService,
+        private roasterService: RoasterService,
         private route: ActivatedRoute,
-        public sourcing: SourcingService,
+        private router: Router,
         private toastrService: ToastrService,
-        private roasterService: RoasterserviceService,
+        private translator: TranslateService,
         private userService: UserService,
         protected resizeService: ResizeService,
         public authService: AuthService,
-        private commonService: CommonService,
+        public sourcing: SourcingService,
     ) {
         super(resizeService);
     }
 
     ngOnInit(): void {
-        console.log(this.authService.currentOrganization);
         this.roasterId = this.authService.getOrgId();
         this.route.data.subscribe((data) => {
             this.orderType = data.orderType;
@@ -87,19 +97,10 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             if (params.has('gc_id')) {
                 this.sourcing.harvestId = +params.get('gc_id');
             }
-            if (params.has('estateId') && params.has('lotId')) {
-                this.sourcing.estateId = +params.get('estateId');
-                this.sourcing.lotId = +params.get('lotId');
-            }
-            if (this.orderType === 'booked' || this.orderType === 'sample') {
+            if (this.orderType === OrderType.Booked || this.orderType === OrderType.Sample) {
                 this.getHarvest();
-            } else if (this.orderType === 'preBooked') {
-                this.getLot();
-                this.getPrebookBatch();
             }
         });
-
-        this.prebookOrderId = 0;
     }
 
     getHarvest() {
@@ -118,20 +119,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         }
     }
 
-    getLot() {
-        if (this.sourcing.lotId) {
-            new Promise((resolve) => this.sourcing.getLotDetails(resolve)).then(() => {
-                this.refreshBreadCrumb();
-                this.getBasicData();
-            });
-        } else {
-            this.router.navigateByUrl('/error');
-        }
-    }
-
     getBasicData() {
         const promises = [];
-        if (this.orderType === 'booked') {
+        if (this.orderType === OrderType.Booked) {
             promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
         }
         promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
@@ -146,83 +136,58 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
 
     refreshBreadCrumb() {
         this.breadItems = [
-            { label: 'Home', routerLink: '/' },
-            { label: 'Sourcing Module', routerLink: '/sourcing' },
-            this.orderType === 'preBooked'
-                ? {
-                      label: this.sourcing.lot.name,
-                      routerLink: `/sourcing/estate-details/${this.sourcing.lot.estate_id}`,
-                  }
-                : {
-                      label: this.sourcing.harvestDetail.name,
-                      routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.id}`,
-                  },
-            { label: 'Confirm order' },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('sourcing'), routerLink: '/sourcing' },
+            {
+                label: this.sourcing.harvestDetail.name,
+                routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.id}`,
+            },
+            { label: this.translator.instant('confirm_order') },
         ];
     }
 
     refreshOrderDetails() {
-        if (this.orderType === 'preBooked') {
-            this.orderDetail = [
-                {
-                    field: 'customer',
-                    label: this.globals.languageJson?.customer,
-                    value: this.sourcing.lot.estate_name,
-                },
-                { field: 'origin', label: this.globals.languageJson?.origin, value: this.sourcing.lot.country },
-                {
-                    field: 'variety',
-                    label: this.globals.languageJson?.variety,
-                    value: this.sourcing.lot.varietiesStr,
-                },
-                { field: 'species', label: this.globals.languageJson?.species, value: this.sourcing.lot.species },
-                { field: 'cupScore', label: 'Avg, grade', value: this.sourcing.lot.avg_cup_score },
-                { field: 'production', label: 'Avg. Production', value: this.sourcing.lot.avg_precipitation },
-                { field: 'token', label: 'Token amount', value: `$${this.orderSettings.token_amount}` },
-            ];
-        } else {
-            this.orderDetail = [
-                {
-                    field: 'customer',
-                    label: this.globals.languageJson?.customer,
-                    value: this.sourcing.harvestDetail.estate_name,
-                },
-                {
-                    field: 'origin',
-                    label: this.globals.languageJson?.origin,
-                    value: this.sourcing.harvestDetail.country,
-                },
-                {
-                    field: 'variety',
-                    label: this.globals.languageJson?.variety,
-                    value: this.sourcing.harvestDetail.varieties,
-                },
-                {
-                    field: 'species',
-                    label: this.globals.languageJson?.species,
-                    value: this.sourcing.harvestDetail.species,
-                },
-                {
-                    field: 'cupScore',
-                    label: this.globals.languageJson?.cupping_score,
-                    value: this.sourcing.harvestDetail.cupping.cup_score,
-                },
-            ];
-        }
-        if (this.orderType === 'booked') {
+        this.orderDetail = [
+            {
+                field: 'customer',
+                label: this.translator.instant('customer'),
+                value: this.sourcing.harvestDetail.estate_name,
+            },
+            {
+                field: 'origin',
+                label: this.translator.instant('origin'),
+                value: this.sourcing.harvestDetail.country,
+            },
+            {
+                field: 'variety',
+                label: this.translator.instant('variety'),
+                value: this.sourcing.harvestDetail.varieties,
+            },
+            {
+                field: 'species',
+                label: this.translator.instant('species'),
+                value: this.sourcing.harvestDetail.species,
+            },
+            {
+                field: 'cupScore',
+                label: this.translator.instant('cupping_score'),
+                value: this.sourcing.harvestDetail.cupping.cup_score,
+            },
+        ];
+        if (this.orderType === OrderType.Booked) {
             this.orderDetail = this.orderDetail.concat([
                 {
                     field: 'quantity',
-                    label: this.globals.languageJson?.available_quantity,
-                    value: `${this.sourcing.harvestDetail.quantity_count}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
+                    label: this.translator.instant('available_quantity'),
+                    value: `${this.sourcing.harvestDetail.quantity_count}${this.sourcing.harvestDetail.quantity_type}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
                 },
                 {
                     field: 'price',
-                    label: this.globals.languageJson?.rate_per_kg,
+                    label: this.translator.instant('rate_per_kg'),
                     value: `$${this.sourcing.harvestDetail.price}USD/kg`,
                 },
             ]);
-        } else if (this.orderType === 'sample') {
+        } else if (this.orderType === OrderType.Sample) {
             this.orderDetail = this.orderDetail.concat([
                 {
                     field: 'sample_price',
@@ -233,27 +198,59 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         }
     }
 
+    get shippingError(): string {
+        if (!this.shipInfo) {
+            return 'Import & Delivery service is not available for this estate';
+        }
+        if (
+            this.InDRestrictions.maxQuanityByUnit < this.sourcing.harvestDetail.minimum_purchase_quantity ||
+            this.InDRestrictions.minQuanityByUnit > this.sourcing.harvestDetail.quantity_count
+        ) {
+            return `Import & Delivery service is not proper for this purchase(Shipping quantity: ${this.InDRestrictions.minQuanity}kg-${this.InDRestrictions.maxQuanity}kg)`;
+        }
+        return null;
+    }
+
     refreshForm() {
         this.infoForm = this.fb.group({
             terms: [null, Validators.compose([Validators.required])],
         });
-        if (this.orderType === 'booked') {
-            this.calcMinimumQuanity();
-            this.infoForm.addControl(
-                'quantity',
-                new FormControl(
-                    null,
-                    Validators.compose([
-                        Validators.required,
-                        (control: AbstractControl) => Validators.min(this.minimumQuantity)(control),
-                        Validators.max(this.sourcing.harvestDetail.quantity_count),
-                    ]),
-                ),
-            );
-            this.infoForm.addControl('service', new FormControl(true));
+        if (this.orderType === OrderType.Booked) {
+            const quantityFc = new FormControl(null, [this.quantityValidator]);
+            this.infoForm.addControl('quantity', quantityFc);
+            if (this.shippingError) {
+                this.serviceItems[0].disabled = true;
+                this.infoForm.addControl('service', new FormControl(false));
+            } else {
+                this.serviceItems[0].disabled = false;
+                this.infoForm.addControl('service', new FormControl(true));
+            }
         }
         this.changeQuantity();
     }
+
+    quantityValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {
+        const countValue = parseInt(control.value, 10);
+        const errors: any = {};
+        if (!/^\d+$/.test(control.value) || parseInt(control.value, 10) < 1) {
+            errors.valid = 'Please provide a valid value';
+        }
+        if (countValue < this.sourcing.harvestDetail.minimum_purchase_quantity) {
+            errors.min_purchase = `The minimum purchase is at least ${this.sourcing.harvestDetail.minimum_purchase_quantity} ${this.sourcing.harvestDetail.quantity_type}`;
+        }
+        if (countValue > this.sourcing.harvestDetail.quantity_count) {
+            errors.max_purchase = `Only ${this.sourcing.harvestDetail.quantity_count} ${this.sourcing.harvestDetail.quantity_type} of coffee are available for the purchase`;
+        }
+        if (this.infoForm.value.service) {
+            if (countValue < this.InDRestrictions.minQuanityByUnit) {
+                errors.min_shipping = `Shipping is only available on purchasing at least ${this.InDRestrictions.minQuanityByUnit} ${this.sourcing.harvestDetail.quantity_type}`;
+            }
+            if (countValue > this.InDRestrictions.maxQuanityByUnit) {
+                errors.max_shipping = `Shipping is available for a maximum of ${this.InDRestrictions.maxQuanityByUnit} ${this.sourcing.harvestDetail.quantity_type}`;
+            }
+        }
+        return errors;
+    };
 
     refreshAddressForm(isBilling) {
         this.addressForm = this.fb.group({
@@ -270,26 +267,37 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         this.isBilling = isBilling;
     }
 
-    changeQuantity(event: any = null) {
-        if (event) {
-            this.infoForm.value.quantity = event.value;
-        }
+    changeQuantity() {
         setTimeout(() => {
-            if (this.orderType === 'booked') {
-                const mass = this.sourcing.harvestDetail.quantity * this.infoForm.value.quantity;
-                this.coffeePrice = this.sourcing.harvestDetail.price * mass;
+            if (this.orderType === OrderType.Booked) {
+                const totalKg = convertKg(
+                    +this.sourcing.harvestDetail.quantity * this.infoForm.value.quantity,
+                    this.sourcing.harvestDetail.quantity_unit,
+                );
+
+                this.updateShipmentUnitPrice(totalKg);
+                this.coffeePrice = this.sourcing.harvestDetail.price * totalKg;
                 if (this.infoForm.value.service) {
-                    this.shipmentPrice = this.shipInfo.unit_price * mass;
+                    this.shipmentPrice = this.activePriceTier?.amount || 0;
                 } else {
                     this.shipmentPrice = 0;
                 }
                 this.totalPrice = this.coffeePrice + this.shipmentPrice;
-            } else if (this.orderType === 'sample') {
+            } else if (this.orderType === OrderType.Sample) {
                 this.totalPrice = this.orderSettings.sample_price;
             } else {
                 this.totalPrice = this.orderSettings.token_amount;
             }
         });
+    }
+
+    updateShipmentUnitPrice(itemInKg: number) {
+        const tier = this.priceTiers.find((item) => itemInKg >= item.min_quantity && itemInKg <= item.max_quantity);
+        if (tier) {
+            this.activePriceTier = tier;
+        } else {
+            this.activePriceTier = null;
+        }
     }
 
     changeService() {
@@ -299,63 +307,43 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             this.addressData = this.deliveryAddress;
         }
         this.changeQuantity();
-        this.calcMinimumQuanity();
-    }
-
-    calcMinimumQuanity() {
-        if (this.infoForm.value.service) {
-            this.minimumQuantity = Math.max(
-                this.shipInfo.minimum_quantity || 0,
-                this.sourcing.harvestDetail.minimum_purchase_quantity || 0,
-            );
-        } else {
-            this.minimumQuantity = this.sourcing.harvestDetail.minimum_purchase_quantity || 0;
-        }
-        const quantityControl = this.infoForm.get('quantity');
-        if (quantityControl) {
-            quantityControl.setValue(this.infoForm.value.quantity);
-        }
+        this.infoForm.controls.quantity.updateValueAndValidity();
     }
 
     placeOrder() {
-        if (this.infoForm.valid) {
-            if (!this.billingAddress?.id) {
-                this.toastrService.error('Please update billing address');
-                return;
-            }
-            if (!this.infoForm.value.service) {
-                if (!this.deliveryAddress?.id) {
-                    this.toastrService.error('Please update delivery address');
-                    return;
-                }
-            }
-            this.dialogSrv
-                .open(ConfirmComponent, {
-                    data: {
-                        title: this.globals.languageJson.confirm_order,
-                        desp: this.globals.languageJson.are_you_sure,
-                    },
-                    showHeader: false,
-                    styleClass: 'confirm-dialog',
-                })
-                .onClose.subscribe((action: any) => {
-                    if (action === 'yes') {
-                        if (this.orderType === 'booked') {
-                            this.submitOrder();
-                        } else if (this.orderType === 'sample') {
-                            this.submitSample();
-                        } else if (this.orderType === 'preBooked') {
-                            this.submitPreBook();
-                        }
-                    }
-                });
-        } else {
+        if (this.infoForm.invalid) {
             this.infoForm.markAllAsTouched();
+            return;
         }
+        if (!this.infoForm.value.service && !this.deliveryAddress?.id) {
+            this.toastrService.error('Please update delivery address');
+            return;
+        }
+        if (!this.billingAddress?.id) {
+            this.toastrService.error('Please update billing address');
+            return;
+        }
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: this.translator.instant('confirm_your_purchase'),
+                    desp: this.translator.instant('ro_confirm_purchase_desp'),
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    if (this.orderType === OrderType.Booked) {
+                        this.submitOrder();
+                    } else if (this.orderType === OrderType.Sample) {
+                        this.submitSample();
+                    }
+                }
+            });
     }
 
     submitOrder() {
         const data: any = {
+            shipping_price: this.activePriceTier?.amount,
             quantity_count: this.infoForm.value.quantity,
             billing_address_id: this.billingAddress.id,
             prebook_order_id: this.prebookOrderId,
@@ -390,33 +378,21 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         });
     }
 
-    submitPreBook() {
-        const data = {
-            shipping_address_id: this.addressData.id,
-            billing_address_id: this.addressData.id,
-        };
-        if (this.batchId) {
-            this.userService.addPrebookLots(this.roasterId, this.batchId, data).subscribe((res: any) => {
-                if (res.success) {
-                    this.orderPlaced = true;
-                } else {
-                    this.toastrService.error('Error while Placing the prebook order');
-                }
-            });
-        }
-    }
-
     changeCountry() {
         if (this.addressForm.value.country) {
-            this.commonService.getCountry(this.addressForm.value.country).cities.forEach((element) => {
-                this.cities.push({ label: element, value: element });
+            this.cities = this.commonService.getCountry(this.addressForm.value.country).cities;
+            if (this.cities.indexOf(this.addressForm.value.state) < 0) {
+                this.addressForm.get('state').setValue(null);
+            }
+            this.cities = this.cities.map((element) => {
+                return { label: element, value: element };
             });
         }
     }
 
     saveAddress() {
         if (this.addressForm.valid) {
-            const type = this.isBilling ? 'billing' : 'delivery';
+            const type = this.isBilling ? AddressType.BILLING : AddressType.SHIPPING;
             const id = this.isBilling ? this.billingAddress?.id : this.deliveryAddress?.id;
             const postData = {
                 type,
@@ -459,47 +435,75 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         });
     }
 
+    get priceRateByTier(): null | number {
+        return null;
+    }
+
     getShipInfo(resolve: any = null) {
-        this.userService
-            .getShippingInfo(this.roasterId, this.sourcing.harvestDetail.estate_id)
-            .subscribe((res: any) => {
+        this.userService.getShippingInfo(this.roasterId, this.sourcing.harvestDetail.estate_id).subscribe(
+            (res: any) => {
                 if (res.success) {
                     this.shipInfo = res.result;
+                    console.log('ship info:', this.shipInfo);
                     this.shipAddress = res.result.warehouse_address;
+                    this.priceTiers = res.result.price_tiers;
+                    this.priceTiers.forEach((tier) => {
+                        if (
+                            this.InDRestrictions.maxQuanity === null ||
+                            this.InDRestrictions.maxQuanity < tier.max_quantity
+                        ) {
+                            this.InDRestrictions.maxQuanity = tier.max_quantity;
+                        }
+                        if (
+                            this.InDRestrictions.minQuanity === null ||
+                            this.InDRestrictions.minQuanity > tier.min_quantity
+                        ) {
+                            this.InDRestrictions.minQuanity = tier.min_quantity;
+                        }
+                    });
+
+                    const kgInBg = convertKg(
+                        +this.sourcing.harvestDetail.quantity,
+                        this.sourcing.harvestDetail.quantity_unit,
+                    );
+                    this.InDRestrictions.maxQuanityByUnit = Math.floor(this.InDRestrictions.maxQuanity / kgInBg);
+                    this.InDRestrictions.minQuanityByUnit = Math.ceil(this.InDRestrictions.minQuanity / kgInBg);
+
+                    console.log('InDRestrictions', this.InDRestrictions);
                 }
                 if (resolve) {
                     resolve();
                 }
-            });
+            },
+            (error: HttpErrorResponse) => {
+                resolve();
+            },
+        );
     }
 
     getRoAddress(resolve: any = null, requireUpdating?) {
         this.userService.getAddresses(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.deliveryAddress = (res.result || []).find((item) => item.type === 'delivery') ?? {};
-                this.billingAddress = (res.result || []).find((item) => item.type === 'billing') ?? {};
+                const defaultAddress = {
+                    country: this.authService.currentOrganization.country,
+                    state: this.authService.currentOrganization.state,
+                    address_line1: this.authService.currentOrganization.address_line1,
+                    address_line2: this.authService.currentOrganization.address_line2,
+                    city: this.authService.currentOrganization.city,
+                    zipcode: this.authService.currentOrganization.zipcode,
+                };
+                this.deliveryAddress =
+                    (res.result || []).find((item) => item.type === AddressType.SHIPPING) ?? defaultAddress;
+                this.billingAddress =
+                    (res.result || []).find((item) => item.type === AddressType.BILLING) ?? defaultAddress;
                 if (requireUpdating && !this.infoForm.value?.service) {
                     this.addressData = this.deliveryAddress;
                 }
 
-                console.log('this.addressData', this.addressData);
-                console.log('this.deliveryAddress', this.deliveryAddress);
-                console.log('this.billingAddress', this.billingAddress);
                 if (resolve) {
                     resolve();
                 }
             }
         });
-    }
-
-    getPrebookBatch() {
-        this.userService
-            .getPrebookBatchList(this.roasterId, this.sourcing.estateId, this.sourcing.lotId)
-            .subscribe((res: any) => {
-                if (res.success && res.result.length) {
-                    console.log('Batch:', res.result);
-                    this.batchId = res.result[0].id;
-                }
-            });
     }
 }

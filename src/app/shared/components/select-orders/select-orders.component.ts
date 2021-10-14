@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, Input, ViewChild } from '@angu
 import { DataTableDirective } from 'angular-datatables';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterserviceService } from '@services';
+import { AuthService, RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import * as moment from 'moment';
@@ -18,7 +18,7 @@ export class SelectOrdersComponent implements OnInit {
     @Output() closeEvent = new EventEmitter<any>();
     @Input() selectedType;
     estateterm: any;
-    loader = true;
+    loading = true;
     estatetermStatus: any;
     estatetermType: any;
     estatetermOrigin: any;
@@ -59,7 +59,7 @@ export class SelectOrdersComponent implements OnInit {
     constructor(
         public router: Router,
         public cookieService: CookieService,
-        private roasterService: RoasterserviceService,
+        private roasterService: RoasterService,
         private toastrService: ToastrService,
         public globals: GlobalsService,
         public route: ActivatedRoute,
@@ -285,6 +285,7 @@ export class SelectOrdersComponent implements OnInit {
         if (this.selectedType === 'sales-member') {
             selectedType = 'users';
         }
+        this.loading = true;
         this.roasterService.getListOrderDetails(this.roasterId, selectedType, postData).subscribe((data: any) => {
             if (data.success && data.result && data.result.length > 0) {
                 this.tableValue = [];
@@ -297,13 +298,13 @@ export class SelectOrdersComponent implements OnInit {
                     this.totalCount = data.result_info?.total_count;
                     this.tableValue = data.result;
                 }
-                this.loader = false;
             }
+            this.loading = false;
         });
     }
 
     getRoleList() {
-        this.roasterService.getRoles(this.roasterId).subscribe((res: any) => {
+        this.roasterService.getRoles().subscribe((res: any) => {
             if (res.success) {
                 this.roleType = res.result.map((item) => {
                     const type = { label: item.name, value: item.id };

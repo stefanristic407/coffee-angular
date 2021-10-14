@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ResizeService } from '@services';
-import { FileShareService } from '../../file-share.service';
-import { FileType } from '@enums';
 import { ResizeableComponent } from '@base-components';
+import { FileType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { ResizeService } from '@services';
+import { FileShareService } from '../../file-share.service';
 
 @Component({
     selector: 'app-file-table',
@@ -14,17 +13,15 @@ import { ResizeableComponent } from '@base-components';
 })
 export class FileTableComponent extends ResizeableComponent implements OnInit {
     @Input() listType = '';
-    @Input() emptyTitle = this.globals.languageJson?.no_data_available;
+    @Input() emptyTitle = this.translator.instant('no_data_available');
     tableColumns = [];
     disableAction = false;
 
     constructor(
-        public dialogSrv: DialogService,
-        public router: Router,
-        public toastrService: ToastrService,
-        public fileShareSrv: FileShareService,
-        public globals: GlobalsService,
+        private router: Router,
+        private translator: TranslateService,
         protected resizeService: ResizeService,
+        public fileShareSrv: FileShareService,
     ) {
         super(resizeService);
     }

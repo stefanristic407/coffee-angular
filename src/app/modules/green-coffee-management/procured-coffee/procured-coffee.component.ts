@@ -1,13 +1,12 @@
 import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { AuthService, GlobalsService, PrimeTableService } from '@services';
-import { RoasterserviceService, ResizeService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, PrimeTableService, RoasterService, ResizeService } from '@services';
 import { ResizeableComponent } from '@base-components';
 import { Table } from 'primeng/table';
-import { FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-procured-coffee',
@@ -17,8 +16,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class ProcuredCoffeeComponent extends ResizeableComponent implements OnInit {
     items: GalleryItem[];
-    appLanguage?: any;
-    procuredActive: any = 0;
+    isLoaded = false;
     orderID: any = '';
     roasterID: any = '';
     orderDetails: any;
@@ -41,17 +39,17 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     get form() {
         return this._form;
     }
+
     constructor(
+        private authService: AuthService,
+        private router: Router,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
         public gallery: Gallery,
         public lightbox: Lightbox,
-        public globals: GlobalsService,
-        public route: ActivatedRoute,
-        private router: Router,
-        public roasterService: RoasterserviceService,
-        public cookieService: CookieService,
-        protected resizeService: ResizeService,
         public primeTableService: PrimeTableService,
-        private authService: AuthService,
+        public roasterService: RoasterService,
+        public route: ActivatedRoute,
     ) {
         super(resizeService);
         this.roasterID = this.authService.getOrgId();
@@ -59,11 +57,17 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             this.orderID = params.orderId;
         });
         this.breadItems = [
-            { label: 'Home', routerLink: '/roaster-dashboard' },
-            { label: 'Inventory' },
-            { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
-            { label: 'Procured coffee', routerLink: `/green-coffee-management/green-coffee-inventory` },
-            { label: `Order #${this.orderID}` },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('inventory') },
+            {
+                label: this.translator.instant('green_coffee_inventory'),
+                routerLink: '/green-coffee-management/green-coffee-inventory',
+            },
+            {
+                label: this.translator.instant('sourced_coffee'),
+                routerLink: `/green-coffee-management/green-coffee-inventory`,
+            },
+            { label: `${this.translator.instant('order')} #${this.orderID}` },
         ];
     }
 
@@ -131,7 +135,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             thumbPosition: ThumbnailsPosition.Top,
         });
         lightboxRef.load(this.items);
-        this.language();
         this.getOrderDetails();
         this.getRoasterNotes();
         this.initializeTableProcuredCoffee();
@@ -141,10 +144,10 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                 this.table.reset();
             }, 100),
         );
-        // this.primeTableService.isMarkedForSale = false;
     }
 
     getOrderDetails() {
+        this.isLoaded = false;
         this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
@@ -152,6 +155,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                     if (this.orderDetails && this.orderDetails.harvest_id) {
                         this.getGCAvailableDetails(this.orderDetails.harvest_id);
                     }
+                    this.isLoaded = true;
                 }
             },
             (err) => {
@@ -206,11 +210,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
                 console.log(err);
             },
         );
-    }
-
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.procuredActive++;
     }
 
     availabilityPage(data) {

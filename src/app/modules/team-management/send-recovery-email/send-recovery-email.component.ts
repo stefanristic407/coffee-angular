@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService, RoasterserviceService, AuthService, UserService } from '@services';
+import { GlobalsService, RoasterService, AuthService, UserService, ValidateEmailService } from '@services';
 import { Location } from '@angular/common';
+import { emailValidator } from '@utils';
 
 @Component({
     selector: 'app-send-recovery-email',
@@ -16,16 +17,16 @@ export class SendRecoveryEmailComponent implements OnInit {
     currentRoleID: any = '';
     selectedRole: any = 'Select Role';
     roleList: any = [];
-    roasterID: any = '';
+    roasterID: number;
     breadCrumbItem: MenuItem[] = [];
     isEdit = false;
     statusToggle = false;
     userDetails: any;
-    userID = '';
+    userID: number;
     deleteRoles: any = [];
     userForm: FormGroup;
     constructor(
-        public roasterService: RoasterserviceService,
+        public roasterService: RoasterService,
         public cookieService: CookieService,
         private router: Router,
         public globals: GlobalsService,
@@ -35,6 +36,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         private fb: FormBuilder,
         public location: Location,
         private authService: AuthService,
+        private validateService: ValidateEmailService,
     ) {}
 
     ngOnInit(): void {
@@ -45,31 +47,33 @@ export class SendRecoveryEmailComponent implements OnInit {
         this.supplyBreadCrumb();
         this.listRoles();
         this.userForm = this.fb.group({
-            name: new FormControl(
+            firstname: new FormControl(
+                { value: '', disabled: !this.isEdit || !this.statusToggle },
+                Validators.compose([Validators.required]),
+            ),
+            lastname: new FormControl(
                 { value: '', disabled: !this.isEdit || !this.statusToggle },
                 Validators.compose([Validators.required]),
             ),
             email: new FormControl(
                 { value: '', disabled: !this.isEdit || !this.statusToggle },
-                Validators.compose([Validators.required, Validators.email]),
+                Validators.compose([Validators.required]),
+                emailValidator(this.validateService),
             ),
         });
         this.userDetails = { last_activated: '', roles: [], status: '' };
         if (this.route.snapshot.queryParams.userID) {
-            this.userID = decodeURIComponent(this.route.snapshot.queryParams.userID);
+            this.userID = +decodeURIComponent(this.route.snapshot.queryParams.userID);
         } else {
             this.toastrService.error('Error in getting the user Id');
-            this.router.navigate(['/team-management/user-management']);
+            this.router.navigate(['/team-management/team-members']);
         }
         this.getUserData();
     }
     getUserData(): void {
         this.userService.getRoasterUserData(this.roasterID, this.userID).subscribe((result: any) => {
             if (result && result.success) {
-                this.userForm.setValue({
-                    name: result.result.firstname + ' ' + result.result.lastname,
-                    email: result.result.email,
-                });
+                this.userForm.patchValue(result.result);
                 this.userDetails.last_activated = result.result.created_at ? result.result.created_at : '';
                 this.userDetails.status = result.result.status;
                 this.statusToggle = result.result.status === 'ACTIVE' ? true : false;
@@ -87,7 +91,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         });
     }
     listRoles(): void {
-        this.roasterService.getRoles(this.roasterID).subscribe(
+        this.roasterService.getRoles().subscribe(
             (response: any) => {
                 if (response.success) {
                     const getCurrentRole = response.result.find((ele) => ele.id === this.currentRoleID);
@@ -108,10 +112,10 @@ export class SendRecoveryEmailComponent implements OnInit {
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.team_management,
-            routerLink: '//team-management/manage-role',
+            routerLink: '/team-management/manage-role',
         };
         const obj3: MenuItem = {
-            label: 'User Management',
+            label: this.globals.languageJson?.user_management,
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
@@ -128,12 +132,12 @@ export class SendRecoveryEmailComponent implements OnInit {
     }
     validateFields(): boolean {
         if (!this.userForm.valid || !this.userDetails.roles) {
+            this.userForm.markAllAsTouched();
             return false;
         } else {
             const findEmptyRole = this.userDetails.roles.find((ele) => !ele.id);
             return findEmptyRole ? false : true;
         }
-        return true;
     }
     onSave(): void {
         const getUserStatus = this.userDetails.status === 'ACTIVE' ? true : false;
@@ -148,22 +152,19 @@ export class SendRecoveryEmailComponent implements OnInit {
         }
     }
     updateForm(): void {
-        this.userForm.controls.name.enable();
+        this.userForm.controls.firstname.enable();
+        this.userForm.controls.lastname.enable();
         this.userForm.controls.email.enable();
         if (!this.isEdit || !this.statusToggle) {
-            this.userForm.controls.name.disable();
+            this.userForm.controls.firstname.disable();
+            this.userForm.controls.lastname.disable();
             this.userForm.controls.email.disable();
         }
     }
     updateUserDetails() {
         const getValidate = this.validateFields();
         if (getValidate) {
-            const inputObj = {
-                firstname: this.userForm.controls.name.value,
-                lastname: '',
-                email: this.userForm.controls.email.value,
-            };
-            this.userService.updateUserData(inputObj, this.roasterID, this.userID).subscribe(
+            this.userService.updateUserData(this.userForm.value, this.roasterID, this.userID).subscribe(
                 (res: any) => {
                     if (res && res.success) {
                         if (this.deleteRoles && this.deleteRoles.length > 0) {
@@ -204,7 +205,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         const getNewRoles = this.userDetails.roles.filter((ele) => ele.isNew && ele.id);
         getNewRoles.forEach((ele) => {
             const roleID = Number(ele.id);
-            this.roasterService.assignUserBasedUserRoles(this.roasterID, roleID, this.userID).subscribe(
+            this.roasterService.assignUserBasedUserRoles(roleID, this.userID).subscribe(
                 (result: any) => {
                     if (result.success) {
                         this.toastrService.success('Role has been assigned to the user.');
@@ -221,7 +222,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         });
     }
     enableUser() {
-        this.roasterService.enableAdminUser(this.roasterID, this.userID).subscribe(
+        this.roasterService.enableAdminUser(this.userID).subscribe(
             (response: any) => {
                 if (response.success) {
                     this.toastrService.success('User has been enabled');
@@ -236,7 +237,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         );
     }
     disableUser() {
-        this.roasterService.disableAdminUsers(this.roasterID, this.userID).subscribe(
+        this.roasterService.disableAdminUsers(this.userID).subscribe(
             (value: any) => {
                 if (value.success) {
                     this.toastrService.success('User has been disabled');
