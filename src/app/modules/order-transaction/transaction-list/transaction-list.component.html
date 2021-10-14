@@ -9,7 +9,7 @@
                     class="w-100"
                     [ngClass]="{ highlight: !!fcSearchQuery.value && fcSearchQuery.dirty }"
                     formControlName="fcSearchQuery"
-                    placeholder="Search by document no, customer"
+                    placeholder="Search by ID, Cust. ID, Cust. name, Doc. no"
                 />
             </span>
         </div>
@@ -27,7 +27,7 @@
                     class="w-100"
                     [ngClass]="{ highlight: !!fcSearchQuery.value && fcSearchQuery.dirty }"
                     formControlName="fcSearchQuery"
-                    placeholder="Search by document no, customer"
+                    placeholder="Search by ID, Cust. ID, Cust. name, Doc. no"
                 />
             </span>
         </div>
@@ -125,7 +125,7 @@
                 <th colspan="4" class="right-border text-center">
                     <span class="primeng-table-header"> {{ 'order_details' | translate }}</span>
                 </th>
-                <th colspan="4" class="text-center">
+                <th colspan="5" class="text-center">
                     <span class="primeng-table-header"> {{ 'payment_details' | translate }}</span>
                 </th>
             </tr>
@@ -187,13 +187,19 @@
                     <ng-container *ngSwitchCase="'document_type'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span>
-                            {{ rowData['document_type'] || '--' }}
+                            {{ (rowData['document_type'] | sentencecase) || '--' }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'order_type'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span>
                             {{ rowData['order_type'] || '--' }}
+                        </span>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'id'">
+                        <span class="p-column-title"> {{ col.header | translate }} </span>
+                        <span>
+                            {{ rowData['id'] || '--' }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'payment_type'">
@@ -238,7 +244,7 @@
 
         <ng-template pTemplate="footer" let-columns>
             <tr class="footer-row">
-                <th colspan="6" class="no-background-color d-none d-md-table-cell"></th>
+                <th colspan="7" class="no-background-color d-none d-md-table-cell"></th>
                 <th>
                     <span class="primeng-table-footer">Total</span>
                 </th>
