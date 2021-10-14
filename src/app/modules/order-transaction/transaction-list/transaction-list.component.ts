@@ -154,12 +154,12 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
             {
                 field: 'channel',
                 header: 'Channel',
-                width: 8,
+                width: 7,
             },
             {
                 field: 'document_number',
                 header: 'Doc. no.',
-                width: 8,
+                width: 7,
             },
             {
                 field: 'document_date',
@@ -178,6 +178,11 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
                 width: 9,
             },
             {
+                field: 'id',
+                header: 'ID',
+                width: 5,
+            },
+            {
                 field: 'payment_type',
                 header: 'Mode',
                 width: 8,
@@ -185,17 +190,17 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
             {
                 field: 'total_amount',
                 header: 'Total amt.',
-                width: 12,
+                width: 11,
             },
             {
                 field: 'vat_amount',
                 header: 'VAT',
-                width: 10,
+                width: 9,
             },
             {
                 field: 'commission_amount',
                 header: 'Commission',
-                width: 10,
+                width: 9,
             },
         ];
         this.primeTableService.windowWidth = window.innerWidth;
