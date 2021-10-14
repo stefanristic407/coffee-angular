@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoffeeLabGlobalSearchResult } from '@models';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,7 +12,8 @@ import { debounceTime } from 'rxjs/operators';
     templateUrl: './overview.component.html',
     styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
+    destroy$: Subject<boolean> = new Subject<boolean>();
     menuItems = [];
     keyword?: string;
     keyword$?: string;
@@ -21,6 +22,7 @@ export class OverviewComponent implements OnInit {
     searchInput$: Subject<any> = new Subject<any>();
     isLoading: boolean;
     searchResult: CoffeeLabGlobalSearchResult;
+    currentTabIndex: number;
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -44,6 +46,15 @@ export class OverviewComponent implements OnInit {
             { label: this.translateService.instant('brand_and_experience') },
             { label: this.translateService.instant('the_coffee_lab') },
         ];
+        if (this.route.firstChild.snapshot.routeConfig.path === 'qa-forum') {
+            this.changeH1Title(0);
+        } else if (this.route.firstChild.snapshot.routeConfig.path === 'articles') {
+            this.changeH1Title(1);
+        } else if (this.route.firstChild.snapshot.routeConfig.path === 'coffee-recipes') {
+            this.changeH1Title(2);
+        } else {
+            this.changeH1Title(3);
+        }
         this.menuItems = [
             {
                 label: 'qa_forum',
@@ -140,6 +151,11 @@ export class OverviewComponent implements OnInit {
     }
 
     changeH1Title(index: number) {
-        console.log(index);
+        this.currentTabIndex = index;
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }
