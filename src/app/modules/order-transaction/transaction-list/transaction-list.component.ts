@@ -27,8 +27,8 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     ];
 
     public readonly channelItemList = [
-        { label: 'HoReCa Outtake', value: 'OUTTAKE_ROASTED' },
-        { label: 'Micro-Roaster Outtake', value: 'OUTTAKE_GREEN' },
+        { label: 'Horeca Outtake', value: 'OUTTAKE_ROASTED' },
+        { label: 'Micro-roaster Outtake', value: 'OUTTAKE_GREEN' },
         { label: 'B2B', value: 'B2B' },
         { label: 'B2C', value: 'B2C' },
         { label: 'Micro-roaster', value: 'MICRO_ROASTER' },

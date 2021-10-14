@@ -4,13 +4,18 @@
     </div>
     <div class="w-100 ml-2">
         <input
+            appWordLimit
             pInputText
             type="text"
             class="w-100 mr-2 br-4 p-3"
             placeholder="{{ 'add_note_placeholder' | translate }}"
             [(ngModel)]="note"
+            limit="50"
         />
     </div>
+</div>
+<div class="word-count-box">
+    <span class="pull-right text-clr588"> {{ note | wordCount }}/50 words </span>
 </div>
 
 <div class="d-flex justify-content-end mt-3">
