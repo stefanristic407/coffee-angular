@@ -58,7 +58,7 @@
             <p-divider type="dashed"></p-divider>
         </div>
         <div class="mt-1 mb-3 mb-md-5">
-            <button class="btn-stroked-transparent" routerLink="/roastery-profile/about_roastery">
+            <button class="btn-stroked" routerLink="/roastery-profile/about_roastery">
                 {{ 'cancel' | translate }}
             </button>
         </div>
@@ -139,11 +139,7 @@
                         <button class="btn-raised ml-md-4 mt-3 mt-md-0" (click)="onSave()">
                             {{ 'save' | translate }}
                         </button>
-                        <button
-                            class="btn-stroked-transparent ml-md-3"
-                            *ngIf="editingRowIndex > -1"
-                            (click)="onCancel()"
-                        >
+                        <button class="btn-stroked ml-md-3" *ngIf="editingRowIndex > -1" (click)="onCancel()">
                             {{ 'cancel' | translate }}
                         </button>
                     </div>
