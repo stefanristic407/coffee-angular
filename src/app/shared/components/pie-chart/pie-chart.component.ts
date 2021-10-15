@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'app-pie-chart',
     templateUrl: './pie-chart.component.html',
     styleUrls: ['./pie-chart.component.scss'],
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, AfterViewInit {
     @Input() data = [];
     @Input() total = 0;
     @Input() description = '';
@@ -25,9 +25,15 @@ export class PieChartComponent implements OnInit {
     @Input() isWeight = false;
     @Input() unit = 'kg';
 
+    @ViewChild('chartWrap', { static: false }) chartWrap: ElementRef;
+
     constructor() {}
 
     ngOnInit(): void {}
+
+    ngAfterViewInit() {
+        this.view = [(this.chartWrap.nativeElement as HTMLElement).offsetWidth, this.view[1]];
+    }
 
     getUnit(value) {
         // const suffixes = ['kg', 'ton', 'K ton', 'm ton', 'b ton'];

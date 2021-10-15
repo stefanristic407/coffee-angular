@@ -7,7 +7,7 @@
     </div>
     <ng-container *ngIf="varieties && varieties.variety_stats; else blank">
         <div class="chart-block mt-3 ml-3 mr-3 mb-0 flex-fill">
-            <div class="h-md-100 d-flex flex-column justify-content-center align-items-center">
+            <div class="h-md-100 d-flex flex-column justify-content-center p-4">
                 <app-pie-chart
                     [data]="chartData"
                     [total]="varieties?.total_varieties || 0"
