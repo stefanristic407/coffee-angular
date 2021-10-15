@@ -2,13 +2,14 @@
 
 :host {
     display: block;
-}
-@media screen and (max-width: 767px) {
-    ::ng-deep .p-datatable.p-datatable-responsive {
-        table {
-            width: auto;
-            .p-datatable-tbody > tr {
-                width: max-content;
+
+    @media screen and (max-width: 767px) {
+        ::ng-deep .p-datatable.p-datatable-responsive {
+            table {
+                width: auto;
+                .p-datatable-tbody > tr {
+                    width: max-content;
+                }
             }
         }
     }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AvailabilityRequest } from '@models';
-import { OrderManagementService } from '../../order-management.service';
-import { ResizeService, CommonService } from '@services';
 import { DataTableComponent } from '@base-components';
+import { AvailabilityRequest } from '@models';
+import { ResizeService } from '@services';
 import { LazyLoadEvent } from 'primeng/api/public_api';
+import { OrderManagementService } from '../../order-management.service';
 
 @Component({
     selector: 'app-request-table',
@@ -11,15 +11,58 @@ import { LazyLoadEvent } from 'primeng/api/public_api';
     styleUrls: ['./request-table.component.scss'],
 })
 export class RequestTableComponent extends DataTableComponent<AvailabilityRequest> implements OnInit {
-    constructor(
-        private orderService: OrderManagementService,
-        protected resizeService: ResizeService,
-        public commonService: CommonService,
-    ) {
+    tableColumns: any = [];
+
+    constructor(private orderService: OrderManagementService, protected resizeService: ResizeService) {
         super(resizeService);
     }
 
     ngOnInit(): void {
+        if (this.resizeService.isMobile()) {
+            this.tableColumns.push({
+                field: 'id',
+                header: 'id',
+            });
+        }
+        this.tableColumns = this.tableColumns.concat([
+            {
+                field: 'micro_roaster_name',
+                header: 'requested_by',
+                sortable: true,
+                width: 17,
+            },
+            {
+                field: 'created_at',
+                header: 'date_requested',
+                sortable: true,
+                width: 17,
+            },
+            {
+                field: 'origin',
+                header: 'origin',
+                sortable: true,
+                width: 13,
+            },
+            {
+                field: 'estate_name',
+                header: 'estate',
+                sortable: true,
+                width: 17,
+            },
+            {
+                field: 'varieties',
+                header: 'variety',
+                sortable: true,
+                width: 24,
+            },
+        ]);
+        if (!this.resizeService.isMobile()) {
+            this.tableColumns.push({
+                field: 'actions',
+                header: 'action',
+                width: 12,
+            });
+        }
         super.subscribeTo(this.orderService.requestList$);
     }
 
