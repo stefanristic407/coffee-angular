@@ -1,15 +1,18 @@
-<div class="d-flex w-100">
-    <div class="d-flex align-items-center mr-2">
+<div class="d-flex w-100" [formGroup]="infoForm">
+    <div class="mt-2 mr-2">
         <app-avatar [src]="userProfile?.profile_image_url" [name]="userProfile?.firstname"></app-avatar>
     </div>
-    <div class="w-100 ml-2">
+    <div class="sewn-form-field w-100 mb-0">
         <input
-            pInputText
             type="text"
-            class="w-100 mr-2 br-4 p-3"
+            formControlName="note"
+            appWordLimit
+            [limit]="50"
+            pInputText
             placeholder="{{ 'add_note_placeholder' | translate }}"
-            [(ngModel)]="note"
         />
+        <small *ngIf="infoForm.controls.note.errors?.required" class="p-error">{{ 'required' | translate }}</small>
+        <small *ngIf="infoForm.controls.note.errors?.maxWordCount" class="p-error">Please input 50 words</small>
     </div>
 </div>
 
