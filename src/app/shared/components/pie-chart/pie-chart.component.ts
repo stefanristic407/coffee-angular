@@ -32,7 +32,9 @@ export class PieChartComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {}
 
     ngAfterViewInit() {
-        this.view = [(this.chartWrap.nativeElement as HTMLElement).offsetWidth, this.view[1]];
+        setTimeout(() => {
+            this.view = [(this.chartWrap.nativeElement as HTMLElement).offsetWidth, this.view[1]];
+        });
     }
 
     getUnit(value) {
