@@ -10,6 +10,7 @@ import { ConfirmComponent } from '@app/shared';
 import { ApiResponse, Download, OrganizationDetails } from '@models';
 import { GlobalsService } from '@services';
 import { OrganizationType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-add-new-order',
@@ -55,6 +56,7 @@ export class AddNewOrderComponent implements OnInit {
         public downloadService: DownloadService,
         public globals: GlobalsService,
         public location: Location,
+        private translator: TranslateService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.outtakeOrderId = this.activeRoute.snapshot.params.id;
@@ -63,25 +65,25 @@ export class AddNewOrderComponent implements OnInit {
 
     ngOnInit(): void {
         this.breadItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
-            { label: this.globals.languageJson?.order_management, routerLink: '/outtake-orders' },
-            { label: this.globals.languageJson?.outtake_order, routerLink: '/outtake-orders' },
+            { label: this.translator.instant('home'), routerLink: '/dashboard' },
+            { label: this.translator.instant('order_management') },
+            { label: this.translator.instant('outtake_order'), routerLink: '/outtake-orders' },
             {
                 label: this.outtakeOrderId
-                    ? this.globals.languageJson?.order_id + ' #' + this.outtakeOrderId
-                    : this.globals.languageJson?.add_new_order,
+                    ? this.translator.instant('order_id') + ' #' + this.outtakeOrderId
+                    : this.translator.instant('add_new_order'),
             },
         ];
         this.customerTypeArray = [
-            { label: this.globals.languageJson?.partner, value: this.globals.languageJson?.hrc },
-            { label: this.globals.languageJson?.micro_roaster, value: this.globals.languageJson?.mr },
+            { label: this.translator.instant('partner'), value: this.translator.instant('hrc') },
+            { label: this.translator.instant('micro_roaster'), value: this.translator.instant('mr') },
         ];
         this.roasterLableypeArray = [
-            { label: this.globals.languageJson?.light, value: 1 },
-            { label: this.globals.languageJson?.light + ' ' + this.globals.languageJson?.medium, value: 2 },
-            { label: this.globals.languageJson?.medium, value: 3 },
-            { label: this.globals.languageJson?.medium + ' ' + this.globals.languageJson?.dark, value: 4 },
-            { label: this.globals.languageJson?.dark, value: 5 },
+            { label: this.translator.instant('light'), value: 1 },
+            { label: this.translator.instant('light') + ' ' + this.translator.instant('medium'), value: 2 },
+            { label: this.translator.instant('medium'), value: 3 },
+            { label: this.translator.instant('medium') + ' ' + this.translator.instant('dark'), value: 4 },
+            { label: this.translator.instant('dark'), value: 5 },
         ];
         this.preCleaned = [
             { label: this.globals.languageJson?.yes, value: true },
