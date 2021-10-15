@@ -116,7 +116,7 @@ export class AddNewOrderComponent implements OnInit {
             roasting_time: [''],
             roasting_temperature: [''],
             tax_included_in_price: [false],
-            vat_percentage: [''],
+            vat_percentage: [null],
             machine_used: [''],
         });
         if (this.outtakeOrderId) {
