@@ -229,7 +229,7 @@ export class MyProfileComponent implements OnInit {
     handleSubmit(): void {
         if (this.infoForm.invalid) {
             this.infoForm.markAllAsTouched();
-            this.toastr.error(this.translator.instant('please_check_form_data'));
+            this.toastr.error(this.translator.instant('please_fill_all_the_fields'));
             return;
         }
 
