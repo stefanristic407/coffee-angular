@@ -125,3 +125,21 @@
         display: block;
     }
 }
+
+::ng-deep .mobile-card .p-datatable.p-datatable-responsive table {
+    @media screen and (max-width: 767px) {
+        width: 100% !important;
+        tbody {
+            tr {
+                width: 100% !important;
+            }
+        }
+    }
+}
+
+.mobile-card-view,
+::ng-deep .mobile-card .p-datatable-tfoot {
+    @media screen and (max-width: 767px) {
+        display: none !important;
+    }
+}
