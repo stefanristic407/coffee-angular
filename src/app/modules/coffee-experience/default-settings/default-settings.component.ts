@@ -360,53 +360,58 @@ export class DefaultSettingsComponent implements OnInit {
         this[parameter] = file;
         this.totalFilesNumber = 0;
         this.filesCount = 0;
-        if (this.fileVideo) {
-            this.totalFilesNumber++;
-            const formData = new FormData();
-            formData.append('file', this.fileVideo);
-            formData.append('name', file.name);
-            formData.append('file_module', 'Coffee-Story');
-            this.fileService.uploadFiles(formData).subscribe(
-                (res: any) => {
-                    this.videoName = file.name;
-                    this.defaultDetails.video_id = res.result?.id;
-                    this.defaultDetails.video_url = res.result?.url;
-                    this.filesCount++;
-                    if (this.filesCount === this.totalFilesNumber) {
-                        this.isVideoPreviewPanel = true;
-                        this.toastrService.success('Video update successfully');
-                    }
-                },
-                () => {
-                    this.handleFailedToSaveData();
-                    return;
-                },
-            );
-        }
-        if (this.fileImage) {
-            this.totalFilesNumber++;
-            const formData = new FormData();
-            formData.append('file', this.fileImage);
-            formData.append('name', file.name);
-            formData.append('file_module', 'Coffee-Story');
-            this.fileService.uploadFiles(formData).subscribe(
-                (res: any) => {
-                    if (res.success) {
-                        this.imageName = file.name;
-                        this.defaultDetails.image_id = res.result?.id;
-                        this.defaultDetails.image_url = res.result.url;
+        const fsize = file.size;
+        if (Math.round(fsize / 1024) >= 1024 * 30) {
+            this.toastrService.error('File too big, please select a file smaller than 30mb');
+        } else {
+            if (this.fileVideo) {
+                this.totalFilesNumber++;
+                const formData = new FormData();
+                formData.append('file', this.fileVideo);
+                formData.append('name', file.name);
+                formData.append('file_module', 'Coffee-Story');
+                this.fileService.uploadFiles(formData).subscribe(
+                    (res: any) => {
+                        this.videoName = file.name;
+                        this.defaultDetails.video_id = res.result?.id;
+                        this.defaultDetails.video_url = res.result?.url;
                         this.filesCount++;
                         if (this.filesCount === this.totalFilesNumber) {
-                            this.isImagePreviewPanel = true;
-                            this.toastrService.success('Image update successfully');
+                            this.isVideoPreviewPanel = true;
+                            this.toastrService.success('Video update successfully');
                         }
-                    }
-                },
-                (err) => {
-                    this.handleFailedToSaveData();
-                    return;
-                },
-            );
+                    },
+                    () => {
+                        this.handleFailedToSaveData();
+                        return;
+                    },
+                );
+            }
+            if (this.fileImage) {
+                this.totalFilesNumber++;
+                const formData = new FormData();
+                formData.append('file', this.fileImage);
+                formData.append('name', file.name);
+                formData.append('file_module', 'Coffee-Story');
+                this.fileService.uploadFiles(formData).subscribe(
+                    (res: any) => {
+                        if (res.success) {
+                            this.imageName = file.name;
+                            this.defaultDetails.image_id = res.result?.id;
+                            this.defaultDetails.image_url = res.result.url;
+                            this.filesCount++;
+                            if (this.filesCount === this.totalFilesNumber) {
+                                this.isImagePreviewPanel = true;
+                                this.toastrService.success('Image update successfully');
+                            }
+                        }
+                    },
+                    (err) => {
+                        this.handleFailedToSaveData();
+                        return;
+                    },
+                );
+            }
         }
     }
 
