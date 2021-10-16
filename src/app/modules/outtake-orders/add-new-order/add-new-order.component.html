@@ -389,6 +389,8 @@
                                 <div class="p-inputgroup custom-addon">
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['vat_percentage']"
+                                        [minFractionDigits]="1"
+                                        [maxFractionDigits]="2"
                                     ></p-inputNumber>
                                     <div class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334">%</div>
                                 </div>
