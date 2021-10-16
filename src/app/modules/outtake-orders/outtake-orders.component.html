@@ -130,7 +130,7 @@
             [responsive]="primeTableService.isMobileView"
         >
             <ng-template pTemplate="colgroup" let-columns>
-                <colgroup>
+                <colgroup class="mob-disp">
                     <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
                 </colgroup>
             </ng-template>
