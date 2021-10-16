@@ -119,19 +119,11 @@
 
                     <div class="row mb-md-3" *ngIf="isSaveMode">
                         <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
-                            <label for="employee_nos">
-                                {{ 'total_number_employees' | translate }}
-                                <span class="star">*</span>
-                            </label>
-                            <input
-                                id="employee_nos"
-                                type="number"
-                                pInputText
-                                required
-                                name="employee_nos"
+                            <label>{{ 'total_number_employees' | translate }}<span class="star">*</span></label>
+                            <p-inputNumber
                                 formControlName="total_employees"
                                 placeholder="Please enter no. of employees"
-                            />
+                            ></p-inputNumber>
                             <small class="p-error" *ngIf="isControlHasError('total_employees', 'required')">
                                 {{ 'required' | translate }}
                             </small>
@@ -140,19 +132,11 @@
                             </small>
                         </div>
                         <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
-                            <label for="employee_avg">
-                                {{ 'average_employee_age' | translate }}
-                                <span class="star">*</span>
-                            </label>
-                            <input
-                                id="employee_avg"
-                                type="number"
-                                pInputText
-                                required
-                                name="employee_avg"
+                            <label>{{ 'average_employee_age' | translate }}<span class="star">*</span></label>
+                            <p-inputNumber
                                 formControlName="avg_employee_age"
                                 placeholder="Please enter employee avg. age"
-                            />
+                            ></p-inputNumber>
                             <small class="p-error" *ngIf="isControlHasError('avg_employee_age', 'required')">
                                 {{ 'required' | translate }}
                             </small>
@@ -164,37 +148,21 @@
                     </span>
                     <div class="row" *ngIf="isSaveMode">
                         <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
-                            <label for="female_num">
-                                {{ 'total_number_female_employees' | translate }}
-                                <span class="star">*</span>
-                            </label>
-                            <input
-                                id="female_num"
-                                pInputText
-                                type="number"
-                                required
-                                name="female_num"
+                            <label>{{ 'total_number_female_employees' | translate }}<span class="star">*</span></label>
+                            <p-inputNumber
                                 formControlName="female_employee_count"
                                 placeholder="Please enter the number of female employees"
-                            />
+                            ></p-inputNumber>
                             <small class="p-error" *ngIf="roasteryProfileService.invalidSumEmployee">
                                 Please enter the correct no
                             </small>
                         </div>
                         <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
-                            <label for="male_num">
-                                {{ 'total_number_male_employees' | translate }}
-                                <span class="star">*</span>
-                            </label>
-                            <input
-                                id="male_num"
-                                pInputText
-                                type="number"
-                                required
-                                name="male_num"
+                            <label>{{ 'total_number_male_employees' | translate }}<span class="star">*</span></label>
+                            <p-inputNumber
                                 formControlName="male_employee_count"
                                 placeholder="Please enter the number of male employees"
-                            />
+                            ></p-inputNumber>
                             <small class="p-error" *ngIf="roasteryProfileService.invalidSumEmployee">
                                 Please enter the correct no
                             </small>
