@@ -101,6 +101,11 @@ export class UserManagementComponent implements OnInit {
                 { label: this.translator.instant('manage_roles'), routerLink: '/team-management/manage-role' },
                 { label: this.translator.instant('add_member') },
             ]);
+        } else if (this.currentRoleID) {
+            this.breadCrumbItem = this.breadCrumbItem.concat([
+                { label: this.translator.instant('manage_roles'), routerLink: '/team-management/manage-role' },
+                { label: this.translator.instant('view_members') },
+            ]);
         } else {
             this.breadCrumbItem = this.breadCrumbItem.concat([{ label: this.translator.instant('user_management') }]);
         }
