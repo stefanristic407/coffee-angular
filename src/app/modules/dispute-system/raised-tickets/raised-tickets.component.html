@@ -107,6 +107,12 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="summary">
+                    <app-empty
+                        *ngIf="!loading && !tableValue?.length"
+                        [title]="'no_data_available' | translate"
+                    ></app-empty>
+                </ng-template>
             </p-table>
         </div>
     </div>

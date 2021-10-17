@@ -110,14 +110,13 @@ export class RaisedTicketsComponent extends ResizeableComponent implements OnIni
         this.loading = true;
         this.disputeService.getDisputes(this.orgType, params).subscribe((data: any) => {
             if (data.success) {
-                data.result.map((ele) => {
+                this.tableValue = (data.result || []).map((ele) => {
                     ele.dispute_type =
                         ele.dispute_type.charAt(0).toUpperCase() + ele.dispute_type.slice(1).toLowerCase();
                     ele.dispute_status =
                         ele.dispute_status.charAt(0).toUpperCase() + ele.dispute_status.slice(1).toLowerCase();
                     return ele;
                 });
-                this.tableValue = data.result;
                 this.totalRecords = data.result_info.total_count;
             } else {
                 this.toastrService.error('Error while getting the agreement list!');
