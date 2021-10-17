@@ -44,6 +44,7 @@ export class DownloadService {
     }
 
     imageDownload(url: string, filename?: string, contentType?: string): Observable<any> {
+        const processId = this.addProcess(filename);
         return this.http
             .post(
                 `${environment.apiURL}/images/generate-blob`,
@@ -54,7 +55,7 @@ export class DownloadService {
                     observe: 'events',
                 },
             )
-            .pipe(this.downloadAll((blob) => this.save(blob, filename)));
+            .pipe(this.downloadAll((blob) => this.save(blob, filename), processId));
     }
 
     download(url: string, filename?: string, contentType?: string): Observable<Download> {
