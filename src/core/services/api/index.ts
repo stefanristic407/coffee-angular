@@ -20,6 +20,7 @@ export * from './green-grading.service';
 export * from './idm.service';
 export * from './invite-friends.service';
 export * from './lots.service';
+export * from './mfa.service';
 export * from './order.service';
 export * from './organization.service';
 export * from './origin.service';

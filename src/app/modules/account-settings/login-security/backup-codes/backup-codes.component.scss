@@ -1,0 +1,15 @@
+::ng-deep .backup-codes-dialog.p-dialog {
+    max-width: 709px;
+    padding: 48px;
+
+    .p-dialog-header {
+        border-bottom: none;
+        .p-dialog-title {
+            font-size: 24px;
+        }
+    }
+
+    .code-wrap {
+        font-size: 43px;
+    }
+}
