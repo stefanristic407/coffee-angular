@@ -1,5 +1,5 @@
 export const environment = {
-    apiURL: 'https://fed-api.sewnstaging.com',
+    apiURL: 'https://fed-api-go.sewnstaging.com',
     wsEndpoint: 'wss://messaging.sewnstaging.com/v1',
     chatUploadEndPoint: 'https://messaging.sewnstaging.com/v1/',
     ssoWeb: 'http://localhost:4300',
