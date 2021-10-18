@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService, DownloadService, FileService, GlobalsService, UserService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
-import { MenuItem } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { DialogService } from 'primeng/dynamicdialog';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { Download } from '@models';
+import { AuthService, DownloadService, FileService, GlobalsService, UserService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-default-settings',
@@ -15,6 +15,8 @@ import { Download } from '@models';
     styleUrls: ['./default-settings.component.scss'],
 })
 export class DefaultSettingsComponent implements OnInit {
+    @ViewChild('imageUpload') imageUpload: ElementRef;
+    @ViewChild('videoUpload') videoUpload: ElementRef;
     isCoffeeDetailsPage = this.activateRoute.snapshot.routeConfig.path !== 'default-settings';
     date1: Date;
     appLanguage?: any;
@@ -60,6 +62,7 @@ export class DefaultSettingsComponent implements OnInit {
     estateBtn = true;
     imageName: any;
     videoName: any;
+
     constructor(
         private authService: AuthService,
         private fileService: FileService,
@@ -191,10 +194,12 @@ export class DefaultSettingsComponent implements OnInit {
 
     updateImage() {
         this.isImagePreviewPanel = false;
+        this.imageUpload.nativeElement.click();
     }
 
     updateMarketing() {
         this.materialOnResponse = false;
+        this.videoUpload.nativeElement.click();
     }
 
     deleteImage() {
@@ -362,56 +367,60 @@ export class DefaultSettingsComponent implements OnInit {
         this.filesCount = 0;
         const fsize = file.size;
         if (Math.round(fsize / 1024) >= 1024 * 30) {
-            this.toastrService.error('File too big, please select a file smaller than 30mb');
-        } else {
-            if (this.fileVideo) {
-                this.totalFilesNumber++;
-                const formData = new FormData();
-                formData.append('file', this.fileVideo);
-                formData.append('name', file.name);
-                formData.append('file_module', 'Coffee-Story');
-                this.fileService.uploadFiles(formData).subscribe(
-                    (res: any) => {
-                        this.videoName = file.name;
-                        this.defaultDetails.video_id = res.result?.id;
-                        this.defaultDetails.video_url = res.result?.url;
+            this.toastrService.error('File size must be less than 30 mb');
+            return;
+        }
+
+        if (this.fileVideo) {
+            this.totalFilesNumber++;
+            const formData = new FormData();
+            formData.append('file', this.fileVideo);
+            formData.append('name', file.name);
+            formData.append('file_module', 'Coffee-Story');
+
+            this.fileService.uploadFiles(formData).subscribe(
+                (res: any) => {
+                    this.videoName = file.name;
+                    this.defaultDetails.video_id = res.result?.id;
+                    this.defaultDetails.video_url = res.result?.url;
+                    this.filesCount++;
+                    if (this.filesCount === this.totalFilesNumber) {
+                        this.isVideoPreviewPanel = true;
+                        this.toastrService.success('Video update successfully');
+                    }
+                },
+                () => {
+                    this.handleFailedToSaveData();
+                    return;
+                },
+            );
+        }
+
+        if (this.fileImage) {
+            this.totalFilesNumber++;
+            const formData = new FormData();
+            formData.append('file', this.fileImage);
+            formData.append('name', file.name);
+            formData.append('file_module', 'Coffee-Story');
+
+            this.fileService.uploadFiles(formData).subscribe(
+                (res: any) => {
+                    if (res.success) {
+                        this.imageName = file.name;
+                        this.defaultDetails.image_id = res.result?.id;
+                        this.defaultDetails.image_url = res.result.url;
                         this.filesCount++;
                         if (this.filesCount === this.totalFilesNumber) {
-                            this.isVideoPreviewPanel = true;
-                            this.toastrService.success('Video update successfully');
+                            this.isImagePreviewPanel = true;
+                            this.toastrService.success('Image update successfully');
                         }
-                    },
-                    () => {
-                        this.handleFailedToSaveData();
-                        return;
-                    },
-                );
-            }
-            if (this.fileImage) {
-                this.totalFilesNumber++;
-                const formData = new FormData();
-                formData.append('file', this.fileImage);
-                formData.append('name', file.name);
-                formData.append('file_module', 'Coffee-Story');
-                this.fileService.uploadFiles(formData).subscribe(
-                    (res: any) => {
-                        if (res.success) {
-                            this.imageName = file.name;
-                            this.defaultDetails.image_id = res.result?.id;
-                            this.defaultDetails.image_url = res.result.url;
-                            this.filesCount++;
-                            if (this.filesCount === this.totalFilesNumber) {
-                                this.isImagePreviewPanel = true;
-                                this.toastrService.success('Image update successfully');
-                            }
-                        }
-                    },
-                    (err) => {
-                        this.handleFailedToSaveData();
-                        return;
-                    },
-                );
-            }
+                    }
+                },
+                (err) => {
+                    this.handleFailedToSaveData();
+                    return;
+                },
+            );
         }
     }
 
