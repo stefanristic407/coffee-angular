@@ -1,6 +1,6 @@
 <div class="total-loader" *ngIf="coffeeDetailsActive != 1">
     <div>
-    <app-loading></app-loading>
+        <app-loading></app-loading>
     </div>
 </div>
 <div *ngIf="coffeeDetailsActive == 1">
@@ -178,10 +178,19 @@
                                 </div>
                                 <div class="col-12 col-lg-4 order-2 order-md-1 order-lg-2">
                                     <div
-                                        class="form-section__inputs certificates-container form-section__inputs--withHead"
+                                        class="
+                                            form-section__inputs
+                                            certificates-container
+                                            form-section__inputs--withHead
+                                        "
                                     >
                                         <div
-                                            class="input-head input-head--uplaod d-flex align-items-center justify-content-between"
+                                            class="
+                                                input-head input-head--uplaod
+                                                d-flex
+                                                align-items-center
+                                                justify-content-between
+                                            "
                                         >
                                             <h5 class="fnt-14 fnt-muli fnt-700 text-clr334 mb-0">
                                                 {{ 'ro_certificates' | translate }}
@@ -191,7 +200,12 @@
                                             <div class="upload-file-results">
                                                 <div
                                                     *ngFor="let item of certificateDetails"
-                                                    class="upload-file-results__item d-flex justify-content-between align-items-center"
+                                                    class="
+                                                        upload-file-results__item
+                                                        d-flex
+                                                        justify-content-between
+                                                        align-items-center
+                                                    "
                                                 >
                                                     <div class="pr-3">
                                                         <h4 class="mb-0 fnt-14 fnt-700 fnt-muli text-clr334 mb-1">
@@ -230,7 +244,10 @@
                                     </div>
                                     <div class="col-sm-12 col-lg-8 order-1 order-md-2 order-lg-1 px-0 tabView">
                                         <div
-                                            class="border-0-input border-top-dashed-d6 border-btm-dashed-d6 form-container"
+                                            class="
+                                                border-0-input border-top-dashed-d6 border-btm-dashed-d6
+                                                form-container
+                                            "
                                         >
                                             <div class="input-container">
                                                 <div class="col-12 col-md-5 px-0">
@@ -362,11 +379,18 @@
                                                 <div class="roastery-fields">
                                                     <div>
                                                         <div
-                                                            class="roastery-uploads__image d-flex align-items-center justify-content-center"
+                                                            class="
+                                                                roastery-uploads__image
+                                                                d-flex
+                                                                align-items-center
+                                                                justify-content-center
+                                                            "
                                                         >
                                                             <label class="mb-0">
                                                                 <input
+                                                                    #imageUpload
                                                                     type="file"
+                                                                    accept="image/png,image/jpeg,image/jpg"
                                                                     [disabled]="
                                                                         activateRoute.snapshot.queryParams.estate_id ||
                                                                         !isEditableMode
@@ -374,16 +398,36 @@
                                                                     (change)="onChooseFile($event.target, 'fileImage')"
                                                                 />
                                                                 <div
-                                                                    class="d-flex flex-wrap align-items-center justify-content-center"
+                                                                    class="
+                                                                        d-flex
+                                                                        flex-wrap
+                                                                        cursor-pointer
+                                                                        align-items-center
+                                                                        justify-content-center
+                                                                    "
                                                                 >
                                                                     <img src="assets/images/upload-black.svg" />
                                                                     <span
-                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-clr334"
+                                                                        class="
+                                                                            mb-0
+                                                                            ml-2
+                                                                            d-inline-block
+                                                                            fnt-14 fnt-muli fnt-500
+                                                                            text-clr334
+                                                                        "
                                                                     >
                                                                         {{ 'ro_upload_an_image' | translate }}
                                                                     </span>
                                                                     <p
-                                                                        class="mb-0 d-block w-100 text-center mt-2 fnt-12 fnt-muli fnt-normal text-clr588"
+                                                                        class="
+                                                                            mb-0
+                                                                            d-block
+                                                                            w-100
+                                                                            text-center
+                                                                            mt-2
+                                                                            fnt-12 fnt-muli fnt-normal
+                                                                            text-clr588
+                                                                        "
                                                                     >
                                                                         {{ 'choose_image_text' | translate }}
                                                                     </p>
@@ -482,11 +526,18 @@
                                                 <div class="roastery-fields">
                                                     <div>
                                                         <div
-                                                            class="roastery-uploads__image d-flex align-items-center justify-content-center"
+                                                            class="
+                                                                roastery-uploads__image
+                                                                d-flex
+                                                                align-items-center
+                                                                justify-content-center
+                                                            "
                                                         >
                                                             <label class="mb-0">
                                                                 <input
+                                                                    #videoUpload
                                                                     type="file"
+                                                                    accept="video/*"
                                                                     [disabled]="
                                                                         activateRoute.snapshot.queryParams.estate_id ||
                                                                         !isEditableMode
@@ -494,15 +545,35 @@
                                                                     (change)="onChooseFile($event.target, 'fileVideo')"
                                                                 />
                                                                 <div
-                                                                    class="d-flex flex-wrap align-items-center justify-content-center"
+                                                                    class="
+                                                                        d-flex
+                                                                        flex-wrap
+                                                                        cursor-pointer
+                                                                        align-items-center
+                                                                        justify-content-center
+                                                                    "
                                                                 >
                                                                     <img src="assets/images/upload-black.svg" />
                                                                     <span
-                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-clr334"
+                                                                        class="
+                                                                            mb-0
+                                                                            ml-2
+                                                                            d-inline-block
+                                                                            fnt-14 fnt-muli fnt-500
+                                                                            text-clr334
+                                                                        "
                                                                         >{{ 'ro_upload_an_video' | translate }}</span
                                                                     >
                                                                     <p
-                                                                        class="mb-0 d-block w-100 text-center mt-2 fnt-12 fnt-muli fnt-normal text-clr588"
+                                                                        class="
+                                                                            mb-0
+                                                                            d-block
+                                                                            w-100
+                                                                            text-center
+                                                                            mt-2
+                                                                            fnt-12 fnt-muli fnt-normal
+                                                                            text-clr588
+                                                                        "
                                                                     >
                                                                         {{ 'choose_image_text' | translate }}
                                                                     </p>
@@ -553,7 +624,12 @@
                                                 <div class="roastery-fields">
                                                     <div>
                                                         <div
-                                                            class="roastery-uploads__image d-flex align-items-center justify-content-center"
+                                                            class="
+                                                                roastery-uploads__image
+                                                                d-flex
+                                                                align-items-center
+                                                                justify-content-center
+                                                            "
                                                         >
                                                             <label class="mb-0">
                                                                 <input
@@ -562,16 +638,35 @@
                                                                     (change)="uploadMarketingMaterial($event)"
                                                                 />
                                                                 <div
-                                                                    class="d-flex flex-wrap align-items-center justify-content-center"
+                                                                    class="
+                                                                        d-flex
+                                                                        flex-wrap
+                                                                        align-items-center
+                                                                        justify-content-center
+                                                                    "
                                                                 >
                                                                     <img src="assets/images/upload-icon.png" />
                                                                     <span
-                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-clr334"
+                                                                        class="
+                                                                            mb-0
+                                                                            ml-2
+                                                                            d-inline-block
+                                                                            fnt-14 fnt-muli fnt-500
+                                                                            text-clr334
+                                                                        "
                                                                     >
                                                                         {{ 'marketing_material' | translate }}
                                                                     </span>
                                                                     <p
-                                                                        class="mb-0 d-block w-100 text-center mt-2 fnt-12 fnt-muli fnt-normal text-clr588"
+                                                                        class="
+                                                                            mb-0
+                                                                            d-block
+                                                                            w-100
+                                                                            text-center
+                                                                            mt-2
+                                                                            fnt-12 fnt-muli fnt-normal
+                                                                            text-clr588
+                                                                        "
                                                                     >
                                                                         Upload a folder containing all your high res
                                                                         images, videos, intruction etc for use by your
@@ -620,7 +715,13 @@
                                             <div class="tab-width-right">
                                                 <div class="scan-qr-link text-center">
                                                     <p
-                                                        class="text-md-left fnt-14 fnt-bold fnt-muli text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
+                                                        class="
+                                                            text-md-left
+                                                            fnt-14 fnt-bold fnt-muli
+                                                            text-clr334
+                                                            mb-3 mb-lg-4
+                                                            tab-bottom-margin
+                                                        "
                                                     >
                                                         {{ 'scan_download_text' | translate }}
                                                     </p>
@@ -632,7 +733,13 @@
                                                             />
                                                         </div>
                                                         <div
-                                                            class="download-qr-link d-flex justify-content-center align-items-end mb-md-3"
+                                                            class="
+                                                                download-qr-link
+                                                                d-flex
+                                                                justify-content-center
+                                                                align-items-end
+                                                                mb-md-3
+                                                            "
                                                         >
                                                             <a
                                                                 class="btn-trans-icon download-icon"
