@@ -5,6 +5,7 @@ export * from './certificate';
 export * from './file';
 export * from './menu';
 export * from './message';
+export * from './mfa';
 export * from './order-chat';
 export * from './orders';
 export * from './organization';

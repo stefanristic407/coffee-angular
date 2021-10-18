@@ -1,0 +1,30 @@
+::ng-deep .authentication-app-dialog.p-dialog {
+    max-width: 709px;
+    padding: 48px;
+
+    .p-dialog-header {
+        border-bottom: none;
+        .p-dialog-title {
+            font-size: 24px;
+        }
+    }
+
+    .fake-field {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .btn-width {
+        min-width: 124px;
+    }
+
+    .qr-image {
+        height: 240px;
+        width: auto;
+    }
+
+    .code-wrap {
+        font-size: 43px;
+    }
+}

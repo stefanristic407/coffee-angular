@@ -20,6 +20,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MenuModule } from 'primeng/menu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MatMenuModule } from '@angular/material/menu';
+import { MfaComponent } from './login-security/mfa/mfa.component';
+import { BackupCodesComponent } from './login-security/backup-codes/backup-codes.component';
+import { AuthenticationAppComponent } from './login-security/authentication-app/authentication-app.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +32,9 @@ import { MatMenuModule } from '@angular/material/menu';
         ChatAndNotificationsComponent,
         LanguageRegionComponent,
         HelpComponent,
+        MfaComponent,
+        BackupCodesComponent,
+        AuthenticationAppComponent,
     ],
     imports: [
         CommonModule,
