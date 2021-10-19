@@ -13,31 +13,51 @@
             }
         }
     }
-}
-::ng-deep {
-    .p-datatable table {
-        td.text-overflow-ellipsis {
-            max-width: unset !important;
+
+    ::ng-deep .order-disp .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
+        @media screen and (max-width: 787px) {
+            display: inherit !important;
+            border: 0 !important;
+            td:not(.border-none) {
+                border-bottom: none !important;
+            }
         }
     }
-    td a.view-order {
-        text-align: center;
-        width: 100%;
-        display: block;
-    }
-    .p-datatable .p-datatable-thead > tr > th,
-    .p-datatable .p-datatable-tbody > tr > td {
-        padding: 1.25rem 0.1rem;
-    }
+    ::ng-deep {
+        .p-datatable table {
+            td {
+                &.text-overflow-ellipsis {
+                    max-width: unset !important;
+                }
+                .text-center {
+                    text-align: center;
+                }
+            }
+        }
+        td a.view-order {
+            text-align: center;
+            width: 100%;
+            display: block;
+        }
+        .p-datatable .p-datatable-thead > tr > th,
+        .p-datatable .p-datatable-tbody > tr > td {
+            padding: 1.25rem 0.1rem;
+        }
 
-    @media all and (max-width: 767px) {
-        .p-datatable .p-datatable-tbody > tr {
-            border: 0;
+        @media all and (max-width: 767px) {
+            .p-datatable .p-datatable-tbody > tr {
+                border: 0;
+            }
+        }
+
+        .p-sortable-column-icon {
+            margin-left: 0 !important;
         }
     }
-
-    .p-sortable-column-icon {
-        margin-left: 0 !important;
+    p-table.table-scroll-active ::ng-deep {
+        .p-datatable .p-datatable-wrapper {
+            overflow: auto;
+        }
     }
 }
 
@@ -62,15 +82,5 @@
 .cell-header-right {
     @media screen and (max-width: 787px) {
         width: 60%;
-    }
-}
-
-::ng-deep .order-disp .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
-    @media screen and (max-width: 787px) {
-        display: inherit !important;
-        border: 0 !important;
-        td:not(.border-none) {
-            border-bottom: none !important;
-        }
     }
 }

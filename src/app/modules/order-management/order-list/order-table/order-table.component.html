@@ -2,6 +2,7 @@
     #ordersTable
     [class.table-mobile]="isMobile$ | async"
     class="mt-2 order-disp"
+    [ngClass]="{ 'table-mobile': isMobileView, 'table-scroll-active': !isMobileView }"
     [value]="tableData"
     dataKey="id"
     [rows]="rowsPerPage"
@@ -211,7 +212,7 @@
                                 <span class="text-muted cell-header cell-header">{{ 'variety' | translate }}</span>
                                 <span class="text-clr334 cell-header-right">{{ rowData.varieties }}</span>
                             </div>
-                            <div class="py-3 d-flex">
+                            <div class="py-3 d-flex justify-content-center">
                                 <span class="text-muted cell-header">{{ 'roaster_reference_no' | translate }}</span>
                                 <span class="text-clr334">
                                     {{ rowData.order_refence }}
