@@ -60,7 +60,7 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
         const tempData = [];
         this.stock.stock_stats.forEach((element) => {
             tempData.push({
-                name: element.cup_score,
+                name: 'Cup score: ' + element.cup_score,
                 value: element.available_quantity.toFixed(1),
             });
         });

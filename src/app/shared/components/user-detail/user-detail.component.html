@@ -27,13 +27,9 @@
         </ng-template>
     </ng-template>
 </div>
-<span
-    class="text-underline cursor-pointer user-name-text"
-    *ngIf="type === 'text'"
-    (mouseenter)="show($event)"
-    (mouseleave)="hide()"
-    >{{ name }}</span
->
+<span class="timeline-user-details" *ngIf="type === 'text'" (mouseenter)="show($event)" (mouseleave)="hide()">{{
+    name
+}}</span>
 <p-overlayPanel
     #myOp
     styleClass="user-details-overlay"
