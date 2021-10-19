@@ -23,6 +23,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MfaComponent } from './login-security/mfa/mfa.component';
 import { BackupCodesComponent } from './login-security/backup-codes/backup-codes.component';
 import { AuthenticationAppComponent } from './login-security/authentication-app/authentication-app.component';
+import { SmsComponent } from './login-security/sms/sms.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { AuthenticationAppComponent } from './login-security/authentication-app/
         MfaComponent,
         BackupCodesComponent,
         AuthenticationAppComponent,
+        SmsComponent,
     ],
     imports: [
         CommonModule,

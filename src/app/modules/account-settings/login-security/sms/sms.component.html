@@ -1,0 +1,69 @@
+<form autocomplete="new-password" novalidate>
+    <ng-container *ngIf="step === SetupStep.START">
+        <div class="fnt-16 fnt-600 lh-143 text-clr588 pr-45">{{ 'authentication_app_start_note' | translate }}</div>
+        <button class="btn-raised btn-width mt-45" (click)="next()">{{ 'start' | translate }}</button>
+    </ng-container>
+
+    <ng-container *ngIf="step === SetupStep.PASSWORD">
+        <div class="fnt-16 fnt-600 lh-143 text-clr588 pr-45">{{ 'authentication_app_password_note' | translate }}</div>
+        <div class="mt-25">
+            <div class="sewn-form-field col-md-10 px-0 mb-0">
+                <input type="password" pInputText [formControl]="passwordForm.get('password')" />
+                <small *ngIf="passwordForm.controls.password.errors?.required" class="p-error">{{
+                    'required' | translate
+                }}</small>
+            </div>
+        </div>
+        <button class="btn-raised btn-width mt-45" (click)="verifyPassword()">{{ 'verify' | translate }}</button>
+    </ng-container>
+
+    <ng-container *ngIf="step === SetupStep.PHONE">
+        <div class="fnt-16 fnt-600 lh-143 text-clr588 pr-45">
+            {{
+                'To make your accounts more secure, we have added two - factor authentication. Please verify your phone number to continue'
+                    | translate
+            }}
+        </div>
+        <div class="mt-45">
+            <div class="sewn-form-field col-md-10 px-0 mb-0">
+                <label>{{ 'phone_number' | translate }}</label>
+                <app-phone-number [formControl]="phoneForm.get('phone')"></app-phone-number>
+                <small *ngIf="phoneForm.controls.phone.errors?.required" class="p-error">{{
+                    'required' | translate
+                }}</small>
+                <div *ngIf="phoneForm.controls.phone.errors?.invalid" class="p-error">
+                    {{ 'please_enter_valid_phone_number' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end mt-3">
+            <button class="btn-raised" (click)="confirmPhone()">{{ 'submit' | translate }}</button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="step === SetupStep.VERIFY">
+        <div class="fnt-16 fnt-600 lh-143 text-clr588 pr-45">
+            {{ 'An OTP has been sent to your registered mobile number  +23 ***** ****12' | translate }}
+        </div>
+        <div class="mt-45">
+            <div class="sewn-form-field col-md-10 px-0 mb-0">
+                <label>{{ 'enter_authentication_code' | translate }}</label>
+                <input pInputText [formControl]="codeForm.get('otp')" />
+                <small *ngIf="codeForm.controls.otp.errors?.required" class="p-error">{{
+                    'required' | translate
+                }}</small>
+            </div>
+        </div>
+        <button class="btn-raised mt-45" (click)="verifyPhone()">{{ 'verify' | translate }}</button>
+    </ng-container>
+
+    <ng-container *ngIf="step === SetupStep.DONE">
+        <div class="fnt-16 fnt-600 lh-143 text-clr588">{{ 'authentication_app_done_note' | translate }}</div>
+        <div class="fnt-16 fnt-600 mt-475">{{ 'save_backup_code_safe' | translate }}</div>
+        <div class="code-wrap fnt-bold bg-f8 text-center p-5 mt-25">
+            {{ backupCode || ('no_generated_code' | translate) }}
+        </div>
+        <div class="fnt-16 fnt-600 lh-143 text-clr588 mt-3">{{ 'backup_codes_guide' | translate }}</div>
+        <button class="btn-raised mt-45">{{ 'done' | translate }}</button>
+    </ng-container>
+</form>
