@@ -96,6 +96,19 @@ $icon-size: 34px;
 .invoice-block {
     margin-top: -36px;
 }
+.timeline-name ::ng-deep {
+    .user-name-text {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.57;
+        letter-spacing: normal;
+        text-align: center;
+        color: #747588;
+    }
+}
 
 .sm {
     @media all and (max-width: 767px) {
