@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-tab-container',
@@ -8,8 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TabContainerComponent implements OnInit {
     selectedIndex: number;
+    draftsLength: number;
 
-    constructor(private route: ActivatedRoute, private router: Router) {}
+    constructor(private route: ActivatedRoute, private router: Router, private coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
@@ -23,6 +25,12 @@ export class TabContainerComponent implements OnInit {
             if (type === 'recipe') {
                 this.selectedIndex = 2;
             }
+            if (type === 'draft') {
+                this.selectedIndex = 3;
+            }
+        });
+        this.coffeeLabService.allDrafts.subscribe((res) => {
+            this.draftsLength = res.length;
         });
     }
 
@@ -36,6 +44,9 @@ export class TabContainerComponent implements OnInit {
         }
         if (event.index === 2) {
             selectedType = 'recipe';
+        }
+        if (event.index === 3) {
+            selectedType = 'draft';
         }
         this.router.navigate(['/coffee-lab/create-post/tab'], {
             queryParams: { type: selectedType },

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { DialogService } from 'primeng/dynamicdialog';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DraftPostsComponent } from '@modules/coffee-lab/create-post/draft-posts/draft-posts.component';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-create-post',
@@ -18,7 +18,6 @@ export class CreatePostComponent implements OnInit {
     constructor(
         public location: Location,
         public dialogService: DialogService,
-        private toastrService: ToastrService,
         public coffeeLabService: CoffeeLabService,
         private activateRoute: ActivatedRoute,
         private router: Router,
@@ -29,31 +28,7 @@ export class CreatePostComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this.getDrafts();
-    }
-
-    getDrafts(): void {
-        this.coffeeLabService.getDrafts().subscribe((res: any) => {
-            if (res.success) {
-                this.drafts = res.result || [];
-                this.coffeeLabService.allDrafts.next(this.drafts);
-            } else {
-                this.toastrService.error('Failed to get drafts');
-            }
-        });
-    }
-
-    onOpenDraftPosts(): void {
-        const dialogRef = this.dialogService.open(DraftPostsComponent, {
-            showHeader: false,
-            styleClass: 'draft-posts',
-            data: this.drafts,
-        });
-        dialogRef.onClose.subscribe((res) => {
-            this.getDrafts();
-        });
-    }
+    ngOnInit(): void {}
 
     onBack() {
         let type: string;

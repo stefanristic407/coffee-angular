@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@shared';
 import { CoffeeLabService, GlobalsService } from '@services';
+import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 
 interface Draft {
     created_at: string;
@@ -22,10 +22,23 @@ interface Draft {
 })
 export class DraftPostsComponent implements OnInit {
     drafts: any[] = [];
+    tabList = [
+        {
+            label: 'Article',
+            value: 'article',
+        },
+        {
+            label: 'Recipe',
+            value: 'recipe',
+        },
+        {
+            label: 'Question',
+            value: 'question',
+        },
+    ];
+    selectedTabType = 'question';
 
     constructor(
-        public ref: DynamicDialogRef,
-        public config: DynamicDialogConfig,
         private dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
@@ -34,7 +47,21 @@ export class DraftPostsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.drafts = this.config.data;
+        this.getDrafts();
+    }
+
+    getDrafts(): void {
+        const params = {
+            post_type: this.selectedTabType,
+        };
+        this.coffeeLabService.getDrafts(params).subscribe((res: any) => {
+            if (res.success) {
+                this.drafts = res.result || [];
+                this.coffeeLabService.allDrafts.next(this.drafts);
+            } else {
+                this.toastService.error('Failed to get drafts');
+            }
+        });
     }
 
     onDeleteDraft(draft: Draft): void {
@@ -78,6 +105,6 @@ export class DraftPostsComponent implements OnInit {
                 },
             });
         }
-        this.ref.close();
+        // this.ref.close();/
     }
 }
