@@ -1,20 +1,20 @@
 import {
+    HttpErrorResponse,
     HttpEvent,
     HttpHandler,
-    HttpRequest,
-    HttpErrorResponse,
     HttpInterceptor,
+    HttpRequest,
     HttpResponse,
 } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, mergeMap, retry } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
+import { CODEMESSAGE } from '@constants';
 import { environment } from '@env/environment';
-import { ToastrService } from 'ngx-toastr';
-import { CODEMESSAGE, VALIDATION_LIST } from '@constants';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, mergeMap, retry } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -73,10 +73,15 @@ export class ErrorInterceptor implements HttpInterceptor {
     showErrorMessage(messages) {
         const errorTexts: string[] = [];
         Object.keys(messages).forEach((key) => {
-            const errors = messages[key]
-                .map((value) => this.translateService.instant(VALIDATION_LIST[value] || value))
-                .join(' and ');
-            errorTexts.push(`${this.translateService.instant(key)} ${errors}.`);
+            // Check custom validation message
+            const customKey = `vm_${key}_${messages[key][0]}`;
+            const customMessage = this.translateService.instant(customKey);
+            if (customKey !== customMessage) {
+                errorTexts.push(`${customMessage}.`);
+            } else {
+                const errors = messages[key].map((value) => this.translateService.instant(`ve_${value}`)).join(' and ');
+                errorTexts.push(`${this.translateService.instant(key)} ${errors}.`);
+            }
         });
         this.toastrService.error(errorTexts.join('\n'));
     }
