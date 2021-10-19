@@ -20,7 +20,9 @@ export class RoasterNotesComponent extends DestroyableComponent implements OnIni
     }
 
     ngOnInit(): void {
-        this.orderService.orderNotes$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((notes) => (this.notes = notes));
+        this.orderService.orderNotes$
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe((notes) => (this.notes = (notes || []).reverse()));
     }
 
     navigate(dir: number): void {
