@@ -24,9 +24,11 @@
                 <span class="custom-search w-100">
                     <input
                         pInputText
-                        class="extra-width h-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
+                        class="extra-width-small w-100 h-100 {{
+                            searchForm.get('search_query').value ? 'highlight' : ''
+                        }}"
                         type="text"
-                        placeholder="Search by order ID, name"
+                        placeholder="Search by order ID, {{ customerPropertyName | sentencecase }} name"
                         formControlName="search_query"
                     />
                 </span>
@@ -95,9 +97,9 @@
                 <span class="custom-search text-feild-width-fix w-100 mr-2">
                     <input
                         pInputText
-                        class="w-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
+                        class="extra-width w-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
                         type="text"
-                        placeholder="Search by order ID, {{ customerPropertyName | lowercase }}, etc"
+                        placeholder="Search by order ID, {{ customerPropertyName | sentencecase }} name"
                         formControlName="search_query"
                     />
                 </span>

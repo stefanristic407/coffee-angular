@@ -39,5 +39,8 @@
     }
 }
 .extra-width {
-    width: 150px;
+    min-width: 325px !important;
+}
+.extra-width-small {
+    min-width: 260px !important;
 }
