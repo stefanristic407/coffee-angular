@@ -62,6 +62,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { ChartsModule } from 'ng2-charts';
 import { MomentModule } from 'ngx-moment';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 const THIRDMODULES = [
     AccordionModule,
@@ -100,6 +101,7 @@ const THIRDMODULES = [
     MomentModule,
     MultiSelectModule,
     Ng2TelInputModule,
+    NgOtpInputModule,
     NgxChartsModule,
     OverlayPanelModule,
     PaginatorModule,
@@ -159,8 +161,10 @@ import { VegetationChartComponent } from './components/remote-sensoring/vegetati
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
+import { OtpInputComponent } from './components/form-controls/otp-input/otp-input.component';
 
 const COMPONENTS = [
+    ActionMenuComponent,
     AppKeyConfirmationComponent,
     AvatarComponent,
     BackLinkComponent,
@@ -177,6 +181,7 @@ const COMPONENTS = [
     LoadingComponent,
     MediaComponent,
     MultiselectChipsComponent,
+    OtpInputComponent,
     PhoneNumberComponent,
     PieAreaChartComponent,
     PieChartComponent,
@@ -197,7 +202,6 @@ const COMPONENTS = [
     VegetationChartComponent,
     VideoPlayerComponent,
     WeatherChartComponent,
-    ActionMenuComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 

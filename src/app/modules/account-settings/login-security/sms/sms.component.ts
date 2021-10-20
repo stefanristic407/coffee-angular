@@ -46,7 +46,9 @@ export class SmsComponent implements OnInit {
     ngOnInit(): void {
         this.passwordForm = this.fb.group({ password: ['', Validators.compose([Validators.required])] });
         this.phoneForm = this.fb.group({ phone: ['', Validators.compose([Validators.required])] });
-        this.codeForm = this.fb.group({ otp: ['', Validators.compose([Validators.required])] });
+        this.codeForm = this.fb.group({
+            otp: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+        });
     }
 
     next() {
