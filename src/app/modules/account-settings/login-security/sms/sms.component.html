@@ -43,7 +43,7 @@
 
     <ng-container *ngIf="step === SetupStep.VERIFY">
         <div class="fnt-16 fnt-600 lh-143 text-clr588 pr-45">
-            {{ 'An OTP has been sent to your registered mobile number  +23 ***** ****12' | translate }}
+            {{ 'sms_sent_note' | translate | strReplace: '{phone_number}':hiddenPhone }}
         </div>
         <div class="mt-45">
             <div class="sewn-form-field col-md-10 px-0 mb-0">
