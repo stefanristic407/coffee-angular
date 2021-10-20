@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ToastrService } from 'ngx-toastr';
-import { CoffeeLabService, GlobalsService } from '@services';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmComponent } from '@app/shared';
 import { APP_LANGUAGES } from '@constants';
+import { CoffeeLabService, GlobalsService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { ConfirmComponent } from '@app/shared';
 
 @Component({
     selector: 'app-create-question',

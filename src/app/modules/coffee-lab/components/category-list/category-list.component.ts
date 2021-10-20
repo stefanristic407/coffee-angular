@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CategoryListComponent implements OnInit {
     @Input() categoryList: any[] = [];
-
+    @Input() isTranslatePage: boolean;
     constructor() {}
 
     ngOnInit(): void {}

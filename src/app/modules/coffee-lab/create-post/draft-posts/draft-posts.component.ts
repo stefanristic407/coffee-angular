@@ -63,7 +63,7 @@ export class DraftPostsComponent implements OnInit {
         this.coffeeLabService.getDrafts().subscribe((res: any) => {
             if (res.success) {
                 this.drafts = res.result;
-                this.filteredDrafts = this.drafts;
+                this.onChangeFilterBy();
                 this.coffeeLabService.allDrafts.next(this.drafts);
             } else {
                 this.toastService.error('Failed to get drafts');
@@ -71,7 +71,7 @@ export class DraftPostsComponent implements OnInit {
         });
     }
 
-    onChangeFilterBy(event) {
+    onChangeFilterBy(event?) {
         if (this.selectedTabType === '') {
             this.filteredDrafts = this.drafts;
         } else {
