@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DraftPostsComponent } from '@modules/coffee-lab/create-post/draft-posts/draft-posts.component';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -20,6 +19,7 @@ export class CreatePostComponent implements OnInit {
         public dialogService: DialogService,
         public coffeeLabService: CoffeeLabService,
         private activateRoute: ActivatedRoute,
+        private toastService: ToastrService,
         private router: Router,
     ) {
         this.activateRoute.queryParams.subscribe((res) => {
@@ -28,7 +28,20 @@ export class CreatePostComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.getDrafts();
+    }
+
+    getDrafts(): void {
+        this.coffeeLabService.getDrafts().subscribe((res: any) => {
+            if (res.success) {
+                this.drafts = res.result;
+                this.coffeeLabService.allDrafts.next(this.drafts);
+            } else {
+                this.toastService.error('Failed to get drafts');
+            }
+        });
+    }
 
     onBack() {
         let type: string;

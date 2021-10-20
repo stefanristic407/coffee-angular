@@ -60,13 +60,10 @@ export class DraftPostsComponent implements OnInit {
     }
 
     getDrafts(): void {
-        this.coffeeLabService.getDrafts().subscribe((res: any) => {
-            if (res.success) {
-                this.drafts = res.result;
+        this.coffeeLabService.allDrafts.subscribe((res: any) => {
+            if (res) {
+                this.drafts = res;
                 this.onChangeFilterBy();
-                this.coffeeLabService.allDrafts.next(this.drafts);
-            } else {
-                this.toastService.error('Failed to get drafts');
             }
         });
     }
