@@ -26,7 +26,10 @@
                     <div class="row mx-0">
                         <label class="fnt-600 mb-3"> {{ 'categories' | translate }}</label>
                     </div>
-                    <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
+                    <app-category-list
+                        [isTranslatePage]="true"
+                        [categoryList]="detailsData?.categories"
+                    ></app-category-list>
                 </div>
                 <div class="mt-md-4 mt-3" [formGroup]="recipeForm">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 px-0 sewn-form-field w-100">
