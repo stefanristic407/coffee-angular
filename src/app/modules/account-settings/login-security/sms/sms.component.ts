@@ -27,6 +27,9 @@ export class SmsComponent implements OnInit {
     passwordForm: FormGroup;
     qrCodeUrl: string;
     codeForm: FormGroup;
+    get hiddenPhone() {
+        return this.phoneForm.value.phone.substr(-2);
+    }
 
     constructor(
         private config: DynamicDialogConfig,
