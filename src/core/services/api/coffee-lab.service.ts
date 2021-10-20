@@ -170,12 +170,8 @@ export class CoffeeLabService extends ApiService {
         return this.post(this.orgPostUrl, `general/coffee-lab/authors?post_type=${type}s`, 'GET');
     }
 
-    getDrafts(params: any): Observable<any> {
-        return this.post(
-            this.orgPostUrl,
-            `${this.orgType}/${this.getOrgId()}/drafts?${this.serializeParams(params)}`,
-            'GET',
-        );
+    getDrafts(): Observable<any> {
+        return this.post(this.orgPostUrl, `${this.orgType}/${this.getOrgId()}/drafts`, 'GET');
     }
 
     getMyForumList(type: string, params = {}): Observable<any> {

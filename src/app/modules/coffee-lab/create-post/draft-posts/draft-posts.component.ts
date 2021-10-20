@@ -22,7 +22,12 @@ interface Draft {
 })
 export class DraftPostsComponent implements OnInit {
     drafts: any[] = [];
+    filteredDrafts: any[] = [];
     tabList = [
+        {
+            label: 'All',
+            value: '',
+        },
         {
             label: 'Article',
             value: 'article',
@@ -35,8 +40,12 @@ export class DraftPostsComponent implements OnInit {
             label: 'Question',
             value: 'question',
         },
+        {
+            label: 'Answer',
+            value: 'answer',
+        },
     ];
-    selectedTabType = 'question';
+    selectedTabType = '';
 
     constructor(
         private dialogService: DialogService,
@@ -51,17 +60,23 @@ export class DraftPostsComponent implements OnInit {
     }
 
     getDrafts(): void {
-        const params = {
-            post_type: this.selectedTabType,
-        };
-        this.coffeeLabService.getDrafts(params).subscribe((res: any) => {
+        this.coffeeLabService.getDrafts().subscribe((res: any) => {
             if (res.success) {
-                this.drafts = res.result || [];
+                this.drafts = res.result;
+                this.filteredDrafts = this.drafts;
                 this.coffeeLabService.allDrafts.next(this.drafts);
             } else {
                 this.toastService.error('Failed to get drafts');
             }
         });
+    }
+
+    onChangeFilterBy(event) {
+        if (this.selectedTabType === '') {
+            this.filteredDrafts = this.drafts;
+        } else {
+            this.filteredDrafts = this.drafts.filter((item) => item.post_type === this.selectedTabType);
+        }
     }
 
     onDeleteDraft(draft: Draft): void {
@@ -79,6 +94,7 @@ export class DraftPostsComponent implements OnInit {
                             this.drafts = this.drafts.filter((item: any) => item.post_id !== draft.post_id);
                             this.toastService.success(`Draft ${draft.post_type} deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
+                            this.getDrafts();
                         } else {
                             this.toastService.error(`Failed to delete a forum.`);
                         }
@@ -105,6 +121,5 @@ export class DraftPostsComponent implements OnInit {
                 },
             });
         }
-        // this.ref.close();/
     }
 }
