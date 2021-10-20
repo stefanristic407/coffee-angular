@@ -32,7 +32,10 @@
                     <div class="row mx-0">
                         <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
                     </div>
-                    <app-category-list [categoryList]="question?.categories"></app-category-list>
+                    <app-category-list
+                        [isTranslatePage]="true"
+                        [categoryList]="question?.categories"
+                    ></app-category-list>
                 </div>
                 <div class="sewn-form-field w-100 mb-3 mb-md-4">
                     <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
@@ -120,7 +123,7 @@
             <div class="row mx-0">
                 <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
             </div>
-            <app-category-list [categoryList]="categoryList"></app-category-list>
+            <app-category-list [isTranslatePage]="true" [categoryList]="categoryList"></app-category-list>
         </div>
         <div [formGroup]="form" *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-3 mb-md-4">
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{ 'question' | translate }}</label>

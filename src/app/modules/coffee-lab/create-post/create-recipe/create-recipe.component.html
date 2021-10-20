@@ -73,7 +73,7 @@
             <div class="row mx-0">
                 <label class="fnt-600 mb-3"> {{ 'categories' | translate }}</label>
             </div>
-            <app-category-list [categoryList]="translatedCategory"></app-category-list>
+            <app-category-list [isTranslatePage]="true" [categoryList]="translatedCategory"></app-category-list>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label [ngClass]="{ 'mt-25': isTranslate }"
@@ -438,6 +438,7 @@
             <div class="col-md-6 order-1 order-md-2 p-0">
                 <div class="d-flex justify-content-end flex-column flex-md-row">
                     <button
+                        *ngIf="!recipeId"
                         class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
                         [disabled]="isPosting"
                         (click)="onSave('draft')"
