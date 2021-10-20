@@ -1,18 +1,18 @@
-<div class="d-flex justify-content-between align-items-center p-4 bg-f8 br-8">
-    <div class="fnt-muli font-weight-bold text-clr334 fnt-14">{{ 'your_draft_posts' | translate }}</div>
-    <img
-        (click)="ref.close()"
-        src="assets/images/icon-close.svg"
-        class="cursor-pointer"
-        alt="icon"
-        width="24"
-        height="24"
-    />
+<div class="bg-f8 br-8 col-12 pb-3 pt-4 sewn-form-field">
+    <label class="mb-1">{{ 'filter_by' | translate }}</label>
+    <p-dropdown
+        [options]="tabList"
+        (onChange)="onChangeFilterBy($event)"
+        [(ngModel)]="selectedTabType"
+        styleClass="text-clr588 bg-white"
+        [placeholder]="'sort_by' | translate"
+        class="col-md-5 col-12 pl-0"
+    ></p-dropdown>
 </div>
 <div class="px-4">
     <div>
         <div
-            *ngFor="let draft of drafts"
+            *ngFor="let draft of filteredDrafts"
             class="d-flex justify-content-between py-4 border-bottom-dashed cursor-pointer"
         >
             <div class="d-flex" (click)="onClickDraft(draft)">
@@ -49,14 +49,9 @@
                 </div>
             </div>
             <div>
-                <img
-                    (click)="onDeleteDraft(draft)"
-                    src="assets/images/icon-delete.svg"
-                    class="cursor-pointer"
-                    alt="icon"
-                    width="16"
-                    height="16"
-                />
+                <a (click)="onDeleteDraft(draft)" class="procedure fnt-600 text-underline">{{
+                    'delete' | translate
+                }}</a>
             </div>
         </div>
     </div>

@@ -1,29 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CoffeeLabComponent } from './coffee-lab.component';
+import { ArticlesViewComponent } from '@modules/coffee-lab/articles/articles-view/articles-view.component';
+import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
+import { CoffeeRecipesViewComponent } from '@modules/coffee-lab/coffee-recipes/coffee-recipes-view/coffee-recipes-view.component';
+import { TabContainerComponent } from '@modules/coffee-lab/create-post/tab-container/tab-container.component';
+import { TranslateAnswerComponent } from '@modules/coffee-lab/create-post/translate/translate-answer/translate-answer.component';
+import { TranslateArticleComponent } from '@modules/coffee-lab/create-post/translate/translate-article/translate-article.component';
+import { TranslateRecipeComponent } from '@modules/coffee-lab/create-post/translate/translate-recipe/translate-recipe.component';
+import { MyArticlesComponent } from '@modules/coffee-lab/my-posts/my-articles/my-articles.component';
+import { MyPostsViewComponent } from '@modules/coffee-lab/my-posts/my-posts-view/my-posts-view.component';
+import { MyRecipesComponent } from '@modules/coffee-lab/my-posts/my-recipes/my-recipes.component';
 import { OverviewComponent } from '@modules/coffee-lab/overview/overview.component';
 import { QaForumViewComponent } from '@modules/coffee-lab/qa-forum/qa-forum-view/qa-forum-view.component';
-import { ArticlesViewComponent } from '@modules/coffee-lab/articles/articles-view/articles-view.component';
-import { ArticleDetailComponent } from './articles/article-detail/article-detail.component';
-import { CoffeeRecipesViewComponent } from '@modules/coffee-lab/coffee-recipes/coffee-recipes-view/coffee-recipes-view.component';
-import { MyPostsViewComponent } from '@modules/coffee-lab/my-posts/my-posts-view/my-posts-view.component';
+import { QuestionDetailComponent } from '@modules/coffee-lab/qa-forum/question-detail/question-detail.component';
+import { SavedArticlesComponent } from '@modules/coffee-lab/saved-posts/saved-articles/saved-articles.component';
 import { SavedPostsViewComponent } from '@modules/coffee-lab/saved-posts/saved-posts-view/saved-posts-view.component';
+import { SavedRecipesComponent } from '@modules/coffee-lab/saved-posts/saved-recipes/saved-recipes.component';
+import { ArticleDetailComponent } from './articles/article-detail/article-detail.component';
+import { CategoryComponent } from './category/category.component';
+import { CoffeeLabComponent } from './coffee-lab.component';
 import { CoffeeDetailsComponent } from './coffee-recipes/coffee-details/coffee-details.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-import { QuestionDetailComponent } from '@modules/coffee-lab/qa-forum/question-detail/question-detail.component';
-import { TabContainerComponent } from '@modules/coffee-lab/create-post/tab-container/tab-container.component';
-import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
-import { TranslateRecipeComponent } from '@modules/coffee-lab/create-post/translate/translate-recipe/translate-recipe.component';
-import { TranslateArticleComponent } from '@modules/coffee-lab/create-post/translate/translate-article/translate-article.component';
-import { TranslateAnswerComponent } from '@modules/coffee-lab/create-post/translate/translate-answer/translate-answer.component';
-import { QaPostComponent } from './my-posts/qa-post/qa-post.component';
+import { DraftPostsComponent } from './create-post/draft-posts/draft-posts.component';
 import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
 import { MyCommentsComponent } from './my-posts/my-comments/my-comments.component';
-import { MyArticlesComponent } from '@modules/coffee-lab/my-posts/my-articles/my-articles.component';
-import { SavedArticlesComponent } from '@modules/coffee-lab/saved-posts/saved-articles/saved-articles.component';
-import { MyRecipesComponent } from '@modules/coffee-lab/my-posts/my-recipes/my-recipes.component';
-import { SavedRecipesComponent } from '@modules/coffee-lab/saved-posts/saved-recipes/saved-recipes.component';
-import { CategoryComponent } from './category/category.component';
+import { QaPostComponent } from './my-posts/qa-post/qa-post.component';
 
 const routes: Routes = [
     {

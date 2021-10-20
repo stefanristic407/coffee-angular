@@ -9,14 +9,18 @@
 ::ng-deep {
     .tabview-create-post {
         .p-tabview-nav {
+            position: relative;
             li {
                 margin-right: 0;
-                @media (max-width: 767px) {
-                    // padding-top: 16px;
-                    border-right: 1px solid $secondary-border-color;
-                }
-                &:nth-child(3) {
-                    border-right-width: 0;
+                border-right: 1px solid $secondary-border-color;
+                &:nth-last-child(-n + 2) {
+                    border-left: 1px solid $secondary-border-color;
+                    position: absolute;
+                    right: 0px;
+                    top: 5px;
+                    a img {
+                        width: 19px;
+                    }
                 }
                 .p-tabview-nav-link {
                     padding: 15px 16px 13px 16px !important;

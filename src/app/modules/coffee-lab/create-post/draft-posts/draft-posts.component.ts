@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@shared';
 import { CoffeeLabService, GlobalsService } from '@services';
+import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 
 interface Draft {
     created_at: string;
@@ -22,10 +22,32 @@ interface Draft {
 })
 export class DraftPostsComponent implements OnInit {
     drafts: any[] = [];
+    filteredDrafts: any[] = [];
+    tabList = [
+        {
+            label: 'All',
+            value: '',
+        },
+        {
+            label: 'Article',
+            value: 'article',
+        },
+        {
+            label: 'Recipe',
+            value: 'recipe',
+        },
+        {
+            label: 'Question',
+            value: 'question',
+        },
+        {
+            label: 'Answer',
+            value: 'answer',
+        },
+    ];
+    selectedTabType = '';
 
     constructor(
-        public ref: DynamicDialogRef,
-        public config: DynamicDialogConfig,
         private dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
@@ -34,7 +56,27 @@ export class DraftPostsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.drafts = this.config.data;
+        this.getDrafts();
+    }
+
+    getDrafts(): void {
+        this.coffeeLabService.getDrafts().subscribe((res: any) => {
+            if (res.success) {
+                this.drafts = res.result;
+                this.filteredDrafts = this.drafts;
+                this.coffeeLabService.allDrafts.next(this.drafts);
+            } else {
+                this.toastService.error('Failed to get drafts');
+            }
+        });
+    }
+
+    onChangeFilterBy(event) {
+        if (this.selectedTabType === '') {
+            this.filteredDrafts = this.drafts;
+        } else {
+            this.filteredDrafts = this.drafts.filter((item) => item.post_type === this.selectedTabType);
+        }
     }
 
     onDeleteDraft(draft: Draft): void {
@@ -52,6 +94,7 @@ export class DraftPostsComponent implements OnInit {
                             this.drafts = this.drafts.filter((item: any) => item.post_id !== draft.post_id);
                             this.toastService.success(`Draft ${draft.post_type} deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
+                            this.getDrafts();
                         } else {
                             this.toastService.error(`Failed to delete a forum.`);
                         }
@@ -78,6 +121,5 @@ export class DraftPostsComponent implements OnInit {
                 },
             });
         }
-        this.ref.close();
     }
 }
