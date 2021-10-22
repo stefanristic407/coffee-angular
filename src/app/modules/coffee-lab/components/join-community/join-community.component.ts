@@ -1,8 +1,6 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
-import { CoffeeLabService, I18NService } from '@services';
-import { ActivatedRoute } from '@angular/router';
+import { CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-join-community',
@@ -14,24 +12,27 @@ export class JoinCommunityComponent implements OnInit {
     @Input() pages: any;
     @Input() type: string;
     @Input() detailType: string;
+    isLoading = false;
     idOrSlug: any;
     relatedData = [];
-    constructor(@Inject(DOCUMENT) private document: Document, public coffeeLabService: CoffeeLabService) {}
+    constructor(public coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
         this.getList();
     }
 
     getList() {
+        this.isLoading = true;
         this.coffeeLabService
             .getForumList('question', {
                 page: this.pages ? this.pages + 1 : 2,
-                per_page: 5,
+                per_page: 15,
                 category_slug: this.coffeeLabService.qaForumViewCategory,
             })
             .subscribe((res: any) => {
                 if (res.success) {
                     this.relatedData = res.result.questions;
+                    this.isLoading = false;
                 }
             });
     }

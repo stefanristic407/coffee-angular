@@ -200,22 +200,22 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    onSave(id: number): void {
+    onSave(id: number, index: number): void {
         this.coffeeLabService.saveForum('answer', id).subscribe((res: any) => {
             if (res.success) {
-                // this.question.is_saved = true;
-                this.toastService.success('Successfully saved');
+                this.detailsData.answers[index].is_saved = true;
+                this.toastService.success('You have saved the answer successfully from saved posts.');
             } else {
                 this.toastService.error('Error while save post');
             }
         });
     }
 
-    onSameSave(id: number): void {
-        this.coffeeLabService.unSaveFormByType('question', id).subscribe((res: any) => {
+    onSameSave(id: number, index: number): void {
+        this.coffeeLabService.unSaveFormByType('answer', id).subscribe((res: any) => {
             if (res.success) {
-                this.toastService.success(`You have removed the question successfully from saved posts.`);
-                // this.question.is_saved = false;
+                this.detailsData.answers[index].is_saved = false;
+                this.toastService.success(`You have removed the answer successfully from saved posts.`);
             } else {
                 this.toastService.error(`Failed to remmove a question from saved posts.`);
             }

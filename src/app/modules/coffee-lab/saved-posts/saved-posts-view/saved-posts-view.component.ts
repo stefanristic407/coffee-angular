@@ -30,6 +30,13 @@ export class SavedPostsViewComponent implements OnInit, AfterViewInit {
                 this.removeClass(event);
             },
         },
+        {
+            label: 'saved_answers',
+            routerLink: ['saved-answers'],
+            command: (event) => {
+                this.removeClass(event);
+            },
+        },
     ];
 
     constructor(private router: Router) {}
@@ -50,6 +57,10 @@ export class SavedPostsViewComponent implements OnInit, AfterViewInit {
             if (window.innerWidth <= 767) {
                 ele[0].children[0].scrollLeft = 130;
             }
+        } else if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'saved-answers') {
+            if (window.innerWidth <= 767) {
+                ele[0].children[0].scrollLeft = 230;
+            }
         }
     }
 
@@ -66,6 +77,10 @@ export class SavedPostsViewComponent implements OnInit, AfterViewInit {
         } else if (event.item.label === 'brewing_guides') {
             if (window.innerWidth <= 767) {
                 ele[0].children[0].scrollLeft = 130;
+            }
+        } else if (event.item.label === 'saved-answers') {
+            if (window.innerWidth <= 767) {
+                ele[0].children[0].scrollLeft = 230;
             }
         }
     }

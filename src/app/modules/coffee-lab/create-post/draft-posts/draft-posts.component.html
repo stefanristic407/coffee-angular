@@ -9,7 +9,7 @@
         class="col-md-5 col-12 pl-0"
     ></p-dropdown>
 </div>
-<div class="px-4">
+<div class="px-3">
     <div>
         <div
             *ngFor="let draft of filteredDrafts"
@@ -54,6 +54,9 @@
                 }}</a>
             </div>
         </div>
+    </div>
+    <div *ngIf="drafts.length > 15" class="pt-3 pt-md-4">
+        <p-paginator [rows]="15" [totalRecords]="drafts.length" (onPageChange)="paginate($event)"></p-paginator>
     </div>
     <div *ngIf="!drafts.length" class="text-center py-4">{{ 'no_data_is_available' | translate }}</div>
 </div>

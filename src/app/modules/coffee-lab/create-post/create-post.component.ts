@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-create-post',
@@ -14,6 +15,8 @@ export class CreatePostComponent implements OnInit {
     drafts: any[] = [];
     selectedType: string;
     orignId: number;
+    forumDeleteSub: Subscription;
+
     constructor(
         public location: Location,
         public dialogService: DialogService,
@@ -30,6 +33,9 @@ export class CreatePostComponent implements OnInit {
 
     ngOnInit(): void {
         this.getDrafts();
+        this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
+            this.getDrafts();
+        });
     }
 
     getDrafts(): void {

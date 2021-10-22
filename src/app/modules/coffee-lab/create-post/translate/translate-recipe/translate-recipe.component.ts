@@ -116,4 +116,16 @@ export class TranslateRecipeComponent implements OnInit {
                 }
             });
     }
+
+    onCancel() {
+        if (this.draftId) {
+            this.router.navigate(['/coffee-lab/create-post/tab'], {
+                queryParams: {
+                    type: 'draft',
+                },
+            });
+        } else {
+            this.router.navigateByUrl('/coffee-lab/recipes/' + this.recipeSlug);
+        }
+    }
 }

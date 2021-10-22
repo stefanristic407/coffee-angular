@@ -71,8 +71,10 @@ export class DraftPostsComponent implements OnInit {
     onChangeFilterBy(event?) {
         if (this.selectedTabType === '') {
             this.filteredDrafts = this.drafts;
+            this.filteredDrafts = this.filteredDrafts.slice(0, 15);
         } else {
             this.filteredDrafts = this.drafts.filter((item) => item.post_type === this.selectedTabType);
+            this.filteredDrafts = this.filteredDrafts.slice(0, 15);
         }
     }
 
@@ -88,7 +90,7 @@ export class DraftPostsComponent implements OnInit {
                 if (action === 'yes') {
                     this.coffeeLabService.deleteForumById(draft.post_type, draft.post_id).subscribe((res: any) => {
                         if (res.success) {
-                            this.drafts = this.drafts.filter((item: any) => item.post_id !== draft.post_id);
+                            this.filteredDrafts = this.drafts.filter((item: any) => item.post_id !== draft.post_id);
                             this.toastService.success(`Draft ${draft.post_type} deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
                             this.getDrafts();
@@ -98,6 +100,10 @@ export class DraftPostsComponent implements OnInit {
                     });
                 }
             });
+    }
+
+    paginate(event: any) {
+        this.filteredDrafts = this.drafts.slice(event.first, event.first + event.rows);
     }
 
     onClickDraft(draft: Draft): void {

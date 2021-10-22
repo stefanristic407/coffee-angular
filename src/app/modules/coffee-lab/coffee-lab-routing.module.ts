@@ -78,6 +78,7 @@ const routes: Routes = [
                             { path: 'qa-post', component: QaPostComponent },
                             { path: 'article', component: SavedArticlesComponent },
                             { path: 'recipe', component: SavedRecipesComponent },
+                            { path: 'saved-answers', component: MyAnswersComponent },
                             { path: '**', redirectTo: 'qa-post' },
                         ],
                     },

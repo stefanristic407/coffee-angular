@@ -9,7 +9,7 @@
             [(ngModel)]="languageCode"
             (onChange)="changeLanguage($event)"
             class="inputFieldBox bg-white col-md-5 pl-0 pr-0"
-            [disabled]="question?.parent_question_id > 0"
+            [disabled]="questionId"
         >
         </p-dropdown>
     </div>
@@ -86,12 +86,12 @@
         <div class="col-md-6 order-1 order-md-2">
             <div class="d-flex justify-content-end flex-column flex-md-row">
                 <button
-                    *ngIf="!questionId"
+                    *ngIf="status === 'draft' || !questionId"
                     [disabled]="isPosting"
                     (click)="onPostQuestion('DRAFT')"
                     class="btn-stroked px-4 order-2 order-md-1 w-mob-100 mb-2 mb-md-0"
                 >
-                    {{ (status === 'draft' ? 'save_changes' : 'save_as_draft') | translate }}
+                    {{ (status === 'draft' ? 'save_changes_to_draft' : 'save_as_draft') | translate }}
                 </button>
                 <button
                     [disabled]="isPosting"

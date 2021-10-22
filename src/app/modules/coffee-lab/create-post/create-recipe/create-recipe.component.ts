@@ -530,7 +530,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 return;
             } else {
                 this.recipeForm.controls.publish.setValue(false);
-                this.openCconfirmDialog(status);
+                this.handlePost();
             }
         } else {
             if (this.isTranslate) {

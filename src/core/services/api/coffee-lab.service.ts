@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ApiService } from './api.service';
-import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
-import { UploadService } from '../upload';
+import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from '../auth';
+import { UploadService } from '../upload';
+import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root',

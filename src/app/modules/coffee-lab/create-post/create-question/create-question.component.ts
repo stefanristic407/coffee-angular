@@ -115,50 +115,76 @@ export class CreateQuestionComponent implements OnInit {
             categories: this.categoryValue?.map((item) => item.id) || [],
         };
         const confirmText = status === 'DRAFT' ? 'save this question in draft?' : 'publish this question?';
-        this.dialogService
-            .open(ConfirmComponent, {
-                data: {
-                    title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
-                },
-            })
-            .onClose.subscribe((action: any) => {
-                if (action === 'yes') {
-                    this.isPosting = true;
-                    if (this.questionId) {
-                        this.coffeeLabService.updateForum('question', this.questionId, data).subscribe((res: any) => {
-                            this.isPosting = false;
-                            if (res.success) {
-                                if (data.status === 'DRAFT') {
-                                    this.toaster.success('Your changes have been successfully updated to the draft.');
-                                } else if (this.status === 'draft') {
-                                    this.toastrService.success('Your question have been posted successfully.');
-                                } else {
-                                    this.toaster.success('You have updated a question successfully.');
-                                }
-                                this.router.navigate(['/coffee-lab']);
-                            } else {
-                                this.toaster.error('Failed to update question.');
-                            }
-                        });
-                    } else {
-                        this.coffeeLabService.postForum('question', data).subscribe((res: any) => {
-                            this.isPosting = false;
-                            if (res.success) {
-                                if (status === 'PUBLISHED') {
-                                    this.toastrService.success('Your question have been posted successfully.');
-                                } else if (status === 'DRAFT') {
-                                    this.toastrService.success('Your question is successfully saved in draft.');
-                                }
-                                this.router.navigate(['/coffee-lab']);
-                            } else {
-                                this.toastrService.error('Failed to post question.');
-                            }
-                        });
-                    }
-                } else {
+        if (status === 'DRAFT' || this.status === 'draft') {
+            if (this.questionId) {
+                this.coffeeLabService.updateForum('question', this.questionId, data).subscribe((res: any) => {
                     this.isPosting = false;
-                }
-            });
+                    if (res.success) {
+                        if (data.status === 'DRAFT') {
+                            this.toaster.success('Your changes have been successfully updated to the draft.');
+                        } else if (this.status === 'draft') {
+                            this.toastrService.success('Your question have been posted successfully.');
+                        } else {
+                            this.toaster.success('You have updated a question successfully.');
+                        }
+                        this.router.navigate(['/coffee-lab/overview/qa-forum']);
+                    } else {
+                        this.toaster.error('Failed to update question.');
+                    }
+                });
+            } else {
+                this.coffeeLabService.postForum('question', data).subscribe((res: any) => {
+                    this.isPosting = false;
+                    if (res.success) {
+                        this.toastrService.success('Your question is successfully saved in draft.');
+                        this.router.navigate(['/coffee-lab/overview/qa-forum']);
+                    } else {
+                        this.toastrService.error('Failed to post question.');
+                    }
+                });
+            }
+        } else {
+            this.dialogService
+                .open(ConfirmComponent, {
+                    data: {
+                        title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
+                    },
+                })
+                .onClose.subscribe((action: any) => {
+                    if (action === 'yes') {
+                        this.isPosting = true;
+                        if (this.questionId) {
+                            this.coffeeLabService
+                                .updateForum('question', this.questionId, data)
+                                .subscribe((res: any) => {
+                                    this.isPosting = false;
+                                    if (res.success) {
+                                        this.toaster.success('You have updated a question successfully.');
+                                        this.router.navigate(['/coffee-lab/overview/qa-forum']);
+                                    } else {
+                                        this.toaster.error('Failed to update question.');
+                                    }
+                                });
+                        } else {
+                            this.coffeeLabService.postForum('question', data).subscribe((res: any) => {
+                                this.isPosting = false;
+                                if (res.success) {
+                                    if (status === 'PUBLISHED') {
+                                        this.toastrService.success('Your question have been posted successfully.');
+                                    } else if (status === 'DRAFT') {
+                                        this.toastrService.success('Your question is successfully saved in draft.');
+                                    }
+                                    this.router.navigate(['/coffee-lab/overview/qa-forum']);
+                                } else {
+                                    this.toastrService.error('Failed to post question.');
+                                }
+                            });
+                        }
+                    } else {
+                        this.isPosting = false;
+                    }
+                });
+        }
     }
 
     onDeleteDraft(): void {

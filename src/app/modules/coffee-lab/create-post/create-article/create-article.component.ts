@@ -1,16 +1,16 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CoffeeLabService, CommonService, GlobalsService } from '@services';
-import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
-import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent, CropperDialogComponent } from '@shared';
-import { CroppedImage } from '@models';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
+import { CroppedImage } from '@models';
+import { CoffeeLabService, CommonService, GlobalsService } from '@services';
+import { ConfirmComponent, CropperDialogComponent } from '@shared';
+import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-create-article',
@@ -185,21 +185,26 @@ export class CreateArticleComponent implements OnInit {
             this.toaster.error('Please upload cover image.');
             return;
         }
-        const confirmText = status === 'draft' ? 'save this article in draft?' : 'publish this article?';
-        this.dialogService
-            .open(ConfirmComponent, {
-                data: {
-                    title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
-                },
-            })
-            .onClose.subscribe((action: any) => {
-                if (action === 'yes') {
-                    this.isPosting = true;
-                    this.handlePost(status);
-                } else {
-                    this.isPosting = false;
-                }
-            });
+        if (status === 'draft') {
+            this.isPosting = true;
+            this.handlePost(status);
+        } else {
+            const confirmText = status === 'draft' ? 'save this article in draft?' : 'publish this article?';
+            this.dialogService
+                .open(ConfirmComponent, {
+                    data: {
+                        title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
+                    },
+                })
+                .onClose.subscribe((action: any) => {
+                    if (action === 'yes') {
+                        this.isPosting = true;
+                        this.handlePost(status);
+                    } else {
+                        this.isPosting = false;
+                    }
+                });
+        }
     }
     handlePost(status: string) {
         this.articleForm
