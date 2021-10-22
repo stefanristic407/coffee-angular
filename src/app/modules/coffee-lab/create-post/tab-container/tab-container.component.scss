@@ -17,9 +17,11 @@
                     border-left: 1px solid $secondary-border-color;
                     position: absolute;
                     right: 0px;
-                    top: 5px;
-                    a img {
-                        width: 19px;
+                    a {
+                        height: 52px;
+                        img {
+                            width: 19px;
+                        }
                     }
                 }
                 .p-tabview-nav-link {

@@ -1,12 +1,17 @@
 <div class="col-lg-8 col-md px-0">
     <div class="d-md-block d-none">
         <div class="d-flex justify-content-between">
-            <h1 class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'my_posts' | translate }}</h1>
+            <h1 *ngIf="pageDesc === 'my-posts'" class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">
+                {{ 'my_posts' | translate }}
+            </h1>
+            <h1 *ngIf="pageDesc === 'saved-posts'" class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">
+                {{ 'saved_answers' | translate }}
+            </h1>
             <div>
                 <p-dropdown
                     [options]="sortOptions"
                     [(ngModel)]="coffeeLabService.myAnswersSortBy"
-                    (ngModelChange)="getAnswers()"
+                    (ngModelChange)="getMyAnswers()"
                     styleClass="no-border no-padding"
                     optionLabel="label"
                     optionValue="value"
@@ -59,9 +64,9 @@
                             <app-forum-menu
                                 [selectedItem]="answer"
                                 forumType="answer"
-                                [enableSave]="!isMyPostsPage"
-                                [enableEdit]="!isMyPostsPage"
-                                [enableDelete]="!isMyPostsPage"
+                                [enableSave]="!isMyPostsPage && !isSavedPostsPage"
+                                [enableEdit]="!isMyPostsPage && !isSavedPostsPage"
+                                [enableDelete]="!isMyPostsPage && !isSavedPostsPage"
                             ></app-forum-menu>
                         </div>
                     </div>
@@ -88,13 +93,25 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2 w-100">
                                 <div class="d-flex">
-                                    <div class="fnt-muli text-clr334 fnt-600 fnt-14 mr-md-3 mr-1">
+                                    <div
+                                        *ngIf="pageDesc === 'my-posts'"
+                                        class="fnt-muli text-clr334 fnt-600 fnt-14 mr-md-3 mr-1"
+                                    >
                                         {{ 'your_answer' | translate }}
                                     </div>
+                                    <div
+                                        *ngIf="pageDesc === 'saved-posts'"
+                                        class="fnt-muli text-clr334 fnt-600 fnt-14 mr-md-3 mr-1"
+                                    >
+                                        {{ 'saved_answer' | translate }}
+                                    </div>
                                     <div class="fnt-muli fnt-12 text-clr588 d-md-flex align-items-center">
-                                        <span class="d-none d-md-block">{{ 'posted' | translate }}</span
-                                        >&nbsp;
-                                        {{ answer?.answer_created_at | amTimeAgo }}
+                                        <span *ngIf="pageDesc === 'my-posts'">{{
+                                            answer?.answer_created_at | amTimeAgo
+                                        }}</span>
+                                        <span *ngIf="pageDesc === 'saved-posts'">{{
+                                            answer?.created_at | amTimeAgo
+                                        }}</span>
                                     </div>
                                 </div>
                                 <div class="fnt-muli fnt-12 text-clr588">
@@ -104,7 +121,8 @@
                                         forumType="answer"
                                         [enableEdit]="isMyPostsPage"
                                         [enableDelete]="isMyPostsPage"
-                                        [enableSave]="!isMyPostsPage"
+                                        [enableSave]="!isMyPostsPage && !isSavedPostsPage"
+                                        [enableDeleteSave]="isSavedPostsPage"
                                     ></app-forum-menu>
                                 </div>
                             </div>

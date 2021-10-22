@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { insertAltAttr, maxWordCountValidator } from '@utils';
-import { DialogService } from 'primeng/dynamicdialog';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { APP_LANGUAGES } from '@constants';
+import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
+import { insertAltAttr, maxWordCountValidator } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-translate-article',
@@ -343,5 +343,17 @@ export class TranslateArticleComponent implements OnInit {
                     });
                 }
             });
+    }
+
+    onCancel() {
+        if (this.draftId) {
+            this.router.navigate(['/coffee-lab/create-post/tab'], {
+                queryParams: {
+                    type: 'draft',
+                },
+            });
+        } else {
+            this.router.navigateByUrl('/coffee-lab/articles/' + this.article?.slug);
+        }
     }
 }

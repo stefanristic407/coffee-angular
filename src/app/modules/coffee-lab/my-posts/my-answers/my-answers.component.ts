@@ -16,6 +16,7 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
     ];
     pageDesc: string;
     isMyPostsPage = false;
+    isSavedPostsPage = false;
     isLoading = false;
     forumDeleteSub: Subscription;
     totalRecords = 0;
@@ -32,16 +33,45 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.getAnswers();
         if (this.pageDesc === 'my-posts') {
             this.isMyPostsPage = true;
+            this.getMyAnswers();
+        } else if (this.pageDesc === 'saved-posts') {
+            this.isSavedPostsPage = true;
+            this.getSavedAnswers();
         }
         this.forumDeleteSub = this.coffeeLabService.forumDeleteEvent.subscribe(() => {
-            this.getAnswers();
+            if (this.pageDesc === 'my-posts') {
+                this.getMyAnswers();
+            } else if (this.pageDesc === 'saved-posts') {
+                this.getSavedAnswers();
+            }
         });
     }
 
-    getAnswers(): void {
+    getSavedAnswers(): void {
+        this.isLoading = true;
+        const params = {
+            sort_by: 'created_at',
+            sort_order: this.coffeeLabService.myAnswersSortBy,
+        };
+        this.coffeeLabService.getSavedForumList('answer', params).subscribe((res) => {
+            this.answers = (res.result ?? []).map((item) => {
+                if (item.question_slug) {
+                    const slug = 'slug';
+                    const id = 'id';
+                    item[slug] = item.question_slug;
+                    item[id] = item.answer_id;
+                }
+                return item;
+            });
+            this.totalRecords = this.answers.length;
+            this.displayData = this.answers.slice(0, 10);
+            this.isLoading = false;
+        });
+    }
+
+    getMyAnswers(): void {
         this.isLoading = true;
         const params = {
             sort_by: 'created_at',
@@ -105,7 +135,7 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
             this.coffeeLabService.updateForum('answer', forumId, data).subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('Your comment updated successfully');
-                    this.getAnswers();
+                    this.getMyAnswers();
                 } else {
                     this.toastrService.error('Failed to update article.');
                 }
