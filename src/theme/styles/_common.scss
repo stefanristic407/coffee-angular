@@ -112,12 +112,12 @@ span.star {
     }
 
     &.white {
-        color: #fff !important;
+        color: $white !important;
         &::before {
             background-image: url('/assets/images/popup-back-arrow.svg');
         }
         &:hover {
-            color: #fff !important;
+            color: $white !important;
         }
     }
 }
