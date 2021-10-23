@@ -1,23 +1,21 @@
-import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
-import { AuthService, GlobalsService } from '@services';
-import { RoasterService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PrimeTableService } from '@services';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Table } from 'primeng/table';
-import { ToastrService } from 'ngx-toastr';
+import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, ResizeService, RoasterService } from '@services';
+import { PrimeTableService } from '@services';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-coffee-procured-tab',
     templateUrl: './coffee-procured-tab.component.html',
     styleUrls: ['./coffee-procured-tab.component.scss'],
 })
-export class CoffeeProcuredTabComponent implements OnInit {
+export class CoffeeProcuredTabComponent extends ResizeableComponent implements OnInit {
     termStatus: any;
     display: any;
-    appLanguage?: any;
     roasterID: number;
     mainData: any[] = [];
     originArray: any[] = [];
@@ -28,7 +26,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
         { label: 'Display 50', value: 50 },
     ];
     procuredCoffeeListArray: any[];
-    disableAction = false;
     @Input('form')
     set form(value: FormGroup) {
         this._form = value;
@@ -39,14 +36,14 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     constructor(
-        public globals: GlobalsService,
-        public roasterService: RoasterService,
-        public router: Router,
-        public cookieService: CookieService,
-        public primeTableService: PrimeTableService,
-        public fb: FormBuilder,
         private authService: AuthService,
+        private roasterService: RoasterService,
+        private router: Router,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
+        public primeTableService: PrimeTableService,
     ) {
+        super(resizeService);
         this.display = 10;
         this.roasterID = this.authService.getOrgId();
         this.primeTableService.rows = 10;
@@ -58,7 +55,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
     public _form: FormGroup;
 
     @ViewChild('procuredCoffeeTable', { static: true }) table: Table;
-    public isMobile = false;
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
@@ -68,101 +64,84 @@ export class CoffeeProcuredTabComponent implements OnInit {
     initializeTableProcuredCoffee() {
         this.primeTableService.windowWidth = window.innerWidth;
 
-        if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
-            this.primeTableService.isMobileView = true;
+        if (this.resizeService.isMobile()) {
             this.primeTableService.allColumns = [
                 {
                     field: 'id',
                     header: 'order_id',
-                    sortable: false,
                     width: 40,
                 },
                 {
                     field: 'order_reference',
                     header: 'roaster_ref_no',
-                    sortable: false,
                     width: 50,
                 },
                 {
                     field: 'availability_name',
                     header: 'availability_name',
-                    sortable: false,
                     width: 50,
                 },
                 {
                     field: 'estate_name',
                     header: 'estate_name',
-                    sortable: false,
                     width: 50,
                 },
                 {
                     field: 'quantity',
                     header: 'quantity',
-                    sortable: false,
                     width: 50,
                 },
             ];
         } else {
-            this.primeTableService.isMobileView = false;
             this.primeTableService.allColumns = [
                 {
                     field: 'id',
                     header: 'Order ID',
-                    sortable: false,
                     width: 45,
                 },
                 {
                     field: 'availability_name',
                     header: 'availability_name',
-                    sortable: false,
                     width: 60,
                 },
                 {
                     field: 'estate_name',
                     header: 'estate_name',
-                    sortable: false,
                     width: 70,
                 },
                 {
                     field: 'origin',
                     header: 'origin',
-                    sortable: false,
                     width: 50,
                 },
                 {
                     field: 'order_reference',
                     header: 'roaster_ref_no',
-                    sortable: false,
                     width: 60,
                 },
                 {
                     field: 'varieties',
                     header: 'variety',
-                    sortable: false,
                     width: 40,
                 },
                 {
                     field: 'quantity',
                     header: 'quantity',
-                    sortable: false,
                     width: 40,
                 },
                 {
                     field: 'remaining_total_quantity',
                     header: 'remaining_quantity',
-                    sortable: false,
                     width: 70,
                 },
                 {
                     field: 'actions',
                     header: 'actions',
-                    sortable: false,
                     width: 40,
                 },
                 {
                     field: 'options',
                     header: '',
-                    sortable: false,
                     width: 15,
                 },
             ];
@@ -179,7 +158,6 @@ export class CoffeeProcuredTabComponent implements OnInit {
                 this.table.reset();
             }, 100),
         );
-        this.appLanguage = this.globals.languageJson;
         this.roasterService.getProcuredCoffeeList(this.roasterID).subscribe((res) => {
             res.result.map((org) => {
                 COUNTRY_LIST.find((item) => {
@@ -211,16 +189,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     availabilityPage(item) {
-        if (!this.disableAction) {
-            this.router.navigateByUrl('/green-coffee-management/procured-coffee/' + item.id);
-        }
-    }
-
-    menuClicked() {
-        this.disableAction = true;
-        setTimeout(() => {
-            this.disableAction = false;
-        }, 100);
+        this.router.navigateByUrl('/green-coffee-management/procured-coffee/' + item.id);
     }
 
     sourcingRedirect(item) {
@@ -229,5 +198,22 @@ export class CoffeeProcuredTabComponent implements OnInit {
 
     viewOrderPage(item) {
         this.router.navigateByUrl(`/orders/es/${item?.id}`);
+    }
+
+    getMenuItemsForItem(item) {
+        return [
+            {
+                label: this.translator.instant('view_order_page'),
+                command: () => {
+                    this.viewOrderPage(item);
+                },
+            },
+            {
+                label: this.translator.instant('go_to_availability_page'),
+                command: () => {
+                    this.sourcingRedirect(item);
+                },
+            },
+        ];
     }
 }
