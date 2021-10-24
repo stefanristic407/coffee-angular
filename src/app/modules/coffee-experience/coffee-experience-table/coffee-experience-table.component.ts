@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { ResizeableComponent } from '@base-components';
 import { CoffeeExpService } from '../coffee-experience.service';
+import { OrderStatus } from '@enums';
 
 @Component({
     selector: 'app-coffee-experience-table',
@@ -18,7 +19,6 @@ import { CoffeeExpService } from '../coffee-experience.service';
     styleUrls: ['./coffee-experience-table.component.scss'],
 })
 export class CoffeeExperienceTableComponent extends ResizeableComponent implements OnInit {
-    appLanguage?: any;
     orderId: any;
 
     @Input() coffeeExperienceData = [];
@@ -84,11 +84,10 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         this.primeTableService.sortBy = 'created_at';
         this.primeTableService.sortOrder = 'desc';
         this.path = this.activeRoute.snapshot.routeConfig.path;
-        if (this.path === 'hrc-orders') {
-            this.primeTableService.status = '';
-            // DELIVERED;
+        if (this.path === 'orders' || this.path === 'mr-orders') {
+            this.primeTableService.status = OrderStatus.Received;
         } else {
-            this.primeTableService.status = 'RECEIVED';
+            this.primeTableService.status = '';
         }
     }
 
@@ -364,7 +363,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         this.initializeTableProcuredCoffee();
         this.primeTableService.form = this.form;
 
-        this.language();
         this.primeTableService.form?.valueChanges.subscribe((data) =>
             setTimeout(() => {
                 this.table.reset();
@@ -410,10 +408,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         this.getCoffeeExpOrders();
     }
 
-    language() {
-        this.appLanguage = this.globals.languageJson;
-    }
-
     setStatus() {
         this.primeTableService.origin = this.termStatus;
         this.table.reset();
@@ -434,15 +428,6 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         }
 
         this.table.reset();
-    }
-
-    formatStatus(stringVal) {
-        let formatVal = '';
-        if (stringVal) {
-            formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
-            formatVal = formatVal.replace('_', ' ');
-        }
-        return formatVal.replace('-', '');
     }
 
     availabilityPage(item) {
@@ -473,7 +458,12 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         }
     }
 
-    getCoffeeExpOrders(event?) {
+    getData(event) {
+        this.primeTableService.getData(event);
+        this.getCoffeeExpOrders();
+    }
+
+    getCoffeeExpOrders() {
         if (this.path === 'orders') {
             const queryParams = {
                 sort_order: 'desc',

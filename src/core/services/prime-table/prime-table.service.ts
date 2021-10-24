@@ -65,7 +65,7 @@ export class PrimeTableService {
 
         this.currentPage = this.currentPage + 1;
 
-        this.loading = true;
+        setTimeout(() => (this.loading = true));
 
         let postData = {
             page: this.currentPage,
