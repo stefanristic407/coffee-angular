@@ -65,8 +65,6 @@ export class AuthenticationAppComponent implements OnInit {
                 if (res.success) {
                     this.qrCodeUrl = res.result.url;
                     this.next();
-                } else {
-                    this.toastrService.error('Password incorrect');
                 }
             });
         } else {
