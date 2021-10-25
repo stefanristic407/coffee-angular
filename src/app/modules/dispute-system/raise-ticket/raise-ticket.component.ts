@@ -102,7 +102,7 @@ export class RaiseTicketComponent implements OnInit {
             { label: 'Order Management' },
             { label: 'Purchased order of estate', routerLink: '/orders/es' },
             { label: 'Order ' + this.orderId, routerLink: [`/orders/es/${this.orderId}`] },
-            { label: 'Order Support' },
+            { label: 'Order support' },
         ];
     }
 
