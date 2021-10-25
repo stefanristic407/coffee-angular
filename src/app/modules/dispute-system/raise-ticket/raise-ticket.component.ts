@@ -99,7 +99,7 @@ export class RaiseTicketComponent implements OnInit {
     supplyBreadCrumb(): void {
         this.breadCrumbItem = [
             { label: 'Home', routerLink: '/' },
-            { label: 'Order Management' },
+            { label: 'Order management' },
             { label: 'Purchased order of estate', routerLink: '/orders/es' },
             { label: 'Order ' + this.orderId, routerLink: [`/orders/es/${this.orderId}`] },
             { label: 'Order support' },
