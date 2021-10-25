@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AuthService, CoffeeLabService } from '@services';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
     selector: 'app-questions',
@@ -7,22 +8,15 @@ import { AuthService, CoffeeLabService } from '@services';
     styleUrls: ['./questions.component.scss'],
 })
 export class QuestionsComponent implements OnInit {
+    @ViewChild('paginator', { static: true }) paginator: Paginator;
     @Input() questions: any[] = [];
     @Input() isMyPost = false;
     @Input() isSavedPost = false;
     @Input() isAssignedToMe = false;
     @Input() viewMode = 'list';
-    totalRecords = 0;
-    displayData: any[] = [];
+    @Output() pageChange = new EventEmitter();
 
     constructor(public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
-    ngOnInit(): void {
-        this.displayData = this.questions?.slice(0, 10);
-        this.totalRecords = this.questions?.length;
-    }
-
-    paginate(event: any) {
-        this.displayData = this.questions.slice(event.first, event.first + event.rows);
-    }
+    ngOnInit(): void {}
 }

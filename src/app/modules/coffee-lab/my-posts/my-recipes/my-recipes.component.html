@@ -18,6 +18,9 @@
     </div>
     <app-recipes [isMyPost]="true" [recipes]="recipes"></app-recipes>
 </div>
+<div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">
+    <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
+</div>
 
 <div *ngIf="!isLoading && !recipes.length" class="text-center my-4 fnt-muli text-clr24">
     <app-empty

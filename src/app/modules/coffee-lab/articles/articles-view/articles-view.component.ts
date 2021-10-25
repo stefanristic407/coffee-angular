@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CoffeeLabService, AuthService } from '@services';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -37,6 +37,10 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
     searchInput$: Subject<any> = new Subject<any>();
     forumLanguage: string;
     categoryList: any;
+    pages = 1;
+    totalRecords: number;
+    rows = 9;
+
     constructor(
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
@@ -62,10 +66,6 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         this.searchInput$.next(this.keyword);
     }
 
-    reloadPageData(): void {
-        this.getData();
-    }
-
     getCategory() {
         this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((category) => {
             if (category.success) {
@@ -86,8 +86,8 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
                     : 'asc',
             publish: true,
             category_slug: this.coffeeLabService.articleViewCategory,
-            page: 1,
-            per_page: 10000,
+            page: this.pages,
+            per_page: this.rows,
         };
         this.coffeeLabService.getForumList('article', params, this.forumLanguage).subscribe((res) => {
             if (res.success) {
@@ -95,11 +95,19 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
                     item.content = this.coffeeLabService.getJustText(item.content);
                     return item;
                 });
+                this.totalRecords = res.result_info.total_count;
             } else {
                 this.toastService.error('Cannot get Articles data');
             }
             this.isLoading = false;
         });
+    }
+
+    paginate(event: any) {
+        if (this.pages !== event.page + 1) {
+            this.pages = event.page + 1;
+            this.getData();
+        }
     }
 
     ngOnDestroy(): void {

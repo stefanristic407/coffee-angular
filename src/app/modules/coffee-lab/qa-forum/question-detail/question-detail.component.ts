@@ -29,8 +29,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isLikedBtn = true;
     answerComment: any;
     answerAllowTranslation: boolean;
-    pages: any;
-    relatedData: any;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -74,43 +72,33 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     getDetails(): void {
         this.isLoading = true;
         this.answerDetail = {};
-        combineLatest([
-            this.coffeeLabService.getForumDetails('question', this.slug),
-            this.coffeeLabService.getForumList('question', {
-                page: this.pages ? this.pages + 1 : 2,
-                per_page: 15,
-                category_slug: this.coffeeLabService.qaForumViewCategory,
-            }),
-        ])
-            .pipe(take(1))
-            .subscribe(([res, ques]: [any, any]) => {
-                if (res.success || ques.success) {
-                    this.detailsData = res.result;
-                    if (this.detailsData.parent_question_id > 0) {
-                        this.detailsData.answers.forEach((element) => {
-                            if (element.parent_answer_id > 0) {
-                                this.getAnswerDetail(element.id);
-                            }
-                        });
-                    }
-                    setTimeout(() => {
-                        this.setPagePosition();
-                        document.getElementById('text-focus').focus();
-                    }, 500);
-                    if (res.result.parent_question_id) {
-                        this.messageService.clear();
-                        this.messageService.add({
-                            key: 'translate',
-                            severity: 'success',
-                            closable: false,
-                        });
-                    }
-                    this.relatedData = ques.result?.questions;
-                    this.isLoading = false;
-                } else {
-                    this.toastService.error('Cannot get detail data');
+        this.coffeeLabService.getForumDetails('question', this.slug).subscribe((res: any) => {
+            if (res.success) {
+                this.detailsData = res.result;
+                if (this.detailsData.parent_question_id > 0) {
+                    this.detailsData.answers.forEach((element) => {
+                        if (element.parent_answer_id > 0) {
+                            this.getAnswerDetail(element.id);
+                        }
+                    });
                 }
-            });
+                setTimeout(() => {
+                    this.setPagePosition();
+                    document.getElementById('text-focus').focus();
+                }, 500);
+                if (res.result.parent_question_id) {
+                    this.messageService.clear();
+                    this.messageService.add({
+                        key: 'translate',
+                        severity: 'success',
+                        closable: false,
+                    });
+                }
+                this.isLoading = false;
+            } else {
+                this.toastService.error('Cannot get detail data');
+            }
+        });
     }
 
     getAnswerDetail(id: any) {

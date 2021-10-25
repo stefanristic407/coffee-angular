@@ -141,8 +141,8 @@
             </div>
         </div>
     </div>
-    <div *ngIf="!isLoading && totalRecords" class="pt-3 pt-md-4">
-        <p-paginator [rows]="10" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
+    <div *ngIf="totalRecords" class="pt-3 pt-md-4">
+        <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
     </div>
     <div *ngIf="isLoading">
         <app-loading></app-loading>

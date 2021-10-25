@@ -1,8 +1,5 @@
 <div class="row gutter-16 v-gutter-24">
-    <div class="col-md-6 col-xl-4" *ngFor="let coffee of displayData; let i = index">
+    <div class="col-md-6 col-xl-4" *ngFor="let coffee of recipes; let i = index">
         <app-recipe-card [isMyPost]="isMyPost" [isSavedPost]="isSavedPost" [recipe]="coffee"></app-recipe-card>
     </div>
-</div>
-<div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">
-    <p-paginator [rows]="9" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
 </div>

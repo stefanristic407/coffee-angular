@@ -17,6 +17,9 @@ export class AssignedToMeViewComponent implements OnInit {
     ];
     questions: any[] = [];
     isLoading = false;
+    pages = 1;
+    totalRecords: number;
+    rows = 10;
 
     constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {}
 
@@ -35,17 +38,25 @@ export class AssignedToMeViewComponent implements OnInit {
                     : this.coffeeLabService.assignedToMeSortBy === 'latest'
                     ? 'desc'
                     : 'asc',
-            page: 1,
-            per_page: 10000,
+            page: this.pages,
+            per_page: this.rows,
         };
         this.isLoading = true;
         this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
                 this.questions = res.result?.questions;
+                this.totalRecords = res.result_info.total_count;
             } else {
                 this.toastService.error('Cannot get forum data');
             }
         });
+    }
+
+    paginate(event: any) {
+        if (this.pages !== event.page + 1) {
+            this.pages = event.page + 1;
+            this.getQuestions();
+        }
     }
 }
