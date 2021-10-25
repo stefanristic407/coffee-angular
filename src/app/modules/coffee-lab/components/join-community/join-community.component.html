@@ -1,8 +1,4 @@
-<div
-    *ngIf="!isLoading && relatedData.length"
-    class="question-header mb-4"
-    [ngClass]="{ 'no-border': type === 'article' || type === 'recipe' }"
->
+<div class="question-header mb-4" [ngClass]="{ 'no-border': type === 'article' || type === 'recipe' }">
     <p class="fnt-16 fnt-bold fnt-muli text-clr24 mt-3">
         <span *ngIf="detailType === 'question-detail'">{{ 'related_discussions_on_the_forum' | translate }}</span>
         <span *ngIf="detailType !== 'question-detail'">{{ 'recent_discussions_on_forum' | translate }}</span>
@@ -23,7 +19,7 @@
             ></a>
         </p>
     </div>
-    <div *ngIf="!isLoading && !relatedData.length" class="text-center my-4 fnt-muli text-clr24">
+    <div *ngIf="!relatedData.length" class="text-center my-4 fnt-muli text-clr24">
         {{ 'no_data_is_available' | translate }}
     </div>
 </div>
