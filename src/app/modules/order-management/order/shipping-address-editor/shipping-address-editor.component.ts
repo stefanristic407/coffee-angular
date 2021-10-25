@@ -66,7 +66,7 @@ export class ShippingAddressEditorComponent extends DestroyableComponent impleme
 
                 this.breadcrumbs = [
                     { label: 'Home', routerLink: '/' },
-                    { label: 'Order Management', routerLink: `/orders/${this.orgType}` },
+                    { label: 'Order management', routerLink: `/orders/${this.orgType}` },
                     { label: `Order #${this.orderId}`, routerLink: `/orders/${this.orgType}/${this.orderId}` },
                     { label: 'Edit' },
                 ];

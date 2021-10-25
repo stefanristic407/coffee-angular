@@ -52,7 +52,7 @@ export class OrderSupportComponent implements OnInit {
             routerLink: '/',
         };
         const obj2: MenuItem = {
-            label: 'Order Management',
+            label: 'Order management',
         };
         const obj3: MenuItem = {
             label: 'Purchased order of estate',
@@ -63,7 +63,7 @@ export class OrderSupportComponent implements OnInit {
             routerLink: [`/orders/es/${this.orderID}`],
         };
         const obj5: MenuItem = {
-            label: 'Order Support',
+            label: 'Order support',
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);

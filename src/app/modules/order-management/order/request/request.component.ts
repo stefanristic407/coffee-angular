@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { DestroyableComponent } from '@base-components';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { AvailabilityRequestService, CommonService } from '@services';
-import { AvailabilityRequest } from '@models';
-import { MenuItem } from 'primeng/api/menuitem';
+import { DestroyableComponent } from '@base-components';
 import { AvailabilityRequestStatus } from '@enums';
-import { ToastrService } from 'ngx-toastr';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { AvailabilityRequest } from '@models';
 import { TranslateService } from '@ngx-translate/core';
+import { AvailabilityRequestService, CommonService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api/menuitem';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-request',
@@ -19,7 +19,7 @@ export class RequestComponent extends DestroyableComponent implements OnInit {
     readonly RequestStatus = AvailabilityRequestStatus;
     readonly breadcrumbs: MenuItem[] = [
         { label: 'Home', routerLink: '/' },
-        { label: 'Order Management', routerLink: '/orders/mr' },
+        { label: 'Order management', routerLink: '/orders/mr' },
     ];
 
     readonly rejectReasonForm: FormGroup = this.fb.group({

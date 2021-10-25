@@ -42,7 +42,7 @@ export class FaqQuestionComponent implements OnInit {
             routerLink: '/',
         };
         const obj2: MenuItem = {
-            label: 'Order Management',
+            label: 'Order management',
         };
         const obj3: MenuItem = {
             label: 'Purchased order of estate',
@@ -53,7 +53,7 @@ export class FaqQuestionComponent implements OnInit {
             routerLink: [`/orders/es/${this.orderID}`],
         };
         const obj5: MenuItem = {
-            label: 'Order Support',
+            label: 'Order support',
             routerLink: [`/dispute-system/order-support/${this.orderID}`],
         };
         const obj6: MenuItem = {
