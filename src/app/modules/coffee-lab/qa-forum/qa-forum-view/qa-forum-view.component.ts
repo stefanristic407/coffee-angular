@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { combineLatest, Subject } from 'rxjs';
-import { debounceTime, take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-qa-forum-view',
@@ -33,8 +33,9 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     forumLanguage: string;
     searchInput$: Subject<any> = new Subject<any>();
     categoryList: any;
-    relatedData: any[] = [];
-    pages: number;
+    pages = 1;
+    totalRecords: number;
+    rows = 10;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -76,27 +77,18 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
                     : 'asc',
             publish: true,
             category_slug: this.coffeeLabService.qaForumViewCategory,
-            page: 1,
-            per_page: 10000,
+            page: this.pages,
+            per_page: this.rows,
         };
-        combineLatest([
-            this.coffeeLabService.getForumList('question', params, this.forumLanguage),
-            this.coffeeLabService.getForumList('question', {
-                page: this.pages ? this.pages + 1 : 2,
-                per_page: 15,
-                category_slug: this.coffeeLabService.qaForumViewCategory,
-            }),
-        ])
-            .pipe(take(1))
-            .subscribe(([res, ques]: [any, any]) => {
-                if (res.success || ques.success) {
-                    this.questions = res.result?.questions;
-                    this.relatedData = ques.result?.questions;
-                    this.isLoading = false;
-                } else {
-                    this.toastService.error('Cannot get questions');
-                }
-            });
+        this.coffeeLabService.getForumList('question', params, this.forumLanguage).subscribe((res: any) => {
+            if (res.success) {
+                this.questions = res.result?.questions;
+                this.totalRecords = res.result_info.total_count;
+                this.isLoading = false;
+            } else {
+                this.toastService.error('Cannot get questions');
+            }
+        });
     }
 
     ngOnDestroy(): void {
@@ -110,5 +102,12 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
                 this.categoryList = category.result;
             }
         });
+    }
+
+    paginate(event: any) {
+        if (this.pages !== event.page + 1) {
+            this.pages = event.page + 1;
+            this.getQuestions();
+        }
     }
 }

@@ -4,8 +4,8 @@ import { environment } from '@env/environment';
 import { AuthService, ChatHandlerService, CoffeeLabService, GlobalsService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { combineLatest, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'app-aticle-details',
     templateUrl: './article-detail.component.html',
@@ -30,9 +30,6 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     isMyPost = false;
     isSavedPost = false;
     isLikedBtn = true;
-    pages: any;
-    recentQuestions: any[] = [];
-
     constructor(
         public coffeeLabService: CoffeeLabService,
         public authService: AuthService,
@@ -81,41 +78,28 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     getDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        combineLatest([
-            this.coffeeLabService.getForumDetails('article', this.idOrSlug),
-            this.coffeeLabService.getForumList('question', {
-                page: this.pages ? this.pages + 1 : 2,
-                per_page: 15,
-                category_slug: this.coffeeLabService.qaForumViewCategory,
-            }),
-        ])
-            .pipe(take(1))
-            .subscribe(([res, ques]: [any, any]) => {
-                if (res.success || ques.success) {
-                    this.detailsData = res.result;
-                    this.isSaveArticle = this.detailsData.is_saved;
-                    if (
-                        this.detailsData?.original_article_state &&
-                        this.detailsData?.original_article_state === 'ACTIVE'
-                    ) {
-                        this.getOriginalUserDetail(this.detailsData.original_article);
-                    }
-                    this.getUserDetail(this.detailsData);
-                    this.getCommentsData();
-                    if (res.result.original_article_id) {
-                        this.messageService.clear();
-                        this.messageService.add({
-                            key: 'translate',
-                            severity: 'success',
-                            closable: false,
-                        });
-                    }
-                    this.recentQuestions = ques.result?.questions;
-                    this.isLoading = false;
-                } else {
-                    this.toastrService.error('Cannot get detail data');
+        this.coffeeLabService.getForumDetails('article', this.idOrSlug).subscribe((res: any) => {
+            if (res.success) {
+                this.detailsData = res.result;
+                this.isSaveArticle = this.detailsData.is_saved;
+                if (this.detailsData?.original_article_state && this.detailsData?.original_article_state === 'ACTIVE') {
+                    this.getOriginalUserDetail(this.detailsData.original_article);
                 }
-            });
+                this.getUserDetail(this.detailsData);
+                this.getCommentsData();
+                if (res.result.original_article_id) {
+                    this.messageService.clear();
+                    this.messageService.add({
+                        key: 'translate',
+                        severity: 'success',
+                        closable: false,
+                    });
+                }
+                this.isLoading = false;
+            } else {
+                this.toastrService.error('Cannot get detail data');
+            }
+        });
     }
 
     getCommentsData(): void {

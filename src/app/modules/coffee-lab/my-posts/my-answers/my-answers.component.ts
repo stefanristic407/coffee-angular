@@ -19,7 +19,9 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
     isSavedPostsPage = false;
     isLoading = false;
     forumDeleteSub: Subscription;
-    totalRecords = 0;
+    pages = 1;
+    totalRecords: number;
+    rows = 10;
     displayData: any[] = [];
     answerComment: any;
     answerAllowTranslation: boolean;
@@ -54,6 +56,8 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
         const params = {
             sort_by: 'created_at',
             sort_order: this.coffeeLabService.myAnswersSortBy,
+            page: this.pages,
+            per_page: this.rows,
         };
         this.coffeeLabService.getSavedForumList('answer', params).subscribe((res) => {
             this.answers = (res.result ?? []).map((item) => {
@@ -65,8 +69,8 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
                 }
                 return item;
             });
-            this.totalRecords = this.answers.length;
-            this.displayData = this.answers.slice(0, 10);
+            this.totalRecords = res.result_info.total_count;
+            this.displayData = this.answers;
             this.isLoading = false;
         });
     }
@@ -76,6 +80,8 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
         const params = {
             sort_by: 'created_at',
             sort_order: this.coffeeLabService.myAnswersSortBy,
+            page: this.pages,
+            per_page: this.rows,
         };
         this.coffeeLabService.getMyForumList('answer', params).subscribe((res) => {
             this.answers = (res.result ?? []).map((item) => {
@@ -87,14 +93,21 @@ export class MyAnswersComponent implements OnInit, OnDestroy {
                 }
                 return item;
             });
-            this.totalRecords = this.answers.length;
-            this.displayData = this.answers.slice(0, 10);
+            this.totalRecords = res.result_info.total_count;
+            this.displayData = this.answers;
             this.isLoading = false;
         });
     }
 
     paginate(event: any) {
-        this.displayData = this.answers.slice(event.first, event.first + event.rows);
+        if (this.pages !== event.page + 1) {
+            this.pages = event.page + 1;
+            if (this.pageDesc === 'my-posts') {
+                this.getMyAnswers();
+            } else if (this.pageDesc === 'saved-posts') {
+                this.getSavedAnswers();
+            }
+        }
     }
 
     onEditAnswer(event: any, index?: number) {

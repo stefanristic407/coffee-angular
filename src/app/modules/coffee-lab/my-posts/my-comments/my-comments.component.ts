@@ -20,7 +20,9 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
     isMyPostsPage = false;
     pageDesc: string;
     forumDeleteSub: Subscription;
-    totalRecords = 0;
+    pages = 1;
+    totalRecords: number;
+    rows = 10;
     displayData: any[] = [];
 
     constructor(public coffeeLabService: CoffeeLabService, private authService: AuthService, private router: Router) {
@@ -43,6 +45,8 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
         const params = {
             sort_by: 'created_at',
             sort_order: this.coffeeLabService.myCommentsSortBy,
+            page: this.pages,
+            per_page: this.rows,
         };
         this.coffeeLabService.getMyForumList('my-comment', params).subscribe((res) => {
             this.comments = (res.result ?? []).map((item) => {
@@ -61,14 +65,17 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
                 }
                 return item;
             });
-            this.totalRecords = this.comments.length;
-            this.displayData = this.comments.slice(0, 10);
+            this.totalRecords = res.result_info.total_count;
+            this.displayData = this.comments;
             this.isLoading = false;
         });
     }
 
     paginate(event: any) {
-        this.displayData = this.comments.slice(event.first, event.first + event.rows);
+        if (this.pages !== event.page + 1) {
+            this.pages = event.page + 1;
+            this.getComments();
+        }
     }
 
     ngOnDestroy(): void {

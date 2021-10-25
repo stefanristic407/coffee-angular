@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-qa-post',
@@ -22,6 +22,9 @@ export class QaPostComponent implements OnInit, OnDestroy {
     pageDesc: string | undefined;
     destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
+    pages = 1;
+    totalRecords: number;
+    rows = 10;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -51,8 +54,8 @@ export class QaPostComponent implements OnInit, OnDestroy {
                     : this.coffeeLabService.qaPostSortBy === 'latest' || this.coffeeLabService.qaPostSortBy === null
                     ? 'desc'
                     : 'asc',
-            page: 1,
-            per_page: 10000,
+            page: this.pages,
+            per_page: this.rows,
         };
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLabService.getSavedForumList('question', params).subscribe((res: any) => {
@@ -96,6 +99,7 @@ export class QaPostComponent implements OnInit, OnDestroy {
                         item.is_saved = true;
                         return item;
                     });
+                    this.totalRecords = res.result_info.total_count;
                 } else {
                     this.toastService.error('Cannot get forum data');
                 }
@@ -105,10 +109,18 @@ export class QaPostComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
                 if (res.success) {
                     this.questions = res.result?.questions || [];
+                    this.totalRecords = res.result_info.total_count;
                 } else {
                     this.toastService.error('Cannot get forum data');
                 }
             });
+        }
+    }
+
+    paginate(event: any) {
+        if (this.pages !== event.page + 1) {
+            this.pages = event.page + 1;
+            this.getPosts();
         }
     }
 

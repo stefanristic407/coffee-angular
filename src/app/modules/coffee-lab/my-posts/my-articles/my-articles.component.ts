@@ -23,6 +23,9 @@ export class MyArticlesComponent implements OnInit, OnDestroy {
     ];
     isLoading = true;
     destroy$: Subject<boolean> = new Subject<boolean>();
+    pages = 1;
+    totalRecords: number;
+    rows = 9;
 
     constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
@@ -39,8 +42,8 @@ export class MyArticlesComponent implements OnInit, OnDestroy {
             sort_by: 'created_at',
             sort_order: 'desc',
             publish: true,
-            page: 1,
-            per_page: 10000,
+            page: this.pages,
+            per_page: this.rows,
         };
         this.isLoading = true;
         this.coffeeLabService.getMyForumList('article', params).subscribe((res) => {
@@ -49,11 +52,19 @@ export class MyArticlesComponent implements OnInit, OnDestroy {
                     item.content = this.coffeeLabService.getJustText(item.content);
                     return item;
                 });
+                this.totalRecords = res.result_info.total_count;
             } else {
                 this.toastService.error('Cannot get Articles data');
             }
             this.isLoading = false;
         });
+    }
+
+    paginate(event: any) {
+        if (this.pages !== event.page + 1) {
+            this.pages = event.page + 1;
+            this.getArticles();
+        }
     }
 
     ngOnDestroy(): void {

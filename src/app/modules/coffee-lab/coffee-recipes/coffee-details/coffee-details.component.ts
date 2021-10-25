@@ -30,8 +30,6 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     isMyPost = false;
     isSavedPost = false;
     isLikedBtn = true;
-    pages: any;
-    recentQuestions: any[] = [];
     infoData: any[] = [
         {
             icon: 'assets/images/aeropress.svg',
@@ -88,48 +86,35 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
 
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        combineLatest([
-            this.coffeeLabService.getForumDetails('recipe', this.slug),
-            this.coffeeLabService.getForumList('question', {
-                page: this.pages ? this.pages + 1 : 2,
-                per_page: 15,
-                category_slug: this.coffeeLabService.qaForumViewCategory,
-            }),
-        ])
-            .pipe(take(1))
-            .subscribe(([res, ques]: [any, any]) => {
-                if (res.success || ques.success) {
-                    this.detailsData = res.result;
-                    this.detailsData.description = this.getJustText(this.detailsData.description);
-                    this.isSaveRecipe = this.detailsData.is_saved;
-                    if (
-                        this.detailsData?.original_recipe_state &&
-                        this.detailsData?.original_recipe_state === 'ACTIVE'
-                    ) {
-                        this.getOriginalUserDetail(this.detailsData.original_details);
-                    }
-                    this.getUserDetail(this.detailsData);
-                    this.getCommentsData();
-                    if (this.detailsData?.steps && this.detailsData?.steps.length > 0) {
-                        this.detailsData.steps.map((item) => {
-                            item.description = this.getJustText(item.description);
-                            return item;
-                        });
-                    }
-                    if (res.result.parent_id) {
-                        this.messageService.clear();
-                        this.messageService.add({
-                            key: 'translate',
-                            severity: 'success',
-                            closable: false,
-                        });
-                    }
-                    this.recentQuestions = ques.result?.questions;
-                    this.isLoading = false;
-                } else {
-                    this.toastrService.error('Cannot get detail data');
+        this.coffeeLabService.getForumDetails('recipe', this.slug).subscribe((res: any) => {
+            if (res.success) {
+                this.detailsData = res.result;
+                this.detailsData.description = this.getJustText(this.detailsData.description);
+                this.isSaveRecipe = this.detailsData.is_saved;
+                if (this.detailsData?.original_recipe_state && this.detailsData?.original_recipe_state === 'ACTIVE') {
+                    this.getOriginalUserDetail(this.detailsData.original_details);
                 }
-            });
+                this.getUserDetail(this.detailsData);
+                this.getCommentsData();
+                if (this.detailsData?.steps && this.detailsData?.steps.length > 0) {
+                    this.detailsData.steps.map((item) => {
+                        item.description = this.getJustText(item.description);
+                        return item;
+                    });
+                }
+                if (res.result.parent_id) {
+                    this.messageService.clear();
+                    this.messageService.add({
+                        key: 'translate',
+                        severity: 'success',
+                        closable: false,
+                    });
+                }
+                this.isLoading = false;
+            } else {
+                this.toastrService.error('Cannot get detail data');
+            }
+        });
     }
 
     getCoffeeRecipesData() {

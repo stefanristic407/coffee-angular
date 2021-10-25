@@ -19,6 +19,9 @@
     <div *ngIf="isLoading">
         <app-loading></app-loading>
     </div>
+    <div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">
+        <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
     <div *ngIf="!isLoading && !questions.length" class="text-center my-4 fnt-muli text-clr24">
         <app-empty [title]="'no_questions_assigned_to_you' | translate"></app-empty>
     </div>

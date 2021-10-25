@@ -1,6 +1,6 @@
 <div class="row gutter-24 v-gutter-24">
     <div
-        *ngFor="let question of displayData; let qindex = index"
+        *ngFor="let question of questions; let qindex = index"
         [ngClass]="{ 'col-12': viewMode === 'list', 'col-lg-6': viewMode === 'grid' }"
     >
         <app-question-card
@@ -10,7 +10,4 @@
             [question]="question"
         ></app-question-card>
     </div>
-</div>
-<div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">
-    <p-paginator [rows]="10" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { AuthService, CoffeeLabService } from '@services';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-coffee-recipes-view',
@@ -18,6 +18,10 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     coffeeRecipeData: any[] = [];
     isLoading = false;
     forumLanguage: string;
+    categoryList: any;
+    pages = 1;
+    totalRecords: number;
+    rows = 9;
     translationsList: any[] = [
         {
             label: 'Yes',
@@ -52,7 +56,6 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             value: 'oldest',
         },
     ];
-    categoryList: any;
 
     constructor(
         private toastService: ToastrService,
@@ -106,8 +109,8 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             level: this.coffeeLabService.recipeViewLevel?.toLowerCase(),
             publish: true,
             category_slug: this.coffeeLabService.recipeViewCategory,
-            page: 1,
-            per_page: 10000,
+            page: this.pages,
+            per_page: this.rows,
         };
         this.coffeeLabService.getForumList('recipe', params, this.forumLanguage).subscribe((res) => {
             if (res.success) {
@@ -115,11 +118,19 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                     item.description = this.coffeeLabService.getJustText(item.description);
                     return item;
                 });
+                this.totalRecords = res.result_info.total_count;
             } else {
                 this.toastService.error('Cannot get Recipes data');
             }
             this.isLoading = false;
         });
+    }
+
+    paginate(event: any) {
+        if (this.pages !== event.page + 1) {
+            this.pages = event.page + 1;
+            this.getCoffeeRecipesData();
+        }
     }
 
     ngOnDestroy(): void {
