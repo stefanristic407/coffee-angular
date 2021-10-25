@@ -6,7 +6,7 @@
     </div>
     <div class="container article-main-block" *ngIf="!isLoading">
         <div class="mt-4 mt-lg-425">
-            <div *ngIf="detailsData?.categories" class="mx-md-5 px-md-5 text-center w-100">
+            <div *ngIf="detailsData?.categories" class="mx-md-5 pl-md-5 d-flex justify-content-center">
                 <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
             </div>
             <div class="pl-md-475 pr-md-0 px-0">
@@ -387,7 +387,7 @@
             </div>
         </div>
         <div class="col-12 col-md-4 mb-4 px-0 px-md-3">
-            <app-join-community [type]="'article'"></app-join-community>
+            <app-join-community [relatedData]="recentQuestions" [type]="'article'"></app-join-community>
         </div>
     </article>
     <app-loading *ngIf="isLoading"></app-loading>

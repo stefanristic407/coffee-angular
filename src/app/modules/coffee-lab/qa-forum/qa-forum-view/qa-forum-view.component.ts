@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { combineLatest, Subject } from 'rxjs';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-qa-forum-view',
@@ -33,6 +33,8 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     forumLanguage: string;
     searchInput$: Subject<any> = new Subject<any>();
     categoryList: any;
+    relatedData: any[] = [];
+    pages: number;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -60,6 +62,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     }
 
     getQuestions(): void {
+        this.isLoading = true;
         const params = {
             query: this.keyword,
             is_consumer: this.coffeeLabService.qaForumViewFilterBy || '',
@@ -76,15 +79,24 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
             page: 1,
             per_page: 10000,
         };
-        this.isLoading = true;
-        this.coffeeLabService.getForumList('question', params, this.forumLanguage).subscribe((res: any) => {
-            this.isLoading = false;
-            if (res.success) {
-                this.questions = res.result?.questions;
-            } else {
-                this.toastService.error('Cannot get forum data');
-            }
-        });
+        combineLatest([
+            this.coffeeLabService.getForumList('question', params, this.forumLanguage),
+            this.coffeeLabService.getForumList('question', {
+                page: this.pages ? this.pages + 1 : 2,
+                per_page: 15,
+                category_slug: this.coffeeLabService.qaForumViewCategory,
+            }),
+        ])
+            .pipe(take(1))
+            .subscribe(([res, ques]: [any, any]) => {
+                if (res.success || ques.success) {
+                    this.questions = res.result?.questions;
+                    this.relatedData = ques.result?.questions;
+                    this.isLoading = false;
+                } else {
+                    this.toastService.error('Cannot get questions');
+                }
+            });
     }
 
     ngOnDestroy(): void {

@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { SharedModule } from '@shared';
-import { CoffeeLabSharedModule } from './coffee-lab-shared.module';
-
 import { ArticlesComponent } from './articles/articles.component';
+import { CoffeeLabSharedModule } from './coffee-lab-shared.module';
 import { CommentsComponent } from './comments/comments.component';
 import { ForumEditorComponent } from './forum-editor/forum-editor.component';
 import { InfoTooltipComponent } from './info-tooltip/info-tooltip.component';

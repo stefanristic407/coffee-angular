@@ -5,8 +5,8 @@ import { environment } from '@env/environment';
 import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { combineLatest, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-question-detail',
@@ -19,7 +19,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     slug?: string;
     isLoading = false;
     detailsData: any;
-    recentQuestions: any[] = [];
     destroy$: Subject<boolean> = new Subject<boolean>();
     comment: string;
     answerDetail: any;
@@ -30,6 +29,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isLikedBtn = true;
     answerComment: any;
     answerAllowTranslation: boolean;
+    pages: any;
+    relatedData: any;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -44,7 +45,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     ) {
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
-            this.getRecentQuestions();
             if (!this.isLoading) {
                 this.getDetails();
             }
@@ -71,53 +71,46 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    getRecentQuestions(): void {
-        const params = {
-            sort_by: 'posted_at',
-            sort_order: 'desc',
-            publish: true,
-        };
-        this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
-            if (res.success) {
-                this.recentQuestions = res.result?.questions
-                    ?.filter((item: any) => item.id !== this.slug && item.slug !== this.slug)
-                    .slice(0, 5);
-            } else {
-                this.toastService.error('Cannot get recent questions');
-            }
-        });
-    }
-
     getDetails(): void {
         this.isLoading = true;
         this.answerDetail = {};
-        this.coffeeLabService.getForumDetails('question', this.slug).subscribe((res: any) => {
-            this.isLoading = false;
-            if (res.success) {
-                this.detailsData = res.result;
-                if (this.detailsData.parent_question_id > 0) {
-                    this.detailsData.answers.forEach((element) => {
-                        if (element.parent_answer_id > 0) {
-                            this.getAnswerDetail(element.id);
-                        }
-                    });
+        combineLatest([
+            this.coffeeLabService.getForumDetails('question', this.slug),
+            this.coffeeLabService.getForumList('question', {
+                page: this.pages ? this.pages + 1 : 2,
+                per_page: 15,
+                category_slug: this.coffeeLabService.qaForumViewCategory,
+            }),
+        ])
+            .pipe(take(1))
+            .subscribe(([res, ques]: [any, any]) => {
+                if (res.success || ques.success) {
+                    this.detailsData = res.result;
+                    if (this.detailsData.parent_question_id > 0) {
+                        this.detailsData.answers.forEach((element) => {
+                            if (element.parent_answer_id > 0) {
+                                this.getAnswerDetail(element.id);
+                            }
+                        });
+                    }
+                    setTimeout(() => {
+                        this.setPagePosition();
+                        document.getElementById('text-focus').focus();
+                    }, 500);
+                    if (res.result.parent_question_id) {
+                        this.messageService.clear();
+                        this.messageService.add({
+                            key: 'translate',
+                            severity: 'success',
+                            closable: false,
+                        });
+                    }
+                    this.relatedData = ques.result?.questions;
+                    this.isLoading = false;
+                } else {
+                    this.toastService.error('Cannot get detail data');
                 }
-                setTimeout(() => {
-                    this.setPagePosition();
-                    document.getElementById('text-focus').focus();
-                }, 500);
-                if (res.result.parent_question_id) {
-                    this.messageService.clear();
-                    this.messageService.add({
-                        key: 'translate',
-                        severity: 'success',
-                        closable: false,
-                    });
-                }
-            } else {
-                this.toastService.error('Cannot get detail data');
-            }
-        });
+            });
     }
 
     getAnswerDetail(id: any) {

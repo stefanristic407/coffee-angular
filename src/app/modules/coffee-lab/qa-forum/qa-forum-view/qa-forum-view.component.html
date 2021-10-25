@@ -17,7 +17,7 @@
             />
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="!isLoading">
         <div class="col-12 col-md-7 px-0">
             <div class="d-flex mb-md-4 ml-3">
                 <div class="d-md-flex justify-content-md-between align-items-center pr-lg-2 flex-1">
@@ -73,7 +73,7 @@
                 <div class="d-none d-lg-block empty-join-wrapper pl-lg-2"></div>
             </div>
             <div class="d-block ml-25 mr-25 ml-md-3 mr-md-0">
-                <div *ngIf="!isLoading">
+                <div>
                     <app-questions [questions]="questions" [viewMode]="viewMode"></app-questions>
                 </div>
                 <div *ngIf="!isLoading && !questions?.length" class="text-center my-4 fnt-muli text-clr24">
@@ -97,7 +97,7 @@
                     />
                 </div>
             </div>
-            <app-join-community [type]="'question'"></app-join-community>
+            <app-join-community [relatedData]="relatedData" [type]="'question'"></app-join-community>
         </div>
         <div class="col-lg-8" [ngClass]="{ 'col-lg-8': viewMode === 'list', 'col-12': viewMode === 'grid' }"></div>
     </div>

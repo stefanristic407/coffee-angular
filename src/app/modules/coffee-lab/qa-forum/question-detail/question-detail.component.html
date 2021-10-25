@@ -134,7 +134,6 @@
                         <div class="d-flex justify-content-center">
                             <div class="sewn-form-field width-comment mb-0">
                                 <textarea
-                                    id="text-focus"
                                     class="add-comment active-comment"
                                     [ngClass]="{ 'comment-hgt': !answerComment }"
                                     [(ngModel)]="answerComment"
@@ -267,9 +266,9 @@
                 </div>
             </div>
             <button
+                *ngIf="detailsData?.parent_question_id <= 0"
                 (click)="onFocusCommentBox()"
-                class="cursor-point"
-                class="bg-transparent border-0 fnt-14 fnt-bold fnt-muli mb-4 ml-4 ml-md-5 pl-md-0 text-clr60b"
+                class="bg-transparent border-0 editBtn mb-4 ml-4 ml-md-5 pl-md-0"
             >
                 {{ 'write_comment' | translate }}
             </button>
@@ -277,7 +276,11 @@
     </div>
 
     <div *ngIf="!isLoading" class="col-lg-5 px-0 pl-md-5">
-        <app-join-community [detailType]="'question-detail'" [type]="'question'"></app-join-community>
+        <app-join-community
+            [relatedData]="relatedData"
+            [detailType]="'question-detail'"
+            [type]="'question'"
+        ></app-join-community>
     </div>
 </div>
 
