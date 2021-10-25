@@ -201,6 +201,13 @@
     }
 }
 
+.editBtn {
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
 ::ng-deep .p-chips.p-category-chips .p-chips-multiple-container {
     background-color: transparent !important;
     border: 0px !important;

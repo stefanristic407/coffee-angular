@@ -9,7 +9,7 @@
             [(ngModel)]="languageCode"
             (onChange)="changeLanguage($event)"
             class="inputFieldBox bg-white col-md-5 pl-0 pr-0"
-            [disabled]="questionId"
+            [disabled]="questionId && status !== 'draft'"
         >
         </p-dropdown>
     </div>

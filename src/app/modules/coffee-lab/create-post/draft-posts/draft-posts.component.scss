@@ -25,3 +25,9 @@
         padding-right: 2rem;
     }
 }
+
+.delete-draft {
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
