@@ -812,25 +812,11 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    //Get Procured Coffees List
-    getProcuredCoffeeList(roaster_id: any, origin?, displayCount?, searchString?): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/procured-coffees';
-        data['method'] = 'GET';
-        data['api_call'] = origin ? data['api_call'] + '?origin=' + origin : data['api_call'];
-        if (origin && displayCount) {
-            data['api_call'] = data['api_call'] + '&per_page=' + displayCount;
-        } else if (displayCount) {
-            data['api_call'] = data['api_call'] + '?per_page=' + displayCount;
-        }
-        if ((origin || displayCount) && searchString) {
-            data['api_call'] = data['api_call'] + '&search_query=' + searchString;
-        } else if (searchString) {
-            data['api_call'] = data['api_call'] + '?search_query=' + searchString;
-        }
-        data['token'] = this.authService.token;
-        return this.http.post(this.url, data);
+    // Get Procured Coffees List
+    getProcuredCoffeeList(params?: object): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `procured-coffees?${this.serializeParams(params)}`);
     }
+
     //Get Coffee Sale List
     getCoffeeSaleList(roaster_id: any, status?, displayCount?): Observable<any> {
         var data = {};

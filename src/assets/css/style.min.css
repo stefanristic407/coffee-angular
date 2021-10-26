@@ -7372,24 +7372,6 @@ body .ui-widget {
     color: #ffffff !important;
 }
 
-.cancel-butn {
-    border-radius: 4px !important;
-    background-color: transparent !important;
-    padding: 13px 20px !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    color: #30855c !important;
-    border: 1px solid #30855c !important;
-    /* margin-left: 6.3rem !important; */
-    margin-right: 1rem !important;
-    font-family: Muli !important;
-}
-
-.cancel-butn:hover {
-    background-color: #30855c !important;
-    color: #ffffff !important;
-}
-
 li.select-list__item {
     color: #232334 !important;
     cursor: pointer !important;

@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
+import { OrganizationType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, ResizeService, RoasterService } from '@services';
 import { PrimeTableService } from '@services';
@@ -14,7 +15,9 @@ import { Table } from 'primeng/table';
     styleUrls: ['./coffee-procured-tab.component.scss'],
 })
 export class CoffeeProcuredTabComponent extends ResizeableComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     termStatus: any;
+    selectedEstate: any;
     display: any;
     roasterID: number;
     mainData: any[] = [];
@@ -26,6 +29,7 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
         { label: 'Display 50', value: 50 },
     ];
     procuredCoffeeListArray: any[];
+    estatesList: any[] = [];
     @Input('form')
     set form(value: FormGroup) {
         this._form = value;
@@ -158,7 +162,7 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
                 this.table.reset();
             }, 100),
         );
-        this.roasterService.getProcuredCoffeeList(this.roasterID).subscribe((res) => {
+        this.roasterService.getProcuredCoffeeList().subscribe((res) => {
             res.result.map((org) => {
                 COUNTRY_LIST.find((item) => {
                     if (org.origin.toUpperCase() === item.isoCode) {
@@ -176,6 +180,11 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
     }
     search(item) {
         this.primeTableService.searchQuery = item;
+        this.selectedEstate = null;
+        this.table.reset();
+    }
+    setEstate(value) {
+        this.primeTableService.searchQuery = value.estate_name;
         this.table.reset();
     }
     setDisplay() {
@@ -215,5 +224,14 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
                 },
             },
         ];
+    }
+
+    getEstatesList(event: any) {
+        const searchStr: string = (event?.query || '').trim();
+        this.roasterService.getProcuredCoffeeList({ search_query: searchStr }).subscribe((res) => {
+            this.estatesList = (res.result || []).filter(
+                (v, i, a) => a.findIndex((t) => t.estate_id === v.estate_id) === i,
+            );
+        });
     }
 }
