@@ -1,4 +1,4 @@
-<div class="row mx-0">
+<div class="row mx-0" [ngClass]="{ 'justify-content-md-center': isArticlePage }">
     <div *ngFor="let item of categoryList" class="mr-md-25 mb-4">
         <a
             *ngIf="!isTranslatePage"

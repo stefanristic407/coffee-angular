@@ -31,6 +31,7 @@
                             </div>
                             <div class="translate-mob-wrapper pl-2" *ngIf="detailsData?.translations">
                                 <app-translation-dropdown
+                                    (isToastCalled)="toastCalled($event)"
                                     forumType="recipe"
                                     [translatedList]="detailsData?.translations"
                                 ></app-translation-dropdown>
@@ -335,7 +336,7 @@
                                         detailsData.likes
                                     }}</span> -->
                                 </div>
-                                <div class="align-items-center">
+                                <div class="align-items-center ml-3">
                                     <div
                                         [ngClass]="{ 'd-block': !isSaveRecipe }"
                                         class="hover-save-icon cursor-point d-none"
@@ -495,7 +496,7 @@
         </div>
     </article>
 </main>
-<app-translate-toast [language]="detailsData?.lang_code"></app-translate-toast>
+<app-translate-toast *ngIf="showToaster" [language]="detailsData?.lang_code"></app-translate-toast>
 
 <ng-template #userWrapper>
     <span>
@@ -513,7 +514,6 @@
                             *ngIf="stickySecData?.country || stickySecData?.city"
                             class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1"
                         >
-                            <span *ngIf="stickySecData?.organisation_name || stickySecData?.organization_name">@</span>
                             {{ stickySecData?.city || stickySecData?.organization_city }},
                             {{ stickySecData?.country | country }}
                         </p>
@@ -545,7 +545,7 @@
                 </div>
             </div>
             <div class="sticky-divder"></div>
-            <div class="d-flex justify-content-around my-4">
+            <div class="d-flex my-4">
                 <div class="d-flex align-like">
                     <button
                         class="like-int d-none"
@@ -565,10 +565,10 @@
                     </button>
                     <!-- <span class="d-flex ml-1 mt-25 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span> -->
                 </div>
-                <div class="message-icon hover-message-icon cursor-point" (click)="onFocusCommentBox()">
+                <div class="message-icon hover-message-icon cursor-point ml-25" (click)="onFocusCommentBox()">
                     <img src="assets/images/message.svg" alt="message" />
                 </div>
-                <div class="ml-3">
+                <div class="ml-25">
                     <div
                         [ngClass]="{ 'd-block': !isSaveRecipe }"
                         class="hover-save-icon cursor-point d-none"

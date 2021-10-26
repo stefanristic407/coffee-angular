@@ -30,6 +30,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     isMyPost = false;
     isSavedPost = false;
     isLikedBtn = true;
+    showToaster = false;
     infoData: any[] = [
         {
             icon: 'assets/images/aeropress.svg',
@@ -302,7 +303,9 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         }
     }
 
-    onCategoryClick(slug: string) {
-        this.router.navigateByUrl('/coffee-lab/category/' + slug);
+    toastCalled(event) {
+        if (event) {
+            this.showToaster = true;
+        }
     }
 }
