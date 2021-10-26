@@ -40,7 +40,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
             this.searchText = 'search_by_estate_name';
         } else {
             this.selectedTab = 0;
-            this.searchText = 'search_by_order_id';
+            this.searchText = 'search_by_orderid_estatename';
         }
     }
 
@@ -54,7 +54,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     handleChange(event: any) {
         if (event.index === 0) {
             this.isProcuredTab = true;
-            this.searchText = 'search_by_order_id';
+            this.searchText = 'search_by_orderid_estatename';
         } else {
             this.isProcuredTab = false;
             this.searchText = 'search_by_estate_name';
