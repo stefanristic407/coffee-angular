@@ -36,7 +36,7 @@
                 <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
             </div>
             <app-like-divider [question]="detailsData"></app-like-divider>
-            <div class="border-top-main py-4 px-0 px-md-45" *ngIf="detailsData?.parent_question_id < 0">
+            <div class="border-top-main py-4 px-0 px-md-45" *ngIf="detailsData?.parent_question_id <= 0">
                 <div class="d-flex justify-content-center ml-md-3">
                     <img
                         [src]="

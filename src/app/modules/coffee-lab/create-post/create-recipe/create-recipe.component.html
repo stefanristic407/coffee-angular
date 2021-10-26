@@ -20,7 +20,7 @@
             }}</label>
             <div
                 class="addImageContainer d-flex align-items-center justify-content-center imagesDiv"
-                [ngClass]="{ 'mt-md-3': isTranslate, 'mt-0': isTranslate, 'text-area': !coverImageUrl && clicked }"
+                [ngClass]="{ 'text-area': !coverImageUrl && clicked }"
             >
                 <div class="edit-btn-group d-flex m-3" *ngIf="coverImageUrl">
                     <button
@@ -76,7 +76,7 @@
             <app-category-list [isTranslatePage]="true" [categoryList]="translatedCategory"></app-category-list>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
-            <label [ngClass]="{ 'mt-25': isTranslate }"
+            <label
                 >{{ 'recipe_name' | translate }}
                 <span class="pull-right text-clr588"
                     >{{ recipeForm.get('name')?.value?.length }}/120
