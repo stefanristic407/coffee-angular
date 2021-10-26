@@ -151,7 +151,7 @@
                             {{ 'website' | translate }}
                         </td>
                         <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
-                            {{ roasteryProfileService.organizationProfile?.website }}
+                            {{ profileCreationService.organizationProfile?.website }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -159,7 +159,7 @@
                             {{ 'email_address' | translate }}
                         </td>
                         <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
-                            {{ roasteryProfileService.organizationProfile?.email }}
+                            {{ profileCreationService.organizationProfile?.email }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -167,7 +167,7 @@
                             {{ 'phone_number' | translate }}
                         </td>
                         <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
-                            {{ roasteryProfileService.organizationProfile?.phone }}
+                            {{ profileCreationService.organizationProfile?.phone }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -175,18 +175,24 @@
                             {{ 'country' | translate }}
                         </td>
                         <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
-                            {{ roasteryProfileService.organizationProfile?.country | country }}
+                            {{ profileCreationService.organizationProfile?.country | country }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
                         <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
                             {{ 'address' | translate }}
                         </td>
-                        <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
-                            {{ roasteryProfileService.organizationProfile?.address_line1 }}
-                            {{ roasteryProfileService.organizationProfile?.address_line2 }}
-                            <p class="mb-0">{{ roasteryProfileService.organizationProfile?.city }}</p>
-                            <p class="mb-0">{{ roasteryProfileService.organizationProfile?.state }}</p>
+                        <td class="fnt-600 pt-0">
+                            <div>{{ profileCreationService.organizationProfile?.address_line1 }}</div>
+                            <div>{{ profileCreationService.organizationProfile?.address_line2 }}</div>
+                            <div>
+                                {{ profileCreationService.organizationProfile?.city }},
+                                {{ profileCreationService.organizationProfile?.zipcode }}
+                            </div>
+                            <div>
+                                {{ profileCreationService.organizationProfile?.state }},
+                                {{ profileCreationService.organizationProfile?.country | country }}
+                            </div>
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -194,7 +200,7 @@
                             {{ 'zipcode' | translate }}
                         </td>
                         <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
-                            {{ roasteryProfileService.organizationProfile?.zipcode }}
+                            {{ profileCreationService.organizationProfile?.zipcode }}
                         </td>
                     </tr>
                     <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
@@ -202,8 +208,8 @@
                             {{ 'social_media' | translate }}
                         </td>
                         <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
-                            <p class="mb-0">{{ roasteryProfileService.organizationProfile?.fb_profile }}</p>
-                            <p class="mb-0">{{ roasteryProfileService.organizationProfile?.ig_profile }}</p>
+                            <p class="mb-0">{{ profileCreationService.organizationProfile?.fb_profile }}</p>
+                            <p class="mb-0">{{ profileCreationService.organizationProfile?.ig_profile }}</p>
                         </td>
                     </tr>
                 </table>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RoasteryProfileService } from '../roastery-profile.service';
-import { GlobalsService, ValidateEmailService } from '@services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
 import { Country } from '@models';
-import { urlValidator, emailValidator } from '@utils';
+import { GlobalsService, ValidateEmailService } from '@services';
+import { emailValidator, urlValidator } from '@utils';
+import { RoasteryProfileService } from '../roastery-profile.service';
 @Component({
     selector: 'app-sewn-contact',
     templateUrl: './contact.component.html',
@@ -21,7 +21,7 @@ export class ContactComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        public roasteryProfileService: RoasteryProfileService,
+        public profileCreationService: RoasteryProfileService,
         public globals: GlobalsService,
         private validateService: ValidateEmailService,
     ) {}
@@ -32,7 +32,7 @@ export class ContactComponent implements OnInit {
     }
 
     detectMode() {
-        this.roasteryProfileService.saveMode$.subscribe((res: boolean) => {
+        this.profileCreationService.saveMode$.subscribe((res: boolean) => {
             this.isSaveMode = res;
             if (res) {
                 this.setFormValue();
@@ -53,7 +53,7 @@ export class ContactComponent implements OnInit {
             fb_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
             ig_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
         });
-        this.roasteryProfileService.contactForm = this.contactForm;
+        this.profileCreationService.contactForm = this.contactForm;
 
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {
             this.countryList.forEach((countryItem: Country) => {
@@ -70,21 +70,21 @@ export class ContactComponent implements OnInit {
         });
 
         this.contactForm.valueChanges.subscribe((changedData: any) => {
-            this.roasteryProfileService.contactFormInvalid = !this.contactForm.valid;
-            this.roasteryProfileService.editProfileData(changedData);
+            this.profileCreationService.contactFormInvalid = !this.contactForm.valid;
+            this.profileCreationService.editProfileData(changedData);
         });
     }
 
     setFormValue() {
         this.countryList.forEach((item: Country) => {
-            if (item.isoCode === this.roasteryProfileService.toUpdateProfileData.country.toUpperCase()) {
+            if (item.isoCode === this.profileCreationService.toUpdateProfileData.country.toUpperCase()) {
                 this.cityList = item.cities;
             }
         });
-        this.contactForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
+        this.contactForm.patchValue(this.profileCreationService.toUpdateProfileData);
 
-        this.latitude = this.roasteryProfileService.toUpdateProfileData.latitude;
-        this.longitude = this.roasteryProfileService.toUpdateProfileData.longitude;
+        this.latitude = this.profileCreationService.toUpdateProfileData.latitude;
+        this.longitude = this.profileCreationService.toUpdateProfileData.longitude;
     }
 
     isControlHasError(controlName: string, validationType: string): boolean {
@@ -116,7 +116,7 @@ export class ContactComponent implements OnInit {
     markerDragEnd(event) {
         this.latitude = event.coords.lat;
         this.longitude = event.coords.lng;
-        this.roasteryProfileService.toUpdateProfileData.latitude = this.latitude;
-        this.roasteryProfileService.toUpdateProfileData.longitude = this.longitude;
+        this.profileCreationService.toUpdateProfileData.latitude = this.latitude;
+        this.profileCreationService.toUpdateProfileData.longitude = this.longitude;
     }
 }
