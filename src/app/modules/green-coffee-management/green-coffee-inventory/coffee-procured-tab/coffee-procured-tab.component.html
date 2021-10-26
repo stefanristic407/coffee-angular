@@ -4,7 +4,6 @@
         [showClear]="true"
         optionLabel="name"
         optionValue="isoCode"
-        filter="true"
         [(ngModel)]="termStatus"
         (onChange)="setStatus()"
         scrollHeight="225px"
@@ -12,6 +11,18 @@
         [autoDisplayFirst]="false"
         styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
     ></p-dropdown>
+    <p-autoComplete
+        [(ngModel)]="selectedEstate"
+        [suggestions]="estatesList"
+        field="estate_name"
+        [forceSelection]="true"
+        (completeMethod)="getEstatesList($event)"
+        (onSelect)="setEstate($event)"
+        placeholder="{{ 'enter_a_estatename_and_select' | translate }}"
+        scrollHeight="225px"
+        styleClass="round-border mr-2 mb-3 {{ termStatus ? 'highlight' : '' }}"
+    >
+    </p-autoComplete>
     <div class="float-right mobile-lead">
         <p-dropdown
             [options]="displayItems"

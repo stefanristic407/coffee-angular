@@ -1,5 +1,6 @@
-@import '../variables';
-
+.round-border.p-autocomplete .p-autocomplete-input {
+    border-radius: 20px;
+}
 .p-autocomplete-panel {
     border: none;
     padding: 4px;
