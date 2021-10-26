@@ -27,6 +27,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isAssignedToMe = false;
     isMyAnswer = false;
     isLikedBtn = true;
+    showToaster = false;
     answerComment: any;
     answerAllowTranslation: boolean;
 
@@ -267,7 +268,9 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         this.detailsData.answers[index].isEdit = false;
     }
 
-    onCategoryClick(slug: string) {
-        this.router.navigateByUrl('/coffee-lab/category/' + slug);
+    toastCalled(event) {
+        if (event) {
+            this.showToaster = true;
+        }
     }
 }

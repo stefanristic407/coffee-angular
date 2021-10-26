@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { AuthService, CoffeeLabService } from '@services';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Paginator } from 'primeng/paginator';
 
 @Component({
@@ -16,7 +15,7 @@ export class QuestionsComponent implements OnInit {
     @Input() viewMode = 'list';
     @Output() pageChange = new EventEmitter();
 
-    constructor(public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
+    constructor() {}
 
     ngOnInit(): void {}
 }

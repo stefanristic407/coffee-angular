@@ -30,6 +30,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     isMyPost = false;
     isSavedPost = false;
     isLikedBtn = true;
+    showToaster = false;
     constructor(
         public coffeeLabService: CoffeeLabService,
         public authService: AuthService,
@@ -242,5 +243,11 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
                 this.isLikedBtn = true;
             }
         });
+    }
+
+    toastCalled(event) {
+        if (event) {
+            this.showToaster = true;
+        }
     }
 }
