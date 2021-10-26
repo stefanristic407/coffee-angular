@@ -53,6 +53,8 @@ export class MarkedSaleComponent implements OnInit {
         this.roasterID = this.authService.getOrgId();
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
+        this.primeTableService.origin = null;
+        this.primeTableService.searchQuery = null;
     }
 
     // tslint:disable: variable-name

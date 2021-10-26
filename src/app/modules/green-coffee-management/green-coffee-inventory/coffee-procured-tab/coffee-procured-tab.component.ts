@@ -53,6 +53,8 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
         this.primeTableService.sortOrder = 'desc';
+        this.primeTableService.origin = null;
+        this.primeTableService.searchQuery = null;
     }
 
     // tslint:disable: variable-name
@@ -163,7 +165,7 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
             }, 100),
         );
         this.roasterService.getProcuredCoffeeList().subscribe((res) => {
-            res.result.map((org) => {
+            (res.result || []).map((org) => {
                 COUNTRY_LIST.find((item) => {
                     if (org.origin.toUpperCase() === item.isoCode) {
                         this.originArray.push(item);
