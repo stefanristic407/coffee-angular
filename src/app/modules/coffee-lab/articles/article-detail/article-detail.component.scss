@@ -143,6 +143,12 @@
     cursor: pointer;
 }
 
+.banner-image {
+    @media (max-width: 767px) {
+        height: 198px !important;
+    }
+}
+
 ::ng-deep .p-inputtextarea:enabled:hover,
 ::ng-deep .p-inputtextarea:enabled:focus {
     border: 1px solid #30855c !important;
