@@ -7,7 +7,7 @@
             <button
                 pButton
                 type="button"
-                class="cancel-butn mr-2 fnt-14"
+                class="btn-stroked mr-2"
                 label="{{ 'cancel' | translate }}"
                 *ngIf="isSaveMode"
                 (click)="roasteryProfileService.preview()"
@@ -45,7 +45,7 @@
                 <button
                     pButton
                     type="button"
-                    class="cancel-butn mr-2 fnt-14"
+                    class="btn-stroked mr-2"
                     label="{{ 'cancel' | translate }}"
                     *ngIf="isSaveMode"
                     (click)="roasteryProfileService.preview()"
@@ -225,7 +225,7 @@
                 <button
                     type="button"
                     pButton
-                    class="cancel-butn w-100 mb-3"
+                    class="btn-stroked w-100 mb-3"
                     label="{{ 'preview' | translate }}"
                     (click)="roasteryProfileService.preview()"
                 ></button>
@@ -234,7 +234,7 @@
                 <button
                     type="button"
                     pButton
-                    class="cancel-butn w-100 mb-3"
+                    class="btn-stroked w-100 mb-3"
                     label="{{ 'save' | translate }}"
                     (click)="roasteryProfileService.saveRoasterProfile()"
                 ></button>
@@ -243,7 +243,7 @@
         <button
             type="button"
             pButton
-            class="cancel-butn w-100 mb-3"
+            class="btn-stroked w-100 mb-3"
             *ngIf="isAdminRole && isEditMode"
             label="{{ 'edit' | translate }}"
             (click)="roasteryProfileService.editRoasterProfile()"
