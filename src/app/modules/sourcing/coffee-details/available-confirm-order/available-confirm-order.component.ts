@@ -307,7 +307,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             this.addressData = this.deliveryAddress;
         }
         this.changeQuantity();
-        this.infoForm.controls.quantity.updateValueAndValidity();
+        if (this.orderType === OrderType.Booked) {
+            this.infoForm.controls.quantity.updateValueAndValidity();
+        }
     }
 
     placeOrder() {
