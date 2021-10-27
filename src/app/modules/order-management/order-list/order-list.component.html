@@ -28,7 +28,7 @@
                             searchForm.get('search_query').value ? 'highlight' : ''
                         }}"
                         type="text"
-                        placeholder="Search by order ID, {{ customerPropertyName | sentencecase }} name"
+                        placeholder="{{ 'search_by_order' | translate }}"
                         formControlName="search_query"
                     />
                 </span>
@@ -99,7 +99,7 @@
                         pInputText
                         class="extra-width w-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
                         type="text"
-                        placeholder="Search by order ID, {{ customerPropertyName | sentencecase }} name"
+                        placeholder="{{ 'search_by_order' | translate }}"
                         formControlName="search_query"
                     />
                 </span>

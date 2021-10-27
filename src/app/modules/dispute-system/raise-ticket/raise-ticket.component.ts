@@ -1,3 +1,4 @@
+import { Observable, Subject, throwError } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
@@ -7,7 +8,8 @@ import { MenuItem } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ChatMessageType, OrganizationType } from '@enums';
-import { OrderDetails } from '@models';
+import { OrderDetails, UploadFile } from '@models';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-raise-ticket',
@@ -23,7 +25,7 @@ export class RaiseTicketComponent implements OnInit {
     ticketForm: FormGroup;
     orderDetails: any;
     roasterID: any;
-    filesArray = [];
+    filesArray: UploadFile[] = [];
     disputeID: string;
     supportValue: any = '';
 
@@ -114,11 +116,15 @@ export class RaiseTicketComponent implements OnInit {
                     if (res && res.success) {
                         this.disputeID = res.result.id;
                         this.pushInfoTochatThread(this.disputeID, obj.dispute_type, () => {
-                            if (this.filesArray && this.filesArray.length > 0) {
-                                this.uploadFile();
-                            } else {
-                                this.redirectOrderChat();
-                            }
+                            this.attachFiles().subscribe(
+                                () => {
+                                    this.redirectOrderChat();
+                                },
+                                () => {
+                                    this.toastrService.error('Error occured while attaching the files');
+                                    this.redirectOrderChat();
+                                },
+                            );
                         });
                     }
                 },
@@ -168,47 +174,57 @@ export class RaiseTicketComponent implements OnInit {
     }
 
     documentUpload(event) {
-        if (event.target.files) {
-            this.filesArray = [];
-            this.filesArray.push(event.target.files);
+        const targetFile = (event.target.files || [])[0] as UploadFile;
+        if (targetFile) {
+            this.filesArray.push(targetFile);
+            targetFile.uploadStatus = 'IP';
+            targetFile.fileId = 0;
+            this.uploadFile(targetFile).subscribe(
+                (result: any) => {
+                    if (result.success && result.result && result.result.id) {
+                        targetFile.fileId = result.result.id;
+                        targetFile.uploadStatus = 'DONE';
+                        this.toastrService.success('File uploaded successfully');
+                    } else {
+                        targetFile.uploadStatus = 'FAIL';
+                        targetFile.fileId = 0;
+                        this.toastrService.error('Error while uploading the file');
+                    }
+                },
+                (err) => {
+                    targetFile.uploadStatus = 'FAIL';
+                    targetFile.fileId = 0;
+                },
+            );
         }
     }
 
-    uploadFile() {
-        const fileList: FileList = this.filesArray[0];
-        const file: File = fileList[0];
+    uploadFile(file: UploadFile): Observable<Object> {
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
         formData.append('name', file.name);
         formData.append('file_module', 'Dispute');
         formData.append('api_call', '/ro/' + this.roasterID + '/file-manager/files');
         formData.append('token', this.authService.token);
-        this.roasterService.uploadFiles(formData).subscribe(
-            (result: any) => {
-                if (result.success && result.result && result.result.id) {
-                    this.addFileIds(result.result.id);
-                } else {
-                    this.redirectOrderChat();
-                    this.toastrService.error('Error while uploading the file');
-                }
-            },
-            (err) => {
-                this.redirectOrderChat();
-            },
-        );
+        return this.roasterService.uploadFiles(formData);
     }
 
-    addFileIds(fileID) {
-        const fileArray = [fileID];
-        const objData = { file_id: fileID };
-        this.roasterService.addFileIDDispute(this.roasterID, this.disputeID, objData).subscribe(
-            (result) => {
-                this.redirectOrderChat();
-            },
-            (err) => {
-                this.redirectOrderChat();
-            },
-        );
+    attachFiles() {
+        const fileID = this.filesArray.map((file) => file.fileId).filter((id) => !!id);
+        if (fileID.length) {
+            const objData = { file_ids: fileID };
+            return this.roasterService.addFileIDDispute(this.roasterID, this.disputeID, objData).pipe(
+                map((res: any) => {
+                    if (!res.success) {
+                        throw new Error('Failed to attach files');
+                    }
+                }),
+            );
+        } else {
+            const sub = new Subject();
+            sub.complete();
+            return sub;
+        }
     }
 
     redirectOrderChat() {

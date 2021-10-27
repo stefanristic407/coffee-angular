@@ -8,3 +8,4 @@ export * from './label-value.model';
 export * from './language.model';
 export * from './organization-profile';
 export * from './page-info.model';
+export * from './upload-file.model';

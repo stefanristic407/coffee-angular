@@ -33,7 +33,7 @@ export interface Transaction {
     total_amount: number;
     transaction_type: string;
     vat_amount: number;
-    zipode: string;
+    zipcode: string;
 }
 
 export interface TransactionOrder {

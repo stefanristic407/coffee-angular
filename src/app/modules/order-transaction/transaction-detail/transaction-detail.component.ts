@@ -176,7 +176,7 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
             { label: 'organization_number', value: this.transaction?.org_number },
             { label: 'contact_person', value: this.transaction?.contact_person },
             { label: 'address', value: this.transaction?.address_line1 },
-            { label: 'zip_code', value: this.transaction?.zipode },
+            { label: 'zip_code', value: this.transaction?.zipcode },
             { label: 'city', value: this.transaction?.city },
             { label: 'country', value: this.commonService.getCountryName(this.transaction?.city) },
             { label: 'phone_number', value: this.transaction?.phone_number },

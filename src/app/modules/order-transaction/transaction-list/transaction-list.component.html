@@ -211,24 +211,19 @@
                     <ng-container *ngSwitchCase="'total_amount'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span class="truncate break-word">
-                            {{
-                                rowData['total_amount'] | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
-                            }}
+                            {{ rowData['total_amount'] | currency: rowData['currency'] || 'USD':'code' || '--' }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'vat_amount'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span class="truncate break-word">
-                            {{ rowData['vat_amount'] | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--' }}
+                            {{ rowData['vat_amount'] | currency: rowData['currency'] || 'USD':'code' || '--' }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'commission_amount'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span class="truncate break-word">
-                            {{
-                                rowData['commission_amount']
-                                    | currency: rowData['currency'] || 'USD':'symbol-narrow' || '--'
-                            }}
+                            {{ rowData['commission_amount'] | currency: rowData['currency'] || 'USD':'code' || '--' }}
                         </span>
                     </ng-container>
                 </td>
@@ -254,7 +249,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.grand_total || 0
-                                | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
+                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
                         }}
                     </span>
                 </th>
@@ -263,7 +258,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.total_vat || 0
-                                | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
+                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
                         }}
                     </span>
                 </th>
@@ -272,7 +267,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.total_commission || 0
-                                | currency: primeTableService.result?.currency || 'USD':'symbol-narrow' || '--'
+                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
                         }}
                     </span>
                 </th>

@@ -65,10 +65,6 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     @ViewChild('appOrderTable') appOrderTable: OrderTableComponent;
     @ViewChild('requestTable') requestTable: RequestTableComponent;
 
-    get customerPropertyName(): string {
-        return this.orgType === OrganizationType.ESTATE ? 'Estate' : 'Micro Roaster';
-    }
-
     constructor(
         private downloadService: DownloadService,
         private fb: FormBuilder,

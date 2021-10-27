@@ -192,17 +192,17 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
             {
                 field: 'total_amount',
                 header: 'Total amt.',
-                width: 11,
+                width: 12,
             },
             {
                 field: 'vat_amount',
                 header: 'VAT',
-                width: 9,
+                width: 11,
             },
             {
                 field: 'commission_amount',
                 header: 'Commission',
-                width: 9,
+                width: 11,
             },
         ];
         this.primeTableService.windowWidth = window.innerWidth;
