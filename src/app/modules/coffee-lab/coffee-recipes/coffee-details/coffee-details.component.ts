@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@env/environment';
-import { AuthService, ChatHandlerService, CoffeeLabService, GlobalsService, UserService } from '@services';
+import { AuthService, ChatHandlerService, CoffeeLabService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { combineLatest, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-coffee-details',
@@ -56,7 +56,6 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         public coffeeLabService: CoffeeLabService,
         private messageService: MessageService,
         public authService: AuthService,
-        public globalsService: GlobalsService,
         private userService: UserService,
         private toastrService: ToastrService,
         private chatHandler: ChatHandlerService,

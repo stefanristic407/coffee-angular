@@ -2,11 +2,11 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@env/environment';
-import { AuthService, CoffeeLabService, GlobalsService } from '@services';
+import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { combineLatest, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-question-detail',
@@ -35,7 +35,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         public coffeeLabService: CoffeeLabService,
         private activatedRoute: ActivatedRoute,
         @Inject(DOCUMENT) private document: any,
-        public globalsService: GlobalsService,
         private toastService: ToastrService,
         public authService: AuthService,
         private messageService: MessageService,
