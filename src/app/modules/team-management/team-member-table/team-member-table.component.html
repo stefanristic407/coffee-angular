@@ -208,53 +208,5 @@
 <button class="btn-stroked d-none d-md-block mt-4" *ngIf="isAddMember" (click)="location.back()">Cancel</button>
 
 <ng-template #popTpl let-rowData="rowData">
-    <a
-        class="menu-arrow d-md-block w-50"
-        [popover]="poplistTemplate"
-        placement="left"
-        [outsideClick]="true"
-        #pop11="bs-popover"
-    >
-        <i class="pi pi-ellipsis-v text-clr588"></i>
-    </a>
-    <ng-template #poplistTemplate>
-        <div id="popover-mobile-content">
-            <ul class="menu-list">
-                <li>
-                    <a class="cursor-pointer" (click)="editMember(rowData.id)">{{ 'edit' | translate }}</a>
-                </li>
-                <li *ngIf="rowData.id != loginId">
-                    <a class="cursor-pointer" (click)="sendDirectMessage(rowData.id); pop11.hide()">{{
-                        'send_a_message' | translate
-                    }}</a>
-                </li>
-                <li>
-                    <a class="cursor-pointer" (click)="sendMail(rowData.id)">{{ 'send_recovery_email' | translate }}</a>
-                </li>
-                <li *ngIf="rowData.status == UserStatus.ACTIVE && rowData.id != loginId">
-                    <a class="cursor-pointer" (click)="showPopup(rowData.id, 'disable'); pop11.hide()">{{
-                        'disable_account' | translate
-                    }}</a>
-                </li>
-                <li *ngIf="rowData.status == UserStatus.INACTIVE && rowData.id != loginId">
-                    <a class="cursor-pointer" (click)="showPopup(rowData.id, 'enable'); pop11.hide()">{{
-                        'enable_account' | translate
-                    }}</a>
-                </li>
-                <li *ngIf="rowData.status == UserStatus.ACTIVE && rowData.id != loginId">
-                    <a class="cursor-pointer" (click)="simulatedLogin(rowData.id)">{{
-                        'simulated_login' | translate
-                    }}</a>
-                </li>
-                <li>
-                    <a class="cursor-pointer" (click)="makeAdmin(rowData)">{{ 'make_admin' | translate }}</a>
-                </li>
-                <li *ngIf="rowData.id != loginId">
-                    <a class="cursor-pointer" (click)="showPopup(rowData.id, 'delete'); pop11.hide()">{{
-                        'delete' | translate
-                    }}</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
+    <app-action-menu [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
 </ng-template>

@@ -463,4 +463,40 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     simulatedLogin(userId) {
         this.commonService.userSimulatedLogin(userId);
     }
+
+    getMenuItemsForItem(item) {
+        return [
+            { label: this.translator.instant('edit'), command: () => this.editMember(item.id) },
+            {
+                label: this.translator.instant('send_a_message'),
+                command: () => this.sendDirectMessage(item.id),
+                visible: item.id !== this.loginId,
+            },
+            { label: this.translator.instant('send_recovery_email'), command: () => this.sendMail(item.id) },
+            {
+                label: this.translator.instant('disable_account'),
+                command: () => this.showPopup(item.id, 'disable'),
+                visible: item.status === UserStatus.ACTIVE && item.id !== this.loginId,
+            },
+            {
+                label: this.translator.instant('enable_account'),
+                command: () => this.showPopup(item.id, 'enable'),
+                visible: item.status === UserStatus.INACTIVE && item.id !== this.loginId,
+            },
+            {
+                label: this.translator.instant('simulated_login'),
+                command: () => this.simulatedLogin(item.id),
+                visible: item.status === UserStatus.ACTIVE && item.id !== this.loginId,
+            },
+            {
+                label: this.translator.instant('make_admin'),
+                command: () => this.makeAdmin(item),
+            },
+            {
+                label: this.translator.instant('delete'),
+                command: () => this.showPopup(item.id, 'delete'),
+                visible: item.id !== this.loginId,
+            },
+        ];
+    }
 }
