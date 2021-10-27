@@ -324,11 +324,11 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     makeAdmin(userDetails: any) {
         let findAdmin = false;
         if (userDetails && userDetails.roles && userDetails.roles.length > 0) {
-            findAdmin = userDetails.roles.find((ele) => ele.name === 'Support Admin');
+            findAdmin = userDetails.roles.find((ele) => ele.is_system);
             if (findAdmin) {
                 this.toastrService.error('Already an Admin.');
             } else {
-                const findAdminRole = this.roleList.find((ele) => ele.name === 'Support Admin');
+                const findAdminRole = this.roleList.find((ele) => ele.is_system);
                 this.roasterService
                     .assignUserBasedUserRoles(findAdminRole.id, userDetails.id)
                     .subscribe((data: any) => {
@@ -381,7 +381,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     sendDirectMessage(userID) {
         const payLoad = {
             user_id: userID,
-            org_type: OrganizationType.ROASTER,
+            org_type: this.authService.orgType,
             org_id: this.authService.getOrgId(),
         };
         this.messageService.openChatThread(payLoad);

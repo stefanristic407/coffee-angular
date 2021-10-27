@@ -1,43 +1,39 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
-import { AclService, AuthService, GlobalsService, RoasterService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { ResizeableComponent } from '@base-components';
+import { TranslateService } from '@ngx-translate/core';
+import { ResizeService, RoasterService } from '@services';
+import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-role-list',
     templateUrl: './role-list.component.html',
     styleUrls: ['./role-list.component.scss'],
 })
-export class RoleListComponent implements OnInit {
-    roasterId: any;
+export class RoleListComponent extends ResizeableComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
     tableColumns: any = [];
     tableValue: any = [];
     tableSelected: any = [];
     totalCount = 0;
-    loader = true;
+    rows = 10;
+    loading = true;
+
     constructor(
-        public router: Router,
+        private dialogSrv: DialogService,
         private roasterService: RoasterService,
-        private cookieService: CookieService,
+        private router: Router,
         private toastrService: ToastrService,
-        public globals: GlobalsService,
-        public sharedService: SharedServiceService,
-        public dialogSrv: DialogService,
-        private aclService: AclService,
-        private authService: AuthService,
-    ) {}
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
-        this.sharedService.windowWidth = window.innerWidth;
-        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
-            this.sharedService.isMobileView = true;
-        }
         this.tableColumns = [
             {
                 field: 'user_count',
@@ -63,51 +59,41 @@ export class RoleListComponent implements OnInit {
                 width: 10,
             },
         ];
-        if (!this.aclService.checkPermission('acl-management')) {
-            this.router.navigate(['/error/permission-error']);
-        }
         this.supplyBreadCrumb();
-        this.roasterId = this.authService.getOrgId();
     }
+
     getTableData(event?): void {
         this.tableValue = [];
-        this.loader = true;
+        this.loading = true;
         const postData: any = {};
-        postData.per_page = 10;
+        postData.per_page = this.rows;
         if (event) {
-            const currentPage = event.first / 10;
+            const currentPage = event.first / this.rows;
             postData.page = currentPage + 1;
         }
         this.roasterService.getRoles(postData).subscribe(
             (res: any) => {
-                this.loader = false;
+                this.loading = false;
                 if (res.success === true) {
                     this.tableValue = res.result;
                     this.totalCount = res.result_info && res.result_info.total_count ? res.result_info.total_count : 0;
                 }
             },
             (err) => {
-                this.loader = false;
+                this.loading = false;
                 console.error(err);
             },
         );
     }
+
     supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
-            routerLink: '/',
-            disabled: false,
-        };
-        const obj2: MenuItem = {
-            label: this.globals.languageJson?.team_management,
-            routerLink: '//team-management/manage-role',
-            disabled: false,
-        };
-        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj4);
+        this.breadCrumbItem = [
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('team_management') },
+            { label: this.translator.instant('manage_roles') },
+        ];
     }
+
     teamMembers(rowData, isAdd = false): void {
         const navigationExtras: NavigationExtras = {
             queryParams: {
@@ -117,6 +103,7 @@ export class RoleListComponent implements OnInit {
         };
         this.router.navigate(['/team-management/team-members'], navigationExtras);
     }
+
     openDeleteModal(deleteId: any): void {
         this.dialogSrv
             .open(ConfirmComponent, {
@@ -134,8 +121,9 @@ export class RoleListComponent implements OnInit {
                 }
             });
     }
-    deleteRole(id: any) {
-        this.roasterService.deleteRoles(this.roasterId, id).subscribe((data: any) => {
+
+    deleteRole(id: number) {
+        this.roasterService.deleteRoles(id).subscribe((data: any) => {
             if (data.success === true) {
                 this.toastrService.success('Roles deleted successfully!');
                 this.getTableData();
@@ -144,9 +132,11 @@ export class RoleListComponent implements OnInit {
             }
         });
     }
+
     updateRole(id: any): void {
         this.router.navigate(['/team-management/create-role', id]);
     }
+
     duplicateRole(id: any): void {
         const navigationExtras: NavigationExtras = {
             queryParams: {
@@ -154,5 +144,17 @@ export class RoleListComponent implements OnInit {
             },
         };
         this.router.navigate(['/team-management/create-role', id], navigationExtras);
+    }
+
+    getMenuItemsForItem(item) {
+        return [
+            { label: this.translator.instant('add_members'), command: () => this.teamMembers(item, true) },
+            { label: this.translator.instant('view_members'), command: () => this.teamMembers(item) },
+            { label: this.translator.instant('edit'), command: () => this.updateRole(item.id) },
+            { label: this.translator.instant('rename'), command: () => this.updateRole(item.id) },
+            { label: this.translator.instant('duplicate_role'), command: () => this.duplicateRole(item.id) },
+            { label: this.translator.instant('manage_permissions'), command: () => this.updateRole(item.id) },
+            { label: this.translator.instant('delete_role'), command: () => this.openDeleteModal(item.id) },
+        ];
     }
 }
