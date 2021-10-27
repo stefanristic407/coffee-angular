@@ -81,6 +81,7 @@ export class RoasteryProfileService {
             if (result.success) {
                 this.organizationProfile = result.result;
                 this.toUpdateProfileData = result.result;
+                this.authService.organizationSubject.next(result.result);
                 this.orgImgPrevUrl = this.organizationProfile.company_image_url;
 
                 this.single = [
