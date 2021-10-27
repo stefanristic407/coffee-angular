@@ -1,67 +1,47 @@
-<div class="total-loader" *ngIf="loader">
-    <div>
-        <app-loading></app-loading>
-    </div>
-</div>
 <div class="main-block">
-    <div class="row p-0">
-        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
-            <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
-        </div>
-        <div class="col-4">
-            <button
-                type="submit"
-                routerLink="/team-management/create-role"
-                class="btn pull-right btn-raised d-none d-lg-block ml-auto"
-            >
-                Create new role
-            </button>
-        </div>
-    </div>
-    <div class="d-none d-lg-block pt-2 pb-2">
-        <span class="primary_txt">{{ 'manage_roles' | translate }}</span>
-        <img *ngIf="false" src="assets/images/help-icon.svg" alt="" class="pointer-help pl-2" />
-    </div>
-    <div class="d-flex align-items-center justify-content-between d-lg-none mt-45 mt-md-2">
-        <span class="primary_txt d-inline-block mt-0 mt-md-3">{{ 'manage_roles' | translate }}</span>
-        <button routerLink="/team-management/create-role" class="btn pull-right btn-raised d-sm-block d-lg-none mr-0">
-            Create new role
+    <div class="d-flex justify-content-between">
+        <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+        <button routerLink="/team-management/create-role" class="btn-raised d-none d-lg-block">
+            {{ 'create_new_role' | translate }}
         </button>
     </div>
-    <div class="roleTable mt-3">
+
+    <div class="d-none d-lg-block pt-2 pb-2">
+        <span class="fnt-18 fnt-bold">{{ 'manage_roles' | translate }}</span>
+    </div>
+
+    <div class="d-flex d-lg-none align-items-center justify-content-between mt-45 mt-md-2">
+        <span class="fnt-18 fnt-bold">{{ 'manage_roles' | translate }}</span>
+        <button routerLink="/team-management/create-role" class="btn-raised d-sm-block mr-0">
+            {{ 'create_new_role' | translate }}
+        </button>
+    </div>
+
+    <div class="mt-3">
         <p-table
             #myTable
-            [class.table-mobile]="sharedService.isMobileView"
             [value]="tableValue"
             [columns]="tableColumns"
             [(selection)]="tableSelected"
             dataKey="id"
             [resizableColumns]="true"
-            styleClass="ui-table-customers"
             [showCurrentPageReport]="false"
-            [paginator]="true"
-            [rows]="10"
+            [paginator]="totalCount > rows"
+            [rows]="rows"
             [lazy]="true"
+            [loading]="loading"
             (onLazyLoad)="getTableData($event)"
             [totalRecords]="totalCount"
-            [responsive]="sharedService.isMobileView"
         >
             <ng-template pTemplate="header" let-columns>
-                <tr class="d-none d-sm-none d-md-table-row">
+                <tr class="d-none d-md-table-row">
                     <th
                         *ngFor="let col of columns"
                         [style.width]="col.width ? col.width + '%' : '30%'"
                         [ngClass]="{ 'd-md-none': col.field == 'add_user' }"
                     >
                         <span class="primeng-table-header">{{ col.header | translate }}</span>
-                        <p-sortIcon
-                            *ngIf="col.sortable === true"
-                            [field]="col.field"
-                            ariaLabel="Activate to sort"
-                            ariaLabelDesc="Activate to sort in descending order"
-                            ariaLabelAsc="Activate to sort in ascending order"
-                        >
-                        </p-sortIcon>
+                        <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
                     </th>
                 </tr>
             </ng-template>
@@ -71,61 +51,40 @@
                         *ngFor="let col of columns"
                         [ngSwitch]="col.field"
                         [style.width]="col.width ? col.width + '%' : '30%'"
+                        [style.minWidth]="col.field === 'actions' ? 'fit-content' : 'unset'"
                         [ngClass]="{
                             'd-none': col.field == 'user_count',
-                            'd-sm-none': col.field == 'user_count',
                             'd-md-none': col.field == 'add_user',
                             'pr-2': col.field == 'add_user',
+                            'pl-0': col.field == 'actions',
                             'd-md-table-cell': col.field !== 'add_user'
                         }"
                     >
-                        <span *ngSwitchCase="'user_count'" class="d-none d-sm-none d-md-block">
-                            <div class="d-flex">
-                                <span>
-                                    {{ rowData[col.field] }}
-                                </span>
-                            </div>
-                        </span>
-                        <span *ngSwitchCase="'name'" class="tdClass">
-                            <div class="d-none d-md-flex">
-                                <span class="d-flex flex-grow-1 mt-1">
-                                    {{ rowData['name'] }}
-                                </span>
-                                <div class="greyClass mt-1 mr-5 justify-content-end">
-                                    <span>
-                                        <img
-                                            src="assets/images/role-grey.svg"
-                                            alt="Dashboard"
-                                            (click)="teamMembers(rowData, true)"
-                                        />
-                                    </span>
+                        <span *ngSwitchCase="'user_count'" class="d-none d-md-block">{{ rowData[col.field] }}</span>
+                        <span *ngSwitchCase="'name'">
+                            <div class="d-none d-md-flex align-items-center">
+                                <span class="d-flex flex-grow-1">{{ rowData['name'] }}</span>
+                                <div class="d-flex d-lg-none mr-5 justify-content-end">
+                                    <img
+                                        src="assets/images/role-grey.svg"
+                                        alt="Dashboard"
+                                        (click)="teamMembers(rowData, true)"
+                                    />
                                 </div>
-                                <span class="mr-5 show_btns d-none d-md-block">
-                                    <button
-                                        type="button"
-                                        class="btn btn-stroked p-1 pl-3 pr-3"
-                                        (click)="teamMembers(rowData)"
-                                        id="view-btn"
-                                    >
+                                <span *ngIf="isDesktop$ | async" class="tr-hover-visible mr-5">
+                                    <button type="button" class="btn-stroked" (click)="teamMembers(rowData)">
                                         {{ 'view_members' | translate }}
                                     </button>
-                                    <button
-                                        type="button"
-                                        (click)="teamMembers(rowData, true)"
-                                        class="btn ml-3 btn-stroked p-1 pl-3 pr-3"
-                                        id="add-btn"
-                                    >
+                                    <button type="button" (click)="teamMembers(rowData, true)" class="btn-stroked ml-3">
                                         {{ 'add_members' | translate }}
                                     </button>
                                 </span>
                             </div>
                             <div class="d-block d-md-none">
-                                <span class="d-flex font-weight-bold mb-1">
-                                    {{ rowData['name'] }}
-                                </span>
-                                <span class="d-flex d-sm-flex d-md-none text-clr588">
-                                    {{ rowData['user_count'] }} members
-                                </span>
+                                <span class="d-flex fnt-bold mb-1">{{ rowData['name'] }}</span>
+                                <span class="d-flex d-md-none text-clr588"
+                                    >{{ rowData['user_count'] }} {{ 'members' | translate | lowercase }}</span
+                                >
                             </div>
                         </span>
                         <span *ngSwitchCase="'add_user'" class="d-block d-md-none h-100">
@@ -137,68 +96,10 @@
                                 />
                             </div>
                         </span>
-                        <span *ngSwitchCase="'actions'">
-                            <ng-container class="h-100">
-                                <a
-                                    class="menu-arrow d-flex align-items-center h-100 ellipsisClass"
-                                    [popover]="poplistTemplate"
-                                    placement="left"
-                                    [outsideClick]="true"
-                                    #pop="bs-popover"
-                                >
-                                    <i class="pi pi-ellipsis-v text-clr588"></i>
-                                </a>
-                                <ng-template #poplistTemplate>
-                                    <div id="popover-mobile-content">
-                                        <ul class="list-group custom-popover">
-                                            <li
-                                                *appAclIf="'acl-management'"
-                                                class="list-group-item d-none d-sm-none d-md-block"
-                                            >
-                                                <a class="pointer-item" (click)="teamMembers(rowData, true)">{{
-                                                    'add_members' | translate
-                                                }}</a>
-                                            </li>
-                                            <li *appAclIf="'acl-management'" class="list-group-item">
-                                                <a class="pointer-item" (click)="teamMembers(rowData)">{{
-                                                    'view_members' | translate
-                                                }}</a>
-                                            </li>
-                                            <li *appAclIf="'acl-management'" class="list-group-item">
-                                                <a class="pointer-item" (click)="updateRole(rowData.id)">{{
-                                                    'edit' | translate
-                                                }}</a>
-                                            </li>
-                                            <li *appAclIf="'acl-management'" class="list-group-item">
-                                                <a class="pointer-item" (click)="updateRole(rowData.id)">{{
-                                                    'rename' | translate
-                                                }}</a>
-                                            </li>
-                                            <li *appAclIf="'acl-management'" class="list-group-item">
-                                                <a class="pointer-item" (click)="duplicateRole(rowData.id)">{{
-                                                    'duplicate_role' | translate
-                                                }}</a>
-                                            </li>
-                                            <li *appAclIf="'acl-management'" class="list-group-item">
-                                                <a class="pointer-item" (click)="updateRole(rowData.id)">{{
-                                                    'manage_permissions' | translate
-                                                }}</a>
-                                            </li>
-                                            <li *appAclIf="'acl-management'" class="list-group-item">
-                                                <a
-                                                    class="pointer-item"
-                                                    (click)="openDeleteModal(rowData.id); pop.hide()"
-                                                    >{{ 'delete_role' | translate }}</a
-                                                >
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </ng-template>
-                            </ng-container>
-                        </span>
-                        <span *ngSwitchDefault>
-                            {{ rowData[col.field] }}
-                        </span>
+                        <ng-container *ngSwitchCase="'actions'">
+                            <app-action-menu [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
+                        </ng-container>
+                        <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
                     </td>
                 </tr>
             </ng-template>

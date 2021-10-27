@@ -36,16 +36,9 @@ export class RoasterService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `roles?${this.serializeParams(postData)}`);
     }
 
-    //API Function Name : Delete Role
-    //API Description: This API calls helps to delete the role.
-
-    deleteRoles(roaster_id: any, id: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/roles/${id}`,
-            token: this.authService.token,
-            method: 'DELETE',
-        };
-        return this.http.post(this.orgDeleteUrl, data);
+    // Delete Role
+    deleteRoles(id: number) {
+        return this.postWithOrg(this.orgDeleteUrl, `roles/${id}`, 'DELETE');
     }
 
     // Get list of all organization users and search functionality
