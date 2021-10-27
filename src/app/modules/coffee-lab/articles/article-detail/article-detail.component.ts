@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@env/environment';
-import { AuthService, ChatHandlerService, CoffeeLabService, GlobalsService, UserService } from '@services';
+import { AuthService, ChatHandlerService, CoffeeLabService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
@@ -36,7 +36,6 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         public authService: AuthService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        public globalsService: GlobalsService,
         private messageService: MessageService,
         private toastrService: ToastrService,
         private userService: UserService,

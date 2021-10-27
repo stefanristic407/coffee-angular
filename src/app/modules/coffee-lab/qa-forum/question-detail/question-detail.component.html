@@ -241,7 +241,7 @@
                             <div class="bg-f8 px-25 py-2 mt-3 mt-md-0">
                                 <p class="fnt-600 fnt-12 fnt-muli text-clr334">
                                     {{ 'original_language' | translate }} :
-                                    {{ globalsService.getLanguage(answerDetail?.original_details?.language) }}
+                                    {{ answerDetail?.original_details?.language | language }}
                                 </p>
                             </div>
                         </div>
