@@ -47,7 +47,7 @@ export class ContactComponent implements OnInit {
             country: ['', Validators.compose([Validators.required])],
             state: [''],
             address_line1: ['', Validators.compose([Validators.required])],
-            address_line2: ['', Validators.compose([Validators.required])],
+            address_line2: [''],
             city: ['', Validators.compose([Validators.required])],
             zipcode: [''],
             fb_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
