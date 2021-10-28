@@ -147,13 +147,9 @@
                                 </div>
 
                                 <div class="col-12" *ngIf="infoForm.value.service">
-                                    <a
-                                        href="javscript:void(0)"
-                                        class="custom-link fnt-12"
-                                        (click)="$event.preventDefault(); op.toggle($event)"
-                                    >
-                                        Shipping price tiers
-                                    </a>
+                                    <span class="brown-cta" (click)="$event.preventDefault(); op.toggle($event)">
+                                        {{ 'shipping_price_tiers' | translate }}
+                                    </span>
                                 </div>
                                 <div class="col-12 mt-4 mt-md-45">
                                     <div class="solid-divider w-100 mb-4"></div>
