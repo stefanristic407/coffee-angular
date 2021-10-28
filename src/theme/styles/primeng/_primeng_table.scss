@@ -148,7 +148,7 @@
             padding: 1rem 0;
             font-weight: 600;
             text-align: left;
-            display: block;
+            display: flex;
             width: 100% !important;
             float: left;
             clear: left;
@@ -156,12 +156,20 @@
                 border-bottom: 2px dashed $primary-border-color !important;
             }
 
+            // Style for column title
             .p-column-title {
                 min-width: 40% !important;
                 display: inline-block !important;
-                margin-right: 1rem;
+                margin: 0;
+                padding: 0;
+                padding-right: 1rem;
                 font-weight: 600 !important;
                 color: $muted-text-color;
+            }
+
+            // Style for column content
+            & > span:last-child {
+                flex: 1;
             }
 
             .p-mobile-row-content {

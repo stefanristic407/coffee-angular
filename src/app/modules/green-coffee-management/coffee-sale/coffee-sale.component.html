@@ -44,7 +44,6 @@
                                 [ngSwitch]="col.field"
                                 [style.width]="col.width ? col.width + '%' : '30%'"
                                 [ngClass]="col.field === 'order_id' && (isMobile$ | async) ? 'border-none pb-0' : ''"
-                                [class.d-flex]="isMobile$ | async"
                             >
                                 <span *ngIf="col.field !== 'order_id'" class="p-column-title">{{
                                     col.header | translate
@@ -92,7 +91,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="!showDropdown" class="col-md-3 bg-fa br-4 p-25 d-md-none d-lg-block mt-4 mt-md-0">
+                <div *ngIf="!showDropdown" class="col-md-3 bg-fa br-4 d-md-none d-lg-block p-3 mt-4 mt-md-0">
                     <p class="fnt-400 mb-2">{{ 'current_status' | translate }}</p>
                     <span class="fnt-700">{{ statusLabel }}</span>
                     <span class="brown-cta float-right" (click)="showDropdown = true">{{
@@ -102,13 +101,14 @@
 
                 <div
                     *ngIf="showDropdown"
-                    class="col-md-3 sewn-form-field w-100 p-25 d-inline d-md-none d-lg-block mt-4 mt-md-0"
+                    class="col-md-3 sewn-form-field bg-fa br-4 d-md-none d-lg-inline p-3 mt-4 mt-md-0"
                 >
                     <p-dropdown
                         [options]="stockTypeArray"
                         placeholder="In Stock"
                         [style]="{ width: '75%' }"
                         formControlName="status"
+                        styleClass="bg-white"
                     ></p-dropdown>
                     <small *ngIf="coffeeSaleForm.controls['status'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
@@ -134,15 +134,14 @@
 
                     <div
                         *ngIf="showDropdown"
-                        class="col-md-12 sewn-form-field w-100 p-25 d-inline d-none d-md-block d-lg-none d-lg-none mt-4"
+                        class="col-12 sewn-form-field bg-fa br-4 p-25 d-none d-md-inline d-lg-none mt-4"
                     >
                         <p-dropdown
                             [options]="stockTypeArray"
-                            optionLabel="label"
                             placeholder="In Stock"
                             [style]="{ width: '75%' }"
                             formControlName="status"
-                            optionValue="value"
+                            styleClass="bg-white"
                         ></p-dropdown>
                         <small *ngIf="coffeeSaleForm.controls['status'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
