@@ -10,6 +10,7 @@ export * from './order-chat';
 export * from './orders';
 export * from './organization';
 export * from './post';
+export * from './procured-coffee';
 export * from './product';
 export * from './service';
 export * from './shipping';
