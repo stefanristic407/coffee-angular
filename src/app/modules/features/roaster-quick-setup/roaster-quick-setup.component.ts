@@ -54,7 +54,7 @@ export class RoasterQuickSetupComponent implements OnInit {
             {
                 label: `Invite  ${
                     this.orgType === OrganizationType.MICRO_ROASTER
-                        ? 'Micro-Roaster'
+                        ? 'Micro-roaster'
                         : this.translator.instant('roasted_coffee_customers')
                 }`,
             },
