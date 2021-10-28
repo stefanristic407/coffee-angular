@@ -44,6 +44,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     tableValue = [];
     remaining: any;
     quantityType: string;
+
     constructor(
         private authService: AuthService,
         private fb: FormBuilder,
@@ -93,52 +94,52 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'order_id',
                 header: 'order_id',
-                width: 15,
+                width: 9,
             },
             {
                 field: 'lot_id',
                 header: 'lot_id',
-                width: 10,
+                width: 7,
             },
             {
                 field: 'estate_name',
                 header: 'estate',
-                width: 20,
+                width: 11,
             },
             {
                 field: 'order_reference',
                 header: 'roaster_ref_no',
-                width: 20,
+                width: 12,
             },
             {
                 field: 'origin',
                 header: 'origin',
-                width: 15,
+                width: 9,
             },
             {
                 field: 'species',
                 header: 'species',
-                width: 15,
+                width: 9,
             },
             {
                 field: 'varieties',
                 header: 'variety',
-                width: 15,
+                width: 10,
             },
             {
                 field: 'price',
                 header: 'buying_price',
-                width: 15,
+                width: 10,
             },
             {
                 field: 'cup_score',
                 header: 'cupping_score',
-                width: 15,
+                width: 11,
             },
             {
                 field: 'quantity',
                 header: 'quantity_bought',
-                width: 20,
+                width: 14,
             },
         ];
     }
