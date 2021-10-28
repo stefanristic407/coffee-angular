@@ -18,6 +18,9 @@ import { ResizeableComponent } from '@base-components';
 import { ApiResponse, Download, LabelValue } from '@models';
 import { OrganizationType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmComponent } from '@shared';
+import { PopoverDirective } from 'ngx-bootstrap/popover';
 
 @Component({
     selector: 'app-outtake-orders',
@@ -56,7 +59,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     queryParams: any = {};
     displayExportDialog = false;
     isDownloading = false;
-
+    @ViewChild('pop') menuPopElement: any;
     readonly OrgType = OrganizationType;
     readonly exportForm = this.fb.group({
         from_date: this.fb.control(''),
@@ -86,6 +89,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         private authService: AuthService,
         private downloadService: DownloadService,
         private translator: TranslateService,
+        public dialogSrv: DialogService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
@@ -278,17 +282,32 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         }
         return formatVal.replace('-', '');
     }
-    deleteProductFromList(deleteId) {
-        this.roasterService.deleteOuttakeOrders(this.roasterId, deleteId).subscribe(
-            (response) => {
-                if (response && response.success) {
-                    this.toastrService.success(this.globals.languageJson?.product_deleted);
+
+    cancelOrderFromList(rowData: any, popEl: any) {
+        popEl.hide();
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: this.translator.instant('confirm_cancel'),
+                    desp: this.translator.instant('are_you_sure_want_to_cancel_the_order'),
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.roasterService.cancelOuttakeOrders(this.roasterId, rowData.id).subscribe(
+                        (response) => {
+                            if (response && response.success) {
+                                this.toastrService.success(this.translator.instant('the_order_canceled_successfully'));
+                            } else {
+                                this.toastrService.error(this.translator.instant('failed_to_cancel_the_order'));
+                            }
+                        },
+                        (err) => {
+                            this.toastrService.error(this.translator.instant('failed_to_cancel_the_order'));
+                        },
+                    );
                 }
-            },
-            (err) => {
-                this.toastrService.error(this.globals.languageJson?.product_deleting_err);
-            },
-        );
+            });
     }
     showExportDialog(): void {
         this.displayExportDialog = true;

@@ -1146,6 +1146,14 @@ export class RoasterService extends ApiService {
         };
         return this.http.post(this.url, data);
     }
+    cancelOuttakeOrders(roasterId: any, outTakeOrderId): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterId}/outtake-orders/${outTakeOrderId}/cancel`,
+            token: this.authService.token,
+            method: 'PUT',
+        };
+        return this.http.post(this.url, data);
+    }
 
     exportOuttakeOrders(roasterId: number, exportType: string, dateFrom: string, dateTo: string) {
         const paramsObj = {

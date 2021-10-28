@@ -229,12 +229,13 @@
                                                                 >{{ 'view_gc_order' | translate }}</a
                                                             >
                                                         </li>
-                                                        <li class="list-group-item">
-                                                            <a
-                                                                class="text-clr588 fnt-600 fnt-14"
-                                                                (click)="deleteProductFromList(rowData['id'])"
-                                                                >{{ 'delete' | translate }}</a
-                                                            >
+                                                        <li
+                                                            (click)="cancelOrderFromList(rowData, pop)"
+                                                            class="list-group-item"
+                                                        >
+                                                            <a class="text-clr588 fnt-600 fnt-14">{{
+                                                                'cancel' | translate
+                                                            }}</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -350,12 +351,8 @@
                                             <li class="list-group-item">
                                                 <a class="text-clr588 fnt-600 fnt-14">{{ 'export' | translate }}</a>
                                             </li>
-                                            <li class="list-group-item">
-                                                <a
-                                                    class="text-clr588 fnt-600 fnt-14"
-                                                    (click)="deleteProductFromList(rowData['id'])"
-                                                    >{{ 'delete' | translate }}</a
-                                                >
+                                            <li (click)="cancelOrderFromList(rowData, pop)" class="list-group-item">
+                                                <a class="text-clr588 fnt-600 fnt-14">{{ 'cancel' | translate }}</a>
                                             </li>
                                         </ul>
                                     </div>
