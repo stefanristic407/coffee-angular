@@ -280,12 +280,8 @@
                         </div>
                     </div>
                     <div>
-                        <img src="assets/images/add-partner.svg" />
-                        <span
-                            class="ml-2 fnt-muli fnt-700 fnt-14 editBtn"
-                            (click)="addNewGrindVariants(currentForm.value.is_hide)"
-                        >
-                            {{ 'add_grind_variant' | translate }}
+                        <span class="brown-cta" (click)="addNewGrindVariants(currentForm.value.is_hide)">
+                            <i class="pi pi-plus fnt-14 mr-1"></i>{{ 'add_grind_variant' | translate }}
                         </span>
                     </div>
                     <p-divider type="dashed" class="col-12 p-0" styleClass="mt-3 mb-0 d-md-none"></p-divider>
