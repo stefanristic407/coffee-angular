@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, GlobalsService, UserService } from '@services';
-import { RoasterService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
+import { ProcuredCoffeeStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, GlobalsService, ResizeService, RoasterService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
 @Component({
     selector: 'app-coffee-sale',
     templateUrl: './coffee-sale.component.html',
     styleUrls: ['./coffee-sale.component.scss'],
 })
-export class CoffeeSaleComponent implements OnInit {
+export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     loaded = false;
     roasterID: any = '';
     orderDetails: any;
@@ -45,25 +45,31 @@ export class CoffeeSaleComponent implements OnInit {
     remaining: any;
     quantityType: string;
     constructor(
-        public globals: GlobalsService,
-        public route: ActivatedRoute,
-        public roasterService: RoasterService,
-        public cookieService: CookieService,
+        private authService: AuthService,
+        private fb: FormBuilder,
+        private roasterService: RoasterService,
+        private route: ActivatedRoute,
         private router: Router,
         private toasterService: ToastrService,
-        private fb: FormBuilder,
+        private translator: TranslateService,
         private userService: UserService,
-        public sharedService: SharedServiceService,
-        private authService: AuthService,
+        protected resizeService: ResizeService,
     ) {
+        super(resizeService);
         this.roasterID = this.authService.getOrgId();
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
         this.breadItems = [
-            { label: 'Home', routerLink: '/' },
-            { label: 'Inventory' },
-            { label: 'Green coffee management', routerLink: '/green-coffee-management/green-coffee-inventory' },
-            { label: 'Procured coffee', routerLink: `/green-coffee-management/green-coffee-inventory` },
-            { label: `Order #${this.orderID}` },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('inventory') },
+            {
+                label: this.translator.instant('green_coffee_inventory'),
+                routerLink: '/green-coffee-management/green-coffee-inventory',
+            },
+            {
+                label: this.translator.instant('procured_coffee'),
+                routerLink: `/green-coffee-management/green-coffee-inventory`,
+            },
+            { label: `${this.translator.instant('order')} #${this.orderID}` },
         ];
     }
 
@@ -80,70 +86,58 @@ export class CoffeeSaleComponent implements OnInit {
         this.coffeeSaleForm.get('quantity_type').valueChanges.subscribe((value) => {
             this.coffeeSaleForm.patchValue({ quantity_type: value }, { emitEvent: false });
         });
-        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
-            this.sharedService.isMobileView = true;
-        }
     }
 
     initTable() {
         this.tableColumns = [
             {
                 field: 'order_id',
-                header: this.globals.languageJson?.order_id,
-                sortable: false,
+                header: 'order_id',
                 width: 15,
             },
             {
                 field: 'lot_id',
-                header: this.globals.languageJson?.lot_id,
-                sortable: false,
+                header: 'lot_id',
                 width: 10,
             },
             {
                 field: 'estate_name',
-                header: this.globals.languageJson?.estate,
+                header: 'estate',
                 width: 20,
             },
             {
                 field: 'order_reference',
-                header: this.globals.languageJson?.roaster_ref_no,
-                sortable: false,
+                header: 'roaster_ref_no',
                 width: 20,
             },
             {
                 field: 'origin',
-                header: this.globals.languageJson?.origin,
-                sortable: false,
+                header: 'origin',
                 width: 15,
             },
             {
                 field: 'species',
-                header: this.globals.languageJson?.species,
-                sortable: false,
+                header: 'species',
                 width: 15,
             },
             {
                 field: 'varieties',
-                header: this.globals.languageJson?.variety,
-                sortable: false,
+                header: 'variety',
                 width: 15,
             },
             {
                 field: 'price',
-                header: this.globals.languageJson?.buying_price,
-                sortable: false,
+                header: 'buying_price',
                 width: 15,
             },
             {
                 field: 'cup_score',
-                header: this.globals.languageJson?.cupping_score,
-                sortable: false,
+                header: 'cupping_score',
                 width: 15,
             },
             {
                 field: 'quantity',
-                header: this.globals.languageJson?.quantity_bought,
-                sortable: false,
+                header: 'quantity_bought',
                 width: 20,
             },
         ];
@@ -160,7 +154,7 @@ export class CoffeeSaleComponent implements OnInit {
             quantity_unit: ['kg', Validators.compose([Validators.required])],
             minimum_purchase_quantity: ['', Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
-            status: ['IN_STOCK', Validators.compose([Validators.required])],
+            status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
         });
     }
 

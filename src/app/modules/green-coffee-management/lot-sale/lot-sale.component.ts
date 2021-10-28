@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, ResizeService, UserService } from '@services';
-import { RoasterService } from '@services';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
+import { ProcuredCoffeeStatus, ProcuredCoffeeUnit, QuantityUnit } from '@enums';
 import { ApiResponse } from '@models';
-import { ConfirmComponent } from '@app/shared';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ProcuredCoffeeStatus, ProcuredCoffeeUnit } from 'src/core/enums/procured-coffee';
 import { TranslateService } from '@ngx-translate/core';
-import { QuantityUnit } from '@enums';
+import { AuthService, ResizeService, RoasterService, UserService } from '@services';
+import { ConfirmComponent } from '@shared';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-lot-sale',
@@ -152,7 +150,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             quantity_unit: ['kg', Validators.compose([Validators.required])],
             minimum_order_quantity_count: ['', Validators.compose([Validators.required])],
             vat_settings_id: [null, Validators.compose([Validators.required])],
-            status: ['IN_STOCK', Validators.compose([Validators.required])],
+            status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
         });
     }
 
