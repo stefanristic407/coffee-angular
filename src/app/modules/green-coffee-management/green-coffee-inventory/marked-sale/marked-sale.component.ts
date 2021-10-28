@@ -1,10 +1,11 @@
 import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
-import { AuthService, PrimeTableService } from '@services';
-import { RoasterService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { ProcuredCoffeeStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, PrimeTableService, ResizeService, RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Table } from 'primeng/table';
 
@@ -13,7 +14,7 @@ import { Table } from 'primeng/table';
     templateUrl: './marked-sale.component.html',
     styleUrls: ['./marked-sale.component.scss'],
 })
-export class MarkedSaleComponent implements OnInit {
+export class MarkedSaleComponent extends ResizeableComponent implements OnInit {
     termStatus: any;
     display: any;
     termOrigin: any;
@@ -33,7 +34,6 @@ export class MarkedSaleComponent implements OnInit {
         { label: 'Display 25', value: 25 },
         { label: 'Display 50', value: 50 },
     ];
-    disableAction: boolean;
     @Input('form')
     set form(value: FormGroup) {
         this._form = value;
@@ -42,13 +42,17 @@ export class MarkedSaleComponent implements OnInit {
     get form() {
         return this._form;
     }
+
     constructor(
         private authService: AuthService,
         private roasterService: RoasterService,
         private router: Router,
         private toastrService: ToastrService,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
         public primeTableService: PrimeTableService,
     ) {
+        super(resizeService);
         this.display = 10;
         this.roasterID = this.authService.getOrgId();
         this.primeTableService.rows = 10;
@@ -71,90 +75,54 @@ export class MarkedSaleComponent implements OnInit {
     initializeTable() {
         this.primeTableService.windowWidth = window.innerWidth;
 
-        if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
-            this.primeTableService.isMobileView = true;
+        if (this.resizeService.isMobile()) {
             this.primeTableService.allColumns = [
-                {
-                    field: 'status',
-                    header: 'status',
-                    sortable: false,
-                    width: 40,
-                },
-                {
-                    field: 'product_name',
-                    header: 'product_name',
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'estate_name',
-                    header: 'estate_name',
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'origin',
-                    header: 'origin',
-                    sortable: false,
-                    width: 50,
-                },
+                { field: 'status', header: 'status' },
+                { field: 'product_name', header: 'product_name' },
+                { field: 'estate_name', header: 'estate_name' },
+                { field: 'origin', header: 'origin' },
             ];
         } else {
-            this.primeTableService.isMobileView = false;
             this.primeTableService.allColumns = [
                 {
                     field: 'product_name',
                     header: 'product_name',
-                    sortable: false,
-                    width: 80,
+                    width: 17,
                 },
                 {
                     field: 'estate_name',
                     header: 'estate_name',
-                    sortable: false,
-                    width: 80,
+                    width: 14,
                 },
                 {
                     field: 'origin',
                     header: 'origin',
-                    sortable: false,
-                    width: 70,
+                    width: 12,
                 },
                 {
                     field: 'varieties',
                     header: 'variety',
-                    sortable: false,
-                    width: 50,
+                    width: 12,
                 },
                 {
                     field: 'quantity',
                     header: 'availability',
-                    sortable: false,
-                    width: 40,
+                    width: 11,
                 },
                 {
                     field: 'cup_score',
                     header: 'cup_score',
-                    sortable: false,
-                    width: 40,
+                    width: 11,
                 },
                 {
                     field: 'status',
                     header: 'status',
-                    sortable: false,
-                    width: 50,
+                    width: 11,
                 },
                 {
                     field: 'actions',
                     header: 'actions',
-                    sortable: false,
-                    width: 40,
-                },
-                {
-                    field: 'options',
-                    header: '',
-                    sortable: false,
-                    width: 15,
+                    width: 12,
                 },
             ];
         }
@@ -213,22 +181,12 @@ export class MarkedSaleComponent implements OnInit {
         this.table.reset();
     }
 
+    onView(item) {
+        this.router.navigateByUrl('/green-coffee-management/green-coffee-for-sale-details/' + item.order_id);
+    }
+
     onEdit(item) {
-        if (!this.disableAction) {
-            this.router.navigateByUrl('/green-coffee-management/green-coffee-for-sale-details/' + item.order_id);
-        }
-    }
-
-    menuClicked() {
-        // Stop propagation
-        this.disableAction = true;
-        setTimeout(() => {
-            this.disableAction = false;
-        }, 100);
-    }
-
-    lotSaleReirection(item) {
-        if (item.status !== 'SOLD') {
+        if (item.status !== ProcuredCoffeeStatus.SOLD) {
             const navigationExtras: NavigationExtras = {
                 queryParams: {
                     orderId: encodeURIComponent(item.order_id),
@@ -239,14 +197,7 @@ export class MarkedSaleComponent implements OnInit {
             this.toastrService.error('Cannot Edit! ,The item is already been sold');
         }
     }
-    formatStatus(stringVal) {
-        let formatVal = '';
-        if (stringVal) {
-            formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
-            formatVal = formatVal.replace('_', ' ');
-        }
-        return formatVal.replace('-', '');
-    }
+
     deleteProductFromList(deleteId) {
         this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
             (response) => {
@@ -266,5 +217,12 @@ export class MarkedSaleComponent implements OnInit {
                 console.log(err);
             },
         );
+    }
+
+    getMenuItems(item) {
+        return [
+            { label: this.translator.instant('edit'), command: () => this.onEdit(item) },
+            { label: this.translator.instant('delete'), command: () => this.openModal(item) },
+        ];
     }
 }
