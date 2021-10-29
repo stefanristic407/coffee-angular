@@ -31,12 +31,7 @@ export const getLanguage = (code: string): Language => {
     return null;
 };
 
-export const checkFile = (
-    file: File,
-    maxSize = 30,
-    maxWidth = 5000,
-    maxHeight = 5000,
-): Observable<ValidationErrors> => {
+export const checkFile = (file: File, maxSize = 30, maxWidth = 5000, maxHeight = 5000): Observable<any> => {
     return new Observable<any>((observer) => {
         if (!file) {
             observer.next({ file: 'invalid', message: `${file.name} is invalid` });
