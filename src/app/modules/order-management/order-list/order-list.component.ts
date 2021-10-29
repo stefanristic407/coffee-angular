@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestTableComponent } from './request-table/request-table.component';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-order-list',
@@ -78,6 +79,7 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
         protected resizeService: ResizeService,
         public commonService: CommonService,
         public globals: GlobalsService,
+        private translator: TranslateService,
     ) {
         super(resizeService);
     }
@@ -92,13 +94,13 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
             }
 
             this.items = [
-                { label: this.globals.languageJson?.home, routerLink: '/' },
-                { label: this.globals.languageJson?.order_management }, // Do we need this item while we have no page for it?
+                { label: this.translator.instant('home'), routerLink: '/' },
+                { label: this.translator.instant('order_management') }, // Do we need this item while we have no page for it?
                 {
                     label:
                         this.orgType === OrganizationType.ESTATE
                             ? 'Purchased orders of estates'
-                            : this.globals.languageJson?.orders_by_mr,
+                            : this.translator.instant('orders_by_mr'),
                 },
             ];
         });

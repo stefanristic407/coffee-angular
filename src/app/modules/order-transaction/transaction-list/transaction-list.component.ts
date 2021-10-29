@@ -6,6 +6,7 @@ import { Table } from 'primeng/table';
 import { ResizeableComponent } from '@base-components';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-transaction-list',
@@ -14,9 +15,9 @@ import * as moment from 'moment';
 })
 export class TransactionListComponent extends ResizeableComponent implements OnInit {
     breadItems = [
-        { label: this.globals.languageJson?.home, routerLink: '/' },
-        { label: this.globals.languageJson?.order_management, routerLink: '/' },
-        { label: this.globals.languageJson?.order_transactions },
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('order_management') },
+        { label: this.translator.instant('order_transactions') },
     ];
 
     public readonly perPageItemList = [
@@ -27,8 +28,8 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     ];
 
     public readonly channelItemList = [
-        { label: 'HoReCa Outtake', value: 'OUTTAKE_ROASTED' },
-        { label: 'Micro-Roaster Outtake', value: 'OUTTAKE_GREEN' },
+        { label: 'Horeca Outtake', value: 'OUTTAKE_ROASTED' },
+        { label: 'Micro-roaster Outtake', value: 'OUTTAKE_GREEN' },
         { label: 'B2B', value: 'B2B' },
         { label: 'B2C', value: 'B2C' },
         { label: 'Micro-roaster', value: 'MICRO_ROASTER' },
@@ -71,6 +72,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
         public primeTableService: OrderTransactionPrimeTableService,
         protected resizeService: ResizeService,
         private authService: AuthService,
+        private translator: TranslateService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
