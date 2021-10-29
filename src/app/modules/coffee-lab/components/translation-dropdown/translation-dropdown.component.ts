@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
-import {} from 'stream';
+
 @Component({
     selector: 'app-translation-dropdown',
     templateUrl: './translation-dropdown.component.html',
