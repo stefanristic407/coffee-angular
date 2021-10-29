@@ -3,6 +3,7 @@ import { Action, FileModule, FileType } from '@enums';
 import { Download } from '@models';
 import { DownloadService, FileService, GlobalsService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { checkFile } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BehaviorSubject } from 'rxjs';
@@ -193,18 +194,24 @@ export class FileShareService {
         const files = event.target.files;
         if (files.length > 0) {
             const file: File = files[0];
-            const fileName = file.name;
-            const formData: FormData = new FormData();
-            formData.append('file', file, file.name);
-            formData.append('name', fileName);
-            formData.append('file_module', FileModule.FileShare);
-            formData.append('parent_id', this.folderId);
-            this.fileSrv.uploadFiles(formData).subscribe((res: any) => {
-                if (res.success) {
-                    this.toastrService.success('The file ' + fileName + ' uploaded successfully');
-                    this.refresh();
+            checkFile(file).subscribe((res) => {
+                if (res) {
+                    this.toastrService.error(res.message);
                 } else {
-                    this.toastrService.error('Error while uploading the file');
+                    const fileName = file.name;
+                    const formData: FormData = new FormData();
+                    formData.append('file', file, file.name);
+                    formData.append('name', fileName);
+                    formData.append('file_module', FileModule.FileShare);
+                    formData.append('parent_id', this.folderId);
+                    this.fileSrv.uploadFiles(formData).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success('The file ' + fileName + ' uploaded successfully');
+                            this.refresh();
+                        } else {
+                            this.toastrService.error('Error while uploading the file');
+                        }
+                    });
                 }
             });
         }
