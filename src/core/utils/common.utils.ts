@@ -1,5 +1,5 @@
 import { ValidationErrors } from '@angular/forms';
-import { CONTINIENT_LIST, COUNTRY_LIST, LANGUAGES, OrganizationName, WEIGHT2KG } from '@constants';
+import { CONTINENT_LIST, COUNTRY_LIST, LANGUAGES, OrganizationName, WEIGHT2KG } from '@constants';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { Country, Language } from '@models';
 import { Observable } from 'rxjs';
@@ -25,8 +25,8 @@ export const getCountry = (isoCode: string): Country => {
 };
 
 export const getContinentName = (code: string): string => {
-    if (code && CONTINIENT_LIST[code]) {
-        return CONTINIENT_LIST[code];
+    if (code && CONTINENT_LIST[code]) {
+        return CONTINENT_LIST[code];
     }
     return '';
 };
