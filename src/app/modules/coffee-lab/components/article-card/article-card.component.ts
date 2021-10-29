@@ -89,6 +89,7 @@ export class ArticleCardComponent implements OnInit {
 
     onUnLike(articleId: number) {
         this.isSaveBtn = true;
+        this.isLikedBtn = false;
         this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
             if (res.success) {
                 this.article.is_liked = false;
