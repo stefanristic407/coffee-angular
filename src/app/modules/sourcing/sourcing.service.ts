@@ -206,8 +206,6 @@ export class SourcingService {
         this.userService.getGreenCoffeeDetails(this.roasterId, this.harvestId).subscribe((res: any) => {
             if (res.success) {
                 this.harvestDetail = res.result;
-                this.lotId = this.harvestDetail.lot_id;
-                this.getLotDetails();
                 if (resolve) {
                     resolve();
                 }
