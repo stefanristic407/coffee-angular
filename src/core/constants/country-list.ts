@@ -1,6 +1,6 @@
 import { Country } from '@models';
 
-export const CONTINIENT_LIST: any = {
+export const CONTINENT_LIST: any = {
     AF: 'Africa',
     AN: 'Antarctica',
     AS: 'Asia',
