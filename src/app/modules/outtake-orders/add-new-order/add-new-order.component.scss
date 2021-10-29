@@ -28,6 +28,20 @@
     background-color: #faf8f4;
     padding: 2rem;
 }
+.p-inputgroup.custom-addon {
+    .p-inputgroup-addon.position-fix {
+        margin: 0px !important;
+        padding: 0px !important;
+        p-dropdown::ng-deep {
+            .p-dropdown {
+                height: 48px !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
 
 ::ng-deep.right-dropdown {
     .p-dropdown-label {

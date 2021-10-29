@@ -283,7 +283,6 @@
                                             p-inputgroup-addon
                                             text-clr334
                                             br-4
-                                            m-1
                                             right-dropdown-background
                                             lh-1
                                         "
@@ -298,7 +297,6 @@
                                             fnt-600
                                             br-4
                                             text-clr334
-                                            m-1
                                             right-dropdown-background
                                             lh-1
                                         "
@@ -333,7 +331,6 @@
                                             fnt-14 fnt-600 fnt-muli
                                             text-clr334
                                             br-4
-                                            m-1
                                             right-dropdown-background
                                             lh-1
                                         "
@@ -348,7 +345,6 @@
                                             fnt-14 fnt-600 fnt-muli
                                             text-clr334
                                             br-4
-                                            m-1
                                             right-dropdown-background
                                             fnt-600
                                             lh-1
@@ -408,7 +404,7 @@
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['gc_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1 position-fix">
                                         <p-dropdown
                                             [ngClass]="{
                                                 'invalid-gc-order': addOrdersForm.controls['gc_total_quantity'].invalid
@@ -455,7 +451,7 @@
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['roasted_coffee_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1 position-fix">
                                         <p-dropdown
                                             [options]="weightTypeArray"
                                             optionLabel="label"
