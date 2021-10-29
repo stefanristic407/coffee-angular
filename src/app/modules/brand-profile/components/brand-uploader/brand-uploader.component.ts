@@ -1,13 +1,13 @@
 import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
-import { ToastrService } from 'ngx-toastr';
-import { Lightbox } from 'ng-gallery/lightbox';
-import { FileService, ResizeService } from '@services';
-import { FileModule } from '@enums';
-import * as moment from 'moment';
 import { ResizeableComponent } from '@base-components';
+import { FileModule } from '@enums';
+import { FileService, ResizeService } from '@services';
+import { checkFile } from '@utils';
+import * as moment from 'moment';
+import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
+import { Lightbox } from 'ng-gallery/lightbox';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-brand-uploader',
@@ -101,47 +101,74 @@ export class BrandUploaderComponent extends ResizeableComponent implements OnIni
                 this.toastrService.error(`Please select ${requiredFiles} files.`);
                 return;
             }
-            const promises = [];
+            let promises = [];
             for (let idx = 0; event.target.files[idx]; idx++) {
                 const file = event.target.files[idx];
-                const formData: FormData = new FormData();
-                formData.append('file', file, file.name);
-                formData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
-                formData.append('file_module', this.fileModule);
                 promises.push(
                     new Promise((resolve, reject) => {
-                        this.fileService.uploadFiles(formData).subscribe(
-                            (res: any) => {
-                                if (res.success) {
-                                    if (this.count > 1) {
-                                        if (this.fileIndex) {
-                                            this.files[this.fileIndex] = res.result;
-                                        } else {
-                                            this.files = this.files.concat([res.result]);
-                                        }
-                                        this.onChange(this.files);
-                                    } else {
-                                        this.files = JSON.parse(JSON.stringify([res.result]));
-                                        this.onChange(res.result);
-                                    }
-                                    resolve(res.success);
-                                } else {
-                                    reject();
-                                }
-                            },
-                            (err) => {
+                        checkFile(file).subscribe((res) => {
+                            if (res) {
+                                this.toastrService.error(res.message);
                                 reject();
-                            },
-                        );
+                            } else {
+                                resolve(file);
+                            }
+                        });
                     }),
                 );
             }
 
             Promise.all(promises)
-                .then(() => {})
+                .then(() => {
+                    promises = [];
+                    for (let idx = 0; event.target.files[idx]; idx++) {
+                        const file = event.target.files[idx];
+                        const formData: FormData = new FormData();
+                        formData.append('file', file, file.name);
+                        formData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
+                        formData.append('file_module', this.fileModule);
+                        promises.push(
+                            new Promise((resolve, reject) => {
+                                this.fileService.uploadFiles(formData).subscribe(
+                                    (res: any) => {
+                                        if (res.success) {
+                                            if (this.count > 1) {
+                                                if (this.fileIndex) {
+                                                    this.files[this.fileIndex] = res.result;
+                                                } else {
+                                                    this.files = this.files.concat([res.result]);
+                                                }
+                                                this.onChange(this.files);
+                                            } else {
+                                                this.files = JSON.parse(JSON.stringify([res.result]));
+                                                this.onChange(res.result);
+                                            }
+                                            resolve(res.success);
+                                        } else {
+                                            reject();
+                                        }
+                                    },
+                                    (err) => {
+                                        reject();
+                                    },
+                                );
+                            }),
+                        );
+                    }
+
+                    Promise.all(promises)
+                        .then(() => {
+                            this.fileInput.nativeElement.value = '';
+                        })
+                        .catch(() => {
+                            this.toastrService.error('Error while uploading');
+                            this.fileInput.nativeElement.value = '';
+                        });
+                })
                 .catch(() => {
-                    this.toastrService.error('Error while uploading');
+                    this.fileInput.nativeElement.value = '';
                 });
+            promises = [];
         }
     }
 
