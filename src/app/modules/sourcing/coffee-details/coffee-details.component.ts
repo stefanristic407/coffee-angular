@@ -73,8 +73,6 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
                     })
                     .value();
 
-                console.log(groupedCountries);
-
                 const continents = groupedCountries
                     .filter((item) => item.totalCnt === optionItems[item.continent].length)
                     .map((item) => item.continent);
@@ -97,7 +95,6 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
                 this.isLoaded = true;
             })
             .catch((err) => {
-                console.log(err);
                 this.toastrService.error('Error while retrieving data');
                 this.router.navigateByUrl('/sourcing/coffee-list');
             });
