@@ -2,11 +2,13 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { CURRENCY_LIST } from '@constants';
+import { COUNTRY_LIST, CURRENCY_LIST } from '@constants';
 import { AuthService, ResizeService } from '@services';
+import { getContinentName, getCountry } from '@utils';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
+import * as _ from 'underscore';
 import { SourcingService } from '../sourcing.service';
 
 @Component({
@@ -19,6 +21,7 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
     items: GalleryItem[];
     isLoaded = false;
     buyable = false;
+    shippingTo: string;
 
     constructor(
         private authService: AuthService,
@@ -58,6 +61,28 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
                         (ix) => ix.toLowerCase() === this.authService.currentOrganization.country.toLowerCase(),
                     );
 
+                const optionItems = _.groupBy(COUNTRY_LIST, 'continent');
+                const countries = (this.sourcing.harvestDetail.shipping_to || []).map((ix) => getCountry(ix));
+                const groupedCountries = _.chain(_.groupBy(countries, 'continent'))
+                    .map((item, key) => {
+                        return {
+                            continent: key,
+                            items: item,
+                            totalCnt: item.length,
+                        };
+                    })
+                    .value();
+
+                const continents = groupedCountries
+                    .filter((item) => item.totalCnt === optionItems[item.continent].length)
+                    .map((item) => item.continent);
+                const individualCountries = countries.filter((ix) => continents.indexOf(ix.continent) < 0);
+
+                this.shippingTo = [
+                    ...continents.map((item) => getContinentName(item)),
+                    ...individualCountries.map((item) => item.name),
+                ].join(', ');
+
                 this.galleryImages();
                 this.sourcing.estateId = this.sourcing.harvestDetail.estate_id;
                 this.sourcing.estateDetailList();
@@ -69,7 +94,7 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
                 this.sourcing.otherAvailableCoffee();
                 this.isLoaded = true;
             })
-            .catch(() => {
+            .catch((err) => {
                 this.toastrService.error('Error while retrieving data');
                 this.router.navigateByUrl('/sourcing/coffee-list');
             });
