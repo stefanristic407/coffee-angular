@@ -65,6 +65,13 @@
         border-bottom-color: #fff;
     }
 }
+.sewn-form-field .p-dropdown-panel {
+    margin-top: 0;
+    &::before,
+    &::after {
+        display: none;
+    }
+}
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
     color: $muted-text-color;
     border-radius: 2px;
