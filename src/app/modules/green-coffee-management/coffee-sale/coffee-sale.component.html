@@ -249,7 +249,19 @@
                         [style]="{ width: '100%' }"
                         formControlName="vat_settings_id"
                         optionValue="value"
-                    ></p-dropdown>
+                        styleClass="vat-dropdown"
+                    >
+                        <ng-template let-vatSetting pTemplate="item">
+                            <span *ngIf="vatSetting.label">{{ vatSetting.label }}</span>
+                            <span
+                                *ngIf="!vatSetting.label"
+                                class="btn-raised w-100"
+                                (click)="goToVatManagement(); $event.preventDefault(); $event.stopPropagation()"
+                            >
+                                {{ 'add_a_vat_role' | translate }}
+                            </span>
+                        </ng-template>
+                    </p-dropdown>
                     <small *ngIf="coffeeSaleForm.controls['vat_settings_id'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
