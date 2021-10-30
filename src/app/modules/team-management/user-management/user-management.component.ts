@@ -50,7 +50,7 @@ export class UserManagementComponent implements OnInit {
             { name: 'Inactive', value: 'Inactive' },
         ];
         this.route.queryParams.subscribe((params) => {
-            this.currentRoleID = Number(params.roleID);
+            this.currentRoleID = +params.roleID || null;
             this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;
             this.supplyBreadCrumb();
             this.listRoles();
