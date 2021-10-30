@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { organizationTypes } from '@constants';
+import { OrganizationType, UserStatus } from '@enums';
 import { GlobalsService, RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
-import { CustomerServiceService } from '../customer-service.service';
-import { NavigationExtras, Router } from '@angular/router';
-import { OrganizationType, UserStatus } from '@enums';
-import { organizationTypes } from '@constants';
 import { ToastrService } from 'ngx-toastr';
+import { CustomerServiceService } from '../customer-service.service';
 
 @Component({
     selector: 'app-customer-management-table',
