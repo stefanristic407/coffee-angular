@@ -1,12 +1,12 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '@env/environment';
+import { AuthService, CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { environment } from '@env/environment';
 
 @Component({
     selector: 'app-question-detail',
@@ -27,6 +27,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isSavedPost = false;
     isAssignedToMe = false;
     isMyAnswer = false;
+    isLikedBtn = true;
     answerComment: any;
     answerAllowTranslation: boolean;
 
@@ -178,19 +179,23 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     onLike(answer) {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateLike('answer', answer.id).subscribe((res) => {
             if (res.success) {
                 answer.is_liked = true;
                 answer.likes = answer.likes + 1;
+                this.isLikedBtn = true;
             }
         });
     }
 
     onUnLike(answer) {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateUnLike('answer', answer.id).subscribe((res) => {
             if (res.success) {
                 answer.is_liked = false;
                 answer.likes = answer.likes - 1;
+                this.isLikedBtn = true;
             }
         });
     }

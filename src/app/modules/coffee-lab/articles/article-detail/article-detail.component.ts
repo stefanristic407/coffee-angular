@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '@env/environment';
 import { AuthService, ChatHandlerService, CoffeeLabService, GlobalsService, UserService } from '@services';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { Location } from '@angular/common';
 import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { environment } from '@env/environment';
 @Component({
     selector: 'app-aticle-details',
     templateUrl: './article-detail.component.html',
@@ -30,6 +29,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     isSaveArticle = false;
     isMyPost = false;
     isSavedPost = false;
+    isLikedBtn = true;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -227,19 +227,23 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }
 
     onLike(articleId: number) {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateLike('article', articleId).subscribe((res) => {
             if (res.success) {
                 this.detailsData.is_liked = true;
                 this.detailsData.likes = this.detailsData.likes + 1;
+                this.isLikedBtn = true;
             }
         });
     }
 
     onUnLike(articleId: number) {
+        this.isLikedBtn = false;
         this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
             if (res.success) {
                 this.detailsData.is_liked = false;
                 this.detailsData.likes = this.detailsData.likes - 1;
+                this.isLikedBtn = true;
             }
         });
     }

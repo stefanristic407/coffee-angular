@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { RoasterService, SocketService, ChatUtilService, AuthService, DisputeService, ResizeService } from '@services';
-import { GlobalsService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
-import { ChatMessageType, OrganizationType } from '@enums';
-import { LazyLoadEvent } from 'primeng/api';
 import { ResizeableComponent } from '@base-components';
+import { ChatMessageType, OrganizationType } from '@enums';
+import { AuthService, ChatUtilService, DisputeService, ResizeService, RoasterService, SocketService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
     selector: 'app-raised-tickets',
@@ -34,8 +32,6 @@ export class RaisedTicketsComponent extends ResizeableComponent implements OnIni
         private socket: SocketService,
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
-        public cookieService: CookieService,
-        public globals: GlobalsService,
     ) {
         super(resizeService);
         this.roasterID = this.authService.getOrgId();
@@ -57,12 +53,19 @@ export class RaisedTicketsComponent extends ResizeableComponent implements OnIni
                 sortable: false,
                 width: 15,
             },
-            {
-                field: 'estate_name',
-                header: 'Estate name',
-                sortable: false,
-                width: 25,
-            },
+            this.orgType === OrganizationType.MICRO_ROASTER
+                ? {
+                      field: 'micro_roaster_name',
+                      header: 'Micro-roaster name',
+                      sortable: false,
+                      width: 25,
+                  }
+                : {
+                      field: 'estate_name',
+                      header: 'estate_name',
+                      sortable: false,
+                      width: 25,
+                  },
             {
                 field: 'date_ordered',
                 header: 'Date ordered',
@@ -107,14 +110,13 @@ export class RaisedTicketsComponent extends ResizeableComponent implements OnIni
         this.loading = true;
         this.disputeService.getDisputes(this.orgType, params).subscribe((data: any) => {
             if (data.success) {
-                data.result.map((ele) => {
+                this.tableValue = (data.result || []).map((ele) => {
                     ele.dispute_type =
                         ele.dispute_type.charAt(0).toUpperCase() + ele.dispute_type.slice(1).toLowerCase();
                     ele.dispute_status =
                         ele.dispute_status.charAt(0).toUpperCase() + ele.dispute_status.slice(1).toLowerCase();
                     return ele;
                 });
-                this.tableValue = data.result;
                 this.totalRecords = data.result_info.total_count;
             } else {
                 this.toastrService.error('Error while getting the agreement list!');

@@ -165,7 +165,10 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
             { label: 'payment_date', value: this.transaction?.payment_date },
             { label: 'payment_type', value: this.transaction?.payment_type },
             { label: 'payment_status', value: this.titleCasePipe.transform(this.transaction?.status) },
-            { label: 'amount_excl_vat', value: this.decimalPipe.transform(this.transaction?.vat_amount, '1.0-4') },
+            {
+                label: 'amount_excl_vat',
+                value: this.decimalPipe.transform(this.transaction?.amount_exclude_vat, '1.0-4'),
+            },
         ];
         this.customerDetails = [
             { label: 'account_number', value: this.transaction?.account_number },

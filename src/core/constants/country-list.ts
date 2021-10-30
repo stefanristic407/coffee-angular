@@ -1,6 +1,6 @@
 import { Country } from '@models';
 
-export const CONTINIENT_LIST: any = {
+export const CONTINENT_LIST: any = {
     AF: 'Africa',
     AN: 'Antarctica',
     AS: 'Asia',
@@ -14,6 +14,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Afghanistan',
         isoCode: 'AF',
+        continent: 'AS',
         cities: [
             'Badakhshan',
             'Badghis',
@@ -50,6 +51,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Albania',
         isoCode: 'AL',
+        continent: 'EU',
         cities: [
             'Berat',
             'Bulqize',
@@ -93,6 +95,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Algeria',
         isoCode: 'DZ',
+        continent: 'AF',
         cities: [
             'Adrar',
             'Ain Defla',
@@ -147,11 +150,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'American Samoa',
         isoCode: 'AS',
+        continent: 'OC',
         cities: ['Eastern', `Manu'a`, 'Rose Island', 'Swains Island', 'Western'],
     },
     {
         name: 'Angola',
         isoCode: 'AO',
+        continent: 'AF',
         cities: [
             'Andorra la Vella',
             'Bengo',
@@ -180,11 +185,12 @@ export const COUNTRY_LIST: Country[] = [
             'Zaire',
         ],
     },
-    { name: 'Anguilla', isoCode: 'AI', cities: ['Anguilla'] },
-    { name: 'Antartica', isoCode: 'AQ', cities: ['Antartica'] },
+    { name: 'Anguilla', isoCode: 'AI', continent: 'NA', cities: ['Anguilla'] },
+    { name: 'Antartica', isoCode: 'AQ', continent: 'AN', cities: ['Antartica'] },
     {
         name: 'Antigua and Barbuda',
         isoCode: 'AG',
+        continent: 'NA',
         cities: [
             'Barbuda',
             'Redonda',
@@ -199,6 +205,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Argentina',
         isoCode: 'AR',
+        continent: 'SA',
         cities: [
             'Antartica e Islas del Atlantico Sur',
             'Buenos Aires',
@@ -230,6 +237,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Armenia',
         isoCode: 'AM',
+        continent: 'AS',
         cities: [
             'Aragatsotn',
             'Ararat',
@@ -244,15 +252,17 @@ export const COUNTRY_LIST: Country[] = [
             'Yerevan',
         ],
     },
-    { name: 'Aruba', isoCode: 'AW', cities: ['Aruba'] },
+    { name: 'Aruba', isoCode: 'AW', continent: 'NA', cities: ['Aruba'] },
     {
         name: 'Ashmore and Cartier Island',
         isoCode: 'AUS',
+        continent: 'OC',
         cities: ['Ashmore and Cartier Island'],
     },
     {
         name: 'Australia',
         isoCode: 'AU',
+        continent: 'OC',
         cities: [
             'Australian Capital Territory',
             'New South Wales',
@@ -267,6 +277,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Austria',
         isoCode: 'AT',
+        continent: 'EU',
         cities: [
             'Burgenland',
             'Kaernten',
@@ -282,6 +293,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Azerbaijan',
         isoCode: 'AZ',
+        continent: 'AS',
         cities: [
             'Abseron Rayonu',
             'Agcabadi Rayonu',
@@ -359,6 +371,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Bahamas',
         isoCode: 'BS',
+        continent: 'NA',
         cities: [
             'Acklins and Crooked Islands',
             'Bimini',
@@ -386,6 +399,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Bahrain',
         isoCode: 'BH',
+        continent: 'AS',
         cities: [
             'Al Hadd',
             'Al Manamah',
@@ -404,6 +418,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Bangladesh',
         isoCode: 'BD',
+        continent: 'AS',
         cities: [
             'Barguna',
             'Barisal',
@@ -474,6 +489,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Barbados',
         isoCode: 'BB',
+        continent: 'NA',
         cities: [
             'Bridgetown',
             'Christ Church',
@@ -492,6 +508,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Belarus',
         isoCode: 'BY',
+        continent: 'EU',
         cities: [
             'Brestskaya (Brest)',
             `Homyel'skaya (Homyel')`,
@@ -505,6 +522,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Belgium',
         isoCode: 'BE',
+        continent: 'EU',
         cities: [
             'Antwerpen',
             'Brabant Wallon',
@@ -522,11 +540,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Belize',
         isoCode: 'BZ',
+        continent: 'NA',
         cities: ['Belize', 'Cayo', 'Corozal', 'Orange Walk', 'Stann Creek', 'Toledo'],
     },
     {
         name: 'Benin',
         isoCode: 'BJ',
+        continent: 'AF',
         cities: [
             'Alibori',
             'Atakora',
@@ -545,6 +565,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Bermuda',
         isoCode: 'BM',
+        continent: 'NA',
         cities: [
             'Devonshire',
             'Hamilton',
@@ -562,6 +583,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Bhutan',
         isoCode: 'BT',
+        continent: 'AS',
         cities: [
             'Bumthang',
             'Chhukha',
@@ -586,16 +608,19 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Bolivia',
         isoCode: 'BO',
+        continent: 'SA',
         cities: ['Beni', 'Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosi', 'Santa Cruz', 'Tarija'],
     },
     {
         name: 'Bosnia and Herzegovina',
         isoCode: 'BA',
+        continent: 'EU',
         cities: ['Federation of Bosnia and Herzegovina', 'Republika Srpska'],
     },
     {
         name: 'Botswana',
         isoCode: 'BW',
+        continent: 'AF',
         cities: [
             'Central',
             'Chobe',
@@ -616,6 +641,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Brazil',
         isoCode: 'BR',
+        continent: 'SA',
         cities: [
             'Acre',
             'Alagoas',
@@ -649,16 +675,19 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'British Virgin Islands',
         isoCode: 'IO',
+        continent: 'NA',
         cities: ['Anegada', 'Jost Van Dyke', 'Tortola', 'Virgin Gorda'],
     },
     {
         name: 'Brunei',
         isoCode: 'BN',
+        continent: 'AS',
         cities: ['Belait', 'Brunei and Muara', 'Temburong', 'Tutong'],
     },
     {
         name: 'Bulgaria',
         isoCode: 'BG',
+        continent: 'EU',
         cities: [
             'Blagoevgrad',
             'Burgas',
@@ -693,6 +722,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Burkina Faso',
         isoCode: 'BF',
+        continent: 'AF',
         cities: [
             'Bale',
             'Bam',
@@ -744,6 +774,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Burma',
         isoCode: 'BU',
+        continent: 'AS',
         cities: [
             'Ayeyarwady',
             'Bago',
@@ -764,6 +795,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Burundi',
         isoCode: 'BI',
+        continent: 'AF',
         cities: [
             'Bubanza',
             'Bujumbura',
@@ -786,6 +818,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Cambodia',
         isoCode: 'KH',
+        continent: 'AS',
         cities: [
             'Banteay Mean Cheay',
             'Batdambang',
@@ -816,6 +849,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Cameroon',
         isoCode: 'CM',
+        continent: 'AF',
         cities: [
             'Adamaoua',
             'Centre',
@@ -832,6 +866,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Canada',
         isoCode: 'CA',
+        continent: 'NA',
         cities: [
             'Alberta',
             'British Columbia',
@@ -851,6 +886,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Cape Verde',
         isoCode: 'CV',
+        continent: 'AF',
         cities: [
             'Boa Vista',
             'Brava',
@@ -873,11 +909,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Cayman Islands',
         isoCode: 'KY',
+        continent: 'NA',
         cities: ['Creek', 'Eastern', 'Midland', 'South Town', 'Spot Bay', 'Stake Bay', 'West End,Western'],
     },
     {
         name: 'Central African Republic',
         isoCode: 'CF',
+        continent: 'AF',
         cities: [
             'Bamingui-Bangoran',
             'Bangui',
@@ -901,6 +939,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Chad',
         isoCode: 'TD',
+        continent: 'AF',
         cities: [
             'Batha',
             'Biltine',
@@ -921,6 +960,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Chile',
         isoCode: 'CL',
+        continent: 'SA',
         cities: [
             'Aisen del General Carlos Ibanez del Campo',
             'Antofagasta',
@@ -940,6 +980,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'China',
         isoCode: 'CN',
+        continent: 'AS',
         cities: [
             'Anhui',
             'Beijing',
@@ -974,11 +1015,12 @@ export const COUNTRY_LIST: Country[] = [
             'Zhejiang',
         ],
     },
-    { name: 'Christmas Island', isoCode: 'CX', cities: ['Christmas Island'] },
-    { name: 'Clipperton Island', isoCode: 'CP', cities: ['Clipperton Island'] },
+    { name: 'Christmas Island', isoCode: 'CX', continent: 'OC', cities: ['Christmas Island'] },
+    { name: 'Clipperton Island', isoCode: 'CP', continent: 'OC', cities: ['Clipperton Island'] },
     {
         name: 'Cocos (Keeling) Islands',
         isoCode: 'CC',
+        continent: 'OC',
         cities: [
             'Direction Island',
             'Home Island',
@@ -991,6 +1033,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Colombia',
         isoCode: 'CO',
+        continent: 'SA',
         cities: [
             'Amazonas',
             'Antioquia',
@@ -1030,6 +1073,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Comoros',
         isoCode: 'KM',
+        continent: 'AF',
         cities: [
             'Anjouan (Nzwani)',
             'Domoni',
@@ -1043,6 +1087,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Congo, Democratic Republic',
         isoCode: 'CD',
+        continent: 'AF',
         cities: [
             'Bandundu',
             'Bas-Congo',
@@ -1060,6 +1105,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Congo, Republic',
         isoCode: 'CG',
+        continent: 'AF',
         cities: [
             'Bouenza',
             'Brazzaville',
@@ -1076,6 +1122,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Cook Islands',
         isoCode: 'CK',
+        continent: 'OC',
         cities: [
             'Aitutaki',
             'Atiu',
@@ -1098,11 +1145,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Costa Rica',
         isoCode: 'CR',
+        continent: 'NA',
         cities: ['Alajuela', 'Cartago', 'Guanacaste', 'Heredia', 'Limon', 'Puntarenas', 'San Jose'],
     },
     {
         name: `Cote d'Ivoire`,
         isoCode: 'CI',
+        continent: 'AF',
         cities: [
             'Abengourou',
             'Abidjan',
@@ -1167,6 +1216,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Croatia',
         isoCode: 'HR',
+        continent: 'EU',
         cities: [
             'Bjelovarsko-Bilogorska Zupanija',
             'Brodsko-Posavska Zupanija',
@@ -1194,6 +1244,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Cuba',
         isoCode: 'CU',
+        continent: 'NA',
         cities: [
             'Camaguey',
             'Ciego de Avila',
@@ -1215,11 +1266,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Cyprus',
         isoCode: 'CY',
+        continent: 'AS',
         cities: ['Famagusta', 'Kyrenia', 'Larnaca', 'Limassol', 'Nicosia', 'Paphos'],
     },
     {
         name: 'Czeck Republic',
         isoCode: 'CZ',
+        continent: 'EU',
         cities: [
             'Brnensky',
             'Budejovicky',
@@ -1240,6 +1293,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Denmark',
         isoCode: 'DK',
+        continent: 'EU',
         cities: [
             'Arhus',
             'Bornholm',
@@ -1262,11 +1316,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Djibouti',
         isoCode: 'DJ',
+        continent: 'AF',
         cities: ['Ali Sabih', 'Dikhil', 'Djibouti', 'Obock', 'Tadjoura'],
     },
     {
         name: 'Dominica',
         isoCode: 'DM',
+        continent: 'NA',
         cities: [
             'Saint Andrew',
             'Saint David',
@@ -1283,6 +1339,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Dominican Republic',
         isoCode: 'DO',
+        continent: 'NA',
         cities: [
             'Azua',
             'Baoruco',
@@ -1319,6 +1376,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Ecuador',
         isoCode: 'EC',
+        continent: 'SA',
         cities: [
             'Azuay',
             'Bolivar',
@@ -1347,6 +1405,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Egypt',
         isoCode: 'EG',
+        continent: 'AF',
         cities: [
             'Ad Daqahliyah',
             'Al Bahr al Ahmar',
@@ -1379,6 +1438,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'El Salvador',
         isoCode: 'SV',
+        continent: 'NA',
         cities: [
             'Ahuachapan',
             'Cabanas',
@@ -1399,16 +1459,19 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Equatorial Guinea',
         isoCode: 'GQ',
+        continent: 'AF',
         cities: ['Annobon', 'Bioko Norte', 'Bioko Sur', 'Centro Sur', 'Kie-Ntem', 'Litoral', 'Wele-Nzas'],
     },
     {
         name: 'Eritrea',
         isoCode: 'ER',
+        continent: 'AF',
         cities: ['Akale Guzay', 'Barka', 'Denkel', 'Hamasen', 'Sahil', 'Semhar', 'Senhit', 'Seraye'],
     },
     {
         name: 'Estonia',
         isoCode: 'EE',
+        continent: 'EU',
         cities: [
             'Harjumaa (Tallinn)',
             'Hiiumaa (Kardla)',
@@ -1430,6 +1493,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Ethiopia',
         isoCode: 'ET',
+        continent: 'AF',
         cities: [
             'Adis Abeba (Addis Ababa)',
             'Afar',
@@ -1443,30 +1507,35 @@ export const COUNTRY_LIST: Country[] = [
             'YeDebub Biheroch Bihereseboch na Hizboch',
         ],
     },
-    { name: 'Europa Island', isoCode: 'EU', cities: ['Europa Island'] },
+    { name: 'Europa Island', isoCode: 'EU', continent: 'EU', cities: ['Europa Island'] },
     {
         name: 'Falkland Islands (Islas Malvinas)',
         isoCode: 'FK',
+        continent: 'SA',
         cities: ['Falkland Islands (Islas Malvinas)'],
     },
     {
         name: 'Faroe Islands',
         isoCode: 'FO',
+        continent: 'EU',
         cities: ['Bordoy', 'Eysturoy', 'Mykines', 'Sandoy', 'Skuvoy', 'Streymoy', 'Suduroy', 'Tvoroyri', 'Vagar'],
     },
     {
         name: 'Fiji',
         isoCode: 'FJ',
+        continent: 'OC',
         cities: ['Central', 'Eastern', 'Northern', 'Rotuma', 'Western'],
     },
     {
         name: 'Finland',
         isoCode: 'FI',
+        continent: 'EU',
         cities: ['Aland', 'Etela-Suomen Laani', 'Ita-Suomen Laani', 'Lansi-Suomen Laani', 'Lappi', 'Oulun Laani'],
     },
     {
         name: 'France',
         isoCode: 'FR',
+        continent: 'EU',
         cities: [
             'Alsace',
             'Aquitaine',
@@ -1492,10 +1561,11 @@ export const COUNTRY_LIST: Country[] = [
             'Rhone-Alpes',
         ],
     },
-    { name: 'French Guiana', isoCode: 'GF', cities: ['French Guiana'] },
+    { name: 'French Guiana', isoCode: 'GF', continent: 'SA', cities: ['French Guiana'] },
     {
         name: 'French Polynesia',
         isoCode: 'PF',
+        continent: 'OC',
         cities: [
             'Archipel des Marquises',
             'Archipel des Tuamotu',
@@ -1507,11 +1577,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'French Southern and Antarctic Lands',
         isoCode: 'TF',
+        continent: 'EU',
         cities: ['Adelie Land', 'Ile Crozet', 'Iles Kerguelen', 'Iles Saint-Paul et Amsterdam'],
     },
     {
         name: 'Gabon',
         isoCode: 'GA',
+        continent: 'AF',
         cities: [
             'Estuaire',
             'Haut-Ogooue',
@@ -1527,12 +1599,14 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Gambia',
         isoCode: 'GM',
+        continent: 'AF',
         cities: ['Banjul', 'Central River', 'Lower River', 'North Bank', 'Upper River', 'Western'],
     },
-    { name: 'Gaza Strip', isoCode: 'PS', cities: ['Gaza Strip'] },
+    { name: 'Gaza Strip', isoCode: 'GZ', continent: 'AF', cities: ['Gaza Strip'] },
     {
         name: 'Georgia',
         isoCode: 'GE',
+        continent: 'AS',
         cities: [
             'Abashis',
             `Abkhazia or Ap'khazet'is Avtonomiuri Respublika (Sokhumi)`,
@@ -1603,6 +1677,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Germany',
         isoCode: 'DE',
+        continent: 'EU',
         cities: [
             'Baden-Wuerttemberg',
             'Bayern',
@@ -1625,6 +1700,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Ghana',
         isoCode: 'GH',
+        continent: 'AF',
         cities: [
             'Ashanti',
             'Brong-Ahafo',
@@ -1638,15 +1714,17 @@ export const COUNTRY_LIST: Country[] = [
             'Western',
         ],
     },
-    { name: 'Gibraltar', isoCode: 'GI', cities: ['Gibraltar'] },
+    { name: 'Gibraltar', isoCode: 'GI', continent: 'EU', cities: ['Gibraltar'] },
     {
         name: 'Glorioso Islands',
-        isoCode: 'TF',
+        isoCode: 'FR-GI',
+        continent: 'AF',
         cities: ['Ile du Lys', 'Ile Glorieuse'],
     },
     {
         name: 'Greece',
         isoCode: 'GR',
+        continent: 'EU',
         cities: [
             'Aitolia kai Akarnania',
             'Akhaia',
@@ -1705,11 +1783,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Greenland',
         isoCode: 'GL',
+        continent: 'NA',
         cities: ['Avannaa (Nordgronland)', 'Kitaa (Vestgronland)', 'Tunu (Ostgronland)'],
     },
     {
         name: 'Grenada',
         isoCode: 'GD',
+        continent: 'NA',
         cities: [
             'Carriacou and Petit Martinique',
             'Saint Andrew',
@@ -1723,12 +1803,14 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Guadeloupe',
         isoCode: 'GP',
+        continent: 'NA',
         cities: ['Basse-Terre', 'Grande-Terre', 'Iles de la Petite Terre', 'Iles des Saintes', 'Marie-Galante'],
     },
-    { name: 'Guam', isoCode: 'GU', cities: ['Guam'] },
+    { name: 'Guam', isoCode: 'GU', continent: 'OC', cities: ['Guam'] },
     {
         name: 'Guatemala',
         isoCode: 'GT',
+        continent: 'NA',
         cities: [
             'Alta Verapaz',
             'Baja Verapaz',
@@ -1757,6 +1839,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Guernsey',
         isoCode: 'GG',
+        continent: 'EU',
         cities: [
             'Castel',
             'Forest',
@@ -1773,6 +1856,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Guinea',
         isoCode: 'GN',
+        continent: 'AF',
         cities: [
             'Beyla',
             'Boffa',
@@ -1813,11 +1897,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Guinea-Bissau',
         isoCode: 'GW',
+        continent: 'AF',
         cities: ['Bafata', 'Biombo', 'Bissau', 'Bolama-Bijagos', 'Cacheu', 'Gabu', 'Oio', 'Quinara', 'Tombali'],
     },
     {
         name: 'Guyana',
         isoCode: 'GY',
+        continent: 'SA',
         cities: [
             'Barima-Waini',
             'Cuyuni-Mazaruni',
@@ -1834,21 +1920,25 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Haiti',
         isoCode: 'HT',
+        continent: 'NA',
         cities: ['Artibonite', 'Centre', `Grand'Anse`, 'Nord', 'Nord-Est', 'Nord-Ouest', 'Ouest', 'Sud', 'Sud-Est'],
     },
     {
         name: 'Heard Island and McDonald Islands',
         isoCode: 'HM',
+        continent: 'OC',
         cities: ['Heard Island and McDonald Islands'],
     },
     {
         name: 'Holy See (Vatican City)',
         isoCode: 'VA',
+        continent: 'EU',
         cities: ['Holy See (Vatican City)'],
     },
     {
         name: 'Honduras',
         isoCode: 'HN',
+        continent: 'NA',
         cities: [
             'Atlantida',
             'Choluteca',
@@ -1870,11 +1960,12 @@ export const COUNTRY_LIST: Country[] = [
             'Yoro',
         ],
     },
-    { name: 'Hong Kong', isoCode: 'HK', cities: ['Hong Kong'] },
-    { name: 'Howland Island', isoCode: 'UM', cities: ['Howland Island'] },
+    { name: 'Hong Kong', isoCode: 'HK', continent: 'AS', cities: ['Hong Kong'] },
+    { name: 'Howland Island', isoCode: 'UM', continent: 'NA', cities: ['Howland Island'] },
     {
         name: 'Hungary',
         isoCode: 'HU',
+        continent: 'EU',
         cities: [
             'Bacs-Kiskun',
             'Baranya',
@@ -1921,6 +2012,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Iceland',
         isoCode: 'IS',
+        continent: 'EU',
         cities: [
             'Akranes',
             'Akureyri',
@@ -1964,6 +2056,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'India',
         isoCode: 'IN',
+        continent: 'AS',
         cities: [
             'Andaman and Nicobar Islands',
             'Andhra Pradesh',
@@ -2006,6 +2099,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Indonesia',
         isoCode: 'ID',
+        continent: 'AS',
         cities: [
             'Aceh',
             'Bali',
@@ -2043,6 +2137,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Iran',
         isoCode: 'IR',
+        continent: 'AS',
         cities: [
             'Ardabil',
             'Azarbayjan-e Gharbi',
@@ -2077,6 +2172,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Iraq',
         isoCode: 'IQ',
+        continent: 'AS',
         cities: [
             'Al Anbar',
             'Al Basrah',
@@ -2101,6 +2197,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Ireland',
         isoCode: 'IE',
+        continent: 'EU',
         cities: [
             'Carlow',
             'Cavan',
@@ -2132,7 +2229,8 @@ export const COUNTRY_LIST: Country[] = [
     },
     {
         name: 'Ireland, Northern',
-        isoCode: 'IR',
+        isoCode: 'EI',
+        continent: 'EU',
         cities: [
             'Antrim',
             'Ards',
@@ -2165,11 +2263,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Israel',
         isoCode: 'IL',
+        continent: 'AS',
         cities: ['Central', 'Haifa', 'Jerusalem', 'Northern', 'Southern', 'Tel Aviv'],
     },
     {
         name: 'Italy',
         isoCode: 'IT',
+        continent: 'EU',
         cities: [
             'Abruzzo',
             'Basilicata',
@@ -2196,6 +2296,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Jamaica',
         isoCode: 'JM',
+        continent: 'NA',
         cities: [
             'Clarendon',
             'Hanover',
@@ -2213,10 +2314,11 @@ export const COUNTRY_LIST: Country[] = [
             'Westmoreland',
         ],
     },
-    { name: 'Jan Mayen', isoCode: 'SJ', cities: ['Jan Mayen'] },
+    { name: 'Jan Mayen', isoCode: 'SJ', continent: 'EU', cities: ['Jan Mayen'] },
     {
         name: 'Japan',
         isoCode: 'JP',
+        continent: 'AS',
         cities: [
             'Aichi',
             'Akita',
@@ -2267,12 +2369,13 @@ export const COUNTRY_LIST: Country[] = [
             'Yamanashi',
         ],
     },
-    { name: 'Jarvis Island', isoCode: 'UM', cities: ['Jarvis Island'] },
-    { name: 'Jersey', isoCode: 'JE', cities: ['Jersey'] },
-    { name: 'Johnston Atoll', isoCode: 'UM', cities: ['Johnston Atoll'] },
+    { name: 'Jarvis Island', isoCode: 'UM-1', continent: 'NA', cities: ['Jarvis Island'] },
+    { name: 'Jersey', isoCode: 'JE', continent: 'EU', cities: ['Jersey'] },
+    { name: 'Johnston Atoll', isoCode: 'UM-2', continent: 'NA', cities: ['Johnston Atoll'] },
     {
         name: 'Jordan',
         isoCode: 'JO',
+        continent: 'AS',
         cities: [
             'Amman',
             'Ajlun',
@@ -2290,12 +2393,14 @@ export const COUNTRY_LIST: Country[] = [
     },
     {
         name: 'Juan de Nova Island',
-        isoCode: 'TF',
+        isoCode: 'FR-JN',
+        continent: 'AF',
         cities: ['Juan de Nova Island'],
     },
     {
         name: 'Kazakhstan',
         isoCode: 'KZ',
+        continent: 'AS',
         cities: [
             'Almaty',
             'Aqmola',
@@ -2318,11 +2423,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Kenya',
         isoCode: 'KE',
+        continent: 'AF',
         cities: ['Central', 'Coast', 'Eastern', 'Nairobi Area', 'North Eastern', 'Nyanza', 'Rift Valley', 'Western'],
     },
     {
         name: 'Kiribati',
         isoCode: 'KI',
+        continent: 'OC',
         cities: [
             'Abaiang',
             'Abemama',
@@ -2359,6 +2466,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Korea, North',
         isoCode: 'KP',
+        continent: 'AS',
         cities: [
             'Chagang-do (Chagang Province)',
             'Hamgyong-bukto (North Hamgyong Province)',
@@ -2377,6 +2485,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Korea, South',
         isoCode: 'KR',
+        continent: 'AS',
         cities: [
             `Ch'ungch'ong-bukto`,
             `Ch'ungch'ong-namdo`,
@@ -2399,11 +2508,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Kuwait',
         isoCode: 'KW',
+        continent: 'AS',
         cities: [`Al 'Asimah`, 'Al Ahmadi', 'Al Farwaniyah', 'Al Jahra', 'Hawalli'],
     },
     {
         name: 'Kyrgyzstan',
         isoCode: 'KG',
+        continent: 'AS',
         cities: [
             'Batken Oblasty',
             'Bishkek Shaary',
@@ -2418,6 +2529,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Laos',
         isoCode: 'LA',
+        continent: 'AS',
         cities: [
             'Attapu',
             'Bokeo',
@@ -2442,6 +2554,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Lativa',
         isoCode: 'LV',
+        continent: 'EU',
         cities: [
             'Aizkraukles Rajons',
             'Aluksnes Rajons',
@@ -2481,11 +2594,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Lebanon',
         isoCode: 'LB',
+        continent: 'AS',
         cities: ['Beyrouth', 'Ech Chimal', 'Ej Jnoub', 'El Bekaa', 'Jabal Loubnane'],
     },
     {
         name: 'Lesotho',
         isoCode: 'LS',
+        continent: 'AF',
         cities: [
             'Berea',
             'Butha-Buthe',
@@ -2502,6 +2617,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Liberia',
         isoCode: 'LR',
+        continent: 'AF',
         cities: [
             'Bomi',
             'Bong',
@@ -2521,6 +2637,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Libya',
         isoCode: 'LY',
+        continent: 'AF',
         cities: [
             'Ajdabiya',
             `Al 'Aziziyah`,
@@ -2552,6 +2669,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Liechtenstein',
         isoCode: 'LI',
+        continent: 'EU',
         cities: [
             'Balzers',
             'Eschen',
@@ -2569,6 +2687,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Lithuania',
         isoCode: 'LT',
+        continent: 'EU',
         cities: [
             'Akmenes Rajonas',
             'Alytaus Rajonas',
@@ -2629,12 +2748,14 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Luxembourg',
         isoCode: 'LU',
+        continent: 'EU',
         cities: ['Diekirch', 'Grevenmacher', 'Luxembourg'],
     },
-    { name: 'Macau', isoCode: 'MO', cities: ['Macau'] },
+    { name: 'Macau', isoCode: 'MO', continent: 'AS', cities: ['Macau'] },
     {
         name: 'Macedonia, Former Yugoslav Republic',
         isoCode: 'MK',
+        continent: 'EU',
         cities: [
             'Aracinovo',
             'Bac',
@@ -2764,11 +2885,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Madagascar',
         isoCode: 'MG',
+        continent: 'AF',
         cities: ['Antananarivo', 'Antsiranana', 'Fianarantsoa', 'Mahajanga', 'Toamasina', 'Toliara'],
     },
     {
         name: 'Malawi',
         isoCode: 'MW',
+        continent: 'AF',
         cities: [
             'Balaka',
             'Blantyre',
@@ -2802,6 +2925,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Malaysia',
         isoCode: 'MY',
+        continent: 'AS',
         cities: [
             'Johor',
             'Kedah',
@@ -2823,6 +2947,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Maldives',
         isoCode: 'MV',
+        continent: 'AS',
         cities: [
             'Alifu',
             'Baa',
@@ -2849,26 +2974,31 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Mali',
         isoCode: 'ML',
+        continent: 'AF',
         cities: ['Gao', 'Kayes', 'Kidal', 'Koulikoro', 'Mopti', 'Segou', 'Sikasso', 'Tombouctou'],
     },
     {
         name: 'Mayotte',
         isoCode: 'YT',
+        continent: 'AF',
         cities: ['Mayotte'],
     },
     {
         name: 'Malta',
         isoCode: 'MT',
+        continent: 'EU',
         cities: ['Valletta'],
     },
     {
         name: 'Macedonia',
-        isoCode: 'MK',
+        isoCode: 'MK-1',
+        continent: 'EU',
         cities: ['Man', 'Isle of'],
     },
     {
         name: 'Marshall Islands',
         isoCode: 'MH',
+        continent: 'OC',
         cities: [
             'Ailinginae',
             'Ailinglaplap',
@@ -2908,12 +3038,14 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Martinique',
         isoCode: 'MQ',
+        continent: 'NA',
         cities: ['Martinique'],
     },
 
     {
         name: 'Mauritania',
         isoCode: 'MR',
+        continent: 'AF',
         cities: [
             'Adrar',
             'Assaba',
@@ -2933,6 +3065,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Mauritius',
         isoCode: 'MU',
+        continent: 'AF',
         cities: [
             'Agalega Islands',
             'Black River',
@@ -2948,10 +3081,10 @@ export const COUNTRY_LIST: Country[] = [
             'Savanne',
         ],
     },
-
     {
         name: 'Mexico',
         isoCode: 'MX',
+        continent: 'NA',
         cities: [
             'Aguascalientes',
             'Baja California',
@@ -2987,21 +3120,22 @@ export const COUNTRY_LIST: Country[] = [
             'Zacatecas',
         ],
     },
-
     {
         name: 'Federated States of Micronesia',
         isoCode: 'FM',
+        continent: 'OC',
         cities: ['Chuuk (Truk)', 'Kosrae', 'Pohnpei', 'Yap'],
     },
     {
         name: 'Midway Islands',
-        isoCode: 'UM',
+        isoCode: 'UM-2',
+        continent: 'NA',
         cities: ['Midway Islands'],
     },
-
     {
         name: 'Moldova',
         isoCode: 'MD',
+        continent: 'EU',
         cities: [
             'Balti',
             'Cahul',
@@ -3020,11 +3154,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Monaco',
         isoCode: 'MC',
+        continent: 'EU',
         cities: ['Fontvieille', 'La Condamine', 'Monaco-Ville', 'Monte-Carlo'],
     },
     {
         name: 'Mongolia',
         isoCode: 'MN',
+        continent: 'AS',
         cities: [
             'Arhangay',
             'Bayan-Olgiy',
@@ -3051,11 +3187,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Montserrat',
         isoCode: 'MS',
+        continent: 'NA',
         cities: ['Saint Anthony', 'Saint Georges', `Saint Peter's`],
     },
     {
         name: 'Morocco',
         isoCode: 'MA',
+        continent: 'AF',
         cities: [
             'Agadir',
             'Al Hoceima',
@@ -3101,6 +3239,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Mozambique',
         isoCode: 'MZ',
+        continent: 'AF',
         cities: [
             'Cabo Delgado',
             'Gaza',
@@ -3114,10 +3253,10 @@ export const COUNTRY_LIST: Country[] = [
             'Zambezia',
         ],
     },
-
     {
         name: 'Namibia',
         isoCode: 'NA',
+        continent: 'AF',
         cities: [
             'Caprivi',
             'Erongo',
@@ -3134,10 +3273,10 @@ export const COUNTRY_LIST: Country[] = [
             'Otjozondjupa',
         ],
     },
-
     {
         name: 'Nauru',
         isoCode: 'NR',
+        continent: 'OC',
         cities: [
             'Aiwo',
             'Anabar',
@@ -3155,10 +3294,10 @@ export const COUNTRY_LIST: Country[] = [
             'Yaren',
         ],
     },
-
     {
         name: 'Nepal',
         isoCode: 'NP',
+        continent: 'AS',
         cities: [
             'Bagmati',
             'Bheri',
@@ -3179,6 +3318,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Netherlands',
         isoCode: 'NL',
+        continent: 'EU',
         cities: [
             'Drenthe',
             'Flevoland',
@@ -3197,16 +3337,19 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Netherlands Antilles',
         isoCode: 'AN',
+        continent: 'EU',
         cities: ['Netherlands Antilles'],
     },
     {
         name: 'New Caledonia',
         isoCode: 'NC',
+        continent: 'OC',
         cities: ['Iles Loyaute', 'Nord,Sud'],
     },
     {
         name: 'New Zealand',
         isoCode: 'NZ',
+        continent: 'EU',
         cities: [
             'Akaroa',
             'Amuri',
@@ -3313,6 +3456,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Nicaragua',
         isoCode: 'NI',
+        continent: 'NA',
         cities: [
             'Atlantico Norte',
             'Atlantico Sur',
@@ -3336,11 +3480,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Niger',
         isoCode: 'NE',
+        continent: 'AF',
         cities: ['Agadez', 'Diffa', 'Dosso', 'Maradi', 'Niamey', 'Tahoua', 'Tillaberi', 'Zinder'],
     },
     {
         name: 'Nigeria',
         isoCode: 'NG',
+        continent: 'AF',
         cities: [
             'Abia',
             'Abuja Federal Capital Territory',
@@ -3384,21 +3530,25 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Niue',
         isoCode: 'NU',
+        continent: 'OC',
         cities: ['Niue'],
     },
     {
         name: 'Norfolk Island',
         isoCode: 'NF',
+        continent: 'OC',
         cities: ['Norfolk Island'],
     },
     {
         name: 'Northern Mariana Islands',
         isoCode: 'MP',
+        continent: 'OC',
         cities: ['Northern Islands', 'Rota', 'Saipan,Tinian'],
     },
     {
         name: 'Norway',
         isoCode: 'NO',
+        continent: 'EU',
         cities: [
             'Akershus',
             'Aust-Agder',
@@ -3424,6 +3574,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Oman',
         isoCode: 'OM',
+        continent: 'AS',
         cities: [
             'Ad Dakhiliyah',
             'Al Batinah',
@@ -3438,6 +3589,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Pakistan',
         isoCode: 'PK',
+        continent: 'AS',
         cities: [
             'Balochistan',
             'Federally Administered Tribal Areas',
@@ -3450,6 +3602,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Palau',
         isoCode: 'PW',
+        continent: 'OC',
         cities: [
             'Aimeliik',
             'Airai',
@@ -3474,6 +3627,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Panama',
         isoCode: 'PA',
+        continent: 'NA',
         cities: [
             'Bocas del Toro',
             'Chiriqui',
@@ -3489,7 +3643,8 @@ export const COUNTRY_LIST: Country[] = [
     },
     {
         name: 'Papua New Guinea',
-        isoCode: 'PG',
+        isoCode: 'PP',
+        continent: 'OC',
         cities: [
             'Bougainville',
             'Central',
@@ -3516,6 +3671,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Paraguay',
         isoCode: 'PY',
+        continent: 'SA',
         cities: [
             'Alto Paraguay',
             'Alto Parana',
@@ -3540,6 +3696,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Peru',
         isoCode: 'PE',
+        continent: 'SA',
         cities: [
             'Amazonas',
             'Ancash',
@@ -3571,6 +3728,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Philippines',
         isoCode: 'PH',
+        continent: 'AS',
         cities: [
             'Abra',
             'Agusan del Norte',
@@ -3677,11 +3835,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Pitcaim Islands',
         isoCode: 'PN',
+        continent: 'OC',
         cities: ['Pitcaim Islands'],
     },
     {
         name: 'Poland',
         isoCode: 'PL',
+        continent: 'EU',
         cities: [
             'Dolnoslaskie',
             'Kujawsko-Pomorskie',
@@ -3704,6 +3864,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Portugal',
         isoCode: 'PT',
+        continent: 'EU',
         cities: [
             'Acores (Azores)',
             'Aveiro',
@@ -3730,6 +3891,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Puerto Rico',
         isoCode: 'PR',
+        continent: 'NA',
         cities: [
             'Adjuntas',
             'Aguada',
@@ -3814,6 +3976,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Qatar',
         isoCode: 'QA',
+        continent: 'AS',
         cities: [
             'Ad Dawhah',
             'Al Ghuwayriyah',
@@ -3829,11 +3992,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Reunion',
         isoCode: 'RE',
+        continent: 'AF',
         cities: ['Reunion'],
     },
     {
         name: 'Romainia',
         isoCode: 'RO',
+        continent: 'EU',
         cities: [
             'Alba',
             'Arad',
@@ -3881,6 +4046,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Russia',
         isoCode: 'RU',
+        continent: 'EU',
         cities: [
             'Adygeya (Maykop)',
             'Aginskiy Buryatskiy (Aginskoye)',
@@ -3976,6 +4142,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Rwanda',
         isoCode: 'RW',
+        continent: 'AF',
         cities: [
             'Butare',
             'Byumba',
@@ -3994,11 +4161,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Saint Helena',
         isoCode: 'SH',
+        continent: 'AF',
         cities: ['Ascension', 'Saint Helena', 'Tristan da Cunha'],
     },
     {
         name: 'Saint Kitts and Nevis',
         isoCode: 'KN',
+        continent: 'NA',
         cities: [
             'Christ Church Nichola Town',
             'Saint Anne Sandy Point',
@@ -4019,6 +4188,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'San Marino',
         isoCode: 'SM',
+        continent: 'EU',
         cities: [
             'Acquaviva',
             'Borgo Maggiore',
@@ -4034,11 +4204,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Sao Tome and Principe',
         isoCode: 'ST',
+        continent: 'AF',
         cities: ['Principe', 'Sao Tome'],
     },
     {
         name: 'Saudi Arabia',
         isoCode: 'SA',
+        continent: 'AS',
         cities: [
             `'Asir`,
             'Al Bahah',
@@ -4057,7 +4229,8 @@ export const COUNTRY_LIST: Country[] = [
     },
     {
         name: 'Scotland',
-        isoCode: 'GB',
+        isoCode: 'GB-SCT',
+        continent: 'EU',
         cities: [
             'Aberdeen City',
             'Aberdeenshire',
@@ -4097,6 +4270,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Senegal',
         isoCode: 'SN',
+        continent: 'AF',
         cities: [
             'Dakar',
             'Diourbel',
@@ -4113,6 +4287,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Seychelles',
         isoCode: 'SC',
+        continent: 'AF',
         cities: [
             'Anse aux Pins',
             'Anse Boileau',
@@ -4142,16 +4317,19 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Sierra Leone',
         isoCode: 'SL',
+        continent: 'AF',
         cities: ['Eastern', 'Northern', 'Southern', 'Western'],
     },
     {
         name: 'Singapore',
         isoCode: 'SG',
+        continent: 'AS',
         cities: ['Singapore'],
     },
     {
         name: 'Slovakia',
         isoCode: 'SK',
+        continent: 'EU',
         cities: [
             'Banskobystricky',
             'Bratislavsky',
@@ -4166,6 +4344,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Slovenia',
         isoCode: 'SI',
+        continent: 'EU',
         cities: [
             'Ajdovscina',
             'Beltinci',
@@ -4272,6 +4451,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Solomon Islands',
         isoCode: 'SB',
+        continent: 'OC',
         cities: [
             'Bellona',
             'Central',
@@ -4289,6 +4469,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Somalia',
         isoCode: 'SO',
+        continent: 'AF',
         cities: [
             'Awdal',
             'Bakool',
@@ -4313,6 +4494,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'South Africa',
         isoCode: 'ZA',
+        continent: 'AF',
         cities: [
             'Eastern Cape',
             'Free State',
@@ -4328,6 +4510,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'South Georgia and South Sandwich Islands',
         isoCode: 'GS',
+        continent: 'SA',
         cities: [
             'Bird Island',
             'Bristol Island',
@@ -4342,6 +4525,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Spain',
         isoCode: 'ES',
+        continent: 'EU',
         cities: [
             'Andalucia',
             'Aragon',
@@ -4369,12 +4553,14 @@ export const COUNTRY_LIST: Country[] = [
     },
     {
         name: 'Spratly Islands',
-        isoCode: 'VG',
+        isoCode: 'PG',
+        continent: 'AS',
         cities: ['Spratly Islands'],
     },
     {
         name: 'Sri Lanka',
         isoCode: 'LK',
+        continent: 'AS',
         cities: [
             'Central',
             'Eastern',
@@ -4391,6 +4577,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Sudan',
         isoCode: 'SD',
+        continent: 'AF',
         cities: [
             `A'ali an Nil`,
             'Al Bahr al Ahmar',
@@ -4423,6 +4610,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Suriname',
         isoCode: 'SR',
+        continent: 'SA',
         cities: [
             'Brokopondo',
             'Commewijne',
@@ -4439,6 +4627,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Svalbard',
         isoCode: 'SJ',
+        continent: 'EU',
         cities: [
             'Barentsoya',
             'Bjornoya',
@@ -4453,11 +4642,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Swaziland',
         isoCode: 'SZ',
+        continent: 'EU',
         cities: ['Hhohho', 'Lubombo', 'Manzini', 'Shiselweni'],
     },
     {
         name: 'Sweden',
         isoCode: 'SE',
+        continent: 'EU',
         cities: [
             'Blekinge',
             'Dalarnas',
@@ -4485,6 +4676,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Switzerland',
         isoCode: 'CH',
+        continent: 'EU',
         cities: [
             'Aargau',
             'Ausser-Rhoden',
@@ -4517,6 +4709,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Syria',
         isoCode: 'SY',
+        continent: 'AS',
         cities: [
             'Al Hasakah',
             'Al Ladhiqiyah',
@@ -4537,6 +4730,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Taiwan',
         isoCode: 'TW',
+        continent: 'AS',
         cities: [
             'Chang-hua',
             'Chi-lung',
@@ -4567,11 +4761,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Tajikistan',
         isoCode: 'TJ',
+        continent: 'AS',
         cities: ['Viloyati Khatlon', 'Viloyati Leninobod', 'Viloyati Mukhtori Kuhistoni Badakhshon'],
     },
     {
         name: 'Tanzania',
         isoCode: 'TZ',
+        continent: 'AF',
         cities: [
             'Arusha',
             'Dar es Salaam',
@@ -4603,6 +4799,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Thailand',
         isoCode: 'TH',
+        continent: 'AS',
         cities: [
             'Amnat Charoen',
             'Ang Thong',
@@ -4684,27 +4881,32 @@ export const COUNTRY_LIST: Country[] = [
     },
     {
         name: 'Tobago',
-        isoCode: 'TT',
+        isoCode: 'TT-1',
+        continent: 'SA',
         cities: ['Tobago'],
     },
     {
         name: 'Toga',
         isoCode: 'TG',
+        continent: 'AF',
         cities: ['De La Kara', 'Des Plateaux', 'Des Savanes', 'Du Centre', 'Maritime'],
     },
     {
         name: 'Tokelau',
         isoCode: 'TK',
+        continent: 'OC',
         cities: ['Atafu', 'Fakaofo', 'Nukunonu'],
     },
     {
         name: 'Tonga',
         isoCode: 'TO',
+        continent: 'OC',
         cities: [`Ha'apai`, 'Tongatapu', `Vava'u`],
     },
     {
         name: 'Trinidad',
         isoCode: 'TT',
+        continent: 'NA',
         cities: [
             'Arima',
             'Caroni',
@@ -4722,6 +4924,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Tunisia',
         isoCode: 'TN',
+        continent: 'AF',
         cities: [
             'Ariana',
             'Beja',
@@ -4751,6 +4954,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Turkey',
         isoCode: 'TR',
+        continent: 'AS',
         cities: [
             'Adana',
             'Adiyaman',
@@ -4838,16 +5042,19 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Turkmenistan',
         isoCode: 'TM',
+        continent: 'AS',
         cities: ['Ahal Welayaty', 'Balkan Welayaty', 'Dashhowuz Welayaty', 'Lebap Welayaty', 'Mary Welayaty'],
     },
     {
         name: 'Tuvalu',
         isoCode: 'TV',
+        continent: 'OC',
         cities: ['Tuvalu'],
     },
     {
         name: 'Uganda',
         isoCode: 'UG',
+        continent: 'AF',
         cities: [
             'Adjumani',
             'Apac',
@@ -4899,6 +5106,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Ukraine',
         isoCode: 'UA',
+        continent: 'EU',
         cities: [
             `Avtonomna Respublika Krym (Simferopol')`,
             `Cherkas'ka (Cherkasy)`,
@@ -4932,6 +5140,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'United Arab Emirates',
         isoCode: 'AE',
+        continent: 'AS',
         cities: [
             `'Ajman`,
             'Abu Zaby (Abu Dhabi)',
@@ -4945,6 +5154,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'United Kingdom',
         isoCode: 'GB',
+        continent: 'EU',
         cities: [
             'Barking and Dagenham',
             'Barnet',
@@ -5051,6 +5261,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Uruguay',
         isoCode: 'UY',
+        continent: 'SA',
         cities: [
             'Artigas',
             'Canelones',
@@ -5076,6 +5287,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'USA',
         isoCode: 'US',
+        continent: 'NA',
         cities: [
             'Alabama',
             'Alaska',
@@ -5133,6 +5345,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Uzbekistan',
         isoCode: 'UZ',
+        continent: 'AS',
         cities: [
             'Andijon Wiloyati',
             'Bukhoro Wiloyati',
@@ -5153,11 +5366,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Vanuatu',
         isoCode: 'VU',
+        continent: 'OC',
         cities: ['Malampa', 'Penama', 'Sanma', 'Shefa', 'Tafea', 'Torba'],
     },
     {
         name: 'Venezuela',
         isoCode: 'VE',
+        continent: 'SA',
         cities: [
             'Amazonas',
             'Anzoategui',
@@ -5189,6 +5404,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Vietnam',
         isoCode: 'VN',
+        continent: 'AS',
         cities: [
             'An Giang',
             'Ba Ria-Vung Tau',
@@ -5256,11 +5472,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Virgin Islands',
         isoCode: 'VG',
+        continent: 'NA',
         cities: ['Saint Croix', 'Saint John', 'Saint Thomas'],
     },
     {
         name: 'Wales',
         isoCode: 'WL',
+        continent: 'EU',
         cities: [
             'Blaenau Gwent',
             'Bridgend',
@@ -5289,21 +5507,25 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Wallis and Futuna',
         isoCode: 'WF',
+        continent: 'OC',
         cities: ['Alo', 'Sigave', 'Wallis'],
     },
     {
         name: 'West Bank',
         isoCode: 'PS',
+        continent: 'AS',
         cities: ['West Bank'],
     },
     {
         name: 'Western Sahara',
         isoCode: 'EH',
+        continent: 'AF',
         cities: ['Western Sahara'],
     },
     {
         name: 'Yemen',
         isoCode: 'YE',
+        continent: 'AS',
         cities: [
             `'Adan`,
             `'Ataq`,
@@ -5327,11 +5549,13 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Yugoslavia',
         isoCode: 'YU',
+        continent: 'EU',
         cities: ['Kosovo', 'Montenegro', 'Serbia', 'Vojvodina'],
     },
     {
         name: 'Zambia',
         isoCode: 'ZM',
+        continent: 'AF',
         cities: [
             'Central',
             'Copperbelt',
@@ -5347,6 +5571,7 @@ export const COUNTRY_LIST: Country[] = [
     {
         name: 'Zimbabwe',
         isoCode: 'ZW',
+        continent: 'AF',
         cities: [
             'Bulawayo',
             'Harare',

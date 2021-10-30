@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { CoffeeLabService, GlobalsService } from '@services';
-import { environment } from '@env/environment';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
+import { environment } from '@env/environment';
+import { CoffeeLabService, GlobalsService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Menu } from 'primeng/menu';
 
 @Component({

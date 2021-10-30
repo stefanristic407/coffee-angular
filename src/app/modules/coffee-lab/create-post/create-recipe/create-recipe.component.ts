@@ -1,20 +1,19 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
-import { AuthService, CoffeeLabService, CommonService, GlobalsService, GoogletranslateService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { combineLatest, Subject } from 'rxjs';
-import { Location } from '@angular/common';
-import { take, takeUntil } from 'rxjs/operators';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent, CropperDialogComponent } from '@app/shared';
 import { CroppedImage } from '@models';
+import { AuthService, CoffeeLabService, CommonService, GlobalsService, GoogletranslateService } from '@services';
+import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
+import { combineLatest, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 export enum RecipeFileType {
     CoverImage = 'CoverImage',
-    Video = 'Video',
     StepImage = 'StepImage',
 }
 
@@ -51,7 +50,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     copiedVideoUrl: string;
     languageList: any[] = APP_LANGUAGES;
     images = [];
-    maxVideoSize = 15;
     destroy$: Subject<boolean> = new Subject<boolean>();
     clicked = false;
     categoryList: any[] = [];
@@ -137,6 +135,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         { label: 'Chemix', value: 'chemex' },
         { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
     ];
+    @ViewChild('bannerFileInput', { static: false }) bannerFileInput;
 
     constructor(
         private authService: AuthService,
@@ -445,31 +444,28 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             event.target.files[0].type === 'image/jpg' ||
             event.target.files[0].type === 'image/jpeg'
         ) {
-            if (type === RecipeFileType.Video) {
-                this.uploadFile(event.target.files[0], index, type);
-            } else {
-                this.dialogService
-                    .open(CropperDialogComponent, {
-                        data: {
-                            imageChangedEvent: event,
-                            aspectRatio: 672 / 276,
-                            maintainAspectRatio: type !== RecipeFileType.StepImage,
-                            resizeToWidth: 672,
-                        },
-                    })
-                    .onClose.subscribe((data: CroppedImage) => {
-                        if (data.status) {
-                            this.uploadFile(data.croppedImgFile, index, type, event.target.files[0]?.name);
-                        }
-                    });
-            }
+            this.dialogService
+                .open(CropperDialogComponent, {
+                    data: {
+                        imageChangedEvent: event,
+                        aspectRatio: 672 / 276,
+                        maintainAspectRatio: type !== RecipeFileType.StepImage,
+                        resizeToWidth: 672,
+                    },
+                })
+                .onClose.subscribe((data: CroppedImage) => {
+                    if (data?.status) {
+                        this.uploadFile(data.croppedImgFile, index, type, event.target.files[0]?.name);
+                    }
+                    this.bannerFileInput.nativeElement.value = '';
+                });
         } else {
             this.toaster.error('Please upload only image files with extension png,jpg,jpeg');
         }
     }
 
     uploadFile(file: any, index: number, type, fileName?: string): void {
-        const maximumFileSize = type === RecipeFileType.Video ? this.maxVideoSize * 1024 : 2 * 1024;
+        const maximumFileSize = 2 * 1024;
         const fileSize = Math.round(file.size / 1024);
         // Check max file size
         if (fileSize >= maximumFileSize) {

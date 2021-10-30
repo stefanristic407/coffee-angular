@@ -17,6 +17,7 @@ import * as moment from 'moment';
 import { ResizeableComponent } from '@base-components';
 import { ApiResponse, Download, LabelValue } from '@models';
 import { OrganizationType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-outtake-orders',
@@ -27,9 +28,9 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     searchTerm = '';
     statusItems;
     breadItems = [
-        { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
-        { label: this.globals.languageJson?.order_management, routerLink: '/dashboard' },
-        { label: this.globals.languageJson?.outtake_order },
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('order_management') },
+        { label: this.translator.instant('outtake_order') },
     ];
     appLanguage?: any;
     originArray: any = [];
@@ -84,6 +85,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         protected resizeService: ResizeService,
         private authService: AuthService,
         private downloadService: DownloadService,
+        private translator: TranslateService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();

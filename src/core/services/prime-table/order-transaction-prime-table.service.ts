@@ -129,6 +129,7 @@ export class OrderTransactionPrimeTableService {
                         this.records = [...[]];
                         this.totalRecords = 0;
                         this.currentPage = 0;
+                        this.paginationValue = false;
                     }
 
                     this.loading = false;

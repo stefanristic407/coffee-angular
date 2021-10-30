@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { APP_LANGUAGES } from '@constants';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { insertAltAttr } from '@utils';
-import { DialogService } from 'primeng/dynamicdialog';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
+import { APP_LANGUAGES } from '@constants';
+import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
+import { insertAltAttr } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-translate-answer',
@@ -27,6 +27,7 @@ export class TranslateAnswerComponent implements OnInit {
     imageIdList = [];
     isPosting = false;
     question: any;
+    draftQuestionId: number;
     needToTranslateQuestion = true;
     originLanguage: string;
     translateLangCode = 'sv';
@@ -130,6 +131,7 @@ export class TranslateAnswerComponent implements OnInit {
         this.coffeeLabService.getForumDetails('answer', draftId).subscribe((res: any) => {
             if (res.success) {
                 this.form.get('question').setValue(res.result?.question);
+                this.draftQuestionId = res.result.question_id;
                 this.translatedAnswer = res.result?.answer;
             } else {
                 this.toastrService.error('Error while get draft');
@@ -241,7 +243,7 @@ export class TranslateAnswerComponent implements OnInit {
 
         this.isPosting = true;
         if ((status === 'DRAFT' || status === 'PUBLISHED') && this.draftId) {
-            data.question_id = this.question.id;
+            data.question_id = this.draftQuestionId;
             this.coffeeLabService.translateAnswer(this.draftId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {

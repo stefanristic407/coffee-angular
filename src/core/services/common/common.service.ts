@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { COUNTRY_LIST, CONTINIENT_LIST } from '@constants';
+import { COUNTRY_LIST, CONTINENT_LIST } from '@constants';
 import { OrganizationType } from '@enums';
 import { environment } from '@env/environment';
 import { LabelValue, Country } from '@models';
@@ -46,8 +46,8 @@ export class CommonService {
 
     getContinentName(code: string): string {
         if (code) {
-            if (CONTINIENT_LIST[code]) {
-                return CONTINIENT_LIST[code];
+            if (CONTINENT_LIST[code]) {
+                return CONTINENT_LIST[code];
             }
         }
 

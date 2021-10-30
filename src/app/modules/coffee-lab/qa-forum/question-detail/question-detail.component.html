@@ -176,24 +176,26 @@
                     <div class="d-flex justify-content-between my-3 my-md-4">
                         <div class="d-flex">
                             <div class="d-flex align-like">
-                                <div
+                                <button
                                     class="like-int d-none"
                                     (click)="onLike(answer)"
                                     [ngClass]="{ 'd-block': !answer.is_liked }"
+                                    [disabled]="!isLikedBtn"
                                 >
                                     <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
-                                </div>
-                                <div
+                                </button>
+                                <button
                                     class="like-int d-none"
                                     (click)="onUnLike(answer)"
                                     [ngClass]="{ 'd-block': answer.is_liked }"
+                                    [disabled]="!isLikedBtn"
                                 >
                                     <img
                                         class="cursor-point like"
                                         src="assets/images/thumbs-up-1.svg"
                                         alt="thumbs-up"
                                     />
-                                </div>
+                                </button>
                                 <span class="d-flex mt-25 mb-05 mr-2 fnt-300 text-clr334">{{ answer.likes }}</span>
                             </div>
                             <!-- <div class="align-items-center d-flex ml-0 hover-save-icon">

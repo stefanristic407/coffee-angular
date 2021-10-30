@@ -1,40 +1,7 @@
 :host {
     display: block;
-
-    .order-header {
-        background-color: #f8f8f8;
-    }
 }
 
-::ng-deep .req-disp .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
-    @media screen and (max-width: 787px) {
-        display: inherit !important;
-        border: 0 !important;
-        td:not(.border-none) {
-            border-bottom: none !important;
-        }
-    }
-}
-
-.cell-header {
-    @media screen and (max-width: 787px) {
-        width: 40%;
-    }
-}
-.cell-header-right {
-    @media screen and (max-width: 787px) {
-        width: 60%;
-    }
-}
-
-.mobile-row {
-    @media screen and (max-width: 787px) {
-        border-bottom: 1px dashed #d6d6d6;
-    }
-    &:last-child {
-        border-bottom: none !important;
-    }
-}
 .status-pen {
     color: #f19634;
     &::before {

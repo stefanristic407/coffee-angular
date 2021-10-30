@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { USER_STATUS_ITEMS } from '@constants';
-import { OrganizationType } from '@enums';
+import { InvitationStatus, OrganizationType } from '@enums';
 import { AuthService, GlobalsService, RoasterService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -152,6 +152,7 @@ export class CustomerManagementComponent implements OnInit {
     getInvitedUsers() {
         this.isLoading = true;
         const params = {
+            status: InvitationStatus.PENDING,
             sort_by: 'created_at',
             sort_order: 'desc',
             page: this.pages ? this.pages + 1 : 1,

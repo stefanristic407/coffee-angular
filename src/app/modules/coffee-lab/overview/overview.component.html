@@ -35,7 +35,10 @@
     <div class="d-flex flex-column flex-md-row justify-content-between pb-4">
         <div>
             <h1 class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 mb-25">
-                {{ 'the_coffee_lab' | translate }}
+                <span *ngIf="currentTabIndex === 0">{{ 'qa_h1_title' | translate }}</span>
+                <span *ngIf="currentTabIndex === 1">{{ 'article_h1_title' | translate }}</span>
+                <span *ngIf="currentTabIndex === 2">{{ 'recipe_h1_title' | translate }}</span>
+                <span *ngIf="currentTabIndex > 2">{{ 'the_coffee_lab' | translate }}</span>
             </h1>
             <p class="fnt-14 fnt-muli fnt-normal text-clr588 lh-normal mb-0">
                 {{ 'coffee_lab_sub_text' | translate }}

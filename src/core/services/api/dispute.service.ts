@@ -31,7 +31,7 @@ export class DisputeService extends ApiService {
     }
 
     private getDisputeEndpoint(orgType: OrganizationType): string {
-        return orgType === OrganizationType.MICRO_ROASTER ? `micro-roasters/` : '';
+        return orgType === OrganizationType.MICRO_ROASTER ? `micro_roasters/` : '';
     }
 
     private getOrderEndpoint(orgType: OrganizationType): string {
