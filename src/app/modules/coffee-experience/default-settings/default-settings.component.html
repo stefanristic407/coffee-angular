@@ -445,14 +445,10 @@
                                             <div *ngIf="isVideoPreviewPanel" class="existing-media-container">
                                                 <div
                                                     *ngIf="
-                                                        defaultDetails?.video_url?.includes('png') ||
-                                                        defaultDetails?.video_url?.includes('jpg') ||
-                                                        defaultDetails?.video_url?.includes('jpeg') ||
-                                                        defaultDetails?.video_url?.includes('gif') ||
-                                                        defaultDetails?.video_url?.includes('PNG') ||
-                                                        defaultDetails?.video_url?.includes('JPG') ||
-                                                        defaultDetails?.video_url?.includes('JPEG') ||
-                                                        defaultDetails?.video_url?.includes('GIF')
+                                                        defaultDetails?.video_name?.includes('png') ||
+                                                        defaultDetails?.video_name?.includes('jpg') ||
+                                                        defaultDetails?.video_name?.includes('jpeg') ||
+                                                        defaultDetails?.video_name?.includes('gif')
                                                     "
                                                     class="content-container br-4"
                                                     [style.backgroundImage]="'url(' + defaultDetails?.video_url + ')'"
@@ -477,12 +473,12 @@
                                                 </div>
                                                 <div
                                                     *ngIf="
-                                                        defaultDetails?.video_url?.includes('mp4') ||
-                                                        defaultDetails?.video_url?.includes('mpeg') ||
-                                                        defaultDetails?.video_url?.includes('mov') ||
-                                                        defaultDetails?.video_url?.includes('wmv') ||
-                                                        defaultDetails?.video_url?.includes('flv') ||
-                                                        defaultDetails?.video_url?.includes('webm')
+                                                        defaultDetails?.video_name?.includes('mp4') ||
+                                                        defaultDetails?.video_name?.includes('mpeg') ||
+                                                        defaultDetails?.video_name?.includes('mov') ||
+                                                        defaultDetails?.video_name?.includes('wmv') ||
+                                                        defaultDetails?.video_name?.includes('flv') ||
+                                                        defaultDetails?.video_name?.includes('webm')
                                                     "
                                                     class="content-container br-4"
                                                 >
