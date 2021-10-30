@@ -37,6 +37,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     tableRows = 10;
     popupDetails = { message: '', buttonName: '', showIcon: false };
     assignedUsers = [];
+    loading = true;
 
     constructor(
         private authService: AuthService,
@@ -178,6 +179,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
         );
     }
     getTableData(event?): void {
+        this.loading = true;
         if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
             this.roasterService
                 .getInvitedUserLists({ name: this.termSearch, status: InvitationStatus.PENDING })
@@ -188,6 +190,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                             return element;
                         });
                     }
+                    this.loading = false;
                 });
         } else {
             this.selectedUsers = [];
@@ -246,6 +249,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                         }
                         this.tableValue = this.roasterUsers;
                     }
+                    this.loading = false;
                 },
                 (err) => {
                     console.error(err);

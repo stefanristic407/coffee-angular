@@ -24,7 +24,7 @@
     </button>
 </div>
 
-<div *ngIf="roleList && roleList.length" class="table-wrapper mt-4">
+<div class="table-wrapper mt-4">
     <div class="table-container userTable p-0">
         <p-table
             #myTable
@@ -35,6 +35,7 @@
             [resizableColumns]="true"
             styleClass="ui-table-customers"
             [showCurrentPageReport]="false"
+            [loading]="loading"
             [paginator]="true"
             [rows]="tableRows"
             [lazy]="true"
@@ -201,6 +202,12 @@
                         </span>
                     </td>
                 </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <app-empty
+                    *ngIf="!loading && !tableValue?.length"
+                    [title]="'no_data_available' | translate"
+                ></app-empty>
             </ng-template>
         </p-table>
     </div>
