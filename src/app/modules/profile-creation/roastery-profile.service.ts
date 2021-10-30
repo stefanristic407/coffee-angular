@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { COUNTRY_LIST } from '@constants';
+import { ContactGroup, ProfileImageType } from '@enums';
+import { OrganizationProfile } from '@models';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, RoasterService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService, RoasterService, UserService } from '@services';
-import { COUNTRY_LIST } from '@constants';
-import { OrganizationProfile } from '@models';
-import { ContactGroup, ProfileImageType } from '@enums';
 
 @Injectable({
     providedIn: 'root',
@@ -52,13 +53,14 @@ export class RoasteryProfileService {
     isSaving?: boolean;
 
     constructor(
-        public userService: UserService,
-        public cookieService: CookieService,
-        public roasterService: RoasterService,
-        public toastrService: ToastrService,
-        public router: Router,
         private authService: AuthService,
         private newUserService: UserService,
+        private translator: TranslateService,
+        public cookieService: CookieService,
+        public roasterService: RoasterService,
+        public router: Router,
+        public toastrService: ToastrService,
+        public userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.roasterProfile();
@@ -126,7 +128,7 @@ export class RoasteryProfileService {
 
     saveRoasterProfile() {
         if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid || this.invalidSumEmployee) {
-            this.toastrService.error('Please fill all correct values for required fields');
+            this.toastrService.error(this.translator.instant('please_ensure_all_fields_filled_for_all_tabs'));
             this.subProfileForm?.markAllAsTouched();
             this.aboutForm?.markAllAsTouched();
             this.contactForm?.markAllAsTouched();
