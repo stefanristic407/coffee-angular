@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { Download } from '@models';
 import { AuthService, DownloadService, FileService, GlobalsService, UserService } from '@services';
+import { checkFile } from '@utils';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -360,7 +361,7 @@ export class DefaultSettingsComponent implements OnInit {
     onChooseFile(target: any, parameter: string) {
         this.fileImage = null;
         this.fileVideo = null;
-        const file = target.files[0];
+        const file: File = target.files[0];
         if (!file) {
             return;
         }
@@ -373,56 +374,65 @@ export class DefaultSettingsComponent implements OnInit {
             return;
         }
 
-        if (this.fileVideo) {
-            this.totalFilesNumber++;
-            const formData = new FormData();
-            formData.append('file', this.fileVideo);
-            formData.append('name', file.name);
-            formData.append('file_module', 'Coffee-Story');
+        const files = target.files;
+        if (files.length > 0) {
+            checkFile(file).subscribe((fileError) => {
+                if (fileError) {
+                    this.toastrService.error(fileError.message);
+                } else {
+                    if (this.fileVideo) {
+                        this.totalFilesNumber++;
+                        const formData = new FormData();
+                        formData.append('file', this.fileVideo);
+                        formData.append('name', file.name);
+                        formData.append('file_module', 'Coffee-Story');
 
-            this.fileService.uploadFiles(formData).subscribe(
-                (res: any) => {
-                    this.videoName = file.name;
-                    this.defaultDetails.video_id = res.result?.id;
-                    this.defaultDetails.video_url = res.result?.url;
-                    this.filesCount++;
-                    if (this.filesCount === this.totalFilesNumber) {
-                        this.isVideoPreviewPanel = true;
-                        this.toastrService.success('Video update successfully');
+                        this.fileService.uploadFiles(formData).subscribe(
+                            (res: any) => {
+                                this.videoName = file.name;
+                                this.defaultDetails.video_id = res.result?.id;
+                                this.defaultDetails.video_url = res.result?.url;
+                                this.filesCount++;
+                                if (this.filesCount === this.totalFilesNumber) {
+                                    this.isVideoPreviewPanel = true;
+                                    this.toastrService.success('Video update successfully');
+                                }
+                            },
+                            () => {
+                                this.handleFailedToSaveData();
+                                return;
+                            },
+                        );
                     }
-                },
-                () => {
-                    this.handleFailedToSaveData();
-                    return;
-                },
-            );
-        }
 
-        if (this.fileImage) {
-            this.totalFilesNumber++;
-            const formData = new FormData();
-            formData.append('file', this.fileImage);
-            formData.append('name', file.name);
-            formData.append('file_module', 'Coffee-Story');
+                    if (this.fileImage) {
+                        this.totalFilesNumber++;
+                        const formData = new FormData();
+                        formData.append('file', this.fileImage);
+                        formData.append('name', file.name);
+                        formData.append('file_module', 'Coffee-Story');
 
-            this.fileService.uploadFiles(formData).subscribe(
-                (res: any) => {
-                    if (res.success) {
-                        this.imageName = file.name;
-                        this.defaultDetails.image_id = res.result?.id;
-                        this.defaultDetails.image_url = res.result.url;
-                        this.filesCount++;
-                        if (this.filesCount === this.totalFilesNumber) {
-                            this.isImagePreviewPanel = true;
-                            this.toastrService.success('Image update successfully');
-                        }
+                        this.fileService.uploadFiles(formData).subscribe(
+                            (res: any) => {
+                                if (res.success) {
+                                    this.imageName = file.name;
+                                    this.defaultDetails.image_id = res.result?.id;
+                                    this.defaultDetails.image_url = res.result.url;
+                                    this.filesCount++;
+                                    if (this.filesCount === this.totalFilesNumber) {
+                                        this.isImagePreviewPanel = true;
+                                        this.toastrService.success('Image update successfully');
+                                    }
+                                }
+                            },
+                            (err) => {
+                                this.handleFailedToSaveData();
+                                return;
+                            },
+                        );
                     }
-                },
-                (err) => {
-                    this.handleFailedToSaveData();
-                    return;
-                },
-            );
+                }
+            });
         }
     }
 
