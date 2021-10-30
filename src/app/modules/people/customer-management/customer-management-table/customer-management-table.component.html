@@ -135,7 +135,12 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="summary">
+                    <ng-container *ngIf="sortedMainData?.length; else empty"></ng-container>
+                </ng-template>
             </p-table>
         </div>
     </div>
 </div>
+
+<ng-template #empty> <app-empty [title]="'no_data' | translate"></app-empty> </ng-template>

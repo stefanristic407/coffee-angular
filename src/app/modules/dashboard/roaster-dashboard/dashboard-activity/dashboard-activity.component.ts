@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { GlobalsService } from '@services';
-import { MDashboardService } from '../m-dashboard.service';
-import { Table } from 'primeng/table';
 import { ACTIVITY_TYPE } from '@constants';
+import { GlobalsService } from '@services';
+import { Table } from 'primeng/table';
+import { Subscription } from 'rxjs';
+import { MDashboardService } from '../m-dashboard.service';
 
 @Component({
     selector: 'app-dashboard-activity',
