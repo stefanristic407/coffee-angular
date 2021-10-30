@@ -36,7 +36,7 @@
             styleClass="ui-table-customers"
             [showCurrentPageReport]="false"
             [loading]="loading"
-            [paginator]="true"
+            [paginator]="totalCount > tableRows"
             [rows]="tableRows"
             [lazy]="true"
             (onLazyLoad)="getTableData($event)"
