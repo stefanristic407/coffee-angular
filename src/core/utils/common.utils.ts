@@ -1,6 +1,8 @@
+import { ValidationErrors } from '@angular/forms';
 import { COUNTRY_LIST, LANGUAGES, OrganizationName, WEIGHT2KG } from '@constants';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { Country, Language } from '@models';
+import { Observable } from 'rxjs';
 
 export const getOrgName = (orgType: OrganizationType | string): string => {
     const type = orgType?.toLowerCase() as OrganizationType;
@@ -27,4 +29,39 @@ export const getLanguage = (code: string): Language => {
         return LANGUAGES.find((c: any) => c.value === code.toLowerCase());
     }
     return null;
+};
+
+export const checkFile = (file: File, maxSize = 30, maxWidth = 5000, maxHeight = 5000): Observable<any> => {
+    return new Observable<any>((observer) => {
+        if (!file) {
+            observer.next({ file: 'invalid', message: `${file.name} is invalid` });
+            observer.complete();
+        } else if (file.size > maxSize * 1024 * 1024) {
+            observer.next({ size: 'exceeded', message: `${file.name} size exceeded(Max size is ${maxSize}mb)` });
+            observer.complete();
+        } else if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                const img = new Image();
+                img.src = reader.result as string;
+                img.onload = () => {
+                    const height = img.naturalHeight;
+                    const width = img.naturalWidth;
+                    if (width > maxWidth || height > maxHeight) {
+                        observer.next({
+                            dimension: 'exceeded',
+                            message: `${file.name} dimention exceeded(${maxWidth}*${maxHeight}px)`,
+                        });
+                    } else {
+                        observer.next(null);
+                    }
+                    observer.complete();
+                };
+            };
+        } else {
+            observer.next(null);
+            observer.complete();
+        }
+    });
 };
