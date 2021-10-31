@@ -38,39 +38,44 @@
                 </div>
                 <!-- Order detail table -->
                 <div class="mb-3">
-                    <div class="border-main border-md-none br-4 p-3 p-md-0">
-                        <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 pb-2">
-                            {{ 'order_details' | translate }}
-                        </div>
-                        <p-table
-                            *ngIf="orderDetail"
-                            [value]="[orderDetail]"
-                            [autoLayout]="isTablet$ | async"
-                            [scrollable]="isTablet$ | async"
-                            styleClass="p-datatable-responsive-single"
-                        >
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th *ngFor="let item of orderDetail">{{ item.label }}</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-item>
-                                <tr>
-                                    <td *ngFor="let element of item" [ngSwitch]="element.field">
-                                        <ng-container *ngSwitchCase="'origin'">
-                                            <span class="p-column-title"> {{ element.label }} </span>
-                                            <span>{{ element.value | country }}</span>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchDefault>
-                                            <span class="p-column-title"> {{ element.label }} </span>
-                                            <span>{{ element.value }}</span>
-                                        </ng-container>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
+                    <div class="d-none d-md-block fnt-18 fnt-bold mb-25">{{ 'order_details' | translate }}</div>
+                    <p-table
+                        *ngIf="orderDetail"
+                        [value]="[orderDetail]"
+                        responsive="true"
+                        [scrollable]="isTablet$ | async"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th
+                                    *ngFor="let item of orderDetail"
+                                    [style.width]="item.width ? item.width + '%' : '30%'"
+                                >
+                                    {{ item.label }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td
+                                    *ngFor="let element of item"
+                                    [ngSwitch]="element.field"
+                                    [style.width]="element.width ? element.width + '%' : '30%'"
+                                >
+                                    <div *ngIf="element.field === 'customer'" class="d-md-none fnt-16 fnt-bold mb-35">
+                                        {{ 'order_details' | translate }}
+                                    </div>
+                                    <span class="p-column-title"> {{ element.label }} </span>
+                                    <ng-container *ngSwitchCase="'origin'">
+                                        <span>{{ element.value | country }}</span>
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        <span>{{ element.value }}</span>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
                 </div>
 
                 <!-- Form for real order -->
