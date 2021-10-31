@@ -75,27 +75,22 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
                 {
                     field: 'id',
                     header: 'order_id',
-                    width: 40,
                 },
                 {
                     field: 'order_reference',
                     header: 'roaster_ref_no',
-                    width: 50,
                 },
                 {
                     field: 'availability_name',
                     header: 'availability_name',
-                    width: 50,
                 },
                 {
                     field: 'estate_name',
                     header: 'estate_name',
-                    width: 50,
                 },
                 {
                     field: 'quantity',
                     header: 'quantity',
-                    width: 50,
                 },
             ];
         } else {
@@ -103,52 +98,47 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
                 {
                     field: 'id',
                     header: 'Order ID',
-                    width: 45,
+                    width: 9,
                 },
                 {
                     field: 'availability_name',
                     header: 'availability_name',
-                    width: 60,
+                    width: 12,
                 },
                 {
                     field: 'estate_name',
                     header: 'estate_name',
-                    width: 70,
+                    width: 12,
                 },
                 {
                     field: 'origin',
                     header: 'origin',
-                    width: 50,
+                    width: 9,
                 },
                 {
                     field: 'order_reference',
                     header: 'roaster_ref_no',
-                    width: 60,
+                    width: 12,
                 },
                 {
                     field: 'varieties',
                     header: 'variety',
-                    width: 40,
+                    width: 12,
                 },
                 {
                     field: 'quantity',
                     header: 'quantity',
-                    width: 40,
+                    width: 10,
                 },
                 {
                     field: 'remaining_total_quantity',
                     header: 'remaining_quantity',
-                    width: 70,
+                    width: 14,
                 },
                 {
                     field: 'actions',
                     header: 'actions',
-                    width: 40,
-                },
-                {
-                    field: 'options',
-                    header: '',
-                    width: 15,
+                    width: 10,
                 },
             ];
         }
