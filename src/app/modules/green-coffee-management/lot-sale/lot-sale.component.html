@@ -212,6 +212,9 @@
                         >
                             {{ 'required' | translate }}
                         </small>
+                        <small *ngIf="lotSaleForm.controls['minimum_order_quantity_count'].errors?.min" class="p-error">
+                            {{ 'must_be_greater_than' | translate }} 0
+                        </small>
                         <small *ngIf="lotSaleForm.controls['quantity_type'].errors?.required" class="p-error">
                             {{ 'please_select_unit' | translate }}
                         </small>
