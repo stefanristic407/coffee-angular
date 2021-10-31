@@ -78,7 +78,7 @@
                                         </p>
                                     </li>
                                     <li>
-                                        <label>Remainign quantity available</label>
+                                        <label>{{ 'remaining_quantity_available' | translate }}</label>
                                         <p>
                                             {{ orderDetails.remaining_total_quantity }}
                                             {{ orderDetails.quantity_unit }}
@@ -189,7 +189,7 @@
                                                         [routerLink]="'/green-coffee-management/lot-sale'"
                                                         [queryParams]="{ orderId: orderDetails.id }"
                                                     >
-                                                        {{ orderDetails.lot_id ? orderDetails.lot_id : 'NA' }}
+                                                        {{ orderDetails.lot_number || 'NA' }}
                                                     </p>
                                                 </li>
 

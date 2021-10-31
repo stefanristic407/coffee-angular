@@ -148,7 +148,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             quantity_type: [ProcuredCoffeeUnit.bags, Validators.compose([Validators.required])],
             quantity_count: [null, Validators.compose([Validators.required])],
             quantity_unit: ['kg', Validators.compose([Validators.required])],
-            minimum_order_quantity_count: ['', Validators.compose([Validators.required])],
+            minimum_order_quantity_count: ['', Validators.compose([Validators.required, Validators.min(1)])],
             vat_settings_id: [null, Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
         });

@@ -58,7 +58,11 @@
     >
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.sortable ? col.field : null">
+                <th
+                    *ngFor="let col of columns"
+                    [pSortableColumn]="col.sortable ? col.field : null"
+                    [style.width]="col.width ? col.width + '%' : '30%'"
+                >
                     <span class="primeng-table-header">{{ col.header | translate }}</span>
                     <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
                 </th>
@@ -70,9 +74,12 @@
                 <td
                     *ngFor="let col of columns"
                     [ngSwitch]="col.field"
+                    [style.width]="col.width ? col.width + '%' : '30%'"
                     [ngClass]="{ borderNone: col.field === 'order_reference' }"
                     [class.d-flex]="isMobile$ | async"
+                    [class.ellipsis]="col.field === 'availability_name'"
                 >
+                    <span *ngIf="col.field !== 'id'" class="p-column-title">{{ col.header | translate }}</span>
                     <ng-container *ngSwitchCase="'id'">
                         <div class="p-mobile-row-content d-flex align-items-center justify-content-between">
                             <span *ngIf="!(isMobile$ | async)">{{ rowData[col.field] }}</span>
@@ -85,13 +92,12 @@
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="'varieties'">
-                        <span class="truncate break-word">{{ rowData['varieties'] || 'NA' }}</span>
+                        <span>{{ rowData['varieties'] || 'NA' }}</span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'origin'">
-                        <span class="truncate break-word">{{ rowData['origin'] | country | translate }} </span>
+                        <span>{{ rowData['origin'] | country }} </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'quantity'">
-                        <span class="p-column-title">{{ 'quantity' | translate }}</span>
                         <span
                             tooltipStyleClass="custom-tooltip"
                             pTooltip="{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] }} /
@@ -102,17 +108,16 @@
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'remaining_total_quantity'">
-                        <span class="p-column-title">{{ 'remaining_quantity' | translate }}</span>
                         <span> {{ rowData['remaining_total_quantity'] }}&nbsp; kg </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'actions'" class="text-center">
-                        <span class="brown-cta">{{ 'view' | translate }}</span>
+                        <div class="d-flex align-items-center">
+                            <span class="brown-cta mr-2">{{ 'view' | translate }}</span>
+                            <app-action-menu [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
+                        </div>
                     </ng-container>
-                    <ng-container *ngSwitchCase="'options'" class="text-center">
-                        <app-action-menu [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
-                    </ng-container>
+                    <ng-container *ngSwitchCase="'options'" class="text-center"> </ng-container>
                     <ng-container *ngSwitchDefault>
-                        <span class="p-column-title">{{ col.header | translate }}</span>
                         <span>{{ rowData[col.field] || '--' }}</span>
                     </ng-container>
                 </td>

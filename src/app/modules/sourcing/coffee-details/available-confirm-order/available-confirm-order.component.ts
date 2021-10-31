@@ -152,26 +152,37 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 field: 'customer',
                 label: this.translator.instant('customer'),
                 value: this.sourcing.harvestDetail.estate_name,
+                width: 14,
             },
             {
                 field: 'origin',
                 label: this.translator.instant('origin'),
                 value: this.sourcing.harvestDetail.country,
+                width: 11,
+            },
+            {
+                field: 'name',
+                label: this.translator.instant('availability_name'),
+                value: this.sourcing.harvestDetail.name,
+                width: 15,
             },
             {
                 field: 'variety',
                 label: this.translator.instant('variety'),
                 value: this.sourcing.harvestDetail.varieties,
+                width: 12,
             },
             {
                 field: 'species',
                 label: this.translator.instant('species'),
                 value: this.sourcing.harvestDetail.species,
+                width: 12,
             },
             {
                 field: 'cupScore',
                 label: this.translator.instant('cupping_score'),
                 value: this.sourcing.harvestDetail.cupping.cup_score,
+                width: 12,
             },
         ];
         if (this.orderType === OrderType.Booked) {
@@ -180,19 +191,22 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                     field: 'quantity',
                     label: this.translator.instant('available_quantity'),
                     value: `${this.sourcing.harvestDetail.quantity_count}${this.sourcing.harvestDetail.quantity_type}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
+                    width: 13,
                 },
                 {
                     field: 'price',
                     label: this.translator.instant('rate_per_kg'),
                     value: `$${this.sourcing.harvestDetail.price}USD/kg`,
+                    width: 11,
                 },
             ]);
         } else if (this.orderType === OrderType.Sample) {
             this.orderDetail = this.orderDetail.concat([
                 {
                     field: 'sample_price',
-                    label: 'Sample Price',
+                    label: this.translator.instant('sample_price'),
                     value: `$${this.orderSettings.sample_price}`,
+                    width: 12,
                 },
             ]);
         }
