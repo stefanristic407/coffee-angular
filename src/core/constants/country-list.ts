@@ -4827,7 +4827,7 @@ export const COUNTRY_LIST: Country[] = [
         cities: [`Ha'apai`, 'Tongatapu', `Vava'u`],
     },
     {
-        name: 'Trinidad',
+        name: 'Trinidad and Tobago',
         isoCode: 'TT',
         continent: 'NA',
         cities: [
@@ -4841,6 +4841,7 @@ export const COUNTRY_LIST: Country[] = [
             'Saint George',
             'Saint Patrick',
             'San Fernando',
+            'Tobago',
             'Victoria',
         ],
     },
