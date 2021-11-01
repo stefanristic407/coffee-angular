@@ -55,6 +55,16 @@
         padding: 32px 48px 24px 48px;
     }
 
+    .breadcrumb-mb {
+        margin-bottom: 1.5rem;
+        @media (min-width: 768px) {
+            margin-bottom: 2rem;
+        }
+        @media (min-width: 992px) {
+            margin-bottom: 2.5rem;
+        }
+    }
+
     .full-width {
         margin: 0 -1rem;
         @media (min-width: 992px) {

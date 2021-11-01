@@ -1,16 +1,16 @@
 <div class="main-block">
-    <div class="d-flex justify-content-between">
-        <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
+    <div class="d-flex justify-content-between align-items-start">
+        <p-breadcrumb [model]="breadCrumbItem" styleClass="breadcrumb-mb"></p-breadcrumb>
         <button routerLink="/team-management/create-role" class="btn-raised d-none d-lg-block">
             {{ 'create_new_role' | translate }}
         </button>
     </div>
 
-    <div class="d-none d-lg-block pt-2 pb-2">
+    <div class="d-none d-lg-block pb-2">
         <span class="fnt-18 fnt-bold">{{ 'manage_roles' | translate }}</span>
     </div>
 
-    <div class="d-flex d-lg-none align-items-center justify-content-between mt-45 mt-md-2">
+    <div class="d-flex d-lg-none align-items-center justify-content-between">
         <span class="fnt-18 fnt-bold">{{ 'manage_roles' | translate }}</span>
         <button routerLink="/team-management/create-role" class="btn-raised d-sm-block mr-0">
             {{ 'create_new_role' | translate }}
