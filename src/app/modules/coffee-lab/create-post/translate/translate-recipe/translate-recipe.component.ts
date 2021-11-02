@@ -69,7 +69,7 @@ export class TranslateRecipeComponent implements OnInit {
     }
 
     checkDraft() {
-        const draft = this.coffeeLabService.allDrafts.value.find((item) => {
+        const draft = this.coffeeLabService.allDrafts.value?.find((item) => {
             return (
                 item.parent_id === +this.id &&
                 item.post_type === 'recipe' &&

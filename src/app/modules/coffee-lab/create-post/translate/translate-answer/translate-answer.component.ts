@@ -175,7 +175,7 @@ export class TranslateAnswerComponent implements OnInit {
         if (this.question?.categories) {
             this.getCategory();
         }
-        const draft = this.coffeeLabService.allDrafts.value.find((item) => {
+        const draft = this.coffeeLabService.allDrafts.value?.find((item) => {
             return (
                 item.parent_id === +this.answerId &&
                 item.post_type === 'answer' &&
