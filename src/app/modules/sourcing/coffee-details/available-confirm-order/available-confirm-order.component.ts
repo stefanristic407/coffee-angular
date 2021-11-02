@@ -460,7 +460,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             (res: any) => {
                 if (res.success) {
                     this.shipInfo = res.result;
-                    console.log('ship info:', this.shipInfo);
                     this.shipAddress = res.result.warehouse_address;
                     this.priceTiers = res.result.price_tiers;
                     this.priceTiers.forEach((tier) => {
@@ -484,8 +483,6 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                     );
                     this.InDRestrictions.maxQuanityByUnit = Math.floor(this.InDRestrictions.maxQuanity / kgInBg);
                     this.InDRestrictions.minQuanityByUnit = Math.ceil(this.InDRestrictions.minQuanity / kgInBg);
-
-                    console.log('InDRestrictions', this.InDRestrictions);
                 }
                 if (resolve) {
                     resolve();
