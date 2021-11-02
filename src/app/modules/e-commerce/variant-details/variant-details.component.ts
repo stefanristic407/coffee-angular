@@ -359,7 +359,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     uploadImages(pResolve, pReject) {
         (this.weightForm.get('weights') as FormArray).controls.forEach((currentWeightForm) => {
             const promises: any[] = [];
-            const featuredControl = currentWeightForm.get('featured_image_id');
+            const featuredControl: FormControl = currentWeightForm.get('featured_image_id') as FormControl;
             if (featuredControl.value?.file) {
                 promises.push(
                     new Promise((resolve, reject) => {
@@ -370,11 +370,11 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             if (featuredControl.value?.image_id && (!featuredControl.value?.image_url || featuredControl.value?.file)) {
                 promises.push(
                     new Promise((resolve, reject) => {
-                        this.deleteFile(featuredControl.value.image_id, resolve, reject);
+                        this.deleteFile(featuredControl, resolve, reject);
                     }),
                 );
             }
-            (currentWeightForm.get('product_images') as FormArray).controls.forEach((imageControl) => {
+            (currentWeightForm.get('product_images') as FormArray).controls.forEach((imageControl: FormControl) => {
                 if (imageControl.value?.file) {
                     promises.push(
                         new Promise((resolve, reject) => {
@@ -385,7 +385,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 if (imageControl.value?.image_id && (!imageControl.value?.image_url || imageControl.value?.file)) {
                     promises.push(
                         new Promise((resolve, reject) => {
-                            this.deleteFile(imageControl.value.image_id, resolve, reject);
+                            this.deleteFile(imageControl, resolve, reject);
                         }),
                     );
                 }
@@ -415,9 +415,10 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
-    private deleteFile(fileId: number, resolve, reject) {
-        this.fileService.deleteFile(fileId).subscribe((res) => {
-            if (res.success) {
+    private deleteFile(imageControl: FormControl, resolve, reject) {
+        this.fileService.deleteFile(imageControl.value.image_id).subscribe((res) => {
+            if (res.success || res.response_code === 404) {
+                imageControl.setValue({ ...imageControl.value, image_id: null });
                 resolve();
             } else {
                 reject();
