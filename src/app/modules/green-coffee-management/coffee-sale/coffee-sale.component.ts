@@ -160,13 +160,16 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     getProcuredOrderDetails(resolve) {
-        this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getProcuredOrderDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     this.tableValue.push(this.orderDetails);
                     const remaining = 0;
                     this.remaining = `${remaining} Bags`;
+                } else {
+                    this.toasterService.error('Error while getting the procured coffee details');
+                    this.router.navigate(['/green-coffee-management/green-coffee-inventory']);
                 }
                 resolve();
             },
