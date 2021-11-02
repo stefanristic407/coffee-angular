@@ -517,12 +517,12 @@
             </div>
         </div>
         <p-divider type="dashed" styleClass="mt-4 mt-lg-4 mb-4 mb-lg-475"></p-divider>
-        <div class="d-flex flex-wrap">
-            <div class="col-12 mb-3 p-0">
+        <div class="row">
+            <div class="col-12 mb-3">
                 <span class="primary_txt fnt-16">{{ 'vat_details' | translate }}</span
                 ><br />
             </div>
-            <div class="sewn-form-field mr-md-3 mr-lg-4 vat-type-wrapper">
+            <div class="col-12 col-md-auto sewn-form-field mr-md-3 mr-lg-4">
                 <label class="mb-2">{{ 'select_vat_type' | translate }}<span class="star">*</span></label>
                 <p-dropdown
                     [options]="vatSettings"
@@ -536,7 +536,7 @@
                     {{ 'required' | translate }}
                 </small>
             </div>
-            <div class="ml-md-3 ml-lg-4 mt-2 mt-md-0 mb-3">
+            <div class="col-12 col-md-auto ml-md-3 ml-lg-4 mt-2 mt-md-0 mb-3">
                 <div class="fnt-14 fnt-600 fnt-muli text-clr588 mb-2">
                     {{ 'is_product_price_vat' | translate }}<span class="star">*</span>
                 </div>

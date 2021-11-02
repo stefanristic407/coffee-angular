@@ -201,7 +201,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     getProcuredOrderDetails(resolve) {
-        this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getProcuredOrderDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;

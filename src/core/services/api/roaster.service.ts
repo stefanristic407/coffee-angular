@@ -824,14 +824,12 @@ export class RoasterService extends ApiService {
         data['token'] = this.authService.token;
         return this.http.post(this.url, data);
     }
-    //Get Procured Coffees Details
-    getProcuredCoffeeDetails(roaster_id: any, orderID): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/orders/' + orderID;
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
-        return this.http.post(this.url, data);
+
+    // Get Procured Coffees Details
+    getProcuredOrderDetails(orderID): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `orders/${orderID}`);
     }
+
     //Create Mark for Sale from Procured Coffee
     CreateMarkForSale(roaster_id: any, orderID, data): Observable<any> {
         let obj = {};
@@ -841,6 +839,7 @@ export class RoasterService extends ApiService {
         obj['data'] = data;
         return this.http.post(this.url, obj);
     }
+
     // Get Mark For Sale order details
     getMarkForSaleDetails(orderID): Observable<ApiResponse<ProcuredCoffee>> {
         return this.postWithOrg(this.orgPostUrl, `procured-coffees/${orderID}/sale`);
@@ -855,6 +854,7 @@ export class RoasterService extends ApiService {
         obj['token'] = this.authService.token;
         return this.http.post(this.url, obj);
     }
+
     //upate Mark for Sale status
     updateMarkForSaleStatus(roaster_id: any, orderID, data): Observable<any> {
         let obj = {};
@@ -864,6 +864,7 @@ export class RoasterService extends ApiService {
         obj['token'] = this.authService.token;
         return this.http.post(this.url, obj);
     }
+
     //Get Harvest GC available details
     getGCAvailableDetails(harvest_id: any): Observable<any> {
         var data = {};

@@ -148,7 +148,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
 
     getOrderDetails() {
         this.isLoaded = false;
-        this.roasterService.getProcuredCoffeeDetails(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getProcuredOrderDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
