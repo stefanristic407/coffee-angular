@@ -151,6 +151,13 @@ export const routes: Routes = [
                         (m) => m.OrderTransactionModule,
                     ),
             },
+            {
+                path: 'mr-invite',
+                loadChildren: () =>
+                    import('./modules/micro-roaster-invite/micro-roaster-invite.module').then(
+                        (m) => m.MicroRoasterInviteModule,
+                    ),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },

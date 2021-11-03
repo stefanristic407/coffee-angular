@@ -111,6 +111,7 @@ export const menuItems = [
         8,
         'user-management',
     ),
+    new Menu(83, 'Micro-roaster invite', '/mr-invite', null, null, null, false, 8, null),
 
     // Dropdown Menu
     new Menu(10001, 'roastery_profile', '/roastery-profile', null, null, null, false, 1000, null),
