@@ -61,9 +61,10 @@
                     >
                 </td>
                 <td>
-                    <span *ngFor="let cert of item.certificates | slice: 0:2; index as certIdx">
-                        <img class="cert-image" [class.ml-3]="certIdx" [src]="cert.type_id | certificateImg" />
+                    <span *ngFor="let cert of item.certificates | slice: 0:2; index as i">
+                        <img class="cert-image" [class.ml-3]="i" [src]="cert.type_id | certificateImg" />
                     </span>
+                    <span *ngIf="!item.certificates?.length">NA</span>
                 </td>
             </tr>
         </ng-template>

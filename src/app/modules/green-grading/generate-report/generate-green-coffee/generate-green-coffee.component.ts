@@ -143,7 +143,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
 
     addEvaluators() {
         if (this.selectedValue !== '') {
-            this.roasterService.getUserBasedRoles(this.roasterId, this.selectedValue.id).subscribe((result: any) => {
+            this.roasterService.getUserBasedRoles(this.selectedValue.id).subscribe((result: any) => {
                 if (result.success === true) {
                     const roleName = result.result[0].name;
                     const data = {

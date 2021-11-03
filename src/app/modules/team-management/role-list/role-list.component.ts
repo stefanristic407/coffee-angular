@@ -123,7 +123,7 @@ export class RoleListComponent extends ResizeableComponent implements OnInit {
     }
 
     deleteRole(id: number) {
-        this.roasterService.deleteRoles(id).subscribe((data: any) => {
+        this.roasterService.deleteRole(id).subscribe((data: any) => {
             if (data.success === true) {
                 this.toastrService.success('Roles deleted successfully!');
                 this.getTableData();
@@ -150,11 +150,16 @@ export class RoleListComponent extends ResizeableComponent implements OnInit {
         return [
             { label: this.translator.instant('add_members'), command: () => this.teamMembers(item, true) },
             { label: this.translator.instant('view_members'), command: () => this.teamMembers(item) },
-            { label: this.translator.instant('edit'), command: () => this.updateRole(item.id) },
-            { label: this.translator.instant('rename'), command: () => this.updateRole(item.id) },
+            {
+                label: this.translator.instant(item.is_system ? 'view' : 'edit'),
+                command: () => this.updateRole(item.id),
+            },
             { label: this.translator.instant('duplicate_role'), command: () => this.duplicateRole(item.id) },
-            { label: this.translator.instant('manage_permissions'), command: () => this.updateRole(item.id) },
-            { label: this.translator.instant('delete_role'), command: () => this.openDeleteModal(item.id) },
+            {
+                label: this.translator.instant('delete_role'),
+                command: () => this.openDeleteModal(item.id),
+                visible: !item.is_system,
+            },
         ];
     }
 }
