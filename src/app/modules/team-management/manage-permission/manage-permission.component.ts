@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'app-manage-permission',
@@ -9,7 +8,13 @@ import { GlobalsService } from '@services';
 export class ManagePermissionComponent implements OnInit {
     @Input() permissionList: any = [];
     @Input() selectedPermission: any = [];
-    constructor(public globals: GlobalsService) {}
+    @Output() selectedPermissionChange = new EventEmitter<any>();
+
+    constructor() {}
 
     ngOnInit(): void {}
+
+    change() {
+        this.selectedPermissionChange.emit(this.selectedPermission);
+    }
 }

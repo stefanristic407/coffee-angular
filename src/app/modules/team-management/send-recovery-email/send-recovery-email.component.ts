@@ -1,12 +1,12 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService, GlobalsService, RoasterService, UserService, ValidateEmailService } from '@services';
+import { emailValidator } from '@utils';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { GlobalsService, RoasterService, AuthService, UserService, ValidateEmailService } from '@services';
-import { Location } from '@angular/common';
-import { emailValidator } from '@utils';
 
 @Component({
     selector: 'app-send-recovery-email',
@@ -26,17 +26,17 @@ export class SendRecoveryEmailComponent implements OnInit {
     deleteRoles: any = [];
     userForm: FormGroup;
     constructor(
-        public roasterService: RoasterService,
-        public cookieService: CookieService,
+        private authService: AuthService,
+        private fb: FormBuilder,
         private router: Router,
+        private toastrService: ToastrService,
+        private validateService: ValidateEmailService,
+        public cookieService: CookieService,
         public globals: GlobalsService,
+        public location: Location,
+        public roasterService: RoasterService,
         public route: ActivatedRoute,
         public userService: UserService,
-        private toastrService: ToastrService,
-        private fb: FormBuilder,
-        public location: Location,
-        private authService: AuthService,
-        private validateService: ValidateEmailService,
     ) {}
 
     ngOnInit(): void {
@@ -82,7 +82,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         });
     }
     listAssignedRoles(): void {
-        this.roasterService.getUserBasedRoles(this.roasterID, this.userID).subscribe((response: any) => {
+        this.roasterService.getUserBasedRoles(this.userID).subscribe((response: any) => {
             if (response.success === true) {
                 this.userDetails.roles = response.result;
             } else {
@@ -189,7 +189,7 @@ export class SendRecoveryEmailComponent implements OnInit {
     }
     deleteRoleForUser(): void {
         this.deleteRoles.forEach((ele) => {
-            this.roasterService.deleteRoasterUserRole(this.roasterID, ele, this.userID).subscribe(
+            this.roasterService.deleteUserRole(ele, this.userID).subscribe(
                 (data: any) => {
                     if (!data.success) {
                         this.toastrService.error('Error while deleting the role');
