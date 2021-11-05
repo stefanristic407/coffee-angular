@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MicroRoasterInviteDetailsComponent } from './micro-roaster-invite-details/micro-roaster-invite-details.component';
 import { MicroRoasterInviteComponent } from './micro-roaster-invite.component';
 
 const routes: Routes = [
@@ -7,6 +8,7 @@ const routes: Routes = [
         path: '',
         component: MicroRoasterInviteComponent,
     },
+    { path: 'details', component: MicroRoasterInviteDetailsComponent },
 ];
 
 @NgModule({
