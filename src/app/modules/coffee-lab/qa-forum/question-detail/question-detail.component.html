@@ -35,7 +35,10 @@
             <div *ngIf="detailsData?.categories" class="row mb-md-4 ml-3 mr-1 mr-md-4 ml-md-4 mt-3">
                 <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
             </div>
-            <app-like-divider [question]="detailsData"></app-like-divider>
+            <app-like-divider
+                (commentBoxClicked)="onFocusCommentBox($event)"
+                [question]="detailsData"
+            ></app-like-divider>
             <div class="border-top-main py-4 px-0 px-md-45" *ngIf="detailsData?.parent_question_id <= 0">
                 <div class="d-flex justify-content-center ml-md-3">
                     <img
@@ -261,6 +264,7 @@
                                         ? { isMyAnswer: true }
                                         : ''
                                 "
+                                (click)="onOrginalArticle(answerDetail?.original_details?.language)"
                                 >{{ answerDetail?.original_details?.question | titlecase }}</a
                             >
                         </div>

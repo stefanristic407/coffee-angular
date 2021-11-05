@@ -116,7 +116,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    onRealtedRoute(slug) {
+    onRealtedRoute(slug: string, isOrginal: boolean, language?: string) {
         if (this.isMyPost) {
             this.router.navigate(['/coffee-lab/articles/' + slug], {
                 queryParams: {
@@ -131,6 +131,9 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             });
         } else {
             this.router.navigateByUrl('/coffee-lab/articles/' + slug);
+        }
+        if (isOrginal) {
+            this.coffeeLabService.forumLanguage.next(language);
         }
         window.scrollTo(0, 0);
     }

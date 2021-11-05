@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -13,6 +13,7 @@ export class LikeDividerComponent implements OnInit {
     @Input() isMyPost = false;
     @Input() isSavedPost = false;
     @Input() isAssignedToMe = false;
+    @Output() commentBoxClicked = new EventEmitter<boolean>();
     showJoinBtn = true;
     isLikedBtn = true;
 
@@ -96,6 +97,7 @@ export class LikeDividerComponent implements OnInit {
                 this.router.navigate([this.getLink(this.question, this.question.answer).url]);
             }
         }
+        this.commentBoxClicked.emit(true);
     }
 
     onSameSave(): void {
