@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmComponent } from '@app/shared';
+import { AclService, AuthService, RoasterService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { AclService, AuthService, UserService } from '@services';
-import { RoasterService } from '@services';
+import { DialogService } from 'primeng/dynamicdialog';
 import { MDashboardService } from './m-dashboard.service';
 
 @Component({
@@ -19,9 +20,11 @@ export class RoasterDashboardComponent implements OnInit {
         private toastrService: ToastrService,
         private userSrv: UserService,
         public authService: AuthService,
+        private dialogSrv: DialogService,
     ) {}
 
     ngOnInit(): void {
+        this.welcome();
         this.roasterId = this.authService.getOrgId();
 
         const promises = [];
@@ -103,5 +106,20 @@ export class RoasterDashboardComponent implements OnInit {
                 this.toastrService.error('Error while getting orders');
             }
         });
+    }
+
+    welcome() {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'welcome',
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                console.log('action--->>', action);
+                if (action === 'yes') {
+                    // this.onConfirm(id);
+                }
+            });
     }
 }
