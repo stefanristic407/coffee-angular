@@ -283,8 +283,6 @@ export class DefaultSettingsComponent implements OnInit {
         this.userService.getDefaultCoffeeExperience(this.roasterId).subscribe((response: any) => {
             if (response.success) {
                 this.setPageData(response);
-            } else if (response.messages.coffee_experience[0] === 'not_found') {
-                this.router.navigate(['/coffee-experience']);
             }
         });
     }
