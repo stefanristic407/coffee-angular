@@ -526,11 +526,9 @@
                 <label class="mb-2">{{ 'select_vat_type' | translate }}<span class="star">*</span></label>
                 <p-dropdown
                     [options]="vatSettings"
-                    optionLabel="label"
-                    [placeholder]="'select_subscription_type' | translate"
+                    [placeholder]="'select_vat_type' | translate"
                     styleClass="w-100"
                     formControlName="vat_setting_id"
-                    optionValue="value"
                 ></p-dropdown>
                 <small *ngIf="productForm.controls['vat_setting_id'].errors?.required" class="p-error">
                     {{ 'required' | translate }}
