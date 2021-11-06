@@ -441,6 +441,7 @@ export class DefaultSettingsComponent implements OnInit {
     onSave() {
         this.isSent = true;
         if (!this.defaultDetails.description) {
+            this.toastrService.error('Please enter the description');
             return false;
         }
         this.isFailedToSave = false;
