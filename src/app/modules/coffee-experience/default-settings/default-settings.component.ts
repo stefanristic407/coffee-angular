@@ -114,9 +114,7 @@ export class DefaultSettingsComponent implements OnInit {
             { label: this.globals.languageJson.brand_experience },
             {
                 label: this.globals.languageJson.the_coffee_experience,
-                command: (event) => {
-                    this.location.back();
-                },
+                routerLink: '/coffee-experience',
             },
             {
                 label: this.isCoffeeDetailsPage
@@ -191,6 +189,20 @@ export class DefaultSettingsComponent implements OnInit {
                 },
             },
         ];
+    }
+
+    getLink(): string {
+        let link: string;
+        if (this.activateRoute.snapshot.queryParams.estate_id) {
+            link = 'orders';
+        } else if (this.activateRoute.snapshot.queryParams.micro_roasters_id) {
+            link = 'mr-orders';
+        } else if (this.activateRoute.snapshot.queryParams.hrc_id) {
+            link = 'hrc-orders';
+        } else if (this.activateRoute.snapshot.queryParams.outtake_orders_id) {
+            link = 'outtake-orders';
+        }
+        return link;
     }
 
     updateImage() {
