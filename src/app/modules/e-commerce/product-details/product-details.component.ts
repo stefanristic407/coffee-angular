@@ -41,7 +41,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         'remaining_quantity',
     ];
     eligibleArray = [
-        { label: 'One Time', value: 'one-time' },
+        { label: 'One time', value: 'one-time' },
         { label: 'Subscription', value: 'subscription' },
         { label: 'Both', value: 'both' },
     ];
