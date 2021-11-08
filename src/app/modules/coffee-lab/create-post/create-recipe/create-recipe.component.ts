@@ -56,20 +56,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     categoryValue: any[] = [];
     status: string;
     translatedCategory: any[] = [];
-    expertiseArray: any[] = [
-        {
-            label: 'Easy',
-            value: 'easy',
-        },
-        {
-            label: 'Intermediate',
-            value: 'intermediate',
-        },
-        {
-            label: 'Hard',
-            value: 'hard',
-        },
-    ];
+    expertiseArray: any[] = [];
     qualityArray: any[] = [
         {
             label: 'cups',
@@ -739,6 +726,67 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
             (item) => item.langCode === this.recipeForm.get('language').value,
         );
+        if (this.coffeeLabService.currentForumLanguage === 'en') {
+            this.expertiseArray = [
+                {
+                    label: 'Easy',
+                    value: 'Easy',
+                },
+                {
+                    label: 'Intermediate',
+                    value: 'Intermediate',
+                },
+                {
+                    label: 'Hard',
+                    value: 'Hard',
+                },
+            ];
+        } else if (this.coffeeLabService.currentForumLanguage === 'sv') {
+            this.expertiseArray = [
+                {
+                    label: 'Lätt',
+                    value: 'lätt',
+                },
+                {
+                    label: 'Mellanliggande',
+                    value: 'Mellanliggande',
+                },
+                {
+                    label: 'Hård',
+                    value: 'Hård',
+                },
+            ];
+        } else if (this.coffeeLabService.currentForumLanguage === 'pt') {
+            this.expertiseArray = [
+                {
+                    label: 'Fácil',
+                    value: 'Fácil',
+                },
+                {
+                    label: 'Intermediário',
+                    value: 'Intermediário',
+                },
+                {
+                    label: 'Duro',
+                    value: 'Duro',
+                },
+            ];
+        } else if (this.coffeeLabService.currentForumLanguage === 'es') {
+            this.expertiseArray = [
+                {
+                    label: 'Fácil',
+                    value: 'Fácil',
+                },
+                {
+                    label: 'Intermedio',
+                    value: 'Intermedio',
+                },
+                {
+                    label: 'Duro',
+                    value: 'Duro',
+                },
+            ];
+        }
         this.getCategory();
     }
 

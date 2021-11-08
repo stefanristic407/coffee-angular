@@ -304,13 +304,13 @@
                     Enter sample details<span class="star">*</span>
                 </p>
             </div>
-            <div class="d-flex flex-wrap align-items-md-end fill-list">
-                <div class="d-flex flex-column col-12 col-md-6 col-lg-3 px-0 pr-md-2 pb-3">
+            <div class="d-flex flex-wrap align-items-md-end fill-list" [formGroup]="sampleDetailForm">
+                <div class="d-flex flex-column sewn-form-field col-12 col-md-6 col-lg-3 px-0 pr-md-2 pb-3">
                     <label for="countries">Origin</label>
                     <p-dropdown
                         id="countries"
                         [options]="countries"
-                        [(ngModel)]="gradeOrigin"
+                        formControlName="origin"
                         placeholder="Please enter the origin"
                         styleClass="p-countries-dropdown"
                         [style]="{ width: '100%' }"
@@ -318,28 +318,48 @@
                         optionValue="isoCode"
                     >
                     </p-dropdown>
+                    <small class="p-error" *ngIf="sampleDetailForm.controls['origin'].errors?.required">{{
+                        'required' | translate
+                    }}</small>
                 </div>
-                <div class="d-flex flex-column col-12 col-md-6 col-lg-3 px-0 pr-lg-2 pl-md-1 pb-3">
+                <div class="d-flex flex-column sewn-form-field col-12 col-md-6 col-lg-3 px-0 pr-lg-2 pl-md-1 pb-3">
                     <label for="gradeEstate">Estate name</label>
                     <input
                         id="gradeEstate"
                         type="text"
                         pInputText
-                        [(ngModel)]="gradeEstate"
+                        formControlName="estateName"
                         placeholder="Please enter estate name"
                     />
+                    <small class="p-error" *ngIf="sampleDetailForm.controls['estateName'].errors?.required">{{
+                        'required' | translate
+                    }}</small>
                 </div>
-                <div class="d-flex flex-column col-12 col-md-6 col-lg-3 px-0 pr-md-2 pl-lg-1 pb-3">
+                <div class="d-flex flex-column col-12 sewn-form-field col-md-6 col-lg-3 px-0 pr-md-2 pl-lg-1 pb-3">
                     <label for="species">Variety</label>
                     <input
                         id="species"
                         type="text"
                         pInputText
-                        [(ngModel)]="gradeSpecies"
+                        formControlName="variety"
                         placeholder="Please enter a variety"
                     />
+                    <small class="p-error" *ngIf="sampleDetailForm.controls['variety'].errors?.required">{{
+                        'required' | translate
+                    }}</small>
                 </div>
-                <div class="d-flex flex-column col-12 col-md-6 col-lg-3 px-0 pr-lg-2 pl-md-1 pl-lg-0 pl-lg-1 pb-3">
+                <div
+                    class="
+                        d-flex
+                        flex-column
+                        sewn-form-field
+                        col-12 col-md-6 col-lg-3
+                        px-0
+                        pr-lg-2
+                        pl-md-1 pl-lg-0 pl-lg-1
+                        pb-3
+                    "
+                >
                     <label for="gradeId">
                         ID
                         <span class="fnt-muli fnt-10 fnt-600 text-clr588"
@@ -350,9 +370,12 @@
                         id="gradeId"
                         type="text"
                         pInputText
-                        [(ngModel)]="gradeId"
+                        formControlName="sampleId"
                         placeholder="Please enter your ID"
                     />
+                    <small class="p-error" *ngIf="sampleDetailForm.controls['sampleId'].errors?.required">{{
+                        'required' | translate
+                    }}</small>
                 </div>
             </div>
             <div class="col-12 p-0 mt-2 mt-md-3">
