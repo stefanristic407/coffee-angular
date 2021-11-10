@@ -207,7 +207,7 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                     name = day.toDate().toLocaleString('default', { weekday: 'short' });
                     break;
                 case 'lastMonth':
-                    name = day.toDate().getDate().toString();
+                    name = day.format('Do MMM');
                     break;
                 case 'lastYear':
                     name = day.toDate().getMonth().toString() + 1;
@@ -225,7 +225,6 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                 month: day.toDate().getMonth() + 1,
                 year: day.toDate().getFullYear(),
                 name,
-                // value: 100000 * Math.random(),
                 value: 0,
             };
             blankData.push(item);
