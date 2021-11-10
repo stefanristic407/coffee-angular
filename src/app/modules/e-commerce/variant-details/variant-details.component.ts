@@ -89,12 +89,12 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         ];
         this.grindArray = [
             { label: 'Whole beans', value: 'whole-beans' },
-            { label: 'Extra Coarse', value: 'extra-coarse' },
+            { label: 'Extra coarse', value: 'extra-coarse' },
             { label: 'Coarse', value: 'coarse' },
-            { label: 'Medium Coarse', value: 'medium-coarse' },
+            { label: 'Medium coarse', value: 'medium-coarse' },
             { label: 'Medium', value: 'medium' },
             { label: 'Fine', value: 'fine' },
-            { label: 'Extra Fine', value: 'extra-fine' },
+            { label: 'Extra fine', value: 'extra-fine' },
         ];
     }
 
