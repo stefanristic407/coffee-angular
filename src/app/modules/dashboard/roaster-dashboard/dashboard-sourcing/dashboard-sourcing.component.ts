@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { getCountry } from '@utils';
 import { Subscription } from 'rxjs';
-import { GlobalsService } from '@services';
 import { MDashboardService } from '../m-dashboard.service';
-import * as _ from 'underscore';
-import { COUNTRY_LIST } from '@constants';
 
 @Component({
     selector: 'app-dashboard-sourcing',
@@ -14,7 +12,7 @@ export class DashboardSourcingComponent implements OnInit, OnDestroy {
     chartData: any[] = [];
     sourcing: any;
     sourcingSub: Subscription;
-    constructor(public globals: GlobalsService, private mDashboardSrv: MDashboardService) {}
+    constructor(private mDashboardSrv: MDashboardService) {}
 
     ngOnInit(): void {
         this.sourcingSub = this.mDashboardSrv.sourcing$.subscribe((res: any) => {
@@ -31,16 +29,16 @@ export class DashboardSourcingComponent implements OnInit, OnDestroy {
     }
 
     makeChartData(oriData) {
-        oriData.map((item: any) => {
-            COUNTRY_LIST.map((country: any) => {
-                if (country.isoCode.toLowerCase() === item.origin.toLowerCase()) {
-                    const tempItem = {
-                        name: country.name,
-                        value: item.available_quantity,
-                    };
-                    this.chartData.push(tempItem);
-                }
+        this.chartData = oriData
+            .sort((a, b) => {
+                return b.available_quantity - a.available_quantity;
+            })
+            .splice(0, 5)
+            .map((item: any) => {
+                return {
+                    name: getCountry(item.origin)?.name,
+                    value: item.available_quantity,
+                };
             });
-        });
     }
 }
