@@ -29,20 +29,41 @@
     padding: 2rem;
 }
 .p-inputgroup.custom-addon {
+    height: 48px;
+    p-inputnumber::ng-deep {
+        span.p-inputnumber {
+            height: 50px;
+        }
+    }
+    .p-inputgroup-addon.addon-position-fix {
+        height: 40px;
+        margin: 4px;
+    }
     .p-inputgroup-addon.position-fix {
         margin: 0px !important;
         padding: 0px !important;
-        p-dropdown::ng-deep {
-            .p-dropdown {
-                height: 48px !important;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+        p-dropdown {
+            margin: 4px;
+            height: 40px;
+            &::ng-deep {
+                .p-dropdown {
+                    height: 40px !important;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
             }
         }
     }
 }
-
+table.recent-time {
+    td:first-of-type {
+        width: 55%;
+    }
+    td:last-of-type {
+        width: 45%;
+    }
+}
 ::ng-deep.right-dropdown {
     .p-dropdown-label {
         padding-right: 0 !important;
