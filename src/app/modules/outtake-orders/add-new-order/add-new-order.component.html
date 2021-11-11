@@ -635,12 +635,26 @@
                                     <div>
                                         <label>{{ 'waste_produced' | translate }}</label>
                                     </div>
-                                    <input
-                                        pInputText
-                                        placeholder="{{ 'total_waste_produced' | translate }}"
-                                        [value]="wasteProduced"
-                                        [disabled]="outtakeOrderId"
-                                    />
+                                    <div class="p-inputgroup custom-addon">
+                                        <span
+                                            class="
+                                                p-inputgroup-addon
+                                                fnt-14 fnt-600 fnt-muli
+                                                text-clr334
+                                                br-4
+                                                addon-position-fix
+                                                right-dropdown-background
+                                                lh-1
+                                            "
+                                            >{{ outtakeOrderDetails?.waste_produced_unit || 'Kg' }}</span
+                                        >
+
+                                        <input
+                                            pInputText
+                                            placeholder="{{ 'total_waste_produced' | translate }}"
+                                            [value]="wasteProduced"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -707,12 +721,26 @@
                         <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'waste_produced' | translate }}</label>
-                                <input
-                                    pInputText
-                                    placeholder="{{ 'total_waste_produced' | translate }}"
-                                    [value]="wasteProduced"
-                                    [disabled]="outtakeOrderId"
-                                />
+                                <div class="p-inputgroup custom-addon">
+                                    <span
+                                        class="
+                                            p-inputgroup-addon
+                                            fnt-14 fnt-600 fnt-muli
+                                            text-clr334
+                                            br-4
+                                            addon-position-fix
+                                            right-dropdown-background
+                                            lh-1
+                                        "
+                                        >{{ outtakeOrderDetails?.waste_produced_unit || 'Kg' }}</span
+                                    >
+
+                                    <input
+                                        pInputText
+                                        placeholder="{{ 'total_waste_produced' | translate }}"
+                                        [value]="wasteProduced"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

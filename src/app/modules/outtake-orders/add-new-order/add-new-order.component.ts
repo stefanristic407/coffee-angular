@@ -203,8 +203,7 @@ export class AddNewOrderComponent implements OnInit {
             if (res.success) {
                 this.outtakeOrderDetails = res.result;
                 this.customerID = this.outtakeOrderDetails.customer_id;
-                this.wasteProduced =
-                    this.outtakeOrderDetails.waste_produced + ' ' + this.outtakeOrderDetails.waste_produced_unit;
+                this.wasteProduced = this.outtakeOrderDetails.waste_produced || '';
                 this.outtakeOrderDetails.order_date = new Date(this.outtakeOrderDetails.order_date);
                 this.outtakeOrderDetails.roasted_date = new Date(this.outtakeOrderDetails.roasted_date);
                 this.addOrdersForm.patchValue(this.outtakeOrderDetails);
@@ -218,7 +217,7 @@ export class AddNewOrderComponent implements OnInit {
 
     getSalesMember() {
         this.roasterService
-            .getsalesMemberDetails(this.roasterId, this.outtakeOrderDetails.sales_member_id)
+            .getsalesMemberDetails(this.roasterId, this.outtakeOrderDetails?.sales_member_id)
             .subscribe((res: any) => {
                 if (res.success) {
                     this.addOrdersForm
@@ -270,8 +269,8 @@ export class AddNewOrderComponent implements OnInit {
         const data = this.addOrdersForm.value;
         this.addOrdersForm.get('roaster_ref_no').disable();
         this.addOrdersForm.get('company_type').disable();
-        data.order_created_by = this.createdID || this.outtakeOrderDetails.created_by;
-        data.sales_member_id = this.userID || this.outtakeOrderDetails.sales_member_id;
+        data.order_created_by = this.createdID || this.outtakeOrderDetails?.created_by;
+        data.sales_member_id = this.userID || this.outtakeOrderDetails?.sales_member_id;
         if (this.outtakeOrderDetails) {
             data.order_id = this.outtakeOrderDetails.order_id;
             data.customer_id = this.outtakeOrderDetails.customer_id;

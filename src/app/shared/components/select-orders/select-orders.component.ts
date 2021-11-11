@@ -74,10 +74,19 @@ export class SelectOrdersComponent implements OnInit {
         this.estatetermOrigin = '';
         this.estatetermType = '';
         this.displayNumbers = '10';
-        this.statusType = [
-            { label: this.globals.languageJson?.active, value: 'active' },
-            { label: this.globals.languageJson?.inactive, value: 'inactive' },
-        ];
+        if (this.isCustomerType) {
+            this.statusType = [
+                { label: this.globals.languageJson?.active, value: 'active' },
+                { label: this.globals.languageJson?.pending, value: 'pending' },
+                { label: this.globals.languageJson?.inactive, value: 'inactive' },
+            ];
+        } else {
+            this.statusType = [
+                { label: this.globals.languageJson?.active, value: 'active' },
+                { label: this.globals.languageJson?.inactive, value: 'inactive' },
+            ];
+        }
+
         this.loadFilterValues();
         this.createRoasterTable();
         this.getTableData();
@@ -261,7 +270,6 @@ export class SelectOrdersComponent implements OnInit {
         // setTimeout(() => (this.loader = true), 0);
         const postData: any = {
             origin: this.originFilter ? this.originFilter : '',
-
             page,
             per_page: 10,
             sort_by: 'created_at',
@@ -270,7 +278,7 @@ export class SelectOrdersComponent implements OnInit {
             end_date: '',
             status: 'RECEIVED',
         };
-        if (this.selectedType === 'micro-roasters' || this.selectedType === 'hrc') {
+        if (this.isCustomerType) {
             postData.name = this.searchTerm ? this.searchTerm : '';
         } else {
             postData.search_query = this.searchTerm ? this.searchTerm : '';
@@ -278,14 +286,19 @@ export class SelectOrdersComponent implements OnInit {
         if (this.selectedType !== 'orders') {
             delete postData.status;
         }
-        if (this.selectedType === 'users' || this.selectedType === 'sales-member') {
+        if (this.selectedType === 'users' || this.selectedType === 'sales-member' || this.isCustomerType) {
             postData.status = this.customerStatus ? this.customerStatus : '';
+        }
+        if (this.selectedType === 'users' || this.selectedType === 'sales-member') {
             postData.role_id = this.roles ? this.roles : '';
         }
-        if (this.rangeDates && this.rangeDates.length === 2) {
-            postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
-            postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
+        if (!this.isCustomerType) {
+            if (this.rangeDates && this.rangeDates.length === 2) {
+                postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
+                postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
+            }
         }
+
         let selectedType = this.selectedType;
         if (this.selectedType === 'sales-member') {
             selectedType = 'users';
@@ -349,5 +362,9 @@ export class SelectOrdersComponent implements OnInit {
 
     close() {
         this.closeEvent.emit();
+    }
+
+    get isCustomerType() {
+        return this.selectedType === 'micro-roasters' || this.selectedType === 'hrc';
     }
 }
