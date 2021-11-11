@@ -262,11 +262,6 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
         this.eCommerceService.getSelectProductDetails(this.type, options).subscribe(
             (res: any) => {
                 if (res.success) {
-                    if (this.type !== 'other') {
-                        this.originArray = COUNTRY_LIST.filter((item) =>
-                            res.result?.find((prod) => prod.origin.toLowerCase() === item.isoCode.toLocaleLowerCase()),
-                        );
-                    }
                     this.tableData = res.result ?? [];
                     this.totalCount = res.result_info.total_count;
                 } else {
