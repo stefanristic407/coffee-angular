@@ -164,12 +164,6 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
                     width: 80,
                 },
                 {
-                    field: 'gc_odrer_id',
-                    header: this.globals.languageJson?.gc_order_id,
-                    sortable: false,
-                    width: 80,
-                },
-                {
                     field: 'date_placed',
                     header: this.globals.languageJson?.date_paced,
                     sortable: false,
@@ -186,6 +180,12 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
                     header: this.globals.languageJson?.quantity,
                     sortable: false,
                     width: 50,
+                },
+                {
+                    field: 'status',
+                    header: this.globals.languageJson?.status,
+                    sortable: false,
+                    width: 80,
                 },
                 {
                     field: 'actions',

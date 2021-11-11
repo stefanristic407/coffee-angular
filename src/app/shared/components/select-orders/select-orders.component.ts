@@ -261,7 +261,7 @@ export class SelectOrdersComponent implements OnInit {
         // setTimeout(() => (this.loader = true), 0);
         const postData: any = {
             origin: this.originFilter ? this.originFilter : '',
-            search_query: this.searchTerm ? this.searchTerm : '',
+
             page,
             per_page: 10,
             sort_by: 'created_at',
@@ -270,6 +270,11 @@ export class SelectOrdersComponent implements OnInit {
             end_date: '',
             status: 'RECEIVED',
         };
+        if (this.selectedType === 'micro-roasters' || this.selectedType === 'hrc') {
+            postData.name = this.searchTerm ? this.searchTerm : '';
+        } else {
+            postData.search_query = this.searchTerm ? this.searchTerm : '';
+        }
         if (this.selectedType !== 'orders') {
             delete postData.status;
         }

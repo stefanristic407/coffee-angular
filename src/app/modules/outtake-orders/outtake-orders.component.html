@@ -245,9 +245,11 @@
                                 </div>
                                 <div class="mb-2" [routerLink]="onEdit(rowData)">
                                     <span class="prime-table-label fnt-bold fnt-16 text-clr334">
-                                        {{ 'gc_order_id' | translate }}
+                                        {{ 'status' | translate | sentencecase }}
                                     </span>
-                                    <span class="fnt-16 text-clr334 fnt-bold"> #{{ rowData['order_id'] }} </span>
+                                    <span class="fnt-16 text-clr334 fnt-bold">
+                                        #{{ rowData['status'] | sentencecase }}
+                                    </span>
                                 </div>
                                 <div class="mb-425" [routerLink]="onEdit(rowData)">
                                     <span class="prime-table-label text-clr588 fnt-12">
@@ -268,14 +270,14 @@
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'gc_odrer_id'" [routerLink]="onEdit(rowData)">
+                        <span *ngSwitchCase="'status'" [routerLink]="onEdit(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    {{ 'gc_order_id' | translate }}
+                                    {{ 'status' | translate | sentencecase }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['order_id'] }}
+                                    {{ rowData['status'] | sentencecase }}
                                 </span>
                             </div>
                         </span>
