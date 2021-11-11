@@ -36,11 +36,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         { label: 'Sold', value: ProcuredCoffeeStatus.SOLD },
         { label: 'Hidden', value: ProcuredCoffeeStatus.HIDDEN },
     ];
-    weightTypeArray: any = [
-        { label: 'kg', value: QuantityUnit.kg },
-        { label: 'lb', value: QuantityUnit.lb },
-        { label: 'tonnes', value: QuantityUnit.ton },
-    ];
     lotSaleForm: FormGroup;
     availablityName: any;
     tableColumns = [];
@@ -143,11 +138,11 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         this.lotSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             price: ['', Validators.compose([Validators.required])],
-            price_per_unit: ['kg', Validators.compose([Validators.required])],
+            price_per_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
             quantity: ['', Validators.compose([Validators.required])],
             quantity_type: [ProcuredCoffeeUnit.bags, Validators.compose([Validators.required])],
             quantity_count: [null, Validators.compose([Validators.required])],
-            quantity_unit: ['kg', Validators.compose([Validators.required])],
+            quantity_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
             minimum_order_quantity_count: ['', Validators.compose([Validators.required, Validators.min(1)])],
             vat_settings_id: [null, Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],

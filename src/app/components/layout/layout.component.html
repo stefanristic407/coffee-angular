@@ -161,7 +161,7 @@
                                                 >
                                                     {{ 'switch_to' | translate }}&nbsp;{{
                                                         item.orgType | orgType | lowercase
-                                                    }}&nbsp;{{ 'portal' | translate }}
+                                                    }}&nbsp;{{ 'portal' | translate | lowercase }}
                                                 </li>
                                                 <li (click)="userLogout(); pop2.hide()">{{ 'logout' | translate }}</li>
                                             </ul>
