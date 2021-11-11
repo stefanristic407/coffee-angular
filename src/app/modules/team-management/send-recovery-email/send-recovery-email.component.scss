@@ -20,9 +20,6 @@
     letter-spacing: normal;
     color: #232334;
 }
-.removeRoleBtn {
-    padding: 0px;
-}
 .emailDiv {
     width: 20.5rem;
 }
@@ -36,14 +33,6 @@
     color: #232334;
 }
 
-.text-highlited {
-    font-weight: 700;
-    color: #80460b !important;
-    cursor: pointer;
-}
-.text-highlited:hover {
-    text-decoration: underline !important;
-}
 .containerBackground {
     background: #fcfbf8;
 }
@@ -91,10 +80,5 @@
     }
     .inputPadding {
         margin-top: 1rem;
-    }
-    .removeRoleBtn {
-        padding: 0px 15px;
-        margin-bottom: 1rem;
-        margin-top: -8px;
     }
 }

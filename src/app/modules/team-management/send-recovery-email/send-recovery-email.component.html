@@ -19,7 +19,12 @@
                 >
                     {{ 'cancel' | translate }}
                 </button>
-                <button *ngIf="isEdit" class="btn pull-right btn-raised d-md-block d-none" (click)="onSave()">
+                <button
+                    *ngIf="isEdit"
+                    class="btn pull-right btn-raised d-md-block d-none"
+                    (click)="onSave()"
+                    [disabled]="submitted"
+                >
                     {{ 'save' | translate }}
                 </button>
                 <button
@@ -104,38 +109,24 @@
                 <div>
                     <label class="role_txt">Role(s)<span class="star">*</span></label>
                 </div>
-                <div *ngFor="let item of userDetails['roles']; let i = index; last as isLast">
-                    <div class="row p-0">
-                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 mb-3">
-                            <input
-                                *ngIf="!item['isNew']"
-                                type="text"
-                                readonly
-                                [(ngModel)]="item.name"
-                                [ngModelOptions]="{ standalone: true }"
-                                pInputText
-                            />
+                <div *ngFor="let role of roles.controls; let i = index; last as isLast">
+                    <div class="row gutter-16">
+                        <div class="col-md-6 sewn-form-field mb-3">
                             <p-dropdown
-                                *ngIf="item['isNew']"
-                                [options]="roleList"
+                                [options]="roleOptions(i)"
                                 optionLabel="name"
+                                optionValue="id"
                                 placeholder="Select role"
                                 [style]="{ width: '100%' }"
-                                [(ngModel)]="item['id']"
-                                [disabled]="!statusToggle"
-                                optionValue="id"
+                                [formControl]="role"
                             >
                             </p-dropdown>
+                            <small *ngIf="role.errors?.required" class="p-error">{{ 'required' | translate }}</small>
                         </div>
-                        <div
-                            *ngIf="isEdit && statusToggle && (i || userDetails['roles']?.length > 1)"
-                            class="d-md-flex justify-content-center sewn-form-field removeRoleBtn"
-                        >
-                            <div class="delete-wrap fnt-muli">
-                                <span class="fnt-700 text-highlited cursor-pointer" (click)="removeRole(i)">
-                                    Remove role
-                                </span>
-                            </div>
+                        <div *ngIf="isEdit && statusToggle && (i || roles.controls?.length > 1)" class="col-auto pt-3">
+                            <span class="brown-cta" (click)="removeRole(i)">
+                                {{ 'remove_role' | translate }}
+                            </span>
                         </div>
                     </div>
                     <p-divider
@@ -146,7 +137,7 @@
                     ></p-divider>
                     <div class="d-block d-sm-block d-md-block mb-2 mt-2" *ngIf="isEdit && isLast && statusToggle">
                         <img src="assets/images/add-partner.svg" />
-                        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addRole()">
+                        <span class="ml-2 brown-cta" (click)="addRole()">
                             {{ 'assign_role' | translate }}
                         </span>
                     </div>
@@ -179,7 +170,7 @@
                     <button *ngIf="!isEdit" class="btn btn-stroked w-100 mt-3" (click)="this.location.back()">
                         {{ 'cancel' | translate }}
                     </button>
-                    <button *ngIf="isEdit" class="btn btn-raised w-100" (click)="onSave()">
+                    <button *ngIf="isEdit" class="btn btn-raised w-100" (click)="onSave()" [disabled]="submitted">
                         {{ 'save' | translate }}
                     </button>
                     <button *ngIf="isEdit" class="btn btn-stroked w-100 mt-3" (click)="onEditCancel(); updateForm()">

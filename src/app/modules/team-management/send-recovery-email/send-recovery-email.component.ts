@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, GlobalsService, RoasterService, UserService, ValidateEmailService } from '@services';
+import { UserStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { RoasterService, UserService, ValidateEmailService } from '@services';
 import { emailValidator } from '@utils';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 
@@ -17,30 +18,33 @@ export class SendRecoveryEmailComponent implements OnInit {
     currentRoleID: any = '';
     selectedRole: any = 'Select Role';
     roleList: any = [];
-    roasterID: number;
     breadCrumbItem: MenuItem[] = [];
     isEdit = false;
     statusToggle = false;
     userDetails: any;
+    userRoles: any[] = [];
     userID: number;
     deleteRoles: any = [];
     userForm: FormGroup;
+    submitted = false;
+
+    get roles() {
+        return this.userForm.get('roles') as FormArray;
+    }
+
     constructor(
-        private authService: AuthService,
         private fb: FormBuilder,
+        private roasterService: RoasterService,
+        private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
+        private translator: TranslateService,
+        private userService: UserService,
         private validateService: ValidateEmailService,
-        public cookieService: CookieService,
-        public globals: GlobalsService,
         public location: Location,
-        public roasterService: RoasterService,
-        public route: ActivatedRoute,
-        public userService: UserService,
     ) {}
 
     ngOnInit(): void {
-        this.roasterID = this.authService.getOrgId();
         this.currentRoleID = this.route.snapshot.queryParams.roleID
             ? Number(this.route.snapshot.queryParams.roleID)
             : '';
@@ -60,8 +64,9 @@ export class SendRecoveryEmailComponent implements OnInit {
                 Validators.compose([Validators.required]),
                 emailValidator(this.validateService),
             ),
+            roles: this.fb.array([]),
         });
-        this.userDetails = { last_activated: '', roles: [], status: '' };
+        this.userDetails = { last_activated: '', status: '' };
         if (this.route.snapshot.queryParams.userID) {
             this.userID = +decodeURIComponent(this.route.snapshot.queryParams.userID);
         } else {
@@ -70,77 +75,97 @@ export class SendRecoveryEmailComponent implements OnInit {
         }
         this.getUserData();
     }
+
     getUserData(): void {
-        this.userService.getRoasterUserData(this.roasterID, this.userID).subscribe((result: any) => {
-            if (result && result.success) {
-                this.userForm.patchValue(result.result);
-                this.userDetails.last_activated = result.result.created_at ? result.result.created_at : '';
-                this.userDetails.status = result.result.status;
-                this.statusToggle = result.result.status === 'ACTIVE' ? true : false;
+        this.userService.getOrgUserData(this.userID).subscribe((res: any) => {
+            if (res.success) {
+                delete res.result.roles;
+                this.userForm.patchValue(res.result);
+                this.userDetails.last_activated = res.result.created_at ? res.result.created_at : '';
+                this.userDetails.status = res.result.status;
+                this.statusToggle = res.result.status === UserStatus.ACTIVE ? true : false;
                 this.listAssignedRoles();
             }
         });
     }
+
     listAssignedRoles(): void {
-        this.roasterService.getUserBasedRoles(this.userID).subscribe((response: any) => {
-            if (response.success === true) {
-                this.userDetails.roles = response.result;
+        this.roasterService.getUserBasedRoles(this.userID).subscribe((res) => {
+            if (res.success) {
+                this.userRoles = res.result;
+                while (this.roles.length !== 0) {
+                    this.roles.removeAt(0);
+                }
+                this.userRoles.forEach((element) => {
+                    this.roles.push(
+                        this.fb.control(
+                            { value: element.id, disabled: !this.isEdit || !this.statusToggle },
+                            Validators.compose([Validators.required]),
+                        ),
+                    );
+                });
             } else {
                 this.toastrService.error('Error while getting the roles of the user.');
             }
         });
     }
+
     listRoles(): void {
         this.roasterService.getRoles().subscribe(
-            (response: any) => {
-                if (response.success) {
-                    const getCurrentRole = response.result.find((ele) => ele.id === this.currentRoleID);
+            (res) => {
+                if (res.success) {
+                    const getCurrentRole = res.result.find((ele) => ele.id === this.currentRoleID);
                     this.selectedRole = getCurrentRole ? getCurrentRole.name : 'Select Role';
                     this.currentRoleID = getCurrentRole ? getCurrentRole.id : '';
                 }
-                this.roleList = response.result;
+                this.roleList = res.result;
             },
             (err) => {
                 console.log(err);
             },
         );
     }
+
     supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
-            routerLink: '/',
-        };
-        const obj2: MenuItem = {
-            label: this.globals.languageJson?.team_management,
-            routerLink: '/team-management/manage-role',
-        };
-        const obj3: MenuItem = {
-            label: this.globals.languageJson?.user_management,
-        };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj3);
+        this.breadCrumbItem = [
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('team_management'), routerLink: '/team-management/manage-role' },
+            { label: this.translator.instant('user_management') },
+        ];
     }
+
     addRole(): void {
-        this.isEdit = true;
-        this.userDetails.roles.push({ id: '', name: '', isNew: true });
+        this.roles.push(
+            this.fb.control(
+                { value: null, disabled: !this.isEdit || !this.statusToggle },
+                Validators.compose([Validators.required]),
+            ),
+        );
         this.updateForm();
     }
+
+    removeRole(idx): void {
+        this.roles.removeAt(idx);
+    }
+
+    roleOptions(curIdx = null): number[] {
+        const localArray = [];
+        this.roleList.forEach((element) => {
+            const idx = this.roles.value.findIndex((item, index) => item === element.id && curIdx !== index);
+            if (idx < 0) {
+                localArray.push(element);
+            }
+        });
+        return localArray;
+    }
+
     onEditCancel() {
         this.isEdit = false;
         this.getUserData();
     }
-    validateFields(): boolean {
-        if (!this.userForm.valid || !this.userDetails.roles) {
-            this.userForm.markAllAsTouched();
-            return false;
-        } else {
-            const findEmptyRole = this.userDetails.roles.find((ele) => !ele.id);
-            return findEmptyRole ? false : true;
-        }
-    }
+
     onSave(): void {
-        const getUserStatus = this.userDetails.status === 'ACTIVE' ? true : false;
+        const getUserStatus = this.userDetails.status === UserStatus.ACTIVE ? true : false;
         if (getUserStatus !== this.statusToggle) {
             if (this.statusToggle) {
                 this.enableUser();
@@ -151,76 +176,101 @@ export class SendRecoveryEmailComponent implements OnInit {
             this.updateUserDetails();
         }
     }
+
     updateForm(): void {
         this.userForm.controls.firstname.enable();
         this.userForm.controls.lastname.enable();
         this.userForm.controls.email.enable();
+        this.roles.controls.forEach((element) => element.enable());
         if (!this.isEdit || !this.statusToggle) {
             this.userForm.controls.firstname.disable();
             this.userForm.controls.lastname.disable();
             this.userForm.controls.email.disable();
+            this.roles.controls.forEach((element) => element.disable());
         }
     }
+
     updateUserDetails() {
-        const getValidate = this.validateFields();
-        if (getValidate) {
-            this.userService.updateUserData(this.userForm.value, this.roasterID, this.userID).subscribe(
-                (res: any) => {
-                    if (res && res.success) {
-                        if (this.deleteRoles && this.deleteRoles.length > 0) {
-                            this.deleteRoleForUser();
-                        }
-                        const getNewRole = this.userDetails.roles.find((ele) => ele.isNew && ele.id);
-                        if (getNewRole) {
-                            this.addNewRoles();
-                        }
-                        this.isEdit = false;
-                        this.updateForm();
-                        this.toastrService.success('User details udpated successfully');
-                    }
-                },
-                (err) => {
-                    this.toastrService.error('Error while updating user details');
-                },
-            );
-        } else {
+        if (!this.userForm.valid) {
             this.toastrService.error('Please fill data');
+            this.userForm.markAllAsTouched();
+            return;
         }
-    }
-    deleteRoleForUser(): void {
-        this.deleteRoles.forEach((ele) => {
-            this.roasterService.deleteUserRole(ele, this.userID).subscribe(
-                (data: any) => {
-                    if (!data.success) {
-                        this.toastrService.error('Error while deleting the role');
-                    }
-                },
-                (err) => {
-                    this.toastrService.error('Error while deleting the role');
-                },
-            );
+
+        const promises = [];
+        // add roles
+        this.roles.value.forEach((element) => {
+            const idx = this.userRoles.findIndex((item) => item.id === element);
+            if (element && idx === -1) {
+                promises.push(
+                    new Promise((resolve, reject) =>
+                        this.roasterService.assignUserBasedUserRoles(element, this.userID).subscribe(
+                            (res: any) => {
+                                if (res.success) {
+                                    resolve(res.result);
+                                } else {
+                                    reject();
+                                }
+                            },
+                            (err) => {
+                                reject();
+                            },
+                        ),
+                    ),
+                );
+            }
         });
-    }
-    addNewRoles() {
-        const getNewRoles = this.userDetails.roles.filter((ele) => ele.isNew && ele.id);
-        getNewRoles.forEach((ele) => {
-            const roleID = Number(ele.id);
-            this.roasterService.assignUserBasedUserRoles(roleID, this.userID).subscribe(
-                (result: any) => {
-                    if (result.success) {
-                        this.toastrService.success('Role has been assigned to the user.');
-                        getNewRoles.isNew = false;
-                        this.listAssignedRoles();
-                    } else {
-                        this.toastrService.error('Error while assigning the role');
-                    }
-                },
-                (err) => {
-                    this.toastrService.error('Error while assigning the role');
-                },
-            );
+        // remove roles
+        this.userRoles.forEach((element) => {
+            const idx = this.roles.value.findIndex((item) => item === element.id);
+            if (idx === -1) {
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        this.roasterService.deleteUserRole(element.id, this.userID).subscribe(
+                            (res: any) => {
+                                if (res.success) {
+                                    resolve(res.result);
+                                }
+                            },
+                            (err) => {
+                                reject();
+                            },
+                        );
+                    }),
+                );
+            }
         });
+
+        promises.push(
+            new Promise((resolve, reject) => {
+                this.userService.updateOrgUserData(this.userID, this.userForm.value).subscribe(
+                    (res: any) => {
+                        if (res.success) {
+                            resolve(res.result);
+                        }
+                    },
+                    (err) => {
+                        reject();
+                    },
+                );
+            }),
+        );
+
+        this.submitted = true;
+        Promise.all(promises)
+            .then(() => {
+                this.isEdit = false;
+                this.submitted = false;
+                this.listAssignedRoles();
+                this.updateForm();
+                this.toastrService.success('User details udpated successfully');
+            })
+            .catch(() => {
+                this.submitted = false;
+                this.toastrService.error('Error while updating user details');
+            });
     }
+
     enableUser() {
         this.roasterService.enableAdminUser(this.userID).subscribe(
             (response: any) => {
@@ -236,6 +286,7 @@ export class SendRecoveryEmailComponent implements OnInit {
             },
         );
     }
+
     disableUser() {
         this.roasterService.disableAdminUsers(this.userID).subscribe(
             (value: any) => {
@@ -253,13 +304,6 @@ export class SendRecoveryEmailComponent implements OnInit {
         );
     }
 
-    removeRole(idx): void {
-        const getRole = this.userDetails.roles[idx];
-        if (getRole) {
-            this.deleteRoles.push(getRole.id);
-        }
-        this.userDetails.roles.splice(idx, 1);
-    }
     sendMail() {
         this.roasterService.sendRecoveryEmail(this.userID).subscribe(
             (res: any) => {
