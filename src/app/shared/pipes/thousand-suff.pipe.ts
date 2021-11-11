@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'thousandSuff',
 })
 export class ThousandSuffPipe implements PipeTransform {
-    transform(value: number, args?: any): any {
+    transform(value: number, decimalPoint = 1): any {
         if (isNaN(value)) {
             return null;
         } // will only work value is a number
@@ -14,8 +14,8 @@ export class ThousandSuffPipe implements PipeTransform {
         if (value === 0) {
             return 0;
         }
-        let abs = Math.abs(value);
-        const rounder = Math.pow(10, 1);
+        const rounder = Math.pow(10, decimalPoint);
+        let abs = Math.round(Math.abs(value) * rounder) / rounder;
         const isNegative = value < 0; // will also work for Negetive numbers
         let key = '';
 
