@@ -200,6 +200,9 @@
                             <p class="fnt-18 fnt-muli fnt-600 text-clr334">{{ 'mark_as_brewed' | translate }}</p>
                         </div>
                     </div>
+                    <div *ngIf="detailsData?.introduction" class="mx-md-5 mx-0 mt-425 row step-desc border-0">
+                        <div [innerHTML]="detailsData?.introduction"></div>
+                    </div>
                     <div class="row pl-md-5">
                         <div class="col-md-5">
                             <div *ngIf="detailsData?.ingredients" class="mt-45">
@@ -235,19 +238,10 @@
                                 *ngFor="let step of detailsData?.steps; let i = index; let last = last"
                                 [id]="'step' + (i + 1)"
                             >
-                                <div class="d-flex">
-                                    <span class="fnt-muli fnt-24 fnt-semi-bold text-clr334 lh-157 mb-1">{{
-                                        i + 1
-                                    }}</span>
+                                <div class="d-flex step-desc">
+                                    <span class="fnt-24 fnt-semi-bold text-clr334 lh-157 mb-1">{{ i + 1 }}</span>
                                     <div
-                                        class="
-                                            ml-md-3 ml-25
-                                            fnt-muli fnt-14 fnt-md-16 fnt-semi-bold
-                                            text-clr334
-                                            lh-157
-                                            mb-0
-                                            step-desc
-                                        "
+                                        class="ml-md-3 ml-25 fnt-14 fnt-md-16 fnt-semi-bold text-clr334 lh-157 mb-0"
                                         [ngClass]="{ 'remove-border': last }"
                                         [innerHTML]="step.description"
                                     ></div>
