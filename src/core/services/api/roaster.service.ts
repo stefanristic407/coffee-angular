@@ -1078,17 +1078,8 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    exportOuttakeOrders(roasterId: number, exportType: string, dateFrom: string, dateTo: string) {
-        const paramsObj = {
-            from_date: dateFrom ? moment(dateFrom).format('yyyy-MM-DD') : '',
-            to_date: dateTo ? moment(dateTo).format('yyyy-MM-DD') : '',
-        };
-        const data = {
-            api_call: `/ro/${roasterId}/outtake-orders/export/${exportType}?${this.serializeParams(paramsObj)}`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
+    exportOuttakeOrders(exportType: string, params: object = {}) {
+        return this.postWithOrg(this.orgPostUrl, `outtake-orders/export/${exportType}?${this.serializeParams(params)}`);
     }
 
     // Delete Procured Coffee.
