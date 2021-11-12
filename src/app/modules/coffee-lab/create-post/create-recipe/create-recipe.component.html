@@ -14,7 +14,7 @@
             >
             </p-dropdown>
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
+        <div class="col-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" [ngClass]="{ 'mb-25': isTranslate }">{{
                 'cover_image' | translate
             }}</label>
@@ -75,7 +75,7 @@
             </div>
             <app-category-list [isTranslatePage]="true" [categoryList]="translatedCategory"></app-category-list>
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
+        <div class="col-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label
                 >{{ 'recipe_name' | translate }}
                 <span class="pull-right text-clr588"
@@ -91,7 +91,7 @@
                 Please input 120 characters
             </small>
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sewn-form-field w-100 pl-0 pl-md-3">
+        <div class="col-12 sewn-form-field w-100 pl-0 pl-md-3">
             <label
                 >{{ 'description' | translate }}
                 <span class="pull-right text-clr588">
@@ -168,8 +168,21 @@
                 {{ 'yield_pattern' | translate }}
             </small>
         </div>
-
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-flex pl-0 pl-md-3">
+        <div class="col-12 sewn-form-field mb-3 d-flex pl-0 pl-md-3">
+            <label>{{ 'introduction' | translate }}</label>
+            <app-forum-editor
+                formControlName="introduction"
+                [(isUploadingImage)]="isUploadingImage"
+                [(imageIdList)]="introImageIdList"
+                [placeholder]="'Start typing your instructions'"
+                fileModule="recipe-post"
+                [height]="150"
+            ></app-forum-editor>
+            <small *ngIf="recipeForm.get('introduction').errors?.required" class="p-error">
+                {{ 'required' | translate }}
+            </small>
+        </div>
+        <div class="col-12 sewn-form-field mb-3 d-flex pl-0 pl-md-3">
             <span class="primary_txt fnt-14 text-underline">{{ 'list_of_ingredients' | translate }}</span>
         </div>
         <ng-container
@@ -238,11 +251,11 @@
         </div>
         <div
             *ngIf="recipeForm?.value?.preparation_method == 'steps'"
-            class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-md-3 mt-0 d-flex mb-md-3 mb-0 pl-0 pl-md-3"
+            class="col-12 mt-md-3 mt-0 d-flex mb-md-3 mb-0 pl-0 pl-md-3"
         >
             <span class="primary_txt fnt-14 text-underline">{{ 'directions' | translate }}</span>
         </div>
-        <div *ngIf="!isTranslate" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 my-3 pl-0 d-flex step-mb">
+        <div *ngIf="!isTranslate" class="col-12 my-3 pl-0 d-flex step-mb">
             <p-tabView styleClass="tabview-create-recipe" class="w-100">
                 <p-tabPanel header="instruction steps & video">
                     <ng-container
@@ -332,7 +345,7 @@
         </ng-container>
 
         <div
-            class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-md-45 d-md-flex mb-3 pl-0 pl-md-3"
+            class="col-12 mb-md-45 d-md-flex mb-3 pl-0 pl-md-3"
             [ngClass]="{ 'align-another': recipeForm.controls['steps']['controls']?.length >= 2 }"
             *ngIf="recipeForm?.value?.preparation_method == 'steps'"
         >
@@ -408,10 +421,7 @@
             >
             </p-chips>
         </div>
-        <div
-            *ngIf="!isTranslate"
-            class="d-flex col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center my-4 pl-0 pl-md-3"
-        >
+        <div *ngIf="!isTranslate" class="d-flex col-12 align-items-center my-4 pl-0 pl-md-3">
             <p-checkbox
                 [binary]="true"
                 label="Allow translations by other authors"
