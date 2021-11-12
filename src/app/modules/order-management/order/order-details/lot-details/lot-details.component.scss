@@ -13,8 +13,11 @@
                 border-bottom: 1px solid $secondary-border-color;
             }
 
-            span {
-                width: 50%;
+            span:first-child {
+                width: 40%;
+            }
+            span:nth-child(2) {
+                width: 60%;
             }
         }
     }
