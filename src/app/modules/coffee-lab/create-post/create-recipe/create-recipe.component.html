@@ -178,9 +178,6 @@
                 fileModule="recipe-post"
                 [height]="150"
             ></app-forum-editor>
-            <small *ngIf="recipeForm.get('introduction').errors?.required" class="p-error">
-                {{ 'required' | translate }}
-            </small>
         </div>
         <div class="col-12 sewn-form-field mb-3 d-flex pl-0 pl-md-3">
             <span class="primary_txt fnt-14 text-underline">{{ 'list_of_ingredients' | translate }}</span>
