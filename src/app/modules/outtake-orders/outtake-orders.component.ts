@@ -3,7 +3,7 @@ import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
-import { OrganizationType } from '@enums';
+import { OrganizationType, OuttakeOrderStatus } from '@enums';
 import { ApiResponse, Download } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -240,10 +240,11 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.roasterService.cancelOuttakeOrders(this.roasterId, rowData.id).subscribe(
-                        (response) => {
-                            if (response && response.success) {
+                    this.roasterService.cancelOuttakeOrders(rowData.id).subscribe(
+                        (res) => {
+                            if (res.success) {
                                 this.toastrService.success(this.translator.instant('the_order_canceled_successfully'));
+                                this.table.reset();
                             } else {
                                 this.toastrService.error(this.translator.instant('failed_to_cancel_the_order'));
                             }
@@ -319,7 +320,11 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
                 routerLink: `/green-coffee-management/procured-coffee/${item.order_id}`,
             },
             { label: this.translator.instant('export'), command: () => this.exportOrder(item) },
-            { label: this.translator.instant('cancel'), command: () => this.cancelOrderFromList(item) },
+            {
+                label: this.translator.instant('cancel'),
+                command: () => this.cancelOrderFromList(item),
+                visible: item.status !== OuttakeOrderStatus.CANCELLED,
+            },
         ];
     }
 }

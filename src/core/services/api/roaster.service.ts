@@ -1069,13 +1069,9 @@ export class RoasterService extends ApiService {
         };
         return this.http.post(this.url, data);
     }
-    cancelOuttakeOrders(roasterId: any, outTakeOrderId): Observable<any> {
-        const data = {
-            api_call: `/ro/${roasterId}/outtake-orders/${outTakeOrderId}/cancel`,
-            token: this.authService.token,
-            method: 'PUT',
-        };
-        return this.http.post(this.url, data);
+
+    cancelOuttakeOrders(outTakeOrderId): Observable<ApiResponse<any>> {
+        return this.putWithOrg(this.orgPutUrl, `outtake-orders/${outTakeOrderId}/cancel`);
     }
 
     exportOuttakeOrders(exportType: string, params: object = {}) {
