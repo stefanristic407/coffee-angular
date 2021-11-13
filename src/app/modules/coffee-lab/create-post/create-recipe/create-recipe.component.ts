@@ -202,6 +202,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.setAppLanguages();
                     this.getCompleteData(this.originRecipeId);
                 }
+                this.setExpertiseArray();
             }
         });
     }
@@ -731,6 +732,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
             (item) => item.langCode === this.recipeForm.get('language').value,
         );
+        this.setExpertiseArray();
+        this.getCategory();
+    }
+
+    setExpertiseArray() {
         if (this.coffeeLabService.currentForumLanguage === 'en') {
             this.expertiseArray = [
                 {
@@ -792,7 +798,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 },
             ];
         }
-        this.getCategory();
     }
 
     onDeleteDraft(): void {
