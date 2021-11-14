@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { OrderDetails } from '@models';
-import { OrderType, OrganizationType, OrderStatus } from '@enums';
-import { OrderManagementService } from '@app/modules/order-management/order-management.service';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { ToastrService } from 'ngx-toastr';
+import { PaymentStatus } from 'src/core/enums/payment';
 
 @Component({
     selector: 'app-order-payment-status',
@@ -13,7 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class OrderPaymentStatusComponent {
     readonly OrderTypes = OrderType;
-    readonly OrderStatuses = OrderStatus;
+    readonly OrderStatus = OrderStatus;
+    readonly PaymentStatus = PaymentStatus;
 
     @Input() order: OrderDetails;
     @Input() trackingUrl: string;
