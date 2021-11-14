@@ -65,6 +65,12 @@ export class AuthService {
 
     constructor(private cookieService: CookieService, private route: ActivatedRoute, private router: Router) {}
 
+    logout(): void {
+        window.open(`${environment.ssoWeb}`, '_self');
+        this.cookieService.deleteAll();
+        localStorage.clear();
+    }
+
     goToLogin(destUrl?: string) {
         let redirectTo: string = destUrl || this.route.snapshot.queryParams.redirect_to || this.router.url;
         if (redirectTo.startsWith('/gate')) {
