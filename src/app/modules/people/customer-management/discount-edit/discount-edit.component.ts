@@ -27,38 +27,4 @@ export class DiscountEditComponent implements OnInit {
     ngOnInit(): void {
         this.appLanguage = this.globals.languageJson;
     }
-    resendInvite() {
-        if (this.customerService.headerValue === 'Micro-Roaster') {
-            this.userService
-                .sendMicroRoasterInvite(
-                    this.roasterId,
-                    this.customerService.pendingEmail,
-                    this.customerService.pendingCompany,
-                )
-                .subscribe((data: any) => {
-                    if (data.success) {
-                        this.toastrService.success('Email has been sent successfully');
-                        this.router.navigate(['/people/customer-management']);
-                    } else if (!data.messages) {
-                        this.toastrService.error('Error while sending email to the User');
-                    }
-                });
-        } else if (this.customerService.headerValue === 'HoReCa') {
-            this.userService
-                .sendHorecaInvite(
-                    this.roasterId,
-                    this.customerService.pendingEmail,
-                    this.customerService.pendingCompany,
-                    this.customerService.pendingType,
-                )
-                .subscribe((data: any) => {
-                    if (data.success) {
-                        this.toastrService.success('Email has been sent successfully');
-                        this.router.navigate(['/people/customer-management']);
-                    } else if (!data.messages) {
-                        this.toastrService.error('Error while sending email to the User');
-                    }
-                });
-        }
-    }
 }
