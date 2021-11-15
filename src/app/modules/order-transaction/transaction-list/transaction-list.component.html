@@ -211,7 +211,11 @@
                     <ng-container *ngSwitchCase="'total_amount'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span class="truncate break-word">
-                            {{ rowData['total_amount'] | currency: rowData['currency'] || 'USD':'code' || '--' }}
+                            {{
+                                rowData['total_amount']
+                                    | currency: rowData['currency'] || 'USD':'code'
+                                    | strReplace: '-':'- ' || '--'
+                            }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'vat_amount'">
