@@ -33,7 +33,9 @@
                         [placeholder]="'create_unique_reference_number' | translate"
                     />
                 </div>
-                <button class="btn-raised mt-3" (click)="saveReference()">{{ 'save' | translate }}</button>
+                <button class="btn-raised mt-3" (click)="saveReference()" [disabled]="isSubmitted">
+                    {{ 'save' | translate }}
+                </button>
             </div>
         </div>
     </div>

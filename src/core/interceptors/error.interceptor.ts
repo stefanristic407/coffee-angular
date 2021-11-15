@@ -45,6 +45,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                             router.navigate(['/']);
                             break;
                         }
+                        case 409: {
+                            this.showErrorMessage(body.messages);
+                            break;
+                        }
                         case 422: {
                             this.showErrorMessage(body.messages);
                             break;

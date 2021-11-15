@@ -29,6 +29,7 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
     orderItems: any[];
     orderSummary: SelectItem[];
     isDownloading = false;
+    isSubmitted = false;
 
     constructor(
         private commonService: CommonService,
@@ -220,12 +221,14 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
             return;
         }
         const refNo = this.referenceForm.value.roaster_reference_number.trim();
+        this.isSubmitted = true;
         this.transactionService
             .createReferenceNumber(this.transaction.channel, this.transaction.document_number, refNo)
             .subscribe((res) => {
                 if (res.success) {
                     this.toastr.success('Order reference number has been updated.');
                 }
+                this.isSubmitted = false;
             });
     }
 }
