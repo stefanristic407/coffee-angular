@@ -237,7 +237,6 @@ export class RoasteryProfileService {
                 this.toastrService.success('Roaster profile details updated successfully');
             })
             .catch(() => {
-                this.roasterProfile();
                 this.isSaving = false;
                 this.toastrService.error('Error while updating details, please try again.');
             });

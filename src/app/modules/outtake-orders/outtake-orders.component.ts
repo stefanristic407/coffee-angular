@@ -1,4 +1,11 @@
+import { isNgTemplate } from '@angular/compiler';
 import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ResizeableComponent } from '@base-components';
+import { COUNTRY_LIST } from '@constants';
+import { OrganizationType, OuttakeOrderStatus } from '@enums';
+import { ApiResponse, Download } from '@models';
+import { TranslateService } from '@ngx-translate/core';
 import {
     AuthService,
     DownloadService,
@@ -7,20 +14,12 @@ import {
     ResizeService,
     RoasterService,
 } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { COUNTRY_LIST } from '@constants';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Table } from 'primeng/table';
-import { ToastrService } from 'ngx-toastr';
-import { takeUntil } from 'rxjs/operators';
-import * as moment from 'moment';
-import { ResizeableComponent } from '@base-components';
-import { ApiResponse, Download, LabelValue } from '@models';
-import { OrganizationType } from '@enums';
-import { TranslateService } from '@ngx-translate/core';
-import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
-import { PopoverDirective } from 'ngx-bootstrap/popover';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
+import { Table } from 'primeng/table';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-outtake-orders',
@@ -28,6 +27,7 @@ import { PopoverDirective } from 'ngx-bootstrap/popover';
     styleUrls: ['./outtake-orders.component.scss'],
 })
 export class OuttakeOrdersComponent extends ResizeableComponent implements OnInit {
+    readonly OrgType = OrganizationType;
     searchTerm = '';
     statusItems;
     breadItems = [
@@ -35,19 +35,18 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         { label: this.translator.instant('order_management') },
         { label: this.translator.instant('outtake_order') },
     ];
-    appLanguage?: any;
     originArray: any = [];
     roasterId: any;
     displayItems = [
-        { label: this.globals.languageJson?.display + ' ' + 10, value: 10 },
-        { label: this.globals.languageJson?.display + ' ' + 20, value: 20 },
-        { label: this.globals.languageJson?.display + ' ' + 25, value: 25 },
-        { label: this.globals.languageJson?.display + ' ' + 50, value: 50 },
+        { label: this.translator.instant('display') + ' ' + 10, value: 10 },
+        { label: this.translator.instant('display') + ' ' + 20, value: 20 },
+        { label: this.translator.instant('display') + ' ' + 25, value: 25 },
+        { label: this.translator.instant('display') + ' ' + 50, value: 50 },
     ];
 
     customerType = [
-        { label: this.globals.languageJson?.micro_roaster, value: 'mr' },
-        { label: this.globals.languageJson?.horeca, value: 'hrc' },
+        { label: this.translator.instant('micro_roaster'), value: 'mr' },
+        { label: this.translator.instant('horeca'), value: 'hrc' },
     ];
     forms: FormGroup;
     termStatus: any;
@@ -59,8 +58,6 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     queryParams: any = {};
     displayExportDialog = false;
     isDownloading = false;
-    @ViewChild('pop') menuPopElement: any;
-    readonly OrgType = OrganizationType;
     readonly exportForm = this.fb.group({
         from_date: this.fb.control(''),
         to_date: this.fb.control(''),
@@ -79,17 +76,15 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         dates: this.fb.control(''),
     });
     constructor(
+        private authService: AuthService,
+        private dialogSrv: DialogService,
+        private downloadService: DownloadService,
         private fb: FormBuilder,
         private roasterService: RoasterService,
-        private cookieService: CookieService,
-        public globals: GlobalsService,
-        public primeTableService: PrimeTableService,
         private toastrService: ToastrService,
-        protected resizeService: ResizeService,
-        private authService: AuthService,
-        private downloadService: DownloadService,
         private translator: TranslateService,
-        public dialogSrv: DialogService,
+        protected resizeService: ResizeService,
+        public primeTableService: PrimeTableService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
@@ -98,7 +93,6 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     }
 
     @ViewChild('markedTable', { static: true }) table: Table;
-    public isMobile = false;
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
@@ -108,96 +102,61 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     initializeTable() {
         this.primeTableService.windowWidth = window.innerWidth;
 
-        if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
-            this.primeTableService.isMobileView = true;
+        if (this.resizeService.isMobile()) {
             this.primeTableService.allColumns = [
-                {
-                    field: 'type_of_customer',
-                    header: this.globals.languageJson?.type_of_customer,
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'customer_name',
-                    header: this.globals.languageJson?.customer_name,
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'price',
-                    header: this.globals.languageJson?.price,
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'quantity',
-                    header: this.globals.languageJson?.quantity,
-                    sortable: false,
-                    width: 50,
-                },
+                { field: 'product_name', header: 'customer_name' },
+                { field: 'id', header: 'order_id' },
+                { field: 'type_of_customer', header: 'type_of_customer' },
+                { field: 'customer_name', header: 'customer_name' },
+                { field: 'price', header: 'price' },
+                { field: 'quantity', header: 'quantity' },
             ];
         } else {
-            this.primeTableService.isMobileView = false;
             this.primeTableService.allColumns = [
                 {
-                    field: 'order_id',
-                    header: this.globals.languageJson?.order_id,
-                    sortable: false,
-                    width: 50,
+                    field: 'id',
+                    header: 'order_id',
+                    width: 9,
                 },
                 {
                     field: 'product_name',
-                    header: this.globals.languageJson?.product_name,
-                    sortable: false,
-                    width: 80,
+                    header: 'product_name',
+                    width: 14,
                 },
                 {
                     field: 'customer_name',
-                    header: this.globals.languageJson?.customer_name,
-                    sortable: false,
-                    width: 80,
+                    header: 'customer_name',
+                    width: 14,
                 },
                 {
                     field: 'type_of_customer',
-                    header: this.globals.languageJson?.type_of_customer,
-                    sortable: false,
-                    width: 80,
+                    header: 'type_of_customer',
+                    width: 12,
                 },
                 {
                     field: 'date_placed',
-                    header: this.globals.languageJson?.date_paced,
-                    sortable: false,
-                    width: 60,
+                    header: 'date_paced',
+                    width: 11,
                 },
                 {
                     field: 'price',
-                    header: this.globals.languageJson?.price,
-                    sortable: false,
-                    width: 50,
+                    header: 'price',
+                    width: 10,
                 },
                 {
                     field: 'quantity',
-                    header: this.globals.languageJson?.quantity,
-                    sortable: false,
-                    width: 50,
+                    header: 'quantity',
+                    width: 10,
                 },
                 {
                     field: 'status',
-                    header: this.globals.languageJson?.status,
-                    sortable: false,
-                    width: 80,
+                    header: 'status',
+                    width: 10,
                 },
                 {
                     field: 'actions',
-                    header: this.globals.languageJson?.action,
-                    sortable: false,
-                    width: 40,
-                },
-                {
-                    field: 'options',
-                    header: '',
-                    sortable: false,
-                    width: 30,
+                    header: 'action',
+                    width: 10,
                 },
             ];
         }
@@ -216,7 +175,6 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
             }, 100),
         );
 
-        this.appLanguage = this.globals.languageJson;
         this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
             this.startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
 
@@ -262,17 +220,6 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
 
         this.table.reset();
     }
-    onEdit(item) {
-        let link = [];
-        link = [`/outtake-orders/view-order/${item.id}`];
-        return link;
-    }
-
-    onGreenCoffee(item) {
-        let link = [];
-        link = [`/green-coffee-management/procured-coffee/${item.order_id}`];
-        return link;
-    }
 
     formatStatus(stringVal) {
         let formatVal = '';
@@ -283,8 +230,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
         return formatVal.replace('-', '');
     }
 
-    cancelOrderFromList(rowData: any, popEl: any) {
-        popEl.hide();
+    cancelOrderFromList(rowData: any) {
         this.dialogSrv
             .open(ConfirmComponent, {
                 data: {
@@ -294,10 +240,11 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.roasterService.cancelOuttakeOrders(this.roasterId, rowData.id).subscribe(
-                        (response) => {
-                            if (response && response.success) {
+                    this.roasterService.cancelOuttakeOrders(rowData.id).subscribe(
+                        (res) => {
+                            if (res.success) {
                                 this.toastrService.success(this.translator.instant('the_order_canceled_successfully'));
+                                this.table.reset();
                             } else {
                                 this.toastrService.error(this.translator.instant('failed_to_cancel_the_order'));
                             }
@@ -309,6 +256,7 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
                 }
             });
     }
+
     showExportDialog(): void {
         this.displayExportDialog = true;
     }
@@ -316,29 +264,67 @@ export class OuttakeOrdersComponent extends ResizeableComponent implements OnIni
     downloadOrderClicked(): void {
         const form = this.exportForm.value;
         this.isDownloading = true;
-        this.roasterService
-            .exportOuttakeOrders(this.roasterId, form.export_type, form.from_date, form.to_date)
-            .subscribe((res: ApiResponse<any>) => {
-                if (res.success && res.result.url) {
-                    const url = res.result.url;
-                    const fileName = url.split('?')[0].split('/').pop();
-                    const mime = form.export_type === 'pdf' ? 'application/pdf' : 'text/plain';
+        const params = {
+            from_date: form.from_date ? moment(form.from_date).format('yyyy-MM-DD') : '',
+            to_date: form.to_date ? moment(form.to_date).format('yyyy-MM-DD') : '',
+        };
+        this.roasterService.exportOuttakeOrders(form.export_type, params).subscribe((res: ApiResponse<any>) => {
+            if (res.success && res.result.url) {
+                const url = res.result.url;
+                const fileName = url.split('?')[0].split('/').pop();
+                const mime = form.export_type === 'pdf' ? 'application/pdf' : 'text/plain';
 
-                    this.downloadService.download(res.result.url, fileName, mime).subscribe(
-                        (response: Download) => {
-                            if (response.state === 'DONE') {
-                                this.toastrService.success('Downloaded successfully');
-                                this.displayExportDialog = false;
-                                this.isDownloading = false;
-                            }
-                        },
-                        (error) => {
-                            this.toastrService.error('Download failed');
+                this.downloadService.download(res.result.url, fileName, mime).subscribe(
+                    (response: Download) => {
+                        if (response.state === 'DONE') {
+                            this.toastrService.success('Downloaded successfully');
+                            this.displayExportDialog = false;
                             this.isDownloading = false;
-                        },
-                    );
-                }
-                this.isDownloading = false;
-            });
+                        }
+                    },
+                    (error) => {
+                        this.toastrService.error('Download failed');
+                        this.isDownloading = false;
+                    },
+                );
+            }
+            this.isDownloading = false;
+        });
+    }
+
+    exportOrder(rowData: any) {
+        this.roasterService.exportOuttakeOrders('pdf', { id: rowData.id }).subscribe((res: ApiResponse<any>) => {
+            if (res.success && res.result.url) {
+                const url = res.result.url;
+                const fileName = url.split('?')[0].split('/').pop();
+
+                this.downloadService.download(res.result.url, fileName, 'application/pdf').subscribe(
+                    (response: Download) => {
+                        if (response.state === 'DONE') {
+                            this.toastrService.success('Downloaded successfully');
+                        }
+                    },
+                    (error) => {
+                        this.toastrService.error('Download failed');
+                    },
+                );
+            }
+        });
+    }
+
+    getMenuItemsForItem(item) {
+        return [
+            { label: this.translator.instant('edit'), routerLink: `/outtake-orders/view-order/${item.id}` },
+            {
+                label: this.translator.instant('view_green_coffee_order'),
+                routerLink: `/green-coffee-management/procured-coffee/${item.order_id}`,
+            },
+            { label: this.translator.instant('export'), command: () => this.exportOrder(item) },
+            {
+                label: this.translator.instant('cancel'),
+                command: () => this.cancelOrderFromList(item),
+                visible: item.status !== OuttakeOrderStatus.CANCELLED,
+            },
+        ];
     }
 }

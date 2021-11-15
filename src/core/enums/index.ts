@@ -9,6 +9,7 @@ export * from './mfa';
 export * from './order-chat';
 export * from './orders';
 export * from './organization';
+export * from './outtake-orders';
 export * from './post';
 export * from './procured-coffee';
 export * from './product';
