@@ -425,11 +425,11 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             if (id) {
                 this.userService.editAddress(this.roasterId, id, postData).subscribe((res: any) => {
                     if (res.success) {
-                        this.toastrService.success('Address has been Edited');
+                        this.toastrService.success(this.translator.instant('address_has_been_updated_successfully'));
                         this.getRoAddress(null, true);
                         this.editAddress = false;
                     } else {
-                        this.toastrService.error('Error while Editing the address');
+                        this.toastrService.error('Error while updating the address');
                     }
                 });
             } else {
