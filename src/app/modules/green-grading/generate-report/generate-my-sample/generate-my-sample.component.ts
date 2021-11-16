@@ -110,12 +110,9 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
             if (data.success === true) {
                 this.flavourArray =
                     data.result.map((item) => {
-                        if (item.name.includes('-')) {
-                            item.name = item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length);
-                        }
+                        item.name = item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length);
                         return item;
                     }) ?? [];
-                console.log(this.flavourArray);
             }
         });
     }
