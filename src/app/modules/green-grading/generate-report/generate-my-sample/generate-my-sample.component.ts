@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output, Input, OnChanges } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { GreenGradingService, AuthService, UserService } from '@services';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService, GreenGradingService, UserService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -108,7 +108,14 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     getFlavourProfileList() {
         this.userService.getFlavourProfile().subscribe((data: any) => {
             if (data.success === true) {
-                this.flavourArray = data.result ?? [];
+                this.flavourArray =
+                    data.result.map((item) => {
+                        if (item.name.includes('-')) {
+                            item.name = item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length);
+                        }
+                        return item;
+                    }) ?? [];
+                console.log(this.flavourArray);
             }
         });
     }
