@@ -61,5 +61,7 @@
             (onPageChange)="paginate($event)"
         ></p-paginator>
     </div>
-    <div *ngIf="!drafts.length" class="text-center py-4">{{ 'no_data_is_available' | translate }}</div>
+    <div [ngClass]="{ 'd-none': !drafts.length }" class="text-center py-4">
+        {{ 'no_data_is_available' | translate }}
+    </div>
 </div>

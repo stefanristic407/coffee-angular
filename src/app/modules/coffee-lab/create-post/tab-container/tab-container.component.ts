@@ -28,9 +28,9 @@ export class TabContainerComponent implements OnInit {
             if (type === 'draft') {
                 this.selectedIndex = 3;
             }
-        });
-        this.coffeeLabService.allDrafts.subscribe((res) => {
-            this.draftsLength = res.length;
+            this.coffeeLabService.allDrafts.subscribe((res) => {
+                this.draftsLength = res.length;
+            });
         });
     }
 
