@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { CommonService, DownloadService, ResizeService, TransactionService } from '@services';
-import { ResizeableComponent } from '@base-components';
-import { ApiResponse, Download, Transaction } from '@models';
-import { SelectItem } from 'primeng/api';
-import { getOrgName, noWhitespaceValidator, trackFileName } from '@utils';
-import { OrganizationType } from '@enums';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
+import { OrganizationType } from '@enums';
+import { ApiResponse, Download, Transaction } from '@models';
 import { TranslateService } from '@ngx-translate/core';
+import { CommonService, DownloadService, ResizeService, TransactionService } from '@services';
+import { getOrgName, noWhitespaceValidator, trackFileName } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { SelectItem } from 'primeng/api';
 
 @Component({
     selector: 'app-transaction-detail',
@@ -26,6 +26,8 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
     addressDetails: SelectItem[];
     orderTableColumns: any[] = [];
     referenceForm: FormGroup;
+    refNumber: string;
+    editRefMode = false;
     orderItems: any[];
     orderSummary: SelectItem[];
     isDownloading = false;
@@ -124,6 +126,7 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
         this.transactionService.getTransaction(this.transactionId).subscribe((res: ApiResponse<Transaction>) => {
             if (res.success) {
                 this.transaction = res.result;
+                this.refNumber = this.transaction.roaster_reference_number;
                 this.referenceForm.patchValue(this.transaction);
                 this.makeData();
                 this.orderItems = this.transaction.order_items;
@@ -226,9 +229,11 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
             .createReferenceNumber(this.transaction.channel, this.transaction.document_number, refNo)
             .subscribe((res) => {
                 if (res.success) {
+                    this.refNumber = refNo;
                     this.toastr.success('Order reference number has been updated.');
                 }
                 this.isSubmitted = false;
+                this.editRefMode = false;
             });
     }
 }

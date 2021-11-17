@@ -1,91 +1,97 @@
 <div class="p-md-4 border-md-main br-4">
-    <div class="d-flex flex-wrap mb-md-3">
-        <div class="mr-3 mr-md-5 mb-3">
-            <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
-                {{ 'overall_experience' | translate }}
-            </p>
-            <p class="fnt-14 lh-normal fnt-bold text-clr334">
-                <span class="fa fa-star mr-1"></span>
-                {{ average?.overall_experience | number: '1.1-1' }}
-            </p>
+    <ng-container *ngIf="reviews?.length; else empty">
+        <div class="d-flex flex-wrap mb-md-3">
+            <div class="mr-3 mr-md-5 mb-3">
+                <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
+                    {{ 'overall_experience' | translate }}
+                </p>
+                <p class="fnt-14 lh-normal fnt-bold text-clr334">
+                    <span class="fa fa-star mr-1"></span>
+                    {{ average?.overall_experience | number: '1.1-1' }}
+                </p>
+            </div>
+            <div class="mr-3 mr-md-5 mb-3">
+                <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
+                    {{ 'communication' | translate }}
+                </p>
+                <p class="fnt-14 lh-normal fnt-bold text-clr334">
+                    <span class="fa fa-star mr-1"></span>
+                    {{ average?.communication | number: '1.1-1' }}
+                </p>
+            </div>
+            <div *ngIf="orgType == OrgType.ESTATE" class="mr-3 mr-md-5 mb-3 d-none d-md-block">
+                <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">Green coffee</p>
+                <p class="fnt-14 lh-normal fnt-bold text-clr334">
+                    <span class="fa fa-star mr-1"></span>
+                    {{ average?.green_coffee | number: '1.1-1' }}
+                </p>
+            </div>
+            <div class="ml-md-auto mb-4">
+                <p-dropdown
+                    [options]="termItems"
+                    [(ngModel)]="termStatus"
+                    (onChange)="filterCall()"
+                    styleClass="no-border no-padding accent"
+                ></p-dropdown>
+            </div>
         </div>
-        <div class="mr-3 mr-md-5 mb-3">
-            <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
-                {{ 'communication' | translate }}
-            </p>
-            <p class="fnt-14 lh-normal fnt-bold text-clr334">
-                <span class="fa fa-star mr-1"></span>
-                {{ average?.communication | number: '1.1-1' }}
-            </p>
-        </div>
-        <div *ngIf="orgType == OrgType.ESTATE" class="mr-3 mr-md-5 mb-3 d-none d-md-block">
-            <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">Green coffee</p>
-            <p class="fnt-14 lh-normal fnt-bold text-clr334">
-                <span class="fa fa-star mr-1"></span>
-                {{ average?.green_coffee | number: '1.1-1' }}
-            </p>
-        </div>
-        <div class="ml-md-auto mb-4">
-            <p-dropdown
-                [options]="termItems"
-                [(ngModel)]="termStatus"
-                (onChange)="filterCall()"
-                styleClass="no-border no-padding accent"
-            ></p-dropdown>
-        </div>
-    </div>
-    <div class="review-list">
-        <div *ngFor="let review of reviews | slice: 0:limit; let i = index">
-            <div *ngIf="i" class="solid-divider message-space my-3 my-md-4"></div>
-            <div class="d-flex justify-content-between">
-                <div class="d-flex">
-                    <div class="mr-25 mr-md-3">
-                        <app-avatar
-                            [size]="36"
-                            [src]="review.reviewed_by_image"
-                            [name]="review.reviewed_by_name"
-                        ></app-avatar>
-                    </div>
-                    <div class="mb-25 mb-md-4">
-                        <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
-                            {{ review.reviewed_by_name | titlecase }}
-                        </h3>
-                        <p class="fnt-14 lh-normal fnt-bold text-clr588 mb-1 mb-md-2">
-                            {{ review.reviewed_by_type == 'ro' ? 'Roaster' : 'Facilitator' }}
-                        </p>
-                        <div class="d-flex align-items-center">
-                            <span>
-                                <p-rating
-                                    [ngModel]="review.total_rating"
-                                    [cancel]="false"
-                                    [readonly]="true"
-                                    class="fnt-12 lh-normal"
-                                ></p-rating
-                            ></span>
-                            <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">
-                                {{ review.total_rating | number: '1.1-1' }}
-                            </span>
+        <div class="review-list">
+            <div *ngFor="let review of reviews | slice: 0:limit; let i = index">
+                <div *ngIf="i" class="solid-divider message-space my-3 my-md-4"></div>
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex">
+                        <div class="mr-25 mr-md-3">
+                            <app-avatar
+                                [size]="36"
+                                [src]="review.reviewed_by_image"
+                                [name]="review.reviewed_by_name"
+                            ></app-avatar>
+                        </div>
+                        <div class="mb-25 mb-md-4">
+                            <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
+                                {{ review.reviewed_by_name | titlecase }}
+                            </h3>
+                            <p class="fnt-14 lh-normal fnt-bold text-clr588 mb-1 mb-md-2">
+                                {{ review.reviewed_by_type == 'ro' ? 'Roaster' : 'Facilitator' }}
+                            </p>
+                            <div class="d-flex align-items-center">
+                                <span>
+                                    <p-rating
+                                        [ngModel]="review.total_rating"
+                                        [cancel]="false"
+                                        [readonly]="true"
+                                        class="fnt-12 lh-normal"
+                                    ></p-rating
+                                ></span>
+                                <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">
+                                    {{ review.total_rating | number: '1.1-1' }}
+                                </span>
+                            </div>
                         </div>
                     </div>
+                    <div>
+                        <p class="fnt-12 lh-normal fnt-600 text-clr588">
+                            {{ review.created_at | date: 'MMM, y' }}
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <p class="fnt-12 lh-normal fnt-600 text-clr588">
-                        {{ review.created_at | date: 'MMM, y' }}
-                    </p>
+                <div class="fnt-12 fnt-md-14 lh-normal fnt-500 text-clr588 text-md-clr334 message-space">
+                    <app-read-more [content]="review.comment" rows="3"></app-read-more>
                 </div>
             </div>
-            <div class="fnt-12 fnt-md-14 lh-normal fnt-500 text-clr588 text-md-clr334 message-space">
-                <app-read-more [content]="review.comment" rows="3"></app-read-more>
-            </div>
-        </div>
 
-        <div *ngIf="limit < reviews.length" class="mt-4">
-            <div class="solid-divider message-space my-3 my-md-4"></div>
-            <div class="d-flex justify-content-end">
-                <div class="brown-cta" (click)="seeMore()">
-                    {{ 'more_reviews' | translate }}
+            <div *ngIf="limit < reviews.length" class="mt-4">
+                <div class="solid-divider message-space my-3 my-md-4"></div>
+                <div class="d-flex justify-content-end">
+                    <div class="brown-cta" (click)="seeMore()">
+                        {{ 'more_reviews' | translate }}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </div>
+
+<ng-template #empty>
+    <app-empty [title]="'no_reviews_are_available' | translate"></app-empty>
+</ng-template>
