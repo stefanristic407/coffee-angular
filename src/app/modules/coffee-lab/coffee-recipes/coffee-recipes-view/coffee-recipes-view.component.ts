@@ -95,7 +95,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                     : 'asc',
             level: this.coffeeLabService.recipeViewLevel?.toLowerCase(),
             publish: true,
-            category_slug: this.coffeeLabService.recipeViewCategory,
+            category_id: this.coffeeLabService.recipeViewCategory,
             page: this.pages,
             per_page: this.rows,
         };

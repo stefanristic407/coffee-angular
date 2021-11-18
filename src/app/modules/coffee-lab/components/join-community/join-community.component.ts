@@ -23,7 +23,7 @@ export class JoinCommunityComponent implements OnInit {
         this.isLoading = true;
         this.coffeeLabService
             .getForumList('question', {
-                page: this.pages ? this.pages + 1 : 2,
+                page: 1,
                 per_page: 15,
                 category_slug: this.coffeeLabService.qaForumViewCategory,
             })

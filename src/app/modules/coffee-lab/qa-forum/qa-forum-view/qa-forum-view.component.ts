@@ -76,7 +76,7 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
                     ? 'desc'
                     : 'asc',
             publish: true,
-            category_slug: this.coffeeLabService.qaForumViewCategory,
+            category_id: this.coffeeLabService.qaForumViewCategory,
             page: this.pages,
             per_page: this.rows,
         };
