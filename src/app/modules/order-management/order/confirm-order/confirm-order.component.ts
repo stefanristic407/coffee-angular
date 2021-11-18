@@ -41,7 +41,7 @@ export class ConfirmOrderComponent extends DestroyableComponent {
                 this.toastrService.success('Order confirmed');
                 this.orderService.loadOrderDetails(this.orderId, this.orgType);
             } else {
-                this.toastrService.error('error while accepting order');
+                this.toastrService.error('Error while accepting order');
             }
         });
     }
