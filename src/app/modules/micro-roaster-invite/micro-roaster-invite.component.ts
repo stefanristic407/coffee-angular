@@ -4,7 +4,7 @@ import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, GlobalsService, PrimeTableService, ResizeService } from '@services';
+import { AuthService, GlobalsService, PrimeTableService, ResizeService, UserService } from '@services';
 import * as moment from 'moment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
@@ -19,8 +19,7 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
     readonly env = environment;
     searchTerm = '';
     statusItems;
-    roasterUniqueId;
-    microRoasterLink = { invite_url: `${this.env.ssoWeb}setup/micro-roaster` };
+    microRoasterLink: any;
     breadItems = [
         { label: this.translator.instant('home'), routerLink: '/' },
         { label: this.translator.instant('micro_roaster_invite') },
@@ -56,6 +55,7 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
         private authService: AuthService,
         private translator: TranslateService,
         public dialogSrv: DialogService,
+        private userService: UserService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
@@ -204,6 +204,13 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
             setTimeout(() => {
                 this.table.reset();
             }, 0);
+        });
+        this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
+            if (result.success) {
+                this.microRoasterLink = {
+                    invite_url: `${this.env.ssoWeb}/setup/micro-roaster/${result.result.referral_code}`,
+                };
+            }
         });
     }
     setStatus() {
