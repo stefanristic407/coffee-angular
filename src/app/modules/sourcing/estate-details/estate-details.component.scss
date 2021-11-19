@@ -21,6 +21,9 @@
     background-color: $primary-bg-color;
     height: 109px;
     width: calc(100% + 2rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     @media (min-width: 768px) {
         height: 208px;
         width: 100%;
@@ -30,10 +33,12 @@
     }
 
     img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
+        &:not(.empty) {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
     }
 }
 

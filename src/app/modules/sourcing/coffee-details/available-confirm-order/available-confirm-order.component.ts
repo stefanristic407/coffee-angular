@@ -281,7 +281,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             address_line1: ['', Validators.compose([Validators.required])],
             address_line2: [''],
             city: ['', Validators.compose([Validators.required])],
-            zipcode: ['', Validators.compose([Validators.required])],
+            zipcode: [''],
         });
         this.addressForm.patchValue(isBilling ? this.billingAddress : this.deliveryAddress);
         this.changeCountry();

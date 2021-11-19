@@ -194,7 +194,7 @@
 
                         <div class="px-3 pb-1">
                             <div class="d-flex justify-content-between pt-3">
-                                <span class="text-clr334">{{ rowData.status }}</span>
+                                <span class="text-clr334">{{ rowData.status | sentencecase }}</span>
                                 <span class="text-muted">{{ rowData.created_at | date: 'dd/MM/yyyy' }}</span>
                             </div>
 
@@ -296,7 +296,7 @@
             </td>
             <td class="d-none d-md-table-cell text-overflow-ellipsis" width="100px">
                 <div class="d-flex">
-                    <span class="text-overflow-ellipsis"> {{ rowData.status }} </span>
+                    <span class="text-overflow-ellipsis"> {{ rowData.status | sentencecase }} </span>
                 </div>
             </td>
             <td class="d-none d-md-table-cell" width="100px">

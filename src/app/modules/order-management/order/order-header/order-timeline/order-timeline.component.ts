@@ -205,7 +205,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             ];
 
             if (this.orgType === OrganizationType.ESTATE) {
-                this.timelinePoints.push({ label: 'Confirm', value: OrderStatus.Graded });
+                this.timelinePoints.push({ label: 'Received', value: OrderStatus.Graded });
             }
         }
     }

@@ -67,13 +67,7 @@ export class PurchaseService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `${this.getOrderEndpoint(orgType)}?${params}`, 'GET').pipe(
             map((res) => {
                 if (res.success) {
-                    res.result = res.result || [];
-                    const arr = res.result.map((x) => ({
-                        ...x,
-                        status: this.getLabel(ORDER_STATUS_ITEMS, x.status),
-                    }));
-
-                    return { ...res, result: arr };
+                    return { ...res, result: res.result || [] };
                 }
             }),
         );
