@@ -46,7 +46,6 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             const language = this.activatedRoute.snapshot.queryParamMap.get('language');
             this.language = language || this.coffeeLabService.currentForumLanguage;
             this.getDetails(true);
-            this.getArticleList();
         });
         this.activatedRoute.queryParams.subscribe((queryParams) => {
             this.isMyPost = queryParams.isMyPost;
@@ -63,11 +62,13 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     getArticleList(): any {
         const params = {
-            count: 10,
+            count: 11,
         };
+        this.relatedData = [];
         this.coffeeLabService.getPopularList('article', params).subscribe((res: any) => {
             if (res.success) {
-                this.relatedData = res.result;
+                this.relatedData = res.result.filter((item) => item.id !== this.detailsData.id);
+                this.relatedData = this.relatedData.slice(0, 10);
             }
         });
     }
@@ -81,6 +82,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         this.coffeeLabService.getForumDetails('article', this.idOrSlug).subscribe((res: any) => {
             if (res.success) {
                 this.detailsData = res.result;
+                this.getArticleList();
                 this.isSaveArticle = this.detailsData.is_saved;
                 if (this.detailsData?.original_article_state && this.detailsData?.original_article_state === 'ACTIVE') {
                     this.getOriginalUserDetail(this.detailsData.original_article);

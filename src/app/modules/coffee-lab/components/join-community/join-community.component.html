@@ -12,14 +12,13 @@
         [ngClass]="{ 'border-none': !data?.question, 'question-list': data?.question }"
     >
         <p
-            *ngIf="data.question"
             class="pb-3 hover-underline"
             [ngClass]="{ 'pt-4': ind === 0, 'pt-3': ind > 0, 'pb-4': ind === relatedData?.length }"
         >
             <a
-                [routerLink]="[getLink(data, null).url]"
+                [routerLink]="getLink(data)"
                 class="fnt-14 fnt-muli fnt-600 text-clr24"
-                [innerHTML]="data.question"
+                [innerHTML]="type === 'question' && detailType !== 'question-detail' ? data.title : data.question"
             ></a>
         </p>
     </div>

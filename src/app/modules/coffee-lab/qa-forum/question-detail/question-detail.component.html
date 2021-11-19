@@ -282,7 +282,11 @@
     </div>
 
     <div *ngIf="!isLoading" class="col-lg-5 px-0 pl-md-5">
-        <app-join-community [detailType]="'question-detail'" [type]="'question'"></app-join-community>
+        <app-join-community
+            [detailType]="'question-detail'"
+            [categories]="detailsData.categories"
+            [type]="'question'"
+        ></app-join-community>
     </div>
 </div>
 
