@@ -152,21 +152,22 @@ export class BrandUploaderComponent extends ResizeableComponent implements OnIni
                                         reject();
                                     },
                                 );
+                                event.target.value = '';
                             }),
                         );
                     }
 
                     Promise.all(promises)
                         .then(() => {
-                            event.target.value = '';
+                            this.fileInput.nativeElement.value = '';
                         })
                         .catch(() => {
                             this.toastrService.error('Error while uploading');
-                            event.target.value = '';
+                            this.fileInput.nativeElement.value = '';
                         });
                 })
                 .catch(() => {
-                    event.target.value = '';
+                    this.fileInput.nativeElement.value = '';
                 });
             promises = [];
         }
