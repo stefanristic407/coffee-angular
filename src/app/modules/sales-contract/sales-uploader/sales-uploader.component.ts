@@ -120,6 +120,7 @@ export class SalesUploaderComponent extends ResizeableComponent implements OnIni
                                 reject();
                             },
                         );
+                        event.target.value = '';
                     }),
                 );
             }
