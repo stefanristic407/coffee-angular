@@ -152,7 +152,6 @@ export class BrandUploaderComponent extends ResizeableComponent implements OnIni
                                         reject();
                                     },
                                 );
-                                event.target.value = '';
                             }),
                         );
                     }
