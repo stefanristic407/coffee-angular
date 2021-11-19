@@ -6,8 +6,8 @@
                 <ng-template pTemplate="header">
                     <p class="w-100 activity-date fnt-12 fnt-md-16 fnt-600 text-black334 mb-3 mb-md-4">
                         {{ day.date | date: 'EEEE, d MMM yyyy' }}
-                        <img class="pl-2" src="assets/images/collapse-arrow.svg" *ngIf="!tab.selected" />
-                        <img class="pl-2" src="assets/images/expand-arrow.svg" *ngIf="tab.selected" />
+                        <img class="pl-2" src="assets/images/collapse-arrow.svg" *ngIf="tab.selected" />
+                        <img class="pl-2" src="assets/images/expand-arrow.svg" *ngIf="!tab.selected" />
                     </p>
                 </ng-template>
 
@@ -24,7 +24,13 @@
                             <ul class="details-list p-0 ml-0 ml-md-4 mb-0 mb-md-3">
                                 <li class="list-activity py-3 py-md-0">
                                     <div
-                                        class="mb-1 text-left fnt-normal fnt-sm-12 d-block d-md-none list-time list-time--mobile"
+                                        class="
+                                            mb-1
+                                            text-left
+                                            fnt-normal fnt-sm-12
+                                            d-block d-md-none
+                                            list-time list-time--mobile
+                                        "
                                     >
                                         {{ activity.created_at | date: 'shortTime' }}
                                     </div>

@@ -177,7 +177,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
             {
                 field: 'order_type',
                 header: 'Order type',
-                width: 9,
+                width: 10,
             },
             {
                 field: 'id',
@@ -192,7 +192,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
             {
                 field: 'total_amount',
                 header: 'Total amt.',
-                width: 12,
+                width: 11,
             },
             {
                 field: 'vat_amount',

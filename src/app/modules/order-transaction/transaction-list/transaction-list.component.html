@@ -253,7 +253,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.grand_total || 0
-                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
+                                | currencyFormat: primeTableService.result?.currency
                         }}
                     </span>
                 </th>
@@ -262,7 +262,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.total_vat || 0
-                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
+                                | currencyFormat: primeTableService.result?.currency
                         }}
                     </span>
                 </th>
@@ -271,7 +271,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.total_commission || 0
-                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
+                                | currencyFormat: primeTableService.result?.currency
                         }}
                     </span>
                 </th>

@@ -413,6 +413,7 @@ export class DefaultSettingsComponent implements OnInit {
                                 return;
                             },
                         );
+                        target.value = '';
                     }
 
                     if (this.fileImage) {
@@ -441,6 +442,7 @@ export class DefaultSettingsComponent implements OnInit {
                             },
                         );
                     }
+                    target.value = '';
                 }
             });
         }
@@ -565,6 +567,7 @@ export class DefaultSettingsComponent implements OnInit {
                 }
             });
         }
+        event.target.value = '';
     }
 
     downloadMaterialFile() {
