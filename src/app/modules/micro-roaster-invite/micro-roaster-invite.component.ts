@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
+import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, GlobalsService, PrimeTableService, ResizeService } from '@services';
 import * as moment from 'moment';
@@ -15,9 +16,11 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./micro-roaster-invite.component.scss'],
 })
 export class MicroRoasterInviteComponent extends ResizeableComponent implements OnInit {
+    readonly env = environment;
     searchTerm = '';
     statusItems;
-    microRoasterLink = { invite_url: 'www.google.com' };
+    roasterUniqueId;
+    microRoasterLink = { invite_url: `${this.env.ssoWeb}setup/micro-roaster` };
     breadItems = [
         { label: this.translator.instant('home'), routerLink: '/' },
         { label: this.translator.instant('micro_roaster_invite') },
@@ -26,8 +29,9 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
     originArray: any = [];
     roasterId: any;
     status = [
-        { label: this.globals.languageJson?.approved, value: 'approved' },
-        { label: this.globals.languageJson?.rejected, value: 'rejected' },
+        { label: 'Approved', value: 'approved' },
+        { label: 'Rejected', value: 'rejected' },
+        { label: 'Pending', value: 'pending' },
     ];
     forms: FormGroup;
     termStatus: any;
@@ -56,7 +60,7 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
         this.primeTableService.rows = 10;
-        this.primeTableService.sortBy = 'order_date';
+        this.primeTableService.sortBy = 'created_at';
     }
 
     @ViewChild('markedTable', { static: true }) table: Table;
@@ -74,26 +78,44 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
             this.primeTableService.isMobileView = true;
             this.primeTableService.allColumns = [
                 {
-                    field: 'type_of_customer',
+                    field: 'id',
+                    header: this.globals.languageJson?.order_id,
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'name',
                     header: this.globals.languageJson?.company_name,
                     sortable: false,
                     width: 50,
                 },
                 {
-                    field: 'customer_name',
+                    field: 'user_first_name',
                     header: this.globals.languageJson?.customer_name,
                     sortable: false,
                     width: 50,
                 },
                 {
-                    field: 'price',
+                    field: 'email',
                     header: this.globals.languageJson?.email,
                     sortable: false,
                     width: 50,
                 },
                 {
-                    field: 'quantity',
+                    field: 'city',
                     header: this.globals.languageJson?.city_name,
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'created_at',
+                    header: this.globals.languageJson?.created_on,
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'status',
+                    header: this.globals.languageJson?.status,
                     sortable: false,
                     width: 50,
                 },
@@ -102,37 +124,37 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
             this.primeTableService.isMobileView = false;
             this.primeTableService.allColumns = [
                 {
-                    field: 'product_name',
+                    field: 'name',
                     header: this.globals.languageJson?.company_name,
                     sortable: false,
                     width: 80,
                 },
                 {
-                    field: 'customer_name',
+                    field: 'user_first_name',
                     header: this.globals.languageJson?.customer_name,
                     sortable: false,
                     width: 80,
                 },
                 {
-                    field: 'gc_odrer_id',
+                    field: 'email',
                     header: this.globals.languageJson?.email,
                     sortable: false,
                     width: 80,
                 },
                 {
-                    field: 'date_placed',
+                    field: 'created_at',
                     header: this.globals.languageJson?.created_on,
                     sortable: false,
                     width: 60,
                 },
                 {
-                    field: 'price',
+                    field: 'city',
                     header: this.globals.languageJson?.city_name,
                     sortable: false,
                     width: 50,
                 },
                 {
-                    field: 'quantity',
+                    field: 'status',
                     header: this.globals.languageJson?.status,
                     sortable: false,
                     width: 50,
@@ -148,7 +170,7 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
     }
 
     ngOnInit(): void {
-        this.primeTableService.url = `/ro/${this.roasterId}/outtake-orders`;
+        this.primeTableService.url = `/ro/${this.roasterId}/public-onboard/requests`;
 
         this.initializeTable();
         this.originArray = COUNTRY_LIST;
@@ -185,7 +207,7 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
         });
     }
     setStatus() {
-        this.primeTableService.customer_type = this.customerStatus;
+        this.primeTableService.status = this.customerStatus;
         this.table.reset();
     }
     setOrigin() {
@@ -199,7 +221,7 @@ export class MicroRoasterInviteComponent extends ResizeableComponent implements 
 
     onView(item) {
         let link = [];
-        link = [`/mr-invite/details`];
+        link = [`/mr-invite/${item.id}`];
         return link;
     }
 }

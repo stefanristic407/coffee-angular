@@ -81,6 +81,7 @@ export class RoasteryProfileService {
     roasterProfile() {
         this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
             if (result.success) {
+                console.log(result);
                 this.organizationProfile = result.result;
                 this.toUpdateProfileData = result.result;
                 this.authService.organizationSubject.next(result.result);

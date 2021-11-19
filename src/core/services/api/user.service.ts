@@ -1552,4 +1552,30 @@ export class UserService extends ApiService {
         };
         return this.http.post(this.orgPostUrl, data);
     }
+
+    getMrPublicOnboardDetails(roasterId: any, requestId: any) {
+        const data = {
+            api_call: `/ro/${roasterId}/public-onboard/requests/${requestId}`,
+            method: 'GET',
+            token: this.authService.token,
+        };
+        return this.http.post(this.orgPostUrl, data);
+    }
+
+    approveMrPublicOnboard(roasterId: any, requestId: any) {
+        const data = {
+            api_call: `/ro/${roasterId}/public-onboard/requests/${requestId}/approve`,
+            method: 'PUT',
+            token: this.authService.token,
+        };
+        return this.http.post(this.orgPostUrl, data);
+    }
+    rejectMrPublicOnboard(roasterId: any, requestId: any) {
+        const data = {
+            api_call: `/ro/${roasterId}/public-onboard/requests/${requestId}/reject`,
+            method: 'PUT',
+            token: this.authService.token,
+        };
+        return this.http.post(this.orgPostUrl, data);
+    }
 }

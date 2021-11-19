@@ -117,7 +117,7 @@
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr>
                     <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                        <span *ngSwitchCase="'order_id'" [routerLink]="onView(rowData)">
+                        <span *ngSwitchCase="'id'" [routerLink]="onView(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                     {{ 'order_id' | translate }}
@@ -128,14 +128,25 @@
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'product_name'" [routerLink]="onView(rowData)">
+                        <span *ngSwitchCase="'user_first_name'" [routerLink]="onView(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
                                     {{ 'product_name' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['product_name'] }}
+                                    {{ rowData['user_first_name'] }} {{ rowData['user_last_name'] }}
+                                </span>
+                            </div>
+                        </span>
+                        <span *ngSwitchCase="'name'" [routerLink]="onView(rowData)">
+                            <div class="d-flex">
+                                <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                    {{ 'company_name' | translate }}
+                                </span>
+
+                                <span [class.w-50]="primeTableService.isMobileView">
+                                    {{ rowData['name'] }}
                                 </span>
                             </div>
                         </span>
@@ -150,46 +161,57 @@
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'gc_odrer_id'" [routerLink]="onView(rowData)">
+                        <span *ngSwitchCase="'email'" [routerLink]="onView(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    {{ 'gc_order_id' | translate }}
+                                    {{ 'email' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['order_id'] }}
+                                    {{ rowData['email'] }}
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'date_placed'" [routerLink]="onView(rowData)">
+                        <span *ngSwitchCase="'city'" [routerLink]="onView(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    {{ 'date_placed' | translate }}
+                                    {{ 'city' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['order_date'] | date: 'd MMM yyyy' }}
+                                    {{ rowData['city'] }}
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'price'" [routerLink]="onView(rowData)">
+                        <span *ngSwitchCase="'created_at'" [routerLink]="onView(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    {{ 'price' | translate }}
+                                    {{ 'created_on' | translate }}
                                 </span>
-                                <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['total_price'] || '--' }} {{ rowData['total_price_currency'] || '--' }}
+
+                                <span [class.w-50]="primeTableService.isMobileView">
+                                    {{ rowData['created_at'] | date: 'd MMM yyyy' }}
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'quantity'" [routerLink]="onView(rowData)">
+                        <span *ngSwitchCase="'status'" [routerLink]="onView(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    {{ 'quantity' | translate }}
+                                    {{ 'status' | translate }}
                                 </span>
-                                <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
-                                    {{ rowData['gc_total_quantity'] || '--' }}
-                                    {{ rowData['gc_total_quantity_unit'] || '--' }}
+
+                                <span
+                                    [class.w-50]="primeTableService.isMobileView"
+                                    [ngStyle]="{
+                                        color:
+                                            rowData['status'] === 'approved'
+                                                ? '#649a2b'
+                                                : rowData['status'] === 'rejected'
+                                                ? '#d50000'
+                                                : '#d6d6d6'
+                                    }"
+                                >
+                                    {{ rowData['status'] | titlecase }}
                                 </span>
                             </div>
                         </span>

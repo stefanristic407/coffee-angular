@@ -8,7 +8,7 @@ const routes: Routes = [
         path: '',
         component: MicroRoasterInviteComponent,
     },
-    { path: 'details', component: MicroRoasterInviteDetailsComponent },
+    { path: ':id', component: MicroRoasterInviteDetailsComponent },
 ];
 
 @NgModule({
