@@ -30,7 +30,6 @@ export class MicroRoasterInviteDetailsComponent implements OnInit {
     }
     getMrPublicOnboardDetails() {
         this.userService.getMrPublicOnboardDetails(this.roasterId, this.requestId).subscribe((res: any) => {
-            console.log(res);
             if (res.success) {
                 this.organizationProfile = res.result;
             }
