@@ -158,15 +158,15 @@ export class BrandUploaderComponent extends ResizeableComponent implements OnIni
 
                     Promise.all(promises)
                         .then(() => {
-                            this.fileInput.nativeElement.value = '';
+                            event.target.value = '';
                         })
                         .catch(() => {
                             this.toastrService.error('Error while uploading');
-                            this.fileInput.nativeElement.value = '';
+                            event.target.value = '';
                         });
                 })
                 .catch(() => {
-                    this.fileInput.nativeElement.value = '';
+                    event.target.value = '';
                 });
             promises = [];
         }
