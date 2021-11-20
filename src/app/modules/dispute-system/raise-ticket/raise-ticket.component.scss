@@ -75,3 +75,33 @@
         padding: 0rem 1rem;
     }
 }
+.file-box {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 5px;
+    .file-name-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f8f8f8;
+        padding: 6px 8px 6px 16px;
+        border-radius: 3px;
+        min-width: 50%;
+        margin: 5px;
+
+        .file-uploader-loader {
+            display: block;
+            ::ng-deep .p-progress-spinner {
+                width: 16px;
+                height: 16px;
+                display: block;
+            }
+            ::ng-deep .p-progress-spinner .p-progress-spinner-circle {
+                stroke: #3e5569;
+            }
+        }
+    }
+}

@@ -237,4 +237,7 @@ export class RaiseTicketComponent implements OnInit {
         };
         this.router.navigate(['/dispute-system/order-chat', this.orderId], navigationExtras);
     }
+    removeFile(index: number) {
+        this.filesArray.splice(index, 1);
+    }
 }

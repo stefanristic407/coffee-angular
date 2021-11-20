@@ -239,10 +239,12 @@ import { ArrayFilterPipe } from './pipes/array-filter.pipe';
 import { StringReplacePipe } from './pipes/string-replace.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+
 import {
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
     ConvertKgPipe,
+    CurrencyFormatPipe,
     EstateBrandLinkPipe,
     GcBrandLinkPipe,
     HtmlStringWordCountPipe,
@@ -268,6 +270,7 @@ const PIPES = [
     ConvertKgPipe,
     ConvertToShortDescriptionPipe,
     CountryPipe,
+    CurrencyFormatPipe,
     EstateBrandLinkPipe,
     FileIconPipe,
     FileNamePipe,

@@ -84,7 +84,9 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
                 }
                 setTimeout(() => {
                     this.setPagePosition();
-                    document.getElementById('text-focus').focus();
+                    if (document.getElementById('text-focus')) {
+                        document.getElementById('text-focus').focus();
+                    }
                 }, 500);
                 if (res.result.parent_question_id) {
                     this.messageService.clear();
@@ -155,7 +157,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         this.coffeeLabService.copyContext(`${environment.adminWeb}/coffee-lab/questions/${this.detailsData.slug}`);
     }
 
-    onFocusCommentBox() {
+    onFocusCommentBox(event?) {
         document.getElementById('text-focus').focus();
     }
 
@@ -271,5 +273,9 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         if (event) {
             this.showToaster = true;
         }
+    }
+
+    onOrginalArticle(language) {
+        this.coffeeLabService.forumLanguage.next(language);
     }
 }

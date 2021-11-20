@@ -68,6 +68,8 @@ export class DownloadService {
             'Access-Control-Allow-Origin': window.location.origin,
             'Access-Control-Allow-Methods': 'GET, HEAD',
             'Access-Control-Allow-credentials': 'true',
+            pragma: 'no-cache',
+            'cache-control': 'no-cache',
         };
         return this.http
             .get(url, {

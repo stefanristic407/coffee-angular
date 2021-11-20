@@ -44,10 +44,17 @@ export class UserService extends ApiService {
             return this.postWithOrg(this.orgPostUrl, `users/profile`, 'GET');
         }
     }
-
     // Edit user profile
     updateUserProfile(body: any): Observable<ApiResponse<any>> {
         return this.putWithOrg(this.orgPutUrl, `users/profile`, 'PUT', body);
+    }
+    // View organization user profile
+    getOrgUserData(userId: number) {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}`, 'GET');
+    }
+    // Edit organization user profile
+    updateOrgUserData(userId: number, body: object): Observable<ApiResponse<any>> {
+        return this.putWithOrg(this.orgPutUrl, `users/${userId}`, 'PUT', body);
     }
 
     // ------------ User Groups ------------
@@ -257,31 +264,6 @@ export class UserService extends ApiService {
 
     getUser(params: any): Observable<ApiResponse<any>> {
         return this.post(this.orgPostUrl, `users?${this.serializeParams(params)}`, 'GET');
-    }
-
-    // API Function Name : Update Edit Member
-    // API Description: This API calls helps to Edit userdata Details.
-
-    updateUserData(body: any, roaster_id: any, user_id: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/users/' + user_id,
-            token: this.authService.token,
-            method: 'PUT',
-            data: body,
-        };
-        return this.http.put(this.orgPutUrl, data);
-    }
-
-    // API Function Name : Roaster User Data
-    // API Description: This API calls helps to get the particular Roaster user
-
-    getRoasterUserData(roaster_id: any, user_id: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/users/' + user_id,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.orgPostUrl, data);
     }
 
     searchUser(key: string) {

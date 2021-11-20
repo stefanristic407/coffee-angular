@@ -21,17 +21,16 @@
         <div class="d-block flex-wrap d-md-flex">
             <div class="d-md-flex">
                 <div class="mb-25 mb-md-0">
-                    <p-dropdown
+                    <p-multiSelect
                         [options]="categoryList"
                         (onChange)="getCoffeeRecipesData()"
                         [(ngModel)]="coffeeLabService.recipeViewCategory"
                         styleClass="round-border text-clr588"
                         [placeholder]="'categories' | translate"
                         optionLabel="name"
-                        optionValue="slug"
+                        optionValue="parent_id"
                         class="ml-0 mr-3"
-                        [showClear]="true"
-                    ></p-dropdown>
+                    ></p-multiSelect>
                 </div>
                 <div class="mb-25 mb-md-0">
                     <p-dropdown

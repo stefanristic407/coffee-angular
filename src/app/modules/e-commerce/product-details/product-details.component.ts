@@ -41,7 +41,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         'remaining_quantity',
     ];
     eligibleArray = [
-        { label: 'One Time', value: 'one-time' },
+        { label: 'One time', value: 'one-time' },
         { label: 'Subscription', value: 'subscription' },
         { label: 'Both', value: 'both' },
     ];
@@ -49,11 +49,11 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         { label: 'Pour Over', value: 'pour-over' },
         { label: 'Espresso', value: 'espresso' },
         { label: 'Coffeemaker', value: 'coffee-maker' },
-        { label: 'French Press', value: 'french-press' },
-        { label: 'AeroPress', value: 'aeropress' },
-        { label: 'Moka Pot', value: 'mocha-pot' },
+        { label: 'French press', value: 'french-press' },
+        { label: 'Aeropress', value: 'aeropress' },
+        { label: 'Moka pot', value: 'mocha-pot' },
         { label: 'Chemix', value: 'chemex' },
-        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
+        { label: 'Presskanna eller chemex', value: 'Presskanna eller Chemex' },
         { label: 'None', value: '' },
     ];
     roastLevelArray = [

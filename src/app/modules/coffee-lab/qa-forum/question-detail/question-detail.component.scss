@@ -5,12 +5,15 @@
     }
 }
 
-::ng-deep .question-name h1,
-p {
-    font-size: 18px;
-    font-weight: 700;
-    @media (max-width: 768px) {
-        font-size: 16px;
+::ng-deep .question-name {
+    white-space: pre-wrap;
+    h1,
+    p {
+        font-size: 18px;
+        font-weight: 700;
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
     }
 }
 

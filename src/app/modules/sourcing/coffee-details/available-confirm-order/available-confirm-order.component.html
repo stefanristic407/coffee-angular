@@ -316,7 +316,7 @@
                                 <div class="col-lg-8">
                                     <div class="row">
                                         <div class="col-12 col-md-6 sewn-form-field">
-                                            <label>Country<span class="star">*</span></label>
+                                            <label>{{ 'country' | translate }}<span class="star">*</span></label>
                                             <p-dropdown
                                                 [options]="COUNTRY_LIST"
                                                 optionLabel="name"
@@ -324,7 +324,6 @@
                                                 formControlName="country"
                                                 (onChange)="changeCountry()"
                                                 placeholder="{{ 'select_country' | translate }}"
-                                                styleClass="w-100"
                                             ></p-dropdown>
                                             <small
                                                 *ngIf="addressForm.controls.country.errors?.required"
@@ -334,12 +333,11 @@
                                             </small>
                                         </div>
                                         <div class="col-12 col-md-6 sewn-form-field">
-                                            <label>State<span class="star">*</span></label>
+                                            <label>{{ 'state' | translate }}<span class="star">*</span></label>
                                             <p-dropdown
                                                 [options]="cities"
                                                 formControlName="state"
                                                 placeholder="{{ 'select_state' | translate }}"
-                                                styleClass="w-100"
                                             ></p-dropdown>
                                             <small *ngIf="addressForm.controls.state.errors?.required" class="p-error">
                                                 {{ 'required' | translate }}
@@ -353,7 +351,6 @@
                                                 formControlName="address_line1"
                                                 pInputText
                                                 placeholder="Line 1"
-                                                styleClass="w-100"
                                             />
                                             <small
                                                 *ngIf="addressForm.controls.address_line1.errors?.required"
@@ -369,37 +366,28 @@
                                                 placeholder="Line 2"
                                                 formControlName="address_line2"
                                                 pInputText
-                                                styleClass="w-100"
                                             />
                                         </div>
                                         <div class="col-6 col-md-3 sewn-form-field">
-                                            <label>City<span class="star">*</span></label>
+                                            <label>{{ 'city' | translate }}<span class="star">*</span></label>
                                             <input
                                                 type="text"
                                                 placeholder="{{ 'enter_city' | translate }}"
                                                 formControlName="city"
                                                 pInputText
-                                                styleClass="w-100"
                                             />
                                             <small *ngIf="addressForm.controls.city.errors?.required" class="p-error">
                                                 {{ 'required' | translate }}
                                             </small>
                                         </div>
                                         <div class="col-6 col-md-3 sewn-form-field">
-                                            <label>{{ 'zipcode' | translate }}<span class="star">*</span></label>
+                                            <label>{{ 'zipcode' | translate }}</label>
                                             <input
                                                 type="text"
                                                 placeholder="{{ 'zipcode' | translate }}"
                                                 formControlName="zipcode"
                                                 pInputText
-                                                styleClass="w-100"
                                             />
-                                            <small
-                                                *ngIf="addressForm.controls.zipcode.errors?.required"
-                                                class="p-error"
-                                            >
-                                                {{ 'required' | translate }}
-                                            </small>
                                         </div>
                                         <div
                                             class="col-12 col-md-6 d-flex d-flex justify-content-end align-items-center"

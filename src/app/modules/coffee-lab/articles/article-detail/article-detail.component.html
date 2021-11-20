@@ -136,7 +136,7 @@
                                 ></app-forum-menu>
                             </div>
                         </div>
-                        <div class="forum-content w-100 pt-4 mb-5">
+                        <div class="forum-content w-100 pt-4 mb-5 content-margin">
                             <div
                                 class="fnt-muli fnt-14 fnt-normal text-clr334 lh-157 mb-0"
                                 [innerHTML]="detailsData?.content"
@@ -275,7 +275,13 @@
                             <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
                                 <a
                                     class="fnt-14 fnt-600 fnt-muli"
-                                    (click)="onRealtedRoute(detailsData?.original_article?.slug)"
+                                    (click)="
+                                        onRealtedRoute(
+                                            detailsData?.original_article?.slug,
+                                            true,
+                                            detailsData?.original_article?.language
+                                        )
+                                    "
                                     >{{ detailsData?.original_article?.name | titlecase }}</a
                                 >
                             </div>
@@ -373,7 +379,7 @@
             </div>
             <div class="row py-2">
                 <div *ngFor="let forum of relatedData" class="col-12 col-md-6 pb-4">
-                    <div class="d-flex pb-4 footer-border" (click)="onRealtedRoute(forum.slug)">
+                    <div class="d-flex pb-4 footer-border" (click)="onRealtedRoute(forum.slug, false)">
                         <div class="p-articles pr-2 cursor-point"><img [src]="forum?.cover_image_url" alt="" /></div>
                         <div class="cursor-point d-flex flex-column">
                             <p class="fnt-fly fnt-bold text-clr334 cust-flex-grow">

@@ -26,9 +26,7 @@
         <div class="dropdown-wrapper">
             <div class="dropdown-col" *ngIf="type !== 'other'">
                 <p-dropdown
-                    [options]="originArray"
-                    optionLabel="name"
-                    optionValue="isoCode"
+                    [options]="origins"
                     [(ngModel)]="selectedOrigin"
                     [autoDisplayFirst]="false"
                     [showClear]="true"

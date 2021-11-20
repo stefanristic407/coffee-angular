@@ -93,7 +93,6 @@ export class DraftPostsComponent implements OnInit {
                             this.filteredDrafts = this.drafts.filter((item: any) => item.post_id !== draft.post_id);
                             this.toastService.success(`Draft ${draft.post_type} deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
-                            this.getDrafts();
                         } else {
                             this.toastService.error(`Failed to delete a forum.`);
                         }

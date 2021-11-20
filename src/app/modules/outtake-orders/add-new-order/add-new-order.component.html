@@ -284,6 +284,7 @@
                                             text-clr334
                                             br-4
                                             right-dropdown-background
+                                            addon-position-fix
                                             lh-1
                                         "
                                         *ngIf="
@@ -297,6 +298,7 @@
                                             fnt-600
                                             br-4
                                             text-clr334
+                                            addon-position-fix
                                             right-dropdown-background
                                             lh-1
                                         "
@@ -331,6 +333,7 @@
                                             fnt-14 fnt-600 fnt-muli
                                             text-clr334
                                             br-4
+                                            addon-position-fix
                                             right-dropdown-background
                                             lh-1
                                         "
@@ -345,6 +348,7 @@
                                             fnt-14 fnt-600 fnt-muli
                                             text-clr334
                                             br-4
+                                            addon-position-fix
                                             right-dropdown-background
                                             fnt-600
                                             lh-1
@@ -406,9 +410,6 @@
                                     ></p-inputNumber>
                                     <span class="p-inputgroup-addon pr-1 right-dropdown pt-1 position-fix">
                                         <p-dropdown
-                                            [ngClass]="{
-                                                'invalid-gc-order': addOrdersForm.controls['gc_total_quantity'].invalid
-                                            }"
                                             [options]="weightTypeArray"
                                             optionLabel="label"
                                             placeholder=""
@@ -634,12 +635,26 @@
                                     <div>
                                         <label>{{ 'waste_produced' | translate }}</label>
                                     </div>
-                                    <input
-                                        pInputText
-                                        placeholder="{{ 'total_waste_produced' | translate }}"
-                                        [value]="wasteProduced"
-                                        [disabled]="outtakeOrderId"
-                                    />
+                                    <div class="p-inputgroup custom-addon">
+                                        <span
+                                            class="
+                                                p-inputgroup-addon
+                                                fnt-14 fnt-600 fnt-muli
+                                                text-clr334
+                                                br-4
+                                                addon-position-fix
+                                                right-dropdown-background
+                                                lh-1
+                                            "
+                                            >{{ outtakeOrderDetails?.waste_produced_unit || 'Kg' }}</span
+                                        >
+
+                                        <input
+                                            pInputText
+                                            placeholder="{{ 'total_waste_produced' | translate }}"
+                                            [value]="wasteProduced"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -655,11 +670,8 @@
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['gc_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1">
+                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1 position-fix">
                                         <p-dropdown
-                                            [ngClass]="{
-                                                'invalid-gc-order': addOrdersForm.controls['gc_total_quantity'].invalid
-                                            }"
                                             [options]="weightTypeArray"
                                             optionLabel="label"
                                             placeholder=""
@@ -709,12 +721,26 @@
                         <div class="col-sm-12 col-md-6 mob-form-top-margin pl-md-3">
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'waste_produced' | translate }}</label>
-                                <input
-                                    pInputText
-                                    placeholder="{{ 'total_waste_produced' | translate }}"
-                                    [value]="wasteProduced"
-                                    [disabled]="outtakeOrderId"
-                                />
+                                <div class="p-inputgroup custom-addon">
+                                    <span
+                                        class="
+                                            p-inputgroup-addon
+                                            fnt-14 fnt-600 fnt-muli
+                                            text-clr334
+                                            br-4
+                                            addon-position-fix
+                                            right-dropdown-background
+                                            lh-1
+                                        "
+                                        >{{ outtakeOrderDetails?.waste_produced_unit || 'Kg' }}</span
+                                    >
+
+                                    <input
+                                        pInputText
+                                        placeholder="{{ 'total_waste_produced' | translate }}"
+                                        [value]="wasteProduced"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

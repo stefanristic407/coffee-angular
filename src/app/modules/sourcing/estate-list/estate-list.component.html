@@ -46,7 +46,7 @@
                     <ng-container *ngFor="let lotdata of item.lots | slice: 0:3; index as i">
                         <div *ngIf="i == 2" class="mb-2"></div>
                         <a
-                            class="custom-link mr-2"
+                            class="brown-cta mr-2"
                             routerLink="/sourcing/lot-details/{{ item.estate_id }}/{{ lotdata.id }}"
                         >
                             {{ lotdata.name }}
@@ -54,16 +54,17 @@
                     </ng-container>
                     <a
                         *ngIf="item.lots?.length > 3"
-                        class="custom-link"
+                        class="brown-cta"
                         routerLink="/sourcing/estate-details/{{ item.estate_id }}"
                         [queryParams]="{ dataLots: true }"
                         >+{{ item.lots?.length - 3 }}more</a
                     >
                 </td>
                 <td>
-                    <span *ngFor="let cert of item.certificates | slice: 0:2; index as certIdx">
-                        <img class="cert-image" [class.ml-3]="certIdx" [src]="cert.type_id | certificateImg" />
+                    <span *ngFor="let cert of item.certificates | slice: 0:2; index as i">
+                        <img class="cert-image" [class.ml-3]="i" [src]="cert.type_id | certificateImg" />
                     </span>
+                    <span *ngIf="!item.certificates?.length">NA</span>
                 </td>
             </tr>
         </ng-template>

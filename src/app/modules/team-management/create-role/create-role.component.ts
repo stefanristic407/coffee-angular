@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AclService, AuthService, RoasterService, UserService } from '@services';
+import { PERMISSION_DESCRIPTION } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, RoasterService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
-import { GlobalsService } from '@services';
 import { ManagePermissionComponent } from '../manage-permission/manage-permission.component';
-import { PERMISSION_DESCRIPTION } from '@constants';
 
 @Component({
     selector: 'app-create-role',
@@ -16,42 +16,63 @@ import { PERMISSION_DESCRIPTION } from '@constants';
 })
 export class CreateRoleComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
-    roleID: string;
+    isLoading = false;
+    roleID: number;
+    role: any;
     btnValue: string;
     roleError: any;
-    selectedPermission: TreeNode[] = [];
-    roasterID: any;
+    allPermissions: any[];
+    selectedPermissionList: any[];
+    selectedPermissionNodes: TreeNode[] = [];
     permissionList: any = [];
     displayModal = false;
     roleForm: FormGroup;
     isDuplicate = false;
-    @ViewChild(ManagePermissionComponent, { static: false }) managePermission;
 
     constructor(
-        public globals: GlobalsService,
-        private roasterService: RoasterService,
-        private aclService: AclService,
-        private cookieService: CookieService,
-        private route: Router,
         private activeRoute: ActivatedRoute,
-        private userService: UserService,
-        private toasterService: ToastrService,
-        private fb: FormBuilder,
         private authService: AuthService,
+        private cookieService: CookieService,
+        private fb: FormBuilder,
+        private roasterService: RoasterService,
+        private router: Router,
+        private toasterService: ToastrService,
+        private translator: TranslateService,
+        private userService: UserService,
     ) {
-        this.roasterID = this.authService.getOrgId();
         this.activeRoute.params.subscribe((params) => {
-            this.roleID = params.id ? params.id : '';
-            this.btnValue = this.roleID ? this.globals.languageJson?.update_role : this.globals.languageJson?.add_role;
+            this.roleID = params.id || null;
+            this.btnValue = this.roleID ? this.translator.instant('update_role') : this.translator.instant('add_role');
+            this.supplyBreadCrumb();
+            const promises = [];
             if (this.roleID) {
-                this.getRolePermission(this.roleID);
-            } else {
-                this.getRoasterPermission();
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        this.getRole(resolve, reject);
+                    }),
+                );
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        this.getRolePermission(this.roleID, resolve, reject);
+                    }),
+                );
             }
+            promises.push(
+                new Promise((resolve, reject) => {
+                    this.getAllPermissions(resolve, reject);
+                }),
+            );
+            Promise.all(promises)
+                .then(() => {
+                    this.selectPermissions();
+                })
+                .catch(() => {
+                    this.router.navigate(['/team-management/manage-role']);
+                });
         });
         if (this.activeRoute.snapshot.queryParams.duplicate) {
             this.isDuplicate = true;
-            this.btnValue = this.globals.languageJson?.add_role;
+            this.btnValue = this.translator.instant('add_role');
         }
     }
 
@@ -59,53 +80,42 @@ export class CreateRoleComponent implements OnInit {
         this.roleForm = this.fb.group({
             roleName: ['', Validators.compose([Validators.required])],
         });
-        this.supplyBreadCrumb();
     }
-    getRoasterPermission(selectedPermission = []): void {
-        this.roasterService.getRoasterPermissions(this.roasterID).subscribe(
-            (res: any) => {
-                const sortedPermission = res.result?.sort((a: any, b: any) => (a.category > b.category ? -1 : 1));
-                const groupedCategory = this.groupByArray(sortedPermission, 'category');
-                const groupPermission = [];
-                this.selectedPermission = [];
-                groupedCategory.forEach((ele) => {
-                    const parent: any = {};
-                    let label = ele.key;
-                    label = label.replace('-', ' ');
-                    parent.label = label.charAt(0).toUpperCase() + label.slice(1);
-                    parent.selectable = false;
-                    parent.styleClass = 'parentNodeStyle';
-                    let childItems = [];
-                    if (ele.values) {
-                        childItems = ele.values.map((item) => {
-                            const obj: any = {};
-                            let childLabel = item.slug;
-                            childLabel = childLabel.replace('-', ' ');
-                            childLabel = childLabel.charAt(0).toUpperCase() + childLabel.slice(1);
-                            obj.label = childLabel + ' (' + item.access_type + ')';
-                            obj.key = item.id;
-                            obj.data = item.slug;
-                            obj.description = PERMISSION_DESCRIPTION[item.slug];
-                            if (selectedPermission) {
-                                const findSelected = selectedPermission.find((m) => m.id === item.id);
-                                if (findSelected) {
-                                    this.selectedPermission.push(obj);
-                                }
-                            }
-                            return obj;
-                        });
-                    }
-                    parent.children = childItems;
-                    groupPermission.push(parent);
-                });
-                this.managePermission.selectedPermission = this.selectedPermission;
-                this.permissionList = groupPermission;
+
+    getRole(resolve, reject) {
+        this.isLoading = true;
+        this.roasterService.getRole(this.roleID).subscribe((res) => {
+            if (res.success) {
+                this.role = res.result;
+                if (this.role.is_system) {
+                    this.roleForm.get('roleName').disable();
+                }
+                resolve();
+            } else {
+                reject();
+            }
+            this.supplyBreadCrumb();
+            this.isLoading = false;
+        });
+    }
+
+    getAllPermissions(resolve, reject): void {
+        this.roasterService.getAllPermissions().subscribe(
+            (res) => {
+                if (res.success) {
+                    this.allPermissions = res.result || [];
+                    resolve();
+                } else {
+                    reject();
+                }
             },
             (err) => {
+                reject();
                 console.error(err);
             },
         );
     }
+
     groupByArray(arr = [], key) {
         return arr.reduce((rv, x) => {
             const v = key instanceof Function ? key(x) : x[key];
@@ -121,52 +131,39 @@ export class CreateRoleComponent implements OnInit {
             return rv;
         }, []);
     }
+
     supplyBreadCrumb(): void {
-        const obj1: MenuItem = {
-            label: this.globals.languageJson?.home,
-            routerLink: '/',
-            disabled: false,
-        };
-        const obj2: MenuItem = {
-            label: this.globals.languageJson?.team_management,
-            routerLink: '/team-management/manage-role',
-            disabled: false,
-        };
-        const obj3: MenuItem = {
-            label: this.globals.languageJson?.manage_roles,
-            routerLink: '/team-management/manage-role',
-            disabled: false,
-        };
-        const obj4: MenuItem = { label: this.globals.languageJson?.create_role };
-        this.breadCrumbItem.push(obj1);
-        this.breadCrumbItem.push(obj2);
-        this.breadCrumbItem.push(obj3);
-        this.breadCrumbItem.push(obj4);
+        this.breadCrumbItem = [
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('team_management'), routerLink: '/team-management/manage-role' },
+            { label: this.translator.instant('manage_roles'), routerLink: '/team-management/manage-role' },
+            { label: this.role ? this.role.name : this.translator.instant('create_role') },
+        ];
     }
+
     roleAdd(): void {
         if (this.roleForm.valid) {
             const permissionsArray = [];
-            this.managePermission.selectedPermission.forEach((permission) => {
+            this.selectedPermissionNodes.forEach((permission) => {
                 permissionsArray.push(permission.key);
             });
             const body = { permissions: permissionsArray };
             if (this.roleID && !this.isDuplicate) {
-                const data = { name: this.roleForm.controls.roleName.value, roleId: this.roleID };
-                this.updateRole(data, body);
+                this.updateRole(body);
             } else {
-                const data = { name: this.roleForm.controls.roleName.value, id: this.roasterID };
-                this.createRole(data, body);
+                this.createRole(body);
             }
         } else {
             this.roleForm.controls.roleName.markAsTouched();
             this.toasterService.error('Please fill data');
         }
     }
-    createRole(params, permissionArray): void {
-        this.roasterService.createRole(params).subscribe((result: any) => {
+
+    createRole(permissionArray): void {
+        this.roasterService.createRole({ name: this.roleForm.controls.roleName.value }).subscribe((result: any) => {
             if (result.success) {
                 this.toasterService.success('Role has been created. We are assigning permissions.');
-                if (this.managePermission.selectedPermission !== undefined) {
+                if (this.selectedPermissionNodes !== undefined) {
                     const roleID = result.result.role_id;
                     this.assignCreateRole(permissionArray, roleID);
                 }
@@ -175,64 +172,67 @@ export class CreateRoleComponent implements OnInit {
             }
         });
     }
+
     assignCreateRole(data, roleID): void {
-        this.roasterService.assignRolePermissions(data, roleID, this.roasterID).subscribe(
+        this.roasterService.assignRolePermissions(roleID, data).subscribe(
             (permissionResult: any) => {
                 if (permissionResult.success) {
                     this.toasterService.success('Permission created successfully for added role.');
                 }
-                this.route.navigate(['/team-management/manage-role']);
+                this.router.navigate(['/team-management/manage-role']);
             },
             (err) => {
-                this.route.navigate(['/team-management/manage-role']);
+                this.router.navigate(['/team-management/manage-role']);
             },
         );
     }
-    updateRole(params, body): void {
-        this.roasterService.updateRoasterRoleName(params, this.roasterID).subscribe((data: any) => {
-            if (data.success) {
-                this.assignUpdatedRolePermission(body);
-            } else {
-                this.toasterService.error('Error while adding roles and permissions');
-            }
-        });
-    }
-    assignUpdatedRolePermission(body): void {
+
+    updateRole(permissionArray): void {
         this.roasterService
-            .assignRolePermissions(body, this.roleID, this.roasterID)
-            .subscribe((permissionResult: any) => {
-                if (permissionResult.success) {
-                    this.toasterService.success('Permission Updated successfully for Edited role.');
+            .updateRole(this.roleID, { name: this.roleForm.controls.roleName.value })
+            .subscribe((data: any) => {
+                if (data.success) {
+                    this.assignUpdatedRolePermission(permissionArray);
                 } else {
-                    if (!permissionResult.success) {
-                        this.toasterService.error('System role permissions cannot be altered');
-                        setTimeout(() => {
-                            this.route.navigate(['/team-management/manage-role']);
-                        }, 2000);
-                    }
+                    this.toasterService.error('Error while adding roles and permissions');
                 }
             });
     }
-    getUserBasedRoles(): void {
-        const loggedInUserID = this.authService.userId;
-        this.roasterService.getUserBasedRoles(this.roasterID, loggedInUserID).subscribe((result: any) => {
-            if (result) {
-                if (result.result) {
-                    const flagTrue = result.result.some((role) => role.id === this.roleID);
-                    if (flagTrue) {
-                        this.displayModal = true;
-                    } else {
-                        this.route.navigate(['/team-management/manage-role']);
-                    }
+
+    assignUpdatedRolePermission(body): void {
+        this.roasterService.assignRolePermissions(this.roleID, body).subscribe((permissionResult: any) => {
+            if (permissionResult.success) {
+                this.toasterService.success('Permission Updated successfully for Edited role.');
+            } else {
+                if (!permissionResult.success) {
+                    this.toasterService.error('System role permissions cannot be altered');
+                    setTimeout(() => {
+                        this.router.navigate(['/team-management/manage-role']);
+                    }, 2000);
                 }
             }
         });
     }
+
+    getUserBasedRoles(): void {
+        const loggedInUserID = this.authService.userId;
+        this.roasterService.getUserBasedRoles(loggedInUserID).subscribe((res) => {
+            if (res.success && res.result) {
+                const flagTrue = res.result.some((role) => role.id === this.roleID);
+                if (flagTrue) {
+                    this.displayModal = true;
+                } else {
+                    this.router.navigate(['/team-management/manage-role']);
+                }
+            }
+        });
+    }
+
     userLogout(): void {
         this.userService.logOut().subscribe((res: any) => {
             if (res.success) {
                 this.cookieService.deleteAll();
-                this.route.navigate(['/login']);
+                this.router.navigate(['/login']);
                 this.toasterService.success('Logout successfully !');
             } else {
                 console.error('Error while Logout!');
@@ -240,24 +240,60 @@ export class CreateRoleComponent implements OnInit {
             }
         });
     }
-    // Function Name : Get Role Name
-    // Description: This function helps to get name of the Selected role.
 
-    getRolePermission(roleID) {
-        this.roasterService.getRolePermissions(this.roasterID, roleID).subscribe(
+    getRolePermission(roleID, resolve, reject) {
+        this.roasterService.getRolePermissions(roleID).subscribe(
             (data: any) => {
-                let selectedPermission = [];
+                this.selectedPermissionList = [];
                 if (data.success) {
                     if (!this.isDuplicate) {
                         this.roleForm.setValue({ roleName: data.result.role_name });
                     }
-                    selectedPermission = data.result.permissions;
+                    this.selectedPermissionList = data.result.permissions;
                 }
-                this.getRoasterPermission(selectedPermission);
+                resolve();
             },
             (err) => {
-                this.getRoasterPermission();
+                reject();
             },
         );
+    }
+
+    selectPermissions() {
+        const sortedPermission = this.allPermissions.sort((a: any, b: any) => (a.category > b.category ? -1 : 1));
+        const groupedCategory = this.groupByArray(sortedPermission, 'category');
+        const groupPermission = [];
+        this.selectedPermissionNodes = [];
+        groupedCategory.forEach((ele) => {
+            const parent: any = {};
+            let label = ele.key;
+            label = label.replace('-', ' ');
+            parent.label = label.charAt(0).toUpperCase() + label.slice(1);
+            parent.selectable = false;
+            parent.styleClass = 'parentNodeStyle';
+            let childItems = [];
+            if (ele.values) {
+                childItems = ele.values.map((item) => {
+                    const obj: any = {};
+                    let childLabel = item.slug;
+                    childLabel = childLabel.replace('-', ' ');
+                    childLabel = childLabel.charAt(0).toUpperCase() + childLabel.slice(1);
+                    obj.label = childLabel + ' (' + item.access_type + ')';
+                    obj.key = item.id;
+                    obj.data = item.slug;
+                    obj.description = PERMISSION_DESCRIPTION[item.slug];
+                    if (this.selectedPermissionList) {
+                        const findSelected = this.selectedPermissionList.find((m) => m.id === item.id);
+                        if (findSelected) {
+                            this.selectedPermissionNodes.push(obj);
+                        }
+                    }
+                    return obj;
+                });
+            }
+            parent.children = childItems;
+            groupPermission.push(parent);
+        });
+        this.permissionList = groupPermission;
     }
 }

@@ -32,6 +32,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     coverImageUrl: any;
     isUploadingImage = false;
     imageIdList = [];
+    introImageIdList = [];
     recipeForm: FormGroup;
     ingredients: FormArray;
     steps: FormArray;
@@ -56,20 +57,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     categoryValue: any[] = [];
     status: string;
     translatedCategory: any[] = [];
-    expertiseArray: any[] = [
-        {
-            label: 'Easy',
-            value: 'easy',
-        },
-        {
-            label: 'Intermediate',
-            value: 'intermediate',
-        },
-        {
-            label: 'Hard',
-            value: 'hard',
-        },
-    ];
+    expertiseArray: any[] = [];
     qualityArray: any[] = [
         {
             label: 'cups',
@@ -214,6 +202,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.setAppLanguages();
                     this.getCompleteData(this.originRecipeId);
                 }
+                this.setExpertiseArray();
             }
         });
     }
@@ -258,6 +247,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                             res.result.expertise,
                             res.result.equipment_name,
                             res.result.description,
+                            res.result.introduction,
                         ];
                         res.result.steps.forEach((element) => {
                             translateData.push(element.description);
@@ -274,12 +264,12 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                                 const steps = [];
                                 const ingredients = [];
                                 translatedOutput.forEach((item, index) => {
-                                    if (index > 3 && index <= res.result.steps.length + 3) {
+                                    if (index > 4 && index <= res.result.steps.length + 4) {
                                         steps.push(item.translatedText);
                                     }
                                     if (
-                                        index > res.result.steps.length + 3 &&
-                                        index <= res.result.ingredients.length + (res.result.steps.length + 3)
+                                        index > res.result.steps.length + 4 &&
+                                        index <= res.result.ingredients.length + (res.result.steps.length + 4)
                                     ) {
                                         ingredients.push(item.translatedText);
                                     }
@@ -309,6 +299,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                                     water_ratio: res.result.water_ratio,
                                     preparation_method: res.result.preparation_method,
                                     description: translatedOutput[3].translatedText,
+                                    introduction: translatedOutput[4].translatedText,
                                     lang_code: this.translateLang,
                                     steps: translatedSteps ? translatedSteps : [],
                                     ingredients: translatedingredient ? translatedingredient : [],
@@ -395,6 +386,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             preparation_method: ['steps', Validators.compose([Validators.required])],
             cover_image_id: [null, Validators.compose([Validators.required])],
             description: ['', Validators.compose([maxWordCountValidator(60), Validators.required])],
+            introduction: [''],
             ingredients: this.fb.array([this.createCoffeeIngredient()]),
             steps: this.fb.array([this.createCoffeeStep()]),
             allow_translation: [true],
@@ -415,6 +407,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             brew_ratio: value.coffee_ratio + ':' + value.water_ratio,
             preparation_method: value.preparation_method,
             description: value.description,
+            introduction: value.introduction,
             language: value.lang_code,
             steps: value.steps ? value.steps : [],
             cover_image_id: value.cover_image_id,
@@ -739,7 +732,72 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
             (item) => item.langCode === this.recipeForm.get('language').value,
         );
+        this.setExpertiseArray();
         this.getCategory();
+    }
+
+    setExpertiseArray() {
+        if (this.coffeeLabService.currentForumLanguage === 'en') {
+            this.expertiseArray = [
+                {
+                    label: 'Easy',
+                    value: 'Easy',
+                },
+                {
+                    label: 'Intermediate',
+                    value: 'Intermediate',
+                },
+                {
+                    label: 'Hard',
+                    value: 'Hard',
+                },
+            ];
+        } else if (this.coffeeLabService.currentForumLanguage === 'sv') {
+            this.expertiseArray = [
+                {
+                    label: 'Lätt',
+                    value: 'lätt',
+                },
+                {
+                    label: 'Mellanliggande',
+                    value: 'Mellanliggande',
+                },
+                {
+                    label: 'Hård',
+                    value: 'Hård',
+                },
+            ];
+        } else if (this.coffeeLabService.currentForumLanguage === 'pt') {
+            this.expertiseArray = [
+                {
+                    label: 'Fácil',
+                    value: 'Fácil',
+                },
+                {
+                    label: 'Intermediário',
+                    value: 'Intermediário',
+                },
+                {
+                    label: 'Duro',
+                    value: 'Duro',
+                },
+            ];
+        } else if (this.coffeeLabService.currentForumLanguage === 'es') {
+            this.expertiseArray = [
+                {
+                    label: 'Fácil',
+                    value: 'Fácil',
+                },
+                {
+                    label: 'Intermedio',
+                    value: 'Intermedio',
+                },
+                {
+                    label: 'Duro',
+                    value: 'Duro',
+                },
+            ];
+        }
     }
 
     onDeleteDraft(): void {

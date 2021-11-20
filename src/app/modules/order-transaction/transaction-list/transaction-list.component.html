@@ -211,7 +211,11 @@
                     <ng-container *ngSwitchCase="'total_amount'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span class="truncate break-word">
-                            {{ rowData['total_amount'] | currency: rowData['currency'] || 'USD':'code' || '--' }}
+                            {{
+                                rowData['total_amount']
+                                    | currency: rowData['currency'] || 'USD':'code'
+                                    | strReplace: '-':'- ' || '--'
+                            }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'vat_amount'">
@@ -249,7 +253,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.grand_total || 0
-                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
+                                | currencyFormat: primeTableService.result?.currency
                         }}
                     </span>
                 </th>
@@ -258,7 +262,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.total_vat || 0
-                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
+                                | currencyFormat: primeTableService.result?.currency
                         }}
                     </span>
                 </th>
@@ -267,7 +271,7 @@
                     <span class="primeng-table-footer"
                         >{{
                             primeTableService.result?.total_commission || 0
-                                | currency: primeTableService.result?.currency || 'USD':'code' || '--'
+                                | currencyFormat: primeTableService.result?.currency
                         }}
                     </span>
                 </th>

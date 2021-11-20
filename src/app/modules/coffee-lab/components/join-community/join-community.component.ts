@@ -10,6 +10,7 @@ export class JoinCommunityComponent implements OnInit {
     @Input() pages: any;
     @Input() type: string;
     @Input() detailType: string;
+    @Input() categories: [] = [];
     relatedData: any[] = [];
     idOrSlug: any;
     isLoading = true;
@@ -21,27 +22,30 @@ export class JoinCommunityComponent implements OnInit {
 
     getList() {
         this.isLoading = true;
+        const categories = [];
+        this.categories?.filter((item: any) => categories.push(item.parent_id));
         this.coffeeLabService
-            .getForumList('question', {
-                page: this.pages ? this.pages + 1 : 2,
+            .getForumList(this.type === 'question' && this.detailType !== 'question-detail' ? 'article' : 'question', {
+                page: 1,
                 per_page: 15,
-                category_slug: this.coffeeLabService.qaForumViewCategory,
+                category_id: categories,
+                sort_by: 'posted_at',
+                sort_order: 'desc',
             })
             .subscribe((res: any) => {
                 if (res.success) {
-                    this.relatedData = res.result.questions;
+                    this.relatedData =
+                        this.type === 'question' && this.detailType !== 'question-detail'
+                            ? res.result
+                            : res.result?.questions;
                     this.isLoading = false;
                 }
             });
     }
 
-    getLink(item: any, answer: any) {
-        const url = `/coffee-lab/questions/${item.slug}`;
-        return {
-            url,
-            queryParmas: {
-                answer: answer?.id,
-            },
-        };
+    getLink(item: any) {
+        return `/coffee-lab/${
+            this.type === 'question' && this.detailType !== 'question-detail' ? 'article' : 'question'
+        }s/${item.slug}`;
     }
 }

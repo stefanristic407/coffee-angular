@@ -21,20 +21,37 @@
             </ng-container>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="bg-f8 br-4 p-4" [formGroup]="referenceForm">
-                <div class="fnt-semi-bold">
-                    {{ 'create_reference_number_guide' | translate }}
-                </div>
-                <div class="sewn-form-field w-100 mt-3 mb-0">
-                    <input
-                        type="text"
-                        pInputText
-                        formControlName="roaster_reference_number"
-                        [placeholder]="'create_unique_reference_number' | translate"
-                    />
-                </div>
-                <button class="btn-raised mt-3" (click)="saveReference()">{{ 'save' | translate }}</button>
+            <div class="bg-f8 br-4 h-100 p-4" [formGroup]="referenceForm">
+                <ng-container *ngIf="!refNumber || editRefMode; else refNoInfo">
+                    <div class="fnt-semi-bold">
+                        {{ 'create_reference_number_guide' | translate }}
+                    </div>
+                    <div class="sewn-form-field w-100 mt-3 mb-0">
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="roaster_reference_number"
+                            [placeholder]="'create_unique_reference_number' | translate"
+                        />
+                    </div>
+                    <button class="btn-raised mt-3" (click)="saveReference()" [disabled]="isSubmitted">
+                        {{ 'save' | translate }}
+                    </button>
+                </ng-container>
             </div>
+            <ng-template #refNoInfo>
+                <div class="d-flex justify-content-between align-items-center border-bottom-dashed pb-3">
+                    <div class="d-flex align-items-center">
+                        <img width="20" height="20" src="assets/images/timeline-check-active.svg" />
+                        <span class="ml-3 fnt-14 fnt-bold text-clr334">{{ 'ref_no_created' | translate }}!</span>
+                    </div>
+                    <div class="navigation-link" (click)="editRefMode = true">{{ 'edit' | translate }}</div>
+                </div>
+                <div class="d-flex pt-3">
+                    <div class="fnt-semi-bold text-clr588">{{ 'order_reference_number' | translate }} :&nbsp;</div>
+                    <div class="fnt-bold">{{ refNumber }}</div>
+                </div>
+            </ng-template>
         </div>
     </div>
 

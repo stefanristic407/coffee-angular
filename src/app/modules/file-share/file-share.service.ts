@@ -213,6 +213,7 @@ export class FileShareService {
                         }
                     });
                 }
+                event.target.value = '';
             });
         }
     }

@@ -31,3 +31,7 @@
         text-decoration: underline !important;
     }
 }
+
+::ng-deep .custom-background .p-paginator {
+    background: #f8f8f8 !important;
+}

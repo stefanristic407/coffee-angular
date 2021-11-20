@@ -63,7 +63,7 @@
                 </p-dropdown>
                 <p-calendar
                     id="calender"
-                    *ngIf="selectedType === 'orders' || selectedType === 'micro-roasters' || selectedType === 'hrc'"
+                    *ngIf="selectedType === 'orders'"
                     class="mr-3"
                     styleClass="only-icon"
                     [(ngModel)]="rangeDates"
@@ -77,7 +77,7 @@
                     styleClass="round-border mb-3 mb-md-4"
                 ></p-calendar>
                 <p-dropdown
-                    *ngIf="selectedType !== 'orders'"
+                    *ngIf="selectedType !== 'orders' && !isCustomerType"
                     [options]="roleType"
                     [showClear]="true"
                     [(ngModel)]="roles"
@@ -192,12 +192,17 @@
                                     <span
                                         *ngIf="rowData['status'] == 'ACTIVE'"
                                         class="tableDataFont typeofStatus-active ml-3"
-                                        >&#9679; {{ 'active' | translate }}
+                                        >&#9679; {{ 'active' | translate | sentencecase }}
+                                    </span>
+                                    <span
+                                        *ngIf="rowData['status'] == 'PENDING'"
+                                        class="tableDataFont typeofStatus-pending ml-3"
+                                        >&#9679; {{ 'pending' | translate | sentencecase }}
                                     </span>
                                     <span
                                         *ngIf="rowData['status'] == 'INACTIVE'"
                                         class="tableDataFont typeofStatus-disabled ml-3"
-                                        >&#9679; Disabled
+                                        >&#9679; {{ 'inactive' | translate | sentencecase }}
                                     </span>
                                     <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
                                 </div>
@@ -261,10 +266,13 @@
                         <ng-container *ngSwitchCase="'status'">
                             <span class="p-column-title"> {{ col.header }} </span>
                             <span *ngIf="rowData['status'] == 'ACTIVE'" class="tableDataFont typeofStatus-active"
-                                >&#9679; {{ 'active' | translate }}
+                                >&#9679; {{ 'active' | translate | sentencecase }}
+                            </span>
+                            <span *ngIf="rowData['status'] == 'PENDING'" class="tableDataFont typeofStatus-pending"
+                                >&#9679; {{ 'pending' | translate | sentencecase }}
                             </span>
                             <span *ngIf="rowData['status'] == 'INACTIVE'" class="tableDataFont typeofStatus-disabled"
-                                >&#9679; Disabled
+                                >&#9679; {{ 'inactive' | translate | sentencecase }}
                             </span>
                         </ng-container>
 

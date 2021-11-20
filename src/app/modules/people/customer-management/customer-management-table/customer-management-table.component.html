@@ -38,9 +38,17 @@
                     <tr (click)="shareDetails(rowData)">
                         <td *ngFor="let col of columns" [ngSwitch]="col.field">
                             <span *ngSwitchCase="'status'">
-                                <span class="status-badge {{ rowData['status'] }}">{{
-                                    rowData['status'] | titlecase
-                                }}</span>
+                                <span
+                                    *ngIf="rowData['status'] === 'PENDING'"
+                                    class="status-badge {{ rowData['status'] }}"
+                                >
+                                    {{ 'in_progress' | translate }}
+                                </span>
+                                <span
+                                    *ngIf="rowData['status'] !== 'PENDING'"
+                                    class="status-badge {{ rowData['status'] }}"
+                                    >{{ rowData['status'] | titlecase }}</span
+                                >
                             </span>
                             <span *ngSwitchCase="'created_at'">
                                 <div class="d-flex">
@@ -67,9 +75,16 @@
                                             {{ 'customer_id' | translate }} #{{ rowData.admin_id || rowData.id }}
                                         </span>
                                         <span>
-                                            <span class="status-badge fnt-12 {{ rowData['status'] }}">{{
-                                                rowData['status'] | titlecase
-                                            }}</span>
+                                            <span
+                                                *ngIf="rowData['status'] === 'PENDING'"
+                                                class="status-badge {{ rowData['status'] }}"
+                                                >{{ 'in_progress' | translate }}</span
+                                            >
+                                            <span
+                                                *ngIf="rowData['status'] !== 'PENDING'"
+                                                class="status-badge {{ rowData['status'] }}"
+                                                >{{ rowData['status'] | titlecase }}</span
+                                            >
                                         </span>
                                     </div>
                                 </div>

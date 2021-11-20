@@ -48,19 +48,22 @@
                         >{{ lot?.quantity_count }}&nbsp;{{ lot?.quantity_type | quantityType }} x {{ lot?.quantity
                         }}{{ lot?.quantity_unit }}</span
                     >
+                    <div
+                        *ngIf="lot"
+                        class="navigation-link mt-2"
+                        [routerLink]="['/sourcing/coffee-details', lot.harvest_id]"
+                    >
+                        {{ 'view_availability_details' | translate }}
+                    </div>
                 </span>
-                <div
-                    *ngIf="lot"
-                    class="navigation-link mt-2"
-                    [routerLink]="['/sourcing/coffee-details', lot.harvest_id]"
-                >
-                    {{ 'view_availability_details' | translate }}
-                </div>
             </div>
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
                 <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} kg</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{
-                    lot?.quantity ? (lot?.price / (lot?.quantity * lot?.quantity_count) | currency: 'USD') : '-'
+                <span class="mt-md-3 fnt-600 text-clr334" *ngIf="lot?.order_type !== OrderType.Sample"
+                    >{{ lot?.quantity ? (lot?.price / (lot?.quantity * lot?.quantity_count) | currency: 'USD') : '-' }}
+                </span>
+                <span class="mt-md-3 fnt-600 text-clr334" *ngIf="lot?.order_type === OrderType.Sample">{{
+                    avilablity?.price ? (avilablity?.price | currency: 'USD') : '-'
                 }}</span>
             </div>
         </div>

@@ -1,14 +1,17 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
-import { GlobalsService, ECommerceService, ResizeService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { MenuItem, LazyLoadEvent } from 'primeng/api';
-import { ConfirmComponent } from '@shared';
-import { COUNTRY_LIST, LBUNIT, PRODUCT_STATUS_ITEMS } from '@constants';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
+import { COUNTRY_LIST, LBUNIT, PRODUCT_STATUS_ITEMS } from '@constants';
 import { ProductType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { ECommerceService, OriginService, ResizeService } from '@services';
+import { ConfirmComponent } from '@shared';
+import { getCountry } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { LazyLoadEvent, MenuItem } from 'primeng/api';
+import { DropdownItem } from 'primeng/dropdown';
+import { DialogService } from 'primeng/dynamicdialog';
+import * as _ from 'underscore';
 
 @Component({
     selector: 'app-product-list',
@@ -75,13 +78,14 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
     ];
     visibilityStatus: boolean;
 
-    originArray: any[];
+    origins: DropdownItem[] = [];
     type: string;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private dialogSrv: DialogService,
         private eCommerceService: ECommerceService,
+        private originService: OriginService,
         private router: Router,
         private toastrService: ToastrService,
         private translator: TranslateService,
@@ -113,6 +117,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
             this.initializeTable();
             this.loadData();
         });
+        this.getOrigins();
     }
 
     initializeTable() {
@@ -219,6 +224,18 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
         }
     }
 
+    getOrigins() {
+        this.originService.getOrigins({ visibility: true }).subscribe((res) => {
+            if (res.success) {
+                this.origins = _.chain(res.result.origins)
+                    .map((item) => {
+                        return { value: item, label: getCountry(item)?.name || item };
+                    })
+                    .value();
+            }
+        });
+    }
+
     loadData(event?: LazyLoadEvent) {
         let page = 1;
         if (event) {
@@ -245,11 +262,6 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
         this.eCommerceService.getSelectProductDetails(this.type, options).subscribe(
             (res: any) => {
                 if (res.success) {
-                    if (this.type !== 'other') {
-                        this.originArray = COUNTRY_LIST.filter((item) =>
-                            res.result?.find((prod) => prod.origin.toLowerCase() === item.isoCode.toLocaleLowerCase()),
-                        );
-                    }
                     this.tableData = res.result ?? [];
                     this.totalCount = res.result_info.total_count;
                 } else {

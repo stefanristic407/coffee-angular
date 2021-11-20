@@ -8,6 +8,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
+import { ThousandSuffPipe } from '@app/shared/pipes/thousand-suff.pipe';
 
 import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
@@ -16,6 +17,7 @@ import ECharts = echarts.ECharts;
     selector: 'app-bar-chart',
     templateUrl: './bar-chart.component.html',
     styleUrls: ['./bar-chart.component.scss'],
+    providers: [ThousandSuffPipe],
 })
 export class BarChartComponent implements OnInit, OnChanges {
     @Input() results = [];
@@ -44,7 +46,9 @@ export class BarChartComponent implements OnInit, OnChanges {
             formatter: (params) => {
                 const icon0 = `<span data-tooltip="minimum" style="border-left: 2px solid #fff;display: inline-block;height: 12px;margin-right: 5px;width: 20px;"><span style="background-color:${params[0].color};display: block;height: 4px;margin-top: 4px;width: 20px;"></span></span>`;
                 const icon1 = `<span data-tooltip="implied-high" style="background-color:rgba(255,255,255,.75);border-radius: 2px;display: inline-block;height: 12px;margin-right:5px;width: 20px;"><span style="background-color:${params[0].color};border: 1px solid ${params[0].color};border-radius:50%;display:block;height:6px;margin-left:7px;margin-top:3px;width:6px;"></span></span>`;
-                return `${params[0].name}<br/> ${params[0].value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+                return `<span style="font-weight: bold;">${
+                    params[0].name
+                }</span><br/> ${this.thousandSuffPipe.transform(params[0].value)}`;
             },
         },
         xAxis: {
@@ -121,7 +125,7 @@ export class BarChartComponent implements OnInit, OnChanges {
 
     horizontalData = [];
 
-    constructor(private ref: ChangeDetectorRef) {}
+    constructor(private ref: ChangeDetectorRef, private thousandSuffPipe: ThousandSuffPipe) {}
 
     ngOnInit(): void {}
 
@@ -139,7 +143,7 @@ export class BarChartComponent implements OnInit, OnChanges {
         this.verticalChartOption.series[0].label.show = this.labelShow;
         this.verticalChartOption.yAxis.name = this.unitName;
         this.verticalChartOption.series[0].label.formatter = (label) => {
-            const convertedValue = label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            const convertedValue = this.thousandSuffPipe.transform(label.value);
             if (this.unitName === 'USD') {
                 return '$ ' + convertedValue;
             } else if (this.unitName === 'Ton') {

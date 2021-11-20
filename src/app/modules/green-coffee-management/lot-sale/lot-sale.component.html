@@ -222,10 +222,9 @@
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Weight / bag<span class="star">*</span></label>
-                    <div class="input-and-select gray">
+                    <div class="p-inputgroup custom-addon">
                         <p-inputNumber formControlName="quantity" placeholder="Enter a number"></p-inputNumber>
-                        <p-dropdown [options]="weightTypeArray" placeholder="kg" formControlName="quantity_unit">
-                        </p-dropdown>
+                        <div class="p-inputgroup-addon gray">kg</div>
                         <small *ngIf="lotSaleForm.controls['quantity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>

@@ -85,7 +85,7 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
                     ? 'desc'
                     : 'asc',
             publish: true,
-            category_slug: this.coffeeLabService.articleViewCategory,
+            category_id: this.coffeeLabService.articleViewCategory,
             page: this.pages,
             per_page: this.rows,
         };

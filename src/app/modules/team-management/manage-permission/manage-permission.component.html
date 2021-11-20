@@ -4,6 +4,8 @@
         [value]="permissionList"
         selectionMode="checkbox"
         [(selection)]="selectedPermission"
+        (onNodeSelect)="change()"
+        (onNodeUnselect)="change()"
         [filter]="true"
         filterPlaceholder="Search by role"
         [propagateSelectionUp]="false"

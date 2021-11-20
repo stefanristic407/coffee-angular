@@ -122,6 +122,21 @@
                     <label
                         >Attachments <span *ngIf="filesArray">({{ filesArray.length }})</span></label
                     >
+                    <div class="file-box" *ngIf="filesArray.length">
+                        <div class="file-name-wrapper" *ngFor="let file of filesArray; let i = index">
+                            <label class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-0">{{ file.name }}</label>
+
+                            <i
+                                *ngIf="file.uploadStatus === 'DONE'"
+                                (click)="removeFile(i)"
+                                class="pi pi-times fnt-12 text-clr588 pl-2 cursor-pointer"
+                            ></i>
+                            <div class="file-uploader-loader" *ngIf="file.uploadStatus === 'IP'">
+                                <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="imgContainer image-upload-wrap">
                         <input class="file-upload-input" type="file" (change)="documentUpload($event)" />
                         <div class="secondary_txt">

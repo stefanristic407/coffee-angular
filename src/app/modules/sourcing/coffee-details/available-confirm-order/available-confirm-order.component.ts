@@ -1,32 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import {
-    FormGroup,
+    AbstractControl,
     FormBuilder,
     FormControl,
-    Validators,
-    AbstractControl,
-    ValidatorFn,
+    FormGroup,
     ValidationErrors,
+    ValidatorFn,
+    Validators,
 } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ToastrService } from 'ngx-toastr';
-import { ResizeService, AuthService, RoasterService, CommonService, UserService } from '@services';
-import { SourcingService } from '../../sourcing.service';
-import { ConfirmComponent } from '@shared';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { AddressType, OrderType, OrganizationType } from '@enums';
-import { ResizeableComponent } from '@base-components';
 import { environment } from '@env/environment';
 import { PriceTier } from '@models';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, CommonService, ResizeService, RoasterService, UserService } from '@services';
+import { ConfirmComponent, SentenceCasePipe } from '@shared';
 import { convertKg } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
+import { SourcingService } from '../../sourcing.service';
 
 @Component({
     selector: 'app-available-confirm-order',
     templateUrl: './available-confirm-order.component.html',
     styleUrls: ['./available-confirm-order.component.scss'],
+    providers: [DecimalPipe, SentenceCasePipe],
 })
 export class AvailableConfirmOrderComponent extends ResizeableComponent implements OnInit {
     public readonly COUNTRY_LIST = COUNTRY_LIST;
@@ -83,6 +85,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         protected resizeService: ResizeService,
         public authService: AuthService,
         public sourcing: SourcingService,
+        private sentenceCasePipe: SentenceCasePipe,
+        private decimalPipe: DecimalPipe,
     ) {
         super(resizeService);
     }
@@ -158,13 +162,13 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 field: 'origin',
                 label: this.translator.instant('origin'),
                 value: this.sourcing.harvestDetail.country,
-                width: 11,
+                width: 10,
             },
             {
                 field: 'name',
                 label: this.translator.instant('availability_name'),
                 value: this.sourcing.harvestDetail.name,
-                width: 15,
+                width: 14,
             },
             {
                 field: 'variety',
@@ -190,13 +194,17 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 {
                     field: 'quantity',
                     label: this.translator.instant('available_quantity'),
-                    value: `${this.sourcing.harvestDetail.quantity_count}${this.sourcing.harvestDetail.quantity_type}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
-                    width: 13,
+                    value: `${this.decimalPipe.transform(
+                        this.sourcing.harvestDetail.quantity_count,
+                    )} ${this.sentenceCasePipe.transform(this.sourcing.harvestDetail.quantity_type)}/${
+                        this.sourcing.harvestDetail.quantity
+                    }${this.sourcing.harvestDetail.quantity_unit}`,
+                    width: 15,
                 },
                 {
                     field: 'price',
                     label: this.translator.instant('rate_per_kg'),
-                    value: `$${this.sourcing.harvestDetail.price}USD/kg`,
+                    value: `$${this.sourcing.harvestDetail.price} USD/kg`,
                     width: 11,
                 },
             ]);
@@ -273,7 +281,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             address_line1: ['', Validators.compose([Validators.required])],
             address_line2: [''],
             city: ['', Validators.compose([Validators.required])],
-            zipcode: ['', Validators.compose([Validators.required])],
+            zipcode: [''],
         });
         this.addressForm.patchValue(isBilling ? this.billingAddress : this.deliveryAddress);
         this.changeCountry();
@@ -417,11 +425,11 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             if (id) {
                 this.userService.editAddress(this.roasterId, id, postData).subscribe((res: any) => {
                     if (res.success) {
-                        this.toastrService.success('Address has been Edited');
+                        this.toastrService.success(this.translator.instant('address_has_been_updated_successfully'));
                         this.getRoAddress(null, true);
                         this.editAddress = false;
                     } else {
-                        this.toastrService.error('Error while Editing the address');
+                        this.toastrService.error('Error while updating the address');
                     }
                 });
             } else {

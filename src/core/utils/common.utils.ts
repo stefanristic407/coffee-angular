@@ -44,7 +44,10 @@ export const checkFile = (file: File, maxSize = 30, maxWidth = 5000, maxHeight =
             observer.next({ file: 'invalid', message: `${file.name} is invalid` });
             observer.complete();
         } else if (file.size > maxSize * 1024 * 1024) {
-            observer.next({ size: 'exceeded', message: `${file.name} size exceeded(Max size is ${maxSize}mb)` });
+            observer.next({
+                size: 'exceeded',
+                message: `The ${file.name} size exceeds the limit of ${maxSize}mb. Upload a smaller file size`,
+            });
             observer.complete();
         } else if (file.type.startsWith('image/')) {
             const reader = new FileReader();

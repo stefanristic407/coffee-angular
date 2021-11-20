@@ -1,18 +1,13 @@
-// AUTHOR : Vijaysimhareddy
-// PAGE DESCRIPTION : This page contains all API calls for SEWN-Roaster Roles and User Management.
-
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-import { environment } from 'src/environments/environment';
-import * as CryptoJS from 'crypto-js';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { ApiService } from './api.service';
-import { AuthService } from '../auth';
+import { Injectable } from '@angular/core';
 import { OrganizationType } from '@enums';
 import { ApiResponse, ProcuredCoffee } from '@models';
+import * as CryptoJS from 'crypto-js';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { AuthService } from '../auth';
+import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root',
@@ -29,139 +24,66 @@ export class RoasterService extends ApiService {
         super(http, authService);
     }
 
-    //API Function Name : Role List
-    //API Description: This API calls helps to get all roles to the user.
+    // ------------ ACL ------------
 
-    getRoles(postData?) {
+    // Get the list of all permissions and their available access levels. There are two kinds of permissions:
+    getAllPermissions(): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `permissions`);
+    }
+    // Get the list of all roles
+    getRoles(postData?): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `roles?${this.serializeParams(postData)}`);
     }
-
+    // Create new role
+    createRole(body: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `roles`, 'POST', body);
+    }
+    // Get the details of role
+    getRole(id: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `roles/${id}`);
+    }
+    // Update an existing role
+    updateRole(roleId: number, body: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `roles/${roleId}`, 'PUT', body);
+    }
     // Delete Role
-    deleteRoles(id: number) {
+    deleteRole(id: number): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgDeleteUrl, `roles/${id}`, 'DELETE');
     }
+    // Get the list of all permissions for role
+    getRolePermissions(roleId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `roles/${roleId}/permissions`, 'GET');
+    }
+    // Assign permission(s) to role. Existing permissions will be deleted and replaced by permissions given in request body.
+    assignRolePermissions(roleId: number, body: object): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `roles/${roleId}/permissions`, 'POST', body);
+    }
+    // Get the list of roles of user
+    getUserBasedRoles(userId: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/roles`);
+    }
+    // This API calls helps to assign new role to the selected user.
+    assignUserBasedUserRoles(roleId: number, userId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/roles/${roleId}`, 'POST');
+    }
+    // Remove role from user
+    deleteUserRole(roleId: any, userId: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `users/${userId}/roles/${roleId}`, 'DELETE');
+    }
+
+    // ------------ USER ------------
 
     // Get list of all organization users and search functionality
     getOrgUsers(postData: object = {}) {
         return this.postWithOrg(this.orgPostUrl, `users?${this.serializeParams(postData)}`);
     }
-
     // List invited users by organisations
     getInvitedUserLists(postData?): Observable<ApiResponse<any[]>> {
         return this.postWithOrg(this.orgPostUrl, `users/invite-list?${this.serializeParams(postData)}`);
     }
-
-    //API Function Name : Create Role
-    //API Description: This API calls helps to create a role to the user.
-
-    createRole(body: any) {
-        const data = {
-            api_call: `/ro/${body.id}/roles`,
-            token: this.authService.token,
-            data: {
-                name: body.name,
-            },
-            method: 'POST',
-        };
-        return this.http.post(this.url, data);
-    }
-
-    //API Function Name : roaster permissions
-    //API Description: This API calls helps to get the  permissions of the particular Roaster.
-
-    getRoasterPermissions(id: any) {
-        const data = {
-            api_call: `/ro/${id}/permissions`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
-    }
-
-    //API Function Name : Role Name
-    //API Description: This API calls helps to get the Role name of the Selected role.
-
-    getRoasterRoleName(id: any, roaster_id: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/roles/${id}`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
-    }
-
-    //API Function Name : Update Role
-    //API Description: This API calls helps to Update role name.
-
-    updateRoasterRoleName(body: any, roaster_id: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/roles/${body.roleId}`,
-            token: this.authService.token,
-            method: 'PUT',
-            data: {
-                name: body.name,
-            },
-        };
-        return this.http.post(this.url, data);
-    }
-
-    //API Function Name : Role permissions
-    //API Description: This API calls helps to get all permissions.
-
-    getRolePermissions(roaster_id: any, roleId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/roles/${roleId}/permissions`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
-    }
-
-    //API Function Name : Assign Role Permissions
-    //API Description: This API calls helps to assign role permissions to the user
-
-    assignRolePermissions(body: any, roleId: any, roaster_id: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/roles/${roleId}/permissions`,
-            token: this.authService.token,
-            method: 'POST',
-            data: body,
-        };
-        return this.http.post(this.url, data);
-    }
-
-    //API Function Name : Get User Roles
-    //API Description: This API calls helps to get the roles of the selected user.
-
-    getUserBasedRoles(roaster_id: any, userId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${userId}/roles`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
-    }
-
     // This API calls helps to delete the selected user.
     deleteOrgUser(userId: number) {
         return this.postWithOrg(this.orgPostUrl, `users/${userId}`, 'DELETE');
-    }
-
-    // This API calls helps to assign new role to the selected user.
-    assignUserBasedUserRoles(roleId: number, userId: number) {
-        return this.postWithOrg(this.orgPostUrl, `users/${userId}/roles/${roleId}`, 'POST');
-    }
-
-    //API Function Name : Delete user role
-    //API Description: This API calls helps to delete the role of the selected user
-
-    deleteRoasterUserRole(roaster_id: any, roleId: any, userId: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/users/${userId}/roles/${roleId}`,
-            token: this.authService.token,
-            method: 'DELETE',
-        };
-        return this.http.post(this.url, data);
     }
 
     // This API calls helps to Enable the selected user.
@@ -1147,26 +1069,13 @@ export class RoasterService extends ApiService {
         };
         return this.http.post(this.url, data);
     }
-    cancelOuttakeOrders(roasterId: any, outTakeOrderId): Observable<any> {
-        const data = {
-            api_call: `/ro/${roasterId}/outtake-orders/${outTakeOrderId}/cancel`,
-            token: this.authService.token,
-            method: 'PUT',
-        };
-        return this.http.post(this.url, data);
+
+    cancelOuttakeOrders(outTakeOrderId): Observable<ApiResponse<any>> {
+        return this.putWithOrg(this.orgPutUrl, `outtake-orders/${outTakeOrderId}/cancel`);
     }
 
-    exportOuttakeOrders(roasterId: number, exportType: string, dateFrom: string, dateTo: string) {
-        const paramsObj = {
-            from_date: dateFrom ? moment(dateFrom).format('yyyy-MM-DD') : '',
-            to_date: dateTo ? moment(dateTo).format('yyyy-MM-DD') : '',
-        };
-        const data = {
-            api_call: `/ro/${roasterId}/outtake-orders/export/${exportType}?${this.serializeParams(paramsObj)}`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
+    exportOuttakeOrders(exportType: string, params: object = {}) {
+        return this.postWithOrg(this.orgPostUrl, `outtake-orders/export/${exportType}?${this.serializeParams(params)}`);
     }
 
     // Delete Procured Coffee.

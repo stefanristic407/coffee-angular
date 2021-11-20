@@ -89,12 +89,12 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
         ];
         this.grindArray = [
             { label: 'Whole beans', value: 'whole-beans' },
-            { label: 'Extra Coarse', value: 'extra-coarse' },
+            { label: 'Extra coarse', value: 'extra-coarse' },
             { label: 'Coarse', value: 'coarse' },
-            { label: 'Medium Coarse', value: 'medium-coarse' },
+            { label: 'Medium coarse', value: 'medium-coarse' },
             { label: 'Medium', value: 'medium' },
             { label: 'Fine', value: 'fine' },
-            { label: 'Extra Fine', value: 'extra-fine' },
+            { label: 'Extra fine', value: 'extra-fine' },
         ];
     }
 
@@ -368,11 +368,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 );
             }
             if (featuredControl.value?.image_id && (!featuredControl.value?.image_url || featuredControl.value?.file)) {
-                promises.push(
-                    new Promise((resolve, reject) => {
-                        this.deleteFile(featuredControl, resolve, reject);
-                    }),
-                );
+                featuredControl.setValue({ ...featuredControl.value, image_id: null });
             }
             (currentWeightForm.get('product_images') as FormArray).controls.forEach((imageControl: FormControl) => {
                 if (imageControl.value?.file) {
@@ -383,11 +379,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                     );
                 }
                 if (imageControl.value?.image_id && (!imageControl.value?.image_url || imageControl.value?.file)) {
-                    promises.push(
-                        new Promise((resolve, reject) => {
-                            this.deleteFile(imageControl, resolve, reject);
-                        }),
-                    );
+                    imageControl.setValue({ ...imageControl.value, image_id: null });
                 }
             });
 
@@ -410,17 +402,6 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
                 resolve();
             } else {
                 this.toaster.error('Error while uploading image.');
-                reject();
-            }
-        });
-    }
-
-    private deleteFile(imageControl: FormControl, resolve, reject) {
-        this.fileService.deleteFile(imageControl.value.image_id).subscribe((res) => {
-            if (res.success || res.response_code === 404) {
-                imageControl.setValue({ ...imageControl.value, image_id: null });
-                resolve();
-            } else {
                 reject();
             }
         });

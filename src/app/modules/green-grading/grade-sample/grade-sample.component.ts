@@ -1,12 +1,12 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { AuthService, CommonService, GreenGradingService } from '@services';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { GenerateReportService } from '../generate-report/generate-report.service';
-import { MenuItem, SortEvent } from 'primeng/api';
-import { ToastrService } from 'ngx-toastr';
-
+import { Component, HostListener, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService, CommonService, GreenGradingService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem, SortEvent } from 'primeng/api';
+import { GenerateReportService } from '../generate-report/generate-report.service';
 
 @Component({
     selector: 'app-grade-sample',
@@ -16,12 +16,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class GradeSampleComponent implements OnInit {
     breadCrumbItems: MenuItem[];
     roasterId: any;
-    gradeOrigin: any;
-    gradeEstate: any;
-    gradeSpecies: any;
-    gradeId: any;
     cuppingRequestList: any;
-
+    sampleDetailForm: FormGroup;
     selectedEstateName: any;
     selectedStatus: any;
     estateArray: any[];
@@ -52,6 +48,7 @@ export class GradeSampleComponent implements OnInit {
         private authService: AuthService,
         private commonService: CommonService,
         private translateService: TranslateService,
+        private fb: FormBuilder,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -59,6 +56,12 @@ export class GradeSampleComponent implements OnInit {
     ngOnInit(): void {
         this.activeRoute.queryParams.subscribe((params) => {
             this.selectedCuppingReportId = params.cuppingReportId;
+        });
+        this.sampleDetailForm = this.fb.group({
+            origin: ['', Validators.compose([Validators.required])],
+            estateName: ['', Validators.compose([Validators.required])],
+            variety: ['', Validators.compose([Validators.required])],
+            sampleId: ['', Validators.compose([Validators.required])],
         });
         this.breadCrumbItems = [
             { label: this.translateService.instant('home'), routerLink: '/' },
@@ -132,28 +135,24 @@ export class GradeSampleComponent implements OnInit {
     }
 
     addExternalReport() {
-        if (
-            this.gradeOrigin === undefined ||
-            this.gradeSpecies === undefined ||
-            this.gradeEstate === undefined ||
-            this.gradeId === undefined
-        ) {
+        this.sampleDetailForm.markAllAsTouched();
+        if (this.sampleDetailForm.invalid) {
             this.toastrService.error('Fields should not be empty.');
         } else {
             const data = {
-                origin: this.gradeOrigin,
-                estate_name: this.gradeEstate,
-                variety: this.gradeSpecies,
-                sample_id: this.gradeId,
+                origin: this.sampleDetailForm.get('origin').value,
+                estate_name: this.sampleDetailForm.get('estateName').value,
+                variety: this.sampleDetailForm.get('variety').value,
+                sample_id: this.sampleDetailForm.get('sampleId').value,
             };
             this.greenGradingService.addExternalCuppingReport(this.roasterId, data).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('External cupping report added successfully.');
                     this.getExternalReports();
-                    this.gradeOrigin = '';
-                    this.gradeEstate = '';
-                    this.gradeSpecies = '';
-                    this.gradeId = '';
+                    this.sampleDetailForm.get('origin').setValue('');
+                    this.sampleDetailForm.get('estateName').setValue('');
+                    this.sampleDetailForm.get('variety').setValue('');
+                    this.sampleDetailForm.get('sampleId').setValue('');
                 } else {
                     this.toastrService.error('Error while adding reports.');
                 }

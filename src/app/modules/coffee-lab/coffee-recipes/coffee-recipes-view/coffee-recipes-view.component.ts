@@ -32,20 +32,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             value: false,
         },
     ];
-    levels: any[] = [
-        {
-            label: 'Easy',
-            value: 'Easy',
-        },
-        {
-            label: 'Intermediate',
-            value: 'Intermediate',
-        },
-        {
-            label: 'Hard',
-            value: 'Hard',
-        },
-    ];
+    levels: any[] = [];
     orderList: any[] = [
         {
             label: 'Latest',
@@ -108,7 +95,7 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                     : 'asc',
             level: this.coffeeLabService.recipeViewLevel?.toLowerCase(),
             publish: true,
-            category_slug: this.coffeeLabService.recipeViewCategory,
+            category_id: this.coffeeLabService.recipeViewCategory,
             page: this.pages,
             per_page: this.rows,
         };
@@ -118,6 +105,67 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                     item.description = this.coffeeLabService.getJustText(item.description);
                     return item;
                 });
+                if (this.coffeeLabService.currentForumLanguage === 'en') {
+                    this.levels = [
+                        {
+                            label: 'Easy',
+                            value: 'Easy',
+                        },
+                        {
+                            label: 'Intermediate',
+                            value: 'Intermediate',
+                        },
+                        {
+                            label: 'Hard',
+                            value: 'Hard',
+                        },
+                    ];
+                } else if (this.coffeeLabService.currentForumLanguage === 'sv') {
+                    this.levels = [
+                        {
+                            label: 'Lätt',
+                            value: 'lätt',
+                        },
+                        {
+                            label: 'Mellanliggande',
+                            value: 'Mellanliggande',
+                        },
+                        {
+                            label: 'Hård',
+                            value: 'Hård',
+                        },
+                    ];
+                } else if (this.coffeeLabService.currentForumLanguage === 'pt') {
+                    this.levels = [
+                        {
+                            label: 'Fácil',
+                            value: 'Fácil',
+                        },
+                        {
+                            label: 'Intermediário',
+                            value: 'Intermediário',
+                        },
+                        {
+                            label: 'Duro',
+                            value: 'Duro',
+                        },
+                    ];
+                } else if (this.coffeeLabService.currentForumLanguage === 'es') {
+                    this.levels = [
+                        {
+                            label: 'Fácil',
+                            value: 'Fácil',
+                        },
+                        {
+                            label: 'Intermedio',
+                            value: 'Intermedio',
+                        },
+                        {
+                            label: 'Duro',
+                            value: 'Duro',
+                        },
+                    ];
+                }
                 this.totalRecords = res.result_info.total_count;
             } else {
                 this.toastService.error('Cannot get Recipes data');

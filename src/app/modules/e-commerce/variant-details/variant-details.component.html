@@ -202,7 +202,7 @@
                                     <label>{{ 'grind' | translate }}<span class="star">*</span></label>
                                     <p-dropdown
                                         [options]="grindArray"
-                                        placeholder="Please select the grind variant"
+                                        [placeholder]="'select_grind_level' | translate"
                                         formControlName="grind"
                                     ></p-dropdown>
                                     <small *ngIf="grind_variant['controls']['grind'].errors?.required" class="p-error">

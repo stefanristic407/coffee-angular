@@ -280,11 +280,11 @@
                                 <ul class="clearfix">
                                     <li>
                                         <label>{{ 'location' | translate }} :</label>
-                                        <p>{{ sourcing.harvestDetail?.state }}</p>
+                                        <p>{{ sourcing.harvestDetail?.country | country }}</p>
                                     </li>
                                     <li>
                                         <label>{{ 'region' | translate }} :</label>
-                                        <p>{{ sourcing.harvestDetail?.region }}</p>
+                                        <p>{{ sourcing.harvestDetail?.region || 'NA' }}</p>
                                     </li>
                                     <li>
                                         <label>{{ 'type' | translate }} :</label>
@@ -413,5 +413,9 @@
 </ng-template>
 
 <ng-template #noOtherCoffee>
-    <app-blank title="No data available" button="Browse availabilities" link="/"></app-blank>
+    <app-blank
+        [title]="'no_data_available' | translate"
+        button="Browse availabilities"
+        link="/sourcing/coffee-list"
+    ></app-blank>
 </ng-template>
