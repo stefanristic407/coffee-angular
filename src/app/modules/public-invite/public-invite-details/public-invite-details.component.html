@@ -39,13 +39,13 @@
                     {{ 'view' | translate }}
                 </button>
             </div>
-            <div *ngIf="organizationProfile.status === 'rejected'" class="col text-clrd5 pl-2 pl-md-0 pr-0 pr-md-2">
-                {{ 'status' }}: {{ 'rejected' | translate }}
+            <div *ngIf="organizationProfile.status === 'rejected'" class="col pl-2 pl-md-0 pr-0 pr-md-2">
+                {{ 'status' }}: <span class="text-clrd5">{{ 'rejected' | translate }}</span>
             </div>
         </div>
         <div class="login-section w-100 mt-3">
             <table class="pl-3 pr-3 p-md-0 d-block">
-                <tr *ngIf="organizationProfile.status === 'rejected'" class="pt-3 pb-3 p-0 d-block d-md-flex">
+                <tr *ngIf="organizationProfile.status !== 'rejected'" class="pt-3 pb-3 p-0 d-block d-md-flex">
                     <td class="fnt-12 fnt-600 fnt-md-14 pt-0 text-clr588">
                         {{ 'last_login' | translate }}
                     </td>
