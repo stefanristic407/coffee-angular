@@ -24,7 +24,7 @@ export class RoasterDashboardComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.welcome();
+        // this.welcome();
         this.roasterId = this.authService.getOrgId();
 
         const promises = [];

@@ -39,8 +39,12 @@
                     {{ 'view' | translate }}
                 </button>
             </div>
-            <div *ngIf="organizationProfile.status === 'rejected'" class="col pl-2 pl-md-0 pr-0 pr-md-2">
-                {{ 'status' }}: <span class="text-clrd5">{{ 'rejected' | translate }}</span>
+            <div
+                *ngIf="organizationProfile.status === 'rejected'"
+                class="col fnt-700 fnt-muli fnt-md-18 pl-2 pl-md-0 pr-0 pr-md-2"
+            >
+                <span class="text-clr588"> {{ 'status' | translate }}</span
+                >: <span class="text-clrd5">{{ 'rejected' | translate }}</span>
             </div>
         </div>
         <div class="login-section w-100 mt-3">
