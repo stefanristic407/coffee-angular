@@ -154,9 +154,7 @@ export const routes: Routes = [
             {
                 path: 'mr-invite',
                 loadChildren: () =>
-                    import('./modules/micro-roaster-invite/micro-roaster-invite.module').then(
-                        (m) => m.MicroRoasterInviteModule,
-                    ),
+                    import('./modules/public-invite/public-invite.module').then((m) => m.PublicInviteModule),
             },
         ],
     },

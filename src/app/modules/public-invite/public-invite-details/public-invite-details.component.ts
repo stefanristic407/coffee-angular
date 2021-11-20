@@ -7,11 +7,11 @@ import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
-    selector: 'app-micro-roaster-invite-details',
-    templateUrl: './micro-roaster-invite-details.component.html',
-    styleUrls: ['./micro-roaster-invite-details.component.scss'],
+    selector: 'app-public-invite-details',
+    templateUrl: './public-invite-details.component.html',
+    styleUrls: ['./public-invite-details.component.scss'],
 })
-export class MicroRoasterInviteDetailsComponent implements OnInit {
+export class PublicInviteDetailsComponent implements OnInit {
     data: any;
     organizationProfile: any;
     roasterId: any;

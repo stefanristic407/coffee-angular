@@ -11,11 +11,11 @@ import { Table } from 'primeng/table';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-micro-roaster-invite',
-    templateUrl: './micro-roaster-invite.component.html',
-    styleUrls: ['./micro-roaster-invite.component.scss'],
+    selector: 'app-public-invite',
+    templateUrl: './public-invite.component.html',
+    styleUrls: ['./public-invite.component.scss'],
 })
-export class MicroRoasterInviteComponent extends ResizeableComponent implements OnInit {
+export class PublicInviteComponent extends ResizeableComponent implements OnInit {
     readonly env = environment;
     searchTerm = '';
     statusItems;
