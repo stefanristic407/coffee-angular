@@ -26,13 +26,21 @@
             </div>
         </div>
         <div class="w-mob-100 d-flex flex-md-row-reverse mx-auto mx-lg-0">
-            <div class="col pr-2 pr-md-0 pl-0 pl-md-2">
+            <div *ngIf="organizationProfile?.status === 'pending'" class="col pr-2 pr-md-0 pl-0 pl-md-2">
                 <button class="btn-stroked w-100" type="button" (click)="onReject()">{{ 'reject' | translate }}</button>
             </div>
-            <div class="col pl-2 pl-md-0 pr-0 pr-md-2">
+            <div *ngIf="organizationProfile?.status === 'pending'" class="col pl-2 pl-md-0 pr-0 pr-md-2">
                 <button class="btn-raised w-100" (click)="onApprove()" type="button">
                     {{ 'approve' | translate }}
                 </button>
+            </div>
+            <div *ngIf="organizationProfile.status === 'approved'" class="col pl-2 pl-md-0 pr-0 pr-md-2">
+                <button class="btn-raised w-100" [routerLink]="['/people/customer-management']" type="button">
+                    {{ 'view' | translate }}
+                </button>
+            </div>
+            <div *ngIf="organizationProfile.status === 'rejected'" class="col text-clrd5 pl-2 pl-md-0 pr-0 pr-md-2">
+                {{ 'rejected' | translate }}
             </div>
         </div>
         <div class="login-section w-100 mt-3">
