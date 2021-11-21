@@ -73,4 +73,6 @@
     </div>
 </ng-template>
 
-<div *ngIf="!isLoading && !tourMedias.length && !isSaveMode" class="py-5 text-center">No data to display</div>
+<div *ngIf="!isLoading && !tourMedias.length && !isSaveMode" class="py-5 text-center">
+    <app-empty [title]="'no_data_available' | translate"></app-empty>
+</div>
