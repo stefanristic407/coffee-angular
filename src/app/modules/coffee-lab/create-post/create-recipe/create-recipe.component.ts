@@ -425,6 +425,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 controlArray.controls[i]?.patchValue(ingredient);
                 if (i < value.ingredients.length - 1) {
                     controlArray.push(this.createCoffeeIngredient());
+                    this.ingredients = controlArray;
                 }
                 i++;
             }
@@ -441,6 +442,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 controlArray.controls[j]?.patchValue(ingredient);
                 if (j < value.steps.length - 1) {
                     controlArray.push(this.createCoffeeStep());
+                    this.steps = controlArray;
                 }
                 j++;
             }
