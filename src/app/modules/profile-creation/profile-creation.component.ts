@@ -38,7 +38,7 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         private userService: UserService,
         public cookieService: CookieService,
         public globals: GlobalsService,
-        public roasteryProfileService: RoasteryProfileService,
+        public profileCreationService: RoasteryProfileService,
     ) {}
 
     ngOnInit(): void {
@@ -48,8 +48,8 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.roasteryProfileService.saveMode.next(false);
-        this.roasteryProfileService.editMode.next(true);
+        this.profileCreationService.saveMode.next(false);
+        this.profileCreationService.editMode.next(true);
     }
 
     checkAdminRole() {
@@ -65,31 +65,30 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
             name: ['', Validators.compose([Validators.required])],
             website: [''],
         });
-        this.roasteryProfileService.subProfileForm = this.subProfileForm;
+        this.profileCreationService.subProfileForm = this.subProfileForm;
 
         this.subProfileForm.valueChanges.subscribe((changedData: any) => {
-            this.roasteryProfileService.mainSubFormInvalid = this.subProfileForm.invalid;
-            this.roasteryProfileService.editProfileData(changedData);
+            this.profileCreationService.editProfileData(changedData);
         });
     }
 
     detectMode() {
-        this.roasteryProfileService.saveMode$.subscribe((res: boolean) => {
+        this.profileCreationService.saveMode$.subscribe((res: boolean) => {
             this.isSaveMode = res;
             if (res) {
                 this.setFormValue();
             } else {
-                this.roasteryProfileService.bannerFile = null;
-                this.roasteryProfileService.bannerUrl = '';
+                this.profileCreationService.bannerFile = null;
+                this.profileCreationService.bannerUrl = '';
             }
         });
-        this.roasteryProfileService.editMode$.subscribe((res: boolean) => {
+        this.profileCreationService.editMode$.subscribe((res: boolean) => {
             this.isEditMode = res;
         });
     }
 
     setFormValue() {
-        this.subProfileForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
+        this.subProfileForm.patchValue(this.profileCreationService.toUpdateProfileData);
     }
 
     handleFile(event) {
@@ -107,8 +106,8 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
             })
             .onClose.subscribe((data: CroppedImage) => {
                 if (data.status) {
-                    this.roasteryProfileService.orgImgPrevUrl = data.croppedImgUrl;
-                    this.roasteryProfileService.orgImgCroppedFile = data.croppedImgFile;
+                    this.profileCreationService.orgImgPrevUrl = data.croppedImgUrl;
+                    this.profileCreationService.orgImgCroppedFile = data.croppedImgFile;
                 }
             });
     }
