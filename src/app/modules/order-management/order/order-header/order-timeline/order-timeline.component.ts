@@ -82,6 +82,17 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         );
     }
 
+    get isPastPickupDate(): boolean {
+        const today = moment().startOf('day');
+        // estimated_pickup_date is for the estate order and shipment_date is for the micro-roaster order
+        const pickupDate =
+            this.order?.estimated_pickup_date || this.order?.shipment_date
+                ? moment(this.order.estimated_pickup_date || this.order.shipment_date).startOf('day')
+                : moment().startOf('day').add(1, 'day');
+
+        return pickupDate <= today;
+    }
+
     constructor(
         private toastrService: ToastrService,
         private orderService: OrderManagementService,

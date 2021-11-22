@@ -1,45 +1,44 @@
 import { Injectable } from '@angular/core';
+import { AddressType, OrderType, OrganizationType, PaymentStatus, ServiceRequestStatus } from '@enums';
 import {
+    Address,
     ApiResponse,
+    AvailabilityRequest,
     BulkDetails,
+    ConfirmRejectOrderDetails,
     CuppingScore,
+    LabelValue,
+    LotDetails,
     OrderDetails,
     OrderDocument,
-    OrderSummary,
-    RecentActivity,
-    OrganizationDetails,
-    ConfirmRejectOrderDetails,
-    LabelValue,
-    AvailabilityRequest,
     OrderNote,
-    UserProfile,
-    LotDetails,
-    Address,
+    OrderSummary,
+    OrganizationDetails,
+    RecentActivity,
     ShippingDetails,
+    UserProfile,
 } from '@models';
-import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { OrganizationType, OrderType, OrderStatus, ShipmentStatus, ServiceRequestStatus } from '@enums';
 import {
-    AvailabilityService,
-    GeneralCuppingService,
-    OrderService,
-    PurchaseService,
-    CommonService,
-    AvailabilityRequestService,
-    UserService,
-    LotsService,
-    ReviewsService,
     AddressesService,
+    AvailabilityRequestService,
+    AvailabilityService,
+    CommonService,
     FileService,
+    GeneralCuppingService,
+    LotsService,
+    OrderService,
+    OrganizationService,
+    PurchaseService,
+    ReviewsService,
     RoasterOrdersService,
     ShippingDetailsService,
-    OrganizationService,
+    UserService,
 } from '@services';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { CookieService } from 'ngx-cookie-service';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { AddressType } from 'src/core/enums/availability/address-type.enum';
 
 @Injectable({
     providedIn: 'root',
@@ -262,7 +261,13 @@ export class OrderManagementService {
         });
     }
 
-    loadOrderDetails(orderId: number, orgType: OrganizationType, skipAdditionalDetails = false): void {
+    loadOrderDetails(
+        orderId: number,
+        orgType: OrganizationType,
+        skipAdditionalDetails = false,
+        resolve?,
+        reject?,
+    ): void {
         const rewrite = this.orderId !== orderId;
         this.orderId = orderId;
 
@@ -270,7 +275,7 @@ export class OrderManagementService {
         this.purchaseSrv.getOrderDetailsById(orderId, orgType).subscribe({
             next: (details) => {
                 if (details) {
-                    details.statusPaid = details.payment_status === 'VERIFIED';
+                    details.statusPaid = details.payment_status === PaymentStatus.VERIFIED;
 
                     this.orderDetailsSubject.next(details);
 
@@ -294,11 +299,16 @@ export class OrderManagementService {
                             this.loadShippingDetails(orderId);
                         }
 
-                        this.updateOrderStatus(details);
-
                         if (details.order_type === OrderType.Prebook) {
                             this.loadLotDetails(details.estate_id, details.lot_id);
                         }
+                    }
+                    if (resolve) {
+                        resolve();
+                    }
+                } else {
+                    if (reject) {
+                        reject();
                     }
                 }
             },
@@ -430,49 +440,5 @@ export class OrderManagementService {
         this.reviewSrv.getOrderReviews(orderId, orgType).subscribe({
             next: (res) => this.isReviewedSubject.next(res.length > 0),
         });
-    }
-
-    private updateOrderStatus(order: OrderDetails) {
-        const status = order.status;
-        const today = moment().startOf('day');
-
-        if (!order.micro_roaster_id) {
-            const departureDate = order.estimated_departure_date
-                ? moment(order.estimated_departure_date).startOf('day')
-                : moment().startOf('day').add(1, 'day');
-            const pickupDate = order.estimated_pickup_date
-                ? moment(order.estimated_pickup_date).startOf('day')
-                : moment().startOf('day').add(1, 'day');
-
-            if (
-                order.status !== OrderStatus.Received &&
-                (order.shipment_status === ShipmentStatus.SHIPPED ||
-                    departureDate <= today ||
-                    order.exporter_status === ServiceRequestStatus.COMPLETED)
-            ) {
-                order.status = OrderStatus.Shipped;
-            }
-
-            if (
-                order.status !== OrderStatus.Received &&
-                (order.shipment_status === ShipmentStatus.DELIVERED ||
-                    pickupDate <= today ||
-                    order.exporter_status === ServiceRequestStatus.CLOSED)
-            ) {
-                order.status = OrderStatus.Delivered;
-            }
-        } else {
-            const shipmentDate = order.shipment_date
-                ? moment(order.shipment_date).startOf('day')
-                : moment().startOf('day').add(1, 'day');
-
-            if (order.status !== OrderStatus.Received && shipmentDate <= today) {
-                order.status = OrderStatus.Shipped;
-            }
-        }
-
-        if (order.status !== status) {
-            this.orderDetailsSubject.next(order);
-        }
     }
 }

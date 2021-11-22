@@ -22,6 +22,7 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
     orderId = 0;
     organizationType = OrganizationType.ESTATE;
     orderDetails: OrderDetails;
+    loading = true;
 
     get needConfirmation(): boolean {
         return (
@@ -58,7 +59,16 @@ export class OrderComponent extends DestroyableComponent implements OnInit {
             this.roaster$ = this.ordersService
                 .getOrgProfile(this.organizationType)
                 .pipe(takeUntil(this.unsubscribeAll$));
-            this.ordersService.loadOrderDetails(this.orderId, this.organizationType);
+            this.loading = true;
+            new Promise((resolve, reject) =>
+                this.ordersService.loadOrderDetails(this.orderId, this.organizationType, false, resolve, reject),
+            )
+                .then(() => {
+                    this.loading = false;
+                })
+                .catch(() => {
+                    this.router.navigate([`/orders/${this.organizationType}`]);
+                });
             this.ordersService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
                 this.orderDetails = data;
             });
