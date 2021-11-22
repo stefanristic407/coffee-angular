@@ -70,14 +70,18 @@
             </div>
         </div>
 
-        <ng-container *ngIf="organizationType === OrgTypes.MICRO_ROASTER && !isConfirmationMode">
+        <ng-container
+            *ngIf="
+                organizationType === OrgTypes.MICRO_ROASTER &&
+                orderStatus &&
+                orderStatus !== OrderStatus.Placed &&
+                orderStatus !== OrderStatus.Confirmed &&
+                orderStatus !== OrderStatus.Rejected
+            "
+        >
             <div class="col-12 px-3">
                 <div class="d-md-flex flex-column bg-f8 w-100 px-md-3 px-lg-5 border-radius-bottom-4">
-                    <app-edit-tracking-info
-                        [orderId]="orderId"
-                        [orderStatus]="orderStatus"
-                        *ngIf="orderStatus && orderStatus !== OrderStatus.Confirmed"
-                    ></app-edit-tracking-info>
+                    <app-edit-tracking-info [orderId]="orderId" [orderStatus]="orderStatus"></app-edit-tracking-info>
                 </div>
             </div>
         </ng-container>
