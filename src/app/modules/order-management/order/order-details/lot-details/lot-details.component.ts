@@ -37,7 +37,6 @@ export class LotDetailsComponent implements OnInit, OnDestroy {
     ) {}
     ngOnInit(): void {
         this.bulkSubscription = this.orderManagementService.bulkDetails$.subscribe((data) => {
-            console.log('avilablity', data);
             this.avilablity = data;
             this.changeDetectorRef.detectChanges();
         });

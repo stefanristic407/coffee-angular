@@ -466,17 +466,9 @@ export class OrderManagementService {
                 ? moment(order.shipment_date).startOf('day')
                 : moment().startOf('day').add(1, 'day');
 
-            if (order.status === OrderStatus.Shipped && shipmentDate > today) {
-                order.status = OrderStatus.Payment;
-            }
-
             if (order.status !== OrderStatus.Received && shipmentDate <= today) {
                 order.status = OrderStatus.Shipped;
             }
-        }
-
-        if (order.status === OrderStatus.Confirmed && (order.payment_after_delivery || order.statusPaid)) {
-            order.status = OrderStatus.Payment;
         }
 
         if (order.status !== status) {

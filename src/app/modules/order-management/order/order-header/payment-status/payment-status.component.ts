@@ -39,7 +39,6 @@ export class PaymentStatusComponent extends ResizeableComponent implements OnIni
             if (data.success) {
                 this.toastrService.success('Payment has been verified!');
                 this.paymentStatus = 'VERIFIED';
-                this.orderDetails.status = OrderStatus.Payment;
                 this.orderDetails.status_paid = true;
                 this.orderDetails.status_pending = false;
                 this.orderDetails.receipt_show = true;

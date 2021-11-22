@@ -142,7 +142,6 @@ export class SelectOrderComponent extends ResizeableComponent implements OnInit 
         this.orderTypeArray = [
             { label: 'Shipped', value: 'SHIPPED' },
             { label: 'Confirmed', value: 'CONFIRMED' },
-            { label: 'Payment', value: 'PAYMENT' },
             { label: 'Harvest Ready', value: 'HARVEST READY' },
             { label: 'GRADED', value: 'RECEIVED' },
         ];

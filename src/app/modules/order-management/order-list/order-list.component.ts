@@ -1,19 +1,19 @@
-import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonService, DownloadService, GlobalsService, ResizeService } from '@services';
-import { OrderManagementService } from '@modules/order-management/order-management.service';
-import { MenuItem } from 'primeng/api';
-import { ApiResponse, Download, LabelValue } from '@models';
-import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS, MR_ORDER_TYPE_ITEMS, MR_ORDER_STATUS_ITEMS } from '@constants';
-import { ResizeableComponent } from '@base-components';
-import { takeUntil } from 'rxjs/operators';
-import { OrganizationType } from '@enums';
-import { OrderTableComponent } from './order-table/order-table.component';
-import * as moment from 'moment';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestTableComponent } from './request-table/request-table.component';
-import { ToastrService } from 'ngx-toastr';
+import { ResizeableComponent } from '@base-components';
+import { MR_ORDER_STATUS_ITEMS, MR_ORDER_TYPE_ITEMS, ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
+import { OrganizationType } from '@enums';
+import { ApiResponse, Download, LabelValue } from '@models';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { TranslateService } from '@ngx-translate/core';
+import { CommonService, DownloadService, ResizeService } from '@services';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { takeUntil } from 'rxjs/operators';
+import { OrderTableComponent } from './order-table/order-table.component';
+import { RequestTableComponent } from './request-table/request-table.component';
 
 @Component({
     selector: 'app-order-list',
@@ -21,10 +21,10 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./order-list.component.scss'],
 })
 export class OrderListComponent extends ResizeableComponent implements OnInit {
-    readonly statusItems = ORDER_STATUS_ITEMS;
-    readonly mrStatusItems = MR_ORDER_STATUS_ITEMS;
-    readonly orderTypeItems = ORDER_TYPE_ITEMS;
-    readonly mrOrderTypeItems = MR_ORDER_TYPE_ITEMS;
+    readonly ORDER_STATUS_ITEMS = ORDER_STATUS_ITEMS;
+    readonly MR_ORDER_STATUS_ITEMS = MR_ORDER_STATUS_ITEMS;
+    readonly ORDER_TYPE_ITEMS = ORDER_TYPE_ITEMS;
+    readonly MR_ORDER_TYPE_ITEMS = MR_ORDER_TYPE_ITEMS;
     readonly OrgType = OrganizationType;
 
     items: MenuItem[] = [];
@@ -72,10 +72,8 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
-        protected resizeService: ResizeService,
-        public commonService: CommonService,
-        public globals: GlobalsService,
         private translator: TranslateService,
+        protected resizeService: ResizeService,
     ) {
         super(resizeService);
     }
