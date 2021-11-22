@@ -243,12 +243,22 @@
                                                 class="row gutter-12 v-gutter-8"
                                             >
                                                 <div
-                                                    *ngFor="let flavour of sourcing.harvestDetail?.flavours"
+                                                    *ngFor="
+                                                        let flavour of sourcing.harvestDetail?.flavours | slice: 0:3
+                                                    "
                                                     class="col-auto"
                                                 >
                                                     <div class="custom-chip">
                                                         {{ flavour.name }}
                                                     </div>
+                                                </div>
+                                                <div
+                                                    *ngIf="sourcing.harvestDetail?.flavours?.length > 3"
+                                                    class="col-auto d-flex align-items-center"
+                                                >
+                                                    <span class="fnt-bold"
+                                                        >+ {{ sourcing.harvestDetail.flavours?.length - 3 }}</span
+                                                    >
                                                 </div>
                                             </div>
                                             <h3
