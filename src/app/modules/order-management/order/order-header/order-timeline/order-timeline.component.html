@@ -10,7 +10,7 @@
                         <ng-container *ngTemplateOutlet="timeline"></ng-container>
                     </ng-container>
                 </div>
-                <div *ngIf="isPastPickupDate" class="row gutter-16 v-gutter-16 flex-md-column">
+                <div *ngIf="showConfirmInTimeline" class="row gutter-16 v-gutter-16 flex-md-column">
                     <div class="col-6 col-md-auto">
                         <button class="btn-raised w-100" (click)="confirmOrder()">
                             {{ 'yes_i_have' | translate }}
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="invoiceUrl" class="d-md-none" [class.mt-4]="isPastPickupDate">
+            <div *ngIf="invoiceUrl" class="d-md-none" [class.mt-4]="showConfirmInTimeline">
                 <a type="submit" class="btn-raised w-100" [href]="invoiceUrl" target="_blank">
                     {{ 'order_invoice' | translate }}
                 </a>
