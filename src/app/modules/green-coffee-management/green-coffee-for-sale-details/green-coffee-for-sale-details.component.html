@@ -53,18 +53,20 @@
                                 <ul class="clearfix">
                                     <li>
                                         <label>Quantity Available</label>
-                                        <p>
+                                        <p *ngIf="orderDetails.order_reference">
                                             {{ orderDetails.quantity_count }}
                                             {{ orderDetails.quantity_type }}/ {{ orderDetails.quantity }} kg each
                                         </p>
+                                        <p *ngIf="!orderDetails.order_reference">N/A</p>
                                     </li>
                                     <li>
                                         <label>Buying price</label>
-                                        <p>{{ orderDetails.price }} USD/kg</p>
+                                        <p *ngIf="orderDetails.price">{{ orderDetails.price }} USD/kg</p>
+                                        <p *ngIf="!orderDetails.price">N/A</p>
                                     </li>
                                     <li>
                                         <label>Roaster Ref. No.</label>
-                                        <p>{{ orderDetails.order_reference }}</p>
+                                        <p>{{ orderDetails.order_reference ? orderDetails.order_reference : 'N/A' }}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -72,21 +74,23 @@
                                 <ul class="clearfix">
                                     <li>
                                         <label>Quantity bought</label>
-                                        <p>
+                                        <p *ngIf="orderDetails.quantity">
                                             {{ orderDetails.quantity * orderDetails.quantity_count }}
                                             {{ orderDetails.quantity_unit }}
                                         </p>
+                                        <p *ngIf="!orderDetails.quantity">N/A</p>
                                     </li>
                                     <li>
                                         <label>{{ 'remaining_quantity_available' | translate }}</label>
-                                        <p>
+                                        <p *ngIf="orderDetails.remaining_total_quantity">
                                             {{ orderDetails.remaining_total_quantity }}
                                             {{ orderDetails.quantity_unit }}
                                         </p>
+                                        <p *ngIf="!orderDetails.remaining_total_quantity">N/A</p>
                                     </li>
                                     <li>
                                         <label>Roaster Ref. No.</label>
-                                        <p>{{ orderDetails.order_reference }}</p>
+                                        <p>{{ orderDetails.order_reference ? orderDetails.order_reference : 'N/A' }}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -127,7 +131,11 @@
                                     <li>
                                         <label>{{ 'minimum_quantity_sale' | translate }}</label>
                                         <p>
-                                            {{ saleInformation?.minimum_order_quantity_count }}
+                                            {{
+                                                saleInformation?.minimum_order_quantity_count
+                                                    ? saleInformation?.minimum_order_quantity_count
+                                                    : 'N/A'
+                                            }}
                                         </p>
                                     </li>
                                     <li>
@@ -237,7 +245,13 @@
                                                 <li>
                                                     <label>{{ 'flavor_profile' | translate }}</label>
                                                     <p>
-                                                        <span> {{ orderDetails.flavours }}</span>
+                                                        <span>
+                                                            {{
+                                                                orderDetails.flavours
+                                                                    ? saleInformation?.minimum_order_quantity_count
+                                                                    : 'N/A'
+                                                            }}</span
+                                                        >
                                                     </p>
                                                 </li>
                                                 <li>
