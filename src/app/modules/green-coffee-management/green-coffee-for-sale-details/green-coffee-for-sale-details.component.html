@@ -8,7 +8,7 @@
                 <div class="w-100 mt-4 pt-2 clearfix botSpacing avaialble-web">
                     <div *ngIf="saleInformation" class="source-det-tit pull-left pt-2">
                         <div class="det-tit d-inline-block">
-                            <h2>{{ saleInformation.name ? saleInformation.name : 'NA' }}</h2>
+                            <h2>{{ saleInformation.name || 'NA' }}</h2>
                         </div>
                     </div>
                     <div class="text-white pull-right">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="row avaialble-mob p-0">
                     <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 pl-3 mt-4 mb-3">
-                        {{ saleInformation?.name ? saleInformation?.name : 'NA' }}
+                        {{ saleInformation?.name || 'NA' }}
                     </h2>
                     <div class="col-sm-12">
                         <button
@@ -90,7 +90,7 @@
                                     </li>
                                     <li>
                                         <label>Roaster Ref. No.</label>
-                                        <p>{{ orderDetails.order_reference ? orderDetails.order_reference : 'N/A' }}</p>
+                                        <p>{{ orderDetails.order_reference || 'N/A' }}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -105,7 +105,7 @@
                                 <ul class="clearfix">
                                     <li>
                                         <label>{{ 'product_name' | translate }}</label>
-                                        <p>{{ saleInformation.name ? saleInformation.name : 'NA' }}</p>
+                                        <p>{{ saleInformation.name || 'NA' }}</p>
                                     </li>
                                     <li>
                                         <label>Quantity for sale</label>
@@ -131,26 +131,22 @@
                                     <li>
                                         <label>{{ 'minimum_quantity_sale' | translate }}</label>
                                         <p>
-                                            {{
-                                                saleInformation?.minimum_order_quantity_count
-                                                    ? saleInformation?.minimum_order_quantity_count
-                                                    : 'N/A'
-                                            }}
+                                            {{ saleInformation?.minimum_order_quantity_count || 'N/A' }}
                                         </p>
                                     </li>
                                     <li>
                                         <label>{{ 'selling_price' | translate }}</label>
                                         <p>
-                                            {{ saleInformation.price_unit ? saleInformation.price_unit : 'NA' }}
-                                            {{ saleInformation.price ? saleInformation.price : 'NA' }}
+                                            {{ saleInformation.price_unit || 'NA' }}
+                                            {{ saleInformation.price || 'NA' }}
                                             /
-                                            {{ saleInformation.price_per_unit ? saleInformation.price_per_unit : 'NA' }}
+                                            {{ saleInformation.price_per_unit || 'NA' }}
                                         </p>
                                     </li>
                                     <li>
                                         <label>{{ 'vat' | translate }}</label>
                                         <p>
-                                            {{ saleInformation.vat_percentage ? saleInformation.vat_percentage : 'NA' }}
+                                            {{ saleInformation.vat_percentage || 'NA' }}
                                             <span *ngIf="saleInformation.vat_percentage">%</span>
                                         </p>
                                     </li>
@@ -178,7 +174,7 @@
                                                 <li>
                                                     <label>{{ 'estate' | translate }}</label>
                                                     <p>
-                                                        {{ orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}
+                                                        {{ orderDetails.estate_name || 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
@@ -204,29 +200,25 @@
                                                 <li>
                                                     <label>{{ 'gc_odrer_id' | translate }}</label>
                                                     <p>
-                                                        {{ orderDetails.id ? orderDetails.id : 'NA' }}
+                                                        {{ orderDetails.id || 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
                                                     <label>{{ 'availability_name' | translate }}</label>
                                                     <p>
-                                                        {{
-                                                            orderDetails.availability_name
-                                                                ? orderDetails.availability_name
-                                                                : 'NA'
-                                                        }}
+                                                        {{ orderDetails.availability_name || 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
                                                     <label>{{ 'species' | translate }}</label>
                                                     <p>
-                                                        {{ orderDetails.species ? orderDetails.species : 'NA' }}
+                                                        {{ orderDetails.species || 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
                                                     <label>{{ 'variety' | translate }}</label>
                                                     <p>
-                                                        {{ orderDetails.varieties ? orderDetails.varieties : 'NA' }}
+                                                        {{ orderDetails.varieties || 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
@@ -239,7 +231,7 @@
                                                 <li>
                                                     <label>{{ 'altitude' | translate }}</label>
                                                     <p>
-                                                        {{ orderDetails.altitude ? orderDetails.altitude : 'NA' }}
+                                                        {{ orderDetails.altitude || 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
@@ -257,19 +249,19 @@
                                                 <li>
                                                     <label>{{ 'wet_mill' | translate }}</label>
                                                     <p>
-                                                        {{ orderDetails.wet_mill ? orderDetails.wet_mill : 'NA' }}
+                                                        {{ orderDetails.wet_mill || 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
                                                     <label>{{ 'processing' | translate }}</label>
                                                     <p>
-                                                        {{ orderDetails.processing ? orderDetails.processing : 'NA' }}
+                                                        {{ orderDetails.processing || 'NA' }}
                                                     </p>
                                                 </li>
                                                 <li>
                                                     <label>{{ 'moisture_content' | translate }}</label>
                                                     <p>
-                                                        {{ orderDetails.moisture ? orderDetails.moisture : 'NA' }}
+                                                        {{ orderDetails.moisture || 'NA' }}
                                                     </p>
                                                 </li>
                                             </ul>
@@ -336,7 +328,7 @@
                                                 <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1 text-head"
                                                     >{{ 'cup_score' | translate }} :</span
                                                 >
-                                                {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
+                                                {{ orderDetails.cup_score || 'NA' }}
                                             </p>
                                         </div>
                                     </div>
@@ -350,14 +342,10 @@
                                             </div>
 
                                             <h3>
-                                                {{ orderDetails.evaluator_name ? orderDetails.evaluator_name : 'NA' }}
+                                                {{ orderDetails.evaluator_name || 'NA' }}
                                             </h3>
                                             <h6 class="mt-0">
-                                                {{
-                                                    orderDetails.evaluator_facilitator_name
-                                                        ? orderDetails.evaluator_facilitator_name
-                                                        : 'NA'
-                                                }}
+                                                {{ orderDetails.evaluator_facilitator_name || 'NA' }}
                                             </h6>
                                         </div>
                                     </div>
