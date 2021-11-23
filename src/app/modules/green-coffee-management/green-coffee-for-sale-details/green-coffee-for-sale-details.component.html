@@ -66,7 +66,7 @@
                                     </li>
                                     <li>
                                         <label>Roaster Ref. No.</label>
-                                        <p>{{ orderDetails.order_reference ? orderDetails.order_reference : 'N/A' }}</p>
+                                        <p>{{ orderDetails.order_reference || 'N/A' }}</p>
                                     </li>
                                 </ul>
                             </div>
