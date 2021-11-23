@@ -3,7 +3,6 @@
     <div class="mt-2" *ngIf="availability$ | async as availability">
         {{ 'available_quantity' | translate }} : {{ availability.quantityCount }} {{ availability.quantityType }}
     </div>
-    <div class="mt-2 secondary-description">{{ 'confirm_the_order_within' | translate }}</div>
     <div class="mt-4 button-block">
         <button class="btn-raised p-12" (click)="accept()">{{ 'accept_order' | translate }}</button>
         <button class="ml-4 btn-stroked p-12" (click)="reject()">{{ 'reject_order' | translate }}</button>
