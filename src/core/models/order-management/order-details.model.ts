@@ -54,7 +54,6 @@ export interface OrderDetails {
 
     upload_show: boolean;
     receipt_show: boolean;
-    status_paid: boolean;
     status_pending: boolean;
     payment_verification?: boolean;
     before_grade_complete: boolean;

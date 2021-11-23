@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
+import { OrganizationType } from '@enums';
 import { GroupedRecentActivity, OrderDetails } from '@models';
-import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
+import { ResizeService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
-import { OrderStatus, OrganizationType } from '@enums';
 
 @Component({
     selector: 'app-payment-status',
@@ -38,11 +38,7 @@ export class PaymentStatusComponent extends ResizeableComponent implements OnIni
         this.ordersService.updatePaymentVerify(this.orderId).subscribe((data) => {
             if (data.success) {
                 this.toastrService.success('Payment has been verified!');
-                this.paymentStatus = 'VERIFIED';
-                this.orderDetails.status_paid = true;
-                this.orderDetails.status_pending = false;
-                this.orderDetails.receipt_show = true;
-                this.ordersService.updateOrderDetails(this.orderDetails);
+                this.ordersService.loadOrderDetails(this.orderId, OrganizationType.MICRO_ROASTER, true);
             } else {
                 this.toastrService.error('Error while verifying the payment');
             }
