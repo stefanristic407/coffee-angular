@@ -115,7 +115,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                 width: 12,
             },
             {
-                field: 'price',
+                field: 'unit_price',
                 header: 'buying_price',
                 sortable: false,
                 width: 12,

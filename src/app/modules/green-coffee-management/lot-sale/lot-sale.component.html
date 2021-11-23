@@ -59,7 +59,7 @@
                                     </span>
                                 </ng-container>
 
-                                <ng-container *ngSwitchCase="'price'">
+                                <ng-container *ngSwitchCase="'unit_price'">
                                     <span class="p-column-title"> {{ col.header | translate }} </span>
                                     <span>${{ rowData[col.field] }}/{{ rowData['quantity_unit'] || 'kg' }}</span>
                                 </ng-container>
