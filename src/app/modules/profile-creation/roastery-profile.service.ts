@@ -25,11 +25,6 @@ export class RoasteryProfileService {
     public avatarImageChanged = new BehaviorSubject(null);
     public avatarImageChanged$ = this.avatarImageChanged.asObservable();
 
-    public mainSubFormInvalid = false;
-    public aboutFormInvalid = false;
-    public contactFormInvalid = false;
-    public invalidSumEmployee = false;
-
     subProfileForm: FormGroup;
     aboutForm: FormGroup;
     contactForm: FormGroup;
@@ -127,7 +122,7 @@ export class RoasteryProfileService {
     }
 
     saveRoasterProfile() {
-        if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid || this.invalidSumEmployee) {
+        if (this.subProfileForm?.invalid || this.aboutForm?.invalid || this.contactForm?.invalid) {
             this.toastrService.error(this.translator.instant('please_ensure_all_fields_filled_for_all_tabs'));
             this.subProfileForm?.markAllAsTouched();
             this.aboutForm?.markAllAsTouched();

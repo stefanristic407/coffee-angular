@@ -15,33 +15,31 @@
         {{ 'order_has_been_rejected' | translate }}
     </div>
     <div class="d-flex flex-column mt-4" [formGroup]="rejectReasonForm">
-        <div class="custom-control custom-checkbox mb-3 float-left pad-left">
-            <input
-                type="checkbox"
-                class="custom-control-input"
-                id="not_serviceable"
-                formControlName="not_serviceable"
-            />
-            <label class="custom-control-label" for="not_serviceable">
-                <span class="remeber-left">{{ 'not_serviceable' | translate }}</span>
-            </label>
+        <div class="mb-3 float-left pad-left">
+            <p-checkbox
+                [formControl]="rejectReasonForm.get('notes')"
+                value="not_serviceable"
+                label="{{ 'not_serviceable' | translate }}"
+            ></p-checkbox>
         </div>
-
-        <div class="custom-control custom-checkbox mb-3 float-left pad-left">
-            <input type="checkbox" class="custom-control-input" id="out_of_stock" formControlName="out_of_stock" />
-            <label class="custom-control-label pt-1" for="out_of_stock">
-                <span class="remeber-left">{{ 'out_of_stock' | translate }}</span>
-            </label>
+        <div class="mb-3 float-left pad-left">
+            <p-checkbox
+                [formControl]="rejectReasonForm.get('notes')"
+                value="out_of_stock"
+                label="{{ 'out_of_stock' | translate }}"
+            ></p-checkbox>
         </div>
-
-        <div class="custom-control custom-checkbox float-left pad-left">
-            <input type="checkbox" class="custom-control-input" id="other" formControlName="other" />
-            <label class="custom-control-label" for="other">
-                <span class="remeber-left">{{ 'other' | translate }}</span>
-            </label>
+        <div class="float-left pad-left">
+            <p-checkbox
+                [formControl]="rejectReasonForm.get('notes')"
+                value="other"
+                label="{{ 'other' | translate }}"
+            ></p-checkbox>
         </div>
     </div>
     <div class="mt-45 button-block">
-        <button class="btn btn-raised p-12" (click)="submitReason()">{{ 'submit' | translate }}</button>
+        <button class="btn btn-raised p-12" (click)="submitReason()" [disabled]="isSubmitted">
+            {{ 'submit' | translate }}
+        </button>
     </div>
 </ng-template>

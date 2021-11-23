@@ -1,23 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OrganizationType, OrderStatus } from '@enums';
+import { OrderStatus, OrganizationType } from '@enums';
 import {
     ApiResponse,
     ConfirmRejectOrderDetails,
     LabelValue,
     OrderDetails,
+    OrderNote,
     OrderSummary,
     RecentActivity,
-    OrderNote,
 } from '@models';
-import { CookieService } from 'ngx-cookie-service';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiService } from './api.service';
-import * as moment from 'moment';
-import { toCamelCase } from '@utils';
-import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
 import { AuthService } from '../auth';
+import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root',
@@ -49,9 +46,6 @@ export class PurchaseService extends ApiService {
                         details.statusPaid = true;
                         details.statusPending = false;
                         details.paymentVerification = true;
-                        if (details.status === OrderStatus.Confirmed) {
-                            details.status = OrderStatus.Payment;
-                        }
                     }
 
                     return details;

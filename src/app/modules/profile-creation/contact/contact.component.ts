@@ -70,7 +70,6 @@ export class ContactComponent implements OnInit {
         });
 
         this.contactForm.valueChanges.subscribe((changedData: any) => {
-            this.profileCreationService.contactFormInvalid = !this.contactForm.valid;
             this.profileCreationService.editProfileData(changedData);
         });
     }

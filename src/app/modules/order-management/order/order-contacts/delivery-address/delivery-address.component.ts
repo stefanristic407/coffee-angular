@@ -27,7 +27,6 @@ export class DeliveryAddressComponent extends DestroyableComponent implements On
         if (
             this.order?.status === OrderStatus.Placed ||
             this.order?.status === OrderStatus.Confirmed ||
-            this.order?.status === OrderStatus.Payment ||
             this.order?.status === OrderStatus.HarvestReady
         ) {
             return true;

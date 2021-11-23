@@ -4,7 +4,6 @@ import { LabelValue } from '@models';
 export const MR_ORDER_STATUS_ITEMS: LabelValue[] = [
     { label: 'Placed', value: OrderStatus.Placed },
     { label: 'Confirmed', value: OrderStatus.Confirmed },
-    { label: 'Payment', value: OrderStatus.Payment },
     { label: 'Shipped', value: OrderStatus.Shipped },
     { label: 'Received', value: OrderStatus.Received },
     { label: 'Rejected', value: OrderStatus.Rejected },

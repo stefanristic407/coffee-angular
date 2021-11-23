@@ -58,7 +58,7 @@
                 </p-multiSelect>
                 <p-dropdown
                     [showClear]="true"
-                    [options]="orgType === OrgType.MICRO_ROASTER ? mrOrderTypeItems : orderTypeItems"
+                    [options]="orgType === OrgType.MICRO_ROASTER ? MR_ORDER_TYPE_ITEMS : ORDER_TYPE_ITEMS"
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Type of order"
@@ -71,7 +71,7 @@
                 </p-dropdown>
                 <p-dropdown
                     [showClear]="true"
-                    [options]="orgType === OrgType.MICRO_ROASTER ? mrStatusItems : statusItems"
+                    [options]="orgType === OrgType.MICRO_ROASTER ? MR_ORDER_STATUS_ITEMS : ORDER_STATUS_ITEMS"
                     optionLabel="label"
                     optionValue="value"
                     placeholder="Status"
