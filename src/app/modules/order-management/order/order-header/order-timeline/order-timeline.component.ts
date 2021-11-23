@@ -14,7 +14,7 @@ import * as moment from 'moment';
     styleUrls: ['./order-timeline.component.scss'],
 })
 export class OrderTimelineComponent extends ResizeableComponent implements OnInit {
-    readonly OrgTypes = OrganizationType;
+    readonly OrgType = OrganizationType;
     readonly OrderStatus = OrderStatus;
 
     readonly isReviewed$ = this.orderService.isReviewed$;
@@ -91,6 +91,10 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
                 : moment().startOf('day').add(1, 'day');
 
         return pickupDate <= today;
+    }
+
+    get showConfirmInTimeline(): boolean {
+        return this.isPastPickupDate && this.orgType === OrganizationType.ESTATE;
     }
 
     constructor(
