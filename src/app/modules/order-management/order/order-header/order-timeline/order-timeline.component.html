@@ -149,7 +149,7 @@
                             <button
                                 type="button"
                                 class="btn-stroked sm my-3"
-                                *ngIf="orderId && orgType === OrgTypes.ESTATE"
+                                *ngIf="orderId && orgType === OrgType.ESTATE"
                                 routerLink="/sourcing/estate-list"
                             >
                                 {{ 'brose_other_estates' | translate }}
@@ -310,7 +310,7 @@
                         <button
                             type="button"
                             class="btn-stroked sm my-3"
-                            *ngIf="orderId && orgType === OrgTypes.ESTATE"
+                            *ngIf="orderId && orgType === OrgType.ESTATE"
                             routerLink="/sourcing/estate-list"
                         >
                             {{ 'brose_other_estates' | translate }}
