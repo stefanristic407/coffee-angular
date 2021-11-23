@@ -29,7 +29,7 @@ export class TabContainerComponent implements OnInit {
                 this.selectedIndex = 3;
             }
             this.coffeeLabService.allDrafts.subscribe((res) => {
-                this.draftsLength = res.length;
+                this.draftsLength = res?.length || 0;
             });
         });
     }
