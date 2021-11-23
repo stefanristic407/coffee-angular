@@ -74,9 +74,9 @@
             *ngIf="
                 organizationType === OrgTypes.MICRO_ROASTER &&
                 orderStatus &&
-                orderStatus !== OrderStatus.Placed &&
-                orderStatus !== OrderStatus.Confirmed &&
-                orderStatus !== OrderStatus.Rejected
+                (orderStatus === OrderStatus.Confirmed ||
+                    orderStatus === OrderStatus.Shipped ||
+                    orderStatus === OrderStatus.Received)
             "
         >
             <div class="col-12 px-3">
