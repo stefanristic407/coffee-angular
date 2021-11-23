@@ -205,7 +205,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         this.roasterService.CreateMarkForSale(this.roasterID, this.orderID, productObj).subscribe(
             (response) => {
                 if (response && response.success) {
-                    this.toasterService.success('Successfully marked the sale');
+                    this.toasterService.success('Successfully marked coffee for sale');
                     const navigationExtras: NavigationExtras = {
                         queryParams: {
                             markSale: 'yes',
@@ -293,7 +293,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
 
     changeQuantity(event) {
         if (this.quantityType === 'kg') {
-            const remaining = event.value;
+            const remaining = event.value ? event.value : event;
             this.remaining = `${remaining} kg`;
             if (this.orderDetails.quantity_count * this.orderDetails.quantity - event.value < 0) {
                 this.toasterService.error('Please check quantity available with you');
@@ -301,8 +301,8 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             } else if (event.value <= 0) {
                 this.remaining = '0 kg';
             }
-        } else {
-            const remaining = event.value;
+        } else if (this.quantityType === 'bags') {
+            const remaining = event.value ? event.value : event;
             this.remaining = `${remaining} bags`;
             if (this.orderDetails.quantity_count - event.value < 0) {
                 this.toasterService.error('Please check quantity available with you');

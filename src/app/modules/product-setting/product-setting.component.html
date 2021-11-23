@@ -217,7 +217,10 @@
                                                 <span class="list-que"> {{ 'shipping_price' | translate }} : </span>
                                             </td>
                                             <td>
-                                                <span class="list-ans"> {{ shippingDetails.price || 'NA' }} kr </span>
+                                                <span class="list-ans">
+                                                    {{ shippingDetails?.price || 'NA' }}
+                                                    SEK
+                                                </span>
                                             </td>
                                         </tr>
                                         <tr>
