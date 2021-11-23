@@ -1,4 +1,4 @@
-<div class="bg-f8 br-8 col-12 pb-3 pt-4 sewn-form-field">
+<div class="bg-f8 br-8 col-12 pb-3 pt-4 sewn-form-field" *ngIf="drafts?.length > 0">
     <label class="mb-1">{{ 'filter_by' | translate }}</label>
     <p-dropdown
         [options]="tabList"
@@ -61,7 +61,7 @@
             (onPageChange)="paginate($event)"
         ></p-paginator>
     </div>
-    <div [ngClass]="{ 'd-none': !drafts.length }" class="text-center py-4">
+    <div [ngClass]="{ 'd-none': !drafts }" class="text-center py-4">
         {{ 'no_data_is_available' | translate }}
     </div>
 </div>
