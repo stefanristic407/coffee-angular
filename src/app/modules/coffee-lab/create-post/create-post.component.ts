@@ -42,7 +42,7 @@ export class CreatePostComponent implements OnInit {
         this.coffeeLabService.getDrafts().subscribe((res: any) => {
             if (res.success) {
                 this.drafts = res.result;
-                this.coffeeLabService.allDrafts.next(this.drafts);
+                this.coffeeLabService.allDrafts.next(this.drafts ? this.drafts : []);
             } else {
                 this.toastService.error('Failed to get drafts');
             }

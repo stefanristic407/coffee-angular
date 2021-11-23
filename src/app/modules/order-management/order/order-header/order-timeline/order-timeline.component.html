@@ -10,7 +10,6 @@
                         <ng-container *ngTemplateOutlet="timeline"></ng-container>
                     </ng-container>
                 </div>
-
                 <div *ngIf="isPastPickupDate" class="row gutter-16 v-gutter-16 flex-md-column">
                     <div class="col-6 col-md-auto">
                         <button class="btn-raised w-100" (click)="confirmOrder()">
@@ -18,12 +17,18 @@
                         </button>
                     </div>
                     <div class="col-6 col-md-auto">
-                        <button class="btn-stroked w-100">{{ 'no_i_have_not' | translate }}</button>
+                        <button
+                            class="btn-stroked w-100"
+                            [routerLink]="['/dispute-system/raise-ticket', orgType, orderId]"
+                            [queryParams]="{ supportValue: 'Coffee Bulks' }"
+                        >
+                            {{ 'no_i_have_not' | translate }}
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="d-md-none" [class.mt-4]="isPastPickupDate">
-                <a *ngIf="invoiceUrl" type="submit" class="btn-raised w-100" [href]="invoiceUrl" target="_blank">
+            <div *ngIf="invoiceUrl" class="d-md-none" [class.mt-4]="isPastPickupDate">
+                <a type="submit" class="btn-raised w-100" [href]="invoiceUrl" target="_blank">
                     {{ 'order_invoice' | translate }}
                 </a>
             </div>
@@ -186,7 +191,13 @@
                     <button class="btn-raised px-3 mb-2" (click)="confirmOrder()">
                         {{ 'yes_i_have' | translate }}
                     </button>
-                    <button class="btn-stroked px-3 mt-2">{{ 'no_i_have_not' | translate }}</button>
+                    <button
+                        class="btn-stroked px-3 mt-2"
+                        [routerLink]="['/dispute-system/raise-ticket', orgType, orderId]"
+                        [queryParams]="{ supportValue: 'Coffee Bulks' }"
+                    >
+                        {{ 'no_i_have_not' | translate }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -281,7 +292,7 @@
                 </div>
                 <div class="w-100 ml-md-3 d-flex flex-column flex-md-row justify-content-between">
                     <div class="d-flex flex-column">
-                        <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-play">Rejected</h4>
+                        <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-play">{{ 'rejected' | translate }}</h4>
                         <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
                             Sorry! The order has been rejected by the estate due to certain reasons.<br />
                             Get in touch with the estate or browse other availabilities

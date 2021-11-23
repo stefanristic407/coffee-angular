@@ -3,7 +3,7 @@
         [orderId]="orderId"
         [organizationType]="organizationType"
         [orderType]="orderDetails?.order_type || orderDetails?.type"
-        [statusPaid]="orderDetails?.status_paid"
+        [statusPaid]="orderDetails?.payment_status === PaymentStatus.VERIFIED"
         [createdAt]="orderDetails?.created_at"
         [invoiceUrl]="orderDetails?.invoice_url"
         [orderStatus]="orderDetails?.status"
