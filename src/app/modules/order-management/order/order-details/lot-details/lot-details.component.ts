@@ -1,10 +1,12 @@
-import { Subscription } from 'rxjs';
-import { OrderManagementService } from '@modules/order-management/order-management.service';
-import { ChangeDetectionStrategy, Component, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { OrderDetails } from '@models';
-import { CommonService } from '@services';
-import { OrderType, OrganizationType } from '@enums';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { DestroyableComponent } from '@base-components';
 import { CURRENCY_LIST } from '@constants';
+import { OrderType, OrganizationType } from '@enums';
+import { OrderDetails } from '@models';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
+import { CommonService } from '@services';
+import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-lot-details',
@@ -12,7 +14,7 @@ import { CURRENCY_LIST } from '@constants';
     styleUrls: ['./lot-details.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LotDetailsComponent implements OnInit, OnDestroy {
+export class LotDetailsComponent extends DestroyableComponent implements OnInit, OnDestroy {
     readonly OrderType = OrderType;
     public readonly CURRENCY_LIST = CURRENCY_LIST;
     readonly OrgType = OrganizationType;
@@ -34,16 +36,16 @@ export class LotDetailsComponent implements OnInit, OnDestroy {
         public commonService: CommonService,
         private orderManagementService: OrderManagementService,
         private changeDetectorRef: ChangeDetectorRef,
-    ) {}
-    ngOnInit(): void {
-        this.bulkSubscription = this.orderManagementService.bulkDetails$.subscribe((data) => {
-            this.avilablity = data;
-            this.changeDetectorRef.detectChanges();
-        });
+    ) {
+        super();
     }
-    ngOnDestroy(): void {
-        if (this.bulkSubscription && this.bulkSubscription.unsubscribe) {
-            this.bulkSubscription.unsubscribe();
-        }
+
+    ngOnInit(): void {
+        this.bulkSubscription = this.orderManagementService.bulkDetails$
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe((data) => {
+                this.avilablity = data;
+                this.changeDetectorRef.detectChanges();
+            });
     }
 }
