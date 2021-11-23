@@ -192,7 +192,6 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
                     this.vatDetailsArray.push(pushObj);
                 });
             }
-            this.vatDetailsArray.push({ label: '', value: 'button' });
             resolve();
         });
     }
