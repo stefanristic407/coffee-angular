@@ -56,4 +56,7 @@
             background-color: $brown-color;
         }
     }
+    .price-tier-table.p-datatable-scrollable .p-datatable-scrollable-wrapper .p-datatable-scrollable-view {
+        min-width: 460px;
+    }
 }
