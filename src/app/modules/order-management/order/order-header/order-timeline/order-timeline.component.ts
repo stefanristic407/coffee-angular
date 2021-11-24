@@ -135,29 +135,11 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     getStatusDate(point: LabelValue): string {
-        if (this.order && point.value === OrderStatus.Shipped) {
-            const date = this.order.estimated_departure_date || this.order.shipment_date;
-            if (moment(date).startOf('day') <= moment()) {
-                return date;
-            } else {
-                return '';
-            }
-        }
-
-        if (this.order && point.value === OrderStatus.Delivered) {
-            const date = this.order.estimated_pickup_date;
-            if (moment(date).startOf('day') <= moment()) {
-                return date;
-            } else {
-                return '';
-            }
-        }
-
         const activity = this.getLatestActivity(point);
 
         if (!activity && this.order) {
             if (point.value === OrderStatus.Shipped) {
-                return this.order.estimated_departure_date;
+                return this.order.estimated_departure_date || this.order.shipment_date;
             }
 
             if (point.value === OrderStatus.Received) {
