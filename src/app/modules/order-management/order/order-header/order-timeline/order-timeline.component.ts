@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { LabelValue, OrderDetails, RecentActivity } from '@models';
-import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
-import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import { ResizeService } from '@services';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-order-timeline',
@@ -137,7 +137,6 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     getStatusDate(point: LabelValue): string {
         if (this.order && point.value === OrderStatus.Shipped) {
             const date = this.order.estimated_departure_date || this.order.shipment_date;
-
             if (moment(date).startOf('day') <= moment()) {
                 return date;
             } else {
@@ -147,7 +146,6 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
 
         if (this.order && point.value === OrderStatus.Delivered) {
             const date = this.order.estimated_pickup_date;
-
             if (moment(date).startOf('day') <= moment()) {
                 return date;
             } else {

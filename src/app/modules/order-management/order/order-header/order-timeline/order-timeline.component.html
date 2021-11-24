@@ -76,10 +76,7 @@
                                     class="fnt-14 lh-157 fnt-bold text-clr588"
                                 ></app-user-detail>
                             </p>
-                            <p
-                                class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block"
-                                [class.text-muted]="index > currentPointIndex"
-                            >
+                            <p class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block">
                                 {{ getStatusDate(point) | date: 'd MMMM y' }}
                             </p>
                         </ng-template>
