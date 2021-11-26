@@ -67,7 +67,9 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.order.status &&
             this.order.order_type !== OrderType.Prebook &&
             this.order.status !== OrderStatus.Rejected &&
-            (this.order.status === OrderStatus.Delivered || this.order.status === OrderStatus.Received)
+            (this.isPastPickupDate ||
+                this.order.status === OrderStatus.Delivered ||
+                this.order.status === OrderStatus.Received)
         );
     }
 
@@ -91,10 +93,6 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
                 : moment().startOf('day').add(1, 'day');
 
         return pickupDate <= today;
-    }
-
-    get showConfirmInTimeline(): boolean {
-        return this.isPastPickupDate && this.orgType === OrganizationType.ESTATE;
     }
 
     constructor(
