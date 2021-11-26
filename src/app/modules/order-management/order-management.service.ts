@@ -66,7 +66,8 @@ export class OrderManagementService {
 
     private orderId: number;
 
-    private subscription: Subscription;
+    private ordersSub: Subscription;
+    private requestsSub: Subscription;
 
     constructor(
         protected cookieSrv: CookieService,
@@ -252,19 +253,19 @@ export class OrderManagementService {
     }
 
     loadOrders(organizationType: OrganizationType, options: any): void {
-        if (this.subscription?.unsubscribe) {
-            this.subscription.unsubscribe();
+        if (this.ordersSub?.unsubscribe) {
+            this.ordersSub.unsubscribe();
         }
-        this.subscription = this.purchaseSrv.getOrders(organizationType, options).subscribe({
+        this.ordersSub = this.purchaseSrv.getOrders(organizationType, options).subscribe({
             next: (result) => this.ordersSubjects[organizationType].next(result),
         });
     }
 
     loadRequests(options: any): void {
-        if (this.subscription?.unsubscribe) {
-            this.subscription.unsubscribe();
+        if (this.requestsSub?.unsubscribe) {
+            this.requestsSub.unsubscribe();
         }
-        this.subscription = this.requestSrv.getRequestList(options).subscribe({
+        this.requestsSub = this.requestSrv.getRequestList(options).subscribe({
             next: (response) => this.requestListSubject.next(response),
         });
     }
