@@ -139,11 +139,11 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
 
         if (!activity && this.order) {
             if (point.value === OrderStatus.Shipped) {
-                return this.order.estimated_departure_date || this.order.shipment_date;
+                return this.order.estimated_departure_date || this.order.shipped_date || this.order.shipment_date;
             }
 
             if (point.value === OrderStatus.Received) {
-                return this.order.estimated_pickup_date;
+                return this.order.estimated_pickup_date || this.order.arrival_date;
             }
         }
 
