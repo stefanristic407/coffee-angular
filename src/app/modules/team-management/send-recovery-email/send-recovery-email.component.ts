@@ -263,7 +263,7 @@ export class SendRecoveryEmailComponent implements OnInit {
                 this.submitted = false;
                 this.listAssignedRoles();
                 this.updateForm();
-                this.toastrService.success('User details udpated successfully');
+                this.toastrService.success(this.translator.instant('user_details_updated_successfully'));
             })
             .catch(() => {
                 this.submitted = false;

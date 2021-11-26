@@ -1,45 +1,21 @@
 <div class="in-order mt-3 br-4" *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected">
-    <div class="row">
-        <div class="col-12 col-md-12">
-            <div class="d-md-flex">
-                <div class="flex-fill">
-                    <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
-                        <h4 class="fnt-play fnt-700 fnt-24 text-clr334 mb-4 mb-md-2">
-                            {{ statusLabel }}
-                        </h4>
-                        <ng-container *ngTemplateOutlet="timeline"></ng-container>
-                    </ng-container>
-                </div>
-                <div *ngIf="isPastPickupDate" class="row gutter-16 v-gutter-16 flex-md-column">
-                    <div class="col-6 col-md-auto">
-                        <button class="btn-raised w-100" (click)="confirmOrder()">
-                            {{ 'yes_i_have' | translate }}
-                        </button>
-                    </div>
-                    <div class="col-6 col-md-auto">
-                        <button
-                            class="btn-stroked w-100"
-                            [routerLink]="['/dispute-system/raise-ticket', orgType, orderId]"
-                            [queryParams]="{ supportValue: 'Coffee Bulks' }"
-                        >
-                            {{ 'no_i_have_not' | translate }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="invoiceUrl" class="d-md-none" [class.mt-4]="isPastPickupDate">
-                <a type="submit" class="btn-raised w-100" [href]="invoiceUrl" target="_blank">
-                    {{ 'order_invoice' | translate }}
-                </a>
-            </div>
-        </div>
+    <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
+        <h4 class="fnt-play fnt-700 fnt-24 text-clr334 mb-4 mb-md-2">
+            {{ statusLabel }}
+        </h4>
+        <ng-container *ngTemplateOutlet="timeline"></ng-container>
+    </ng-container>
+    <div *ngIf="invoiceUrl" class="d-md-none">
+        <a type="submit" class="btn-raised w-100" [href]="invoiceUrl" target="_blank">
+            {{ 'order_invoice' | translate }}
+        </a>
     </div>
 </div>
 
 <ng-template #timeline>
     <div class="transit-scoll overflow-hidden overflow-md-auto mt-md-4">
         <div class="transit-maxwidth main-order-tracking-mbVesrion">
-            <div class="w-100 d-flex flex-column flex-md-row">
+            <div class="w-100 d-flex flex-column flex-md-row justify-content-center">
                 <div
                     class="d-flex flex-column align-items-md-center order-tracking"
                     [class.completed]="index > currentPointIndex"
@@ -73,13 +49,10 @@
                                     [name]="statusAuthor.name"
                                     [orgType]="statusAuthor.orgType"
                                     type="text"
-                                    class="fnt-14 fnt-md-18 text-clr55c timeline-name"
+                                    class="fnt-14 lh-157 fnt-bold text-clr588"
                                 ></app-user-detail>
                             </p>
-                            <p
-                                class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block"
-                                [class.text-muted]="index > currentPointIndex"
-                            >
+                            <p class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block">
                                 {{ getStatusDate(point) | date: 'd MMMM y' }}
                             </p>
                         </ng-template>
@@ -149,7 +122,7 @@
                             <button
                                 type="button"
                                 class="btn-stroked sm my-3"
-                                *ngIf="orderId && orgType === OrgTypes.ESTATE"
+                                *ngIf="orderId && orgType === OrgType.ESTATE"
                                 routerLink="/sourcing/estate-list"
                             >
                                 {{ 'brose_other_estates' | translate }}
@@ -310,7 +283,7 @@
                         <button
                             type="button"
                             class="btn-stroked sm my-3"
-                            *ngIf="orderId && orgType === OrgTypes.ESTATE"
+                            *ngIf="orderId && orgType === OrgType.ESTATE"
                             routerLink="/sourcing/estate-list"
                         >
                             {{ 'brose_other_estates' | translate }}

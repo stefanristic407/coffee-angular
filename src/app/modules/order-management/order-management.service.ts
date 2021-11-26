@@ -37,7 +37,7 @@ import {
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -65,6 +65,9 @@ export class OrderManagementService {
     private readonly shippingDetailsSubject = new BehaviorSubject<ShippingDetails>(null);
 
     private orderId: number;
+
+    private ordersSub: Subscription;
+    private requestsSub: Subscription;
 
     constructor(
         protected cookieSrv: CookieService,
@@ -250,13 +253,19 @@ export class OrderManagementService {
     }
 
     loadOrders(organizationType: OrganizationType, options: any): void {
-        this.purchaseSrv.getOrders(organizationType, options).subscribe({
+        if (this.ordersSub?.unsubscribe) {
+            this.ordersSub.unsubscribe();
+        }
+        this.ordersSub = this.purchaseSrv.getOrders(organizationType, options).subscribe({
             next: (result) => this.ordersSubjects[organizationType].next(result),
         });
     }
 
     loadRequests(options: any): void {
-        this.requestSrv.getRequestList(options).subscribe({
+        if (this.requestsSub?.unsubscribe) {
+            this.requestsSub.unsubscribe();
+        }
+        this.requestsSub = this.requestSrv.getRequestList(options).subscribe({
             next: (response) => this.requestListSubject.next(response),
         });
     }

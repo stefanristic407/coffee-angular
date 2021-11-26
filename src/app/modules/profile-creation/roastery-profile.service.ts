@@ -6,6 +6,7 @@ import { ContactGroup, ProfileImageType } from '@enums';
 import { OrganizationProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, RoasterService, UserService } from '@services';
+import { checkFile } from '@utils';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
@@ -238,29 +239,23 @@ export class RoasteryProfileService {
     }
 
     handleBannerImageFile(inputElement: any) {
-        const file = inputElement.files[0];
-        if (!file) {
-            return;
-        }
-        if (file.type.split('/')[0] !== 'image') {
-            return;
-        }
-        if (file.size >= 2097152) {
-            this.toastrService.error('File size is too big to upload');
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.onload = (event: any) => {
-            const img = new Image();
-            img.onload = () => {
-                this.bannerFile = inputElement.files[0];
-                this.bannerUrl = event.target.result;
-            };
-            img.src = window.URL.createObjectURL(file);
-        };
-        reader.readAsDataURL(file);
+        const file: File = inputElement.files[0];
+        checkFile(file, 5).subscribe((res) => {
+            if (res) {
+                this.toastrService.error(res.message);
+            } else {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        this.bannerFile = inputElement.files[0];
+                        this.bannerUrl = event.target.result;
+                    };
+                    img.src = window.URL.createObjectURL(file);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     }
 
     handleDeleteBannerImage(): void {

@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { LabelValue, OrderDetails, RecentActivity } from '@models';
-import { ResizeService } from '@services';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
-import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import { ResizeService } from '@services';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-order-timeline',
@@ -14,7 +14,7 @@ import * as moment from 'moment';
     styleUrls: ['./order-timeline.component.scss'],
 })
 export class OrderTimelineComponent extends ResizeableComponent implements OnInit {
-    readonly OrgTypes = OrganizationType;
+    readonly OrgType = OrganizationType;
     readonly OrderStatus = OrderStatus;
 
     readonly isReviewed$ = this.orderService.isReviewed$;
@@ -67,7 +67,9 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.order.status &&
             this.order.order_type !== OrderType.Prebook &&
             this.order.status !== OrderStatus.Rejected &&
-            (this.order.status === OrderStatus.Delivered || this.order.status === OrderStatus.Received)
+            (this.isPastPickupDate ||
+                this.order.status === OrderStatus.Delivered ||
+                this.order.status === OrderStatus.Received)
         );
     }
 
@@ -131,35 +133,15 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     getStatusDate(point: LabelValue): string {
-        if (this.order && point.value === OrderStatus.Shipped) {
-            const date = this.order.estimated_departure_date || this.order.shipment_date;
-
-            if (moment(date).startOf('day') <= moment()) {
-                return date;
-            } else {
-                return '';
-            }
-        }
-
-        if (this.order && point.value === OrderStatus.Delivered) {
-            const date = this.order.estimated_pickup_date;
-
-            if (moment(date).startOf('day') <= moment()) {
-                return date;
-            } else {
-                return '';
-            }
-        }
-
         const activity = this.getLatestActivity(point);
 
         if (!activity && this.order) {
             if (point.value === OrderStatus.Shipped) {
-                return this.order.estimated_departure_date;
+                return this.order.estimated_departure_date || this.order.shipped_date || this.order.shipment_date;
             }
 
             if (point.value === OrderStatus.Received) {
-                return this.order.estimated_pickup_date;
+                return this.order.estimated_pickup_date || this.order.arrival_date;
             }
         }
 

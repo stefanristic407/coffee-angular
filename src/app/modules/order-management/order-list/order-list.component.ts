@@ -7,11 +7,11 @@ import { OrganizationType } from '@enums';
 import { ApiResponse, Download, LabelValue } from '@models';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { TranslateService } from '@ngx-translate/core';
-import { CommonService, DownloadService, ResizeService } from '@services';
+import { DownloadService, ResizeService } from '@services';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { OrderTableComponent } from './order-table/order-table.component';
 import { RequestTableComponent } from './request-table/request-table.component';
 
@@ -99,31 +99,34 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
             ];
         });
 
-        this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
-            const startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
+        this.searchForm.valueChanges
+            .pipe(debounceTime(600))
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe((value) => {
+                const startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
 
-            // Adding 1 day to include selected date into API filter range
-            const endDate =
-                value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
+                // Adding 1 day to include selected date into API filter range
+                const endDate =
+                    value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
 
-            this.queryParams = {
-                ...value,
-                page: 1,
-                per_page: value.per_page ?? 10,
-                start_date: startDate,
-                end_date: endDate,
-            };
+                this.queryParams = {
+                    ...value,
+                    page: 1,
+                    per_page: value.per_page ?? 10,
+                    start_date: startDate,
+                    end_date: endDate,
+                };
 
-            delete this.queryParams.dates;
+                delete this.queryParams.dates;
 
-            setTimeout(() => {
-                if (this.activeIndex > 0) {
-                    this.requestTable.loadRequests();
-                } else {
-                    this.appOrderTable.loadOrders();
-                }
-            }, 0);
-        });
+                setTimeout(() => {
+                    if (this.activeIndex > 0) {
+                        this.requestTable.loadRequests();
+                    } else {
+                        this.appOrderTable.loadOrders();
+                    }
+                }, 0);
+            });
     }
 
     showExportDialog(): void {

@@ -490,7 +490,7 @@
 </ng-template>
 <p-overlayPanel #op [showCloseIcon]="true" [dismissable]="true" styleClass="price-tier-overlay-panel">
     <ng-template pTemplate>
-        <p-table [value]="priceTiers" [scrollable]="true" [rows]="5">
+        <p-table [value]="priceTiers" [scrollable]="true" [rows]="5" styleClass="price-tier-table">
             <ng-template pTemplate="header">
                 <tr>
                     <th width="170" pSortableColumn="min_quantity">

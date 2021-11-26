@@ -213,7 +213,7 @@
 // Scrollable
 .p-datatable-scrollable {
     .p-datatable-scrollable-wrapper {
-        overflow-x: scroll;
+        overflow-x: auto;
         .p-datatable-scrollable-view {
             min-width: 992px;
         }
