@@ -226,7 +226,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
         }
         if (data.catalogue === 'RO_GREEN_COFFEE') {
-            this.router.navigateByUrl(`/green-coffee-management/green-coffee-for-sale-details/${data.catalogue_id}`);
+            this.router.navigateByUrl(`/green-coffee-management/green-coffee-for-sale-details/${data.gc_order_id}`);
         }
     }
 
