@@ -65,71 +65,111 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             this.isAddMember = params.isAddMember && params.isAddMember === 'true' ? true : false;
             this.assignedUsers = [];
             if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
-                this.tableColumns = [
-                    {
-                        field: 'name',
-                        header: 'Name',
-                        sortable: false,
-                    },
-                    {
-                        field: 'created_at',
-                        header: 'Sent on',
-                        sortable: true,
-                    },
-                    {
-                        field: 'email',
-                        header: 'Email',
-                    },
-                    {
-                        field: 'role',
-                        header: 'Role',
-                        sortable: false,
-                    },
-                    {
-                        field: 'actions',
-                        header: 'Actions',
-                        sortable: false,
-                    },
-                ];
+                if (this.resizeService.isMobile()) {
+                    this.tableColumns = [
+                        {
+                            field: 'name',
+                            header: 'name',
+                        },
+                        {
+                            field: 'created_at',
+                            header: 'sent_on',
+                            sortable: true,
+                        },
+                        {
+                            field: 'email',
+                            header: 'email',
+                        },
+                        {
+                            field: 'role',
+                            header: 'role',
+                        },
+                    ];
+                } else {
+                    this.tableColumns = [
+                        {
+                            field: 'name',
+                            header: 'name',
+                            width: 20,
+                        },
+                        {
+                            field: 'created_at',
+                            header: 'sent_on',
+                            sortable: true,
+                            width: 20,
+                        },
+                        {
+                            field: 'email',
+                            header: 'email',
+                            width: 20,
+                        },
+                        {
+                            field: 'role',
+                            header: 'role',
+                            width: 20,
+                        },
+                        {
+                            field: 'actions',
+                            header: 'actions',
+                            width: 20,
+                        },
+                    ];
+                }
             } else {
-                this.tableColumns = [
-                    {
-                        field: 'name',
-                        header: 'Name',
-                        sortable: false,
-                        width: '150px',
-                    },
-                    {
-                        field: 'last_login_at',
-                        header: 'Last login',
-                        sortable: false,
-                        width: '15%',
-                    },
-                    {
-                        field: 'email',
-                        header: 'Email',
-                        width: '25%',
-                    },
-                    {
-                        field: 'status',
-                        header: 'Status',
-                        sortable: false,
-                        width: '15%',
-                    },
-                    {
-                        field: 'roles',
-                        header: '',
-                        sortable: false,
-                        width: '20%',
-                    },
-                ];
-                if (!this.isAddMember) {
-                    this.tableColumns.push({
-                        field: 'actions',
-                        header: 'Actions',
-                        sortable: false,
-                        width: 10,
-                    });
+                if (this.resizeService.isMobile()) {
+                    this.tableColumns = [
+                        {
+                            field: 'name',
+                            header: 'Name',
+                        },
+                        {
+                            field: 'last_login_at',
+                            header: 'last_login',
+                        },
+                        {
+                            field: 'email',
+                            header: 'email',
+                        },
+                        {
+                            field: 'roles',
+                            header: 'all_roles',
+                        },
+                    ];
+                } else {
+                    this.tableColumns = [
+                        {
+                            field: 'name',
+                            header: 'name',
+                            width: 15,
+                        },
+                        {
+                            field: 'last_login_at',
+                            header: 'last_login',
+                            width: 15,
+                        },
+                        {
+                            field: 'email',
+                            header: 'email',
+                            width: 25,
+                        },
+                        {
+                            field: 'status',
+                            header: 'status',
+                            width: 15,
+                        },
+                        {
+                            field: 'roles',
+                            header: 'all_roles',
+                            width: 20,
+                        },
+                    ];
+                    if (!this.isAddMember) {
+                        this.tableColumns.push({
+                            field: 'actions',
+                            header: 'actions',
+                            width: 10,
+                        });
+                    }
                 }
             }
             this.listRoles();
