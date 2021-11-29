@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
-import { LabelValue, OrderDetails, RecentActivity } from '@models';
+import { LabelValue, OrderDetails, RecentActivity, ShippingDetails } from '@models';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { ResizeService } from '@services';
 import * as moment from 'moment';
@@ -22,6 +22,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     timelinePoints: LabelValue[] = [];
     activities: RecentActivity[] = [];
     order: OrderDetails;
+    shippingDetails: ShippingDetails;
     accordionOpened = true;
     receivedDate: string;
 
@@ -87,10 +88,11 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     get isPastPickupDate(): boolean {
         const today = moment().startOf('day');
         // estimated_pickup_date is for the estate order and shipment_date is for the micro-roaster order
-        const pickupDate =
-            this.order?.estimated_pickup_date || this.order?.shipment_date
-                ? moment(this.order.estimated_pickup_date || this.order.shipment_date).startOf('day')
-                : moment().startOf('day').add(1, 'day');
+        const pickupDateStr =
+            this.order?.estimated_pickup_date ||
+            this.order?.shipment_date ||
+            this.shippingDetails?.estimated_arrival_date;
+        const pickupDate = pickupDateStr ? moment(pickupDateStr).startOf('day') : moment().startOf('day').add(1, 'day');
 
         return pickupDate <= today;
     }
@@ -106,6 +108,10 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     ngOnInit(): void {
         this.orderService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
             this.order = data;
+            this.updateTimelinePoints();
+        });
+        this.orderService.shippingDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
+            this.shippingDetails = data;
             this.updateTimelinePoints();
         });
 
@@ -137,11 +143,20 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
 
         if (!activity && this.order) {
             if (point.value === OrderStatus.Shipped) {
-                return this.order.estimated_departure_date || this.order.shipped_date || this.order.shipment_date;
+                return (
+                    this.order.estimated_departure_date ||
+                    this.order.shipped_date ||
+                    this.order.shipment_date ||
+                    this.shippingDetails?.estimated_departure_date
+                );
             }
 
             if (point.value === OrderStatus.Received) {
-                return this.order.estimated_pickup_date || this.order.arrival_date;
+                return (
+                    this.order.estimated_pickup_date ||
+                    this.order.arrival_date ||
+                    this.shippingDetails?.estimated_arrival_date
+                );
             }
         }
 
@@ -162,7 +177,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     viewLotStatusClicked() {
-        let el = document.querySelector('app-remote-sensoring');
+        const el = document.querySelector('app-remote-sensoring');
         if (el) {
             el.scrollIntoView();
         }
