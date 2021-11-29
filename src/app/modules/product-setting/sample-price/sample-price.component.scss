@@ -1,0 +1,18 @@
+@import 'variables';
+
+:host table.list-table {
+    tr {
+        font-weight: 500;
+        padding: 1rem 1rem 1rem 0rem;
+        border-bottom: 1px dashed $primary-border-color !important;
+        &:last-child {
+            border-bottom: none !important;
+        }
+    }
+
+    td {
+        font-weight: 500;
+        padding: 1rem 1rem 1rem 0rem;
+        width: 50%;
+    }
+}

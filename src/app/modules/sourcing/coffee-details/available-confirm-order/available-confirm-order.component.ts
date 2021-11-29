@@ -129,7 +129,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
         }
         promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
-        promises.push(new Promise((resolve) => this.getOrderSettins(resolve)));
+        promises.push(new Promise((resolve) => this.getOrderSettings(resolve)));
         Promise.all(promises).then(() => {
             this.refreshForm();
             this.refreshOrderDetails();
@@ -448,8 +448,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         }
     }
 
-    getOrderSettins(resolve: any = null) {
-        this.roasterService.getOrderSettings(this.roasterId).subscribe((res: any) => {
+    getOrderSettings(resolve: any = null) {
+        this.roasterService.getOrderSettings().subscribe((res: any) => {
             if (res.success) {
                 this.orderSettings = res.result;
             }
