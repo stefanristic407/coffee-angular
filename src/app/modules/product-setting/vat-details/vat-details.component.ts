@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
+import { VatType } from '@enums';
 import { ApiResponse } from '@models';
 import { AuthService, ResizeService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -19,7 +20,7 @@ export class VatDetailsComponent extends ResizeableComponent implements OnInit {
     mrList: any;
     editIndex = null;
     transaction: FormGroup;
-    @Input() feature;
+    @Input() feature: VatType;
     tableColumns: any[];
 
     get detailsFormControl() {
@@ -84,7 +85,7 @@ export class VatDetailsComponent extends ResizeableComponent implements OnInit {
     }
 
     getVatDetails() {
-        this.userService.getRoasterVatDetails(this.roasterId, this.feature).subscribe((res: ApiResponse<any>) => {
+        this.userService.getRoasterVatDetails(this.feature).subscribe((res: ApiResponse<any>) => {
             if (res.success) {
                 this.mrList = res.result || [];
             }

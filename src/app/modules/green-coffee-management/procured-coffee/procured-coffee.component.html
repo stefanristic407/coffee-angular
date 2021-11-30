@@ -54,7 +54,9 @@
                                     <ul class="clearfix">
                                         <li>
                                             <label>Quantity availabile</label>
-                                            <p>{{ orderDetails?.quantity_count * orderDetails?.quantity }} kg</p>
+                                            <p>
+                                                {{ orderDetails?.quantity_count * orderDetails?.quantity | number }} kg
+                                            </p>
                                         </li>
                                         <li>
                                             <label>Remaining quantity availabile</label>

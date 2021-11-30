@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { ProcuredCoffeeStatus, ProcuredCoffeeUnit, QuantityUnit } from '@enums';
+import { ProcuredCoffeeStatus, ProcuredCoffeeUnit, QuantityUnit, VatType } from '@enums';
 import { ApiResponse, ProcuredCoffee } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, ResizeService, RoasterService, UserService } from '@services';
+import { ResizeService, RoasterService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
-import { convertKg } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 
@@ -18,7 +17,6 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class LotSaleComponent extends ResizeableComponent implements OnInit {
     loaded = false;
-    roasterID: any = '';
     orderDetails: any;
     orderID: number;
     soldQuantity = 0;
@@ -46,7 +44,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     remainingTotalQuantity;
 
     constructor(
-        private authService: AuthService,
         private dialogService: DialogService,
         private fb: FormBuilder,
         private roasterService: RoasterService,
@@ -58,7 +55,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
-        this.roasterID = this.authService.getOrgId();
         this.orderID = +decodeURIComponent(this.route.snapshot.queryParams.orderId);
     }
 
@@ -214,7 +210,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     updateMarkForSale(productObj) {
-        this.roasterService.updateMarkForSale(this.roasterID, this.orderID, productObj).subscribe(
+        this.roasterService.updateMarkForSale(this.orderID, productObj).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Details updated successfully');
@@ -233,12 +229,11 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     updateStatus() {
-        const status = { status: this.lotSaleForm.value.status };
-        this.roasterService.updateMarkForSaleStatus(this.roasterID, this.orderID, status).subscribe(
+        this.roasterService.updateMarkForSaleStatus(this.orderID, { status: this.lotSaleForm.value.status }).subscribe(
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
-                    this.statusLabel = this.formatStatus(status.status);
+                    this.statusLabel = this.formatStatus(this.lotSaleForm.value.status);
                     this.showDropdown = false;
                 } else {
                     if (response.messages.status[0] === 'cannot_change') {
@@ -284,7 +279,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     deleteProductFromList() {
-        this.roasterService.deleteProcuredCoffee(this.roasterID, this.orderID).subscribe(
+        this.roasterService.deleteProcuredCoffee(this.orderID).subscribe(
             (res: ApiResponse<any>) => {
                 if (res.success) {
                     this.toasterService.success('Product deleted successfully');
@@ -304,7 +299,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     getRoasterVatDetails(resolve) {
-        this.userService.getRoasterVatDetails(this.roasterID, 'mr').subscribe((res: ApiResponse<any>) => {
+        this.userService.getRoasterVatDetails(VatType.MR).subscribe((res: ApiResponse<any>) => {
             if (res.success && res.result) {
                 this.vatDetailsArray = [];
                 res.result.forEach((element) => {

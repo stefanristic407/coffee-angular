@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VatType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +18,7 @@ export enum SettingType {
     styleUrls: ['./product-setting.component.scss'],
 })
 export class ProductSettingComponent implements OnInit {
+    readonly VatType = VatType;
     saveshippingmode = false;
     editshippingmode = true;
     roasterId: any;

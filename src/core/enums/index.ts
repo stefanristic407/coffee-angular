@@ -19,3 +19,4 @@ export * from './shipping';
 export * from './transaction';
 export * from './unit';
 export * from './user';
+export * from './vat';

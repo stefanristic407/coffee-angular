@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GlobalsService } from '@services';
-import { CoffeeProcuredTabComponent } from './coffee-procured-tab/coffee-procured-tab.component';
-import { MarkedSaleComponent } from './marked-sale/marked-sale.component';
-import { PrimeTableService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { PrimeTableService } from '@services';
+import { CoffeeProcuredTabComponent } from './coffee-procured-tab/coffee-procured-tab.component';
+import { MarkedSaleComponent } from './marked-sale/marked-sale.component';
 
 @Component({
     selector: 'app-green-coffee-inventory',
@@ -26,11 +24,11 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     isProcuredTab = true;
     @ViewChild(CoffeeProcuredTabComponent, { static: false }) procureTab;
     @ViewChild(MarkedSaleComponent, { static: false }) markForSaleTab;
+
     constructor(
-        public cookieService: CookieService,
-        public primeTableService: PrimeTableService,
-        public route: ActivatedRoute,
+        private route: ActivatedRoute,
         private translator: TranslateService,
+        public primeTableService: PrimeTableService,
     ) {}
 
     ngOnInit(): void {
@@ -51,6 +49,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
             this.markForSaleTab.search(this.searchString);
         }
     }
+
     handleChange(event: any) {
         if (event.index === 0) {
             this.isProcuredTab = true;

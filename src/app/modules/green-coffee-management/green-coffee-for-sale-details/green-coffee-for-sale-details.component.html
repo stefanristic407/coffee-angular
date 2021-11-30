@@ -1,362 +1,374 @@
-<div *ngIf="procuredActive == 1; else loading" class="main-block">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="sourcing-details">
-                <div class="overflow-auto flex-nowrap breadCrumb">
-                    <p-breadcrumb [model]="breadItems"></p-breadcrumb>
-                </div>
-                <div class="w-100 mt-4 pt-2 clearfix botSpacing avaialble-web">
-                    <div *ngIf="saleInformation" class="source-det-tit pull-left pt-2">
-                        <div class="det-tit d-inline-block">
-                            <h2>{{ saleInformation.name || 'NA' }}</h2>
+<div class="main-block">
+    <ng-container *ngIf="!loading; else loader">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sourcing-details">
+                    <div class="overflow-auto flex-nowrap breadCrumb">
+                        <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+                    </div>
+                    <div class="w-100 mt-4 pt-2 clearfix botSpacing avaialble-web">
+                        <div *ngIf="saleInformation" class="source-det-tit pull-left pt-2">
+                            <div class="det-tit d-inline-block">
+                                <h2>{{ saleInformation.name || 'NA' }}</h2>
+                            </div>
+                        </div>
+                        <div class="text-white pull-right">
+                            <button
+                                class="btn-raised"
+                                routerLink="/green-coffee-management/lot-sale"
+                                [queryParams]="{ orderId: orderDetails?.id }"
+                            >
+                                {{ 'edit' | translate }}
+                            </button>
                         </div>
                     </div>
-                    <div class="text-white pull-right">
-                        <button
-                            class="btn-raised"
-                            routerLink="/green-coffee-management/lot-sale"
-                            [queryParams]="{ orderId: orderDetails?.id }"
-                        >
-                            {{ 'edit' | translate }}
-                        </button>
-                    </div>
-                </div>
-                <div class="row avaialble-mob p-0">
-                    <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 pl-3 mt-4 mb-3">
-                        {{ saleInformation?.name || 'NA' }}
-                    </h2>
-                    <div class="col-sm-12">
-                        <button
-                            class="btn-raised w-100"
-                            routerLink="/green-coffee-management/lot-sale"
-                            [queryParams]="{ orderId: orderDetails?.id }"
-                        >
-                            Edit
-                        </button>
+                    <div class="row avaialble-mob p-0">
+                        <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 pl-3 mt-4 mb-3">
+                            {{ saleInformation?.name || 'NA' }}
+                        </h2>
+                        <div class="col-sm-12">
+                            <button
+                                class="btn-raised w-100"
+                                routerLink="/green-coffee-management/lot-sale"
+                                [queryParams]="{ orderId: orderDetails?.id }"
+                            >
+                                {{ 'edit' | translate }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="prodect-details mt-4">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-sm-12 mb-4 no-pad">
-                <div class="prodect-gal">
-                    <gallery id="basic-test" [items]="items" gallerize></gallery>
+        <div class="prodect-details mt-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12 mb-4 no-pad">
+                    <div class="prodect-gal">
+                        <gallery id="basic-test" [items]="items" gallerize></gallery>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <div class="product-description">
-                    <div class="row ml-md-0 mr-md-0">
-                        <div class="col-lg-12 border-class">
-                            <div *ngIf="!saleInformation && orderDetails" class="estate-focus">
-                                <ul class="clearfix">
-                                    <li>
-                                        <label>Quantity Available</label>
-                                        <p *ngIf="orderDetails.order_reference">
-                                            {{ orderDetails.quantity_count }}
-                                            {{ orderDetails.quantity_type }}/ {{ orderDetails.quantity }} kg each
-                                        </p>
-                                        <p *ngIf="!orderDetails.order_reference">N/A</p>
-                                    </li>
-                                    <li>
-                                        <label>Buying price</label>
-                                        <p *ngIf="orderDetails.price">{{ orderDetails.price }} USD/kg</p>
-                                        <p *ngIf="!orderDetails.price">N/A</p>
-                                    </li>
-                                    <li>
-                                        <label>Roaster Ref. No.</label>
-                                        <p>{{ orderDetails.order_reference || 'N/A' }}</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div *ngIf="saleInformation" class="estate-focus">
-                                <ul class="clearfix">
-                                    <li>
-                                        <label>Quantity bought</label>
-                                        <p *ngIf="orderDetails.quantity">
-                                            {{ orderDetails.quantity * orderDetails.quantity_count }}
-                                            {{ orderDetails.quantity_unit }}
-                                        </p>
-                                        <p *ngIf="!orderDetails.quantity">N/A</p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'remaining_quantity_available' | translate }}</label>
-                                        <p *ngIf="orderDetails.remaining_total_quantity">
-                                            {{ orderDetails.remaining_total_quantity }}
-                                            {{ orderDetails.quantity_unit }}
-                                        </p>
-                                        <p *ngIf="!orderDetails.remaining_total_quantity">N/A</p>
-                                    </li>
-                                    <li>
-                                        <label>Roaster Ref. No.</label>
-                                        <p>{{ orderDetails.order_reference || 'N/A' }}</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="saleInformation" class="row mt-4 ml-md-0 mr-md-0">
-                        <h3 class="pb-1 fnt-16 fnt-md-18 fnt-bold text-clr334">
-                            {{ 'selling_details' | translate }}
-                        </h3>
-                        <div class="col-lg-12 border-class">
-                            <div class="estate-focus">
-                                <ul class="clearfix">
-                                    <li>
-                                        <label>{{ 'product_name' | translate }}</label>
-                                        <p>{{ saleInformation.name || 'NA' }}</p>
-                                    </li>
-                                    <li>
-                                        <label>Quantity for sale</label>
-                                        <p>
-                                            {{ saleInformation.quantity_count }}
-                                            {{ saleInformation.quantity_type }}/ {{ saleInformation.quantity }}
-                                            {{ saleInformation.quantity_unit }}
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'remaining_coffee' | translate }}</label>
-                                        <p>
-                                            {{
-                                                saleInformation.quantity && saleInformation.quantity_count
-                                                    ? saleInformation.quantity * saleInformation.quantity_count
-                                                    : 'NA'
-                                            }}
-                                            <span *ngIf="saleInformation.quantity && saleInformation.quantity_count">{{
-                                                saleInformation.quantity_unit
-                                            }}</span>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'minimum_quantity_sale' | translate }}</label>
-                                        <p>
-                                            {{ saleInformation?.minimum_order_quantity_count || 'N/A' }}
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'selling_price' | translate }}</label>
-                                        <p>
-                                            {{ saleInformation.price_unit || 'NA' }}
-                                            {{ saleInformation.price || 'NA' }}
-                                            /
-                                            {{ saleInformation.price_per_unit || 'NA' }}
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'vat' | translate }}</label>
-                                        <p>
-                                            {{ saleInformation.vat_percentage || 'NA' }}
-                                            <span *ngIf="saleInformation.vat_percentage">%</span>
-                                        </p>
-                                    </li>
-                                </ul>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="product-description">
+                        <div class="row ml-md-0 mr-md-0">
+                            <div class="col-lg-12 border-class">
+                                <div *ngIf="!saleInformation && orderDetails" class="estate-focus">
+                                    <ul class="clearfix">
+                                        <li>
+                                            <label>{{ 'quantity_available' | translate }}</label>
+                                            <p *ngIf="orderDetails.order_reference">
+                                                {{ orderDetails.quantity_count }}
+                                                {{ orderDetails.quantity_type }}/ {{ orderDetails.quantity }} kg each
+                                            </p>
+                                            <p *ngIf="!orderDetails.order_reference">N/A</p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'buying_price' | translate }}</label>
+                                            <p *ngIf="orderDetails.price">{{ orderDetails.price }} USD/kg</p>
+                                            <p *ngIf="!orderDetails.price">N/A</p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'roaster_ref_no' | translate }}</label>
+                                            <p>{{ orderDetails.order_reference || 'N/A' }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div *ngIf="saleInformation" class="estate-focus">
+                                    <ul class="clearfix">
+                                        <li>
+                                            <label>{{ 'quantity_bought' | translate }}</label>
+                                            <p *ngIf="orderDetails.quantity">
+                                                {{ orderDetails.quantity * orderDetails.quantity_count | number }}
+                                                {{ orderDetails.quantity_unit }}
+                                            </p>
+                                            <p *ngIf="!orderDetails.quantity">N/A</p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'remaining_quantity_available' | translate }}</label>
+                                            <p *ngIf="orderDetails.remaining_total_quantity">
+                                                {{ orderDetails.remaining_total_quantity }}
+                                                {{ orderDetails.quantity_unit }}
+                                            </p>
+                                            <p *ngIf="!orderDetails.remaining_total_quantity">N/A</p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'roaster_ref_no' | translate }}</label>
+                                            <p>{{ orderDetails.order_reference || 'N/A' }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt-4 ml-md-0 mr-md-0">
-                        <h3
-                            class="
-                                d-none d-sm-none d-xl-none d-lg-none d-md-block
-                                pb-1
-                                fnt-16 fnt-md-18 fnt-bold
-                                text-clr334
-                            "
-                        >
-                            {{ 'green_coffee_details' | translate }}
-                        </h3>
-                        <div *ngIf="orderDetails" class="col-12 border-class">
-                            <p-tabView styleClass=" mt-1 pb-md-2" [(activeIndex)]="selectedTab">
-                                <p-tabPanel header="{{ 'green_coffee_details' | translate }}">
-                                    <div class="col-lg-12 px-1 px-md-0 mt-4 mt-md-3">
-                                        <div class="estate-focus">
-                                            <ul class="clearfix">
-                                                <li>
-                                                    <label>{{ 'estate' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.estate_name || 'NA' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'origin' | translate }}</label>
-                                                    <p>
-                                                        <span *ngIf="orderDetails.origin">{{
-                                                            orderDetails.origin | country | translate
-                                                        }}</span>
-                                                        <span *ngIf="!orderDetails.origin">NA</span>
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'lot_id' | translate }}</label>
-                                                    <p
-                                                        class="cursor-pointer lot-link"
-                                                        [routerLink]="'/green-coffee-management/lot-sale'"
-                                                        [queryParams]="{ orderId: orderDetails.id }"
-                                                    >
-                                                        {{ orderDetails.lot_number || 'NA' }}
-                                                    </p>
-                                                </li>
-
-                                                <li>
-                                                    <label>{{ 'gc_odrer_id' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.id || 'NA' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'availability_name' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.availability_name || 'NA' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'species' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.species || 'NA' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'variety' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.varieties || 'NA' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'crop_year' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.harvest_year_start | date: 'MMM' }} -
-                                                        {{ orderDetails.harvest_year_end | date: 'MMM' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'altitude' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.altitude || 'NA' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'flavor_profile' | translate }}</label>
-                                                    <p>
-                                                        <span>
-                                                            {{
-                                                                orderDetails.flavours
-                                                                    ? saleInformation?.minimum_order_quantity_count
-                                                                    : 'N/A'
-                                                            }}</span
-                                                        >
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'wet_mill' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.wet_mill || 'NA' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'processing' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.processing || 'NA' }}
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <label>{{ 'moisture_content' | translate }}</label>
-                                                    <p>
-                                                        {{ orderDetails.moisture || 'NA' }}
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                            <div class="mt-3 pl-md-2">
-                                                <p
-                                                    class="brown-cta m-0"
-                                                    routerLink="/sourcing/coffee-details/{{ orderDetails.harvest_id }}"
+                        <div *ngIf="saleInformation" class="row mt-4 ml-md-0 mr-md-0">
+                            <h3 class="pb-1 fnt-16 fnt-md-18 fnt-bold text-clr334">
+                                {{ 'selling_details' | translate }}
+                            </h3>
+                            <div class="col-lg-12 border-class">
+                                <div class="estate-focus">
+                                    <ul class="clearfix">
+                                        <li>
+                                            <label>{{ 'product_name' | translate }}</label>
+                                            <p>{{ saleInformation.name || 'NA' }}</p>
+                                        </li>
+                                        <li>
+                                            <label>Quantity for sale</label>
+                                            <p>
+                                                {{ saleInformation.quantity_count }}
+                                                {{ saleInformation.quantity_type }}/ {{ saleInformation.quantity }}
+                                                {{ saleInformation.quantity_unit }}
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'remaining_coffee' | translate }}</label>
+                                            <p>
+                                                {{
+                                                    saleInformation.quantity && saleInformation.quantity_count
+                                                        ? saleInformation.quantity * saleInformation.quantity_count
+                                                        : 'NA'
+                                                }}
+                                                <span
+                                                    *ngIf="saleInformation.quantity && saleInformation.quantity_count"
+                                                    >{{ saleInformation.quantity_unit }}</span
                                                 >
-                                                    {{ 'view_more_details' | translate }}
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'minimum_quantity_sale' | translate }}</label>
+                                            <p>
+                                                {{ saleInformation?.minimum_order_quantity_count || 'N/A' }}
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'selling_price' | translate }}</label>
+                                            <p>
+                                                {{ saleInformation.price_unit || 'NA' }}
+                                                {{ saleInformation.price || 'NA' }}
+                                                /
+                                                {{ saleInformation.price_per_unit || 'NA' }}
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'vat' | translate }}</label>
+                                            <p>
+                                                {{ saleInformation.vat_percentage || 'NA' }}
+                                                <span *ngIf="saleInformation.vat_percentage">%</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4 ml-md-0 mr-md-0">
+                            <h3
+                                class="
+                                    d-none d-sm-none d-xl-none d-lg-none d-md-block
+                                    pb-1
+                                    fnt-16 fnt-md-18 fnt-bold
+                                    text-clr334
+                                "
+                            >
+                                {{ 'green_coffee_details' | translate }}
+                            </h3>
+                            <div *ngIf="orderDetails" class="col-12 border-class">
+                                <p-tabView styleClass=" mt-1 pb-md-2" [(activeIndex)]="selectedTab">
+                                    <p-tabPanel header="{{ 'green_coffee_details' | translate }}">
+                                        <div class="col-lg-12 px-1 px-md-0 mt-4 mt-md-3">
+                                            <div class="estate-focus">
+                                                <ul class="clearfix">
+                                                    <li>
+                                                        <label>{{ 'estate' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.estate_name || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'origin' | translate }}</label>
+                                                        <p>
+                                                            <span *ngIf="orderDetails.origin">{{
+                                                                orderDetails.origin | country | translate
+                                                            }}</span>
+                                                            <span *ngIf="!orderDetails.origin">NA</span>
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'lot_id' | translate }}</label>
+                                                        <p
+                                                            class="cursor-pointer lot-link"
+                                                            [routerLink]="'/green-coffee-management/lot-sale'"
+                                                            [queryParams]="{ orderId: orderDetails.id }"
+                                                        >
+                                                            {{ orderDetails.lot_number || 'NA' }}
+                                                        </p>
+                                                    </li>
+
+                                                    <li>
+                                                        <label>{{ 'gc_odrer_id' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.id || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'availability_name' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.availability_name || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'species' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.species || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'variety' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.varieties || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'crop_year' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.harvest_year_start | date: 'MMM' }} -
+                                                            {{ orderDetails.harvest_year_end | date: 'MMM' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'altitude' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.altitude || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'flavor_profile' | translate }}</label>
+                                                        <p>
+                                                            <span>
+                                                                {{
+                                                                    orderDetails.flavours
+                                                                        ? saleInformation?.minimum_order_quantity_count
+                                                                        : 'N/A'
+                                                                }}</span
+                                                            >
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'wet_mill' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.wet_mill || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'processing' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.processing || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ 'moisture_content' | translate }}</label>
+                                                        <p>
+                                                            {{ orderDetails.moisture || 'NA' }}
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                                <div class="mt-3 pl-md-2">
+                                                    <p
+                                                        class="brown-cta m-0"
+                                                        routerLink="/sourcing/coffee-details/{{
+                                                            orderDetails.harvest_id
+                                                        }}"
+                                                    >
+                                                        {{ 'view_more_details' | translate }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="{{ 'roaster_notes' | translate }}">
+                                        <div class="col-lg-12 px-1 px-md-0 mt-4 mt-md-3">
+                                            <div class="estate-focus">
+                                                <ul class="clearfix">
+                                                    <li *ngFor="let notes of roasterNotes">
+                                                        <div class="real-estate d-flex">
+                                                            <div class="p-photo">
+                                                                <img class="img-procured" [src]="notes?.dp_thumb" />
+                                                            </div>
+                                                            <div class="px-2">
+                                                                <p
+                                                                    class="
+                                                                        fnt-14 fnt-muli fnt-600
+                                                                        text-clr334
+                                                                        mb-3
+                                                                        w-100
+                                                                    "
+                                                                >
+                                                                    {{ notes?.first_name }}&nbsp;{{
+                                                                        notes?.last_name
+                                                                    }}&nbsp;&#8226;&nbsp;
+                                                                    <span class="dateAt">{{
+                                                                        notes?.created_at | date: 'd MMMM y'
+                                                                    }}</span>
+                                                                </p>
+                                                                <p
+                                                                    class="
+                                                                        fnt-14 fnt-muli fnt-normal
+                                                                        text-clr588
+                                                                        w-100
+                                                                        notes
+                                                                    "
+                                                                >
+                                                                    {{ notes?.comment }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </p-tabPanel>
+                                </p-tabView>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 ml-md-0 mr-md-0">
+                            <div class="col-lg-12 border-class">
+                                <div class="produect-pro">
+                                    <div *ngIf="orderDetails" class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="real-estate">
+                                                <h6 class="mt-0" *ngIf="orderDetails.cupped_at">
+                                                    {{ orderDetails.cupped_at | date: 'dd MMM, yyyy' }}
+                                                </h6>
+                                                <p class="text-clr334 fnt-600 fnt-14 mb-0">
+                                                    <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1 text-head"
+                                                        >{{ 'cup_score' | translate }} :</span
+                                                    >
+                                                    {{ orderDetails.cup_score || 'NA' }}
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
-                                </p-tabPanel>
-                                <p-tabPanel header="{{ 'roaster_notes' | translate }}">
-                                    <div class="col-lg-12 px-1 px-md-0 mt-4 mt-md-3">
-                                        <div class="estate-focus">
-                                            <ul class="clearfix">
-                                                <li *ngFor="let notes of roasterNotes">
-                                                    <div class="real-estate d-flex">
-                                                        <div class="p-photo">
-                                                            <img class="img-procured" [src]="notes?.dp_thumb" />
-                                                        </div>
-                                                        <div class="px-2">
-                                                            <p class="fnt-14 fnt-muli fnt-600 text-clr334 mb-3 w-100">
-                                                                {{ notes?.first_name }}&nbsp;{{
-                                                                    notes?.last_name
-                                                                }}&nbsp;&#8226;&nbsp;
-                                                                <span class="dateAt">{{
-                                                                    notes?.created_at | date: 'd MMMM y'
-                                                                }}</span>
-                                                            </p>
-                                                            <p
-                                                                class="
-                                                                    fnt-14 fnt-muli fnt-normal
-                                                                    text-clr588
-                                                                    w-100
-                                                                    notes
-                                                                "
-                                                            >
-                                                                {{ notes?.comment }}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </p-tabPanel>
-                            </p-tabView>
-                        </div>
-                    </div>
+                                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6">
+                                            <div class="real-estate d-grid p-date">
+                                                <div class="p-photo">
+                                                    <img
+                                                        class="img-procured mb-0"
+                                                        [src]="orderDetails.evaluator_profile_image"
+                                                    />
+                                                </div>
 
-                    <div class="row mt-4 ml-md-0 mr-md-0">
-                        <div class="col-lg-12 border-class">
-                            <div class="produect-pro">
-                                <div *ngIf="orderDetails" class="row">
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="real-estate">
-                                            <h6 class="mt-0" *ngIf="orderDetails.cupped_at">
-                                                {{ orderDetails.cupped_at | date: 'dd MMM, yyyy' }}
-                                            </h6>
-                                            <p class="text-clr334 fnt-600 fnt-14 mb-0">
-                                                <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1 text-head"
-                                                    >{{ 'cup_score' | translate }} :</span
-                                                >
-                                                {{ orderDetails.cup_score || 'NA' }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6">
-                                        <div class="real-estate d-grid p-date">
-                                            <div class="p-photo">
-                                                <img
-                                                    class="img-procured mb-0"
-                                                    [src]="orderDetails.evaluator_profile_image"
-                                                />
+                                                <h3>
+                                                    {{ orderDetails.evaluator_name || 'NA' }}
+                                                </h3>
+                                                <h6 class="mt-0">
+                                                    {{ orderDetails.evaluator_facilitator_name || 'NA' }}
+                                                </h6>
                                             </div>
-
-                                            <h3>
-                                                {{ orderDetails.evaluator_name || 'NA' }}
-                                            </h3>
-                                            <h6 class="mt-0">
-                                                {{ orderDetails.evaluator_facilitator_name || 'NA' }}
-                                            </h6>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 v-report">
-                                        <a class="brown-cta" (click)="viewReport()">View report </a>
-                                    </div>
-                                    <!-- <div
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 v-report">
+                                            <a class="brown-cta" (click)="viewReport()">View report </a>
+                                        </div>
+                                        <!-- <div
                                                 class="d-none d-sm-none d-xl-none d-lg-block d-md-block col-lg-3 col-md-2 col-sm-6 v-report"
                                             >
                                                 <a class="brown-cta" (click)="viewReport()">View </a>
                                             </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -364,9 +376,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </div>
 
-<ng-template #loading>
+<ng-template #loader>
     <app-loading></app-loading>
 </ng-template>

@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiResponse, UserProfile } from '@models';
-import { ContactGroup, OrganizationType, ProfileImageType } from '@enums';
+import { ContactGroup, OrganizationType, ProfileImageType, VatType } from '@enums';
 import { AuthService } from '../auth';
 import { SocketService } from '../socket';
 import { map, tap } from 'rxjs/operators';
@@ -872,16 +872,11 @@ export class UserService extends ApiService {
         };
         return this.http.post(this.orgPostUrl, data);
     }
-    getRoasterVatDetails(roaster_id: any, vat_data: any): Observable<any> {
-        let params = new HttpParams();
-        params = params.append('vat_type', vat_data);
-        const data = {
-            api_call: '/ro/' + roaster_id + '/vat-settings?' + params,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    getRoasterVatDetails(vatType: VatType): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `vat-settings?vat_type=${vatType}`);
     }
+
     addVatDetails(roaster_id: any, body: any): Observable<any> {
         const data = {
             api_call: '/ro/' + roaster_id + '/vat-settings',

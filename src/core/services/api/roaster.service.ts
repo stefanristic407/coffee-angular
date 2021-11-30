@@ -752,14 +752,9 @@ export class RoasterService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `orders/${orderID}`);
     }
 
-    //Create Mark for Sale from Procured Coffee
-    CreateMarkForSale(roaster_id: any, orderID, data): Observable<any> {
-        let obj = {};
-        obj['method'] = 'POST';
-        obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
-        obj['token'] = this.authService.token;
-        obj['data'] = data;
-        return this.http.post(this.url, obj);
+    // Create Mark for Sale from Procured Coffee
+    createMarkForSale(orderID: number, data: object): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `procured-coffees/${orderID}/sale`, 'POST', data);
     }
 
     // Get Mark For Sale order details
@@ -767,24 +762,14 @@ export class RoasterService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `procured-coffees/${orderID}/sale`);
     }
 
-    //upate Mark for Sale from Procured Coffee
-    updateMarkForSale(roaster_id: any, orderID, data): Observable<any> {
-        let obj = {};
-        obj['method'] = 'PUT';
-        obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale';
-        obj['data'] = data;
-        obj['token'] = this.authService.token;
-        return this.http.post(this.url, obj);
+    // upate Mark for Sale from Procured Coffee
+    updateMarkForSale(orderID: number, data: object): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPutUrl, `procured-coffees/${orderID}/sale`, 'PUT', data);
     }
 
-    //upate Mark for Sale status
-    updateMarkForSaleStatus(roaster_id: any, orderID, data): Observable<any> {
-        let obj = {};
-        obj['method'] = 'PUT';
-        obj['api_call'] = '/ro/' + roaster_id + '/procured-coffees/' + orderID + '/sale/status';
-        obj['data'] = data;
-        obj['token'] = this.authService.token;
-        return this.http.post(this.url, obj);
+    // upate Mark for Sale status
+    updateMarkForSaleStatus(orderID: number, data: object): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPutUrl, `procured-coffees/${orderID}/sale/status`, 'PUT', data);
     }
 
     //Get Harvest GC available details
@@ -912,13 +897,8 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    getActivityDetails(roasterID: any, orderID: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roasterID}/orders/${orderID}/activity-logs`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    getActivityDetails(orderID: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `orders/${orderID}/activity-logs`);
     }
 
     listServiceCuppingReports(roaster_id: any, gc_order_id: any) {
@@ -1052,13 +1032,8 @@ export class RoasterService extends ApiService {
     }
 
     // Get the Roaster order notes list
-    getRoasterNotes(roasterId, orderId): Observable<any> {
-        const data = {
-            api_call: `/ro/${roasterId}/orders/${orderId}/notes`,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.url, data);
+    getRoasterNotes(orderId): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `orders/${orderId}/notes`);
     }
 
     deleteOuttakeOrders(roasterId: any, outTakeOrderId): Observable<any> {
@@ -1079,13 +1054,8 @@ export class RoasterService extends ApiService {
     }
 
     // Delete Procured Coffee.
-    deleteProcuredCoffee(roaster_id: any, orderId: any): Observable<any> {
-        const data = {
-            api_call: `/ro/${roaster_id}/procured-coffees/${orderId}/sale`,
-            method: 'DELETE',
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    deleteProcuredCoffee(orderId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgDeleteUrl, `procured-coffees/${orderId}/sale`, 'DELETE');
     }
 
     getRoasterOuttakeOrders(roasterId) {

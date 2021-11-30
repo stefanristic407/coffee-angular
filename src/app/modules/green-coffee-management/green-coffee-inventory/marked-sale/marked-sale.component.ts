@@ -1,12 +1,14 @@
 import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
+import { ConfirmComponent } from '@app/shared';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { ProcuredCoffeeStatus } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, PrimeTableService, ResizeService, RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -20,8 +22,6 @@ export class MarkedSaleComponent extends ResizeableComponent implements OnInit {
     termOrigin: any;
     mainData: any[] = [];
     roasterID: number;
-    deleteId: any;
-    popupDisplay = false;
     originArray: any = [];
     statusItems = [
         { label: 'In stock', value: 'IN_STOCK' },
@@ -45,6 +45,7 @@ export class MarkedSaleComponent extends ResizeableComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
+        private dialogService: DialogService,
         private roasterService: RoasterService,
         private router: Router,
         private toastrService: ToastrService,
@@ -128,11 +129,6 @@ export class MarkedSaleComponent extends ResizeableComponent implements OnInit {
         }
     }
 
-    openModal(item) {
-        this.popupDisplay = true;
-        this.deleteId = item.order_id;
-    }
-
     ngOnInit(): void {
         this.primeTableService.isMarkedForSale = false;
         this.primeTableService.url = '';
@@ -199,30 +195,39 @@ export class MarkedSaleComponent extends ResizeableComponent implements OnInit {
     }
 
     deleteProductFromList(deleteId) {
-        this.roasterService.deleteProcuredCoffee(this.roasterID, deleteId).subscribe(
-            (response) => {
-                if (response && response.success) {
-                    this.toastrService.success('Product deleted successfully');
-                    this.popupDisplay = false;
-                    this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
-                    const event = {
-                        sortOrder: this.primeTableService.sortOrder,
-                        first: this.primeTableService.currentPage,
-                    };
-                    this.primeTableService.getData(event);
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.roasterService.deleteProcuredCoffee(deleteId).subscribe(
+                        (response) => {
+                            if (response && response.success) {
+                                this.toastrService.success('Product deleted successfully');
+                                this.primeTableService.url = `/ro/${this.roasterID}/marked-sale-coffees`;
+                                const event = {
+                                    sortOrder: this.primeTableService.sortOrder,
+                                    first: this.primeTableService.currentPage,
+                                };
+                                this.primeTableService.getData(event);
+                            }
+                        },
+                        (err) => {
+                            this.toastrService.error('Error while deleting the ');
+                            console.log(err);
+                        },
+                    );
                 }
-            },
-            (err) => {
-                this.toastrService.error('Error while deleting the ');
-                console.log(err);
-            },
-        );
+            });
     }
 
     getMenuItems(item) {
         return [
             { label: this.translator.instant('edit'), command: () => this.onEdit(item) },
-            { label: this.translator.instant('delete'), command: () => this.openModal(item) },
+            { label: this.translator.instant('delete'), command: () => this.deleteProductFromList(item.order_id) },
         ];
     }
 }
