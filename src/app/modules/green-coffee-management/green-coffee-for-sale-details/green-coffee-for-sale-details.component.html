@@ -133,7 +133,7 @@
                                         <li>
                                             <label>{{ 'minimum_quantity_sale' | translate }}</label>
                                             <p>
-                                                {{ saleInformation?.minimum_order_quantity_count || 'N/A' }}
+                                                {{ saleInformation?.minimum_order_quantity_count || 0 }}
                                             </p>
                                         </li>
                                         <li>
@@ -195,7 +195,7 @@
                                                             [routerLink]="'/green-coffee-management/lot-sale'"
                                                             [queryParams]="{ orderId: orderDetails.id }"
                                                         >
-                                                            {{ orderDetails.lot_number || 'NA' }}
+                                                            {{ orderDetails.lot_id || 'NA' }}
                                                         </p>
                                                     </li>
 
