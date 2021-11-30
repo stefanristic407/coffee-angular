@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { ProcuredCoffeeStatus, ProcuredCoffeeUnit, QuantityUnit } from '@enums';
-import { ApiResponse } from '@models';
+import { ApiResponse, ProcuredCoffee } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, ResizeService, RoasterService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { convertKg } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 
@@ -41,6 +42,9 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     tableColumns = [];
     tableValue = [];
     remaining: any = '--';
+    soldQuantitySample = 0;
+    remainingSample: any = '--';
+    coffeeDetails: ProcuredCoffee;
 
     constructor(
         private authService: AuthService,
@@ -146,6 +150,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             minimum_order_quantity_count: ['', Validators.compose([Validators.required, Validators.min(1)])],
             vat_settings_id: [null, Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
+            sample_quantity_count: [null, Validators.compose([Validators.required])],
         });
     }
 
@@ -171,11 +176,15 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             (response) => {
                 if (response.success && response.result) {
                     const lotDetails = response.result;
+                    this.coffeeDetails = response.result;
                     this.soldQuantity = lotDetails.initial_quantity_count - lotDetails.quantity_count;
+                    this.soldQuantitySample =
+                        lotDetails.sample_initial_quantity_count - lotDetails.sample_quantity_count;
                     this.lotSaleForm.patchValue({ ...lotDetails, quantity_count: lotDetails.initial_quantity_count });
                     this.availablityName = lotDetails.name;
                     this.statusLabel = this.formatStatus(response.result.status);
                     this.changeQuantity();
+                    this.changeSampleQuantity();
                     this.refreshBreadcrumb();
                 }
                 resolve();
@@ -324,6 +333,17 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                 this.toasterService.error('Please check quantity available with you');
                 this.remaining = '0 bags';
             } else if (quantityCnt <= 0) {
+                this.remaining = '0 bags';
+            }
+        });
+    }
+
+    changeSampleQuantity() {
+        setTimeout(() => {
+            const quantityCnt = this.lotSaleForm.value.sample_quantity_count;
+            const remainingSample = quantityCnt - this.soldQuantity;
+            this.remainingSample = `${remainingSample} bags`;
+            if (quantityCnt <= 0) {
                 this.remaining = '0 bags';
             }
         });

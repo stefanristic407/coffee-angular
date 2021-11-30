@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { ProcuredCoffeeStatus } from '@enums';
+import { ProcuredCoffeeStatus, QuantityUnit } from '@enums';
+import { OrderSettings } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, GlobalsService, ResizeService, RoasterService, UserService } from '@services';
+import { convertKg } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -44,6 +46,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     tableValue = [];
     remaining: any;
     quantityType: string;
+    orderSettings: OrderSettings;
 
     constructor(
         private authService: AuthService,
@@ -80,7 +83,9 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         new Promise((resolve) => this.getRoasterVatDetails(resolve)).then(() => {
             const promises = [];
             promises.push(new Promise((resolve) => this.getProcuredOrderDetails(resolve)));
+            promises.push(new Promise((resolve) => this.getOrderSettings(resolve)));
             Promise.all(promises).then(() => {
+                this.coffeeSaleForm.patchValue(this.orderSettings);
                 this.loaded = true;
             });
         });
@@ -156,6 +161,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             minimum_purchase_quantity: ['', Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
+            sample_quantity_count: [null, Validators.compose([Validators.required])],
         });
     }
 
@@ -178,6 +184,19 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
                 this.toasterService.error('Error while getting the procured coffee details');
             },
         );
+    }
+
+    getOrderSettings(resolve) {
+        this.roasterService.getOrderSettings().subscribe((res: any) => {
+            if (res.success) {
+                // Quantity is saved as kg
+                this.orderSettings = {
+                    ...res.result,
+                    sample_quantity_unit: res.result.sample_quantity_unit || QuantityUnit.g,
+                };
+            }
+            resolve();
+        });
     }
 
     getRoasterVatDetails(resolve) {
