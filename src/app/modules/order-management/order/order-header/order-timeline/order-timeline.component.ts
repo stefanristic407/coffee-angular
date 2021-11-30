@@ -88,10 +88,20 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     get isPastPickupDate(): boolean {
         const today = moment().startOf('day');
         // estimated_pickup_date is for the estate order and shipment_date is for the micro-roaster order
-        const pickupDateStr =
-            this.order?.estimated_pickup_date ||
-            this.order?.shipment_date ||
-            this.shippingDetails?.estimated_arrival_date;
+        let pickupDateStr = '';
+        if (this.orgType === OrganizationType.ESTATE) {
+            if (this.order.order_type === OrderType.Sample) {
+                pickupDateStr = this.order.arrival_date;
+            } else {
+                if (this.order.is_fully_serviced_delivery) {
+                    pickupDateStr = this.order?.estimated_pickup_date;
+                } else {
+                    pickupDateStr = this.shippingDetails?.estimated_arrival_date;
+                }
+            }
+        } else {
+            pickupDateStr = this.order?.shipment_date;
+        }
         const pickupDate = pickupDateStr ? moment(pickupDateStr).startOf('day') : moment().startOf('day').add(1, 'day');
 
         return pickupDate <= today;
@@ -143,20 +153,34 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
 
         if (!activity && this.order) {
             if (point.value === OrderStatus.Shipped) {
-                return (
-                    this.order.estimated_departure_date ||
-                    this.order.shipped_date ||
-                    this.order.shipment_date ||
-                    this.shippingDetails?.estimated_departure_date
-                );
+                if (this.orgType === OrganizationType.ESTATE) {
+                    // Shipped date is needed for only sample and booked order
+                    if (this.order.order_type === OrderType.Sample) {
+                        return this.order.shipped_date;
+                    } else {
+                        if (this.order.is_fully_serviced_delivery) {
+                            return this.order.estimated_departure_date;
+                        } else {
+                            return this.shippingDetails?.estimated_departure_date;
+                        }
+                    }
+                } else {
+                    return this.order.shipment_date;
+                }
             }
 
             if (point.value === OrderStatus.Received) {
-                return (
-                    this.order.estimated_pickup_date ||
-                    this.order.arrival_date ||
-                    this.shippingDetails?.estimated_arrival_date
-                );
+                if (this.orgType === OrganizationType.ESTATE) {
+                    if (this.order.order_type === OrderType.Sample) {
+                        return this.order.arrival_date;
+                    } else {
+                        if (this.order.is_fully_serviced_delivery) {
+                            return this.order.estimated_pickup_date;
+                        } else {
+                            return this.shippingDetails?.estimated_arrival_date;
+                        }
+                    }
+                }
             }
         }
 
