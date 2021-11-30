@@ -1,0 +1,104 @@
+<div *ngIf="editshippingmode">
+    <div class="bg-f8 br-4 p-3 fnt-400 mb-35">
+        {{ 'sample_price_setting_note' | translate }}
+    </div>
+
+    <form [formGroup]="detailsForm" novalidate class="w-100">
+        <div class="row gutter-12">
+            <div class="col-md-6 col-lg-5 sewn-form-field">
+                <label>{{ 'sample_price' | translate }}<span class="star">*</span></label>
+                <div class="p-inputgroup custom-addon">
+                    <p-inputNumber
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                        formControlName="sample_price"
+                        [placeholder]="'please_enter_an_amount' | translate"
+                    ></p-inputNumber>
+                    <span class="p-inputgroup-addon gray">SEK</span>
+                    <small *ngIf="detailsForm.controls.sample_price.errors?.required" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-5 sewn-form-field mb-0">
+                <label>{{ 'sample_shipment_quantity' | translate }}<span class="star">*</span></label>
+                <div class="input-and-select gray">
+                    <p-inputNumber
+                        formControlName="sample_quantity"
+                        [placeholder]="'please_enter_an_amount' | translate"
+                    ></p-inputNumber>
+                    <p-dropdown [options]="QuantityUnitItems" formControlName="sample_quantity_unit"></p-dropdown>
+                    <small *ngIf="detailsForm.controls.sample_quantity.errors?.required" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
+                    <small
+                        *ngIf="
+                            detailsForm.controls.sample_quantity.errors?.required &&
+                            detailsForm.controls.sample_quantity_unit.errors?.required
+                        "
+                        class="p-error"
+                    >
+                        {{ 'select_unit' | translate }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right mt-5">
+            <div class="row gutter-16">
+                <div class="col-6 col-md-auto">
+                    <button class="btn-raised w-100" (click)="onCancel()">
+                        {{ 'cancel' | translate }}
+                    </button>
+                </div>
+                <div class="col-6 col-md-auto">
+                    <button class="btn-raised w-100" (click)="onSave()" [disabled]="submitted">
+                        {{ 'save' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="!editshippingmode">
+    <div class="bg-f8 br-4 p-3 fnt-400 mb-45">
+        {{ 'sample_price_setting_note' | translate }}
+    </div>
+
+    <ng-container *ngIf="!loading; else loader">
+        <div class="border-primary br-4 py-1 px-3">
+            <table class="list-table w-100">
+                <tr>
+                    <td>
+                        <span> {{ 'sample_price' | translate }} : </span>
+                    </td>
+                    <td>
+                        <span>
+                            {{ (orderSettings?.sample_price | number) + ' ' + orderSettings?.sample_price_currency }}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span> {{ 'sample_shipment_quantity' | translate }} : </span>
+                    </td>
+                    <td>
+                        <span>
+                            {{ orderSettings?.sample_quantity | number }} {{ orderSettings?.sample_quantity_unit }}
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="mt-3">
+            <button type="button" class="btn-raised pull-right" (click)="onEdit()">
+                {{ 'edit' | translate }}
+            </button>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #loader>
+    <app-loading></app-loading>
+</ng-template>

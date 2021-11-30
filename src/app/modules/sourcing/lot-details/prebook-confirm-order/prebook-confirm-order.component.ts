@@ -239,7 +239,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     }
 
     getOrderSettings(resolve: any = null) {
-        this.roasterService.getOrderSettings(this.roasterId).subscribe((res: any) => {
+        this.roasterService.getOrderSettings().subscribe((res: any) => {
             if (res.success) {
                 this.orderSettings = res.result;
             }

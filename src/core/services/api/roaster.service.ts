@@ -997,14 +997,14 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    // Order settings details
-    getOrderSettings(roasterId) {
-        const data = {
-            api_call: `/ro/${roasterId}/order-settings`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.url, data);
+    // Get order settings details
+    getOrderSettings(): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `order-settings`);
+    }
+
+    // Update order settings details
+    updateOrderSettings(body: object): Observable<ApiResponse<any>> {
+        return this.putWithOrg(this.orgPutUrl, `order-settings`, 'PUT', body);
     }
 
     getFeaturedProducts(roasterId): Observable<any> {

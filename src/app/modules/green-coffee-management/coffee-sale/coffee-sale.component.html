@@ -59,21 +59,19 @@
                                         </div>
                                     </div>
                                 </ng-container>
-                                <ng-container *ngSwitchCase="'origin'">
-                                    <span>{{ rowData[col.field] | country }}</span>
-                                </ng-container>
-                                <ng-container *ngSwitchCase="'price'">
-                                    <span>$ {{ rowData['unit_price'] }}/{{ rowData['quantity_unit'] || 'kg' }}</span>
-                                </ng-container>
-                                <ng-container *ngSwitchCase="'quantity'">
-                                    <span>
-                                        {{ rowData['quantity_count'] * rowData['quantity'] }}
-                                        {{ rowData['quantity_unit'] || 'kg' }}
-                                    </span>
-                                </ng-container>
-                                <ng-container *ngSwitchDefault>
-                                    <span>{{ rowData[col.field] || '--' }}</span>
-                                </ng-container>
+                                <span *ngSwitchCase="'origin'">{{ rowData[col.field] | country }}</span>
+                                <span *ngSwitchCase="'price'"
+                                    >$ {{ rowData['unit_price'] }}/{{ rowData['quantity_unit'] || 'kg' }}</span
+                                >
+                                <span *ngSwitchCase="'quantity'">
+                                    {{ rowData['quantity_count'] * rowData['quantity'] }}
+                                    {{ rowData['quantity_unit'] || 'kg' }}
+                                </span>
+                                <span *ngSwitchCase="'remaining_total_quantity'">
+                                    {{ rowData['remaining_total_quantity'] }}
+                                    {{ rowData['quantity_unit'] || 'kg' }}
+                                </span>
+                                <span *ngSwitchDefault>{{ rowData[col.field] || '--' }}</span>
                             </td>
                         </tr>
                     </ng-template>
@@ -93,7 +91,7 @@
 
                 <div *ngIf="!showDropdown" class="col-md-3 bg-fa br-4 d-md-none d-lg-block p-3 mt-4 mt-md-0">
                     <p class="fnt-400 mb-2">{{ 'current_status' | translate }}</p>
-                    <span class="fnt-700">{{ statusLabel }}</span>
+                    <span class="fnt-700">{{ statusLabel | sentencecase }}</span>
                     <span class="brown-cta float-right" (click)="showDropdown = true">{{
                         'change_status' | translate
                     }}</span>
@@ -126,7 +124,7 @@
                             Maintain the status of your product and keep the roasters updated
                         </p>
                         <p class="fnt-600 mb-2">{{ 'current_status' | translate }}</p>
-                        <span class="fnt-md-18 fnt-bold">{{ statusLabel }}</span>
+                        <span class="fnt-md-18 fnt-bold">{{ statusLabel | sentencecase }}</span>
                         <span class="brown-cta float-right" (click)="showDropdown = true"
                             >{{ 'change_status' | translate }}
                         </span>
@@ -185,39 +183,47 @@
             <div class="row gutter-16 gutter-lg-24">
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>{{ 'quantity_for_sale' | translate }}<span class="star">*</span></label>
-
-                    <div class="input-and-select gray">
+                    <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="quantity_count"
+                            (ngModelChange)="checkQuantity()"
                             placeholder="Enter a number"
-                            (onInput)="changeQuantity($event)"
                         ></p-inputNumber>
-                        <p-dropdown
-                            [options]="quantityUnitArray"
-                            placeholder="Bags"
-                            formControlName="quantity_type"
-                            (onChange)="quantityTypeChange()"
-                        >
-                        </p-dropdown>
+                        <span class="p-inputgroup-addon gray">{{ coffeeSaleForm.value.quantity_type }}</span>
                         <small *ngIf="coffeeSaleForm.controls['quantity_count'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
+                        </small>
+                        <small
+                            *ngIf="coffeeSaleForm.controls['quantity_count'].errors?.availablequantity"
+                            class="p-error"
+                        >
+                            {{ 'please_check_available_quantity' | translate }}
                         </small>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Remaining quantity</label>
-                    <input type="text" placeholder="-" [value]="remaining" pInputText disabled />
+                    <input
+                        type="text"
+                        [value]="
+                            coffeeSaleForm.value.quantity_count
+                                ? (coffeeSaleForm.value.quantity_count | number) +
+                                  ' ' +
+                                  coffeeSaleForm.value.quantity_type
+                                : '-'
+                        "
+                        pInputText
+                        disabled
+                    />
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Minimum order quantity<span class="star">*</span></label>
-
-                    <div class="input-and-select gray">
+                    <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="minimum_purchase_quantity"
                             placeholder="Enter a number"
                         ></p-inputNumber>
-                        <p-dropdown [options]="quantityUnitArray" placeholder="kg" formControlName="quantity_type">
-                        </p-dropdown>
+                        <span class="p-inputgroup-addon gray">{{ coffeeSaleForm.value.quantity_type }}</span>
                         <small
                             *ngIf="coffeeSaleForm.controls['minimum_purchase_quantity'].errors?.required"
                             class="p-error"
@@ -228,13 +234,18 @@
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Weight / bag<span class="star">*</span></label>
-
-                    <div class="input-and-select gray">
-                        <p-inputNumber formControlName="quantity" placeholder="Enter a number"></p-inputNumber>
-                        <p-dropdown [options]="weightTypeArray" placeholder="kg" formControlName="quantity_unit">
-                        </p-dropdown>
+                    <div class="p-inputgroup custom-addon">
+                        <p-inputNumber
+                            formControlName="quantity"
+                            (ngModelChange)="checkQuantity()"
+                            placeholder="Enter a number"
+                        ></p-inputNumber>
+                        <div class="p-inputgroup-addon gray">{{ coffeeSaleForm.value.quantity_unit }}</div>
                         <small *ngIf="coffeeSaleForm.controls['quantity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
+                        </small>
+                        <small *ngIf="coffeeSaleForm.controls['quantity'].errors?.availablequantity" class="p-error">
+                            {{ 'please_check_available_quantity' | translate }}
                         </small>
                     </div>
                 </div>
@@ -263,6 +274,86 @@
                     <small *ngIf="coffeeSaleForm.controls['vat_settings_id'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
+                </div>
+            </div>
+
+            <div class="border-bottom-primary pt-lg-3 pb-4 pb-md-3 mb-45">
+                <h1 class="fnt-16 fnt-md-18 fnt-bold">
+                    {{ 'sample_information' | translate }}
+                </h1>
+                <div class="row v-gutter-16">
+                    <div class="col-md-8 col-lg-9">
+                        {{ 'sample_information_note' | translate }}
+                    </div>
+                    <div class="col-md-4 col-lg-3 text-right">
+                        <button
+                            class="btn-stroked w-mob-100"
+                            [routerLink]="['/product-setting']"
+                            [queryParams]="{ type: 'SAMPLE' }"
+                        >
+                            {{ 'update_sample_price' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row gutter-24">
+                <div class="col-md-6 col-lg-3 sewn-form-field">
+                    <label>{{ 'sample_bags_for_sale' | translate }}<span class="star">*</span></label>
+                    <div class="p-inputgroup custom-addon">
+                        <p-inputNumber
+                            formControlName="sample_quantity_count"
+                            (ngModelChange)="checkQuantity()"
+                            [placeholder]="'enter_a_quantity' | translate"
+                        ></p-inputNumber>
+                        <span class="p-inputgroup-addon gray">bag</span>
+                        <small *ngIf="coffeeSaleForm.controls.sample_quantity_count.errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                        <small
+                            *ngIf="coffeeSaleForm.controls['sample_quantity_count'].errors?.availablequantity"
+                            class="p-error"
+                        >
+                            {{ 'please_check_available_quantity' | translate }}
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 sewn-form-field">
+                    <label>{{ 'remaining_quantity' | translate }}</label>
+                    <div class="p-inputgroup custom-addon">
+                        <input
+                            type="text"
+                            [value]="
+                                coffeeSaleForm.value.sample_quantity_count
+                                    ? coffeeSaleForm.value.sample_quantity_count + ' bags'
+                                    : '-'
+                            "
+                            pInputText
+                            disabled
+                        />
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 sewn-form-field">
+                    <label>{{ 'sample_size' | translate }}</label>
+                    <div class="p-inputgroup custom-addon">
+                        <p-inputNumber
+                            [ngModel]="orderSettings?.sample_quantity | convertKg: orderSettings?.sample_quantity_unit"
+                            [ngModelOptions]="{ standalone: true }"
+                            disabled
+                        ></p-inputNumber>
+                        <span class="p-inputgroup-addon gray">{{ orderSettings?.sample_quantity_unit }}</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 sewn-form-field">
+                    <label>{{ 'sample_price' | translate }}</label>
+                    <div class="p-inputgroup custom-addon">
+                        <p-inputNumber
+                            [ngModel]="orderSettings?.sample_price"
+                            [ngModelOptions]="{ standalone: true }"
+                            disabled
+                        ></p-inputNumber>
+                        <span class="p-inputgroup-addon gray">SEK</span>
+                    </div>
                 </div>
             </div>
 

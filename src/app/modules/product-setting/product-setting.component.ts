@@ -5,6 +5,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
+export enum SettingType {
+    VAT = 0,
+    Shipment = 1,
+    SAMPLE = 2,
+}
+
 @Component({
     selector: 'app-product-setting',
     templateUrl: './product-setting.component.html',
@@ -49,6 +55,7 @@ export class ProductSettingComponent implements OnInit {
         this.options = [
             { name: this.translator.instant('vat_management'), code: '', index: 0 },
             { name: this.translator.instant('shipping_details'), code: '', index: 1 },
+            { name: this.translator.instant('sample_price'), code: '', index: 2 },
         ];
         this.dayMinListArray = [
             {
@@ -59,7 +66,7 @@ export class ProductSettingComponent implements OnInit {
         this.route.queryParams.subscribe((params) => {
             if (params.type) {
                 this.selectedMobileTab = params.type;
-                this.selectedTab = params.type === 'VAT' ? this.options[0] : this.options[1];
+                this.selectedTab = this.options[SettingType[params.type]] || this.options[SettingType.VAT];
                 this.settingBreadCrumb(params.type);
             } else {
                 this.selectedMobileTab = '';
@@ -148,14 +155,18 @@ export class ProductSettingComponent implements OnInit {
         this.saveshippingmode = true;
         this.editshippingmode = false;
     }
+
     get detailsFormControl() {
         return this.detailsForm.controls;
     }
+
     selectTabs() {
         if (this.selectedTab.index === 0) {
             this.selectMobileTab('VAT');
-        } else {
+        } else if (this.selectedTab.index === 1) {
             this.selectMobileTab('Shipment');
+        } else {
+            this.selectMobileTab('SAMPLE');
         }
     }
 
@@ -164,6 +175,7 @@ export class ProductSettingComponent implements OnInit {
         this.selectedMobileTab = feature;
         this.router.navigate(['/product-setting'], { queryParams: { type: feature } });
     }
+
     getHeading() {
         let header = this.translator.instant('product_settings');
         if (this.selectedMobileTab) {
@@ -174,6 +186,7 @@ export class ProductSettingComponent implements OnInit {
         }
         return header;
     }
+
     getDescription() {
         let description = 'Set-up your billing details, terms and conditions of use, privacy and cookie policies here.';
         if (this.selectedMobileTab) {
