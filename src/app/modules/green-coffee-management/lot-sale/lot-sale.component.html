@@ -49,7 +49,7 @@
                                 }}</span>
                                 <span *ngSwitchCase="'origin'">{{ rowData[col.field] | country }}</span>
                                 <span *ngSwitchCase="'quantity'"
-                                    >{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] }}/{{
+                                    >{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] | sentencecase }}/{{
                                         rowData['quantity']
                                     }}
                                     {{ rowData['quantity_unit'] || 'kg' }}
@@ -173,20 +173,31 @@
                         <p-inputNumber
                             formControlName="quantity_count"
                             placeholder="Enter a number"
-                            (ngModelChange)="changeQuantity()"
+                            (ngModelChange)="checkQuantity()"
                         ></p-inputNumber>
                         <span class="p-inputgroup-addon gray">{{ lotSaleForm.value.quantity_type }}</span>
                         <small *ngIf="lotSaleForm.controls['quantity_count'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
-                        <small *ngIf="lotSaleForm.controls['quantity_type'].errors?.required" class="p-error">
-                            {{ 'please_select_unit' | translate }}
+                        <small *ngIf="lotSaleForm.controls['quantity_count'].errors?.availablequantity" class="p-error">
+                            {{ 'please_check_available_quantity' | translate }}
                         </small>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Remaining quantity</label>
-                    <input type="text" placeholder="-" [value]="remaining" pInputText disabled />
+                    <input
+                        type="text"
+                        [value]="
+                            lotSaleForm.value.quantity_count
+                                ? (lotSaleForm.value.quantity_count - soldQuantity | number) +
+                                  ' ' +
+                                  lotSaleForm.value.quantity_type
+                                : '-'
+                        "
+                        pInputText
+                        disabled
+                    />
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Minimum order quantity<span class="star">*</span></label>
@@ -205,21 +216,22 @@
                         <small *ngIf="lotSaleForm.controls['minimum_order_quantity_count'].errors?.min" class="p-error">
                             {{ 'must_be_greater_than' | translate }} 0
                         </small>
-                        <small *ngIf="lotSaleForm.controls['quantity_type'].errors?.required" class="p-error">
-                            {{ 'please_select_unit' | translate }}
-                        </small>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>Weight / bag<span class="star">*</span></label>
                     <div class="p-inputgroup custom-addon">
-                        <p-inputNumber formControlName="quantity" placeholder="Enter a number"></p-inputNumber>
+                        <p-inputNumber
+                            formControlName="quantity"
+                            (ngModelChange)="checkQuantity()"
+                            placeholder="Enter a number"
+                        ></p-inputNumber>
                         <div class="p-inputgroup-addon gray">kg</div>
                         <small *ngIf="lotSaleForm.controls['quantity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
-                        <small *ngIf="lotSaleForm.controls['quantity_unit'].errors?.required" class="p-error">
-                            {{ 'please_select_unit' | translate }}
+                        <small *ngIf="lotSaleForm.controls['quantity'].errors?.availablequantity" class="p-error">
+                            {{ 'please_check_available_quantity' | translate }}
                         </small>
                     </div>
                 </div>
@@ -265,20 +277,33 @@
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="sample_quantity_count"
-                            (ngModelChange)="changeSampleQuantity()"
+                            (ngModelChange)="checkQuantity()"
                             [placeholder]="'enter_a_quantity' | translate"
                         ></p-inputNumber>
                         <span class="p-inputgroup-addon gray">bag</span>
                         <small *ngIf="lotSaleForm.controls.sample_quantity_count.errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
+                        <small
+                            *ngIf="lotSaleForm.controls['sample_quantity_count'].errors?.availablequantity"
+                            class="p-error"
+                        >
+                            {{ 'please_check_available_quantity' | translate }}
+                        </small>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>{{ 'remaining_quantity' | translate }}</label>
-                    <div class="p-inputgroup custom-addon">
-                        <input type="text" placeholder="-" [value]="remainingSample" pInputText disabled />
-                    </div>
+                    <input
+                        type="text"
+                        [value]="
+                            lotSaleForm.value.sample_quantity_count
+                                ? (lotSaleForm.value.sample_quantity_count - soldQuantitySample | number) + ' bags'
+                                : '-'
+                        "
+                        pInputText
+                        disabled
+                    />
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>{{ 'sample_size' | translate }}</label>

@@ -292,6 +292,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     checkQuantity() {
         this.coffeeSaleForm.get('quantity_count').updateValueAndValidity();
         this.coffeeSaleForm.get('quantity').updateValueAndValidity();
+        this.coffeeSaleForm.get('sample_quantity_count').updateValueAndValidity();
     }
 
     quantityValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {

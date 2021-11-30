@@ -320,18 +320,16 @@
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>{{ 'remaining_quantity' | translate }}</label>
-                    <div class="p-inputgroup custom-addon">
-                        <input
-                            type="text"
-                            [value]="
-                                coffeeSaleForm.value.sample_quantity_count
-                                    ? coffeeSaleForm.value.sample_quantity_count + ' bags'
-                                    : '-'
-                            "
-                            pInputText
-                            disabled
-                        />
-                    </div>
+                    <input
+                        type="text"
+                        [value]="
+                            coffeeSaleForm.value.sample_quantity_count
+                                ? coffeeSaleForm.value.sample_quantity_count + ' bags'
+                                : '-'
+                        "
+                        pInputText
+                        disabled
+                    />
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
                     <label>{{ 'sample_size' | translate }}</label>
