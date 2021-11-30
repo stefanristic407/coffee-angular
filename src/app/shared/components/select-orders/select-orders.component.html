@@ -244,12 +244,8 @@
                         <ng-container *ngSwitchCase="'quantity'">
                             <span class="p-column-title"> {{ col.header }} </span>
                             <span
-                                >{{ rowData[col.field] * 25 }}
-                                {{
-                                    rowData['quantity_type'] === 'jute_bags'
-                                        ? 'Jute bags/kg'
-                                        : (rowData['quantity_type'] + '/kg' | translate)
-                                }}</span
+                                >{{ rowData[col.field] * rowData['quantity_count'] }}
+                                {{ rowData['quantity_type'] === 'jute_bags' ? 'Jute bags' : 'kg' }}</span
                             >
                         </ng-container>
 
