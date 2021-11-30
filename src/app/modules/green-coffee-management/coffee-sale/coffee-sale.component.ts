@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { ProcuredCoffeeStatus, QuantityUnit } from '@enums';
+import { ProcuredCoffeeStatus, ProcuredCoffeeUnit, QuantityUnit } from '@enums';
 import { OrderSettings } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, GlobalsService, ResizeService, RoasterService, UserService } from '@services';
-import { convertKg } from '@utils';
+import { AuthService, ResizeService, RoasterService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -119,17 +118,12 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'origin',
                 header: 'origin',
-                width: 9,
-            },
-            {
-                field: 'species',
-                header: 'species',
-                width: 9,
+                width: 10,
             },
             {
                 field: 'varieties',
                 header: 'variety',
-                width: 10,
+                width: 11,
             },
             {
                 field: 'price',
@@ -137,14 +131,14 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
                 width: 10,
             },
             {
-                field: 'cup_score',
-                header: 'cupping_score',
-                width: 11,
-            },
-            {
                 field: 'quantity',
                 header: 'quantity_bought',
                 width: 14,
+            },
+            {
+                field: 'remaining_total_quantity',
+                header: 'remaining_quantity',
+                width: 16,
             },
         ];
     }
@@ -153,15 +147,15 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         this.coffeeSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             price: ['', Validators.compose([Validators.required])],
-            price_per_unit: ['kg', Validators.compose([Validators.required])],
-            quantity: ['', Validators.compose([Validators.required])],
-            quantity_type: ['bags', Validators.compose([Validators.required])],
-            quantity_count: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['kg', Validators.compose([Validators.required])],
-            minimum_purchase_quantity: ['', Validators.compose([Validators.required])],
+            price_per_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
+            quantity_count: [null, Validators.compose([Validators.required, this.quantityValidator])],
+            quantity_type: [ProcuredCoffeeUnit.bags, Validators.compose([Validators.required])],
+            minimum_purchase_quantity: [null, Validators.compose([Validators.required])],
+            quantity: [null, Validators.compose([Validators.required, this.quantityValidator])],
+            quantity_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
-            sample_quantity_count: [null, Validators.compose([Validators.required])],
+            sample_quantity_count: [null, Validators.compose([Validators.required, , this.quantityValidator])],
         });
     }
 
@@ -256,7 +250,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             (response) => {
                 if (response && response.success) {
                     this.toasterService.success('Status updated successfully');
-                    this.statusLabel = this.formatStatus(status.status);
+                    this.statusLabel = status.status;
                     this.showDropdown = false;
                 } else if (!response.success && response.messages.status === 'cannot_change') {
                     this.toasterService.error('Status cannot be changed');
@@ -269,20 +263,6 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
                 console.log(err);
             },
         );
-    }
-
-    formatStatus(stringVal) {
-        let formatVal = '';
-        if (stringVal) {
-            formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
-            formatVal = formatVal.replace('_', ' ');
-        }
-        return formatVal.replace('-', '');
-    }
-
-    quantityTypeChange() {
-        this.quantityType = this.coffeeSaleForm.value.quantity_type;
-        this.changeQuantity(this.coffeeSaleForm.value.quantity_count);
     }
 
     validateForms() {
@@ -309,25 +289,41 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         this.router.navigate([`/green-coffee-management/procured-coffee/${this.orderID}`]);
     }
 
-    changeQuantity(event) {
-        if (this.quantityType === 'kg') {
-            const remaining = event.value ? event.value : event;
-            this.remaining = `${remaining} kg`;
-            if (this.orderDetails.quantity_count * this.orderDetails.quantity - event.value < 0) {
-                this.toasterService.error('Please check quantity available with you');
-                this.remaining = '0 kg';
-            } else if (event.value <= 0) {
-                this.remaining = '0 kg';
-            }
-        } else if (this.quantityType === 'bags') {
-            const remaining = event.value ? event.value : event;
-            this.remaining = `${remaining} bags`;
-            if (this.orderDetails.quantity_count - event.value < 0) {
-                this.toasterService.error('Please check quantity available with you');
-                this.remaining = '0 bags';
-            } else if (event.value <= 0) {
-                this.remaining = '0 bags';
-            }
-        }
+    checkQuantity() {
+        this.coffeeSaleForm.get('quantity_count').updateValueAndValidity();
+        this.coffeeSaleForm.get('quantity').updateValueAndValidity();
     }
+
+    quantityValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {
+        if (control.errors?.required) {
+            return null;
+        }
+        const parent = control.parent;
+        if (!parent || !this.orderDetails?.remaining_total_quantity) {
+            return null;
+        }
+        let quantityCnt = 0;
+        if (
+            parent.get('quantity_count') &&
+            parent.get('quantity_count').value + '' &&
+            parent.get('quantity') &&
+            parent.get('quantity').value + ''
+        ) {
+            quantityCnt += parent.get('quantity_count').value * parent.get('quantity').value;
+        }
+
+        if (
+            parent &&
+            parent.get('sample_quantity_count') &&
+            parent.get('sample_quantity_count').value + '' &&
+            this.orderSettings?.sample_quantity
+        ) {
+            quantityCnt += parent.get('sample_quantity_count').value * this.orderSettings?.sample_quantity;
+        }
+
+        if (this.orderDetails.remaining_total_quantity - quantityCnt < 0) {
+            return { availablequantity: true };
+        }
+        return null;
+    };
 }

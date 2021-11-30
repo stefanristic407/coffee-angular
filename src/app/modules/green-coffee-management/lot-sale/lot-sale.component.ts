@@ -81,13 +81,11 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'id',
                 header: 'order_id',
-                sortable: false,
                 width: 12,
             },
             {
                 field: 'lot_id',
                 header: 'lot_id',
-                sortable: false,
                 width: 10,
             },
             {
@@ -98,7 +96,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'order_reference',
                 header: 'roaster_ref_no',
-                sortable: false,
                 width: 15,
             },
             {
@@ -109,19 +106,16 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'species',
                 header: 'species',
-                sortable: false,
                 width: 12,
             },
             {
                 field: 'varieties',
                 header: 'variety',
-                sortable: false,
                 width: 12,
             },
             {
                 field: 'unit_price',
                 header: 'buying_price',
-                sortable: false,
                 width: 12,
             },
             {
@@ -132,7 +126,6 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'quantity',
                 header: 'stock_in_hand',
-                sortable: false,
                 width: 18,
             },
         ];
@@ -143,7 +136,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             name: ['', Validators.compose([Validators.required])],
             price: ['', Validators.compose([Validators.required])],
             price_per_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
-            quantity: ['', Validators.compose([Validators.required])],
+            quantity: [null, Validators.compose([Validators.required])],
             quantity_type: [ProcuredCoffeeUnit.bags, Validators.compose([Validators.required])],
             quantity_count: [null, Validators.compose([Validators.required])],
             quantity_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],

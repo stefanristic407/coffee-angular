@@ -44,30 +44,20 @@
                                 [ngSwitch]="col.field"
                                 [style.width]="col.width && (isTablet$ | async) ? col.width + '%' : ''"
                             >
-                                <ng-container *ngSwitchCase="'origin'">
-                                    <span class="p-column-title"> {{ col.header | translate }} </span>
-                                    <span>{{ rowData[col.field] | country }}</span>
-                                </ng-container>
-
-                                <ng-container *ngSwitchCase="'quantity'">
-                                    <span class="p-column-title"> {{ col.header | translate }} </span>
-                                    <span
-                                        >{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] }}/{{
-                                            rowData['quantity']
-                                        }}
-                                        {{ rowData['quantity_unit'] || 'kg' }}
-                                    </span>
-                                </ng-container>
-
-                                <ng-container *ngSwitchCase="'unit_price'">
-                                    <span class="p-column-title"> {{ col.header | translate }} </span>
-                                    <span>${{ rowData[col.field] }}/{{ rowData['quantity_unit'] || 'kg' }}</span>
-                                </ng-container>
-
-                                <ng-container *ngSwitchDefault>
-                                    <span class="p-column-title"> {{ col.header | translate }} </span>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </ng-container>
+                                <span *ngIf="col.field !== 'order_id'" class="p-column-title">{{
+                                    col.header | translate
+                                }}</span>
+                                <span *ngSwitchCase="'origin'">{{ rowData[col.field] | country }}</span>
+                                <span *ngSwitchCase="'quantity'"
+                                    >{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] }}/{{
+                                        rowData['quantity']
+                                    }}
+                                    {{ rowData['quantity_unit'] || 'kg' }}
+                                </span>
+                                <span *ngSwitchCase="'unit_price'"
+                                    >${{ rowData[col.field] }}/{{ rowData['quantity_unit'] || 'kg' }}</span
+                                >
+                                <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
                             </td>
                         </tr>
                     </ng-template>
@@ -178,7 +168,7 @@
             </div>
             <div class="row gutter-16 gutter-lg-24">
                 <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>Quantity for sale<span class="star">*</span></label>
+                    <label>{{ 'quantity_for_sale' | translate }}<span class="star">*</span></label>
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="quantity_count"
