@@ -42,6 +42,8 @@
                 styleClass="round-border"
                 [showClear]="true"
             >
+                <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
             </p-dropdown>
             <div class="mt-25 mt-md-0">
                 <p-dropdown
@@ -55,6 +57,8 @@
                     styleClass="round-border"
                     [showClear]="true"
                 >
+                    <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                    <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                 </p-dropdown>
             </div>
         </div>

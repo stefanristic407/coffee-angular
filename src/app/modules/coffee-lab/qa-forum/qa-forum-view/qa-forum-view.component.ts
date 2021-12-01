@@ -12,19 +12,13 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 export class QaForumViewComponent implements OnInit, OnDestroy {
     viewMode = 'list';
     sortOptions = [
-        { label: 'Latest', value: 'latest' },
-        { label: 'Most answered', value: 'most_answered' },
-        { label: 'Oldest', value: 'oldest' },
+        { label: 'latest', value: 'latest' },
+        { label: 'most_answered', value: 'most_answered' },
+        { label: 'oldest', value: 'oldest' },
     ];
     filterPostedByOptions = [
-        {
-            label: 'Coffee experts',
-            value: false,
-        },
-        {
-            label: 'End consumers',
-            value: true,
-        },
+        { label: 'coffee_experts', value: false },
+        { label: 'coffee_consumer', value: true },
     ];
     questions: any[] = [];
     isLoading = false;

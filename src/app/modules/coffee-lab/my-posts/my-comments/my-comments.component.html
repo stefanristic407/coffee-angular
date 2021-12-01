@@ -11,7 +11,10 @@
                     optionLabel="label"
                     optionValue="value"
                     styleClass="round-border"
-                ></p-dropdown>
+                >
+                    <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                    <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                </p-dropdown>
             </div>
         </div>
     </div>

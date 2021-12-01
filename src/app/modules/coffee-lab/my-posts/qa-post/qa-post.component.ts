@@ -15,9 +15,9 @@ export class QaPostComponent implements OnInit, OnDestroy {
     questions = [];
     isLoading = false;
     sortOptions = [
-        { label: 'Latest', value: 'latest' },
-        { label: 'Most answered', value: 'most_answered' },
-        { label: 'Oldest', value: 'oldest' },
+        { label: 'latest', value: 'latest' },
+        { label: 'most_answered', value: 'most_answered' },
+        { label: 'oldest', value: 'oldest' },
     ];
     pageDesc: string | undefined;
     destroy$: Subject<boolean> = new Subject<boolean>();

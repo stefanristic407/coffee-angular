@@ -12,8 +12,8 @@ import { Subscription } from 'rxjs';
 export class MyCommentsComponent implements OnInit, OnDestroy {
     comments: any[] = [];
     sortOptions = [
-        { label: 'Latest', value: 'desc' },
-        { label: 'Oldest', value: 'asc' },
+        { label: 'latest', value: 'desc' },
+        { label: 'oldest', value: 'asc' },
     ];
     organizationId: number;
     isLoading = false;

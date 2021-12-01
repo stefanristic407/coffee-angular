@@ -23,6 +23,6 @@ export class LanguageDropdownComponent implements OnInit {
     }
 
     onChangeLanguage(): void {
-        this.coffeeLabService.forumLanguage.next(this.selectedLanguage);
+        this.coffeeLabService.updateLang(this.selectedLanguage);
     }
 }

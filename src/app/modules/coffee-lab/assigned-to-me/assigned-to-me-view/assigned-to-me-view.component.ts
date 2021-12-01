@@ -11,9 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 export class AssignedToMeViewComponent implements OnInit {
     viewMode = 'list';
     sortOptions = [
-        { label: 'Latest', value: 'latest' },
-        { label: 'Most Answered', value: 'most_answered' },
-        { label: 'Oldest', value: 'oldest' },
+        { label: 'latest', value: 'latest' },
+        { label: 'most_answered', value: 'most_answered' },
+        { label: 'oldest', value: 'oldest' },
     ];
     questions: any[] = [];
     isLoading = false;
