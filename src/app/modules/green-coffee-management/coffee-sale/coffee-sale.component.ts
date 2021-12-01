@@ -168,12 +168,17 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
 
     getOrderSettings(resolve) {
         this.roasterService.getOrderSettings().subscribe((res: any) => {
-            if (res.success) {
+            if (res.success && res.result?.sample_price && res.result?.sample_quantity) {
                 // Quantity is saved as kg
                 this.orderSettings = {
                     ...res.result,
                     sample_quantity_unit: res.result.sample_quantity_unit || QuantityUnit.g,
                 };
+            } else {
+                this.toasterService.error(this.translator.instant('first_set_sample_price'));
+                setTimeout(() => {
+                    this.router.navigate(['/product-setting'], { queryParams: { type: 'SAMPLE' } });
+                }, 2000);
             }
             resolve();
         });
