@@ -38,6 +38,7 @@ export class TranslateAnswerComponent implements OnInit {
     categoryList: any[] = [];
     showNoDataSection = false;
     isMobile = false;
+    selectedLang: string;
 
     constructor(
         private route: ActivatedRoute,
