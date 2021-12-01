@@ -20,7 +20,6 @@ export class TranslateAnswerComponent implements OnInit {
     draftId: string;
     originAnswer: any;
     isLoading = false;
-    applicationLanguages = [];
     form: FormGroup;
     translatedAnswer = '';
     isUploadingImage = false;
@@ -34,10 +33,10 @@ export class TranslateAnswerComponent implements OnInit {
     translatedLangArray = [];
     allLanguage: any[] = APP_LANGUAGES;
     remainingAnswerLangugage = [];
-    selectedTab = 0;
     categoryList: any[] = [];
     showNoDataSection = false;
     isMobile = false;
+    selectedLang: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -60,7 +59,6 @@ export class TranslateAnswerComponent implements OnInit {
 
     ngOnInit(): void {
         this.answerId = this.route.snapshot.queryParamMap.get('origin_id');
-
         this.route.queryParams.subscribe(() => {
             this.draftId = this.route.snapshot.queryParamMap.get('draft_id');
             if (this.draftId) {
@@ -87,6 +85,7 @@ export class TranslateAnswerComponent implements OnInit {
                         this.remainingAnswerLangugage.push(item);
                     }
                 });
+                this.selectedLang = this.remainingAnswerLangugage[0].value;
                 if (this.remainingAnswerLangugage.length === 0) {
                     this.showNoDataSection = true;
                     this.toastrService.error(this.globalsService.languageJson?.no_language_available_translated);
@@ -98,14 +97,12 @@ export class TranslateAnswerComponent implements OnInit {
                         .subscribe((originAnswerRes: any) => {
                             if (originAnswerRes.success) {
                                 this.originAnswer = originAnswerRes.result;
-                                this.setLanguageOptions();
                             } else {
                                 this.toastrService.error('Error while get origin answer');
                             }
                         });
                 } else {
                     this.originAnswer = this.answer;
-                    this.setLanguageOptions();
                 }
                 this.coffeeLabService
                     .getForumDetails('question', this.answer.question_id)
@@ -113,8 +110,8 @@ export class TranslateAnswerComponent implements OnInit {
                         this.isLoading = false;
                         if (questionRes.success) {
                             this.question = questionRes.result;
-                            this.handleChange({ index: 0 });
-                            this.checkQuestionTranslated(0);
+                            this.handleChange({ value: this.remainingAnswerLangugage[0].value });
+                            this.checkQuestionTranslated(this.remainingAnswerLangugage[0].value);
                         } else {
                             this.toastrService.error('Error while get parent question');
                         }
@@ -140,9 +137,9 @@ export class TranslateAnswerComponent implements OnInit {
         });
     }
 
-    checkQuestionTranslated(ind) {
+    checkQuestionTranslated(langCode) {
         const isTranslate = this.question?.translations?.find(
-            (item) => item.language === this.remainingAnswerLangugage[ind].value,
+            (item) => item.language === this.remainingAnswerLangugage.find((lang) => lang.value === langCode).value,
         );
         if (isTranslate) {
             this.form.get('question').disable();
@@ -168,10 +165,9 @@ export class TranslateAnswerComponent implements OnInit {
         });
     }
 
-    handleChange(e?) {
-        this.checkQuestionTranslated(e.index);
-        this.selectedTab = e.index;
-        this.translateLangCode = this.remainingAnswerLangugage[e.index].value;
+    handleChange(event: any) {
+        this.checkQuestionTranslated(event.value);
+        this.translateLangCode = this.remainingAnswerLangugage.find((item) => item.value === event.value).value;
         if (this.question?.categories) {
             this.getCategory();
         }
@@ -207,18 +203,6 @@ export class TranslateAnswerComponent implements OnInit {
         }
     }
 
-    setLanguageOptions(): void {
-        this.applicationLanguages = APP_LANGUAGES.filter((item: any) => {
-            if (
-                item.value !== this.originLanguage &&
-                (this.originAnswer.translations || []).findIndex((translate) => translate.language === item.value) ===
-                    -1
-            ) {
-                return item;
-            }
-        });
-    }
-
     onPost(status: string): void {
         this.form.markAllAsTouched();
         if (!this.translatedAnswer) {
@@ -233,7 +217,7 @@ export class TranslateAnswerComponent implements OnInit {
             language: this.translateLangCode,
         };
 
-        if (!this.checkQuestionTranslated(this.selectedTab)) {
+        if (!this.checkQuestionTranslated(this.selectedLang)) {
             data.question = this.form.controls.question.value;
         }
 
