@@ -5,11 +5,32 @@
 <div *ngIf="!isLoading">
     <div class="row border-md-main br-4 mt-4 mt-md-0 mx-0">
         <div *ngIf="isMobile && !showNoDataSection" class="col-12 bg-f8 mb-4 px-0 border-main br-4">
-            <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
+            <div class="w-100 bg-f8">
+                <div class="d-flex border-btm drop-pad">
+                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25">Translation language - </span>
+                    <p-dropdown
+                        [options]="remainingLangugage"
+                        [(ngModel)]="selectedArticleLangCode"
+                        optionLabel="label"
+                        optionValue="value"
+                        [filter]="true"
+                        filterBy="label"
+                        [showClear]="true"
+                        (onChange)="handleChange($event)"
+                        placeholder="Select a language"
+                        styleClass="bg-white"
+                    >
+                    </p-dropdown>
+                </div>
+            </div>
+            <div *ngIf="selectedArticleLangCode" class="px-2 pb-3 pb-md-4 pr-md-4 pl-md-0 pl-md-4 bg-f8">
+                <ng-container *ngTemplateOutlet="createArticle"></ng-container>
+            </div>
+            <!-- <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
                 <p-tabPanel *ngFor="let item of remainingLangugage" [header]="item.label | translate">
                     <ng-container *ngTemplateOutlet="createArticle"></ng-container>
                 </p-tabPanel>
-            </p-tabView>
+            </p-tabView> -->
         </div>
         <div *ngIf="isMobile && showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
             <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">
@@ -97,11 +118,32 @@
             </div>
         </div>
         <div *ngIf="!isMobile && !showNoDataSection" class="col-12 bg-f8 col-md-6 px-0 border-left">
-            <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
+            <div class="w-100 bg-f8">
+                <div class="d-flex border-btm drop-pad">
+                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25">Translation language - </span>
+                    <p-dropdown
+                        [options]="remainingLangugage"
+                        [(ngModel)]="selectedArticleLangCode"
+                        optionLabel="label"
+                        optionValue="value"
+                        [filter]="true"
+                        filterBy="label"
+                        [showClear]="true"
+                        (onChange)="handleChange($event)"
+                        placeholder="Select a language"
+                        styleClass="bg-white"
+                    >
+                    </p-dropdown>
+                </div>
+            </div>
+            <div *ngIf="selectedArticleLangCode" class="px-2 pb-3 pb-md-4 pr-md-4 pl-md-0 bg-f8">
+                <ng-container *ngTemplateOutlet="createArticle"></ng-container>
+            </div>
+            <!-- <p-tabView class="bg-tabView-artical" (onChange)="handleChange($event)">
                 <p-tabPanel *ngFor="let item of remainingLangugage" [header]="item.label | translate">
                     <ng-container *ngTemplateOutlet="createArticle"></ng-container>
                 </p-tabPanel>
-            </p-tabView>
+            </p-tabView> -->
         </div>
         <div *ngIf="!isMobile && showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
             <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">

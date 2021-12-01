@@ -5,13 +5,27 @@
 <div *ngIf="!isLoading">
     <div class="border-md-main pb-4 pb-md-0 br-4 row mx-0">
         <div *ngIf="isMobile && !showNoDataSection" class="col-12 bg-f8 my-4 px-0 border-mob">
-            <p-tabView class="bg-tabView-question" (onChange)="handleChange($event)">
-                <p-tabPanel *ngFor="let item of remainingAnswerLangugage" [header]="item.label | translate">
-                    <div class="px-2 py-3 py-md-4 pr-md-4 pl-md-0 bg-f8">
-                        <ng-container *ngTemplateOutlet="qaQuestion"></ng-container>
-                    </div>
-                </p-tabPanel>
-            </p-tabView>
+            <div class="w-100 bg-f8">
+                <div class="d-flex border-btm drop-pad">
+                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25">Translation language - </span>
+                    <p-dropdown
+                        [options]="remainingAnswerLangugage"
+                        [(ngModel)]="selectedLang"
+                        optionLabel="label"
+                        optionValue="value"
+                        [filter]="true"
+                        filterBy="label"
+                        [showClear]="true"
+                        (onChange)="handleChange($event)"
+                        placeholder="Select a language"
+                        styleClass="bg-white"
+                    >
+                    </p-dropdown>
+                </div>
+            </div>
+            <div *ngIf="selectedLang" class="px-2 py-3 py-md-4 pr-md-4 pl-md-0 pl-md-4 bg-f8">
+                <ng-container *ngTemplateOutlet="qaQuestion"></ng-container>
+            </div>
         </div>
         <div *ngIf="isMobile && showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0">
             <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">
@@ -66,28 +80,25 @@
         </div>
         <div *ngIf="!isMobile && !showNoDataSection" class="col-md-6 col-12 bg-f8 px-md-0 border-left">
             <div class="w-100 bg-f8">
-                <div class="d-flex justify-content-between border-btm pt-35 pr-25">
+                <div class="d-flex border-btm drop-pad">
+                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25">Translation language - </span>
                     <p-dropdown
                         [options]="remainingAnswerLangugage"
                         [(ngModel)]="selectedLang"
                         optionLabel="label"
+                        optionValue="value"
                         [filter]="true"
                         filterBy="label"
                         [showClear]="true"
-                        placeholder="Select a lang"
+                        (onChange)="handleChange($event)"
+                        placeholder="Select a language"
+                        styleClass="bg-white"
                     >
-                        <ng-template pTemplate="selectedItem">
-                            <div *ngIf="selectedLang">
-                                <div>{{ selectedLang.label }}</div>
-                            </div>
-                        </ng-template>
-                        <ng-template let-lang pTemplate="item">
-                            <div>
-                                <div>{{ lang.name }}</div>
-                            </div>
-                        </ng-template>
                     </p-dropdown>
                 </div>
+            </div>
+            <div *ngIf="selectedLang" class="px-2 py-3 py-md-2 pr-md-4 pl-md-4 bg-f8">
+                <ng-container *ngTemplateOutlet="qaQuestion"></ng-container>
             </div>
             <!-- <p-tabView class="bg-tabView-question" (onChange)="handleChange($event)">
                 <p-tabPanel *ngFor="let item of remainingAnswerLangugage" [header]="item.label | translate">
