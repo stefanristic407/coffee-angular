@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 export class MyAnswersComponent implements OnInit, OnDestroy {
     answers: any[] = [];
     sortOptions = [
-        { label: 'Latest', value: 'desc' },
-        { label: 'Oldest', value: 'asc' },
+        { label: 'latest', value: 'desc' },
+        { label: 'oldest', value: 'asc' },
     ];
     pageDesc: string;
     isMyPostsPage = false;

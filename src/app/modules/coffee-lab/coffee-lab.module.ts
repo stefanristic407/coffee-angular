@@ -38,6 +38,9 @@ import { TranslateArticleComponent } from './create-post/translate/translate-art
 import { TranslateRecipeComponent } from './create-post/translate/translate-recipe/translate-recipe.component';
 import { CategoryComponent } from './category/category.component';
 
+import { TranslateModule } from '@ngx-translate/core';
+import { CoffeeLabService } from '@services';
+
 @NgModule({
     declarations: [
         ArticleDetailComponent,
@@ -71,6 +74,16 @@ import { CategoryComponent } from './category/category.component';
         TranslateRecipeComponent,
         CategoryComponent,
     ],
-    imports: [CommonModule, CoffeeLabRoutingModule, SharedModule, FormsModule, CoffeeLabComponentsModule],
+    imports: [
+        CommonModule,
+        CoffeeLabRoutingModule,
+        SharedModule,
+        FormsModule,
+        CoffeeLabComponentsModule,
+        TranslateModule.forChild({
+            isolate: true,
+        }),
+    ],
+    providers: [CoffeeLabService],
 })
 export class CoffeeLabModule {}

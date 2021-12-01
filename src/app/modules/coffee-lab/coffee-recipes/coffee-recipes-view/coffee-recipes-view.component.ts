@@ -23,25 +23,13 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     totalRecords: number;
     rows = 9;
     translationsList: any[] = [
-        {
-            label: 'Yes',
-            value: true,
-        },
-        {
-            label: 'No',
-            value: false,
-        },
+        { label: 'yes', value: true },
+        { label: 'no', value: false },
     ];
     levels: any[] = [];
     orderList: any[] = [
-        {
-            label: 'Latest',
-            value: 'latest',
-        },
-        {
-            label: 'Oldest',
-            value: 'oldest',
-        },
+        { label: 'latest', value: 'latest' },
+        { label: 'oldest', value: 'oldest' },
     ];
 
     constructor(

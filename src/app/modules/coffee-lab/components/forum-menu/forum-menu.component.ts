@@ -1,19 +1,22 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
 import { environment } from '@env/environment';
-import { CoffeeLabService, GlobalsService } from '@services';
+import { TranslateService } from '@ngx-translate/core';
+import { CoffeeLabService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Menu } from 'primeng/menu';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-forum-menu',
     templateUrl: './forum-menu.component.html',
     styleUrls: ['./forum-menu.component.scss'],
 })
-export class ForumMenuComponent implements OnInit {
+export class ForumMenuComponent extends DestroyableComponent implements OnInit {
     @Input() selectedItem: any;
     @Input() extraInfo: any;
     @Input() forumType: any = 'question'; // question, article, recipe, answer, articleComment, recipeComment
@@ -28,62 +31,66 @@ export class ForumMenuComponent implements OnInit {
     @ViewChild('menu', { static: false }) menu: Menu;
 
     constructor(
-        public globalsService: GlobalsService,
         private coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         private router: Router,
         private dialogService: DialogService,
-    ) {}
+        private translator: TranslateService,
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
-        if (this.enableEdit) {
-            this.items.push({
-                label: this.globalsService.languageJson.edit,
-                command: () => {
-                    this.onEdit();
-                },
-            });
-        }
-        if (this.enableDelete) {
-            this.items.push({
-                label: this.globalsService.languageJson.delete,
-                command: () => {
-                    this.onDelete();
-                },
-            });
-        }
-        if (this.enableShare) {
-            this.items.push({
-                label: this.globalsService.languageJson.share,
-                command: () => {
-                    this.onShare();
-                },
-            });
-        }
-        if (this.enableSave) {
-            this.items.push({
-                label: this.globalsService.languageJson.save_post,
-                command: () => {
-                    this.onSave();
-                },
-            });
-        }
-        if (this.enableTranslation) {
-            this.items.push({
-                label: this.globalsService.languageJson.translate_post,
-                command: () => {
-                    this.onTranslate();
-                },
-            });
-        }
-        if (this.enableDeleteSave) {
-            this.items.push({
-                label: this.globalsService.languageJson.remove.concat(' ', this.globalsService.languageJson.save_post),
-                command: () => {
-                    this.onRemoveSavedPosts();
-                },
-            });
-        }
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((lang) => {
+            if (this.enableEdit) {
+                this.items.push({
+                    label: this.translator.instant('edit'),
+                    command: () => {
+                        this.onEdit();
+                    },
+                });
+            }
+            if (this.enableDelete) {
+                this.items.push({
+                    label: this.translator.instant('delete'),
+                    command: () => {
+                        this.onDelete();
+                    },
+                });
+            }
+            if (this.enableShare) {
+                this.items.push({
+                    label: this.translator.instant('share'),
+                    command: () => {
+                        this.onShare();
+                    },
+                });
+            }
+            if (this.enableSave) {
+                this.items.push({
+                    label: this.translator.instant('save_post'),
+                    command: () => {
+                        this.onSave();
+                    },
+                });
+            }
+            if (this.enableTranslation) {
+                this.items.push({
+                    label: this.translator.instant('translate_post'),
+                    command: () => {
+                        this.onTranslate();
+                    },
+                });
+            }
+            if (this.enableDeleteSave) {
+                this.items.push({
+                    label: this.translator.instant('remove').concat(' ', this.translator.instant('save_post')),
+                    command: () => {
+                        this.onRemoveSavedPosts();
+                    },
+                });
+            }
+        });
     }
 
     onShare(): void {
@@ -181,7 +188,7 @@ export class ForumMenuComponent implements OnInit {
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
+                    desp: this.translator.instant('delete_from_coffee_lab'),
                 },
             })
             .onClose.subscribe((action: any) => {

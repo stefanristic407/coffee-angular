@@ -11,15 +11,9 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class MyArticlesComponent implements OnInit, OnDestroy {
     articles: any[] = [];
-    orderList: any[] = [
-        {
-            label: 'Latest',
-            value: 'latest',
-        },
-        {
-            label: 'Oldest',
-            value: 'oldest',
-        },
+    sortOptions = [
+        { label: 'latest', value: 'desc' },
+        { label: 'oldest', value: 'asc' },
     ];
     isLoading = true;
     destroy$: Subject<boolean> = new Subject<boolean>();

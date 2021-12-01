@@ -11,24 +11,12 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 export class ArticlesViewComponent implements OnInit, OnDestroy {
     keyword?: string;
     translationsList: any[] = [
-        {
-            label: 'Yes',
-            value: true,
-        },
-        {
-            label: 'No',
-            value: false,
-        },
+        { label: 'yes', value: true },
+        { label: 'no', value: false },
     ];
     orderList: any[] = [
-        {
-            label: 'Latest',
-            value: 'latest',
-        },
-        {
-            label: 'Oldest',
-            value: 'oldest',
-        },
+        { label: 'latest', value: 'latest' },
+        { label: 'oldest', value: 'oldest' },
     ];
     articlesData: any[] = [];
     isLoading = false;

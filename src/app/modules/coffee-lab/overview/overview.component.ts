@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CoffeeLabService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-overview',
@@ -38,14 +38,16 @@ export class OverviewComponent implements OnInit, OnDestroy {
             this.keyword = searchQueryParam;
             this.startSearch();
         }
+        coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((lang) => {
+            this.breadcrumbItems = [
+                { label: this.translateService.instant('home'), routerLink: '/' },
+                { label: this.translateService.instant('brand_and_experience') },
+                { label: this.translateService.instant('the_coffee_lab') },
+            ];
+        });
     }
 
     ngOnInit(): void {
-        this.breadcrumbItems = [
-            { label: this.translateService.instant('home'), routerLink: '/' },
-            { label: this.translateService.instant('brand_and_experience') },
-            { label: this.translateService.instant('the_coffee_lab') },
-        ];
         if (this.route.firstChild.snapshot.routeConfig.path === 'qa-forum') {
             this.changeH1Title(0);
         } else if (this.route.firstChild.snapshot.routeConfig.path === 'articles') {
