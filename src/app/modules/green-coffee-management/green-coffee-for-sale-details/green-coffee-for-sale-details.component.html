@@ -240,11 +240,7 @@
                                                         <label>{{ 'flavor_profile' | translate }}</label>
                                                         <p>
                                                             <span>
-                                                                {{
-                                                                    orderDetails.flavours
-                                                                        ? saleInformation?.minimum_order_quantity_count
-                                                                        : 'N/A'
-                                                                }}</span
+                                                                {{ (orderDetails.flavours | titlecase) || 'N/A' }}</span
                                                             >
                                                         </p>
                                                     </li>
