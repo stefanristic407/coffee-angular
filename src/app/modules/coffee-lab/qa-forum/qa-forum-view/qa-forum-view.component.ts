@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PostType } from '@enums';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -10,6 +11,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
     styleUrls: ['./qa-forum-view.component.scss'],
 })
 export class QaForumViewComponent implements OnInit, OnDestroy {
+    readonly PostType = PostType;
     viewMode = 'list';
     sortOptions = [
         { label: 'latest', value: 'latest' },

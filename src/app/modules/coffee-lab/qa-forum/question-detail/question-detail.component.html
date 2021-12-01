@@ -283,9 +283,9 @@
 
     <div *ngIf="!isLoading" class="col-lg-5 px-0 pl-md-5">
         <app-join-community
-            [detailType]="'question-detail'"
             [categories]="detailsData.categories"
-            [type]="'question'"
+            [type]="PostType.QA"
+            [related]="true"
         ></app-join-community>
     </div>
 </div>
