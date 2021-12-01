@@ -4,72 +4,54 @@
             <app-publish-forum type="recipe"></app-publish-forum>
         </div>
         <div class="col-12 d-md-none my-3">
-            <div class="custom-search d-lg-block">
-                <input
-                    class="w-100 fnt-16"
-                    type="text"
-                    pInputText
-                    [(ngModel)]="keyword"
-                    (ngModelChange)="handleSearch()"
-                    [placeholder]="'search_for_guides' | translate"
-                />
-            </div>
+            <ng-container *ngTemplateOutlet="search"></ng-container>
         </div>
     </div>
 
-    <div class="d-flex align-items-md-center justify-content-between pb-3 pb-4 pb pt-md-4">
-        <div class="d-block flex-wrap d-md-flex">
-            <div class="d-md-flex">
-                <div class="mb-25 mb-md-0">
-                    <p-multiSelect
-                        [options]="categoryList"
-                        (onChange)="getCoffeeRecipesData()"
-                        [(ngModel)]="coffeeLabService.recipeViewCategory"
-                        styleClass="round-border text-clr588"
-                        [placeholder]="'categories' | translate"
-                        optionLabel="name"
-                        optionValue="parent_id"
-                        class="ml-0 mr-3"
-                    ></p-multiSelect>
-                </div>
-                <div class="mb-25 mb-md-0">
-                    <p-dropdown
-                        [options]="levels"
-                        optionLabel="label"
-                        optionValue="value"
-                        [(ngModel)]="coffeeLabService.recipeViewLevel"
-                        (ngModelChange)="reloadPageData()"
-                        placeholder="Levels"
-                        styleClass="round-border"
-                        [showClear]="true"
-                    >
-                    </p-dropdown>
-                </div>
-                <div class="mb-25 pl-md-3 pl-1 mb-md-0">
-                    <p-dropdown
-                        [options]="translationsList"
-                        optionLabel="label"
-                        optionValue="value"
-                        [(ngModel)]="coffeeLabService.recipeViewIsAvailableTranslation"
-                        (ngModelChange)="reloadPageData()"
-                        [placeholder]="'translations_available' | translate"
-                        styleClass="round-border"
-                        [showClear]="true"
-                    >
-                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
-                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
-                    </p-dropdown>
-                </div>
+    <div class="d-flex justify-content-between pb-3 pb-4 pb pt-md-4">
+        <div class="row gutter-16 v-gutter-12">
+            <div class="col-md-auto">
+                <p-multiSelect
+                    [options]="categoryList"
+                    (onChange)="getCoffeeRecipesData()"
+                    [(ngModel)]="coffeeLabService.recipeViewCategory"
+                    [placeholder]="'categories' | translate"
+                    optionLabel="name"
+                    optionValue="parent_id"
+                    styleClass="round-border"
+                ></p-multiSelect>
             </div>
-            <div class="pl-md-3">
+            <div class="col-md-auto">
+                <p-dropdown
+                    [options]="levels"
+                    [(ngModel)]="coffeeLabService.recipeViewLevel"
+                    (ngModelChange)="reloadPageData()"
+                    [placeholder]="'levels' | translate"
+                    styleClass="round-border"
+                    [showClear]="true"
+                >
+                </p-dropdown>
+            </div>
+            <div class="col-md-auto">
+                <p-dropdown
+                    [options]="translationsList"
+                    [(ngModel)]="coffeeLabService.recipeViewIsAvailableTranslation"
+                    (ngModelChange)="reloadPageData()"
+                    [placeholder]="'translations_available' | translate"
+                    styleClass="round-border"
+                    [showClear]="true"
+                >
+                    <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                    <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                </p-dropdown>
+            </div>
+            <div class="col-md-auto">
                 <p-dropdown
                     [options]="orderList"
-                    optionLabel="label"
-                    optionValue="value"
                     [(ngModel)]="coffeeLabService.recipeViewSortBy"
                     placeholder="{{ 'sort_by' | translate }}"
                     (onChange)="reloadPageData()"
-                    styleClass="round-border mobile-ui"
+                    styleClass="round-border"
                     [showClear]="true"
                 >
                     <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
@@ -77,17 +59,8 @@
                 </p-dropdown>
             </div>
         </div>
-        <div class="col-md-5 d-none d-md-block pl-md-5">
-            <div class="custom-search">
-                <input
-                    class="w-100 fnt-16"
-                    type="text"
-                    pInputText
-                    [(ngModel)]="keyword"
-                    (ngModelChange)="handleSearch()"
-                    [placeholder]="'search_for_guides' | translate"
-                />
-            </div>
+        <div class="col-md-5 search-desktop d-none d-md-block">
+            <ng-container *ngTemplateOutlet="search"></ng-container>
         </div>
     </div>
     <div *ngIf="!isLoading">
@@ -104,3 +77,16 @@
         ></app-empty>
     </div>
 </div>
+
+<ng-template #search>
+    <div class="custom-search">
+        <input
+            class="w-100 fnt-16"
+            type="text"
+            pInputText
+            [(ngModel)]="keyword"
+            (ngModelChange)="handleSearch()"
+            [placeholder]="'search_for_guides' | translate"
+        />
+    </div>
+</ng-template>

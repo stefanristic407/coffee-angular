@@ -41,29 +41,17 @@ export class CategoryComponent implements OnInit, OnDestroy {
         },
     ];
     sortOptions = [
-        { label: 'Latest', value: 'latest' },
-        { label: 'Most answered', value: 'most_answered' },
-        { label: 'Oldest', value: 'oldest' },
+        { label: 'latest', value: 'latest' },
+        { label: 'most_answered', value: 'most_answered' },
+        { label: 'oldest', value: 'oldest' },
     ];
     filterPostedByOptions = [
-        {
-            label: 'Coffee experts',
-            value: false,
-        },
-        {
-            label: 'End consumers',
-            value: true,
-        },
+        { label: 'coffee_experts', value: false },
+        { label: 'coffee_consumer', value: true },
     ];
     translationsList: any[] = [
-        {
-            label: 'Yes',
-            value: true,
-        },
-        {
-            label: 'No',
-            value: false,
-        },
+        { label: 'yes', value: true },
+        { label: 'no', value: false },
     ];
 
     constructor(

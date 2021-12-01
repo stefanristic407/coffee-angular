@@ -15,12 +15,12 @@ export class LikeDividerComponent implements OnInit {
     @Input() isAssignedToMe = false;
     @Output() commentBoxClicked = new EventEmitter<boolean>();
     showJoinBtn = true;
-    isLikedBtn = true;
+    submitted = false;
 
     constructor(
-        private router: Router,
-        public activateRoute: ActivatedRoute,
+        private activateRoute: ActivatedRoute,
         private coffeeLabService: CoffeeLabService,
+        private router: Router,
         private toastService: ToastrService,
     ) {}
 
@@ -40,26 +40,25 @@ export class LikeDividerComponent implements OnInit {
         };
     }
 
-    onLike() {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateLike('question', this.question.id).subscribe((res) => {
-            if (res.success) {
-                this.question.is_liked = true;
-                this.question.likes = this.question.likes + 1;
-                this.isLikedBtn = true;
-            }
-        });
-    }
-
-    onUnLike() {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateUnLike('question', this.question.id).subscribe((res) => {
-            if (res.success) {
-                this.question.is_liked = false;
-                this.question.likes = this.question.likes - 1;
-                this.isLikedBtn = true;
-            }
-        });
+    changeLike() {
+        this.submitted = true;
+        if (this.question.is_liked) {
+            this.coffeeLabService.updateUnLike('question', this.question.id).subscribe((res) => {
+                if (res.success) {
+                    this.question.is_liked = false;
+                    this.question.likes = this.question.likes - 1;
+                }
+                this.submitted = false;
+            });
+        } else {
+            this.coffeeLabService.updateLike('question', this.question.id).subscribe((res) => {
+                if (res.success) {
+                    this.question.is_liked = true;
+                    this.question.likes = this.question.likes + 1;
+                }
+                this.submitted = false;
+            });
+        }
     }
 
     onSave(): void {
