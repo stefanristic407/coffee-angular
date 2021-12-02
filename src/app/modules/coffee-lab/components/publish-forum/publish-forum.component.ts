@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AuthService, GlobalsService } from '@services';
+import { PostType } from '@enums';
+import { AuthService } from '@services';
 
 @Component({
     selector: 'app-publish-forum',
@@ -8,28 +9,28 @@ import { AuthService, GlobalsService } from '@services';
     styleUrls: ['./publish-forum.component.scss'],
 })
 export class PublishForumComponent implements OnInit {
-    @Input() type: string;
-    firstBtnValue: string;
-    secondBtnValue: string;
-    placeHolderValue: string;
+    @Input() type = PostType.QA;
+    btnValues = {
+        [PostType.ARTICLE]: {
+            firstBtnValue: 'ask_a_question',
+            secondBtnValue: 'create_brew_guide',
+            placeHolderValue: 'write_post',
+        },
+        [PostType.RECIPE]: {
+            firstBtnValue: 'ask_a_question',
+            secondBtnValue: 'write_post',
+            placeHolderValue: 'create_brew_guide',
+        },
+        [PostType.QA]: {
+            firstBtnValue: 'write_post',
+            secondBtnValue: 'create_brew_guide',
+            placeHolderValue: 'ask_your_question',
+        },
+    };
     routerValue: string;
-    constructor(private globals: GlobalsService, public authService: AuthService, private router: Router) {}
+    constructor(public authService: AuthService, private router: Router) {}
 
-    ngOnInit(): void {
-        if (this.type === 'article') {
-            this.firstBtnValue = this.globals.languageJson?.ask_a_question;
-            this.secondBtnValue = this.globals.languageJson?.create_brew_guide;
-            this.placeHolderValue = this.globals.languageJson?.write_post;
-        } else if (this.type === 'recipe') {
-            this.firstBtnValue = this.globals.languageJson?.ask_a_question;
-            this.secondBtnValue = this.globals.languageJson?.write_post;
-            this.placeHolderValue = this.globals.languageJson?.create_brew_guide;
-        } else {
-            this.routerValue = this.firstBtnValue = this.globals.languageJson?.write_post;
-            this.secondBtnValue = this.globals.languageJson?.create_brew_guide;
-            this.placeHolderValue = this.globals.languageJson?.ask_your_question;
-        }
-    }
+    ngOnInit(): void {}
 
     onFocus() {
         const navigationExtras: NavigationExtras = {
@@ -46,10 +47,10 @@ export class PublishForumComponent implements OnInit {
                 type: this.type,
             },
         };
-        if (this.type === 'article' || this.type === 'question') {
-            navigationExtras.queryParams.type = 'recipe';
-        } else if (this.type === 'recipe') {
-            navigationExtras.queryParams.type = 'article';
+        if (this.type === PostType.ARTICLE || this.type === PostType.QA) {
+            navigationExtras.queryParams.type = PostType.RECIPE;
+        } else if (this.type === PostType.RECIPE) {
+            navigationExtras.queryParams.type = PostType.ARTICLE;
         }
         this.router.navigate(['coffee-lab/create-post/tab'], navigationExtras);
     }
@@ -60,10 +61,10 @@ export class PublishForumComponent implements OnInit {
                 type: '',
             },
         };
-        if (this.type === 'article' || this.type === 'recipe') {
-            navigationExtras.queryParams.type = 'question';
-        } else if (this.type === 'question') {
-            navigationExtras.queryParams.type = 'article';
+        if (this.type === PostType.ARTICLE || this.type === PostType.RECIPE) {
+            navigationExtras.queryParams.type = PostType.QA;
+        } else if (this.type === PostType.QA) {
+            navigationExtras.queryParams.type = PostType.ARTICLE;
         }
 
         this.router.navigate(['coffee-lab/create-post/tab'], navigationExtras);

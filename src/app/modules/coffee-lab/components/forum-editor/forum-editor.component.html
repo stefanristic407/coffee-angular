@@ -1,10 +1,11 @@
 <div class="position-relative">
     <p-editor
+        *ngIf="!refreshEditor"
         [(ngModel)]="content"
         styleClass="forum-editor"
         id="test"
         (ngModelChange)="onChangeContent()"
-        [placeholder]="placeholder"
+        [placeholder]="placeholderStr"
         [readonly]="isUploadingImage"
         [modules]="modules"
     >

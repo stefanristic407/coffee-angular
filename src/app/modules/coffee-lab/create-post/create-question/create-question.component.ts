@@ -215,7 +215,8 @@ export class CreateQuestionComponent implements OnInit {
     }
 
     changeLanguage(value) {
-        this.coffeeLabService.forumLanguage.next(this.languageCode);
-        this.getCategory();
+        this.coffeeLabService.updateLang(this.languageCode).then(() => {
+            this.getCategory();
+        });
     }
 }
