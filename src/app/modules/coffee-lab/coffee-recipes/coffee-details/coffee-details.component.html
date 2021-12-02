@@ -1,9 +1,5 @@
 <main>
-    <div class="back-page mt-1 mt-lg-3 pb-35 pb-lg-45 w-fit-content" (click)="onBack()">
-        <a>
-            <span class="ml-2">{{ 'back_to_forum' | translate }}</span>
-        </a>
-    </div>
+    <a class="back-page mt-1 mt-lg-3 mb-35 mb-lg-45" (click)="onBack()">{{ 'back_to_forum' | translate }}</a>
     <app-loading *ngIf="isLoading"></app-loading>
     <div class="page-wrapper m-0" *ngIf="!isLoading">
         <article class="flex-1">
@@ -44,64 +40,28 @@
                                 <div class="d-flex mt-3 mb-45 d-md-none icon-mob">
                                     <div class="d-flex align-like">
                                         <button
-                                            class="like-int d-none"
+                                            class="btn-icon thumbsup"
+                                            [class.thumbed]="detailsData?.is_liked"
                                             (click)="onLike(detailsData.id)"
-                                            [ngClass]="{ 'd-block': !detailsData.is_liked }"
-                                            [disabled]="!isLikedBtn"
-                                        >
-                                            <img
-                                                class="cursor-point like"
-                                                src="assets/images/thumbsup.svg"
-                                                alt="thumbs-up"
-                                            />
-                                        </button>
-                                        <button
-                                            class="like-int d-none"
-                                            (click)="onUnLike(detailsData.id)"
-                                            [ngClass]="{ 'd-block': detailsData.is_liked }"
-                                            [disabled]="!isLikedBtn"
-                                        >
-                                            <img
-                                                class="cursor-point like"
-                                                src="assets/images/thumbs-up-1.svg"
-                                                alt="thumbs-up"
-                                            />
-                                        </button>
+                                            [disabled]="isLikedBtn"
+                                        ></button>
                                         <!-- <span class="d-flex mt-25 mr-2 ml-1 fnt-300 text-clr334">{{
                                             detailsData.likes
                                         }}</span> -->
                                     </div>
-                                    <div
-                                        class="message-icon hover-message-icon cursor-point"
-                                        (click)="onFocusCommentBox()"
-                                    >
-                                        <img src="assets/images/message.svg" alt="message" />
-                                    </div>
+                                    <div (click)="onFocusCommentBox()" class="btn-icon message"></div>
                                     <div class="ml-3">
-                                        <div
-                                            [ngClass]="{ 'd-block': !isSaveRecipe }"
-                                            class="hover-save-icon cursor-point d-none"
+                                        <button
+                                            class="btn-icon save ml-1"
+                                            [class.saved]="detailsData?.is_saved"
                                             (click)="onSave(detailsData.id)"
-                                        >
-                                            <img src="assets/images/save.svg" alt="save" />
-                                        </div>
-                                        <div
-                                            [ngClass]="{ 'd-block': isSaveRecipe }"
-                                            class="hover-save-icon cursor-point d-none"
-                                            (click)="onSameSave(detailsData.id)"
-                                        >
-                                            <img src="assets/images/saved-item.svg" alt="saved" />
-                                        </div>
+                                            [disabled]="isSaveBtn"
+                                        ></button>
                                     </div>
                                 </div>
                                 <div class="d-flex">
                                     <div class="d-flex mob-height align-items-center mr-md-3">
-                                        <div
-                                            class="d-flex d-md-none mr-1 hover-share-icon cursor-point"
-                                            (click)="onShare()"
-                                        >
-                                            <img src="assets/images/share.svg" alt="upload" />
-                                        </div>
+                                        <div (click)="onShare()" class="d-md-none btn-icon share mr-1"></div>
                                         <app-forum-menu
                                             [selectedItem]="detailsData"
                                             forumType="recipe"
@@ -120,21 +80,13 @@
                                             "
                                         ></app-forum-menu>
                                     </div>
-                                    <div class="d-none d-md-block message-top hover-save-icon">
-                                        <div
-                                            *ngIf="!isSaveRecipe"
-                                            class="cursor-point"
+                                    <div class="d-none d-md-block">
+                                        <button
+                                            class="btn-icon save"
+                                            [class.saved]="detailsData?.is_saved"
                                             (click)="onSave(detailsData.id)"
-                                        >
-                                            <img src="assets/images/save.svg" alt="save" />
-                                        </div>
-                                        <div
-                                            *ngIf="isSaveRecipe"
-                                            class="cursor-point"
-                                            (click)="onSameSave(detailsData.id)"
-                                        >
-                                            <img src="assets/images/saved-item.svg" alt="saved" />
-                                        </div>
+                                            [disabled]="isSaveBtn"
+                                        ></button>
                                     </div>
                                 </div>
                             </div>
@@ -304,53 +256,25 @@
                             <div class="d-flex">
                                 <div class="d-flex align-like">
                                     <button
-                                        class="like-int d-none"
+                                        class="btn-icon thumbsup"
+                                        [class.thumbed]="detailsData?.is_liked"
                                         (click)="onLike(detailsData.id)"
-                                        [ngClass]="{ 'd-block': !detailsData.is_liked }"
-                                        [disabled]="!isLikedBtn"
-                                    >
-                                        <img
-                                            class="cursor-point like"
-                                            src="assets/images/thumbsup.svg"
-                                            alt="thumbs-up"
-                                        />
-                                    </button>
-                                    <button
-                                        class="like-int d-none"
-                                        (click)="onUnLike(detailsData.id)"
-                                        [ngClass]="{ 'd-block': detailsData.is_liked }"
-                                        [disabled]="!isLikedBtn"
-                                    >
-                                        <img
-                                            class="cursor-point like"
-                                            src="assets/images/thumbs-up-1.svg"
-                                            alt="thumbs-up"
-                                        />
-                                    </button>
+                                        [disabled]="isLikedBtn"
+                                    ></button>
                                     <!-- <span class="d-flex mr-2 mt-25 ml-1 fnt-300 text-clr334">{{
                                         detailsData.likes
                                     }}</span> -->
                                 </div>
                                 <div class="align-items-center ml-3">
-                                    <div
-                                        [ngClass]="{ 'd-block': !isSaveRecipe }"
-                                        class="hover-save-icon cursor-point d-none"
+                                    <button
+                                        class="btn-icon save"
+                                        [class.saved]="detailsData?.is_saved"
                                         (click)="onSave(detailsData.id)"
-                                    >
-                                        <img src="assets/images/save.svg" alt="save" />
-                                    </div>
-                                    <div
-                                        [ngClass]="{ 'd-block': isSaveRecipe }"
-                                        class="hover-save-icon cursor-point d-none"
-                                        (click)="onSameSave(detailsData.id)"
-                                    >
-                                        <img src="assets/images/saved-item.svg" alt="saved" />
-                                    </div>
+                                        [disabled]="isSaveBtn"
+                                    ></button>
                                 </div>
                             </div>
-                            <div class="d-flex hover-share-icon cursor-point" (click)="onShare()">
-                                <img src="assets/images/share.svg" alt="upload" />
-                            </div>
+                            <div (click)="onShare()" class="btn-icon share"></div>
                         </div>
                         <div *ngIf="detailsData?.categories" class="row mb-4 mb-md-45 mx-0">
                             <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
@@ -524,7 +448,7 @@
             <div class="pb-4">
                 <div class="d-flex align-items-center">
                     <button
-                        class="btn-stroked mr-2 fnt-14 fnt-bold fnt-muli"
+                        class="btn-stroked mr-2"
                         routerLink="/user-profile"
                         [queryParams]="{
                             user_id: detailsData?.user_id || detailsData?.posted_by,
@@ -537,7 +461,7 @@
                         {{ 'view_profile' | translate }}
                     </button>
                     <button
-                        class="btn-raised fnt-14 fnt-muli cursor-point"
+                        class="btn-raised"
                         *ngIf="detailsData?.user_id !== authService?.currentUser.id"
                         (click)="openChat()"
                     >
@@ -549,42 +473,20 @@
             <div class="d-flex my-4">
                 <div class="d-flex align-like">
                     <button
-                        class="like-int d-none"
+                        class="btn-icon thumbsup"
+                        [class.thumbed]="detailsData?.is_liked"
                         (click)="onLike(detailsData.id)"
-                        [ngClass]="{ 'd-block': !detailsData.is_liked }"
-                        [disabled]="!isLikedBtn"
-                    >
-                        <img class="cursor-point like" src="assets/images/thumbsup.svg" alt="thumbs-up" />
-                    </button>
-                    <button
-                        class="like-int d-none"
-                        (click)="onUnLike(detailsData.id)"
-                        [ngClass]="{ 'd-block': detailsData.is_liked }"
-                        [disabled]="!isLikedBtn"
-                    >
-                        <img class="cursor-point like" src="assets/images/thumbs-up-1.svg" alt="thumbs-up" />
-                    </button>
+                        [disabled]="isLikedBtn"
+                    ></button>
                     <!-- <span class="d-flex ml-1 mt-25 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span> -->
                 </div>
-                <div class="message-icon hover-message-icon cursor-point ml-25" (click)="onFocusCommentBox()">
-                    <img src="assets/images/message.svg" alt="message" />
-                </div>
-                <div class="ml-25">
-                    <div
-                        [ngClass]="{ 'd-block': !isSaveRecipe }"
-                        class="hover-save-icon cursor-point d-none"
-                        (click)="onSave(detailsData.id)"
-                    >
-                        <img src="assets/images/save.svg" alt="save" />
-                    </div>
-                    <div
-                        [ngClass]="{ 'd-block': isSaveRecipe }"
-                        class="hover-save-icon cursor-point d-none"
-                        (click)="onSameSave(detailsData.id)"
-                    >
-                        <img src="assets/images/saved-item.svg" alt="saved" />
-                    </div>
-                </div>
+                <div (click)="onFocusCommentBox()" class="btn-icon message ml-25"></div>
+                <button
+                    class="btn-icon save ml-25"
+                    [class.saved]="detailsData?.is_saved"
+                    (click)="onSave(detailsData.id)"
+                    [disabled]="isSaveBtn"
+                ></button>
             </div>
         </div>
     </span>

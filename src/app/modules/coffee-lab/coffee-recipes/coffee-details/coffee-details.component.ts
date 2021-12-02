@@ -27,11 +27,11 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     language: string;
     allComments: any[] = [];
     showCommentBtn = true;
-    isSaveRecipe = false;
     orginalUserData: any;
     isMyPost = false;
     isSavedPost = false;
-    isLikedBtn = true;
+    isSaveBtn = false;
+    isLikedBtn = false;
     showToaster = false;
     infoData: any[] = [
         {
@@ -88,11 +88,10 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
 
     getCoffeeDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        this.coffeeLabService.getForumDetails('recipe', this.slug).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails(PostType.RECIPE, this.slug).subscribe((res: any) => {
             if (res.success) {
                 this.detailsData = res.result;
                 this.detailsData.description = this.getJustText(this.detailsData.description);
-                this.isSaveRecipe = this.detailsData.is_saved;
                 if (this.detailsData?.original_recipe_state && this.detailsData?.original_recipe_state === 'ACTIVE') {
                     this.getOriginalUserDetail(this.detailsData.original_details);
                 }
@@ -123,7 +122,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         const params = {
             count: 10,
         };
-        this.coffeeLabService.getPopularList('recipe', params).subscribe((res) => {
+        this.coffeeLabService.getPopularList(PostType.RECIPE, params).subscribe((res) => {
             if (res.success) {
                 this.relatedData = res.result;
                 this.relatedData.map((item) => {
@@ -157,7 +156,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     }
 
     getCommentsData(): void {
-        this.coffeeLabService.getCommentList('recipe', this.detailsData.slug).subscribe((res: any) => {
+        this.coffeeLabService.getCommentList(PostType.RECIPE, this.detailsData.slug).subscribe((res: any) => {
             if (res.success) {
                 this.allComments = res.result;
                 this.commentData = this.allComments?.slice(0, 3);
@@ -212,7 +211,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
             status: 'PUBLISHED',
             language: this.language,
         };
-        this.coffeeLabService.postComment('recipe', this.detailsData.id, data).subscribe((res: any) => {
+        this.coffeeLabService.postComment(PostType.RECIPE, this.detailsData.id, data).subscribe((res: any) => {
             if (res.success) {
                 this.toastrService.success('You have posted a comment successfully.');
                 this.comment = '';
@@ -224,30 +223,29 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     }
 
     onLike(recipeId: number) {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateLike('recipe', recipeId).subscribe((res) => {
-            if (res.success) {
-                this.detailsData.is_liked = true;
-                this.detailsData.likes = this.detailsData.likes + 1;
-                this.isLikedBtn = true;
-            }
-        });
-    }
-
-    onUnLike(recipeId: number) {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateUnLike('recipe', recipeId).subscribe((res) => {
-            if (res.success) {
-                this.detailsData.is_liked = false;
-                this.detailsData.likes = this.detailsData.likes - 1;
-                this.isLikedBtn = true;
-            }
-        });
+        this.isLikedBtn = true;
+        if (this.detailsData?.is_liked) {
+            this.coffeeLabService.updateUnLike(PostType.RECIPE, recipeId).subscribe((res) => {
+                if (res.success) {
+                    this.detailsData.is_liked = false;
+                    this.detailsData.likes = this.detailsData.likes - 1;
+                }
+                this.isLikedBtn = false;
+            });
+        } else {
+            this.coffeeLabService.updateLike(PostType.RECIPE, recipeId).subscribe((res) => {
+                if (res.success) {
+                    this.detailsData.is_liked = true;
+                    this.detailsData.likes = this.detailsData.likes + 1;
+                }
+                this.isLikedBtn = false;
+            });
+        }
     }
 
     updateMarkBrewed(recipeId: number, isBrewed: boolean) {
         if (isBrewed) {
-            this.coffeeLabService.unMarkBrewed('recipe', recipeId).subscribe((res: any) => {
+            this.coffeeLabService.unMarkBrewed(PostType.RECIPE, recipeId).subscribe((res: any) => {
                 if (res.success) {
                     this.detailsData.is_brewed = false;
                     this.toastrService.success(this.detailsData?.name + ' un-marked as brewed successfully');
@@ -256,7 +254,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
                 }
             });
         } else {
-            this.coffeeLabService.markBrewed('recipe', recipeId).subscribe((res: any) => {
+            this.coffeeLabService.markBrewed(PostType.RECIPE, recipeId).subscribe((res: any) => {
                 if (res.success) {
                     this.detailsData.is_brewed = true;
                     this.toastrService.success(this.detailsData?.name + ' marked as brewed successfully');
@@ -268,25 +266,29 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
     }
 
     onSave(recipeId: number): void {
-        this.coffeeLabService.saveForum('recipe', recipeId).subscribe((res: any) => {
-            if (res.success) {
-                this.isSaveRecipe = true;
-                this.toastrService.success('Successfully saved');
-            } else {
-                this.toastrService.error('Error while save post');
-            }
-        });
-    }
-
-    onSameSave(recipeId: number) {
-        this.coffeeLabService.unSaveFormByType('recipe', recipeId).subscribe((res: any) => {
-            if (res.success) {
-                this.toastrService.success(`You have removed the recipe successfully from saved posts.`);
-                this.isSaveRecipe = false;
-            } else {
-                this.toastrService.error(`Failed to remmove a recipe from saved posts.`);
-            }
-        });
+        this.isSaveBtn = true;
+        if (this.detailsData?.is_saved) {
+            this.coffeeLabService.unSaveFormByType(PostType.RECIPE, recipeId).subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success(`You have removed the recipe successfully from saved posts.`);
+                    this.detailsData.is_saved = false;
+                } else {
+                    this.toastrService.error(`Failed to remmove a recipe from saved posts.`);
+                }
+                this.isSaveBtn = false;
+            });
+        } else {
+            this.coffeeLabService.saveForum(PostType.RECIPE, recipeId).subscribe((res: any) => {
+                if (res.success) {
+                    this.detailsData.is_saved = true;
+                    this.toastrService.success('Successfully saved');
+                    this.isSaveBtn = false;
+                } else {
+                    this.toastrService.error('Error while save post');
+                }
+                this.isSaveBtn = false;
+            });
+        }
     }
 
     openChat() {

@@ -28,7 +28,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     isSavedPost = false;
     isAssignedToMe = false;
     isMyAnswer = false;
-    isLikedBtn = true;
+    isSaveBtn = false;
+    isLikedBtn = false;
     showToaster = false;
     answerComment: any;
     answerAllowTranslation: boolean;
@@ -63,7 +64,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         window.scroll(0, 0);
         this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe((res) => {
-            if (res === 'answer') {
+            if (res === PostType.ANSWER) {
                 this.getDetails();
             } else {
                 this.onBack();
@@ -106,7 +107,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     getAnswerDetail(id: any) {
-        this.coffeeLabService.getForumDetails('answer', id).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails(PostType.ANSWER, id).subscribe((res: any) => {
             this.answerDetail = res.result;
         });
     }
@@ -116,7 +117,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     setPagePosition(): void {
-        const answerId = this.activatedRoute.snapshot.queryParamMap.get('answer');
+        const answerId = this.activatedRoute.snapshot.queryParamMap.get(PostType.ANSWER);
         if (answerId) {
             const element = this.document.getElementById(answerId);
             const screenWidth = window.innerWidth;
@@ -164,47 +165,49 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     onLike(answer) {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateLike('answer', answer.id).subscribe((res) => {
-            if (res.success) {
-                answer.is_liked = true;
-                answer.likes = answer.likes + 1;
-                this.isLikedBtn = true;
-            }
-        });
-    }
-
-    onUnLike(answer) {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateUnLike('answer', answer.id).subscribe((res) => {
-            if (res.success) {
-                answer.is_liked = false;
-                answer.likes = answer.likes - 1;
-                this.isLikedBtn = true;
-            }
-        });
+        this.isLikedBtn = true;
+        if (answer.is_liked) {
+            this.coffeeLabService.updateUnLike(PostType.ANSWER, answer.id).subscribe((res) => {
+                if (res.success) {
+                    answer.is_liked = false;
+                    answer.likes = answer.likes - 1;
+                }
+                this.isLikedBtn = false;
+            });
+        } else {
+            this.coffeeLabService.updateLike(PostType.ANSWER, answer.id).subscribe((res) => {
+                if (res.success) {
+                    answer.is_liked = true;
+                    answer.likes = answer.likes + 1;
+                }
+                this.isLikedBtn = false;
+            });
+        }
     }
 
     onSave(id: number, index: number): void {
-        this.coffeeLabService.saveForum('answer', id).subscribe((res: any) => {
-            if (res.success) {
-                this.detailsData.answers[index].is_saved = true;
-                this.toastService.success('You have saved the answer successfully from saved posts.');
-            } else {
-                this.toastService.error('Error while save post');
-            }
-        });
-    }
-
-    onSameSave(id: number, index: number): void {
-        this.coffeeLabService.unSaveFormByType('answer', id).subscribe((res: any) => {
-            if (res.success) {
-                this.detailsData.answers[index].is_saved = false;
-                this.toastService.success(`You have removed the answer successfully from saved posts.`);
-            } else {
-                this.toastService.error(`Failed to remmove a question from saved posts.`);
-            }
-        });
+        this.isSaveBtn = true;
+        if (this.detailsData.answers[index].is_saved) {
+            this.coffeeLabService.unSaveFormByType(PostType.ANSWER, id).subscribe((res: any) => {
+                if (res.success) {
+                    this.detailsData.answers[index].is_saved = false;
+                    this.toastService.success(`You have removed the answer successfully from saved posts.`);
+                } else {
+                    this.toastService.error(`Failed to remmove a question from saved posts.`);
+                }
+                this.isSaveBtn = false;
+            });
+        } else {
+            this.coffeeLabService.saveForum(PostType.ANSWER, id).subscribe((res: any) => {
+                if (res.success) {
+                    this.detailsData.answers[index].is_saved = true;
+                    this.toastService.success('You have saved the answer successfully from saved posts.');
+                } else {
+                    this.toastService.error('Error while save post');
+                }
+                this.isSaveBtn = false;
+            });
+        }
     }
 
     onBack() {
@@ -230,7 +233,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     getForumById(forumId: number): void {
-        this.coffeeLabService.getForumDetails('answer', forumId).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails(PostType.ANSWER, forumId).subscribe((res: any) => {
             if (res.success) {
                 this.answerComment = res.result.answer;
                 this.answerAllowTranslation = res.result?.allow_translation;
@@ -256,7 +259,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
         this.isLoading = true;
         if (forumId) {
-            this.coffeeLabService.updateForum('answer', forumId, data).subscribe((res: any) => {
+            this.coffeeLabService.updateForum(PostType.ANSWER, forumId, data).subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('Your comment updated successfully');
                     this.getDetails();
