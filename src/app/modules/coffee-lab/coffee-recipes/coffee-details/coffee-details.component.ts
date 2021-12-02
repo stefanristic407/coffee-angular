@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
 import { PostType } from '@enums';
 import { environment } from '@env/environment';
 import { AuthService, ChatHandlerService, CoffeeLabService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -14,14 +14,13 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./coffee-details.component.scss'],
     providers: [MessageService],
 })
-export class CoffeeDetailsComponent implements OnInit, OnDestroy {
+export class CoffeeDetailsComponent extends DestroyableComponent implements OnInit {
     readonly PostType = PostType;
     relatedData: any[] = [];
     detailsData: any;
     slug = '';
     isLoading = true;
     commentData: any[] = [];
-    destroy$: Subject<boolean> = new Subject<boolean>();
     stickySecData: any;
     comment: string;
     language: string;
@@ -62,6 +61,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         private toastrService: ToastrService,
         private chatHandler: ChatHandlerService,
     ) {
+        super();
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.id;
             const language = this.activatedRoute.snapshot.queryParamMap.get('language');
@@ -77,7 +77,7 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe(() => {
             this.router.navigate(['/coffee-lab/overview/coffee-recipes']);
         });
     }
@@ -182,11 +182,6 @@ export class CoffeeDetailsComponent implements OnInit, OnDestroy {
         const contentElement = document.createElement('div');
         contentElement.innerHTML = content;
         return contentElement.innerHTML;
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 
     getUserDetail(userDatils: any): void {

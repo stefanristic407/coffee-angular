@@ -1,12 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
 import { PostType } from '@enums';
 import { environment } from '@env/environment';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -15,13 +15,12 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./question-detail.component.scss'],
     providers: [MessageService],
 })
-export class QuestionDetailComponent implements OnInit, OnDestroy {
+export class QuestionDetailComponent extends DestroyableComponent implements OnInit {
     readonly PostType = PostType;
     isAllowTranslation = true;
     slug?: string;
     isLoading = false;
     detailsData: any;
-    destroy$: Subject<boolean> = new Subject<boolean>();
     comment: string;
     answerDetail: any;
     isMyPost = false;
@@ -44,6 +43,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         public router: Router,
         private toastrService: ToastrService,
     ) {
+        super();
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
             if (!this.isLoading) {
@@ -63,7 +63,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => {
             if (res === PostType.ANSWER) {
                 this.getDetails();
             } else {
@@ -131,11 +131,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             }
             window.scroll(0, offsetTop);
         }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 
     onPost(): void {
