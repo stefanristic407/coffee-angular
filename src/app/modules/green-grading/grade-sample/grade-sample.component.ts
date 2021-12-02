@@ -228,7 +228,11 @@ export class GradeSampleComponent implements OnInit {
         this.tableData =
             this.term.length === 0
                 ? filteredData
-                : filteredData.filter((item) => item.estate_name.toLowerCase().indexOf(this.term.toLowerCase()) >= 0);
+                : filteredData.filter(
+                      (item) =>
+                          item.estate_name.toLowerCase().indexOf(this.term.toLowerCase()) >= 0 ||
+                          item.cupping_report_id.toString().indexOf(this.term.toLowerCase()) >= 0,
+                  );
     }
 
     customSort(event: SortEvent) {
