@@ -226,6 +226,26 @@
                                     </span>
                                 </td>
                                 <td>
+                                    <span class="d-flex">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50"> Date </span>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="output">
+                                                {{ rowData.date_requested }}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="d-flex">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50"> Status </span>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="output">
+                                                {{ rowData.status }}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </span>
+                                </td>
+                                <td>
                                     <span class="d-flex id-t-sample">
                                         <span *ngIf="isMobileView" class="prime-table-label w-50">
                                             ID(Give your sample an ID)

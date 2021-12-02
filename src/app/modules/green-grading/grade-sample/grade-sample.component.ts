@@ -98,8 +98,13 @@ export class GradeSampleComponent implements OnInit {
                 sortable: false,
             },
             {
-                field: 'external_sample_id',
-                header: 'External',
+                field: 'date_requested',
+                header: 'Date',
+                sortable: false,
+            },
+            {
+                field: 'status',
+                header: 'Status',
                 sortable: false,
             },
         ];
