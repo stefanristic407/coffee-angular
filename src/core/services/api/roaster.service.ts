@@ -977,6 +977,11 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 
+    // Get GC order settings
+    getGcOrderSettings(): Observable<ApiResponse<any>> {
+        return this.post(this.orgPostUrl, `general/gc-order-settings`);
+    }
+
     // Get order settings details
     getOrderSettings(): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `order-settings`);
