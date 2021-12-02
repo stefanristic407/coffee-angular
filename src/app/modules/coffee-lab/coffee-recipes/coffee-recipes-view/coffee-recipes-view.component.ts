@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DestroyableComponent } from '@base-components';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -9,8 +10,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
     templateUrl: './coffee-recipes-view.component.html',
     styleUrls: ['./coffee-recipes-view.component.scss'],
 })
-export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
-    destroy$: Subject<boolean> = new Subject<boolean>();
+export class CoffeeRecipesViewComponent extends DestroyableComponent implements OnInit {
     searchInput$: Subject<any> = new Subject<any>();
     organizationId: any;
     keyword = '';
@@ -36,16 +36,18 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
         private toastService: ToastrService,
         public coffeeLabService: CoffeeLabService,
         public authService: AuthService,
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         this.organizationId = this.authService.getOrgId();
-        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getCoffeeRecipesData();
             this.getCategory();
         });
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe(() => {
             this.getCoffeeRecipesData();
         });
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
@@ -167,10 +169,5 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             this.pages = event.page + 1;
             this.getCoffeeRecipesData();
         }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

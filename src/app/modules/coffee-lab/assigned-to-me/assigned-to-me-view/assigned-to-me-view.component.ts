@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { DestroyableComponent } from '@base-components';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-assigned-to-me-view',
@@ -8,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./assigned-to-me-view.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
-export class AssignedToMeViewComponent implements OnInit {
+export class AssignedToMeViewComponent extends DestroyableComponent implements OnInit {
     viewMode = 'list';
     sortOptions = [
         { label: 'latest', value: 'latest' },
@@ -21,11 +23,15 @@ export class AssignedToMeViewComponent implements OnInit {
     totalRecords: number;
     rows = 10;
 
-    constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {}
+    constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
+        super();
+    }
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.getQuestions();
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((language) => {
+            this.getQuestions();
+        });
     }
 
     getQuestions(): void {
@@ -45,7 +51,7 @@ export class AssignedToMeViewComponent implements OnInit {
         this.coffeeLabService.getForumList('question', params).subscribe((res: any) => {
             this.isLoading = false;
             if (res.success) {
-                this.questions = res.result?.questions;
+                this.questions = res.result?.questions || [];
                 this.totalRecords = res.result_info.total_count;
             } else {
                 this.toastService.error('Cannot get forum data');

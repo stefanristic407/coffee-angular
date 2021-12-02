@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
+import { PostType } from '@enums';
 import { CroppedImage } from '@models';
 import { CoffeeLabService, CommonService, GlobalsService } from '@services';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
@@ -60,7 +61,7 @@ export class CreateArticleComponent implements OnInit {
         });
         this.route.queryParams.subscribe((params) => {
             const type = params.type;
-            if (type === 'article') {
+            if (type === PostType.ARTICLE) {
                 this.articleId = params.id;
                 this.status = params.status;
                 this.articleForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
@@ -76,7 +77,7 @@ export class CreateArticleComponent implements OnInit {
     getCompleteData() {
         this.isLoading = true;
         combineLatest([
-            this.coffeeLabService.getForumDetails('article', this.articleId),
+            this.coffeeLabService.getForumDetails(PostType.ARTICLE, this.articleId),
             this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage),
         ])
             .pipe(take(1))
@@ -224,7 +225,7 @@ export class CreateArticleComponent implements OnInit {
             };
         }
         if (this.articleId) {
-            this.coffeeLabService.updateForum('article', this.articleId, data).subscribe((res: any) => {
+            this.coffeeLabService.updateForum(PostType.ARTICLE, this.articleId, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
                     if (data.status === 'draft') {
@@ -240,7 +241,7 @@ export class CreateArticleComponent implements OnInit {
                 }
             });
         } else {
-            this.coffeeLabService.postForum('article', data).subscribe((res: any) => {
+            this.coffeeLabService.postForum(PostType.ARTICLE, data).subscribe((res: any) => {
                 this.isPosting = false;
                 if (res.success) {
                     if (status === 'draft') {
@@ -274,7 +275,7 @@ export class CreateArticleComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.coffeeLabService.deleteForumById('article', this.articleId).subscribe((res: any) => {
+                    this.coffeeLabService.deleteForumById(PostType.ARTICLE, this.articleId).subscribe((res: any) => {
                         if (res.success) {
                             this.toaster.success(`Draft article deleted successfully`);
                             this.coffeeLabService.forumDeleteEvent.emit();
@@ -292,7 +293,8 @@ export class CreateArticleComponent implements OnInit {
     }
 
     changeLanguage(value) {
-        this.coffeeLabService.forumLanguage.next(this.articleForm.get('language').value);
-        this.getCategory();
+        this.coffeeLabService.updateLang(this.articleForm.get('language').value).then(() => {
+            this.getCategory();
+        });
     }
 }
