@@ -17,7 +17,7 @@
                         filterBy="label"
                         [showClear]="true"
                         (onChange)="handleChange($event)"
-                        placeholder="Select a language"
+                        [placeholder]="'language_placeholder' | translate"
                         styleClass="bg-white"
                     >
                     </p-dropdown>
@@ -83,7 +83,7 @@
                             }}</label>
                             <input
                                 type="text"
-                                placeholder="Give a title"
+                                [placeholder]="'give_a_title' | translate"
                                 [readonly]="true"
                                 pInputText
                                 formControlName="title"
@@ -125,7 +125,7 @@
                         filterBy="label"
                         [showClear]="true"
                         (onChange)="handleChange($event)"
-                        placeholder="Select a language"
+                        [placeholder]="'language_placeholder' | translate"
                         styleClass="bg-white"
                     >
                     </p-dropdown>
@@ -235,7 +235,7 @@
                     {{ 'characters' | translate }}
                 </span></label
             >
-            <input type="text" placeholder="Give a title" pInputText formControlName="title" />
+            <input type="text" [placeholder]="'give_a_title' | translate" pInputText formControlName="title" />
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>

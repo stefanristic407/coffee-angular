@@ -83,7 +83,12 @@
                     {{ 'characters' | translate }}
                 </span></label
             >
-            <input type="text" placeholder="What’s your guide called?" pInputText formControlName="name" />
+            <input
+                type="text"
+                [placeholder]="'recipe_name_placeholder' | translate"
+                pInputText
+                formControlName="name"
+            />
             <small *ngIf="recipeForm.controls['name'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
@@ -102,7 +107,7 @@
                 class="min-hght"
                 pInputTextarea
                 formControlName="description"
-                placeholder="Add a short description about your brewing guide"
+                [placeholder]="'recipe_description_placeholder' | translate"
                 autoResize="autoResize"
             ></textarea>
             <small *ngIf="recipeForm.controls['description'].errors?.required" class="p-error">
@@ -117,7 +122,7 @@
             <p-dropdown
                 [options]="brewingMethodArray"
                 optionLabel="label"
-                placeholder="Select or add an equipment"
+                [placeholder]="'brewing_equipment_placeholder' | translate"
                 [style]="{ width: '100%' }"
                 editable="true"
                 formControlName="equipment_name"
@@ -139,7 +144,7 @@
             ></label>
             <input
                 type="text"
-                placeholder="Eg - if the brew is 1:1 ratio of all ingredients"
+                [placeholder]="'brew_ratio_placeholder' | translate"
                 formControlName="brew_ratio"
                 pInputText
                 class="brew-dis"
@@ -157,7 +162,7 @@
             <input
                 class="brew-dis"
                 type="text"
-                placeholder="Enter how many servings can be made"
+                [placeholder]="'yield_placeholder' | translate"
                 formControlName="serves"
                 pInputText
             />
@@ -174,7 +179,7 @@
                 formControlName="introduction"
                 [(isUploadingImage)]="isUploadingImage"
                 [(imageIdList)]="introImageIdList"
-                [placeholder]="'Start typing your instructions'"
+                [placeholder]="'introduction_placeholder' | translate"
                 fileModule="recipe-post"
                 [height]="150"
             ></app-forum-editor>
@@ -199,7 +204,12 @@
                         </span>
                     </label>
                     <div class="">
-                        <input type="text" placeholder="Enter an ingredient name" pInputText formControlName="name" />
+                        <input
+                            type="text"
+                            [placeholder]="'ingredient_name_placeholder' | translate"
+                            pInputText
+                            formControlName="name"
+                        />
                         <small *ngIf="ingredient.controls['name'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
@@ -214,7 +224,7 @@
                     <div class="input-and-select gray">
                         <input
                             type="text"
-                            placeholder="Eg - quantity can 200 or 200-300"
+                            [placeholder]="'ingredient_quantity_placeholder' | translate"
                             pInputText
                             formControlName="quantity"
                         />
@@ -276,7 +286,7 @@
                                     [formControl]="step.get('description')"
                                     [(isUploadingImage)]="isUploadingImage"
                                     [(imageIdList)]="imageIdListStep[i]"
-                                    [placeholder]="'Start typing your instructions'"
+                                    [placeholder]="'step_description_placeholder' | translate"
                                     fileModule="recipe-post"
                                     [height]="150"
                                 ></app-forum-editor>
@@ -319,7 +329,7 @@
                         [formControl]="step.get('description')"
                         [(isUploadingImage)]="isUploadingImage"
                         [(imageIdList)]="imageIdListStep[i]"
-                        [placeholder]="'Start typing your instructions'"
+                        [placeholder]="'step_description_placeholder' | translate"
                         fileModule="recipe-post"
                         [height]="150"
                         [images]="images"
@@ -365,7 +375,7 @@
                 [maxSelectedLabels]="0"
                 scrollHeight="225px"
                 [showHeader]="false"
-                placeholder="Select relevant categories"
+                [placeholder]="'categories_placeholder' | translate"
                 styleClass="category-dropdown"
                 class="category-multi"
             >
@@ -396,7 +406,7 @@
             <p-dropdown
                 [options]="expertiseArray"
                 optionLabel="label"
-                placeholder="Select level"
+                [placeholder]="'expertise_placeholder' | translate"
                 [style]="{ width: '100%' }"
                 optionValue="value"
                 class="inputFieldBox bg-white"

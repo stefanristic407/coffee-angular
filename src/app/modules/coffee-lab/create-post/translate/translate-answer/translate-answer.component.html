@@ -17,7 +17,7 @@
                         filterBy="label"
                         [showClear]="true"
                         (onChange)="handleChange($event)"
-                        placeholder="Select a language"
+                        [placeholder]="'language_placeholder' | translate"
                         styleClass="bg-white"
                     >
                     </p-dropdown>
@@ -91,7 +91,7 @@
                         filterBy="label"
                         [showClear]="true"
                         (onChange)="handleChange($event)"
-                        placeholder="Select a language"
+                        [placeholder]="'language_placeholder' | translate"
                         styleClass="bg-white"
                     >
                     </p-dropdown>

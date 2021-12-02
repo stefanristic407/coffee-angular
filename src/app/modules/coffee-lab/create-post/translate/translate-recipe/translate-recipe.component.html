@@ -19,7 +19,7 @@
                     filterBy="label"
                     [showClear]="true"
                     (onChange)="onChangeTab($event)"
-                    placeholder="Select a language"
+                    [placeholder]="'language_placeholder' | translate"
                     styleClass="bg-white"
                 >
                 </p-dropdown>

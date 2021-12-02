@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PostType } from '@enums';
 import { environment } from '@env/environment';
 import { AuthService, ChatHandlerService, CoffeeLabService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -13,6 +14,7 @@ import { takeUntil } from 'rxjs/operators';
     providers: [MessageService],
 })
 export class ArticleDetailComponent implements OnInit, OnDestroy {
+    readonly PostType = PostType;
     relatedData: any[] = [];
     detailsData: any;
     idOrSlug: string | number = '';

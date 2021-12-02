@@ -261,7 +261,7 @@
                                             ml-2
                                         "
                                     >
-                                        {{ 'read_the_article' | translate }}
+                                        {{ 'read_the_original_article' | translate }}
                                     </p>
                                 </div>
                                 <div class="bg-f8 px-25 py-2">
@@ -394,7 +394,7 @@
             </div>
         </div>
         <div class="col-12 col-md-4 mb-4 px-0 px-md-3">
-            <app-join-community [type]="'article'"></app-join-community>
+            <app-join-community [type]="PostType.QA" [showBorderBottom]="false"></app-join-community>
         </div>
     </article>
     <app-loading *ngIf="isLoading"></app-loading>
