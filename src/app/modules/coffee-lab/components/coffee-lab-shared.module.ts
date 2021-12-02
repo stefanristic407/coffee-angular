@@ -11,6 +11,10 @@ import { QuestionCardComponent } from './question-card/question-card.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 
+import { DateAgoReplacePipe } from '../shared/pipes';
+
+const PIPES = [DateAgoReplacePipe];
+
 const COMPONENTS = [
     ArticleCardComponent,
     ForumCardComponent,
@@ -23,8 +27,8 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS],
-    exports: [...COMPONENTS],
+    declarations: [...COMPONENTS, ...PIPES],
+    exports: [...COMPONENTS, ...PIPES],
     imports: [CommonModule, FormsModule, SharedModule],
 })
 export class CoffeeLabSharedModule {}

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthService, CoffeeLabService } from '@services';
 import { Router } from '@angular/router';
+import { PostType } from '@enums';
+import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -32,30 +33,27 @@ export class RecipeCardComponent implements OnInit {
     onSave(recipeId: number): void {
         this.isSaveBtn = true;
         setTimeout(() => {
-            this.coffeeLabService.saveForum('recipe', recipeId).subscribe((res: any) => {
-                if (res.success) {
-                    this.recipe.is_saved = true;
-                    this.toastService.success('Successfully saved');
-                    this.isSaveBtn = false;
-                } else {
-                    this.toastService.error('Error while save post');
-                }
-            });
-        }, 100);
-    }
-
-    onSameSave(recipeId: number) {
-        this.isSaveBtn = true;
-        setTimeout(() => {
-            this.coffeeLabService.unSaveFormByType('recipe', recipeId).subscribe((res: any) => {
-                if (res.success) {
-                    this.toastService.success(`You have removed the recipe successfully from saved posts.`);
-                    this.recipe.is_saved = false;
-                    this.isSaveBtn = false;
-                } else {
-                    this.toastService.error(`Failed to remmove a recipe from saved posts.`);
-                }
-            });
+            if (this.recipe?.is_saved) {
+                this.coffeeLabService.unSaveFormByType(PostType.RECIPE, recipeId).subscribe((res: any) => {
+                    if (res.success) {
+                        this.toastService.success(`You have removed the recipe successfully from saved posts.`);
+                        this.recipe.is_saved = false;
+                        this.isSaveBtn = false;
+                    } else {
+                        this.toastService.error(`Failed to remmove a recipe from saved posts.`);
+                    }
+                });
+            } else {
+                this.coffeeLabService.saveForum(PostType.RECIPE, recipeId).subscribe((res: any) => {
+                    if (res.success) {
+                        this.recipe.is_saved = true;
+                        this.toastService.success('Successfully saved');
+                        this.isSaveBtn = false;
+                    } else {
+                        this.toastService.error('Error while save post');
+                    }
+                });
+            }
         }, 100);
     }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PostType } from '@enums';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
@@ -13,7 +14,7 @@ export class ArticleCardComponent implements OnInit {
     @Input() isMyPost = false;
     @Input() isSavedPost = false;
     isSaveBtn = false;
-    isLikedBtn = true;
+    isLikedBtn = false;
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -25,7 +26,7 @@ export class ArticleCardComponent implements OnInit {
     ngOnInit(): void {}
 
     openArticle(slug: string) {
-        if (!this.isSaveBtn) {
+        if (!this.isSaveBtn && !this.isLikedBtn) {
             if (this.isMyPost) {
                 this.router.navigate(['/coffee-lab/articles/' + slug], {
                     queryParams: {
@@ -46,57 +47,49 @@ export class ArticleCardComponent implements OnInit {
 
     onSave(articleId: number): void {
         this.isSaveBtn = true;
-        // setTimeout(() => {
-        this.coffeeLabService.saveForum('article', articleId).subscribe((res: any) => {
-            if (res.success) {
-                this.article.is_saved = true;
-                this.toastService.success('Successfully saved');
-                this.isSaveBtn = false;
-            } else {
-                this.toastService.error('Error while save post');
-            }
-        });
-        // }, 100);
-    }
-
-    onSameSave(articleId: number) {
-        this.isSaveBtn = true;
         setTimeout(() => {
-            this.coffeeLabService.unSaveFormByType('article', articleId).subscribe((res: any) => {
-                if (res.success) {
-                    this.toastService.success(`You have removed the article successfully from saved posts.`);
-                    this.article.is_saved = false;
-                    this.isSaveBtn = false;
-                } else {
-                    this.toastService.error(`Failed to remmove a article from saved posts.`);
-                }
-            });
+            if (this.article.is_saved) {
+                this.coffeeLabService.unSaveFormByType(PostType.ARTICLE, articleId).subscribe((res: any) => {
+                    if (res.success) {
+                        this.toastService.success(`You have removed the article successfully from saved posts.`);
+                        this.article.is_saved = false;
+                        this.isSaveBtn = false;
+                    } else {
+                        this.toastService.error(`Failed to remmove a article from saved posts.`);
+                    }
+                });
+            } else {
+                this.coffeeLabService.saveForum(PostType.ARTICLE, articleId).subscribe((res: any) => {
+                    if (res.success) {
+                        this.article.is_saved = true;
+                        this.toastService.success('Successfully saved');
+                        this.isSaveBtn = false;
+                    } else {
+                        this.toastService.error('Error while save post');
+                    }
+                });
+            }
         }, 100);
     }
 
     onLike(articleId: number) {
-        this.isSaveBtn = true;
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateLike('article', articleId).subscribe((res) => {
-            if (res.success) {
-                this.article.is_liked = true;
-                this.article.likes = this.article.likes + 1;
-                this.isSaveBtn = false;
-                this.isLikedBtn = true;
-            }
-        });
-    }
-
-    onUnLike(articleId: number) {
-        this.isSaveBtn = true;
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
-            if (res.success) {
-                this.article.is_liked = false;
-                this.article.likes = this.article.likes - 1;
-                this.isSaveBtn = false;
-                this.isLikedBtn = true;
-            }
-        });
+        this.isLikedBtn = true;
+        if (this.article.is_liked) {
+            this.coffeeLabService.updateUnLike(PostType.ARTICLE, articleId).subscribe((res) => {
+                if (res.success) {
+                    this.article.is_liked = false;
+                    this.article.likes = this.article.likes - 1;
+                    this.isLikedBtn = false;
+                }
+            });
+        } else {
+            this.coffeeLabService.updateLike(PostType.ARTICLE, articleId).subscribe((res) => {
+                if (res.success) {
+                    this.article.is_liked = true;
+                    this.article.likes = this.article.likes + 1;
+                    this.isLikedBtn = false;
+                }
+            });
+        }
     }
 }

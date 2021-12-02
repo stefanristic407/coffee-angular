@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
 import { APP_LANGUAGES } from '@constants';
 import { CroppedImage } from '@models';
 import { AuthService, CoffeeLabService, CommonService, GlobalsService, GoogletranslateService } from '@services';
@@ -9,7 +10,7 @@ import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
-import { combineLatest, Subject } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 export enum RecipeFileType {
@@ -22,7 +23,7 @@ export enum RecipeFileType {
     templateUrl: './create-recipe.component.html',
     styleUrls: ['./create-recipe.component.scss'],
 })
-export class CreateRecipeComponent implements OnInit, OnDestroy {
+export class CreateRecipeComponent extends DestroyableComponent implements OnInit {
     readonly RecipeFileType = RecipeFileType;
     @Input() isTranslate;
     @Input() saveOriginalPost;
@@ -51,7 +52,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     copiedVideoUrl: string;
     languageList: any[] = APP_LANGUAGES;
     images = [];
-    destroy$: Subject<boolean> = new Subject<boolean>();
     clicked = false;
     categoryList: any[] = [];
     categoryValue: any[] = [];
@@ -162,6 +162,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         private router: Router,
         private toaster: ToastrService,
     ) {
+        super();
         this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
     }
@@ -178,17 +179,17 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
                     (item) => item.langCode === this.recipeForm.get('language').value,
                 );
-                this.coffeeLabService.originalPost.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+                this.coffeeLabService.originalPost.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => {
                     if (res && this.isTranslate) {
                         this.onSave();
                     }
                 });
-                this.coffeeLabService.draftPost.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+                this.coffeeLabService.draftPost.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => {
                     if (res && this.isTranslate) {
                         this.onSave('draft');
                     }
                 });
-                this.coffeeLabService.copyCoverImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
+                this.coffeeLabService.copyCoverImage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data: any) => {
                     this.copyFile(data);
                 });
                 if (this.recipeId) {
@@ -730,12 +731,13 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     changeLanguage(value) {
-        this.coffeeLabService.forumLanguage.next(this.recipeForm.get('language').value);
-        this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
-            (item) => item.langCode === this.recipeForm.get('language').value,
-        );
-        this.setExpertiseArray();
-        this.getCategory();
+        this.coffeeLabService.updateLang(this.recipeForm.get('language').value).then(() => {
+            this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
+                (item) => item.langCode === this.recipeForm.get('language').value,
+            );
+            this.setExpertiseArray();
+            this.getCategory();
+        });
     }
 
     setExpertiseArray() {
@@ -823,10 +825,5 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     });
                 }
             });
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

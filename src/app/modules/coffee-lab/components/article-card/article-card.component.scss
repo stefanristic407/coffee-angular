@@ -34,50 +34,11 @@
     }
 }
 
-.thumb-icon img {
-    height: 21px !important;
-}
-
-.icon-saves img {
-    width: 19px !important;
-    height: 24px !important;
-}
-
 .cursor-point {
     cursor: pointer;
 }
 
-.hover-save-icon {
-    height: fit-content;
-    padding: 6px 9px 10px 12px;
-    border-radius: 50%;
-    background-color: rgba(116, 117, 136, 0.08);
-    @media (min-width: 992px) {
-        &:hover {
-            background-color: rgba(48, 133, 92, 0.12);
-        }
-    }
-}
-
 .align-like-card {
-    .like-int {
-        cursor: pointer;
-        padding: 8px 8.5px;
-        border-radius: 50%;
-        background-color: rgba(116, 117, 136, 0.08);
-        border: 0;
-        @media (min-width: 992px) {
-            &:hover {
-                background-color: rgba(48, 133, 92, 0.12);
-            }
-        }
-
-        .like {
-            position: relative;
-            top: 0px;
-            height: 22px;
-        }
-    }
     span {
         margin-top: 0.95rem;
     }
