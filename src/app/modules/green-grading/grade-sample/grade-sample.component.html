@@ -36,7 +36,7 @@
                         >
                         </p-dropdown>
                     </div>
-                    <div class="px-2 mt-3">
+                    <!-- <div class="px-2 mt-3">
                         <p-dropdown
                             [options]="statusArray"
                             [(ngModel)]="selectedStatus"
@@ -47,7 +47,7 @@
                             (onChange)="onFilter()"
                         >
                         </p-dropdown>
-                    </div>
+                    </div> -->
                 </div>
                 <div *ngIf="selectedRows.length" class="mt-3 mt-md-0 d-flex align-items-center justify-content-between">
                     <span class="fnt-14 fnt-muli fnt-bold text-clr588 pr-3">Selected:{{ selectedRows.length }}</span>
@@ -229,18 +229,11 @@
                                     <span class="d-flex">
                                         <span *ngIf="isMobileView" class="prime-table-label w-50"> Date </span>
                                         <p-cellEditor>
-                                            <ng-template pTemplate="output">
+                                            <ng-template pTemplate="input">
                                                 {{ rowData.date_requested }}
                                             </ng-template>
-                                        </p-cellEditor>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="d-flex">
-                                        <span *ngIf="isMobileView" class="prime-table-label w-50"> Status </span>
-                                        <p-cellEditor>
                                             <ng-template pTemplate="output">
-                                                {{ rowData.status }}
+                                                {{ rowData.date_requested }}
                                             </ng-template>
                                         </p-cellEditor>
                                     </span>
