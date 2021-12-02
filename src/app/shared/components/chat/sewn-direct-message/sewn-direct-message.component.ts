@@ -1,9 +1,11 @@
+import { MenuItem } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import Viewer from 'viewerjs';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { debounce, first, filter, tap } from 'rxjs/operators';
 import { Subscription, fromEvent, interval, Subject, timer } from 'rxjs';
+
 import {
     SocketService,
     ChatHandlerService,
@@ -11,6 +13,7 @@ import {
     GlobalsService,
     ChatApiServices,
     GoogletranslateService,
+    MenuService,
 } from '@services';
 
 import {
@@ -65,6 +68,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public myBlockList: BlockListItem[] = [];
     public whoBlockedMe: BlockListItem[] = [];
     private viewerRef: Viewer | null = null;
+
     public blockMap: {
         myBlock: { [key: string]: BlockListItem };
         blockedMe: { [key: string]: BlockListItem };
@@ -85,6 +89,49 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public defaultProfileImage = 'assets/images/dm-default-profile.svg';
     public bokenImage = 'assets/images/dm-broken-image.svg';
     public chatListScrollEventSubject = new Subject<Event>();
+
+    public chatMenuitems: MenuItem[] = [
+        {
+            label: 'Block user',
+            id: 'block',
+            visible: true,
+            command: () => {
+                this.blockUser(this.openedThread.computed_targetedUser);
+            },
+        },
+        {
+            label: 'Mute user',
+            id: 'mute',
+            visible: true, // updateMuteInMenuVisibility() will handle this
+            command: () => {
+                this.muteAction(this.openedThread);
+            },
+        },
+        {
+            label: 'Unmute user',
+            id: 'unmute',
+            visible: true, // updateMuteInMenuVisibility() will handle this
+            command: () => {
+                this.unMuteAction(this.openedThread);
+            },
+        },
+        {
+            label: 'Clear chat',
+            id: 'clear',
+            visible: true,
+            command: () => {
+                this.clearChat();
+            },
+        },
+        {
+            label: 'Delete chat',
+            id: 'delete',
+            visible: true,
+            command: () => {
+                this.deleteChat();
+            },
+        },
+    ];
 
     public loader = {
         auth: false,
@@ -204,8 +251,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public contextMenuOpen = false;
     public showMessageBoxPanel: 'OFF' | 'EMOJI' | 'STICKER' = 'OFF';
 
-    public chatMenuOpen = false;
-
     public fontSizeList = [
         { label: 'Small', value: 'small' },
         { label: 'Normal', value: 'normal' },
@@ -263,6 +308,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         private toast: ToastrService,
         public gtrans: GoogletranslateService,
         public chatApi: ChatApiServices,
+        public menuService: MenuService,
     ) {}
 
     ngOnInit(): void {
@@ -336,21 +382,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     };
 
-    menuAction(action: 'BLOCK' | 'CLEAR' | 'DELETE' | 'MUTE' | 'UNMUTE') {
-        this.chatMenuOpen = false;
-        if (action === 'BLOCK') {
-            this.blockUser(this.openedThread.computed_targetedUser);
-        } else if (action === 'CLEAR') {
-            this.clearChat();
-        } else if (action === 'DELETE') {
-            this.deleteChat();
-        } else if (action === 'MUTE') {
-            this.muteAction(this.openedThread);
-        } else if (action === 'UNMUTE') {
-            this.unMuteAction(this.openedThread);
-        }
-    }
-
     toggleMenu() {
         this.contextMenuOpen = !this.contextMenuOpen;
         if (this.contextMenuOpen) {
@@ -363,14 +394,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    toggleChatMenu() {
-        this.chatMenuOpen = !this.chatMenuOpen;
-        if (this.chatMenuOpen) {
-            this.listenBodyClickMenuClose();
-        } else {
-            if (this.SM.bodyClickMenuClose && this.SM.bodyClickMenuClose.unsubscribe) {
-                this.SM.bodyClickMenuClose.unsubscribe();
-            }
+    updateMuteInMenuVisibility() {
+        if (this.openedThread) {
+            const muteMenu: MenuItem = this.chatMenuitems.find((item) => item.id === 'mute');
+            const unmuteMenu: MenuItem = this.chatMenuitems.find((item) => item.id === 'unmute');
+            muteMenu.visible = !this.openedThread.computed_mute;
+            unmuteMenu.visible = this.openedThread.computed_mute;
         }
     }
 
@@ -381,20 +410,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.SM.bodyClickMenuClose = fromEvent(document.body, 'mousedown').subscribe((event: any) => {
             if (event.target && this.elRef.nativeElement) {
                 const target = event.target as HTMLElement;
-                const contentMenuPanel = this.elRef.nativeElement.querySelector('[data-element="context-menu-panel"]');
+
                 if (target) {
+                    const contentMenuPanel = this.elRef.nativeElement.querySelector(
+                        '[data-element="context-menu-panel"]',
+                    );
                     if (contentMenuPanel) {
                         const closest = target.closest('[data-element="context-menu-panel"]');
                         if (target !== contentMenuPanel && closest !== contentMenuPanel) {
                             this.contextMenuOpen = false;
                             this.saveSettings();
-                        }
-                    }
-                    const chatMenuPanel = this.elRef.nativeElement.querySelector('[data-element="chat-menu-panel"]');
-                    if (chatMenuPanel) {
-                        const closest = target.closest('[data-element="chat-menu-panel"]');
-                        if (target !== chatMenuPanel && closest !== chatMenuPanel) {
-                            this.chatMenuOpen = false;
                         }
                     }
                 }
@@ -897,7 +922,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.generateBlockMap();
             this.updateBlockStatuOnUserList();
             this.updateBlockStatusOnThreadList();
-            this.toast.warning(`You have been blocked by ${newblock.computed_fullname}`, 'Direct Messaging');
+            this.toast.warning(`You have been blocked by ${newblock.computed_fullname}`);
         } else {
             console.log('Websocket:Block Update: error');
         }
@@ -918,7 +943,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.updateBlockStatuOnUserList();
                 this.updateBlockStatusOnThreadList();
             }
-            this.toast.success(`You have been unblocked by ${unblock.computed_fullname}`, 'Direct Messaging');
+            this.toast.success(`You have been unblocked by ${unblock.computed_fullname}`);
         } else {
             console.log('Websocket:UnBlock Update: error');
         }
@@ -941,14 +966,14 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         console.log('Mute response', WSmsg);
         this.loader.muteAction = false;
         if (WSmsg.success && WSmsg.code === 200) {
-            this.toast.success('Muted successfully', 'Mute');
+            this.toast.success('Muted successfully');
             this.muteList.add(WSmsg.data.thread_id);
             this.updateMuteStatusOnThreadList();
         } else {
             if (WSmsg.code === 409) {
-                this.toast.warning('Failed to mute, already in mute', 'Mute');
+                this.toast.warning('Failed to mute, already in mute');
             } else {
-                this.toast.error('Failed to mute, please try after sometime', 'Mute');
+                this.toast.error('Failed to mute, please try after sometime');
                 console.log('Websocket: Mute: error');
             }
         }
@@ -960,12 +985,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (WSmsg.success && WSmsg.code === 200 && WSmsg.data.thread_id) {
             this.muteList.delete(WSmsg.data.thread_id);
             this.updateMuteStatusOnThreadList();
-            this.toast.success('Unmuted successfully', 'Unmute');
+            this.toast.success('Unmuted successfully');
         } else {
             if (WSmsg.code === 409) {
-                this.toast.warning('Failed to unmute, already in unmute', 'Unmute');
+                this.toast.warning('Failed to unmute, already in unmute');
             } else {
-                this.toast.error('Failed to unmute, please try after sometime', 'Unmute');
+                this.toast.error('Failed to unmute, please try after sometime');
                 console.log('Websocket: Mute: error');
             }
         }
@@ -1027,6 +1052,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.threadList.forEach((thread) => {
             thread.computed_mute = this.muteList.has(thread.id);
         });
+        this.updateMuteInMenuVisibility();
     }
 
     handleBlockListResponse(
@@ -1065,9 +1091,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     updateBlockStatusOnThreadList() {
         this.threadList.forEach((thread: ThreadListItem) => {
             const user = thread.computed_targetedUser;
-            const key = `${user.user_id}_${user.org_type}_${user.org_id || 0}`;
-            thread.blockedDetails.myBlock = !!this.blockMap.myBlock[key];
-            thread.blockedDetails.blockedMe = !!this.blockMap.blockedMe[key];
+            if (user) {
+                const key = `${user.user_id}_${user.org_type}_${user.org_id || 0}`;
+                thread.blockedDetails.myBlock = !!this.blockMap.myBlock[key];
+                thread.blockedDetails.blockedMe = !!this.blockMap.blockedMe[key];
+            }
         });
     }
     updateBlockStatuOnUserList() {
@@ -1122,23 +1150,20 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
 
             if (isActivityOnThisTab) {
-                this.toast.success(`Successfully blocked the user ${newBlockedItem.computed_fullname}`, 'Block');
+                this.toast.success(`Successfully blocked the user ${newBlockedItem.computed_fullname}`);
                 this.openBlockedListPanel();
             } else {
-                this.toast.info(
-                    `You have blocked ${newBlockedItem.computed_fullname} from another logged in session.`,
-                    'Direct Messaging',
-                );
+                this.toast.info(`You have blocked ${newBlockedItem.computed_fullname} from another logged in session.`);
             }
         } else if (WSmsg.code === 409) {
             if (isActivityOnThisTab) {
-                this.toast.error('The user is already blocked', 'Block');
+                this.toast.error('The user is already blocked');
                 this.openBlockedListPanel();
             } else {
                 console.log('Info: Failed to block the following user from another logged in session', WSmsg.data);
             }
         } else {
-            this.toast.error('Unable to block the user', 'Block');
+            this.toast.error('Unable to block the user');
         }
         this.blockThreadReferance = null;
     }
@@ -1168,16 +1193,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.updateBlockStatusOnThreadList();
             }
             if (isSameTab) {
-                this.toast.success(`Successfully unblocked the user ${unblockedItem.computed_fullname}`, 'Unblock');
+                this.toast.success(`Successfully unblocked the user ${unblockedItem.computed_fullname}`);
             } else {
                 this.toast.info(
                     `You have unblocked ${unblockedItem.computed_fullname} from another logged in session.`,
-                    'Direct Messaging',
                 );
             }
             this.fetchBlockUserList();
         } else {
-            this.toast.error('Unable to unblock the user', 'Unblock');
+            this.toast.error('Unable to unblock the user');
         }
         this.unblockUserReferance = null;
     }
@@ -1194,9 +1218,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     this.openThreadChat(this.openedThread);
                 }
             }
-            this.toast.success('Successfully clear the conversation', 'Clear Conversation');
+            this.toast.success('Successfully cleared the conversation');
         } else {
-            this.toast.error('Unable to clear the conversation', 'Clear Conversation');
+            this.toast.error('Unable to clear the conversation');
         }
         this.clearThreadReferance = null;
     }
@@ -1219,9 +1243,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     }
                 }
             }
-            this.toast.success('Successfully deleted the conversation', 'Delete Conversation');
+            this.toast.success('Successfully deleted the conversation');
         } else {
-            this.toast.error('Unable to delete the conversation', 'Delete Conversation');
+            this.toast.error('Unable to delete the conversation');
         }
         this.deleteThreadReferance = null;
     }
@@ -1853,6 +1877,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.chatUIStateReset();
         this.chatElRefReset();
         this.openedThread = thread;
+        this.updateMuteInMenuVisibility();
         this.socket.directMessageSent.next(this.getHistoryPayload(thread));
         if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
             this.SM.lastRender.unsubscribe();
@@ -1940,14 +1965,14 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             (res) => {
                                 this.loader.reportAction = false;
                                 if (res.success) {
-                                    this.toast.success('Successfully reported the user', 'Report');
+                                    this.toast.success('Successfully reported the user');
                                 } else {
-                                    this.toast.success('Failed to report the user', 'Report');
+                                    this.toast.success('Failed to report the user');
                                 }
                             },
                             () => {
                                 this.loader.reportAction = false;
-                                this.toast.success('Failed to report the user', 'Report');
+                                this.toast.success('Failed to report the user');
                             },
                         );
                 }
@@ -2089,7 +2114,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     chatUIStateReset() {
         if (!this.chatHandler.isExpand.value) {
             this.chatSearch.reset();
-            this.chatMenuOpen = false;
             this.showMessageBoxPanel = 'OFF';
         }
     }
@@ -2216,6 +2240,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public get showInlineLoader() {
         return Object.values(this.loader).some((x) => x);
     }
+    public get isMobileMenuDisplaying() {
+        // this condition is using to redce the z-index on mobile view for getting the nav menu overlay
+        return this.menuService.isMenuOpened.value && this.chatHandler.isMobileView.value;
+    }
     public resetAllLoaders() {
         for (const key in this.loader) {
             if (Object.prototype.hasOwnProperty.call(this.loader, key)) {
@@ -2245,7 +2273,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             if (url) {
                                 this.fileDownload(url);
                             } else {
-                                this.toast.error('Failed to download the image', 'Chat Download');
+                                this.toast.error('Failed to download the image');
                             }
                         },
                     },

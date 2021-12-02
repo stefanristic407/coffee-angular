@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -13,6 +14,7 @@ export class MenuService {
     public getMenuItems(): Array<Menu> {
         return menuItems;
     }
+    isMenuOpened: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     public expandActiveSubMenu() {
         const url = this.location.path();
