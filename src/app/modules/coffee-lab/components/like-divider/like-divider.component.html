@@ -10,7 +10,11 @@
             <!-- <span class="d-flex mt-3 mb-05 fnt-300 text-clr334">{{ question.likes }}</span> -->
         </div>
         <div (click)="onJoin()" class="btn-icon message ml-2 transparent"></div>
-        <div (click)="onSave()" class="btn-icon save transparent ml-2" [class.saved]="question?.is_saved"></div>
+        <div
+            (click)="onSave(question?.is_saved)"
+            class="btn-icon save transparent ml-2"
+            [class.saved]="question?.is_saved"
+        ></div>
     </div>
     <div class="d-flex align-items-center" *ngIf="showJoinBtn">
         <div (click)="onJoin()" class="cursor-pointer p-1 mr-2 d-none d-md-block fnt-semi-bold text-nowrap">

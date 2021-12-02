@@ -59,58 +59,18 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     translatedCategory: any[] = [];
     expertiseArray: any[] = [];
     qualityArray: any[] = [
-        {
-            label: 'cups',
-            value: 'cups',
-        },
-        {
-            label: 'glasses',
-            value: 'glasses',
-        },
-        {
-            label: 'grams',
-            value: 'grams',
-        },
-        {
-            label: 'kg',
-            value: 'kg',
-        },
-        {
-            label: 'ltr',
-            value: 'ltr',
-        },
-        {
-            label: 'lbs',
-            value: 'lbs',
-        },
-        {
-            label: 'ml',
-            value: 'ml',
-        },
-        {
-            label: 'ounces',
-            value: 'ounces',
-        },
-        {
-            label: 'piece',
-            value: 'piece',
-        },
-        {
-            label: 'tbsp',
-            value: 'tbsp',
-        },
-        {
-            label: 'tsp',
-            value: 'tsp',
-        },
-        {
-            label: 'units',
-            value: 'units',
-        },
-        {
-            label: 'N/A',
-            value: '',
-        },
+        { label: 'cups', value: 'cups' },
+        { label: 'glasses', value: 'glasses' },
+        { label: 'grams', value: 'grams' },
+        { label: 'kg', value: 'kg' },
+        { label: 'ltr', value: 'ltr' },
+        { label: 'lbs', value: 'lbs' },
+        { label: 'ml', value: 'ml' },
+        { label: 'ounces', value: 'ounces' },
+        { label: 'piece', value: 'piece' },
+        { label: 'tbsp', value: 'tbsp' },
+        { label: 'tsp', value: 'tsp' },
+        { label: 'units', value: 'units' },
     ];
     brewingMethodArray = [];
     orginalBrewingMethodArray = [
