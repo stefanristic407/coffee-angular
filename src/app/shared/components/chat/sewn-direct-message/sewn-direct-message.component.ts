@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import Viewer from 'viewerjs';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
-import { debounce, first, filter, tap } from 'rxjs/operators';
+import { debounce, first, filter, tap, delay } from 'rxjs/operators';
 import { Subscription, fromEvent, interval, Subject, timer } from 'rxjs';
 
 import {
@@ -325,21 +325,14 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         });
         this.SM.ChatHandlerService = this.chatHandler.chatSubject.subscribe(this.chatServiceRequestHandling);
         this.SM.settingUpdated = this.chatHandler.settingUpdated.subscribe(this.settingUpdatedHandler);
-        this.SM.expandStateListner = this.chatHandler.isExpand.subscribe(() => {
-            setTimeout(() => {
-                this.uiUpdateOnStateChange();
-            }, 150);
+        this.SM.expandStateListner = this.chatHandler.isExpand.pipe(delay(150)).subscribe(() => {
+            this.uiUpdateOnStateChange();
         });
-        this.SM.openStateListener = this.chatHandler.isOpen.subscribe(() => {
-            setTimeout(() => {
-                this.uiUpdateOnStateChange();
-            }, 150);
+        this.SM.openStateListener = this.chatHandler.isOpen.pipe(delay(150)).subscribe(() => {
+            this.uiUpdateOnStateChange();
         });
-        this.SM.mobileStateListner = this.chatHandler.isMobileView.subscribe(() => {
-            // FIXME change it into Pipe Delay
-            setTimeout(() => {
-                this.uiUpdateOnStateChange();
-            }, 150);
+        this.SM.mobileStateListner = this.chatHandler.isMobileView.pipe(delay(150)).subscribe(() => {
+            this.uiUpdateOnStateChange();
         });
         this.SM.chatSearchInputChangesSubscription = this.userSearchInputSubject
             .pipe(
