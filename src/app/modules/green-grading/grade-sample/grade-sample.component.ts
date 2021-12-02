@@ -154,10 +154,7 @@ export class GradeSampleComponent implements OnInit {
                 if (res.success === true) {
                     this.toastrService.success('External cupping report added successfully.');
                     this.getExternalReports();
-                    this.sampleDetailForm.get('origin').setValue('');
-                    this.sampleDetailForm.get('estateName').setValue('');
-                    this.sampleDetailForm.get('variety').setValue('');
-                    this.sampleDetailForm.get('sampleId').setValue('');
+                    this.sampleDetailForm.reset();
                 } else {
                     this.toastrService.error('Error while adding reports.');
                 }
