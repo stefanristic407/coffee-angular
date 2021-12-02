@@ -107,7 +107,7 @@ export class TranslateArticleComponent implements OnInit {
                     this.showNoDataSection = true;
                     this.toastrService.error(this.globalsService.languageJson?.no_language_available_translated);
                 }
-                this.handleChange({ index: 0 });
+                this.handleChange({ value: this.remainingLangugage[0].value });
                 this.articleFormOriginal.disable();
             } else {
                 this.toastrService.error('Error while get article');
@@ -131,12 +131,11 @@ export class TranslateArticleComponent implements OnInit {
         });
     }
 
-    handleChange(e?) {
-        this.selectedArticleLangCode = this.remainingLangugage[e.index].value;
+    handleChange(event?) {
+        this.selectedArticleLangCode = this.remainingLangugage.find((item) => item.value === event.value).value;
         if (this.article?.categories) {
             this.getCategory();
         }
-
         const draft = this.coffeeLabService.allDrafts.value?.find((item) => {
             return (
                 item.parent_id === +this.articleId &&
