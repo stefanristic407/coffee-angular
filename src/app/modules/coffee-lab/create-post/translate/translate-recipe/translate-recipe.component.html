@@ -28,13 +28,6 @@
         <div *ngIf="selectedLang" class="px-2 py-3 py-md-2 pr-md-4 pl-md-4 bg-f8">
             <app-create-recipe [translateLang]="selectedLang" [isTranslate]="true"></app-create-recipe>
         </div>
-        <!-- <p-tabView class="toggle bg-tabView" [(activeIndex)]="selectedTab" (onChange)="onChangeTab($event)">
-            <p-tabPanel *ngFor="let item of remainingLangugage; let i = index" [header]="item.label | translate">
-                <div class="py-md-2 px-md-4 bg-f8" *ngIf="selectedTab === i">
-                    <app-create-recipe [translateLang]="item.value" [isTranslate]="true"></app-create-recipe>
-                </div>
-            </p-tabPanel>
-        </p-tabView> -->
     </div>
     <div *ngIf="showNoDataSection" class="col-12 col-md-6 px-md-0 mt-4 mt-md-0 noborder-left">
         <div class="align-items-center d-flex fnt-18 fnt-md-20 h-25 justify-content-center mt-5 pt-5">

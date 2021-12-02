@@ -233,7 +233,10 @@
                             optionLabel="label"
                             optionValue="value"
                             formControlName="quantity_unit"
-                        ></p-dropdown>
+                        >
+                            <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                            <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                        </p-dropdown>
                         <small *ngIf="ingredient.controls['quantity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>

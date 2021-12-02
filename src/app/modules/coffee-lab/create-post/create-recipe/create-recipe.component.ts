@@ -59,58 +59,18 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     translatedCategory: any[] = [];
     expertiseArray: any[] = [];
     qualityArray: any[] = [
-        {
-            label: 'cups',
-            value: 'cups',
-        },
-        {
-            label: 'glasses',
-            value: 'glasses',
-        },
-        {
-            label: 'grams',
-            value: 'grams',
-        },
-        {
-            label: 'kg',
-            value: 'kg',
-        },
-        {
-            label: 'ltr',
-            value: 'ltr',
-        },
-        {
-            label: 'lbs',
-            value: 'lbs',
-        },
-        {
-            label: 'ml',
-            value: 'ml',
-        },
-        {
-            label: 'ounces',
-            value: 'ounces',
-        },
-        {
-            label: 'piece',
-            value: 'piece',
-        },
-        {
-            label: 'tbsp',
-            value: 'tbsp',
-        },
-        {
-            label: 'tsp',
-            value: 'tsp',
-        },
-        {
-            label: 'units',
-            value: 'units',
-        },
-        {
-            label: 'N/A',
-            value: '',
-        },
+        { label: 'cups', value: 'cups' },
+        { label: 'glasses', value: 'glasses' },
+        { label: 'grams', value: 'grams' },
+        { label: 'kg', value: 'kg' },
+        { label: 'ltr', value: 'ltr' },
+        { label: 'lbs', value: 'lbs' },
+        { label: 'ml', value: 'ml' },
+        { label: 'ounces', value: 'ounces' },
+        { label: 'piece', value: 'piece' },
+        { label: 'tbsp', value: 'tbsp' },
+        { label: 'tsp', value: 'tsp' },
+        { label: 'units', value: 'units' },
     ];
     brewingMethodArray = [];
     orginalBrewingMethodArray = [
@@ -146,6 +106,46 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         { label: 'Olla Moka', value: 'Olla Moka', langCode: 'pt' },
         { label: 'Chemix', value: 'Chemix', langCode: 'pt' },
         { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'pt' },
+        { label: 'Hælde over', value: 'Hælde over', langCode: 'da' },
+        { label: 'Espresso', value: 'Espresso', langCode: 'da' },
+        { label: 'Kaffemaskine', value: 'Kaffemaskine', langCode: 'da' },
+        { label: 'French Press', value: 'Fransk Presse', langCode: 'da' },
+        { label: 'AeroPress', value: 'AeroPress', langCode: 'da' },
+        { label: 'Moka Pot', value: 'Moka Pot', langCode: 'da' },
+        { label: 'Chemix', value: 'Chemix', langCode: 'da' },
+        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'da' },
+        { label: 'Verser', value: 'Verser', langCode: 'fr' },
+        { label: 'Expresso', value: 'Expresso', langCode: 'fr' },
+        { label: 'Machine à café', value: 'Machine à café', langCode: 'fr' },
+        { label: 'Presse française', value: 'Presse française', langCode: 'fr' },
+        { label: 'AéroPresse', value: 'AéroPresse', langCode: 'fr' },
+        { label: 'Pot à Moka', value: 'Pot à Moka', langCode: 'fr' },
+        { label: 'Chemix', value: 'chemex', langCode: 'fr' },
+        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'fr' },
+        { label: 'Übergießen', value: 'Übergießen', langCode: 'de' },
+        { label: 'Espresso', value: 'Espresso', langCode: 'de' },
+        { label: 'Kaffeemaschine', value: 'Kaffeemaschine', langCode: 'de' },
+        { label: 'Französische Presse', value: 'Französische Presse', langCode: 'de' },
+        { label: 'AeroPress', value: 'aeropress', langCode: 'de' },
+        { label: 'Moka-Topf', value: 'Moka-Topf', langCode: 'de' },
+        { label: 'Chemix', value: 'chemex', langCode: 'de' },
+        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'de' },
+        { label: 'Overgieten', value: 'Overgieten', langCode: 'nl' },
+        { label: 'Espresso', value: 'Espresso', langCode: 'nl' },
+        { label: 'Koffiezetapparaat', value: 'Koffiezetapparaat', langCode: 'nl' },
+        { label: 'French Press', value: 'French Press', langCode: 'nl' },
+        { label: 'AeroPress', value: 'aeropress', langCode: 'nl' },
+        { label: 'Moka Pot', value: 'mocha-pot', langCode: 'nl' },
+        { label: 'Chemix', value: 'chemex', langCode: 'nl' },
+        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'nl' },
+        { label: 'Rovesciare', value: 'Rovesciare', langCode: 'it' },
+        { label: 'Caffè espresso', value: 'Caffè espresso', langCode: 'it' },
+        { label: 'Caffettiera', value: 'Caffettiera', langCode: 'it' },
+        { label: 'La stampa francese', value: 'La stampa francese', langCode: 'it' },
+        { label: 'AeroPress', value: 'aeropress', langCode: 'it' },
+        { label: 'Caffettiera moka', value: 'Caffettiera moka', langCode: 'it' },
+        { label: 'Chemix', value: 'chemex', langCode: 'it' },
+        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'it' },
     ];
     @ViewChild('bannerFileInput', { static: false }) bannerFileInput;
 
