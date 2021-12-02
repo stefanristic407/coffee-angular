@@ -50,11 +50,14 @@ export class CoffeeLabService extends ApiService {
         this.updateLang();
     }
 
-    updateLang(lang: string = 'en') {
-        this.http.get(`${environment.apiURL}/translations/${lang}/roaster`).subscribe((langData) => {
-            this.translator.setTranslation(lang, langData);
-            this.translator.use(lang);
-            this.forumLanguage.next(lang);
+    updateLang(lang: string = 'en'): Promise<any> {
+        return new Promise((resolve) => {
+            this.http.get(`${environment.apiURL}/translations/${lang}/roaster`).subscribe((langData) => {
+                this.translator.setTranslation(lang, langData);
+                this.translator.use(lang);
+                this.forumLanguage.next(lang);
+                resolve(true);
+            });
         });
     }
 

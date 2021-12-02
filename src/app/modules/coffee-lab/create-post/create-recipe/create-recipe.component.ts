@@ -730,12 +730,13 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     changeLanguage(value) {
-        this.coffeeLabService.forumLanguage.next(this.recipeForm.get('language').value);
-        this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
-            (item) => item.langCode === this.recipeForm.get('language').value,
-        );
-        this.setExpertiseArray();
-        this.getCategory();
+        this.coffeeLabService.updateLang(this.recipeForm.get('language').value).then(() => {
+            this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
+                (item) => item.langCode === this.recipeForm.get('language').value,
+            );
+            this.setExpertiseArray();
+            this.getCategory();
+        });
     }
 
     setExpertiseArray() {

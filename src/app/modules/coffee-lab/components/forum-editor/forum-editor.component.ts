@@ -39,7 +39,15 @@ export class ForumEditorComponent implements OnInit, ControlValueAccessor {
     @Input() imageIdList = [];
     @Output() imageIdListChange = new EventEmitter<any>();
     @Input() fileModule = 'qa-forum';
-    @Input() placeholder: string;
+    refreshEditor = false; // To refresh placeholder
+    placeholderStr: string;
+    @Input('placeholder')
+    set placeholder(value) {
+        this.placeholderStr = value;
+        console.log(this.placeholderStr);
+        this.refreshEditor = true;
+        setTimeout(() => (this.refreshEditor = false), 200);
+    }
     @Input() height = 213;
     @Input() images = [];
     imagesCount = 0;
