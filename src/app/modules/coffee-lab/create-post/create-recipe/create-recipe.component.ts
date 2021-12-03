@@ -58,19 +58,19 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     status: string;
     translatedCategory: any[] = [];
     expertiseArray: any[] = [];
-    qualityArray: any[] = [
-        { label: 'cups', value: 'cups' },
-        { label: 'glasses', value: 'glasses' },
-        { label: 'grams', value: 'grams' },
-        { label: 'kg', value: 'kg' },
-        { label: 'ltr', value: 'ltr' },
-        { label: 'lbs', value: 'lbs' },
-        { label: 'ml', value: 'ml' },
-        { label: 'ounces', value: 'ounces' },
-        { label: 'piece', value: 'piece' },
-        { label: 'tbsp', value: 'tbsp' },
-        { label: 'tsp', value: 'tsp' },
-        { label: 'units', value: 'units' },
+    qualityArray: string[] = [
+        'cups',
+        'glasses',
+        'grams',
+        'kg',
+        'ltr',
+        'lbs',
+        'ml',
+        'ounces',
+        'piece',
+        'tbsp',
+        'tsp',
+        'units',
     ];
     brewingMethodArray = [];
     orginalBrewingMethodArray = [
