@@ -113,9 +113,9 @@
                                     <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                                 </td>
 
-                                <td>
+                                <td *ngIf="isMobileView">
                                     <span class="d-flex">
-                                        <span *ngIf="isMobileView" class="d-flex w-100 align-items-center">
+                                        <span class="d-flex w-100 align-items-center">
                                             <span class="prime-table-label mr-3">
                                                 ID #{{ rowData['cupping_report_id'] }}
                                             </span>
@@ -138,7 +138,7 @@
                                                 pSaveEditableRow
                                                 icon="pi pi-check"
                                                 (click)="onRowEditSave(rowData)"
-                                                class="fnt-12 fnt-600 p-button-text p-button-success mr-1"
+                                                class="fnt-12 fnt-600 p-button-text p-button-success mr-1 check-btn"
                                             ></button>
                                             <button
                                                 *ngIf="editing"
@@ -148,7 +148,7 @@
                                                 pCancelEditableRow
                                                 icon="pi pi-times"
                                                 (click)="onRowEditCancel(rowData, ri)"
-                                                class="fnt-12 fnt-600 p-button-text p-button-danger mr-1"
+                                                class="fnt-12 fnt-600 p-button-text p-button-danger mr-1 check-btn"
                                             ></button>
                                             <button
                                                 *ngIf="!editing"
@@ -163,9 +163,26 @@
                                             <p-tableCheckbox [value]="rowData" style="margin-left: auto">
                                             </p-tableCheckbox>
                                         </span>
-                                        <span *ngIf="!isMobileView">
-                                            {{ rowData['cupping_report_id'] }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="d-flex id-t-sample">
+                                        <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                            ID(Give your sample an ID)
                                         </span>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input
+                                                    pInputText
+                                                    type="text"
+                                                    [(ngModel)]="rowData.external_sample_id"
+                                                    [style]="{ width: '100%' }"
+                                                />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{ rowData.external_sample_id }}
+                                            </ng-template>
+                                        </p-cellEditor>
                                     </span>
                                 </td>
                                 <td>
@@ -234,26 +251,6 @@
                                             </ng-template>
                                             <ng-template pTemplate="output">
                                                 {{ rowData.date_requested }}
-                                            </ng-template>
-                                        </p-cellEditor>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="d-flex id-t-sample">
-                                        <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                            ID(Give your sample an ID)
-                                        </span>
-                                        <p-cellEditor>
-                                            <ng-template pTemplate="input">
-                                                <input
-                                                    pInputText
-                                                    type="text"
-                                                    [(ngModel)]="rowData.external_sample_id"
-                                                    [style]="{ width: '100%' }"
-                                                />
-                                            </ng-template>
-                                            <ng-template pTemplate="output">
-                                                {{ rowData.external_sample_id }}
                                             </ng-template>
                                         </p-cellEditor>
                                     </span>

@@ -78,7 +78,7 @@ export class GradeSampleComponent implements OnInit {
         this.isMobileView = window.innerWidth <= 767;
         this.tableColumns = [
             {
-                field: 'cupping_report_id',
+                field: 'external_sample_id',
                 header: 'ID',
                 sortable: false,
             },
@@ -100,11 +100,6 @@ export class GradeSampleComponent implements OnInit {
             {
                 field: 'date_requested',
                 header: 'Date',
-                sortable: false,
-            },
-            {
-                field: 'external_sample_id',
-                header: 'External',
                 sortable: false,
             },
         ];
