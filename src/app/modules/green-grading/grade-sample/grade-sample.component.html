@@ -1,5 +1,5 @@
 <div class="sewn-container prime-grid">
-    <div *ngIf="!loading" class="bg-fff content-wrapper">
+    <div class="bg-fff content-wrapper">
         <div class="d-flex justify-content-between pb-2 pb-md-0">
             <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
             <div class="col-lg-4 w-100">
@@ -60,7 +60,7 @@
             >
                 <button class="green-button btn-raised" (click)="generateReportLink()">Next</button>
             </div> -->
-            <div *ngIf="tableData.length" class="table-container mt-4">
+            <div class="table-container mt-4">
                 <div class="table-responsive">
                     <p-table
                         #myTable
@@ -300,6 +300,12 @@
                                     ></button>
                                 </td>
                             </tr>
+                        </ng-template>
+                        <ng-template pTemplate="summary">
+                            <app-empty
+                                *ngIf="!loading && !tableData?.length"
+                                [title]="'no_data_available' | translate"
+                            ></app-empty>
                         </ng-template>
                     </p-table>
                 </div>
