@@ -1,12 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, Input, ViewChild } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService, RoasterService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
-import * as moment from 'moment';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
+import { AuthService, GlobalsService, RoasterService } from '@services';
+import { DataTableDirective } from 'angular-datatables';
+import * as moment from 'moment';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-select-orders',
@@ -89,7 +88,6 @@ export class SelectOrdersComponent implements OnInit {
 
         this.loadFilterValues();
         this.createRoasterTable();
-        this.getTableData();
         if (this.selectedType !== 'orders') {
             this.getRoleList();
         }
@@ -267,7 +265,6 @@ export class SelectOrdersComponent implements OnInit {
         if (event) {
             page = event.first / event.rows + 1;
         }
-        // setTimeout(() => (this.loader = true), 0);
         const postData: any = {
             origin: this.originFilter ? this.originFilter : '',
             page,
@@ -276,6 +273,7 @@ export class SelectOrdersComponent implements OnInit {
             sort_order: 'desc',
             start_date: '',
             end_date: '',
+            order_type: 'GC_ORDER',
             status: 'RECEIVED',
         };
         if (this.isCustomerType) {
