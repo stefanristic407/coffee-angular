@@ -1,5 +1,5 @@
 <div class="sewn-container prime-grid">
-    <div class="bg-fff content-wrapper">
+    <div *ngIf="!loading" class="bg-fff content-wrapper">
         <div class="d-flex justify-content-between pb-2 pb-md-0">
             <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
             <div class="col-lg-4 w-100">
@@ -392,5 +392,8 @@
                 <button type="button" class="green-button btn-stroked" (click)="addExternalReport()">Add sample</button>
             </div>
         </section>
+    </div>
+    <div *ngIf="loading">
+        <app-loading></app-loading>
     </div>
 </div>
