@@ -57,20 +57,24 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     categoryValue: any[] = [];
     status: string;
     translatedCategory: any[] = [];
-    expertiseArray: any[] = [];
-    qualityArray: string[] = [
-        'cups',
-        'glasses',
-        'grams',
-        'kg',
-        'ltr',
-        'lbs',
-        'ml',
-        'ounces',
-        'piece',
-        'tbsp',
-        'tsp',
-        'units',
+    expertiseArray = [
+        { label: 'expertise_easy', value: 'expertise_easy' },
+        { label: 'expertise_intermediate', value: 'expertise_intermediate' },
+        { label: 'expertise_hard', value: 'expertise_hard' },
+    ];
+    qualityArray = [
+        { label: 'lbs', value: 'lbs' },
+        { label: 'cups', value: 'cups' },
+        { label: 'glasses', value: 'glasses' },
+        { label: 'grams', value: 'grams' },
+        { label: 'kg', value: 'kg' },
+        { label: 'ltr', value: 'ltr' },
+        { label: 'ml', value: 'ml' },
+        { label: 'ounces', value: 'ounces' },
+        { label: 'piece', value: 'piece' },
+        { label: 'tbsp', value: 'tbsp' },
+        { label: 'tsp', value: 'tsp' },
+        { label: 'units', value: 'units' },
     ];
     brewingMethodArray = [];
     orginalBrewingMethodArray = [
@@ -203,7 +207,6 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                     this.setAppLanguages();
                     this.getCompleteData(this.originRecipeId);
                 }
-                this.setExpertiseArray();
             }
         });
     }
@@ -735,73 +738,8 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
             this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
                 (item) => item.langCode === this.recipeForm.get('language').value,
             );
-            this.setExpertiseArray();
             this.getCategory();
         });
-    }
-
-    setExpertiseArray() {
-        if (this.coffeeLabService.currentForumLanguage === 'en') {
-            this.expertiseArray = [
-                {
-                    label: 'Easy',
-                    value: 'Easy',
-                },
-                {
-                    label: 'Intermediate',
-                    value: 'Intermediate',
-                },
-                {
-                    label: 'Hard',
-                    value: 'Hard',
-                },
-            ];
-        } else if (this.coffeeLabService.currentForumLanguage === 'sv') {
-            this.expertiseArray = [
-                {
-                    label: 'Lätt',
-                    value: 'lätt',
-                },
-                {
-                    label: 'Mellanliggande',
-                    value: 'Mellanliggande',
-                },
-                {
-                    label: 'Hård',
-                    value: 'Hård',
-                },
-            ];
-        } else if (this.coffeeLabService.currentForumLanguage === 'pt') {
-            this.expertiseArray = [
-                {
-                    label: 'Fácil',
-                    value: 'Fácil',
-                },
-                {
-                    label: 'Intermediário',
-                    value: 'Intermediário',
-                },
-                {
-                    label: 'Duro',
-                    value: 'Duro',
-                },
-            ];
-        } else if (this.coffeeLabService.currentForumLanguage === 'es') {
-            this.expertiseArray = [
-                {
-                    label: 'Fácil',
-                    value: 'Fácil',
-                },
-                {
-                    label: 'Intermedio',
-                    value: 'Intermedio',
-                },
-                {
-                    label: 'Duro',
-                    value: 'Duro',
-                },
-            ];
-        }
     }
 
     onDeleteDraft(): void {
@@ -825,5 +763,9 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                     });
                 }
             });
+    }
+
+    checlValue(evnet) {
+        console.log(evnet);
     }
 }

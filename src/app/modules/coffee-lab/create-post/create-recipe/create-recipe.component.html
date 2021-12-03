@@ -228,9 +228,14 @@
                             pInputText
                             formControlName="quantity"
                         />
-                        <p-dropdown [options]="qualityArray" optionLabel="label" formControlName="quantity_unit">
-                            <ng-template let-item pTemplate="selectedItem">{{ item | translate }}</ng-template>
-                            <ng-template let-item pTemplate="item">{{ item | translate }}</ng-template>
+                        <p-dropdown
+                            [options]="qualityArray"
+                            formControlName="quantity_unit"
+                            optionLabel="label"
+                            optionValue="value"
+                        >
+                            <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                            <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                         </p-dropdown>
                         <small *ngIf="ingredient.controls['quantity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
@@ -403,13 +408,17 @@
             <label>{{ 'expertise' | translate }}</label>
             <p-dropdown
                 [options]="expertiseArray"
-                optionLabel="label"
                 [placeholder]="'expertise_placeholder' | translate"
                 [style]="{ width: '100%' }"
-                optionValue="value"
                 class="inputFieldBox bg-white"
                 formControlName="expertise"
-            ></p-dropdown>
+                optionLabel="label"
+                optionValue="value"
+                (onChange)="checlValue($event)"
+            >
+                <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+            </p-dropdown>
             <small *ngIf="recipeForm.controls['expertise'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
