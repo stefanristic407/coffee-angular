@@ -9,12 +9,12 @@ import * as _ from 'underscore';
 
 @Injectable()
 export class MenuService {
+    isMenuOpened: BehaviorSubject<boolean> = new BehaviorSubject(false);
     constructor(private location: Location) {}
 
     public getMenuItems(): Array<Menu> {
         return menuItems;
     }
-    isMenuOpened: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     public expandActiveSubMenu() {
         const url = this.location.path();
