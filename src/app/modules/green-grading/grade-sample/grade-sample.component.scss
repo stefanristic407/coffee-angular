@@ -243,8 +243,9 @@ label {
     }
 }
 
-@media screen and (max-width: 767px) {
-    .check-btn {
+.check-btn {
+    height: 50px;
+    @media screen and (max-width: 767px) {
         height: 1.98rem;
     }
 }
