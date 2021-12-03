@@ -1,17 +1,17 @@
 import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerServiceService } from '@app/modules/people/customer-management/customer-service.service';
+import { ResizeableComponent } from '@base-components';
+import { COUNTRY_LIST } from '@constants';
+import { OrderStatus } from '@enums';
 import { AuthService, GlobalsService, PrimeTableService, ResizeService, RoasterService } from '@services';
+import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { COUNTRY_LIST } from '@constants';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { takeUntil } from 'rxjs/operators';
-import * as moment from 'moment';
-import { ResizeableComponent } from '@base-components';
 import { CoffeeExpService } from '../coffee-experience.service';
-import { OrderStatus } from '@enums';
 
 @Component({
     selector: 'app-coffee-experience-table',
@@ -362,12 +362,12 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
         this.primeTableService.url = `/ro/${this.roasterId}/${this.path}`;
         this.initializeTableProcuredCoffee();
         this.primeTableService.form = this.form;
-
-        this.primeTableService.form?.valueChanges.subscribe((data) =>
-            setTimeout(() => {
-                this.table.reset();
-            }, 100),
-        );
+        (this.primeTableService.type = 'GC_ORDER'),
+            this.primeTableService.form?.valueChanges.subscribe((data) =>
+                setTimeout(() => {
+                    this.table.reset();
+                }, 100),
+            );
         this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
             this.startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
             this.endDate =
@@ -470,6 +470,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                 page: this.primeTableService.currentPage,
                 per_page: this.primeTableService.rows,
                 sort_by: 'created_at',
+                type: 'GC_ORDER',
                 status: 'RECEIVED',
             };
             this.originArray = [];
