@@ -45,7 +45,9 @@
                         appFullImgWrapper
                         [innerHTML]="draft.post_title"
                     ></div>
-                    <div class="fnt-12 fnt-muli text-clr588">Draft saved {{ draft.created_at | amTimeAgo }}</div>
+                    <div class="fnt-12 fnt-muli text-clr588">
+                        {{ 'draft_saved' | translate }}: {{ draft.created_at | amTimeAgo | dateAgoReplace }}
+                    </div>
                 </div>
             </div>
             <div>
@@ -61,7 +63,7 @@
             (onPageChange)="paginate($event)"
         ></p-paginator>
     </div>
-    <div [ngClass]="{ 'd-none': !drafts }" class="text-center py-4">
+    <div *ngIf="filteredDrafts.length == 0" class="text-center py-4">
         {{ 'no_data_is_available' | translate }}
     </div>
 </div>

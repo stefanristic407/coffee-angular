@@ -59,34 +59,10 @@
     border: 1px solid #30855c !important;
 }
 
-.back-page::before {
-    top: -4px !important;
-    width: 20px !important;
-    height: 20px !important;
-    padding: 15px !important;
-    background-repeat: no-repeat !important;
-    background-size: auto !important;
-}
-.back-page:hover::before {
-    border-radius: 50%;
-    background-color: rgba(128, 70, 11, 0.14);
-}
-
 .answer-wrapper {
     border-bottom: 1px solid #d8d8d8;
     &:first-child {
         border-top: 1px solid #d8d8d8;
-    }
-}
-
-.hover-save-icon {
-    padding: 7px 8px 7px 11px;
-    border-radius: 50%;
-    background-color: rgba(116, 117, 136, 0.08);
-    @media (min-width: 992px) {
-        &:hover {
-            background-color: rgba(48, 133, 92, 0.16);
-        }
     }
 }
 
@@ -99,44 +75,8 @@
     }
 }
 
-.hover-share-icon {
-    padding: 8px 9px 8px 11px;
-    border-radius: 50%;
-    background-color: rgba(116, 117, 136, 0.08);
-    @media (min-width: 992px) {
-        &:hover {
-            background-color: rgba(48, 133, 92, 0.16);
-        }
-    }
-}
-
 .icon-height {
     @media (min-width: 768px) {
         height: 47px;
-    }
-}
-
-.editBtn {
-    text-decoration: none !important;
-    &:hover {
-        text-decoration: underline !important;
-    }
-}
-
-.align-like {
-    .like-int {
-        cursor: pointer;
-        padding: 0 9.5px;
-        border-radius: 50%;
-        background-color: rgba(116, 117, 136, 0.08);
-        border: 0;
-        @media (min-width: 992px) {
-            &:hover {
-                background-color: rgba(48, 133, 92, 0.12);
-            }
-        }
-        .like {
-            height: 20px;
-        }
     }
 }

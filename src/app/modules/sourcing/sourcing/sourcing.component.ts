@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { fromEvent } from 'rxjs';
-import { DialogService } from 'primeng/dynamicdialog';
-import { GlobalsService } from '@services';
-import { SourcingService } from '../sourcing.service';
-import { FilterComponent } from '../filter/filter.component';
-import { debounceTime, takeUntil } from 'rxjs/operators';
 import { DestroyableComponent } from '@base-components';
 import { GRADE_ITEMS, MONTH_LIST } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { fromEvent } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { FilterComponent } from '../filter/filter.component';
+import { SourcingService } from '../sourcing.service';
 
 @Component({
     selector: 'app-sourcing',
@@ -22,7 +22,6 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: 'Yes', value: 1 },
         { label: 'No', value: 0 },
     ];
-    shippingAvailableItems: any[] = [{ label: 'Yes', value: true }];
     weightItems: any[] = [
         { label: 'lb', value: 'lb' },
         { label: 'kg', value: 'kg' },
@@ -32,24 +31,30 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
     viewMode = 'grid';
     viewModeItems: any[] = [{ value: 'table' }, { value: 'grid' }];
 
-    constructor(public dialogSrv: DialogService, public globals: GlobalsService, public sourcingSrv: SourcingService) {
+    constructor(
+        private dialogSrv: DialogService,
+        private translator: TranslateService,
+        public sourcingSrv: SourcingService,
+    ) {
         super();
     }
 
     ngOnInit(): void {
         this.menuItems = [
-            { label: this.globals.languageJson?.estates, routerLink: ['/sourcing/estate-list'] },
+            { label: this.translator.instant('estates'), routerLink: ['/sourcing/estate-list'] },
             {
-                label: this.globals.languageJson?.available_green_coffee,
+                label: this.translator.instant('available_green_coffee'),
                 routerLink: ['/sourcing/coffee-list'],
             },
         ];
         this.sourcingSrv.showUnitFilter = false;
-        this.sourcingSrv.showAvailableFilter = true;
         this.sourcingSrv.showAvailableFilter = false;
         this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();
+        this.sourcingSrv.queryParams$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: any) => {
+            this.queryParams = { ...this.queryParams, ...res };
+        });
     }
 
     ngAfterViewInit() {
@@ -62,7 +67,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
     }
 
     filterCall() {
-        this.sourcingSrv.queryParams.next({ ...this.queryParams });
+        this.sourcingSrv.queryParams.next({ ...this.sourcingSrv.queryParams.getValue(), ...this.queryParams });
     }
 
     sort() {
@@ -80,7 +85,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
     openFilter() {
         this.dialogSrv.open(FilterComponent, {
             data: {},
-            header: this.globals.languageJson.more_filters,
+            header: this.translator.instant('more_filters'),
         });
     }
 }

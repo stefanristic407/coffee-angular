@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DestroyableComponent } from '@base-components';
 import { PostType } from '@enums';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +11,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
     templateUrl: './qa-forum-view.component.html',
     styleUrls: ['./qa-forum-view.component.scss'],
 })
-export class QaForumViewComponent implements OnInit, OnDestroy {
+export class QaForumViewComponent extends DestroyableComponent implements OnInit {
     readonly PostType = PostType;
     viewMode = 'list';
     sortOptions = [
@@ -25,7 +26,6 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
     questions: any[] = [];
     isLoading = false;
     keyword = '';
-    destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
     searchInput$: Subject<any> = new Subject<any>();
     categoryList: any;
@@ -37,16 +37,18 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         public authService: AuthService,
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getQuestions();
             this.getCategory();
         });
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe(() => {
             this.getQuestions();
         });
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
@@ -85,11 +87,6 @@ export class QaForumViewComponent implements OnInit, OnDestroy {
                 this.toastService.error('Cannot get questions');
             }
         });
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 
     getCategory() {

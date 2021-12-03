@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DestroyableComponent } from '@base-components';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -9,20 +9,20 @@ import { takeUntil } from 'rxjs/operators';
     templateUrl: './my-articles.component.html',
     styleUrls: ['./my-articles.component.scss'],
 })
-export class MyArticlesComponent implements OnInit, OnDestroy {
+export class MyArticlesComponent extends DestroyableComponent implements OnInit {
     articles: any[] = [];
     sortOptions = [
         { label: 'latest', value: 'desc' },
         { label: 'oldest', value: 'asc' },
     ];
     isLoading = true;
-    destroy$: Subject<boolean> = new Subject<boolean>();
     pages = 1;
     totalRecords: number;
     rows = 9;
 
     constructor(public coffeeLabService: CoffeeLabService, private toastService: ToastrService) {
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        super();
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe(() => {
             this.getArticles();
         });
     }
@@ -59,10 +59,5 @@ export class MyArticlesComponent implements OnInit, OnDestroy {
             this.pages = event.page + 1;
             this.getArticles();
         }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

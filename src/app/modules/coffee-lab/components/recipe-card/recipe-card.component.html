@@ -1,7 +1,7 @@
 <div class="coffee-item text-non-underline" (click)="openRecipe(recipe.slug)">
     <div class="w-100 position-relative">
         <img [src]="recipe.cover_image_url" class="w-100" [alt]="recipe?.name" />
-        <span class="expertise fnt-12"> {{ recipe.expertise }} </span>
+        <span class="expertise fnt-12"> {{ recipe.expertise | translate }} </span>
     </div>
     <div class="m-3 m-md-4">
         <div class="d-flex justify-content-between mb-4">
@@ -13,12 +13,12 @@
                     {{ recipe?.equipment_name | titlecase | convertToShortDescription: 1 }}
                 </span>
             </div>
-            <div class="bookmark-icon hover-save-icon h-100" (click)="onSave(recipe.id)" *ngIf="!recipe?.is_saved">
-                <img class="cursor-point" src="assets/images/save.svg" alt="save" />
-            </div>
-            <div class="bookmark-icon hover-save-icon h-100" (click)="onSameSave(recipe.id)" *ngIf="recipe?.is_saved">
-                <img class="cursor-point" width="36" height="36" src="assets/images/saved-item.svg" alt="saved" />
-            </div>
+            <button
+                class="btn-icon save ml-1"
+                [class.saved]="recipe?.is_saved"
+                (click)="onSave(recipe.id)"
+                [disabled]="isSaveBtn"
+            ></button>
         </div>
         <app-user-header [prop]="recipe"></app-user-header>
     </div>

@@ -12,13 +12,21 @@
                 width="36"
                 height="36"
             />
-            <input type="text" pInputText [placeholder]="placeHolderValue" class="cursor-point" (focus)="onFocus()" />
+            <input
+                type="text"
+                pInputText
+                [placeholder]="btnValues[type].placeHolderValue | translate"
+                class="cursor-point"
+                (focus)="onFocus()"
+            />
         </div>
         <div class="d-none d-md-block ml-5">
             <button (focus)="onFirstBtn()" class="cursor-point" class="post-btn">
-                {{ firstBtnValue }}
+                {{ btnValues[type].firstBtnValue | translate }}
             </button>
-            <button (focus)="onSecondBtn()" class="post-btn cursor-point">{{ secondBtnValue }}</button>
+            <button (focus)="onSecondBtn()" class="post-btn cursor-point">
+                {{ btnValues[type].secondBtnValue | translate }}
+            </button>
         </div>
     </div>
 </div>
