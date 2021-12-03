@@ -764,12 +764,12 @@ export class RoasterService extends ApiService {
 
     // upate Mark for Sale from Procured Coffee
     updateMarkForSale(orderID: number, data: object): Observable<ApiResponse<any>> {
-        return this.postWithOrg(this.orgPutUrl, `procured-coffees/${orderID}/sale`, 'PUT', data);
+        return this.postWithOrg(this.orgPostUrl, `procured-coffees/${orderID}/sale`, 'PUT', data);
     }
 
     // upate Mark for Sale status
     updateMarkForSaleStatus(orderID: number, data: object): Observable<ApiResponse<any>> {
-        return this.postWithOrg(this.orgPutUrl, `procured-coffees/${orderID}/sale/status`, 'PUT', data);
+        return this.postWithOrg(this.orgPostUrl, `procured-coffees/${orderID}/sale/status`, 'PUT', data);
     }
 
     //Get Harvest GC available details
