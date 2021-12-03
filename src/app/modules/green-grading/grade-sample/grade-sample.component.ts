@@ -228,7 +228,7 @@ export class GradeSampleComponent implements OnInit {
                 : filteredData.filter(
                       (item) =>
                           item.estate_name.toLowerCase().indexOf(this.term.toLowerCase()) >= 0 ||
-                          item.cupping_report_id.toString().indexOf(this.term.toLowerCase()) >= 0,
+                          item.external_sample_id.toString().indexOf(this.term.toLowerCase()) >= 0,
                   );
     }
 
