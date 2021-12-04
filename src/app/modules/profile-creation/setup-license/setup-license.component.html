@@ -122,7 +122,7 @@
                     "
                 >
                     <div class="file-name" *ngIf="file || certificationArray[editingRowIndex]?.public_url">
-                        <span class="fnt-muli fnt-600 fnt-14 text-clr588 lh-normal mb-0 text-overflow-ellipsis">
+                        <span class="fnt-muli fnt-600 fnt-14 text-clr588 lh-normal mb-0 ellipsis">
                             {{ file?.name || certificationArray[editingRowIndex]?.public_url.split('/').pop() }}
                         </span>
                         <i class="pi pi-times fnt-14 text-clr588 ml-25 cursor-pointer" (click)="onRemoveFile()"></i>
