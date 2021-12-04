@@ -409,25 +409,13 @@ export class UserService extends ApiService {
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    getCompanyCertificates(roaster_id: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/certificates',
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+    getCompanyCertificates() {
+        return this.postWithOrg(this.orgPostUrl, `certificates`);
     }
 
     // API Function Name : Certificates
-    // API Description: This API call helps to get the Certificates.
-
-    deleteCompanyCertificate(roaster_id: any, certificateId: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/certificates/' + certificateId,
-            method: 'DELETE',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgDeleteUrl, data);
+    deleteCompanyCertificate(certificateId: number) {
+        return this.postWithOrg(this.orgDeleteUrl, `certificates/${certificateId}`, 'DELETE');
     }
 
     attachRoasterImage(userId: any, fileId: any, token) {

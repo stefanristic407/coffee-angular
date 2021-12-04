@@ -267,7 +267,7 @@ export class AboutRoasteryComponent implements OnInit {
 
     getCertificates() {
         if (this.aclService.checkPermission('brand-profile-management')) {
-            this.userService.getCompanyCertificates(this.roasterId).subscribe((result: any) => {
+            this.userService.getCompanyCertificates().subscribe((result: any) => {
                 if (result.success === true) {
                     this.certificatesArray = result.result;
                 } else {
@@ -283,7 +283,7 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     deleteCertificate(certificateId: any) {
-        this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe((response: any) => {
+        this.userService.deleteCompanyCertificate(certificateId).subscribe((response: any) => {
             if (response.success) {
                 this.toastrService.success('The selected Certificate has been successfully deleted');
                 this.getCertificates();

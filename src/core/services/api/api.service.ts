@@ -1,16 +1,17 @@
 export class Api {}
 import { HttpClient } from '@angular/common/http';
-import { ApiResponse, RequestDto } from '@models';
+import { OrganizationSlug, OrganizationType } from '@enums';
 import { environment } from '@env/environment';
-import { Observable } from 'rxjs';
+import { ApiResponse, RequestDto } from '@models';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs';
 import { AuthService } from '../auth';
-import { OrganizationType } from '@enums';
 
 type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export class ApiService {
     readonly orgType = OrganizationType.ROASTER;
+    readonly orgSlug = OrganizationSlug.ROASTER;
     protected certificatesUrl: string;
     protected deleteUrl: string;
     protected fileUploadUrl: string;
