@@ -47,6 +47,7 @@ export class PrimeTableService {
     public end_date: any;
     public query: any;
     public searchQuery: any;
+    public type: any;
     public customer_type: any;
     public isMarkedForSale = false;
     constructor(public http: HttpClient, public cookieService: CookieService, private authService: AuthService) {
@@ -128,6 +129,10 @@ export class PrimeTableService {
 
         if (this.customer_type) {
             postData = { ...postData, ...{ customer_type: this.customer_type } };
+        }
+
+        if (this.type) {
+            postData = { ...postData, ...{ type: this.type } };
         }
 
         if (this.isMarkedForSale) {
