@@ -159,7 +159,10 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
             if (data.success) {
                 this.roastProfileArray = (data.result || []).map((item: any) => {
                     return {
-                        label: item.roast_profile_name,
+                        label:
+                            item.roast_profile_name.length > 65
+                                ? item.roast_profile_name.slice(0, 65) + '...'
+                                : item.roast_profile_name,
                         value: item.id,
                     };
                 });
