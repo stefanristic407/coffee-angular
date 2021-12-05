@@ -78,17 +78,17 @@ export class InviteNewUserComponent implements OnInit {
                 Promise.all(promises)
                     .then(() => {
                         this.toastrService.success('Invite sent successfully');
-                        this.router.navigate(['/team-management/team-members']);
+                        this.router.navigate(['/team-management/team-members/pending-invitations']);
                     })
                     .catch(() => {
                         this.toastrService.error('Error while sending Invite to new user');
                     });
             } else {
-                this.toastrService.error('Please assign a role to new user');
+                this.toastrService.error(this.translator.instant('please_assign_role_to_invite'));
             }
         } else {
             this.userDetails.userForm.markAllAsTouched();
-            this.toastrService.error('Please fill correct data');
+            this.toastrService.error(this.translator.instant('please_check_form_data'));
         }
     }
 
