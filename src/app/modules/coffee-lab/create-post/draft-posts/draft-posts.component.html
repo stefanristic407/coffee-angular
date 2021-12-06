@@ -7,7 +7,10 @@
         styleClass="text-clr588 bg-white"
         [placeholder]="'sort_by' | translate"
         class="col-md-5 col-12 pl-0"
-    ></p-dropdown>
+    >
+        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+    </p-dropdown>
 </div>
 <div class="px-3">
     <div>
@@ -46,7 +49,7 @@
                         [innerHTML]="draft.post_title"
                     ></div>
                     <div class="fnt-12 fnt-muli text-clr588">
-                        {{ 'draft_saved' | translate }}: {{ draft.created_at | amTimeAgo | dateAgoReplace }}
+                        {{ 'draft_saved' | translate }}: {{ draft.created_at | amTimeAgo: true | dateAgoReplace: true }}
                     </div>
                 </div>
             </div>

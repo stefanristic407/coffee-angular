@@ -100,7 +100,7 @@
             <label
                 >{{ 'description' | translate }}
                 <span class="pull-right text-clr588">
-                    {{ recipeForm.get('description')?.value | wordCount }}/60 words
+                    {{ recipeForm.get('description')?.value | wordCount }}/60 {{ 'words' | translate }}
                 </span></label
             >
             <textarea
@@ -438,7 +438,7 @@
         <div *ngIf="!isTranslate" class="d-flex col-12 align-items-center my-4 pl-0 pl-md-3">
             <p-checkbox
                 [binary]="true"
-                label="Allow translations by other authors"
+                label="{{ 'allow_translations_by_other_authors' | translate }}"
                 formControlName="allow_translation"
             ></p-checkbox>
             <app-info-tooltip
