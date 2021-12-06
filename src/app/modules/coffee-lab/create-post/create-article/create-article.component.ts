@@ -47,7 +47,6 @@ export class CreateArticleComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private toaster: ToastrService,
-        private globals: GlobalsService,
     ) {}
 
     ngOnInit(): void {

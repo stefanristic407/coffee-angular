@@ -26,54 +26,55 @@ export class TranslationDropdownComponent implements OnInit {
     ngOnInit(): void {}
 
     onChangeTranslate(event: any): void {
-        this.coffeeLabService.forumLanguage.next(event.value.language);
-        this.isToastCalled.emit(true);
-        if (this.isPostType.isMyPost) {
-            if (this.forumType === 'question') {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
-                    queryParams: { isMyPost: this.isPostType.isMyPost },
-                });
+        this.coffeeLabService.updateLang(event.value.language).then(() => {
+            this.isToastCalled.emit(true);
+            if (this.isPostType.isMyPost) {
+                if (this.forumType === 'question') {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                        queryParams: { isMyPost: this.isPostType.isMyPost },
+                    });
+                } else {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                        queryParams: { isMyPost: this.isPostType.isMyPost },
+                    });
+                }
+            } else if (this.isPostType.isSavedPost) {
+                if (this.forumType === 'question') {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                        queryParams: { isSavedPost: this.isPostType.isSavedPost },
+                    });
+                } else {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                        queryParams: { isSavedPost: this.isPostType.isSavedPost },
+                    });
+                }
+            } else if (this.isPostType.isAssignedToMe) {
+                if (this.forumType === 'question') {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                        queryParams: { isAssignedToMe: this.isPostType.isAssignedToMe },
+                    });
+                } else {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                        queryParams: { isAssignedToMe: this.isPostType.isAssignedToMe },
+                    });
+                }
+            } else if (this.isPostType.isMyAnswer) {
+                if (this.forumType === 'question') {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
+                        queryParams: { isMyAnswer: this.isPostType.isMyAnswer },
+                    });
+                } else {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
+                        queryParams: { isMyAnswer: this.isPostType.isMyAnswer },
+                    });
+                }
             } else {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
-                    queryParams: { isMyPost: this.isPostType.isMyPost },
-                });
+                if (this.forumType === 'question') {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`]);
+                } else {
+                    this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`]);
+                }
             }
-        } else if (this.isPostType.isSavedPost) {
-            if (this.forumType === 'question') {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
-                    queryParams: { isSavedPost: this.isPostType.isSavedPost },
-                });
-            } else {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
-                    queryParams: { isSavedPost: this.isPostType.isSavedPost },
-                });
-            }
-        } else if (this.isPostType.isAssignedToMe) {
-            if (this.forumType === 'question') {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
-                    queryParams: { isAssignedToMe: this.isPostType.isAssignedToMe },
-                });
-            } else {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
-                    queryParams: { isAssignedToMe: this.isPostType.isAssignedToMe },
-                });
-            }
-        } else if (this.isPostType.isMyAnswer) {
-            if (this.forumType === 'question') {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`], {
-                    queryParams: { isMyAnswer: this.isPostType.isMyAnswer },
-                });
-            } else {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`], {
-                    queryParams: { isMyAnswer: this.isPostType.isMyAnswer },
-                });
-            }
-        } else {
-            if (this.forumType === 'question') {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.question_slug}`]);
-            } else {
-                this.router.navigate([`/coffee-lab/${this.forumType}s/${event.value.slug ?? event.value.id}`]);
-            }
-        }
+        });
     }
 }
