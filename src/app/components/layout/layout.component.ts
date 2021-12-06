@@ -1,28 +1,27 @@
-import { AfterViewInit, Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { fromEvent, interval } from 'rxjs';
-import { filter, takeUntil, debounce, debounceTime } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
+import { DestroyableComponent } from '@base-components';
+import { OrganizationType } from '@enums';
+import { environment } from '@env/environment';
+import { ApiResponse, UserPreference } from '@models';
 import {
     AclService,
     AuthService,
     ChatHandlerService,
-    CoffeeLabService,
     GlobalsService,
-    I18NService,
     IdmService,
     MenuService,
     RouterService,
     SocketService,
+    StartupService,
     UserService,
 } from '@services';
-import { DestroyableComponent } from '@base-components';
-import { OrganizationType } from '@enums';
-import { environment } from '@env/environment';
+import { ConfirmComponent } from '@shared';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@app/shared';
-import { ApiResponse, UserPreference } from '@models';
+import { fromEvent, interval } from 'rxjs';
+import { debounce, debounceTime, filter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-layout',
@@ -53,14 +52,13 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     orgTermsAccepted: boolean;
 
     constructor(
-        private coffeeLabService: CoffeeLabService,
         private cookieService: CookieService,
         private dialogService: DialogService,
-        private i18NService: I18NService,
         private idmService: IdmService,
         private router: Router,
         private routerService: RouterService,
         private socket: SocketService,
+        private startupService: StartupService,
         private toastrService: ToastrService,
         private userService: UserService,
         public aclService: AclService,
@@ -191,9 +189,8 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         this.userService.getUserDetail().subscribe((res: any) => {
             if (res.success) {
                 this.userTermsAccepted = res.result.terms_accepted;
-                this.coffeeLabService.forumLanguage.next(res.result.language || 'en');
+                this.startupService.load(res.result.language || 'en');
                 this.authService.userSubject.next(res.result);
-                this.i18NService.use(res.result.language || 'en');
             }
             resolve();
         });

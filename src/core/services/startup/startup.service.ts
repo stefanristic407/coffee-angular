@@ -16,26 +16,33 @@ export class StartupService {
         private httpClient: HttpClient,
     ) {}
 
-    load(): Promise<any> {
+    load(language?): Promise<any> {
         return new Promise((resolve) => {
-            zip(this.httpClient.get(`${environment.apiURL}/translations/${this.i18n.currentLang}/roaster`))
-                .pipe(
-                    catchError((res) => {
-                        console.warn(`StartupService.load: Network request failed`, res);
-                        resolve(null);
-                        return [];
-                    }),
-                )
-                .subscribe(
-                    ([langData]) => {
-                        this.translate.setTranslation(this.i18n.currentLang, langData);
-                        this.globals.languageJson = langData;
-                    },
-                    () => {},
-                    () => {
-                        resolve(null);
-                    },
-                );
+            const oldLanguage = this.i18n.currentLang;
+            if (language) {
+                this.i18n.use(language);
+            }
+
+            if (!language || oldLanguage !== this.i18n.currentLang) {
+                zip(this.httpClient.get(`${environment.apiURL}/translations/${this.i18n.currentLang}/roaster`))
+                    .pipe(
+                        catchError((res) => {
+                            console.warn(`StartupService.load: Network request failed`, res);
+                            resolve(null);
+                            return [];
+                        }),
+                    )
+                    .subscribe(
+                        ([langData]) => {
+                            this.translate.setTranslation(this.i18n.currentLang, langData);
+                            this.globals.languageJson = langData;
+                        },
+                        () => {},
+                        () => {
+                            resolve(null);
+                        },
+                    );
+            }
         });
     }
 }

@@ -26,7 +26,11 @@ export class CoffeeRecipesViewComponent extends DestroyableComponent implements 
         { label: 'yes', value: true },
         { label: 'no', value: false },
     ];
-    levels: any[] = [];
+    levels = [
+        { label: 'expertise_easy', value: 'expertise_easy' },
+        { label: 'expertise_intermediate', value: 'expertise_intermediate' },
+        { label: 'expertise_hard', value: 'expertise_hard' },
+    ];
     orderList: any[] = [
         { label: 'latest', value: 'latest' },
         { label: 'oldest', value: 'oldest' },
@@ -95,67 +99,6 @@ export class CoffeeRecipesViewComponent extends DestroyableComponent implements 
                     item.description = this.coffeeLabService.getJustText(item.description);
                     return item;
                 });
-                if (this.coffeeLabService.currentForumLanguage === 'en') {
-                    this.levels = [
-                        {
-                            label: 'Easy',
-                            value: 'Easy',
-                        },
-                        {
-                            label: 'Intermediate',
-                            value: 'Intermediate',
-                        },
-                        {
-                            label: 'Hard',
-                            value: 'Hard',
-                        },
-                    ];
-                } else if (this.coffeeLabService.currentForumLanguage === 'sv') {
-                    this.levels = [
-                        {
-                            label: 'Lätt',
-                            value: 'lätt',
-                        },
-                        {
-                            label: 'Mellanliggande',
-                            value: 'Mellanliggande',
-                        },
-                        {
-                            label: 'Hård',
-                            value: 'Hård',
-                        },
-                    ];
-                } else if (this.coffeeLabService.currentForumLanguage === 'pt') {
-                    this.levels = [
-                        {
-                            label: 'Fácil',
-                            value: 'Fácil',
-                        },
-                        {
-                            label: 'Intermediário',
-                            value: 'Intermediário',
-                        },
-                        {
-                            label: 'Duro',
-                            value: 'Duro',
-                        },
-                    ];
-                } else if (this.coffeeLabService.currentForumLanguage === 'es') {
-                    this.levels = [
-                        {
-                            label: 'Fácil',
-                            value: 'Fácil',
-                        },
-                        {
-                            label: 'Intermedio',
-                            value: 'Intermedio',
-                        },
-                        {
-                            label: 'Duro',
-                            value: 'Duro',
-                        },
-                    ];
-                }
                 this.totalRecords = res.result_info.total_count;
             } else {
                 this.toastService.error('Cannot get Recipes data');

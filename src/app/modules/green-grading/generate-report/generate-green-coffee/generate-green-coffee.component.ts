@@ -1,10 +1,11 @@
-import { Component, EventEmitter, OnInit, OnChanges, Output, Input } from '@angular/core';
-import { RoasterService, GreenGradingService, AuthService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { PrimeNGConfig } from 'primeng/api';
+import { AuthService, GreenGradingService, RoasterService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-
+import { PrimeNGConfig } from 'primeng/api';
+import { combineLatest } from 'rxjs';
+import { take } from 'rxjs/operators';
 interface Cupping {
     name: string;
     key: string;
@@ -39,6 +40,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     cuppingItems: Cupping[];
     filteredUsers: any[];
     isEditable = true;
+    evaluatorIds = [];
 
     constructor(
         private roasterService: RoasterService,
@@ -58,7 +60,6 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
             key: '',
         };
         this.primengConfig.ripple = true;
-        this.getUsersList();
 
         this.cuppingItems = [
             {
@@ -86,13 +87,30 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     }
 
     evaluatorsList() {
-        this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingReportId).subscribe((response: any) => {
-            if (response.success === true) {
-                this.evaluatorsListArray = response.result;
-                this.evaluatorData = response.result.find((ele) => ele.is_primary === true);
-                this.evaluatorName = this.evaluatorData.evaluator_name;
-            }
-        });
+        const options = {
+            per_page: 1000,
+        };
+        combineLatest([
+            this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingReportId),
+            this.roasterService.getOrgUsers(options),
+        ])
+            .pipe(take(1))
+            .subscribe(([response, data]: [any, any]) => {
+                if (response.success) {
+                    this.evaluatorsListArray = response.result;
+                    this.evaluatorsListArray.map((item) => {
+                        this.evaluatorIds.push(item.evaluator_id);
+                    });
+                    this.evaluatorData = response.result.find((ele) => ele.is_primary);
+                    this.evaluatorName = this.evaluatorData.evaluator_name;
+                }
+
+                if (data.success) {
+                    this.usersList = data.result.filter((element) => !this.evaluatorIds.includes(element.id));
+                } else {
+                    this.toastrService.error('Error while fetching users list');
+                }
+            });
     }
 
     singleCuppingData() {
@@ -110,19 +128,6 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
                     }
                 });
         }
-    }
-
-    getUsersList() {
-        const options = {
-            per_page: 1000,
-        };
-        this.roasterService.getOrgUsers(options).subscribe((data: any) => {
-            if (data.success === true) {
-                this.usersList = data.result;
-            } else {
-                this.toastrService.error('Error while fetching users list');
-            }
-        });
     }
 
     filterUsers(event) {

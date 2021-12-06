@@ -61,15 +61,26 @@ export class LikeDividerComponent implements OnInit {
         }
     }
 
-    onSave(): void {
-        this.coffeeLabService.saveForum('question', this.question.id).subscribe((res: any) => {
-            if (res.success) {
-                this.question.is_saved = true;
-                this.toastService.success('Successfully saved');
-            } else {
-                this.toastService.error('Error while save post');
-            }
-        });
+    onSave(isSaved: boolean): void {
+        if (!isSaved) {
+            this.coffeeLabService.saveForum('question', this.question.id).subscribe((res: any) => {
+                if (res.success) {
+                    this.question.is_saved = true;
+                    this.toastService.success('Successfully saved');
+                } else {
+                    this.toastService.error('Error while save post');
+                }
+            });
+        } else {
+            this.coffeeLabService.unSaveFormByType('question', this.question.id).subscribe((res: any) => {
+                if (res.success) {
+                    this.toastService.success(`You have removed the question successfully from saved posts.`);
+                    this.question.is_saved = false;
+                } else {
+                    this.toastService.error(`Failed to remmove a question from saved posts.`);
+                }
+            });
+        }
     }
 
     onJoin() {
@@ -97,16 +108,5 @@ export class LikeDividerComponent implements OnInit {
             }
         }
         this.commentBoxClicked.emit(true);
-    }
-
-    onSameSave(): void {
-        this.coffeeLabService.unSaveFormByType('question', this.question.id).subscribe((res: any) => {
-            if (res.success) {
-                this.toastService.success(`You have removed the question successfully from saved posts.`);
-                this.question.is_saved = false;
-            } else {
-                this.toastService.error(`Failed to remmove a question from saved posts.`);
-            }
-        });
     }
 }

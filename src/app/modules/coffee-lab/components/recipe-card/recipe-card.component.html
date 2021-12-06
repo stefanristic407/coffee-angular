@@ -1,7 +1,7 @@
 <div class="coffee-item text-non-underline" (click)="openRecipe(recipe.slug)">
     <div class="w-100 position-relative">
         <img [src]="recipe.cover_image_url" class="w-100" [alt]="recipe?.name" />
-        <span class="expertise fnt-12"> {{ recipe.expertise }} </span>
+        <span class="expertise fnt-12"> {{ recipe.expertise | translate }} </span>
     </div>
     <div class="m-3 m-md-4">
         <div class="d-flex justify-content-between mb-4">
