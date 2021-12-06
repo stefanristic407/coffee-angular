@@ -242,3 +242,10 @@ label {
         }
     }
 }
+
+.check-btn {
+    height: 50px;
+    @media screen and (max-width: 767px) {
+        height: 1.98rem;
+    }
+}

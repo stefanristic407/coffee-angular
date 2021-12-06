@@ -1,11 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { Location } from '@angular/common';
-import { AuthService, UserService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CertificateType, OrganizationSlug } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { UserService } from '@services';
+import { checkFile } from '@utils';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-setup-license',
@@ -13,15 +12,7 @@ import { CertificateType, OrganizationSlug } from '@enums';
     styleUrls: ['./setup-license.component.scss'],
 })
 export class SetupLicenseComponent implements OnInit {
-    breadItems = [
-        { label: 'Home', routerLink: '/' },
-        { label: 'Roaster Profile', routerLink: '/roastery-profile' },
-        { label: 'Add certificate' },
-    ];
-
     @ViewChild('myFileInput') myFileInput: ElementRef;
-    onboardingType = 'roaster';
-    roasterId: any;
     public certificationArray: any = [];
     file: File;
     certificateList: any[];
@@ -31,16 +22,11 @@ export class SetupLicenseComponent implements OnInit {
     yearList: any[] = [];
 
     constructor(
-        private userService: UserService,
-        private toastrService: ToastrService,
-        public globals: GlobalsService,
-        private cookieService: CookieService,
         private route: ActivatedRoute,
-        public location: Location,
-        private authService: AuthService,
-    ) {
-        this.roasterId = this.authService.getOrgId();
-    }
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        private userService: UserService,
+    ) {}
 
     ngOnInit(): void {
         this.getCertificateTypes();
@@ -65,7 +51,7 @@ export class SetupLicenseComponent implements OnInit {
                 this.certificateList = this.certificateList.filter((item) => {
                     return (
                         item.tags &&
-                        item.tags.includes(OrganizationSlug.ROASTER) &&
+                        item.tags.includes(this.userService.orgSlug) &&
                         item.type !== CertificateType.EraOfWe
                     );
                 });
@@ -77,14 +63,14 @@ export class SetupLicenseComponent implements OnInit {
         const files: FileList = event.target.files;
         if (files.length > 0) {
             const file = files[0];
-            const fsize = file.size;
-            const fileSize = Math.round(fsize / 1024);
-            // The size of the file.
-            if (fileSize >= 2048) {
-                this.toastrService.error('File too big, please select a file smaller than 2mb');
-            } else {
-                this.file = file;
-            }
+            checkFile(file, 2).subscribe((res) => {
+                if (res) {
+                    this.toastrService.error(res.message);
+                    event.target.value = '';
+                } else {
+                    this.file = file;
+                }
+            });
         }
     }
 
@@ -96,7 +82,7 @@ export class SetupLicenseComponent implements OnInit {
 
     onDelete(index) {
         const certificateId = this.certificationArray[index].id;
-        this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe((res: any) => {
+        this.userService.deleteCompanyCertificate(certificateId).subscribe((res: any) => {
             if (res.success) {
                 this.certificationArray.splice(index, 1);
                 this.editingRowIndex = -2;
@@ -115,10 +101,10 @@ export class SetupLicenseComponent implements OnInit {
     }
 
     getCertificates() {
-        this.userService.getCompanyCertificates(this.roasterId).subscribe((res: any) => {
+        this.userService.getCompanyCertificates().subscribe((res: any) => {
             if (res.success) {
                 const editId = this.route.snapshot.params?.id || '';
-                this.certificationArray = res.result;
+                this.certificationArray = res.result || [];
                 if (editId) {
                     this.certificationArray.map((item, index) => {
                         if (item.id.toString() === editId) {
@@ -132,13 +118,13 @@ export class SetupLicenseComponent implements OnInit {
 
     onSave() {
         if (!this.selectedCertification || !this.selectedCertificationYear) {
-            this.toastrService.error('Please fill all required fields.');
+            this.toastrService.error(this.translator.instant('please_check_form_data'));
             return;
         }
         const certification = this.certificateList.find((item) => item.id === this.selectedCertification);
         if (this.editingRowIndex === -1) {
             if (!this.file) {
-                this.toastrService.error('Please fill all required fields.');
+                this.toastrService.error(this.translator.instant('please_check_form_data'));
                 return;
             }
             const formData: FormData = new FormData();
@@ -146,12 +132,12 @@ export class SetupLicenseComponent implements OnInit {
             formData.append('certificate_type_id', certification.id);
             formData.append('name', certification.type);
             formData.append('year', this.selectedCertificationYear.toString());
-            formData.append('api_call', `/ro/${this.roasterId}/certificates`);
-            formData.append('token', this.authService.token);
+            formData.append('api_call', `${this.userService.apiCallPrefix}/certificates`);
+            formData.append('token', this.userService.token);
             formData.append('method', 'POST');
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
                 if (res.success) {
-                    this.toastrService.success('Certificates has been added Successfully');
+                    this.toastrService.success('Certificates has been added successfully');
                     const newRow = {
                         id: res.result.id,
                         certificate_type_id: certification.id,
@@ -173,19 +159,17 @@ export class SetupLicenseComponent implements OnInit {
             if (this.file) {
                 formData.append('file', this.file);
             }
+            const certId = this.certificationArray[this.editingRowIndex].id;
             formData.append('certificate_type_id', this.certificationArray[this.editingRowIndex].certificate_type_id);
-            formData.append('certificate_id', this.certificationArray[this.editingRowIndex].id);
+            formData.append('certificate_id', certId);
             formData.append('name', certification.type);
             formData.append('year', this.selectedCertificationYear.toString());
-            formData.append(
-                'api_call',
-                `/ro/${this.roasterId}/certificates/${this.certificationArray[this.editingRowIndex].id}`,
-            );
-            formData.append('token', this.authService.token);
+            formData.append('api_call', `${this.userService.apiCallPrefix}/certificates/${certId}`);
+            formData.append('token', this.userService.token);
             formData.append('method', 'PUT');
             this.userService.uploadCertificate(formData).subscribe((res: any) => {
                 if (res.success) {
-                    this.toastrService.success('Certificates has been updated Successfully');
+                    this.toastrService.success('Certificates has been updated successfully');
                     this.certificationArray[this.editingRowIndex] = {
                         ...this.certificationArray[this.editingRowIndex],
                         certificate_type_id: certification.id,

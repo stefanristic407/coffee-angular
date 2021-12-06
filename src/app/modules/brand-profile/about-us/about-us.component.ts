@@ -234,7 +234,7 @@ export class AboutUsComponent implements OnInit {
     }
 
     getCertificates() {
-        this.userService.getCompanyCertificates(this.roasterId).subscribe((res: any) => {
+        this.userService.getCompanyCertificates().subscribe((res: any) => {
             if (res.success) {
                 this.certificates = res.result;
             }

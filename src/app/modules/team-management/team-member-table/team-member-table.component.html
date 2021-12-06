@@ -148,5 +148,5 @@
 <button class="btn-stroked d-none d-md-block mt-4" *ngIf="isAddMember" (click)="location.back()">Cancel</button>
 
 <ng-template #popTpl let-rowData="rowData">
-    <app-action-menu [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
+    <app-action-menu *ngIf="rowData.id !== loginId" [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
 </ng-template>

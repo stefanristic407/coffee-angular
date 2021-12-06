@@ -15,7 +15,7 @@ import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { AddressType, OrderType, OrganizationType } from '@enums';
 import { environment } from '@env/environment';
-import { PriceTier } from '@models';
+import { GcOrderSettings, PriceTier } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, CommonService, ResizeService, RoasterService, UserService } from '@services';
 import { ConfirmComponent, SentenceCasePipe } from '@shared';
@@ -46,7 +46,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     prebookOrderId = 0;
     infoForm: FormGroup;
     addressForm: FormGroup;
-    orderSettings: any;
+    orderSettings: GcOrderSettings;
     isLoaded = false;
     orderPlaced = false;
     createdOrder: any;
@@ -449,7 +449,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     }
 
     getOrderSettings(resolve: any = null) {
-        this.roasterService.getOrderSettings().subscribe((res: any) => {
+        this.roasterService.getGcOrderSettings().subscribe((res) => {
             if (res.success) {
                 this.orderSettings = res.result;
             }

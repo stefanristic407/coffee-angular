@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment-timezone';
-import { AuthService, GlobalsService, I18NService, UserService } from '@services';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { APP_LANGUAGES, LANGUAGES } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, StartupService, UserService } from '@services';
+import * as moment from 'moment-timezone';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -23,9 +24,9 @@ export class LanguageRegionComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private i18n: I18NService,
+        private startupService: StartupService,
+        private translator: TranslateService,
         private userService: UserService,
-        public globals: GlobalsService,
         public location: Location,
     ) {
         this.roasterId = this.authService.getOrgId();
@@ -42,9 +43,9 @@ export class LanguageRegionComponent implements OnInit {
         this.getUserDetail();
         this.getConverseLanguages();
         this.breadcrumbItems = [
-            { label: this.globals.languageJson?.home, routerLink: '/dashboard' },
-            { label: this.globals.languageJson?.account_settings, routerLink: '../../account-settings' },
-            { label: this.globals.languageJson?.language_region },
+            { label: this.translator.instant('home'), routerLink: '/dashboard' },
+            { label: this.translator.instant('account_settings'), routerLink: '../../account-settings' },
+            { label: this.translator.instant('language_region') },
         ];
     }
 
@@ -90,7 +91,7 @@ export class LanguageRegionComponent implements OnInit {
 
     onChangeUserInfo(): void {
         this.userService.updateUserProfile(this.userInfo).subscribe();
-        this.i18n.use(this.userInfo.language);
+        this.startupService.load(this.userInfo.language);
     }
 
     handleSaveConverseLanguages(): void {
