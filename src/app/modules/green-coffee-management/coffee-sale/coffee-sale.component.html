@@ -1,181 +1,112 @@
 <div class="main-block">
-    <div *ngIf="loaded; else loading">
-        <div class="d-md-none">
-            <app-back-link [defaultBackTo]="'/green-coffee-management/procured-coffee/' + orderID"></app-back-link>
-        </div>
-        <div class="overflow-auto flex-nowrap breadCrumb d-none d-md-block">
-            <p-breadcrumb [model]="breadItems"></p-breadcrumb>
-        </div>
-
-        <section class="mt-4 mt-md-475">
-            <div class="row w-100 ml-0">
-                <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">Order #{{ orderDetails?.id }}</h1>
-            </div>
-            <div class="mb-3 text-clr588 fnt-14 fnt-normal">
-                Manage the price, quantity & delivery charges of coffee marked for sale
-            </div>
-            <div *ngIf="orderDetails" class="mt-35 mt-md-5">
-                <div class="fnt-16 fnt-md-18 fnt-bold mb-2 d-none d-md-block">
-                    {{ 'green_coffee_details' | translate }}
+    <div *ngIf="loaded; else loading" [formGroup]="coffeeSaleForm" novalidate>
+        <section class="row v-gutter-24 align-items-end">
+            <div class="col-xl-9">
+                <div class="breadcrumb-mb">
+                    <div class="d-md-none"><app-back-link (handleBack)="onCancel()"></app-back-link></div>
+                    <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
                 </div>
-                <p-table
-                    #myTable
-                    [value]="tableValue"
-                    [columns]="tableColumns"
-                    dataKey="id"
-                    [showCurrentPageReport]="false"
-                    [paginator]="false"
-                    [lazy]="true"
-                    [responsive]="true"
-                    [scrollable]="isTablet$ | async"
-                >
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th *ngFor="let col of columns" [style.width]="col.width ? col.width + '%' : '30%'">
-                                <span>{{ col.header | translate }}</span>
-                                <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-columns="columns">
-                        <tr>
-                            <td
-                                *ngFor="let col of columns"
-                                [ngSwitch]="col.field"
-                                [style.width]="col.width ? col.width + '%' : '30%'"
-                                [ngClass]="col.field === 'order_id' && (isMobile$ | async) ? 'border-none pb-0' : ''"
-                            >
-                                <span *ngIf="col.field !== 'order_id'" class="p-column-title">{{
-                                    col.header | translate
-                                }}</span>
-                                <ng-container
-                                    *ngSwitchCase="'order_id'"
-                                    class="d-none d-md-inline-block text-clr588 fnt-600"
-                                >
-                                    <div class="d-none d-md-block">{{ rowData['id'] }}</div>
-                                    <div class="d-md-none">
-                                        <div class="fnt-16 fnt-bold">
-                                            {{ 'green_coffee_details' | translate }}
-                                        </div>
-                                    </div>
-                                </ng-container>
-                                <span *ngSwitchCase="'origin'">{{ rowData[col.field] | country }}</span>
-                                <span *ngSwitchCase="'price'"
-                                    >$ {{ rowData['unit_price'] }}/{{ rowData['quantity_unit'] || 'kg' }}</span
-                                >
-                                <span *ngSwitchCase="'quantity'">
-                                    {{ rowData['quantity_count'] * rowData['quantity'] }}
-                                    {{ rowData['quantity_unit'] || 'kg' }}
-                                </span>
-                                <span *ngSwitchCase="'remaining_total_quantity'">
-                                    {{ rowData['remaining_total_quantity'] }}
-                                    {{ rowData['quantity_unit'] || 'kg' }}
-                                </span>
-                                <span *ngSwitchDefault>{{ rowData[col.field] || '--' }}</span>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
+                <div class="fnt-16 fnt-md-18 fnt-bold">{{ coffeeSaleForm?.value?.name || 'NA' }}</div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="bg-fa br-4 px-4 py-3">
+                    <ng-container *ngIf="!showDropdown">
+                        <p class="fnt-semi-bold text-clr588 mb-2">{{ 'current_status' | translate }}</p>
+                        <span class="fnt-bold">{{ statusLabel }}</span>
+                        <span class="brown-cta float-right" (click)="showDropdown = true">{{
+                            'edit_status' | translate
+                        }}</span>
+                    </ng-container>
+                    <ng-container *ngIf="showDropdown">
+                        <div class="row align-items-end">
+                            <div class="col-9 sewn-form-field mb-0">
+                                <p-dropdown [options]="stockTypeArray" formControlName="status"></p-dropdown>
+                                <small *ngIf="coffeeSaleForm.controls['status'].errors?.required" class="p-error">
+                                    {{ 'required' | translate }}
+                                </small>
+                            </div>
+                            <div class="col-3 brown-cta text-right">
+                                <span (click)="updateStatus()">{{ 'save' | translate }}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
             </div>
         </section>
-        <section class="mt-4" [formGroup]="coffeeSaleForm" (ngSubmit)="onSave()" novalidate>
-            <div class="row w-100 border-bottom-primary pb-4 pb-md-3 mx-0">
-                <div class="col-sm-12 col-md-9 col-lg-9 px-0 pt-lg-3">
-                    <h1 class="text-clr334 fnt-16 fnt-md-18 fnt-bold">
-                        {{ 'sale_information' | translate }}
-                    </h1>
-                    <div class="col-12 pull-left p-0 text-clr334 fnt-14 fnt-normal">
-                        Manage the price, quantity & delivery charges of coffee marked for sale
-                    </div>
-                </div>
 
-                <div *ngIf="!showDropdown" class="col-md-3 bg-fa br-4 d-md-none d-lg-block p-3 mt-4 mt-md-0">
-                    <p class="fnt-400 mb-2">{{ 'current_status' | translate }}</p>
-                    <span class="fnt-700">{{ statusLabel | sentencecase }}</span>
-                    <span class="brown-cta float-right" (click)="showDropdown = true">{{
-                        'change_status' | translate
-                    }}</span>
-                </div>
-
-                <div
-                    *ngIf="showDropdown"
-                    class="col-md-3 sewn-form-field bg-fa br-4 d-md-none d-lg-inline p-3 mt-4 mt-md-0"
-                >
-                    <p-dropdown
-                        [options]="stockTypeArray"
-                        placeholder="In Stock"
-                        [style]="{ width: '75%' }"
-                        formControlName="status"
-                        styleClass="bg-white"
-                    ></p-dropdown>
-                    <small *ngIf="coffeeSaleForm.controls['status'].errors?.required" class="p-error">
-                        {{ 'required' | translate }}
-                    </small>
-                    <span (click)="updateStatus()" class="brown-cta mt-4 pull-right ml-auto">{{
-                        'save' | translate
-                    }}</span>
-                </div>
+        <section *ngIf="orderDetails" class="border-main br-4 pt-3 pt-md-4 pb-3 pb-md-0 px-3 px-md-4 mt-4">
+            <div class="mb-4">
+                <div class="fnt-16 fnt-md-18 fnt-bold mb-2">{{ 'green_coffee_details' | translate }}</div>
+                <div>{{ 'green_coffee_details_desp' | translate }}</div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div *ngIf="!showDropdown" class="col-md-12 bg-fa br-4 p-4 d-none d-md-block d-lg-none mt-4">
-                        <p class="fnt-24 fnt-play fnt-normal text-clr02 m-0 pb-2">Availability Status</p>
-                        <p class="fnt-12 fnt-md-14 fnt-muli fnt-600 text-clr334 m-0 pb-3">
-                            Maintain the status of your product and keep the roasters updated
-                        </p>
-                        <p class="fnt-600 mb-2">{{ 'current_status' | translate }}</p>
-                        <span class="fnt-md-18 fnt-bold">{{ statusLabel | sentencecase }}</span>
-                        <span class="brown-cta float-right" (click)="showDropdown = true"
-                            >{{ 'change_status' | translate }}
-                        </span>
-                    </div>
+            <p-table
+                #myTable
+                [value]="tableValue"
+                [columns]="tableColumns"
+                [scrollable]="isTablet$ | async"
+                styleClass="p-datatable-responsive-single border-none mx-md-n2"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [style.width]="col.width ? col.width + '%' : '30%'">
+                            <span>{{ col.header | translate }}</span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td
+                            *ngFor="let col of columns"
+                            [ngSwitch]="col.field"
+                            [style.width]="col.width && (isTablet$ | async) ? col.width + '%' : ''"
+                        >
+                            <span *ngIf="col.field !== 'order_id'" class="p-column-title">{{
+                                col.header | translate
+                            }}</span>
+                            <span *ngSwitchCase="'origin'">{{ rowData[col.field] | country }}</span>
+                            <span *ngSwitchCase="'quantity'"
+                                >{{ rowData['quantity_count'] }} {{ rowData['quantity_type'] | sentencecase }}/{{
+                                    rowData['quantity']
+                                }}
+                                {{ rowData['quantity_unit'] || 'kg' }}
+                            </span>
+                            <span *ngSwitchCase="'unit_price'"
+                                >${{ rowData[col.field] }}/{{ rowData['quantity_unit'] || 'kg' }}</span
+                            >
+                            <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </section>
 
-                    <div
-                        *ngIf="showDropdown"
-                        class="col-12 sewn-form-field bg-fa br-4 p-25 d-none d-md-inline d-lg-none mt-4"
-                    >
-                        <p-dropdown
-                            [options]="stockTypeArray"
-                            placeholder="In Stock"
-                            [style]="{ width: '75%' }"
-                            formControlName="status"
-                            styleClass="bg-white"
-                        ></p-dropdown>
-                        <small *ngIf="coffeeSaleForm.controls['status'].errors?.required" class="p-error">
-                            {{ 'required' | translate }}
-                        </small>
-                        <span (click)="updateStatus()" class="brown-cta mt-4 pull-right ml-auto">{{
-                            'save' | translate
-                        }}</span>
-                    </div>
-                </div>
+        <section class="border-main br-4 p-3 p-md-4 mt-4">
+            <div class="mb-4">
+                <div class="fnt-16 fnt-md-18 fnt-bold mb-2">{{ 'sale_information' | translate }}</div>
+                <div>{{ 'sale_information_desp' | translate }}</div>
             </div>
-            <div class="row mt-4 pt-lg-2 gutter-16 gutter-lg-24">
+
+            <div class="row gutter-16 gutter-lg-24">
                 <div class="col-md-6 sewn-form-field">
                     <label>{{ 'product_name' | translate }}<span class="star">*</span></label>
-                    <input
-                        type="text"
-                        placeholder="Give a name to this green coffee"
-                        formControlName="name"
-                        pInputText
-                    />
+                    <input [placeholder]="'give_name_to_this_gc' | translate" formControlName="name" pInputText />
                     <small *ngIf="coffeeSaleForm.controls['name'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>Selling price<span class="star">*</span>(in SEK)</label>
-
+                    <label>{{ 'selling_price' | translate }}<span class="star">*</span>(in SEK)</label>
                     <div class="input-and-select gray">
                         <p-inputNumber
-                            mode="decimal"
                             formControlName="price"
-                            placeholder="Enter the selling price"
+                            [placeholder]="'enter_the_selling_price' | translate"
                         ></p-inputNumber>
-                        <p-dropdown [options]="priceTypeArray" placeholder="per kg" formControlName="price_per_unit">
-                        </p-dropdown>
+                        <p-dropdown [options]="priceTypeArray" formControlName="price_per_unit"> </p-dropdown>
                         <small *ngIf="coffeeSaleForm.controls['price'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
+                        </small>
+                        <small *ngIf="coffeeSaleForm.controls['price_per_unit'].errors?.required" class="p-error">
+                            {{ 'please_select_unit' | translate }}
                         </small>
                     </div>
                 </div>
@@ -186,8 +117,8 @@
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="quantity_count"
+                            [placeholder]="'enter_number' | translate"
                             (ngModelChange)="checkQuantity()"
-                            placeholder="Enter a number"
                         ></p-inputNumber>
                         <span class="p-inputgroup-addon gray">{{ coffeeSaleForm.value.quantity_type }}</span>
                         <small *ngIf="coffeeSaleForm.controls['quantity_count'].errors?.required" class="p-error">
@@ -202,9 +133,8 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>Remaining quantity</label>
+                    <label>{{ 'remaining_quantity' | translate }}</label>
                     <input
-                        type="text"
                         [value]="
                             coffeeSaleForm.value.quantity_count
                                 ? (coffeeSaleForm.value.quantity_count | number) +
@@ -217,11 +147,11 @@
                     />
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>Minimum order quantity<span class="star">*</span></label>
+                    <label>{{ 'moq' | translate }}<span class="star">*</span></label>
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="minimum_purchase_quantity"
-                            placeholder="Enter a number"
+                            [placeholder]="'enter_number' | translate"
                         ></p-inputNumber>
                         <span class="p-inputgroup-addon gray">{{ coffeeSaleForm.value.quantity_type }}</span>
                         <small
@@ -230,17 +160,20 @@
                         >
                             {{ 'required' | translate }}
                         </small>
+                        <small *ngIf="coffeeSaleForm.controls['minimum_purchase_quantity'].errors?.min" class="p-error">
+                            {{ 'must_be_greater_than' | translate }} 0
+                        </small>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>Weight / bag<span class="star">*</span></label>
+                    <label>{{ 'weight' | translate }} / bag<span class="star">*</span></label>
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="quantity"
                             (ngModelChange)="checkQuantity()"
-                            placeholder="Enter a number"
+                            [placeholder]="'enter_number' | translate"
                         ></p-inputNumber>
-                        <div class="p-inputgroup-addon gray">{{ coffeeSaleForm.value.quantity_unit }}</div>
+                        <div class="p-inputgroup-addon gray">kg</div>
                         <small *ngIf="coffeeSaleForm.controls['quantity'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
                         </small>
@@ -249,43 +182,26 @@
                         </small>
                     </div>
                 </div>
-            </div>
-            <div class="row gutter-16 gutter-lg-24">
-                <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>VAT role<span class="star">*</span></label>
+                <div class="col-md-6 col-lg-3 sewn-form-field mb-0">
+                    <label>{{ 'vat_role' | translate }}<span class="star">*</span></label>
                     <p-dropdown
                         [options]="vatDetailsArray"
-                        optionLabel="label"
-                        placeholder="Select a transaction role"
-                        [style]="{ width: '100%' }"
+                        [placeholder]="'select_a_vat_role' | translate"
                         formControlName="vat_settings_id"
-                        optionValue="value"
-                        styleClass="with-footer"
-                    >
-                        <ng-template let-vatSetting pTemplate="item">
-                            <span class="dropdown-label">{{ vatSetting.label }}</span>
-                            <div class="footer-wrap" (click)="$event.preventDefault(); $event.stopPropagation()">
-                                <span class="btn-raised w-100" (click)="goToVatManagement()">
-                                    {{ 'add_a_vat_role' | translate }}
-                                </span>
-                            </div>
-                        </ng-template>
-                    </p-dropdown>
+                    ></p-dropdown>
                     <small *ngIf="coffeeSaleForm.controls['vat_settings_id'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
                 </div>
             </div>
+        </section>
 
-            <div class="border-bottom-primary pt-lg-3 pb-4 pb-md-3 mb-45">
-                <h1 class="fnt-16 fnt-md-18 fnt-bold">
-                    {{ 'sample_information' | translate }}
-                </h1>
+        <section class="border-main br-4 p-3 p-md-4 mt-4">
+            <div class="mb-4">
+                <div class="fnt-16 fnt-md-18 fnt-bold mb-2">{{ 'sample_information' | translate }}</div>
                 <div class="row v-gutter-16">
-                    <div class="col-md-8 col-lg-9">
-                        {{ 'sample_information_note' | translate }}
-                    </div>
-                    <div class="col-md-4 col-lg-3 text-right">
+                    <div class="col-md-8">{{ 'sample_information_note' | translate }}</div>
+                    <div class="col-md-4 text-right">
                         <button
                             class="btn-stroked w-mob-100"
                             [routerLink]="['/product-setting']"
@@ -297,9 +213,9 @@
                 </div>
             </div>
 
-            <div class="row gutter-24">
-                <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>{{ 'sample_bags_for_sale' | translate }}<span class="star">*</span></label>
+            <div class="row gutter-24 v-gutter-16 v-gutter-md-24">
+                <div class="col-md-6 col-lg-3 sewn-form-field mb-0">
+                    <label>{{ 'sample_bags_for_sale' | translate }}</label>
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
                             formControlName="sample_quantity_count"
@@ -307,8 +223,8 @@
                             [placeholder]="'enter_a_quantity' | translate"
                         ></p-inputNumber>
                         <span class="p-inputgroup-addon gray">bag</span>
-                        <small *ngIf="coffeeSaleForm.controls.sample_quantity_count.errors?.required" class="p-error">
-                            {{ 'required' | translate }}
+                        <small *ngIf="coffeeSaleForm.controls.sample_quantity_count.errors?.min" class="p-error">
+                            {{ 'must_be_greater_than' | translate }} 0
                         </small>
                         <small
                             *ngIf="coffeeSaleForm.controls['sample_quantity_count'].errors?.availablequantity"
@@ -318,20 +234,20 @@
                         </small>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3 sewn-form-field">
+                <div class="col-md-6 col-lg-3 sewn-form-field mb-0">
                     <label>{{ 'remaining_quantity' | translate }}</label>
                     <input
                         type="text"
                         [value]="
                             coffeeSaleForm.value.sample_quantity_count
-                                ? coffeeSaleForm.value.sample_quantity_count + ' bags'
+                                ? (coffeeSaleForm.value.sample_quantity_count | number) + ' bags'
                                 : '-'
                         "
                         pInputText
                         disabled
                     />
                 </div>
-                <div class="col-md-6 col-lg-3 sewn-form-field">
+                <div class="col-md-6 col-lg-3 sewn-form-field mb-0">
                     <label>{{ 'sample_size' | translate }}</label>
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
@@ -342,7 +258,7 @@
                         <span class="p-inputgroup-addon gray">{{ orderSettings?.sample_quantity_unit }}</span>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3 sewn-form-field">
+                <div class="col-md-6 col-lg-3 sewn-form-field mb-0">
                     <label>{{ 'sample_price' | translate }}</label>
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
@@ -354,23 +270,17 @@
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="row px-0">
-                <div class="col-lg-12 col-md-12 d-none d-md-block">
-                    <div class="float-lg-right float-md-left my-4">
-                        <button type="button" class="btn btn-stroked mt-32" (click)="onCancel()">
-                            {{ 'cancel' | translate }}
-                        </button>
-                        <button type="submit" class="ml-3 btn-raised btn" (click)="onSave()">
-                            {{ 'mark_coffee_for_sale' | translate }}
-                        </button>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 w-100 d-md-none">
-                    <button type="submit" class="w-100 btn-raised btn" (click)="onSave()">
+        <section class="mt-45 mt-md-5">
+            <div class="row gutter-16 v-gutter-16 justify-content-end">
+                <div class="col-md-auto order-md-2">
+                    <button type="submit" class="btn-raised w-mob-100" (click)="onSave()">
                         {{ 'mark_coffee_for_sale' | translate }}
                     </button>
-                    <button type="button" class="btn btn-stroked mt-3 w-100" (click)="onCancel()">
+                </div>
+                <div class="col-md-auto order-md-1">
+                    <button type="button" class="btn-stroked w-mob-100" (click)="onCancel()">
                         {{ 'cancel' | translate }}
                     </button>
                 </div>
