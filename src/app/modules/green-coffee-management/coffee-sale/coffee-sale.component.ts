@@ -88,7 +88,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
                 width: 14,
             },
             {
-                field: 'lot_id',
+                field: 'lot_number',
                 header: 'lot_id',
                 width: 10,
             },
