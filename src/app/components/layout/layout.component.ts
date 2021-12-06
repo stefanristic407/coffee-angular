@@ -535,10 +535,14 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     closeSideNav() {
         this.sideNavOpened = false;
+        setTimeout(() => {
+            this.menuService.isMenuOpened.next(this.sideNavOpened);
+        }, 800);
     }
 
     openSideNav() {
         this.sideNavOpened = true;
+        this.menuService.isMenuOpened.next(this.sideNavOpened);
     }
 
     showFooter() {

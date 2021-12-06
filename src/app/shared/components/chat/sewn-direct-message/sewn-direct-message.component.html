@@ -62,7 +62,12 @@
         </div>
     </div>
 
-    <div *ngIf="!chatHandler.isExpand.value" class="dm-collapse-panel fade-in-right" data-element="collapse-panel">
+    <div
+        *ngIf="!chatHandler.isExpand.value"
+        [ngClass]="{ 'mobile-menu-overlay': isMobileMenuDisplaying }"
+        class="dm-collapse-panel fade-in-right"
+        data-element="collapse-panel"
+    >
         <div class="dm-clp-listing-section" #mainPanel>
             <ng-container *ngIf="showInlineLoader">
                 <ng-container *ngTemplateOutlet="inlineLoaderBox"> </ng-container>
@@ -305,7 +310,7 @@
                 <input
                     type="text"
                     [(ngModel)]="userSearchKeywords"
-                    placeholder="Search users"
+                    placeholder="Search Users"
                     class="dm-sup-thread-search-input"
                     data-element="user-search-input"
                     (input)="userSearchInputSubject.next($event)"
@@ -431,29 +436,7 @@
     </div>
 </ng-template>
 <ng-template #chatMenuPanelTL>
-    <!-- ANCHOR chatMenuPanelTL -->
-    <div class="dm-header-chat-menu" data-element="chat-menu-panel">
-        <img
-            class="dm-hcm-opener"
-            src="assets/images/dm-thread-list-menu-opener.svg"
-            (click)="toggleChatMenu()"
-            alt="Menu"
-        />
-        <div class="dm-hcm-panel" *ngIf="chatMenuOpen">
-            <span class="dm-hcm-panel-arrow"></span>
-            <div class="dm-hcm-menu-wrapper">
-                <div class="dm-hcm-menu-item" (click)="menuAction('BLOCK')">Block User</div>
-                <div class="dm-hcm-menu-item" *ngIf="!openedThread.computed_mute" (click)="menuAction('MUTE')">
-                    Mute User
-                </div>
-                <div class="dm-hcm-menu-item" *ngIf="openedThread.computed_mute" (click)="menuAction('UNMUTE')">
-                    Unmute User
-                </div>
-                <div class="dm-hcm-menu-item" (click)="menuAction('CLEAR')">Clear Chat</div>
-                <div class="dm-hcm-menu-item" (click)="menuAction('DELETE')">Delete Chat</div>
-            </div>
-        </div>
-    </div>
+    <app-action-menu [menuItems]="chatMenuitems" placement="bottom" icon="pi-ellipsis-v"></app-action-menu>
 </ng-template>
 <ng-template #listHeaderTL>
     <div class="dm-list-view-header" *ngIf="!chatHandler.isMobileView.value">
