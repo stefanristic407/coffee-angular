@@ -77,29 +77,31 @@ export class QuestionDetailComponent extends DestroyableComponent implements OnI
         this.answerDetail = {};
         this.coffeeLabService.getForumDetails('question', this.slug).subscribe((res: any) => {
             if (res.success) {
-                this.detailsData = res.result;
-                if (this.detailsData.parent_question_id > 0) {
-                    this.detailsData.answers.forEach((element) => {
-                        if (element.parent_answer_id > 0) {
-                            this.getAnswerDetail(element.id);
-                        }
-                    });
-                }
-                setTimeout(() => {
-                    this.setPagePosition();
-                    if (document.getElementById('text-focus')) {
-                        document.getElementById('text-focus').focus();
+                this.coffeeLabService.updateLang(res.result.lang_code).then(() => {
+                    this.detailsData = res.result;
+                    if (this.detailsData.parent_question_id > 0) {
+                        this.detailsData.answers.forEach((element) => {
+                            if (element.parent_answer_id > 0) {
+                                this.getAnswerDetail(element.id);
+                            }
+                        });
                     }
-                }, 500);
-                if (res.result.parent_question_id) {
-                    this.messageService.clear();
-                    this.messageService.add({
-                        key: 'translate',
-                        severity: 'success',
-                        closable: false,
-                    });
-                }
-                this.isLoading = false;
+                    setTimeout(() => {
+                        this.setPagePosition();
+                        if (document.getElementById('text-focus')) {
+                            document.getElementById('text-focus').focus();
+                        }
+                    }, 500);
+                    if (res.result.parent_question_id) {
+                        this.messageService.clear();
+                        this.messageService.add({
+                            key: 'translate',
+                            severity: 'success',
+                            closable: false,
+                        });
+                    }
+                    this.isLoading = false;
+                });
             } else {
                 this.toastService.error('Cannot get detail data');
             }

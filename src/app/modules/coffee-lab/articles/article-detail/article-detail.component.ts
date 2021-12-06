@@ -84,22 +84,27 @@ export class ArticleDetailComponent extends DestroyableComponent implements OnIn
         this.isLoading = isReloading;
         this.coffeeLabService.getForumDetails(PostType.ARTICLE, this.idOrSlug).subscribe((res: any) => {
             if (res.success) {
-                this.detailsData = res.result;
-                this.getArticleList();
-                if (this.detailsData?.original_article_state && this.detailsData?.original_article_state === 'ACTIVE') {
-                    this.getOriginalUserDetail(this.detailsData.original_article);
-                }
-                this.getUserDetail(this.detailsData);
-                this.getCommentsData();
-                if (res.result.original_article_id) {
-                    this.messageService.clear();
-                    this.messageService.add({
-                        key: 'translate',
-                        severity: 'success',
-                        closable: false,
-                    });
-                }
-                this.isLoading = false;
+                this.coffeeLabService.updateLang(res.result.language).then(() => {
+                    this.detailsData = res.result;
+                    this.getArticleList();
+                    if (
+                        this.detailsData?.original_article_state &&
+                        this.detailsData?.original_article_state === 'ACTIVE'
+                    ) {
+                        this.getOriginalUserDetail(this.detailsData.original_article);
+                    }
+                    this.getUserDetail(this.detailsData);
+                    this.getCommentsData();
+                    if (res.result.original_article_id) {
+                        this.messageService.clear();
+                        this.messageService.add({
+                            key: 'translate',
+                            severity: 'success',
+                            closable: false,
+                        });
+                    }
+                    this.isLoading = false;
+                });
             } else {
                 this.toastrService.error('Cannot get detail data');
             }

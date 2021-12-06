@@ -80,7 +80,7 @@
             <label
                 >{{ 'subtitle' | translate }}
                 <span class="pull-right text-clr588">
-                    {{ articleForm.get('subtitle')?.value | wordCount }}/20 words
+                    {{ articleForm.get('subtitle')?.value | wordCount }}/20 {{ 'words' | translate }}
                 </span>
             </label>
             <textarea
@@ -147,7 +147,7 @@
             <div class="d-flex">
                 <p-checkbox
                     [binary]="true"
-                    [label]="globals.languageJson?.allow_translations_by_other_authors"
+                    label="{{ 'allow_translations_by_other_authors' | translate }}"
                     formControlName="allow_translation"
                 ></p-checkbox>
                 <app-info-tooltip

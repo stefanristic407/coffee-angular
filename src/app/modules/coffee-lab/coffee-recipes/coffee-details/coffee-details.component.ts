@@ -90,28 +90,33 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
         this.isLoading = isReloading;
         this.coffeeLabService.getForumDetails(PostType.RECIPE, this.slug).subscribe((res: any) => {
             if (res.success) {
-                this.detailsData = res.result;
-                this.detailsData.description = this.getJustText(this.detailsData.description);
-                if (this.detailsData?.original_recipe_state && this.detailsData?.original_recipe_state === 'ACTIVE') {
-                    this.getOriginalUserDetail(this.detailsData.original_details);
-                }
-                this.getUserDetail(this.detailsData);
-                this.getCommentsData();
-                if (this.detailsData?.steps && this.detailsData?.steps.length > 0) {
-                    this.detailsData.steps.map((item) => {
-                        item.description = this.getJustText(item.description);
-                        return item;
-                    });
-                }
-                if (res.result.parent_id) {
-                    this.messageService.clear();
-                    this.messageService.add({
-                        key: 'translate',
-                        severity: 'success',
-                        closable: false,
-                    });
-                }
-                this.isLoading = false;
+                this.coffeeLabService.updateLang(res.result.lang_code).then(() => {
+                    this.detailsData = res.result;
+                    this.detailsData.description = this.getJustText(this.detailsData.description);
+                    if (
+                        this.detailsData?.original_recipe_state &&
+                        this.detailsData?.original_recipe_state === 'ACTIVE'
+                    ) {
+                        this.getOriginalUserDetail(this.detailsData.original_details);
+                    }
+                    this.getUserDetail(this.detailsData);
+                    this.getCommentsData();
+                    if (this.detailsData?.steps && this.detailsData?.steps.length > 0) {
+                        this.detailsData.steps.map((item) => {
+                            item.description = this.getJustText(item.description);
+                            return item;
+                        });
+                    }
+                    if (res.result.parent_id) {
+                        this.messageService.clear();
+                        this.messageService.add({
+                            key: 'translate',
+                            severity: 'success',
+                            closable: false,
+                        });
+                    }
+                    this.isLoading = false;
+                });
             } else {
                 this.toastrService.error('Cannot get detail data');
             }
