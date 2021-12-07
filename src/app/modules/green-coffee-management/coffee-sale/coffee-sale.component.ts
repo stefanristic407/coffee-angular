@@ -37,7 +37,6 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     orderSettings: OrderSettings;
 
     constructor(
-        private authService: AuthService,
         private fb: FormBuilder,
         private roasterService: RoasterService,
         private route: ActivatedRoute,
@@ -84,29 +83,29 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     initTable() {
         this.tableColumns = [
             {
-                field: 'order_id',
-                header: 'order_id',
-                width: 9,
+                field: 'id',
+                header: 'gc_order_number',
+                width: 14,
             },
             {
                 field: 'lot_number',
                 header: 'lot_id',
-                width: 7,
+                width: 10,
             },
             {
                 field: 'estate_name',
                 header: 'estate',
-                width: 11,
+                width: 14,
             },
             {
                 field: 'order_reference',
                 header: 'roaster_ref_no',
-                width: 12,
+                width: 14,
             },
             {
                 field: 'origin',
                 header: 'origin',
-                width: 10,
+                width: 11,
             },
             {
                 field: 'varieties',
@@ -114,19 +113,14 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
                 width: 11,
             },
             {
-                field: 'price',
+                field: 'unit_price',
                 header: 'buying_price',
-                width: 10,
+                width: 11,
             },
             {
                 field: 'quantity',
-                header: 'quantity_bought',
-                width: 14,
-            },
-            {
-                field: 'remaining_total_quantity',
-                header: 'remaining_quantity',
-                width: 16,
+                header: 'stock_in_hand',
+                width: 15,
             },
         ];
     }
@@ -143,7 +137,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             quantity_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
-            sample_quantity_count: [null, Validators.compose([Validators.required, , this.quantityValidator])],
+            sample_quantity_count: [null, Validators.compose([Validators.min(0), this.quantityValidator])],
         });
     }
 

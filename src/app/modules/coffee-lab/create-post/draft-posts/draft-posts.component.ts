@@ -24,26 +24,11 @@ export class DraftPostsComponent implements OnInit {
     drafts: any[] = [];
     filteredDrafts: any[] = [];
     tabList = [
-        {
-            label: 'All',
-            value: '',
-        },
-        {
-            label: 'Article',
-            value: 'article',
-        },
-        {
-            label: 'Recipe',
-            value: 'recipe',
-        },
-        {
-            label: 'Question',
-            value: 'question',
-        },
-        {
-            label: 'Answer',
-            value: 'answer',
-        },
+        { label: 'all', value: '' },
+        { label: 'article', value: 'article' },
+        { label: 'recipe', value: 'recipe' },
+        { label: 'question', value: 'question' },
+        { label: 'answer', value: 'answer' },
     ];
     selectedTabType = '';
 

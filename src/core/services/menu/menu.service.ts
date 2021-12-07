@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -8,6 +9,7 @@ import * as _ from 'underscore';
 
 @Injectable()
 export class MenuService {
+    isMenuOpened: BehaviorSubject<boolean> = new BehaviorSubject(false);
     constructor(private location: Location) {}
 
     public getMenuItems(): Array<Menu> {

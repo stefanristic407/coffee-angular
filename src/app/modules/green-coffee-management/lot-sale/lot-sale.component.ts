@@ -79,8 +79,8 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         this.tableColumns = [
             {
                 field: 'id',
-                header: 'order_id',
-                width: 12,
+                header: 'gc_order_number',
+                width: 14,
             },
             {
                 field: 'lot_number',
@@ -90,42 +90,32 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             {
                 field: 'estate_name',
                 header: 'estate',
-                width: 15,
+                width: 14,
             },
             {
                 field: 'order_reference',
                 header: 'roaster_ref_no',
-                width: 15,
+                width: 14,
             },
             {
                 field: 'origin',
                 header: 'origin',
-                width: 12,
-            },
-            {
-                field: 'species',
-                header: 'species',
-                width: 12,
+                width: 11,
             },
             {
                 field: 'varieties',
                 header: 'variety',
-                width: 12,
+                width: 11,
             },
             {
                 field: 'unit_price',
                 header: 'buying_price',
-                width: 12,
-            },
-            {
-                field: 'cup_score',
-                header: 'cupping_score',
                 width: 11,
             },
             {
                 field: 'quantity',
                 header: 'stock_in_hand',
-                width: 18,
+                width: 15,
             },
         ];
     }
@@ -142,7 +132,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             minimum_order_quantity_count: ['', Validators.compose([Validators.required, Validators.min(1)])],
             vat_settings_id: [null, Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
-            sample_quantity_count: [null, Validators.compose([Validators.required, this.quantityValidator])],
+            sample_quantity_count: [null, Validators.compose([Validators.min(0), this.quantityValidator])],
         });
     }
 
