@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { toSentenceCase } from '@utils';
+import { DropdownItem } from 'primeng/dropdown';
 
 @Component({
     selector: 'app-create-roasting-profile',
@@ -15,6 +16,18 @@ export class CreateRoastingProfileComponent implements OnInit {
     roastingForm: FormGroup;
     roastLevelArray: any[];
     isLoading = false;
+    flavoursList: DropdownItem[];
+    brewingMethodArray = [
+        { label: 'Pour Over', value: 'pour-over' },
+        { label: 'Espresso', value: 'espresso' },
+        { label: 'Coffeemaker', value: 'coffee-maker' },
+        { label: 'French press', value: 'french-press' },
+        { label: 'Aeropress', value: 'aeropress' },
+        { label: 'Moka pot', value: 'mocha-pot' },
+        { label: 'Chemix', value: 'chemex' },
+        { label: 'Presskanna eller chemex', value: 'Presskanna eller Chemex' },
+        { label: 'None', value: '' },
+    ];
 
     constructor(
         private fb: FormBuilder,
@@ -27,6 +40,7 @@ export class CreateRoastingProfileComponent implements OnInit {
 
     ngOnInit(): void {
         this.getRoastLevels();
+        this.getRoasterFlavourProfile();
         if (this.route.snapshot.queryParams.profileID) {
             this.profileId = +decodeURIComponent(this.route.snapshot.queryParams.profileID);
             this.getRoastingProfile();
@@ -38,6 +52,15 @@ export class CreateRoastingProfileComponent implements OnInit {
             temperature: ['', Validators.compose([Validators.required])],
             roast_duration: ['', Validators.compose([Validators.required])],
             machine_type: ['', Validators.compose([Validators.required])],
+            aroma: ['', Validators.compose([Validators.required])],
+            acidity: ['', Validators.compose([Validators.required])],
+            body: ['', Validators.compose([Validators.required])],
+            flavour: ['', Validators.compose([Validators.required])],
+            flavour_profiles: ['', Validators.compose([Validators.required])],
+            roaster_notes: ['', Validators.compose([Validators.required])],
+            recommended_recipe: ['', Validators.compose([Validators.required])],
+            brewing_method: [null, Validators.compose([Validators.required])],
+            roaster_recommendation: ['', Validators.compose([Validators.required])],
         });
     }
 
@@ -45,6 +68,18 @@ export class CreateRoastingProfileComponent implements OnInit {
         this.generalService.getRoastLevels().subscribe((res) => {
             if (res.success) {
                 this.roastLevelArray = (res.result || []).map((ix) => ({ ...ix, name: toSentenceCase(ix.name) }));
+            }
+        });
+    }
+
+    getRoasterFlavourProfile() {
+        this.userService.getRoasterFlavourProfile().subscribe((data) => {
+            if (data.success) {
+                this.flavoursList = data.result.map((item) => {
+                    return { label: item.name, value: item };
+                });
+            } else {
+                this.toastrService.error('Error while getting the roasting Flavor Profile');
             }
         });
     }
