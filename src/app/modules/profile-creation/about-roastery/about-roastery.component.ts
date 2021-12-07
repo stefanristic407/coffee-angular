@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { QUANTIRY_UNIT_LIST } from '@constants';
-import { OrganizationType } from '@enums';
+import { CertificateType, OrganizationType } from '@enums';
 import { AclService, AuthService, ChatHandlerService, GlobalsService, RoasterService, UserService } from '@services';
 import { maxWordCountValidator } from '@utils';
 import { ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
@@ -32,6 +32,7 @@ export class AboutRoasteryComponent implements OnInit {
     shortFescr: string;
     empName = '';
     roasterId: any;
+    certificateTypes: any[];
     certificatesArray: any = [];
     userId: any;
     single: any[];
@@ -108,6 +109,7 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getCertificateTypes();
         this.getCertificates();
         this.profileCreationService.getcontactList();
         this.getBrands();
@@ -263,6 +265,21 @@ export class AboutRoasteryComponent implements OnInit {
             }
         });
         return localArray;
+    }
+
+    getCertificateTypes() {
+        this.userService.getCertificateTypes().subscribe((res: any) => {
+            if (res.success) {
+                this.certificateTypes = Object.values(res.result);
+                this.certificateTypes = this.certificateTypes.filter((item) => {
+                    return (
+                        item.tags &&
+                        item.tags.includes(this.userService.orgSlug) &&
+                        item.type !== CertificateType.EraOfWe
+                    );
+                });
+            }
+        });
     }
 
     getCertificates() {
