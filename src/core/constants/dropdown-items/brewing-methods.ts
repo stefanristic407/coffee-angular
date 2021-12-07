@@ -9,5 +9,5 @@ export const BREWING_METHOD_ITEMS: LabelValue[] = [
     { label: 'mocha-pot', value: 'mocha-pot' },
     { label: 'chemex', value: 'chemex' },
     { label: 'presskanna-eller-chemex', value: 'presskanna-eller-chemex' },
-    { label: 'None', value: '' },
+    { label: 'none', value: '' },
 ];

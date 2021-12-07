@@ -122,13 +122,16 @@
             <p-dropdown
                 [options]="brewingMethodArray"
                 optionLabel="label"
+                optionValue="value"
                 [placeholder]="'brewing_equipment_placeholder' | translate"
                 [style]="{ width: '100%' }"
                 editable="true"
                 formControlName="equipment_name"
+                (onChange)="onBrewingSelected($event)"
                 class="inputFieldBox bg-white"
-                optionValue="value"
             >
+                <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
             </p-dropdown>
             <small *ngIf="recipeForm.controls['equipment_name'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
@@ -411,7 +414,6 @@
                 formControlName="expertise"
                 optionLabel="label"
                 optionValue="value"
-                (onChange)="checlValue($event)"
             >
                 <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
                 <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
