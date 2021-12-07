@@ -27,6 +27,8 @@
                     [(ngModel)]="coffeeLabService.articleViewCategory"
                     styleClass="round-border text-clr588"
                     [placeholder]="'categories' | translate"
+                    [maxSelectedLabels]="1"
+                    selectedItemsLabel="{0} {{ 'categories' | translate }}"
                     optionLabel="name"
                     optionValue="parent_id"
                     class="ml-0 mr-3"

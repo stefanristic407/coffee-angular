@@ -93,7 +93,7 @@
                 {{ 'required' | translate }}
             </small>
             <small *ngIf="recipeForm.controls['name'].errors?.maxlength" class="p-error">
-                Please input 120 characters
+                {{ 'please_input' | translate }} 120 {{ 'characters' | translate }}
             </small>
         </div>
         <div class="col-12 sewn-form-field w-100 pl-0 pl-md-3">
@@ -114,7 +114,7 @@
                 {{ 'required' | translate }}
             </small>
             <small *ngIf="recipeForm.controls['description'].errors?.maxWordCount" class="p-error">
-                Please input 60 words
+                {{ 'please_input' | translate }} 60 {{ 'words' | translate }}
             </small>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 pr-md-2 pr-lg-3 pl-0 pl-md-3">
@@ -191,7 +191,7 @@
             formArrayName="ingredients"
             *ngFor="let ingredient of recipeForm.controls['ingredients']['controls']; let i = index; last as isLast"
         >
-            <div [formGroupName]="i" class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap">
+            <div [formGroupName]="i" class="p-0 col-12 d-flex flex-wrap">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field pr-md-2 mb-md-3 pr-lg-3 pl-0 pl-md-3">
                     <label
                         >{{ 'ingredient' | translate }}
@@ -271,7 +271,7 @@
                     <ng-container
                         *ngFor="let step of recipeForm.controls['steps']['controls']; let i = index; last as isLast"
                     >
-                        <div class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="p-0 col-12">
                             <div
                                 class="
                                     col-sm-12 col-md-12 col-lg-12
@@ -320,10 +320,7 @@
             </p-tabView>
         </div>
         <ng-container *ngFor="let step of recipeForm.controls['steps']['controls']; let i = index; last as isLast">
-            <div
-                class="p-0 col-sm-12 col-md-12 col-lg-12 col-xl-12 step-xs flex-wrap"
-                *ngIf="recipeForm?.value?.preparation_method == 'steps'"
-            >
+            <div class="p-0 col-12 step-xs flex-wrap" *ngIf="recipeForm?.value?.preparation_method == 'steps'">
                 <div class="col-12 pr-md-2 pr-lg-3 sewn-form-field w-100 mb-0 mb-md-3 pl-0 pl-md-3">
                     <div>
                         <label>{{ 'step' | translate }} {{ i + 1 }}</label>
