@@ -135,7 +135,7 @@ export class DefaultSettingsComponent implements OnInit {
     setMenuItems(): void {
         this.imageMenuItems = [
             {
-                label: 'Update',
+                label: 'Replace',
                 command: () => {
                     this.updateImage();
                 },
@@ -149,7 +149,7 @@ export class DefaultSettingsComponent implements OnInit {
         ];
         this.videoMenuItems = [
             {
-                label: 'Update',
+                label: 'Replace',
                 command: () => {
                     this.updateVideo();
                 },
