@@ -98,92 +98,74 @@
                                                     <li>
                                                         <label>Estate</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.estate_name
-                                                                    ? orderDetails.estate_name
-                                                                    : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.estate_name || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Origin</label>
                                                         <p>
-                                                            {{ orderDetails.origin | country }}
+                                                            {{ orderDetails?.origin | country }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Lot ID</label>
                                                         <p>
-                                                            {{ orderDetails.lot_id ? orderDetails.lot_id : 'NA' }}
+                                                            {{ orderDetails?.lot_number || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Availability name</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.availability_name
-                                                                    ? orderDetails.availability_name
-                                                                    : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.availability_name || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Species</label>
                                                         <p>
-                                                            {{ orderDetails.species ? orderDetails.species : 'NA' }}
+                                                            {{ orderDetails?.species || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Variety</label>
                                                         <p *ngIf="orderDetails.varieties">
-                                                            {{ orderDetails.varieties | translate }}
+                                                            {{ orderDetails?.varieties | translate }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Crop year</label>
                                                         <p>
-                                                            {{ orderDetails.harvest_date | date: 'MMM, y' }}
+                                                            {{ orderDetails?.harvest_date | date: 'MMM, y' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Altitude</label>
                                                         <p>
-                                                            {{ orderDetails.altitude ? orderDetails.altitude : 'NA' }}
+                                                            {{ orderDetails?.altitude || 'NA' }}
                                                             meters above sea level
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>{{ 'flavor_profile' | translate }}</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.flavour_profile
-                                                                    ? orderDetails.flavour_profile
-                                                                    : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.flavour_profile || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Wet Mill</label>
                                                         <p>
-                                                            {{ orderDetails.wet_mill ? orderDetails.wet_mill : 'NA' }}
+                                                            {{ orderDetails?.wet_mill || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Processing</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.processing ? orderDetails.processing : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.processing || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Moisture content</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails?.dry_milling?.moisture_content
-                                                                    ? orderDetails?.dry_milling?.moisture_content
-                                                                    : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.dry_milling?.moisture_content || 'NA' }}
                                                         </p>
                                                     </li>
                                                 </ul>
@@ -255,7 +237,7 @@
                                                     <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1 text-head"
                                                         >Cup Score :</span
                                                     >
-                                                    {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
+                                                    {{ orderDetails?.cup_score || 'NA' }}
                                                 </p>
                                             </div>
                                         </div>
@@ -271,9 +253,7 @@
                                                 </div>
 
                                                 <h3>
-                                                    {{
-                                                        orderDetails.evaluator_name ? orderDetails.evaluator_name : 'NA'
-                                                    }}
+                                                    {{ orderDetails?.evaluator_name || 'NA' }}
                                                 </h3>
                                                 <h6 class="mt-0">Facilitator</h6>
                                             </div>
