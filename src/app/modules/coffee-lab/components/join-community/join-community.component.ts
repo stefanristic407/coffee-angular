@@ -20,7 +20,11 @@ export class JoinCommunityComponent implements OnInit {
     constructor(private coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
-        this.getList();
+        this.coffeeLabService.forumLanguage.subscribe((res) => {
+            if (res) {
+                this.getList();
+            }
+        });
     }
 
     getList() {
