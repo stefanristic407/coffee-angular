@@ -643,9 +643,17 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     }
 
     checkRichText() {
+        this.recipeForm
+            .get('introduction')
+            .setValue(
+                insertAltAttr(
+                    this.recipeForm.get('introduction').value,
+                    `${this.recipeForm.get('name').value} introduction image`,
+                ),
+            );
         (this.recipeForm.get('steps') as FormArray).controls.forEach((item) => {
             item.get('description').setValue(
-                insertAltAttr(item.get('description').value, ` ${this.recipeForm.get('name').value} step image`),
+                insertAltAttr(item.get('description').value, `${this.recipeForm.get('name').value} step image`),
             );
         });
     }
