@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { APP_LANGUAGES } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
 import { CoffeeLabService, GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -29,14 +30,15 @@ export class CreateQuestionComponent implements OnInit {
     status: string;
 
     constructor(
-        public location: Location,
-        public dialogService: DialogService,
+        private location: Location,
+        private dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastrService: ToastrService,
         private router: Router,
         private route: ActivatedRoute,
         private toaster: ToastrService,
         private globalsService: GlobalsService,
+        private translator: TranslateService,
     ) {}
 
     ngOnInit(): void {
@@ -101,12 +103,12 @@ export class CreateQuestionComponent implements OnInit {
     }
 
     onPostQuestion(status: string): void {
-        this.content = this.content.trim();
         if (!this.content) {
             this.isQuestion = true;
             this.toastrService.error('Please type your question.');
             return;
         }
+        this.content = this.content.trim();
         const data = {
             question: this.content,
             allow_translation: 1,
@@ -121,25 +123,25 @@ export class CreateQuestionComponent implements OnInit {
                     this.isPosting = false;
                     if (res.success) {
                         if (data.status === 'DRAFT') {
-                            this.toaster.success('Your changes have been successfully updated to the draft.');
+                            this.toaster.success(this.translator.instant('draft_success'));
                         } else if (this.status === 'draft') {
-                            this.toastrService.success('Your question have been posted successfully.');
+                            this.toastrService.success(this.translator.instant('question_posted_success'));
                         } else {
-                            this.toaster.success('You have updated a question successfully.');
+                            this.toaster.success(this.translator.instant('question_updated_success'));
                         }
                         this.router.navigate(['/coffee-lab/overview/qa-forum']);
                     } else {
-                        this.toaster.error('Failed to update question.');
+                        this.toaster.error(this.translator.instant('question_updated_failed'));
                     }
                 });
             } else {
                 this.coffeeLabService.postForum('question', data).subscribe((res: any) => {
                     this.isPosting = false;
                     if (res.success) {
-                        this.toastrService.success('Your question is successfully saved in draft.');
+                        this.toastrService.success(this.translator.instant('draft_question_saved'));
                         this.router.navigate(['/coffee-lab/overview/qa-forum']);
                     } else {
-                        this.toastrService.error('Failed to post question.');
+                        this.toastrService.error(this.translator.instant('question_post_failed'));
                     }
                 });
             }
@@ -159,10 +161,10 @@ export class CreateQuestionComponent implements OnInit {
                                 .subscribe((res: any) => {
                                     this.isPosting = false;
                                     if (res.success) {
-                                        this.toaster.success('You have updated a question successfully.');
+                                        this.toaster.success(this.translator.instant('question_updated_success'));
                                         this.router.navigate(['/coffee-lab/overview/qa-forum']);
                                     } else {
-                                        this.toaster.error('Failed to update question.');
+                                        this.toaster.error(this.translator.instant('question_updated_failed'));
                                     }
                                 });
                         } else {
@@ -170,13 +172,13 @@ export class CreateQuestionComponent implements OnInit {
                                 this.isPosting = false;
                                 if (res.success) {
                                     if (status === 'PUBLISHED') {
-                                        this.toastrService.success('Your question have been posted successfully.');
+                                        this.toastrService.success(this.translator.instant('question_posted_success'));
                                     } else if (status === 'DRAFT') {
-                                        this.toastrService.success('Your question is successfully saved in draft.');
+                                        this.toastrService.success(this.translator.instant('draft_question_saved'));
                                     }
                                     this.router.navigate(['/coffee-lab/overview/qa-forum']);
                                 } else {
-                                    this.toastrService.error('Failed to post question.');
+                                    this.toastrService.error(this.translator.instant('question_post_failed'));
                                 }
                             });
                         }
@@ -199,7 +201,7 @@ export class CreateQuestionComponent implements OnInit {
                 if (action === 'yes') {
                     this.coffeeLabService.deleteForumById('question', this.questionId).subscribe((res: any) => {
                         if (res.success) {
-                            this.toaster.success(`Draft question deleted successfully`);
+                            this.toaster.success(this.translator.instant('draft_question_delete'));
                             this.coffeeLabService.forumDeleteEvent.emit();
                             this.router.navigateByUrl('/coffee-lab/overview/qa-forum');
                         } else {

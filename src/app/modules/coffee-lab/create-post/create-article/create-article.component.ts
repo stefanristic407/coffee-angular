@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
 import { PostType } from '@enums';
 import { CroppedImage } from '@models';
+import { TranslateService } from '@ngx-translate/core';
 import { CoffeeLabService, CommonService, GlobalsService } from '@services';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
@@ -47,6 +48,7 @@ export class CreateArticleComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private toaster: ToastrService,
+        private translator: TranslateService,
     ) {}
 
     ngOnInit(): void {
@@ -228,7 +230,7 @@ export class CreateArticleComponent implements OnInit {
                 this.isPosting = false;
                 if (res.success) {
                     if (data.status === 'draft') {
-                        this.toaster.success('Your changes have been successfully updated to the draft.');
+                        this.toaster.success(this.translator.instant('draft_success'));
                     } else if (this.status === 'draft') {
                         this.toaster.success('Your article have been posted successfully.');
                     } else {
