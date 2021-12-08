@@ -173,7 +173,6 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
 
                         const translateData = [
                             res.result.name,
-                            res.result.expertise,
                             res.result.equipment_name,
                             res.result.description,
                             res.result.introduction,
@@ -190,12 +189,12 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                                 const steps = [];
                                 const ingredients = [];
                                 translatedOutput.forEach((item, index) => {
-                                    if (index > 4 && index <= res.result.steps.length + 4) {
+                                    if (index > 3 && index <= res.result.steps.length + 3) {
                                         steps.push(item.translatedText);
                                     }
                                     if (
-                                        index > res.result.steps.length + 4 &&
-                                        index <= res.result.ingredients.length + (res.result.steps.length + 4)
+                                        index > res.result.steps.length + 3 &&
+                                        index <= res.result.ingredients.length + (res.result.steps.length + 3)
                                     ) {
                                         ingredients.push(item.translatedText);
                                     }
@@ -218,14 +217,14 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                                 });
                                 const translatedData = {
                                     name: translatedOutput[0].translatedText,
-                                    expertise: translatedOutput[1].translatedText,
+                                    expertise: res.result.expertise,
                                     serves: res.result.serves,
-                                    equipment_name: translatedOutput[2].translatedText,
+                                    equipment_name: translatedOutput[1].translatedText,
                                     coffee_ratio: res.result.coffee_ratio,
                                     water_ratio: res.result.water_ratio,
                                     preparation_method: res.result.preparation_method,
-                                    description: translatedOutput[3].translatedText,
-                                    introduction: translatedOutput[4].translatedText,
+                                    description: translatedOutput[2].translatedText,
+                                    introduction: translatedOutput[3].translatedText,
                                     lang_code: this.translateLang,
                                     steps: translatedSteps ? translatedSteps : [],
                                     ingredients: translatedingredient ? translatedingredient : [],
@@ -644,9 +643,17 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     }
 
     checkRichText() {
+        this.recipeForm
+            .get('introduction')
+            .setValue(
+                insertAltAttr(
+                    this.recipeForm.get('introduction').value,
+                    `${this.recipeForm.get('name').value} introduction image`,
+                ),
+            );
         (this.recipeForm.get('steps') as FormArray).controls.forEach((item) => {
             item.get('description').setValue(
-                insertAltAttr(item.get('description').value, ` ${this.recipeForm.get('name').value} step image`),
+                insertAltAttr(item.get('description').value, `${this.recipeForm.get('name').value} step image`),
             );
         });
     }

@@ -81,7 +81,7 @@
         [columns]="tableColumns"
         dataKey="id"
         [loading]="loading"
-        [paginator]="true"
+        [paginator]="tableData?.length"
         [rows]="10"
         [lazy]="true"
         [showCurrentPageReport]="false"
@@ -206,6 +206,9 @@
                     </span>
                 </td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <app-empty *ngIf="!loading && !tableData?.length" [title]="'no_data' | translate"></app-empty>
         </ng-template>
     </p-table>
 </section>

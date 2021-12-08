@@ -21,11 +21,9 @@ import { CategoryComponent } from './category/category.component';
 import { CoffeeLabComponent } from './coffee-lab.component';
 import { CoffeeDetailsComponent } from './coffee-recipes/coffee-details/coffee-details.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-import { DraftPostsComponent } from './create-post/draft-posts/draft-posts.component';
 import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
 import { MyCommentsComponent } from './my-posts/my-comments/my-comments.component';
 import { QaPostComponent } from './my-posts/qa-post/qa-post.component';
-
 const routes: Routes = [
     {
         path: '',
