@@ -6,7 +6,7 @@
                     <div class="d-md-none"><app-back-link (handleBack)="onCancel()"></app-back-link></div>
                     <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
                 </div>
-                <div class="fnt-16 fnt-md-18 fnt-bold">{{ coffeeSaleForm?.value?.name || 'NA' }}</div>
+                <div class="fnt-16 fnt-md-18 fnt-bold">Order #{{ orderDetails?.id }}</div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="bg-fa br-4 px-4 py-3">
