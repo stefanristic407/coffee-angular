@@ -217,7 +217,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                                 });
                                 const translatedData = {
                                     name: translatedOutput[0].translatedText,
-                                    expertise: res.result.translatedText,
+                                    expertise: res.result.expertise,
                                     serves: res.result.serves,
                                     equipment_name: translatedOutput[1].translatedText,
                                     coffee_ratio: res.result.coffee_ratio,
