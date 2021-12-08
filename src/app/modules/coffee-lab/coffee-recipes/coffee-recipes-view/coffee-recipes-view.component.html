@@ -16,6 +16,8 @@
                     (onChange)="getCoffeeRecipesData()"
                     [(ngModel)]="coffeeLabService.recipeViewCategory"
                     [placeholder]="'categories' | translate"
+                    [maxSelectedLabels]="1"
+                    selectedItemsLabel="{0} {{ 'categories' | translate }}"
                     optionLabel="name"
                     optionValue="parent_id"
                     styleClass="round-border"

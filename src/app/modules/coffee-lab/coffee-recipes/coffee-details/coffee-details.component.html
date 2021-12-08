@@ -105,9 +105,9 @@
                                         }}</label>
                                         <p class="fnt-muli fnt-16 fnt-bold text-clr334 mb-0 pt-1" *ngIf="detailsData">
                                             <span *ngIf="recipeInfo.label === 'equipment'"
-                                                >{{ detailsData[recipeInfo.key] | titlecase
-                                                }}{{ recipeInfo.key2 ? ':' : ''
-                                                }}{{ recipeInfo.key2 ? detailsData[recipeInfo.key2] : '' }}</span
+                                                >{{ detailsData[recipeInfo.key] | translate }}
+                                                {{ recipeInfo.key2 ? ':' : '' }}
+                                                {{ recipeInfo.key2 ? detailsData[recipeInfo.key2] : '' }}</span
                                             >
                                             <span *ngIf="recipeInfo.label !== 'equipment'">
                                                 {{ detailsData[recipeInfo.key] }}{{ recipeInfo.key2 ? ':' : ''
