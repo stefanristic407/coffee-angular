@@ -24,8 +24,6 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
     @Input() orderId: number;
     @Input() orderStatus: OrderStatus;
 
-    today = new Date();
-
     constructor(
         private fb: FormBuilder,
         private ordersService: OrderManagementService,
