@@ -18,7 +18,7 @@ p-calendar[selectionmode='range'] {
         }
     }
     &.p-calendar-disabled {
-        opacity: 0.5;
+        opacity: $disabled-opacity;
         .p-component:disabled {
             opacity: 1;
         }

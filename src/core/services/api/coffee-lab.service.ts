@@ -52,7 +52,7 @@ export class CoffeeLabService extends ApiService {
 
     updateLang(lang: string = 'en'): Promise<any> {
         return new Promise((resolve) => {
-            this.http.get(`${environment.apiURL}/translations/${lang}/roaster`).subscribe((langData) => {
+            this.http.get(`${environment.apiURL}/translations/${lang}/roaster?default=1`).subscribe((langData) => {
                 this.translator.setTranslation(lang, langData);
                 this.translator.use(lang);
                 this.forumLanguage.next(lang);
