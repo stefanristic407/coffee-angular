@@ -16,7 +16,7 @@
                 </button>
                 <button
                     *ngIf="!currentDisputeID && orderDetails"
-                    [routerLink]="['/dispute-system/order-support/', orderID]"
+                    [routerLink]="['/dispute-system/raise-ticket', orderType, orderID]"
                     class="btn pull-right btn-raised"
                 >
                     {{ 'have_a_problem' | translate }}
