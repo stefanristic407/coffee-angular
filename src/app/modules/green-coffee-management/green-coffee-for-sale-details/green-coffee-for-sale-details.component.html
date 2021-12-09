@@ -152,6 +152,12 @@
                                                 <span *ngIf="saleInformation.vat_percentage">%</span>
                                             </p>
                                         </li>
+                                        <li>
+                                            <label>{{ 'sample_quantity' | translate }}</label>
+                                            <p>
+                                                {{ saleInformation.sample_quantity || 'NA' }}
+                                            </p>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
