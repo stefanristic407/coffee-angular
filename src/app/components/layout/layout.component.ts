@@ -238,7 +238,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
 
     getNotificationList() {
         const options = {
-            per_page: 10,
+            per_page: 50,
         };
         let isUnread = false;
         this.userService.getNofitication(options).subscribe((res: any) => {
@@ -373,7 +373,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
                 content = `Era of We admin has cancelled your order #${data.content.order_id} with ${data.content.estate_name}.`;
                 url = `/orders/es`;
             } else if (data.action === 'SHIPPED') {
-                content = `${data.content.estate_name} has shipped order #${data.content.order_id}`;
+                content = `${data.content.estate_name} has accepted your order #${data.content.order_id}`;
                 url = `/orders/es/${data.content.order_id}`;
             } else if (data.action === 'SHIPPED_INFO_UPDATED') {
                 content = `Shipping information has been released for order #${data.content.order_id}.`;
