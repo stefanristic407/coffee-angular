@@ -220,8 +220,11 @@
                             [placeholder]="'enter_a_quantity' | translate"
                         ></p-inputNumber>
                         <span class="p-inputgroup-addon gray">bag</span>
+                        <small *ngIf="lotSaleForm.controls.sample_quantity_count.errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                         <small *ngIf="lotSaleForm.controls.sample_quantity_count.errors?.min" class="p-error">
-                            {{ 'must_be_greater_than' | translate }} 0
+                            {{ 'must_be_greater_than' | translate }} {{ soldQuantitySample || 0 }}
                         </small>
                         <small
                             *ngIf="lotSaleForm.controls['sample_quantity_count'].errors?.availablequantity"
