@@ -34,10 +34,10 @@
                     >{{ 'ticket' | translate }} #{{ currentDisputeID }}</span
                 >
                 <span class="fnt-12 text-clr588">{{ orderDetails?.order_type }}</span>
-                <span *ngIf="isView" class="text-highlited mt-2 mt-md-4" (click)="isView = false"
+                <span *ngIf="isView" class="oc-link mt-2 mt-md-4" (click)="isView = false"
                     >{{ 'close' | translate }} <span class="d-none d-md-flex">{{ 'tickets' | translate }}</span></span
                 >
-                <span *ngIf="!isView" class="text-highlited mt-2 mt-md-4" (click)="isView = true"
+                <span *ngIf="!isView" class="oc-link mt-2 mt-md-4" (click)="isView = true"
                     >{{ 'view' | translate }} {{ 'tickets' | translate }}</span
                 >
             </div>
@@ -80,7 +80,7 @@
                 </ng-template>
                 <span
                     *ngIf="currentDisputeID && showResolveBtn"
-                    class="text-highlited text-right"
+                    class="oc-link text-right"
                     style="margin-top: 10px; margin-right: 18px"
                     (click)="markResolved()"
                     >{{ 'mark_as_resolved' | translate }}</span
@@ -135,14 +135,14 @@
                     p-0
                 "
             >
-                <span class="text-highlited pr-3 pr-md-0" (click)="navigateAssignUser()">
+                <span class="oc-link pr-3 pr-md-0" (click)="navigateAssignUser()">
                     {{ 'change_assigned_user' | translate }}</span
                 >
                 <div class="seperatorClass"></div>
-                <span *ngIf="isView" class="text-highlited" (click)="isView = false"
+                <span *ngIf="isView" class="oc-link" (click)="isView = false"
                     >{{ 'close' | translate }} {{ 'tickets' | translate }}</span
                 >
-                <span *ngIf="!isView" class="text-highlited" (click)="isView = true"
+                <span *ngIf="!isView" class="oc-link" (click)="isView = true"
                     >{{ 'view' | translate }} {{ 'tickets' | translate }}</span
                 >
             </div>
