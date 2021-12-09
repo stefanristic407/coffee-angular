@@ -34,8 +34,8 @@ export class SamplePriceComponent implements OnInit {
 
     ngOnInit(): void {
         this.detailsForm = this.fb.group({
-            sample_price: [null, Validators.compose([Validators.required])],
-            sample_quantity: [null, Validators.compose([Validators.required])],
+            sample_price: [null, Validators.compose([Validators.required, Validators.min(0)])],
+            sample_quantity: [null, Validators.compose([Validators.required, Validators.min(1)])],
             sample_quantity_unit: [QuantityUnit.g, Validators.compose([Validators.required])],
         });
 
