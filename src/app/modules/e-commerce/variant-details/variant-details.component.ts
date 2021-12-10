@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ResizeService, FileService, AuthService } from '@services';
-import { ToastrService } from 'ngx-toastr';
 import { ResizeableComponent } from '@base-components';
-import { fileRequired, quantityMinValidator } from '@utils';
 import { FileModule } from '@enums';
+import { AuthService, FileService, ResizeService } from '@services';
+import { fileRequired, quantityMinValidator } from '@utils';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-variant-details',
@@ -40,6 +40,7 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
     ];
     weightVariantArray: any = [];
     displayDelete = false;
+    baseCurrency: string;
 
     constructor(
         private authService: AuthService,
@@ -96,6 +97,9 @@ export class VariantDetailsComponent extends ResizeableComponent implements OnIn
             { label: 'Fine', value: 'fine' },
             { label: 'Extra fine', value: 'extra-fine' },
         ];
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
     }
 
     onWeightChange(value, index?) {

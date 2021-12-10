@@ -35,6 +35,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     tableValue = [];
     quantityType: string;
     orderSettings: OrderSettings;
+    baseCurrency = '';
 
     constructor(
         private fb: FormBuilder,
@@ -44,6 +45,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         private toasterService: ToastrService,
         private translator: TranslateService,
         private userService: UserService,
+        private authService: AuthService,
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
@@ -61,6 +63,9 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             },
             { label: `${this.translator.instant('order')} #${this.orderID}` },
         ];
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
     }
 
     ngOnInit(): void {

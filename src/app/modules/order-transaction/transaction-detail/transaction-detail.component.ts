@@ -146,11 +146,21 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
                 this.orderItems = this.orderItems.map((item) => {
                     return {
                         ...item,
-                        unit_price_excl_vat: this.decimalPipe.transform(item.unit_price_excl_vat, '1.2-2'),
-                        unit_price_incl_vat: this.decimalPipe.transform(item.unit_price_incl_vat, '1.2-2'),
-                        amount_excl_vat: this.decimalPipe.transform(item.amount_excl_vat, '1.2-2'),
-                        vat_amount: this.decimalPipe.transform(item.vat_amount, '1.2-2'),
-                        total: this.decimalPipe.transform(item.total, '1.2-2'),
+                        unit_price_excl_vat:
+                            this.decimalPipe.transform(item.unit_price_excl_vat, '1.2-4') +
+                            ' ' +
+                            this.transaction?.currency,
+                        unit_price_incl_vat:
+                            this.decimalPipe.transform(item.unit_price_incl_vat, '1.2-4') +
+                            ' ' +
+                            this.transaction?.currency,
+                        amount_excl_vat:
+                            this.decimalPipe.transform(item.amount_excl_vat, '1.2-4') +
+                            ' ' +
+                            this.transaction?.currency,
+                        vat_amount:
+                            this.decimalPipe.transform(item.vat_amount, '1.2-4') + ' ' + this.transaction?.currency,
+                        total: this.decimalPipe.transform(item.total, '1.2-4') + ' ' + this.transaction?.currency,
                         vat_percent: item.vat_percent !== undefined ? item.vat_percent + '%' : null,
                     };
                 });
@@ -171,7 +181,10 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
             { label: 'payment_status', value: this.titleCasePipe.transform(this.transaction?.status) },
             {
                 label: 'amount_excl_vat',
-                value: this.decimalPipe.transform(this.transaction?.amount_exclude_vat, '1.0-4'),
+                value:
+                    this.decimalPipe.transform(this.transaction?.amount_exclude_vat, '1.2-4') +
+                    ' ' +
+                    this.transaction?.currency,
             },
         ];
         this.customerDetails = [

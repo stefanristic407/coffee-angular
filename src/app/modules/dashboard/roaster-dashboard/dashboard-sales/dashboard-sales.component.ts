@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AuthService, GlobalsService, UserService } from '@services';
 import * as moment from 'moment';
-import * as _ from 'underscore';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,6 +10,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./dashboard-sales.component.scss'],
 })
 export class DashboardSalesComponent implements OnInit, OnDestroy {
+    baseCurrency: string;
     roasterId: number;
     sales: any;
     salesSub: Subscription;
@@ -82,6 +82,9 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
         this.dateFrom = lastWeekStart;
         this.dateTo = lastWeekEnd;
         this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
     }
 
     ngOnDestroy() {

@@ -115,8 +115,7 @@
                                         <div class="real-estate p-prices">
                                             <h6>{{ 'price' | translate }} :</h6>
                                             <h3 class="ellipsis mb-0">
-                                                {{ CURRENCY_LIST[sourcing.harvestDetail?.price_unit]
-                                                }}{{ sourcing.harvestDetail?.price }}
+                                                {{ sourcing.harvestDetail?.price | number: '1.2-4' }}
                                                 {{ sourcing.harvestDetail?.price_unit }}/kg
                                             </h3>
                                         </div>

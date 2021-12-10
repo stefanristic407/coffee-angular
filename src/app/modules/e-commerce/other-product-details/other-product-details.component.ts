@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalsService, ResizeService, ECommerceService, FileService, AuthService } from '@services';
+import { ResizeableComponent } from '@base-components';
+import { AuthService, ECommerceService, FileService, GlobalsService, ResizeService } from '@services';
+import { maxWordCountValidator, trackFileName } from '@utils';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { trackFileName, maxWordCountValidator } from '@utils';
-import { ResizeableComponent } from '@base-components';
 
 @Component({
     selector: 'app-other-product-details',
@@ -71,6 +71,7 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
         'width',
         'width_unit',
     ];
+    baseCurrency: string;
 
     constructor(
         public globals: GlobalsService,
@@ -135,6 +136,9 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
             }
         });
         this.supplyBreadCrumb();
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
     }
 
     getProductDetails() {

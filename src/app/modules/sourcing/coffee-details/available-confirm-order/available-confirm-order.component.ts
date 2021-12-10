@@ -204,7 +204,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 {
                     field: 'price',
                     label: this.translator.instant('rate_per_kg'),
-                    value: `$${this.sourcing.harvestDetail.price} USD/kg`,
+                    value: `${this.decimalPipe.transform(this.sourcing.harvestDetail.price, '1.2-4')} ${
+                        this.sourcing.harvestDetail.price_unit
+                    }/kg`,
                     width: 11,
                 },
             ]);
@@ -213,7 +215,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 {
                     field: 'sample_price',
                     label: this.translator.instant('sample_price'),
-                    value: `$${this.orderSettings.sample_price}`,
+                    value: `${this.decimalPipe.transform(this.orderSettings.sample_price, '1.2-4')}`,
                     width: 12,
                 },
             ]);

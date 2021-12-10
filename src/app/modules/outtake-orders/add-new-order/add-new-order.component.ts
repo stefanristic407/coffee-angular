@@ -1,16 +1,21 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService, DownloadService, OrganizationService, RoasterService, UserService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { Location } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
-import { ApiResponse, Download, OrganizationDetails } from '@models';
-import { GlobalsService } from '@services';
 import { OrganizationType } from '@enums';
+import { Download } from '@models';
 import { TranslateService } from '@ngx-translate/core';
+import {
+    AuthService,
+    DownloadService,
+    GlobalsService,
+    OrganizationService,
+    RoasterService,
+    UserService,
+} from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-add-new-order',
@@ -42,6 +47,7 @@ export class AddNewOrderComponent implements OnInit {
     createdID: any;
     loginUserID: number;
     wasteProduced = '';
+    baseCurrency: string;
 
     constructor(
         private activeRoute: ActivatedRoute,
@@ -106,7 +112,6 @@ export class AddNewOrderComponent implements OnInit {
             gc_total_quantity: ['', [this.remainingQuantity.bind(this)]],
             gc_total_quantity_unit: ['kg'],
             total_price: ['', [Validators.required]],
-            total_price_currency: ['SEK'],
             unit_price: ['', [Validators.required]],
             unit_currency: [''],
             quantity_unit: [''],
@@ -124,6 +129,9 @@ export class AddNewOrderComponent implements OnInit {
         if (this.outtakeOrderId) {
             this.getOrder();
         }
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
         this.getAllUsers();
     }
 
@@ -317,7 +325,7 @@ export class AddNewOrderComponent implements OnInit {
                 }
             });
         } else {
-            data.unit_currency = 'SEK';
+            data.unit_currency = this.baseCurrency;
             data.quantity_unit = 'kg';
             this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
                 if (res.success) {

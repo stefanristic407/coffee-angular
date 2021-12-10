@@ -290,7 +290,7 @@
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
-                                        >SEK / kg</span
+                                        >{{ baseCurrency }} / kg</span
                                     >
                                     <span
                                         class="
@@ -340,7 +340,7 @@
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
-                                        >SEK</span
+                                        >{{ baseCurrency }}</span
                                     >
                                     <span
                                         class="
@@ -923,7 +923,9 @@
                         <span class="list-que"> {{ 'price' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> ${{ orderDetails.unit_price }}</span>
+                        <span class="list-ans">
+                            {{ orderDetails.unit_price | number: '1.2-4' }} {{ orderDetails.price_unit }}</span
+                        >
                     </td>
                 </tr>
 

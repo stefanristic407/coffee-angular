@@ -211,23 +211,19 @@
                     <ng-container *ngSwitchCase="'total_amount'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span class="truncate break-word">
-                            {{
-                                rowData['total_amount']
-                                    | currency: rowData['currency'] || 'USD':'code'
-                                    | strReplace: '-':'- ' || '--'
-                            }}
+                            {{ rowData['total_amount'] | number: '1.2-4' }} {{ rowData.currency }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'vat_amount'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span class="truncate break-word">
-                            {{ rowData['vat_amount'] | currency: rowData['currency'] || 'USD':'code' || '--' }}
+                            {{ rowData['vat_amount'] | number: '1.2-4' }} {{ rowData.currency }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'commission_amount'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span class="truncate break-word">
-                            {{ rowData['commission_amount'] | currency: rowData['currency'] || 'USD':'code' || '--' }}
+                            {{ rowData['commission_amount'] | number: '1.2-4' }} {{ rowData.currency }}
                         </span>
                     </ng-container>
                 </td>
@@ -251,28 +247,22 @@
                 <th>
                     <span class="d-md-none text-clr588 p-column-title"> {{ 'Total amt.' | translate }} : </span>
                     <span class="primeng-table-footer"
-                        >{{
-                            primeTableService.result?.grand_total || 0
-                                | currencyFormat: primeTableService.result?.currency
-                        }}
+                        >{{ primeTableService.result?.grand_total | number: '1.2-4' }}
+                        {{ primeTableService.result?.currency }}
                     </span>
                 </th>
                 <th>
                     <span class="d-md-none text-clr588 p-column-title"> {{ 'vat' | translate }} : </span>
                     <span class="primeng-table-footer"
-                        >{{
-                            primeTableService.result?.total_vat || 0
-                                | currencyFormat: primeTableService.result?.currency
-                        }}
+                        >{{ primeTableService.result?.total_vat | number: '1.2-4' }}
+                        {{ primeTableService.result?.currency }}
                     </span>
                 </th>
                 <th>
                     <span class="d-md-none text-clr588 p-column-title"> {{ 'commission' | translate }} : </span>
                     <span class="primeng-table-footer"
-                        >{{
-                            primeTableService.result?.total_commission || 0
-                                | currencyFormat: primeTableService.result?.currency
-                        }}
+                        >{{ primeTableService.result?.total_commission | number: '1.2-4' }}
+                        {{ primeTableService.result?.currency }}
                     </span>
                 </th>
             </tr>
