@@ -162,7 +162,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
 
     getOrderSettings(resolve) {
         this.roasterService.getOrderSettings().subscribe((res: any) => {
-            if (res.success && res.result?.sample_price && res.result?.sample_quantity) {
+            if (res.success && res.result?.sample_quantity) {
                 // Quantity is saved as kg
                 this.orderSettings = {
                     ...res.result,

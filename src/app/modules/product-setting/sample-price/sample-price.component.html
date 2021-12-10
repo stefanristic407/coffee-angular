@@ -14,6 +14,9 @@
                         formControlName="sample_price"
                         [placeholder]="'please_enter_an_amount' | translate"
                     ></p-inputNumber>
+                    <small *ngIf="detailsForm.controls.sample_price.errors?.min" class="p-error">
+                        {{ 'must_be_greater_equal' | translate | strReplace: '{limit}':'0' }}
+                    </small>
                     <span class="p-inputgroup-addon gray">SEK</span>
                     <small *ngIf="detailsForm.controls.sample_price.errors?.required" class="p-error">
                         {{ 'required' | translate }}
@@ -30,6 +33,9 @@
                     <p-dropdown [options]="QuantityUnitItems" formControlName="sample_quantity_unit"></p-dropdown>
                     <small *ngIf="detailsForm.controls.sample_quantity.errors?.required" class="p-error">
                         {{ 'required' | translate }}
+                    </small>
+                    <small *ngIf="detailsForm.controls.sample_quantity.errors?.min" class="p-error">
+                        {{ 'must_be_greater_than' | translate }} 0
                     </small>
                     <small
                         *ngIf="
