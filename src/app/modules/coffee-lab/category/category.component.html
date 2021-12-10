@@ -1,4 +1,4 @@
-<div class="main-block">
+<div *ngIf="!isLoading" class="main-block">
     <div class="mt-1 mt-lg-3 pb-4 pb-lg-5 w-fit-content" (click)="onBack()">
         <a class="back-page">
             <span class="ml-2">{{ 'back_to_forum' | translate }}</span>
