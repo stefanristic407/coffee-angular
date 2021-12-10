@@ -118,7 +118,9 @@
                                                             [minFractionDigits]="2"
                                                             formControlName="price"
                                                         ></p-inputNumber>
-                                                        <span class="p-inputgroup-addon gray">SEK</span>
+                                                        <span class="p-inputgroup-addon gray">{{
+                                                            shippingDetails?.price_unit
+                                                        }}</span>
                                                         <small
                                                             *ngIf="detailsFormControl.price.errors?.required"
                                                             class="p-error"
@@ -218,8 +220,8 @@
                                             </td>
                                             <td>
                                                 <span class="list-ans">
-                                                    {{ shippingDetails?.price || 'NA' }}
-                                                    SEK
+                                                    {{ shippingDetails?.price | number: '1.2-4' }}
+                                                    {{ shippingDetails?.price_unit }}
                                                 </span>
                                             </td>
                                         </tr>
@@ -339,7 +341,9 @@
                                                 formControlName="price"
                                                 placeholder="Please enter shipping amount"
                                             ></p-inputNumber>
-                                            <span class="p-inputgroup-addon gray">SEK</span>
+                                            <span class="p-inputgroup-addon gray">{{
+                                                shippingDetails?.price_unit
+                                            }}</span>
                                             <small *ngIf="detailsFormControl.price.errors?.required" class="p-error">
                                                 Shipment price is required
                                             </small>

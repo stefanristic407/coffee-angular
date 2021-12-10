@@ -60,7 +60,7 @@
                             <div class="text-clr334 ellipsis mb-4">{{ item.name }}</div>
                             <h3 class="fnt-20 fnt-bold text-clr334 mb-1">{{ item.origin | country }}</h3>
                             <div class="fnt-bold text-clr588">
-                                <span>${{ item.price }}</span>
+                                <span>{{ item.price | number: '1.2-4' }} {{ item.price_unit }}</span>
                                 <span class="v-divider mx-2"></span>
                                 <span>{{ item.weight }} {{ item.weight_unit }} bag</span>
                             </div>

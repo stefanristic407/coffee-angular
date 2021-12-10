@@ -29,6 +29,7 @@ export interface OrderDetails {
     payment_status: string;
     prebook_order_id?: number;
     price: number;
+    price_unit: number;
     quantity_count?: number;
     quantity_type: string;
     quantity_unit: string;

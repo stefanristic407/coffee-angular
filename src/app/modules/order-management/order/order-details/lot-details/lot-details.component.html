@@ -28,7 +28,9 @@
             </div>
             <div class="d-flex flex-row flex-md-column w-100">
                 <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} kg</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.unit_price }} {{ lot?.total_price_unit }}</span>
+                <span class="mt-md-3 fnt-600 text-clr334"
+                    >{{ lot?.unit_price | number: '1.2-4' }} {{ lot?.total_price_unit }}</span
+                >
             </div>
         </div>
     </ng-container>
@@ -62,23 +64,26 @@
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
                 <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} kg</span>
                 <span class="mt-md-3 fnt-600 text-clr334" *ngIf="lot?.order_type !== OrderType.Sample"
-                    >{{ lot?.quantity ? (lot?.price / (lot?.quantity * lot?.quantity_count) | currency: 'USD') : '-' }}
+                    >{{ lot?.quantity ? (lot?.price / (lot?.quantity * lot?.quantity_count) | number: '1.2-4') : '-' }}
+                    {{ lot?.price_unit }}
                 </span>
-                <span class="mt-md-3 fnt-600 text-clr334" *ngIf="lot?.order_type === OrderType.Sample">{{
-                    avilablity?.price ? (avilablity?.price | currency: 'USD') : '-'
-                }}</span>
+                <span class="mt-md-3 fnt-600 text-clr334" *ngIf="lot?.order_type === OrderType.Sample"
+                    >{{ avilablity?.price ? (avilablity?.price | number: '1.2-4') : '-' }} {{ lot?.price_unit }}</span
+                >
             </div>
         </div>
         <div class="lot-detail-wrapper d-flex flex-column flex-md-row">
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust" *ngIf="lot?.shipping_price">
                 <span class="fnt-500 text-muted">{{ 'import_fee' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.shipping_price | currency: 'USD' }}</span>
+                <span class="mt-md-3 fnt-600 text-clr334"
+                    >{{ lot?.shipping_price | number: '1.2-4' }} {{ lot?.price_unit }}</span
+                >
             </div>
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
                 <span class="fnt-500 text-muted">{{ 'total' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{
-                    lot?.price + lot?.shipping_price | currency: 'USD'
-                }}</span>
+                <span class="mt-md-3 fnt-600 text-clr334"
+                    >{{ lot?.price + lot?.shipping_price | number: '1.2-4' }} {{ lot?.price_unit }}</span
+                >
             </div>
         </div>
     </ng-template>

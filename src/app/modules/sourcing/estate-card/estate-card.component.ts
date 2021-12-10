@@ -9,9 +9,6 @@ import { SourcingService } from '../sourcing.service';
 })
 export class EstateCardComponent implements OnInit {
     @Input() data: any;
-    Currencies = {
-        $: 'USD',
-    };
 
     constructor(public globals: GlobalsService, public sourcing: SourcingService) {}
 

@@ -5,7 +5,7 @@ import { ResizeableComponent } from '@base-components';
 import { ProcuredCoffeeStatus, ProcuredCoffeeUnit, QuantityUnit, VatType } from '@enums';
 import { ApiResponse, ProcuredCoffee } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { ResizeService, RoasterService, UserService } from '@services';
+import { AuthService, ResizeService, RoasterService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -42,6 +42,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     soldQuantitySample = 0;
     coffeeDetails: ProcuredCoffee;
     remainingTotalQuantity;
+    baseCurrency: string;
 
     constructor(
         private dialogService: DialogService,
@@ -53,6 +54,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         private translator: TranslateService,
         private userService: UserService,
         protected resizeService: ResizeService,
+        private authService: AuthService,
     ) {
         super(resizeService);
         this.orderID = +decodeURIComponent(this.route.snapshot.queryParams.orderId);
@@ -72,6 +74,9 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                     this.coffeeDetails.initial_quantity_count * this.coffeeDetails.quantity +
                     this.coffeeDetails.sample_initial_quantity_count * this.coffeeDetails.sample_quantity;
             });
+        });
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
         });
     }
 

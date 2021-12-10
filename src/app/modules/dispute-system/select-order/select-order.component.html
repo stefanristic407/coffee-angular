@@ -211,7 +211,9 @@
                                 }}</span>
                             </span>
                             <span *ngSwitchCase="'price'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">${{ rowData[col.field] }}</span>
+                                <span class="d-none d-sm-none d-md-block"
+                                    >{{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span
+                                >
                             </span>
                             <span *ngSwitchCase="'quantity'" class="d-md-block">
                                 <span class="d-none d-sm-none d-md-block"

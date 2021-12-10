@@ -106,10 +106,11 @@
                                     </div>
 
                                     <div class="fnt-14 fnt-bold text-clr334 form-middle">
-                                        &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;${{
+                                        &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;{{
                                             sourcing.harvestDetail?.price * sourcing.harvestDetail?.quantity
-                                                | number: '1.0-2'
+                                                | number: '1.2-4'
                                         }}
+                                        {{ sourcing.harvestDetail?.price_unit }}
                                     </div>
                                 </div>
                                 <div
@@ -120,7 +121,7 @@
                                         d-none d-md-block
                                     "
                                 >
-                                    ${{ coffeePrice | number: '1.0-2' }}
+                                    {{ coffeePrice | number: '1.2-4' }} {{ sourcing.harvestDetail.price_unit }}
                                 </div>
 
                                 <!-- Service -->
@@ -142,7 +143,7 @@
                                         d-none d-md-block
                                     "
                                 >
-                                    ${{ shipmentPrice | number: '1.0-2' }}
+                                    {{ shipmentPrice | number: '1.2-4' }} {{ sourcing.harvestDetail.price_unit }}
                                 </div>
 
                                 <div *ngIf="shippingError" class="col-12">
@@ -173,7 +174,7 @@
                                     {{ 'total_amount' | translate }}
                                 </div>
                                 <div class="fnt-16 fnt-md-18 fnt-bold text-clr334 pt-md-2">
-                                    ${{ totalPrice | number: '1.0-2' }}
+                                    {{ totalPrice | number: '1.2-4' }} {{ sourcing.harvestDetail.price_unit }}
                                 </div>
                             </div>
                         </div>
@@ -508,7 +509,7 @@
                 <tr>
                     <td width="170">{{ tier.min_quantity }} Kg</td>
                     <td width="160">{{ tier.max_quantity }} Kg</td>
-                    <td width="130">${{ tier.amount | number: '1.0-2' }}</td>
+                    <td width="130">{{ tier.amount | number: '1.2-4' }} {{ tier.currency }}</td>
                 </tr>
             </ng-template>
         </p-table>

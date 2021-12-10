@@ -62,7 +62,10 @@
                                         </li>
                                         <li>
                                             <label>{{ 'buying_price' | translate }}</label>
-                                            <p *ngIf="orderDetails.price">{{ orderDetails.price }} USD/kg</p>
+                                            <p *ngIf="orderDetails.price">
+                                                {{ orderDetails.price | number: '1.2-4' }}
+                                                {{ orderDetails?.price_unit }}/kg
+                                            </p>
                                             <p *ngIf="!orderDetails.price">N/A</p>
                                         </li>
                                         <li>
@@ -139,8 +142,8 @@
                                         <li>
                                             <label>{{ 'selling_price' | translate }}</label>
                                             <p>
-                                                {{ saleInformation.price_unit || 'NA' }}
-                                                {{ saleInformation.price || 'NA' }}
+                                                {{ saleInformation.price | number: '1.2-4' || 'NA' }}
+                                                {{ saleInformation.price_unit }}
                                                 /
                                                 {{ saleInformation.price_per_unit || 'NA' }}
                                             </p>

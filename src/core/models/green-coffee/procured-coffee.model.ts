@@ -1,4 +1,4 @@
-import { PriceUnit, QuantityUnit } from '@enums';
+import { QuantityUnit } from '@enums';
 import { ProcuredCoffeeStatus, ProcuredCoffeeUnit } from 'src/core/enums/procured-coffee';
 
 export interface ProcuredCoffee {
@@ -8,7 +8,7 @@ export interface ProcuredCoffee {
     name: string;
     order_id: number;
     price_per_unit: QuantityUnit;
-    price_unit: PriceUnit;
+    price_unit: string;
     price: number;
     quantity_count: number;
     quantity_type: ProcuredCoffeeUnit;

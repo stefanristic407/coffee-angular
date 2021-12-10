@@ -8,10 +8,14 @@ export interface OrganizationProfile {
     avg_employee_age: number;
     banner_file_id: number;
     banner_url: string;
+    base_currency: string;
+    base_currency_name: string;
     capabilities: string;
     capacity: number;
     capacity_unit: string;
     city: string;
+    commission_currency: string;
+    commission_currency_name: string;
     company_details_public: boolean;
     company_image_thumbnail_url: string;
     company_image_url: string;
