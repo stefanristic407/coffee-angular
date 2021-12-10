@@ -7,7 +7,9 @@
         <div *ngIf="isMobile && !showNoDataSection" class="col-12 bg-f8 mb-4 px-0 border-main br-4">
             <div class="w-100 bg-f8">
                 <div class="d-flex border-btm drop-pad">
-                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25">translation_language - </span>
+                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25"
+                        >{{ 'translation_language' | translate }} -
+                    </span>
                     <p-dropdown
                         [options]="remainingLangugage"
                         [(ngModel)]="selectedArticleLangCode"
@@ -115,7 +117,9 @@
         <div *ngIf="!isMobile && !showNoDataSection" class="col-12 bg-f8 col-md-6 px-0 border-left">
             <div class="w-100 bg-f8">
                 <div class="d-flex border-btm drop-pad">
-                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25">translation_language - </span>
+                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25"
+                        >{{ 'translation_language' | translate }} -
+                    </span>
                     <p-dropdown
                         [options]="remainingLangugage"
                         [(ngModel)]="selectedArticleLangCode"
