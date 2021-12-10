@@ -79,6 +79,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     ];
     brewingMethodArray: any[] = BREWING_METHOD_ITEMS;
     @ViewChild('bannerFileInput', { static: false }) bannerFileInput;
+    langCode: any;
 
     constructor(
         private authService: AuthService,
@@ -663,6 +664,8 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     }
 
     changeLanguage(event: any) {
+        this.langCode = event.value;
+        console.log(event.value);
         this.coffeeLabService.updateLang(event.value).then(() => {
             this.getCategory();
         });

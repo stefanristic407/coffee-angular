@@ -249,6 +249,7 @@
                 <div
                     *ngIf="i > 0 && !isTranslate"
                     class="col-md-1 pl-md-0 pl-lg-2 d-none d-md-flex justify-content-end form-middle"
+                    [ngClass]="{ 'pr-0': langCode === 'nl' }"
                 >
                     <span class="editBtn" (click)="deleteIngredient(i)">
                         {{ 'delete' | translate }}
