@@ -276,7 +276,7 @@
             <td *ngIf="orgType === OrgTypes.ESTATE" class="d-none d-md-table-cell text-overflow-ellipsis" width="120px">
                 <div class="d-flex">
                     <span class="text-overflow-ellipsis">
-                        {{ getPrice(rowData) | currency: 'USD' }}
+                        {{ getPrice(rowData) | number: '1.2-4' }} {{ rowData.price_unit }}
                     </span>
                 </div>
             </td>

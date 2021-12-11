@@ -6,7 +6,7 @@
                     <div class="d-md-none"><app-back-link (handleBack)="onCancel()"></app-back-link></div>
                     <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
                 </div>
-                <div class="fnt-16 fnt-md-18 fnt-bold">{{ coffeeSaleForm?.value?.name || 'NA' }}</div>
+                <div class="fnt-16 fnt-md-18 fnt-bold">Order #{{ orderDetails?.id }}</div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="bg-fa br-4 px-4 py-3">
@@ -71,7 +71,9 @@
                                 {{ rowData['quantity_unit'] || 'kg' }}
                             </span>
                             <span *ngSwitchCase="'unit_price'"
-                                >${{ rowData[col.field] }}/{{ rowData['quantity_unit'] || 'kg' }}</span
+                                >{{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}/{{
+                                    rowData['quantity_unit'] || 'kg'
+                                }}</span
                             >
                             <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
                         </td>
@@ -95,7 +97,7 @@
                     </small>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>{{ 'selling_price' | translate }}<span class="star">*</span>(in SEK)</label>
+                    <label>{{ 'selling_price' | translate }}<span class="star">*</span>(in {{ baseCurrency }})</label>
                     <div class="input-and-select gray">
                         <p-inputNumber
                             formControlName="price"
@@ -255,7 +257,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             disabled
                         ></p-inputNumber>
-                        <span class="p-inputgroup-addon gray">{{ orderSettings?.sample_quantity_unit }}</span>
+                        <span class="p-inputgroup-addon gray disabled">{{ orderSettings?.sample_quantity_unit }}</span>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field mb-0">
@@ -266,7 +268,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             disabled
                         ></p-inputNumber>
-                        <span class="p-inputgroup-addon gray">SEK</span>
+                        <span class="p-inputgroup-addon gray disabled">{{ orderSettings?.sample_price_currency }}</span>
                     </div>
                 </div>
             </div>

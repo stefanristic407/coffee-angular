@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { GlobalsService } from '@services';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { dataURItoBlob } from '@utils';
 import { TranslateService } from '@ngx-translate/core';
+import { GlobalsService } from '@services';
+import { dataURItoBlob } from '@utils';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-cropper-dialog',

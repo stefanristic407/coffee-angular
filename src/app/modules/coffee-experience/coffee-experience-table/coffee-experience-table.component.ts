@@ -470,7 +470,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                 page: this.primeTableService.currentPage,
                 per_page: this.primeTableService.rows,
                 sort_by: 'created_at',
-                type: 'GC_ORDER',
+                order_type: 'GC_ORDER',
                 status: 'RECEIVED',
             };
             this.originArray = [];

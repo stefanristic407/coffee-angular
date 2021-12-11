@@ -109,9 +109,7 @@ export class BarChartComponent implements OnInit, OnChanges {
                     fontFamily: 'Muli',
                     formatter: (label) => {
                         // const convertedValue = label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                        // if (this.unitName === 'USD') {
-                        //     return '$ ' + convertedValue;
-                        // } else if (this.type === 'Ton') {
+                        //  if (this.type === 'Ton') {
                         //     console.log('unitName: ', this.unitName);
                         //     return convertedValue + ' ton';
                         // } else {
@@ -144,12 +142,10 @@ export class BarChartComponent implements OnInit, OnChanges {
         this.verticalChartOption.yAxis.name = this.unitName;
         this.verticalChartOption.series[0].label.formatter = (label) => {
             const convertedValue = this.thousandSuffPipe.transform(label.value);
-            if (this.unitName === 'USD') {
-                return '$ ' + convertedValue;
-            } else if (this.unitName === 'Ton') {
+            if (this.unitName === 'Ton') {
                 return convertedValue + ' ton';
             } else {
-                return convertedValue;
+                return convertedValue + ' ' + this.unitName;
             }
         };
         this.barEchart.setOption(this.verticalChartOption);

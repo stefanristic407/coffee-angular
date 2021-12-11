@@ -81,7 +81,7 @@
         [columns]="tableColumns"
         dataKey="id"
         [loading]="loading"
-        [paginator]="true"
+        [paginator]="tableData?.length"
         [rows]="10"
         [lazy]="true"
         [showCurrentPageReport]="false"
@@ -150,7 +150,9 @@
                                     <span class="fnt-bold" *ngSwitchCase="'origin'">{{
                                         rowData[item.field] | country
                                     }}</span>
-                                    <span class="fnt-bold" *ngSwitchCase="'price'">{{ rowData[item.field] }} SEK</span>
+                                    <span class="fnt-bold" *ngSwitchCase="'price'"
+                                        >{{ rowData[item.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span
+                                    >
                                     <span class="fnt-bold" *ngSwitchDefault>{{ rowData[item.field] }}</span>
                                 </div>
                             </div>
@@ -181,7 +183,7 @@
                         </span>
                     </span>
                     <span *ngSwitchCase="'price'">
-                        <span>{{ rowData[col.field] }} SEK</span>
+                        <span>{{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span>
                     </span>
                     <span *ngSwitchCase="'business_type'">
                         <span> {{ rowData[col.field]?.toUpperCase() }} </span>
@@ -206,6 +208,9 @@
                     </span>
                 </td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <app-empty *ngIf="!loading && !tableData?.length" [title]="'no_data' | translate"></app-empty>
         </ng-template>
     </p-table>
 </section>

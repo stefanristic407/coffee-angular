@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
-import { CURRENCY_LIST } from '@constants';
 import { OrderType, OrganizationType } from '@enums';
 import { OrderDetails } from '@models';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
@@ -16,7 +15,6 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class LotDetailsComponent extends DestroyableComponent implements OnInit, OnDestroy {
     readonly OrderType = OrderType;
-    public readonly CURRENCY_LIST = CURRENCY_LIST;
     readonly OrgType = OrganizationType;
     bulkSubscription: Subscription;
     avilablity: any;

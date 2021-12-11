@@ -132,7 +132,7 @@ export class PrimeTableService {
         }
 
         if (this.type) {
-            postData = { ...postData, ...{ type: this.type } };
+            postData = { ...postData, ...{ order_type: this.type } };
         }
 
         if (this.isMarkedForSale) {

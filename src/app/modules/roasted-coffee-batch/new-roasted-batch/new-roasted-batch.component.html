@@ -393,7 +393,10 @@
                         <span class="list-que"> {{ 'price' | translate }} : </span>
                     </td>
                     <td class="recent-data-ans">
-                        <span class="list-ans"> ${{ orderDetails.price + orderDetails.shipping_price | number }} </span>
+                        <span class="list-ans">
+                            {{ orderDetails.price + orderDetails.shipping_price | number: '1.2-4' }}
+                            {{ orderDetails?.price_unit }}</span
+                        >
                     </td>
                 </tr>
 

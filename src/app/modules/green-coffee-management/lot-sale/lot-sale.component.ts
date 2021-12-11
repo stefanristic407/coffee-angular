@@ -5,7 +5,7 @@ import { ResizeableComponent } from '@base-components';
 import { ProcuredCoffeeStatus, ProcuredCoffeeUnit, QuantityUnit, VatType } from '@enums';
 import { ApiResponse, ProcuredCoffee } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { ResizeService, RoasterService, UserService } from '@services';
+import { AuthService, ResizeService, RoasterService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -42,6 +42,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
     soldQuantitySample = 0;
     coffeeDetails: ProcuredCoffee;
     remainingTotalQuantity;
+    baseCurrency: string;
 
     constructor(
         private dialogService: DialogService,
@@ -53,6 +54,7 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
         private translator: TranslateService,
         private userService: UserService,
         protected resizeService: ResizeService,
+        private authService: AuthService,
     ) {
         super(resizeService);
         this.orderID = +decodeURIComponent(this.route.snapshot.queryParams.orderId);
@@ -72,6 +74,9 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                     this.coffeeDetails.initial_quantity_count * this.coffeeDetails.quantity +
                     this.coffeeDetails.sample_initial_quantity_count * this.coffeeDetails.sample_quantity;
             });
+        });
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
         });
     }
 
@@ -132,7 +137,13 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
             minimum_order_quantity_count: ['', Validators.compose([Validators.required, Validators.min(1)])],
             vat_settings_id: [null, Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
-            sample_quantity_count: [null, Validators.compose([Validators.min(0), this.quantityValidator])],
+            sample_quantity_count: [
+                null,
+                Validators.compose([
+                    (control: AbstractControl) => Validators.min(this.soldQuantitySample || 0)(control),
+                    this.quantityValidator,
+                ]),
+            ],
         });
     }
 
@@ -162,7 +173,20 @@ export class LotSaleComponent extends ResizeableComponent implements OnInit {
                     this.soldQuantity = lotDetails.initial_quantity_count - lotDetails.quantity_count;
                     this.soldQuantitySample =
                         lotDetails.sample_initial_quantity_count - lotDetails.sample_quantity_count;
-                    this.lotSaleForm.patchValue({ ...lotDetails, quantity_count: lotDetails.initial_quantity_count });
+                    if (this.soldQuantitySample > 0) {
+                        this.lotSaleForm
+                            .get('sample_quantity_count')
+                            .setValidators([
+                                Validators.required,
+                                (control: AbstractControl) => Validators.min(this.soldQuantitySample || 0)(control),
+                                this.quantityValidator,
+                            ]);
+                    }
+                    this.lotSaleForm.patchValue({
+                        ...lotDetails,
+                        quantity_count: lotDetails.initial_quantity_count,
+                        sample_quantity_count: lotDetails.sample_initial_quantity_count,
+                    });
                     this.availablityName = lotDetails.name;
                     this.statusLabel = this.formatStatus(response.result.status);
                     this.refreshBreadcrumb();

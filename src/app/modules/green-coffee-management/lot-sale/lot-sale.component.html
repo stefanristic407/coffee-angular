@@ -71,7 +71,9 @@
                                 {{ rowData['quantity_unit'] || 'kg' }}
                             </span>
                             <span *ngSwitchCase="'unit_price'"
-                                >${{ rowData[col.field] }}/{{ rowData['quantity_unit'] || 'kg' }}</span
+                                >{{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}/{{
+                                    rowData['quantity_unit'] || 'kg'
+                                }}</span
                             >
                             <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
                         </td>
@@ -95,7 +97,7 @@
                     </small>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field">
-                    <label>{{ 'selling_price' | translate }}<span class="star">*</span>(in SEK)</label>
+                    <label>{{ 'selling_price' | translate }}<span class="star">*</span>(in {{ baseCurrency }})</label>
                     <div class="input-and-select gray">
                         <p-inputNumber
                             formControlName="price"
@@ -220,8 +222,11 @@
                             [placeholder]="'enter_a_quantity' | translate"
                         ></p-inputNumber>
                         <span class="p-inputgroup-addon gray">bag</span>
+                        <small *ngIf="lotSaleForm.controls.sample_quantity_count.errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                         <small *ngIf="lotSaleForm.controls.sample_quantity_count.errors?.min" class="p-error">
-                            {{ 'must_be_greater_than' | translate }} 0
+                            {{ 'must_be_greater_than' | translate }} {{ soldQuantitySample || 0 }}
                         </small>
                         <small
                             *ngIf="lotSaleForm.controls['sample_quantity_count'].errors?.availablequantity"
@@ -252,7 +257,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             disabled
                         ></p-inputNumber>
-                        <span class="p-inputgroup-addon gray">{{ coffeeDetails?.sample_quantity_unit }}</span>
+                        <span class="p-inputgroup-addon gray disabled">{{ coffeeDetails?.sample_quantity_unit }}</span>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 sewn-form-field mb-0">
@@ -263,7 +268,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             disabled
                         ></p-inputNumber>
-                        <span class="p-inputgroup-addon gray">SEK</span>
+                        <span class="p-inputgroup-addon gray disabled">{{ baseCurrency }}</span>
                     </div>
                 </div>
             </div>

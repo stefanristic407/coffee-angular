@@ -1,14 +1,14 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService, CoffeeLabService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { CropperDialogComponent } from '@shared';
 import { CroppedImage } from '@models';
+import { AuthService, CoffeeLabService } from '@services';
+import { CropperDialogComponent } from '@shared';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 import Quill from 'quill';
-import ImageResize from 'quill-image-resize-module';
 import { ImageDrop } from 'quill-image-drop-module';
+import ImageResize from 'quill-image-resize-module';
 Quill.register('modules/imageResize', ImageResize);
 Quill.register('modules/imageDrop', ImageDrop);
 
@@ -44,7 +44,6 @@ export class ForumEditorComponent implements OnInit, ControlValueAccessor {
     @Input('placeholder')
     set placeholder(value) {
         this.placeholderStr = value;
-        console.log(this.placeholderStr);
         this.refreshEditor = true;
         setTimeout(() => (this.refreshEditor = false), 200);
     }

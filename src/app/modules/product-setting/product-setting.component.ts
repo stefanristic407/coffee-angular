@@ -34,11 +34,13 @@ export class ProductSettingComponent implements OnInit {
         id: '',
         name: '',
         price: '',
+        price_unit: '',
         day_min: '',
         day_max: '',
     };
     selectedMobileTab = '';
     dayMinListArray = [];
+    baseCurrency: string;
 
     constructor(
         private authService: AuthService,
@@ -75,6 +77,10 @@ export class ProductSettingComponent implements OnInit {
                 this.settingBreadCrumb();
             }
         });
+
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
     }
 
     settingBreadCrumb(type = null) {
@@ -97,7 +103,7 @@ export class ProductSettingComponent implements OnInit {
                         day_min: [this.shippingDetails.day_min, Validators.compose([Validators.required])],
                         day_max: [this.shippingDetails.day_max, Validators.compose([Validators.required])],
                         price: [this.shippingDetails.price, Validators.compose([Validators.required])],
-                        price_unit: ['SEK', Validators.compose([Validators.required])],
+                        price_unit: [this.baseCurrency, Validators.compose([Validators.required])],
                     });
                 } else {
                     this.detailsForm = this.fb.group({
@@ -105,7 +111,7 @@ export class ProductSettingComponent implements OnInit {
                         day_min: [null, Validators.compose([Validators.required])],
                         day_max: [null, Validators.compose([Validators.required])],
                         price: [null, Validators.compose([Validators.required])],
-                        price_unit: ['SEK', Validators.compose([Validators.required])],
+                        price_unit: [this.baseCurrency, Validators.compose([Validators.required])],
                     });
                 }
             }
