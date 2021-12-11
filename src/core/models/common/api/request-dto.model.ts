@@ -3,4 +3,5 @@ export interface RequestDto {
     api_call: string;
     data?: object;
     token?: string;
+    v?: string;
 }

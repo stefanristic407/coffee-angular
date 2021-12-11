@@ -8,6 +8,7 @@ import { Download, OrderDetails } from '@models';
 import {
     CoffeeStoryService,
     DownloadService,
+    InventoryService,
     OrganizationService,
     PurchaseService,
     RoasterService,
@@ -72,6 +73,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         private router: Router,
         private toastrService: ToastrService,
         private userService: UserService,
+        private inventorySrv: InventoryService,
     ) {
         super();
     }
@@ -155,14 +157,11 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     }
 
     getRoastingProfile(resolve?, reject?) {
-        this.roasterService.getRoastingProfile().subscribe((data) => {
+        this.inventorySrv.getRoastingProfiles().subscribe((data) => {
             if (data.success) {
                 this.roastProfileArray = (data.result || []).map((item: any) => {
                     return {
-                        label:
-                            item.roast_profile_name.length > 65
-                                ? item.roast_profile_name.slice(0, 65) + '...'
-                                : item.roast_profile_name,
+                        label: item.roast_name.length > 65 ? item.roast_name.slice(0, 65) + '...' : item.roast_name,
                         value: item.id,
                     };
                 });
@@ -201,7 +200,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     }
 
     getRoasterFlavourProfile() {
-        this.userService.getRoasterFlavourProfile().subscribe((data) => {
+        this.inventorySrv.getRoasterFlavourProfile().subscribe((data) => {
             if (data.success) {
                 this.roasterFlavourProfile = data.result.map((item) => {
                     return { label: item.name, value: item };

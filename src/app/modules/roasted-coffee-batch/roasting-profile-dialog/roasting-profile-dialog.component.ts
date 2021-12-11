@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GeneralService, UserService } from '@services';
+import { GeneralService, InventoryService, UserService } from '@services';
 import { toSentenceCase } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -24,6 +24,7 @@ export class RoastingProfileDialogComponent implements OnInit {
         private userService: UserService,
         public config: DynamicDialogConfig,
         public ref: DynamicDialogRef,
+        private inventorySrv: InventoryService,
     ) {
         this.config.showHeader = false;
         this.config.styleClass = 'roasting-profile-dialog';
@@ -50,9 +51,8 @@ export class RoastingProfileDialogComponent implements OnInit {
     }
 
     createRoastingProfile(productObj) {
-        this.userService.addRoastingProfile(productObj).subscribe(
+        this.inventorySrv.addRoastingProfile(productObj).subscribe(
             (res) => {
-                console.log('create roasting profile response <>>>>>>>>>>>', res);
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been added.');
                     this.ref.close({ success: true, newItem: { ...res.result, ...productObj } });

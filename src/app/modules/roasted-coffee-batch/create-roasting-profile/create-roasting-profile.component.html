@@ -8,7 +8,7 @@
     <div *ngIf="!isLoading; else loader" class="col-lg-8 px-0" [formGroup]="roastingForm" novalidate>
         <div class="fnt-16 fnt-md-18 fnt-bold mb-4">
             <span *ngIf="!profileId">{{ 'create_roasting_profile' | translate }}</span>
-            <span *ngIf="profileId">{{ roastingForm.controls.roast_profile_name.value }}</span>
+            <span *ngIf="profileId">{{ roastingForm.controls.name.value }}</span>
         </div>
 
         <section class="border-main br-4 p-3 p-md-45">
@@ -18,10 +18,10 @@
                     <input
                         type="text"
                         [placeholder]="'enter_a_profile_name' | translate"
-                        formControlName="roast_profile_name"
+                        formControlName="name"
                         pInputText
                     />
-                    <small *ngIf="roastingForm.controls['roast_profile_name'].errors?.required" class="p-error">
+                    <small *ngIf="roastingForm.controls['name'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
                 </div>
@@ -36,9 +36,9 @@
                         optionValue="id"
                         [placeholder]="'select_a_roast_level' | translate"
                         [style]="{ width: '100%' }"
-                        formControlName="roast_level"
+                        formControlName="roast_level_id"
                     ></p-dropdown>
-                    <small *ngIf="roastingForm.controls['roast_level'].errors?.required" class="p-error">
+                    <small *ngIf="roastingForm.controls['roast_level_id'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
                 </div>
@@ -127,6 +127,9 @@
                         [placeholder]="'add_descriptors' | translate"
                         [itemList]="flavoursList"
                     ></app-multiselect-chips>
+                    <small *ngIf="roastingForm.controls['flavour_profiles'].errors?.required" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
                 </div>
                 <div class="col-12 sewn-form-field">
                     <label>{{ 'roaster_notes' | translate }}</label>
@@ -148,48 +151,36 @@
                         formControlName="recommended_recipe"
                         pInputText
                     ></textarea>
-                    <small *ngIf="roastingForm.controls['roaster_notes'].errors?.required" class="p-error">
+                    <small *ngIf="roastingForm.controls['recommended_recipe'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
                 </div>
                 <div class="col-12 fnt-bold mb-3">{{ 'recommended_brewing_method' | translate }}</div>
                 <div class="col-md-4 sewn-form-field mb-md-0">
-                    <label>{{ 'brewing_method' | translate }}<span class="star">*</span></label>
+                    <label>{{ 'brewing_method' | translate }}</label>
                     <p-dropdown
-                        [options]="brewingMethodArray"
-                        optionLabel="label"
+                        [options]="BREWING_METHOD_ITEMS"
                         [placeholder]="'select_method' | translate"
                         formControlName="brewing_method"
-                        optionValue="value"
                     >
+                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                     </p-dropdown>
-                    <small *ngIf="roastingForm['controls']['brewing_method'].errors?.required" class="p-error">
-                        {{ 'required' | translate }}
-                    </small>
                 </div>
                 <div class="col-md-8 sewn-form-field mb-0">
                     <label
-                        >{{ 'recommendation_text' | translate }}
-                        <span class="star" *ngIf="roastingForm.get('brewing_method').value">*</span>
+                        >{{ 'recommendation_text' | translate
+                        }}<span class="star" *ngIf="roastingForm.get('recommendation_text').value">*</span>
                         <span class="float-right text-clr588"
-                            >{{ roastingForm.value.roaster_recommendation | wordCount }}/10
-                            {{ 'words' | translate }}</span
+                            >{{ roastingForm.value.recommendation_text | wordCount }}/10 {{ 'words' | translate }}</span
                         >
                     </label>
-                    <input class="d-none d-md-block" formControlName="roaster_recommendation" pInputText />
-                    <textarea
-                        class="d-md-none"
-                        [rows]="3"
-                        formControlName="roaster_recommendation"
-                        pInputText
-                    ></textarea>
-                    <small *ngIf="roastingForm['controls']['roaster_recommendation'].errors?.required" class="p-error">
+                    <input class="d-none d-md-block" formControlName="recommendation_text" pInputText />
+                    <textarea class="d-md-none" [rows]="3" formControlName="recommendation_text" pInputText></textarea>
+                    <small *ngIf="roastingForm['controls']['recommendation_text'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
-                    <small
-                        *ngIf="roastingForm['controls']['roaster_recommendation'].errors?.maxWordCount"
-                        class="p-error"
-                    >
+                    <small *ngIf="roastingForm['controls']['recommendation_text'].errors?.maxWordCount" class="p-error">
                         {{ 'should_not_be_over_n_words' | translate | strReplace: '{limit}':'10' }}
                     </small>
                 </div>

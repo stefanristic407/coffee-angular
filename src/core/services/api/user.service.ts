@@ -609,22 +609,6 @@ export class UserService extends ApiService {
         return this.http.put(this.orgPutUrl, data);
     }
 
-    addRoastingProfile(body: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile`, 'POST', body);
-    }
-
-    getRoastingProfileDetail(id: number): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`);
-    }
-
-    updateRoastingProfileDetail(id: number, body: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`, 'PUT', body);
-    }
-
-    deleteRoastingProfile(id: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`, 'DELETE');
-    }
-
     getGreenCoffee(roaster_id: any, detailestateId: any) {
         let params = new HttpParams();
         params = params.append('estate_id', detailestateId);
@@ -655,10 +639,6 @@ export class UserService extends ApiService {
 
     addRoastedBatches(body: any): Observable<any> {
         return this.postWithOrg(this.orgPostUrl, `roasted-batches`, 'POST', body);
-    }
-
-    getRoasterFlavourProfile(): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `flavour-profile`);
     }
 
     getPageDetails(roaster_id: any, slug: any) {

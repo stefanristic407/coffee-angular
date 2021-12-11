@@ -18,6 +18,7 @@ export * from './general-cupping.service';
 export * from './general.service';
 export * from './green-grading.service';
 export * from './idm.service';
+export * from './inventory.service';
 export * from './invite-friends.service';
 export * from './lots.service';
 export * from './mfa.service';
