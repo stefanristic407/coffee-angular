@@ -1,20 +1,15 @@
-<div class="main-block">
-    <div class="mb-3 mb-md-475 mb-lg-5">
-        <div>
-            <p-breadcrumb [model]="breadCrumbItem" class="w-100"></p-breadcrumb>
-        </div>
-    </div>
+<div *ngIf="!isLoading; else loader" class="main-block">
+    <p-breadcrumb [model]="breadCrumbItem" class="breadcrumb-mb"></p-breadcrumb>
+
     <div [formGroup]="productForm" (ngSubmit)="onSave()">
-        <div class="d-flex flex-column flex-md-row justify-content-md-between">
-            <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli fnt-clr334">
+        <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-end">
+            <span class="fnt-16 fnt-md-18 fnt-bold">
                 {{ productID ? productName || 'NA' : ('add_new_product' | translate) }}
             </span>
-            <div *ngIf="productID" class="">
+            <div *ngIf="productID">
                 <p-divider type="dashed" styleClass="d-block d-md-none"></p-divider>
                 <div class="pt-3 pt-md-0 d-flex justify-content-between align-items-center">
-                    <span class="fnt-muli fnt-14 fnt-md-18 fnt-bold text-clr334 pr-2"
-                        >{{ 'product_visibility' | translate }} :</span
-                    >
+                    <span class="fnt-bold pr-2">{{ 'product_visibility' | translate }}</span>
                     <p-selectButton
                         [options]="visibilityOptions"
                         formControlName="is_public"
@@ -27,66 +22,105 @@
                 <p-divider type="dashed" styleClass="d-block d-md-none"></p-divider>
             </div>
         </div>
-        <div class="row gutter-16 mt-3 mt-md-35">
-            <div class="col-12 col-md-6 sewn-form-field">
-                <label>{{ 'product_name' | translate }}<span class="star">*</span></label>
-                <input
-                    type="text"
-                    [placeholder]="'product_name' | translate"
-                    formControlName="name"
-                    (input)="productNameValue($event)"
-                    pInputText
-                />
-                <small *ngIf="productForm.controls['name'].errors?.required" class="p-error">
-                    {{ 'required' | translate }}
-                </small>
+
+        <section class="border-main br-4 p-3 p-md-4 mt-4">
+            <div class="mb-4">
+                <div class="fnt-16 fnt-md-18 fnt-bold mb-1">{{ 'product_details' | translate }}</div>
+                <div class="fnt-semi-bold text-clr588">{{ 'product_details_note' | translate }}</div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3 sewn-form-field">
-                <label>{{ 'product_eligible_for' | translate }}<span class="star">*</span></label>
-                <p-dropdown
-                    [options]="eligibleArray"
-                    optionLabel="label"
-                    [placeholder]="'select_subscription_type' | translate"
-                    formControlName="purchase_type"
-                    optionValue="value"
-                ></p-dropdown>
-                <small *ngIf="productForm.controls['purchase_type'].errors?.required" class="p-error">
-                    {{ 'required' | translate }}
-                </small>
+
+            <div class="row gutter-16">
+                <div class="col-md-6 sewn-form-field">
+                    <label>{{ 'product_name' | translate }}<span class="star">*</span></label>
+                    <input
+                        type="text"
+                        [placeholder]="'product_name' | translate"
+                        formControlName="name"
+                        (input)="productNameValue($event)"
+                        pInputText
+                    />
+                    <small *ngIf="productForm.controls['name'].errors?.required" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
+                </div>
+                <div class="col-md-6 col-lg-3 sewn-form-field">
+                    <label>{{ 'product_eligible_for' | translate }}<span class="star">*</span></label>
+                    <p-dropdown
+                        [options]="eligibleArray"
+                        optionLabel="label"
+                        [placeholder]="'select_subscription_type' | translate"
+                        formControlName="purchase_type"
+                        optionValue="value"
+                    ></p-dropdown>
+                    <small *ngIf="productForm.controls['purchase_type'].errors?.required" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
+                </div>
+                <div class="col-md-6 col-lg-3 sewn-form-field" *ngIf="type === ProductType.b2c">
+                    <label>{{ 'is_product_bought_platform' | translate }}</label>
+                    <p-dropdown
+                        [options]="boughtOnPlatformOptions"
+                        optionLabel="label"
+                        [placeholder]=""
+                        formControlName="is_external_product"
+                        optionValue="value"
+                    ></p-dropdown>
+                </div>
+                <div class="col-lg-6 sewn-form-field mb-lg-0">
+                    <label>
+                        {{ 'product_description' | translate }}<span class="star">*</span>
+                        <span class="pull-right text-clr588">
+                            {{ productForm.get('description').value | wordCount }}/300 {{ 'words' | translate }}
+                        </span>
+                    </label>
+                    <textarea
+                        type="text"
+                        [placeholder]="'tell_about_product' | translate"
+                        formControlName="description"
+                        [rows]="3"
+                        pInputText
+                    ></textarea>
+                    <small *ngIf="productForm.controls['description'].errors?.required" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
+                    <small *ngIf="productForm.controls['description'].errors?.maxWordCount" class="p-error">
+                        Please input 300 words
+                    </small>
+                </div>
+                <div class="col-md-6 col-lg-3 sewn-form-field mb-md-0">
+                    <label>{{ 'vat_trasaction' | translate }}<span class="star">*</span></label>
+                    <p-dropdown
+                        [options]="vatSettings"
+                        [placeholder]="'select_vat_type' | translate"
+                        styleClass="w-100"
+                        formControlName="vat_setting_id"
+                    ></p-dropdown>
+                    <small *ngIf="productForm.controls['vat_setting_id'].errors?.required" class="p-error">
+                        {{ 'required' | translate }}
+                    </small>
+                </div>
+                <div class="col-md-6 col-lg-3 mt-md-4">
+                    <div class="fnt-14 fnt-600 mb-2">
+                        {{ 'is_product_price_vat' | translate }}<span class="star">*</span>
+                    </div>
+                    <p-checkbox
+                        formControlName="is_price_including_vat"
+                        binary="true"
+                        [label]="'price_inclusive_vat' | translate"
+                        [readonly]="type === ProductType.b2c"
+                    >
+                    </p-checkbox>
+                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3 sewn-form-field" *ngIf="type === ProductType.b2c">
-                <label>{{ 'is_product_bought_platform' | translate }}</label>
-                <p-dropdown
-                    [options]="boughtOnPlatformOptions"
-                    optionLabel="label"
-                    [placeholder]=""
-                    formControlName="is_external_product"
-                    optionValue="value"
-                ></p-dropdown>
+        </section>
+
+        <section class="border-main br-4 p-3 p-md-4 mt-4">
+            <div class="mb-4">
+                <div class="fnt-16 fnt-md-18 fnt-bold mb-1">{{ 'product_weights' | translate }}</div>
+                <div class="fnt-semi-bold text-clr588">{{ 'product_weights_note' | translate }}</div>
             </div>
-            <div class="col-12 col-lg-6 mt-lg-3 sewn-form-field">
-                <label>
-                    {{ 'product_description' | translate }}<span class="star">*</span>
-                    <span class="pull-right text-clr588">
-                        {{ productForm.get('description').value | wordCount }}/300 {{ 'words' | translate }}
-                    </span>
-                </label>
-                <textarea
-                    type="text"
-                    [placeholder]="'tell_about_product' | translate"
-                    formControlName="description"
-                    [rows]="3"
-                    pInputText
-                ></textarea>
-                <small *ngIf="productForm.controls['description'].errors?.required" class="p-error">
-                    {{ 'required' | translate }}
-                </small>
-                <small *ngIf="productForm.controls['description'].errors?.maxWordCount" class="p-error">
-                    Please input 300 words
-                </small>
-            </div>
-        </div>
-        <p-divider type="dashed" styleClass="mt-2 mb-4 mt-lg-4 mb-lg-475"></p-divider>
+        </section>
+
         <div class="row no-gutters mb-3 mb-md-4">
             <div class="col-12 mb-3">
                 <span class="primary_txt fnt-16">{{ 'variants' | translate }}</span>
@@ -100,7 +134,7 @@
                 </p-checkbox>
                 <div class="d-none d-md-flex addNewWeightDiv" *ngIf="productForm.value.is_variants_included">
                     <img src="assets/images/add_grey.svg" />
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr334 cursor-pointer" (click)="addNewVariants()">
+                    <span class="ml-2 fnt-muli fnt-bold fnt-14 text-clr334 cursor-pointer" (click)="addNewVariants()">
                         {{ 'add_new_variant' | translate }}
                     </span>
                 </div>
@@ -121,7 +155,7 @@
                     <span *ngIf="weight.label">{{ weight.label }}</span>
                     <span *ngIf="!weight.label" class="weightVariantBtn" (click)="addNewVariants()">
                         <img class="" src="assets/images/add_green_icon.svg" />
-                        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer">
+                        <span class="ml-2 fnt-muli fnt-bold fnt-14 text-highlited cursor-pointer">
                             {{ 'add_variant' | translate }}
                         </span>
                     </span>
@@ -132,7 +166,7 @@
             class="d-block d-md-none mt-3"
             *ngIf="productForm.value.is_variants_included && productForm.get('variants').value.length > 1"
         >
-            <span class="fnt-700 editBtn align-items-center" (click)="removeVariant(currentVariant)">
+            <span class="fnt-bold editBtn align-items-center" (click)="removeVariant(currentVariant)">
                 {{ 'delete_variant' | translate }}
             </span>
         </div>
@@ -516,37 +550,7 @@
                 </div>
             </div>
         </div>
-        <p-divider type="dashed" styleClass="mt-4 mt-lg-4 mb-4 mb-lg-475"></p-divider>
-        <div class="row">
-            <div class="col-12 mb-3">
-                <span class="primary_txt fnt-16">{{ 'vat_details' | translate }}</span
-                ><br />
-            </div>
-            <div class="col-12 col-md-auto sewn-form-field mr-md-3 mr-lg-4">
-                <label class="mb-2">{{ 'select_vat_type' | translate }}<span class="star">*</span></label>
-                <p-dropdown
-                    [options]="vatSettings"
-                    [placeholder]="'select_vat_type' | translate"
-                    styleClass="w-100"
-                    formControlName="vat_setting_id"
-                ></p-dropdown>
-                <small *ngIf="productForm.controls['vat_setting_id'].errors?.required" class="p-error">
-                    {{ 'required' | translate }}
-                </small>
-            </div>
-            <div class="col-12 col-md-auto ml-md-3 ml-lg-4 mt-2 mt-md-0 mb-3">
-                <div class="fnt-14 fnt-600 fnt-muli text-clr588 mb-2">
-                    {{ 'is_product_price_vat' | translate }}<span class="star">*</span>
-                </div>
-                <p-checkbox
-                    formControlName="is_price_including_vat"
-                    binary="true"
-                    [label]="'price_inclusive_vat' | translate"
-                    [readonly]="type === ProductType.b2c"
-                >
-                </p-checkbox>
-            </div>
-        </div>
+
         <p-divider type="dashed" styleClass="mt-2 mt-md-3 mt-lg-2 mb-4 mb-md-45"></p-divider>
         <div class="d-flex flex-column flex-md-row justify-content-md-between">
             <button
@@ -585,3 +589,7 @@
         </div>
     </div>
 </div>
+
+<ng-template #loader>
+    <div class="main-block"><app-loading></app-loading></div>
+</ng-template>

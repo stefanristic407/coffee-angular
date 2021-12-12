@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { COUNTRY_LIST, LBUNIT, PRODUCT_STATUS_ITEMS } from '@constants';
+import { PRODUCT_STATUS_ITEMS } from '@constants';
 import { ProductType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { ECommerceService, OriginService, ResizeService } from '@services';
@@ -321,10 +321,5 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
 
     onViewDetails(item) {
         this.router.navigate([`/e-commerce/product-details/${this.type}/${item.id}`]);
-    }
-
-    getWeight(value, unit) {
-        const weight = unit === 'lb' ? value / LBUNIT : unit === 'g' ? value * 1000 : value;
-        return Math.round(weight * 100) / 100;
     }
 }
