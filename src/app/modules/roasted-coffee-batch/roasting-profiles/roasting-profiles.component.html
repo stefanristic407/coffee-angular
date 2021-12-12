@@ -21,7 +21,7 @@
         />
     </div>
     <div class="row mt-md-4 mt-0 pb-2 pb-md-0">
-        <div class="col-12 col-md-6 mt-2 mt-md-0">
+        <div class="col-12 col-md-6 col-lg-8 mt-2 mt-md-0">
             <p-dropdown
                 [options]="roastLevelArray"
                 optionLabel="name"
@@ -52,14 +52,13 @@
         <p-table
             [value]="tableValue"
             [columns]="tableColumns"
-            [(selection)]="selectedProfiles"
             dataKey="id"
             [resizableColumns]="true"
             [showCurrentPageReport]="false"
-            [paginator]="true"
-            [rows]="10"
+            [paginator]="totalCount > rows"
+            [rows]="rows"
             [lazy]="true"
-            [loading]="isLoadingProfiles"
+            [loading]="isLoading"
             (onLazyLoad)="getData($event)"
             [totalRecords]="totalCount"
             selectionMode="multiple"
@@ -75,17 +74,18 @@
                     </th>
                 </tr>
             </ng-template>
+
             <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr (click)="redirectToEdit(rowData['id'])">
+                <tr (click)="redirectToEdit(rowData)">
                     <td
                         *ngFor="let col of columns"
                         [ngSwitch]="col.field"
                         [style.width]="col.width ? col.width + '%' : '30%'"
                     >
-                        <span *ngIf="col.field !== 'roast_name'" class="p-column-title">
+                        <span *ngIf="col.field !== 'name'" class="p-column-title">
                             {{ col.header | translate }}
                         </span>
-                        <span *ngSwitchCase="'roast_name'" class="">
+                        <span *ngSwitchCase="'name'" class="">
                             <span class="d-none d-md-inline-block">{{ rowData[col.field] }}</span>
                             <div class="d-flex d-md-none align-items-center justify-content-between">
                                 <span class="fnt-bold">{{ rowData[col.field] || '-' }}</span>
@@ -100,6 +100,13 @@
                         <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
                     </td>
                 </tr>
+            </ng-template>
+
+            <ng-template pTemplate="summary">
+                <app-empty
+                    *ngIf="!isLoading && !tableValue?.length"
+                    [title]="'no_data_available' | translate"
+                ></app-empty>
             </ng-template>
         </p-table>
     </div>

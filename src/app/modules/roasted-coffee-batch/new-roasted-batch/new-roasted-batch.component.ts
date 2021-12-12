@@ -1,19 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { environment } from '@env/environment';
 import { Download, OrderDetails } from '@models';
-import {
-    CoffeeStoryService,
-    DownloadService,
-    InventoryService,
-    OrganizationService,
-    PurchaseService,
-    RoasterService,
-    UserService,
-} from '@services';
+import { TranslateService } from '@ngx-translate/core';
+import { CoffeeStoryService, DownloadService, InventoryService, OrganizationService, PurchaseService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { convert2Kg, convertKg, maxValidator, minValidator, quantityMaxValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +14,6 @@ import { SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { takeUntil } from 'rxjs/operators';
 import { RoastingProfileDialogComponent } from '../roasting-profile-dialog/roasting-profile-dialog.component';
-import { SelectOrderTableComponent } from '../select-order-table/select-order-table.component';
 
 @Component({
     selector: 'app-new-roasted-batch',
@@ -30,10 +22,14 @@ import { SelectOrderTableComponent } from '../select-order-table/select-order-ta
 })
 export class NewRoastedBatchComponent extends DestroyableComponent implements OnInit {
     readonly env = environment;
-    selectable = true;
-    removable = true;
-    flavourProfile: any;
-    roasterFlavourProfile: any;
+    isTestBatchOptions = [
+        { label: 'yes', value: true },
+        { label: 'no', value: false },
+    ];
+    weightTypeArray: SelectItem[] = [
+        { label: 'lb', value: 'lb' },
+        { label: 'kg', value: 'kg' },
+    ];
     batchId: number;
     orderDetails: any = {};
     roastedBatchDetails: any = {};
@@ -41,19 +37,13 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     coffeeStory: any;
     batchForm: FormGroup;
     roastProfileArray: SelectItem[] = [];
-    weightTypeArray: SelectItem[] = [
-        { label: 'lb', value: 'lb' },
-        { label: 'kg', value: 'kg' },
-    ];
     ordId: any;
-    @ViewChild(SelectOrderTableComponent, { static: false })
-    selectOrd: SelectOrderTableComponent;
     breadItems = [
-        { label: 'Home', routerLink: '/' },
-        { label: 'Inventory', routerLink: '/' },
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('inventory'), routerLink: '/' },
         {
-            label: 'Roasted coffee batches',
-            routerLink: '/roasted-coffee-batch/roasted-coffee-batchs',
+            label: this.translator.instant('menu_rc_inventory'),
+            routerLink: '/roasted-coffee-batch/roasted-coffee-batches',
         },
         { label: 'New roasted coffee batch' },
     ];
@@ -68,12 +58,11 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         private fb: FormBuilder,
         private organizationService: OrganizationService,
         private purchaseService: PurchaseService,
-        private roasterService: RoasterService,
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
-        private userService: UserService,
         private inventorySrv: InventoryService,
+        private translator: TranslateService,
     ) {
         super();
     }
@@ -83,32 +72,29 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         this.ordId = this.route.snapshot.queryParams.ordId;
         this.getData();
         this.batchForm = this.fb.group({
-            roast_batch_name: ['', Validators.compose([Validators.required])],
-            order_id: [this.ordId || null, Validators.compose([Validators.required])],
+            name: ['', Validators.compose([Validators.required])],
+            is_test_batch: [false, Validators.compose([Validators.required])],
+            gc_order_id: [this.ordId || null, Validators.compose([Validators.required])],
             roasting_profile_id: ['', Validators.compose([Validators.required])],
             green_coffee_quantity: [
                 null,
                 Validators.compose([
                     Validators.required,
-                    minValidator('roasting_profile_quantity'),
+                    minValidator('roasted_coffee_quantity'),
                     (control: AbstractControl) =>
-                        quantityMaxValidator('green_coffee_unit', this.remainingTotalQuantity)(control),
+                        quantityMaxValidator('quantity_unit', this.remainingTotalQuantity)(control),
                 ]),
             ],
-            green_coffee_unit: [QuantityUnit.lb],
-            roasting_profile_quantity: [
+            quantity_unit: [QuantityUnit.lb],
+            roasted_coffee_quantity: [
                 null,
                 Validators.compose([Validators.required, maxValidator('green_coffee_quantity')]),
             ],
             waste_quantity: [{ value: '', disabled: true }],
-            aroma: [null],
-            acidity: [null],
-            body: [null],
-            flavour: [null],
-            processing: { value: null, disabled: true },
-            roaster_notes: [''],
             roaster_ref_no: { value: '', disabled: true },
             batch_ref_no: [''],
+            roasted_date: [null],
+            best_before_date: [null],
         });
 
         this.batchForm.controls.green_coffee_quantity.valueChanges
@@ -116,7 +102,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
             .subscribe(() => {
                 this.setWasteQuantityValue();
             });
-        this.batchForm.controls.roasting_profile_quantity.valueChanges
+        this.batchForm.controls.roasted_coffee_quantity.valueChanges
             .pipe(takeUntil(this.unsubscribeAll$))
             .subscribe(() => {
                 this.setWasteQuantityValue();
@@ -127,8 +113,8 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         this.batchForm.controls.waste_quantity.setValue(
             `${
                 this.batchForm.controls.green_coffee_quantity.value -
-                this.batchForm.controls.roasting_profile_quantity.value
-            } ${this.batchForm.value.green_coffee_unit}`,
+                this.batchForm.controls.roasted_coffee_quantity.value
+            } ${this.batchForm.value.quantity_unit}`,
         );
     }
 
@@ -153,7 +139,6 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         if (this.ordId && this.batchId) {
             this.getRoastedBatchStory();
         }
-        this.getRoasterFlavourProfile();
     }
 
     getRoastingProfile(resolve?, reject?) {
@@ -161,11 +146,10 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
             if (data.success) {
                 this.roastProfileArray = (data.result || []).map((item: any) => {
                     return {
-                        label: item.roast_name.length > 65 ? item.roast_name.slice(0, 65) + '...' : item.roast_name,
+                        label: item.name.length > 65 ? item.name.slice(0, 65) + '...' : item.name,
                         value: item.id,
                     };
                 });
-                this.roastProfileArray.push({ label: '', value: 'button' });
                 if (resolve) {
                     resolve();
                 }
@@ -176,37 +160,21 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     }
 
     getRoastedBatch(resolve?, reject?) {
-        this.userService.getRoastedBatchDetail(this.batchId).subscribe((res) => {
+        this.inventorySrv.getRoastedBatch(this.batchId).subscribe((res) => {
             if (res && res.result) {
-                this.breadItems[3].label = this.capitalizeFirstLetter(res.result.roast_batch_name);
-                const unit = res.result.green_coffee_unit;
+                this.breadItems[3].label = res.result.name || 'NA';
+                const unit = res.result.quantity_unit;
                 this.batchForm.patchValue({
                     ...res.result,
                     green_coffee_quantity: convertKg(res.result.green_coffee_quantity, unit),
-                    roasting_profile_quantity: convertKg(res.result.roasting_profile_quantity, unit),
+                    roasted_coffee_quantity: convertKg(res.result.roasted_coffee_quantity, unit),
                     roaster_ref_no: this.orderDetails.order_reference,
-                    processing: this.orderDetails.processing,
                 });
                 this.roastedBatchDetails = res.result;
-                this.flavourProfile = (res.result.flavour_profile || []).map((item) => {
-                    return { id: item.flavour_profile_id, name: item.flavour_profile_name };
-                });
                 this.setWasteQuantityValue();
                 if (resolve) {
                     resolve();
                 }
-            }
-        });
-    }
-
-    getRoasterFlavourProfile() {
-        this.inventorySrv.getRoasterFlavourProfile().subscribe((data) => {
-            if (data.success) {
-                this.roasterFlavourProfile = data.result.map((item) => {
-                    return { label: item.name, value: item };
-                });
-            } else {
-                this.toastrService.error('Error while getting the roasting Flavor Profile');
             }
         });
     }
@@ -219,7 +187,6 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
                     this.orderDetails = response;
                     this.getRatingData(this.orderDetails.estate_id);
                     this.batchForm.controls.roaster_ref_no.setValue(this.orderDetails.order_reference);
-                    this.batchForm.controls.processing.setValue(this.orderDetails.processing);
                     if (resolve) {
                         resolve();
                     }
@@ -265,11 +232,11 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     }
 
     updateRoastedBatch(productObj) {
-        this.userService.updateRoastedBatchDetail(this.batchId, productObj).subscribe(
+        this.inventorySrv.updateRoastedBatch(this.batchId, productObj).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasted Batch has been updated.');
-                    this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batchs']);
+                    this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batches']);
                 } else if (res.messages) {
                     this.toastrService.error('Order Id ' + res.messages.order_id[0].replace('_', ' ') + '.');
                 } else {
@@ -283,11 +250,11 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     }
 
     createRoastedBatch(productObj) {
-        this.userService.addRoastedBatches(productObj).subscribe(
+        this.inventorySrv.createRoastedBatch(productObj).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasted Batch  has been added.');
-                    this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batchs']);
+                    this.router.navigate(['/roasted-coffee-batch/roasted-coffee-batches']);
                 } else if (res.messages) {
                     this.toastrService.error('Order Id ' + res.messages.order_id[0].replace('_', ' ') + '.');
                 } else {
@@ -303,22 +270,20 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     onSave() {
         if (this.batchForm.invalid) {
             this.batchForm.markAllAsTouched();
-            this.toastrService.error('Please fill all data');
+            this.toastrService.error(this.translator.instant('please_check_form_data'));
             return;
         }
 
-        const unit = this.batchForm.value.green_coffee_unit;
+        const unit = this.batchForm.value.quantity_unit;
         const productObj = {
             ...this.batchForm.getRawValue(),
-            flavour_profile: this.flavourProfile?.length ? this.flavourProfile.map((ele) => ele.id) : null,
             green_coffee_quantity: convert2Kg(this.batchForm.value.green_coffee_quantity, unit),
-            roasting_profile_quantity: convert2Kg(this.batchForm.value.roasting_profile_quantity, unit),
+            roasted_coffee_quantity: convert2Kg(this.batchForm.value.roasted_coffee_quantity, unit),
             waste_quantity: convert2Kg(
                 this.batchForm.controls.green_coffee_quantity.value -
-                    this.batchForm.controls.roasting_profile_quantity.value,
+                    this.batchForm.controls.roasted_coffee_quantity.value,
                 unit,
             ),
-            roasting_profile_unit: unit,
         };
 
         if (this.batchId) {
@@ -332,7 +297,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         this.showOrder = false;
         if (id) {
             this.ordId = id;
-            this.batchForm.get('order_id').setValue(id);
+            this.batchForm.get('gc_order_id').setValue(id);
             this.getOrderDetails();
             const promises = [];
             promises.push(new Promise((resolve, reject) => this.getOrderDetails(resolve, reject)));
@@ -373,8 +338,8 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
     createRoastingProfile() {
         this.dialogSrv.open(RoastingProfileDialogComponent, {}).onClose.subscribe((data: any) => {
             if (data?.success) {
-                this.roastProfileArray.splice(this.roastProfileArray.length - 1, 0, {
-                    label: data.newItem.roast_profile_name,
+                this.roastProfileArray.push({
+                    label: data.newItem.name.length > 65 ? data.newItem.name.slice(0, 65) + '...' : data.newItem.name,
                     value: data.newItem.id,
                 });
                 this.batchForm.get('roasting_profile_id').setValue(data.newItem.id);

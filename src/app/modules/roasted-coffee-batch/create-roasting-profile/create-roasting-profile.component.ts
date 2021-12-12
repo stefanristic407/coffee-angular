@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BREWING_METHOD_ITEMS } from '@constants';
-import { GeneralService, InventoryService, RoasterService, UserService } from '@services';
+import { TranslateService } from '@ngx-translate/core';
+import { GeneralService, InventoryService } from '@services';
 import { toSentenceCase } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DropdownItem } from 'primeng/dropdown';
@@ -23,11 +24,11 @@ export class CreateRoastingProfileComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private generalService: GeneralService,
+        private inventorySrv: InventoryService,
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
-        private inventorySrv: InventoryService,
-        private userSrv: UserService,
+        private translator: TranslateService,
     ) {}
 
     ngOnInit(): void {
@@ -92,7 +93,7 @@ export class CreateRoastingProfileComponent implements OnInit {
     }
 
     createRoastingProfile(productObj) {
-        this.inventorySrv.addRoastingProfile(productObj).subscribe(
+        this.inventorySrv.createRoastingProfile(productObj).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been added.');
@@ -126,7 +127,7 @@ export class CreateRoastingProfileComponent implements OnInit {
     onSave(): void {
         if (this.roastingForm.invalid) {
             this.roastingForm.markAllAsTouched();
-            this.toastrService.error('Please fill all Data');
+            this.toastrService.error(this.translator.instant('please_check_form_data'));
             return;
         }
 

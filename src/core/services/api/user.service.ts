@@ -629,18 +629,6 @@ export class UserService extends ApiService {
         return this.post(this.postUrl, `general/certificate-types`);
     }
 
-    updateRoastedBatchDetail(id: number, body: any): Observable<any> {
-        return this.putWithOrg(this.orgPutUrl, `roasted-batches/${id}`, 'PUT', body);
-    }
-
-    getRoastedBatchDetail(id: number): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasted-batches/${id}`);
-    }
-
-    addRoastedBatches(body: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasted-batches`, 'POST', body);
-    }
-
     getPageDetails(roaster_id: any, slug: any) {
         // let params = new HttpParams();
         const data = {

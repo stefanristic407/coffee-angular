@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { GeneralService, InventoryService, UserService } from '@services';
+import { BREWING_METHOD_ITEMS } from '@constants';
+import { TranslateService } from '@ngx-translate/core';
+import { GeneralService, InventoryService } from '@services';
 import { toSentenceCase } from '@utils';
 import { ToastrService } from 'ngx-toastr';
+import { DropdownItem } from 'primeng/dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -12,19 +14,19 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
     styleUrls: ['./roasting-profile-dialog.component.scss'],
 })
 export class RoastingProfileDialogComponent implements OnInit {
-    profileId: number;
+    readonly BREWING_METHOD_ITEMS = [...BREWING_METHOD_ITEMS, { label: 'None', value: '' }];
     roastingForm: FormGroup;
     roastLevelArray: any[];
+    flavoursList: DropdownItem[];
 
     constructor(
         private fb: FormBuilder,
         private generalService: GeneralService,
-        private router: Router,
+        private inventorySrv: InventoryService,
         private toastrService: ToastrService,
-        private userService: UserService,
+        private translator: TranslateService,
         public config: DynamicDialogConfig,
         public ref: DynamicDialogRef,
-        private inventorySrv: InventoryService,
     ) {
         this.config.showHeader = false;
         this.config.styleClass = 'roasting-profile-dialog';
@@ -32,13 +34,23 @@ export class RoastingProfileDialogComponent implements OnInit {
 
     ngOnInit(): void {
         this.getRoastLevels();
+        this.getRoasterFlavourProfile();
 
         this.roastingForm = this.fb.group({
-            roast_profile_name: ['', Validators.compose([Validators.required])],
-            roast_level: ['', Validators.compose([Validators.required])],
-            temperature: ['', Validators.compose([Validators.required])],
+            name: ['', Validators.compose([Validators.required])],
+            roast_level_id: ['', Validators.compose([Validators.required])],
             roast_duration: ['', Validators.compose([Validators.required])],
+            temperature: ['', Validators.compose([Validators.required])],
             machine_type: ['', Validators.compose([Validators.required])],
+            aroma: [null, Validators.compose([Validators.required])],
+            acidity: [null, Validators.compose([Validators.required])],
+            body: [null, Validators.compose([Validators.required])],
+            flavour: [null, Validators.compose([Validators.required])],
+            flavour_profiles: ['', Validators.compose([Validators.required])],
+            roaster_notes: ['', Validators.compose([Validators.required])],
+            recommended_recipe: ['', Validators.compose([Validators.required])],
+            brewing_method: [null],
+            recommendation_text: ['', Validators.compose([Validators.required])],
         });
     }
 
@@ -50,8 +62,20 @@ export class RoastingProfileDialogComponent implements OnInit {
         });
     }
 
+    getRoasterFlavourProfile() {
+        this.generalService.getFlavourProfile().subscribe((data) => {
+            if (data.success) {
+                this.flavoursList = data.result.map((item) => {
+                    return { label: item.name, value: item.id };
+                });
+            } else {
+                this.toastrService.error('Error while getting the roasting Flavor Profile');
+            }
+        });
+    }
+
     createRoastingProfile(productObj) {
-        this.inventorySrv.addRoastingProfile(productObj).subscribe(
+        this.inventorySrv.createRoastingProfile(productObj).subscribe(
             (res) => {
                 if (res && res.success) {
                     this.toastrService.success('The Roasting Profile has been added.');
@@ -69,11 +93,15 @@ export class RoastingProfileDialogComponent implements OnInit {
     onSave(): void {
         if (!this.roastingForm.valid) {
             this.roastingForm.markAllAsTouched();
-            this.toastrService.error('Please fill all Data');
+            this.toastrService.error(this.translator.instant('please_check_form_data'));
             return;
         }
 
-        this.createRoastingProfile(this.roastingForm.value);
+        const postData = {
+            ...this.roastingForm.value,
+            flavour_profiles: this.roastingForm.value.flavour_profiles.map((item) => item.value),
+        };
+        this.createRoastingProfile(postData);
     }
 
     close() {

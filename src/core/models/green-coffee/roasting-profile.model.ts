@@ -1,17 +1,17 @@
 export interface RoastingProfile {
-    id: number;
-    name: string;
-    roast_level_id: number;
-    roast_duration: string;
-    temperature: string;
-    machine_type: string;
-    aroma: number;
     acidity: number;
+    aroma: number;
     body: number;
-    flavour: number;
-    flavour_profile: any;
-    roaster_notes: string;
-    recommended_recipe: string;
     brewing_method: string;
+    flavour_profile: any;
+    flavour: number;
+    id: number;
+    machine_type: string;
+    name: string;
     recommendation_text: string;
+    recommended_recipe: string;
+    roast_duration: string;
+    roast_level_id: number;
+    roaster_notes: string;
+    temperature: string;
 }
