@@ -117,7 +117,7 @@
             dataKey="id"
             [resizableColumns]="true"
             [showCurrentPageReport]="false"
-            [paginator]="true"
+            [paginator]="tableValue?.length"
             [rows]="10"
             [loading]="isLoadingRoastedBatches"
             [lazy]="true"
@@ -303,6 +303,9 @@
                         </span>
                     </td>
                 </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <app-empty *ngIf="!tableValue?.length" [title]="'no_data_available' | translate"></app-empty>
             </ng-template>
         </p-table>
     </div>
