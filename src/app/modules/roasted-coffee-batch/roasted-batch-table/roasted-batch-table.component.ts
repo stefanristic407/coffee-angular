@@ -75,7 +75,7 @@ export class RoastedBatchTableComponent extends ResizeableComponent implements O
             },
             {
                 field: 'roaster_ref_no',
-                header: 'roaster_ref_no',
+                header: 'roasters_gc_ref',
                 sortable: true,
                 width: 15,
             },
