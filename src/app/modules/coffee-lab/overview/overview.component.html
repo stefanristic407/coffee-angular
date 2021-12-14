@@ -1,4 +1,4 @@
-<div class="mb-45 mb-lg-35 d-flex justify-content-between align-items-start">
+<div class="mb-45 mb-lg-35 d-md-flex justify-content-between align-items-start">
     <div *ngIf="!isGlobalSearchResultPage" class="fnt-14">
         <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
     </div>
@@ -17,6 +17,16 @@
             [placeholder]="'search_the_coffee_lab' | translate"
         />
     </span>
+    <div *ngIf="isGlobalSearchResultPage" class="custom-search coffee-lab-search h-fit-content mt-3 mt-md-0 d-md-none">
+        <input
+            class="w-100 fnt-16"
+            type="text"
+            pInputText
+            [(ngModel)]="keyword"
+            (ngModelChange)="handleSearch()"
+            [placeholder]="'search_the_coffee_lab' | translate"
+        />
+    </div>
 </div>
 
 <div *ngIf="isGlobalSearchResultPage">
@@ -50,6 +60,7 @@
                 type="text"
                 pInputText
                 [(ngModel)]="keyword"
+                (ngModelChange)="handleSearch()"
                 [placeholder]="'search_the_coffee_lab' | translate"
             />
         </span>
