@@ -65,14 +65,12 @@ export class InventoryService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `products`, 'POST', body);
     }
     // Get product details for RO
-    getProduct(productId: number, type: ProductType): Observable<any> {
-        const suffix = type === ProductType.b2b ? '' : `${type}-`;
-        return this.postWithOrg(this.orgPostUrl, `${suffix}products/${productId}`);
+    getProduct(productId: number): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `products/${productId}`);
     }
     // Update product details from RO
-    updateProduct(productId: number, body: object, type: ProductType): Observable<any> {
-        const suffix = type === ProductType.b2b ? '' : `${type}-`;
-        return this.putWithOrg(this.orgPutUrl, `${suffix}products/${productId}`, 'PUT', body);
+    updateProduct(productId: number, body: object): Observable<any> {
+        return this.putWithOrg(this.orgPutUrl, `products/${productId}`, 'PUT', body);
     }
     // Add product weight variants details from RO
     createWeightVariant(productId: number, body: object): Observable<ApiResponse<any>> {

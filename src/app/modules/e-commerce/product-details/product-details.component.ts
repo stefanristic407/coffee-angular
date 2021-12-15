@@ -180,7 +180,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             is_external_product: [false],
             weightVariants: this.fb.array([this.creatWeightForm()]),
         });
-        this.checkVarientForm();
+        this.checkGrindForm();
     }
 
     // Enable validating when publish
@@ -223,36 +223,12 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
-    checkVarientForm() {
-        // const externalItems: AbstractControl[] = [];
-        // const internalItems: AbstractControl[] = [];
-        // (this.productForm.get('weightVariants') as FormArray).controls.forEach((variantForm: FormGroup) => {
-        //     externalItems.push(variantForm.get('weight'));
-        //     externalItems.push(variantForm.get('featured_image_id'));
-        //     externalItems.push(variantForm.get('crate_capacity'));
-        // });
-        // externalItems.forEach((item) => {
-        //     if (this.productForm.value.is_external_product) {
-        //         item.enable();
-        //     } else {
-        //         item.disable();
-        //     }
-        // });
-        // internalItems.forEach((item) => {
-        //     if (this.productForm.value.is_external_product) {
-        //         item.disable();
-        //     } else {
-        //         item.enable();
-        //     }
-        // });
-    }
-
     syncIsExternalProduct() {
         this.productForm
             .get('is_external_product')
             .valueChanges.pipe(takeUntil(this.unsubscribeAll$))
             .subscribe((isExternal: boolean) => {
-                setTimeout(() => this.checkVarientForm());
+                setTimeout(() => this.checkGrindForm());
             });
     }
 
@@ -325,7 +301,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     getProductDetails() {
         this.isLoading = true;
-        this.inventorySrv.getProduct(this.productID, this.type).subscribe(
+        this.inventorySrv.getProduct(this.productID).subscribe(
             (res) => {
                 if (res.success && res.result) {
                     const productDetails = res.result;
@@ -416,12 +392,17 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             ],
             featured_image_id: ['', fileRequired()],
             images: this.fb.array([]),
-            crate_capacity: [
-                null,
-                Validators.compose(!this.isPublished ? [] : [Validators.required, Validators.min(1)]),
-            ],
             grind_variants: this.fb.array([]),
         });
+        if (this.type === ProductType.b2b) {
+            emptyWeight.addControl(
+                'crate_capacity',
+                new FormControl(
+                    null,
+                    Validators.compose(!this.isPublished ? [] : [Validators.required, Validators.min(1)]),
+                ),
+            );
+        }
         const productImages = emptyWeight.get('images') as FormArray;
         for (let i = 0; i < 3; i++) {
             productImages.push(new FormControl(null));
@@ -578,6 +559,31 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
+    checkGrindForm() {
+        console.log('Check Grind Form');
+        // const externalItems: AbstractControl[] = [];
+        // const internalItems: AbstractControl[] = [];
+        // (this.productForm.get('weightVariants') as FormArray).controls.forEach((variantForm: FormGroup) => {
+        //     externalItems.push(variantForm.get('weight'));
+        //     externalItems.push(variantForm.get('featured_image_id'));
+        //     externalItems.push(variantForm.get('crate_capacity'));
+        // });
+        // externalItems.forEach((item) => {
+        //     if (this.productForm.value.is_external_product) {
+        //         item.enable();
+        //     } else {
+        //         item.disable();
+        //     }
+        // });
+        // internalItems.forEach((item) => {
+        //     if (this.productForm.value.is_external_product) {
+        //         item.disable();
+        //     } else {
+        //         item.enable();
+        //     }
+        // });
+    }
+
     addGrindVariant(isHide?): void {
         const grindFormArr = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
             'grind_variants',
@@ -600,25 +606,27 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     onBatchChange(grindForm: FormGroup) {
         const batch = this.roastedBatches.find((element) => element.id === grindForm.value.rc_batch_id);
-        this.inventorySrv.getRoastedBatch(batch.id).subscribe((res) => {
-            if (res && res.result) {
-                grindForm.patchValue({
-                    ...res.result,
-                    rc_batch_name: res.result.name,
-                    roaster_ref_no: res.result.batch_ref_no,
-                });
-            }
-        });
-        this.inventorySrv.getRoastingProfileDetail(batch.roasting_profile_id).subscribe((res) => {
-            if (res && res.result) {
-                grindForm.patchValue({
-                    ...res.result,
-                    flavour_profiles: (res.result.flavour_profiles || []).map((item) => {
-                        return { label: item.name, value: item.id };
-                    }),
-                });
-            }
-        });
+        if (batch) {
+            this.inventorySrv.getRoastedBatch(batch.id).subscribe((res) => {
+                if (res && res.result) {
+                    grindForm.patchValue({
+                        ...res.result,
+                        rc_batch_name: res.result.name,
+                        roaster_ref_no: res.result.batch_ref_no,
+                    });
+                }
+            });
+            this.inventorySrv.getRoastingProfileDetail(batch.roasting_profile_id).subscribe((res) => {
+                if (res && res.result) {
+                    grindForm.patchValue({
+                        ...res.result,
+                        flavour_profiles: (res.result.flavour_profiles || []).map((item) => {
+                            return { label: item.name, value: item.id };
+                        }),
+                    });
+                }
+            });
+        }
     }
 
     getGrindMenuItems(grindForm: FormGroup) {
@@ -771,7 +779,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     updateProductDetails(postData) {
-        this.inventorySrv.updateProduct(this.productID, postData, this.type).subscribe((res) => {
+        this.inventorySrv.updateProduct(this.productID, postData).subscribe((res) => {
             if (res && res.success) {
                 this.toasterService.success('Product updated successfully');
             } else {
