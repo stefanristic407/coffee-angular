@@ -56,4 +56,37 @@ export class InventoryService extends ApiService {
     deleteRoastedBatch(id: number): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `roasted-batches/${id}`, 'DELETE');
     }
+
+    // ------------ RO - Products ------------
+    // Add product weight variants details from RO
+    createWeightVariant(productId: number, body: object): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `products/${productId}/weight-variants`, 'POST', body);
+    }
+    // Update product weight variants details from RO
+    updateWeightVariant(productId: number, variantId: number, body: object): Observable<ApiResponse<any>> {
+        return this.putWithOrg(this.orgPutUrl, `products/${productId}/weight-variants/${variantId}`, 'PUT', body);
+    }
+    // Add product weight variants details from RO
+    createGrindVariant(productId: number, weightId: number, body: object): Observable<ApiResponse<any>> {
+        return this.postWithOrg(
+            this.orgPostUrl,
+            `products/${productId}/weight-variants/${weightId}/grind-variants`,
+            'POST',
+            body,
+        );
+    }
+    // Update product weight variants details from RO
+    updateGrindVariant(
+        productId: number,
+        weightId: number,
+        grindId: number,
+        body: object,
+    ): Observable<ApiResponse<any>> {
+        return this.putWithOrg(
+            this.orgPutUrl,
+            `products/${productId}/weight-variants/${weightId}/grind-variants/${grindId}`,
+            'PUT',
+            body,
+        );
+    }
 }

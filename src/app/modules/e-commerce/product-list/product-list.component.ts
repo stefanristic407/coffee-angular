@@ -58,14 +58,6 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
         { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },
     ];
 
-    roastLevelArray = {
-        1: 'Light',
-        2: 'Light Medium',
-        3: 'Medium',
-        4: 'Medium Dark',
-        5: 'Dark',
-    };
-
     visibilityArray: any[] = [
         {
             label: this.translator.instant('public'),
@@ -193,7 +185,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
                         width: '13%',
                     },
                     {
-                        field: 'roast_level',
+                        field: 'roast_level_name',
                         header: 'roast_level',
                         width: '12%',
                     },
