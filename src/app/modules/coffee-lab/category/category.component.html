@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-12 col-md-7 px-0">
                         <div class="d-block ml-25 mr-25 ml-md-3 mr-md-0">
-                            <div *ngIf="!isLoading">
+                            <div>
                                 <app-questions [questions]="questions"></app-questions>
                             </div>
                         </div>
@@ -41,10 +41,7 @@
                             [description]="'no_any_posts_to_show_description' | translate"
                         ></app-empty>
                     </div>
-                    <div
-                        *ngIf="!isLoading"
-                        class="col-12 col-md-4 px-0 mx-auto w-min-content h-fit-content mt-45 mt-md-0"
-                    >
+                    <div class="col-12 col-md-4 px-0 mx-auto w-min-content h-fit-content mt-45 mt-md-0">
                         <div class="other-category pt-4 mx-3 mx-md-0">
                             <div class="row mx-0 fnt-16 fnt-bold fnt-muli">
                                 {{ 'other_categories' | translate }}
@@ -70,7 +67,7 @@
                 <div class="row mb-475 mb-md-0">
                     <ng-container *ngTemplateOutlet="filterDropdowns"></ng-container>
                 </div>
-                <div *ngIf="!isLoading">
+                <div>
                     <app-articles [articles]="articles"></app-articles>
                 </div>
 
@@ -85,7 +82,7 @@
                 <div class="row mb-475 mb-md-0">
                     <ng-container *ngTemplateOutlet="filterDropdowns"></ng-container>
                 </div>
-                <div *ngIf="!isLoading">
+                <div>
                     <app-recipes [recipes]="recipes"></app-recipes>
                 </div>
 
