@@ -216,7 +216,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         (this.productForm.get('weightVariants') as FormArray).controls.forEach((variantForm: FormGroup) => {
             variantForm.get('weight').clearValidators();
             variantForm.get('featured_image_id').clearValidators();
-            variantForm.get('crate_capacity').clearValidators();
+            variantForm.get('crate_capacity')?.clearValidators();
             Object.keys(variantForm.controls).forEach((key) => {
                 variantForm.get(key).updateValueAndValidity();
             });
@@ -423,7 +423,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 const postData = {
                     ...weightForm.value,
                     weight: convert2Kg(weightForm.value.weight, weightForm.value.weight_unit),
-                    featured_image_id: weightForm.value.featured_image_id.id,
+                    featured_image_id: weightForm.value.featured_image_id?.id,
                     images: weightForm.value.images.filter((element) => element?.id).map((element) => element.id),
                 };
                 if (weightForm.value.id) {
@@ -432,7 +432,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                     this.createWeightVariant(postData, weightForm);
                 }
             })
-            .catch(() => {
+            .catch((err) => {
                 this.toasterService.error('Error while uploading images');
             });
     }
