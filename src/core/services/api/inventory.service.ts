@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ProductType } from '@enums';
 import { ApiResponse, RoastedBatch, RoastingProfile } from '@models';
 import { Observable } from 'rxjs';
+import { VatSetting } from 'src/core/models/inventory/vat-setting.model';
 import { AuthService } from '../auth';
 import { ApiService } from './api.service';
 
@@ -58,6 +60,20 @@ export class InventoryService extends ApiService {
     }
 
     // ------------ RO - Products ------------
+    // Add Coffee product (B2B & B2C) details from RO
+    createProduct(body: object): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `products`, 'POST', body);
+    }
+    // Get product details for RO
+    getProduct(productId: number, type: ProductType): Observable<any> {
+        const suffix = type === ProductType.b2b ? '' : `${type}-`;
+        return this.postWithOrg(this.orgPostUrl, `${suffix}products/${productId}`);
+    }
+    // Update product details from RO
+    updateProduct(productId: number, body: object, type: ProductType): Observable<any> {
+        const suffix = type === ProductType.b2b ? '' : `${type}-`;
+        return this.putWithOrg(this.orgPutUrl, `${suffix}products/${productId}`, 'PUT', body);
+    }
     // Add product weight variants details from RO
     createWeightVariant(productId: number, body: object): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `products/${productId}/weight-variants`, 'POST', body);
@@ -66,7 +82,7 @@ export class InventoryService extends ApiService {
     updateWeightVariant(productId: number, variantId: number, body: object): Observable<ApiResponse<any>> {
         return this.putWithOrg(this.orgPutUrl, `products/${productId}/weight-variants/${variantId}`, 'PUT', body);
     }
-    // Delete the roasting profile details
+    // Delete product weight variants details from RO
     deleteWeightVariant(productId: number, variantId: number): Observable<ApiResponse<any>> {
         return this.postWithOrg(this.orgPostUrl, `products/${productId}/weight-variants/${variantId}`, 'DELETE');
     }
@@ -93,12 +109,18 @@ export class InventoryService extends ApiService {
             body,
         );
     }
-    // Delete the roasting profile details
+    // Delete product grind variants details from RO
     deleteGrindVariant(productId: number, weightId: number, grindId: number): Observable<ApiResponse<any>> {
         return this.postWithOrg(
             this.orgPostUrl,
             `products/${productId}/weight-variants/${weightId}/grind-variants/${grindId}`,
             'DELETE',
         );
+    }
+
+    // ------------ RO - VAT Management ------------
+    // List MR/B2B-Ecommerce products VAT details for roaster
+    getVatSettings(): Observable<ApiResponse<VatSetting[]>> {
+        return this.postWithOrg(this.orgPostUrl, `vat-settings`, 'GET');
     }
 }

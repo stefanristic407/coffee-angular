@@ -12,9 +12,7 @@
                 <p-selectButton
                     [options]="visibilityOptions"
                     formControlName="is_public"
-                    optionLabel="label"
-                    optionValue="value"
-                    (onChange)="onSave()"
+                    (onChange)="onSaveProduct()"
                     styleClass="p-selectbutton-prebook"
                 ></p-selectButton>
             </div>
@@ -381,7 +379,7 @@
                 *ngIf="isPublished"
                 type="submit"
                 class="btn btn-raised ml-md-3 order-1 order-md-2 mt-md-0 w-mob-100"
-                (click)="onSave()"
+                (click)="onSaveProduct()"
             >
                 {{ 'save' | translate }}
             </button>
@@ -426,7 +424,7 @@
                     [placeholder]="'select_batch' | translate"
                     formControlName="rc_batch_id"
                     optionValue="id"
-                    optionLabel="roast_batch_name"
+                    optionLabel="name"
                     [filter]="true"
                     (onChange)="onBatchChange(grindFormGroup)"
                 >
