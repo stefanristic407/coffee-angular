@@ -28,7 +28,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     readonly RecipeFileType = RecipeFileType;
     @Input() isTranslate;
     @Input() saveOriginalPost;
-    @Input() translateLang: string;
+    translateLang: string;
     isPosting = false;
     applicationLanguages = [];
     coverImageUrl: any;
@@ -122,6 +122,9 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                 this.coffeeLabService.copyCoverImage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data: any) => {
                     this.copyFile(data);
                 });
+                if (params.lang && this.isTranslate) {
+                    this.translateLang = params.lang;
+                }
                 if (this.recipeId) {
                     this.getCompleteData(this.recipeId);
                 } else {

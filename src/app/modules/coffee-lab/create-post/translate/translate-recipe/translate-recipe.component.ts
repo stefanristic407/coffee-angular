@@ -88,6 +88,7 @@ export class TranslateRecipeComponent implements OnInit {
             this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
                 queryParams: {
                     origin_id: this.id,
+                    lang: this.selectedLang,
                     type: 'recipe',
                 },
             });

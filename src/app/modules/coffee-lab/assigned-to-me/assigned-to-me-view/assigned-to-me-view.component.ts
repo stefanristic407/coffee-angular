@@ -37,11 +37,10 @@ export class AssignedToMeViewComponent extends DestroyableComponent implements O
     getQuestions(): void {
         const params = {
             org_type: 'ro',
-            sort_by: this.coffeeLabService.assignedToMeSortBy === 'most_answered' ? 'posted_at' : 'posted_at',
+            sort_by: this.coffeeLabService.assignedToMeSortBy === 'most_answered' ? 'most_answered' : 'posted_at',
             sort_order:
-                this.coffeeLabService.assignedToMeSortBy === 'most_answered'
-                    ? 'desc'
-                    : this.coffeeLabService.assignedToMeSortBy === 'latest'
+                this.coffeeLabService.assignedToMeSortBy === 'most_answered' ||
+                this.coffeeLabService.assignedToMeSortBy === 'latest'
                     ? 'desc'
                     : 'asc',
             page: this.pages,
