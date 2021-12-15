@@ -117,18 +117,18 @@
             <p-tabPanel
                 formArrayName="weightVariants"
                 *ngFor="
-                    let variantForm of productForm.controls['weightVariants']['controls'];
+                    let weightForm of productForm.controls['weightVariants']['controls'];
                     let i = index;
                     last as isLast
                 "
             >
                 <ng-template pTemplate="header">
                     <span class="d-flex align-items-center"
-                        >{{ variantForm.value.weight }} {{ variantForm.value.weight_unit }}
+                        >{{ weightForm.value.weight }} {{ weightForm.value.weight_unit }}
                         <i
                             *ngIf="productForm.get('weightVariants').value.length > 1"
                             class="pi pi-trash text-clr55c ml-2"
-                            (click)="removeWeightVariant(i)"
+                            (click)="deleteWeightVariant(weightForm)"
                         ></i>
                     </span>
                 </ng-template>
@@ -139,7 +139,7 @@
                 >
                     {{ 'add_a_new_weight' | translate }}
                 </div>
-                <div [formGroup]="variantForm" class="mt-4 mt-md-45">
+                <div [formGroup]="weightForm" class="mt-4 mt-md-45">
                     <div class="row gutter-24">
                         <div class="col-md-4 col-lg-3 sewn-form-field">
                             <label>{{ 'product_weight' | translate }}<span class="star">*</span></label>
@@ -150,10 +150,10 @@
                                     [options]="weightTypeArray"
                                     autoDisplayFirst="false"
                                 ></p-dropdown>
-                                <small *ngIf="variantForm.controls['weight'].errors?.required" class="p-error">
+                                <small *ngIf="weightForm.controls['weight'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
-                                <small *ngIf="variantForm.controls['weight'].errors?.min" class="p-error">
+                                <small *ngIf="weightForm.controls['weight'].errors?.min" class="p-error">
                                     {{ 'minimum_quantity_is_100g' | translate }}
                                 </small>
                             </div>
@@ -165,7 +165,7 @@
                                 [options]="statusArray"
                                 autoDisplayFirst="false"
                             ></p-dropdown>
-                            <small *ngIf="variantForm.controls['status'].errors?.required" class="p-error">
+                            <small *ngIf="weightForm.controls['status'].errors?.required" class="p-error">
                                 {{ 'required' | translate }}
                             </small>
                         </div>
@@ -187,15 +187,13 @@
                                     formControlName="featured_image_id"
                                     accept="image/png, image/jpeg"
                                 ></app-product-image>
-                                <small
-                                    *ngIf="variantForm.controls.featured_image_id.errors?.required"
-                                    class="p-error"
-                                    >{{ 'required' | translate }}</small
-                                >
+                                <small *ngIf="weightForm.controls.featured_image_id.errors?.required" class="p-error">{{
+                                    'required' | translate
+                                }}</small>
                             </div>
                             <div
                                 class="col sewn-form-field mb-0"
-                                *ngFor="let productImage of variantForm?.get('images').controls"
+                                *ngFor="let productImage of weightForm?.get('images').controls"
                             >
                                 <label>{{ 'product_images' | translate }}</label>
                                 <app-product-image
@@ -224,7 +222,7 @@
                                 <label>{{ 'weight' | translate }}</label>
                                 <input
                                     readonly
-                                    value="{{ variantForm.value.weight }} {{ variantForm.value.weight_unit }}"
+                                    value="{{ weightForm.value.weight }} {{ weightForm.value.weight_unit }}"
                                     pInputText
                                 />
                             </div>
@@ -237,10 +235,10 @@
                                     >{{ 'no_of_bags' | translate }}<span class="star">*</span></label
                                 >
                                 <p-inputNumber formControlName="crate_capacity"></p-inputNumber>
-                                <small *ngIf="variantForm.controls['crate_capacity'].errors?.required" class="p-error">
+                                <small *ngIf="weightForm.controls['crate_capacity'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
-                                <small *ngIf="variantForm.controls['crate_capacity'].errors?.min" class="p-error">
+                                <small *ngIf="weightForm.controls['crate_capacity'].errors?.min" class="p-error">
                                     {{ 'must_be_greater_than' | translate }} 0
                                 </small>
                             </div>
@@ -248,7 +246,7 @@
                     </div>
 
                     <div class="mt-2">
-                        <button class="btn-raised w-mob-100" (click)="onSaveWeightVariant(variantForm)">
+                        <button class="btn-raised w-mob-100" (click)="onSaveWeightVariant(weightForm)">
                             {{ 'save_weight_variant' | translate }}
                         </button>
                     </div>
@@ -275,7 +273,7 @@
                 <ng-template pTemplate="header">
                     <span>{{ weightForm.value.weight }} {{ weightForm.value.weight_unit }}</span>
                 </ng-template>
-                <div class="mt-4 mt-md-45">
+                <div *ngIf="weightForm.value.id; else firstSaveWeight" class="mt-4 mt-md-45">
                     <div
                         *ngFor="
                             let grindForm of weightForm.controls['grind_variants']['controls'];
@@ -566,6 +564,12 @@
                 </div>
             </div>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #firstSaveWeight>
+    <div class="text-invalid mt-4 mt-md-45">
+        {{ 'note' | translate }} : {{ 'first_save_weight_variant_note' | translate }}
     </div>
 </ng-template>
 

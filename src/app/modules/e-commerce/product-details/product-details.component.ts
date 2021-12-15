@@ -409,21 +409,24 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         );
     }
 
+    // Weight variant
+
     addWeightVariant() {
         const weightForm = this.creatWeightForm();
-        const variantsFormArray = this.productForm.get('weightVariants') as FormArray;
-        variantsFormArray.push(weightForm);
+        const variantsFormArr = this.productForm.get('weightVariants') as FormArray;
+        variantsFormArr.push(weightForm);
         setTimeout(() => {
-            this.currentVariantIdx = variantsFormArray.length - 1;
+            this.currentVariantIdx = variantsFormArr.length - 1;
         }, 0);
     }
 
-    removeWeightVariant(index: number) {
-        const variantsFormArray = this.productForm.get('weightVariants') as FormArray;
+    removeWeightVariant(weightForm: FormGroup) {
+        const variantsFormArr = weightForm.parent as FormArray;
+        const index = variantsFormArr.controls.findIndex((item) => item.value.id === weightForm.value.id);
         setTimeout(() => {
-            variantsFormArray.removeAt(index);
+            variantsFormArr.removeAt(index);
             if (index === this.currentVariantIdx) {
-                this.currentVariantIdx = index === 0 ? variantsFormArray.length - 1 : 0;
+                this.currentVariantIdx = index === 0 ? variantsFormArr.length - 1 : 0;
             }
         }, 0);
     }
@@ -548,6 +551,39 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
+    deleteWeightVariant(weightForm: FormGroup) {
+        if (weightForm.value.id) {
+            this.dialogService
+                .open(ConfirmComponent, {
+                    data: {
+                        type: 'delete',
+                        desp: this.translator.instant('confirm_delete_weight_variant_desp'),
+                    },
+                })
+                .onClose.subscribe((action: any) => {
+                    if (action === 'yes') {
+                        this.inventorySrv.deleteWeightVariant(this.productID, weightForm.value.id).subscribe(
+                            (res) => {
+                                if (res.success) {
+                                    this.toasterService.success('Weight variant deleted successfully');
+                                    this.removeWeightVariant(weightForm);
+                                } else {
+                                    this.toasterService.error('Error while deleting weight variant');
+                                }
+                            },
+                            (err) => {
+                                this.toasterService.error('Error while deleting weight variant');
+                            },
+                        );
+                    }
+                });
+        } else {
+            this.removeWeightVariant(weightForm);
+        }
+    }
+
+    // Grind variant
+
     creatGrindForm(isPublic = false, editable = false): FormGroup {
         // editable should be true when we add new grind
         return this.fb.group({
@@ -572,22 +608,22 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     addGrindVariant(isHide?): void {
-        const grindForms = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
+        const grindFormArr = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
             'grind_variants',
         ) as FormArray;
-        grindForms.controls.forEach((fg: FormGroup, index) => {
+        grindFormArr.controls.forEach((fg: FormGroup, index) => {
             this.onCancelGrind(fg);
         });
-        grindForms.push(this.creatGrindForm(!isHide, true));
+        grindFormArr.push(this.creatGrindForm(!isHide, true));
     }
 
     removeGrindVariant(grindForm: FormGroup) {
-        const grindForms = grindForm.parent as FormArray;
-        const index = grindForms.controls.findIndex(
+        const grindFormArr = grindForm.parent as FormArray;
+        const index = grindFormArr.controls.findIndex(
             (item) => item.value.grind_variant_id === grindForm.value.grind_variant_id,
         );
         setTimeout(() => {
-            grindForms.removeAt(index);
+            grindFormArr.removeAt(index);
         }, 0);
     }
 
@@ -623,8 +659,8 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     editGrind(grindForm: FormGroup) {
-        const grindForms = grindForm.parent as FormArray;
-        grindForms.controls.forEach((fg: FormGroup, index) => {
+        const grindFormArr = grindForm.parent as FormArray;
+        grindFormArr.controls.forEach((fg: FormGroup, index) => {
             this.onCancelGrind(fg);
         });
         grindForm.get('editable').setValue(true);
@@ -640,13 +676,13 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     duplicateGrind(grindForm: FormGroup) {
-        const grindForms = grindForm.parent as FormArray;
-        grindForms.controls.forEach((fg: FormGroup) => {
+        const grindFormArr = grindForm.parent as FormArray;
+        grindFormArr.controls.forEach((fg: FormGroup) => {
             this.onCancelGrind(fg);
         });
         const newForm = this.creatGrindForm();
         newForm.patchValue({ ...grindForm.getRawValue(), grind_variant_id: '' });
-        grindForms.push(newForm);
+        grindFormArr.push(newForm);
         newForm.get('editable').setValue(true);
     }
 
