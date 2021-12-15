@@ -576,15 +576,16 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             'grind_variants',
         ) as FormArray;
         grindForms.controls.forEach((fg: FormGroup, index) => {
-            this.onCancelGrind(fg, index);
+            this.onCancelGrind(fg);
         });
         grindForms.push(this.creatGrindForm(!isHide, true));
     }
 
-    removeGrindVariant(index) {
-        const grindForms = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
-            'grind_variants',
-        ) as FormArray;
+    removeGrindVariant(grindForm: FormGroup) {
+        const grindForms = grindForm.parent as FormArray;
+        const index = grindForms.controls.findIndex(
+            (item) => item.value.grind_variant_id === grindForm.value.grind_variant_id,
+        );
         setTimeout(() => {
             grindForms.removeAt(index);
         }, 0);
@@ -624,24 +625,24 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     editGrind(grindForm: FormGroup) {
         const grindForms = grindForm.parent as FormArray;
         grindForms.controls.forEach((fg: FormGroup, index) => {
-            this.onCancelGrind(fg, index);
+            this.onCancelGrind(fg);
         });
         grindForm.get('editable').setValue(true);
     }
 
-    onCancelGrind(grindForm: FormGroup, index: number) {
+    onCancelGrind(grindForm: FormGroup) {
         if (grindForm.value.grind_variant_id) {
             grindForm.get('editable').setValue(false);
         } else {
             // Have to remove grind form for the new grind item which is not saved
-            this.removeGrindVariant(index);
+            this.removeGrindVariant(grindForm);
         }
     }
 
     duplicateGrind(grindForm: FormGroup) {
         const grindForms = grindForm.parent as FormArray;
-        grindForms.controls.forEach((fg: FormGroup, index) => {
-            this.onCancelGrind(fg, index);
+        grindForms.controls.forEach((fg: FormGroup) => {
+            this.onCancelGrind(fg);
         });
         const newForm = this.creatGrindForm();
         newForm.patchValue({ ...grindForm.getRawValue(), grind_variant_id: '' });
@@ -692,23 +693,30 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.translator.instant('confirm_delete_roast_profile_desp'),
+                    desp: this.translator.instant('confirm_delete_grind_variant_desp'),
                 },
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.inventorySrv.deleteRoastingProfile(grindForm.value.id).subscribe(
-                        (res) => {
-                            if (res.success) {
-                                this.toasterService.success('Grind variant deleted successfully');
-                            } else {
+                    this.inventorySrv
+                        .deleteGrindVariant(
+                            this.productID,
+                            grindForm.parent.parent.value.id,
+                            grindForm.value.grind_variant_id,
+                        )
+                        .subscribe(
+                            (res) => {
+                                if (res.success) {
+                                    this.toasterService.success('Grind variant deleted successfully');
+                                    this.removeGrindVariant(grindForm);
+                                } else {
+                                    this.toasterService.error('Error while deleting grind variant');
+                                }
+                            },
+                            (err) => {
                                 this.toasterService.error('Error while deleting grind variant');
-                            }
-                        },
-                        (err) => {
-                            this.toasterService.error('Error while deleting grind variant');
-                        },
-                    );
+                            },
+                        );
                 }
             });
     }

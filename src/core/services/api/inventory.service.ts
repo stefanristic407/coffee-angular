@@ -66,6 +66,10 @@ export class InventoryService extends ApiService {
     updateWeightVariant(productId: number, variantId: number, body: object): Observable<ApiResponse<any>> {
         return this.putWithOrg(this.orgPutUrl, `products/${productId}/weight-variants/${variantId}`, 'PUT', body);
     }
+    // Delete the roasting profile details
+    deleteWeightVariant(productId: number, variantId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `products/${productId}/weight-variants/${variantId}`, 'DELETE');
+    }
     // Add product weight variants details from RO
     createGrindVariant(productId: number, weightId: number, body: object): Observable<ApiResponse<any>> {
         return this.postWithOrg(
@@ -87,6 +91,14 @@ export class InventoryService extends ApiService {
             `products/${productId}/weight-variants/${weightId}/grind-variants/${grindId}`,
             'PUT',
             body,
+        );
+    }
+    // Delete the roasting profile details
+    deleteGrindVariant(productId: number, weightId: number, grindId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(
+            this.orgPostUrl,
+            `products/${productId}/weight-variants/${weightId}/grind-variants/${grindId}`,
+            'DELETE',
         );
     }
 }
