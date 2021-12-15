@@ -10,6 +10,7 @@ import { AuthService } from '../auth';
 type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export class ApiService {
+    readonly version = '2';
     readonly orgType = OrganizationType.ROASTER;
     readonly orgSlug = OrganizationSlug.ROASTER;
     protected certificatesUrl: string;
@@ -78,6 +79,7 @@ export class ApiService {
             api_call: `/${this.orgType}/${this.getOrgId()}/${apiCall}`,
             method,
             token: this.getToken(),
+            v: this.version,
         };
         if (data) {
             dto.data = data;
@@ -90,6 +92,7 @@ export class ApiService {
             api_call: `/${apiCall}`,
             method,
             token: this.getToken(),
+            v: this.version,
         };
         if (data) {
             dto.data = data;
