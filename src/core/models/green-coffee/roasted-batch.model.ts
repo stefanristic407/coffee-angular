@@ -8,6 +8,7 @@ export interface RoastedBatch {
     id: number;
     is_test_batch: boolean;
     name: string;
+    order_ref_no: string;
     quantity_unit: QuantityUnit;
     roasted_coffee_quantity: number;
     roasted_date: string;
