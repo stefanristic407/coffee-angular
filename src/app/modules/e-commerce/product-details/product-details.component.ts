@@ -639,7 +639,14 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     duplicateGrind(grindForm: FormGroup) {
-        grindForm.get('editable').setValue(true);
+        const grindForms = grindForm.parent as FormArray;
+        grindForms.controls.forEach((fg: FormGroup, index) => {
+            this.onCancelGrind(fg, index);
+        });
+        const newForm = this.creatGrindForm();
+        newForm.patchValue({ ...grindForm.getRawValue(), grind_variant_id: '' });
+        grindForms.push(newForm);
+        newForm.get('editable').setValue(true);
     }
 
     onSaveGrind(grindForm: FormGroup) {
