@@ -27,7 +27,7 @@ export const menuItems = [
         4,
         null,
     ),
-    new Menu(42, 'menu_rc_inventory', '/roasted-coffee-batch/roasted-coffee-batchs', null, null, null, false, 4, null),
+    new Menu(42, 'menu_rc_inventory', '/roasted-coffee-batch', null, null, null, false, 4, null),
     new Menu(43, 'menu_product_settings', '/product-setting', null, null, null, false, 4, null),
 
     new Menu(9, 'menu_ecommerce', null, null, null, null, true, 0, 'roasting-management'),

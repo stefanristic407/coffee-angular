@@ -1,18 +1,19 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { DestroyableComponent } from '@base-components';
+import { COUNTRY_LIST } from '@constants';
+import { ProductType } from '@enums';
+import { ApiResponse, Crate } from '@models';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService, ECommerceService, UserService } from '@services';
+import { convert2Kg, convertKg, maxWordCountValidator } from '@utils';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import * as moment from 'moment';
-import { ECommerceService, AuthService, UserService } from '@services';
-import { convert2Kg, convertKg, fileRequired, maxWordCountValidator } from '@utils';
-import { COUNTRY_LIST } from '@constants';
-import { DestroyableComponent } from '@base-components';
-import { ApiResponse, Crate } from '@models';
-import { ProductType } from '@enums';
+import { takeUntil } from 'rxjs/operators';
 import { VariantDetailsComponent } from '../variant-details/variant-details.component';
+
 @Component({
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
@@ -89,6 +90,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     countryArray: any[] = COUNTRY_LIST;
     maxVariantId = 0;
     isSetDefault = false;
+    isLoading = true;
 
     constructor(
         private authService: AuthService,
@@ -127,6 +129,9 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 this.getProductDetails();
             }
         });
+        if (!this.productID) {
+            this.isLoading = false;
+        }
 
         this.supplyBreadCrumb();
         this.syncIsExternalProduct();
@@ -278,7 +283,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             (res) => {
                 if (res.success) {
                     this.roastedBatches = (res.result || []).map((item) => {
-                        item.roast_batch_name = `Batch #${item.id} - ${item.roast_batch_name}`;
+                        item.roast_batch_name = `Batch #${item.id} - ${item.name}`;
                         return item;
                     });
                     resolve();
@@ -315,6 +320,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     }
 
     getProductDetails() {
+        this.isLoading = true;
         this.eCommerceService.getProductDetails(this.productID, this.type).subscribe(
             (res: ApiResponse<any>) => {
                 if (res.success && res.result) {
@@ -441,6 +447,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                     this.createTypeVariantArray();
                     this.checkVarientForm();
                 }
+                this.isLoading = false;
             },
             (err) => {
                 this.toasterService.error('Error while getting product details');

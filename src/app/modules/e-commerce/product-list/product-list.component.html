@@ -87,6 +87,7 @@
         [showCurrentPageReport]="false"
         [totalRecords]="totalCount"
         (onLazyLoad)="loadData($event)"
+        [resizableColumns]="true"
         [responsive]="true"
         [scrollable]="isTablet$ | async"
         styleClass="mobile-card-view"
@@ -160,33 +161,24 @@
                     </span>
 
                     <span *ngSwitchCase="'roast_level'">
-                        <span>
-                            {{ roastLevelArray[rowData[col.field]] }}
-                        </span>
+                        {{ roastLevelArray[rowData[col.field]] }}
                     </span>
 
                     <span *ngSwitchCase="'status'">
-                        <span>
-                            {{ rowData[col.field] | strReplace: '-':' ' | titlecase }}
-                        </span>
+                        {{ rowData[col.field] | sentencecase }}
                     </span>
 
                     <span *ngSwitchCase="'origin'">
-                        <span>
-                            {{ rowData[col.field] | country }}
-                        </span>
+                        {{ rowData[col.field] | country }}
                     </span>
                     <span *ngSwitchCase="'weight'">
-                        <span>
-                            {{ getWeight(rowData[col.field], rowData.weight_unit) }}
-                            {{ rowData.weight_unit }}
-                        </span>
+                        {{ rowData[col.field] | convertKg: rowData.weight_unit | number }} {{ rowData.weight_unit }}
                     </span>
                     <span *ngSwitchCase="'price'">
-                        <span>{{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span>
+                        {{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}
                     </span>
                     <span *ngSwitchCase="'business_type'">
-                        <span> {{ rowData[col.field]?.toUpperCase() }} </span>
+                        {{ rowData[col.field]?.toUpperCase() }}
                     </span>
                     <span class="d-flex align-items-center" *ngSwitchCase="'actions'">
                         <span class="brown-cta mr-2 d-none d-lg-block">

@@ -4,6 +4,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { SharedModule } from '@shared';
 import { CreateRoastingProfileComponent } from './create-roasting-profile/create-roasting-profile.component';
 import { NewRoastedBatchComponent } from './new-roasted-batch/new-roasted-batch.component';
+import { RoastedBatchTableComponent } from './roasted-batch-table/roasted-batch-table.component';
 import { RoastedCoffeeBatchRoutingModule } from './roasted-coffee-batch-routing.module';
 import { RoastedCoffeeBatchComponent } from './roasted-coffee-batch/roasted-coffee-batch.component';
 import { RoastedCoffeeBatchesComponent } from './roasted-coffee-batches/roasted-coffee-batches.component';
@@ -15,6 +16,7 @@ import { SelectOrderTableComponent } from './select-order-table/select-order-tab
     declarations: [
         CreateRoastingProfileComponent,
         NewRoastedBatchComponent,
+        RoastedBatchTableComponent,
         RoastedCoffeeBatchComponent,
         RoastedCoffeeBatchesComponent,
         RoastingProfileDialogComponent,
