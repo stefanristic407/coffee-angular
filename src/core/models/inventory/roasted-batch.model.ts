@@ -3,6 +3,7 @@ import { QuantityUnit } from '@enums';
 export interface RoastedBatch {
     batch_ref_no: string;
     best_before_date: string;
+    flavour_profiles: any;
     gc_order_id: number;
     green_coffee_quantity: number;
     id: number;
