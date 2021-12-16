@@ -1,24 +1,41 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { ConfirmComponent } from '@app/shared';
+import { ResizeableComponent } from '@base-components';
+import { COUNTRY_LIST } from '@constants';
+import { FileModule, ProductStatus, ProductType } from '@enums';
+import { ApiResponse, Crate, RoastingProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
+import {
+    AuthService,
+    ECommerceService,
+    FileService,
+    GeneralService,
+    InventoryService,
+    ResizeService,
+    UserService,
+} from '@services';
+import {
+    convert2Kg,
+    convertKg,
+    fileRequired,
+    maxWordCountValidator,
+    quantityMinValidator,
+    toSentenceCase,
+} from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import * as moment from 'moment';
-import { ECommerceService, AuthService, UserService } from '@services';
-import { convert2Kg, convertKg, fileRequired, maxWordCountValidator } from '@utils';
-import { COUNTRY_LIST } from '@constants';
-import { DestroyableComponent } from '@base-components';
-import { ApiResponse, Crate } from '@models';
-import { ProductType } from '@enums';
-import { VariantDetailsComponent } from '../variant-details/variant-details.component';
+import { DropdownItem } from 'primeng/dropdown';
+import { DialogService } from 'primeng/dynamicdialog';
+import { takeUntil } from 'rxjs/operators';
+
 @Component({
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
     styleUrls: ['./product-details.component.scss'],
 })
-export class ProductDetailsComponent extends DestroyableComponent implements OnInit {
+export class ProductDetailsComponent extends ResizeableComponent implements OnInit {
     readonly ProductType = ProductType;
     breadCrumbItem: MenuItem[] = [];
     roastedFields = [
@@ -45,24 +62,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         { label: 'Subscription', value: 'subscription' },
         { label: 'Both', value: 'both' },
     ];
-    brewingMethodArray = [
-        { label: 'Pour Over', value: 'pour-over' },
-        { label: 'Espresso', value: 'espresso' },
-        { label: 'Coffeemaker', value: 'coffee-maker' },
-        { label: 'French press', value: 'french-press' },
-        { label: 'Aeropress', value: 'aeropress' },
-        { label: 'Moka pot', value: 'mocha-pot' },
-        { label: 'Chemix', value: 'chemex' },
-        { label: 'Presskanna eller chemex', value: 'Presskanna eller Chemex' },
-        { label: 'None', value: '' },
-    ];
-    roastLevelArray = [
-        { label: 'Light', value: 1 },
-        { label: 'Light Medium', value: 2 },
-        { label: 'Medium', value: 3 },
-        { label: 'Medium Dark', value: 4 },
-        { label: 'Dark', value: 5 },
-    ];
+    roastLevelArray: any[];
     visibilityOptions = [
         { label: 'Public', value: true },
         { label: 'Private', value: false },
@@ -71,37 +71,65 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         { label: 'Yes', value: false },
         { label: 'No', value: true },
     ];
+    weightTypeArray = [
+        { label: 'lb', value: 'lb' },
+        { label: 'kg', value: 'kg' },
+        { label: 'g', value: 'g' },
+    ];
+    statusArray = [
+        { label: 'In Stock', value: ProductStatus.INSTOCK },
+        { label: 'Out of Stock', value: ProductStatus.SOLD },
+    ];
+    grindArray = [
+        { label: 'Whole beans', value: 'whole-beans' },
+        { label: 'Extra coarse', value: 'extra-coarse' },
+        { label: 'Coarse', value: 'coarse' },
+        { label: 'Medium coarse', value: 'medium-coarse' },
+        { label: 'Medium', value: 'medium' },
+        { label: 'Fine', value: 'fine' },
+        { label: 'Extra fine', value: 'extra-fine' },
+    ];
+    isDefaultVariantOptions = [
+        { label: 'yes', value: true },
+        { label: 'no', value: false },
+    ];
     productForm: FormGroup;
-    roasterId: any = '';
     vatSettings: any = [];
     roastedBatches: any = [];
     productID: number;
     type: ProductType;
-    variantTypeArray: any = [];
-    @ViewChildren(VariantDetailsComponent) variantComponent: QueryList<VariantDetailsComponent>;
-    currentVariant = 0;
-    allCrates: Crate[] = [];
+    currentVariantIdx = 0;
     productName: any = '';
-    removedWeightVariantIds: number[] = [];
-    flavoursList: any[];
+    flavoursList: DropdownItem[];
+    roastingProfileArray: RoastingProfile[] = [];
     isPublished = false;
-    thisYear = new Date().getFullYear();
     countryArray: any[] = COUNTRY_LIST;
-    maxVariantId = 0;
-    isSetDefault = false;
+    isLoading = true;
+    baseCurrency: string;
+    grindFields = [
+        { label: 'grind', field: 'id', width: 14 },
+        { label: 'weight', field: 'weight', width: 10 },
+        { label: 'roasted_coffee_batch', field: 'roasted_coffee_batch', width: 20 },
+        { label: 'grind_level', field: 'grind', width: 14 },
+        { label: 'price', field: 'price', width: 14 },
+        { label: 'remaining_quantity', field: 'remaining_quantity', width: 18 },
+        { label: 'actions', field: 'actions', width: 10 },
+    ];
 
     constructor(
         private authService: AuthService,
+        private dialogService: DialogService,
         private eCommerceService: ECommerceService,
         private fb: FormBuilder,
+        private fileService: FileService,
+        private generalService: GeneralService,
+        private inventorySrv: InventoryService,
         private route: ActivatedRoute,
-        private router: Router,
         private toasterService: ToastrService,
         private translator: TranslateService,
-        private userService: UserService,
+        protected resizeService: ResizeService,
     ) {
-        super();
-        this.roasterId = this.authService.getOrgId();
+        super(resizeService);
     }
 
     ngOnInit(): void {
@@ -116,20 +144,26 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             }
             if (params.has('id')) {
                 this.productID = +params.get('id');
-            } else {
-                this.createTypeVariantArray();
             }
         });
         promises.push(new Promise((resolve, reject) => this.getVatData(resolve, reject)));
         promises.push(new Promise((resolve, reject) => this.getRoasterBatches(resolve, reject)));
+        promises.push(new Promise((resolve, reject) => this.getRoastingProfiles(resolve, reject)));
+        promises.push(new Promise((resolve, reject) => this.getRoastLevels(resolve, reject)));
         Promise.all(promises).then(() => {
             if (this.productID) {
                 this.getProductDetails();
             }
         });
+        if (!this.productID) {
+            this.isLoading = false;
+        }
 
         this.supplyBreadCrumb();
         this.syncIsExternalProduct();
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
     }
 
     supplyBreadCrumb(productName?: string): void {
@@ -151,7 +185,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             description: [''],
             is_public: [false],
             is_variants_included: [false],
-            variants: this.fb.array([this.createEmptyVariant()]),
+            weightVariants: this.fb.array([]),
             crates: this.fb.array([]),
             vat_setting_id: [null],
             is_price_including_vat: [this.type === ProductType.b2c],
@@ -170,22 +204,18 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             this.productForm.get(key).updateValueAndValidity();
         });
 
-        (this.productForm.get('variants') as FormArray).controls.forEach((variantForm: FormGroup) => {
-            variantForm.get('rc_batch_id').setValidators([Validators.required]);
-            variantForm.get('roast_level').setValidators([Validators.required]);
-            variantForm.get('body').setValidators([Validators.required]);
-            variantForm.get('acidity').setValidators([Validators.required]);
-            variantForm.get('aroma').setValidators([Validators.required]);
-            variantForm.get('flavour').setValidators([Validators.required]);
-            variantForm.get('processing').setValidators([Validators.required]);
-            Object.keys(variantForm.controls).forEach((key) => {
-                variantForm.get(key).updateValueAndValidity();
-            });
-        });
-
-        this.variantComponent.forEach((child) => {
-            child.setValidators();
-        });
+        // (this.productForm.get('variants') as FormArray).controls.forEach((variantForm: FormGroup) => {
+        //     variantForm.get('rc_batch_id').setValidators([Validators.required]);
+        //     variantForm.get('roast_level').setValidators([Validators.required]);
+        //     variantForm.get('body').setValidators([Validators.required]);
+        //     variantForm.get('acidity').setValidators([Validators.required]);
+        //     variantForm.get('aroma').setValidators([Validators.required]);
+        //     variantForm.get('flavour').setValidators([Validators.required]);
+        //     variantForm.get('processing').setValidators([Validators.required]);
+        //     Object.keys(variantForm.controls).forEach((key) => {
+        //         variantForm.get(key).updateValueAndValidity();
+        //     });
+        // });
     }
 
     // Enable validating when publish
@@ -210,31 +240,27 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 variantForm.get(key).updateValueAndValidity();
             });
         });
-
-        this.variantComponent.forEach((child) => {
-            child.clearValidators();
-        });
     }
 
     checkVarientForm() {
         const externalItems: AbstractControl[] = [];
         const internalItems: AbstractControl[] = [];
-        (this.productForm.get('variants') as FormArray).controls.forEach((variantForm: FormGroup) => {
-            externalItems.push(variantForm.get('roaster_ref_no'));
-            externalItems.push(variantForm.get('roast_level'));
-            externalItems.push(variantForm.get('estate_name'));
-            externalItems.push(variantForm.get('origin'));
-            externalItems.push(variantForm.get('region'));
-            externalItems.push(variantForm.get('harvest_year'));
-            externalItems.push(variantForm.get('body'));
-            externalItems.push(variantForm.get('acidity'));
-            externalItems.push(variantForm.get('aroma'));
-            externalItems.push(variantForm.get('flavour'));
-            externalItems.push(variantForm.get('processing'));
-            externalItems.push(variantForm.get('roaster_notes'));
+        // (this.productForm.get('variants') as FormArray).controls.forEach((variantForm: FormGroup) => {
+        //     externalItems.push(variantForm.get('roaster_ref_no'));
+        //     externalItems.push(variantForm.get('roast_level'));
+        //     externalItems.push(variantForm.get('estate_name'));
+        //     externalItems.push(variantForm.get('origin'));
+        //     externalItems.push(variantForm.get('region'));
+        //     externalItems.push(variantForm.get('harvest_year'));
+        //     externalItems.push(variantForm.get('body'));
+        //     externalItems.push(variantForm.get('acidity'));
+        //     externalItems.push(variantForm.get('aroma'));
+        //     externalItems.push(variantForm.get('flavour'));
+        //     externalItems.push(variantForm.get('processing'));
+        //     externalItems.push(variantForm.get('roaster_notes'));
 
-            internalItems.push(variantForm.get('rc_batch_id'));
-        });
+        //     internalItems.push(variantForm.get('rc_batch_id'));
+        // });
         externalItems.forEach((item) => {
             if (this.productForm.value.is_external_product) {
                 item.enable();
@@ -278,7 +304,7 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             (res) => {
                 if (res.success) {
                     this.roastedBatches = (res.result || []).map((item) => {
-                        item.roast_batch_name = `Batch #${item.id} - ${item.roast_batch_name}`;
+                        item.roast_batch_name = `Batch #${item.id} - ${item.name}`;
                         return item;
                     });
                     resolve();
@@ -293,37 +319,54 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
     }
 
     getFlavoursData(resolve, reject) {
-        this.userService.getFlavourProfile().subscribe(
-            (res: any) => {
-                if (res.success) {
-                    this.flavoursList = res.result.map((item) => {
-                        return {
-                            flavour_profile_id: item.id,
-                            flavour_profile_name: item.name,
-                        };
-                    });
-                    resolve();
-                } else {
-                    reject();
-                }
-            },
-            (err) => {
-                console.log(err);
+        this.generalService.getFlavourProfile().subscribe((data) => {
+            if (data.success) {
+                this.flavoursList = data.result.map((item) => {
+                    return { label: item.name, value: item.id };
+                });
+                resolve();
+            } else {
                 reject();
-            },
-        );
+            }
+        });
+    }
+
+    getRoastLevels(resolve, reject) {
+        this.generalService.getRoastLevels().subscribe((res) => {
+            if (res.success) {
+                this.roastLevelArray = (res.result || []).map((ix) => ({
+                    label: toSentenceCase(ix.name),
+                    value: ix.id,
+                }));
+                resolve();
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    getRoastingProfiles(resolve, reject) {
+        this.inventorySrv.getRoastingProfiles().subscribe((data) => {
+            if (data.success) {
+                this.roastingProfileArray = data.result || [];
+                resolve();
+            } else {
+                reject();
+            }
+        });
     }
 
     getProductDetails() {
+        this.isLoading = true;
         this.eCommerceService.getProductDetails(this.productID, this.type).subscribe(
             (res: ApiResponse<any>) => {
                 if (res.success && res.result) {
                     const productDetails = res.result;
+                    console.log('productDetails', productDetails);
                     this.isPublished = !!res.result.is_published;
                     if (this.isPublished) {
                         this.setValidators();
                     }
-                    this.isSetDefault = true;
                     this.supplyBreadCrumb(productDetails.name || 'NA');
                     this.productForm.patchValue({
                         name: productDetails.name,
@@ -336,111 +379,29 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                         is_external_product: this.type === ProductType.b2b ? false : productDetails.is_external_product,
                     });
                     this.productName = productDetails.name;
-                    const variantsFormArray = this.productForm.get('variants') as FormArray;
-                    variantsFormArray.removeAt(0);
 
-                    this.allCrates = [];
-                    for (const key of Object.keys(res.result.variants)) {
-                        const getVariant = res.result.variants[key];
-                        let coffeeBatchID =
-                            (getVariant[0].weight_variants && getVariant[0].weight_variants[0]?.rc_batch_id) || null;
-                        const getBatchDetails = this.roastedBatches.find((ele) => ele.id === coffeeBatchID);
-                        if ((coffeeBatchID && !getBatchDetails) || productDetails.is_external_product) {
-                            coffeeBatchID = null;
-                        }
-                        if (getVariant[0].variant_details.variant_id > this.maxVariantId) {
-                            this.maxVariantId = getVariant[0].variant_details.variant_id;
-                        }
-                        const variant: any = {
-                            id: getVariant[0].variant_details.variant_id,
-                            rc_batch_id: coffeeBatchID,
-                            weight_variants: getVariant[0].weight_variants,
-                            roaster_recommendation: getVariant[0].variant_details.roaster_recommendation ?? '',
-                            brewing_method: getVariant[0].variant_details.brewing_method ?? '',
-                            recipes: getVariant[0].variant_details.recipes ?? '',
-                        };
-                        if (getBatchDetails) {
-                            this.roastedFields.forEach((ele) => {
-                                if (ele === 'harvest_year') {
-                                    variant[ele] = getBatchDetails.harvest_date || '';
-                                } else if (ele === 'roast_time') {
-                                    variant[ele] = getBatchDetails.roast_duration;
-                                } else if (ele === 'flavour_profiles') {
-                                    variant[ele] = getBatchDetails.flavour_profile;
-                                } else {
-                                    variant[ele] = getBatchDetails[ele] || '';
-                                }
-                            });
-                        }
-                        if (productDetails.is_external_product) {
-                            for (const ele of this.roastedFields) {
-                                let getValue;
-                                if (ele === 'flavour_profiles') {
-                                    if (getVariant[0].variant_details.flavour_profile) {
-                                        getValue = getVariant[0].variant_details.flavour_profile
-                                            .split(',')
-                                            .map((item) => +item);
-                                        getValue = this.flavoursList.filter((item) =>
-                                            getValue.includes(item.flavour_profile_id),
-                                        );
-                                    }
-                                    variant.external_flavour_profiles = getValue || [];
-                                } else {
-                                    variant[ele] = getVariant[0].variant_details[ele] ?? '';
-                                }
-                            }
-                        }
-                        variant.harvest_year =
-                            variant.harvest_year && moment(variant.harvest_year).isValid()
-                                ? new Date(variant.harvest_year)
-                                : null;
-
-                        const variantForm = this.createEmptyVariant(productDetails.is_external_product);
-                        variantForm.patchValue(variant);
-                        const weightVariants = getVariant[0].weight_variants || [];
-                        weightVariants.forEach((ele) => {
-                            if (!productDetails.is_external_product) {
-                                const getCrate = productDetails.crates?.find(
-                                    (item) => item.weight === ele.weight && ele.weight_unit === item.crate_unit,
-                                );
-                                if (getCrate) {
-                                    getCrate.has_weight = true;
-                                    getCrate.product_weight_variant_id = ele.product_weight_variant_id;
-                                    getCrate.variant_name = `Variant ${key}`;
-                                    getCrate.weight = convertKg(getCrate.weight, getCrate.crate_unit);
-                                    this.allCrates.push(getCrate);
-                                }
-                            }
-                            ele.weight = convertKg(ele.weight, ele.weight_unit);
+                    (res.result.weight_variants || []).forEach((weightVariant: any) => {
+                        const weightForm = this.creatWeightForm();
+                        weightForm.patchValue({
+                            ...weightVariant,
+                            weight: convertKg(weightVariant.weight, weightVariant.weight_unit),
+                            featured_image_id: weightVariant.featured_image,
+                            images: weightVariant.images || [],
                         });
-                        variantForm.patchValue({ weight_variants: weightVariants });
-                        variantsFormArray.push(variantForm);
-                    }
 
-                    if (!productDetails.is_external_product) {
-                        const crateFormArray = this.productForm.get('crates') as FormArray;
-                        if (productDetails.crates?.length) {
-                            crateFormArray.removeAt(0);
-                            for (const crate of productDetails.crates) {
-                                if (crate.has_weight) {
-                                    const crateForm = this.createEmptyCrate();
-                                    crateForm.patchValue({
-                                        weight: crate.weight,
-                                        crate_unit: crate.crate_unit,
-                                        id: crate.id,
-                                        weight_name: `${crate.weight} ${crate.crate_unit}`,
-                                        product_weight_variant_id: crate.product_weight_variant_id,
-                                        crate_capacity: crate.crate_capacity,
-                                        variant_name: crate.variant_name,
-                                    });
-                                    crateFormArray.push(crateForm);
-                                }
-                            }
-                        }
-                    }
-                    this.createTypeVariantArray();
-                    this.checkVarientForm();
+                        const grindFormList = weightForm.get('grind_variants') as FormArray;
+                        (weightVariant.grind_variants || []).forEach((grindVariant) => {
+                            const grindForm = this.creatGrindForm();
+                            grindForm.patchValue({ ...grindVariant, grind_variant_id: grindVariant.id });
+                            // Fetch batch details
+                            this.onBatchChange(grindForm);
+                            grindFormList.push(grindForm);
+                        });
+
+                        (this.productForm.get('weightVariants') as FormArray).push(weightForm);
+                    });
                 }
+                this.isLoading = false;
             },
             (err) => {
                 this.toasterService.error('Error while getting product details');
@@ -448,164 +409,301 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         );
     }
 
-    addNewVariants(): void {
-        const variantsFormArray = this.productForm.get('variants') as FormArray;
-        variantsFormArray.push(this.createEmptyVariant(this.productForm.value.is_external_product));
-        this.createTypeVariantArray();
-        this.checkVarientForm();
+    addWeightVariant() {
+        const weightForm = this.creatWeightForm();
+        const variantsFormArray = this.productForm.get('weightVariants') as FormArray;
+        variantsFormArray.push(weightForm);
         setTimeout(() => {
-            this.currentVariant = variantsFormArray.length - 1;
+            this.currentVariantIdx = variantsFormArray.length - 1;
         }, 0);
     }
 
-    removeVariant(index: any) {
-        const variantsFormArray = this.productForm.get('variants') as FormArray;
-        if (index === this.currentVariant) {
-            this.currentVariant = index === 0 ? variantsFormArray.length - 1 : 0;
-        }
-        const variantTypeArray = Object.assign([], this.variantTypeArray);
-        const weights = this.variantComponent.toArray()[index].weightForm.value.weights;
-        if (weights?.length) {
-            weights.forEach((element) => {
-                const event = {
-                    productWeightVariantId: element.product_weight_variant_id,
-                    isNew: element.isNew,
-                    weight: element.weight,
-                    weight_unit: element.weight_unit,
-                };
-                this.onWeightDelete(event, element.product_weight_variant_id);
-            });
-        }
+    removeWeightVariant(index: number) {
+        const variantsFormArray = this.productForm.get('weightVariants') as FormArray;
         setTimeout(() => {
             variantsFormArray.removeAt(index);
-            variantTypeArray.splice(index, 1);
-            this.variantTypeArray = variantTypeArray;
-        }, 200);
-    }
-
-    onBatchChange(idx) {
-        const variantsFormArray = this.productForm.get('variants') as FormArray;
-        const getVariant: any = variantsFormArray.controls[idx];
-        if (getVariant && getVariant.value) {
-            const selectedID = getVariant.value.rc_batch_id;
-            const getBatchDetails = this.roastedBatches.find((ele) => ele.id === selectedID);
-            if (getBatchDetails) {
-                this.roastedFields.forEach((ele) => {
-                    const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
-                    getVariant.controls[ele].setValue(getValue);
-                });
-                getVariant.patchValue({
-                    flavour_profiles: getBatchDetails.flavour_profile,
-                    roast_time: getBatchDetails.roast_duration,
-                    harvest_year: new Date(getBatchDetails.harvest_date),
-                });
+            if (index === this.currentVariantIdx) {
+                this.currentVariantIdx = index === 0 ? variantsFormArray.length - 1 : 0;
             }
-        }
+        }, 0);
     }
 
-    createEmptyVariant(isExternalProduct?: boolean) {
-        return this.fb.group({
-            id: null,
-            rc_batch_id: [null, Validators.compose(this.isPublished ? [Validators.required] : [])],
-            roaster_ref_no: '',
-            batch_ref_no: { value: '', disabled: true },
-            roasting_profile_name: { value: '', disabled: true },
-            roast_level: [null, Validators.compose(this.isPublished ? [Validators.required] : [])],
-            roast_time: { value: '', disabled: true },
-            estate_name: '',
-            origin: '',
-            region: '',
-            harvest_year: null,
-            body: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
-            acidity: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
-            aroma: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
-            flavour: ['', Validators.compose(this.isPublished ? [Validators.required] : [])],
-            processing: ['', Validators.compose(isExternalProduct && this.isPublished ? [Validators.required] : [])],
-            flavour_profiles: [],
-            external_flavour_profiles: [],
-            roaster_notes: ['', Validators.compose(this.isPublished ? [maxWordCountValidator(300)] : [])],
-            recipes: ['', Validators.compose(this.isPublished ? [maxWordCountValidator(300)] : [])],
-            brewing_method: '',
-            roaster_recommendation: ['', Validators.compose(this.isPublished ? [maxWordCountValidator(10)] : [])],
-            remaining_quantity: { value: '', disabled: true },
-            weight_variants: [],
-        });
-    }
-
-    createEmptyCrate() {
-        return this.fb.group({
+    creatWeightForm(isPublic: boolean = false): FormGroup {
+        const emptyWeight: FormGroup = this.fb.group({
             id: '',
-            weight: [0, Validators.compose(!this.isPublished ? [] : [Validators.required])],
-            crate_unit: 'lb',
-            boxField: '1 box',
-            weight_name: '0 lb',
-            product_weight_variant_id: '',
-            crate_capacity: [0, Validators.compose(!this.isPublished ? [] : [Validators.required])],
-            variant_name: '',
+            weight: [
+                0,
+                Validators.compose(isPublic ? [Validators.required, quantityMinValidator('weight_unit', 0.1)] : []),
+            ],
+            weight_unit: 'lb',
+            status: [
+                this.isPublished ? ProductStatus.INSTOCK : ProductStatus.INDRAFT,
+                Validators.compose(isPublic ? [Validators.required] : []),
+            ],
+            featured_image_id: ['', fileRequired()],
+            images: this.fb.array([]),
+            crate_capacity: [
+                null,
+                Validators.compose(!this.isPublished ? [] : [Validators.required, Validators.min(1)]),
+            ],
+            grind_variants: this.fb.array([]),
         });
+        const productImages = emptyWeight.get('images') as FormArray;
+        for (let i = 0; i < 3; i++) {
+            productImages.push(new FormControl(null));
+        }
+        return emptyWeight;
     }
 
-    onWeightDelete(event, productWeightVariantId?) {
-        let canRemove = true;
-        this.variantComponent.forEach((child) => {
-            if (
-                child.weightForm.value.weights.find(
-                    (item) => item.weight === event.weight && item.weight_unit === event.weight_unit,
-                ) &&
-                event.productWeightVariantId !== productWeightVariantId
-            ) {
-                canRemove = false;
-                return;
-            }
-        });
-        const crateFormArray = this.productForm.get('crates') as FormArray;
-        if (canRemove) {
-            crateFormArray.removeAt(
-                crateFormArray.value.findIndex((ix) => ix.product_weight_variant_id === event.productWeightVariantId),
-            );
+    onSaveWeightVariant(weightForm: FormGroup) {
+        console.log('onSaveWeightVariant', weightForm.value);
+        if (!weightForm.valid) {
+            weightForm.markAllAsTouched();
+            this.toasterService.error(this.translator.instant('please_check_form_data'));
         }
-        if (!event.isNew) {
-            this.removedWeightVariantIds.push(event.productWeightVariantId);
-        }
-    }
 
-    onWeightCreate(event) {
-        if (this.type === ProductType.b2b) {
-            const crateFormArray = this.productForm.get('crates') as FormArray;
-            const sameItems = crateFormArray.value.filter(
-                (ix) => ix.weight === event.value && ix.crate_unit === event.unit,
-            );
-            const existingItem = crateFormArray.value.find(
-                (ix) => ix.product_weight_variant_id === event.product_weight_variant_id,
-            );
-            if (!sameItems?.length && !existingItem) {
-                const getCrate = this.createEmptyCrate();
-                getCrate.patchValue({
-                    weight: event.value || 0,
-                    crate_unit: event.unit,
-                    weight_name: `${event.value || 0} ${event.unit}`,
-                    product_weight_variant_id: event.product_weight_variant_id,
-                    variant_name: event.variant_name,
-                });
-                crateFormArray.push(getCrate);
-            }
-
-            if (event.modify && existingItem) {
-                const indexValue = crateFormArray.value.indexOf(existingItem);
-                if (
-                    sameItems?.length &&
-                    sameItems.find((ix) => ix.product_weight_variant_id !== event.product_weight_variant_id)
-                ) {
-                    crateFormArray.removeAt(indexValue);
+        // First have to upload all product images
+        new Promise((resolve, reject) => this.uploadImages(weightForm, resolve, reject))
+            .then(() => {
+                const postData = {
+                    ...weightForm.value,
+                    weight: convert2Kg(weightForm.value.weight, weightForm.value.weight_unit),
+                    featured_image_id: weightForm.value.featured_image_id.id,
+                    images: weightForm.value.images.filter((element) => element?.id).map((element) => element.id),
+                };
+                if (weightForm.value.id) {
+                    this.updateWeightVariant(postData, weightForm);
                 } else {
-                    crateFormArray.controls[indexValue].patchValue({
-                        crate_unit: event.unit,
-                        weight: event.value || 0,
-                        weight_name: `${event.value || 0} ${event.unit}`,
-                    });
+                    this.createWeightVariant(postData, weightForm);
                 }
-            }
+            })
+            .catch(() => {
+                this.toasterService.error('Error while uploading images');
+            });
+    }
+
+    uploadImages(weightForm: FormGroup, pResolve, pReject) {
+        const promises: any[] = [];
+        const featuredControl: FormControl = weightForm.get('featured_image_id') as FormControl;
+        if (featuredControl.value?.file) {
+            promises.push(
+                new Promise((resolve, reject) => {
+                    this.uploadImage(featuredControl, resolve, reject);
+                }),
+            );
         }
+        if (featuredControl.value?.image_id && (!featuredControl.value?.image_url || featuredControl.value?.file)) {
+            featuredControl.setValue({ ...featuredControl.value, image_id: null });
+        }
+        (weightForm.get('images') as FormArray).controls.forEach((imageControl: FormControl) => {
+            if (imageControl.value?.file) {
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        this.uploadImage(imageControl, resolve, reject);
+                    }),
+                );
+            }
+            if (imageControl.value?.id && (!imageControl.value?.url || imageControl.value?.file)) {
+                imageControl.setValue({ ...imageControl.value, id: null });
+            }
+        });
+
+        Promise.all(promises)
+            .then(() => pResolve())
+            .catch(() => pReject());
+    }
+
+    uploadImage(formControl: AbstractControl, resolve, reject) {
+        const file = formControl.value.file;
+        const formData: FormData = new FormData();
+        formData.append('file', file, file.name);
+        formData.append('name', file.name);
+        formData.append('file_module', FileModule.Product);
+
+        this.fileService.uploadFiles(formData).subscribe((uploadedFile) => {
+            if (uploadedFile.success) {
+                formControl.setValue({ id: uploadedFile.result.id, url: uploadedFile.result.url });
+                resolve();
+            } else {
+                this.toasterService.error('Error while uploading image.');
+                reject();
+            }
+        });
+    }
+
+    createWeightVariant(postData: any, weightForm: FormGroup) {
+        this.inventorySrv.createWeightVariant(this.productID, postData).subscribe((res) => {
+            if (res.success) {
+                this.toasterService.success('Weight variant created successfully');
+                weightForm.patchValue({ id: res.result.id });
+            }
+        });
+    }
+
+    updateWeightVariant(postData: any, weightForm: FormGroup) {
+        this.inventorySrv.updateWeightVariant(this.productID, postData.id, postData).subscribe((res) => {
+            if (res.success) {
+                this.toasterService.success('Weight variant updated successfully');
+            }
+        });
+    }
+
+    creatGrindForm(isPublic = false, editable = false): FormGroup {
+        // editable should be true when we add new grind
+        return this.fb.group({
+            editable: [editable],
+            grind_variant_id: '',
+            rc_batch_id: '',
+            rc_batch_name: { value: '', disabled: true },
+            is_default_variant: [null, [Validators.required]],
+            price: [0, Validators.compose(isPublic ? [Validators.required, Validators.min(1)] : [])],
+            grind: [null, Validators.compose(isPublic ? [Validators.required] : [])],
+            available_quantity: [0, Validators.compose(isPublic ? [Validators.required, Validators.min(1)] : [])],
+            available_quantity_type: this.type === 'b2b' ? 'boxes' : 'bags',
+            sku_number: ['', Validators.compose(isPublic ? [Validators.required] : [])],
+            remaining_quantity: '',
+            quantity_unit: '',
+            roast_level_id: [{ value: '', disabled: true }],
+            estate_name: [{ value: '', disabled: true }],
+            origin: [{ value: '', disabled: true }],
+            roaster_ref_no: [{ value: '', disabled: true }],
+            flavour_profiles: [{ value: '', disabled: true }],
+        });
+    }
+
+    addGrindVariant(isHide?): void {
+        const grindForms = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
+            'grind_variants',
+        ) as FormArray;
+        grindForms.controls.forEach((fg: FormGroup, index) => {
+            this.onCancelGrind(fg, index);
+        });
+        grindForms.push(this.creatGrindForm(!isHide, true));
+    }
+
+    removeGrindVariant(index) {
+        const grindForms = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
+            'grind_variants',
+        ) as FormArray;
+        setTimeout(() => {
+            grindForms.removeAt(index);
+        }, 0);
+    }
+
+    onBatchChange(grindForm: FormGroup) {
+        const batch = this.roastedBatches.find((element) => element.id === grindForm.value.rc_batch_id);
+        this.inventorySrv.getRoastedBatch(batch.id).subscribe((res) => {
+            if (res && res.result) {
+                grindForm.patchValue({
+                    ...res.result,
+                    rc_batch_name: res.result.name,
+                    roaster_ref_no: res.result.batch_ref_no,
+                });
+            }
+        });
+        this.inventorySrv.getRoastingProfileDetail(batch.roasting_profile_id).subscribe((res) => {
+            if (res && res.result) {
+                grindForm.patchValue({
+                    ...res.result,
+                    flavour_profiles: (res.result.flavour_profiles || []).map((item) => {
+                        return { label: item.name, value: item.id };
+                    }),
+                });
+            }
+        });
+    }
+
+    getGrindMenuItems(grindForm: FormGroup) {
+        return [
+            { label: this.translator.instant('edit'), command: () => this.editGrind(grindForm) },
+            { label: this.translator.instant('duplicate'), command: () => this.duplicateGrind(grindForm) },
+            { label: this.translator.instant('delete'), command: () => this.deleteGrindVariant(grindForm) },
+        ];
+    }
+
+    editGrind(grindForm: FormGroup) {
+        const grindForms = grindForm.parent as FormArray;
+        grindForms.controls.forEach((fg: FormGroup, index) => {
+            this.onCancelGrind(fg, index);
+        });
+        grindForm.get('editable').setValue(true);
+    }
+
+    onCancelGrind(grindForm: FormGroup, index: number) {
+        if (grindForm.value.grind_variant_id) {
+            grindForm.get('editable').setValue(false);
+        } else {
+            // Have to remove grind form for the new grind item which is not saved
+            this.removeGrindVariant(index);
+        }
+    }
+
+    duplicateGrind(grindForm: FormGroup) {
+        grindForm.get('editable').setValue(true);
+    }
+
+    onSaveGrind(grindForm: FormGroup) {
+        if (!grindForm.valid) {
+            grindForm.markAllAsTouched();
+            this.toasterService.error(this.translator.instant('please_check_form_data'));
+            return;
+        }
+
+        const postData = {
+            ...grindForm.value,
+        };
+        const weightForm = grindForm.parent?.parent;
+        console.log(weightForm);
+        const weightId = weightForm.value.id;
+        if (grindForm.value.grind_variant_id) {
+            this.updateGrindVariant(weightId, grindForm.value.grind_variant_id, postData, grindForm);
+        } else {
+            this.createGrindVariant(weightId, postData, grindForm);
+        }
+    }
+
+    createGrindVariant(wightId: number, postData: any, grindForm: FormGroup) {
+        this.inventorySrv.createGrindVariant(this.productID, wightId, postData).subscribe((res) => {
+            if (res.success) {
+                this.toasterService.success('Grind variant created successfully');
+                grindForm.patchValue({ grind_variant_id: res.result.id, editable: false });
+            }
+        });
+    }
+
+    updateGrindVariant(wightId: number, grindId: number, postData: any, grindForm: FormGroup) {
+        this.inventorySrv.updateGrindVariant(this.productID, wightId, grindId, postData).subscribe((res) => {
+            if (res.success) {
+                this.toasterService.success('Grind variant updated successfully');
+                grindForm.get('editable').setValue(false);
+            }
+        });
+    }
+
+    deleteGrindVariant(grindForm: FormGroup) {
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    type: 'delete',
+                    desp: this.translator.instant('confirm_delete_roast_profile_desp'),
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.inventorySrv.deleteRoastingProfile(grindForm.value.id).subscribe(
+                        (res) => {
+                            if (res.success) {
+                                this.toasterService.success('Grind variant deleted successfully');
+                            } else {
+                                this.toasterService.error('Error while deleting grind variant');
+                            }
+                        },
+                        (err) => {
+                            this.toasterService.error('Error while deleting grind variant');
+                        },
+                    );
+                }
+            });
     }
 
     saveAsDraft() {
@@ -620,75 +718,17 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         this.onSave();
     }
 
-    validateForms() {
-        let returnFlag = true;
-        if (!this.productForm.valid) {
-            returnFlag = false;
-            return returnFlag;
-        }
-        this.variantComponent.forEach((child) => {
-            if (!child.weightForm.valid) {
-                returnFlag = false;
-                return returnFlag;
-            }
-        });
-        return returnFlag;
-    }
-
     onSave(): void {
-        if (!this.validateForms()) {
+        if (!this.productForm.valid) {
             this.productForm.markAllAsTouched();
-            this.variantComponent.forEach((child) => {
-                child.markAllAsTouched();
-            });
             this.toasterService.error(this.translator.instant('please_check_form_data'));
             return;
         }
-
-        // First have to upload all product images
-        this.uploadImages();
-    }
-
-    uploadImages() {
-        const promises = [];
-        this.variantComponent.forEach((child) => {
-            promises.push(new Promise((resolve, reject) => child.uploadImages(resolve, reject)));
-        });
-
-        Promise.all(promises)
-            .then(() => {
-                Promise.all(promises)
-                    .then(() => {
-                        this.saveProduct();
-                    })
-                    .catch(() => {
-                        this.toasterService.error('Error while uploading images');
-                    });
-            })
-            .catch(() => {});
     }
 
     saveProduct() {
         const productObj = JSON.parse(JSON.stringify(this.productForm.value));
         delete productObj.variants;
-        if (this.type === ProductType.b2b) {
-            const crates: Crate[] = productObj.crates || [];
-            // productObj.crates = crates
-            // Anastasia will solve this once https://www.bugherd.com/projects/234279/tasks/816 is solved
-            productObj.crates = (this.allCrates || [])
-                .filter((ix) => !crates.find((iy) => iy.weight === ix.weight && iy.crate_unit === ix.crate_unit))
-                .concat(crates)
-                .filter((ix) => ix.weight)
-                .map((item) => {
-                    return {
-                        weight: convert2Kg(item.weight, item.crate_unit),
-                        crate_unit: item.crate_unit,
-                        crate_capacity: item.crate_capacity,
-                    };
-                });
-        } else {
-            delete productObj.crates;
-        }
         if (this.productID) {
             this.updateProductDetails(productObj);
         } else {
@@ -701,7 +741,6 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
             (res: ApiResponse<any>) => {
                 if (res && res.success) {
                     this.productID = res.result.id;
-                    this.grindVariantsDetails(true);
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
@@ -716,7 +755,6 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
         this.eCommerceService.updateProductDetails(this.productID, productObj, this.type).subscribe(
             (res) => {
                 if (res && res.success) {
-                    this.grindVariantsDetails(false);
                 } else {
                     this.toasterService.error('Error while update a Product');
                 }
@@ -725,221 +763,5 @@ export class ProductDetailsComponent extends DestroyableComponent implements OnI
                 this.toasterService.error('Error while update a Product');
             },
         );
-    }
-
-    grindVariantsDetails(isCreateProduct: boolean) {
-        const promises: any[] = [];
-        let includeDefault = false;
-        for (const variantComponet of this.variantComponent) {
-            if (includeDefault) {
-                break;
-            }
-            const getWeightArray = variantComponet.weightForm.value.weights;
-            if (getWeightArray.find((item) => item.is_default_product)) {
-                includeDefault = true;
-                break;
-            }
-        }
-
-        // Variant id for the new variant
-        let variantId = this.maxVariantId;
-        this.variantComponent.forEach((child, childIndex) => {
-            const variantForm = child.weightForm.value;
-            const getWeightArray = variantForm.weights;
-            const getVariantDetails = child.variantDetails.value;
-            getWeightArray.forEach((weight, index) => {
-                if (!getVariantDetails.id && !index) {
-                    ++variantId;
-                }
-                const weightObj = Object.assign({}, weight);
-                if (!includeDefault && childIndex === 0 && index === 0) {
-                    weightObj.is_default_product = true;
-                }
-                weightObj.featured_image_id = weight.featured_image_id?.image_id ?? undefined;
-                weightObj.product_images = weightObj.product_images
-                    .filter((item) => item?.image_id)
-                    .map((item) => item.image_id);
-                weightObj.status =
-                    weightObj.status === 'IN-DRAFT' && this.productForm.value.is_public ? 'IN-STOCK' : weightObj.status;
-                weightObj.variant_id = getVariantDetails.id || variantId;
-                if (!!getVariantDetails.rc_batch_id && !this.productForm.value.is_external_product) {
-                    weightObj.rc_batch_id = getVariantDetails.rc_batch_id;
-                } else {
-                    delete weightObj.rc_batch_id;
-                }
-                weightObj.is_public = !weight.is_public;
-                weightObj.weight = convert2Kg(weightObj.weight, weightObj.weight_unit);
-
-                const weightVariantID = weight.product_weight_variant_id ? weight.product_weight_variant_id : false;
-                weightObj.variant_details = {
-                    brewing_method: getVariantDetails.brewing_method,
-                    roaster_recommendation: getVariantDetails.roaster_recommendation,
-                    recipes: getVariantDetails.recipes,
-                };
-                if (this.type === ProductType.b2c) {
-                    if (this.productForm.value.is_external_product) {
-                        weightObj.variant_details.flavour_profiles = (
-                            getVariantDetails.external_flavour_profiles || []
-                        ).map((item) => item.flavour_profile_id ?? item);
-                    } else {
-                        weightObj.variant_details.flavour_profiles = getVariantDetails.flavour_profiles?.map(
-                            (item) => item.flavour_profile_id ?? item,
-                        );
-                    }
-                    weightObj.variant_details.processing = getVariantDetails.processing;
-                    weightObj.variant_details.body = getVariantDetails.body || 0;
-                    weightObj.variant_details.acidity = getVariantDetails.acidity || 0;
-                    weightObj.variant_details.aroma = getVariantDetails.aroma || 0;
-                    weightObj.variant_details.flavour = getVariantDetails.flavour || 0;
-                    weightObj.variant_details.roaster_ref_no = getVariantDetails.roaster_ref_no;
-                    weightObj.variant_details.estate_name = getVariantDetails.estate_name;
-                    weightObj.variant_details.origin = getVariantDetails.origin;
-                    weightObj.variant_details.region = getVariantDetails.region;
-                    weightObj.variant_details.roaster_notes = getVariantDetails.roaster_notes;
-                    weightObj.variant_details.roast_level = getVariantDetails.roast_level;
-                    weightObj.variant_details.harvest_year = getVariantDetails.harvest_year
-                        ? moment(getVariantDetails.harvest_year).format('yyyy-MM-DD')
-                        : null;
-                }
-
-                delete weightObj.product_weight_variant_id;
-                delete weightObj.fileDetails;
-                weightObj.status = weightObj.status.toUpperCase();
-                weightObj.is_public = !weightObj.is_hide;
-                delete weightObj.is_hide;
-                weightObj.grind_variants.map((ele) => {
-                    ele.id = ele.grind_variant_id ? ele.grind_variant_id : undefined;
-                    ele.grind_variant_id = ele.grind_variant_id ? ele.grind_variant_id : undefined;
-                });
-
-                if (weight.isNew) {
-                    promises.push(
-                        new Promise((resolve, reject) => {
-                            this.addNewGrindVariant(this.productID, weightObj, childIndex, index, resolve, reject);
-                        }),
-                    );
-                } else if (weightVariantID) {
-                    promises.push(
-                        new Promise((resolve, reject) => {
-                            this.updateGrindVariant(weightObj, weightVariantID, resolve, reject);
-                        }),
-                    );
-                }
-            });
-        });
-        for (const weightVariantId of this.removedWeightVariantIds) {
-            promises.push(
-                new Promise((resolve, reject) => {
-                    this.deleteWeightVariant(this.productID, weightVariantId, resolve, reject);
-                }),
-            );
-        }
-        Promise.all(promises)
-            .then(() => {
-                this.toasterService.success(`Product ${isCreateProduct ? 'created' : 'updated'} successfully`);
-                this.router.navigate([`/e-commerce/product-list/${this.type}`]);
-            })
-            .catch(() => {});
-    }
-
-    addNewGrindVariant(productID, weightObj, variantIdx, weightIdx, resolve, reject) {
-        this.eCommerceService.addProductWeightVariants(productID, weightObj, this.type).subscribe(
-            (res) => {
-                if (res.success) {
-                    const weightVariantForm = (
-                        this.variantComponent.toArray()[variantIdx].weightForm.get('weights') as FormArray
-                    ).controls[weightIdx];
-                    if (weightVariantForm) {
-                        weightVariantForm.patchValue({ isNew: false, product_weight_variant_id: res.result.id });
-                    }
-                    resolve();
-                } else {
-                    this.toasterService.error('Errow while adding weight variants');
-                    reject();
-                }
-            },
-            (err) => {
-                this.toasterService.error('Errow while adding weight variants');
-                reject();
-            },
-        );
-    }
-
-    updateGrindVariant(weightObj, weightVariantID, resolve, reject) {
-        this.eCommerceService
-            .updateProductWeightVariants(this.productID, weightObj, weightVariantID, this.type)
-            .subscribe(
-                (res) => {
-                    if (res.success) {
-                        resolve();
-                    } else {
-                        this.toasterService.error('Errow while updating weight variants');
-                        reject();
-                    }
-                },
-                (err) => {
-                    this.toasterService.error('Errow while updating weight variants');
-                },
-            );
-    }
-
-    deleteWeightVariant(productID, weightVariantId, resolve, reject) {
-        this.eCommerceService.deleteProductWeightVariants(productID, weightVariantId, this.type).subscribe((res) => {
-            if (res.success) {
-                const idx = this.removedWeightVariantIds.findIndex((ix) => ix === weightVariantId);
-                if (idx > -1) {
-                    this.removedWeightVariantIds.splice(idx, 1);
-                }
-                resolve();
-            } else {
-                this.toasterService.error('Errow while removing weight variants');
-                reject();
-            }
-        });
-    }
-
-    createTypeVariantArray() {
-        const variantTypeArray = [];
-        const variant = this.productForm.get('variants') as FormArray;
-        variant.value.forEach((ele, index) => {
-            variantTypeArray.push({ label: ele.variant_name, value: index });
-        });
-        variantTypeArray.push({ label: '', value: 'button' });
-        this.variantTypeArray = variantTypeArray;
-    }
-
-    productNameValue(event: any) {
-        this.productName = event.target.value;
-    }
-
-    getSelectedBatchLabel(batchId: any) {
-        const batch = this.roastedBatches.find((item) => item.id === batchId);
-        return `Batch #${batchId} - ${batch.roast_batch_name}`;
-    }
-
-    handleChangeBrewingMethod(event: any, index) {
-        const variantForm = (this.productForm.get('variants') as FormArray).controls[index];
-        if (!event.value) {
-            variantForm.get('roaster_recommendation').clearValidators();
-            variantForm.get('roaster_recommendation').setValue('');
-        } else {
-            variantForm
-                .get('roaster_recommendation')
-                .setValidators(Validators.compose([Validators.required, maxWordCountValidator(10)]));
-            variantForm.get('roaster_recommendation').updateValueAndValidity();
-        }
-    }
-
-    get isExternalFlag() {
-        return !!this.productForm?.value?.is_external_product;
-    }
-
-    onChangeSetDefault(value) {
-        this.isSetDefault = value.checked;
-    }
-
-    getFlavourName(id) {
-        const flavour = this.flavoursList.find((item) => item.flavour_profile_id === id);
-        return flavour.flavour_profile_name;
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { COUNTRY_LIST, LBUNIT, PRODUCT_STATUS_ITEMS } from '@constants';
+import { PRODUCT_STATUS_ITEMS } from '@constants';
 import { ProductType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { ECommerceService, OriginService, ResizeService } from '@services';
@@ -57,14 +57,6 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
         { label: '$0-$500', value: { price_min: '0', price_max: '500' } },
         { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },
     ];
-
-    roastLevelArray = {
-        1: 'Light',
-        2: 'Light Medium',
-        3: 'Medium',
-        4: 'Medium Dark',
-        5: 'Dark',
-    };
 
     visibilityArray: any[] = [
         {
@@ -193,7 +185,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
                         width: '13%',
                     },
                     {
-                        field: 'roast_level',
+                        field: 'roast_level_name',
                         header: 'roast_level',
                         width: '12%',
                     },
@@ -321,10 +313,5 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
 
     onViewDetails(item) {
         this.router.navigate([`/e-commerce/product-details/${this.type}/${item.id}`]);
-    }
-
-    getWeight(value, unit) {
-        const weight = unit === 'lb' ? value / LBUNIT : unit === 'g' ? value * 1000 : value;
-        return Math.round(weight * 100) / 100;
     }
 }

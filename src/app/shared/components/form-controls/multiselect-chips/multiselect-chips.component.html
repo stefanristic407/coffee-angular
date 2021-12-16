@@ -1,12 +1,3 @@
-<p-chips
-    [(ngModel)]="selectedItems"
-    [ngModelOptions]="{ standalone: true }"
-    [field]="optionLabel"
-    [addOnBlur]="addOnBlur"
-    [allowDuplicate]="allowDuplicate"
-    (onRemove)="change()"
-></p-chips>
-
 <p-multiSelect
     [(ngModel)]="selectedItems"
     (ngModelChange)="change()"
@@ -18,9 +9,19 @@
     scrollHeight="225px"
     dropdownIcon="pi pi-plus"
     [placeholder]="placeholder"
-    styleClass="p-descriptors-dropdown ml-2 {{ isDisabled ? 'd-none' : '' }} {{ styleClass }}"
+    styleClass="{{ isDisabled ? 'd-none' : '' }} {{ styleClass }}"
 >
     <ng-template let-value pTemplate="selectedItems">
         <div>{{ placeholder }}</div>
     </ng-template>
 </p-multiSelect>
+
+<p-chips
+    [(ngModel)]="selectedItems"
+    [ngModelOptions]="{ standalone: true }"
+    [field]="optionLabel"
+    [addOnBlur]="addOnBlur"
+    [allowDuplicate]="allowDuplicate"
+    (onRemove)="change()"
+    styleClass="ml-n2"
+></p-chips>

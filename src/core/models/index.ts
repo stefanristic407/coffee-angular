@@ -6,6 +6,7 @@ export * from './menu';
 export * from './message';
 export * from './order-chat';
 export * from './order-management';
+export * from './product';
 export * from './reviews';
 export * from './shipping-details';
 export * from './upload';

@@ -1,5 +1,57 @@
 @import 'variables';
 
+:host ::ng-deep {
+    .p-tabview.tabview-weight-variant {
+        .p-tabview-nav li {
+            .p-tabview-nav-link {
+                padding: 13px 8px 9px 8px;
+                @media (min-width: 768px) {
+                    padding: 13px 16px 9px 16px;
+                }
+                @media (min-width: 992px) {
+                    padding: 13px 24px 9px 24px;
+                }
+            }
+            &.p-highlight .p-tabview-nav-link,
+            &:hover .p-tabview-nav-link {
+                background-color: rgba(48, 133, 92, 0.19);
+            }
+        }
+    }
+
+    .grind-wrap {
+        @media (max-width: 767px) {
+            width: 100% !important;
+            display: flex;
+            border-bottom: dashed 1px $primary-border-color;
+            div {
+                width: 50%;
+            }
+            &:last-child {
+                border: none;
+                div {
+                    width: 100%;
+                }
+            }
+        }
+        @media (min-width: 768px) {
+            border-left: solid 1px $primary-border-color;
+            &:first-child,
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+}
+
+.write-post-btn {
+    @media (min-width: 768px) {
+        position: absolute;
+        right: 0;
+        top: -12px;
+    }
+}
+
 .addNewWeightDiv {
     border: 1px solid #747588;
     padding: 8px 16px 8px 12px;
@@ -8,13 +60,6 @@
     align-items: center;
     span {
         white-space: nowrap;
-    }
-}
-
-.sewn-form-field {
-    margin-bottom: 1rem !important;
-    label {
-        color: #747588;
     }
 }
 

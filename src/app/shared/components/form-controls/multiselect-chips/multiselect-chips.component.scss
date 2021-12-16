@@ -1,13 +1,14 @@
 @import 'variables';
 
 :host ::ng-deep {
+    margin-bottom: -0.5rem;
     .p-chips {
-        margin-top: 0.5rem;
-
+        display: flex;
         .p-chips-multiple-container {
             padding: 0;
             &.p-inputtext {
                 border: none;
+                background: transparent;
             }
             &.p-focus {
                 border-color: transparent !important;
@@ -18,8 +19,8 @@
                 border: solid 1px $muted-text-color;
                 background-color: $muted-text-color;
                 padding: 0.5rem 0.75rem;
-                margin-bottom: 0.5rem;
                 font-weight: 500;
+                margin: 0 0 0.5rem 0.5rem;
                 .p-chips-token-icon::before {
                     content: '\e90b';
                 }
@@ -30,10 +31,12 @@
         }
     }
 
-    .p-multiselect.p-descriptors-dropdown {
+    .p-multiselect {
         width: unset;
         border: solid 1px $muted-text-color;
         flex-direction: row-reverse;
+        margin-bottom: 0.5rem;
+        margin-right: 0.5rem;
 
         .p-multiselect-label {
             padding: 0.5rem 0.75rem 0.5rem 0;

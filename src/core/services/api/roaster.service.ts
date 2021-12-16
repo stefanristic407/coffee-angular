@@ -480,14 +480,6 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    getRoastingProfile(postData?): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile?${this.serializeParams(postData)}`);
-    }
-
-    getRoasterCoffeeBatchs(postData?) {
-        return this.postWithOrg(this.orgPostUrl, `roasted-batches?${this.serializeParams(postData)}`);
-    }
-
     getSelectOrderListTable(roaster_id: any) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/roasted-batches';
@@ -713,12 +705,6 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 
-    deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any): Observable<any> {
-        var data = {};
-        data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
-        data['token'] = this.authService.token;
-        return this.http.post(this.orgDeleteUrl, data);
-    }
     orderReceived(roaster_id: any, order_id: any) {
         const data = {};
         data['api_call'] = `/ro/${roaster_id}/orders/${order_id}/mark/received`;
