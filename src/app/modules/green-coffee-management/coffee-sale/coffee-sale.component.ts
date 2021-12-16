@@ -137,7 +137,7 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             price_per_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
             quantity_count: [null, Validators.compose([Validators.required, this.quantityValidator])],
             quantity_type: [ProcuredCoffeeUnit.bags, Validators.compose([Validators.required])],
-            minimum_purchase_quantity: [null, Validators.compose([Validators.required])],
+            minimum_order_quantity_count: [null, Validators.compose([Validators.required])],
             quantity: [null, Validators.compose([Validators.required, this.quantityValidator])],
             quantity_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
