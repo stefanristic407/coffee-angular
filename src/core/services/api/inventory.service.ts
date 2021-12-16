@@ -60,9 +60,20 @@ export class InventoryService extends ApiService {
     }
 
     // ------------ RO - Products ------------
+    private getProductEndpoint(type: ProductType): string {
+        return type === ProductType.other ? `${type}-products` : 'products';
+    }
     // Add Coffee product (B2B & B2C) details from RO
     createProduct(body: object): Observable<any> {
         return this.postWithOrg(this.orgPostUrl, `products`, 'POST', body);
+    }
+    // Get the list of all products
+    getProducts(type: ProductType, postData?) {
+        return this.postWithOrg(
+            this.orgPostUrl,
+            `${this.getProductEndpoint(type)}?${this.serializeParams(postData)}`,
+            'GET',
+        );
     }
     // Get product details for RO
     getProduct(productId: number): Observable<any> {
@@ -71,6 +82,10 @@ export class InventoryService extends ApiService {
     // Update product details from RO
     updateProduct(productId: number, body: object): Observable<any> {
         return this.putWithOrg(this.orgPutUrl, `products/${productId}`, 'PUT', body);
+    }
+    // Delete a product
+    deleteProduct(productId: number, type: ProductType): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `${this.getProductEndpoint(type)}/${productId}`, 'DELETE');
     }
     // Add product weight variants details from RO
     createWeightVariant(productId: number, body: object): Observable<ApiResponse<any>> {
