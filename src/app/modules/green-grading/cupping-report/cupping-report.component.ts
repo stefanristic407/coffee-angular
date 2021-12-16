@@ -155,7 +155,7 @@ export class CuppingReportComponent implements OnInit {
             this.tableData = this.otherReportsData;
             this.tableColumns = [
                 {
-                    field: 'cupping_report_id',
+                    field: 'external_sample_id',
                     header: 'ID',
                 },
                 {
@@ -219,7 +219,7 @@ export class CuppingReportComponent implements OnInit {
     reGrade(item) {
         if (this.activeIndex === 0) {
             this.greenGradingService.recupSample(this.roasterId, item.gc_order_id).subscribe((res: any) => {
-                if (res.success === true) {
+                if (res.success) {
                     this.toastrService.success('Recupping has started');
                     this.router.navigate(['/green-grading/green-coffee-orders'], {
                         queryParams: {
@@ -234,7 +234,7 @@ export class CuppingReportComponent implements OnInit {
             this.greenGradingService
                 .recupSampleRequest(this.roasterId, item.external_sample_id)
                 .subscribe((res: any) => {
-                    if (res.success === true) {
+                    if (res.success) {
                         this.toastrService.success('Recupping has started');
                         this.router.navigate(['/green-grading/grade-sample'], {
                             queryParams: {
