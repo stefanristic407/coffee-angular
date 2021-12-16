@@ -16,7 +16,7 @@ export function maxWordCountValidator(limit: number): ValidatorFn {
 
 export function fileRequired(): ValidatorFn {
     return ({ value }: AbstractControl): { [key: string]: boolean } | null => {
-        return value && value.image_url ? null : { required: true };
+        return value && value.url ? null : { required: true };
     };
 }
 

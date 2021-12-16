@@ -1,4 +1,4 @@
-export interface RoastingProfile {
+export interface GrindVariant {
     acidity: number;
     aroma: number;
     body: number;

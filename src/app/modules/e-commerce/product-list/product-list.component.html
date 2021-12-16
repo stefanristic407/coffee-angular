@@ -160,8 +160,8 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'roast_level'">
-                        {{ roastLevelArray[rowData[col.field]] }}
+                    <span *ngSwitchCase="'roast_level_name'">
+                        {{ rowData[col.field] | sentencecase | strReplace: ' roast':'' }}
                     </span>
 
                     <span *ngSwitchCase="'status'">

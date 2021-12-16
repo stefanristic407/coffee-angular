@@ -1,4 +1,4 @@
-export interface RoastingProfile {
+export interface Product {
     acidity: number;
     aroma: number;
     body: number;

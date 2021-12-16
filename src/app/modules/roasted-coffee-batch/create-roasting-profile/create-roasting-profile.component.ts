@@ -83,7 +83,7 @@ export class CreateRoastingProfileComponent implements OnInit {
             if (res && res.result) {
                 this.roastingForm.patchValue({
                     ...res.result,
-                    flavour_profiles: (res.result.flavour_profile || []).map((item) => {
+                    flavour_profiles: (res.result.flavour_profiles || []).map((item) => {
                         return { label: item.name, value: item.id };
                     }),
                 });
