@@ -12,7 +12,7 @@
                 <p-selectButton
                     [options]="visibilityOptions"
                     formControlName="is_public"
-                    (onChange)="onSaveProduct()"
+                    (onChange)="onChangeVisibility()"
                     styleClass="p-selectbutton-prebook"
                 ></p-selectButton>
             </div>
@@ -123,7 +123,7 @@
             >
                 <ng-template pTemplate="header">
                     <span class="d-flex align-items-center"
-                        >{{ weightForm.value.weight }} {{ weightForm.value.weight_unit }}
+                        >{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}
                         <i
                             *ngIf="productForm.get('weightVariants').value.length > 1"
                             class="pi pi-trash text-clr55c ml-2"
@@ -133,7 +133,7 @@
                 </ng-template>
 
                 <div
-                    class="btn-trans-icon plus-icon write-post-btn w-mob-100 mb-4 mb-md-0"
+                    class="btn-trans-icon plus-icon add-weight-btn w-mob-100 mb-4 mb-md-0"
                     (click)="addWeightVariant()"
                 >
                     {{ 'add_a_new_weight' | translate }}
@@ -221,7 +221,7 @@
                                 <label>{{ 'weight' | translate }}</label>
                                 <input
                                     readonly
-                                    value="{{ weightForm.value.weight }} {{ weightForm.value.weight_unit }}"
+                                    value="{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}"
                                     pInputText
                                 />
                             </div>
@@ -245,7 +245,11 @@
                     </div>
 
                     <div class="mt-2">
-                        <button class="btn-raised w-mob-100" (click)="onSaveWeightVariant(weightForm)">
+                        <button
+                            class="btn-raised w-mob-100"
+                            (click)="onSaveWeightVariant(weightForm)"
+                            [disabled]="isSubmitted"
+                        >
                             {{ 'save_weight_variant' | translate }}
                         </button>
                     </div>
@@ -270,7 +274,7 @@
         <p-tabView [(activeIndex)]="currentVariantIdx" styleClass="tabview-weight-variant">
             <p-tabPanel *ngFor="let weightForm of productForm.controls['weightVariants']['controls']">
                 <ng-template pTemplate="header">
-                    <span>{{ weightForm.value.weight }} {{ weightForm.value.weight_unit }}</span>
+                    <span>{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}</span>
                 </ng-template>
                 <div *ngIf="weightForm.value.id; else firstSaveWeight" class="mt-4 mt-md-45">
                     <div
@@ -282,7 +286,7 @@
                         class="mb-4"
                     >
                         <ng-container *ngIf="!grindForm.value.editable">
-                            <div class="border-main">
+                            <div class="border-main" [class.invalid]="grindForm.invalid">
                                 <div class="d-md-flex align-items-center py-md-2 px-1 px-md-0">
                                     <div
                                         *ngFor="let col of grindFields"
@@ -307,7 +311,7 @@
                                             {{ grindForm.value.grind_variant_id || '-' }}
                                         </div>
                                         <div *ngSwitchCase="'weight'">
-                                            {{ weightForm.value.weight }}
+                                            {{ weightForm.value.weight || '0' }}
                                             {{ weightForm.value.weight_unit }}
                                         </div>
                                         <div *ngSwitchCase="'roasted_coffee_batch'">
@@ -315,7 +319,7 @@
                                             {{ grindForm.getRawValue().rc_batch_name }}
                                         </div>
                                         <div *ngSwitchCase="'grind'">
-                                            {{ grindForm.value.grind | sentencecase }}
+                                            {{ (grindForm.value.grind | sentencecase) || '-' }}
                                         </div>
                                         <div *ngSwitchCase="'price'">
                                             {{ baseCurrency }} {{ grindForm.value.price | number }}
@@ -443,8 +447,11 @@
                 </small>
             </div>
             <div *ngIf="isExternal" class="col-md-6 col-lg-3 sewn-form-field">
-                <label>{{ 'roast_batch_ref_no' | translate }}</label>
-                <input type="text" formControlName="roaster_ref_no" pInputText />
+                <label>{{ 'roaster_gc_ref_no' | translate }}</label>
+                <input formControlName="roaster_ref_no" pInputText />
+                <small *ngIf="grindFormGroup.controls['roaster_ref_no'].errors?.required" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
             </div>
             <div class="col-md-6 col-lg-3 sewn-form-field">
                 <label>{{ 'set_as_the_default_variant' | translate }}<span class="star">*</span></label>
@@ -463,19 +470,19 @@
             <div *ngIf="!isExternal" class="col-md-6 col-lg-3 sewn-form-field">
                 <label>{{ 'remaining_quantity_in_the_batch' | translate }}</label>
                 <div class="p-inputgroup custom-addon">
-                    <input [value]="grindFormGroup.value.remaining_quantity" [disabled]="true" pInputText />
+                    <input [value]="grindFormGroup.value.remaining_quantity || '-'" [disabled]="true" pInputText />
                     <span class="p-inputgroup-addon gray">{{ grindFormGroup.value.quantity_unit }}</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 sewn-form-field">
                 <label>{{ 'price' | translate }}<span class="star">*</span></label>
-                <div class="p-input-icon-right">
+                <div class="p-inputgroup custom-addon">
                     <p-inputNumber
                         [minFractionDigits]="2"
                         [maxFractionDigits]="2"
                         formControlName="price"
                     ></p-inputNumber>
-                    <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">{{ baseCurrency }}</span>
+                    <span class="p-inputgroup-addon gray">{{ baseCurrency }}</span>
                     <small *ngIf="grindFormGroup['controls']['price'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
@@ -667,7 +674,7 @@
         <div class="pt-3">
             <div class="row gutter-16 v-gutter-16">
                 <div class="col-12 col-md-auto order-1 order-md-2">
-                    <button class="btn-raised w-100" (click)="onSaveGrind(grindFormGroup)">
+                    <button class="btn-raised w-100" (click)="onSaveGrind(grindFormGroup)" [disabled]="isSubmitted">
                         {{ 'save_variant' | translate }}
                     </button>
                 </div>

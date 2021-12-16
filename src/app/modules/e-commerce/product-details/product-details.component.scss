@@ -51,43 +51,12 @@
     }
 }
 
-.write-post-btn {
+.add-weight-btn {
     @media (min-width: 768px) {
         position: absolute;
         right: 0;
         top: -12px;
     }
-}
-
-.addNewWeightDiv {
-    border: 1px solid #747588;
-    padding: 8px 16px 8px 12px;
-    border-radius: 4px;
-    width: fit-content;
-    align-items: center;
-    span {
-        white-space: nowrap;
-    }
-}
-
-.flavour-item {
-    padding: 8px 16px;
-    border-radius: 17px;
-    background-color: #747588;
-    color: #fff;
-    margin: 8px 8px 0 0;
-}
-
-.limitFont {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: right;
-    color: #ababab;
 }
 
 .equal-operators {
@@ -117,103 +86,11 @@
         padding-left: 15px !important;
         margin-left: 0 !important;
     }
-    .weightVariantBtn {
-        border: solid 1px #30855c;
-        color: #30855c;
-        padding: 0.5rem 2rem;
-        display: flex;
-        border-radius: 4px;
-        align-items: center;
-        justify-content: center;
-    }
-    :host ::ng-deep .p-tabview-nav {
-        display: none;
-    }
     .boxCrateWidth {
         flex: 1;
     }
 }
 
-.p-input-icon-right {
-    position: relative;
-    .right-icon {
-        position: absolute;
-        padding: 12px 20px;
-        background-color: #f8f8f8;
-        margin: 4px;
-        right: 0;
-    }
-    input {
-        padding-right: 56px;
-    }
-}
-
-::ng-deep {
-    .p-breadcrumb {
-        max-width: 100%;
-    }
-
-    .isProductOption .p-tabview .p-tabview-nav {
-        display: none;
-    }
-    .p-calendar {
-        &.p-harvest-calendar .p-component:disabled {
-            opacity: 1 !important;
-        }
-    }
-    .p-dropdown {
-        &.p-dropdown-variantType {
-            background: #f9f9f9;
-            .p-dropdown-label {
-                padding: 16px !important;
-            }
-            .p-dropdown-panel .p-dropdown-items .p-dropdown-item:last-child {
-                padding-right: 12px;
-            }
-        }
-        &.p-dropdown-flavour {
-            border: solid 1px #747558;
-
-            &:not(.p-disabled):hover .p-dropdown-label.p-placeholder,
-            .p-dropdown:not(.p-disabled).p-focus .p-dropdown-label.p-placeholder {
-                color: $dark-color;
-            }
-
-            .p-dropdown-label {
-                color: $dark-color;
-                font-weight: bold;
-                padding: 0.5rem 1rem;
-            }
-
-            .p-dropdown-trigger {
-                display: none;
-            }
-        }
-    }
-    .platformLevel .p-dropdown .p-dropdown-trigger {
-        display: none;
-    }
-}
-
-::ng-deep {
-    .p-multiselect.flavor-profile-selector {
-        border: dashed 1px $primary-color !important;
-
-        .p-multiselect-label {
-            color: $primary-color !important;
-        }
-
-        .p-multiselect-trigger-icon {
-            color: $primary-color !important;
-        }
-    }
-    .p-calendar.p-calendar-has-left-icon {
-        .p-inputtext {
-            margin-left: 38px;
-        }
-    }
-
-    .hide-year-selector .p-datepicker-group-container {
-        display: none;
-    }
+.border-main.invalid {
+    border-color: $error-border-color !important;
 }

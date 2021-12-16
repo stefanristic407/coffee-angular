@@ -79,6 +79,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     isPublished = false;
     countryArray: any[] = COUNTRY_LIST;
     isLoading = true;
+    isSubmitted = false;
     baseCurrency: string;
     grindFields = [
         { label: 'grind', field: 'id', width: 14 },
@@ -115,14 +116,12 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             if (params.has('type')) {
                 this.type = params.get('type') as ProductType;
             }
-            this.refreshProductForm();
-            if (this.type === ProductType.b2c) {
-                promises.push(new Promise((resolve, reject) => this.getFlavoursData(resolve, reject)));
-            }
+            this.createProductForm();
             if (params.has('id')) {
                 this.productID = +params.get('id');
             }
         });
+        promises.push(new Promise((resolve, reject) => this.getFlavoursData(resolve, reject)));
         promises.push(new Promise((resolve, reject) => this.getVatData(resolve, reject)));
         promises.push(new Promise((resolve, reject) => this.getRoasterBatches(resolve, reject)));
         promises.push(new Promise((resolve, reject) => this.getRoastingProfiles(resolve, reject)));
@@ -137,7 +136,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         }
 
         this.supplyBreadCrumb();
-        this.syncIsExternalProduct();
+        if (this.type === ProductType.b2c) {
+            this.syncIsExternalProduct();
+        }
         this.authService.organizationSubject.subscribe((res) => {
             this.baseCurrency = res?.base_currency;
         });
@@ -155,65 +156,11 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         ];
     }
 
-    refreshProductForm() {
-        this.productForm = this.fb.group({
-            name: [''],
-            purchase_type: [''],
-            description: [''],
-            is_public: [false],
-            vat_setting_id: [null],
-            is_price_including_vat: [this.type === ProductType.b2c],
-            is_external_product: [false],
-            weightVariants: this.fb.array([this.creatWeightForm()]),
-        });
-        this.checkGrindForm();
-    }
-
-    // Enable validating when publish
-    setValidators() {
-        this.productForm.get('name').setValidators([Validators.required]);
-        this.productForm.get('purchase_type').setValidators([Validators.required]);
-        this.productForm.get('description').setValidators([Validators.required, maxWordCountValidator(300)]);
-        this.productForm.get('vat_setting_id').setValidators([Validators.required]);
-        Object.keys(this.productForm.controls).forEach((key) => {
-            this.productForm.get(key).updateValueAndValidity();
-        });
-
-        (this.productForm.get('weightVariants') as FormArray).controls.forEach((variantForm: FormGroup) => {
-            variantForm.get('weight').setValidators([Validators.required]);
-            variantForm.get('featured_image_id').setValidators([Validators.required]);
-            variantForm.get('crate_capacity').setValidators([Validators.required]);
-            Object.keys(variantForm.controls).forEach((key) => {
-                variantForm.get(key).updateValueAndValidity();
-            });
-        });
-    }
-
-    // Enable validating when publish
-    clearValidators() {
-        this.productForm.get('name').clearValidators();
-        this.productForm.get('purchase_type').clearValidators();
-        this.productForm.get('description').clearValidators();
-        this.productForm.get('vat_setting_id').clearValidators();
-        Object.keys(this.productForm.controls).forEach((key) => {
-            this.productForm.get(key).updateValueAndValidity();
-        });
-
-        (this.productForm.get('weightVariants') as FormArray).controls.forEach((variantForm: FormGroup) => {
-            variantForm.get('weight').clearValidators();
-            variantForm.get('featured_image_id').clearValidators();
-            variantForm.get('crate_capacity')?.clearValidators();
-            Object.keys(variantForm.controls).forEach((key) => {
-                variantForm.get(key).updateValueAndValidity();
-            });
-        });
-    }
-
     syncIsExternalProduct() {
         this.productForm
             .get('is_external_product')
             .valueChanges.pipe(takeUntil(this.unsubscribeAll$))
-            .subscribe((isExternal: boolean) => {
+            .subscribe(() => {
                 setTimeout(() => this.checkGrindForm());
             });
     }
@@ -293,9 +240,6 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                     const productDetails = res.result;
                     console.log('productDetails', productDetails);
                     this.isPublished = !!res.result.is_published;
-                    if (this.isPublished) {
-                        this.setValidators();
-                    }
                     this.supplyBreadCrumb(productDetails.name || 'NA');
                     this.productForm.patchValue({
                         name: productDetails.name,
@@ -320,11 +264,12 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                             weight: convertKg(weightVariant.weight, weightVariant.weight_unit),
                             featured_image_id: weightVariant.featured_image,
                             images: weightVariant.images || [],
+                            grind_variants: [], // To prevent pre-patch
                         });
 
                         const grindFormList = weightForm.get('grind_variants') as FormArray;
                         (weightVariant.grind_variants || []).forEach((grindVariant) => {
-                            const grindForm = this.creatGrindForm();
+                            const grindForm = this.creatGrindForm(this.isPublished);
                             grindForm.patchValue({
                                 ...grindVariant,
                                 grind_variant_id: grindVariant.id,
@@ -335,13 +280,20 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                                     };
                                 }),
                             });
-                            // Fetch batch details
-                            this.onBatchChange(grindForm);
+                            // Fetch roasted batch details
+                            if (!this.isExternal) {
+                                this.onBatchChange(grindForm);
+                            }
                             grindFormList.push(grindForm);
                         });
 
                         weightFormArr.push(weightForm);
                     });
+
+                    if (this.isPublished) {
+                        this.setProductValidators();
+                    }
+                    this.checkGrindForm();
                 }
                 this.isLoading = false;
             },
@@ -374,35 +326,52 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     creatWeightForm(isPublic: boolean = false): FormGroup {
-        const emptyWeight: FormGroup = this.fb.group({
-            id: '',
-            weight: [
-                0,
-                Validators.compose(isPublic ? [Validators.required, quantityMinValidator('weight_unit', 0.1)] : []),
-            ],
+        const weightForm: FormGroup = this.fb.group({
+            id: null,
+            weight: [0],
             weight_unit: 'lb',
-            status: [
-                this.isPublished ? ProductStatus.INSTOCK : ProductStatus.INDRAFT,
-                Validators.compose(isPublic ? [Validators.required] : []),
-            ],
-            featured_image_id: ['', fileRequired()],
+            status: [this.isPublished ? ProductStatus.INSTOCK : ProductStatus.INDRAFT],
+            featured_image_id: [null],
             images: this.fb.array([]),
             grind_variants: this.fb.array([]),
         });
         if (this.type === ProductType.b2b) {
-            emptyWeight.addControl(
-                'crate_capacity',
-                new FormControl(
-                    null,
-                    Validators.compose(!this.isPublished ? [] : [Validators.required, Validators.min(1)]),
-                ),
-            );
+            weightForm.addControl('crate_capacity', new FormControl(null));
         }
-        const productImages = emptyWeight.get('images') as FormArray;
+        const productImages = weightForm.get('images') as FormArray;
         for (let i = 0; i < 3; i++) {
             productImages.push(new FormControl(null));
         }
-        return emptyWeight;
+        if (isPublic) {
+            this.setWeightValidators(weightForm);
+        }
+        return weightForm;
+    }
+
+    setWeightValidators(weightForm: FormGroup) {
+        weightForm.get('weight').setValidators([Validators.required, quantityMinValidator('weight_unit', 0.1)]);
+        weightForm.get('featured_image_id').setValidators([fileRequired()]);
+        weightForm.get('crate_capacity')?.setValidators([Validators.required, Validators.min(1)]);
+        Object.keys(weightForm.controls).forEach((key) => {
+            weightForm.get(key).updateValueAndValidity();
+        });
+
+        (weightForm.get('grind_variants') as FormArray).controls.forEach((grindForm: FormGroup) => {
+            this.setGrindValidators(grindForm);
+        });
+    }
+
+    clearWeightValidators(weightForm: FormGroup) {
+        weightForm.get('weight').clearValidators();
+        weightForm.get('featured_image_id').clearValidators();
+        weightForm.get('crate_capacity').clearValidators();
+        Object.keys(weightForm.controls).forEach((key) => {
+            weightForm.get(key).updateValueAndValidity();
+        });
+
+        (weightForm.get('grind_variants') as FormArray).controls.forEach((grindForm: FormGroup) => {
+            this.clearGrindValidators(grindForm);
+        });
     }
 
     onSaveWeightVariant(weightForm: FormGroup) {
@@ -482,19 +451,23 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     createWeightVariant(postData: any, weightForm: FormGroup) {
+        this.isSubmitted = true;
         this.inventorySrv.createWeightVariant(this.productID, postData).subscribe((res) => {
             if (res.success) {
                 this.toasterService.success('Weight variant created successfully');
                 weightForm.patchValue({ id: res.result.id });
             }
+            this.isSubmitted = false;
         });
     }
 
     updateWeightVariant(postData: any, weightForm: FormGroup) {
+        this.isSubmitted = true;
         this.inventorySrv.updateWeightVariant(this.productID, postData.id, postData).subscribe((res) => {
             if (res.success) {
                 this.toasterService.success('Weight variant updated successfully');
             }
+            this.isSubmitted = false;
         });
     }
 
@@ -533,40 +506,84 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     creatGrindForm(isPublic = false, editable = false): FormGroup {
         // editable should be true when we add new grind
-        return this.fb.group({
-            editable: [editable],
+        const grindForm = this.fb.group({
+            // Main fields
+            editable: [editable], // Form is editable or not
             grind_variant_id: '',
-            rc_batch_id: '',
-            rc_batch_name: { value: '', disabled: true },
-            is_default_variant: [null, [Validators.required]],
-            price: [0, Validators.compose(isPublic ? [Validators.required, Validators.min(1)] : [])],
-            grind: [null, Validators.compose(isPublic ? [Validators.required] : [])],
-            available_quantity: [0, Validators.compose(isPublic ? [Validators.required, Validators.min(1)] : [])],
+            grind: [null],
+            price: [0],
+            available_quantity: [0],
             available_quantity_type: this.type === 'b2b' ? 'boxes' : 'bags',
-            sku_number: ['', Validators.compose(isPublic ? [Validators.required] : [])],
-            remaining_quantity: '',
-            quantity_unit: '',
-            roast_level_id: [{ value: '', disabled: true }, [Validators.required]],
+            sku_number: [''],
+            is_default_variant: [false],
+            // Common fields which should be disabled for internal products
+            roast_level_id: [{ value: null, disabled: true }],
             estate_name: [{ value: '', disabled: true }],
             origin: [{ value: '', disabled: true }],
+            flavour_profiles: [{ value: '', disabled: true }],
+            // Internal fields
+            rc_batch_id: [{ value: null, disabled: true }],
+            rc_batch_name: { value: '', disabled: true }, // Need onlyto show
+            batch_ref_no: { value: '', disabled: true },
+            remaining_quantity: { value: '', disabled: true }, // Need onlyto show
+            quantity_unit: { value: '', disabled: true }, // Need onlyto show
+            // External fields
+            roaster_ref_no: [{ value: '', disabled: true }],
             region: [{ value: '', disabled: true }],
             harvest_year: [{ value: '', disabled: true }],
-            aroma: [null, Validators.compose([Validators.required])],
-            acidity: [null, Validators.compose([Validators.required])],
-            body: [null, Validators.compose([Validators.required])],
-            flavour: [null, Validators.compose([Validators.required])],
-            processing: [null, Validators.compose([Validators.required])],
-            roaster_ref_no: [{ value: '', disabled: true }],
-            flavour_profiles: [{ value: '', disabled: true }, [Validators.required]],
+            aroma: [{ value: null, disabled: true }],
+            acidity: [{ value: null, disabled: true }],
+            body: [{ value: null, disabled: true }],
+            flavour: [{ value: null, disabled: true }],
+            processing: [{ value: null, disabled: true }],
             roaster_notes: [{ value: '', disabled: true }],
             recipes: [{ value: '', disabled: true }],
-            brewing_method: [null],
-            recommendation_text: ['', Validators.compose([Validators.required])],
+            brewing_method: [{ value: null, disabled: true }],
+            recommendation_text: [{ value: '', disabled: true }],
+        });
+        if (isPublic) {
+            this.setGrindValidators(grindForm);
+        }
+        return grindForm;
+    }
+
+    setGrindValidators(grindForm: FormGroup) {
+        grindForm.get('grind').setValidators([Validators.required]);
+        grindForm.get('price').setValidators([Validators.required, Validators.min(1)]);
+        grindForm.get('available_quantity').setValidators([Validators.required, Validators.min(1)]);
+        grindForm.get('sku_number').setValidators([Validators.required]);
+        grindForm.get('roast_level_id').setValidators([Validators.required]);
+        grindForm.get('rc_batch_id').setValidators([Validators.required]);
+        grindForm.get('aroma').setValidators([Validators.required]);
+        grindForm.get('acidity').setValidators([Validators.required]);
+        grindForm.get('body').setValidators([Validators.required]);
+        grindForm.get('flavour').setValidators([Validators.required]);
+        grindForm.get('processing').setValidators([Validators.required]);
+        grindForm.get('recommendation_text').setValidators([Validators.required]);
+        Object.keys(grindForm.controls).forEach((key) => {
+            grindForm.get(key).updateValueAndValidity();
+        });
+    }
+
+    clearGrindValidators(grindForm: FormGroup) {
+        grindForm.get('grind').clearValidators();
+        grindForm.get('price').clearValidators();
+        grindForm.get('available_quantity').clearValidators();
+        grindForm.get('sku_number').clearValidators();
+        grindForm.get('roast_level_id').clearValidators();
+        grindForm.get('rc_batch_id').clearValidators();
+        grindForm.get('aroma').clearValidators();
+        grindForm.get('acidity').clearValidators();
+        grindForm.get('body').clearValidators();
+        grindForm.get('flavour').clearValidators();
+        grindForm.get('processing').clearValidators();
+        grindForm.get('recommendation_text').clearValidators();
+        Object.keys(grindForm.controls).forEach((key) => {
+            grindForm.get(key).updateValueAndValidity();
         });
     }
 
     checkGrindForm() {
-        console.log('Check Grind Form');
         const externalItems: AbstractControl[] = [];
         const internalItems: AbstractControl[] = [];
         (this.productForm.get('weightVariants') as FormArray).controls.forEach((weightForm: FormGroup) => {
@@ -574,10 +591,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 externalItems.push(grindForm.get('roast_level_id'));
                 externalItems.push(grindForm.get('estate_name'));
                 externalItems.push(grindForm.get('origin'));
+                externalItems.push(grindForm.get('flavour_profiles'));
+                externalItems.push(grindForm.get('roaster_ref_no'));
                 externalItems.push(grindForm.get('region'));
                 externalItems.push(grindForm.get('harvest_year'));
-                externalItems.push(grindForm.get('roaster_ref_no'));
-                externalItems.push(grindForm.get('flavour_profiles'));
                 externalItems.push(grindForm.get('aroma'));
                 externalItems.push(grindForm.get('acidity'));
                 externalItems.push(grindForm.get('body'));
@@ -589,6 +606,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 externalItems.push(grindForm.get('recommendation_text'));
 
                 internalItems.push(grindForm.get('rc_batch_id'));
+                internalItems.push(grindForm.get('batch_ref_no'));
                 internalItems.push(grindForm.get('remaining_quantity'));
             });
         });
@@ -615,7 +633,8 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         grindFormArr.controls.forEach((fg: FormGroup, index) => {
             this.onCancelGrind(fg);
         });
-        grindFormArr.push(this.creatGrindForm(!isHide, true));
+        grindFormArr.push(this.creatGrindForm(this.isPublished, true));
+        this.checkGrindForm();
     }
 
     removeGrindVariant(grindForm: FormGroup) {
@@ -629,7 +648,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     onBatchChange(grindForm: FormGroup) {
-        const batch = this.roastedBatches.find((element) => element.id === grindForm.value.rc_batch_id);
+        const batch = this.roastedBatches.find((element) => element.id === grindForm.get('rc_batch_id').value);
         if (batch) {
             this.inventorySrv.getRoastedBatch(batch.id).subscribe((res) => {
                 if (res && res.result) {
@@ -637,15 +656,11 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                         ...res.result,
                         rc_batch_name: res.result.name,
                         roaster_ref_no: res.result.batch_ref_no,
-                    });
-                }
-            });
-            this.inventorySrv.getRoastingProfileDetail(batch.roasting_profile_id).subscribe((res) => {
-                if (res && res.result) {
-                    grindForm.patchValue({
-                        ...res.result,
-                        flavour_profiles: (res.result.flavour_profiles || []).map((item) => {
-                            return { label: item.name, value: item.id };
+                        flavour_profiles: (res.result?.flavour_profiles || []).map((item) => {
+                            return {
+                                label: this.flavoursList.find((ix) => ix.value === item)?.label,
+                                value: item,
+                            };
                         }),
                     });
                 }
@@ -696,10 +711,11 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             return;
         }
 
-        const postData = {
-            ...grindForm.value,
-            flavour_profiles: grindForm.value.flavour_profiles.map((item) => item.value),
-        };
+        const postData = { ...grindForm.value };
+        if (this.isExternal) {
+            postData.flavour_profiles = (grindForm.value.flavour_profiles || []).map((item) => item.value);
+        }
+
         const weightForm = grindForm.parent?.parent;
         const weightId = weightForm.value.id;
         if (grindForm.value.grind_variant_id) {
@@ -710,20 +726,24 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     createGrindVariant(wightId: number, postData: any, grindForm: FormGroup) {
+        this.isSubmitted = true;
         this.inventorySrv.createGrindVariant(this.productID, wightId, postData).subscribe((res) => {
             if (res.success) {
                 this.toasterService.success('Grind variant created successfully');
                 grindForm.patchValue({ grind_variant_id: res.result.id, editable: false });
             }
+            this.isSubmitted = false;
         });
     }
 
     updateGrindVariant(wightId: number, grindId: number, postData: any, grindForm: FormGroup) {
+        this.isSubmitted = true;
         this.inventorySrv.updateGrindVariant(this.productID, wightId, grindId, postData).subscribe((res) => {
             if (res.success) {
                 this.toasterService.success('Grind variant updated successfully');
                 grindForm.get('editable').setValue(false);
             }
+            this.isSubmitted = false;
         });
     }
 
@@ -762,15 +782,69 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     // Product details
 
+    createProductForm() {
+        this.productForm = this.fb.group({
+            name: [''],
+            purchase_type: [''],
+            description: [''],
+            vat_setting_id: [null],
+            is_price_including_vat: [this.type === ProductType.b2c],
+            is_public: [false],
+            is_external_product: [false],
+            weightVariants: this.fb.array([this.creatWeightForm()]),
+        });
+    }
+
+    setProductValidators() {
+        this.productForm.get('name').setValidators([Validators.required]);
+        this.productForm.get('purchase_type').setValidators([Validators.required]);
+        this.productForm.get('description').setValidators([Validators.required, maxWordCountValidator(300)]);
+        this.productForm.get('vat_setting_id').setValidators([Validators.required]);
+        Object.keys(this.productForm.controls).forEach((key) => {
+            this.productForm.get(key).updateValueAndValidity();
+        });
+
+        (this.productForm.get('weightVariants') as FormArray).controls.forEach((weightForm: FormGroup) => {
+            this.setWeightValidators(weightForm);
+        });
+    }
+
+    clearProductValidators() {
+        this.productForm.get('name').clearValidators();
+        this.productForm.get('purchase_type').clearValidators();
+        this.productForm.get('description').clearValidators();
+        this.productForm.get('vat_setting_id').clearValidators();
+        Object.keys(this.productForm.controls).forEach((key) => {
+            this.productForm.get(key).updateValueAndValidity();
+        });
+
+        (this.productForm.get('weightVariants') as FormArray).controls.forEach((weightForm: FormGroup) => {
+            this.clearWeightValidators(weightForm);
+        });
+    }
+
     saveAsDraft() {
         this.productForm.controls.is_public.setValue(false);
-        this.clearValidators();
+        this.clearProductValidators();
         this.onSaveProduct();
     }
 
     publishProduct() {
         this.productForm.controls.is_public.setValue(true);
-        this.setValidators();
+        this.setProductValidators();
+        this.onSaveProduct();
+    }
+
+    onChangeVisibility() {
+        if (this.productForm.value.is_public) {
+            this.setProductValidators();
+            // Revert status is validation is failed
+            if (!this.productForm.valid) {
+                this.productForm.controls.is_public.setValue(false);
+            }
+        } else {
+            this.clearProductValidators();
+        }
         this.onSaveProduct();
     }
 
