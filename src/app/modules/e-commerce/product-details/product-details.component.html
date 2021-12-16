@@ -112,7 +112,11 @@
             <div class="fnt-semi-bold text-clr588">{{ 'product_weights_note' | translate }}</div>
         </div>
 
-        <p-tabView [(activeIndex)]="currentVariantIdx" styleClass="tabview-weight-variant position-relative">
+        <p-tabView
+            [(activeIndex)]="currentVariantIdx"
+            (onChange)="onChangeWeightTab()"
+            styleClass="tabview-weight-variant position-relative"
+        >
             <p-tabPanel
                 formArrayName="weightVariants"
                 *ngFor="
@@ -213,16 +217,16 @@
                             <div class="d-flex w-mob-100">
                                 <div class="sewn-form-field w-100 bags-width ml-3">
                                     <label class="text-nowrap">{{ 'box_value' | translate }}</label>
-                                    <input readonly value="1 box" pInputText />
+                                    <input value="1 box" pInputText [disabled]="true" />
                                 </div>
                                 <div class="equal-operators">=</div>
                             </div>
                             <div class="sewn-form-field w-100 boxCrateWidth ml-3 ml-md-0">
                                 <label>{{ 'weight' | translate }}</label>
                                 <input
-                                    readonly
                                     value="{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}"
                                     pInputText
+                                    [disabled]="true"
                                 />
                             </div>
                             <div class="equal-operators px-1 px-md-2">x</div>
@@ -271,7 +275,11 @@
             </div>
         </div>
 
-        <p-tabView [(activeIndex)]="currentVariantIdx" styleClass="tabview-weight-variant">
+        <p-tabView
+            [(activeIndex)]="currentVariantIdx"
+            (onChange)="onChangeWeightTab()"
+            styleClass="tabview-weight-variant"
+        >
             <p-tabPanel *ngFor="let weightForm of productForm.controls['weightVariants']['controls']">
                 <ng-template pTemplate="header">
                     <span>{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}</span>
