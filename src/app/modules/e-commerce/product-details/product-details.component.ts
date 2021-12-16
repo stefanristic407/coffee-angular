@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { ResizeableComponent } from '@base-components';
-import { COUNTRY_LIST } from '@constants';
+import { BREWING_METHOD_ITEMS, COUNTRY_LIST } from '@constants';
 import { FileModule, ProductStatus, ProductType } from '@enums';
 import { ApiResponse, RoastingProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,26 +29,8 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ProductDetailsComponent extends ResizeableComponent implements OnInit {
     readonly ProductType = ProductType;
+    readonly BREWING_METHOD_ITEMS = [...BREWING_METHOD_ITEMS, { label: 'None', value: '' }];
     breadCrumbItem: MenuItem[] = [];
-    roastedFields = [
-        'roaster_ref_no',
-        'batch_ref_no',
-        'roasting_profile_name',
-        'roast_level',
-        'roast_time',
-        'estate_name',
-        'origin',
-        'region',
-        'harvest_year',
-        'body',
-        'acidity',
-        'aroma',
-        'flavour',
-        'processing',
-        'flavour_profiles',
-        'roaster_notes',
-        'remaining_quantity',
-    ];
     eligibleArray = [
         { label: 'One time', value: 'one-time' },
         { label: 'Subscription', value: 'subscription' },
@@ -92,7 +74,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     type: ProductType;
     currentVariantIdx = 0;
     productName: any = '';
-    flavoursList: DropdownItem[];
+    flavoursList: any[];
     roastingProfileArray: RoastingProfile[] = [];
     isPublished = false;
     countryArray: any[] = COUNTRY_LIST;
@@ -107,6 +89,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         { label: 'remaining_quantity', field: 'remaining_quantity', width: 18 },
         { label: 'actions', field: 'actions', width: 10 },
     ];
+
+    get isExternal() {
+        return !!this.productForm?.value?.is_external_product;
+    }
 
     constructor(
         private authService: AuthService,
@@ -339,7 +325,16 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                         const grindFormList = weightForm.get('grind_variants') as FormArray;
                         (weightVariant.grind_variants || []).forEach((grindVariant) => {
                             const grindForm = this.creatGrindForm();
-                            grindForm.patchValue({ ...grindVariant, grind_variant_id: grindVariant.id });
+                            grindForm.patchValue({
+                                ...grindVariant,
+                                grind_variant_id: grindVariant.id,
+                                flavour_profiles: (grindVariant.flavour_profiles || []).map((item) => {
+                                    return {
+                                        label: this.flavoursList.find((ix) => ix.value === item)?.label,
+                                        value: item,
+                                    };
+                                }),
+                            });
                             // Fetch batch details
                             this.onBatchChange(grindForm);
                             grindFormList.push(grindForm);
@@ -551,37 +546,66 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             sku_number: ['', Validators.compose(isPublic ? [Validators.required] : [])],
             remaining_quantity: '',
             quantity_unit: '',
-            roast_level_id: [{ value: '', disabled: true }],
+            roast_level_id: [{ value: '', disabled: true }, [Validators.required]],
             estate_name: [{ value: '', disabled: true }],
             origin: [{ value: '', disabled: true }],
+            region: [{ value: '', disabled: true }],
+            harvest_year: [{ value: '', disabled: true }],
+            aroma: [null, Validators.compose([Validators.required])],
+            acidity: [null, Validators.compose([Validators.required])],
+            body: [null, Validators.compose([Validators.required])],
+            flavour: [null, Validators.compose([Validators.required])],
+            processing: [null, Validators.compose([Validators.required])],
             roaster_ref_no: [{ value: '', disabled: true }],
-            flavour_profiles: [{ value: '', disabled: true }],
+            flavour_profiles: [{ value: '', disabled: true }, [Validators.required]],
+            roaster_notes: [{ value: '', disabled: true }],
+            recipes: [{ value: '', disabled: true }],
+            brewing_method: [null],
+            recommendation_text: ['', Validators.compose([Validators.required])],
         });
     }
 
     checkGrindForm() {
         console.log('Check Grind Form');
-        // const externalItems: AbstractControl[] = [];
-        // const internalItems: AbstractControl[] = [];
-        // (this.productForm.get('weightVariants') as FormArray).controls.forEach((variantForm: FormGroup) => {
-        //     externalItems.push(variantForm.get('weight'));
-        //     externalItems.push(variantForm.get('featured_image_id'));
-        //     externalItems.push(variantForm.get('crate_capacity'));
-        // });
-        // externalItems.forEach((item) => {
-        //     if (this.productForm.value.is_external_product) {
-        //         item.enable();
-        //     } else {
-        //         item.disable();
-        //     }
-        // });
-        // internalItems.forEach((item) => {
-        //     if (this.productForm.value.is_external_product) {
-        //         item.disable();
-        //     } else {
-        //         item.enable();
-        //     }
-        // });
+        const externalItems: AbstractControl[] = [];
+        const internalItems: AbstractControl[] = [];
+        (this.productForm.get('weightVariants') as FormArray).controls.forEach((weightForm: FormGroup) => {
+            (weightForm.get('grind_variants') as FormArray).controls.forEach((grindForm: FormGroup) => {
+                externalItems.push(grindForm.get('roast_level_id'));
+                externalItems.push(grindForm.get('estate_name'));
+                externalItems.push(grindForm.get('origin'));
+                externalItems.push(grindForm.get('region'));
+                externalItems.push(grindForm.get('harvest_year'));
+                externalItems.push(grindForm.get('roaster_ref_no'));
+                externalItems.push(grindForm.get('flavour_profiles'));
+                externalItems.push(grindForm.get('aroma'));
+                externalItems.push(grindForm.get('acidity'));
+                externalItems.push(grindForm.get('body'));
+                externalItems.push(grindForm.get('flavour'));
+                externalItems.push(grindForm.get('processing'));
+                externalItems.push(grindForm.get('roaster_notes'));
+                externalItems.push(grindForm.get('recipes'));
+                externalItems.push(grindForm.get('brewing_method'));
+                externalItems.push(grindForm.get('recommendation_text'));
+
+                internalItems.push(grindForm.get('rc_batch_id'));
+                internalItems.push(grindForm.get('remaining_quantity'));
+            });
+        });
+        externalItems.forEach((item) => {
+            if (this.productForm.value.is_external_product) {
+                item.enable();
+            } else {
+                item.disable();
+            }
+        });
+        internalItems.forEach((item) => {
+            if (this.productForm.value.is_external_product) {
+                item.disable();
+            } else {
+                item.enable();
+            }
+        });
     }
 
     addGrindVariant(isHide?): void {
@@ -674,9 +698,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
         const postData = {
             ...grindForm.value,
+            flavour_profiles: grindForm.value.flavour_profiles.map((item) => item.value),
         };
         const weightForm = grindForm.parent?.parent;
-        console.log(weightForm);
         const weightId = weightForm.value.id;
         if (grindForm.value.grind_variant_id) {
             this.updateGrindVariant(weightId, grindForm.value.grind_variant_id, postData, grindForm);

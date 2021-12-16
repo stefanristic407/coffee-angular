@@ -42,6 +42,13 @@
             }
         }
     }
+
+    @media (min-width: 992px) {
+        .col-lg-24 {
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+    }
 }
 
 .write-post-btn {
