@@ -233,7 +233,7 @@
                         />
                         <p-dropdown
                             [options]="qualityArray"
-                            formControlName="quantity_unit"
+                            [formControl]="ingredient.get('quantity_unit')"
                             optionLabel="label"
                             optionValue="value"
                         >
