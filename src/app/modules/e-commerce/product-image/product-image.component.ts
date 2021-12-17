@@ -1,5 +1,6 @@
 import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -35,7 +36,7 @@ export class ProductImageComponent implements OnInit, ControlValueAccessor {
         this.onTouched = fn;
     }
 
-    constructor(private toastr: ToastrService) {}
+    constructor(private toastr: ToastrService, private translator: TranslateService) {}
 
     ngOnInit(): void {}
 
@@ -70,5 +71,22 @@ export class ProductImageComponent implements OnInit, ControlValueAccessor {
         delete this.file.file;
         delete this.file.url;
         this.onChange(this.file);
+    }
+
+    getMenuItems() {
+        return [
+            {
+                label: this.translator.instant('replace'),
+                command: () => {
+                    this.fileInput.nativeElement.click();
+                },
+            },
+            {
+                label: this.translator.instant('delete'),
+                command: () => {
+                    this.delete();
+                },
+            },
+        ];
     }
 }
