@@ -82,7 +82,8 @@
                     {{ rowData[col.field] | date: 'dd MMM y' }}
                 </span>
                 <span *ngSwitchCase="'roasted_coffee_quantity'">
-                    {{ rowData[col.field] }} {{ rowData['quantity_unit'] }}
+                    {{ rowData[col.field] | convertKg: rowData['quantity_unit'] | number: '1.0-2' }}
+                    {{ rowData['quantity_unit'] }}
                 </span>
                 <span *ngSwitchCase="'actions'">
                     <span class="brown-cta mr-2">{{ 'view_details' | translate }}</span>
