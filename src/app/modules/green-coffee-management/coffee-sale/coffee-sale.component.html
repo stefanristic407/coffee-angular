@@ -152,17 +152,20 @@
                     <label>{{ 'moq' | translate }}<span class="star">*</span></label>
                     <div class="p-inputgroup custom-addon">
                         <p-inputNumber
-                            formControlName="minimum_purchase_quantity"
+                            formControlName="minimum_order_quantity_count"
                             [placeholder]="'enter_number' | translate"
                         ></p-inputNumber>
                         <span class="p-inputgroup-addon gray">{{ coffeeSaleForm.value.quantity_type }}</span>
                         <small
-                            *ngIf="coffeeSaleForm.controls['minimum_purchase_quantity'].errors?.required"
+                            *ngIf="coffeeSaleForm.controls['minimum_order_quantity_count'].errors?.required"
                             class="p-error"
                         >
                             {{ 'required' | translate }}
                         </small>
-                        <small *ngIf="coffeeSaleForm.controls['minimum_purchase_quantity'].errors?.min" class="p-error">
+                        <small
+                            *ngIf="coffeeSaleForm.controls['minimum_order_quantity_count'].errors?.min"
+                            class="p-error"
+                        >
                             {{ 'must_be_greater_than' | translate }} 0
                         </small>
                     </div>

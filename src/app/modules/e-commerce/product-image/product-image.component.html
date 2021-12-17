@@ -1,8 +1,8 @@
-<div *ngIf="file?.image_url; else uploader" class="addImageContainer">
-    <img [src]="file.image_url" alt="" class="uploadImg" />
+<div *ngIf="file?.url; else uploader" class="addImageContainer">
+    <img [src]="file.url" alt="" class="uploadImg" />
     <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
         <span class="ellipsis">
-            {{ file?.file?.name || (file?.image_url | fileName) }}
+            {{ file?.file?.name || (file?.url | fileName) }}
         </span>
         <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
     </div>

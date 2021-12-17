@@ -81,13 +81,12 @@
         [columns]="tableColumns"
         dataKey="id"
         [loading]="loading"
-        [paginator]="tableData?.length"
-        [rows]="10"
+        [paginator]="totalRecords > rows"
+        [rows]="rows"
         [lazy]="true"
         [showCurrentPageReport]="false"
-        [totalRecords]="totalCount"
+        [totalRecords]="totalRecords"
         (onLazyLoad)="loadData($event)"
-        [resizableColumns]="true"
         [responsive]="true"
         [scrollable]="isTablet$ | async"
         styleClass="mobile-card-view"
@@ -160,8 +159,8 @@
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'roast_level'">
-                        {{ roastLevelArray[rowData[col.field]] }}
+                    <span *ngSwitchCase="'roast_level_name'">
+                        {{ rowData[col.field] | sentencecase | strReplace: ' roast':'' }}
                     </span>
 
                     <span *ngSwitchCase="'status'">

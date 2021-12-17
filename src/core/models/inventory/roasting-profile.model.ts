@@ -3,7 +3,7 @@ export interface RoastingProfile {
     aroma: number;
     body: number;
     brewing_method: string;
-    flavour_profile: any;
+    flavour_profiles: any;
     flavour: number;
     id: number;
     machine_type: string;
