@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { ResizeableComponent } from '@base-components';
 import { BREWING_METHOD_ITEMS, COUNTRY_LIST } from '@constants';
@@ -103,6 +103,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         private generalService: GeneralService,
         private inventorySrv: InventoryService,
         private route: ActivatedRoute,
+        private router: Router,
         private toasterService: ToastrService,
         private translator: TranslateService,
         protected resizeService: ResizeService,
@@ -374,7 +375,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     clearWeightValidators(weightForm: FormGroup) {
         weightForm.get('weight').clearValidators();
         weightForm.get('featured_image_id').clearValidators();
-        weightForm.get('crate_capacity').clearValidators();
+        weightForm.get('crate_capacity')?.clearValidators();
         Object.keys(weightForm.controls).forEach((key) => {
             weightForm.get(key).updateValueAndValidity();
         });
@@ -888,6 +889,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 if (res && res.success) {
                     this.productID = res.result.id;
                     this.toasterService.success('Product created successfully');
+                    this.goTolist();
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
@@ -898,6 +900,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         this.inventorySrv.updateProduct(this.productID, postData).subscribe((res) => {
             if (res && res.success) {
                 this.toasterService.success('Product updated successfully');
+                this.goTolist();
             } else {
                 this.toasterService.error('Error while update a Product');
             }
@@ -911,5 +914,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     loadOriginalData(fg: FormGroup): void {
         fg.patchValue(fg.getRawValue().originalData || {});
+    }
+
+    goTolist() {
+        this.router.navigate([`/e-commerce/product-list/${this.type}`]);
     }
 }
