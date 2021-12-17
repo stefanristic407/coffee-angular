@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DestroyableComponent } from '@base-components';
 import { OrganizationType } from '@enums';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-confirm-order',
@@ -17,20 +17,17 @@ export class ConfirmOrderComponent extends DestroyableComponent {
 
     rejectMode = false;
 
-    rejectReasonForm: FormGroup = this.fb.group({
-        not_serviceable: this.fb.control(false),
-        out_of_stock: this.fb.control(false),
-        other: this.fb.control(false),
-    });
+    rejectReasonForm: FormGroup = this.fb.group({ notes: [null, Validators.required] });
+    isSubmitted = false;
 
     @Input() orderId = 0;
     @Input() orgType: OrganizationType;
 
     constructor(
         private fb: FormBuilder,
-        private toastrService: ToastrService,
-        private translateService: TranslateService,
         private orderService: OrderManagementService,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
     ) {
         super();
     }
@@ -51,29 +48,22 @@ export class ConfirmOrderComponent extends DestroyableComponent {
     }
 
     submitReason(): void {
-        const reasonForm = this.rejectReasonForm.value;
-        let reasons = [];
-
-        reasons = this.addReason(reasons, 'not_serviceable', reasonForm.not_serviceable);
-        reasons = this.addReason(reasons, 'out_of_stock', reasonForm.out_of_stock);
-        reasons = this.addReason(reasons, 'other', reasonForm.other);
-
-        const reason = { notes: reasons.join(', ') };
-
+        if (!this.rejectReasonForm.valid) {
+            this.toastrService.error(this.translator.instant('please_select_the_reason_for_rejecting_order'));
+            return;
+        }
+        const reason = {
+            notes: (this.rejectReasonForm.value.notes || []).map((ele) => this.translator.instant(ele)).join(', '),
+        };
+        this.isSubmitted = true;
         this.orderService.rejectOrder(this.orderId, reason).subscribe((response) => {
             if (response.success) {
+                this.orderService.loadOrderDetails(this.orderId, this.orgType);
                 this.toastrService.success('Order has been rejected');
             } else {
                 this.toastrService.error('Error while rejecting order');
             }
+            this.isSubmitted = false;
         });
-    }
-
-    private addReason(arr: string[], key: string, value: boolean): string[] {
-        if (value) {
-            arr.push(this.translateService.instant(key));
-        }
-
-        return arr;
     }
 }

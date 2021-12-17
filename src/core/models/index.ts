@@ -1,6 +1,6 @@
 export * from './common';
 export * from './download';
-export * from './green-coffee';
+export * from './inventory';
 export * from './lots';
 export * from './menu';
 export * from './message';

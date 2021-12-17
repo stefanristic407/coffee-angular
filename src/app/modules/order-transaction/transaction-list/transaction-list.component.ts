@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { GlobalsService, ResizeService, OrderTransactionPrimeTableService, AuthService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Table } from 'primeng/table';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ResizeableComponent } from '@base-components';
-import { takeUntil } from 'rxjs/operators';
-import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService, GlobalsService, OrderTransactionPrimeTableService, ResizeService } from '@services';
+import * as moment from 'moment';
+import { Table } from 'primeng/table';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-transaction-list',

@@ -5,7 +5,7 @@
 <div *ngIf="!isLoading">
     <div class="d-flex justify-content-end mt-25 mt-md-0 mb-45">
         <p-dropdown
-            [options]="orderList"
+            [options]="sortOptions"
             optionLabel="label"
             optionValue="value"
             [(ngModel)]="coffeeLabService.recipeViewSortBy"
@@ -14,6 +14,8 @@
             styleClass="round-border mobile-ui"
             [showClear]="true"
         >
+            <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+            <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
         </p-dropdown>
     </div>
     <app-recipes [isMyPost]="true" [recipes]="recipes"></app-recipes>

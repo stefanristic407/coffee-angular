@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
-import { LabelValue, OrderDetails, RecentActivity } from '@models';
-import { ResizeService } from '@services';
+import { LabelValue, OrderDetails, RecentActivity, ShippingDetails } from '@models';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
-import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import { ResizeService } from '@services';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-order-timeline',
@@ -14,7 +14,7 @@ import * as moment from 'moment';
     styleUrls: ['./order-timeline.component.scss'],
 })
 export class OrderTimelineComponent extends ResizeableComponent implements OnInit {
-    readonly OrgTypes = OrganizationType;
+    readonly OrgType = OrganizationType;
     readonly OrderStatus = OrderStatus;
 
     readonly isReviewed$ = this.orderService.isReviewed$;
@@ -22,6 +22,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     timelinePoints: LabelValue[] = [];
     activities: RecentActivity[] = [];
     order: OrderDetails;
+    shippingDetails: ShippingDetails;
     accordionOpened = true;
     receivedDate: string;
 
@@ -67,7 +68,9 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.order.status &&
             this.order.order_type !== OrderType.Prebook &&
             this.order.status !== OrderStatus.Rejected &&
-            (this.order.status === OrderStatus.Delivered || this.order.status === OrderStatus.Received)
+            (this.isPastPickupDate ||
+                this.order.status === OrderStatus.Delivered ||
+                this.order.status === OrderStatus.Received)
         );
     }
 
@@ -82,6 +85,28 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         );
     }
 
+    get isPastPickupDate(): boolean {
+        const today = moment().startOf('day');
+        // estimated_pickup_date is for the estate order and shipment_date is for the micro-roaster order
+        let pickupDateStr = '';
+        if (this.orgType === OrganizationType.ESTATE) {
+            if (this.order.order_type === OrderType.Sample) {
+                pickupDateStr = this.order.arrival_date;
+            } else {
+                if (this.order.is_fully_serviced_delivery) {
+                    pickupDateStr = this.order?.estimated_pickup_date;
+                } else {
+                    pickupDateStr = this.shippingDetails?.estimated_arrival_date;
+                }
+            }
+        } else {
+            pickupDateStr = this.order?.shipment_date;
+        }
+        const pickupDate = pickupDateStr ? moment(pickupDateStr).startOf('day') : moment().startOf('day').add(1, 'day');
+
+        return pickupDate <= today;
+    }
+
     constructor(
         private toastrService: ToastrService,
         private orderService: OrderManagementService,
@@ -93,6 +118,10 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     ngOnInit(): void {
         this.orderService.orderDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
             this.order = data;
+            this.updateTimelinePoints();
+        });
+        this.orderService.shippingDetails$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
+            this.shippingDetails = data;
             this.updateTimelinePoints();
         });
 
@@ -120,35 +149,38 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     getStatusDate(point: LabelValue): string {
-        if (this.order && point.value === OrderStatus.Shipped) {
-            const date = this.order.estimated_departure_date || this.order.shipment_date;
-
-            if (moment(date).startOf('day') <= moment()) {
-                return date;
-            } else {
-                return '';
-            }
-        }
-
-        if (this.order && point.value === OrderStatus.Delivered) {
-            const date = this.order.estimated_pickup_date;
-
-            if (moment(date).startOf('day') <= moment()) {
-                return date;
-            } else {
-                return '';
-            }
-        }
-
         const activity = this.getLatestActivity(point);
 
         if (!activity && this.order) {
             if (point.value === OrderStatus.Shipped) {
-                return this.order.estimated_departure_date;
+                if (this.orgType === OrganizationType.ESTATE) {
+                    // Shipped date is needed for only sample and booked order
+                    if (this.order.order_type === OrderType.Sample) {
+                        return this.order.shipped_date;
+                    } else {
+                        if (this.order.is_fully_serviced_delivery) {
+                            return this.order.estimated_departure_date;
+                        } else {
+                            return this.shippingDetails?.estimated_departure_date;
+                        }
+                    }
+                } else {
+                    return this.order.shipment_date;
+                }
             }
 
             if (point.value === OrderStatus.Received) {
-                return this.order.estimated_pickup_date;
+                if (this.orgType === OrganizationType.ESTATE) {
+                    if (this.order.order_type === OrderType.Sample) {
+                        return this.order.arrival_date;
+                    } else {
+                        if (this.order.is_fully_serviced_delivery) {
+                            return this.order.estimated_pickup_date;
+                        } else {
+                            return this.shippingDetails?.estimated_arrival_date;
+                        }
+                    }
+                }
             }
         }
 
@@ -169,7 +201,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     viewLotStatusClicked() {
-        let el = document.querySelector('app-remote-sensoring');
+        const el = document.querySelector('app-remote-sensoring');
         if (el) {
             el.scrollIntoView();
         }
@@ -188,7 +220,6 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.timelinePoints = [
                 { label: 'Order Placed', value: OrderStatus.Placed },
                 { label: 'Order Confirmed', value: OrderStatus.Confirmed },
-                { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Harverst Ready', value: OrderStatus.HarvestReady },
                 { label: 'Graded', value: OrderStatus.Graded },
             ];
@@ -196,7 +227,6 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
             this.timelinePoints = [
                 { label: 'Order Placed', value: OrderStatus.Placed },
                 { label: 'Order Confirmed', value: OrderStatus.Confirmed },
-                { label: 'Payment', value: OrderStatus.Payment },
                 { label: 'Shipped', value: OrderStatus.Shipped },
                 {
                     label: this.orgType === OrganizationType.ESTATE ? 'Delivered' : 'Received by Micro-roaster',

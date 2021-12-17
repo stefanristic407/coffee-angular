@@ -84,14 +84,6 @@
     border-bottom: 1px solid #d6d6d6;
 }
 
-::ng-deep .bg-tabView-artical .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
-.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
-    background-color: rgba(48, 133, 92, 0.16) !important;
-}
-::ng-deep .bg-tabView-artical .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    padding: 18px 24px 18px 24px !important;
-}
-
 .swap-img {
     position: relative;
     bottom: 8px;
@@ -115,4 +107,8 @@
 
 .noborder-left {
     border-left: 1px solid #dedede;
+}
+
+.drop-pad {
+    padding: 0.45rem 1.5rem 0.45rem 1rem;
 }

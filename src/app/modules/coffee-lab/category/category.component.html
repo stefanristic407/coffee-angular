@@ -1,4 +1,4 @@
-<div class="main-block">
+<div *ngIf="!isLoading" class="main-block">
     <div class="mt-1 mt-lg-3 pb-4 pb-lg-5 w-fit-content" (click)="onBack()">
         <a class="back-page">
             <span class="ml-2">{{ 'back_to_forum' | translate }}</span>
@@ -8,7 +8,7 @@
         <div class="mt-1 mt-md-2 mb-4 mb-lg-5 pb-1">
             <h1 class="title-header text-clr334 fnt-700">{{ currentCategory?.name | titlecase }}</h1>
             <p class="text-clr334 col-md-8 pl-1 col-12">
-                {{ 'coffee_roasting_is_the_process' | translate }}
+                {{ currentCategory?.description }}
             </p>
         </div>
         <div class="d-flex align-items-center align-items-lg-end language-drop mb-4 mb-md-0 mr-lg-4">
@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-12 col-md-7 px-0">
                         <div class="d-block ml-25 mr-25 ml-md-3 mr-md-0">
-                            <div *ngIf="!isLoading">
+                            <div>
                                 <app-questions [questions]="questions"></app-questions>
                             </div>
                         </div>
@@ -41,10 +41,7 @@
                             [description]="'no_any_posts_to_show_description' | translate"
                         ></app-empty>
                     </div>
-                    <div
-                        *ngIf="!isLoading"
-                        class="col-12 col-md-4 px-0 mx-auto w-min-content h-fit-content mt-45 mt-md-0"
-                    >
+                    <div class="col-12 col-md-4 px-0 mx-auto w-min-content h-fit-content mt-45 mt-md-0">
                         <div class="other-category pt-4 mx-3 mx-md-0">
                             <div class="row mx-0 fnt-16 fnt-bold fnt-muli">
                                 {{ 'other_categories' | translate }}
@@ -70,7 +67,7 @@
                 <div class="row mb-475 mb-md-0">
                     <ng-container *ngTemplateOutlet="filterDropdowns"></ng-container>
                 </div>
-                <div *ngIf="!isLoading">
+                <div>
                     <app-articles [articles]="articles"></app-articles>
                 </div>
 
@@ -85,7 +82,7 @@
                 <div class="row mb-475 mb-md-0">
                     <ng-container *ngTemplateOutlet="filterDropdowns"></ng-container>
                 </div>
-                <div *ngIf="!isLoading">
+                <div>
                     <app-recipes [recipes]="recipes"></app-recipes>
                 </div>
 
@@ -138,6 +135,8 @@
                         styleClass="round-border"
                         [showClear]="true"
                     >
+                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                     </p-dropdown>
                 </div>
                 <div class="mb-md-0 mb-3" *ngIf="selectedTab === 2">
@@ -151,6 +150,8 @@
                         styleClass="round-border"
                         [showClear]="true"
                     >
+                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                     </p-dropdown>
                 </div>
                 <div *ngIf="selectedTab === 0">
@@ -163,7 +164,10 @@
                         styleClass="round-border text-clr588"
                         [placeholder]="'posted_by' | translate"
                         [showClear]="true"
-                    ></p-dropdown>
+                    >
+                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                    </p-dropdown>
                 </div>
                 <div class="ml-md-3" [ngClass]="{ 'ml-3': selectedTab === 0 }">
                     <p-dropdown
@@ -181,7 +185,10 @@
                         optionLabel="label"
                         optionValue="value"
                         [showClear]="true"
-                    ></p-dropdown>
+                    >
+                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                    </p-dropdown>
                 </div>
             </div>
         </div>

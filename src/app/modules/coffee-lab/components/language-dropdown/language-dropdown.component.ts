@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CoffeeLabService, GlobalsService } from '@services';
-import { Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
+import { CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-language-dropdown',
@@ -12,17 +11,13 @@ export class LanguageDropdownComponent implements OnInit {
     languageList: any[] = APP_LANGUAGES;
     selectedLanguage: string;
 
-    constructor(
-        public globalsService: GlobalsService,
-        private router: Router,
-        public coffeeLabService: CoffeeLabService,
-    ) {}
+    constructor(private coffeeLabService: CoffeeLabService) {}
 
     ngOnInit(): void {
         this.selectedLanguage = this.coffeeLabService.currentForumLanguage;
     }
 
     onChangeLanguage(): void {
-        this.coffeeLabService.forumLanguage.next(this.selectedLanguage);
+        this.coffeeLabService.updateLang(this.selectedLanguage);
     }
 }

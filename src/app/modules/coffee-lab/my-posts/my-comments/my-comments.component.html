@@ -11,7 +11,10 @@
                     optionLabel="label"
                     optionValue="value"
                     styleClass="round-border"
-                ></p-dropdown>
+                >
+                    <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                    <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                </p-dropdown>
             </div>
         </div>
     </div>
@@ -46,7 +49,7 @@
                                         }}
                                     </div>
                                     <div class="fnt-muli fnt-12 text-clr588">
-                                        {{ comment?.posted_at || comment?.created_at | amTimeAgo }}
+                                        {{ comment?.posted_at || comment?.created_at | amTimeAgo | dateAgoReplace }}
                                     </div>
                                     <div *ngIf="comment?.post_type" class="ml-3 d-none d-md-block">
                                         <div *ngIf="comment?.post_type === 'article'" class="align-items-center d-flex">
@@ -107,7 +110,7 @@
                                     <div class="fnt-muli fnt-12 text-clr588 d-md-flex">
                                         <span class="d-none d-md-block">{{ 'posted' | translate }}</span
                                         >&nbsp;
-                                        {{ cmt?.posted_at | amTimeAgo }}
+                                        {{ cmt?.posted_at | amTimeAgo | dateAgoReplace }}
                                     </div>
                                 </div>
                                 <div class="fnt-muli fnt-14 text-clr24 lh-15 mt-2">

@@ -1,6 +1,5 @@
 export * from './activity/activity';
 export * from './country-list';
-export * from './currency-list';
 export * from './dropdown-items';
 export * from './dummy';
 export * from './languages';

@@ -1,19 +1,19 @@
-import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonService, DownloadService, GlobalsService, ResizeService } from '@services';
-import { OrderManagementService } from '@modules/order-management/order-management.service';
-import { MenuItem } from 'primeng/api';
-import { ApiResponse, Download, LabelValue } from '@models';
-import { ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS, MR_ORDER_TYPE_ITEMS, MR_ORDER_STATUS_ITEMS } from '@constants';
-import { ResizeableComponent } from '@base-components';
-import { takeUntil } from 'rxjs/operators';
-import { OrganizationType } from '@enums';
-import { OrderTableComponent } from './order-table/order-table.component';
-import * as moment from 'moment';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestTableComponent } from './request-table/request-table.component';
-import { ToastrService } from 'ngx-toastr';
+import { ResizeableComponent } from '@base-components';
+import { MR_ORDER_STATUS_ITEMS, MR_ORDER_TYPE_ITEMS, ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
+import { OrganizationType } from '@enums';
+import { ApiResponse, Download, LabelValue } from '@models';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DownloadService, ResizeService } from '@services';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { OrderTableComponent } from './order-table/order-table.component';
+import { RequestTableComponent } from './request-table/request-table.component';
 
 @Component({
     selector: 'app-order-list',
@@ -21,10 +21,10 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./order-list.component.scss'],
 })
 export class OrderListComponent extends ResizeableComponent implements OnInit {
-    readonly statusItems = ORDER_STATUS_ITEMS;
-    readonly mrStatusItems = MR_ORDER_STATUS_ITEMS;
-    readonly orderTypeItems = ORDER_TYPE_ITEMS;
-    readonly mrOrderTypeItems = MR_ORDER_TYPE_ITEMS;
+    readonly ORDER_STATUS_ITEMS = ORDER_STATUS_ITEMS;
+    readonly MR_ORDER_STATUS_ITEMS = MR_ORDER_STATUS_ITEMS;
+    readonly ORDER_TYPE_ITEMS = ORDER_TYPE_ITEMS;
+    readonly MR_ORDER_TYPE_ITEMS = MR_ORDER_TYPE_ITEMS;
     readonly OrgType = OrganizationType;
 
     items: MenuItem[] = [];
@@ -72,10 +72,8 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
-        protected resizeService: ResizeService,
-        public commonService: CommonService,
-        public globals: GlobalsService,
         private translator: TranslateService,
+        protected resizeService: ResizeService,
     ) {
         super(resizeService);
     }
@@ -101,31 +99,34 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
             ];
         });
 
-        this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
-            const startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
+        this.searchForm.valueChanges
+            .pipe(debounceTime(600))
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe((value) => {
+                const startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
 
-            // Adding 1 day to include selected date into API filter range
-            const endDate =
-                value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
+                // Adding 1 day to include selected date into API filter range
+                const endDate =
+                    value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
 
-            this.queryParams = {
-                ...value,
-                page: 1,
-                per_page: value.per_page ?? 10,
-                start_date: startDate,
-                end_date: endDate,
-            };
+                this.queryParams = {
+                    ...value,
+                    page: 1,
+                    per_page: value.per_page ?? 10,
+                    start_date: startDate,
+                    end_date: endDate,
+                };
 
-            delete this.queryParams.dates;
+                delete this.queryParams.dates;
 
-            setTimeout(() => {
-                if (this.activeIndex > 0) {
-                    this.requestTable.loadRequests();
-                } else {
-                    this.appOrderTable.loadOrders();
-                }
-            }, 0);
-        });
+                setTimeout(() => {
+                    if (this.activeIndex > 0) {
+                        this.requestTable.loadRequests();
+                    } else {
+                        this.appOrderTable.loadOrders();
+                    }
+                }, 0);
+            });
     }
 
     showExportDialog(): void {

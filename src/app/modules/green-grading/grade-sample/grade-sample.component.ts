@@ -78,7 +78,7 @@ export class GradeSampleComponent implements OnInit {
         this.isMobileView = window.innerWidth <= 767;
         this.tableColumns = [
             {
-                field: 'cupping_report_id',
+                field: 'external_sample_id',
                 header: 'ID',
                 sortable: false,
             },
@@ -98,8 +98,8 @@ export class GradeSampleComponent implements OnInit {
                 sortable: false,
             },
             {
-                field: 'external_sample_id',
-                header: 'External',
+                field: 'date_requested',
+                header: 'Date',
                 sortable: false,
             },
         ];
@@ -149,10 +149,7 @@ export class GradeSampleComponent implements OnInit {
                 if (res.success === true) {
                     this.toastrService.success('External cupping report added successfully.');
                     this.getExternalReports();
-                    this.sampleDetailForm.get('origin').setValue('');
-                    this.sampleDetailForm.get('estateName').setValue('');
-                    this.sampleDetailForm.get('variety').setValue('');
-                    this.sampleDetailForm.get('sampleId').setValue('');
+                    this.sampleDetailForm.reset();
                 } else {
                     this.toastrService.error('Error while adding reports.');
                 }
@@ -228,7 +225,11 @@ export class GradeSampleComponent implements OnInit {
         this.tableData =
             this.term.length === 0
                 ? filteredData
-                : filteredData.filter((item) => item.estate_name.toLowerCase().indexOf(this.term.toLowerCase()) >= 0);
+                : filteredData.filter(
+                      (item) =>
+                          item.estate_name.toLowerCase().indexOf(this.term.toLowerCase()) >= 0 ||
+                          item.external_sample_id.toString().indexOf(this.term.toLowerCase()) >= 0,
+                  );
     }
 
     customSort(event: SortEvent) {

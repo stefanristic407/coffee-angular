@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DestroyableComponent } from '@base-components';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -8,32 +9,19 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
     templateUrl: './articles-view.component.html',
     styleUrls: ['./articles-view.component.scss'],
 })
-export class ArticlesViewComponent implements OnInit, OnDestroy {
+export class ArticlesViewComponent extends DestroyableComponent implements OnInit {
     keyword?: string;
     translationsList: any[] = [
-        {
-            label: 'Yes',
-            value: true,
-        },
-        {
-            label: 'No',
-            value: false,
-        },
+        { label: 'yes', value: true },
+        { label: 'no', value: false },
     ];
     orderList: any[] = [
-        {
-            label: 'Latest',
-            value: 'latest',
-        },
-        {
-            label: 'Oldest',
-            value: 'oldest',
-        },
+        { label: 'latest', value: 'latest' },
+        { label: 'oldest', value: 'oldest' },
     ];
     articlesData: any[] = [];
     isLoading = false;
     organizationId: any;
-    destroy$: Subject<boolean> = new Subject<boolean>();
     searchInput$: Subject<any> = new Subject<any>();
     forumLanguage: string;
     categoryList: any;
@@ -45,16 +33,18 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
         public coffeeLabService: CoffeeLabService,
         private toastService: ToastrService,
         public authService: AuthService,
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         this.organizationId = this.authService.getOrgId();
-        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getData();
             this.getCategory();
         });
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe(() => {
             this.getData();
         });
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
@@ -108,10 +98,5 @@ export class ArticlesViewComponent implements OnInit, OnDestroy {
             this.pages = event.page + 1;
             this.getData();
         }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

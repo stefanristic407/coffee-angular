@@ -2,7 +2,6 @@
   "name": "my-app",
   "version": "0.0.0",
   "scripts": {
-    "power-serve": "node --max_old_space_size=8096 --max-http-header-size=25000 ./node_modules/@angular/cli/bin/ng serve  --open --aot  --vendor-chunk  --port 4202",
     "ng": "ng",
     "start": "ng serve --port 4202",
     "build": "ng build",

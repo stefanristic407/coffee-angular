@@ -14,10 +14,7 @@
         </div>
     </div>
     <div class="col-12 px-0">
-        <p-table
-            [value]="documents | arrayFilter: owner.name:'fileOwner'"
-            styleClass="p-datatable-responsive-single border-none"
-        >
+        <p-table [value]="documents | arrayFilter: owner.name:'fileOwner'" styleClass="p-datatable-responsive-single ">
             <ng-template pTemplate="header">
                 <tr>
                     <th class="card-column" pSortableColumn>{{ 'document_name' | translate }}</th>

@@ -28,6 +28,8 @@
                             [(ngModel)]="coffeeLabService.qaForumViewCategory"
                             styleClass="round-border text-clr588"
                             [placeholder]="'categories' | translate"
+                            [maxSelectedLabels]="1"
+                            selectedItemsLabel="{0} {{ 'categories' | translate }}"
                             optionLabel="name"
                             optionValue="parent_id"
                         ></p-multiSelect>
@@ -41,7 +43,10 @@
                             [placeholder]="'posted_by' | translate"
                             [showClear]="true"
                             class="ml-3"
-                        ></p-dropdown>
+                        >
+                            <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                            <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                        </p-dropdown>
 
                         <div class="ml-md-3 d-none d-md-block">
                             <p-dropdown
@@ -53,7 +58,12 @@
                                 optionLabel="label"
                                 optionValue="value"
                                 [showClear]="true"
-                            ></p-dropdown>
+                            >
+                                <ng-template let-item pTemplate="selectedItem">{{
+                                    item.label | translate
+                                }}</ng-template>
+                                <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                            </p-dropdown>
                         </div>
                     </div>
                     <div class="my-3 my-md-0 ml-0 d-md-none">
@@ -66,7 +76,9 @@
                             optionLabel="label"
                             optionValue="value"
                             [showClear]="true"
-                        ></p-dropdown>
+                        >
+                            <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                        </p-dropdown>
                     </div>
                 </div>
                 <div class="d-none d-lg-block empty-join-wrapper pl-lg-2"></div>
@@ -106,7 +118,7 @@
                     />
                 </div>
             </div>
-            <app-join-community [type]="'question'"></app-join-community>
+            <app-join-community [type]="PostType.ARTICLE"></app-join-community>
         </div>
         <div class="col-lg-8" [ngClass]="{ 'col-lg-8': viewMode === 'list', 'col-12': viewMode === 'grid' }"></div>
     </div>

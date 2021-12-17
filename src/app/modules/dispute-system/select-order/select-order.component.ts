@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PurchaseService, ResizeService } from '@services';
-import { GlobalsService } from '@services';
-import * as moment from 'moment';
+import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { OrganizationType } from '@enums';
-import { LazyLoadEvent } from 'primeng/api';
 import { ApiResponse, OrderSummary } from '@models';
-import { ResizeableComponent } from '@base-components';
+import { GlobalsService, PurchaseService, ResizeService } from '@services';
+import * as moment from 'moment';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
     selector: 'app-select-order',
@@ -86,13 +85,13 @@ export class SelectOrderComponent extends ResizeableComponent implements OnInit 
                 field: 'species',
                 header: 'Species',
                 sortable: false,
-                width: 10,
+                width: 8,
             },
             {
                 field: 'price',
                 header: 'Price',
                 sortable: false,
-                width: 8,
+                width: 10,
             },
             {
                 field: 'quantity',
@@ -142,7 +141,6 @@ export class SelectOrderComponent extends ResizeableComponent implements OnInit 
         this.orderTypeArray = [
             { label: 'Shipped', value: 'SHIPPED' },
             { label: 'Confirmed', value: 'CONFIRMED' },
-            { label: 'Payment', value: 'PAYMENT' },
             { label: 'Harvest Ready', value: 'HARVEST READY' },
             { label: 'GRADED', value: 'RECEIVED' },
         ];

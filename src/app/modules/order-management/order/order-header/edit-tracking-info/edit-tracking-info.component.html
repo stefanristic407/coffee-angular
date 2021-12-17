@@ -1,5 +1,5 @@
 <div class="w-100 clearfix d-flex flex-column flex-lg-row bg-f0">
-    <div class="d-flex flex-1 fnt-12 fnt-md-14 fnt-600 text-clr334 align-items-center">
+    <div class="d-flex flex-1 fnt-12 fnt-md-14 fnt-600 align-items-center mr-lg-4">
         {{ 'when_ready_to_be_shipped' | translate }}
     </div>
     <div class="row gutter-8 v-gutter-8 mt-3 mt-lg-0 flex-1" [formGroup]="infoForm">
@@ -20,7 +20,6 @@
         </div>
         <div class="col-12 col-md-5 sewn-form-field mb-0">
             <p-calendar
-                [minDate]="today"
                 [showIcon]="true"
                 dateFormat="dd MM yy"
                 [showButtonBar]="true"

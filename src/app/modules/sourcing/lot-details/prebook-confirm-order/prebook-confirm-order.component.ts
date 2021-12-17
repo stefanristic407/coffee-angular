@@ -11,6 +11,7 @@ import { COUNTRY_LIST } from '@constants';
 import { ResizeableComponent } from '@base-components';
 import { PrebookStatus } from '@enums';
 import { AddressType } from 'src/core/enums/availability/address-type.enum';
+import { GcOrderSettings } from '@models';
 
 @Component({
     selector: 'app-prebook-confirm-order',
@@ -29,7 +30,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     prebookOrderId: any;
     infoForm: FormGroup;
     addressForm: FormGroup;
-    orderSettings: any;
+    orderSettings: GcOrderSettings;
     isLoaded = false;
     orderPlaced = false;
     orderDetail: any;
@@ -239,7 +240,7 @@ export class PrebookConfirmOrderComponent extends ResizeableComponent implements
     }
 
     getOrderSettings(resolve: any = null) {
-        this.roasterService.getOrderSettings(this.roasterId).subscribe((res: any) => {
+        this.roasterService.getGcOrderSettings().subscribe((res) => {
             if (res.success) {
                 this.orderSettings = res.result;
             }

@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
+import { PostType } from '@enums';
 import { environment } from '@env/environment';
 import { AuthService, ChatHandlerService, CoffeeLabService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'app-aticle-details',
@@ -12,7 +13,8 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./article-detail.component.scss'],
     providers: [MessageService],
 })
-export class ArticleDetailComponent implements OnInit, OnDestroy {
+export class ArticleDetailComponent extends DestroyableComponent implements OnInit {
+    readonly PostType = PostType;
     relatedData: any[] = [];
     detailsData: any;
     idOrSlug: string | number = '';
@@ -20,17 +22,17 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     allComments: any[] = [];
     showCommentBtn = true;
     isLoading = true;
-    destroy$: Subject<boolean> = new Subject<boolean>();
     buttonList = [{ button: 'Roasting' }, { button: 'Coffee grinding' }, { button: 'Milling' }, { button: 'Brewing' }];
     comment: string;
     language: string;
     stickySecData: any;
     orginalUserData: any;
-    isSaveArticle = false;
     isMyPost = false;
     isSavedPost = false;
-    isLikedBtn = true;
+    isSaveBtn = false;
+    isLikedBtn = false;
     showToaster = false;
+
     constructor(
         public coffeeLabService: CoffeeLabService,
         public authService: AuthService,
@@ -41,6 +43,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         private userService: UserService,
         private chatHandler: ChatHandlerService,
     ) {
+        super();
         this.activatedRoute.params.subscribe((params) => {
             this.idOrSlug = params.idOrSlug;
             const language = this.activatedRoute.snapshot.queryParamMap.get('language');
@@ -55,7 +58,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe(() => {
             this.router.navigate(['/coffee-lab/overview/articles']);
         });
     }
@@ -65,7 +68,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             count: 11,
         };
         this.relatedData = [];
-        this.coffeeLabService.getPopularList('article', params).subscribe((res: any) => {
+        this.coffeeLabService.getPopularList(PostType.ARTICLE, params).subscribe((res: any) => {
             if (res.success) {
                 this.relatedData = res.result.filter((item) => item.id !== this.detailsData.id);
                 this.relatedData = this.relatedData.slice(0, 10);
@@ -79,25 +82,29 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     getDetails(isReloading: boolean): void {
         this.isLoading = isReloading;
-        this.coffeeLabService.getForumDetails('article', this.idOrSlug).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails(PostType.ARTICLE, this.idOrSlug).subscribe((res: any) => {
             if (res.success) {
-                this.detailsData = res.result;
-                this.getArticleList();
-                this.isSaveArticle = this.detailsData.is_saved;
-                if (this.detailsData?.original_article_state && this.detailsData?.original_article_state === 'ACTIVE') {
-                    this.getOriginalUserDetail(this.detailsData.original_article);
-                }
-                this.getUserDetail(this.detailsData);
-                this.getCommentsData();
-                if (res.result.original_article_id) {
-                    this.messageService.clear();
-                    this.messageService.add({
-                        key: 'translate',
-                        severity: 'success',
-                        closable: false,
-                    });
-                }
-                this.isLoading = false;
+                this.coffeeLabService.updateLang(res.result.language).then(() => {
+                    this.detailsData = res.result;
+                    this.getArticleList();
+                    if (
+                        this.detailsData?.original_article_state &&
+                        this.detailsData?.original_article_state === 'ACTIVE'
+                    ) {
+                        this.getOriginalUserDetail(this.detailsData.original_article);
+                    }
+                    this.getUserDetail(this.detailsData);
+                    this.getCommentsData();
+                    if (res.result.original_article_id) {
+                        this.messageService.clear();
+                        this.messageService.add({
+                            key: 'translate',
+                            severity: 'success',
+                            closable: false,
+                        });
+                    }
+                    this.isLoading = false;
+                });
             } else {
                 this.toastrService.error('Cannot get detail data');
             }
@@ -105,7 +112,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }
 
     getCommentsData(): void {
-        this.coffeeLabService.getCommentList('article', this.detailsData.slug).subscribe((res: any) => {
+        this.coffeeLabService.getCommentList(PostType.ARTICLE, this.detailsData.slug).subscribe((res: any) => {
             if (res.success) {
                 this.allComments = res.result;
                 this.commentData = this.allComments?.slice(0, 3);
@@ -167,7 +174,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
             status: 'PUBLISHED',
             language: this.language,
         };
-        this.coffeeLabService.postComment('article', this.detailsData.id, data).subscribe((res: any) => {
+        this.coffeeLabService.postComment(PostType.ARTICLE, this.detailsData.id, data).subscribe((res: any) => {
             if (res.success) {
                 this.toastrService.success('You have posted a comment successfully.');
                 this.comment = '';
@@ -178,35 +185,33 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
-    }
-
     onFocusCommentBox() {
         document.getElementById('text-article-focus').focus();
     }
 
     onSave(articleId: number): void {
-        this.coffeeLabService.saveForum('article', articleId).subscribe((res: any) => {
-            if (res.success) {
-                this.isSaveArticle = true;
-                this.toastrService.success('Successfully saved');
-            } else {
-                this.toastrService.error('Error while save post');
-            }
-        });
-    }
-
-    onSameSave(articleId: number) {
-        this.coffeeLabService.unSaveFormByType('article', articleId).subscribe((res: any) => {
-            if (res.success) {
-                this.toastrService.success(`You have removed the article successfully from saved posts.`);
-                this.isSaveArticle = false;
-            } else {
-                this.toastrService.error(`Failed to remmove a article from saved posts.`);
-            }
-        });
+        this.isSaveBtn = true;
+        if (this.detailsData?.is_saved) {
+            this.coffeeLabService.unSaveFormByType(PostType.ARTICLE, articleId).subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success(`You have removed the article successfully from saved posts.`);
+                    this.detailsData.is_saved = false;
+                } else {
+                    this.toastrService.error(`Failed to remmove a article from saved posts.`);
+                }
+                this.isSaveBtn = false;
+            });
+        } else {
+            this.coffeeLabService.saveForum(PostType.ARTICLE, articleId).subscribe((res: any) => {
+                if (res.success) {
+                    this.detailsData.is_saved = true;
+                    this.toastrService.success('Successfully saved');
+                } else {
+                    this.toastrService.error('Error while save post');
+                }
+                this.isSaveBtn = false;
+            });
+        }
     }
 
     openChat() {
@@ -228,25 +233,24 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }
 
     onLike(articleId: number) {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateLike('article', articleId).subscribe((res) => {
-            if (res.success) {
-                this.detailsData.is_liked = true;
-                this.detailsData.likes = this.detailsData.likes + 1;
-                this.isLikedBtn = true;
-            }
-        });
-    }
-
-    onUnLike(articleId: number) {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateUnLike('article', articleId).subscribe((res) => {
-            if (res.success) {
-                this.detailsData.is_liked = false;
-                this.detailsData.likes = this.detailsData.likes - 1;
-                this.isLikedBtn = true;
-            }
-        });
+        this.isLikedBtn = true;
+        if (this.detailsData.is_liked) {
+            this.coffeeLabService.updateUnLike(PostType.ARTICLE, articleId).subscribe((res) => {
+                if (res.success) {
+                    this.detailsData.is_liked = false;
+                    this.detailsData.likes = this.detailsData.likes - 1;
+                }
+                this.isLikedBtn = false;
+            });
+        } else {
+            this.coffeeLabService.updateLike(PostType.ARTICLE, articleId).subscribe((res) => {
+                if (res.success) {
+                    this.detailsData.is_liked = true;
+                    this.detailsData.likes = this.detailsData.likes + 1;
+                }
+                this.isLikedBtn = false;
+            });
+        }
     }
 
     toastCalled(event) {

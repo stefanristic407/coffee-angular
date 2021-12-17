@@ -81,11 +81,11 @@
         [columns]="tableColumns"
         dataKey="id"
         [loading]="loading"
-        [paginator]="true"
-        [rows]="10"
+        [paginator]="totalRecords > rows"
+        [rows]="rows"
         [lazy]="true"
         [showCurrentPageReport]="false"
-        [totalRecords]="totalCount"
+        [totalRecords]="totalRecords"
         (onLazyLoad)="loadData($event)"
         [responsive]="true"
         [scrollable]="isTablet$ | async"
@@ -150,41 +150,34 @@
                                     <span class="fnt-bold" *ngSwitchCase="'origin'">{{
                                         rowData[item.field] | country
                                     }}</span>
-                                    <span class="fnt-bold" *ngSwitchCase="'price'">{{ rowData[item.field] }} SEK</span>
+                                    <span class="fnt-bold" *ngSwitchCase="'price'"
+                                        >{{ rowData[item.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span
+                                    >
                                     <span class="fnt-bold" *ngSwitchDefault>{{ rowData[item.field] }}</span>
                                 </div>
                             </div>
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'roast_level'">
-                        <span>
-                            {{ roastLevelArray[rowData[col.field]] }}
-                        </span>
+                    <span *ngSwitchCase="'roast_level_name'">
+                        {{ rowData[col.field] | sentencecase | strReplace: ' roast':'' }}
                     </span>
 
                     <span *ngSwitchCase="'status'">
-                        <span>
-                            {{ rowData[col.field] | strReplace: '-':' ' | titlecase }}
-                        </span>
+                        {{ rowData[col.field] | sentencecase }}
                     </span>
 
                     <span *ngSwitchCase="'origin'">
-                        <span>
-                            {{ rowData[col.field] | country }}
-                        </span>
+                        {{ rowData[col.field] | country }}
                     </span>
                     <span *ngSwitchCase="'weight'">
-                        <span>
-                            {{ getWeight(rowData[col.field], rowData.weight_unit) }}
-                            {{ rowData.weight_unit }}
-                        </span>
+                        {{ rowData[col.field] | convertKg: rowData.weight_unit | number }} {{ rowData.weight_unit }}
                     </span>
                     <span *ngSwitchCase="'price'">
-                        <span>{{ rowData[col.field] }} SEK</span>
+                        {{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}
                     </span>
                     <span *ngSwitchCase="'business_type'">
-                        <span> {{ rowData[col.field]?.toUpperCase() }} </span>
+                        {{ rowData[col.field]?.toUpperCase() }}
                     </span>
                     <span class="d-flex align-items-center" *ngSwitchCase="'actions'">
                         <span class="brown-cta mr-2 d-none d-lg-block">
@@ -206,6 +199,9 @@
                     </span>
                 </td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <app-empty *ngIf="!loading && !tableData?.length" [title]="'no_data' | translate"></app-empty>
         </ng-template>
     </p-table>
 </section>

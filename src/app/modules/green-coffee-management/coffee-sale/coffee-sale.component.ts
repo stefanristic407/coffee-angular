@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { ProcuredCoffeeStatus } from '@enums';
+import { ProcuredCoffeeStatus, ProcuredCoffeeUnit, QuantityUnit, VatType } from '@enums';
+import { OrderSettings } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, GlobalsService, ResizeService, RoasterService, UserService } from '@services';
+import { AuthService, ResizeService, RoasterService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,16 +15,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     loaded = false;
-    roasterID: any = '';
     orderDetails: any;
     orderID: any = '';
     showDropdown = false;
     statusLabel = 'In stock';
     breadItems: any = [];
-    quantityUnitArray: any = [
-        { label: 'Bags', value: 'bags' },
-        { label: 'kg', value: 'kg' },
-    ];
     coffeeSaleForm: FormGroup;
     priceTypeArray: any = [
         { label: 'Per kg', value: 'kg' },
@@ -35,18 +31,13 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         { label: 'Hidden', value: 'HIDDEN' },
     ];
     vatDetailsArray: any = [];
-    weightTypeArray: any = [
-        { label: 'kg', value: 'kg' },
-        { label: 'lb', value: 'lb' },
-        { label: 'tonnes', value: 'tonnes' },
-    ];
     tableColumns = [];
     tableValue = [];
-    remaining: any;
     quantityType: string;
+    orderSettings: OrderSettings;
+    baseCurrency = '';
 
     constructor(
-        private authService: AuthService,
         private fb: FormBuilder,
         private roasterService: RoasterService,
         private route: ActivatedRoute,
@@ -54,10 +45,10 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         private toasterService: ToastrService,
         private translator: TranslateService,
         private userService: UserService,
+        private authService: AuthService,
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
-        this.roasterID = this.authService.getOrgId();
         this.orderID = decodeURIComponent(this.route.snapshot.queryParams.orderId);
         this.breadItems = [
             { label: this.translator.instant('home'), routerLink: '/' },
@@ -72,6 +63,9 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
             },
             { label: `${this.translator.instant('order')} #${this.orderID}` },
         ];
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
     }
 
     ngOnInit(): void {
@@ -80,7 +74,9 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         new Promise((resolve) => this.getRoasterVatDetails(resolve)).then(() => {
             const promises = [];
             promises.push(new Promise((resolve) => this.getProcuredOrderDetails(resolve)));
+            promises.push(new Promise((resolve) => this.getOrderSettings(resolve)));
             Promise.all(promises).then(() => {
+                this.coffeeSaleForm.patchValue(this.orderSettings);
                 this.loaded = true;
             });
         });
@@ -92,54 +88,44 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
     initTable() {
         this.tableColumns = [
             {
-                field: 'order_id',
-                header: 'order_id',
-                width: 9,
+                field: 'id',
+                header: 'gc_order_number',
+                width: 14,
             },
             {
-                field: 'lot_id',
+                field: 'lot_number',
                 header: 'lot_id',
-                width: 7,
+                width: 10,
             },
             {
                 field: 'estate_name',
                 header: 'estate',
-                width: 11,
+                width: 14,
             },
             {
                 field: 'order_reference',
                 header: 'roaster_ref_no',
-                width: 12,
+                width: 14,
             },
             {
                 field: 'origin',
                 header: 'origin',
-                width: 9,
-            },
-            {
-                field: 'species',
-                header: 'species',
-                width: 9,
+                width: 11,
             },
             {
                 field: 'varieties',
                 header: 'variety',
-                width: 10,
+                width: 11,
             },
             {
-                field: 'price',
+                field: 'unit_price',
                 header: 'buying_price',
-                width: 10,
-            },
-            {
-                field: 'cup_score',
-                header: 'cupping_score',
                 width: 11,
             },
             {
                 field: 'quantity',
-                header: 'quantity_bought',
-                width: 14,
+                header: 'stock_in_hand',
+                width: 15,
             },
         ];
     }
@@ -148,14 +134,15 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         this.coffeeSaleForm = this.fb.group({
             name: ['', Validators.compose([Validators.required])],
             price: ['', Validators.compose([Validators.required])],
-            price_per_unit: ['kg', Validators.compose([Validators.required])],
-            quantity: ['', Validators.compose([Validators.required])],
-            quantity_type: ['bags', Validators.compose([Validators.required])],
-            quantity_count: ['', Validators.compose([Validators.required])],
-            quantity_unit: ['kg', Validators.compose([Validators.required])],
-            minimum_purchase_quantity: ['', Validators.compose([Validators.required])],
+            price_per_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
+            quantity_count: [null, Validators.compose([Validators.required, this.quantityValidator])],
+            quantity_type: [ProcuredCoffeeUnit.bags, Validators.compose([Validators.required])],
+            minimum_order_quantity_count: [null, Validators.compose([Validators.required])],
+            quantity: [null, Validators.compose([Validators.required, this.quantityValidator])],
+            quantity_unit: [QuantityUnit.kg, Validators.compose([Validators.required])],
             vat_settings_id: ['', Validators.compose([Validators.required])],
             status: [ProcuredCoffeeStatus.IN_STOCK, Validators.compose([Validators.required])],
+            sample_quantity_count: [null, Validators.compose([Validators.min(0), this.quantityValidator])],
         });
     }
 
@@ -165,8 +152,6 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
                 if (response.success && response.result) {
                     this.orderDetails = response.result;
                     this.tableValue.push(this.orderDetails);
-                    const remaining = 0;
-                    this.remaining = `${remaining} Bags`;
                 } else {
                     this.toasterService.error('Error while getting the procured coffee details');
                     this.router.navigate(['/green-coffee-management/green-coffee-inventory']);
@@ -180,8 +165,26 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         );
     }
 
+    getOrderSettings(resolve) {
+        this.roasterService.getOrderSettings().subscribe((res: any) => {
+            if (res.success && res.result?.sample_quantity) {
+                // Quantity is saved as kg
+                this.orderSettings = {
+                    ...res.result,
+                    sample_quantity_unit: res.result.sample_quantity_unit || QuantityUnit.g,
+                };
+            } else {
+                this.toasterService.error(this.translator.instant('first_set_sample_price'));
+                setTimeout(() => {
+                    this.router.navigate(['/product-setting'], { queryParams: { type: 'SAMPLE' } });
+                }, 2000);
+            }
+            resolve();
+        });
+    }
+
     getRoasterVatDetails(resolve) {
-        this.userService.getRoasterVatDetails(this.roasterID, 'mr').subscribe((response) => {
+        this.userService.getRoasterVatDetails(VatType.MR).subscribe((response) => {
             if (response.success && response.result) {
                 const vatArray = response.result;
                 vatArray.forEach((element) => {
@@ -192,7 +195,6 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
                     this.vatDetailsArray.push(pushObj);
                 });
             }
-            this.vatDetailsArray.push({ label: '', value: 'button' });
             resolve();
         });
     }
@@ -201,11 +203,39 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         this.router.navigate(['/product-setting']);
     }
 
-    createMarkForSale(productObj) {
-        this.roasterService.CreateMarkForSale(this.roasterID, this.orderID, productObj).subscribe(
+    updateStatus() {
+        this.roasterService
+            .updateMarkForSaleStatus(this.orderID, { status: this.coffeeSaleForm.value.status })
+            .subscribe(
+                (response) => {
+                    if (response && response.success) {
+                        this.toasterService.success('Status updated successfully');
+                        this.statusLabel = this.coffeeSaleForm.value.status;
+                        this.showDropdown = false;
+                    } else if (!response.success && response.messages.status === 'cannot_change') {
+                        this.toasterService.error('Status cannot be changed');
+                    } else {
+                        this.toasterService.error('Error while changing the status');
+                    }
+                },
+                (err) => {
+                    this.toasterService.error('Error while updating status');
+                    console.log(err);
+                },
+            );
+    }
+
+    onSave(): void {
+        if (!this.coffeeSaleForm.valid) {
+            this.coffeeSaleForm.markAllAsTouched();
+            this.toasterService.error(this.translator.instant('please_check_form_data'));
+            return;
+        }
+
+        this.roasterService.createMarkForSale(this.orderID, this.coffeeSaleForm.value).subscribe(
             (response) => {
                 if (response && response.success) {
-                    this.toasterService.success('Successfully marked the sale');
+                    this.toasterService.success('Successfully marked coffee for sale');
                     const navigationExtras: NavigationExtras = {
                         queryParams: {
                             markSale: 'yes',
@@ -232,84 +262,46 @@ export class CoffeeSaleComponent extends ResizeableComponent implements OnInit {
         );
     }
 
-    updateStatus() {
-        const status = { status: this.coffeeSaleForm.value.status };
-        this.roasterService.updateMarkForSaleStatus(this.roasterID, this.orderID, status).subscribe(
-            (response) => {
-                if (response && response.success) {
-                    this.toasterService.success('Status updated successfully');
-                    this.statusLabel = this.formatStatus(status.status);
-                    this.showDropdown = false;
-                } else if (!response.success && response.messages.status === 'cannot_change') {
-                    this.toasterService.error('Status cannot be changed');
-                } else {
-                    this.toasterService.error('Error while changing the status');
-                }
-            },
-            (err) => {
-                this.toasterService.error('Error while updating status');
-                console.log(err);
-            },
-        );
-    }
-
-    formatStatus(stringVal) {
-        let formatVal = '';
-        if (stringVal) {
-            formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
-            formatVal = formatVal.replace('_', ' ');
-        }
-        return formatVal.replace('-', '');
-    }
-
-    quantityTypeChange() {
-        this.quantityType = this.coffeeSaleForm.value.quantity_type;
-        this.changeQuantity(this.coffeeSaleForm.value.quantity_count);
-    }
-
-    validateForms() {
-        let returnFlag = true;
-        if (!this.coffeeSaleForm.valid) {
-            returnFlag = false;
-            return returnFlag;
-        }
-        return returnFlag;
-    }
-
-    onSave(): void {
-        if (this.validateForms()) {
-            const productObj = this.coffeeSaleForm.value;
-            this.createMarkForSale(productObj);
-        } else {
-            this.coffeeSaleForm.markAllAsTouched();
-
-            this.toasterService.error('Please fill all Data');
-        }
-    }
-
     onCancel() {
         this.router.navigate([`/green-coffee-management/procured-coffee/${this.orderID}`]);
     }
 
-    changeQuantity(event) {
-        if (this.quantityType === 'kg') {
-            const remaining = event.value;
-            this.remaining = `${remaining} kg`;
-            if (this.orderDetails.quantity_count * this.orderDetails.quantity - event.value < 0) {
-                this.toasterService.error('Please check quantity available with you');
-                this.remaining = '0 kg';
-            } else if (event.value <= 0) {
-                this.remaining = '0 kg';
-            }
-        } else {
-            const remaining = event.value;
-            this.remaining = `${remaining} bags`;
-            if (this.orderDetails.quantity_count - event.value < 0) {
-                this.toasterService.error('Please check quantity available with you');
-                this.remaining = '0 bags';
-            } else if (event.value <= 0) {
-                this.remaining = '0 bags';
-            }
-        }
+    checkQuantity() {
+        this.coffeeSaleForm.get('quantity_count').updateValueAndValidity();
+        this.coffeeSaleForm.get('quantity').updateValueAndValidity();
+        this.coffeeSaleForm.get('sample_quantity_count').updateValueAndValidity();
     }
+
+    quantityValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {
+        if (control.errors?.required) {
+            return null;
+        }
+        const parent = control.parent;
+        if (!parent || !this.orderDetails?.remaining_total_quantity) {
+            return null;
+        }
+        let quantityCnt = 0;
+        if (
+            parent.get('quantity_count') &&
+            parent.get('quantity_count').value + '' &&
+            parent.get('quantity') &&
+            parent.get('quantity').value + ''
+        ) {
+            quantityCnt += parent.get('quantity_count').value * parent.get('quantity').value;
+        }
+
+        if (
+            parent &&
+            parent.get('sample_quantity_count') &&
+            parent.get('sample_quantity_count').value + '' &&
+            this.orderSettings?.sample_quantity
+        ) {
+            quantityCnt += parent.get('sample_quantity_count').value * this.orderSettings?.sample_quantity;
+        }
+
+        if (this.orderDetails.remaining_total_quantity - quantityCnt < 0) {
+            return { availablequantity: true };
+        }
+        return null;
+    };
 }

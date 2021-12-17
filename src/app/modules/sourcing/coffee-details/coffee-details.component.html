@@ -115,8 +115,7 @@
                                         <div class="real-estate p-prices">
                                             <h6>{{ 'price' | translate }} :</h6>
                                             <h3 class="ellipsis mb-0">
-                                                {{ CURRENCY_LIST[sourcing.harvestDetail?.price_unit]
-                                                }}{{ sourcing.harvestDetail?.price }}
+                                                {{ sourcing.harvestDetail?.price | number: '1.2-4' }}
                                                 {{ sourcing.harvestDetail?.price_unit }}/kg
                                             </h3>
                                         </div>
@@ -185,7 +184,7 @@
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-6 mt-2 text-left text-md-right">
                                             <a
-                                                class="custom-link"
+                                                class="brown-cta"
                                                 [href]="sourcing.harvestDetail?.cupping?.url"
                                                 target="_blank"
                                                 >{{ 'view_report' | translate }}
@@ -243,12 +242,22 @@
                                                 class="row gutter-12 v-gutter-8"
                                             >
                                                 <div
-                                                    *ngFor="let flavour of sourcing.harvestDetail?.flavours"
+                                                    *ngFor="
+                                                        let flavour of sourcing.harvestDetail?.flavours | slice: 0:3
+                                                    "
                                                     class="col-auto"
                                                 >
                                                     <div class="custom-chip">
                                                         {{ flavour.name }}
                                                     </div>
+                                                </div>
+                                                <div
+                                                    *ngIf="sourcing.harvestDetail?.flavours?.length > 3"
+                                                    class="col-auto d-flex align-items-center"
+                                                >
+                                                    <span class="fnt-bold"
+                                                        >+ {{ sourcing.harvestDetail.flavours?.length - 3 }}</span
+                                                    >
                                                 </div>
                                             </div>
                                             <h3
@@ -330,7 +339,7 @@
                                 </ul>
                                 <div class="pt-md-35">
                                     <a
-                                        class="custom-link"
+                                        class="brown-cta"
                                         [href]="
                                             sourcing.estate?.slug
                                                 | gcBrandLink: sourcing.harvestId:sourcing.harvestDetail?.name

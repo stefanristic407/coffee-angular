@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
 import { CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -10,17 +10,16 @@ import { takeUntil } from 'rxjs/operators';
     templateUrl: './qa-post.component.html',
     styleUrls: ['./qa-post.component.scss'],
 })
-export class QaPostComponent implements OnInit, OnDestroy {
+export class QaPostComponent extends DestroyableComponent implements OnInit {
     viewMode = 'list';
     questions = [];
     isLoading = false;
     sortOptions = [
-        { label: 'Latest', value: 'latest' },
-        { label: 'Most answered', value: 'most_answered' },
-        { label: 'Oldest', value: 'oldest' },
+        { label: 'latest', value: 'latest' },
+        { label: 'most_answered', value: 'most_answered' },
+        { label: 'oldest', value: 'oldest' },
     ];
     pageDesc: string | undefined;
-    destroy$: Subject<boolean> = new Subject<boolean>();
     forumLanguage: string;
     pages = 1;
     totalRecords: number;
@@ -31,15 +30,16 @@ export class QaPostComponent implements OnInit, OnDestroy {
         private toastService: ToastrService,
         private router: Router,
     ) {
+        super();
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 
     ngOnInit(): void {
-        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getPosts();
         });
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe(() => {
             this.getPosts();
         });
     }
@@ -122,10 +122,5 @@ export class QaPostComponent implements OnInit, OnDestroy {
             this.pages = event.page + 1;
             this.getPosts();
         }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

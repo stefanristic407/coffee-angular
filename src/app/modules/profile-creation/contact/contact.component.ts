@@ -50,8 +50,8 @@ export class ContactComponent implements OnInit {
             address_line2: [''],
             city: ['', Validators.compose([Validators.required])],
             zipcode: [''],
-            fb_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
-            ig_profile: ['', Validators.compose([Validators.required, urlValidator(true)])],
+            fb_profile: ['', Validators.compose([urlValidator(true)])],
+            ig_profile: ['', Validators.compose([urlValidator(true)])],
         });
         this.profileCreationService.contactForm = this.contactForm;
 
@@ -70,7 +70,6 @@ export class ContactComponent implements OnInit {
         });
 
         this.contactForm.valueChanges.subscribe((changedData: any) => {
-            this.profileCreationService.contactFormInvalid = !this.contactForm.valid;
             this.profileCreationService.editProfileData(changedData);
         });
     }

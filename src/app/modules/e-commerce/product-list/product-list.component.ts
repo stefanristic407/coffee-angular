@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { COUNTRY_LIST, LBUNIT, PRODUCT_STATUS_ITEMS } from '@constants';
+import { PRODUCT_STATUS_ITEMS } from '@constants';
 import { ProductType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
-import { ECommerceService, OriginService, ResizeService } from '@services';
+import { InventoryService, OriginService, ResizeService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { getCountry } from '@utils';
 import { ToastrService } from 'ngx-toastr';
@@ -29,7 +29,9 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
     selectedPriceRange: any;
     selectedStatus: any;
     keywords: string;
-    totalCount = 0;
+    totalRecords = 0;
+    rows = 10;
+    page = 1;
     mobileFields: any[] = [
         {
             field: 'status',
@@ -58,14 +60,6 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
         { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },
     ];
 
-    roastLevelArray = {
-        1: 'Light',
-        2: 'Light Medium',
-        3: 'Medium',
-        4: 'Medium Dark',
-        5: 'Dark',
-    };
-
     visibilityArray: any[] = [
         {
             label: this.translator.instant('public'),
@@ -79,12 +73,12 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
     visibilityStatus: boolean;
 
     origins: DropdownItem[] = [];
-    type: string;
+    type: ProductType;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private dialogSrv: DialogService,
-        private eCommerceService: ECommerceService,
+        private inventorySrv: InventoryService,
         private originService: OriginService,
         private router: Router,
         private toastrService: ToastrService,
@@ -109,7 +103,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
                 },
                 {
                     label:
-                        this.type === 'other'
+                        this.type === ProductType.other
                             ? this.translator.instant('other_products')
                             : this.translator.instant(`${this.type}_product_catalog`),
                 },
@@ -185,7 +179,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
                         field: 'origin',
                         header: 'Origin',
                         sortable: true,
-                        width: '8%',
+                        width: '10%',
                     },
                     {
                         field: 'estate_name',
@@ -193,20 +187,20 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
                         width: '13%',
                     },
                     {
-                        field: 'roast_level',
+                        field: 'roast_level_name',
                         header: 'roast_level',
-                        width: '12%',
+                        width: '11%',
                     },
                     {
                         field: 'weight',
                         header: 'Weight',
                         sortable: true,
-                        width: '10%',
+                        width: '9%',
                     },
                     {
                         field: 'status',
                         header: 'Status',
-                        width: '10%',
+                        width: '9%',
                     },
                     {
                         field: 'price',
@@ -217,7 +211,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
                     {
                         field: 'actions',
                         header: 'Actions',
-                        width: '12%',
+                        width: '13%',
                     },
                 ];
             }
@@ -237,14 +231,13 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
     }
 
     loadData(event?: LazyLoadEvent) {
-        let page = 1;
         if (event) {
-            page = event.first / event.rows + 1;
+            this.page = event.first / event.rows + 1;
         }
         setTimeout(() => (this.loading = true), 0);
         const options: any = {
-            page,
-            per_page: 10,
+            page: this.page,
+            per_page: this.rows,
             name: this.keywords ?? '',
             status: this.selectedStatus ?? '',
             origin: this.selectedOrigin ?? '',
@@ -255,25 +248,19 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
             sort_by: event?.sortField || 'created_at',
             sort_order: event?.sortField ? (event?.sortOrder === 1 ? 'asc' : 'desc') : 'desc',
         };
-        if (this.type !== 'other') {
+        if (this.type !== ProductType.other) {
             options.business_type = this.type;
         }
 
-        this.eCommerceService.getSelectProductDetails(this.type, options).subscribe(
-            (res: any) => {
-                if (res.success) {
-                    this.tableData = res.result ?? [];
-                    this.totalCount = res.result_info.total_count;
-                } else {
-                    this.toastrService.error('Error while getting the agreement list!');
-                }
-                this.loading = false;
-            },
-            (err) => {
-                this.loading = false;
-                this.toastrService.error('Error while getting the agreement list!');
-            },
-        );
+        this.inventorySrv.getProducts(this.type, options).subscribe((res: any) => {
+            if (res.success) {
+                this.tableData = res.result ?? [];
+                this.totalRecords = res.result_info.total_count;
+            } else {
+                this.toastrService.error('Error while getting the product list');
+            }
+            this.loading = false;
+        });
     }
 
     deleteproduct(deleteId): void {
@@ -285,7 +272,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.eCommerceService.deleteProductDetails(deleteId, this.type).subscribe(
+                    this.inventorySrv.deleteProduct(deleteId, this.type).subscribe(
                         (res) => {
                             if (res.success) {
                                 this.toastrService.success('Product deleted successfully');
@@ -321,10 +308,5 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
 
     onViewDetails(item) {
         this.router.navigate([`/e-commerce/product-details/${this.type}/${item.id}`]);
-    }
-
-    getWeight(value, unit) {
-        const weight = unit === 'lb' ? value / LBUNIT : unit === 'g' ? value * 1000 : value;
-        return Math.round(weight * 100) / 100;
     }
 }

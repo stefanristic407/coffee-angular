@@ -58,17 +58,17 @@
                                 <p-tabView styleClass="pb-3" [(activeIndex)]="selectedIndex">
                                     <p-tabPanel [header]="'micro-roaster' | translate">
                                         <div class="pt-3">
-                                            <app-vat-details feature="mr"> </app-vat-details>
+                                            <app-vat-details [feature]="VatType.MR"> </app-vat-details>
                                         </div>
                                     </p-tabPanel>
                                     <p-tabPanel header="B2B e-commerce">
                                         <div class="pt-3">
-                                            <app-vat-details feature="b2b_ecommerce"> </app-vat-details>
+                                            <app-vat-details [feature]="VatType.B2B"> </app-vat-details>
                                         </div>
                                     </p-tabPanel>
                                     <p-tabPanel header="B2C e-commerce">
                                         <div class="pt-3">
-                                            <app-vat-details feature="b2c_ecommerce"> </app-vat-details>
+                                            <app-vat-details [feature]="VatType.B2C"> </app-vat-details>
                                         </div>
                                     </p-tabPanel>
                                 </p-tabView>
@@ -118,7 +118,9 @@
                                                             [minFractionDigits]="2"
                                                             formControlName="price"
                                                         ></p-inputNumber>
-                                                        <span class="p-inputgroup-addon gray">SEK</span>
+                                                        <span class="p-inputgroup-addon gray">{{
+                                                            shippingDetails?.price_unit
+                                                        }}</span>
                                                         <small
                                                             *ngIf="detailsFormControl.price.errors?.required"
                                                             class="p-error"
@@ -217,7 +219,10 @@
                                                 <span class="list-que"> {{ 'shipping_price' | translate }} : </span>
                                             </td>
                                             <td>
-                                                <span class="list-ans"> {{ shippingDetails.price || 'NA' }} kr </span>
+                                                <span class="list-ans">
+                                                    {{ shippingDetails?.price | number: '1.2-4' }}
+                                                    {{ shippingDetails?.price_unit }}
+                                                </span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -246,6 +251,9 @@
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-12 pl-2" *ngIf="selectedTab.index == 2">
+                            <app-sample-price></app-sample-price>
                         </div>
                     </div>
                 </div>
@@ -333,7 +341,9 @@
                                                 formControlName="price"
                                                 placeholder="Please enter shipping amount"
                                             ></p-inputNumber>
-                                            <span class="p-inputgroup-addon gray">SEK</span>
+                                            <span class="p-inputgroup-addon gray">{{
+                                                shippingDetails?.price_unit
+                                            }}</span>
                                             <small *ngIf="detailsFormControl.price.errors?.required" class="p-error">
                                                 Shipment price is required
                                             </small>

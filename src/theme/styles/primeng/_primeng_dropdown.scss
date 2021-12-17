@@ -27,7 +27,6 @@
 }
 .p-dropdown {
     border-color: $primary-border-color;
-    background: transparent;
 }
 .p-dropdown.highlight {
     border-color: $primary-color;
@@ -139,4 +138,29 @@
 
 .p-dropdown .p-dropdown-filter {
     padding: 0.625rem !important;
+}
+
+.with-footer.p-dropdown .p-dropdown-items p-dropdownitem {
+    .p-dropdown-item .footer-wrap {
+        display: none;
+    }
+    &:last-child .p-dropdown-item {
+        padding: 0;
+        overflow: visible;
+        &:hover {
+            background: transparent;
+            .dropdown-label {
+                background: $primary-bg-color;
+            }
+        }
+        .dropdown-label {
+            display: block;
+            padding: 0.75rem 2rem 0.75rem 0.75rem;
+        }
+        .footer-wrap {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            width: 100%;
+        }
+    }
 }

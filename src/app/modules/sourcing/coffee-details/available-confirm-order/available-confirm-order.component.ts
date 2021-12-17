@@ -15,7 +15,7 @@ import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { AddressType, OrderType, OrganizationType } from '@enums';
 import { environment } from '@env/environment';
-import { PriceTier } from '@models';
+import { GcOrderSettings, PriceTier } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, CommonService, ResizeService, RoasterService, UserService } from '@services';
 import { ConfirmComponent, SentenceCasePipe } from '@shared';
@@ -46,7 +46,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     prebookOrderId = 0;
     infoForm: FormGroup;
     addressForm: FormGroup;
-    orderSettings: any;
+    orderSettings: GcOrderSettings;
     isLoaded = false;
     orderPlaced = false;
     createdOrder: any;
@@ -129,7 +129,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
         }
         promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
-        promises.push(new Promise((resolve) => this.getOrderSettins(resolve)));
+        promises.push(new Promise((resolve) => this.getOrderSettings(resolve)));
         Promise.all(promises).then(() => {
             this.refreshForm();
             this.refreshOrderDetails();
@@ -204,7 +204,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 {
                     field: 'price',
                     label: this.translator.instant('rate_per_kg'),
-                    value: `$${this.sourcing.harvestDetail.price} USD/kg`,
+                    value: `${this.decimalPipe.transform(this.sourcing.harvestDetail.price, '1.2-4')} ${
+                        this.sourcing.harvestDetail.price_unit
+                    }/kg`,
                     width: 11,
                 },
             ]);
@@ -213,7 +215,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 {
                     field: 'sample_price',
                     label: this.translator.instant('sample_price'),
-                    value: `$${this.orderSettings.sample_price}`,
+                    value: `${this.decimalPipe.transform(this.orderSettings.sample_price, '1.2-4')}`,
                     width: 12,
                 },
             ]);
@@ -448,8 +450,8 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
         }
     }
 
-    getOrderSettins(resolve: any = null) {
-        this.roasterService.getOrderSettings(this.roasterId).subscribe((res: any) => {
+    getOrderSettings(resolve: any = null) {
+        this.roasterService.getGcOrderSettings().subscribe((res) => {
             if (res.success) {
                 this.orderSettings = res.result;
             }

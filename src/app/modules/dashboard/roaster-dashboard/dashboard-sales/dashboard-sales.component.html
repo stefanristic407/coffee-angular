@@ -7,11 +7,11 @@
         <div class="total-wrap py-lg-3 px-lg-2 h-100 d-md-none">
             <div class="fnt-14 fnt-bold fnt-muli text-clr334 mb-3 fnt-bold">{{ 'you_have_earned' | translate }}</div>
             <div class="fnt-32 fnt-bold fnt-muli text-clr334 mb-2">
-                $ {{ sales?.total_earnings || 0 | thousandSuff }}
+                {{ sales?.total_earnings || 0 | thousandSuff }} {{ baseCurrency }}
             </div>
             <div class="fnt-14 fnt-muli text-clr588 mb-4">{{ 'all_time_earnings' | translate }}</div>
             <div class="fnt-32 fnt-bold fnt-muli text-clr334 mb-2">
-                $ {{ sales?.weekly_earnings || 0 | thousandSuff }}
+                {{ sales?.weekly_earnings || 0 | thousandSuff }} {{ baseCurrency }}
             </div>
             <div class="fnt-14 fnt-muli text-clr588 mb-4">{{ 'earned' | translate }} in the last 7 days</div>
         </div>
@@ -83,7 +83,8 @@
                                 <div class="d-md-flex d-lg-block">
                                     <div class="d-md-block mr-md-5 mr-lg-0">
                                         <h1 class="fnt-32 fnt-bold fnt-muli text-clr334">
-                                            $ {{ sales?.total_earnings.toFixed(3) || 0 | thousandSuff }}
+                                            {{ sales?.total_earnings.toFixed(3) || 0 | thousandSuff }}
+                                            {{ baseCurrency }}
                                         </h1>
                                         <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588 mb-lg-5">
                                             {{ 'all_time_earnings' | translate }}
@@ -91,7 +92,8 @@
                                     </div>
                                     <div class="d-md-block">
                                         <h1 class="fnt-32 fnt-bold fnt-muli text-clr334">
-                                            $ {{ sales?.weekly_earnings.toFixed(3) || 0 | thousandSuff }}
+                                            {{ sales?.weekly_earnings.toFixed(3) || 0 | thousandSuff }}
+                                            {{ baseCurrency }}
                                         </h1>
                                         <p class="fnt-16 fnt-md-18 fnt-600 fnt-muli text-clr588">
                                             {{ 'earned' | translate }} in the last 7 days
@@ -147,7 +149,11 @@
                                 </div>
 
                                 <div #ContainerRef *ngIf="sales && sales.sales_stats; else blank">
-                                    <app-bar-chart [results]="saleData" [labelShow]="showDataLabel" [unitName]="'USD'">
+                                    <app-bar-chart
+                                        [results]="saleData"
+                                        [labelShow]="showDataLabel"
+                                        [unitName]="baseCurrency"
+                                    >
                                     </app-bar-chart>
                                 </div>
                                 <ng-template #blank>
@@ -168,7 +174,7 @@
 
                                         <button
                                             class="btn-raised"
-                                            routerLink="/roasted-coffee-batch/roasted-coffee-batchs"
+                                            routerLink="/roasted-coffee-batch/roasted-coffee-batches"
                                         >
                                             {{ 'manage_inventory' | translate }}
                                         </button>

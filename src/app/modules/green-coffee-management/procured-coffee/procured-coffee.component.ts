@@ -1,11 +1,10 @@
 import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
-import { Lightbox } from 'ng-gallery/lightbox';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthService, PrimeTableService, RoasterService, ResizeService } from '@services';
 import { ResizeableComponent } from '@base-components';
+import { TranslateService } from '@ngx-translate/core';
+import { PrimeTableService, ResizeService, RoasterService } from '@services';
+import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -18,7 +17,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     items: GalleryItem[];
     isLoaded = false;
     orderID: any = '';
-    roasterID: any = '';
     orderDetails: any;
     breadItems: any = [];
     selectedTab = 0;
@@ -41,18 +39,15 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     }
 
     constructor(
-        private authService: AuthService,
+        private gallery: Gallery,
+        private roasterService: RoasterService,
+        private route: ActivatedRoute,
         private router: Router,
         private translator: TranslateService,
         protected resizeService: ResizeService,
-        public gallery: Gallery,
-        public lightbox: Lightbox,
         public primeTableService: PrimeTableService,
-        public roasterService: RoasterService,
-        public route: ActivatedRoute,
     ) {
         super(resizeService);
-        this.roasterID = this.authService.getOrgId();
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });
@@ -200,7 +195,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     }
 
     getRoasterNotes() {
-        this.roasterService.getRoasterNotes(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getRoasterNotes(this.orderID).subscribe(
             (response) => {
                 if (response && response.success && response.result) {
                     this.roasterNotes = response.result;
@@ -226,7 +221,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
             this.router.navigate(['/roasted-coffee-batch/new-roasted-batch'], navigationExtras);
         }
         if (data.catalogue === 'RO_GREEN_COFFEE') {
-            this.router.navigateByUrl(`/green-coffee-management/green-coffee-for-sale-details/${data.catalogue_id}`);
+            this.router.navigateByUrl(`/green-coffee-management/green-coffee-for-sale-details/${data.gc_order_id}`);
         }
     }
 
@@ -247,7 +242,7 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     }
 
     getActivityDetails() {
-        this.roasterService.getActivityDetails(this.roasterID, this.orderID).subscribe((res: any) => {
+        this.roasterService.getActivityDetails(this.orderID).subscribe((res: any) => {
             if (res.success) {
                 this.filterAtivity = res.result;
                 this.activityValue = this.filterAtivity.slice(0, 5);

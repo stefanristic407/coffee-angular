@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VatType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+
+export enum SettingType {
+    VAT = 0,
+    Shipment = 1,
+    SAMPLE = 2,
+}
 
 @Component({
     selector: 'app-product-setting',
@@ -11,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./product-setting.component.scss'],
 })
 export class ProductSettingComponent implements OnInit {
+    readonly VatType = VatType;
     saveshippingmode = false;
     editshippingmode = true;
     roasterId: any;
@@ -26,11 +34,13 @@ export class ProductSettingComponent implements OnInit {
         id: '',
         name: '',
         price: '',
+        price_unit: '',
         day_min: '',
         day_max: '',
     };
     selectedMobileTab = '';
     dayMinListArray = [];
+    baseCurrency: string;
 
     constructor(
         private authService: AuthService,
@@ -49,6 +59,7 @@ export class ProductSettingComponent implements OnInit {
         this.options = [
             { name: this.translator.instant('vat_management'), code: '', index: 0 },
             { name: this.translator.instant('shipping_details'), code: '', index: 1 },
+            { name: this.translator.instant('sample_price'), code: '', index: 2 },
         ];
         this.dayMinListArray = [
             {
@@ -59,12 +70,16 @@ export class ProductSettingComponent implements OnInit {
         this.route.queryParams.subscribe((params) => {
             if (params.type) {
                 this.selectedMobileTab = params.type;
-                this.selectedTab = params.type === 'VAT' ? this.options[0] : this.options[1];
+                this.selectedTab = this.options[SettingType[params.type]] || this.options[SettingType.VAT];
                 this.settingBreadCrumb(params.type);
             } else {
                 this.selectedMobileTab = '';
                 this.settingBreadCrumb();
             }
+        });
+
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
         });
     }
 
@@ -88,7 +103,7 @@ export class ProductSettingComponent implements OnInit {
                         day_min: [this.shippingDetails.day_min, Validators.compose([Validators.required])],
                         day_max: [this.shippingDetails.day_max, Validators.compose([Validators.required])],
                         price: [this.shippingDetails.price, Validators.compose([Validators.required])],
-                        price_unit: ['SEK', Validators.compose([Validators.required])],
+                        price_unit: [this.baseCurrency, Validators.compose([Validators.required])],
                     });
                 } else {
                     this.detailsForm = this.fb.group({
@@ -96,7 +111,7 @@ export class ProductSettingComponent implements OnInit {
                         day_min: [null, Validators.compose([Validators.required])],
                         day_max: [null, Validators.compose([Validators.required])],
                         price: [null, Validators.compose([Validators.required])],
-                        price_unit: ['SEK', Validators.compose([Validators.required])],
+                        price_unit: [this.baseCurrency, Validators.compose([Validators.required])],
                     });
                 }
             }
@@ -148,14 +163,18 @@ export class ProductSettingComponent implements OnInit {
         this.saveshippingmode = true;
         this.editshippingmode = false;
     }
+
     get detailsFormControl() {
         return this.detailsForm.controls;
     }
+
     selectTabs() {
         if (this.selectedTab.index === 0) {
             this.selectMobileTab('VAT');
-        } else {
+        } else if (this.selectedTab.index === 1) {
             this.selectMobileTab('Shipment');
+        } else {
+            this.selectMobileTab('SAMPLE');
         }
     }
 
@@ -164,6 +183,7 @@ export class ProductSettingComponent implements OnInit {
         this.selectedMobileTab = feature;
         this.router.navigate(['/product-setting'], { queryParams: { type: feature } });
     }
+
     getHeading() {
         let header = this.translator.instant('product_settings');
         if (this.selectedMobileTab) {
@@ -174,6 +194,7 @@ export class ProductSettingComponent implements OnInit {
         }
         return header;
     }
+
     getDescription() {
         let description = 'Set-up your billing details, terms and conditions of use, privacy and cookie policies here.';
         if (this.selectedMobileTab) {

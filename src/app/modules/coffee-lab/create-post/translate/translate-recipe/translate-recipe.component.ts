@@ -12,7 +12,6 @@ import { DialogService } from 'primeng/dynamicdialog';
     styleUrls: ['./translate-recipe.component.scss'],
 })
 export class TranslateRecipeComponent implements OnInit {
-    selectedTab = 0;
     tranalatedLangs = [];
     id: any;
     draftId: string;
@@ -21,6 +20,7 @@ export class TranslateRecipeComponent implements OnInit {
     allLanguage: any[] = APP_LANGUAGES;
     recipeSlug: string;
     remainingLangugage = [];
+    selectedLang: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -49,7 +49,6 @@ export class TranslateRecipeComponent implements OnInit {
     }
 
     onChangeTab(event) {
-        this.selectedTab = event.index;
         this.checkDraft();
     }
 
@@ -61,6 +60,7 @@ export class TranslateRecipeComponent implements OnInit {
                 this.remainingLangugage.push(item);
             }
         });
+        this.selectedLang = this.remainingLangugage[0].value;
         this.checkDraft();
         if (this.remainingLangugage.length === 0) {
             this.showNoDataSection = true;
@@ -73,7 +73,7 @@ export class TranslateRecipeComponent implements OnInit {
             return (
                 item.parent_id === +this.id &&
                 item.post_type === 'recipe' &&
-                item.language === this.remainingLangugage[this.selectedTab].value
+                item.language === this.remainingLangugage.find((lang) => lang.value === this.selectedLang).value
             );
         });
         if (draft) {
@@ -88,6 +88,7 @@ export class TranslateRecipeComponent implements OnInit {
             this.router.navigate(['/coffee-lab/create-post/translate-recipe'], {
                 queryParams: {
                     origin_id: this.id,
+                    lang: this.selectedLang,
                     type: 'recipe',
                 },
             });

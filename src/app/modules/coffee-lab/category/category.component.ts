@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -10,8 +10,7 @@ import { takeUntil } from 'rxjs/operators';
     templateUrl: './category.component.html',
     styleUrls: ['./category.component.scss'],
 })
-export class CategoryComponent implements OnInit, OnDestroy {
-    destroy$: Subject<boolean> = new Subject<boolean>();
+export class CategoryComponent extends DestroyableComponent implements OnInit {
     isLoading = false;
     questions: any[] = [];
     articles: any;
@@ -41,29 +40,17 @@ export class CategoryComponent implements OnInit, OnDestroy {
         },
     ];
     sortOptions = [
-        { label: 'Latest', value: 'latest' },
-        { label: 'Most answered', value: 'most_answered' },
-        { label: 'Oldest', value: 'oldest' },
+        { label: 'latest', value: 'latest' },
+        { label: 'most_answered', value: 'most_answered' },
+        { label: 'oldest', value: 'oldest' },
     ];
     filterPostedByOptions = [
-        {
-            label: 'Coffee experts',
-            value: false,
-        },
-        {
-            label: 'End consumers',
-            value: true,
-        },
+        { label: 'coffee_experts', value: false },
+        { label: 'coffee_consumer', value: true },
     ];
     translationsList: any[] = [
-        {
-            label: 'Yes',
-            value: true,
-        },
-        {
-            label: 'No',
-            value: false,
-        },
+        { label: 'yes', value: true },
+        { label: 'no', value: false },
     ];
 
     constructor(
@@ -73,6 +60,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
         private activateRoute: ActivatedRoute,
         private router: Router,
     ) {
+        super();
         this.activateRoute.params.subscribe((parmas) => {
             this.slug = parmas.slug;
             if (this.isCategoryCall !== 1) {
@@ -84,7 +72,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((language) => {
             if (this.isCategoryCall !== 1) {
                 this.getCategories(this.cuurentLangCode !== language);
             }
@@ -227,10 +215,5 @@ export class CategoryComponent implements OnInit, OnDestroy {
         } else if (this.selectedTab === 2) {
             this.router.navigateByUrl('coffee-lab/overview/coffee-recipes');
         }
-    }
-
-    ngOnDestroy() {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

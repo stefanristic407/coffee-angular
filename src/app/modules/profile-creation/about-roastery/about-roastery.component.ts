@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { QUANTIRY_UNIT_LIST } from '@constants';
-import { OrganizationType } from '@enums';
+import { CertificateType, OrganizationType } from '@enums';
 import { AclService, AuthService, ChatHandlerService, GlobalsService, RoasterService, UserService } from '@services';
 import { maxWordCountValidator } from '@utils';
 import { ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
@@ -32,6 +32,7 @@ export class AboutRoasteryComponent implements OnInit {
     shortFescr: string;
     empName = '';
     roasterId: any;
+    certificateTypes: any[];
     certificatesArray: any = [];
     userId: any;
     single: any[];
@@ -100,7 +101,7 @@ export class AboutRoasteryComponent implements OnInit {
         private usrService: UserService,
         public globals: GlobalsService,
         public roasterService: RoasterService,
-        public roasteryProfileService: RoasteryProfileService,
+        public profileCreationService: RoasteryProfileService,
         public userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
@@ -108,8 +109,9 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getCertificateTypes();
         this.getCertificates();
-        this.roasteryProfileService.getcontactList();
+        this.profileCreationService.getcontactList();
         this.getBrands();
         this.getOrgUsers();
         this.initialForm();
@@ -117,7 +119,7 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     detectMode() {
-        this.roasteryProfileService.saveMode$.subscribe((res: boolean) => {
+        this.profileCreationService.saveMode$.subscribe((res: boolean) => {
             this.isSaveMode = res;
             if (res) {
                 this.setFormValue();
@@ -125,22 +127,22 @@ export class AboutRoasteryComponent implements OnInit {
                 this.chartData = [
                     {
                         name: 'Female',
-                        value: this.roasteryProfileService.organizationProfile
-                            ? this.roasteryProfileService.organizationProfile.female_employee_count
+                        value: this.profileCreationService.organizationProfile
+                            ? this.profileCreationService.organizationProfile.female_employee_count
                             : 0,
                     },
                     {
                         name: 'Male',
-                        value: this.roasteryProfileService.organizationProfile
-                            ? this.roasteryProfileService.organizationProfile.male_employee_count
+                        value: this.profileCreationService.organizationProfile
+                            ? this.profileCreationService.organizationProfile.male_employee_count
                             : 0,
                     },
                 ];
 
-                this.roasteryProfileService.single = this.chartData;
+                this.profileCreationService.single = this.chartData;
             }
         });
-        this.roasteryProfileService.editMode$.subscribe((res: boolean) => {
+        this.profileCreationService.editMode$.subscribe((res: boolean) => {
             this.isEditMode = res;
         });
     }
@@ -150,10 +152,19 @@ export class AboutRoasteryComponent implements OnInit {
             owner_name: ['', Validators.compose([Validators.required])],
             founded_on: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([maxWordCountValidator(150)])],
-            total_employees: [null, Validators.compose([Validators.required])],
+            total_employees: [
+                null,
+                Validators.compose([Validators.required, Validators.min(1), this.sumEmployeeValidator()]),
+            ],
             avg_employee_age: [null, Validators.compose([Validators.required])],
-            female_employee_count: ['', Validators.compose([Validators.required])],
-            male_employee_count: ['', Validators.compose([Validators.required])],
+            female_employee_count: [
+                '',
+                Validators.compose([Validators.required, Validators.min(1), this.sumEmployeeValidator()]),
+            ],
+            male_employee_count: [
+                '',
+                Validators.compose([Validators.required, Validators.min(1), this.sumEmployeeValidator()]),
+            ],
             company_details_public: [false, Validators.compose([Validators.required])],
             vat_number: ['', Validators.compose([Validators.required])],
             registration_id: ['', Validators.compose([Validators.required])],
@@ -161,14 +172,10 @@ export class AboutRoasteryComponent implements OnInit {
             capacity_unit: ['', Validators.compose([Validators.required])],
             capabilities: ['', Validators.compose([Validators.required])],
         });
-        this.roasteryProfileService.aboutForm = this.aboutForm;
+        this.profileCreationService.aboutForm = this.aboutForm;
 
         this.aboutForm.valueChanges.subscribe((changedData: any) => {
-            this.roasteryProfileService.aboutFormInvalid = this.aboutForm.invalid;
-            if (changedData.total_employees !== changedData.female_employee_count + changedData.male_employee_count) {
-                this.roasteryProfileService.invalidSumEmployee = true;
-            } else {
-                this.roasteryProfileService.invalidSumEmployee = false;
+            if (changedData.total_employees === changedData.female_employee_count + changedData.male_employee_count) {
                 if (this.chartData) {
                     this.chartData = [
                         {
@@ -180,11 +187,11 @@ export class AboutRoasteryComponent implements OnInit {
                             value: changedData.male_employee_count ? changedData.male_employee_count : 0,
                         },
                     ];
-                    this.roasteryProfileService.single = this.chartData;
+                    this.profileCreationService.single = this.chartData;
                 }
             }
 
-            this.roasteryProfileService.editProfileData(changedData);
+            this.profileCreationService.editProfileData(changedData);
         });
 
         this.brandForm = this.fb.group({
@@ -197,19 +204,41 @@ export class AboutRoasteryComponent implements OnInit {
         });
 
         this.members.valueChanges.subscribe((changedData: any) => {
-            this.roasteryProfileService.editTopContacts(changedData);
+            this.profileCreationService.editTopContacts(changedData);
         });
     }
 
-    setFormValue() {
-        this.aboutForm.patchValue(this.roasteryProfileService.toUpdateProfileData);
+    checkSumEmployee() {
+        this.aboutForm.get('total_employees').updateValueAndValidity();
+        this.aboutForm.get('female_employee_count').updateValueAndValidity();
+        this.aboutForm.get('male_employee_count').updateValueAndValidity();
+    }
 
-        this.chartData = this.roasteryProfileService.single;
+    sumEmployeeValidator() {
+        return (control: AbstractControl): { [key: string]: boolean } | null => {
+            const formGroup = control.parent;
+            return formGroup &&
+                formGroup.get('total_employees').value &&
+                formGroup.get('female_employee_count').value &&
+                formGroup.get('male_employee_count').value &&
+                formGroup.get('female_employee_count').value + formGroup.get('male_employee_count').value !==
+                    formGroup.get('total_employees').value
+                ? {
+                      sumemployee: true,
+                  }
+                : null;
+        };
+    }
+
+    setFormValue() {
+        this.aboutForm.patchValue(this.profileCreationService.toUpdateProfileData);
+
+        this.chartData = this.profileCreationService.single;
 
         while (this.members.length !== 0) {
             this.members.removeAt(0);
         }
-        this.roasteryProfileService.topContacts.forEach((element) => {
+        this.profileCreationService.topContacts.forEach((element) => {
             this.members.push(this.fb.control(element.user_id, Validators.compose([Validators.required])));
         });
     }
@@ -238,9 +267,24 @@ export class AboutRoasteryComponent implements OnInit {
         return localArray;
     }
 
+    getCertificateTypes() {
+        this.userService.getCertificateTypes().subscribe((res: any) => {
+            if (res.success) {
+                this.certificateTypes = Object.values(res.result);
+                this.certificateTypes = this.certificateTypes.filter((item) => {
+                    return (
+                        item.tags &&
+                        item.tags.includes(this.userService.orgSlug) &&
+                        item.type !== CertificateType.EraOfWe
+                    );
+                });
+            }
+        });
+    }
+
     getCertificates() {
         if (this.aclService.checkPermission('brand-profile-management')) {
-            this.userService.getCompanyCertificates(this.roasterId).subscribe((result: any) => {
+            this.userService.getCompanyCertificates().subscribe((result: any) => {
                 if (result.success === true) {
                     this.certificatesArray = result.result;
                 } else {
@@ -256,7 +300,7 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     deleteCertificate(certificateId: any) {
-        this.userService.deleteCompanyCertificate(this.roasterId, certificateId).subscribe((response: any) => {
+        this.userService.deleteCompanyCertificate(certificateId).subscribe((response: any) => {
             if (response.success) {
                 this.toastrService.success('The selected Certificate has been successfully deleted');
                 this.getCertificates();

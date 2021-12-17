@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { OrderStatus, OrderType, OrganizationType } from '@enums';
+import { OrderStatus, OrderType } from '@enums';
 import { OrderDetails } from '@models';
-import { OrderManagementService } from '@modules/order-management/order-management.service';
-import { ToastrService } from 'ngx-toastr';
 import { PaymentStatus } from 'src/core/enums/payment';
 
 @Component({
@@ -20,7 +18,7 @@ export class OrderPaymentStatusComponent {
     @Input() order: OrderDetails;
     @Input() trackingUrl: string;
 
-    constructor(private toastrService: ToastrService, private orderService: OrderManagementService) {}
+    constructor() {}
 
     openLink(link: string): void {
         if (!link.startsWith('http')) {
@@ -30,18 +28,5 @@ export class OrderPaymentStatusComponent {
         if (link) {
             window.open(link, '_blank');
         }
-    }
-
-    uploadReceipt(event: any): void {
-        this.orderService.uploadReceipt(this.order.id, event).subscribe({
-            next: (response) => {
-                if (response && response.success) {
-                    this.orderService.loadOrderDetails(this.order.id, OrganizationType.ESTATE);
-                    this.toastrService.success('Payment receipt has been uploaded.');
-                } else {
-                    this.toastrService.error('Error while uploading payment receipt.');
-                }
-            },
-        });
     }
 }

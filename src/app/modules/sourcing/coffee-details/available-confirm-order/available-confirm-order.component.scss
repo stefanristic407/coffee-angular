@@ -1,3 +1,5 @@
+@import 'variables';
+
 .confirm-order {
     padding: 3rem 2rem;
 }
@@ -32,21 +34,29 @@
 .order-sec {
     padding: 8rem 0;
 }
-::ng-deep .price-tier-overlay-panel {
-    max-width: 500px;
-    width: 80%;
-    margin: 2px;
-    th,
-    td {
-        font-size: 12px;
-    }
-    .p-overlaypanel-close.p-link {
-        background-color: #80460b;
-    }
-}
 
 :host ::ng-deep {
     .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
         min-width: 50% !important;
+    }
+    .p-overlaypanel.price-tier-overlay-panel {
+        max-width: 500px;
+        width: 80%;
+        box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+        border: none;
+        background-color: $white;
+        .p-overlaypanel-content {
+            padding: 0;
+        }
+        th,
+        td {
+            font-size: 12px;
+        }
+        .p-overlaypanel-close.p-link {
+            background-color: $brown-color;
+        }
+    }
+    .price-tier-table.p-datatable-scrollable .p-datatable-scrollable-wrapper .p-datatable-scrollable-view {
+        min-width: 460px;
     }
 }

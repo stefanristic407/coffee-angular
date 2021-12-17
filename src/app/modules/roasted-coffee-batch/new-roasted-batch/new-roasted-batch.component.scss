@@ -37,85 +37,6 @@
     }
 }
 
-.list-group-item {
-    border: none;
-    font-family: 'Muli';
-    font-size: 12px;
-    font-weight: 600;
-    color: #747588;
-    cursor: pointer;
-}
-
-.list-group-item:hover {
-    color: #232334;
-    font-weight: 600;
-    background-color: $primary-bg-color;
-}
-
-.menu-arrow {
-    cursor: pointer;
-}
-
-::ng-deep .popover-body {
-    padding: 0.25rem 0.25rem !important;
-}
-
-::ng-deep .popover {
-    border: none !important;
-    border-radius: 5px !important;
-    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
-    background-color: #ffffff;
-    top: 4px !important;
-}
-
-::ng-deep .bs-popover-right.popover {
-    max-height: 350px !important;
-    overflow-y: scroll !important;
-}
-::ng-deep .bs-popover-bottom .arrow:after {
-    top: 0px !important;
-}
-
-.pointer-item {
-    cursor: pointer;
-}
-
-.border-clr {
-    border-radius: 2px;
-    border: solid 1px $secondary-border-color;
-    padding: 2rem 2rem 2.5rem 2rem;
-    margin: 0.5rem;
-}
-
-.popover-body {
-    padding: 0.25rem 0.25rem !important;
-}
-
-.cross-icon {
-    cursor: pointer;
-    padding-left: 8px;
-    color: #ffffff !important;
-}
-
-.mat-chip-ripple {
-    border: 1px solid #747588 !important;
-}
-
-.mat-standard-chip {
-    color: #ffffff !important;
-    background-color: #747588 !important;
-}
-
-.mat-chip-list-wrapper {
-    padding-left: 0rem !important;
-    margin: 0 !important;
-}
-
-.chips {
-    margin-top: 2%;
-    margin-left: -3%;
-}
-
 .order-details-clr {
     border-radius: 8px;
     background-color: #faf8f4;
@@ -131,7 +52,7 @@
         border: 1px solid #dddddd !important;
     }
     .recent-data-ans {
-        padding: 1rem 1.5rem 1rem 1.5rem !important;
+        padding: 1rem 1rem 1rem 1.5rem !important;
     }
     tr {
         td:first-child {
@@ -140,79 +61,7 @@
     }
 }
 
-.select-form-group-dropdown {
-    background-color: $primary-bg-color;
-    border: 0px;
-    border-radius: 4px;
-}
-
-.sample_info {
-    border-radius: 4px;
-    border: solid 1px $primary-border-color;
-}
-
-.info_heading {
-    border-radius: 4px;
-    background-color: #ffffff;
-    padding: 12px 10px;
-}
-
-.sample_info_head {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #232334;
-}
-
-.weightDiv {
-    border-radius: 4px;
-    border: 1px solid $primary-border-color;
-}
-.weightInputGroupDiv {
-    border: 1px solid $primary-border-color;
-}
-.weightInputDiv {
-    flex: 1 1 auto;
-    width: 1%;
-    border: 0px;
-}
-.input-group-append {
-    width: auto;
-    border: 0px !important;
-    padding: 4px;
-}
-.descriptionText-area {
-    height: 6.25rem;
-}
-.flav-border {
-    border: 2px solid #f23737 !important;
-}
-.flav-descriptor-bor {
-    border-radius: 2px;
-    border: solid 1px #747588;
-    padding: 8px 32px 8px 12px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-}
-::ng-deep .quantityPadd .p-dropdown .p-inputtext {
-    position: relative;
-    bottom: 4px;
-}
-::ng-deep .sewn-form-field .dropdownClass .p-inputgroup-addon {
-    padding: 5px !important;
-}
-@media screen and (max-width: 1200px) {
-    .order_details_card {
-        padding: 2rem;
-        background-color: #faf8f4;
-        border-radius: 4px;
-    }
-}
 @media (max-width: 1199px) and (min-width: 768px) {
-    .tab-flavour-space {
-        margin-bottom: 4px;
-    }
     .recent-time {
         width: 100%;
     }
@@ -221,38 +70,6 @@
     }
 }
 
-@media screen and (max-width: 767px) {
-    .order_details_card {
-        padding: 1rem 1rem 0.1rem 1rem;
-        background-color: #faf8f4;
-        border-radius: 4px;
-    }
-
-    .order_details_card table.mtable {
-        // margin: 0 0.75rem 0.75rem 0.75rem;
-        width: calc(100% - 0px);
-    }
-    .order_details_card table.mtable td:first-child {
-        padding-left: 0;
-        width: 50%;
-    }
-    .order_details_card table.mtable td {
-        border-bottom: 1px dashed $primary-border-color;
-        padding: 16px 0 !important;
-        height: 50px !important;
-    }
-    .order_details_card table.mtable td:last-child {
-        padding-right: 0;
-        text-align: right;
-    }
-    .order_details_card table tr:last-child > td {
-        border-bottom: none;
-        padding: 16px 0 14px 0 !important;
-    }
-    .breadCrumb::-webkit-scrollbar {
-        display: none !important;
-    }
-}
 @media screen and (max-width: 640px) {
     .recent-time td {
         border: 0px solid #dddddd !important;
@@ -268,86 +85,5 @@
     }
     .recent-time td {
         padding: 1rem 0rem 1rem 0rem !important;
-    }
-}
-
-::ng-deep .p-chips.p-descriptors-chips {
-    margin-top: 1rem;
-
-    .p-chips-multiple-container {
-        padding: 0;
-
-        &.p-inputtext {
-            border: none;
-        }
-
-        &.p-focus {
-            border-color: transparent !important;
-            box-shadow: none !important;
-        }
-
-        .p-chips-token {
-            border-radius: 17px;
-            border: solid 1px #747588;
-            background-color: #747588;
-            padding: 0.5rem 0.75rem;
-            margin-bottom: 20px;
-            font-weight: 500;
-
-            .p-chips-token-icon::before {
-                content: '\e90b';
-            }
-        }
-
-        .p-chips-input-token {
-            display: none;
-        }
-    }
-}
-
-::ng-deep .p-multiselect.p-descriptors-dropdown {
-    border: solid 1px $muted-text-color;
-    flex-direction: row-reverse;
-
-    .p-multiselect-label {
-        padding: 0.5rem 0.75rem 0.5rem 0;
-        color: $general-text-color;
-        font-weight: bold;
-    }
-
-    .p-multiselect-trigger-icon {
-        color: $general-text-color;
-    }
-}
-
-.max-560px {
-    max-width: 560px;
-}
-
-.new-batch-container {
-    display: flex;
-    flex-direction: row;
-    .left-container {
-        width: 100%;
-    }
-    .right-container {
-        width: 398px;
-        margin-left: 24px;
-        @media (max-width: 1199px) {
-            width: 100%;
-            margin-left: 0;
-        }
-    }
-    @media (max-width: 1199px) {
-        flex-direction: column;
-    }
-}
-
-:host ::ng-deep {
-    .roasting-profile-dropdown.p-dropdown .p-dropdown-items p-dropdownitem:last-child .p-dropdown-item {
-        padding: 0.5rem;
-        &:hover {
-            background: transparent;
-        }
     }
 }

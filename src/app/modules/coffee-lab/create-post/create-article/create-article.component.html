@@ -80,12 +80,12 @@
             <label
                 >{{ 'subtitle' | translate }}
                 <span class="pull-right text-clr588">
-                    {{ articleForm.get('subtitle')?.value | wordCount }}/20 words
+                    {{ articleForm.get('subtitle')?.value | wordCount }}/20 {{ 'words' | translate }}
                 </span>
             </label>
             <textarea
                 class="min-hght"
-                placeholder="Add a short description about your article"
+                [placeholder]="'article_subtitle_placeholder' | translate"
                 pInputTextarea
                 formControlName="subtitle"
                 autoResize="autoResize"
@@ -102,7 +102,7 @@
             <app-forum-editor
                 formControlName="content"
                 [(isUploadingImage)]="isUploadingImage"
-                [placeholder]="'Start typing your article'"
+                [placeholder]="'article_content_placeholder' | translate"
                 [(imageIdList)]="imageIdList"
                 fileModule="cl-articles"
                 [images]="images"
@@ -123,7 +123,7 @@
                 [maxSelectedLabels]="0"
                 scrollHeight="225px"
                 [showHeader]="false"
-                placeholder="Select relevant categories"
+                [placeholder]="'categories_placeholder' | translate"
                 styleClass="article-dropdown"
             >
                 <ng-template pTemplate="footer">
@@ -147,7 +147,7 @@
             <div class="d-flex">
                 <p-checkbox
                     [binary]="true"
-                    [label]="globals.languageJson?.allow_translations_by_other_authors"
+                    label="{{ 'allow_translations_by_other_authors' | translate }}"
                     formControlName="allow_translation"
                 ></p-checkbox>
                 <app-info-tooltip

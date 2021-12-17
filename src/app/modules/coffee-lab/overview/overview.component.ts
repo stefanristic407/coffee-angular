@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
 import { CoffeeLabGlobalSearchResult } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { CoffeeLabService } from '@services';
 import { MenuItem } from 'primeng/api';
 import { forkJoin, Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-overview',
     templateUrl: './overview.component.html',
     styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit, OnDestroy {
-    destroy$: Subject<boolean> = new Subject<boolean>();
+export class OverviewComponent extends DestroyableComponent implements OnInit {
     menuItems = [];
     keyword?: string;
     keyword$?: string;
@@ -30,6 +30,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private translateService: TranslateService,
     ) {
+        super();
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
             this.startSearch();
         });
@@ -38,14 +39,16 @@ export class OverviewComponent implements OnInit, OnDestroy {
             this.keyword = searchQueryParam;
             this.startSearch();
         }
+        coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((lang) => {
+            this.breadcrumbItems = [
+                { label: this.translateService.instant('home'), routerLink: '/' },
+                { label: this.translateService.instant('brand_and_experience') },
+                { label: this.translateService.instant('the_coffee_lab') },
+            ];
+        });
     }
 
     ngOnInit(): void {
-        this.breadcrumbItems = [
-            { label: this.translateService.instant('home'), routerLink: '/' },
-            { label: this.translateService.instant('brand_and_experience') },
-            { label: this.translateService.instant('the_coffee_lab') },
-        ];
         if (this.route.firstChild.snapshot.routeConfig.path === 'qa-forum') {
             this.changeH1Title(0);
         } else if (this.route.firstChild.snapshot.routeConfig.path === 'articles') {
@@ -152,10 +155,5 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     changeH1Title(index: number) {
         this.currentTabIndex = index;
-    }
-
-    ngOnDestroy() {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

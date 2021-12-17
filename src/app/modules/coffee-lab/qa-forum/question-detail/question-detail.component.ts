@@ -1,11 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
+import { PostType } from '@enums';
 import { environment } from '@env/environment';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -14,19 +15,20 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./question-detail.component.scss'],
     providers: [MessageService],
 })
-export class QuestionDetailComponent implements OnInit, OnDestroy {
+export class QuestionDetailComponent extends DestroyableComponent implements OnInit {
+    readonly PostType = PostType;
     isAllowTranslation = true;
     slug?: string;
     isLoading = false;
     detailsData: any;
-    destroy$: Subject<boolean> = new Subject<boolean>();
     comment: string;
     answerDetail: any;
     isMyPost = false;
     isSavedPost = false;
     isAssignedToMe = false;
     isMyAnswer = false;
-    isLikedBtn = true;
+    isSaveBtn = false;
+    isLikedBtn = false;
     showToaster = false;
     answerComment: any;
     answerAllowTranslation: boolean;
@@ -41,6 +43,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         public router: Router,
         private toastrService: ToastrService,
     ) {
+        super();
         this.activatedRoute.params.subscribe((params) => {
             this.slug = params.slug;
             if (!this.isLoading) {
@@ -60,8 +63,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         window.scroll(0, 0);
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe((res) => {
-            if (res === 'answer') {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => {
+            if (res === PostType.ANSWER) {
                 this.getDetails();
             } else {
                 this.onBack();
@@ -74,29 +77,31 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
         this.answerDetail = {};
         this.coffeeLabService.getForumDetails('question', this.slug).subscribe((res: any) => {
             if (res.success) {
-                this.detailsData = res.result;
-                if (this.detailsData.parent_question_id > 0) {
-                    this.detailsData.answers.forEach((element) => {
-                        if (element.parent_answer_id > 0) {
-                            this.getAnswerDetail(element.id);
-                        }
-                    });
-                }
-                setTimeout(() => {
-                    this.setPagePosition();
-                    if (document.getElementById('text-focus')) {
-                        document.getElementById('text-focus').focus();
+                this.coffeeLabService.updateLang(res.result.lang_code).then(() => {
+                    this.detailsData = res.result;
+                    if (this.detailsData.parent_question_id > 0) {
+                        this.detailsData.answers.forEach((element) => {
+                            if (element.parent_answer_id > 0) {
+                                this.getAnswerDetail(element.id);
+                            }
+                        });
                     }
-                }, 500);
-                if (res.result.parent_question_id) {
-                    this.messageService.clear();
-                    this.messageService.add({
-                        key: 'translate',
-                        severity: 'success',
-                        closable: false,
-                    });
-                }
-                this.isLoading = false;
+                    setTimeout(() => {
+                        this.setPagePosition();
+                        if (document.getElementById('text-focus')) {
+                            document.getElementById('text-focus').focus();
+                        }
+                    }, 500);
+                    if (res.result.parent_question_id) {
+                        this.messageService.clear();
+                        this.messageService.add({
+                            key: 'translate',
+                            severity: 'success',
+                            closable: false,
+                        });
+                    }
+                    this.isLoading = false;
+                });
             } else {
                 this.toastService.error('Cannot get detail data');
             }
@@ -104,7 +109,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     getAnswerDetail(id: any) {
-        this.coffeeLabService.getForumDetails('answer', id).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails(PostType.ANSWER, id).subscribe((res: any) => {
             this.answerDetail = res.result;
         });
     }
@@ -114,7 +119,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     setPagePosition(): void {
-        const answerId = this.activatedRoute.snapshot.queryParamMap.get('answer');
+        const answerId = this.activatedRoute.snapshot.queryParamMap.get(PostType.ANSWER);
         if (answerId) {
             const element = this.document.getElementById(answerId);
             const screenWidth = window.innerWidth;
@@ -128,11 +133,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
             }
             window.scroll(0, offsetTop);
         }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 
     onPost(): void {
@@ -162,47 +162,49 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     onLike(answer) {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateLike('answer', answer.id).subscribe((res) => {
-            if (res.success) {
-                answer.is_liked = true;
-                answer.likes = answer.likes + 1;
-                this.isLikedBtn = true;
-            }
-        });
-    }
-
-    onUnLike(answer) {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateUnLike('answer', answer.id).subscribe((res) => {
-            if (res.success) {
-                answer.is_liked = false;
-                answer.likes = answer.likes - 1;
-                this.isLikedBtn = true;
-            }
-        });
+        this.isLikedBtn = true;
+        if (answer.is_liked) {
+            this.coffeeLabService.updateUnLike(PostType.ANSWER, answer.id).subscribe((res) => {
+                if (res.success) {
+                    answer.is_liked = false;
+                    answer.likes = answer.likes - 1;
+                }
+                this.isLikedBtn = false;
+            });
+        } else {
+            this.coffeeLabService.updateLike(PostType.ANSWER, answer.id).subscribe((res) => {
+                if (res.success) {
+                    answer.is_liked = true;
+                    answer.likes = answer.likes + 1;
+                }
+                this.isLikedBtn = false;
+            });
+        }
     }
 
     onSave(id: number, index: number): void {
-        this.coffeeLabService.saveForum('answer', id).subscribe((res: any) => {
-            if (res.success) {
-                this.detailsData.answers[index].is_saved = true;
-                this.toastService.success('You have saved the answer successfully from saved posts.');
-            } else {
-                this.toastService.error('Error while save post');
-            }
-        });
-    }
-
-    onSameSave(id: number, index: number): void {
-        this.coffeeLabService.unSaveFormByType('answer', id).subscribe((res: any) => {
-            if (res.success) {
-                this.detailsData.answers[index].is_saved = false;
-                this.toastService.success(`You have removed the answer successfully from saved posts.`);
-            } else {
-                this.toastService.error(`Failed to remmove a question from saved posts.`);
-            }
-        });
+        this.isSaveBtn = true;
+        if (this.detailsData.answers[index].is_saved) {
+            this.coffeeLabService.unSaveFormByType(PostType.ANSWER, id).subscribe((res: any) => {
+                if (res.success) {
+                    this.detailsData.answers[index].is_saved = false;
+                    this.toastService.success(`You have removed the answer successfully from saved posts.`);
+                } else {
+                    this.toastService.error(`Failed to remmove a question from saved posts.`);
+                }
+                this.isSaveBtn = false;
+            });
+        } else {
+            this.coffeeLabService.saveForum(PostType.ANSWER, id).subscribe((res: any) => {
+                if (res.success) {
+                    this.detailsData.answers[index].is_saved = true;
+                    this.toastService.success('You have saved the answer successfully from saved posts.');
+                } else {
+                    this.toastService.error('Error while save post');
+                }
+                this.isSaveBtn = false;
+            });
+        }
     }
 
     onBack() {
@@ -228,7 +230,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
 
     getForumById(forumId: number): void {
-        this.coffeeLabService.getForumDetails('answer', forumId).subscribe((res: any) => {
+        this.coffeeLabService.getForumDetails(PostType.ANSWER, forumId).subscribe((res: any) => {
             if (res.success) {
                 this.answerComment = res.result.answer;
                 this.answerAllowTranslation = res.result?.allow_translation;
@@ -254,7 +256,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
         this.isLoading = true;
         if (forumId) {
-            this.coffeeLabService.updateForum('answer', forumId, data).subscribe((res: any) => {
+            this.coffeeLabService.updateForum(PostType.ANSWER, forumId, data).subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('Your comment updated successfully');
                     this.getDetails();

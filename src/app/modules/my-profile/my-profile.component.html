@@ -108,6 +108,7 @@
                                 <span class="pl-1 d-none d-md-block">{{ labMenu.label | translate }}</span>
                             </ng-template>
                             <button
+                                *ngIf="isMyProfile"
                                 class="btn-raised write-post-btn w-mob-100 mb-4 mb-md-0"
                                 [routerLink]="['/coffee-lab/create-post/tab']"
                                 [queryParams]="{ type: postType.ARTICLE }"

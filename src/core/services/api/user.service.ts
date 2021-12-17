@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiResponse, UserProfile } from '@models';
-import { ContactGroup, OrganizationType, ProfileImageType } from '@enums';
+import { ContactGroup, OrganizationType, ProfileImageType, VatType } from '@enums';
 import { AuthService } from '../auth';
 import { SocketService } from '../socket';
 import { map, tap } from 'rxjs/operators';
@@ -409,25 +409,13 @@ export class UserService extends ApiService {
     // API Function Name : Certificates
     // API Description: This API call helps to get the Certificates.
 
-    getCompanyCertificates(roaster_id: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/certificates',
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+    getCompanyCertificates() {
+        return this.postWithOrg(this.orgPostUrl, `certificates`);
     }
 
     // API Function Name : Certificates
-    // API Description: This API call helps to get the Certificates.
-
-    deleteCompanyCertificate(roaster_id: any, certificateId: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/certificates/' + certificateId,
-            method: 'DELETE',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgDeleteUrl, data);
+    deleteCompanyCertificate(certificateId: number) {
+        return this.postWithOrg(this.orgDeleteUrl, `certificates/${certificateId}`, 'DELETE');
     }
 
     attachRoasterImage(userId: any, fileId: any, token) {
@@ -621,22 +609,6 @@ export class UserService extends ApiService {
         return this.http.put(this.orgPutUrl, data);
     }
 
-    addRoastingProfile(body: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile`, 'POST', body);
-    }
-
-    getRoastingProfileDetail(id: number): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`);
-    }
-
-    updateRoastingProfileDetail(id: number, body: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`, 'PUT', body);
-    }
-
-    deleteRoastingProfile(id: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasting-profile/${id}`, 'DELETE');
-    }
-
     getGreenCoffee(roaster_id: any, detailestateId: any) {
         let params = new HttpParams();
         params = params.append('estate_id', detailestateId);
@@ -655,22 +627,6 @@ export class UserService extends ApiService {
 
     getEstateCertificates() {
         return this.post(this.postUrl, `general/certificate-types`);
-    }
-
-    updateRoastedBatchDetail(id: number, body: any): Observable<any> {
-        return this.putWithOrg(this.orgPutUrl, `roasted-batches/${id}`, 'PUT', body);
-    }
-
-    getRoastedBatchDetail(id: number): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasted-batches/${id}`);
-    }
-
-    addRoastedBatches(body: any): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `roasted-batches`, 'POST', body);
-    }
-
-    getRoasterFlavourProfile(): Observable<any> {
-        return this.postWithOrg(this.orgPostUrl, `flavour-profile`);
     }
 
     getPageDetails(roaster_id: any, slug: any) {
@@ -872,16 +828,11 @@ export class UserService extends ApiService {
         };
         return this.http.post(this.orgPostUrl, data);
     }
-    getRoasterVatDetails(roaster_id: any, vat_data: any): Observable<any> {
-        let params = new HttpParams();
-        params = params.append('vat_type', vat_data);
-        const data = {
-            api_call: '/ro/' + roaster_id + '/vat-settings?' + params,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    getRoasterVatDetails(vatType: VatType): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `vat-settings?vat_type=${vatType}`);
     }
+
     addVatDetails(roaster_id: any, body: any): Observable<any> {
         const data = {
             api_call: '/ro/' + roaster_id + '/vat-settings',

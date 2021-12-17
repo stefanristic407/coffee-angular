@@ -17,4 +17,24 @@ export const APP_LANGUAGES: LabelValue[] = [
         label: 'Spanish',
         value: 'es',
     },
+    {
+        label: 'Danish',
+        value: 'da',
+    },
+    {
+        label: 'French',
+        value: 'fr',
+    },
+    {
+        label: 'German',
+        value: 'de',
+    },
+    {
+        label: 'Dutch',
+        value: 'nl',
+    },
+    {
+        label: 'Italian',
+        value: 'it',
+    },
 ];

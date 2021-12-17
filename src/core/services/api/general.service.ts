@@ -28,9 +28,14 @@ export class GeneralService extends ApiService {
     }
 
     // ------------ Roasting Level ------------
-
     // Common endpoint to get Roasting level details
     getRoastLevels(): Observable<ApiResponse<any>> {
         return this.post(this.orgPostUrl, `general/roast-levels`, 'GET');
+    }
+
+    // ------------ Flavour Profile ------------
+    // General endpoint to list the flavour profile
+    getFlavourProfile() {
+        return this.post(this.postUrl, `general/flavour-profile`);
     }
 }

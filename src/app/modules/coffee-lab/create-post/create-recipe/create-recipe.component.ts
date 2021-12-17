@@ -1,15 +1,17 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { APP_LANGUAGES } from '@constants';
+import { DestroyableComponent } from '@base-components';
+import { APP_LANGUAGES, BREWING_METHOD_ITEMS } from '@constants';
 import { CroppedImage } from '@models';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService, CoffeeLabService, CommonService, GlobalsService, GoogletranslateService } from '@services';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
-import { combineLatest, Subject } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 export enum RecipeFileType {
@@ -22,11 +24,11 @@ export enum RecipeFileType {
     templateUrl: './create-recipe.component.html',
     styleUrls: ['./create-recipe.component.scss'],
 })
-export class CreateRecipeComponent implements OnInit, OnDestroy {
+export class CreateRecipeComponent extends DestroyableComponent implements OnInit {
     readonly RecipeFileType = RecipeFileType;
     @Input() isTranslate;
     @Input() saveOriginalPost;
-    @Input() translateLang: string;
+    translateLang: string;
     isPosting = false;
     applicationLanguages = [];
     coverImageUrl: any;
@@ -51,103 +53,33 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     copiedVideoUrl: string;
     languageList: any[] = APP_LANGUAGES;
     images = [];
-    destroy$: Subject<boolean> = new Subject<boolean>();
     clicked = false;
     categoryList: any[] = [];
     categoryValue: any[] = [];
     status: string;
     translatedCategory: any[] = [];
-    expertiseArray: any[] = [];
-    qualityArray: any[] = [
-        {
-            label: 'cups',
-            value: 'cups',
-        },
-        {
-            label: 'glasses',
-            value: 'glasses',
-        },
-        {
-            label: 'grams',
-            value: 'grams',
-        },
-        {
-            label: 'kg',
-            value: 'kg',
-        },
-        {
-            label: 'ltr',
-            value: 'ltr',
-        },
-        {
-            label: 'lbs',
-            value: 'lbs',
-        },
-        {
-            label: 'ml',
-            value: 'ml',
-        },
-        {
-            label: 'ounces',
-            value: 'ounces',
-        },
-        {
-            label: 'piece',
-            value: 'piece',
-        },
-        {
-            label: 'tbsp',
-            value: 'tbsp',
-        },
-        {
-            label: 'tsp',
-            value: 'tsp',
-        },
-        {
-            label: 'units',
-            value: 'units',
-        },
-        {
-            label: 'N/A',
-            value: '',
-        },
+    expertiseArray = [
+        { label: 'expertise_easy', value: 'expertise_easy' },
+        { label: 'expertise_intermediate', value: 'expertise_intermediate' },
+        { label: 'expertise_hard', value: 'expertise_hard' },
     ];
-    brewingMethodArray = [];
-    orginalBrewingMethodArray = [
-        { label: 'Pour Over', value: 'pour-over', langCode: 'en' },
-        { label: 'Espresso', value: 'espresso', langCode: 'en' },
-        { label: 'Coffeemaker', value: 'coffee-maker', langCode: 'en' },
-        { label: 'French Press', value: 'french-press', langCode: 'en' },
-        { label: 'AeroPress', value: 'aeropress', langCode: 'en' },
-        { label: 'Moka Pot', value: 'mocha-pot', langCode: 'en' },
-        { label: 'Chemix', value: 'chemex', langCode: 'en' },
-        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'en' },
-        { label: 'Vierta sobre', value: 'Vierta sobre', langCode: 'es' },
-        { label: 'Espresso', value: 'Espresso', langCode: 'es' },
-        { label: 'Cafetera', value: 'Cafetera', langCode: 'es' },
-        { label: 'Prensa francesa', value: 'Prensa francesa', langCode: 'es' },
-        { label: 'AeroPress', value: 'Aeropress', langCode: 'es' },
-        { label: 'Olla Moka', value: 'Olla Moka', langCode: 'es' },
-        { label: 'Chemix', value: 'Chemix', langCode: 'es' },
-        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'es' },
-        { label: 'Häll över', value: 'Häll över', langCode: 'sv' },
-        { label: 'Kaffebryggare', value: 'Kaffebryggare', langCode: 'sv' },
-        { label: 'Cafetera', value: 'Cafetera', langCode: 'sv' },
-        { label: 'Fransk press', value: 'Fransk press', langCode: 'sv' },
-        { label: 'AeroPress', value: 'Aeropress', langCode: 'sv' },
-        { label: 'Moka Pot', value: 'Moka Pot', langCode: 'sv' },
-        { label: 'Chemix', value: 'Chemix', langCode: 'sv' },
-        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'sv' },
-        { label: 'Despeje sobre', value: 'Despeje sobre', langCode: 'pt' },
-        { label: 'Expresso', value: 'Expresso', langCode: 'pt' },
-        { label: 'Máquina de café', value: 'Máquina de café', langCode: 'pt' },
-        { label: 'Imprensa francesa', value: 'Imprensa francesa', langCode: 'pt' },
-        { label: 'AeroPress', value: 'Aeropress', langCode: 'pt' },
-        { label: 'Olla Moka', value: 'Olla Moka', langCode: 'pt' },
-        { label: 'Chemix', value: 'Chemix', langCode: 'pt' },
-        { label: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex', langCode: 'pt' },
+    qualityArray = [
+        { label: 'lbs', value: 'lbs' },
+        { label: 'cups', value: 'cups' },
+        { label: 'glasses', value: 'glasses' },
+        { label: 'grams', value: 'grams' },
+        { label: 'kg', value: 'kg' },
+        { label: 'ltr', value: 'ltr' },
+        { label: 'ml', value: 'ml' },
+        { label: 'ounces', value: 'ounces' },
+        { label: 'piece', value: 'piece' },
+        { label: 'tbsp', value: 'tbsp' },
+        { label: 'tsp', value: 'tsp' },
+        { label: 'units', value: 'units' },
     ];
+    brewingMethodArray: any[] = BREWING_METHOD_ITEMS;
     @ViewChild('bannerFileInput', { static: false }) bannerFileInput;
+    langCode: any;
 
     constructor(
         private authService: AuthService,
@@ -161,7 +93,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private toaster: ToastrService,
+        private translator: TranslateService,
     ) {
+        super();
         this.organizationId = this.authService.getOrgId();
         this.createRecipeForm();
     }
@@ -175,22 +109,22 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 this.draftRecipeId = params.draft_id;
                 this.status = params.status;
                 this.recipeForm.get('language').setValue(this.coffeeLabService.currentForumLanguage);
-                this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
-                    (item) => item.langCode === this.recipeForm.get('language').value,
-                );
-                this.coffeeLabService.originalPost.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+                this.coffeeLabService.originalPost.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => {
                     if (res && this.isTranslate) {
                         this.onSave();
                     }
                 });
-                this.coffeeLabService.draftPost.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+                this.coffeeLabService.draftPost.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res) => {
                     if (res && this.isTranslate) {
                         this.onSave('draft');
                     }
                 });
-                this.coffeeLabService.copyCoverImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
+                this.coffeeLabService.copyCoverImage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data: any) => {
                     this.copyFile(data);
                 });
+                if (params.lang && this.isTranslate) {
+                    this.translateLang = params.lang;
+                }
                 if (this.recipeId) {
                     this.getCompleteData(this.recipeId);
                 } else {
@@ -202,7 +136,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                     this.setAppLanguages();
                     this.getCompleteData(this.originRecipeId);
                 }
-                this.setExpertiseArray();
             }
         });
     }
@@ -244,7 +177,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
                         const translateData = [
                             res.result.name,
-                            res.result.expertise,
                             res.result.equipment_name,
                             res.result.description,
                             res.result.introduction,
@@ -255,21 +187,18 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                         res.result.ingredients.forEach((i) => {
                             translateData.push(i.name);
                         });
-                        this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
-                            (item) => item.langCode === this.translateLang,
-                        );
                         this.gtrans
                             .translateCoffeeLab(translateData, this.translateLang)
                             .subscribe((translatedOutput: any) => {
                                 const steps = [];
                                 const ingredients = [];
                                 translatedOutput.forEach((item, index) => {
-                                    if (index > 4 && index <= res.result.steps.length + 4) {
+                                    if (index > 3 && index <= res.result.steps.length + 3) {
                                         steps.push(item.translatedText);
                                     }
                                     if (
-                                        index > res.result.steps.length + 4 &&
-                                        index <= res.result.ingredients.length + (res.result.steps.length + 4)
+                                        index > res.result.steps.length + 3 &&
+                                        index <= res.result.ingredients.length + (res.result.steps.length + 3)
                                     ) {
                                         ingredients.push(item.translatedText);
                                     }
@@ -292,14 +221,14 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                                 });
                                 const translatedData = {
                                     name: translatedOutput[0].translatedText,
-                                    expertise: translatedOutput[1].translatedText,
+                                    expertise: res.result.expertise,
                                     serves: res.result.serves,
-                                    equipment_name: translatedOutput[2].translatedText,
+                                    equipment_name: translatedOutput[1].translatedText,
                                     coffee_ratio: res.result.coffee_ratio,
                                     water_ratio: res.result.water_ratio,
                                     preparation_method: res.result.preparation_method,
-                                    description: translatedOutput[3].translatedText,
-                                    introduction: translatedOutput[4].translatedText,
+                                    description: translatedOutput[2].translatedText,
+                                    introduction: translatedOutput[3].translatedText,
                                     lang_code: this.translateLang,
                                     steps: translatedSteps ? translatedSteps : [],
                                     ingredients: translatedingredient ? translatedingredient : [],
@@ -401,7 +330,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             name: value.name,
             expertise: value.expertise,
             serves: value.serves,
-            equipment_name: value.equipment_name,
+            equipment_name: this.translator.instant(value.equipment_name),
             coffee_ratio: value.coffee_ratio,
             water_ratio: value.water_ratio,
             brew_ratio: value.coffee_ratio + ':' + value.water_ratio,
@@ -425,6 +354,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 controlArray.controls[i]?.patchValue(ingredient);
                 if (i < value.ingredients.length - 1) {
                     controlArray.push(this.createCoffeeIngredient());
+                    this.ingredients = controlArray;
                 }
                 i++;
             }
@@ -441,6 +371,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
                 controlArray.controls[j]?.patchValue(ingredient);
                 if (j < value.steps.length - 1) {
                     controlArray.push(this.createCoffeeStep());
+                    this.steps = controlArray;
                 }
                 j++;
             }
@@ -620,7 +551,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             this.isPosting = false;
             if (res.success) {
                 if (!data.publish) {
-                    this.toaster.success('Your changes have been successfully updated to the draft.');
+                    this.toaster.success(this.translator.instant('draft_success'));
                 } else if (this.status === 'draft') {
                     this.toaster.success('Your recipe have been posted successfully.');
                 } else {
@@ -716,9 +647,17 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     checkRichText() {
+        this.recipeForm
+            .get('introduction')
+            .setValue(
+                insertAltAttr(
+                    this.recipeForm.get('introduction').value,
+                    `${this.recipeForm.get('name').value} introduction image`,
+                ),
+            );
         (this.recipeForm.get('steps') as FormArray).controls.forEach((item) => {
             item.get('description').setValue(
-                insertAltAttr(item.get('description').value, ` ${this.recipeForm.get('name').value} step image`),
+                insertAltAttr(item.get('description').value, `${this.recipeForm.get('name').value} step image`),
             );
         });
     }
@@ -727,77 +666,12 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         this.categoryValue = null;
     }
 
-    changeLanguage(value) {
-        this.coffeeLabService.forumLanguage.next(this.recipeForm.get('language').value);
-        this.brewingMethodArray = this.orginalBrewingMethodArray.filter(
-            (item) => item.langCode === this.recipeForm.get('language').value,
-        );
-        this.setExpertiseArray();
-        this.getCategory();
-    }
-
-    setExpertiseArray() {
-        if (this.coffeeLabService.currentForumLanguage === 'en') {
-            this.expertiseArray = [
-                {
-                    label: 'Easy',
-                    value: 'Easy',
-                },
-                {
-                    label: 'Intermediate',
-                    value: 'Intermediate',
-                },
-                {
-                    label: 'Hard',
-                    value: 'Hard',
-                },
-            ];
-        } else if (this.coffeeLabService.currentForumLanguage === 'sv') {
-            this.expertiseArray = [
-                {
-                    label: 'Lätt',
-                    value: 'lätt',
-                },
-                {
-                    label: 'Mellanliggande',
-                    value: 'Mellanliggande',
-                },
-                {
-                    label: 'Hård',
-                    value: 'Hård',
-                },
-            ];
-        } else if (this.coffeeLabService.currentForumLanguage === 'pt') {
-            this.expertiseArray = [
-                {
-                    label: 'Fácil',
-                    value: 'Fácil',
-                },
-                {
-                    label: 'Intermediário',
-                    value: 'Intermediário',
-                },
-                {
-                    label: 'Duro',
-                    value: 'Duro',
-                },
-            ];
-        } else if (this.coffeeLabService.currentForumLanguage === 'es') {
-            this.expertiseArray = [
-                {
-                    label: 'Fácil',
-                    value: 'Fácil',
-                },
-                {
-                    label: 'Intermedio',
-                    value: 'Intermedio',
-                },
-                {
-                    label: 'Duro',
-                    value: 'Duro',
-                },
-            ];
-        }
+    changeLanguage(event: any) {
+        this.langCode = event.value;
+        console.log(event.value);
+        this.coffeeLabService.updateLang(event.value).then(() => {
+            this.getCategory();
+        });
     }
 
     onDeleteDraft(): void {
@@ -823,8 +697,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
             });
     }
 
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
+    onBrewingSelected(event: any) {
+        if (event.originalEvent.pointerType === 'mouse') {
+            this.recipeForm.get('equipment_name').setValue(this.translator.instant(event.value));
+        }
     }
 }

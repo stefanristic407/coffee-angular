@@ -1,85 +1,69 @@
 <div class="total_header page-breadcrumb margin-mb-0 pmb-0 pb-0 pt-0">
-    <div class="row">
-        <div class="col-12 px-3">
-            <div
-                class="d-md-flex flex-column bg-white w-100 pt-3 px-md-3 py-md-4 px-lg-5 br-4"
-                [class.border-radius-top-4]="organizationType === OrgTypes.MICRO_ROASTER && !isConfirmationMode"
-            >
-                <div class="col-12 px-md-0 page-breadcrumb__nav">
-                    <div class="col-lg-6 col-md-6 col-sm-12 pull-left mr-auto pl-0 pr-0">
-                        <p-breadcrumb [model]="breadcrumbs"></p-breadcrumb>
-                    </div>
+    <div
+        class="d-md-flex flex-column bg-white w-100 pt-3 px-md-3 py-md-4 px-lg-5 br-4"
+        [class.border-radius-top-4]="organizationType === OrgTypes.MICRO_ROASTER && !isConfirmationMode"
+    >
+        <div class="col-12 px-md-0 page-breadcrumb__nav">
+            <div class="col-lg-6 col-md-6 col-sm-12 pull-left mr-auto pl-0 pr-0">
+                <p-breadcrumb [model]="breadcrumbs"></p-breadcrumb>
+            </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-12 pull-right ml-auto d-none d-md-block pl-0 pr-0">
-                        <span class="fnt-600 text-clr588 pull-right ml-auto">
-                            {{ 'order_placed_on' | translate }} :
-                            <span class="text-clr334">{{ createdAt | date: 'd MMM, y' }}</span>
-                        </span>
-                    </div>
-                </div>
-                <section class="container create-role-sec mt-35 mt-md-2 px-md-0 mb-15">
-                    <div class="col-lg-12 col-md-12 col-sm-12 pr-0">
-                        <div class="row">
-                            <div class="col-md-6 pl-0 pr-0">
-                                <div
-                                    class="
-                                        order__id
-                                        d-flex
-                                        align-items-center
-                                        pt-2
-                                        fnt-16 fnt-md-18 fnt-bold
-                                        text-clr334
-                                    "
-                                >
-                                    {{ 'order' | translate }}# {{ orderId }}
-                                    <span class="ml-2 fnt-12 fnt-md-14 fnt-600" [ngClass]="typeClass"
-                                        >&#9679; {{ typeName }}</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
-                                <a *ngIf="invoiceUrl" class="btn-raised pull-right" [href]="invoiceUrl" target="_blank">
-                                    {{ 'order_summary' | translate }}
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="orderType === OrderTypes.Prebook">
-                            <div class="col-12 p-0 mb-2 text-invalid fnt-12">
-                                <span class="fnt-bold">{{ 'note' | translate }}</span>
-                                <span class="fnt-400">{{ 'lot_has_been_prebooked' | translate }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <app-order-timeline
-                        *ngIf="!isConfirmationMode"
-                        [invoiceUrl]="invoiceUrl"
-                        [orgType]="organizationType"
-                        [orderId]="orderId"
-                        [orderPaid]="statusPaid"
-                    ></app-order-timeline>
-                </section>
-                <ng-container
-                    *ngIf="organizationType === OrgTypes.MICRO_ROASTER && !isConfirmationMode && isInProgress"
-                >
-                    <app-payment-status
-                        [orderId]="orderId"
-                        *ngIf="!statusPaid && orderStatus === OrderStatus.Confirmed"
-                    >
-                    </app-payment-status>
-                </ng-container>
+            <div class="col-lg-6 col-md-6 col-sm-12 pull-right ml-auto d-none d-md-block pl-0 pr-0">
+                <span class="fnt-600 text-clr588 pull-right ml-auto">
+                    {{ 'order_placed_on' | translate }} :
+                    <span class="text-clr334">{{ createdAt | date: 'd MMM, y' }}</span>
+                </span>
             </div>
         </div>
-
-        <ng-container *ngIf="organizationType === OrgTypes.MICRO_ROASTER && !isConfirmationMode">
-            <div class="col-12 px-3">
-                <div class="d-md-flex flex-column bg-f8 w-100 px-md-3 px-lg-5 border-radius-bottom-4">
-                    <app-edit-tracking-info
-                        [orderId]="orderId"
-                        [orderStatus]="orderStatus"
-                        *ngIf="orderStatus && orderStatus !== OrderStatus.Confirmed"
-                    ></app-edit-tracking-info>
+        <section class="container create-role-sec mt-35 mt-md-2 px-md-0 mb-15">
+            <div class="col-lg-12 col-md-12 col-sm-12 pr-0">
+                <div class="row">
+                    <div class="col-md-6 pl-0 pr-0">
+                        <div class="order__id d-flex align-items-center pt-2 fnt-16 fnt-md-18 fnt-bold text-clr334">
+                            {{ 'order' | translate }}# {{ orderId }}
+                            <span class="ml-2 fnt-12 fnt-md-14 fnt-600" [ngClass]="typeClass"
+                                >&#9679; {{ typeName }}</span
+                            >
+                        </div>
+                    </div>
+                    <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
+                        <a *ngIf="invoiceUrl" class="btn-raised pull-right" [href]="invoiceUrl" target="_blank">
+                            {{ 'order_summary' | translate }}
+                        </a>
+                    </div>
+                </div>
+                <div class="row" *ngIf="orderType === OrderTypes.Prebook">
+                    <div class="col-12 p-0 mb-2 text-invalid fnt-12">
+                        <span class="fnt-bold">{{ 'note' | translate }}</span>
+                        <span class="fnt-400">{{ 'lot_has_been_prebooked' | translate }}</span>
+                    </div>
                 </div>
             </div>
+            <app-order-timeline
+                *ngIf="!isConfirmationMode"
+                [invoiceUrl]="invoiceUrl"
+                [orgType]="organizationType"
+                [orderId]="orderId"
+                [orderPaid]="statusPaid"
+            ></app-order-timeline>
+        </section>
+        <ng-container
+            *ngIf="organizationType === OrgTypes.MICRO_ROASTER && orderStatus === OrderStatus.Confirmed && !statusPaid"
+        >
+            <app-payment-status [orderId]="orderId"> </app-payment-status>
         </ng-container>
+    </div>
+
+    <div
+        *ngIf="
+            organizationType === OrgTypes.MICRO_ROASTER &&
+            orderStatus &&
+            (orderStatus === OrderStatus.Confirmed ||
+                orderStatus === OrderStatus.Shipped ||
+                orderStatus === OrderStatus.Received)
+        "
+        class="d-flex flex-column bg-f8 w-100 px-md-3 px-lg-5 border-radius-bottom-4"
+    >
+        <app-edit-tracking-info [orderId]="orderId" [orderStatus]="orderStatus"></app-edit-tracking-info>
     </div>
 </div>

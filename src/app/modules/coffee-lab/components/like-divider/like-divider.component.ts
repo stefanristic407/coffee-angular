@@ -15,12 +15,12 @@ export class LikeDividerComponent implements OnInit {
     @Input() isAssignedToMe = false;
     @Output() commentBoxClicked = new EventEmitter<boolean>();
     showJoinBtn = true;
-    isLikedBtn = true;
+    submitted = false;
 
     constructor(
-        private router: Router,
-        public activateRoute: ActivatedRoute,
+        private activateRoute: ActivatedRoute,
         private coffeeLabService: CoffeeLabService,
+        private router: Router,
         private toastService: ToastrService,
     ) {}
 
@@ -40,37 +40,47 @@ export class LikeDividerComponent implements OnInit {
         };
     }
 
-    onLike() {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateLike('question', this.question.id).subscribe((res) => {
-            if (res.success) {
-                this.question.is_liked = true;
-                this.question.likes = this.question.likes + 1;
-                this.isLikedBtn = true;
-            }
-        });
+    changeLike() {
+        this.submitted = true;
+        if (this.question.is_liked) {
+            this.coffeeLabService.updateUnLike('question', this.question.id).subscribe((res) => {
+                if (res.success) {
+                    this.question.is_liked = false;
+                    this.question.likes = this.question.likes - 1;
+                }
+                this.submitted = false;
+            });
+        } else {
+            this.coffeeLabService.updateLike('question', this.question.id).subscribe((res) => {
+                if (res.success) {
+                    this.question.is_liked = true;
+                    this.question.likes = this.question.likes + 1;
+                }
+                this.submitted = false;
+            });
+        }
     }
 
-    onUnLike() {
-        this.isLikedBtn = false;
-        this.coffeeLabService.updateUnLike('question', this.question.id).subscribe((res) => {
-            if (res.success) {
-                this.question.is_liked = false;
-                this.question.likes = this.question.likes - 1;
-                this.isLikedBtn = true;
-            }
-        });
-    }
-
-    onSave(): void {
-        this.coffeeLabService.saveForum('question', this.question.id).subscribe((res: any) => {
-            if (res.success) {
-                this.question.is_saved = true;
-                this.toastService.success('Successfully saved');
-            } else {
-                this.toastService.error('Error while save post');
-            }
-        });
+    onSave(isSaved: boolean): void {
+        if (!isSaved) {
+            this.coffeeLabService.saveForum('question', this.question.id).subscribe((res: any) => {
+                if (res.success) {
+                    this.question.is_saved = true;
+                    this.toastService.success('Successfully saved');
+                } else {
+                    this.toastService.error('Error while save post');
+                }
+            });
+        } else {
+            this.coffeeLabService.unSaveFormByType('question', this.question.id).subscribe((res: any) => {
+                if (res.success) {
+                    this.toastService.success(`You have removed the question successfully from saved posts.`);
+                    this.question.is_saved = false;
+                } else {
+                    this.toastService.error(`Failed to remmove a question from saved posts.`);
+                }
+            });
+        }
     }
 
     onJoin() {
@@ -98,16 +108,5 @@ export class LikeDividerComponent implements OnInit {
             }
         }
         this.commentBoxClicked.emit(true);
-    }
-
-    onSameSave(): void {
-        this.coffeeLabService.unSaveFormByType('question', this.question.id).subscribe((res: any) => {
-            if (res.success) {
-                this.toastService.success(`You have removed the question successfully from saved posts.`);
-                this.question.is_saved = false;
-            } else {
-                this.toastService.error(`Failed to remmove a question from saved posts.`);
-            }
-        });
     }
 }

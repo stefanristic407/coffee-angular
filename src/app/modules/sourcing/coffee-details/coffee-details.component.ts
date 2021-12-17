@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { COUNTRY_LIST, CURRENCY_LIST } from '@constants';
+import { COUNTRY_LIST } from '@constants';
 import { AuthService, ResizeService } from '@services';
 import { getContinentName, getCountry } from '@utils';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
@@ -17,7 +17,6 @@ import { SourcingService } from '../sourcing.service';
     styleUrls: ['./coffee-details.component.scss'],
 })
 export class CoffeeDetailsComponent extends ResizeableComponent implements OnInit {
-    public readonly CURRENCY_LIST = CURRENCY_LIST;
     items: GalleryItem[];
     isLoaded = false;
     buyable = false;

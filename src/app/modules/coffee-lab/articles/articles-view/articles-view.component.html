@@ -27,6 +27,8 @@
                     [(ngModel)]="coffeeLabService.articleViewCategory"
                     styleClass="round-border text-clr588"
                     [placeholder]="'categories' | translate"
+                    [maxSelectedLabels]="1"
+                    selectedItemsLabel="{0} {{ 'categories' | translate }}"
                     optionLabel="name"
                     optionValue="parent_id"
                     class="ml-0 mr-3"
@@ -42,6 +44,8 @@
                 styleClass="round-border"
                 [showClear]="true"
             >
+                <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
             </p-dropdown>
             <div class="mt-25 mt-md-0">
                 <p-dropdown
@@ -55,6 +59,8 @@
                     styleClass="round-border"
                     [showClear]="true"
                 >
+                    <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                    <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                 </p-dropdown>
             </div>
         </div>

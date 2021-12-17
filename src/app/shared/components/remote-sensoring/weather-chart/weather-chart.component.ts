@@ -201,7 +201,7 @@ export class WeatherChartComponent implements OnInit {
             this.showLegend = true;
             this.legends = [
                 { label: 'Minimum', abbr: 'Min' },
-                { label: 'Maximum', abbr: 'Min' },
+                { label: 'Maximum', abbr: 'Max' },
             ];
         } else {
             // Legend setting of which has one line

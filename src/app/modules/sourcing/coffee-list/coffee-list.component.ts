@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import { ResizeableComponent } from '@base-components';
-import { CURRENCY_LIST, LBUNIT } from '@constants';
+import { LBUNIT } from '@constants';
 import { QuantityUnit } from '@enums';
 import { AvailabilityService, GlobalsService, ResizeService } from '@services';
+import { takeUntil } from 'rxjs/operators';
 import { SourcingService } from '../sourcing.service';
 
 @Component({
@@ -12,7 +12,6 @@ import { SourcingService } from '../sourcing.service';
     styleUrls: ['./coffee-list.component.scss'],
 })
 export class CoffeeListComponent extends ResizeableComponent implements OnInit {
-    public readonly CURRENCY_LIST = CURRENCY_LIST;
     public readonly QuantityUnit = QuantityUnit;
     public readonly LBUNIT = LBUNIT;
     isLoaded = false;

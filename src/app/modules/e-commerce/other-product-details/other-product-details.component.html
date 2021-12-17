@@ -118,9 +118,9 @@
             </div>
             <div class="col-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                 <label>{{ 'price' | translate }}<span class="star">*</span></label>
-                <div class="p-input-icon-left">
+                <div class="p-input-icon-right">
                     <input type="number" formControlName="price" pInputText />
-                    <span class="left-icon fnt-14 fnt-600">SEK</span>
+                    <span class="right-icon fnt-14 fnt-600">{{ baseCurrency }}</span>
                     <small *ngIf="productForm.controls['price'].errors?.required" class="position-absolute p-error">
                         {{ 'required' | translate }}
                     </small>

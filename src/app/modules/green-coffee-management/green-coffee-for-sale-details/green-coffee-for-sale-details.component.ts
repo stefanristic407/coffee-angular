@@ -1,37 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
-import { Lightbox } from 'ng-gallery/lightbox';
-import { AuthService, GlobalsService } from '@services';
-import { RoasterService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService, RoasterService } from '@services';
+import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
+
 @Component({
     selector: 'app-green-coffee-for-sale-details',
     templateUrl: './green-coffee-for-sale-details.component.html',
     styleUrls: ['./green-coffee-for-sale-details.component.scss'],
 })
 export class GreenCoffeeForSaleDetailsComponent implements OnInit {
+    loading = false;
     items: GalleryItem[];
-    appLanguage?: any;
-    procuredActive: any = 0;
-    roasterID: any = '';
     orderDetails: any;
     orderID: any = '';
     saleInformation: any;
     breadItems: any = [];
     selectedTab = 0;
     roasterNotes: any = [];
-    constructor(
-        public gallery: Gallery,
-        public lightbox: Lightbox,
-        public globals: GlobalsService,
-        public route: ActivatedRoute,
-        public roasterService: RoasterService,
-        public cookieService: CookieService,
-        private router: Router,
-        private authService: AuthService,
-    ) {
-        this.roasterID = this.authService.getOrgId();
+
+    constructor(private gallery: Gallery, private roasterService: RoasterService, private route: ActivatedRoute) {
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId;
         });
@@ -44,9 +31,10 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             thumbPosition: ThumbnailsPosition.Top,
         });
         lightboxRef.load(this.items);
-        this.language();
+        this.getData();
     }
-    public refreshData() {
+
+    refreshBreadcrumb() {
         this.breadItems = [
             { label: 'Home', routerLink: '/' },
             { label: 'Inventory' },
@@ -60,28 +48,36 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
         ];
     }
 
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.procuredActive++;
-        this.getSaleOrderDetails();
-        this.getProcuredOrderDetails();
+    getData() {
+        const promises = [];
+        promises.push(new Promise((resolve, reject) => this.getSaleOrderDetails(resolve, reject)));
+        promises.push(new Promise((resolve, reject) => this.getProcuredOrderDetails(resolve, reject)));
+        this.loading = true;
+        Promise.all(promises)
+            .then(() => {
+                this.loading = false;
+            })
+            .catch(() => (this.loading = false));
         this.getRoasterNotes();
     }
 
-    getSaleOrderDetails() {
+    getSaleOrderDetails(resolve, reject) {
         this.roasterService.getMarkForSaleDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
                     this.saleInformation = response.result;
-                    this.refreshData();
+                    this.refreshBreadcrumb();
                 }
+                resolve();
             },
             (err) => {
                 console.log(err);
+                reject();
             },
         );
     }
-    getProcuredOrderDetails() {
+
+    getProcuredOrderDetails(resolve, reject) {
         this.roasterService.getProcuredOrderDetails(this.orderID).subscribe(
             (response) => {
                 if (response.success && response.result) {
@@ -90,12 +86,15 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
                         this.getGCAvailableDetails(this.orderDetails.harvest_id);
                     }
                 }
+                resolve();
             },
             (err) => {
                 console.log(err);
+                reject();
             },
         );
     }
+
     getGCAvailableDetails(harvestID) {
         this.roasterService.getGCAvailableDetails(harvestID).subscribe(
             (response) => {
@@ -120,8 +119,9 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             },
         );
     }
+
     getRoasterNotes() {
-        this.roasterService.getRoasterNotes(this.roasterID, this.orderID).subscribe(
+        this.roasterService.getRoasterNotes(this.orderID).subscribe(
             (response) => {
                 if (response && response.success && response.result) {
                     this.roasterNotes = response.result;
@@ -132,6 +132,7 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
             },
         );
     }
+
     viewReport() {
         this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
             (res) => {

@@ -6,6 +6,7 @@ import { ContactGroup, ProfileImageType } from '@enums';
 import { OrganizationProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, RoasterService, UserService } from '@services';
+import { checkFile } from '@utils';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
@@ -24,11 +25,6 @@ export class RoasteryProfileService {
 
     public avatarImageChanged = new BehaviorSubject(null);
     public avatarImageChanged$ = this.avatarImageChanged.asObservable();
-
-    public mainSubFormInvalid = false;
-    public aboutFormInvalid = false;
-    public contactFormInvalid = false;
-    public invalidSumEmployee = false;
 
     subProfileForm: FormGroup;
     aboutForm: FormGroup;
@@ -127,7 +123,7 @@ export class RoasteryProfileService {
     }
 
     saveRoasterProfile() {
-        if (this.mainSubFormInvalid || this.aboutFormInvalid || this.contactFormInvalid || this.invalidSumEmployee) {
+        if (this.subProfileForm?.invalid || this.aboutForm?.invalid || this.contactForm?.invalid) {
             this.toastrService.error(this.translator.instant('please_ensure_all_fields_filled_for_all_tabs'));
             this.subProfileForm?.markAllAsTouched();
             this.aboutForm?.markAllAsTouched();
@@ -243,29 +239,23 @@ export class RoasteryProfileService {
     }
 
     handleBannerImageFile(inputElement: any) {
-        const file = inputElement.files[0];
-        if (!file) {
-            return;
-        }
-        if (file.type.split('/')[0] !== 'image') {
-            return;
-        }
-        if (file.size >= 2097152) {
-            this.toastrService.error('File size is too big to upload');
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.onload = (event: any) => {
-            const img = new Image();
-            img.onload = () => {
-                this.bannerFile = inputElement.files[0];
-                this.bannerUrl = event.target.result;
-            };
-            img.src = window.URL.createObjectURL(file);
-        };
-        reader.readAsDataURL(file);
+        const file: File = inputElement.files[0];
+        checkFile(file, 5).subscribe((res) => {
+            if (res) {
+                this.toastrService.error(res.message);
+            } else {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        this.bannerFile = inputElement.files[0];
+                        this.bannerUrl = event.target.result;
+                    };
+                    img.src = window.URL.createObjectURL(file);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     }
 
     handleDeleteBannerImage(): void {

@@ -16,7 +16,10 @@
                     optionLabel="label"
                     optionValue="value"
                     styleClass="round-border"
-                ></p-dropdown>
+                >
+                    <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                    <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                </p-dropdown>
             </div>
         </div>
     </div>
@@ -56,7 +59,7 @@
                                     >
                                 </div>
                                 <div class="fnt-muli fnt-12 text-clr588">
-                                    {{ answer?.posted_at || answer?.question_created_at | amTimeAgo }}
+                                    {{ answer?.posted_at || answer?.question_created_at | amTimeAgo | dateAgoReplace }}
                                 </div>
                             </div>
                         </div>
@@ -107,10 +110,10 @@
                                     </div>
                                     <div class="fnt-muli fnt-12 text-clr588 d-md-flex align-items-center">
                                         <span *ngIf="pageDesc === 'my-posts'">{{
-                                            answer?.answer_created_at | amTimeAgo
+                                            answer?.answer_created_at | amTimeAgo | dateAgoReplace
                                         }}</span>
                                         <span *ngIf="pageDesc === 'saved-posts'">{{
-                                            answer?.created_at | amTimeAgo
+                                            answer?.created_at | amTimeAgo | dateAgoReplace
                                         }}</span>
                                     </div>
                                 </div>

@@ -55,7 +55,7 @@ export class ProductImageComponent implements OnInit, ControlValueAccessor {
                         if (img.naturalWidth >= 5000 || img.naturalHeight >= 5000) {
                             this.toastr.error(`Image should be 5000 x 5000 size`);
                         } else {
-                            this.file = { ...this.file, file, image_url: reader.result };
+                            this.file = { ...this.file, file, url: reader.result };
                             this.onChange(this.file);
                         }
                         window.URL.revokeObjectURL(img.src);
@@ -68,7 +68,7 @@ export class ProductImageComponent implements OnInit, ControlValueAccessor {
 
     delete() {
         delete this.file.file;
-        delete this.file.image_url;
+        delete this.file.url;
         this.onChange(this.file);
     }
 }

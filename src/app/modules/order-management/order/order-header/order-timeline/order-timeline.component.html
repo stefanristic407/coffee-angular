@@ -1,7 +1,21 @@
+<div class="in-order mt-3 br-4" *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected">
+    <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
+        <h4 class="fnt-play fnt-700 fnt-24 text-clr334 mb-4 mb-md-2">
+            {{ statusLabel }}
+        </h4>
+        <ng-container *ngTemplateOutlet="timeline"></ng-container>
+    </ng-container>
+    <div *ngIf="invoiceUrl" class="d-md-none">
+        <a type="submit" class="btn-raised w-100" [href]="invoiceUrl" target="_blank">
+            {{ 'order_invoice' | translate }}
+        </a>
+    </div>
+</div>
+
 <ng-template #timeline>
     <div class="transit-scoll overflow-hidden overflow-md-auto mt-md-4">
         <div class="transit-maxwidth main-order-tracking-mbVesrion">
-            <div class="w-100 d-flex flex-column flex-md-row">
+            <div class="w-100 d-flex flex-column flex-md-row justify-content-center">
                 <div
                     class="d-flex flex-column align-items-md-center order-tracking"
                     [class.completed]="index > currentPointIndex"
@@ -35,13 +49,10 @@
                                     [name]="statusAuthor.name"
                                     [orgType]="statusAuthor.orgType"
                                     type="text"
-                                    class="fnt-14 fnt-md-18 text-clr55c timeline-name"
+                                    class="fnt-14 lh-157 fnt-bold text-clr588"
                                 ></app-user-detail>
                             </p>
-                            <p
-                                class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block"
-                                [class.text-muted]="index > currentPointIndex"
-                            >
+                            <p class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block">
                                 {{ getStatusDate(point) | date: 'd MMMM y' }}
                             </p>
                         </ng-template>
@@ -62,45 +73,14 @@
     </div>
 </ng-template>
 
-<div class="in-order mt-3 br-4" *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected">
-    <div class="row">
-        <div class="col-12 col-md-12">
-            <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
-                <h4 class="fnt-play fnt-700 fnt-24 text-clr334 mb-4 mb-md-2">
-                    {{ statusLabel }}
-                </h4>
-                <ng-container *ngTemplateOutlet="timeline"></ng-container>
-            </ng-container>
-            <div
-                class="btn-div col-md-6 pl-0 pr-0 d-inline-block d-md-none mb-2"
-                [class.invoice-block]="accordionOpened"
-            >
-                <a
-                    *ngIf="invoiceUrl"
-                    type="submit"
-                    class="btn-raised pull-right w-100 text-center"
-                    [href]="invoiceUrl"
-                    target="_blank"
-                >
-                    {{ 'order_invoice' | translate }}
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <ng-template #mobileTimeline>
     <p-accordion (onOpen)="accordionOpened = true" (onClose)="accordionOpened = false">
         <p-accordionTab #tab [selected]="true">
             <ng-template pTemplate="header">
-                <div class="w-100 fnt-play fnt-700 fnt-18 text-clr334 mb-4 mb-md-2">
-                    <span>{{ statusLabel }}</span>
-                    <img
-                        class="pl-2 pt-2 mt-1 pull-right"
-                        src="assets/images/collapse-arrow.svg"
-                        *ngIf="!tab.selected"
-                    />
-                    <img class="pl-2 pt-2 mt-1 pull-right" src="assets/images/expand-arrow.svg" *ngIf="tab.selected" />
+                <div class="d-flex justify-content-between align-items-center w-100 mb-4 mb-md-2">
+                    <span class="fnt-play fnt-700 fnt-18 text-clr334">{{ statusLabel }}</span>
+                    <img class="p-1" src="assets/images/collapse-arrow.svg" *ngIf="!tab.selected" />
+                    <img class="p-1" src="assets/images/expand-arrow.svg" *ngIf="tab.selected" />
                 </div>
             </ng-template>
             <ng-template pTemplate="content">
@@ -142,7 +122,7 @@
                             <button
                                 type="button"
                                 class="btn-stroked sm my-3"
-                                *ngIf="orderId && orgType === OrgTypes.ESTATE"
+                                *ngIf="orderId && orgType === OrgType.ESTATE"
                                 routerLink="/sourcing/estate-list"
                             >
                                 {{ 'brose_other_estates' | translate }}
@@ -181,8 +161,16 @@
                 </div>
 
                 <div class="d-flex flex-column">
-                    <button class="btn-raised px-3 mb-2" (click)="confirmOrder()">Yes I have</button>
-                    <button class="btn-stroked px-3 mt-2">No I haven't</button>
+                    <button class="btn-raised px-3 mb-2" (click)="confirmOrder()">
+                        {{ 'yes_i_have' | translate }}
+                    </button>
+                    <button
+                        class="btn-stroked px-3 mt-2"
+                        [routerLink]="['/dispute-system/raise-ticket', orgType, orderId]"
+                        [queryParams]="{ supportValue: 'Coffee Bulks' }"
+                    >
+                        {{ 'no_i_have_not' | translate }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -277,7 +265,7 @@
                 </div>
                 <div class="w-100 ml-md-3 d-flex flex-column flex-md-row justify-content-between">
                     <div class="d-flex flex-column">
-                        <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-play">Rejected</h4>
+                        <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-play">{{ 'rejected' | translate }}</h4>
                         <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
                             Sorry! The order has been rejected by the estate due to certain reasons.<br />
                             Get in touch with the estate or browse other availabilities
@@ -295,7 +283,7 @@
                         <button
                             type="button"
                             class="btn-stroked sm my-3"
-                            *ngIf="orderId && orgType === OrgTypes.ESTATE"
+                            *ngIf="orderId && orgType === OrgType.ESTATE"
                             routerLink="/sourcing/estate-list"
                         >
                             {{ 'brose_other_estates' | translate }}

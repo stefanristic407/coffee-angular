@@ -94,14 +94,14 @@
                             <span *ngSwitchCase="'actions'" class="d-flex">
                                 <ng-container *ngIf="!isMobileView">
                                     <a
-                                        class="fnt-muli custom-link pr-3 pt-2"
+                                        class="fnt-muli brown-cta pr-3 pt-2"
                                         (click)="shareDetails(rowData)"
                                         *ngIf="customerType"
                                     >
                                         {{ 'view_details' | translate }}
                                     </a>
                                     <a
-                                        class="fnt-muli custom-link pr-3 pt-2"
+                                        class="fnt-muli brown-cta pr-3 pt-2"
                                         *ngIf="!customerType"
                                         (click)="sendInite($event, rowData)"
                                     >
@@ -111,7 +111,7 @@
 
                                 <ng-container *ngIf="isMobileView">
                                     <span class="pull-right ml-auto">
-                                        <a class="ml-auto custom-link" (click)="shareDetails(rowData)"
+                                        <a class="ml-auto brown-cta" (click)="shareDetails(rowData)"
                                             >{{ 'view_details' | translate }}
                                         </a>
                                     </span>

@@ -7,7 +7,7 @@
     dataKey="id"
     [rows]="rowsPerPage"
     [showCurrentPageReport]="false"
-    [paginator]="true"
+    [paginator]="pageInfo.total_count > rowsPerPage"
     [lazy]="true"
     [loading]="loading"
     (onLazyLoad)="loadOrders($event)"
@@ -276,7 +276,7 @@
             <td *ngIf="orgType === OrgTypes.ESTATE" class="d-none d-md-table-cell text-overflow-ellipsis" width="120px">
                 <div class="d-flex">
                     <span class="text-overflow-ellipsis">
-                        {{ getPrice(rowData) | currency: 'USD' }}
+                        {{ getPrice(rowData) | number: '1.2-4' }} {{ rowData.price_unit }}
                     </span>
                 </div>
             </td>
@@ -307,5 +307,9 @@
                 </div>
             </td>
         </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary">
+        <app-empty *ngIf="!loading && !tableData?.length" [title]="'no_data_available' | translate"></app-empty>
     </ng-template>
 </p-table>

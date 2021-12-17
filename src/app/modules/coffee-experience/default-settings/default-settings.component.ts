@@ -135,7 +135,7 @@ export class DefaultSettingsComponent implements OnInit {
     setMenuItems(): void {
         this.imageMenuItems = [
             {
-                label: 'Update',
+                label: 'Replace',
                 command: () => {
                     this.updateImage();
                 },
@@ -149,7 +149,7 @@ export class DefaultSettingsComponent implements OnInit {
         ];
         this.videoMenuItems = [
             {
-                label: 'Update',
+                label: 'Replace',
                 command: () => {
                     this.updateVideo();
                 },
@@ -456,6 +456,9 @@ export class DefaultSettingsComponent implements OnInit {
         this.isSent = true;
         if (!this.defaultDetails.description) {
             this.toastrService.error('Please enter the description');
+            return false;
+        } else if (this.defaultDetails.description && this.defaultDetails.description.split(' ').length > 100) {
+            this.toastrService.error('Description is long');
             return false;
         }
         this.isFailedToSave = false;

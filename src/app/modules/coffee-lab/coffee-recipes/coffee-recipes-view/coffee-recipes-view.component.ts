@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DestroyableComponent } from '@base-components';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -9,8 +10,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
     templateUrl: './coffee-recipes-view.component.html',
     styleUrls: ['./coffee-recipes-view.component.scss'],
 })
-export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
-    destroy$: Subject<boolean> = new Subject<boolean>();
+export class CoffeeRecipesViewComponent extends DestroyableComponent implements OnInit {
     searchInput$: Subject<any> = new Subject<any>();
     organizationId: any;
     keyword = '';
@@ -23,41 +23,35 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
     totalRecords: number;
     rows = 9;
     translationsList: any[] = [
-        {
-            label: 'Yes',
-            value: true,
-        },
-        {
-            label: 'No',
-            value: false,
-        },
+        { label: 'yes', value: true },
+        { label: 'no', value: false },
     ];
-    levels: any[] = [];
+    levels = [
+        { label: 'expertise_easy', value: 'expertise_easy' },
+        { label: 'expertise_intermediate', value: 'expertise_intermediate' },
+        { label: 'expertise_hard', value: 'expertise_hard' },
+    ];
     orderList: any[] = [
-        {
-            label: 'Latest',
-            value: 'latest',
-        },
-        {
-            label: 'Oldest',
-            value: 'oldest',
-        },
+        { label: 'latest', value: 'latest' },
+        { label: 'oldest', value: 'oldest' },
     ];
 
     constructor(
         private toastService: ToastrService,
         public coffeeLabService: CoffeeLabService,
         public authService: AuthService,
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         this.organizationId = this.authService.getOrgId();
-        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.destroy$)).subscribe((language) => {
+        this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((language) => {
             this.forumLanguage = language;
             this.getCoffeeRecipesData();
             this.getCategory();
         });
-        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.coffeeLabService.forumDeleteEvent.pipe(takeUntil(this.unsubscribeAll$)).subscribe(() => {
             this.getCoffeeRecipesData();
         });
         this.searchInput$.pipe(debounceTime(1000)).subscribe(() => {
@@ -105,67 +99,6 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
                     item.description = this.coffeeLabService.getJustText(item.description);
                     return item;
                 });
-                if (this.coffeeLabService.currentForumLanguage === 'en') {
-                    this.levels = [
-                        {
-                            label: 'Easy',
-                            value: 'Easy',
-                        },
-                        {
-                            label: 'Intermediate',
-                            value: 'Intermediate',
-                        },
-                        {
-                            label: 'Hard',
-                            value: 'Hard',
-                        },
-                    ];
-                } else if (this.coffeeLabService.currentForumLanguage === 'sv') {
-                    this.levels = [
-                        {
-                            label: 'Lätt',
-                            value: 'lätt',
-                        },
-                        {
-                            label: 'Mellanliggande',
-                            value: 'Mellanliggande',
-                        },
-                        {
-                            label: 'Hård',
-                            value: 'Hård',
-                        },
-                    ];
-                } else if (this.coffeeLabService.currentForumLanguage === 'pt') {
-                    this.levels = [
-                        {
-                            label: 'Fácil',
-                            value: 'Fácil',
-                        },
-                        {
-                            label: 'Intermediário',
-                            value: 'Intermediário',
-                        },
-                        {
-                            label: 'Duro',
-                            value: 'Duro',
-                        },
-                    ];
-                } else if (this.coffeeLabService.currentForumLanguage === 'es') {
-                    this.levels = [
-                        {
-                            label: 'Fácil',
-                            value: 'Fácil',
-                        },
-                        {
-                            label: 'Intermedio',
-                            value: 'Intermedio',
-                        },
-                        {
-                            label: 'Duro',
-                            value: 'Duro',
-                        },
-                    ];
-                }
                 this.totalRecords = res.result_info.total_count;
             } else {
                 this.toastService.error('Cannot get Recipes data');
@@ -179,10 +112,5 @@ export class CoffeeRecipesViewComponent implements OnInit, OnDestroy {
             this.pages = event.page + 1;
             this.getCoffeeRecipesData();
         }
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-        this.destroy$.unsubscribe();
     }
 }

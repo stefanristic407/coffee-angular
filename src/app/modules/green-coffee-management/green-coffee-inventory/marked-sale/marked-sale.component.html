@@ -99,7 +99,7 @@
                             tooltipPosition="top"
                         >
                             {{ rowData['quantity_count'] || 'NA' }}
-                            <span *ngIf="rowData['quantity_count']">{{ rowData['quantity_type'] }}</span>
+                            <span *ngIf="rowData['quantity_count']">&nbsp;{{ rowData['quantity_type'] }}</span>
                         </span>
                     </ng-container>
 
@@ -122,31 +122,4 @@
             </tr>
         </ng-template>
     </p-table>
-</div>
-
-<div class="deleteProductDiv">
-    <p-dialog
-        *ngIf="popupDisplay"
-        header=""
-        position="center"
-        [style]="{ width: '28.12rem' }"
-        styleClass="userDialog no-padding"
-        [(visible)]="popupDisplay"
-    >
-        <div class="mt-5 mb-5 text-center fnt-muli">
-            <div><img src="assets/images/delete-role.svg" alt="" /></div>
-            <div class="fnt-play fnt-24 fnt-bold mt-2">Oh noh :(</div>
-            <div class="fnt-muli fnt-16 fnt-md-18 fnt-normal mt-2 pb-3">
-                Are you sure you want to delete this product?
-            </div>
-            <div class="mt-4">
-                <button class="btn btn-stroked" (click)="popupDisplay = false">
-                    {{ 'cancel' | translate }}
-                </button>
-                <button class="btn btn-raised ml-3" (click)="deleteProductFromList(deleteId)">
-                    {{ 'delete' | translate }}
-                </button>
-            </div>
-        </div>
-    </p-dialog>
 </div>

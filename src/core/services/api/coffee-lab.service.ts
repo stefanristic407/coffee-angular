@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { environment } from '@env/environment';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from '../auth';
@@ -39,12 +40,25 @@ export class CoffeeLabService extends ApiService {
     }
 
     constructor(
-        protected http: HttpClient,
-        protected authService: AuthService,
-        private uploadService: UploadService,
         private toastService: ToastrService,
+        private translator: TranslateService,
+        private uploadService: UploadService,
+        protected authService: AuthService,
+        protected http: HttpClient,
     ) {
         super(http, authService);
+        this.updateLang();
+    }
+
+    updateLang(lang: string = 'en'): Promise<any> {
+        return new Promise((resolve) => {
+            this.http.get(`${environment.apiURL}/translations/${lang}/roaster?default=1`).subscribe((langData) => {
+                this.translator.setTranslation(lang, langData);
+                this.translator.use(lang);
+                this.forumLanguage.next(lang);
+                resolve(true);
+            });
+        });
     }
 
     getJustText(content: any) {

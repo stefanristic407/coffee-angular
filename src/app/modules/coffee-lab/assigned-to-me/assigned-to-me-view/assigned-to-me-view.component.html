@@ -4,13 +4,16 @@
         <div>
             <p-dropdown
                 [options]="sortOptions"
-                [(ngModel)]="coffeeLabService.qaForumViewSortBy"
+                [(ngModel)]="coffeeLabService.assignedToMeSortBy"
                 (ngModelChange)="getQuestions()"
                 styleClass="round-border text-clr588"
                 [placeholder]="'sort_by' | translate"
                 optionLabel="label"
                 optionValue="value"
-            ></p-dropdown>
+            >
+                <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+            </p-dropdown>
         </div>
     </div>
     <div *ngIf="!isLoading">

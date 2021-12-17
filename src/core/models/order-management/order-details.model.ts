@@ -2,6 +2,7 @@ import { OrderStatus, OrderType, ServiceRequestStatus, ShipmentStatus } from '@e
 import { Address } from '../common';
 
 export interface OrderDetails {
+    arrival_date: string;
     billing_address?: Address;
     created_at: string;
     delivery_address: Address;
@@ -28,6 +29,7 @@ export interface OrderDetails {
     payment_status: string;
     prebook_order_id?: number;
     price: number;
+    price_unit: number;
     quantity_count?: number;
     quantity_type: string;
     quantity_unit: string;
@@ -41,6 +43,7 @@ export interface OrderDetails {
     sample_order_id?: number;
     shipment_date: string;
     shipment_status: ShipmentStatus;
+    shipped_date: string;
     shipping_address: Address;
     shipping_price?: number;
     species?: string;
@@ -54,7 +57,6 @@ export interface OrderDetails {
 
     upload_show: boolean;
     receipt_show: boolean;
-    status_paid: boolean;
     status_pending: boolean;
     payment_verification?: boolean;
     before_grade_complete: boolean;

@@ -49,10 +49,6 @@ export class OrderHeaderComponent implements OnInit {
         return this.organizationType === OrganizationType.MICRO_ROASTER && this.orderStatus === OrderStatus.Placed;
     }
 
-    get isInProgress(): boolean {
-        return this.orderStatus !== OrderStatus.Shipped && this.orderStatus !== OrderStatus.Received;
-    }
-
     constructor(private translator: TranslateService) {}
 
     ngOnInit(): void {

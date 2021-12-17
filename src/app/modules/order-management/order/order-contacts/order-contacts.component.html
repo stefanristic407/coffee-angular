@@ -6,9 +6,6 @@
             <div class="fnt-18 fnt-bold text-clr334">
                 {{ (orgType === OrgType.ESTATE ? 'estate_details' : 'micro_roaster_details') | translate }}
             </div>
-            <a *ngIf="roaster" class="navigation-link" [routerLink]="['/sourcing/estate-details', roaster?.id]">
-                {{ 'view_details' | translate }}
-            </a>
         </div>
 
         <app-roaster-details

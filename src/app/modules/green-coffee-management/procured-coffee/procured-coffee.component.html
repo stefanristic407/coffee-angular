@@ -17,6 +17,7 @@
                                 class="btn-raised"
                                 routerLink="/green-coffee-management/coffee-sale"
                                 [queryParams]="{ orderId: orderDetails?.id }"
+                                [disabled]="orderDetails?.ro_gc_id"
                             >
                                 Mark for sale
                             </button>
@@ -54,7 +55,9 @@
                                     <ul class="clearfix">
                                         <li>
                                             <label>Quantity availabile</label>
-                                            <p>{{ orderDetails?.quantity_count * orderDetails?.quantity }} kg</p>
+                                            <p>
+                                                {{ orderDetails?.quantity_count * orderDetails?.quantity | number }} kg
+                                            </p>
                                         </li>
                                         <li>
                                             <label>Remaining quantity availabile</label>
@@ -95,94 +98,74 @@
                                                     <li>
                                                         <label>Estate</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.estate_name
-                                                                    ? orderDetails.estate_name
-                                                                    : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.estate_name || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Origin</label>
                                                         <p>
-                                                            {{ orderDetails.origin | country }}
+                                                            {{ orderDetails?.origin | country }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Lot ID</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.lot_number ? orderDetails.lot_number : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.lot_number || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Availability name</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.availability_name
-                                                                    ? orderDetails.availability_name
-                                                                    : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.availability_name || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Species</label>
                                                         <p>
-                                                            {{ orderDetails.species ? orderDetails.species : 'NA' }}
+                                                            {{ orderDetails?.species || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Variety</label>
                                                         <p *ngIf="orderDetails.varieties">
-                                                            {{ orderDetails.varieties | translate }}
+                                                            {{ orderDetails?.varieties | translate }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Crop year</label>
                                                         <p>
-                                                            {{ orderDetails.harvest_date | date: 'MMM, y' }}
+                                                            {{ orderDetails?.harvest_date | date: 'MMM, y' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Altitude</label>
                                                         <p>
-                                                            {{ orderDetails.altitude ? orderDetails.altitude : 'NA' }}
+                                                            {{ orderDetails?.altitude || 'NA' }}
                                                             meters above sea level
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>{{ 'flavor_profile' | translate }}</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.flavour_profile
-                                                                    ? orderDetails.flavour_profile
-                                                                    : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.flavour_profile || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Wet Mill</label>
                                                         <p>
-                                                            {{ orderDetails.wet_mill ? orderDetails.wet_mill : 'NA' }}
+                                                            {{ orderDetails?.wet_mill || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Processing</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails.processing ? orderDetails.processing : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.processing || 'NA' }}
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <label>Moisture content</label>
                                                         <p>
-                                                            {{
-                                                                orderDetails?.dry_milling?.moisture_content
-                                                                    ? orderDetails?.dry_milling?.moisture_content
-                                                                    : 'NA'
-                                                            }}
+                                                            {{ orderDetails?.dry_milling?.moisture_content || 'NA' }}
                                                         </p>
                                                     </li>
                                                 </ul>
@@ -252,9 +235,9 @@
                                                 </h6>
                                                 <p class="text-clr334 fnt-600 fnt-14 mb-0">
                                                     <span class="text-clr588 fnt-600 fnt-14 pr-md-3 mr-md-1 text-head"
-                                                        >Cup Score :</span
+                                                        >{{ 'cup_score' | translate }} :</span
                                                     >
-                                                    {{ orderDetails.cup_score ? orderDetails.cup_score : 'NA' }}
+                                                    {{ orderDetails?.cup_score || 'NA' }}
                                                 </p>
                                             </div>
                                         </div>
@@ -270,9 +253,7 @@
                                                 </div>
 
                                                 <h3>
-                                                    {{
-                                                        orderDetails.evaluator_name ? orderDetails.evaluator_name : 'NA'
-                                                    }}
+                                                    {{ orderDetails?.evaluator_name || 'NA' }}
                                                 </h3>
                                                 <h6 class="mt-0">Facilitator</h6>
                                             </div>
@@ -285,7 +266,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-4 ml-md-0 mr-md-0" *ngIf="primeTableService.records.length > 0">
+                        <div class="row mt-4 ml-md-0 mr-md-0">
                             <div class="fnt-muli fnt-14 fnt-bold mb-2">{{ 'order_activity' | translate }}</div>
                             <p-table
                                 id="tabTable"
@@ -362,6 +343,9 @@
                                                         <span *ngIf="rowData.catalogue === 'RO_BATCH'">{{
                                                             'roasted_coffee_batch' | translate
                                                         }}</span>
+                                                        <span *ngIf="rowData.catalogue === 'RO_CUPPING'">{{
+                                                            'sample_cupping' | translate
+                                                        }}</span>
                                                     </span>
                                                 </div>
                                             </span>
@@ -393,6 +377,12 @@
                                             </span>
                                         </td>
                                     </tr>
+                                </ng-template>
+                                <ng-template pTemplate="summary">
+                                    <app-empty
+                                        *ngIf="!activityValue?.length || activityValue?.length < 1"
+                                        [title]="'no_data_available' | translate"
+                                    ></app-empty>
                                 </ng-template>
                             </p-table>
                             <div class="w-100 mt-4">

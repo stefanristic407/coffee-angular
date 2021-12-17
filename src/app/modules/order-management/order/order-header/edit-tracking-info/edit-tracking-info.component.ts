@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { ResizeService } from '@services';
-import { OrderManagementService } from '@app/modules/order-management/order-management.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResizeableComponent } from '@base-components';
-import { takeUntil } from 'rxjs/operators';
 import { OrderStatus } from '@enums';
 import { OrderDetails } from '@models';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as moment from 'moment';
+import { OrderManagementService } from '@modules/order-management/order-management.service';
+import { ResizeService } from '@services';
 import { urlValidator } from '@utils';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-edit-tracking-info',
@@ -24,15 +24,11 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
     @Input() orderId: number;
     @Input() orderStatus: OrderStatus;
 
-    get today(): Date {
-        return new Date();
-    }
-
     constructor(
         private fb: FormBuilder,
+        private ordersService: OrderManagementService,
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
-        private ordersService: OrderManagementService,
     ) {
         super(resizeService);
     }
@@ -81,7 +77,7 @@ export class EditTrackingInfoComponent extends ResizeableComponent implements On
                 .updateShipmentDetails(
                     this.orderId,
                     this.infoForm.value.trackingUrl,
-                    this.infoForm.value.shippingDate?.toString() || this.orderDetails.shipment_date,
+                    moment(this.infoForm.value.shippingDate).format('YYYY-MM-DD'),
                 )
                 .subscribe({
                     next: (res) => {

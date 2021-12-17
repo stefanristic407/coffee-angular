@@ -1,16 +1,18 @@
 export class Api {}
 import { HttpClient } from '@angular/common/http';
-import { ApiResponse, RequestDto } from '@models';
+import { OrganizationSlug, OrganizationType } from '@enums';
 import { environment } from '@env/environment';
-import { Observable } from 'rxjs';
+import { ApiResponse, RequestDto } from '@models';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs';
 import { AuthService } from '../auth';
-import { OrganizationType } from '@enums';
 
 type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export class ApiService {
+    readonly version = '2';
     readonly orgType = OrganizationType.ROASTER;
+    readonly orgSlug = OrganizationSlug.ROASTER;
     protected certificatesUrl: string;
     protected deleteUrl: string;
     protected fileUploadUrl: string;
@@ -77,6 +79,7 @@ export class ApiService {
             api_call: `/${this.orgType}/${this.getOrgId()}/${apiCall}`,
             method,
             token: this.getToken(),
+            v: this.version,
         };
         if (data) {
             dto.data = data;
@@ -89,6 +92,7 @@ export class ApiService {
             api_call: `/${apiCall}`,
             method,
             token: this.getToken(),
+            v: this.version,
         };
         if (data) {
             dto.data = data;

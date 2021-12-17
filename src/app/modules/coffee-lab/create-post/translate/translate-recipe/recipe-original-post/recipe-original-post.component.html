@@ -1,7 +1,7 @@
 <app-loading *ngIf="isLoading"></app-loading>
 <div class="page-wrapper m-0 p-0 border-mob" *ngIf="!isLoading">
     <div class="bg-f8 w-100">
-        <div class="d-flex justify-content-between border-btm mt-4">
+        <div class="d-flex justify-content-between border-btm pt-4">
             <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-25 align-original">
                 {{ 'original_language' | translate }} - {{ detailsData?.lang_code | language }}
             </p>
@@ -36,7 +36,7 @@
                         <label class="mt-2">{{ 'recipe_name' | translate }}</label>
                         <input
                             type="text"
-                            placeholder="Enter Recipe Name"
+                            [placeholder]="'recipe_name_placeholder' | translate"
                             pInputText
                             formControlName="name"
                             [readonly]="true"
@@ -52,7 +52,7 @@
                             formControlName="description"
                             [readonly]="true"
                             autoResize="autoResize"
-                            placeholder="Give a small description about the recipe..."
+                            [placeholder]="'recipe_description_placeholder' | translate"
                         ></textarea>
                         <small *ngIf="recipeForm.controls['description'].errors?.required" class="p-error">
                             {{ 'required' | translate }}
@@ -62,7 +62,7 @@
                         <label>{{ 'brewing_equipment' | translate }}</label>
                         <input
                             type="text"
-                            placeholder="Enter equipment name"
+                            [placeholder]="'brewing_equipment_placeholder' | translate"
                             formControlName="equipment_name"
                             [readonly]="true"
                             pInputText
@@ -82,7 +82,7 @@
                         <input
                             disabled
                             type="text"
-                            placeholder="Eg - if the brew is 1:1 ratio of all ingreditents"
+                            [placeholder]="'brew_ratio_placeholder' | translate"
                             [(ngModel)]="brewRatio"
                             [ngModelOptions]="{ standalone: true }"
                             pInputText
@@ -92,7 +92,7 @@
                         <label>{{ 'yield' | translate }}</label>
                         <input
                             type="text"
-                            placeholder="Enter number of servings"
+                            [placeholder]="'yield_placeholder' | translate"
                             formControlName="serves"
                             [readonly]="true"
                             pInputText
@@ -142,7 +142,7 @@
                                 <div class="p-inputgroup custom-addon dropdownClass inputFieldBox mb-3 mb-md-0">
                                     <input
                                         type="text"
-                                        placeholder="Ingredient Name"
+                                        [placeholder]="'ingredient_name_placeholder' | translate"
                                         pInputText
                                         formControlName="name"
                                         [readonly]="true"
@@ -171,7 +171,7 @@
                                 <div class="input-and-select gray">
                                     <input
                                         type="text"
-                                        placeholder="Eg - quantity can 200 or 200-300"
+                                        [placeholder]="'ingredient_quantity_placeholder' | translate"
                                         pInputText
                                         formControlName="quantity"
                                     />
