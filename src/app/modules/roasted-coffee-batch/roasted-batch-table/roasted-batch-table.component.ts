@@ -51,7 +51,7 @@ export class RoastedBatchTableComponent extends ResizeableComponent implements O
                 field: 'id',
                 header: 'batch_id',
                 sortable: true,
-                width: 9,
+                width: 10,
             });
         }
         this.tableColumns = this.tableColumns.concat([
@@ -59,50 +59,50 @@ export class RoastedBatchTableComponent extends ResizeableComponent implements O
                 field: 'name',
                 header: 'batch_name',
                 sortable: true,
-                width: 14,
+                width: 12,
             },
             {
                 field: 'gc_order_id',
                 header: 'gc_order_id',
                 sortable: true,
-                width: 9,
+                width: 10,
             },
             {
                 field: 'estate_name',
                 header: 'estate_name',
                 sortable: true,
-                width: 14,
+                width: 12,
             },
             {
                 field: 'order_ref_no',
                 header: 'roasters_gc_ref',
                 sortable: true,
-                width: 15,
+                width: 13,
             },
             {
                 field: 'created_at',
                 header: 'created_on',
                 sortable: true,
-                width: 11,
+                width: 10,
             },
             {
                 field: 'roasted_coffee_quantity',
                 header: 'quantity',
                 sortable: true,
-                width: 9,
+                width: 8,
             },
             {
                 field: 'roasting_profile_name',
                 header: 'roasting_profile',
                 sortable: true,
-                width: 14,
+                width: 13,
             },
         ]);
         if (!this.resizeService.isMobile()) {
             this.tableColumns.push({
                 field: 'actions',
                 header: 'actions',
-                width: 15,
+                width: 12,
             });
         }
     }

@@ -33,7 +33,6 @@
     [value]="tableValue"
     [columns]="tableColumns"
     dataKey="id"
-    [resizableColumns]="true"
     [showCurrentPageReport]="false"
     [paginator]="totalCount > rows"
     [rows]="rows"
@@ -86,8 +85,10 @@
                     {{ rowData['quantity_unit'] }}
                 </span>
                 <span *ngSwitchCase="'actions'">
-                    <span class="brown-cta mr-2">{{ 'view_details' | translate }}</span>
-                    <app-action-menu [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
+                    <div class="d-flex align-items-center">
+                        <span class="brown-cta mr-2">{{ 'view_details' | translate }}</span>
+                        <app-action-menu [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
+                    </div>
                 </span>
                 <span *ngSwitchDefault>
                     {{ rowData[col.field] || '-' }}
