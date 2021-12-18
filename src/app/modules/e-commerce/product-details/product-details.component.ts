@@ -327,7 +327,6 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     removeWeightVariant(weightForm: FormGroup, index: number = null) {
         const weightFormArr = weightForm.parent as FormArray;
-        console.log('index:', index);
         if (index === null) {
             index = weightFormArr.controls.findIndex((item) => item.value.id === weightForm.value.id);
         }
@@ -621,7 +620,6 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
                 internalItems.push(grindForm.get('rc_batch_id'));
                 internalItems.push(grindForm.get('batch_ref_no'));
-                internalItems.push(grindForm.get('remaining_quantity'));
             });
         });
         externalItems.forEach((item) => {

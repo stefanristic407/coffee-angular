@@ -478,8 +478,12 @@
             <div *ngIf="!isExternal" class="col-md-6 col-lg-3 sewn-form-field">
                 <label>{{ 'remaining_quantity_in_the_batch' | translate }}</label>
                 <div class="p-inputgroup custom-addon">
-                    <input [value]="grindFormGroup.value.remaining_quantity || '-'" [disabled]="true" pInputText />
-                    <span class="p-inputgroup-addon gray">{{ grindFormGroup.value.quantity_unit }}</span>
+                    <input
+                        [value]="grindFormGroup.getRawValue().remaining_quantity || '-'"
+                        [disabled]="true"
+                        pInputText
+                    />
+                    <span class="p-inputgroup-addon gray">{{ grindFormGroup.getRawValue().quantity_unit }}</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 sewn-form-field">
