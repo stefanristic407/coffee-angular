@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CoffeeStoryService, DownloadService, InventoryService, OrganizationService, PurchaseService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { convert2Kg, convertKg, maxValidator, minValidator, quantityMaxValidator } from '@utils';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -284,6 +285,12 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
                     this.batchForm.controls.roasted_coffee_quantity.value,
                 unit,
             ),
+            roasted_date: this.batchForm.value.roasted_date
+                ? moment(this.batchForm.value.roasted_date).format('yy-MM-DD')
+                : null,
+            best_before_date: this.batchForm.value.best_before_date
+                ? moment(this.batchForm.value.best_before_date).format('yy-MM-DD')
+                : null,
         };
 
         if (this.batchId) {
