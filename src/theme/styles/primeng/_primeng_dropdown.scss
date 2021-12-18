@@ -42,7 +42,6 @@
     margin-top: 8px;
     border-radius: 2px;
     box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
-    max-width: 100%;
 
     &::before,
     &::after {
@@ -67,6 +66,7 @@
 }
 .sewn-form-field .p-dropdown-panel {
     margin-top: 0;
+    max-width: 100%;
     &::before,
     &::after {
         display: none;
