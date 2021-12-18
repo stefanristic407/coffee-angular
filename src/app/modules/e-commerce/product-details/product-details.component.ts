@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { ResizeableComponent } from '@base-components';
 import { BREWING_METHOD_ITEMS, COUNTRY_LIST } from '@constants';
@@ -103,6 +103,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         private generalService: GeneralService,
         private inventorySrv: InventoryService,
         private route: ActivatedRoute,
+        private router: Router,
         private toasterService: ToastrService,
         private translator: TranslateService,
         protected resizeService: ResizeService,
@@ -324,9 +325,12 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         }, 0);
     }
 
-    removeWeightVariant(weightForm: FormGroup) {
+    removeWeightVariant(weightForm: FormGroup, index: number = null) {
         const weightFormArr = weightForm.parent as FormArray;
-        const index = weightFormArr.controls.findIndex((item) => item.value.id === weightForm.value.id);
+        console.log('index:', index);
+        if (index === null) {
+            index = weightFormArr.controls.findIndex((item) => item.value.id === weightForm.value.id);
+        }
         setTimeout(() => {
             weightFormArr.removeAt(index);
             if (index === this.currentVariantIdx) {
@@ -374,7 +378,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     clearWeightValidators(weightForm: FormGroup) {
         weightForm.get('weight').clearValidators();
         weightForm.get('featured_image_id').clearValidators();
-        weightForm.get('crate_capacity').clearValidators();
+        weightForm.get('crate_capacity')?.clearValidators();
         Object.keys(weightForm.controls).forEach((key) => {
             weightForm.get(key).updateValueAndValidity();
         });
@@ -480,7 +484,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
-    deleteWeightVariant(weightForm: FormGroup) {
+    deleteWeightVariant(weightForm: FormGroup, index: number) {
         if (weightForm.value.id) {
             this.dialogService
                 .open(ConfirmComponent, {
@@ -507,7 +511,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                     }
                 });
         } else {
-            this.removeWeightVariant(weightForm);
+            this.removeWeightVariant(weightForm, index);
         }
     }
 
@@ -888,6 +892,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 if (res && res.success) {
                     this.productID = res.result.id;
                     this.toasterService.success('Product created successfully');
+                    this.goTolist();
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
@@ -898,6 +903,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         this.inventorySrv.updateProduct(this.productID, postData).subscribe((res) => {
             if (res && res.success) {
                 this.toasterService.success('Product updated successfully');
+                this.goTolist();
             } else {
                 this.toasterService.error('Error while update a Product');
             }
@@ -911,5 +917,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     loadOriginalData(fg: FormGroup): void {
         fg.patchValue(fg.getRawValue().originalData || {});
+    }
+
+    goTolist() {
+        this.router.navigate([`/e-commerce/product-list/${this.type}`]);
     }
 }

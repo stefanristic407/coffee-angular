@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
-import { OrderStatus, OrganizationType } from '@enums';
+import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, PurchaseService, ResizeService } from '@services';
 import * as moment from 'moment';
@@ -108,14 +108,17 @@ export class SelectOrderTableComponent extends ResizeableComponent implements On
 
     getTableData() {
         this.tableValue = [];
-        const postData: any = {};
-        postData.origin = this.originFilter;
-        postData.per_page = this.displayFilter || 1000;
-        postData.start_date = '';
-        postData.end_date = '';
-        postData.status = OrderStatus.Received;
-        postData.sort_by = 'created_at';
-        postData.sort_order = 'desc';
+        const postData: any = {
+            origin: this.originFilter,
+            per_page: this.displayFilter || 1000,
+            start_date: '',
+            end_date: '',
+            order_type: OrderType.Booked,
+            status: OrderStatus.Received,
+            sort_by: 'created_at',
+            sort_order: 'desc',
+        };
+
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
             postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
