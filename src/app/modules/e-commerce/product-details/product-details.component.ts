@@ -325,9 +325,12 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         }, 0);
     }
 
-    removeWeightVariant(weightForm: FormGroup) {
+    removeWeightVariant(weightForm: FormGroup, index: number = null) {
         const weightFormArr = weightForm.parent as FormArray;
-        const index = weightFormArr.controls.findIndex((item) => item.value.id === weightForm.value.id);
+        console.log('index:', index);
+        if (index === null) {
+            index = weightFormArr.controls.findIndex((item) => item.value.id === weightForm.value.id);
+        }
         setTimeout(() => {
             weightFormArr.removeAt(index);
             if (index === this.currentVariantIdx) {
@@ -481,7 +484,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
-    deleteWeightVariant(weightForm: FormGroup) {
+    deleteWeightVariant(weightForm: FormGroup, index: number) {
         if (weightForm.value.id) {
             this.dialogService
                 .open(ConfirmComponent, {
@@ -508,7 +511,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                     }
                 });
         } else {
-            this.removeWeightVariant(weightForm);
+            this.removeWeightVariant(weightForm, index);
         }
     }
 

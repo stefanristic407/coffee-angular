@@ -131,7 +131,7 @@
                         <i
                             *ngIf="productForm.get('weightVariants').value.length > 1"
                             class="pi pi-trash text-clr55c ml-2"
-                            (click)="deleteWeightVariant(weightForm)"
+                            (click)="deleteWeightVariant(weightForm, i)"
                         ></i>
                     </span>
                 </ng-template>
