@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
@@ -18,7 +18,6 @@ import {
 } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { DropdownItem } from 'primeng/dropdown';
 import { DialogService } from 'primeng/dynamicdialog';
 import { takeUntil } from 'rxjs/operators';
 
@@ -26,6 +25,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
     styleUrls: ['./product-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailsComponent extends ResizeableComponent implements OnInit {
     readonly ProductType = ProductType;
@@ -97,6 +97,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     constructor(
         private authService: AuthService,
+        private cdr: ChangeDetectorRef,
         private dialogService: DialogService,
         private fb: FormBuilder,
         private fileService: FileService,
@@ -298,6 +299,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                     this.checkGrindForm();
                 }
                 this.isLoading = false;
+                this.cdr.detectChanges();
             },
             (err) => {
                 this.toasterService.error('Error while getting product details');
@@ -470,6 +472,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 weightForm.patchValue({ id: res.result.id });
             }
             this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -480,6 +483,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 this.toasterService.success('Weight variant updated successfully');
             }
             this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -654,9 +658,8 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         const index = grindFormArr.controls.findIndex(
             (item) => item.value.grind_variant_id === grindForm.value.grind_variant_id,
         );
-        setTimeout(() => {
-            grindFormArr.removeAt(index);
-        }, 0);
+        grindFormArr.removeAt(index);
+        this.cdr.detectChanges();
     }
 
     onBatchChange(grindForm: FormGroup, haveToSave = false) {
@@ -678,6 +681,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                     if (haveToSave) {
                         this.saveOriginalData(grindForm);
                     }
+                    this.cdr.detectChanges();
                 }
             });
         }
@@ -752,6 +756,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 this.saveOriginalData(grindForm);
             }
             this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -764,6 +769,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 this.saveOriginalData(grindForm);
             }
             this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -910,7 +916,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     // Common
     saveOriginalData(fg: FormGroup): void {
-        fg.get('originalData').setValue(fg.getRawValue());
+        const originalData = fg.getRawValue();
+        delete originalData.originalData; // To prevent updating originalData field
+        fg.get('originalData').setValue(originalData);
     }
 
     loadOriginalData(fg: FormGroup): void {
