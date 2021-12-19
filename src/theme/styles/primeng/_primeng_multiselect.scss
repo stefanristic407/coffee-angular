@@ -47,6 +47,9 @@
     border: none;
     box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
 }
+.sewn-form-field .p-multiselect-panel {
+    max-width: 100%;
+}
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
     background: $primary-bg-color;
     color: $muted-text-color;
@@ -55,6 +58,7 @@
     padding: 0.75rem;
     color: $muted-text-color;
     font-weight: 600;
+    text-overflow: ellipsis;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus {
     box-shadow: none;
@@ -98,4 +102,8 @@
 }
 .p-multiselect-panel .p-multiselect-footer {
     border-top: 1px solid $primary-border-color;
+}
+
+.p-multiselect .p-multiselect-filter {
+    padding: 0.625rem !important;
 }

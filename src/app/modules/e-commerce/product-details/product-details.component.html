@@ -137,6 +137,7 @@
                 </ng-template>
 
                 <div
+                    *ngIf="!editWeightMode"
                     class="btn-trans-icon plus-icon add-weight-btn w-mob-100 mb-4 mb-md-0"
                     (click)="addWeightVariant()"
                 >
@@ -145,7 +146,7 @@
                 <div [formGroup]="weightForm" class="mt-4 mt-md-45">
                     <div class="row gutter-16 gutter-lg-24">
                         <div class="col-md-4 col-lg-3 sewn-form-field">
-                            <label>{{ 'product_weight' | translate }}<span class="star">*</span></label>
+                            <label>{{ 'product_weight' | translate }}/bag<span class="star">*</span></label>
                             <div class="input-and-select gray">
                                 <p-inputNumber formControlName="weight"></p-inputNumber>
                                 <p-dropdown
@@ -222,7 +223,7 @@
                                 <div class="equal-operators">=</div>
                             </div>
                             <div class="sewn-form-field w-100 boxCrateWidth ml-3 ml-md-0">
-                                <label>{{ 'weight' | translate }}</label>
+                                <label>{{ 'weight' | translate }}/bag</label>
                                 <input
                                     value="{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}"
                                     pInputText
@@ -250,12 +251,29 @@
 
                     <div class="mt-2">
                         <button
+                            *ngIf="!weightForm.value.editable"
                             class="btn-raised w-mob-100"
-                            (click)="onSaveWeightVariant(weightForm)"
+                            (click)="editWeight(weightForm)"
                             [disabled]="isSubmitted"
                         >
-                            {{ 'save_weight_variant' | translate }}
+                            {{ 'edit_weight_variant' | translate }}
                         </button>
+                        <div *ngIf="weightForm.value.editable" class="row gutter-16 v-gutter-16">
+                            <div class="col-12 col-md-auto order-1 order-md-2">
+                                <button
+                                    class="btn-raised w-100"
+                                    (click)="onSaveWeightVariant(weightForm)"
+                                    [disabled]="isSubmitted"
+                                >
+                                    {{ 'save_weight_variant' | translate }}
+                                </button>
+                            </div>
+                            <div class="col-12 col-md-auto order-2 order-md-1">
+                                <button class="btn-stroked w-100" (click)="onCancelWeight(weightForm)">
+                                    {{ 'cancel' | translate }}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </p-tabPanel>
@@ -361,7 +379,7 @@
                         </ng-container>
                     </div>
 
-                    <div class="mt-4 mt-md-45">
+                    <div *ngIf="!editGrindMode" class="mt-4 mt-md-45">
                         <span class="brown-cta" (click)="addGrindVariant()">
                             {{ 'add_grind_variant' | translate }}
                         </span>
@@ -478,8 +496,12 @@
             <div *ngIf="!isExternal" class="col-md-6 col-lg-3 sewn-form-field">
                 <label>{{ 'remaining_quantity_in_the_batch' | translate }}</label>
                 <div class="p-inputgroup custom-addon">
-                    <input [value]="grindFormGroup.value.remaining_quantity || '-'" [disabled]="true" pInputText />
-                    <span class="p-inputgroup-addon gray">{{ grindFormGroup.value.quantity_unit }}</span>
+                    <input
+                        [value]="grindFormGroup.getRawValue().remaining_quantity || '0'"
+                        [disabled]="true"
+                        pInputText
+                    />
+                    <span class="p-inputgroup-addon gray">{{ grindFormGroup.getRawValue().quantity_unit }}</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 sewn-form-field">

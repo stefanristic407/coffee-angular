@@ -1,0 +1,13 @@
+@import 'variables';
+
+:host ::ng-deep {
+    .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+        display: block;
+        .p-checkbox {
+            display: none;
+        }
+    }
+    .p-multiselect-panel .p-multiselect-header .p-checkbox {
+        display: none;
+    }
+}

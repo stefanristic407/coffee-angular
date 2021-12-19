@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
@@ -18,7 +18,6 @@ import {
 } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
-import { DropdownItem } from 'primeng/dropdown';
 import { DialogService } from 'primeng/dynamicdialog';
 import { takeUntil } from 'rxjs/operators';
 
@@ -26,6 +25,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'app-product-details',
     templateUrl: './product-details.component.html',
     styleUrls: ['./product-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailsComponent extends ResizeableComponent implements OnInit {
     readonly ProductType = ProductType;
@@ -97,6 +97,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     constructor(
         private authService: AuthService,
+        private cdr: ChangeDetectorRef,
         private dialogService: DialogService,
         private fb: FormBuilder,
         private fileService: FileService,
@@ -289,6 +290,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                             grindFormList.push(grindForm);
                         });
 
+                        this.saveOriginalData(weightForm);
                         weightFormArr.push(weightForm);
                     });
 
@@ -298,6 +300,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                     this.checkGrindForm();
                 }
                 this.isLoading = false;
+                this.cdr.detectChanges();
             },
             (err) => {
                 this.toasterService.error('Error while getting product details');
@@ -313,34 +316,15 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 // Disable edit mode for all grind forms
                 this.onCancelGrind(grindForm);
             });
+            // Disable edit mode for all weight forms
+            this.onCancelWeight(weightForm);
         });
     }
 
-    addWeightVariant() {
-        const weightForm = this.creatWeightForm(this.isPublished);
-        const weightFormArr = this.productForm.get('weightVariants') as FormArray;
-        weightFormArr.push(weightForm);
-        setTimeout(() => {
-            this.currentVariantIdx = weightFormArr.length - 1;
-        }, 0);
-    }
-
-    removeWeightVariant(weightForm: FormGroup, index: number = null) {
-        const weightFormArr = weightForm.parent as FormArray;
-        console.log('index:', index);
-        if (index === null) {
-            index = weightFormArr.controls.findIndex((item) => item.value.id === weightForm.value.id);
-        }
-        setTimeout(() => {
-            weightFormArr.removeAt(index);
-            if (index === this.currentVariantIdx) {
-                this.currentVariantIdx = index === 0 ? weightFormArr.length - 1 : 0;
-            }
-        }, 0);
-    }
-
-    creatWeightForm(isPublic: boolean = false): FormGroup {
+    creatWeightForm(isPublic = false, editable = false): FormGroup {
         const weightForm: FormGroup = this.fb.group({
+            editable: [editable], // Form is editable or not
+            originalData: { value: null, disabled: true }, // To save original data
             id: null,
             weight: [0],
             weight_unit: 'lb',
@@ -388,6 +372,58 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
+    get editWeightMode(): boolean {
+        const weightFormArr = this.productForm.get('weightVariants') as FormArray;
+        return !!weightFormArr.controls.find((fg) => fg.value.editable);
+    }
+
+    addWeightVariant() {
+        const weightFormArr = this.productForm.get('weightVariants') as FormArray;
+        weightFormArr.controls.forEach((fg: FormGroup) => {
+            this.onCancelWeight(fg);
+        });
+        weightFormArr.push(this.creatWeightForm(this.isPublished, true));
+        setTimeout(() => {
+            this.currentVariantIdx = weightFormArr.length - 1;
+            this.cdr.detectChanges();
+        }, 0);
+    }
+
+    removeWeightVariant(weightForm: FormGroup, index: number = null) {
+        const weightFormArr = weightForm.parent as FormArray;
+        if (index === null) {
+            index = weightFormArr.controls.findIndex((item) => item.value.id === weightForm.value.id);
+        }
+        setTimeout(() => {
+            weightFormArr.removeAt(index);
+            if (index === this.currentVariantIdx) {
+                this.currentVariantIdx = index === 0 ? weightFormArr.length - 1 : 0;
+            }
+            this.cdr.detectChanges();
+        }, 0);
+    }
+
+    editWeight(weightForm: FormGroup) {
+        const weightFormArr = weightForm.parent as FormArray;
+        weightFormArr.controls.forEach((fg: FormGroup) => {
+            this.onCancelWeight(fg);
+        });
+        weightForm.get('editable').setValue(true);
+        this.cdr.detectChanges();
+    }
+
+    onCancelWeight(weightForm: FormGroup) {
+        if (weightForm.getRawValue().editable) {
+            if (weightForm.value.id) {
+                this.loadOriginalData(weightForm);
+                weightForm.get('editable').setValue(false);
+            } else {
+                // Have to remove weight form for the new weight item which is not saved
+                this.removeWeightVariant(weightForm);
+            }
+        }
+    }
+
     onSaveWeightVariant(weightForm: FormGroup) {
         if (!weightForm.valid) {
             weightForm.markAllAsTouched();
@@ -395,6 +431,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         }
 
         // First have to upload all product images
+        this.isSubmitted = true;
         new Promise((resolve, reject) => this.uploadImages(weightForm, resolve, reject))
             .then(() => {
                 const postData = {
@@ -411,6 +448,8 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             })
             .catch((err) => {
                 this.toasterService.error('Error while uploading images');
+                this.isSubmitted = true;
+                this.cdr.detectChanges();
             });
     }
 
@@ -468,9 +507,11 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         this.inventorySrv.createWeightVariant(this.productID, postData).subscribe((res) => {
             if (res.success) {
                 this.toasterService.success('Weight variant created successfully');
-                weightForm.patchValue({ id: res.result.id });
+                weightForm.patchValue({ id: res.result.id, editable: false });
+                this.saveOriginalData(weightForm);
             }
             this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -479,8 +520,11 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         this.inventorySrv.updateWeightVariant(this.productID, postData.id, postData).subscribe((res) => {
             if (res.success) {
                 this.toasterService.success('Weight variant updated successfully');
+                weightForm.get('editable').setValue(false);
+                this.saveOriginalData(weightForm);
             }
             this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -621,7 +665,6 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
                 internalItems.push(grindForm.get('rc_batch_id'));
                 internalItems.push(grindForm.get('batch_ref_no'));
-                internalItems.push(grindForm.get('remaining_quantity'));
             });
         });
         externalItems.forEach((item) => {
@@ -640,6 +683,13 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
+    get editGrindMode(): boolean {
+        const grindFormArr = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
+            'grind_variants',
+        ) as FormArray;
+        return !!grindFormArr.controls.find((fg) => fg.value.editable);
+    }
+
     addGrindVariant(): void {
         const grindFormArr = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
             'grind_variants',
@@ -649,6 +699,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
         grindFormArr.push(this.creatGrindForm(this.isPublished, true));
         this.checkGrindForm();
+        this.cdr.detectChanges();
     }
 
     removeGrindVariant(grindForm: FormGroup) {
@@ -656,9 +707,8 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         const index = grindFormArr.controls.findIndex(
             (item) => item.value.grind_variant_id === grindForm.value.grind_variant_id,
         );
-        setTimeout(() => {
-            grindFormArr.removeAt(index);
-        }, 0);
+        grindFormArr.removeAt(index);
+        this.cdr.detectChanges();
     }
 
     onBatchChange(grindForm: FormGroup, haveToSave = false) {
@@ -680,6 +730,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                     if (haveToSave) {
                         this.saveOriginalData(grindForm);
                     }
+                    this.cdr.detectChanges();
                 }
             });
         }
@@ -699,6 +750,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             this.onCancelGrind(fg);
         });
         grindForm.get('editable').setValue(true);
+        this.cdr.detectChanges();
     }
 
     onCancelGrind(grindForm: FormGroup) {
@@ -751,9 +803,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             if (res.success) {
                 this.toasterService.success('Grind variant created successfully');
                 grindForm.patchValue({ grind_variant_id: res.result.id, editable: false });
-                this.saveOriginalData(grindForm);
+                this.onBatchChange(grindForm, true);
             }
             this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -763,9 +816,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             if (res.success) {
                 this.toasterService.success('Grind variant updated successfully');
                 grindForm.get('editable').setValue(false);
-                this.saveOriginalData(grindForm);
+                this.onBatchChange(grindForm, true);
             }
             this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -912,7 +966,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     // Common
     saveOriginalData(fg: FormGroup): void {
-        fg.get('originalData').setValue(fg.getRawValue());
+        const originalData = fg.getRawValue();
+        delete originalData.originalData; // To prevent updating originalData field
+        fg.get('originalData').setValue(originalData);
     }
 
     loadOriginalData(fg: FormGroup): void {
