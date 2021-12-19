@@ -497,7 +497,7 @@
                 <label>{{ 'remaining_quantity_in_the_batch' | translate }}</label>
                 <div class="p-inputgroup custom-addon">
                     <input
-                        [value]="grindFormGroup.getRawValue().remaining_quantity || '-'"
+                        [value]="grindFormGroup.getRawValue().remaining_quantity || '0'"
                         [disabled]="true"
                         pInputText
                     />

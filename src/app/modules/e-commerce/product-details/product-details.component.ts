@@ -803,7 +803,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             if (res.success) {
                 this.toasterService.success('Grind variant created successfully');
                 grindForm.patchValue({ grind_variant_id: res.result.id, editable: false });
-                this.saveOriginalData(grindForm);
+                this.onBatchChange(grindForm, true);
             }
             this.isSubmitted = false;
             this.cdr.detectChanges();
@@ -816,7 +816,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             if (res.success) {
                 this.toasterService.success('Grind variant updated successfully');
                 grindForm.get('editable').setValue(false);
-                this.saveOriginalData(grindForm);
+                this.onBatchChange(grindForm, true);
             }
             this.isSubmitted = false;
             this.cdr.detectChanges();
