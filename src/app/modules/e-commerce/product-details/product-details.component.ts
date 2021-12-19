@@ -968,6 +968,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     saveOriginalData(fg: FormGroup): void {
         const originalData = fg.getRawValue();
         delete originalData.originalData; // To prevent updating originalData field
+        delete originalData.grind_variants;
         fg.get('originalData').setValue(originalData);
     }
 
