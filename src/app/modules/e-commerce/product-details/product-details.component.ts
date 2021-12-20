@@ -945,8 +945,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             .subscribe((res: ApiResponse<any>) => {
                 if (res && res.success) {
                     this.productID = res.result.id;
-                    this.toasterService.success('Product created successfully');
-                    this.goTolist();
+                    this.toasterService.success('Product created successfully. Please go on to complete the variants');
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
