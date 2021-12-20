@@ -147,7 +147,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
             if (data.success) {
                 this.roastProfileArray = (data.result || []).map((item: any) => {
                     return {
-                        label: item.name.length > 65 ? item.name.slice(0, 65) + '...' : item.name,
+                        label: item.name,
                         value: item.id,
                     };
                 });
@@ -346,7 +346,7 @@ export class NewRoastedBatchComponent extends DestroyableComponent implements On
         this.dialogSrv.open(RoastingProfileDialogComponent, {}).onClose.subscribe((data: any) => {
             if (data?.success) {
                 this.roastProfileArray.push({
-                    label: data.newItem.name.length > 65 ? data.newItem.name.slice(0, 65) + '...' : data.newItem.name,
+                    label: data.newItem.name,
                     value: data.newItem.id,
                 });
                 this.batchForm.get('roasting_profile_id').setValue(data.newItem.id);
