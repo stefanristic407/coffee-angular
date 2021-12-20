@@ -144,12 +144,15 @@
                             <div class="w-100">
                                 <div *ngFor="let item of mobileFields" [ngSwitch]="item.field">
                                     <span class="pr-2">{{ item.header | translate }}:</span>
-                                    <span class="fnt-bold" *ngSwitchCase="'status'">
-                                        {{ rowData[item.field] | strReplace: '-':' ' | titlecase }}
-                                    </span>
+                                    <span class="fnt-bold" *ngSwitchCase="'status'">{{
+                                        rowData[item.field] | strReplace: '-':' ' | titlecase
+                                    }}</span>
                                     <span class="fnt-bold" *ngSwitchCase="'origin'">{{
                                         rowData[item.field] | country
                                     }}</span>
+                                    <span *ngSwitchCase="'roast_level_name'">
+                                        {{ rowData[item.field] | sentencecase | strReplace: ' roast':'' }}
+                                    </span>
                                     <span class="fnt-bold" *ngSwitchCase="'price'"
                                         >{{ rowData[item.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span
                                     >
