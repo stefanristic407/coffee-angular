@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { AuthService, UserService } from '@services';
 import { ApiResponse } from '@models';
+import { AuthService, UserService } from '@services';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-confirm',
