@@ -398,6 +398,11 @@
                         </ng-container>
                     </div>
 
+                    <app-empty
+                        *ngIf="!weightForm.controls['grind_variants']['controls']?.length"
+                        [title]="'no_data_available' | translate"
+                    ></app-empty>
+
                     <div *ngIf="!editGrindMode" class="mt-4 mt-md-45">
                         <span class="brown-cta" (click)="addGrindVariant()">
                             {{ 'add_grind_variant' | translate }}
@@ -408,7 +413,7 @@
         </p-tabView>
     </section>
 
-    <section class="d-flex flex-column flex-md-row justify-content-md-end mt-4 mt-md-5">
+    <section class="d-flex flex-column flex-md-row justify-content-md-between mt-4 mt-md-5">
         <button
             type="button"
             class="btn btn-raised order-1 order-md-2 w-mob-100"
@@ -417,6 +422,23 @@
         >
             {{ 'publish' | translate }}
         </button>
+        <div class="d-flex flex-column flex-md-row order-2 order-md-1">
+            <button
+                type="button"
+                class="btn btn-stroked order-2 order-md-1 mt-3 mt-md-0 w-mob-100"
+                routerLink="/e-commerce/product-list/{{ this.type }}"
+            >
+                {{ 'cancel' | translate }}
+            </button>
+            <button
+                *ngIf="isPublished"
+                type="submit"
+                class="btn btn-raised ml-md-3 order-1 order-md-2 mt-md-0 w-mob-100"
+                (click)="onSaveProduct()"
+            >
+                {{ 'save' | translate }}
+            </button>
+        </div>
     </section>
 </div>
 
