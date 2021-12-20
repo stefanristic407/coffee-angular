@@ -11,7 +11,6 @@ import { ApiResponse } from '@models';
 })
 export class ConfirmComponent implements OnInit {
     logoutAll: boolean;
-    welcomeImage: any;
     constructor(
         private authService: AuthService,
         private ref: DynamicDialogRef,
@@ -22,26 +21,7 @@ export class ConfirmComponent implements OnInit {
         this.config.styleClass = `confirm-dialog ${this.config.data.type}`;
     }
 
-    ngOnInit(): void {
-        this.welcomeImage = [
-            {
-                name: 'elevated_sourcing',
-                image_url: '/assets/images/elevated-sourcing.svg',
-            },
-            {
-                name: 'global_estates',
-                image_url: '/assets/images/global-estates.svg',
-            },
-            {
-                name: 'direct_communication',
-                image_url: '/assets/images/direct-communication.svg',
-            },
-            {
-                name: 'digital_transformation',
-                image_url: '/assets/images/digital-transformation.svg',
-            },
-        ];
-    }
+    ngOnInit(): void {}
 
     close(value = null) {
         if (this.logoutAll && value === 'yes') {

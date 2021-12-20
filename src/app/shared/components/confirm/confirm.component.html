@@ -62,39 +62,4 @@
             </button>
         </div>
     </div>
-    <div *ngSwitchCase="'welcome'">
-        <div class="welcome-board">
-            <div class="d-flex justify-content-center">
-                <img src="/assets/images/micro-roaster.svg" alt="micro-roaster" />
-            </div>
-            <div class="text-center px-45 py-4">
-                <div class="content-wrap mx-auto">
-                    <div class="fnt-24 fnt-md-34 fnt-bold text-clr334">
-                        {{ config.data.title || ('welcome_to_era_of_we' | translate) }}
-                    </div>
-                    <div class="fnt-14 fnt-md-16 lh-15 text-clr334 mt-2 px-4">
-                        {{ config.data.desp || ('Its_great_to_have' | translate) }}
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <div class="wel-inner-box text-center py-3" *ngFor="let data of welcomeImage">
-                    <img class="mb-2" src="{{ data.image_url }}" alt="" />
-                    <div>{{ data.name | translate }}</div>
-                </div>
-            </div>
-            <div class="text-center py-4">
-                <div class="fnt-14 lh-15 text-clr334">{{ 'we_have_let' | translate }}.</div>
-                <div class="fnt-14 lh-15 text-clr334">{{ 'please_get_in_touch' | translate }}</div>
-            </div>
-            <div class="text-center">
-                <!-- <button class="btn-stroked mr-3" (click)="close('no')">
-                    {{ config.data.noButton || ('no_donot_delete' | translate) }}
-                </button> -->
-                <button class="btn-raised" (click)="close('yes')">
-                    {{ config.data.yesButton || ('contato_via_email' | translate) }}
-                </button>
-            </div>
-        </div>
-    </div>
 </ng-container>
