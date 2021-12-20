@@ -16,8 +16,8 @@ import { DialogService } from 'primeng/dynamicdialog';
     styleUrls: ['./default-settings.component.scss'],
 })
 export class DefaultSettingsComponent implements OnInit {
-    @ViewChild('imageUpload') imageUpload: ElementRef;
-    @ViewChild('videoUpload') videoUpload: ElementRef;
+    @ViewChild('imageUpload') private imageUpload: ElementRef<HTMLElement>;
+    @ViewChild('videoUpload') private videoUpload: ElementRef<HTMLElement>;
     isCoffeeDetailsPage = this.activateRoute.snapshot.routeConfig.path !== 'default-settings';
     date1: Date;
     appLanguage?: any;
@@ -206,13 +206,18 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     updateImage() {
+        const event = new MouseEvent('click', { bubbles: true });
         this.isImagePreviewPanel = false;
-        this.imageUpload.nativeElement.click();
+        setTimeout(() => {
+            this.imageUpload.nativeElement.dispatchEvent(event);
+        }, 300);
     }
 
     updateMarketing() {
         this.materialOnResponse = false;
-        this.videoUpload.nativeElement.click();
+        setTimeout(() => {
+            this.videoUpload.nativeElement.dispatchEvent(event);
+        }, 300);
     }
 
     deleteImage() {
@@ -222,7 +227,11 @@ export class DefaultSettingsComponent implements OnInit {
     }
 
     updateVideo() {
+        const event = new MouseEvent('click', { bubbles: true });
         this.isVideoPreviewPanel = false;
+        setTimeout(() => {
+            this.videoUpload.nativeElement.dispatchEvent(event);
+        }, 300);
     }
 
     deleteVideo() {

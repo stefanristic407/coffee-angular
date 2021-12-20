@@ -6,7 +6,7 @@ import { DestroyableComponent } from '@base-components';
 import { APP_LANGUAGES, BREWING_METHOD_ITEMS } from '@constants';
 import { CroppedImage } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, CoffeeLabService, CommonService, GlobalsService, GoogletranslateService } from '@services';
+import { AuthService, CoffeeLabService, CommonService, GoogletranslateService } from '@services';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
 import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
@@ -39,7 +39,6 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     ingredients: FormArray;
     steps: FormArray;
     languageArray = [];
-    organizationId: number;
     imageIdListStep = [];
     recipeId: any;
     draftRecipeId: any;
@@ -87,7 +86,6 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         private commonService: CommonService,
         private dialogService: DialogService,
         private fb: FormBuilder,
-        private globalsService: GlobalsService,
         private gtrans: GoogletranslateService,
         private location: Location,
         private route: ActivatedRoute,
@@ -96,12 +94,11 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         private translator: TranslateService,
     ) {
         super();
-        this.organizationId = this.authService.getOrgId();
-        this.createRecipeForm();
     }
 
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
+            this.createRecipeForm();
             const type = params.type;
             if (type === 'recipe') {
                 this.recipeId = params.id;
@@ -133,21 +130,8 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                 if (this.draftRecipeId) {
                     this.getCompleteData(this.draftRecipeId);
                 } else if (this.originRecipeId) {
-                    this.setAppLanguages();
                     this.getCompleteData(this.originRecipeId);
                 }
-            }
-        });
-    }
-
-    setAppLanguages(): void {
-        this.coffeeLabService.getForumDetails('recipe', this.originRecipeId).subscribe((res: any) => {
-            if (res.success) {
-                this.applicationLanguages = APP_LANGUAGES.filter(
-                    (item) =>
-                        item.value !== res.result.lang_code &&
-                        !res.result.translations?.find((lng) => lng.language === item.value),
-                );
             }
         });
     }
@@ -361,14 +345,14 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         }
         if (value?.steps && value?.steps.length > 0) {
             let j = 0;
-            for (const ing of value?.steps) {
-                const ingredient = {
-                    image_id: ing?.image_id,
-                    coverImageUrl: ing?.image_url,
-                    description: ing.description,
+            for (const step of value?.steps) {
+                const steps = {
+                    image_id: step?.image_id,
+                    coverImageUrl: step?.image_url,
+                    description: step.description,
                 };
                 const controlArray = this.recipeForm.controls?.steps as FormArray;
-                controlArray.controls[j]?.patchValue(ingredient);
+                controlArray.controls[j]?.patchValue(steps);
                 if (j < value.steps.length - 1) {
                     controlArray.push(this.createCoffeeStep());
                     this.steps = controlArray;
@@ -504,7 +488,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         this.dialogService
             .open(ConfirmComponent, {
                 data: {
-                    title: this.globalsService.languageJson?.are_you_sure_text + ' you want to ' + confirmText,
+                    title: this.translator.instant('are_you_sure_text') + ' you want to ' + confirmText,
                 },
             })
             .onClose.subscribe((action: any) => {
@@ -679,7 +663,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
             .open(ConfirmComponent, {
                 data: {
                     type: 'delete',
-                    desp: this.globalsService.languageJson?.delete_from_coffee_lab,
+                    desp: this.translator.instant('delete_from_coffee_lab'),
                 },
             })
             .onClose.subscribe((action: any) => {

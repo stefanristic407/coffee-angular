@@ -162,6 +162,7 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 import { OtpInputComponent } from './components/form-controls/otp-input/otp-input.component';
+import { SingleselectComponent } from './components/form-controls/singleselect/singleselect.component';
 
 const COMPONENTS = [
     ActionMenuComponent,
@@ -193,6 +194,7 @@ const COMPONENTS = [
     SelectOrdersComponent,
     SewnDirectMessageComponent,
     SewnOrderChatComponent,
+    SingleselectComponent,
     SoilChartComponent,
     TimeRangeComponent,
     UploaderComponent,

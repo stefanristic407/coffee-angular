@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BREWING_METHOD_ITEMS } from '@constants';
 import { TranslateService } from '@ngx-translate/core';
 import { GeneralService, InventoryService } from '@services';
-import { toSentenceCase } from '@utils';
+import { maxWordCountValidator, toSentenceCase } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DropdownItem } from 'primeng/dropdown';
 
@@ -53,7 +53,7 @@ export class CreateRoastingProfileComponent implements OnInit {
             roaster_notes: ['', Validators.compose([Validators.required])],
             recommended_recipe: ['', Validators.compose([Validators.required])],
             brewing_method: [null],
-            recommendation_text: ['', Validators.compose([Validators.required])],
+            recommendation_text: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
         });
     }
 

@@ -84,26 +84,21 @@
                         </div>
                         <div class="col-md-4 sewn-form-field">
                             <label>{{ 'roasting_profile' | translate }}<span class="star">*</span></label>
-                            <p-dropdown
+                            <app-singleselect
                                 [options]="roastProfileArray"
                                 formControlName="roasting_profile_id"
                                 filter="true"
                                 [placeholder]="'select_roasting_profile' | translate"
-                                [autoDisplayFirst]="false"
-                                styleClass="with-footer"
                             >
-                                <ng-template let-weight pTemplate="item">
-                                    <span class="dropdown-label">{{ weight.label }}</span>
-                                    <div
-                                        class="footer-wrap"
-                                        (click)="$event.preventDefault(); $event.stopPropagation()"
+                                <ng-template #footerTemplate>
+                                    <button
+                                        class="btn-stroked w-100"
+                                        (click)="createRoastingProfile(); $event.preventDefault()"
                                     >
-                                        <div class="btn-raised w-100" (click)="createRoastingProfile()">
-                                            {{ 'add_new_profile' | translate }}
-                                        </div>
-                                    </div>
+                                        {{ 'add_new_profile' | translate }}
+                                    </button>
                                 </ng-template>
-                            </p-dropdown>
+                            </app-singleselect>
                             <small *ngIf="batchForm.controls['roasting_profile_id'].errors?.required" class="p-error">
                                 {{ 'required' | translate }}
                             </small>

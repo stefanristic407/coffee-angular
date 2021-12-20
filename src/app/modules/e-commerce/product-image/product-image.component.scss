@@ -37,3 +37,16 @@
 ::ng-deep .ng-invalid.ng-touched > .addImageContainer {
     border-color: $error-border-color;
 }
+
+:host ::ng-deep {
+    .action-menu-icon {
+        padding: 0.25rem !important;
+        color: white !important;
+        &:hover {
+            background-color: transparent !important;
+        }
+        &:active {
+            background-color: transparent !important;
+        }
+    }
+}

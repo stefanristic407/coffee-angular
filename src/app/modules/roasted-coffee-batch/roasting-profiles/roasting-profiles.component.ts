@@ -16,10 +16,13 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class RoastingProfilesComponent extends ResizeableComponent implements OnInit {
     breadItems = [
-        { label: 'Home', routerLink: '/' },
-        { label: 'Inventory' },
-        { label: 'Roasted coffee', routerLink: '/roasted-coffee-batch/roasted-coffee-batches' },
-        { label: 'Roasting profiles' },
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('inventory') },
+        {
+            label: this.translator.instant('menu_rc_inventory'),
+            routerLink: '/roasted-coffee-batch/roasted-coffee-batches',
+        },
+        { label: this.translator.instant('roasting_profiles') },
     ];
     roastLevelArray: any[];
     roastLevelFilter;
@@ -51,7 +54,7 @@ export class RoastingProfilesComponent extends ResizeableComponent implements On
                 width: 25,
             },
             {
-                field: 'roast_level_id',
+                field: 'roast_level_name',
                 header: 'roast_level',
                 width: 20,
             },
@@ -90,7 +93,7 @@ export class RoastingProfilesComponent extends ResizeableComponent implements On
             page: 1,
             per_page: this.rows,
             search_query: this.termSearch,
-            roast_level: this.roastLevelFilter,
+            roast_level_id: this.roastLevelFilter,
         };
         if (event) {
             if (event.sortField) {
@@ -118,10 +121,6 @@ export class RoastingProfilesComponent extends ResizeableComponent implements On
                 this.toastrService.error('Error while getting the roasting profile list!');
             },
         );
-    }
-
-    getRoastLevel(data: number): string {
-        return this.roastLevelArray?.find((ix) => ix.id === data)?.name || '--';
     }
 
     redirectToEdit(item: RoastingProfile) {
