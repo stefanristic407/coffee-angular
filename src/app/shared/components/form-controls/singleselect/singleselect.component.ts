@@ -42,7 +42,11 @@ export class SingleselectComponent implements OnInit, ControlValueAccessor {
     }
 
     writeValue(value: any[]): void {
-        this.selectedItem = value;
+        if (value) {
+            this.selectedItem = [value];
+        } else {
+            this.selectedItem = [];
+        }
     }
 
     onSelect(event) {

@@ -40,7 +40,7 @@ export class CreateRoastingProfileComponent implements OnInit {
         }
 
         this.roastingForm = this.fb.group({
-            name: ['', Validators.compose([Validators.required])],
+            name: ['', Validators.compose([Validators.required, Validators.maxLength(100)])],
             roast_level_id: ['', Validators.compose([Validators.required])],
             roast_duration: ['', Validators.compose([Validators.required])],
             temperature: ['', Validators.compose([Validators.required])],

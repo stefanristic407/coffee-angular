@@ -80,7 +80,7 @@
                 <span *ngSwitchCase="'created_at'">
                     {{ rowData[col.field] | date: 'dd MMM y' }}
                 </span>
-                <span *ngSwitchCase="'roasted_coffee_quantity'">
+                <span *ngSwitchCase="'remaining_quantity'">
                     {{ rowData[col.field] | convertKg: rowData['quantity_unit'] | number: '1.0-2' }}
                     {{ rowData['quantity_unit'] }}
                 </span>

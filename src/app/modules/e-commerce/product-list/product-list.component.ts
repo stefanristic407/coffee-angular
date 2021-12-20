@@ -46,7 +46,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
             header: 'Estate',
         },
         {
-            field: 'roast_level',
+            field: 'roast_level_name',
             header: 'Roast',
         },
         {

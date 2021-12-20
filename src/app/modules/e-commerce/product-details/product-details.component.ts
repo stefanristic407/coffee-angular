@@ -350,6 +350,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         weightForm.get('weight').setValidators([Validators.required, quantityMinValidator('weight_unit', 0.1)]);
         weightForm.get('featured_image_id').setValidators([fileRequired()]);
         weightForm.get('crate_capacity')?.setValidators([Validators.required, Validators.min(1)]);
+        weightForm.get('grind_variants').setValidators([Validators.required]);
         Object.keys(weightForm.controls).forEach((key) => {
             weightForm.get(key).updateValueAndValidity();
         });
@@ -363,6 +364,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         weightForm.get('weight').clearValidators();
         weightForm.get('featured_image_id').clearValidators();
         weightForm.get('crate_capacity')?.clearValidators();
+        weightForm.get('grind_variants').clearValidators();
         Object.keys(weightForm.controls).forEach((key) => {
             weightForm.get(key).updateValueAndValidity();
         });
@@ -425,6 +427,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     onSaveWeightVariant(weightForm: FormGroup) {
+        if (!this.productID) {
+            this.toasterService.error(this.translator.instant('please_save_product_details_first'));
+            return;
+        }
         if (!weightForm.valid) {
             weightForm.markAllAsTouched();
             this.toasterService.error(this.translator.instant('please_check_form_data'));
@@ -908,6 +914,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     publishProduct() {
         this.productForm.controls.is_public.setValue(true);
         this.setProductValidators();
+        if (!this.productForm.valid) {
+            this.productForm.controls.is_public.setValue(false);
+        }
         this.onSaveProduct();
     }
 
@@ -927,7 +936,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     onSaveProduct(): void {
         if (!this.productForm.valid) {
             this.productForm.markAllAsTouched();
-            this.toasterService.error(this.translator.instant('please_check_form_data'));
+            this.toasterService.error(this.translator.instant('please_check_ecom_product_data'));
             return;
         }
         const postData = JSON.parse(JSON.stringify(this.productForm.value));
@@ -945,8 +954,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             .subscribe((res: ApiResponse<any>) => {
                 if (res && res.success) {
                     this.productID = res.result.id;
-                    this.toasterService.success('Product created successfully');
-                    this.goTolist();
+                    this.toasterService.success('Product created successfully. Please go on to complete the variants');
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }

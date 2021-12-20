@@ -86,7 +86,7 @@ export class RoastedBatchTableComponent extends ResizeableComponent implements O
                 width: 10,
             },
             {
-                field: 'roasted_coffee_quantity',
+                field: 'remaining_quantity',
                 header: 'quantity',
                 sortable: true,
                 width: 8,
