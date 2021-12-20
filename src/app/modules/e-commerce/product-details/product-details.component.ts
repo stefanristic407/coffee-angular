@@ -427,6 +427,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     onSaveWeightVariant(weightForm: FormGroup) {
+        if (!this.productID) {
+            this.toasterService.error(this.translator.instant('please_save_product_details_first'));
+            return;
+        }
         if (!weightForm.valid) {
             weightForm.markAllAsTouched();
             this.toasterService.error(this.translator.instant('please_check_form_data'));
