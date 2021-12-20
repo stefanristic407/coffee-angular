@@ -24,6 +24,9 @@
                     <small *ngIf="roastingForm.controls['name'].errors?.required" class="p-error">
                         {{ 'required' | translate }}
                     </small>
+                    <small *ngIf="roastingForm.controls['name'].errors?.maxlength" class="p-error">
+                        {{ 'should_not_be_over_n_characters' | translate | strReplace: '{limit}':'100' }}
+                    </small>
                 </div>
 
                 <div class="col-12 fnt-16 fnt-bold mb-3">{{ 'roast_attributes' | translate }}</div>

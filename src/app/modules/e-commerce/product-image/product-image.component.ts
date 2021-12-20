@@ -1,7 +1,17 @@
-import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    forwardRef,
+    Input,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { checkFile } from '@utils';
 import { ToastrService } from 'ngx-toastr';
+import { TargetLocator } from 'selenium-webdriver';
 
 @Component({
     selector: 'app-product-image',
@@ -14,6 +24,7 @@ import { ToastrService } from 'ngx-toastr';
             multi: true,
         },
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductImageComponent implements OnInit, ControlValueAccessor {
     @ViewChild('fileInput', { static: false }) fileInput;
@@ -36,34 +47,28 @@ export class ProductImageComponent implements OnInit, ControlValueAccessor {
         this.onTouched = fn;
     }
 
-    constructor(private toastr: ToastrService, private translator: TranslateService) {}
+    constructor(private toastr: ToastrService, private translator: TranslateService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
 
     fileChangeEvent(e: any) {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            const fsize = file.size;
-            if (Math.round(fsize / 1024) >= 1024 * 10) {
-                this.toastr.error('File too big, please select a file smaller than 10mb');
-            } else {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (event) => {
-                    const img = new Image();
-                    img.src = window.URL.createObjectURL(file);
-                    img.onload = () => {
-                        if (img.naturalWidth >= 5000 || img.naturalHeight >= 5000) {
-                            this.toastr.error(`Image should be 5000 x 5000 size`);
-                        } else {
-                            this.file = { ...this.file, file, url: reader.result };
-                            this.onChange(this.file);
-                        }
-                        window.URL.revokeObjectURL(img.src);
+            checkFile(file, 10).subscribe((fileError) => {
+                if (fileError) {
+                    this.toastr.error(fileError.message);
+                } else {
+                    this.onChange(this.file);
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => {
+                        this.file = { ...this.file, file, url: reader.result };
+                        this.onChange(this.file);
+                        this.cdr.detectChanges();
                     };
-                };
-            }
-            this.fileInput.nativeElement.value = '';
+                }
+            });
+            e.target.value = '';
         }
     }
 
