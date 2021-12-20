@@ -98,7 +98,7 @@
                     <span class="list-que"> {{ 'process_description' | translate }}: </span>
                 </td>
                 <td>
-                    <span class="list-ans">{{ 'None' }}</span>
+                    <span class="list-ans">{{ shippingDetails?.shipping_instructions || '-' }}</span>
                 </td>
             </tr>
         </table>
