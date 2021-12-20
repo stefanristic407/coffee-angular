@@ -17,7 +17,7 @@ export class LotDetailsComponent extends DestroyableComponent implements OnInit,
     readonly OrderType = OrderType;
     readonly OrgType = OrganizationType;
     bulkSubscription: Subscription;
-    avilablity: any;
+    availability: any;
 
     @Input() lot: OrderDetails;
     @Input() orgType: OrganizationType;
@@ -42,7 +42,7 @@ export class LotDetailsComponent extends DestroyableComponent implements OnInit,
         this.bulkSubscription = this.orderManagementService.bulkDetails$
             .pipe(takeUntil(this.unsubscribeAll$))
             .subscribe((data) => {
-                this.avilablity = data;
+                this.availability = data;
                 this.changeDetectorRef.detectChanges();
             });
     }

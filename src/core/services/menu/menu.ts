@@ -93,7 +93,7 @@ export const menuItems = [
     new Menu(55, 'micro_roaster_invite', '/mr-invite', null, null, null, false, 5, null),
 
     new Menu(7, 'menu_brand_experience', null, null, null, null, true, 0, null),
-    new Menu(71, 'menu_brand_profile', '/brand-profile', null, null, null, false, 7, 'brand-profile-management'),
+    // new Menu(71, 'menu_brand_profile', '/brand-profile', null, null, null, false, 7, 'brand-profile-management'),
     new Menu(72, 'menu_end_user_experience', '/coffee-experience', null, null, null, false, 7, 'sourcing-management'),
     new Menu(73, 'menu_education_collaboration', '/file-share', null, null, null, false, 7, null),
     new Menu(74, 'menu_coffee_lab', '/coffee-lab', null, null, null, false, 7, null),
