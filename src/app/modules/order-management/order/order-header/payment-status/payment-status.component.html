@@ -4,20 +4,19 @@
             <div class="d-flex flex-1 fnt-12 fnt-md-14 fnt-600 text-muted align-items-center">
                 {{ 'mark_as_payment_done' | translate }}
             </div>
-            <div class="d-flex flex-row-reverse flex-md-row mt-3 mt-md-0">
-                <button
-                    class="w-100 btn-raised px-1 px-lg-4 ml-2 ml-md-0 mr-md-2 no-text-wrap"
-                    (click)="verifyPayment()"
-                >
-                    {{ 'payment_recieved' | translate }}
-                </button>
-                <button
-                    class="w-100 btn-raised px-1 px-lg-4 mr-2 mr-md-0 ml-md-2 no-text-wrap"
-                    (click)="verifyPaymentAfterDelivery()"
-                >
-                    {{ 'payment_after' | translate }}
-                    <ng-container *ngIf="isDesktop$ | async">{{ 'delivery' | translate }}</ng-container>
-                </button>
+
+            <div class="row gutter-16 mt-3 mt-md-0">
+                <div class="col col-md-auto order-2 order-md-1">
+                    <button class="w-100 btn-raised px-1 px-lg-4 no-text-wrap" (click)="verifyPayment()">
+                        {{ 'payment_recieved' | translate }}
+                    </button>
+                </div>
+                <div *ngIf="!orderDetails?.payment_after_delivery" class="col col-md-auto order-1 order-md-2">
+                    <button class="w-100 btn-raised px-1 px-lg-4 no-text-wrap" (click)="verifyPaymentAfterDelivery()">
+                        {{ 'payment_after' | translate }}
+                        <span class="d-none d-md-inline">{{ 'delivery' | translate }}</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
