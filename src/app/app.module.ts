@@ -38,6 +38,8 @@ import { AgmCoreModule } from '@agm/core';
 import { getSaver, SAVER } from '@utils';
 
 import { I18NService, StartupService } from '@services';
+import { PublicInviteComponent } from './modules/public-invite/public-invite.component';
+
 export function StartupServiceFactory(startupService: StartupService) {
     return () => startupService.load();
 }
@@ -52,6 +54,7 @@ export function StartupServiceFactory(startupService: StartupService) {
         MenuComponent,
         SearchPanelComponent,
         UploadInfoComponent,
+        PublicInviteComponent,
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,29 @@
+.profile-image {
+    width: 94px;
+    height: 94px;
+    border-radius: 50%;
+}
+
+.btn-stroked {
+    border: 1px solid #d50000;
+    color: #d50000;
+    &:hover {
+        color: #ffffff;
+        background-color: #d50000;
+    }
+}
+
+.login-section table tr {
+    border-top: 1px solid #ebebeb;
+    td:first-child {
+        min-width: 180px;
+    }
+}
+
+.list-section table tr td:first-child {
+    min-width: 200px;
+}
+
+.text-clrd5 {
+    color: #d50000;
+}

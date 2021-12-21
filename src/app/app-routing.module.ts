@@ -151,6 +151,11 @@ export const routes: Routes = [
                         (m) => m.OrderTransactionModule,
                     ),
             },
+            {
+                path: 'mr-invite',
+                loadChildren: () =>
+                    import('./modules/public-invite/public-invite.module').then((m) => m.PublicInviteModule),
+            },
         ],
     },
     { path: 'gate', component: GateComponent },
