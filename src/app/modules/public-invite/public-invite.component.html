@@ -16,7 +16,7 @@
         </div>
         <div class="link-wrapper">
             <span class="fnt-14 fnt-600 flex-1 link-text">{{ microRoasterLink?.invite_url }}</span>
-            <button class="btn-raised" ngxClipboard [cbContent]="microRoasterLink?.invite_url">
+            <button (click)="onCopy()" class="btn-raised" ngxClipboard [cbContent]="microRoasterLink?.invite_url">
                 {{ 'copy_link' | translate }}
             </button>
         </div>
@@ -43,10 +43,10 @@
                 scrollHeight="225px"
                 placeholder="{{ 'status' | translate }}"
                 [autoDisplayFirst]="false"
-                styleClass="round-border mr-2 mb-3 {{ customerStatus ? 'highlight' : '' }}"
+                styleClass="round-border mr-25 mb-3 {{ customerStatus ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-calendar
-                class="ml-md-2 calender"
+                class="calender"
                 [readonlyInput]="true"
                 placeholder="Date added"
                 selectionMode="range"
@@ -60,7 +60,7 @@
             >
             </p-calendar>
         </div>
-        <div class="col-md-4 col-lg-4 px-0 web-farm">
+        <div class="col-md-5 col-lg-3 px-0 web-farm">
             <span class="custom-search">
                 <input
                     type="text"
@@ -92,15 +92,13 @@
             [totalRecords]="primeTableService.totalRecords"
             [responsive]="primeTableService.isMobileView"
         >
-            <ng-template pTemplate="colgroup" let-columns>
-                <colgroup class="d-none d-md-block">
-                    <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
-                </colgroup>
-            </ng-template>
-
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
+                    <th
+                        *ngFor="let col of columns"
+                        [style.width]="col.width ? col.width + '%' : '30%'"
+                        [pSortableColumn]="col.sortable === true ? col.field : null"
+                    >
                         <span class="primeng-table-header">{{ col.header }}</span>
                         <p-sortIcon
                             *ngIf="col.sortable === true"
@@ -172,14 +170,14 @@
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'city'" [routerLink]="onView(rowData)">
+                        <span *ngSwitchCase="'country'" [routerLink]="onView(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    {{ 'city' | translate }}
+                                    {{ 'country_name' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['city'] }}
+                                    {{ rowData['country'] | country }}
                                 </span>
                             </div>
                         </span>
@@ -208,7 +206,7 @@
                                                 ? '#649a2b'
                                                 : rowData['status'] === 'rejected'
                                                 ? '#d50000'
-                                                : '#d6d6d6'
+                                                : '#f19634'
                                     }"
                                 >
                                     {{ rowData['status'] | titlecase }}

@@ -6,6 +6,7 @@ import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, GlobalsService, PrimeTableService, ResizeService, UserService } from '@services';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { takeUntil } from 'rxjs/operators';
@@ -56,11 +57,13 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
         private translator: TranslateService,
         public dialogSrv: DialogService,
         private userService: UserService,
+        private toastrService: ToastrService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
+        this.primeTableService.sortOrder = 'desc';
     }
 
     @ViewChild('markedTable', { static: true }) table: Table;
@@ -102,8 +105,8 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
                     width: 50,
                 },
                 {
-                    field: 'city',
-                    header: this.globals.languageJson?.city_name,
+                    field: 'country',
+                    header: this.globals.languageJson?.country_name,
                     sortable: false,
                     width: 50,
                 },
@@ -127,43 +130,43 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
                     field: 'name',
                     header: this.globals.languageJson?.company_name,
                     sortable: false,
-                    width: 80,
+                    width: 15,
                 },
                 {
                     field: 'user_first_name',
                     header: this.globals.languageJson?.customer_name,
                     sortable: false,
-                    width: 80,
+                    width: 10,
                 },
                 {
                     field: 'email',
                     header: this.globals.languageJson?.email,
                     sortable: false,
-                    width: 80,
+                    width: 25,
                 },
                 {
                     field: 'created_at',
                     header: this.globals.languageJson?.created_on,
                     sortable: false,
-                    width: 60,
+                    width: 10,
                 },
                 {
-                    field: 'city',
-                    header: this.globals.languageJson?.city_name,
+                    field: 'country',
+                    header: this.globals.languageJson?.country_name,
                     sortable: false,
-                    width: 50,
+                    width: 13,
                 },
                 {
                     field: 'status',
                     header: this.globals.languageJson?.status,
                     sortable: false,
-                    width: 50,
+                    width: 8,
                 },
                 {
                     field: 'actions',
                     header: this.globals.languageJson?.action,
                     sortable: false,
-                    width: 40,
+                    width: 8,
                 },
             ];
         }
@@ -230,5 +233,9 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
         let link = [];
         link = [`/mr-invite/${item.id}`];
         return link;
+    }
+
+    onCopy(): void {
+        this.toastrService.success('Successfully copied');
     }
 }
