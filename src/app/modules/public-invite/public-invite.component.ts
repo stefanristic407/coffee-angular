@@ -231,4 +231,8 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
         link = [`/mr-invite/${item.id}`];
         return link;
     }
+
+    onCopy(): void {
+        this.toastrService.success('Successfully copied');
+    }
 }

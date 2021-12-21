@@ -16,7 +16,7 @@
         </div>
         <div class="link-wrapper">
             <span class="fnt-14 fnt-600 flex-1 link-text">{{ microRoasterLink?.invite_url }}</span>
-            <button class="btn-raised" ngxClipboard [cbContent]="microRoasterLink?.invite_url">
+            <button (click)="onCopy()" class="btn-raised" ngxClipboard [cbContent]="microRoasterLink?.invite_url">
                 {{ 'copy_link' | translate }}
             </button>
         </div>
