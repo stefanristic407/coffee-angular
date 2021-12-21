@@ -54,6 +54,7 @@ export class PublicInviteDetailsComponent implements OnInit {
                 if (action === 'yes') {
                     this.userService.approveMrPublicOnboard(this.roasterId, this.requestId).subscribe((res: any) => {
                         if (res.success) {
+                            this.getMrPublicOnboardDetails();
                             this.toastr.success(
                                 'The roaster has been approved. A confirmation email has been sent to the roaster',
                             );
@@ -76,6 +77,7 @@ export class PublicInviteDetailsComponent implements OnInit {
                 if (action === 'yes') {
                     this.userService.rejectMrPublicOnboard(this.roasterId, this.requestId).subscribe((res: any) => {
                         if (res.success) {
+                            this.getMrPublicOnboardDetails();
                             this.toastr.error(
                                 'The roaster has been rejected. A confirmation email has been sent to the roaster',
                             );
