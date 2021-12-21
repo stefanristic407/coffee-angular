@@ -97,7 +97,6 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
     getOrderDetails() {
-        debugger;
         this.roasterService.getViewOrderDetails(this.roasterID, this.orderID, this.orderType).subscribe(
             (res: any) => {
                 console.log(res);
