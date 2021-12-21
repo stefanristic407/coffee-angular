@@ -605,14 +605,13 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
     getViewOrderDetails(roaster_id: any, order_id: any, orderType = null): Observable<any> {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/orders/' + order_id,
-            token: this.authService.token,
-            method: 'GET',
-        };
-        if (orderType && orderType === OrganizationType.MICRO_ROASTER) {
-            data.api_call = '/ro/' + roaster_id + '/mr-orders/' + order_id;
+        var data = {};
+        data['api_call'] = '/ro/' + roaster_id + '/orders/' + order_id;
+        if (orderType && (orderType == 'MR' || orderType == 'mr')) {
+            data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id;
         }
+        data['token'] = this.authService.token;
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     getViewCustomerDetails(roaster_id: any, hrc_id: any, orderType = null): Observable<any> {
@@ -889,20 +888,20 @@ export class RoasterService extends ApiService {
     }
 
     listServiceCuppingReports(roaster_id: any, gc_order_id: any) {
-        const data = {
-            api_call: `/gc/${roaster_id}/orders/${gc_order_id}/cupping-reports`,
-            token: this.authService.token,
-            method: 'GET',
-        };
+        var data = {};
+        data['api_call'] = `​/gc/${roaster_id}​/orders/${gc_order_id}​/cupping-reports`;
+        data['token'] = this.authService.token;
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
 
     listSampleCuppingReports(roaster_id: any, external_sample_id: any) {
-        const data = {
-            api_call: `/ro/${roaster_id}/cupping-process/external-samples/${external_sample_id}/cupping-reports`,
-            token: this.authService.token,
-            method: 'GET',
-        };
+        var data = {};
+        data[
+            'api_call'
+        ] = `​/ro/${roaster_id}​/cupping-process/external-samples/${external_sample_id}​/cupping-reports`;
+        data['token'] = this.authService.token;
+        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     deleteEvaluator(roaster_id: any, cupping_report_id: any, evaluator_id: any) {
@@ -1059,4 +1058,3 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
 }
-// comment added for unicode fix
