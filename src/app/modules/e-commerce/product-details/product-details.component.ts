@@ -350,7 +350,6 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         weightForm.get('weight').setValidators([Validators.required, quantityMinValidator('weight_unit', 0.1)]);
         weightForm.get('featured_image_id').setValidators([fileRequired()]);
         weightForm.get('crate_capacity')?.setValidators([Validators.required, Validators.min(1)]);
-        weightForm.get('grind_variants').setValidators([Validators.required]);
         Object.keys(weightForm.controls).forEach((key) => {
             weightForm.get(key).updateValueAndValidity();
         });
@@ -364,7 +363,6 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         weightForm.get('weight').clearValidators();
         weightForm.get('featured_image_id').clearValidators();
         weightForm.get('crate_capacity')?.clearValidators();
-        weightForm.get('grind_variants').clearValidators();
         Object.keys(weightForm.controls).forEach((key) => {
             weightForm.get(key).updateValueAndValidity();
         });
@@ -434,6 +432,8 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         if (!weightForm.valid) {
             weightForm.markAllAsTouched();
             this.toasterService.error(this.translator.instant('please_check_form_data'));
+            console.log(weightForm);
+            return;
         }
 
         // First have to upload all product images

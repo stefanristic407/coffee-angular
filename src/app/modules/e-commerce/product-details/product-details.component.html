@@ -270,29 +270,12 @@
 
                     <div class="mt-2">
                         <button
-                            *ngIf="!weightForm.value.editable"
                             class="btn-raised w-mob-100"
-                            (click)="editWeight(weightForm)"
+                            (click)="onSaveWeightVariant(weightForm)"
                             [disabled]="isSubmitted"
                         >
-                            {{ 'edit_weight_variant' | translate }}
+                            {{ 'save_weight_variant' | translate }}
                         </button>
-                        <div *ngIf="weightForm.value.editable" class="row gutter-16 v-gutter-16">
-                            <div class="col-12 col-md-auto order-1 order-md-2">
-                                <button
-                                    class="btn-raised w-100"
-                                    (click)="onSaveWeightVariant(weightForm)"
-                                    [disabled]="isSubmitted"
-                                >
-                                    {{ 'save_weight_variant' | translate }}
-                                </button>
-                            </div>
-                            <div class="col-12 col-md-auto order-2 order-md-1">
-                                <button class="btn-stroked w-100" (click)="onCancelWeight(weightForm)">
-                                    {{ 'cancel' | translate }}
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </p-tabPanel>
