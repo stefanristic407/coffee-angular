@@ -6,6 +6,7 @@ import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, GlobalsService, PrimeTableService, ResizeService, UserService } from '@services';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { takeUntil } from 'rxjs/operators';
@@ -56,6 +57,7 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
         private translator: TranslateService,
         public dialogSrv: DialogService,
         private userService: UserService,
+        private toastrService: ToastrService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
