@@ -92,15 +92,13 @@
             [totalRecords]="primeTableService.totalRecords"
             [responsive]="primeTableService.isMobileView"
         >
-            <ng-template pTemplate="colgroup" let-columns>
-                <colgroup class="d-none d-md-block">
-                    <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
-                </colgroup>
-            </ng-template>
-
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
+                    <th
+                        *ngFor="let col of columns"
+                        [style.width]="col.width ? col.width + '%' : '30%'"
+                        [pSortableColumn]="col.sortable === true ? col.field : null"
+                    >
                         <span class="primeng-table-header">{{ col.header }}</span>
                         <p-sortIcon
                             *ngIf="col.sortable === true"
@@ -208,7 +206,7 @@
                                                 ? '#649a2b'
                                                 : rowData['status'] === 'rejected'
                                                 ? '#d50000'
-                                                : '#d6d6d6'
+                                                : '#f19634'
                                     }"
                                 >
                                     {{ rowData['status'] | titlecase }}
