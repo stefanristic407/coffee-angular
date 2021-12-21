@@ -50,7 +50,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         this.currentDisputeID = this.route.snapshot.queryParams.disputeID
             ? Number(decodeURIComponent(this.route.snapshot.queryParams.disputeID))
             : undefined;
-        this.orderType = this.route.snapshot.queryParams.orderType as OrganizationType;
+        this.orderType = (this.route.snapshot.queryParams.orderType || '').toLowerCase() as OrganizationType;
         this.route.params.subscribe((params) => {
             this.orderID = params.orderId ? params.orderId : '';
             this.getOrderDetails();
@@ -97,6 +97,7 @@ export class OrderChatComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
     getOrderDetails() {
+        debugger;
         this.roasterService.getViewOrderDetails(this.roasterID, this.orderID, this.orderType).subscribe(
             (res: any) => {
                 console.log(res);

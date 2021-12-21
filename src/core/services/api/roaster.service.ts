@@ -605,13 +605,14 @@ export class RoasterService extends ApiService {
         return this.http.post(this.url, data);
     }
     getViewOrderDetails(roaster_id: any, order_id: any, orderType = null): Observable<any> {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/orders/' + order_id;
-        if (orderType && (orderType == 'MR' || orderType == 'mr')) {
-            data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id;
+        const data = {
+            api_call: '/ro/' + roaster_id + '/orders/' + order_id,
+            token: this.authService.token,
+            method: 'GET',
+        };
+        if (orderType && orderType === OrganizationType.MICRO_ROASTER) {
+            data.api_call = '/ro/' + roaster_id + '/mr-orders/' + order_id;
         }
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
         return this.http.post(this.url, data);
     }
     getViewCustomerDetails(roaster_id: any, hrc_id: any, orderType = null): Observable<any> {
