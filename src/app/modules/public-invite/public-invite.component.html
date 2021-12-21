@@ -170,14 +170,14 @@
                                 </span>
                             </div>
                         </span>
-                        <span *ngSwitchCase="'city'" [routerLink]="onView(rowData)">
+                        <span *ngSwitchCase="'country'" [routerLink]="onView(rowData)">
                             <div class="d-flex">
                                 <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                    {{ 'city' | translate }}
+                                    {{ 'country_name' | translate }}
                                 </span>
 
                                 <span [class.w-50]="primeTableService.isMobileView">
-                                    {{ rowData['city'] }}
+                                    {{ rowData['country'] | country }}
                                 </span>
                             </div>
                         </span>

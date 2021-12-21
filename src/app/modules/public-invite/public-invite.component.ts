@@ -104,8 +104,8 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
                     width: 50,
                 },
                 {
-                    field: 'city',
-                    header: this.globals.languageJson?.city_name,
+                    field: 'country',
+                    header: this.globals.languageJson?.country_name,
                     sortable: false,
                     width: 50,
                 },
@@ -150,8 +150,8 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
                     width: 10,
                 },
                 {
-                    field: 'city',
-                    header: this.globals.languageJson?.city_name,
+                    field: 'country',
+                    header: this.globals.languageJson?.country_name,
                     sortable: false,
                     width: 13,
                 },
