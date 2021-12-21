@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
@@ -31,6 +32,7 @@ export class RaisedTicketsComponent extends ResizeableComponent implements OnIni
         private router: Router,
         private socket: SocketService,
         private toastrService: ToastrService,
+        private translate: TranslateService,
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
@@ -49,43 +51,43 @@ export class RaisedTicketsComponent extends ResizeableComponent implements OnIni
         this.tableColumns = [
             {
                 field: 'order_id',
-                header: 'Order ID',
+                header: this.translate.instant('order_id'),
                 sortable: false,
                 width: 15,
             },
             this.orgType === OrganizationType.MICRO_ROASTER
                 ? {
                       field: 'micro_roaster_name',
-                      header: 'Micro-roaster name',
+                      header: this.translate.instant('micro_roaster_names'),
                       sortable: false,
                       width: 25,
                   }
                 : {
                       field: 'estate_name',
-                      header: 'estate_name',
+                      header: this.translate.instant('estate_name'),
                       sortable: false,
                       width: 25,
                   },
             {
                 field: 'date_ordered',
-                header: 'Date ordered',
+                header: this.translate.instant('date_ordered'),
                 width: 15,
             },
             {
                 field: 'dispute_type',
-                header: 'Type of dispute',
+                header: this.translate.instant('type_of_dispute'),
                 sortable: false,
                 width: 15,
             },
             {
                 field: 'dispute_status',
-                header: 'Status',
+                header: this.translate.instant('status'),
                 sortable: false,
                 width: 15,
             },
             {
                 field: 'actions',
-                header: 'Actions',
+                header: this.translate.instant('actions'),
                 sortable: false,
                 width: 15,
             },
