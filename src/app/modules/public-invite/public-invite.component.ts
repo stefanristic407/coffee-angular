@@ -63,6 +63,7 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
         this.roasterId = this.authService.getOrgId();
         this.primeTableService.rows = 10;
         this.primeTableService.sortBy = 'created_at';
+        this.primeTableService.sortOrder = 'desc';
     }
 
     @ViewChild('markedTable', { static: true }) table: Table;
