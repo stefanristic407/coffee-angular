@@ -866,10 +866,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     createProductForm() {
         this.productForm = this.fb.group({
-            name: [''],
-            purchase_type: [''],
-            description: [''],
-            vat_setting_id: [null],
+            name: ['', [Validators.required]],
+            purchase_type: ['', [Validators.required]],
+            description: ['', [Validators.required, maxWordCountValidator(300)]],
+            vat_setting_id: [null, [Validators.required]],
             is_price_including_vat: [this.type === ProductType.b2c],
             is_public: [false],
             is_external_product: [false],
@@ -878,37 +878,15 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     setProductValidators() {
-        this.productForm.get('name').setValidators([Validators.required]);
-        this.productForm.get('purchase_type').setValidators([Validators.required]);
-        this.productForm.get('description').setValidators([Validators.required, maxWordCountValidator(300)]);
-        this.productForm.get('vat_setting_id').setValidators([Validators.required]);
-        Object.keys(this.productForm.controls).forEach((key) => {
-            this.productForm.get(key).updateValueAndValidity();
-        });
-
         (this.productForm.get('weightVariants') as FormArray).controls.forEach((weightForm: FormGroup) => {
             this.setWeightValidators(weightForm);
         });
     }
 
     clearProductValidators() {
-        this.productForm.get('name').clearValidators();
-        this.productForm.get('purchase_type').clearValidators();
-        this.productForm.get('description').clearValidators();
-        this.productForm.get('vat_setting_id').clearValidators();
-        Object.keys(this.productForm.controls).forEach((key) => {
-            this.productForm.get(key).updateValueAndValidity();
-        });
-
         (this.productForm.get('weightVariants') as FormArray).controls.forEach((weightForm: FormGroup) => {
             this.clearWeightValidators(weightForm);
         });
-    }
-
-    saveAsDraft() {
-        this.productForm.controls.is_public.setValue(false);
-        this.clearProductValidators();
-        this.onSaveProduct();
     }
 
     publishProduct() {
@@ -916,8 +894,11 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         this.setProductValidators();
         if (!this.productForm.valid) {
             this.productForm.controls.is_public.setValue(false);
+            this.toasterService.error(this.translator.instant('please_check_ecom_product_data'));
+            this.productForm.markAllAsTouched();
+        } else {
+            this.onSaveProduct();
         }
-        this.onSaveProduct();
     }
 
     onChangeVisibility() {
@@ -926,17 +907,25 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             // Revert status is validation is failed
             if (!this.productForm.valid) {
                 this.productForm.controls.is_public.setValue(false);
+                this.toasterService.error(this.translator.instant('please_check_ecom_product_data'));
+                this.productForm.markAllAsTouched();
+            } else {
+                this.onSaveProduct();
             }
         } else {
             this.clearProductValidators();
+            this.onSaveProduct();
         }
-        this.onSaveProduct();
     }
 
     onSaveProduct(): void {
         if (!this.productForm.valid) {
             this.productForm.markAllAsTouched();
-            this.toasterService.error(this.translator.instant('please_check_ecom_product_data'));
+            if (this.productForm.value.is_public) {
+                this.toasterService.error(this.translator.instant('please_check_ecom_product_data'));
+            } else {
+                this.toasterService.error(this.translator.instant('please_check_ecom_product_details'));
+            }
             return;
         }
         const postData = JSON.parse(JSON.stringify(this.productForm.value));
