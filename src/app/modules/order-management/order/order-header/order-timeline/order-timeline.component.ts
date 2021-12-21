@@ -3,6 +3,7 @@ import { ResizeableComponent } from '@base-components';
 import { OrderStatus, OrderType, OrganizationType } from '@enums';
 import { LabelValue, OrderDetails, RecentActivity, ShippingDetails } from '@models';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
+import { TranslateService } from '@ngx-translate/core';
 import { ResizeService } from '@services';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +38,7 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
         }
 
         const timelinePoint = this.timelinePoints.find((x) => x.value === this.order.status);
-        return timelinePoint ? timelinePoint.label : 'Order Placed';
+        return timelinePoint ? timelinePoint.label : this.translator.instant('order_placed');
     }
 
     get currentPointIndex(): number {
@@ -108,8 +109,9 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     }
 
     constructor(
-        private toastrService: ToastrService,
         private orderService: OrderManagementService,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
@@ -218,24 +220,27 @@ export class OrderTimelineComponent extends ResizeableComponent implements OnIni
     private updateTimelinePoints(): void {
         if (this.order && this.order.order_type === OrderType.Prebook) {
             this.timelinePoints = [
-                { label: 'Order Placed', value: OrderStatus.Placed },
-                { label: 'Order Confirmed', value: OrderStatus.Confirmed },
-                { label: 'Harverst Ready', value: OrderStatus.HarvestReady },
-                { label: 'Graded', value: OrderStatus.Graded },
+                { label: this.translator.instant('order_placed'), value: OrderStatus.Placed },
+                { label: this.translator.instant('order_confirmed'), value: OrderStatus.Confirmed },
+                { label: this.translator.instant('harverst_ready'), value: OrderStatus.HarvestReady },
+                { label: this.translator.instant('graded'), value: OrderStatus.Graded },
             ];
         } else {
             this.timelinePoints = [
-                { label: 'Order Placed', value: OrderStatus.Placed },
-                { label: 'Order Confirmed', value: OrderStatus.Confirmed },
-                { label: 'Shipped', value: OrderStatus.Shipped },
+                { label: this.translator.instant('order_placed'), value: OrderStatus.Placed },
+                { label: this.translator.instant('order_confirmed'), value: OrderStatus.Confirmed },
+                { label: this.translator.instant('shipped'), value: OrderStatus.Shipped },
                 {
-                    label: this.orgType === OrganizationType.ESTATE ? 'Delivered' : 'Received by Micro-roaster',
+                    label:
+                        this.orgType === OrganizationType.ESTATE
+                            ? this.translator.instant('delivered')
+                            : this.translator.instant('received_by_mr'),
                     value: OrderStatus.Received,
                 },
             ];
 
             if (this.orgType === OrganizationType.ESTATE) {
-                this.timelinePoints.push({ label: 'Received', value: OrderStatus.Graded });
+                this.timelinePoints.push({ label: this.translator.instant('received'), value: OrderStatus.Graded });
             }
         }
     }
