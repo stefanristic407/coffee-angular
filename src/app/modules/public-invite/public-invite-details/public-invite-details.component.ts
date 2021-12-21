@@ -68,7 +68,9 @@ export class PublicInviteDetailsComponent implements OnInit {
                 if (action === 'yes') {
                     this.userService.rejectMrPublicOnboard(this.roasterId, this.requestId).subscribe((res: any) => {
                         if (res.success) {
-                            this.toastr.error('Rejected');
+                            this.toastr.error(
+                                'The roaster has been rejected. A confirmation email has been sent to the roaster.',
+                            );
                         }
                     });
                 }
