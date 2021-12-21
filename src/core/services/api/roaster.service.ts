@@ -889,20 +889,20 @@ export class RoasterService extends ApiService {
     }
 
     listServiceCuppingReports(roaster_id: any, gc_order_id: any) {
-        var data = {};
-        data['api_call'] = `​/gc/${roaster_id}​/orders/${gc_order_id}​/cupping-reports`;
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
+        const data = {
+            api_call: `/gc/${roaster_id}/orders/${gc_order_id}/cupping-reports`,
+            token: this.authService.token,
+            method: 'GET',
+        };
         return this.http.post(this.url, data);
     }
 
     listSampleCuppingReports(roaster_id: any, external_sample_id: any) {
-        var data = {};
-        data[
-            'api_call'
-        ] = `​/ro/${roaster_id}​/cupping-process/external-samples/${external_sample_id}​/cupping-reports`;
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
+        const data = {
+            api_call: `/ro/${roaster_id}/cupping-process/external-samples/${external_sample_id}/cupping-reports`,
+            token: this.authService.token,
+            method: 'GET',
+        };
         return this.http.post(this.url, data);
     }
     deleteEvaluator(roaster_id: any, cupping_report_id: any, evaluator_id: any) {
