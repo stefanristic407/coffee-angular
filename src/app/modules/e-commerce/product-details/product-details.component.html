@@ -384,11 +384,6 @@
                         </ng-container>
                     </div>
 
-                    <app-empty
-                        *ngIf="!weightForm.controls['grind_variants']['controls']?.length"
-                        [title]="'no_data_available' | translate"
-                    ></app-empty>
-
                     <div *ngIf="!editGrindMode" class="mt-4 mt-md-45">
                         <span class="brown-cta" (click)="addGrindVariant()">
                             {{ 'add_grind_variant' | translate }}
