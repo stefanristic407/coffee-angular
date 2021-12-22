@@ -459,7 +459,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     }
 
     userLogout() {
-        if (this.authService.preference.logout_all) {
+        if (this.authService.preference.logout_all_confirmation) {
             this.logout();
         } else {
             this.dialogService

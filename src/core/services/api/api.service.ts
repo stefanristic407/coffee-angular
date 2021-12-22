@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth';
 
-type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'DELETE';
+type HttpMethod = '' | 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export class ApiService {
     readonly version = '2';
