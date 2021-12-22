@@ -262,7 +262,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                         weightFormArr.removeAt(0);
                     }
                     (res.result.weight_variants || []).forEach((weightVariant: any) => {
-                        const weightForm = this.creatWeightForm(this.isPublished);
+                        const weightForm = this.createWeightForm(this.isPublished);
                         weightForm.patchValue({
                             ...weightVariant,
                             weight: convertKg(weightVariant.weight, weightVariant.weight_unit),
@@ -327,7 +327,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         });
     }
 
-    creatWeightForm(isPublic = false, editable = false): FormGroup {
+    createWeightForm(isPublic = false, editable = false): FormGroup {
         const weightForm: FormGroup = this.fb.group({
             editable: [editable], // Form is editable or not
             originalData: { value: null, disabled: true }, // To save original data
@@ -382,6 +382,8 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         const grinds = (weightForm.get('grind_variants').value || []).filter((ix) => !!ix.grind_variant_id);
         // Should not be able to edit crate capacity if there is grind variants
         if (grinds.length) {
+            weightForm.get('weight')?.disable();
+            weightForm.get('weight_unit')?.disable();
             weightForm.get('crate_capacity')?.disable();
         }
     }
@@ -396,7 +398,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         weightFormArr.controls.forEach((fg: FormGroup) => {
             this.onCancelWeight(fg);
         });
-        weightFormArr.push(this.creatWeightForm(this.isPublished, true));
+        weightFormArr.push(this.createWeightForm(this.isPublished, true));
         setTimeout(() => {
             this.currentVariantIdx = weightFormArr.length - 1;
             this.cdr.detectChanges();
@@ -438,6 +440,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         }
     }
 
+    onChangeImage() {
+        this.cdr.detectChanges();
+    }
+
     onSaveWeightVariant(weightForm: FormGroup) {
         if (!this.productID) {
             this.toasterService.error(this.translator.instant('please_save_product_details_first'));
@@ -446,7 +452,6 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         if (!weightForm.valid) {
             weightForm.markAllAsTouched();
             this.toasterService.error(this.translator.instant('please_check_form_data'));
-            console.log(weightForm);
             return;
         }
 
@@ -456,10 +461,16 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             .then(() => {
                 const postData = {
                     ...weightForm.value,
-                    weight: convert2Kg(weightForm.value.weight, weightForm.value.weight_unit),
+                    weight: convert2Kg(weightForm.getRawValue().weight, weightForm.getRawValue().weight_unit),
+                    weight_unit: weightForm.getRawValue().weight_unit,
                     featured_image_id: weightForm.value.featured_image_id?.id,
                     images: weightForm.value.images.filter((element) => element?.id).map((element) => element.id),
                 };
+
+                if (this.type === ProductType.b2b) {
+                    postData.crate_capacity = weightForm.get('crate_capacity').value;
+                }
+                delete postData.grind_variants;
                 if (weightForm.value.id) {
                     this.updateWeightVariant(postData, weightForm);
                 } else {
@@ -892,7 +903,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             is_price_including_vat: [this.type === ProductType.b2c],
             is_public: [false],
             is_external_product: [false],
-            weightVariants: this.fb.array([this.creatWeightForm()]),
+            weightVariants: this.fb.array([this.createWeightForm()]),
         });
     }
 
@@ -957,19 +968,24 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     createProduct(postData) {
+        this.isSubmitted = true;
         this.inventorySrv
             .createProduct({ ...postData, business_type: this.type })
             .subscribe((res: ApiResponse<any>) => {
                 if (res && res.success) {
                     this.productID = res.result.id;
+                    this.productForm.markAsPristine();
                     this.toasterService.success('Product created successfully. Please go on to complete the variants');
                 } else {
                     this.toasterService.error('Error while add a Product');
                 }
+                this.isSubmitted = false;
+                this.cdr.detectChanges();
             });
     }
 
     updateProductDetails(postData) {
+        this.isSubmitted = true;
         this.inventorySrv.updateProduct(this.productID, postData).subscribe((res) => {
             if (res && res.success) {
                 this.toasterService.success('Product updated successfully');
@@ -977,6 +993,8 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             } else {
                 this.toasterService.error('Error while update a Product');
             }
+            this.isSubmitted = false;
+            this.cdr.detectChanges();
         });
     }
 
@@ -986,10 +1004,31 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         delete originalData.originalData; // To prevent updating originalData field
         delete originalData.grind_variants;
         fg.get('originalData').setValue(originalData);
+        fg.markAsPristine();
     }
 
     loadOriginalData(fg: FormGroup): void {
         fg.patchValue(fg.getRawValue().originalData || {});
+        fg.markAsPristine();
+    }
+
+    pristine(fg: FormGroup): boolean {
+        for (const key in fg.controls) {
+            if (Object.prototype.hasOwnProperty.call(fg.controls, key)) {
+                if (key === 'grind_variants' || key === 'weightVariants') {
+                    continue;
+                }
+                if (!fg.controls[key].pristine) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    makePending(fc: FormControl) {
+        // FOr the p-inputNumber pristine issue
+        fc.markAsDirty();
     }
 
     goTolist() {

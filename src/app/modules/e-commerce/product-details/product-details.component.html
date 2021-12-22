@@ -109,7 +109,11 @@
         <div class="pt-3">
             <div class="row gutter-16 v-gutter-16">
                 <div class="col-12 col-md-auto order-1 order-md-2">
-                    <button class="btn-raised w-100" (click)="onSaveProduct()">
+                    <button
+                        class="btn-raised w-100"
+                        (click)="onSaveProduct()"
+                        [disabled]="isSubmitted || pristine(productForm)"
+                    >
                         {{ 'save_product_details' | translate }}
                     </button>
                 </div>
@@ -138,7 +142,7 @@
             >
                 <ng-template pTemplate="header">
                     <span class="d-flex align-items-center"
-                        >{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}
+                        >{{ weightForm.get('weight').value || '0' }} {{ weightForm.get('weight_unit').value }}
                         <i
                             *ngIf="productForm.get('weightVariants').value.length > 1"
                             class="pi pi-trash text-clr55c ml-2"
@@ -159,7 +163,10 @@
                         <div class="col-md-4 col-lg-3 sewn-form-field">
                             <label>{{ 'product_weight' | translate }}/bag<span class="star">*</span></label>
                             <div class="input-and-select gray">
-                                <p-inputNumber formControlName="weight"></p-inputNumber>
+                                <p-inputNumber
+                                    formControlName="weight"
+                                    (ngModelChange)="makePending(weightForm.get('weight'))"
+                                ></p-inputNumber>
                                 <p-dropdown
                                     formControlName="weight_unit"
                                     [options]="weightTypeArray"
@@ -200,6 +207,7 @@
                                 >
                                 <app-product-image
                                     formControlName="featured_image_id"
+                                    (ngModelChange)="onChangeImage()"
                                     accept="image/png, image/jpeg"
                                 ></app-product-image>
                                 <small *ngIf="weightForm.controls.featured_image_id.errors?.required" class="p-error">{{
@@ -213,6 +221,7 @@
                                 <label>{{ 'product_images' | translate }}</label>
                                 <app-product-image
                                     [formControl]="productImage"
+                                    (ngModelChange)="onChangeImage()"
                                     accept="image/png, image/jpeg"
                                 ></app-product-image>
                             </div>
@@ -236,7 +245,9 @@
                             <div class="sewn-form-field w-100 boxCrateWidth ml-3 ml-md-0">
                                 <label>{{ 'weight' | translate }}/bag</label>
                                 <input
-                                    value="{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}"
+                                    value="{{ weightForm.get('weight').value || '0' }} {{
+                                        weightForm.get('weight_unit').value
+                                    }}"
                                     pInputText
                                     [disabled]="true"
                                 />
@@ -249,7 +260,10 @@
                                 <label class="d-block d-md-none"
                                     >{{ 'no_of_bags' | translate }}<span class="star">*</span></label
                                 >
-                                <p-inputNumber formControlName="crate_capacity"></p-inputNumber>
+                                <p-inputNumber
+                                    formControlName="crate_capacity"
+                                    (ngModelChange)="makePending(weightForm.get('crate_capacity'))"
+                                ></p-inputNumber>
                                 <small *ngIf="weightForm.controls['crate_capacity'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
@@ -264,7 +278,7 @@
                         <button
                             class="btn-raised w-mob-100"
                             (click)="onSaveWeightVariant(weightForm)"
-                            [disabled]="isSubmitted"
+                            [disabled]="isSubmitted || pristine(weightForm)"
                         >
                             {{ 'save_weight_variant' | translate }}
                         </button>
@@ -294,7 +308,7 @@
         >
             <p-tabPanel *ngFor="let weightForm of productForm.controls['weightVariants']['controls']">
                 <ng-template pTemplate="header">
-                    <span>{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}</span>
+                    <span>{{ weightForm.get('weight').value || '0' }} {{ weightForm.get('weight_unit').value }}</span>
                 </ng-template>
                 <div *ngIf="weightForm.value.id; else firstSaveWeight" class="mt-4 mt-md-45">
                     <div
@@ -334,8 +348,8 @@
                                                 {{ grindForm.value.grind_variant_id || '-' }}
                                             </div>
                                             <div *ngSwitchCase="'weight'">
-                                                {{ weightForm.value.weight || '0' }}
-                                                {{ weightForm.value.weight_unit }}
+                                                {{ weightForm.get('weight').value || '0' }}
+                                                {{ weightForm.get('weight_unit').value }}
                                             </div>
                                             <div *ngSwitchCase="'roasted_coffee_batch'">
                                                 {{ 'batch' | translate }} #{{ grindForm.value.rc_batch_id }} -
