@@ -85,9 +85,10 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         { label: 'grind', field: 'id', width: 14 },
         { label: 'weight', field: 'weight', width: 10 },
         { label: 'roasted_coffee_batch', field: 'roasted_coffee_batch', width: 20 },
-        { label: 'grind_level', field: 'grind', width: 14 },
-        { label: 'price', field: 'price', width: 14 },
-        { label: 'remaining_quantity', field: 'remaining_quantity', width: 18 },
+        { label: 'roast_level', field: 'roast_level_id', width: 20 },
+        { label: 'grind_level', field: 'grind', width: 15 },
+        { label: 'price', field: 'price', width: 15 },
+        { label: 'remaining_quantity', field: 'remaining_quantity', width: 16 },
         { label: 'actions', field: 'actions', width: 10 },
     ];
 
@@ -975,5 +976,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
     goTolist() {
         this.router.navigate([`/e-commerce/product-list/${this.type}`]);
+    }
+
+    getRoastLevel(id: number = null) {
+        return (this.roastLevelArray || []).find((ix) => ix.value === id);
     }
 }

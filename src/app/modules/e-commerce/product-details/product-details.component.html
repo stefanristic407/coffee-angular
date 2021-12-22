@@ -316,61 +316,73 @@
                         <ng-container *ngIf="!grindForm.value.editable">
                             <div class="border-main" [class.invalid]="grindForm.invalid">
                                 <div class="d-md-flex align-items-center py-md-2 px-1 px-md-0">
-                                    <div
-                                        *ngFor="let col of grindFields"
-                                        [ngSwitch]="col.field"
-                                        class="grind-wrap fnt-semi-bold px-2 px-md-3 py-2"
-                                        [style.width]="col.width + '%'"
-                                    >
+                                    <ng-container *ngFor="let col of grindFields" [ngSwitch]="col.field">
                                         <div
-                                            *ngIf="col.field === 'id'"
-                                            class="fnt-semi-bold text-clr55c text-underline mb-1"
+                                            *ngIf="
+                                                (isExternal && col.field !== 'roasted_coffee_batch') ||
+                                                (!isExternal && col.field !== 'roast_level_id')
+                                            "
+                                            class="grind-wrap fnt-semi-bold px-2 px-md-3 py-2"
+                                            [style.width]="col.width + '%'"
                                         >
-                                            {{ 'grind' | translate }} {{ i + 1 }}
+                                            <div
+                                                *ngIf="col.field === 'id'"
+                                                class="fnt-semi-bold text-clr55c text-underline mb-1"
+                                            >
+                                                {{ 'grind' | translate }} {{ i + 1 }}
+                                            </div>
+                                            <div
+                                                *ngIf="col.field !== 'id' && col.field !== 'actions'"
+                                                class="fnt-semi-bold text-clr588 mb-1"
+                                            >
+                                                {{ col.label | translate }}
+                                            </div>
+                                            <div *ngSwitchCase="'id'">
+                                                {{ 'variant_id' | translate }} :
+                                                {{ grindForm.value.grind_variant_id || '-' }}
+                                            </div>
+                                            <div *ngSwitchCase="'weight'">
+                                                {{ weightForm.value.weight || '0' }}
+                                                {{ weightForm.value.weight_unit }}
+                                            </div>
+                                            <div *ngSwitchCase="'roasted_coffee_batch'">
+                                                {{ 'batch' | translate }} #{{ grindForm.value.rc_batch_id }} -
+                                                {{ grindForm.getRawValue().rc_batch_name }}
+                                            </div>
+                                            <div *ngSwitchCase="'roast_level_id'">
+                                                {{ getRoastLevel(grindForm.value.roast_level_id)?.label || '-' }}
+                                            </div>
+                                            <div *ngSwitchCase="'grind'">
+                                                {{ (grindForm.value.grind | sentencecase) || '-' }}
+                                            </div>
+                                            <div *ngSwitchCase="'price'">
+                                                {{ baseCurrency }} {{ grindForm.value.price | number }} /
+                                                {{
+                                                    grindForm.value.available_quantity_type
+                                                        | strReplace: 'es':''
+                                                        | strReplace: 's':''
+                                                }}
+                                            </div>
+                                            <div *ngSwitchCase="'remaining_quantity'">
+                                                {{ grindForm.value.available_quantity }}
+                                                {{ grindForm.value.available_quantity_type }}
+                                            </div>
+                                            <div
+                                                *ngSwitchCase="'actions'"
+                                                class="d-flex align-items-center justify-content-between"
+                                            >
+                                                <span class="brown-cta mr-2" (click)="editGrind(grindForm)">{{
+                                                    'edit' | translate
+                                                }}</span>
+                                                <app-action-menu
+                                                    [menuItems]="getGrindMenuItems(grindForm)"
+                                                ></app-action-menu>
+                                            </div>
+                                            <div *ngSwitchDefault>
+                                                {{ grindForm.value[col.field] || '-' }}
+                                            </div>
                                         </div>
-                                        <div
-                                            *ngIf="col.field !== 'id' && col.field !== 'actions'"
-                                            class="fnt-semi-bold text-clr588 mb-1"
-                                        >
-                                            {{ col.label | translate }}
-                                        </div>
-                                        <div *ngSwitchCase="'id'">
-                                            {{ 'variant_id' | translate }} :
-                                            {{ grindForm.value.grind_variant_id || '-' }}
-                                        </div>
-                                        <div *ngSwitchCase="'weight'">
-                                            {{ weightForm.value.weight || '0' }}
-                                            {{ weightForm.value.weight_unit }}
-                                        </div>
-                                        <div *ngSwitchCase="'roasted_coffee_batch'">
-                                            {{ 'batch' | translate }} #{{ grindForm.value.rc_batch_id }} -
-                                            {{ grindForm.getRawValue().rc_batch_name }}
-                                        </div>
-                                        <div *ngSwitchCase="'grind'">
-                                            {{ (grindForm.value.grind | sentencecase) || '-' }}
-                                        </div>
-                                        <div *ngSwitchCase="'price'">
-                                            {{ baseCurrency }} {{ grindForm.value.price | number }}
-                                        </div>
-                                        <div *ngSwitchCase="'remaining_quantity'">
-                                            {{ grindForm.value.available_quantity }}
-                                            {{ grindForm.value.available_quantity_type }}
-                                        </div>
-                                        <div
-                                            *ngSwitchCase="'actions'"
-                                            class="d-flex align-items-center justify-content-between"
-                                        >
-                                            <span class="brown-cta mr-2" (click)="editGrind(grindForm)">{{
-                                                'edit' | translate
-                                            }}</span>
-                                            <app-action-menu
-                                                [menuItems]="getGrindMenuItems(grindForm)"
-                                            ></app-action-menu>
-                                        </div>
-                                        <div *ngSwitchDefault>
-                                            {{ grindForm.value[col.field] || '-' }}
-                                        </div>
-                                    </div>
+                                    </ng-container>
                                 </div>
                             </div>
                         </ng-container>
