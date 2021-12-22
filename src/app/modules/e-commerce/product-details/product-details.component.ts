@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { ResizeableComponent } from '@base-components';
 import { BREWING_METHOD_ITEMS, COUNTRY_LIST } from '@constants';
-import { FileModule, ProductStatus, ProductType } from '@enums';
+import { FileModule, ProductStatus, ProductType, QuantityUnit } from '@enums';
 import { ApiResponse, RoastingProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, FileService, GeneralService, InventoryService, ResizeService } from '@services';
@@ -332,7 +332,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             originalData: { value: null, disabled: true }, // To save original data
             id: null,
             weight: [0],
-            weight_unit: 'lb',
+            weight_unit: QuantityUnit.g,
             status: [this.isPublished ? ProductStatus.INSTOCK : ProductStatus.INDRAFT],
             featured_image_id: [null],
             images: this.fb.array([]),
