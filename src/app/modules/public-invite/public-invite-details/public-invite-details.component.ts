@@ -33,6 +33,7 @@ export class PublicInviteDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.getMrPublicOnboardDetails();
     }
+
     getMrPublicOnboardDetails() {
         this.userService.getMrPublicOnboardDetails(this.roasterId, this.requestId).subscribe((res: any) => {
             if (res.success) {
@@ -40,6 +41,7 @@ export class PublicInviteDetailsComponent implements OnInit {
             }
         });
     }
+
     onApprove() {
         this.dialogSrv
             .open(ConfirmComponent, {
@@ -63,6 +65,7 @@ export class PublicInviteDetailsComponent implements OnInit {
                 }
             });
     }
+
     onReject() {
         this.dialogSrv
             .open(ConfirmComponent, {
