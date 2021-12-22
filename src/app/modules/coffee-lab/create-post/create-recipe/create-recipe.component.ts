@@ -75,6 +75,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         { label: 'tbsp', value: 'tbsp' },
         { label: 'tsp', value: 'tsp' },
         { label: 'units', value: 'units' },
+        { label: 'na', value: '' },
     ];
     brewingMethodArray: any[] = BREWING_METHOD_ITEMS;
     @ViewChild('bannerFileInput', { static: false }) bannerFileInput;

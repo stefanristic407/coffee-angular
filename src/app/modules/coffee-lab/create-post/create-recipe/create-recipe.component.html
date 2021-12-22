@@ -234,8 +234,7 @@
                         <p-dropdown
                             [options]="qualityArray"
                             [formControl]="ingredient.get('quantity_unit')"
-                            optionLabel="label"
-                            optionValue="value"
+                            autoDisplayFirst="false"
                         >
                             <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
                             <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
