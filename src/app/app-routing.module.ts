@@ -152,7 +152,7 @@ export const routes: Routes = [
                     ),
             },
             {
-                path: 'mr-invite',
+                path: 'mr-public-invite',
                 loadChildren: () =>
                     import('./modules/public-invite/public-invite.module').then((m) => m.PublicInviteModule),
             },

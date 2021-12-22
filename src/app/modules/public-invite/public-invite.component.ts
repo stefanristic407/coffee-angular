@@ -231,7 +231,7 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
 
     onView(item) {
         let link = [];
-        link = [`/mr-invite/${item.id}`];
+        link = [`/mr-public-invite/${item.id}`];
         return link;
     }
 

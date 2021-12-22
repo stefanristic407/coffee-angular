@@ -90,7 +90,7 @@ export const menuItems = [
         5,
         'micro-roaster-management|horeca-management',
     ),
-    new Menu(55, 'micro_roaster_invite', '/mr-invite', null, null, null, false, 5, null),
+    new Menu(55, 'micro_roaster_invite', '/mr-public-invite', null, null, null, false, 5, null),
 
     new Menu(7, 'menu_brand_experience', null, null, null, null, true, 0, null),
     // new Menu(71, 'menu_brand_profile', '/brand-profile', null, null, null, false, 7, 'brand-profile-management'),
