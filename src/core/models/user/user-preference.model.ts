@@ -11,5 +11,5 @@ export interface UserPreference {
     new_answer_notification: boolean;
     new_chat_notification: boolean;
     notification_sound: boolean;
-    logout_all: boolean;
+    logout_all_confirmation: boolean;
 }

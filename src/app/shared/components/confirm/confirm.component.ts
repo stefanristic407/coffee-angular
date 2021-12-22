@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiResponse } from '@models';
-import { AuthService, UserService } from '@services';
+import { UserService } from '@services';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -10,12 +10,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class ConfirmComponent implements OnInit {
     logoutAll: boolean;
-    constructor(
-        private authService: AuthService,
-        private ref: DynamicDialogRef,
-        private userService: UserService,
-        public config: DynamicDialogConfig,
-    ) {
+    constructor(private ref: DynamicDialogRef, private userService: UserService, public config: DynamicDialogConfig) {
         this.config.showHeader = false;
         this.config.styleClass = `confirm-dialog ${this.config.data.type}`;
     }
@@ -26,7 +21,7 @@ export class ConfirmComponent implements OnInit {
         if (this.logoutAll && value === 'yes') {
             // Save user preference
             this.userService
-                .updatePreferences({ ...this.authService.preference, logout_all: this.logoutAll })
+                .patchPreferences({ logout_all_confirmation: this.logoutAll })
                 .subscribe((res: ApiResponse<any>) => {
                     if (res.success) {
                         this.ref.close(value);

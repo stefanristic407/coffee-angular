@@ -70,7 +70,8 @@
                     [placeholder]="'tell_about_product' | translate"
                     formControlName="description"
                     [rows]="3"
-                    pInputText
+                    autoResize="autoResize"
+                    pInputTextarea
                 ></textarea>
                 <small *ngIf="productForm.controls['description'].errors?.required" class="p-error">
                     {{ 'required' | translate }}
@@ -107,17 +108,12 @@
 
         <div class="pt-3">
             <div class="row gutter-16 v-gutter-16">
-                <div class="col-12 col-md-auto order-2 order-md-1">
-                    <button
-                        type="button"
-                        class="btn-stroked w-100"
-                        routerLink="/e-commerce/product-list/{{ this.type }}"
-                    >
-                        {{ 'cancel' | translate }}
-                    </button>
-                </div>
                 <div class="col-12 col-md-auto order-1 order-md-2">
-                    <button class="btn-raised w-100" (click)="onSaveProduct()">
+                    <button
+                        class="btn-raised w-100"
+                        (click)="onSaveProduct()"
+                        [disabled]="isSubmitted || pristine(productForm)"
+                    >
                         {{ 'save_product_details' | translate }}
                     </button>
                 </div>
@@ -146,7 +142,7 @@
             >
                 <ng-template pTemplate="header">
                     <span class="d-flex align-items-center"
-                        >{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}
+                        >{{ weightForm.get('weight').value || '0' }} {{ weightForm.get('weight_unit').value }}
                         <i
                             *ngIf="productForm.get('weightVariants').value.length > 1"
                             class="pi pi-trash text-clr55c ml-2"
@@ -167,7 +163,10 @@
                         <div class="col-md-4 col-lg-3 sewn-form-field">
                             <label>{{ 'product_weight' | translate }}/bag<span class="star">*</span></label>
                             <div class="input-and-select gray">
-                                <p-inputNumber formControlName="weight"></p-inputNumber>
+                                <p-inputNumber
+                                    formControlName="weight"
+                                    (ngModelChange)="makePending(weightForm.get('weight'))"
+                                ></p-inputNumber>
                                 <p-dropdown
                                     formControlName="weight_unit"
                                     [options]="weightTypeArray"
@@ -208,6 +207,7 @@
                                 >
                                 <app-product-image
                                     formControlName="featured_image_id"
+                                    (ngModelChange)="onChangeImage()"
                                     accept="image/png, image/jpeg"
                                 ></app-product-image>
                                 <small *ngIf="weightForm.controls.featured_image_id.errors?.required" class="p-error">{{
@@ -221,6 +221,7 @@
                                 <label>{{ 'product_images' | translate }}</label>
                                 <app-product-image
                                     [formControl]="productImage"
+                                    (ngModelChange)="onChangeImage()"
                                     accept="image/png, image/jpeg"
                                 ></app-product-image>
                             </div>
@@ -244,7 +245,9 @@
                             <div class="sewn-form-field w-100 boxCrateWidth ml-3 ml-md-0">
                                 <label>{{ 'weight' | translate }}/bag</label>
                                 <input
-                                    value="{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}"
+                                    value="{{ weightForm.get('weight').value || '0' }} {{
+                                        weightForm.get('weight_unit').value
+                                    }}"
                                     pInputText
                                     [disabled]="true"
                                 />
@@ -257,7 +260,10 @@
                                 <label class="d-block d-md-none"
                                     >{{ 'no_of_bags' | translate }}<span class="star">*</span></label
                                 >
-                                <p-inputNumber formControlName="crate_capacity"></p-inputNumber>
+                                <p-inputNumber
+                                    formControlName="crate_capacity"
+                                    (ngModelChange)="makePending(weightForm.get('crate_capacity'))"
+                                ></p-inputNumber>
                                 <small *ngIf="weightForm.controls['crate_capacity'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
                                 </small>
@@ -272,7 +278,7 @@
                         <button
                             class="btn-raised w-mob-100"
                             (click)="onSaveWeightVariant(weightForm)"
-                            [disabled]="isSubmitted"
+                            [disabled]="isSubmitted || pristine(weightForm)"
                         >
                             {{ 'save_weight_variant' | translate }}
                         </button>
@@ -287,7 +293,7 @@
             <div class="fnt-16 fnt-md-18 fnt-bold mb-1">{{ 'inventory' | translate }}</div>
             <div class="row v-gutter-16">
                 <div class="col-md-8 fnt-semi-bold text-clr588">{{ 'product_inventory_note' | translate }}</div>
-                <div class="col-md-4 text-right">
+                <div *ngIf="!isExternal" class="col-md-4 text-right">
                     <button class="btn-stroked w-mob-100" routerLink="/roasted-coffee-batch/new-roasted-batch">
                         {{ 'create_a_roasted_coffee_batch' | translate }}
                     </button>
@@ -302,7 +308,7 @@
         >
             <p-tabPanel *ngFor="let weightForm of productForm.controls['weightVariants']['controls']">
                 <ng-template pTemplate="header">
-                    <span>{{ weightForm.value.weight || '0' }} {{ weightForm.value.weight_unit }}</span>
+                    <span>{{ weightForm.get('weight').value || '0' }} {{ weightForm.get('weight_unit').value }}</span>
                 </ng-template>
                 <div *ngIf="weightForm.value.id; else firstSaveWeight" class="mt-4 mt-md-45">
                     <div
@@ -316,61 +322,73 @@
                         <ng-container *ngIf="!grindForm.value.editable">
                             <div class="border-main" [class.invalid]="grindForm.invalid">
                                 <div class="d-md-flex align-items-center py-md-2 px-1 px-md-0">
-                                    <div
-                                        *ngFor="let col of grindFields"
-                                        [ngSwitch]="col.field"
-                                        class="grind-wrap fnt-semi-bold px-2 px-md-3 py-2"
-                                        [style.width]="col.width + '%'"
-                                    >
+                                    <ng-container *ngFor="let col of grindFields" [ngSwitch]="col.field">
                                         <div
-                                            *ngIf="col.field === 'id'"
-                                            class="fnt-semi-bold text-clr55c text-underline mb-1"
+                                            *ngIf="
+                                                (isExternal && col.field !== 'roasted_coffee_batch') ||
+                                                (!isExternal && col.field !== 'roast_level_id')
+                                            "
+                                            class="grind-wrap fnt-semi-bold px-2 px-md-3 py-2"
+                                            [style.width]="col.width + '%'"
                                         >
-                                            {{ 'grind' | translate }} {{ i + 1 }}
+                                            <div
+                                                *ngIf="col.field === 'id'"
+                                                class="fnt-semi-bold text-clr55c text-underline mb-1"
+                                            >
+                                                {{ 'grind' | translate }} {{ i + 1 }}
+                                            </div>
+                                            <div
+                                                *ngIf="col.field !== 'id' && col.field !== 'actions'"
+                                                class="fnt-semi-bold text-clr588 mb-1"
+                                            >
+                                                {{ col.label | translate }}
+                                            </div>
+                                            <div *ngSwitchCase="'id'">
+                                                {{ 'variant_id' | translate }} :
+                                                {{ grindForm.value.grind_variant_id || '-' }}
+                                            </div>
+                                            <div *ngSwitchCase="'weight'">
+                                                {{ weightForm.get('weight').value || '0' }}
+                                                {{ weightForm.get('weight_unit').value }}
+                                            </div>
+                                            <div *ngSwitchCase="'roasted_coffee_batch'">
+                                                {{ 'batch' | translate }} #{{ grindForm.value.rc_batch_id }} -
+                                                {{ grindForm.getRawValue().rc_batch_name }}
+                                            </div>
+                                            <div *ngSwitchCase="'roast_level_id'">
+                                                {{ getRoastLevel(grindForm.value.roast_level_id)?.label || '-' }}
+                                            </div>
+                                            <div *ngSwitchCase="'grind'">
+                                                {{ (grindForm.value.grind | sentencecase) || '-' }}
+                                            </div>
+                                            <div *ngSwitchCase="'price'">
+                                                {{ baseCurrency }} {{ grindForm.value.price | number }} /
+                                                {{
+                                                    grindForm.value.available_quantity_type
+                                                        | strReplace: 'es':''
+                                                        | strReplace: 's':''
+                                                }}
+                                            </div>
+                                            <div *ngSwitchCase="'remaining_quantity'">
+                                                {{ grindForm.value.available_quantity }}
+                                                {{ grindForm.value.available_quantity_type }}
+                                            </div>
+                                            <div
+                                                *ngSwitchCase="'actions'"
+                                                class="d-flex align-items-center justify-content-between"
+                                            >
+                                                <span class="brown-cta mr-2" (click)="editGrind(grindForm)">{{
+                                                    'edit' | translate
+                                                }}</span>
+                                                <app-action-menu
+                                                    [menuItems]="getGrindMenuItems(grindForm)"
+                                                ></app-action-menu>
+                                            </div>
+                                            <div *ngSwitchDefault>
+                                                {{ grindForm.value[col.field] || '-' }}
+                                            </div>
                                         </div>
-                                        <div
-                                            *ngIf="col.field !== 'id' && col.field !== 'actions'"
-                                            class="fnt-semi-bold text-clr588 mb-1"
-                                        >
-                                            {{ col.label | translate }}
-                                        </div>
-                                        <div *ngSwitchCase="'id'">
-                                            {{ 'variant_id' | translate }} :
-                                            {{ grindForm.value.grind_variant_id || '-' }}
-                                        </div>
-                                        <div *ngSwitchCase="'weight'">
-                                            {{ weightForm.value.weight || '0' }}
-                                            {{ weightForm.value.weight_unit }}
-                                        </div>
-                                        <div *ngSwitchCase="'roasted_coffee_batch'">
-                                            {{ 'batch' | translate }} #{{ grindForm.value.rc_batch_id }} -
-                                            {{ grindForm.getRawValue().rc_batch_name }}
-                                        </div>
-                                        <div *ngSwitchCase="'grind'">
-                                            {{ (grindForm.value.grind | sentencecase) || '-' }}
-                                        </div>
-                                        <div *ngSwitchCase="'price'">
-                                            {{ baseCurrency }} {{ grindForm.value.price | number }}
-                                        </div>
-                                        <div *ngSwitchCase="'remaining_quantity'">
-                                            {{ grindForm.value.available_quantity }}
-                                            {{ grindForm.value.available_quantity_type }}
-                                        </div>
-                                        <div
-                                            *ngSwitchCase="'actions'"
-                                            class="d-flex align-items-center justify-content-between"
-                                        >
-                                            <span class="brown-cta mr-2" (click)="editGrind(grindForm)">{{
-                                                'edit' | translate
-                                            }}</span>
-                                            <app-action-menu
-                                                [menuItems]="getGrindMenuItems(grindForm)"
-                                            ></app-action-menu>
-                                        </div>
-                                        <div *ngSwitchDefault>
-                                            {{ grindForm.value[col.field] || '-' }}
-                                        </div>
-                                    </div>
+                                    </ng-container>
                                 </div>
                             </div>
                         </ng-container>
@@ -380,11 +398,6 @@
                             ></ng-container>
                         </ng-container>
                     </div>
-
-                    <app-empty
-                        *ngIf="!weightForm.controls['grind_variants']['controls']?.length"
-                        [title]="'no_data_available' | translate"
-                    ></app-empty>
 
                     <div *ngIf="!editGrindMode" class="mt-4 mt-md-45">
                         <span class="brown-cta" (click)="addGrindVariant()">
@@ -585,7 +598,15 @@
             </div>
             <div *ngIf="isExternal" class="col-md-6 col-lg-3 sewn-form-field">
                 <label>{{ 'harvest_year' | translate }}</label>
-                <input type="text" formControlName="harvest_year" pInputText />
+                <p-calendar
+                    formControlName="harvest_year"
+                    [placeholder]="'select_date' | translate"
+                    [showIcon]="true"
+                    [showButtonBar]="true"
+                    view="month"
+                    dateFormat="MM yy"
+                >
+                </p-calendar>
             </div>
 
             <div *ngIf="isExternal" class="col-12 fnt-16 fnt-bold mb-3">{{ 'tasting_notes' | translate }}</div>

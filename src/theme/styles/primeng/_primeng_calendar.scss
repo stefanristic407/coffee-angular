@@ -11,6 +11,7 @@ p-calendar[selectionmode='range'] {
 .p-calendar {
     border: 1px solid $primary-border-color;
     border-radius: 3px;
+    background: $white;
     &:not(.p-calendar-disabled) {
         &:hover,
         &.highlight {
