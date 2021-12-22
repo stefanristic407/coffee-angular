@@ -238,7 +238,7 @@
         </ng-template>
 
         <ng-template pTemplate="footer" let-columns>
-            <tr *ngIf="!primeTableService.loading && !primeTableService?.records?.length" class="footer-row">
+            <tr *ngIf="primeTableService?.records?.length" class="footer-row">
                 <th colspan="7" class="no-background-color d-none d-md-table-cell"></th>
                 <th>
                     <span class="primeng-table-footer">Total</span>
