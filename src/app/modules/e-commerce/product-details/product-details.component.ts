@@ -297,6 +297,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
 
                         this.saveOriginalData(weightForm);
                         weightFormArr.push(weightForm);
+                        this.checkWeightForm(weightForm);
                     });
 
                     if (this.isPublished) {
@@ -375,6 +376,14 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         (weightForm.get('grind_variants') as FormArray).controls.forEach((grindForm: FormGroup) => {
             this.clearGrindValidators(grindForm);
         });
+    }
+
+    checkWeightForm(weightForm: FormGroup): void {
+        const grinds = (weightForm.get('grind_variants').value || []).filter((ix) => !!ix.grind_variant_id);
+        // Should not be able to edit crate capacity if there is grind variants
+        if (grinds.length) {
+            weightForm.get('crate_capacity')?.disable();
+        }
     }
 
     get editWeightMode(): boolean {
@@ -819,6 +828,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 this.toasterService.success('Grind variant created successfully');
                 grindForm.patchValue({ grind_variant_id: res.result.id, editable: false });
                 this.onBatchChange(grindForm, true);
+                this.checkWeightForm(grindForm.parent.parent as FormGroup);
             }
             this.isSubmitted = false;
             this.cdr.detectChanges();
