@@ -115,7 +115,7 @@
                                             <label>Quantity for sale</label>
                                             <p>
                                                 {{ saleInformation.quantity_count }}
-                                                {{ saleInformation.quantity_type }}/ {{ saleInformation.quantity }}
+                                                {{ saleInformation.quantity_type }} / {{ saleInformation.quantity }}
                                                 {{ saleInformation.quantity_unit }}
                                             </p>
                                         </li>
@@ -137,6 +137,7 @@
                                             <label>{{ 'minimum_quantity_sale' | translate }}</label>
                                             <p>
                                                 {{ saleInformation?.minimum_order_quantity_count || 0 }}
+                                                {{ saleInformation?.quantity_type }}
                                             </p>
                                         </li>
                                         <li>
@@ -158,7 +159,11 @@
                                         <li>
                                             <label>{{ 'sample_quantity' | translate }}</label>
                                             <p>
-                                                {{ saleInformation.sample_quantity || 'NA' }}
+                                                {{
+                                                    saleInformation.sample_quantity
+                                                        | convertKg: saleInformation.sample_quantity_unit || '0'
+                                                }}
+                                                {{ saleInformation.sample_quantity_unit }}
                                             </p>
                                         </li>
                                     </ul>
