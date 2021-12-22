@@ -124,18 +124,24 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
     }
 
     getCoffeeRecipesData() {
-        const params = {
-            count: 10,
-        };
-        this.coffeeLabService.getPopularList(PostType.RECIPE, params).subscribe((res) => {
-            if (res.success) {
-                this.relatedData = res.result;
-                this.relatedData.map((item) => {
-                    item.description = this.getJustText(item.description);
-                    return item;
-                });
-            }
-        });
+        this.coffeeLabService
+            .getPopularList(
+                PostType.RECIPE,
+                {
+                    count: 11,
+                },
+                this.detailsData.lang_code,
+            )
+            .subscribe((res) => {
+                if (res.success) {
+                    this.relatedData = res.result.filter((item) => item.id !== this.detailsData.id);
+                    this.relatedData = this.relatedData.slice(0, 10);
+                    this.relatedData.map((item) => {
+                        item.description = this.getJustText(item.description);
+                        return item;
+                    });
+                }
+            });
     }
 
     onRealtedRoute(slug: string, isOrginal: boolean, language?: string) {

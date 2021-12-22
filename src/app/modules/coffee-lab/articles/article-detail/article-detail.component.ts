@@ -64,16 +64,21 @@ export class ArticleDetailComponent extends DestroyableComponent implements OnIn
     }
 
     getArticleList(): any {
-        const params = {
-            count: 11,
-        };
-        this.relatedData = [];
-        this.coffeeLabService.getPopularList(PostType.ARTICLE, params).subscribe((res: any) => {
-            if (res.success) {
-                this.relatedData = res.result.filter((item) => item.id !== this.detailsData.id);
-                this.relatedData = this.relatedData.slice(0, 10);
-            }
-        });
+        const params = (this.relatedData = []);
+        this.coffeeLabService
+            .getPopularList(
+                PostType.ARTICLE,
+                {
+                    count: 11,
+                },
+                this.detailsData.language,
+            )
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.relatedData = res.result.filter((item) => item.id !== this.detailsData.id);
+                    this.relatedData = this.relatedData.slice(0, 10);
+                }
+            });
     }
 
     onShare(): void {
