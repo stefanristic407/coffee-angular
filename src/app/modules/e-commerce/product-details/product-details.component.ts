@@ -16,6 +16,7 @@ import {
     quantityMinValidator,
     toSentenceCase,
 } from '@utils';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -276,6 +277,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                             grindForm.patchValue({
                                 ...grindVariant,
                                 grind_variant_id: grindVariant.id,
+                                harvest_year: grindVariant.harvest_year
+                                    ? moment(grindVariant.harvest_year).toDate()
+                                    : null,
                                 flavour_profiles: (grindVariant.flavour_profiles || []).map((item) => {
                                     return {
                                         label: this.flavoursList.find((ix) => ix.value === item)?.label,
@@ -595,7 +599,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             // External fields
             roaster_ref_no: [{ value: '', disabled: true }],
             region: [{ value: '', disabled: true }],
-            harvest_year: [{ value: '', disabled: true }],
+            harvest_year: [{ value: null, disabled: true }],
             aroma: [{ value: null, disabled: true }],
             acidity: [{ value: null, disabled: true }],
             body: [{ value: null, disabled: true }],
@@ -793,6 +797,9 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         const postData = { ...grindForm.value };
         if (this.isExternal) {
             postData.flavour_profiles = (grindForm.value.flavour_profiles || []).map((item) => item.value);
+            postData.harvest_year = grindForm.value.harvest_year
+                ? moment(grindForm.value.harvest_year).format('yy-MM-DD')
+                : null;
         }
 
         const weightForm = grindForm.parent?.parent;

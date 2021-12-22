@@ -597,7 +597,15 @@
             </div>
             <div *ngIf="isExternal" class="col-md-6 col-lg-3 sewn-form-field">
                 <label>{{ 'harvest_year' | translate }}</label>
-                <input type="text" formControlName="harvest_year" pInputText />
+                <p-calendar
+                    formControlName="harvest_year"
+                    [placeholder]="'select_date' | translate"
+                    [showIcon]="true"
+                    [showButtonBar]="true"
+                    view="month"
+                    dateFormat="MM yy"
+                >
+                </p-calendar>
             </div>
 
             <div *ngIf="isExternal" class="col-12 fnt-16 fnt-bold mb-3">{{ 'tasting_notes' | translate }}</div>
