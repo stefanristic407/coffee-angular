@@ -784,6 +784,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         const newForm = this.creatGrindForm();
         newForm.patchValue({ ...grindForm.getRawValue(), grind_variant_id: '' });
         grindFormArr.push(newForm);
+        this.checkGrindForm();
         newForm.get('editable').setValue(true);
     }
 
