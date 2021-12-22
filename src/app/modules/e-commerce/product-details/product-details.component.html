@@ -70,7 +70,8 @@
                     [placeholder]="'tell_about_product' | translate"
                     formControlName="description"
                     [rows]="3"
-                    pInputText
+                    autoResize="autoResize"
+                    pInputTextarea
                 ></textarea>
                 <small *ngIf="productForm.controls['description'].errors?.required" class="p-error">
                     {{ 'required' | translate }}
