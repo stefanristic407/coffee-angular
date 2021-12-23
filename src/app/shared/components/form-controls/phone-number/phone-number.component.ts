@@ -111,6 +111,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
         setTimeout(() => {
             try {
                 const phoneNumber = parsePhoneNumber(this.nationalNumber, this.countryCode);
+                phoneNumber.number = '+' + phoneNumber.countryCallingCode + '-' + this.nationalNumber;
                 this.onChange(phoneNumber.number);
             } catch (error) {
                 this.onChange(null);
