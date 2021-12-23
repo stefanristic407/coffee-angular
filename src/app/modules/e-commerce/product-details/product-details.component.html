@@ -491,12 +491,14 @@
                     {{ 'required' | translate }}
                 </small>
             </div>
-            <div class="col-md-6 col-lg-3 sewn-form-field form-middle">
-                <p-radioButton
-                    [value]="true"
+            <div class="col-md-6 col-lg-3 form-middle mb-3 mb-md-4">
+                <p-checkbox
                     formControlName="is_default_variant"
+                    binary="true"
                     [label]="'set_as_the_default_variant' | translate"
-                ></p-radioButton>
+                    (onChange)="changeDefulat(grindFormGroup)"
+                >
+                </p-checkbox>
                 <small *ngIf="grindFormGroup.controls['is_default_variant'].errors?.required" class="p-error">
                     {{ 'required' | translate }}
                 </small>
