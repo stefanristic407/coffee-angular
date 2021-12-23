@@ -34,13 +34,13 @@
                     {{ 'approve' | translate }}
                 </button>
             </div>
-            <div *ngIf="organizationProfile.status === 'approved'" class="col pl-2 pl-md-0 pr-0 pr-md-2">
+            <div *ngIf="organizationProfile?.status === 'approved'" class="col pl-2 pl-md-0 pr-0 pr-md-2">
                 <button class="btn-raised w-100" [routerLink]="['/people/customer-management']" type="button">
                     {{ 'view' | translate }}
                 </button>
             </div>
             <div
-                *ngIf="organizationProfile.status === 'rejected'"
+                *ngIf="organizationProfile?.status === 'rejected'"
                 class="col fnt-700 fnt-muli fnt-md-18 pl-2 pl-md-0 pr-0 pr-md-2"
             >
                 <span class="text-clr588"> {{ 'status' | translate }}</span
@@ -49,12 +49,12 @@
         </div>
         <div class="login-section w-100 mt-3">
             <table class="pl-3 pr-3 p-md-0 d-block">
-                <tr *ngIf="organizationProfile.status !== 'rejected'" class="pt-3 pb-3 p-0 d-block d-md-flex">
+                <tr *ngIf="organizationProfile?.status !== 'rejected'" class="pt-3 pb-3 p-0 d-block d-md-flex">
                     <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334 pl-md-2">
-                        {{ 'last_login' | translate }}
+                        {{ 'requested_on' | translate }}
                     </td>
                     <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
-                        {{ organizationProfile?.created_at }}
+                        {{ organizationProfile?.created_at | date: 'd MMM y, h:mm:ss a' }}
                     </td>
                 </tr>
                 <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
