@@ -491,16 +491,12 @@
                     {{ 'required' | translate }}
                 </small>
             </div>
-            <div class="col-md-6 col-lg-3 sewn-form-field">
-                <label>{{ 'set_as_the_default_variant' | translate }}<span class="star">*</span></label>
-                <p-dropdown
-                    [options]="isDefaultVariantOptions"
-                    [placeholder]="'select_batch' | translate"
+            <div class="col-md-6 col-lg-3 sewn-form-field form-middle">
+                <p-radioButton
+                    [value]="true"
                     formControlName="is_default_variant"
-                >
-                    <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
-                    <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
-                </p-dropdown>
+                    [label]="'set_as_the_default_variant' | translate"
+                ></p-radioButton>
                 <small *ngIf="grindFormGroup.controls['is_default_variant'].errors?.required" class="p-error">
                     {{ 'required' | translate }}
                 </small>

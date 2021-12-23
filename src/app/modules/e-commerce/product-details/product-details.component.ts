@@ -64,10 +64,6 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         { label: 'Fine', value: 'fine' },
         { label: 'Extra fine', value: 'extra-fine' },
     ];
-    isDefaultVariantOptions = [
-        { label: 'yes', value: true },
-        { label: 'no', value: false },
-    ];
     productForm: FormGroup;
     vatSettings: any = [];
     roastedBatches: any = [];
@@ -808,6 +804,19 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         newForm.get('editable').setValue(true);
     }
 
+    updateIsDefault(defaultGrindForm: FormGroup) {
+        if (defaultGrindForm.get('is_default_variant').value) {
+            (this.productForm.get('weightVariants') as FormArray).controls.forEach((weightForm: FormGroup) => {
+                (weightForm.get('grind_variants') as FormArray).controls.forEach((grindForm: FormGroup) => {
+                    grindForm.get('is_default_variant').setValue(false);
+                    this.saveOriginalData(grindForm);
+                });
+            });
+            defaultGrindForm.get('is_default_variant').setValue(true);
+            this.saveOriginalData(defaultGrindForm);
+        }
+    }
+
     onSaveGrind(grindForm: FormGroup) {
         if (!grindForm.valid) {
             grindForm.markAllAsTouched();
@@ -840,6 +849,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 grindForm.patchValue({ grind_variant_id: res.result.id, editable: false });
                 this.onBatchChange(grindForm, true);
                 this.checkWeightForm(grindForm.parent.parent as FormGroup);
+                this.updateIsDefault(grindForm);
             }
             this.isSubmitted = false;
             this.cdr.detectChanges();
@@ -853,6 +863,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
                 this.toasterService.success('Grind variant updated successfully');
                 grindForm.get('editable').setValue(false);
                 this.onBatchChange(grindForm, true);
+                this.updateIsDefault(grindForm);
             }
             this.isSubmitted = false;
             this.cdr.detectChanges();

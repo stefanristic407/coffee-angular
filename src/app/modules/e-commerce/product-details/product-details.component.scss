@@ -94,3 +94,9 @@
 .border-main.invalid {
     border-color: $error-border-color !important;
 }
+
+.form-middle {
+    @media screen and (min-width: 768px) {
+        padding-top: 40px;
+    }
+}
