@@ -78,6 +78,9 @@
         background: $primary-bg-color !important;
         opacity: $disabled-opacity;
     }
+    .p-dropdown.p-disabled .p-dropdown-trigger-icon {
+        display: none;
+    }
 
     label {
         color: $general-text-color;
