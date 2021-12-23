@@ -362,7 +362,7 @@
                                                 {{ (grindForm.value.grind | sentencecase) || '-' }}
                                             </div>
                                             <div *ngSwitchCase="'price'">
-                                                {{ baseCurrency }} {{ grindForm.value.price | number }} /
+                                                {{ grindForm.value.price | number: '1.0-2' }} {{ baseCurrency }} /
                                                 {{
                                                     grindForm.value.available_quantity_type
                                                         | strReplace: 'es':''
