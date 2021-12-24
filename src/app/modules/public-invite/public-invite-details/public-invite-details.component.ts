@@ -46,7 +46,7 @@ export class PublicInviteDetailsComponent implements OnInit {
         this.dialogSrv
             .open(ConfirmComponent, {
                 data: {
-                    title: 'Are you sure you want to accept the request',
+                    title: 'Are you sure you want to accept the request?',
                     desp: 'Once the roaster is accepted, they will be added as a partner',
                     noButton: this.translator.instant('cancel'),
                     yesButton: this.translator.instant('accept'),
