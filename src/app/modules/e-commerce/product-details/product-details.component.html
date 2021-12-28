@@ -176,7 +176,7 @@
                                     {{ 'required' | translate }}
                                 </small>
                                 <small *ngIf="weightForm.controls['weight'].errors?.min" class="p-error">
-                                    {{ 'minimum_quantity_is_100g' | translate }}
+                                    {{ 'should_be_greater_than_limit' | translate | strReplace: '{limit}':'0' }}
                                 </small>
                             </div>
                         </div>
@@ -310,7 +310,10 @@
                 <ng-template pTemplate="header">
                     <span>{{ weightForm.get('weight').value || '0' }} {{ weightForm.get('weight_unit').value }}</span>
                 </ng-template>
-                <div *ngIf="weightForm.value.id; else firstSaveWeight" class="mt-4 mt-md-45">
+                <div
+                    *ngIf="weightForm.value.id && weightForm.get('weight').value > 0; else firstSaveWeight"
+                    class="mt-4 mt-md-45"
+                >
                     <div
                         *ngFor="
                             let grindForm of weightForm.controls['grind_variants']['controls'];
