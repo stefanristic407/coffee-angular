@@ -1,4 +1,4 @@
-@import '../../../../../../theme/styles/variables';
+@import 'variables';
 
 :host {
     @media all and (max-width: 767px) {
@@ -32,6 +32,24 @@
                     padding-bottom: 23px;
                     border-bottom: 1px dashed #ebebeb;
                 }
+            }
+        }
+    }
+}
+
+:host {
+    @media all and (max-width: 767px) {
+        .lot-box {
+            &:not(:first-child) {
+                padding-top: 16px;
+            }
+            &:not(:last-child) {
+                padding-bottom: 12px;
+                border-bottom: 1px solid $secondary-border-color;
+            }
+
+            span {
+                width: 50%;
             }
         }
     }
