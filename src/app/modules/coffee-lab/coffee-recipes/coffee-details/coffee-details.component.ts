@@ -67,7 +67,6 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
             const language = this.activatedRoute.snapshot.queryParamMap.get('language');
             this.language = language || this.coffeeLabService.currentForumLanguage;
             this.getCoffeeDetails(true);
-            this.getCoffeeRecipesData();
         });
         this.activatedRoute.queryParams.subscribe((queryParams) => {
             this.isMyPost = queryParams.isMyPost;
@@ -92,6 +91,7 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
             if (res.success) {
                 this.coffeeLabService.updateLang(res.result.lang_code).then(() => {
                     this.detailsData = res.result;
+                    this.getCoffeeRecipesData();
                     this.detailsData.description = this.getJustText(this.detailsData.description);
                     if (
                         this.detailsData?.original_recipe_state &&
