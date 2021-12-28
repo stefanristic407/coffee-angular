@@ -451,7 +451,7 @@
                             </button>
                         </div>
                         <div class="col-12 col-md-auto order-1 order-md-2">
-                            <button class="btn-raised w-100" (click)="placeOrder()">
+                            <button class="btn-raised w-100" (click)="placeOrder()" [disabled]="isSubmitted">
                                 {{ 'place_order' | translate }}
                             </button>
                         </div>
