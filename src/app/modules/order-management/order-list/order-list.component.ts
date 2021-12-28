@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { MR_ORDER_STATUS_ITEMS, MR_ORDER_TYPE_ITEMS, ORDER_STATUS_ITEMS, ORDER_TYPE_ITEMS } from '@constants';
@@ -49,8 +49,8 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     });
 
     readonly exportForm = this.fb.group({
-        from_date: this.fb.control(''),
-        to_date: this.fb.control(''),
+        from_date: this.fb.control('', [Validators.required]),
+        to_date: this.fb.control('', [Validators.required]),
         export_type: this.fb.control('csv'),
     });
 
@@ -134,10 +134,19 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     }
 
     downloadOrderClicked(): void {
+        if (!this.exportForm.valid) {
+            this.toastrService.error(this.translator.instant('select_start_end_date_for_order'));
+            return;
+        }
         const form = this.exportForm.value;
         this.isDownloading = true;
         this.orderService
-            .downloadOrders(this.orgType, form.export_type, form.from_date, form.to_date)
+            .downloadOrders(
+                this.orgType,
+                form.export_type,
+                form.from_date,
+                moment(form.to_date).add(1, 'days').format('YYYY-MM-DD'),
+            )
             .subscribe((res: ApiResponse<any>) => {
                 if (res.success && res.result.url) {
                     const url = res.result.url;

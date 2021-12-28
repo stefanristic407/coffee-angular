@@ -1,5 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ShippingDetails, BulkDetails } from '@models';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { BulkDetails, ShippingDetails } from '@models';
 
 @Component({
     selector: 'app-shipping-details',
@@ -8,6 +8,7 @@ import { ShippingDetails, BulkDetails } from '@models';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShippingDetailsComponent {
+    @Input() isFullyServicedDelivery: boolean;
     @Input() shippingDetails: ShippingDetails;
     @Input() bulk: BulkDetails;
 }
