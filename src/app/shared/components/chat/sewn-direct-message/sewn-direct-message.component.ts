@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
@@ -89,10 +90,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     public defaultProfileImage = 'assets/images/dm-default-profile.svg';
     public bokenImage = 'assets/images/dm-broken-image.svg';
     public chatListScrollEventSubject = new Subject<Event>();
+    public threadListScrollEventSubject = new Subject<Event>();
 
     public chatMenuitems: MenuItem[] = [
         {
-            label: 'Block user',
+            label: this.translate.instant('dm_block_user'),
             id: 'block',
             visible: true,
             command: () => {
@@ -100,7 +102,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             },
         },
         {
-            label: 'Mute user',
+            label: this.translate.instant('mute_user'),
             id: 'mute',
             visible: true, // updateMuteInMenuVisibility() will handle this
             command: () => {
@@ -108,7 +110,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             },
         },
         {
-            label: 'Unmute user',
+            label: this.translate.instant('unmute_user'),
             id: 'unmute',
             visible: true, // updateMuteInMenuVisibility() will handle this
             command: () => {
@@ -116,7 +118,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             },
         },
         {
-            label: 'Clear chat',
+            label: this.translate.instant('clear_chat'),
             id: 'clear',
             visible: true,
             command: () => {
@@ -124,7 +126,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             },
         },
         {
-            label: 'Delete chat',
+            label: this.translate.instant('delete_chat'),
             id: 'delete',
             visible: true,
             command: () => {
@@ -211,8 +213,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     };
 
     private threadListConfig = {
-        perPage: 200,
-        activePage: 1,
+        perPage: 150,
+        page: 1,
+        loadedPage: null,
+        totalCount: null,
     };
     private messageListConfig = {
         lastSentTimeStamp: '',
@@ -237,6 +241,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     private messageInputElement: HTMLTextAreaElement | null = null;
     private chatMessageBodyElement: HTMLElement | null = null;
+    private threadListContainerElement: HTMLElement | null = null;
 
     public messageInput = '';
     public showOffensiveMessageError = false;
@@ -309,6 +314,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         public gtrans: GoogletranslateService,
         public chatApi: ChatApiServices,
         public menuService: MenuService,
+        public translate: TranslateService,
     ) {}
 
     ngOnInit(): void {
@@ -355,6 +361,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.SM.chatListScrollEventSubscription = this.chatListScrollEventSubject
             .pipe(debounce(() => interval(500)))
             .subscribe(this.chatListScrollListener);
+        this.SM.threadListScrollEventSubscription = this.threadListScrollEventSubject
+            .pipe(debounce(() => interval(500)))
+            .subscribe(this.threadListScrollListener);
     }
 
     saveSettings() {
@@ -490,13 +499,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.SM.WSAuthentication = this.socket.authenticate().subscribe((res) => {
             if (res === 'SUCCESS') {
                 this.loader.auth = false;
-                this.socket.directMessageSent.next(this.getThreadListPayload());
-                this.fetchBlockUserList();
-                this.fetchMuteList();
-                this.updateUserStatus();
-                this.updateUnRead();
+                this.loadThreadList();
             }
         });
+    }
+
+    loadThreadList() {
+        this.socket.directMessageSent.next(this.getThreadListPayload());
+        this.fetchBlockUserList();
+
+        this.fetchMuteList();
     }
 
     getMultipleUserDetailsPayload() {
@@ -537,8 +549,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 org_type: this.chatUtil.ORGANIZATION_TYPE,
                 org_id: this.chatUtil.ORGANIZATION_ID || undefined,
                 type: ThreadType.normal,
-                // page: this.threadListConfig.activePage,
-                // per_page: this.threadListConfig.perPage,
+                page: this.threadListConfig.page,
+                per_page: this.threadListConfig.perPage,
             },
         };
     }
@@ -885,8 +897,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 thread.members.forEach((member) => {
                     const key = `${member.user_id}_${member.org_type}_${member.org_id || 0}`;
                     member.last_seen = userStatusMap[key]?.last_seen || '';
-                    member.online = userStatusMap[key].online;
-                    member.computed_lastseen = this.chatUtil.getReadableTime(member.last_seen || '');
+                    member.online = userStatusMap[key]?.online || false;
+                    member.computed_lastseen = this.chatUtil.getReadableTime(member?.last_seen || '');
                 });
             });
         } else {
@@ -915,7 +927,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.generateBlockMap();
             this.updateBlockStatuOnUserList();
             this.updateBlockStatusOnThreadList();
-            this.toast.warning(`You have been blocked by ${newblock.computed_fullname}`);
+            this.toast.error(
+                this.translate.instant('you_have_been_blocked_by_fullname', { fullname: newblock.computed_fullname }),
+            );
         } else {
             console.log('Websocket:Block Update: error');
         }
@@ -936,7 +950,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.updateBlockStatuOnUserList();
                 this.updateBlockStatusOnThreadList();
             }
-            this.toast.success(`You have been unblocked by ${unblock.computed_fullname}`);
+            this.toast.success(
+                this.translate.instant('you_have_been_unblocked_by_fullname', { fullname: unblock.computed_fullname }),
+            );
         } else {
             console.log('Websocket:UnBlock Update: error');
         }
@@ -959,14 +975,14 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         console.log('Mute response', WSmsg);
         this.loader.muteAction = false;
         if (WSmsg.success && WSmsg.code === 200) {
-            this.toast.success('Muted successfully');
+            this.toast.success(this.translate.instant('muted_successfully'));
             this.muteList.add(WSmsg.data.thread_id);
             this.updateMuteStatusOnThreadList();
         } else {
             if (WSmsg.code === 409) {
-                this.toast.warning('Failed to mute, already in mute');
+                this.toast.error(this.translate.instant('failed_to_mute_already_in_mute'));
             } else {
-                this.toast.error('Failed to mute, please try after sometime');
+                this.toast.error(this.translate.instant('failed_to_mute_please_try_after_sometime'));
                 console.log('Websocket: Mute: error');
             }
         }
@@ -978,12 +994,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (WSmsg.success && WSmsg.code === 200 && WSmsg.data.thread_id) {
             this.muteList.delete(WSmsg.data.thread_id);
             this.updateMuteStatusOnThreadList();
-            this.toast.success('Unmuted successfully');
+            this.toast.success(this.translate.instant('unmuted_successfully'));
         } else {
             if (WSmsg.code === 409) {
-                this.toast.warning('Failed to unmute, already in unmute');
+                this.toast.error(this.translate.instant('failed_to_unmute_already_in_unmute'));
             } else {
-                this.toast.error('Failed to unmute, please try after sometime');
+                this.toast.error(this.translate.instant('failed_to_unmute_please_try_after_sometime'));
                 console.log('Websocket: Mute: error');
             }
         }
@@ -1143,20 +1159,28 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
 
             if (isActivityOnThisTab) {
-                this.toast.success(`Successfully blocked the user ${newBlockedItem.computed_fullname}`);
+                this.toast.success(
+                    this.translate.instant('successfully_blocked_the_user_fullname', {
+                        fullname: newBlockedItem.computed_fullname,
+                    }),
+                );
                 this.openBlockedListPanel();
             } else {
-                this.toast.info(`You have blocked ${newBlockedItem.computed_fullname} from another logged in session.`);
+                this.toast.info(
+                    this.translate.instant('you_have_blocked_fullname_from_another_logged_in_session', {
+                        fullname: newBlockedItem.computed_fullname,
+                    }),
+                );
             }
         } else if (WSmsg.code === 409) {
             if (isActivityOnThisTab) {
-                this.toast.error('The user is already blocked');
+                this.toast.error(this.translate.instant('the_user_is_already_blocked'));
                 this.openBlockedListPanel();
             } else {
                 console.log('Info: Failed to block the following user from another logged in session', WSmsg.data);
             }
         } else {
-            this.toast.error('Unable to block the user');
+            this.toast.error(this.translate.instant('unable_to_block_the_user'));
         }
         this.blockThreadReferance = null;
     }
@@ -1186,15 +1210,21 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.updateBlockStatusOnThreadList();
             }
             if (isSameTab) {
-                this.toast.success(`Successfully unblocked the user ${unblockedItem.computed_fullname}`);
+                this.toast.success(
+                    this.translate.instant('successfully_unblocked_the_user_fullname', {
+                        fullname: unblockedItem.computed_fullname,
+                    }),
+                );
             } else {
                 this.toast.info(
-                    `You have unblocked ${unblockedItem.computed_fullname} from another logged in session.`,
+                    this.translate.instant('you_have_unblocked_fullname_from_another_logged_in_session', {
+                        fullname: unblockedItem.computed_fullname,
+                    }),
                 );
             }
             this.fetchBlockUserList();
         } else {
-            this.toast.error('Unable to unblock the user');
+            this.toast.error(this.translate.instant('unable_to_unblock_the_user'));
         }
         this.unblockUserReferance = null;
     }
@@ -1211,9 +1241,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     this.openThreadChat(this.openedThread);
                 }
             }
-            this.toast.success('Successfully cleared the conversation');
+            this.toast.success(this.translate.instant('successfully_cleared_the_conversation'));
         } else {
-            this.toast.error('Unable to clear the conversation');
+            this.toast.error(this.translate.instant('unable_to_clear_the_conversation'));
         }
         this.clearThreadReferance = null;
     }
@@ -1236,9 +1266,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     }
                 }
             }
-            this.toast.success('Successfully deleted the conversation');
+            this.toast.success(this.translate.instant('successfully_deleted_the_conversation'));
         } else {
-            this.toast.error('Unable to delete the conversation');
+            this.toast.error(this.translate.instant('unable_to_delete_the_conversation'));
         }
         this.deleteThreadReferance = null;
     }
@@ -1246,9 +1276,14 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     handleThreadsResponse(WSmsg: WSResponse<ThreadListItem[]>) {
         this.loader.threadListFetch = false;
         if (WSmsg.code === 200) {
-            this.threadList = (WSmsg.data || []).filter((thread) => thread.type === ThreadType.normal);
-            this.threadList.forEach((thread) => {
-                this.processThreads(thread);
+            if (WSmsg.result_info.page === 1) {
+                this.threadList = [];
+            }
+            const threadList = (WSmsg.data || []).filter((thread) => thread.type === ThreadType.normal);
+            this.threadListConfig.loadedPage = WSmsg.result_info.page;
+            this.threadListConfig.totalCount = WSmsg.result_info.total_count + 1;
+            threadList.forEach((thread) => {
+                this.threadList.push(this.processThreads(thread));
             });
             this.updateBlockStatusOnThreadList();
             this.updateMuteStatusOnThreadList();
@@ -1267,7 +1302,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.threadFinderReturned.next('done');
                 thread = this.processThreads(thread);
                 const existingThread = this.threadList.find((t) => t.id === thread.id);
-                this.openPanel();
+                if (!this.chatHandler.isOpen.value) {
+                    this.openPanel();
+                }
                 if (existingThread) {
                     this.openThreadChat(existingThread);
                 } else {
@@ -1323,7 +1360,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     activity_id: resResult.activity_id,
                     messageUnit: [],
                 };
-                // FIXME  normalizing message make sure this is standards in all message format
                 for (const resMessage of resResult.messages) {
                     if (resMessage.activity_type === ThreadActivityType.message) {
                         const preProcessedMessage: any = resMessage;
@@ -1428,9 +1464,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             const pl = req.payload as OpenChatThread;
             const key = `${pl.user_id}_${pl.org_type}_${pl.org_id || 0}`;
             if (!!this.blockMap.blockedMe[key]) {
-                this.toast.error('The user has been blocked you', 'Unable to start the chat');
+                this.toast.error(
+                    this.translate.instant('the_user_has_been_blocked_you'),
+                    this.translate.instant('unable_to_start_the_chat'),
+                );
             } else if (!!this.blockMap.myBlock[key]) {
-                this.toast.error('Remove the user from block list', 'Unable to start the chat');
+                this.toast.error(
+                    this.translate.instant('remove_the_user_from_block_list'),
+                    this.translate.instant('unable_to_start_the_chat'),
+                );
             } else {
                 this.findThread(req.payload as OpenChatThread);
             }
@@ -1508,6 +1550,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             if (inputHeight < scrollHeight) {
                 this.render.setStyle(this.messageInputElement, 'height', Math.min(scrollHeight, 80) + 'px');
             }
+        }
+    }
+
+    updateThreadListbodyElRef() {
+        if (!this.threadListContainerElement) {
+            const query = `[data-element="thread-list-container"]`;
+            this.threadListContainerElement = (this.elRef?.nativeElement?.querySelector(query) as HTMLElement) || null;
         }
     }
 
@@ -1623,7 +1672,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 type: MessageMetaTypes.TEXT_ONLY,
             } as MessageMeta);
         } else {
-            this.toast.warning('Message text can not be blank', 'Unable to sent', { timeOut: 800 });
+            this.toast.error(
+                this.translate.instant('message_text_can_not_be_blank'),
+                this.translate.instant('unable_to_sent'),
+                {
+                    timeOut: 800,
+                },
+            );
             return;
         }
 
@@ -1676,9 +1731,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             url: res.result.url,
                         };
                     } else {
-                        this.toast.error('Unable to sent files, please try aftersome time', 'Uploading failed', {
-                            timeOut: 400,
-                        });
+                        this.toast.error(
+                            this.translate.instant('unable_to_sent_files_please_try_aftersome_time'),
+                            this.translate.instant('uploading_failed'),
+                            {
+                                timeOut: 400,
+                            },
+                        );
                     }
                 },
                 (error) => {
@@ -1687,7 +1746,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 },
             );
         } else {
-            this.toast.error('Please choose a valid file type', 'Invalid File type', { timeOut: 400 });
+            this.toast.error(
+                this.translate.instant('please_choose_a_valid_file_type'),
+                this.translate.instant('invalid_file_type'),
+                {
+                    timeOut: 400,
+                },
+            );
         }
         return false;
     }
@@ -1745,7 +1810,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
 
         this.SM.userListSubscription = this.chatApi.searchUser(searchQuery).subscribe((data) => {
-            console.log('userService', data);
             this.loader.userListFetchFetch = false;
             let list = [];
             if (data && data.success && data.result && data.result.length > 0) {
@@ -1813,6 +1877,26 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     };
 
+    threadListScrollListener = () => {
+        this.updateThreadListbodyElRef();
+
+        if (
+            !this.loader.threadListFetch &&
+            this.threadListContainerElement &&
+            this.threadListContainerElement.scrollHeight -
+                this.threadListContainerElement.clientHeight -
+                this.threadListContainerElement.scrollTop <
+                5 &&
+            !this.threadSearchKeyword
+        ) {
+            const totalPage = Math.ceil((this.threadListConfig.totalCount || 0) / this.threadListConfig.perPage);
+            if (totalPage > this.threadListConfig.loadedPage || this.threadListConfig.totalCount === null) {
+                this.threadListConfig.page++;
+                this.loadThreadList();
+            }
+        }
+    };
+
     chatListScrollListener = () => {
         this.updateChatMessageBodyElRef();
         if (
@@ -1866,10 +1950,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     };
 
     openThreadChat(thread: ThreadListItem) {
+        //ANCHOR marker
         this.chatOpenedMessageReset();
         this.chatUIStateReset();
         this.chatElRefReset();
         this.openedThread = thread;
+
         this.updateMuteInMenuVisibility();
         this.socket.directMessageSent.next(this.getHistoryPayload(thread));
         if (this.SM.lastRender && this.SM.lastRender.unsubscribe) {
@@ -1903,8 +1989,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     clearChat() {
         this.modelConfig.showModal({
             icon: 'DELETE',
-            title: 'Clear conversation?',
-            desc: 'Do you really want to clear this conversation?',
+            title: this.translate.instant('clear_conversation'),
+            desc: this.translate.instant('do_you_really_want_to_clear_this_conversation'),
             actionHandler: (value) => {
                 if (value === 'yes') {
                     this.clearThreadReferance = this.openedThread;
@@ -1925,8 +2011,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     deleteChat() {
         this.modelConfig.showModal({
             icon: 'DELETE',
-            title: 'Delete conversation?',
-            desc: 'Do you really want to delete this conversation?',
+            title: this.translate.instant('delete_conversation'),
+            desc: this.translate.instant('do_you_really_want_to_delete_this_conversation'),
             actionHandler: (value) => {
                 if (value === 'yes') {
                     this.deleteThreadReferance = this.openedThread;
@@ -1947,8 +2033,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     reportUser(dataPayload: ThreadMember) {
         this.modelConfig.showModal({
             icon: 'REPORT',
-            title: 'Report user?',
-            desc: 'Do you really want to report this user?',
+            title: this.translate.instant('report_user'),
+            desc: this.translate.instant('do_you_really_want_to_report_this_user'),
             actionHandler: (value) => {
                 if (value === 'yes') {
                     this.loader.reportAction = true;
@@ -1958,14 +2044,14 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             (res) => {
                                 this.loader.reportAction = false;
                                 if (res.success) {
-                                    this.toast.success('Successfully reported the user');
+                                    this.toast.success(this.translate.instant('successfully_reported_the_user'));
                                 } else {
-                                    this.toast.success('Failed to report the user');
+                                    this.toast.success(this.translate.instant('failed_to_report_the_user'));
                                 }
                             },
                             () => {
                                 this.loader.reportAction = false;
-                                this.toast.success('Failed to report the user');
+                                this.toast.success(this.translate.instant('failed_to_report_the_user'));
                             },
                         );
                 }
@@ -1976,8 +2062,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     blockUser(dataPayload: ThreadMember) {
         this.modelConfig.showModal({
             icon: 'BLOCK',
-            title: 'Block user?',
-            desc: 'Do you really want to block this user?',
+            title: this.translate.instant('block_user'),
+            desc: this.translate.instant('do_you_really_want_to_block_this_user'),
             actionHandler: (value) => {
                 if (value === 'yes') {
                     this.blockThreadReferance = this.openedThread;
@@ -2000,8 +2086,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     unblockUser(dataPayload: BlockListItem) {
         this.modelConfig.showModal({
             icon: 'BLOCK',
-            title: 'Unblock user?',
-            desc: 'Do you really want to Unblock this user?',
+            title: this.translate.instant('unblock_user'),
+            desc: this.translate.instant('do_you_really_want_to_unblock_this_user'),
             actionHandler: (value) => {
                 if (value === 'yes') {
                     this.loader.unblockAction = true;
@@ -2113,6 +2199,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     chatElRefReset() {
         this.chatMessageBodyElement = null;
         this.messageInputElement = null;
+        this.threadListContainerElement = null;
     }
 
     startNewChat() {
@@ -2266,7 +2353,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             if (url) {
                                 this.fileDownload(url);
                             } else {
-                                this.toast.error('Failed to download the image');
+                                this.toast.error(this.translate.instant('failed_to_download_the_image'));
                             }
                         },
                     },

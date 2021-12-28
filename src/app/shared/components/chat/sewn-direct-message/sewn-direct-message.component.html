@@ -54,7 +54,7 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="!openedThread">
-                            <div class="dm-exp-no-thread-selectecd">No chat thread selected</div>
+                            <div class="dm-exp-no-thread-selectecd">{{ 'no_chat_thread_selected' | translate }}</div>
                         </ng-container>
                     </div>
                 </div>
@@ -136,8 +136,12 @@
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
         <div class="dm-udv-back-to-chat" (click)="closeUserInfoPanel()">
             <img class="dm-udv-back-img" src="assets/images/dm-back-arrow.svg" />
-            <span class="dm-udv-back-text brown-text" *ngIf="!chatHandler.isExpand.value"> Back to chat </span>
-            <span class="dm-udv-back-text brown-text" *ngIf="chatHandler.isExpand.value"> Back to Conversation</span>
+            <span class="dm-udv-back-text brown-text" *ngIf="!chatHandler.isExpand.value">
+                {{ 'back_to_chat' | translate }}
+            </span>
+            <span class="dm-udv-back-text brown-text" *ngIf="chatHandler.isExpand.value">
+                {{ 'dm_back_to_conversation' | translate }}</span
+            >
         </div>
         <div class="dm-udv-wrapper">
             <div class="dm-udv-detail-block">
@@ -158,23 +162,23 @@
             </div>
             <div class="dm-udv-option-list">
                 <div class="dm-udv-option-item">
-                    <span class="dm-udv-option-item-text">Mute notifications from user</span>
+                    <span class="dm-udv-option-item-text">{{ 'mute_notifications_from_user' | translate }}</span>
                     <p-inputSwitch
                         (onChange)="toggleMute($event)"
                         [(ngModel)]="openedThread.computed_mute"
                     ></p-inputSwitch>
                 </div>
                 <div (click)="clearChat()" class="dm-udv-option-item dm-pointer">
-                    <span class="dm-udv-option-item-text">Clear conversation</span>
+                    <span class="dm-udv-option-item-text">{{ 'clear_conversation' | translate }}</span>
                     <img class="ml-auto" src="assets/images/setting-arrow.svg" />
                 </div>
                 <button (click)="blockUser(selectedUser)" class="dm-gray-button dm-udv-block-button">
                     <img class="dm-btn-icon" src="assets/images/dm-blocked.svg" />
-                    <span class="dm-btn-label">Block user</span>
+                    <span class="dm-btn-label">{{ 'block_user' | translate }}</span>
                 </button>
                 <button class="dm-gray-button dm-udv-report-button">
                     <img class="dm-btn-icon" src="assets/images/dm-report.svg" />
-                    <span (click)="reportUser(selectedUser)" class="dm-btn-label">Report user</span>
+                    <span (click)="reportUser(selectedUser)" class="dm-btn-label">{{ 'report_user' | translate }}</span>
                 </button>
             </div>
         </div>
@@ -218,11 +222,13 @@
                 <div class="dm-ltm-panel scale-up-top" *ngIf="contextMenuOpen" data-element="context-menu-panel">
                     <span class="dm-ltm-panel-arrow"></span>
                     <div class="dm-ltm-panel-listing">
-                        <div class="dm-ltm-panel-title">Chat settings</div>
+                        <div class="dm-ltm-panel-title">{{ 'chat_settings' | translate }}</div>
                         <div class="dm-itm-item">
                             <div class="dm-ltm-block-content">
-                                <div class="dm-ltm-option-name">Read recipient</div>
-                                <div class="dm-ltm-option-description">See read recipient in a chat</div>
+                                <div class="dm-ltm-option-name">{{ 'read_recipient' | translate }}</div>
+                                <div class="dm-ltm-option-description">
+                                    {{ 'see_read_recipient_in_a_chat' | translate }}
+                                </div>
                             </div>
                             <div class="dm-ltm-block-action">
                                 <p-inputSwitch [(ngModel)]="chatHandler.setting.read_recipient"></p-inputSwitch>
@@ -230,8 +236,10 @@
                         </div>
                         <div class="dm-itm-item">
                             <div class="dm-ltm-block-content">
-                                <div class="dm-ltm-option-name">Enable emoticons</div>
-                                <div class="dm-ltm-option-description">Enable or disable emoticon keyboard in chat</div>
+                                <div class="dm-ltm-option-name">{{ 'enable_emoticons' | translate }}</div>
+                                <div class="dm-ltm-option-description">
+                                    {{ 'enable_or_disable_emoticon_keyboard_in_chat' | translate }}
+                                </div>
                             </div>
                             <div class="dm-ltm-block-action">
                                 <p-inputSwitch [(ngModel)]="chatHandler.setting.enable_emoticons"></p-inputSwitch>
@@ -239,7 +247,7 @@
                         </div>
                         <div class="dm-itm-item">
                             <div class="dm-ltm-block-content">
-                                <div class="dm-ltm-option-name">Chat text size</div>
+                                <div class="dm-ltm-option-name">{{ 'chat_text_size' | translate }}</div>
                             </div>
                             <div class="dm-ltm-block-action">
                                 <p-dropdown
@@ -253,7 +261,7 @@
                         </div>
                         <div class="dm-ltm-enable-chatsound dm-itm-item">
                             <div class="dm-ltm-block-content">
-                                <div class="dm-ltm-option-name">Chat sound</div>
+                                <div class="dm-ltm-option-name">{{ 'chat_sound' | translate }}</div>
                             </div>
                             <div class="dm-ltm-block-action">
                                 <p-inputSwitch [(ngModel)]="chatHandler.setting.notification_sound"></p-inputSwitch>
@@ -261,13 +269,13 @@
                         </div>
                         <button (click)="openBlockedListPanel()" class="dm-gray-button dm-ltm-show-blocked-user">
                             <img class="dm-btn-icon" src="assets/images/dm-blocked.svg" />
-                            <span class="dm-btn-label">View blocked contacts</span>
+                            <span class="dm-btn-label">{{ 'view_blocked_contacts' | translate }}</span>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="dm-thread-listing">
+        <div class="dm-thread-listing" data-element="thread-list-container" (scroll)="threadListScrollEventSubject.next($event)">
             <div
                 class="dm-thread-listing-error-panel"
                 *ngIf="(threadList | searchFilter: threadSearchKeyword).length <= 0"
@@ -275,14 +283,16 @@
                 <div class="dm-tlep-error-block" *ngIf="!threadSearchKeyword">
                     <img class="dm-tlep-error-img" src="assets/images/dm-empty-thread-list.svg" alt="Empty" />
 
-                    <div class="dm-tlep-error-text">Looks like you haven`t spoken to anyone yet</div>
+                    <div class="dm-tlep-error-text">{{ 'looks_like_you_havent_spoken_to_anyone_yet' | translate }}</div>
                 </div>
                 <div class="dm-tlep-error-block" *ngIf="threadSearchKeyword">
                     <img class="dm-tlep-error-img" src="assets/images/dm-notfound-thread.svg" alt="Empty" />
-                    <div class="dm-tlep-error-text">Oops! No results found</div>
+                    <div class="dm-tlep-error-text">{{ 'oops_no_results_found' | translate }}</div>
                     <div class="dm-tlep-error-sub-text">
-                        We are sorry, we couldn`t find the result you are trying to search.Try searching with a
-                        different keyword.
+                        {{
+                            'we_are_sorry_we_couldnt_find_the_result_you_are_trying_to_searchtry_searching_with_a_different_keyword'
+                                | translate
+                        }}
                     </div>
                 </div>
             </div>
@@ -292,7 +302,7 @@
         </div>
         <div class="dm-start-chat-panel">
             <button (click)="startNewChat()" class="dm-start-chat-btn">
-                <span>Search users & start chat</span>
+                <span>{{ 'search_users_start_chat' | translate }}</span>
             </button>
         </div>
     </div>
@@ -302,7 +312,7 @@
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
         <div class="dm-sup-back-to-chat" (click)="closeNewChatPanel()">
             <img class="dm-sup-back-img" src="assets/images/dm-back-arrow.svg" />
-            <span class="dm-sup-back-text brown-text"> Back to conversation</span>
+            <span class="dm-sup-back-text brown-text"> {{ 'dm_back_to_conversation' | translate }}</span>
         </div>
         <div class="dm-sup-top-panel">
             <div class="dm-sup-thread-search-wrapper">
@@ -329,12 +339,12 @@
                     <div class="dm-sup-error-block">
                         <img class="dm-sup-error-img" src="assets/images/dm-empty-thread-list.svg" alt="Empty" />
                         <div class="dm-sup-error-text">
-                            You don't have any recent contacts, Try searching the users.
+                            {{ 'you_dont_have_any_recent_contacts_try_searching_the_users' | translate }}
                         </div>
                     </div>
                 </div>
                 <div class="dm-sup-listing-wrapper" *ngIf="recentUserList.length">
-                    <div class="dm-sup-listing-recent-tag">Recent</div>
+                    <div class="dm-sup-listing-recent-tag">{{ 'recent' | translate }}</div>
                     <ng-container *ngTemplateOutlet="recentUserListTL"></ng-container>
                 </div>
             </ng-container>
@@ -343,7 +353,7 @@
                     <div class="dm-sup-listing-error-panel">
                         <div class="dm-sup-search-progress-section">
                             <p-progressSpinner strokeWidth="5"></p-progressSpinner>
-                            <span class="dm-sup-search-progress-text"> Searching users...</span>
+                            <span class="dm-sup-search-progress-text"> {{ 'searching_users' | translate }}...</span>
                         </div>
                     </div>
                 </ng-container>
@@ -351,10 +361,12 @@
                     <div class="dm-sup-listing-error-panel" *ngIf="!filteredUsersList.length">
                         <div class="dm-sup-error-block">
                             <img class="dm-sup-error-img" src="assets/images/dm-notfound-thread.svg" alt="Empty" />
-                            <div class="dm-sup-error-text">Oops! No results found</div>
+                            <div class="dm-sup-error-text">{{ 'oops_no_results_found' | translate }}</div>
                             <div class="dm-sup-error-sub-text">
-                                We are sorry, we couldn`t find the result you are trying to search.Try searching with a
-                                different keyword.
+                                {{
+                                    'we_are_sorry_we_couldnt_find_the_result_you_are_trying_to_searchtry_searching_with_a_different_keyword'
+                                        | translate
+                                }}
                             </div>
                         </div>
                     </div>
@@ -371,13 +383,13 @@
         <ng-container *ngTemplateOutlet="listHeaderTL"></ng-container>
         <div class="dm-rup-back-to-chat" (click)="closeBlockedListPanel()">
             <img class="dm-rup-back-img" src="assets/images/dm-back-arrow.svg" />
-            <span class="dm-rup-back-text brown-text"> Back to Conversation</span>
+            <span class="dm-rup-back-text brown-text"> {{ 'dm_back_to_conversation' | translate }} </span>
         </div>
         <div class="dm-rup-listing">
             <div class="dm-rup-error-panel" *ngIf="!myBlockList.length && !loader.blockListFetch">
                 <div class="dm-rup-error-block">
                     <img class="dm-rup-error-img" src="assets/images/dm-empty-thread-list.svg" alt="Empty" />
-                    <div class="dm-rup-error-text">Looks like you haven`t blocked any users</div>
+                    <div class="dm-rup-error-text">{{ 'looks_like_you_havent_blocked_any_users' | translate }}</div>
                 </div>
             </div>
             <div class="dm-rup-listing-wrapper" *ngIf="myBlockList.length">
@@ -440,7 +452,7 @@
 </ng-template>
 <ng-template #listHeaderTL>
     <div class="dm-list-view-header" *ngIf="!chatHandler.isMobileView.value">
-        <div class="dm-lvh-message">Messaging</div>
+        <div class="dm-lvh-message">{{ 'messaging' | translate }}</div>
         <div class="dm-lvh-action-buttons">
             <ng-container *ngIf="!chatHandler.isMobileView.value">
                 <div
@@ -523,7 +535,7 @@
             </div>
             <div class="dm-rli-content-row">
                 <img class="dm-rli-block-icon" src="assets/images/dm-blocked.svg" />
-                <span class="dm-rli-block-text">This contact is blocked</span>
+                <span class="dm-rli-block-text">{{ 'this_contact_is_blocked' | translate }}</span>
             </div>
         </div>
         <div class="dm-rli-unblock-block">
@@ -706,24 +718,24 @@
                             </div>
                             <div *ngIf="message.showTranslation === 'IP'" class="dm-ci-content-translation">
                                 <p-progressSpinner strokeWidth="5"></p-progressSpinner>
-                                <span class="dm-ci-content-translating-text">Translating...</span>
+                                <span class="dm-ci-content-translating-text">{{ 'translating' | translate }}...</span>
                             </div>
                         </ng-container>
                     </div>
                 </ng-container>
                 <div *ngIf="message.meta.type !== 'PICTURE_ONLY'" class="dm-ci-message-meta">
                     <div *ngIf="message.lang !== gtrans.defaultLang" class="dm-ci-translation">
-                        <span *ngIf="message.showTranslation === 'OFF'" (click)="translateMessage(message)"
-                            >View translation</span
-                        >
-                        <span *ngIf="message.showTranslation === 'ON'" (click)="showOrginal(message)"
-                            >Show original text</span
-                        >
+                        <span *ngIf="message.showTranslation === 'OFF'" (click)="translateMessage(message)">{{
+                            'view_translation' | translate
+                        }}</span>
+                        <span *ngIf="message.showTranslation === 'ON'" (click)="showOrginal(message)">{{
+                            'show_original_text' | translate
+                        }}</span>
                     </div>
                     <div class="dm-ci-message-stamp">
                         <ng-container *ngIf="chatHandler.setting.read_recipient && message.isActiveUser">
-                            <span *ngIf="!message.is_read">Delivered</span>
-                            <span *ngIf="message.is_read">Read</span>
+                            <span *ngIf="!message.is_read">{{ 'dm_delivered' | translate }}</span>
+                            <span *ngIf="message.is_read">{{ 'read' | translate }}</span>
                             <span class="dm-ci-message-stamp-seprator"></span>
                         </ng-container>
                         <span>{{ message.computed_date }}</span>
@@ -740,11 +752,11 @@
                 <div class="chat-loading-result-loader">
                     <p-progressSpinner strokeWidth="5"></p-progressSpinner>
                 </div>
-                <span class="chat-loading-result-text">Searching...</span>
+                <span class="chat-loading-result-text">{{ 'searching' | translate }}...</span>
             </div>
         </ng-container>
         <ng-container *ngIf="!loader.chatSearch">
-            <div class="chat-empty-result">No Search Result Found!</div>
+            <div class="chat-empty-result">{{ 'no_search_result_found' | translate }}!</div>
         </ng-container>
     </ng-container>
     <ng-container *ngIf="chatSearch.searchResult.length">
@@ -825,7 +837,9 @@
                                 </div>
                                 <div *ngIf="unit.message.showTranslation === 'IP'" class="dm-ci-content-translation">
                                     <p-progressSpinner strokeWidth="5"></p-progressSpinner>
-                                    <span class="dm-ci-content-translating-text">Translating...</span>
+                                    <span class="dm-ci-content-translating-text"
+                                        >{{ 'translating' | translate }}...</span
+                                    >
                                 </div>
                             </ng-container>
                         </div>
@@ -836,16 +850,17 @@
                             <span
                                 *ngIf="unit.message.showTranslation === 'OFF'"
                                 (click)="translateMessage(unit.message)"
-                                >View translation</span
                             >
-                            <span *ngIf="unit.message.showTranslation === 'ON'" (click)="showOrginal(unit.message)"
-                                >Show original text</span
-                            >
+                                {{ 'view_translation' | translate }}
+                            </span>
+                            <span *ngIf="unit.message.showTranslation === 'ON'" (click)="showOrginal(unit.message)">
+                                {{ 'show_original_text' | translate }}
+                            </span>
                         </div>
                         <div class="dm-ci-message-stamp">
                             <ng-container *ngIf="chatHandler.setting.read_recipient">
-                                <span>Delivered</span>
-                                <span *ngIf="false">Read</span>
+                                <span>{{ 'dm_delivered' | translate }}</span>
+                                <span *ngIf="false">{{ 'read' | translate }}</span>
                                 <span class="dm-ci-message-stamp-seprator"></span>
                             </ng-container>
                             <span>{{ unit.message.computed_date }}</span>
@@ -859,10 +874,7 @@
 <ng-template #messageBoxTL>
     <div class="dm-messag-box">
         <div class="dm-message-offensive-lang" [ngClass]="{ active: showOffensiveMessageError }">
-            <span
-                >Use of offensive language is strictly prohibited using within member to member messaging, on our public
-                groups, non-compliance may lead to permanent / temporary suspension of your account.</span
-            >
+            <span>{{ 'use_of_offensive_language_is_strictly_prohibited' | translate }}</span>
         </div>
         <div class="dm-mb-image-view" *ngIf="(uploadFileMeta && uploadFileMeta?.url) || uploadProgressing">
             <div class="dm-mb-image-wrapper" *ngIf="uploadFileMeta && uploadFileMeta?.url">
@@ -876,7 +888,7 @@
             </div>
             <div class="dm-mb-image-uploader" *ngIf="uploadProgressing">
                 <p-progressSpinner strokeWidth="5"></p-progressSpinner>
-                <span class="dm-mb-image-uploading-text">Uploading</span>
+                <span class="dm-mb-image-uploading-text">{{ 'dm_uploading' | translate }}</span>
             </div>
             <div></div>
         </div>
