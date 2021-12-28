@@ -56,11 +56,9 @@
     }
 }
 table.recent-time {
-    td:first-of-type {
-        width: 55%;
-    }
+    td:first-of-type,
     td:last-of-type {
-        width: 45%;
+        width: 50%;
     }
 }
 ::ng-deep.right-dropdown {
