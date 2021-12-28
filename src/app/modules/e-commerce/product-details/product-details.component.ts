@@ -349,7 +349,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     setWeightValidators(weightForm: FormGroup) {
-        weightForm.get('weight').setValidators([Validators.required, quantityMinValidator('weight_unit', 0.1)]);
+        weightForm.get('weight').setValidators([Validators.required, Validators.min(1)]);
         weightForm.get('featured_image_id').setValidators([fileRequired()]);
         weightForm.get('crate_capacity')?.setValidators([Validators.required, Validators.min(1)]);
         Object.keys(weightForm.controls).forEach((key) => {
