@@ -1,11 +1,10 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService, CommonService, GlobalsService, RoasterService } from '@services';
+import { ConfirmComponent } from '@shared';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, CommonService, GlobalsService } from '@services';
-import { RoasterService } from '@services';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-roaster-agreements',
