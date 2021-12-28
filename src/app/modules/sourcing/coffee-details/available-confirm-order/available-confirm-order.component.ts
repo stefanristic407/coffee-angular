@@ -48,6 +48,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     addressForm: FormGroup;
     orderSettings: GcOrderSettings;
     isLoaded = false;
+    isSubmitted = false;
     orderPlaced = false;
     createdOrder: any;
     orderDetail: any;
@@ -341,30 +342,63 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             this.infoForm.markAllAsTouched();
             return;
         }
+        const promises = [];
         if (!this.infoForm.value.service && !this.deliveryAddress?.id) {
-            this.toastrService.error('Please update delivery address');
-            return;
+            const postData = {
+                type: AddressType.SHIPPING,
+                ...this.deliveryAddress,
+            };
+            promises.push(
+                new Promise((resolve, reject) =>
+                    this.userService.addAddresses(this.roasterId, postData).subscribe((res: any) => {
+                        if (res.success) {
+                            resolve(res);
+                        } else {
+                            reject();
+                        }
+                    }),
+                ),
+            );
         }
         if (!this.billingAddress?.id) {
-            this.toastrService.error('Please update billing address');
-            return;
+            const postData = {
+                type: AddressType.BILLING,
+                ...this.billingAddress,
+            };
+            promises.push(
+                new Promise((resolve, reject) =>
+                    this.userService.addAddresses(this.roasterId, postData).subscribe((res: any) => {
+                        if (res.success) {
+                            resolve(res);
+                        } else {
+                            reject();
+                        }
+                    }),
+                ),
+            );
         }
-        this.dialogSrv
-            .open(ConfirmComponent, {
-                data: {
-                    title: this.translator.instant('confirm_your_purchase'),
-                    desp: this.translator.instant('ro_confirm_purchase_desp'),
-                },
+
+        this.isSubmitted = true;
+        Promise.all(promises)
+            .then(() => {
+                this.dialogSrv
+                    .open(ConfirmComponent, {
+                        data: {
+                            title: this.translator.instant('confirm_your_purchase'),
+                            desp: this.translator.instant('ro_confirm_purchase_desp'),
+                        },
+                    })
+                    .onClose.subscribe((action: any) => {
+                        if (action === 'yes') {
+                            if (this.orderType === OrderType.Booked) {
+                                this.submitOrder();
+                            } else if (this.orderType === OrderType.Sample) {
+                                this.submitSample();
+                            }
+                        }
+                    });
             })
-            .onClose.subscribe((action: any) => {
-                if (action === 'yes') {
-                    if (this.orderType === OrderType.Booked) {
-                        this.submitOrder();
-                    } else if (this.orderType === OrderType.Sample) {
-                        this.submitSample();
-                    }
-                }
-            });
+            .catch(() => this.toastrService.error('Error while adding the address'));
     }
 
     submitOrder() {
@@ -385,6 +419,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             } else {
                 this.toastrService.error('Error while Placing the order');
             }
+            this.isSubmitted = false;
         });
     }
 
@@ -401,6 +436,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
             } else {
                 this.toastrService.error('Error while Placing the order');
             }
+            this.isSubmitted = false;
         });
     }
 
