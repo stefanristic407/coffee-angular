@@ -14,19 +14,16 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class PublicInviteDetailsComponent implements OnInit {
     data: any;
-    organizationProfile: any;
-    roasterId: any;
+    userDetails: any;
     requestId: any;
     constructor(
-        public location: Location,
-        public userService: UserService,
+        private userService: UserService,
         private authService: AuthService,
-        public route: ActivatedRoute,
+        private route: ActivatedRoute,
         private toastr: ToastrService,
         private dialogSrv: DialogService,
         private translator: TranslateService,
     ) {
-        this.roasterId = this.authService.getOrgId();
         this.requestId = this.route.snapshot.params.id;
     }
 
@@ -35,11 +32,13 @@ export class PublicInviteDetailsComponent implements OnInit {
     }
 
     getMrPublicOnboardDetails() {
-        this.userService.getMrPublicOnboardDetails(this.roasterId, this.requestId).subscribe((res: any) => {
-            if (res.success) {
-                this.organizationProfile = res.result;
-            }
-        });
+        this.userService
+            .getMrPublicOnboardDetails(this.authService.getOrgId(), this.requestId)
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.userDetails = res.result;
+                }
+            });
     }
 
     onApprove() {
@@ -54,14 +53,16 @@ export class PublicInviteDetailsComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.userService.approveMrPublicOnboard(this.roasterId, this.requestId).subscribe((res: any) => {
-                        if (res.success) {
-                            this.getMrPublicOnboardDetails();
-                            this.toastr.success(
-                                'The roaster has been approved. A confirmation email has been sent to the roaster',
-                            );
-                        }
-                    });
+                    this.userService
+                        .approveMrPublicOnboard(this.authService.getOrgId(), this.requestId)
+                        .subscribe((res: any) => {
+                            if (res.success) {
+                                this.getMrPublicOnboardDetails();
+                                this.toastr.success(
+                                    'The roaster has been approved. A confirmation email has been sent to the roaster',
+                                );
+                            }
+                        });
                 }
             });
     }
@@ -78,14 +79,16 @@ export class PublicInviteDetailsComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.userService.rejectMrPublicOnboard(this.roasterId, this.requestId).subscribe((res: any) => {
-                        if (res.success) {
-                            this.getMrPublicOnboardDetails();
-                            this.toastr.error(
-                                'The roaster has been rejected. A confirmation email has been sent to the roaster',
-                            );
-                        }
-                    });
+                    this.userService
+                        .rejectMrPublicOnboard(this.authService.getOrgId(), this.requestId)
+                        .subscribe((res: any) => {
+                            if (res.success) {
+                                this.getMrPublicOnboardDetails();
+                                this.toastr.error(
+                                    'The roaster has been rejected. A confirmation email has been sent to the roaster',
+                                );
+                            }
+                        });
                 }
             });
     }
