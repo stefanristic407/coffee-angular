@@ -15,7 +15,9 @@
                 border-right: 1px solid $secondary-border-color;
                 &:nth-last-child(-n + 2) {
                     border-left: 1px solid $secondary-border-color;
-                    position: absolute;
+                    @media (min-width: 768px) {
+                        position: absolute;
+                    }
                     right: 0px;
                     a {
                         height: 52px;

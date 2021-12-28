@@ -14,7 +14,11 @@
                 [header]="'shipping' | translate"
                 *ngIf="order?.order_type === OrderType.Booked && orderShipped"
             >
-                <app-shipping-details [shippingDetails]="shippingDetails" [bulk]="bulk$ | async"></app-shipping-details>
+                <app-shipping-details
+                    [shippingDetails]="shippingDetails"
+                    [bulk]="bulk$ | async"
+                    [isFullyServicedDelivery]="order?.is_fully_serviced_delivery"
+                ></app-shipping-details>
             </p-tabPanel>
         </p-tabView>
 

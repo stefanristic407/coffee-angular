@@ -798,7 +798,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             this.onCancelGrind(fg);
         });
         const newForm = this.creatGrindForm();
-        newForm.patchValue({ ...grindForm.getRawValue(), grind_variant_id: '' });
+        newForm.patchValue({ ...grindForm.getRawValue(), grind_variant_id: '', is_default_variant: false });
         grindFormArr.push(newForm);
         this.checkGrindForm();
         newForm.get('editable').setValue(true);
@@ -814,6 +814,20 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
             });
             defaultGrindForm.get('is_default_variant').setValue(true);
             this.saveOriginalData(defaultGrindForm);
+        }
+    }
+
+    changeDefulat(grindForm: FormGroup) {
+        if (grindForm.get('originalData').value?.is_default_variant) {
+            this.toasterService.error(this.translator.instant('default_variant_deselect_note'));
+            grindForm.get('is_default_variant').setValue(true);
+            grindForm.get('is_default_variant').markAsPristine();
+        }
+    }
+
+    showDefaultVariantMsg(grindForm: FormGroup) {
+        if (!grindForm.get('originalData').value?.is_default_variant && grindForm.get('is_default_variant').value) {
+            this.toasterService.success(this.translator.instant('default_variant_select_note'));
         }
     }
 
@@ -846,6 +860,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         this.inventorySrv.createGrindVariant(this.productID, wightId, postData).subscribe((res) => {
             if (res.success) {
                 this.toasterService.success('Grind variant created successfully');
+                this.showDefaultVariantMsg(grindForm);
                 grindForm.patchValue({ grind_variant_id: res.result.id, editable: false });
                 this.onBatchChange(grindForm, true);
                 this.checkWeightForm(grindForm.parent.parent as FormGroup);
@@ -861,6 +876,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         this.inventorySrv.updateGrindVariant(this.productID, wightId, grindId, postData).subscribe((res) => {
             if (res.success) {
                 this.toasterService.success('Grind variant updated successfully');
+                this.showDefaultVariantMsg(grindForm);
                 grindForm.get('editable').setValue(false);
                 this.onBatchChange(grindForm, true);
                 this.updateIsDefault(grindForm);

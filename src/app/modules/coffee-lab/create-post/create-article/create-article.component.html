@@ -15,7 +15,7 @@
             </p-dropdown>
         </div>
         <div class="col-12 sewn-form-field p-0">
-            <label>{{ 'cover_image' | translate }}</label>
+            <label>{{ 'cover_image' | translate }}<span class="star">*</span></label>
             <div
                 class="addImageContainer d-flex align-items-center justify-content-center"
                 [ngClass]="{ 'text-area': !coverImageId && clicked }"
@@ -56,7 +56,7 @@
         </div>
         <div class="col-12 sewn-form-field p-0">
             <label
-                >{{ 'title' | translate }}
+                >{{ 'title' | translate }}<span class="star">*</span>
                 <span class="pull-right text-clr588"
                     >{{ articleForm.get('title')?.value?.length }}/120
                     {{ 'characters' | translate }}
@@ -78,7 +78,7 @@
         </div>
         <div class="col-12 sewn-form-field p-0">
             <label
-                >{{ 'subtitle' | translate }}
+                >{{ 'subtitle' | translate }}<span class="star">*</span>
                 <span class="pull-right text-clr588">
                     {{ articleForm.get('subtitle')?.value | wordCount }}/20 {{ 'words' | translate }}
                 </span>
@@ -98,7 +98,7 @@
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
-            <label>{{ 'body' | translate }}</label>
+            <label>{{ 'body' | translate }}<span class="star">*</span></label>
             <app-forum-editor
                 formControlName="content"
                 [(isUploadingImage)]="isUploadingImage"

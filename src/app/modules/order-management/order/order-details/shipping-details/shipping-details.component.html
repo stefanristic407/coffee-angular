@@ -103,7 +103,7 @@
             </tr>
         </table>
     </div>
-    <div class="w-50 ml-4">
+    <div *ngIf="isFullyServicedDelivery" class="w-50 ml-4">
         <h4 class="fnt-18 fnt-bold">{{ 'importer_details' | translate }}</h4>
 
         <table class="recent-time w-100">
