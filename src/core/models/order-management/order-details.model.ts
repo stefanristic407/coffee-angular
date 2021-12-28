@@ -1,9 +1,10 @@
-import { OrderStatus, OrderType, ServiceRequestStatus, ShipmentStatus } from '@enums';
+import { OrderStatus, OrderType, QuantityUnit, ServiceRequestStatus, ShipmentStatus } from '@enums';
 import { Address } from '../common';
 
 export interface OrderDetails {
     arrival_date: string;
     billing_address?: Address;
+    coffee_id: number;
     created_at: string;
     delivery_address: Address;
     es_assignee_id?: number;
@@ -14,6 +15,7 @@ export interface OrderDetails {
     estimated_departure_date: string;
     estimated_pickup_date: string;
     exporter_status: ServiceRequestStatus;
+    gc_price?: number;
     harvest_date?: string;
     harvest_id: number;
     id?: number;
@@ -28,11 +30,11 @@ export interface OrderDetails {
     payment_after_delivery: boolean;
     payment_status: string;
     prebook_order_id?: number;
-    price: number;
     price_unit: number;
+    price: number;
     quantity_count?: number;
     quantity_type: string;
-    quantity_unit: string;
+    quantity_unit: QuantityUnit;
     quantity: number;
     receipt_url: string;
     ro_assignee_id?: number;

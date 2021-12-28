@@ -4,6 +4,7 @@ import { OrderType, OrganizationType } from '@enums';
 import { OrderDetails } from '@models';
 import { OrderManagementService } from '@modules/order-management/order-management.service';
 import { CommonService } from '@services';
+import { convertKg } from '@utils';
 import { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -24,7 +25,10 @@ export class LotDetailsComponent extends DestroyableComponent implements OnInit,
 
     get quantity(): string {
         if (this.lot && this.lot.quantity && this.lot.quantity_count) {
-            return `${this.lot.quantity_count} ${this.lot.quantity_type} x ${this.lot.quantity} kg`;
+            return `${this.lot.quantity_count} ${this.lot.quantity_type} x ${convertKg(
+                this.lot.quantity,
+                this.lot.quantity_unit,
+            )}${this.lot.quantity_unit}`;
         }
 
         return '';

@@ -1,35 +1,38 @@
 <div class="d-flex flex-column fnt-14 lh-18 lot-detail-block">
     <ng-container *ngIf="orgType === OrgType.MICRO_ROASTER; else estate_order">
-        <div class="d-flex flex-column flex-md-row">
-            <div class="d-flex flex-row flex-md-column w-100">
+        <div class="row no-gutters gutter-md-24 v-gutter-24">
+            <div class="d-flex flex-md-column col-md-auto lot-box">
                 <span class="fnt-500 text-muted">{{ 'product_name' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.product_name }}</span>
+                <span class="mt-md-3 fnt-600">{{ lot?.product_name }}</span>
             </div>
-            <div class="d-flex flex-row flex-md-column w-100">
-                <span class="fnt-500 text-muted">{{ 'lot_id' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{ availability?.lot_number }}</span>
-                <div
-                    class="navigation-link mt-2"
-                    *ngIf="lot"
-                    [routerLink]="['/sourcing/lot-details/', lot?.estate_id, lot?.lot_id]"
-                >
-                    {{ 'view_lot_details' | translate }}
-                </div>
-            </div>
-            <div class="d-flex flex-row flex-md-column w-100">
+            <div class="d-flex flex-md-column col-md-auto lot-box">
                 <span class="fnt-500 text-muted">{{ 'variety' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.varieties }}</span>
+                <span class="mt-md-3 fnt-600">{{ lot?.varieties }}</span>
             </div>
-            <div class="d-flex flex-row flex-md-column w-100">
-                <span class="fnt-500 text-muted">{{ 'bulk_ordered' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{
-                    lot?.type === OrderType.Sample ? ('sample' | translate) : quantity || '-'
-                }}</span>
+            <div class="d-flex flex-md-column col-md-auto lot-box">
+                <span class="fnt-500 text-muted">{{ 'quantity' | translate }}</span>
+                <span class="mt-md-3 fnt-600">
+                    <div>{{ quantity || '-' }}</div>
+                    <div class="brown-cta mt-2" [routerLink]="['/sourcing/lot-details/', lot?.estate_id, lot?.lot_id]">
+                        {{ 'view_lot_details' | translate }}
+                    </div>
+                </span>
             </div>
-            <div class="d-flex flex-row flex-md-column w-100">
-                <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} kg</span>
-                <span class="mt-md-3 fnt-600 text-clr334"
-                    >{{ lot?.unit_price | number: '1.2-4' }} {{ lot?.total_price_unit }}</span
+            <div class="d-flex flex-md-column col-md-auto lot-box">
+                <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} bag</span>
+                <span class="mt-md-3 fnt-600">{{ lot?.unit_price | number: '1.2-4' }} {{ lot?.total_price_unit }}</span>
+            </div>
+            <div *ngIf="lot?.type === OrderType.Sample" class="d-flex flex-md-column col-md-auto lot-box">
+                <span class="fnt-500 text-muted">{{ 'sample_price' | translate }}</span>
+                <span class="mt-md-3 fnt-600"
+                    >{{ lot?.gc_price | number: '1.2-2' }} {{ lot?.total_price_unit }} /
+                    {{ lot?.quantity | convertKg: lot?.quantity_unit }}{{ lot?.quantity_unit }}</span
+                >
+            </div>
+            <div class="d-flex flex-md-column col-md-auto lot-box">
+                <span class="fnt-500 text-muted">{{ 'total' | translate }}</span>
+                <span class="mt-md-3 fnt-600"
+                    >{{ lot?.total_price | number: '1.2-4' }} {{ lot?.total_price_unit }}</span
                 >
             </div>
         </div>
@@ -52,11 +55,7 @@
                         >{{ lot?.quantity_count }}&nbsp;{{ lot?.quantity_type | quantityType }} x {{ lot?.quantity
                         }}{{ lot?.quantity_unit }}</span
                     >
-                    <div
-                        *ngIf="lot"
-                        class="navigation-link mt-2"
-                        [routerLink]="['/sourcing/coffee-details', lot.harvest_id]"
-                    >
+                    <div *ngIf="lot" class="brown-cta mt-2" [routerLink]="['/sourcing/coffee-details', lot.harvest_id]">
                         {{ 'view_availability_details' | translate }}
                     </div>
                 </span>
