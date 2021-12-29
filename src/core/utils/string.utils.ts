@@ -23,8 +23,7 @@ export const dataURItoBlob = (dataURI: string): any => {
     return new Blob([ab], { type: mimeString });
 };
 
-export const insertAltAttr = (content: string, alt: string): string => {
-    const altStr = ` alt="${alt}"`;
+export const insertAltAttr = (content: string, alt: string, addIndex = true): string => {
     // Remove alt attribute
     while (1) {
         const img = RegExp(/<img.*?(alt=".*?")[^>]*>/g).exec(content);
@@ -34,6 +33,7 @@ export const insertAltAttr = (content: string, alt: string): string => {
         content = content.replace(img[1], '');
     }
     // Insert alt attribute
+    let index = 1;
     while (1) {
         const img = RegExp(/<img(?!.*\s+alt\s*=)[^>]*>/g).exec(content);
         if (!img) {
@@ -41,6 +41,7 @@ export const insertAltAttr = (content: string, alt: string): string => {
         }
         const originTag = img[0];
         const position = originTag.length - 1;
+        const altStr = addIndex ? ` alt="${alt} ${index++}"` : ` alt="${alt}"`;
         const imageTag = originTag.slice(0, position) + altStr + originTag.slice(position);
         content = content.replace(originTag, imageTag);
     }
