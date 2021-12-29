@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent extends DestroyableComponent implements OnInit {
-    isLoading = false;
+    isLoading = true;
     questions: any[] = [];
     articles: any;
     recipes: any;
