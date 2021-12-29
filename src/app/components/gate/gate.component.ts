@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, DashboardService } from '@services';
-import { GeneralService } from '@services';
-import { UserService } from '@services';
 import { DestroyableComponent } from '@base-components';
 import { UserStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, DashboardService, GeneralService, UserService } from '@services';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-gate',
@@ -18,14 +17,15 @@ export class GateComponent extends DestroyableComponent implements OnInit {
     userTermsAccepted: boolean;
     orgTermsAccepted: boolean;
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
+        private authService: AuthService,
+        private cookieService: CookieService,
         private dashboardSrv: DashboardService,
         private generalSrv: GeneralService,
-        private userSrv: UserService,
-        private cookieService: CookieService,
+        private route: ActivatedRoute,
+        private router: Router,
         private toastrService: ToastrService,
-        private authService: AuthService,
+        private translator: TranslateService,
+        private userSrv: UserService,
     ) {
         super();
     }
@@ -135,7 +135,7 @@ export class GateComponent extends DestroyableComponent implements OnInit {
         this.dashboardSrv.getStats().subscribe(
             (res: any) => {
                 if (res.success) {
-                    this.toastrService.success('Logged in Successfully');
+                    this.toastrService.success(this.translator.instant('logged_in_successfully'));
                     const isAddedMembers = !!localStorage.getItem('isAddedMembers') || res.result.added_team_members;
                     const isAddedDetails = !!localStorage.getItem('isAddedDetails') || res.result.added_details;
                     if (isAddedMembers && isAddedDetails) {
