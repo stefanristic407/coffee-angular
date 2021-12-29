@@ -520,7 +520,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             };
         } = {};
         this.threadList.forEach((x) => {
-            x.members.forEach((m) => {
+            (x.members || []).forEach((m) => {
                 userPayload[`${m.user_id}_${m.org_type}_${m.org_id || 0}`] = {
                     org_id: m.org_id || undefined,
                     org_type: m.org_type,
@@ -668,7 +668,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     processThreads(thread: ThreadListItem): ThreadListItem {
         const activeUser: ThreadMember[] = [];
         const targtedUserList: ThreadMember[] = [];
-        thread.members.forEach((mem) => {
+        (thread.members || []).forEach((mem) => {
             this.processThreadUser(mem);
             if (!mem.is_removed) {
                 if (
