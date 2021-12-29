@@ -55,7 +55,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
     minimumQuantity: number;
     coffeePrice: number;
     shipmentPrice: number;
+    shipmentPriceCurrency: string;
     totalPrice: number;
+    totalPriceCurrency: string;
     shipInfo: any;
     shipAddress: any;
     deliveryAddress: any;
@@ -216,7 +218,9 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 {
                     field: 'sample_price',
                     label: this.translator.instant('sample_price'),
-                    value: `${this.decimalPipe.transform(this.orderSettings.sample_price, '1.2-4')}`,
+                    value: `${this.decimalPipe.transform(this.orderSettings.sample_price, '1.2-4')} ${
+                        this.orderSettings.sample_price_currency
+                    }`,
                     width: 12,
                 },
             ]);
@@ -304,14 +308,16 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 this.coffeePrice = this.sourcing.harvestDetail.price * totalKg;
                 if (this.infoForm.value.service) {
                     this.shipmentPrice = this.activePriceTier?.amount || 0;
+                    this.shipmentPriceCurrency =
+                        this.activePriceTier?.currency || this.sourcing.harvestDetail.price_unit;
                 } else {
                     this.shipmentPrice = 0;
                 }
                 this.totalPrice = this.coffeePrice + this.shipmentPrice;
+                this.totalPriceCurrency = this.sourcing.harvestDetail.price_unit;
             } else if (this.orderType === OrderType.Sample) {
                 this.totalPrice = this.orderSettings.sample_price;
-            } else {
-                this.totalPrice = this.orderSettings.token_amount;
+                this.totalPriceCurrency = this.orderSettings.sample_price_currency;
             }
         });
     }
