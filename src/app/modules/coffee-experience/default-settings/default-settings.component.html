@@ -82,7 +82,7 @@
                                         class="border-0-input border-top-dashed-d6 border-btm-dashed-d6 form-container"
                                     >
                                         <div class="input-container">
-                                            <div class="col-12 col-md-5 px-0">
+                                            <div class="col-12 px-0" [ngClass]="{ 'col-md-5': isEditableMode }">
                                                 <div class="sewn-form-field mb-0 w-100">
                                                     <div>
                                                         <label [ngClass]="{ 'text-clr588': !isEditableMode }"
@@ -99,7 +99,7 @@
                                                     />
                                                     <div
                                                         class="no-editable-text"
-                                                        [ngClass]="{ 'fnt-500': !isEditableMode }"
+                                                        [ngClass]="isEditableMode ? 'fnt-500' : 'text-break'"
                                                         *ngIf="!isEditableMode"
                                                     >
                                                         {{ defaultDetails.website }}
@@ -250,7 +250,7 @@
                                             "
                                         >
                                             <div class="input-container">
-                                                <div class="col-12 col-md-5 px-0">
+                                                <div class="col-12 px-0" [ngClass]="{ 'col-md-5': isEditableMode }">
                                                     <div class="sewn-form-field mb-0 w-100">
                                                         <div>
                                                             <label [ngClass]="{ 'text-clr588': !isEditableMode }"
@@ -267,7 +267,7 @@
                                                         />
                                                         <div
                                                             class="no-editable-text"
-                                                            [ngClass]="{ 'fnt-500': isEditableMode }"
+                                                            [ngClass]="isEditableMode ? 'fnt-500' : 'text-break'"
                                                             *ngIf="!isEditableMode"
                                                         >
                                                             {{ defaultDetails.website }}
