@@ -2,15 +2,11 @@ import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from
 import { CommonService, ValidateEmailService } from '@services';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { convertKg } from './common.utils';
+import { convertKg, countWords } from './common.utils';
 
 export function maxWordCountValidator(limit: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-        const stringData = control.value
-            ?.replace(/(^\s*)|(\s*$)/gi, '')
-            ?.replace(/[ ]{2,}/gi, ' ')
-            ?.replace(/\n /, '\n');
-        return stringData?.split(' ').length > limit ? { maxWordCount: true } : null;
+        return countWords(control.value) > limit ? { maxWordCount: true } : null;
     };
 }
 

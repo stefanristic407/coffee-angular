@@ -309,19 +309,19 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                     {
                         field: 'id',
                         header: 'Order ID',
-                        sortable: true,
+                        sortable: false,
                         width: 45,
                     },
                     {
                         field: 'customer_name',
                         header: 'customer_name',
-                        sortable: true,
+                        sortable: false,
                         width: 70,
                     },
                     {
                         field: 'product_name',
                         header: 'product_name',
-                        sortable: true,
+                        sortable: false,
                         width: 65,
                     },
                     {
@@ -333,7 +333,7 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                     {
                         field: 'order_id',
                         header: 'estate_order_id',
-                        sortable: true,
+                        sortable: false,
                         width: 50,
                     },
                     {
