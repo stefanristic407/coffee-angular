@@ -1,9 +1,9 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, UserService } from '@services';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 
@@ -39,6 +39,10 @@ export class PublicInviteDetailsComponent implements OnInit {
                     this.userDetails = res.result;
                 }
             });
+    }
+
+    lastLoginFormat(date) {
+        return moment(date).format('H:mm:ss | Do MMMM YYYY');
     }
 
     onApprove() {

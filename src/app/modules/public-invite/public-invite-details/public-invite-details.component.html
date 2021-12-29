@@ -61,8 +61,8 @@
                     <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
                         {{
                             userDetails?.last_login_at
-                                ? (userDetails?.last_login_at | date: 'd MMM y, h:mm:ss a')
-                                : (userDetails?.created_at | date: 'd MMM y, h:mm:ss a')
+                                ? lastLoginFormat(userDetails?.last_login_at)
+                                : lastLoginFormat(userDetails?.created_at)
                         }}
                     </td>
                 </tr>
