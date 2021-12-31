@@ -275,7 +275,11 @@
                 </div>
             </div>
         </div>
-        <div class="dm-thread-listing" data-element="thread-list-container" (scroll)="threadListScrollEventSubject.next($event)">
+        <div
+            class="dm-thread-listing"
+            data-element="thread-list-container"
+            (scroll)="threadListScrollEventSubject.next($event)"
+        >
             <div
                 class="dm-thread-listing-error-panel"
                 *ngIf="(threadList | searchFilter: threadSearchKeyword).length <= 0"
@@ -609,19 +613,19 @@
             <div class="dm-thi-dp-block">
                 <img
                     class="dm-thi-dp-image"
-                    [src]="thread.computed_targetedUser.computed_profile_direct_url"
+                    [src]="thread.computed_targetedUser?.computed_profile_direct_url"
                     [appImageFallback]="defaultProfileImage"
                     alt="Profile Picture"
                 />
                 <span
                     class="dm-online-status"
-                    [ngClass]="{ 'dm-user-online': thread.computed_targetedUser.online }"
+                    [ngClass]="{ 'dm-user-online': thread.computed_targetedUser?.online }"
                 ></span>
             </div>
             <div class="dm-thi-content-block">
                 <div class="dm-thi-content-row">
                     <div class="dm-thi-name-block">
-                        <div class="dm-thi-name">{{ thread.computed_targetedUser.computed_fullname }}</div>
+                        <div class="dm-thi-name">{{ thread.computed_targetedUser?.computed_fullname }}</div>
                         <img
                             class="dm-thi-mute-icon"
                             *ngIf="thread.computed_mute"
@@ -633,8 +637,8 @@
                 </div>
                 <div class="dm-thi-content-row">
                     <div class="dm-thi-org-name">
-                        {{ thread.computed_targetedUser.computed_organization_name
-                        }}{{ conditionalHypen(thread.computed_targetedUser.org_name) }}
+                        {{ thread.computed_targetedUser?.computed_organization_name
+                        }}{{ conditionalHypen(thread.computed_targetedUser?.org_name) }}
                     </div>
                 </div>
                 <div class="dm-thi-content-row dm-thi-cr-extra-margin">
