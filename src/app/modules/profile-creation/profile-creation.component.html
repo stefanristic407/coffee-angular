@@ -197,10 +197,10 @@
                         />
                     </div>
                 </form>
-                <p class="fnt-14 text-clr334 mt-2 fnt-bold d-md-none underline" *ngIf="isEditMode">
+                <p class="fnt-14 text-clr334 mt-2 fnt-bold underline text-break d-md-none" *ngIf="isEditMode">
                     {{ profileCreationService.organizationProfile?.website }}
                 </p>
-                <p class="fnt-14 text-clr588 mt-2 fnt-bold d-none d-md-block" *ngIf="isEditMode">
+                <p class="fnt-14 text-clr588 mt-2 fnt-bold text-break d-none d-md-block" *ngIf="isEditMode">
                     {{ profileCreationService.organizationProfile?.website }}
                 </p>
                 <a target="blank" href="{{ profileCreationService.organizationProfile?.website }}" #link hidden></a>
