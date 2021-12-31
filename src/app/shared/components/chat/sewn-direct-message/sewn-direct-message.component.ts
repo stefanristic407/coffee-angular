@@ -1,48 +1,46 @@
-import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
-import { ToastrService } from 'ngx-toastr';
-import * as moment from 'moment';
-import Viewer from 'viewerjs';
-import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
-import { debounce, first, filter, tap, delay } from 'rxjs/operators';
-import { Subscription, fromEvent, interval, Subject, timer } from 'rxjs';
-
+import { animate, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import {
-    SocketService,
+    ChatMessageType,
+    MessageMetaTypes,
+    OrganizationType,
+    ServiceCommunicationType,
+    ThreadActivityType,
+    ThreadType,
+} from '@enums';
+import {
+    BlockListItem,
+    ChatMessage,
+    IncomingChatMessage,
+    MessageMeta,
+    OpenChatThread,
+    RecentUserListItem,
+    ResponseReadUpdate,
+    ResponseSearchMessageRow,
+    ResponseUserStatus,
+    SearchChatMessagResult,
+    StickerListItem,
+    ThreadListItem,
+    ThreadMember,
+    UserListItem,
+    WSResponse,
+} from '@models';
+import { TranslateService } from '@ngx-translate/core';
+import {
+    ChatApiServices,
     ChatHandlerService,
     ChatUtilService,
     GlobalsService,
-    ChatApiServices,
     GoogletranslateService,
     MenuService,
+    SocketService,
 } from '@services';
-
-import {
-    WSResponse,
-    ThreadListItem,
-    ThreadMember,
-    ResponseUserStatus,
-    ChatMessage,
-    IncomingChatMessage,
-    UserListItem,
-    OpenChatThread,
-    RecentUserListItem,
-    BlockListItem,
-    ResponseSearchMessageRow,
-    SearchChatMessagResult,
-    MessageMeta,
-    StickerListItem,
-    ResponseReadUpdate,
-} from '@models';
-import {
-    ThreadActivityType,
-    OrganizationType,
-    ThreadType,
-    ServiceCommunicationType,
-    ChatMessageType,
-    MessageMetaTypes,
-} from '@enums';
-import { trigger, transition, state, animate, style } from '@angular/animations';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { fromEvent, interval, Subject, Subscription, timer } from 'rxjs';
+import { debounce, delay, filter, first, tap } from 'rxjs/operators';
+import Viewer from 'viewerjs';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 
@@ -511,7 +509,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.fetchMuteList();
     }
 
-    getMultipleUserDetailsPayload() {
+    getMultipleUserDetails() {
         const userPayload: {
             [uniqueKey: string]: {
                 org_id: number;
@@ -529,13 +527,17 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             });
         });
         const timestamp = this.chatUtil.getTimeStamp();
-        return {
-            timestamp,
-            type: ChatMessageType.users,
-            data: {
-                members: Object.values(userPayload),
-            },
-        };
+        const members = Object.values(userPayload);
+        const perPage = 25;
+        for (let index = 0; index < members.length; index += perPage) {
+            this.socket.directMessageSent.next({
+                timestamp,
+                type: ChatMessageType.users,
+                data: {
+                    members: members.slice(index, index + perPage),
+                },
+            });
+        }
     }
 
     getThreadListPayload() {
@@ -894,11 +896,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 userStatusMap[`${userStatus.user_id}_${userStatus.org_type}_${userStatus.org_id || 0}`] = userStatus;
             });
             this.filteredThreadList.forEach((thread) => {
-                thread.members.forEach((member) => {
+                (thread.members || []).forEach((member) => {
                     const key = `${member.user_id}_${member.org_type}_${member.org_id || 0}`;
-                    member.last_seen = userStatusMap[key]?.last_seen || '';
-                    member.online = userStatusMap[key]?.online || false;
-                    member.computed_lastseen = this.chatUtil.getReadableTime(member?.last_seen || '');
+                    if (userStatusMap[key]) {
+                        member.last_seen = userStatusMap[key]?.last_seen || '';
+                        member.online = userStatusMap[key]?.online || false;
+                        member.computed_lastseen = this.chatUtil.getReadableTime(member?.last_seen || '');
+                    }
                 });
             });
         } else {
@@ -1411,7 +1415,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     updateUserStatus = () => {
         // Fetch last_seen and online
         if (this.threadList.length > 0) {
-            this.socket.directMessageSent.next(this.getMultipleUserDetailsPayload());
+            this.getMultipleUserDetails();
         }
         if (this.userStatusTimerRef) {
             clearTimeout(this.userStatusTimerRef);
@@ -1950,7 +1954,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     };
 
     openThreadChat(thread: ThreadListItem) {
-        //ANCHOR marker
+        // ANCHOR marker
         this.chatOpenedMessageReset();
         this.chatUIStateReset();
         this.chatElRefReset();
