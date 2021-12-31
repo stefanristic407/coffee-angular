@@ -5,6 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from '../auth';
+import { GlobalsService } from '../globals';
+import { I18NService } from '../i18n';
 import { UploadService } from '../upload';
 import { ApiService } from './api.service';
 
@@ -40,6 +42,8 @@ export class CoffeeLabService extends ApiService {
     }
 
     constructor(
+        private globals: GlobalsService,
+        private i18n: I18NService,
         private toastService: ToastrService,
         private translator: TranslateService,
         private uploadService: UploadService,
@@ -47,18 +51,24 @@ export class CoffeeLabService extends ApiService {
         protected http: HttpClient,
     ) {
         super(http, authService);
-        this.updateLang();
+        this.updateLang(this.i18n.currentLang, this.globals.languageJson);
     }
 
-    updateLang(lang: string = 'en'): Promise<any> {
-        return new Promise((resolve) => {
-            this.http.get(`${environment.apiURL}/translations/${lang}/roaster?default=1`).subscribe((langData) => {
-                this.translator.setTranslation(lang, langData);
-                this.translator.use(lang);
-                this.forumLanguage.next(lang);
-                resolve(true);
+    updateLang(lang: string = 'en', pLangData: any = null): Promise<any> {
+        if (pLangData) {
+            this.translator.setTranslation(lang, pLangData);
+            this.translator.use(lang);
+            this.forumLanguage.next(lang);
+        } else {
+            return new Promise((resolve) => {
+                this.http.get(`${environment.apiURL}/translations/${lang}/roaster?default=1`).subscribe((langData) => {
+                    this.translator.setTranslation(lang, langData);
+                    this.translator.use(lang);
+                    this.forumLanguage.next(lang);
+                    resolve(true);
+                });
             });
-        });
+        }
     }
 
     getJustText(content: any) {
