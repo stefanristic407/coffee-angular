@@ -43,9 +43,12 @@ export class ForumEditorComponent implements OnInit, ControlValueAccessor {
     placeholderStr: string;
     @Input('placeholder')
     set placeholder(value) {
+        // No need to refresh at the first time
+        if (this.placeholderStr !== undefined) {
+            this.refreshEditor = true;
+            setTimeout(() => (this.refreshEditor = false));
+        }
         this.placeholderStr = value;
-        this.refreshEditor = true;
-        setTimeout(() => (this.refreshEditor = false), 200);
     }
     @Input() height = 213;
     @Input() images = [];
