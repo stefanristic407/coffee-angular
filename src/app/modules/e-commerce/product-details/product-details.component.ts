@@ -718,15 +718,25 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     }
 
     addGrindVariant(): void {
-        const grindFormArr = (this.productForm.get('weightVariants') as FormArray).controls[this.currentVariantIdx].get(
-            'grind_variants',
-        ) as FormArray;
-        grindFormArr.controls.forEach((fg: FormGroup) => {
-            this.onCancelGrind(fg);
-        });
-        grindFormArr.push(this.creatGrindForm(this.isPublished, true));
-        this.checkGrindForm();
-        this.cdr.detectChanges();
+        this.dialogService
+            .open(ConfirmComponent, {
+                data: {
+                    desp: this.translator.instant(`confirm_add_grind_variant_desp_${this.type}`),
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    const grindFormArr = (this.productForm.get('weightVariants') as FormArray).controls[
+                        this.currentVariantIdx
+                    ].get('grind_variants') as FormArray;
+                    grindFormArr.controls.forEach((fg: FormGroup) => {
+                        this.onCancelGrind(fg);
+                    });
+                    grindFormArr.push(this.creatGrindForm(this.isPublished, true));
+                    this.checkGrindForm();
+                    this.cdr.detectChanges();
+                }
+            });
     }
 
     removeGrindVariant(grindForm: FormGroup) {
