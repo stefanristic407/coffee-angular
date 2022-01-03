@@ -394,6 +394,17 @@
                                     ></p-inputNumber>
                                     <div class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334">%</div>
                                 </div>
+                                <small
+                                    *ngIf="
+                                        addOrdersForm.controls['vat_percentage'].errors?.required &&
+                                        addOrdersForm.controls['vat_percentage'].invalid &&
+                                        addOrdersForm.controls['vat_percentage'].touched
+                                    "
+                                    class="p-error my-1"
+                                >
+                                    {{ 'vat_percentage' | translate }} {{ 'is' | translate }}
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
                         </div>
                     </div>
