@@ -49,6 +49,7 @@
         font-size: 12px;
         width: 100%;
         font-weight: 600;
+        padding-bottom: 0.5rem;
     }
     .estate-order-title {
         font-size: 16px;
@@ -74,5 +75,10 @@
     }
     .p-inputtext {
         border: none;
+    }
+    .place {
+        ::placeholder {
+            font-size: 12px;
+        }
     }
 }

@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalsService } from '@services';
-import { PrimeTableService } from '@services';
 import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
 import { CoffeeExpService } from './coffee-experience.service';
 
@@ -20,7 +18,7 @@ export class CoffeeExperienceComponent implements OnInit {
     searchString = '';
     placeholders = {
         estate_orders: 'Search by Estate name, order ID, order reference',
-        micro_roaster_orders: 'Search by Order ID, Customer name or Product name',
+        micro_roaster_orders: 'Search by Order ID, Customer or Product name',
         partner_orders: 'Search by Sub order ID or Product name',
         outtake_orders: 'Search by Customer Name or Estate Order ID',
     };
