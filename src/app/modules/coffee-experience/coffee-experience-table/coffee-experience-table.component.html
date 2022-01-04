@@ -61,14 +61,19 @@
         [responsive]="primeTableService.isMobileView"
     >
         <ng-template pTemplate="colgroup" let-columns>
-            <colgroup class="d-none">
+            <colgroup class="d-none d-md-block">
                 <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
             </colgroup>
         </ng-template>
 
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
+                <th
+                    *ngFor="let col of columns"
+                    [pSortableColumn]="
+                        col.sortable === true ? (col.field === 'gc_total_quantity' ? 'quantity' : col.field) : null
+                    "
+                >
                     <span class="primeng-table-header">{{ col.header | translate }}</span>
                     <p-sortIcon
                         *ngIf="col.sortable === true"
