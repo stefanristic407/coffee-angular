@@ -18,7 +18,7 @@
         <section class="grading__total pt-4 pt-lg-25">
             <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
                 <div class="green_grading_cont">
-                    <h1 class="fnt-muli fnt-18 fnt-bold mb-2">{{ 'my_cupping_reports' | translate | titlecase }}</h1>
+                    <h1 class="fnt-muli fnt-18 fnt-bold mb-2">{{ 'my_cupping_reports' | translate }}</h1>
                     <h3 class="mb-0 pt-1">Select cupping type, add or edit evaluators before you start the cupping</h3>
                 </div>
                 <span class="custom-search d-inline-block d-lg-none mt-3">
@@ -186,11 +186,7 @@
                                                         pRipple
                                                         type="button"
                                                         (click)="viewPdf(rowData.url)"
-                                                        class="
-                                                            p-button-rounded p-button-outlined
-                                                            table-action-button
-                                                            mr-1
-                                                        "
+                                                        class="p-button-rounded p-button-outlined table-action-button mr-1"
                                                         label="View PDF"
                                                     ></button>
                                                     <button
@@ -199,11 +195,7 @@
                                                         type="button"
                                                         (click)="serviceReportLink(rowData)"
                                                         label="View table"
-                                                        class="
-                                                            p-button-rounded p-button-outlined
-                                                            table-action-button
-                                                            ml-1
-                                                        "
+                                                        class="p-button-rounded p-button-outlined table-action-button ml-1"
                                                     ></button>
                                                 </span>
                                                 <span *ngIf="!isMobileView" class="pl-3" [style.position]="'relative'">
