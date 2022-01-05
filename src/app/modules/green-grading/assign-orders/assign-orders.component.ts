@@ -1,12 +1,12 @@
-import { Component, OnInit, HostListener } from '@angular/core';
 import { Location } from '@angular/common';
-import { GreenGradingService, AclService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { GenerateReportService } from '../generate-report/generate-report.service';
-import { MenuItem, LazyLoadEvent } from 'primeng/api';
-import { LabelValue } from '@models';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { OrderType } from '@enums';
+import { LabelValue } from '@models';
 import { TranslateService } from '@ngx-translate/core';
+import { AclService, GreenGradingService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { LazyLoadEvent, MenuItem } from 'primeng/api';
+import { GenerateReportService } from '../generate-report/generate-report.service';
 
 @Component({
     selector: 'app-assign-orders',
@@ -105,7 +105,7 @@ export class AssignOrdersComponent implements OnInit {
                     field: 'order_id',
                     header: 'Order ID',
                     sortable: false,
-                    width: '90px',
+                    width: '100px',
                 },
                 {
                     field: 'estate_name',
