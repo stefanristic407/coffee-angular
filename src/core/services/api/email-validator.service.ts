@@ -24,9 +24,9 @@ export class ValidateEmailService extends ApiService {
 
     // Get user details by name or email
     getUsersList(typeValue: any, orgType: OrganizationType | string = ''): Observable<ApiResponse<any>> {
-        let params = new HttpParams();
-        params = params.append('query', typeValue);
-        params = params.append('organization', orgType);
-        return this.post(this.orgPostUrl, `users/user-list?${params}`);
+        return this.post(
+            this.postUrl,
+            `users/user-list?${this.serializeParams({ query: typeValue, organization: orgType })}`,
+        );
     }
 }
