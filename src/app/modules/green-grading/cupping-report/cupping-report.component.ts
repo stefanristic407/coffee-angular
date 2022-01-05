@@ -1,12 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { AuthService, GreenGradingService } from '@services';
-import { GenerateReportService } from '../generate-report/generate-report.service';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
-import { ToastrService } from 'ngx-toastr';
-
+import { Component, HostListener, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService, GreenGradingService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { GenerateReportService } from '../generate-report/generate-report.service';
 
 @Component({
     selector: 'app-cupping-report',

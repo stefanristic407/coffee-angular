@@ -8,7 +8,7 @@
                         type="text"
                         pInputText
                         class="w-100"
-                        placeholder="Search by order id, estate name"
+                        [placeholder]="'search_by_id_name' | translate"
                         [(ngModel)]="term"
                         (ngModelChange)="onFilter()"
                     />
@@ -26,7 +26,7 @@
                         type="text"
                         pInputText
                         class="w-100"
-                        placeholder="Search by order id, estate name"
+                        [placeholder]="'search_by_id_name' | translate"
                         [(ngModel)]="term"
                         (ngModelChange)="onFilter()"
                     />
@@ -212,6 +212,12 @@
                                                 </span>
                                             </td>
                                         </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="summary">
+                                        <app-empty
+                                            *ngIf="!tableData?.length"
+                                            [title]="'no_data_available' | translate"
+                                        ></app-empty>
                                     </ng-template>
                                 </p-table>
                             </div>
