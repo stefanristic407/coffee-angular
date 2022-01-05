@@ -38,8 +38,7 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
     customerStatus: any;
     termOrigin: any;
     display: number;
-    startDate: string;
-    endDate: string;
+    currentDate = new Date();
     queryParams: any = {};
 
     get form() {
@@ -173,6 +172,7 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
     }
 
     ngOnInit(): void {
+        this.primeTableService.url = '';
         this.primeTableService.url = `/ro/${this.roasterId}/public-onboard/requests`;
 
         this.initializeTable();
@@ -187,23 +187,16 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
 
         this.appLanguage = this.globals.languageJson;
         this.searchForm.valueChanges.pipe(takeUntil(this.unsubscribeAll$)).subscribe((value) => {
-            this.startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
-
-            this.endDate =
-                value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
-
-            this.queryParams = {
-                ...value,
-                page: 1,
-                from_date: this.startDate,
-                to_date: this.endDate,
-            };
-
+            this.primeTableService.date = this.searchForm.get('dates').value
+                ? this.searchForm.get('dates').value.getFullYear() +
+                  '-' +
+                  ('0' + (this.searchForm.get('dates').value.getMonth() + 1)).slice(-2) +
+                  '-' +
+                  ('0' + this.searchForm.get('dates').value.getDate()).slice(-2)
+                : '';
             delete this.queryParams.dates;
 
             this.searchForm.patchValue({ page: 1 }, { emitEvent: false });
-            this.primeTableService.from_date = this.startDate;
-            this.primeTableService.to_date = this.endDate;
             setTimeout(() => {
                 this.table.reset();
             }, 0);

@@ -80,12 +80,7 @@
                         </div>
                         <div class="row mt-4 ml-md-0 mr-md-0">
                             <h3
-                                class="
-                                    d-none d-sm-none d-xl-none d-lg-none d-md-block
-                                    pb-1
-                                    fnt-16 fnt-md-18 fnt-bold
-                                    text-clr334
-                                "
+                                class="d-none d-sm-none d-xl-none d-lg-none d-md-block pb-1 fnt-16 fnt-md-18 fnt-bold text-clr334"
                             >
                                 Green coffee details
                             </h3>
@@ -190,12 +185,7 @@
                                                             </div>
                                                             <div class="px-2">
                                                                 <p
-                                                                    class="
-                                                                        fnt-14 fnt-muli fnt-600
-                                                                        text-clr334
-                                                                        mb-3
-                                                                        w-100
-                                                                    "
+                                                                    class="fnt-14 fnt-muli fnt-600 text-clr334 mb-3 w-100"
                                                                 >
                                                                     {{ notes?.first_name }}&nbsp;{{
                                                                         notes?.last_name
@@ -205,12 +195,7 @@
                                                                     }}</span>
                                                                 </p>
                                                                 <p
-                                                                    class="
-                                                                        fnt-14 fnt-muli fnt-normal
-                                                                        text-clr588
-                                                                        w-100
-                                                                        notes
-                                                                    "
+                                                                    class="fnt-14 fnt-muli fnt-normal text-clr588 w-100 notes"
                                                                 >
                                                                     {{ notes?.comment }}
                                                                 </p>
@@ -336,6 +321,9 @@
                                                     >
                                                         <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE'">{{
                                                             'green_inventory' | translate
+                                                        }}</span>
+                                                        <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE_SAMPLE'">{{
+                                                            'sample quantity' | translate
                                                         }}</span>
                                                         <span *ngIf="rowData.catalogue === 'OUTTAKE_ORDER'">{{
                                                             'outtake_order' | translate

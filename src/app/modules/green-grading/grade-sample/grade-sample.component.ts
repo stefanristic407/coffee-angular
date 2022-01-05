@@ -158,7 +158,7 @@ export class GradeSampleComponent implements OnInit {
     }
 
     getExternalReports() {
-        this.estateArray = [{ name: 'All' }];
+        this.estateArray = [];
         this.statusArray = [{ name: 'All' }];
         this.loading = true;
         this.greenGradingService.listCuppingRequest(this.roasterId).subscribe((data: any) => {
