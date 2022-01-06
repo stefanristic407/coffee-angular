@@ -45,6 +45,7 @@ export class PrimeTableService {
     public status: any;
     public start_date: any;
     public end_date: any;
+    public date: any;
     public query: any;
     public searchQuery: any;
     public type: any;
@@ -100,6 +101,9 @@ export class PrimeTableService {
 
         if (this.from_date) {
             postData = { ...postData, ...{ from_date: this.from_date, to_date: '' } };
+        }
+        if (this.date) {
+            postData = { ...postData, ...{ date: this.date } };
         }
 
         if (this.to_date) {
