@@ -224,7 +224,7 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
                 .filter((item) => item.image_id)
                 .map((item) => item.image_id);
             for (const key of Object.keys(productObj)) {
-                if (!productObj[key]) {
+                if (productObj[key] === '' || productObj[key] === null) {
                     delete productObj[key];
                 }
             }
