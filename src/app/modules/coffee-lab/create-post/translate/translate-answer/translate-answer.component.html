@@ -171,16 +171,14 @@
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
                 'answer' | translate | titlecase
             }}</label>
-            <div class="answer-hgt">
-                <textarea
-                    id="text-focus"
-                    class="active-comment"
-                    [(ngModel)]="translatedAnswer"
-                    [placeholder]="'leave_an_answer_bla' | translate"
-                    pInputTextarea
-                    autoResize="autoResize"
-                ></textarea>
-            </div>
+            <textarea
+                id="text-focus"
+                class="active-comment"
+                [(ngModel)]="translatedAnswer"
+                [placeholder]="'leave_an_answer_bla' | translate"
+                pInputTextarea
+                autoResize="autoResize"
+            ></textarea>
         </div>
     </div>
 </ng-template>
