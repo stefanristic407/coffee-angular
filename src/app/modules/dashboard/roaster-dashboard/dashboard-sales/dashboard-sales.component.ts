@@ -64,9 +64,9 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     showDataLabel = true;
 
     constructor(
-        private authService: AuthService,
         private toastrService: ToastrService,
         private userSrv: UserService,
+        public authService: AuthService,
         public globals: GlobalsService,
     ) {}
 

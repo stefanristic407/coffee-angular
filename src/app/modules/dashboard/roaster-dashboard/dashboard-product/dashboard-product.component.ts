@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { GlobalsService } from '@services';
+import { AuthService } from '@services';
 
 @Component({
     selector: 'app-dashboard-product',
@@ -8,7 +7,7 @@ import { GlobalsService } from '@services';
     styleUrls: ['./dashboard-product.component.scss'],
 })
 export class DashboardProductComponent implements OnInit {
-    constructor(public globals: GlobalsService) {}
+    constructor(public authService: AuthService) {}
 
     ngOnInit(): void {}
 }

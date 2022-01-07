@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { ApiResponse, UserProfile } from '@models';
+import { ApiResponse, ShopDetails, UserProfile } from '@models';
 import { ContactGroup, OrganizationType, ProfileImageType, VatType } from '@enums';
 import { AuthService } from '../auth';
 import { SocketService } from '../socket';
@@ -106,6 +106,12 @@ export class UserService extends ApiService {
     // Update user preferences
     patchPreferences(body: any) {
         return this.postWithOrg(this.orgPostUrl, `users/preferences`, 'PATCH', body);
+    }
+
+    // ------------ Shops ------------
+    // List shop details along with urls for Ecom application
+    getShopDetails(): Observable<ApiResponse<ShopDetails>> {
+        return this.postWithOrg(this.orgPostUrl, `shop-details`);
     }
 
     //////////////////////////////////////////////////////////////////////////////
