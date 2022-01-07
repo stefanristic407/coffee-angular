@@ -167,17 +167,18 @@
                 {{ 'required' | translate }}
             </div>
         </div>
-        <div>
+        <div class="col-12 sewn-form-field">
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
                 'answer' | translate | titlecase
             }}</label>
-            <app-forum-editor
+            <textarea
+                id="text-focus"
+                class="active-comment"
                 [(ngModel)]="translatedAnswer"
-                [(isUploadingImage)]="isUploadingImage"
-                [(imageIdList)]="imageIdList"
-                fileModule="qa-forum"
                 [placeholder]="'leave_an_answer_bla' | translate"
-            ></app-forum-editor>
+                pInputTextarea
+                autoResize="autoResize"
+            ></textarea>
         </div>
     </div>
 </ng-template>

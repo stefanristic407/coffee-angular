@@ -30,9 +30,6 @@
 .disable-color {
     color: #676767;
     opacity: 1;
-    @media (min-width: 768px) {
-        min-height: 75px;
-    }
 }
 
 ::ng-deep.p-component:disabled {
