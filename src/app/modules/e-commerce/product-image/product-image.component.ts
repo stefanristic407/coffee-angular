@@ -37,6 +37,7 @@ export class ProductImageComponent implements OnInit, ControlValueAccessor {
 
     writeValue(value: any): void {
         this.file = value;
+        this.cdr.detectChanges();
     }
 
     registerOnChange(fn: (_: any) => void): void {
@@ -75,7 +76,9 @@ export class ProductImageComponent implements OnInit, ControlValueAccessor {
     delete() {
         delete this.file.file;
         delete this.file.url;
+        this.onTouched();
         this.onChange(this.file);
+        this.cdr.detectChanges();
     }
 
     getMenuItems() {

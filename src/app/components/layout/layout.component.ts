@@ -221,7 +221,6 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
     private getShopDetails(resolve) {
         this.userService.getShopDetails().subscribe((res) => {
             if (res.success) {
-                console.log('Shop details:', res.result);
                 this.authService.shopDetails = res.result;
             }
             resolve();

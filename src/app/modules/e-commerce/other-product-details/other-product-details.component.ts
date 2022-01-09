@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { AuthService, ECommerceService, FileService, GlobalsService, ResizeService } from '@services';
-import { maxWordCountValidator, trackFileName } from '@utils';
-import { CookieService } from 'ngx-cookie-service';
+import { FileModule } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService, ECommerceService, FileService, ResizeService } from '@services';
+import { fileRequired, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 
@@ -45,7 +46,6 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
     supplierList: any[] = [{ label: 'Supplier', value: 987899 }];
     availableTypeList: any[] = [{ label: 'units', value: 'units' }];
 
-    deleteImageIDs: string[] = [];
     productFields: string[] = [
         'available_quantity',
         'available_quantity_type',
@@ -74,16 +74,15 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
     baseCurrency: string;
 
     constructor(
-        public globals: GlobalsService,
+        private authService: AuthService,
+        private eCommerceService: ECommerceService,
         private fb: FormBuilder,
-        private cookieService: CookieService,
-        private toasterService: ToastrService,
+        private fileService: FileService,
         private route: ActivatedRoute,
         private router: Router,
-        private fileService: FileService,
-        private eCommerceService: ECommerceService,
+        private toasterService: ToastrService,
+        private translator: TranslateService,
         protected resizeService: ResizeService,
-        private authService: AuthService,
     ) {
         super(resizeService);
         this.roasterId = this.authService.getOrgId();
@@ -114,11 +113,16 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
             weight_unit: [''],
             height: [''],
             height_unit: [''],
-            featured_image_id: [''],
-            fileDetails: null,
-            product_images: [this.setProductImages([])],
-            product_use_images: [this.setProductImages([])],
+            featured_image_id: [null, [fileRequired()]],
+            product_images: this.fb.array([]),
+            product_use_images: this.fb.array([]),
         });
+        const productImages = this.productForm.get('product_images') as FormArray;
+        const productUserImages = this.productForm.get('product_use_images') as FormArray;
+        for (let i = 0; i < 3; i++) {
+            productImages.push(new FormControl(null));
+            productUserImages.push(new FormControl(null));
+        }
         this.route.params.subscribe((params) => {
             if (params.id) {
                 this.productID = params.id;
@@ -142,65 +146,57 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
     }
 
     getProductDetails() {
-        this.eCommerceService.getProductDetails(this.productID, 'other').subscribe(
-            (res) => {
-                if (res && res.result) {
-                    const productDetails = res.result;
-                    this.isPublished = res.result.is_published;
-                    this.breadCrumbItem = [
-                        { label: this.globals.languageJson?.home, routerLink: '/' },
-                        {
-                            label: this.globals.languageJson?.ecommerce,
-                        },
-                        {
-                            label: this.globals.languageJson?.other_products,
-                            routerLink: '/e-commerce/product-list/other',
-                        },
-                        { label: res.result.name },
-                    ];
-                    const productImages = productDetails.product_images?.map((image) => {
-                        return {
-                            image_id: image.image_id,
-                            fileDetails: { image_url: image.image_url },
-                        };
-                    });
+        this.eCommerceService.getProductDetails(this.productID, 'other').subscribe((res) => {
+            if (res && res.result) {
+                const productDetails = res.result;
+                this.isPublished = res.result.is_published;
+                this.breadCrumbItem = [
+                    { label: this.translator.instant('home'), routerLink: '/' },
+                    {
+                        label: this.translator.instant('ecommerce'),
+                    },
+                    {
+                        label: this.translator.instant('other_products'),
+                        routerLink: '/e-commerce/product-list/other',
+                    },
+                    { label: res.result.name },
+                ];
+                const productImages = productDetails.product_images?.map((image) => {
+                    return {
+                        id: image.image_id,
+                        url: image.image_url,
+                    };
+                });
 
-                    const productUseImages = productDetails.product_use_images?.map((image) => {
-                        return {
-                            image_id: image.image_id,
-                            fileDetails: { image_url: image.image_url },
-                        };
-                    });
+                const productUseImages = productDetails.product_use_images?.map((image) => {
+                    return {
+                        id: image.image_id,
+                        url: image.image_url,
+                    };
+                });
 
-                    for (const key of this.productFields) {
-                        this.productForm.get(key).setValue(productDetails[key]);
-                    }
-
-                    this.productForm.patchValue({
-                        featured_image_id: productDetails.featured_image?.image_id,
-                        fileDetails: { image_url: productDetails.featured_image?.image_url },
-                        product_images: this.setProductImages(productImages ?? []),
-                        product_use_images: this.setProductImages(productUseImages ?? []),
-                    });
-                    this.productName = productDetails.name;
+                for (const key of this.productFields) {
+                    this.productForm.get(key).setValue(productDetails[key]);
                 }
-            },
-            (err) => {
-                this.toasterService.error('Error while getting product details');
-            },
-        );
+
+                this.productForm.patchValue({
+                    featured_image_id: {
+                        id: productDetails.featured_image?.image_id,
+                        url: productDetails.featured_image?.image_url,
+                    },
+                    product_images: productImages ?? [],
+                    product_use_images: productUseImages ?? [],
+                });
+                this.productName = productDetails.name;
+            }
+        });
     }
 
     supplyBreadCrumb(): void {
         this.breadCrumbItem = [
-            { label: this.globals.languageJson?.home, routerLink: '/' },
-            {
-                label: this.globals.languageJson?.ecommerce,
-            },
-            {
-                label: this.globals.languageJson?.other_products,
-                routerLink: '/e-commerce/product-list/other',
-            },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('ecommerce') },
+            { label: this.translator.instant('other_products'), routerLink: '/e-commerce/product-list/other' },
             { label: 'Add product' },
         ];
     }
@@ -209,38 +205,39 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
         this.router.navigate([`/e-commerce/product-list/other`]);
     }
 
-    onSave(): void {
-        if (
-            this.productForm.status === 'VALID' &&
-            this.productForm.get('featured_image_id').value &&
-            this.productForm.value.product_images.find((item) => item.image_id)
-        ) {
-            const productObj = Object.assign({}, this.productForm.value);
-            delete productObj.fileDetails;
-            productObj.product_images = productObj.product_images
-                .filter((item) => item.image_id)
-                .map((item) => item.image_id);
-            productObj.product_use_images = productObj.product_use_images
-                .filter((item) => item.image_id)
-                .map((item) => item.image_id);
-            for (const key of Object.keys(productObj)) {
-                if (productObj[key] === '' || productObj[key] === null) {
-                    delete productObj[key];
-                }
-            }
-            if (this.productID) {
-                this.updateProductDetails(productObj);
-            } else {
-                this.createNewProduct(productObj);
-            }
+    onSave() {
+        if (this.productForm.valid) {
+            new Promise((resolve, reject) => this.uploadImages(resolve, reject))
+                .then(() => {
+                    const productObj = {
+                        ...this.productForm.value,
+                        featured_image_id: this.productForm.value.featured_image_id?.id,
+                        product_images: this.productForm.value.product_images.filter((ix) => ix?.id).map((ix) => ix.id),
+                        product_use_images: this.productForm.value.product_use_images
+                            .filter((ix) => ix?.id)
+                            .map((ix) => ix.id),
+                    };
+
+                    for (const key of Object.keys(productObj)) {
+                        if (productObj[key] === '' || productObj[key] === null) {
+                            delete productObj[key];
+                        }
+                    }
+                    if (this.productID) {
+                        this.updateProductDetails(productObj);
+                    } else {
+                        this.createNewProduct(productObj);
+                    }
+                })
+                .catch(() => {
+                    this.toasterService.error('Error while uploading images');
+                });
         } else {
-            if (this.productForm.status !== 'VALID') {
-                this.toasterService.error('Please fill all Data.');
-            } else {
-                this.toasterService.error('Please upload feature image and product images.');
-            }
+            this.toasterService.error(this.translator.instant('please_check_form_data'));
+            this.productForm.markAllAsTouched();
         }
     }
+
     createNewProduct(productObj) {
         this.eCommerceService.addProductDetails(productObj, 'other').subscribe(
             (res) => {
@@ -256,6 +253,7 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
             },
         );
     }
+
     updateProductDetails(productObj) {
         this.eCommerceService.updateProductDetails(this.productID, productObj, 'other').subscribe(
             (res) => {
@@ -281,157 +279,55 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
         this.productName = event.target.value;
     }
 
-    setProductImages(productArray) {
-        const productEmptyArray = [];
-        const startIndex = productArray ? productArray.length : 0;
-        for (let i = startIndex; i < 3; i++) {
-            const fileObj = { fileDetails: null };
-            productEmptyArray.push(fileObj);
+    uploadImages(pResolve, pReject) {
+        const promises: any[] = [];
+        const featuredControl: FormControl = this.productForm.get('featured_image_id') as FormControl;
+        if (featuredControl.value?.file) {
+            promises.push(
+                new Promise((resolve, reject) => {
+                    this.uploadImage(featuredControl, resolve, reject);
+                }),
+            );
         }
-        return productArray.concat(productEmptyArray);
-    }
-
-    handleImageFile(e, index, type) {
-        if (e.target.files.length > 0) {
-            for (let i = 0; i <= e.target.files.length - 1; i++) {
-                const fsize = e.target.files.item(i).size;
-                const file = Math.round(fsize / 1024);
-                // The size of the file.
-                if (file >= 1024 * 10) {
-                    this.toasterService.error('File too big, please select a file smaller than 10mb');
-                } else {
-                    const imgFile: any = e.target.files;
-                    const reader = new FileReader();
-                    reader.readAsDataURL(imgFile[0]);
-                    reader.onload = (event) => {
-                        const imgURL = reader.result;
-                        fileObj.image_url = imgURL;
-                    };
-                    const fileObj = e.target.files;
-                    fileObj.isNew = true;
-                    fileObj.fileID = '_' + Math.random().toString(36).substr(2, 9);
-                    if (type === 'featured_image') {
-                        this.productForm.patchValue({
-                            fileDetails: fileObj,
-                            featured_image_id: '',
-                        });
-                    } else {
-                        this.productForm.get(type).value[index].fileDetails = fileObj;
-                    }
-                }
-            }
+        if (featuredControl.value?.image_id && (!featuredControl.value?.image_url || featuredControl.value?.file)) {
+            featuredControl.setValue({ ...featuredControl.value, image_id: null });
         }
-    }
-
-    deleteImage(index, type?) {
-        if (type === 'featured_image') {
-            if (this.productForm.value.featured_image_id) {
-                this.deleteImageIDs.push(this.productForm.value.featured_image_id);
-            }
-            this.productForm.patchValue({
-                fileDetails: null,
-                featured_image_id: '',
-            });
-        } else {
-            const productArray = this.productForm.value[type];
-            if (productArray[index].fileDetails && productArray[index].image_id) {
-                this.deleteImageIDs.push(productArray[index].image_id);
-            }
-            productArray[index].fileDetails = null;
-        }
-    }
-    uploadImages() {
-        if (this.productForm.status === 'VALID') {
-            const promises: any[] = [];
-            if (!this.productForm.value.featured_image_id && this.productForm.value.fileDetails) {
+        const images = (this.productForm.get('product_images') as FormArray).controls.concat(
+            (this.productForm.get('product_use_images') as FormArray).controls,
+        );
+        images.forEach((imageControl: FormControl) => {
+            if (imageControl.value?.file) {
                 promises.push(
                     new Promise((resolve, reject) => {
-                        this.uploadImage(this.productForm.value.fileDetails, 'featured_image', resolve, reject);
+                        this.uploadImage(imageControl, resolve, reject);
                     }),
                 );
             }
-            const getNewImages = this.productForm.value.product_images.filter(
-                (ele) => ele.fileDetails && !ele.image_id && ele.fileDetails.image_url,
-            );
-            const getNewUseImages = this.productForm.value.product_use_images.filter(
-                (ele) => ele.fileDetails && !ele.image_id && ele.fileDetails.image_url,
-            );
-            for (const ele of getNewImages) {
-                if (ele.fileDetails && !ele.image_id && ele.fileDetails.image_url) {
-                    promises.push(
-                        new Promise((resolve, reject) => {
-                            this.uploadImage(ele.fileDetails, 'product_images', resolve, reject);
-                        }),
-                    );
-                }
+            if (imageControl.value?.id && (!imageControl.value?.url || imageControl.value?.file)) {
+                imageControl.setValue({ ...imageControl.value, id: null });
             }
-            for (const ele of getNewUseImages) {
-                if (ele.fileDetails && !ele.image_id && ele.fileDetails.image_url) {
-                    promises.push(
-                        new Promise((resolve, reject) => {
-                            this.uploadImage(ele.fileDetails, 'product_use_images', resolve, reject);
-                        }),
-                    );
-                }
-            }
-            for (const fileId of this.deleteImageIDs) {
-                promises.push(
-                    new Promise((resolve, reject) => {
-                        this.deleteFile(fileId, resolve, reject);
-                    }),
-                );
-            }
-            Promise.all(promises)
-                .then(() => {
-                    if (promises.length) {
-                        this.toasterService.success('Image uploaded successfully');
-                    }
-                    this.onSave();
-                })
-                .catch(() => {});
-        } else {
-            this.productForm.markAllAsTouched();
-            this.toasterService.error('Please fill all Data');
-        }
+        });
+
+        Promise.all(promises)
+            .then(() => pResolve())
+            .catch((err) => pReject());
     }
 
-    uploadImage(fileObj, type, resolve, reject) {
-        const fileList: FileList = fileObj;
-        const file: File = fileList[0];
+    uploadImage(formControl: AbstractControl, resolve, reject) {
+        const file = formControl.value.file;
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
         formData.append('name', file.name);
-        formData.append('file_module', 'Product');
+        formData.append('file_module', FileModule.Product);
 
-        this.fileService.uploadFiles(formData).subscribe((UploadedFile) => {
-            if (UploadedFile.success) {
-                if (type === 'featured_image') {
-                    this.productForm.get('featured_image_id').setValue(UploadedFile.result.id);
-                } else {
-                    const productImageArray = this.productForm.get(type).value;
-                    const foundObj = productImageArray.find((ele) => ele.fileDetails.fileID === fileObj.fileID);
-                    if (foundObj) {
-                        foundObj.image_id = UploadedFile.result.id;
-                    }
-                }
+        this.fileService.uploadFiles(formData).subscribe((uploadedFile) => {
+            if (uploadedFile.success) {
+                formControl.setValue({ id: uploadedFile.result.id, url: uploadedFile.result.url });
                 resolve();
             } else {
                 this.toasterService.error('Error while uploading image.');
                 reject();
             }
         });
-    }
-    deleteFile(fileId, resolve, reject) {
-        this.fileService.deleteFile(fileId).subscribe((res) => {
-            if (res.success) {
-                resolve();
-            } else {
-                reject();
-            }
-        });
-    }
-
-    trackFileName(name) {
-        return trackFileName(name);
     }
 }
