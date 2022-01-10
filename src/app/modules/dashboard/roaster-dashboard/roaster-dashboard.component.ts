@@ -80,7 +80,7 @@ export class RoasterDashboardComponent implements OnInit {
     }
 
     getRecentActivities() {
-        this.userSrv.getRecentActivities(this.roasterId).subscribe((res: any) => {
+        this.userSrv.getRecentActivities({ per_page: 5 }).subscribe((res: any) => {
             if (res.success) {
                 this.mDashboardSrv.recentActivities.next(res.result);
             } else {
