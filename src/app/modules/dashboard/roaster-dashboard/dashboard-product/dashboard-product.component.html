@@ -13,17 +13,19 @@
                 You can sell your roasted coffee here. Add your roasted coffee, manage availability of the coffee you
                 want to sell and all your orders here.
             </p>
-            <div class="divider my-3 my-md-2 my-lg-3"></div>
-            <div>
-                <a
-                    class="arrow-link fnt-12 fnt-lg-14 ml-lg-2"
-                    [href]="'/produkter' | shopLink"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    {{ 'view_your_products' | translate }}
-                </a>
-            </div>
+            <ng-container *ngIf="authService.shopDetails">
+                <div class="divider my-3 my-md-2 my-lg-3"></div>
+                <div>
+                    <a
+                        class="arrow-link fnt-12 fnt-lg-14 ml-lg-2"
+                        [href]="'/produkter' | shopLink"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {{ 'view_your_products' | translate }}
+                    </a>
+                </div>
+            </ng-container>
         </div>
     </div>
 </div>

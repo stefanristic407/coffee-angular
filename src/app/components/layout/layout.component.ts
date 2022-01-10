@@ -124,6 +124,7 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
         promises.push(new Promise((resolve) => this.getUserDetail(resolve)));
         promises.push(new Promise((resolve) => this.getPreferences(resolve)));
         promises.push(new Promise((resolve) => this.getOrgProfile(resolve)));
+        promises.push(new Promise((resolve) => this.getShopDetails(resolve)));
         const self = this;
         Promise.all(promises).then(() => {
             if (!self.orgTermsAccepted || !self.userTermsAccepted) {
@@ -214,6 +215,15 @@ export class LayoutComponent extends DestroyableComponent implements OnInit, Aft
             } else {
                 this.authService.goToLogin();
             }
+        });
+    }
+
+    private getShopDetails(resolve) {
+        this.userService.getShopDetails().subscribe((res) => {
+            if (res.success) {
+                this.authService.shopDetails = res.result;
+            }
+            resolve();
         });
     }
 

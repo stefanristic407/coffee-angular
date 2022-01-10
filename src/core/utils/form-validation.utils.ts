@@ -1,7 +1,7 @@
 import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CommonService, ValidateEmailService } from '@services';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { convertKg, countWords } from './common.utils';
 
 export function maxWordCountValidator(limit: number): ValidatorFn {

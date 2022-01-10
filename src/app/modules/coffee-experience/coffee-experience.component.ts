@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GlobalsService } from '@services';
+import { AuthService, GlobalsService } from '@services';
 import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
 import { CoffeeExpService } from './coffee-experience.service';
 
@@ -14,7 +14,7 @@ export class CoffeeExperienceComponent implements OnInit {
         { label: this.globals.languageJson.brand_experience },
         { label: this.globals.languageJson.the_coffee_experience },
     ];
-    menuItems: any = [];
+    menuItems: any[] = [];
     searchString = '';
     placeholders = {
         estate_orders: 'Search by Estate name, order ID, order reference',
@@ -26,7 +26,11 @@ export class CoffeeExperienceComponent implements OnInit {
     placeholder = this.placeholders[this.estateOrders];
     @ViewChild(CoffeeExperienceTableComponent, { static: false }) coffeeTableTab;
 
-    constructor(private globals: GlobalsService, private coffeeService: CoffeeExpService) {}
+    constructor(
+        private authService: AuthService,
+        private coffeeService: CoffeeExpService,
+        private globals: GlobalsService,
+    ) {}
 
     ngOnInit(): void {
         this.coffeeService.clearSearch();
@@ -61,10 +65,15 @@ export class CoffeeExperienceComponent implements OnInit {
                 },
             },
         ];
+        if (!this.authService.shopDetails) {
+            this.menuItems.splice(2, 1);
+        }
     }
+
     onSearch() {
         this.coffeeService.setSearch(this.searchString);
     }
+
     updatePlaceholder(val) {
         this.placeholder = val;
     }

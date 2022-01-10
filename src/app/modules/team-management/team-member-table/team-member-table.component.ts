@@ -315,7 +315,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                     count++;
                     if (res.success) {
                         if (count === this.selectedUsers.length) {
-                            this.toastrService.success('Role Assigned Successfully!');
+                            this.toastrService.success(this.translator.instant('role_assigned_successfully'));
                             this.getTableData();
                         }
                     } else {

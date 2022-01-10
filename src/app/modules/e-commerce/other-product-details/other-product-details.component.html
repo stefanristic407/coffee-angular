@@ -4,7 +4,7 @@
             <p-breadcrumb [model]="breadCrumbItem" class="w-100"></p-breadcrumb>
         </div>
     </div>
-    <div [formGroup]="productForm" (ngSubmit)="uploadImages()" novalidate>
+    <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="d-flex flex-column flex-md-row justify-content-md-between">
             <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli fnt-clr334">
                 {{ (productName | titlecase) || ('add_new_product' | translate) }}
@@ -77,7 +77,7 @@
                 />
             </div>
             <div class="col-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
-                <label>{{ 'supplier_name' | translate }}</label>
+                <label>{{ 'supplier_name' | translate }}<span class="star">*</span></label>
                 <p-dropdown
                     [options]="supplierList"
                     optionLabel="label"
@@ -88,6 +88,9 @@
                         <span *ngIf="supplier.label">{{ supplier.label }}</span>
                     </ng-template>
                 </p-dropdown>
+                <small *ngIf="productForm.controls['business_type'].errors?.required" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
             </div>
             <div class="col-12 col-lg-6 sewn-form-field">
                 <div>
@@ -245,144 +248,38 @@
             <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
                 {{ 'upload_product_images' | translate }}<span class="star">*</span>
             </div>
-            <div class="row gutter-16 flex-nowrap overflow-auto">
-                <div class="col">
+
+            <div class="row gutter-16 gutter-lg-24 flex-nowrap overflow-auto">
+                <div class="col sewn-form-field mb-0">
                     <label class="text-nowrap"
                         >{{ ((isMobile$ | async) ? 'feature_image' : 'upload_feature_image') | translate
                         }}<span class="star">*</span></label
                     >
-                    <div
-                        *ngIf="!productForm?.value?.fileDetails"
-                        class="addImageContainer d-flex align-items-center justify-content-center"
-                    >
-                        <label class="d-flex align-items-center justify-content-center pointer-item">
-                            <input
-                                type="file"
-                                accept="image/png, image/jpeg"
-                                style="display: none"
-                                #featureImage
-                                (change)="handleImageFile($event, 0, 'featured_image')"
-                            />
-                            <div class="d-flex flex-wrap align-items-center justify-content-center empty-image-wrapper">
-                                <img src="assets/images/upload_icon.svg" />
-                                <span class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1">{{
-                                    'drag_drop_image' | translate
-                                }}</span>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div *ngIf="productForm?.value?.fileDetails" class="addImageContainer">
-                        <img [src]="productForm?.value?.fileDetails?.image_url" alt="" class="uploadImg" />
-                        <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
-                            <span class="ellipsis">
-                                {{ trackFileName(productForm?.value?.fileDetails?.image_url) }}
-                            </span>
-                            <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
-                        </div>
-                        <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                            <ng-template pTemplate>
-                                <div
-                                    class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                    (click)="deleteImage(0, 'featured_image')"
-                                >
-                                    Delete
-                                </div>
-                            </ng-template>
-                        </p-overlayPanel>
-                    </div>
+                    <app-product-image
+                        formControlName="featured_image_id"
+                        accept="image/png, image/jpeg"
+                    ></app-product-image>
+                    <small *ngIf="productForm.controls.featured_image_id.errors?.required" class="p-error">{{
+                        'required' | translate
+                    }}</small>
                 </div>
-                <div class="col" *ngFor="let product_image of productForm?.value?.product_images; let m = index">
+                <div
+                    class="col sewn-form-field mb-0"
+                    *ngFor="let productImage of productForm?.get('product_images').controls"
+                >
                     <label>{{ 'product_images' | translate }}</label>
-                    <div
-                        *ngIf="!product_image['fileDetails']"
-                        class="addImageContainer d-flex align-items-center justify-content-center"
-                    >
-                        <label class="d-flex align-items-center justify-content-center pointer-item">
-                            <input
-                                type="file"
-                                accept="image/png, image/jpeg"
-                                style="display: none"
-                                #featureImage
-                                (change)="handleImageFile($event, m, 'product_images')"
-                            />
-                            <div class="d-flex flex-wrap align-items-center justify-content-center empty-image-wrapper">
-                                <img src="assets/images/upload_icon.svg" />
-                                <span class="d-none d-sm-none d-md-block secondary_txt text-clrab mt-2 px-1">{{
-                                    'drag_drop_image' | translate
-                                }}</span>
-                            </div>
-                        </label>
-                    </div>
-                    <div *ngIf="product_image['fileDetails']" class="addImageContainer">
-                        <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
-                        <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
-                            <span class="ellipsis">
-                                {{ trackFileName(product_image['fileDetails']['image_url']) }}
-                            </span>
-                            <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
-                        </div>
-                        <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                            <ng-template pTemplate>
-                                <div
-                                    class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                    (click)="deleteImage(m, 'product_images')"
-                                >
-                                    Delete
-                                </div>
-                            </ng-template>
-                        </p-overlayPanel>
-                    </div>
+                    <app-product-image [formControl]="productImage" accept="image/png, image/jpeg"></app-product-image>
                 </div>
             </div>
         </div>
         <div class="mt-4 mt-lg-45">
             <label>{{ 'product_use_images' | translate }}</label>
-            <div class="row gutter-16 overflow-auto" [ngClass]="{ 'flex-nowrap': !(isMobile$ | async) }">
+            <div class="row gutter-16 gutter-lg-24 flex-nowrap overflow-auto">
                 <div
-                    class="useImageContainer mb-3 mb-md-0"
-                    [ngClass]="(isMobile$ | async) ? 'col-12' : 'col'"
-                    *ngFor="let product_image of productForm?.value?.product_use_images; let m = index"
+                    class="col sewn-form-field mb-0"
+                    *ngFor="let productImage of productForm?.get('product_use_images').controls"
                 >
-                    <div
-                        *ngIf="!product_image['fileDetails']"
-                        class="addImageContainer d-flex align-items-center justify-content-center"
-                    >
-                        <label class="d-flex align-items-center justify-content-center pointer-item">
-                            <input
-                                type="file"
-                                accept="image/png, image/jpeg"
-                                style="display: none"
-                                #featureImage
-                                (change)="handleImageFile($event, m, 'product_use_images')"
-                            />
-                            <div class="d-flex flex-wrap align-items-center justify-content-center empty-image-wrapper">
-                                <img src="assets/images/upload_icon.svg" />
-                                <span class="secondary_txt text-clrab mt-2 px-1">{{
-                                    'drag_drop_image' | translate
-                                }}</span>
-                            </div>
-                        </label>
-                    </div>
-                    <div *ngIf="product_image['fileDetails']" class="addImageContainer">
-                        <img [src]="product_image['fileDetails']['image_url']" alt="" class="uploadImg" />
-                        <div class="imageLabel fnt-muli fnt-14 fnt-bold lh-normal text-white">
-                            <span class="ellipsis">
-                                {{ trackFileName(product_image['fileDetails']['image_url']) }}
-                            </span>
-                            <i class="pi pi-ellipsis-v cursor-pointer" (click)="opMd.toggle($event)"></i>
-                        </div>
-                        <p-overlayPanel #opMd styleClass="p-overlaypanel-actions" appendTo="body">
-                            <ng-template pTemplate>
-                                <div
-                                    class="fnt-muli fnt-14 fnt-600 text-clr588 action-item cursor-pointer"
-                                    (click)="deleteImage(m, 'product_use_images')"
-                                >
-                                    Delete
-                                </div>
-                            </ng-template>
-                        </p-overlayPanel>
-                    </div>
+                    <app-product-image [formControl]="productImage" accept="image/png, image/jpeg"></app-product-image>
                 </div>
                 <div class="col d-none d-lg-block"></div>
             </div>
@@ -460,7 +357,7 @@
                     type="submit"
                     class="btn btn-raised ml-md-3 order-1 order-md-2 mt-md-0 w-mob-100"
                     [ngClass]="{ 'mt-3': productID }"
-                    (click)="uploadImages()"
+                    (click)="onSave()"
                 >
                     {{ 'save' | translate }}
                 </button>
