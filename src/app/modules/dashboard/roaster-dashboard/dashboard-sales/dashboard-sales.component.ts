@@ -21,11 +21,11 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     periods: any[] = [
         {
             value: 'lastWeek',
-            label: 'last 7 days',
+            label: 'last_7_days',
         },
         {
             value: 'lastMonth',
-            label: 'last 30 days',
+            label: 'last_30_days',
         },
         // {
         //     value: 'last3Month',
