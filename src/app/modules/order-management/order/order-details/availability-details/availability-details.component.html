@@ -22,7 +22,7 @@
             <span class="list-que"> {{ 'listing_status' | translate }}: </span>
         </td>
         <td>
-            <span class="list-ans">{{ (bulk?.listing_status | strReplace: '_':' ' | titlecase) || '-' }}</span>
+            <span class="list-ans">{{ (bulk?.listing_status | sentencecase) || '-' }}</span>
         </td>
     </tr>
     <tr>
@@ -30,7 +30,7 @@
             <span class="list-que"> {{ 'processing' | translate }}: </span>
         </td>
         <td>
-            <span class="list-ans">{{ (bulk?.wet_milling?.process | strReplace: '_':' ' | titlecase) || '-' }}</span>
+            <span class="list-ans">{{ (bulk?.wet_milling?.process | sentencecase) || '-' }}</span>
         </td>
     </tr>
 
@@ -39,7 +39,7 @@
             <span class="list-que"> {{ 'type' | translate }}: </span>
         </td>
         <td>
-            <span class="list-ans"> {{ bulk?.type | strReplace: '_':' ' | titlecase }} </span>
+            <span class="list-ans"> {{ bulk?.type | sentencecase }} </span>
         </td>
     </tr>
 
@@ -48,7 +48,7 @@
             <span class="list-que"> {{ 'species' | translate }}: </span>
         </td>
         <td>
-            <span class="list-ans"> {{ bulk?.species | strReplace: '_':' ' | titlecase }} </span>
+            <span class="list-ans"> {{ bulk?.species | sentencecase }} </span>
         </td>
     </tr>
 
@@ -66,7 +66,7 @@
             <span class="list-que"> {{ 'packaging' | translate }}: </span>
         </td>
         <td>
-            <span class="list-ans"> {{ (bulk?.packaging | strReplace: '_':' ' | titlecase) || '-' }} </span>
+            <span class="list-ans"> {{ (bulk?.packaging | sentencecase) || '-' }} </span>
         </td>
     </tr>
 
@@ -75,7 +75,7 @@
             <span class="list-que"> {{ 'water_activity' | translate }}: </span>
         </td>
         <td>
-            <span class="list-ans"> {{ (bulk?.water_activity | strReplace: '_':' ' | titlecase) || '-' }} </span>
+            <span class="list-ans"> {{ (bulk?.water_activity | sentencecase) || '-' }} </span>
         </td>
     </tr>
 
@@ -84,7 +84,7 @@
             <span class="list-que"> {{ 'ico' | translate | uppercase }}: </span>
         </td>
         <td class="no-border">
-            <span class="list-ans"> {{ (bulk?.ico_number | strReplace: '_':' ' | titlecase) || '-' }} </span>
+            <span class="list-ans"> {{ (bulk?.ico_number | sentencecase) || '-' }} </span>
         </td>
     </tr>
 </table>
