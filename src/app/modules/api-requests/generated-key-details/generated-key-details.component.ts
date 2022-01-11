@@ -47,7 +47,7 @@ export class GeneratedKeyDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.resetButtonValue = 'Generate Key';
+        this.resetButtonValue = 'Generate key';
         this.viewRoDetails();
         this.supplyBreadCrumb();
     }
@@ -142,7 +142,7 @@ export class GeneratedKeyDetailsComponent implements OnInit {
             if (res.success) {
                 this.toastrService.error('Key has been delete');
                 this.apikeyStatus = 'DELETED';
-                this.resetButtonValue = 'Generate Key';
+                this.resetButtonValue = 'Generate key';
                 this.isDeletedApiKey = true;
                 const navigationExtras: NavigationExtras = {
                     queryParams: {

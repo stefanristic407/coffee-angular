@@ -49,7 +49,7 @@ export class ApiRequestDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.resetButtonValue = 'Generate Key';
+        this.resetButtonValue = 'Generate key';
         if (this.apikeyStatus === 'PENDING') {
             this.viewRoDetails();
         } else {
@@ -192,7 +192,7 @@ export class ApiRequestDetailsComponent implements OnInit {
             if (res.success) {
                 this.toastrService.error('Key has been delete');
                 this.apikeyStatus = 'DELETED';
-                this.resetButtonValue = 'Generate Key';
+                this.resetButtonValue = 'Generate key';
                 this.isDeletedApiKey = true;
             }
         });
