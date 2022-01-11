@@ -10,7 +10,7 @@
                 *ngIf="recentActivities"
                 #activeDT
                 styleClass="w-100"
-                [value]="recentActivities.slice(0, 5)"
+                [value]="recentActivities"
                 [(selection)]="selectedMetaData"
                 dataKey="name"
                 [rowHover]="false"
@@ -22,15 +22,9 @@
             >
                 <ng-template pTemplate="header" styleClass="table-header" class="table-header">
                     <tr class="header-row">
-                        <th pSortableColumn="description">
-                            {{ 'activity' | translate }}<p-sortIcon field="description"></p-sortIcon>
-                        </th>
-                        <th scope="col" pSortableColumn="user_name">
-                            {{ 'action_taken_by' | translate }}<p-sortIcon field="user_name"></p-sortIcon>
-                        </th>
-                        <th scope="col" pSortableColumn="created_at">
-                            {{ 'time_and_date' | translate }}<p-sortIcon field="created_at"></p-sortIcon>
-                        </th>
+                        <th>{{ 'activity' | translate }}</th>
+                        <th scope="col">{{ 'action_taken_by' | translate }}</th>
+                        <th scope="col">{{ 'time_and_date' | translate }}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
@@ -58,7 +52,7 @@
 
         <div class="d-md-none">
             <ng-container *ngIf="recentActivities?.length; else empty">
-                <div *ngFor="let item of recentActivities.slice(0, 5)" class="activity-wrap">
+                <div *ngFor="let item of recentActivities" class="activity-wrap">
                     <div class="d-flex justify-content-between mb-2">
                         <div class="fnt-semi-bold">{{ item.user_name }}</div>
                         <div class="fnt-12 fnt-semi-bold text-clr588">

@@ -1331,14 +1331,11 @@ export class UserService extends ApiService {
         };
         return this.http.post(this.orgPostUrl, data);
     }
-    getRecentActivities(roaster_id: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/recent-activity',
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+
+    getRecentActivities(params?: object): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `recent-activity?${this.serializeParams(params)}`);
     }
+
     getPrebookBatchList(estateId: any, lotId: any, params?: any) {
         return this.postWithOrg(
             this.orgPostUrl,
