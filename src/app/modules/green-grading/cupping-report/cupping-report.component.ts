@@ -171,7 +171,7 @@ export class CuppingReportComponent implements OnInit {
                 },
                 {
                     field: 'average_score',
-                    header: 'Cup Score',
+                    header: 'cup_score',
                 },
             ];
         }
