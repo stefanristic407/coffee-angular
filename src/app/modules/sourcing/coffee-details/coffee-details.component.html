@@ -26,8 +26,12 @@
                         </h2>
                         <div class="d-flex align-items-center">
                             <span class="fa fa-star checked mr-2"></span>
-                            <div class="fnt-16 fnt-md-18 brown-cta">
-                                {{ (sourcing.harvestDetail?.estate_rating || 0).toFixed(2) }}
+                            <div
+                                class="fnt-16 fnt-md-18 brown-cta"
+                                [routerLink]="['/sourcing/estate-details/' + sourcing.estate?.id]"
+                                [queryParams]="{ goToReviews: true }"
+                            >
+                                {{ sourcing.harvestDetail?.estate_rating | number: '1.2-2' }}
                             </div>
                         </div>
                     </div>
