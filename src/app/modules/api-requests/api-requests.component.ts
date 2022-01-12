@@ -50,9 +50,10 @@ export class ApiRequestsTableComponent implements OnInit, AfterViewInit {
 
     loadFilterValues() {
         this.displayArray = [
-            { label: '10', value: 10 },
-            { label: '20', value: 20 },
-            { label: '50', value: 50 },
+            { label: 'Display 10', value: 10 },
+            { label: 'Display 20', value: 20 },
+            { label: 'Display 30', value: 30 },
+            { label: 'Display 50', value: 50 },
         ];
     }
 
