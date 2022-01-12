@@ -25,6 +25,7 @@
             id="sales-table"
             [value]="sortedMainData | filter: searchTerm | filter: estatetermOrigin"
             sortMode="multiple"
+            [loading]="loading"
         >
             <ng-template pTemplate="header">
                 <tr>

@@ -25,6 +25,7 @@ export class RoasterAgreementsComponent implements OnInit {
     selectedItemId: number;
     displayDeleteModal = false;
     displayAddEditModal = false;
+    loading = false;
 
     @Input() searchTerm = '';
     @Input() customerType = 'hrc';
@@ -50,8 +51,10 @@ export class RoasterAgreementsComponent implements OnInit {
 
     getAgreements(event?: any): void {
         this.mainData = [];
+        this.loading = true;
         this.roasterService.getAgreements(this.roasterId, this.customerType).subscribe((resp: any) => {
             if (resp.success) {
+                this.loading = false;
                 this.mainData = resp.result;
                 this.sortedMainData = this.mainData.sort((a, b) => b.created_at.localeCompare(a.created_at));
                 this.newList = this.sortedMainData.map((item) => {
