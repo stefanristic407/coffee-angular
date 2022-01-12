@@ -63,8 +63,6 @@ export class RoasterAgreementsComponent implements OnInit {
                     transformItem.value = item.customer_name;
                     return transformItem;
                 });
-                const allOption = { label: 'All', value: 'All' };
-                this.newList.push(allOption);
                 this.newList = this.newList.filter((v, i, a) => a.findIndex((t) => t.label === v.label) === i);
                 this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
             } else {
