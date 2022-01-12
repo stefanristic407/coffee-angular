@@ -10,7 +10,7 @@
     <ng-container *ngFor="let item of files; index as i">
         <div class="file-wrap lh-normal fnt-600 text-clr588 ellipsis mt-2 d-none d-md-block">
             <!-- {{ item.url | fileName: 20 }} (click)="openPicture(item.url)" -->
-            <a href="{{ item.url }}" target="_blank" rel="noreferrer" class="file_url">{{ item.url | fileName: 20 }}</a>
+            <a href="{{ item.url }}" target="_blank" rel="noreferrer" class="file_url">{{ fileName | fileName: 20 }}</a>
             <img src="assets/images/close.svg" alt="Delete" (click)="$event.stopPropagation(); delete(i)" />
         </div>
         <div class="media-wrap position-relative mt-2 d-md-none">
@@ -25,7 +25,7 @@
                 </ng-template>
             </div>
             <div class="btn-wrap">
-                <span class="fnt-12 lh-normal text-white fnt-bold">{{ item.url | fileName: 20 }}</span>
+                <span class="fnt-12 lh-normal text-white fnt-bold">{{ fileName | fileName: 20 }}</span>
                 <div class="position-relative">
                     <a (click)="fileIndex = i; menu.toggle($event)">
                         <img src="assets/images/menu.svg" alt="menu" />

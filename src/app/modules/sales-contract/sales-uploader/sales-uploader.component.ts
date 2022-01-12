@@ -48,6 +48,7 @@ export class SalesUploaderComponent extends ResizeableComponent implements OnIni
             },
         },
     ];
+    fileName: any;
 
     writeValue(value: any): void {
         if (value) {
@@ -92,9 +93,11 @@ export class SalesUploaderComponent extends ResizeableComponent implements OnIni
             const promises = [];
             for (let idx = 0; event.target.files[idx]; idx++) {
                 const file = event.target.files[idx];
+                this.fileName = file.name;
                 const formData: FormData = new FormData();
                 formData.append('file', file, file.name);
-                formData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
+                // formData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
+                formData.append('name', file.name);
                 formData.append('file_module', 'Agreements');
                 promises.push(
                     new Promise((resolve, reject) => {
