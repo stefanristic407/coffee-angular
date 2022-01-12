@@ -38,7 +38,7 @@ import { getCountry } from '@utils';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject, Subscription } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -52,12 +52,12 @@ export class OrderManagementService {
     private readonly microRoasterDetailsSubject = new BehaviorSubject<OrganizationDetails>(null);
     private readonly documentsSubject = new BehaviorSubject<OrderDocument[]>([]);
     private readonly ordersSubjects = {
-        [OrganizationType.ESTATE]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
-        [OrganizationType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+        [OrganizationType.ESTATE]: new Subject<ApiResponse<OrderSummary[]>>(),
+        [OrganizationType.MICRO_ROASTER]: new Subject<ApiResponse<OrderSummary[]>>(),
     };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
     private readonly originListSubject = new BehaviorSubject<LabelValue[]>([]);
-    private readonly requestListSubject = new BehaviorSubject<ApiResponse<AvailabilityRequest[]>>(null);
+    private readonly requestListSubject = new Subject<ApiResponse<AvailabilityRequest[]>>();
     private readonly orderNotesSubject = new BehaviorSubject<OrderNote[]>([]);
     // TODO: Move into user service as "current user profile" after refactoring
     private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);

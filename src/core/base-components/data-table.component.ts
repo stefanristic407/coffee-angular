@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ResizeableComponent } from './resizeable.component';
-import { ResizeService } from '@services';
 import { ApiResponse, PageInfo } from '@models';
-import { takeUntil } from 'rxjs/operators';
+import { ResizeService } from '@services';
 import { LazyLoadEvent } from 'primeng/api/public_api';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ResizeableComponent } from './resizeable.component';
 
 @Component({
     template: '',
@@ -14,7 +14,7 @@ export class DataTableComponent<T> extends ResizeableComponent {
 
     protected dataStream$: Observable<ApiResponse<T[]>>;
 
-    loading = false;
+    loading = true;
     pageInfo: PageInfo = { page: 1, per_page: 10, total_count: 0 };
     tableData: T[] = [];
 
@@ -39,7 +39,6 @@ export class DataTableComponent<T> extends ResizeableComponent {
                 this.tableData = res.result;
                 this.pageInfo = res.result_info;
             }
-
             this.loading = false;
         });
     }
@@ -57,10 +56,7 @@ export class DataTableComponent<T> extends ResizeableComponent {
                 sort_by: event.sortField,
             };
         }
-
-        // To prevent expression has been checked error
-        setTimeout(() => (this.loading = true), 0);
-
+        this.loading = true;
         return options;
     }
 }
