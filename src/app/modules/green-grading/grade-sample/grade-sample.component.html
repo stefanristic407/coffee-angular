@@ -323,7 +323,7 @@
             </div>
             <div class="d-flex flex-wrap fill-list" [formGroup]="sampleDetailForm">
                 <div class="d-flex flex-column sewn-form-field col-12 col-md-6 col-lg-3 px-0 pr-md-2 pb-3">
-                    <label for="countries">Origin</label>
+                    <label for="countries">{{ 'origin' | translate }}<span class="star">*</span></label>
                     <p-dropdown
                         id="countries"
                         [options]="countries"
@@ -340,27 +340,15 @@
                     }}</small>
                 </div>
                 <div class="d-flex flex-column sewn-form-field col-12 col-md-6 col-lg-3 px-0 pr-lg-2 pl-md-1 pb-3">
-                    <label for="gradeEstate">Estate name</label>
-                    <input
-                        id="gradeEstate"
-                        type="text"
-                        pInputText
-                        formControlName="estateName"
-                        placeholder="Please enter estate name"
-                    />
+                    <label>{{ 'estate_name' | translate }}<span class="star">*</span></label>
+                    <input type="text" pInputText formControlName="estateName" placeholder="Please enter estate name" />
                     <small class="p-error" *ngIf="sampleDetailForm.controls['estateName'].errors?.required">{{
                         'required' | translate
                     }}</small>
                 </div>
                 <div class="d-flex flex-column col-12 sewn-form-field col-md-6 col-lg-3 px-0 pr-md-2 pl-lg-1 pb-3">
-                    <label for="species">Variety</label>
-                    <input
-                        id="species"
-                        type="text"
-                        pInputText
-                        formControlName="variety"
-                        placeholder="Please enter a variety"
-                    />
+                    <label>{{ 'variety' | translate }}<span class="star">*</span></label>
+                    <input type="text" pInputText formControlName="variety" placeholder="Please enter a variety" />
                     <small class="p-error" *ngIf="sampleDetailForm.controls['variety'].errors?.required">{{
                         'required' | translate
                     }}</small>
@@ -368,19 +356,11 @@
                 <div
                     class="d-flex flex-column sewn-form-field col-12 col-md-6 col-lg-3 px-0 pr-lg-2 pl-md-1 pl-lg-0 pl-lg-1 pb-3"
                 >
-                    <label for="gradeId">
-                        ID
-                        <span class="fnt-muli fnt-10 fnt-600 text-clr588"
-                            >(Give your sample ID to identify it quicker)</span
-                        >
+                    <label>
+                        {{ 'id' | translate }}<span class="star">*</span>
+                        <span class="fnt-10 fnt-600 text-clr588">(Give your sample ID to identify it quicker)</span>
                     </label>
-                    <input
-                        id="gradeId"
-                        type="text"
-                        pInputText
-                        formControlName="sampleId"
-                        placeholder="Please enter your ID"
-                    />
+                    <input type="text" pInputText formControlName="sampleId" placeholder="Please enter your ID" />
                     <small class="p-error" *ngIf="sampleDetailForm.controls['sampleId'].errors?.required">{{
                         'required' | translate
                     }}</small>
