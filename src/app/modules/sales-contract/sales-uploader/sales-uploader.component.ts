@@ -1,11 +1,11 @@
-import { Component, forwardRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
-import { ToastrService } from 'ngx-toastr';
-import { Lightbox } from 'ng-gallery/lightbox';
+import { ResizeableComponent } from '@base-components';
 import { FileService, ResizeService } from '@services';
 import * as moment from 'moment';
-import { ResizeableComponent } from '@base-components';
+import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
+import { Lightbox } from 'ng-gallery/lightbox';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-sales-uploader',
@@ -33,6 +33,7 @@ export class SalesUploaderComponent extends ResizeableComponent implements OnIni
     @Input() height = null;
     @Input() fileDetails: any;
     acceptType: string;
+    upload = 'Upload';
     items = [
         {
             label: 'Edit',
@@ -112,6 +113,7 @@ export class SalesUploaderComponent extends ResizeableComponent implements OnIni
                                         this.onChange(res.result);
                                     }
                                     resolve(res.success);
+                                    this.upload = 'Replace';
                                 } else {
                                     reject();
                                 }
