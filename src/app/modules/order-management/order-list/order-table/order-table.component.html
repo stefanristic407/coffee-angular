@@ -9,6 +9,7 @@
     [showCurrentPageReport]="false"
     [paginator]="pageInfo.total_count > rowsPerPage"
     [lazy]="true"
+    [lazyLoadOnInit]="false"
     [loading]="loading"
     (onLazyLoad)="loadOrders($event)"
     [totalRecords]="pageInfo.total_count"

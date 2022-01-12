@@ -9,7 +9,7 @@
                     class="w-100"
                     [placeholder]="'search_by_id_name' | translate"
                     [(ngModel)]="term"
-                    (ngModelChange)="loadData()"
+                    (ngModelChange)="termSubject.next(term)"
                 />
             </span>
         </div>
@@ -27,7 +27,7 @@
                     pInputText
                     [placeholder]="'search_by_id_name' | translate"
                     [(ngModel)]="term"
-                    (ngModelChange)="loadData()"
+                    (ngModelChange)="termSubject.next(term)"
                 />
             </span>
         </div>
@@ -184,6 +184,13 @@
                                 </span>
                             </td>
                         </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="summary">
+                        <app-empty
+                            *ngIf="!loading && !tableData?.length"
+                            [title]="'no_data_available' | translate"
+                        ></app-empty>
                     </ng-template>
                 </p-table>
             </div>

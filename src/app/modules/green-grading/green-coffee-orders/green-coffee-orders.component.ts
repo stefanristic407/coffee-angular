@@ -74,19 +74,19 @@ export class GreenCoffeeOrdersComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'order_id',
-                    header: 'Order ID',
+                    header: 'order_id',
                 },
                 {
                     field: 'estate_name',
-                    header: 'Estate name',
+                    header: 'estate_name',
                 },
                 {
                     field: 'origin',
-                    header: 'Origin',
+                    header: 'origin',
                 },
                 {
                     field: 'varieties',
-                    header: 'Variety',
+                    header: 'variety',
                     isCut: true,
                 },
             ];
@@ -95,46 +95,46 @@ export class GreenCoffeeOrdersComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'order_id',
-                    header: 'Order ID',
+                    header: 'order_id',
                     width: '90px',
                 },
                 {
                     field: 'estate_name',
-                    header: 'Estate name',
+                    header: 'estate_name',
                     width: '132px',
                 },
                 {
                     field: 'order_date',
-                    header: 'Date ordered',
+                    header: 'date_ordered',
                     sortable: true,
                     width: '140px',
                 },
                 {
                     field: 'origin',
-                    header: 'Origin',
+                    header: 'origin',
                 },
 
                 {
                     field: 'varieties',
-                    header: 'Variety',
+                    header: 'variety',
                 },
                 {
                     field: 'cupping_version',
-                    header: 'Cupping version',
+                    header: 'cupping_version',
                     width: '128px',
                 },
                 {
                     field: 'cupping_status',
-                    header: 'Status',
+                    header: 'status',
                 },
                 {
                     field: 'order_type',
-                    header: 'Type of order',
+                    header: 'type_of_order',
                 },
 
                 {
                     field: 'type',
-                    header: 'Type',
+                    header: 'type',
                 },
             ];
         }

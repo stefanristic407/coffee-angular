@@ -81,30 +81,11 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
     ngOnInit(): void {
         this.orderService.loadOrigins();
 
-        this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
-            this.orgType = params.orgType;
-            if (this.orgType !== OrganizationType.ESTATE && this.orgType !== OrganizationType.MICRO_ROASTER) {
-                this.router.navigateByUrl('/orders/es');
-            }
-
-            this.items = [
-                { label: this.translator.instant('home'), routerLink: '/' },
-                { label: this.translator.instant('order_management') }, // Do we need this item while we have no page for it?
-                {
-                    label:
-                        this.orgType === OrganizationType.ESTATE
-                            ? 'Purchased orders of estates'
-                            : this.translator.instant('orders_by_mr'),
-                },
-            ];
-        });
-
         this.searchForm.valueChanges
             .pipe(debounceTime(600))
             .pipe(takeUntil(this.unsubscribeAll$))
             .subscribe((value) => {
                 const startDate = value.dates && value.dates[0] ? moment(value.dates[0]).format('yyyy-MM-DD') : '';
-
                 // Adding 1 day to include selected date into API filter range
                 const endDate =
                     value.dates && value.dates[1] ? moment(value.dates[1]).add(1, 'day').format('yyyy-MM-DD') : '';
@@ -127,6 +108,26 @@ export class OrderListComponent extends ResizeableComponent implements OnInit {
                     }
                 }, 0);
             });
+
+        this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
+            this.orgType = params.orgType;
+            this.activeIndex = 0;
+            this.resetFilter();
+            if (this.orgType !== OrganizationType.ESTATE && this.orgType !== OrganizationType.MICRO_ROASTER) {
+                this.router.navigateByUrl('/orders/es');
+            }
+
+            this.items = [
+                { label: this.translator.instant('home'), routerLink: '/' },
+                { label: this.translator.instant('order_management') }, // Do we need this item while we have no page for it?
+                {
+                    label:
+                        this.orgType === OrganizationType.ESTATE
+                            ? 'Purchased orders of estates'
+                            : this.translator.instant('orders_by_mr'),
+                },
+            ];
+        });
     }
 
     showExportDialog(): void {

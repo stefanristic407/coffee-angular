@@ -22,22 +22,23 @@ import {
     AddressesService,
     AvailabilityRequestService,
     AvailabilityService,
-    CommonService,
     FileService,
     GeneralCuppingService,
     LotsService,
     OrderService,
     OrganizationService,
+    OriginService,
     PurchaseService,
     ReviewsService,
     RoasterOrdersService,
     ShippingDetailsService,
     UserService,
 } from '@services';
+import { getCountry } from '@utils';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject, Subscription } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -51,12 +52,12 @@ export class OrderManagementService {
     private readonly microRoasterDetailsSubject = new BehaviorSubject<OrganizationDetails>(null);
     private readonly documentsSubject = new BehaviorSubject<OrderDocument[]>([]);
     private readonly ordersSubjects = {
-        [OrganizationType.ESTATE]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
-        [OrganizationType.MICRO_ROASTER]: new BehaviorSubject<ApiResponse<OrderSummary[]>>(null),
+        [OrganizationType.ESTATE]: new Subject<ApiResponse<OrderSummary[]>>(),
+        [OrganizationType.MICRO_ROASTER]: new Subject<ApiResponse<OrderSummary[]>>(),
     };
     private readonly cuppingScoreSubject = new BehaviorSubject<CuppingScore[]>([]);
     private readonly originListSubject = new BehaviorSubject<LabelValue[]>([]);
-    private readonly requestListSubject = new BehaviorSubject<ApiResponse<AvailabilityRequest[]>>(null);
+    private readonly requestListSubject = new Subject<ApiResponse<AvailabilityRequest[]>>();
     private readonly orderNotesSubject = new BehaviorSubject<OrderNote[]>([]);
     // TODO: Move into user service as "current user profile" after refactoring
     private readonly userProfileSubject = new BehaviorSubject<UserProfile>(null);
@@ -70,21 +71,21 @@ export class OrderManagementService {
     private requestsSub: Subscription;
 
     constructor(
-        protected cookieSrv: CookieService,
+        private addressesSrv: AddressesService,
         private availabilitySrv: AvailabilityService,
         private cuppingSrv: GeneralCuppingService,
-        private orderSrv: OrderService,
-        private purchaseSrv: PurchaseService,
-        private commonSrv: CommonService,
-        private requestSrv: AvailabilityRequestService,
-        private userSrv: UserService,
-        private lotsSrv: LotsService,
-        private reviewSrv: ReviewsService,
-        private addressesSrv: AddressesService,
         private fileSrv: FileService,
+        private lotsSrv: LotsService,
+        private orderSrv: OrderService,
+        private organizationService: OrganizationService,
+        private originService: OriginService,
+        private purchaseSrv: PurchaseService,
+        private requestSrv: AvailabilityRequestService,
+        private reviewSrv: ReviewsService,
         private roasterOrdersSrv: RoasterOrdersService,
         private shippingDetailsSrv: ShippingDetailsService,
-        private organizationService: OrganizationService,
+        private userSrv: UserService,
+        protected cookieSrv: CookieService,
     ) {}
 
     get orderDetails$(): Observable<OrderDetails> {
@@ -236,19 +237,15 @@ export class OrderManagementService {
     }
 
     loadOrigins(): void {
-        this.availabilitySrv.getAvailabilityList().subscribe((availabilityList) => {
-            const origins = availabilityList.map((x) => (x.lot ? x.lot.country : '').toUpperCase()).filter((x) => x);
-
-            const labels = _.sortBy(_.uniq(origins))
-                .map((x) => {
-                    return {
-                        label: this.commonSrv.getCountryName(x),
-                        value: x,
-                    };
-                })
-                .filter((x) => x.label);
-
-            this.originListSubject.next(labels);
+        this.originService.getOrigins({ visibility: true }).subscribe((res: ApiResponse<any>) => {
+            if (res.success) {
+                const origins = _.chain(res.result.origins)
+                    .map((item) => {
+                        return { value: item, label: getCountry(item)?.name || item };
+                    })
+                    .value();
+                this.originListSubject.next(origins);
+            }
         });
     }
 

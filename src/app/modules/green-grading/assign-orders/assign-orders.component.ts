@@ -1,11 +1,14 @@
 import { Location } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { ResizeableComponent } from '@base-components';
 import { OrderType } from '@enums';
 import { LabelValue } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { AclService, GreenGradingService } from '@services';
+import { AclService, GreenGradingService, ResizeService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { GenerateReportService } from '../generate-report/generate-report.service';
 
 @Component({
@@ -13,11 +16,12 @@ import { GenerateReportService } from '../generate-report/generate-report.servic
     templateUrl: './assign-orders.component.html',
     styleUrls: ['./assign-orders.component.scss'],
 })
-export class AssignOrdersComponent implements OnInit {
+export class AssignOrdersComponent extends ResizeableComponent implements OnInit {
     breadCrumbItems: MenuItem[];
     selectedOrderType: any;
     displayRowCounts = 10;
     term = '';
+    termSubject: Subject<string> = new Subject<string>();
 
     tableData: any[] = [];
     tableColumns: any[] = [];
@@ -45,13 +49,16 @@ export class AssignOrdersComponent implements OnInit {
     }
 
     constructor(
-        public generateReportService: GenerateReportService,
-        private greenGradingService: GreenGradingService,
-        private toaster: ToastrService,
-        private location: Location,
         private aclService: AclService,
+        private generateReportService: GenerateReportService,
+        private greenGradingService: GreenGradingService,
+        private location: Location,
+        private toaster: ToastrService,
         private translateService: TranslateService,
-    ) {}
+        protected resizeService: ResizeService,
+    ) {
+        super(resizeService);
+    }
 
     ngOnInit(): void {
         this.breadCrumbItems = [
@@ -65,10 +72,16 @@ export class AssignOrdersComponent implements OnInit {
             this.location.back();
         }
         this.initializeTable();
+        this.termSubject
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .pipe(debounceTime(1000))
+            .subscribe(() => {
+                this.loadData();
+            });
     }
 
     initializeTable() {
-        if (window.innerWidth <= 767) {
+        if (this.resizeService.isMobile()) {
             this.isMobileView = true;
             this.tableColumns = [
                 {

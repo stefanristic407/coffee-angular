@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
-import { OrderType, OrganizationType } from '@enums';
-import { CommonService, ResizeService } from '@services';
-import { DataTableComponent } from '@base-components';
-import { OrderSummary } from '@models';
-import { LazyLoadEvent } from 'primeng/api/public_api';
-import { OrderManagementService } from '../../order-management.service';
-import { takeUntil } from 'rxjs/operators';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DataTableComponent } from '@base-components';
+import { OrderType, OrganizationType } from '@enums';
+import { OrderSummary } from '@models';
+import { ResizeService } from '@services';
+import { LazyLoadEvent } from 'primeng/api/public_api';
 import { Table } from 'primeng/table/table';
+import { takeUntil } from 'rxjs/operators';
+import { OrderManagementService } from '../../order-management.service';
 
 @Component({
     selector: 'app-order-table',
@@ -28,10 +28,9 @@ export class OrderTableComponent extends DataTableComponent<OrderSummary> implem
     }
 
     constructor(
-        private route: ActivatedRoute,
         private orderService: OrderManagementService,
+        private route: ActivatedRoute,
         protected resizeService: ResizeService,
-        public commonService: CommonService,
     ) {
         super(resizeService);
     }
@@ -47,11 +46,6 @@ export class OrderTableComponent extends DataTableComponent<OrderSummary> implem
     ngOnInit(): void {
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
             this.orgType = params.orgType;
-            if (this.ordersTable) {
-                // To load data when navigating between MR and ES orders
-                this.ordersTable.reset();
-            }
-
             super.subscribeTo(this.orderService.getOrders(this.orgType));
         });
     }
@@ -65,7 +59,6 @@ export class OrderTableComponent extends DataTableComponent<OrderSummary> implem
         if (order.shipping_price) {
             return order.price + order.shipping_price;
         }
-
         return order.price;
     }
 }

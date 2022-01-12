@@ -19,7 +19,7 @@
                 {{ (orgType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate }}
             </h4>
         </div>
-        <div class="col-12 px-0 mt-25 d-md-none">
+        <div *ngIf="activeIndex !== 1" class="col-12 px-0 mt-25 d-md-none">
             <div class="d-flex justify-content-end">
                 <span class="custom-search w-100">
                     <input
@@ -57,6 +57,7 @@
                     </ng-template>
                 </p-multiSelect>
                 <p-dropdown
+                    *ngIf="activeIndex !== 1"
                     [showClear]="true"
                     [options]="orgType === OrgType.MICRO_ROASTER ? MR_ORDER_TYPE_ITEMS : ORDER_TYPE_ITEMS"
                     optionLabel="label"
@@ -70,6 +71,7 @@
                 >
                 </p-dropdown>
                 <p-dropdown
+                    *ngIf="activeIndex !== 1"
                     [showClear]="true"
                     [options]="orgType === OrgType.MICRO_ROASTER ? MR_ORDER_STATUS_ITEMS : ORDER_STATUS_ITEMS"
                     optionLabel="label"
@@ -80,6 +82,7 @@
                     formControlName="status"
                 ></p-dropdown>
                 <p-calendar
+                    *ngIf="activeIndex !== 1"
                     [readonlyInput]="true"
                     [showIcon]="true"
                     placeholder="Date range"
@@ -93,7 +96,7 @@
                 </p-calendar>
             </div>
             <div class="d-none d-md-flex align-items-start">
-                <span class="custom-search text-feild-width-fix w-100 mr-2">
+                <span *ngIf="activeIndex !== 1" class="custom-search text-feild-width-fix w-100 mr-2">
                     <input
                         pInputText
                         class="extra-width w-100 {{ searchForm.get('search_query').value ? 'highlight' : '' }}"
@@ -135,7 +138,9 @@
                     <app-order-table #appOrderTable [searchOptions]="queryParams" class="mt-4"> </app-order-table>
                 </p-tabPanel>
                 <p-tabPanel [header]="'requests' | translate">
-                    <app-request-table #requestTable [searchOptions]="queryParams" class="mt-4"></app-request-table>
+                    <ng-template pTemplate="content">
+                        <app-request-table #requestTable [searchOptions]="queryParams" class="mt-4"></app-request-table>
+                    </ng-template>
                 </p-tabPanel>
             </p-tabView>
         </div>

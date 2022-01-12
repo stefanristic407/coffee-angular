@@ -18,6 +18,11 @@ export class RequestTableComponent extends DataTableComponent<AvailabilityReques
     }
 
     ngOnInit(): void {
+        this.initTable();
+        super.subscribeTo(this.orderService.requestList$);
+    }
+
+    initTable() {
         if (this.resizeService.isMobile()) {
             this.tableColumns.push({
                 field: 'id',
@@ -63,7 +68,6 @@ export class RequestTableComponent extends DataTableComponent<AvailabilityReques
                 width: 12,
             });
         }
-        super.subscribeTo(this.orderService.requestList$);
     }
 
     loadRequests(event?: LazyLoadEvent): void {

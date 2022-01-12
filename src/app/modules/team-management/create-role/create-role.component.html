@@ -4,7 +4,7 @@
             <div class="col-10">
                 <p-breadcrumb [model]="breadCrumbItem" styleClass="breadcrumb-mb"></p-breadcrumb>
             </div>
-            <div *ngIf="!role?.is_system" class="col-2">
+            <div class="col-2">
                 <button type="submit" class="btn pull-right btn-raised d-lg-block d-none" (click)="roleAdd()">
                     {{ btnValue }}
                 </button>
@@ -38,11 +38,7 @@
                             </div>
                         </form>
                     </div>
-                    <button
-                        class="btn-raised mt-3 d-none d-md-block d-lg-none"
-                        [disabled]="!roleForm.valid"
-                        (click)="roleAdd()"
-                    >
+                    <button class="btn-raised mt-3 d-none d-md-block d-lg-none" (click)="roleAdd()">
                         {{ btnValue }}
                     </button>
                 </div>
@@ -56,7 +52,7 @@
             </div>
         </div>
         <div class="col-12 d-block d-md-none mb-5 p-0">
-            <button class="btn-raised mt-3 w-100" [disabled]="!roleForm.valid" (click)="roleAdd()">
+            <button class="btn-raised mt-3 w-100" (click)="roleAdd()">
                 {{ btnValue }}
             </button>
         </div>

@@ -58,9 +58,7 @@
                             (onChange)="loadData()"
                         >
                             <ng-template pTemplate="selectedItem">
-                                <span class="d-flex align-items-center">
-                                    Display<span class="dot"></span>{{ displayRowCounts }}
-                                </span>
+                                <span class="d-flex align-items-center"> Display {{ displayRowCounts }} </span>
                             </ng-template>
                         </p-dropdown>
                     </div>
@@ -101,8 +99,8 @@
                                     [ngClass]="{ ellipsis: col.isCut }"
                                 >
                                     <span [pSortableColumn]="col.sortable ? col.field : ''"
-                                        >{{ col.header | translate
-                                        }}<p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon
+                                        >{{ col.header | translate }}
+                                        <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon
                                     ></span>
                                 </th>
                             </tr>
@@ -123,7 +121,7 @@
                                     <span class="d-flex" *ngSwitchCase="'order_id'">
                                         <span *ngIf="isMobileView" class="d-flex w-100">
                                             <span class="prime-table-label w-50">
-                                                {{ col.header }} {{ rowData[col.field] }}
+                                                {{ col.header | translate }} {{ rowData[col.field] }}
                                             </span>
                                             <span class="fnt-14" [ngClass]="rowData.order_type">
                                                 &#9679;&nbsp;{{
@@ -149,7 +147,7 @@
                                     </span>
                                     <span class="d-flex" *ngSwitchCase="'order_date'">
                                         <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                            {{ col.header }}
+                                            {{ col.header | translate }}
                                         </span>
 
                                         <span>
@@ -158,7 +156,7 @@
                                     </span>
                                     <span class="d-flex" *ngSwitchCase="'origin'">
                                         <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                            {{ col.header }}
+                                            {{ col.header | translate }}
                                         </span>
 
                                         <span>
@@ -167,7 +165,7 @@
                                     </span>
                                     <span class="d-flex" *ngSwitchCase="'order_type'">
                                         <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                            {{ col.header }}
+                                            {{ col.header | translate }}
                                         </span>
 
                                         <span [ngClass]="rowData.order_type">
@@ -185,7 +183,7 @@
                                     </span>
                                     <span class="d-flex" *ngSwitchCase="'cupping_status'">
                                         <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                            {{ col.header }}
+                                            {{ col.header | translate }}
                                         </span>
 
                                         <span>
@@ -218,7 +216,7 @@
                                     </span>
                                     <span class="d-flex" *ngSwitchDefault>
                                         <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                            {{ col.header }}
+                                            {{ col.header | translate }}
                                         </span>
 
                                         <span>

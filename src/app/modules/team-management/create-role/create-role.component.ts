@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PERMISSION_DESCRIPTION } from '@constants';
@@ -7,7 +7,6 @@ import { AuthService, RoasterService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
-import { ManagePermissionComponent } from '../manage-permission/manage-permission.component';
 
 @Component({
     selector: 'app-create-role',
@@ -87,9 +86,6 @@ export class CreateRoleComponent implements OnInit {
         this.roasterService.getRole(this.roleID).subscribe((res) => {
             if (res.success) {
                 this.role = res.result;
-                if (this.role.is_system) {
-                    this.roleForm.get('roleName').disable();
-                }
                 resolve();
             } else {
                 reject();
@@ -100,20 +96,14 @@ export class CreateRoleComponent implements OnInit {
     }
 
     getAllPermissions(resolve, reject): void {
-        this.roasterService.getAllPermissions().subscribe(
-            (res) => {
-                if (res.success) {
-                    this.allPermissions = res.result || [];
-                    resolve();
-                } else {
-                    reject();
-                }
-            },
-            (err) => {
+        this.roasterService.getAllPermissions().subscribe((res) => {
+            if (res.success) {
+                this.allPermissions = res.result || [];
+                resolve();
+            } else {
                 reject();
-                console.error(err);
-            },
-        );
+            }
+        });
     }
 
     groupByArray(arr = [], key) {
@@ -162,10 +152,12 @@ export class CreateRoleComponent implements OnInit {
     createRole(permissionArray): void {
         this.roasterService.createRole({ name: this.roleForm.controls.roleName.value }).subscribe((result: any) => {
             if (result.success) {
-                this.toasterService.success('Role has been created. We are assigning permissions.');
-                if (this.selectedPermissionNodes !== undefined) {
-                    const roleID = result.result.role_id;
-                    this.assignCreateRole(permissionArray, roleID);
+                if (this.selectedPermissionNodes !== undefined && !this.role?.is_system) {
+                    this.roleID = result.result.role_id;
+                    this.assignUpdatedRolePermission(permissionArray);
+                } else {
+                    this.router.navigate(['/team-management/manage-role']);
+                    this.toasterService.success(this.translator.instant('role_created_successfully'));
                 }
             } else {
                 this.toasterService.error('Error while adding roles and permissions');
@@ -173,26 +165,17 @@ export class CreateRoleComponent implements OnInit {
         });
     }
 
-    assignCreateRole(data, roleID): void {
-        this.roasterService.assignRolePermissions(roleID, data).subscribe(
-            (permissionResult: any) => {
-                if (permissionResult.success) {
-                    this.toasterService.success('Permission created successfully for added role.');
-                }
-                this.router.navigate(['/team-management/manage-role']);
-            },
-            (err) => {
-                this.router.navigate(['/team-management/manage-role']);
-            },
-        );
-    }
-
     updateRole(permissionArray): void {
         this.roasterService
             .updateRole(this.roleID, { name: this.roleForm.controls.roleName.value })
             .subscribe((data: any) => {
                 if (data.success) {
-                    this.assignUpdatedRolePermission(permissionArray);
+                    if (!this.role?.is_system) {
+                        this.assignUpdatedRolePermission(permissionArray);
+                    } else {
+                        this.router.navigate(['/team-management/manage-role']);
+                        this.toasterService.success(this.translator.instant('role_updated_successfully'));
+                    }
                 } else {
                     this.toasterService.error('Error while adding roles and permissions');
                 }
@@ -202,14 +185,8 @@ export class CreateRoleComponent implements OnInit {
     assignUpdatedRolePermission(body): void {
         this.roasterService.assignRolePermissions(this.roleID, body).subscribe((permissionResult: any) => {
             if (permissionResult.success) {
-                this.toasterService.success('Permission Updated successfully for Edited role.');
-            } else {
-                if (!permissionResult.success) {
-                    this.toasterService.error('System role permissions cannot be altered');
-                    setTimeout(() => {
-                        this.router.navigate(['/team-management/manage-role']);
-                    }, 2000);
-                }
+                this.toasterService.success('Permission assigned successfully for this role.');
+                this.router.navigate(['/team-management/manage-role']);
             }
         });
     }
@@ -242,21 +219,16 @@ export class CreateRoleComponent implements OnInit {
     }
 
     getRolePermission(roleID, resolve, reject) {
-        this.roasterService.getRolePermissions(roleID).subscribe(
-            (data: any) => {
-                this.selectedPermissionList = [];
-                if (data.success) {
-                    if (!this.isDuplicate) {
-                        this.roleForm.setValue({ roleName: data.result.role_name });
-                    }
-                    this.selectedPermissionList = data.result.permissions;
+        this.roasterService.getRolePermissions(roleID).subscribe((data: any) => {
+            this.selectedPermissionList = [];
+            if (data.success) {
+                if (!this.isDuplicate) {
+                    this.roleForm.setValue({ roleName: data.result.role_name });
                 }
-                resolve();
-            },
-            (err) => {
-                reject();
-            },
-        );
+                this.selectedPermissionList = data.result.permissions;
+            }
+            resolve();
+        });
     }
 
     selectPermissions() {
