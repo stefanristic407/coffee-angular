@@ -179,7 +179,7 @@ export class CustomerServiceService {
                     this.pendingCompany = this.pendingList.name;
                     this.pendingEmail = this.pendingList.email;
                     this.pendingStatus = this.pendingList.status;
-                    this.headerValue = 'Micro-Roaster';
+                    this.headerValue = 'Micro-roaster';
                     console.log(this.pendingList);
                 }
             });
