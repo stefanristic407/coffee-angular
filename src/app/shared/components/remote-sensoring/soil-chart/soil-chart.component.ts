@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AgroService } from '@services';
 import * as moment from 'moment';
 import * as _ from 'underscore';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-soil-chart',
@@ -73,7 +74,7 @@ export class SoilChartComponent implements OnInit {
     endDate = moment().subtract(1, 'days').toDate();
     weatherData: any[] = [];
 
-    constructor(public agroSrv: AgroService) {}
+    constructor(public agroSrv: AgroService, private translator: TranslateService) {}
 
     ngOnInit(): void {
         this.changeWeatherType();
@@ -101,8 +102,8 @@ export class SoilChartComponent implements OnInit {
             // Legend setting of which has two lines
             this.showLegend = true;
             this.legends = [
-                { label: 'T10 - Temperature at 10 centimetres depth', abbr: 'T10' },
-                { label: 'T0 - Surface Temperature', abbr: 'T0' },
+                { label: `T10 - ${this.translator.instant('temperature_at_10cm_depth')}`, abbr: 'T10' },
+                { label: `T0 - ${this.translator.instant('surface_temperature')}`, abbr: 'T0' },
             ];
         } else {
             // Legend setting of which has one line
