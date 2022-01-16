@@ -1,86 +1,28 @@
-@import '../../../../../theme/styles/variables';
+@import 'variables';
 
 :host {
     display: block;
+}
 
-    @media screen and (max-width: 767px) {
-        ::ng-deep .p-datatable.p-datatable-responsive {
-            table {
-                width: auto;
-                .p-datatable-tbody > tr {
-                    width: max-content;
-                }
+:host ::ng-deep {
+    @media (min-width: 768px) {
+        .p-datatable .p-datatable-thead > tr > th {
+            padding: 1rem 0.125rem;
+            &:first-child {
+                padding-left: 0.5rem;
+            }
+            &:last-child {
+                padding-right: 0.5rem;
             }
         }
-    }
-
-    ::ng-deep .order-disp .p-datatable.p-datatable-responsive .p-datatable-tbody > tr {
-        @media screen and (max-width: 787px) {
-            display: inherit !important;
-            border: 0 !important;
-            td:not(.border-none) {
-                border-bottom: none !important;
-            }
-        }
-    }
-    ::ng-deep {
-        .p-datatable table {
-            td {
-                &.text-overflow-ellipsis {
-                    max-width: unset !important;
-                }
-                .text-center {
-                    text-align: center;
-                }
-            }
-        }
-        td a.view-order {
-            text-align: center;
-            width: 100%;
-            display: block;
-        }
-        .p-datatable .p-datatable-thead > tr > th,
         .p-datatable .p-datatable-tbody > tr > td {
-            padding: 1.25rem 0.1rem;
-        }
-
-        @media all and (max-width: 767px) {
-            .p-datatable .p-datatable-tbody > tr {
-                border: 0;
+            padding: 1.25rem 0.125rem;
+            &:first-child {
+                padding-left: 0.5rem;
+            }
+            &:last-child {
+                padding-right: 0.5rem;
             }
         }
-
-        .p-sortable-column-icon {
-            margin-left: 0 !important;
-        }
-    }
-    p-table.table-scroll-active ::ng-deep {
-        .p-datatable .p-datatable-wrapper {
-            overflow: auto;
-        }
-    }
-}
-
-.mobile-row {
-    border-bottom: 1px dashed $primary-border-color;
-}
-
-.cell-header {
-    width: 40%;
-}
-
-@media all and (max-width: 767px) {
-    .border {
-        border: 0 !important;
-    }
-}
-
-.order-header {
-    background-color: #f8f8f8;
-}
-
-.cell-header-right {
-    @media screen and (max-width: 787px) {
-        width: 60%;
     }
 }

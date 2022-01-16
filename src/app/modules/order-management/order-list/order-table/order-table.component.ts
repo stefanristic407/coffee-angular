@@ -17,6 +17,7 @@ import { OrderManagementService } from '../../order-management.service';
 export class OrderTableComponent extends DataTableComponent<OrderSummary> implements OnInit, AfterViewInit {
     readonly OrgTypes = OrganizationType;
     readonly OrderType = OrderType;
+    tableColumns: any = [];
 
     orgType: OrganizationType;
     isMobileView = false;
@@ -45,9 +46,96 @@ export class OrderTableComponent extends DataTableComponent<OrderSummary> implem
 
     ngOnInit(): void {
         this.route.params.pipe(takeUntil(this.unsubscribeAll$)).subscribe((params) => {
-            this.orgType = params.orgType;
+            this.orgType = params.orgType as OrganizationType;
+            this.initTable();
             super.subscribeTo(this.orderService.getOrders(this.orgType));
         });
+    }
+
+    initTable() {
+        this.tableColumns = [
+            {
+                field: 'id',
+                header: 'id',
+                sortable: true,
+                width: 6,
+            },
+            this.orgType === OrganizationType.ESTATE
+                ? {
+                      field: 'estate_name',
+                      header: 'estate_name',
+                      sortable: true,
+                      width: 12,
+                  }
+                : {
+                      field: 'micro_roaster_name',
+                      header: 'micro-roaster',
+                      sortable: true,
+                      width: 12,
+                  },
+            this.orgType === OrganizationType.ESTATE
+                ? {
+                      field: 'availability_name',
+                      header: 'availability_name',
+                      sortable: true,
+                      width: 14,
+                  }
+                : {
+                      field: 'product_name',
+                      header: 'product_name',
+                      sortable: true,
+                      width: 14,
+                  },
+            {
+                field: 'date_received',
+                header: 'date_ordered',
+                sortable: true,
+                width: 11,
+            },
+            {
+                field: 'origin',
+                header: 'origin',
+                sortable: true,
+                width: 9,
+            },
+            this.orgType === OrganizationType.ESTATE
+                ? {
+                      field: 'price',
+                      header: 'price',
+                      sortable: true,
+                      width: 10,
+                  }
+                : {
+                      field: 'varieties',
+                      header: 'variety',
+                      sortable: true,
+                      width: 10,
+                  },
+            {
+                field: 'order_reference',
+                header: 'roaster_reference_no',
+                width: 12,
+            },
+            !this.resizeService.isMobile()
+                ? {
+                      field: 'type',
+                      header: 'type',
+                      width: 9,
+                  }
+                : null,
+            {
+                field: 'status',
+                header: 'status',
+                width: 9,
+            },
+            !this.resizeService.isMobile()
+                ? {
+                      field: 'actions',
+                      header: 'action',
+                      width: 8,
+                  }
+                : null,
+        ].filter(Boolean);
     }
 
     loadOrders(event?: LazyLoadEvent): void {
