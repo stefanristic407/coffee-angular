@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CroppedImage } from '@models';
-import { AuthService, CoffeeLabService } from '@services';
+import { CoffeeLabService } from '@services';
 import { CropperDialogComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -71,7 +71,6 @@ export class ForumEditorComponent implements OnInit, ControlValueAccessor {
         public dialogService: DialogService,
         private coffeeLabService: CoffeeLabService,
         private toastrService: ToastrService,
-        public authService: AuthService,
     ) {
         this.modules = {
             imageResize: {

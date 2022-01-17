@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
     selector: 'app-forum-card',
@@ -16,7 +16,4 @@ export class ForumCardComponent implements OnInit {
     onClick(): void {
         this.router.navigate([`/coffee-lab/${this.forumType}s/${this.data.slug}`]);
     }
-
-    onShare(): void {}
-    onSavePost(): void {}
 }

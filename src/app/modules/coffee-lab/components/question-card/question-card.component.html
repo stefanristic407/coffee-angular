@@ -27,7 +27,7 @@
             [innerHTML]="question?.question"
         ></div>
         <div *ngIf="question?.categories" class="row mx-0 pt-4">
-            <app-category-list [categoryList]="question?.categories"></app-category-list>
+            <app-category-list [selectedPostType]="qaLink" [categoryList]="question?.categories"></app-category-list>
         </div>
     </div>
     <app-like-divider

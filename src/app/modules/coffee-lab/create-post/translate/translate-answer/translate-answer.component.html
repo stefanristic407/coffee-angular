@@ -78,6 +78,21 @@
                         class="disable-color question-body"
                     ></div>
                 </div>
+                <div class="mb-3 mb-md-4 border-main mt-4 p-3">
+                    <label>{{ 'article_url' | translate }}</label>
+                    <div class="p-error fnt-600 pb-3">{{ 'article_slug_msg' | translate }}</div>
+                    <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
+                        <div class="fnt-600 mb-2 mb-lg-0">{{ coffeeLabURL }}{{ selectedLang || 'en' }}/questions/</div>
+                        <div class="sewn-form-field col mb-0">
+                            <input
+                                placeholder="{{ 'write_slug_here' | translate }}"
+                                pInputText
+                                [(ngModel)]="slug"
+                                disabled
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div *ngIf="!isMobile && !showNoDataSection" class="col-md-6 col-12 bg-f8 px-md-0 border-left">
@@ -162,12 +177,13 @@
                 pInputText
                 [placeholder]="'translate_the_question' | translate"
                 formControlName="question"
+                (change)="onTitleChange()"
             />
             <div *ngIf="form.controls.question.invalid" class="p-error">
                 {{ 'required' | translate }}
             </div>
         </div>
-        <div class="col-12 sewn-form-field">
+        <div class="col-12 sewn-form-field px-0">
             <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
                 'answer' | translate | titlecase
             }}</label>
@@ -179,6 +195,21 @@
                 pInputTextarea
                 autoResize="autoResize"
             ></textarea>
+        </div>
+        <div [formGroup]="form" class="mb-3 mb-md-4 border-main p-3">
+            <label>{{ 'article_url' | translate }}</label>
+            <div class="p-error fnt-600 pb-3">{{ 'article_slug_msg' | translate }}</div>
+            <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
+                <div class="fnt-600 mb-2 mb-lg-0">{{ coffeeLabURL }}{{ selectedLang || 'en' }}/questions/</div>
+                <div class="sewn-form-field col mb-0">
+                    <input
+                        formControlName="slug"
+                        placeholder="{{ 'write_slug_here' | translate }}"
+                        pInputText
+                        (change)="onTitleChange()"
+                    />
+                </div>
+            </div>
         </div>
     </div>
 </ng-template>

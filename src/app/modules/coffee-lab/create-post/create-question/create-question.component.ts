@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { APP_LANGUAGES } from '@constants';
+import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { CoffeeLabService, GlobalsService } from '@services';
+import { getUrl } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest } from 'rxjs';
@@ -16,6 +18,7 @@ import { take } from 'rxjs/operators';
     styleUrls: ['./create-question.component.scss'],
 })
 export class CreateQuestionComponent implements OnInit {
+    coffeeLabURL = environment.coffeeLabWeb;
     content?: string;
     isPosting = false;
     question: any;
@@ -28,6 +31,7 @@ export class CreateQuestionComponent implements OnInit {
     categoryValue: any;
     selectedCategory: string;
     status: string;
+    slug: string;
 
     constructor(
         private location: Location,
@@ -59,9 +63,10 @@ export class CreateQuestionComponent implements OnInit {
 
     getCompleteData() {
         this.isLoading = true;
+        const params = { language: this.coffeeLabService.currentForumLanguage };
         combineLatest([
             this.coffeeLabService.getForumDetails('question', this.questionId),
-            this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage),
+            this.coffeeLabService.getCategory(params),
         ])
             .pipe(take(1))
             .subscribe(([res, category]: [any, any]) => {
@@ -71,6 +76,7 @@ export class CreateQuestionComponent implements OnInit {
                 if (res.success) {
                     this.content = res.result.question;
                     this.question = res.result;
+                    this.slug = this.question.slug;
                     this.languageCode = res.result.lang_code;
                     this.categoryValue = res.result.categories;
                 } else {
@@ -83,8 +89,8 @@ export class CreateQuestionComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
-        this.languageCode = this.languageCode ? this.languageCode : 'en';
-        this.coffeeLabService.getCategory(this.languageCode).subscribe((category) => {
+        const params = { language: this.languageCode ? this.languageCode : 'en' };
+        this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
                 if (this.categoryValue) {
@@ -114,6 +120,7 @@ export class CreateQuestionComponent implements OnInit {
             allow_translation: 1,
             status,
             language: this.languageCode,
+            slug: this.slug,
             categories: this.categoryValue?.map((item) => item.id) || [],
         };
         const confirmText = status === 'DRAFT' ? 'save this question in draft?' : 'publish this question?';
@@ -220,5 +227,19 @@ export class CreateQuestionComponent implements OnInit {
         this.coffeeLabService.updateLang(this.languageCode).then(() => {
             this.getCategory();
         });
+    }
+
+    onTitleChange() {
+        if (!this.questionId && this.content) {
+            this.coffeeLabService.verifySlug('question', getUrl(this.content)).subscribe((res) => {
+                if (res.success) {
+                    if (res.result.is_available) {
+                        this.slug = getUrl(this.content);
+                    } else {
+                        this.slug = res.result.available_slug;
+                    }
+                }
+            });
+        }
     }
 }

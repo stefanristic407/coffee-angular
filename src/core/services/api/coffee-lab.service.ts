@@ -20,6 +20,7 @@ export class CoffeeLabService extends ApiService {
     copyCoverImage = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
     allDrafts = new BehaviorSubject([]);
+    otherCategories = new BehaviorSubject([]);
     organization = this.orgType;
     // filterBy and sortBy
     qaForumViewFilterBy = null;
@@ -144,9 +145,8 @@ export class CoffeeLabService extends ApiService {
         );
     }
 
-    getCategory(langCode: string): Observable<any> {
-        const language = { language: langCode };
-        return this.post(this.orgPostUrl, `general/categories?${this.serializeParams(language)}`, 'GET');
+    getCategory(params): Observable<any> {
+        return this.post(this.orgPostUrl, `general/categories?${this.serializeParams(params)}`, 'GET');
     }
 
     getTopWriters(options): Observable<any> {
@@ -266,5 +266,9 @@ export class CoffeeLabService extends ApiService {
             `${this.orgType}/${this.getOrgId()}/file-manager/files/${fileId}/copy`,
             'POST',
         );
+    }
+
+    verifySlug(type: string, slug: string) {
+        return this.post(this.orgPostUrl, `general/${type}s/${slug}/verify`, 'GET');
     }
 }

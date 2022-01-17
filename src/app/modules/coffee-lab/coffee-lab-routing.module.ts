@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PostType } from '@enums';
 import { ArticlesViewComponent } from '@modules/coffee-lab/articles/articles-view/articles-view.component';
 import { AssignedToMeViewComponent } from '@modules/coffee-lab/assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
 import { CoffeeRecipesViewComponent } from '@modules/coffee-lab/coffee-recipes/coffee-recipes-view/coffee-recipes-view.component';
@@ -17,6 +18,7 @@ import { SavedArticlesComponent } from '@modules/coffee-lab/saved-posts/saved-ar
 import { SavedPostsViewComponent } from '@modules/coffee-lab/saved-posts/saved-posts-view/saved-posts-view.component';
 import { SavedRecipesComponent } from '@modules/coffee-lab/saved-posts/saved-recipes/saved-recipes.component';
 import { ArticleDetailComponent } from './articles/article-detail/article-detail.component';
+import { CategoryPostsComponent } from './category/category-posts/category-posts.component';
 import { CategoryComponent } from './category/category.component';
 import { CoffeeLabComponent } from './coffee-lab.component';
 import { CoffeeDetailsComponent } from './coffee-recipes/coffee-details/coffee-details.component';
@@ -130,6 +132,28 @@ const routes: Routes = [
     {
         path: 'category/:slug',
         component: CategoryComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: 'qa-forum',
+                pathMatch: 'full',
+            },
+            {
+                path: 'qa-forum',
+                component: CategoryPostsComponent,
+                data: { postType: PostType.QA },
+            },
+            {
+                path: 'articles',
+                component: CategoryPostsComponent,
+                data: { postType: PostType.ARTICLE },
+            },
+            {
+                path: 'coffee-recipes',
+                component: CategoryPostsComponent,
+                data: { postType: PostType.RECIPE },
+            },
+        ],
     },
 ];
 

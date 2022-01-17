@@ -4,11 +4,12 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
 import { APP_LANGUAGES, BREWING_METHOD_ITEMS } from '@constants';
+import { environment } from '@env/environment';
 import { CroppedImage } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, CoffeeLabService, CommonService, GoogletranslateService } from '@services';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
-import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
+import { editorRequired, getUrl, insertAltAttr, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest } from 'rxjs';
@@ -26,6 +27,7 @@ export enum RecipeFileType {
 })
 export class CreateRecipeComponent extends DestroyableComponent implements OnInit {
     readonly RecipeFileType = RecipeFileType;
+    coffeeLabURL = environment.coffeeLabWeb;
     @Input() isTranslate;
     @Input() saveOriginalPost;
     translateLang: string;
@@ -138,10 +140,8 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
     }
 
     getCompleteData(id: number) {
-        combineLatest([
-            this.coffeeLabService.getForumDetails('recipe', id),
-            this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage),
-        ])
+        const params = { language: this.coffeeLabService.currentForumLanguage, is_recipe: true };
+        combineLatest([this.coffeeLabService.getForumDetails('recipe', id), this.coffeeLabService.getCategory(params)])
             .pipe(take(1))
             .subscribe(([res, category]: [any, any]) => {
                 if (category.success) {
@@ -220,6 +220,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                                     cover_image_id: res.result.cover_image_id,
                                     allow_translation: res.result.allow_translation,
                                 };
+                                this.getSlugDetails(translatedOutput[0].translatedText);
                                 this.patchRecipeForm(translatedData);
                             });
                     } else {
@@ -240,7 +241,8 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
 
     getTranslateCategory() {
         this.translatedCategory = [];
-        this.coffeeLabService.getCategory(this.translateLang).subscribe((category) => {
+        const params = { language: this.translateLang, is_recipe: true };
+        this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 category.result?.forEach((item) => {
                     this.categoryValue?.forEach((element) => {
@@ -255,7 +257,8 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
 
     getCategory() {
         this.categoryList = [];
-        this.coffeeLabService.getCategory(this.recipeForm.get('language').value).subscribe((category) => {
+        const params = { language: this.recipeForm.get('language').value, is_recipe: true };
+        this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
                 if (this.categoryValue) {
@@ -306,6 +309,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
             allow_translation: [true],
             inline_images: [[]],
             language: [],
+            slug: ['', Validators.compose([Validators.required])],
             publish: [true],
         });
     }
@@ -314,6 +318,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         this.recipeForm.patchValue({
             name: value.name,
             expertise: value.expertise,
+            slug: value.slug,
             serves: value.serves,
             equipment_name: this.translator.instant(value.equipment_name),
             coffee_ratio: value.coffee_ratio,
@@ -364,6 +369,9 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         if (this.isTranslate) {
             this.recipeForm.get('serves').disable();
             this.recipeForm.get('brew_ratio').disable();
+        }
+        if (this.recipeId && !this.isTranslate) {
+            this.recipeForm.get('slug').disable();
         }
     }
 
@@ -532,6 +540,10 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                 recipeId = this.draftRecipeId;
             }
         }
+        if (!this.isTranslate) {
+            const slug = 'slug';
+            data[slug] = this.recipe.slug;
+        }
         this.coffeeLabService.updateForum('recipe', recipeId, data).subscribe((res: any) => {
             this.isPosting = false;
             if (res.success) {
@@ -686,5 +698,25 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
         if (event.originalEvent.pointerType === 'mouse') {
             this.recipeForm.get('equipment_name').setValue(this.translator.instant(event.value));
         }
+    }
+
+    onTitleChange(event) {
+        if (!this.recipeId) {
+            if (event.target.value) {
+                this.getSlugDetails(event.target.value);
+            }
+        }
+    }
+
+    getSlugDetails(value) {
+        this.coffeeLabService.verifySlug('recipe', getUrl(value)).subscribe((res) => {
+            if (res.success) {
+                if (res.result.is_available) {
+                    this.recipeForm.get('slug').setValue(getUrl(value));
+                } else {
+                    this.recipeForm.get('slug').setValue(res.result.available_slug);
+                }
+            }
+        });
     }
 }

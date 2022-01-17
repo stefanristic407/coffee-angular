@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
-import { PostType } from '@enums';
+import { LinkType, PostType } from '@enums';
 import { environment } from '@env/environment';
 import { AuthService, ChatHandlerService, CoffeeLabService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class CoffeeDetailsComponent extends DestroyableComponent implements OnInit {
     readonly PostType = PostType;
+    readonly recipeLink = LinkType.RECIPE;
     relatedData: any[] = [];
     detailsData: any;
     slug = '';

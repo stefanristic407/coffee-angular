@@ -23,6 +23,7 @@
             rows="8"
             [placeholder]="'post_your_question' | translate"
             [(ngModel)]="content"
+            (change)="onTitleChange()"
             [ngClass]="{ 'req-ratio': isQuestion }"
         ></textarea>
         <small *ngIf="isQuestion" class="no-brew fnt-14 fnt-muli fnt-600">{{ 'required' | translate }} </small>
@@ -58,6 +59,22 @@
             class="mt-2"
         >
         </p-chips>
+    </div>
+    <div class="mb-3 mb-md-4 border-main p-3">
+        <label>{{ 'article_url' | translate }}</label>
+        <div class="p-error fnt-600 pb-3">{{ 'article_slug_msg' | translate }}</div>
+        <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
+            <div class="fnt-600 mb-2 mb-lg-0">{{ coffeeLabURL }}{{ languageCode || 'en' }}/questions/</div>
+            <div class="sewn-form-field col mb-0">
+                <input
+                    [(ngModel)]="slug"
+                    placeholder="{{ 'write_slug_here' | translate }}"
+                    pInputText
+                    (ngModelChange)="onTitleChange()"
+                    [disabled]="questionId"
+                />
+            </div>
+        </div>
     </div>
     <!-- <div class="d-flex align-items-center mb-4 mb-md-5">
         <p-checkbox
