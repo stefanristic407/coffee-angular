@@ -127,7 +127,7 @@
                     </span>
                     <span *ngSwitchCase="'actions'">
                         <div *ngIf="route.snapshot.routeConfig.path === 'pending-invitations'">
-                            <div class="brown-cta" (click)="inviteTeamMember(rowData)">
+                            <div class="brown-cta" (click)="inviteTeamMember(rowData); $event.stopPropagation()">
                                 {{ 'resend_invite' | translate }}
                             </div>
                         </div>
