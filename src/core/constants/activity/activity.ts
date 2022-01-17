@@ -242,4 +242,6 @@ export const ACTIVITY_TYPE = {
     lead_updated: { name: 'Lead generated list updated' },
     sa_role_users_assigned: { name: 'Users assigned to the role' },
     sa_user_preferences_updated: { name: 'Perferences update' },
+
+    ro_mr_public_onboard_approved: { name: 'Micro roaster onboarding approved' },
 };

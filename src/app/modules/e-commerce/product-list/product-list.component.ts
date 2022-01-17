@@ -66,7 +66,7 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
             value: true,
         },
         {
-            label: this.translator.instant('not_public'),
+            label: this.translator.instant('private'),
             value: false,
         },
     ];
