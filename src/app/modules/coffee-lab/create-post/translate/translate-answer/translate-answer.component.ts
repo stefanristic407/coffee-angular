@@ -303,9 +303,9 @@ export class TranslateAnswerComponent implements OnInit {
         }
     }
 
-    onTitleChange() {
-        if (this.form.get('question').value) {
-            this.getSlugDetails(this.form.get('question').value);
+    onTitleChange(event) {
+        if (event.target.value) {
+            this.getSlugDetails(event.target.value);
         }
     }
 

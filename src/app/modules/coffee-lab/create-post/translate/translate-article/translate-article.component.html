@@ -307,6 +307,7 @@
                         formControlName="slug"
                         placeholder="{{ 'write_slug_here' | translate }}"
                         pInputText
+                        (change)="onTitleChange($event)"
                     />
                 </div>
             </div>

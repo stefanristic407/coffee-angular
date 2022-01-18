@@ -177,7 +177,7 @@
                 pInputText
                 [placeholder]="'translate_the_question' | translate"
                 formControlName="question"
-                (change)="onTitleChange()"
+                (change)="onTitleChange($event)"
             />
             <div *ngIf="form.controls.question.invalid" class="p-error">
                 {{ 'required' | translate }}
@@ -206,7 +206,7 @@
                         formControlName="slug"
                         placeholder="{{ 'write_slug_here' | translate }}"
                         pInputText
-                        (change)="onTitleChange()"
+                        (change)="onTitleChange($event)"
                     />
                 </div>
             </div>

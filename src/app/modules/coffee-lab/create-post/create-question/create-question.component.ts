@@ -85,6 +85,7 @@ export class CreateQuestionComponent implements OnInit {
                         slug: this.question.slug,
                         languageCode: res.result.lang_code,
                     });
+                    this.questionForm.get('slug').disable();
                 } else {
                     this.toaster.error('Error while get question');
                     this.location.back();
@@ -127,7 +128,7 @@ export class CreateQuestionComponent implements OnInit {
             allow_translation: 1,
             status,
             language: this.questionForm.get('languageCode').value,
-            slug: this.questionForm.get('slug').value,
+            slug: this.questionForm.get('slug').value || this.question.slug,
             categories: this.categoryValue?.map((item) => item.id) || [],
         };
         const confirmText = status === 'DRAFT' ? 'save this question in draft?' : 'publish this question?';
