@@ -47,6 +47,14 @@
                     [autoDisplayFirst]="false"
                     styleClass="round-border w-100"
                 >
+                    <ng-template let-item pTemplate="selectedItem"
+                        >{{ item.value.price_min }} {{ baseCurrency }} - {{ item.value.price_max }}
+                        {{ baseCurrency }}</ng-template
+                    >
+                    <ng-template let-item pTemplate="item"
+                        >{{ item.value.price_min }} {{ baseCurrency }} - {{ item.value.price_max }}
+                        {{ baseCurrency }}</ng-template
+                    >
                 </p-dropdown>
             </div>
             <div class="dropdown-col">

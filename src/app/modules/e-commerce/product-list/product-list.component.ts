@@ -4,7 +4,7 @@ import { ResizeableComponent } from '@base-components';
 import { PRODUCT_STATUS_ITEMS } from '@constants';
 import { ProductType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
-import { InventoryService, OriginService, ResizeService } from '@services';
+import { AuthService, InventoryService, OriginService, ResizeService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { getCountry } from '@utils';
 import { ToastrService } from 'ngx-toastr';
@@ -56,8 +56,8 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
     ];
 
     priceRangeArray: any[] = [
-        { label: '$0-$500', value: { price_min: '0', price_max: '500' } },
-        { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },
+        { value: { price_min: '0', price_max: '500' } },
+        { value: { price_min: '500', price_max: '1000' } },
     ];
 
     visibilityArray: any[] = [
@@ -74,9 +74,11 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
 
     origins: DropdownItem[] = [];
     type: ProductType;
+    baseCurrency: string;
 
     constructor(
         private activatedRoute: ActivatedRoute,
+        private authService: AuthService,
         private dialogSrv: DialogService,
         private inventorySrv: InventoryService,
         private originService: OriginService,
@@ -112,6 +114,9 @@ export class ProductListComponent extends ResizeableComponent implements OnInit 
             this.loadData();
         });
         this.getOrigins();
+        this.authService.organizationSubject.subscribe((res) => {
+            this.baseCurrency = res?.base_currency;
+        });
     }
 
     initializeTable() {
