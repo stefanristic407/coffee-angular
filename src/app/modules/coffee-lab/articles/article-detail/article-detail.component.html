@@ -3,7 +3,11 @@
     <div class="container article-main-block" *ngIf="!isLoading">
         <div class="mt-4 mt-lg-425">
             <div *ngIf="detailsData?.categories" class="mx-md-5 d-flex justify-content-md-center">
-                <app-category-list [isArticlePage]="true" [categoryList]="detailsData?.categories"></app-category-list>
+                <app-category-list
+                    [selectedPostType]="articleLink"
+                    [isArticlePage]="true"
+                    [categoryList]="detailsData?.categories"
+                ></app-category-list>
             </div>
             <div class="pr-md-0 px-0">
                 <h1 class="bg-transparent fnt-bold main-heading mb-2 mb-md-3 mt-25 mt-md-4 text-break text-clr334">
@@ -142,17 +146,11 @@
                                                     stickySecData?.organisation_type ||
                                                     stickySecData?.organization_type
                                             }"
-                                            class="
-                                                fnt-14 fnt-bold fnt-muli
-                                                text-clr334
-                                                cursor-point
-                                                text-underline
-                                                mb-2
-                                            "
+                                            class="fnt-14 fnt-bold fnt-muli text-clr334 cursor-point text-underline mb-2"
                                         >
                                             {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
                                         </p>
-                                        <p class="fnt-14 fnt-600 fnt-muli text-clr334">
+                                        <p class="fnt-14 fnt-600 fnt-muli text-clr334 text-justify">
                                             {{ stickySecData?.about_me }}
                                         </p>
                                     </div>
@@ -195,14 +193,7 @@
                                 <div class="d-flex">
                                     <img src="assets/images/noun-questions.svg" alt="file-imag" />
                                     <p
-                                        class="
-                                            align-items-center
-                                            d-flex
-                                            text-nowrap
-                                            fnt-muli fnt-bold fnt-14
-                                            text-clr334
-                                            ml-2
-                                        "
+                                        class="align-items-center d-flex text-nowrap fnt-muli fnt-bold fnt-14 text-clr334 ml-2"
                                     >
                                         {{ 'read_the_original_article' | translate }}
                                     </p>
@@ -231,7 +222,10 @@
                         </div>
 
                         <div *ngIf="detailsData?.categories" class="row mx-0">
-                            <app-category-list [categoryList]="detailsData?.categories"></app-category-list>
+                            <app-category-list
+                                [selectedPostType]="articleLink"
+                                [categoryList]="detailsData?.categories"
+                            ></app-category-list>
                         </div>
 
                         <div class="mt-md-5 mt-4 mb-4 w-100">
@@ -297,14 +291,7 @@
                             <div class="text-center w-100" *ngIf="showCommentBtn">
                                 <button
                                     (click)="viewAllComments()"
-                                    class="
-                                        fnt-14 fnt-bold fnt-muli
-                                        text-clr60b
-                                        mb-4
-                                        bg-transparent
-                                        border-0
-                                        text-underline
-                                    "
+                                    class="fnt-14 fnt-bold fnt-muli text-clr60b mb-4 bg-transparent border-0 text-underline"
                                 >
                                     {{ 'view_all_comments' | translate }}
                                 </button>

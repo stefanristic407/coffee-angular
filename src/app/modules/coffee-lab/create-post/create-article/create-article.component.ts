@@ -1,14 +1,15 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APP_LANGUAGES } from '@constants';
 import { PostType } from '@enums';
+import { environment } from '@env/environment';
 import { CroppedImage } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { CoffeeLabService, CommonService, GlobalsService } from '@services';
 import { ConfirmComponent, CropperDialogComponent } from '@shared';
-import { editorRequired, insertAltAttr, maxWordCountValidator } from '@utils';
+import { editorRequired, getUrl, insertAltAttr, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest } from 'rxjs';
@@ -20,6 +21,7 @@ import { take } from 'rxjs/operators';
     styleUrls: ['./create-article.component.scss'],
 })
 export class CreateArticleComponent implements OnInit {
+    coffeeLabURL = environment.coffeeLabWeb;
     articleForm: FormGroup;
     isPosting = false;
     isUploadingImage: any;
@@ -54,10 +56,11 @@ export class CreateArticleComponent implements OnInit {
     ngOnInit(): void {
         this.articleForm = this.fb.group({
             title: ['', Validators.compose([Validators.maxLength(120), Validators.required])],
-            subtitle: ['', Validators.compose([maxWordCountValidator(20), Validators.required])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(50), Validators.required])],
             content: ['', [editorRequired(this.commonService)]],
             language: [],
             allow_translation: [true, Validators.compose([Validators.required])],
+            slug: ['', Validators.compose([Validators.required])],
             is_era_of_we: [false],
         });
         this.route.queryParams.subscribe((params) => {
@@ -77,9 +80,10 @@ export class CreateArticleComponent implements OnInit {
 
     getCompleteData() {
         this.isLoading = true;
+        const params = { language: this.coffeeLabService.currentForumLanguage };
         combineLatest([
             this.coffeeLabService.getForumDetails(PostType.ARTICLE, this.articleId),
-            this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage),
+            this.coffeeLabService.getCategory(params),
         ])
             .pipe(take(1))
             .subscribe(([res, category]: [any, any]) => {
@@ -93,6 +97,7 @@ export class CreateArticleComponent implements OnInit {
                     this.isCoverImageUploaded = true;
                     this.images = res.result.images ?? [];
                     this.articleForm.patchValue(res.result);
+                    this.articleForm.get('slug').disable();
                     this.categoryValue = res.result.categories;
                 } else {
                     this.toaster.error('Error while get article');
@@ -104,7 +109,8 @@ export class CreateArticleComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
-        this.coffeeLabService.getCategory(this.articleForm.get('language').value).subscribe((category) => {
+        const params = { language: this.coffeeLabService.currentForumLanguage };
+        this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
                 if (this.categoryValue) {
@@ -126,7 +132,6 @@ export class CreateArticleComponent implements OnInit {
         if (!event.target.files?.length) {
             return;
         }
-        console.log(event.target.files[0].type);
         if (
             event.target.files[0].type === 'image/png' ||
             event.target.files[0].type === 'image/jpg' ||
@@ -218,6 +223,7 @@ export class CreateArticleComponent implements OnInit {
             images: this.imageIdList,
             status,
             categories: this.categoryValue?.map((item) => item.id),
+            slug: this.articleForm.get('slug').value,
         };
         if (this.isCoverImageUploaded) {
             data = {
@@ -297,5 +303,21 @@ export class CreateArticleComponent implements OnInit {
         this.coffeeLabService.updateLang(this.articleForm.get('language').value).then(() => {
             this.getCategory();
         });
+    }
+
+    onTitleChange(event) {
+        if (!this.articleId) {
+            if (event.target.value) {
+                this.coffeeLabService.verifySlug('article', getUrl(event.target.value)).subscribe((res) => {
+                    if (res.success) {
+                        if (res.result.is_available) {
+                            this.articleForm.get('slug').setValue(getUrl(event.target.value));
+                        } else {
+                            this.articleForm.get('slug').setValue(res.result.available_slug);
+                        }
+                    }
+                });
+            }
+        }
     }
 }

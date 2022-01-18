@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-translate-toast',
@@ -9,7 +8,7 @@ import { GlobalsService } from '@services';
 export class TranslateToastComponent implements OnInit {
     @Input() language;
 
-    constructor(public globalsService: GlobalsService) {}
+    constructor() {}
 
     ngOnInit(): void {}
 }

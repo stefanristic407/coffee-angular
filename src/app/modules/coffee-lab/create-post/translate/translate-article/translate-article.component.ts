@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { APP_LANGUAGES } from '@constants';
+import { environment } from '@env/environment';
 import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
-import { insertAltAttr, maxWordCountValidator } from '@utils';
+import { getUrl, insertAltAttr, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 
@@ -15,6 +16,7 @@ import { DialogService } from 'primeng/dynamicdialog';
     styleUrls: ['./translate-article.component.scss'],
 })
 export class TranslateArticleComponent implements OnInit {
+    coffeeLabURL = environment.coffeeLabWeb;
     articleId: any;
     draftId: any;
     article: any;
@@ -57,8 +59,9 @@ export class TranslateArticleComponent implements OnInit {
         this.articleForm = this.formBuilder.group({
             language: [''],
             title: ['', Validators.compose([Validators.maxLength(120), Validators.required])],
-            subtitle: ['', Validators.compose([maxWordCountValidator(20), Validators.required])],
+            subtitle: ['', Validators.compose([maxWordCountValidator(50), Validators.required])],
             content: [''],
+            slug: ['', Validators.compose([Validators.required])],
         });
     }
 
@@ -66,6 +69,7 @@ export class TranslateArticleComponent implements OnInit {
         this.articleFormOriginal = this.formBuilder.group({
             title: [''],
             subtitle: [''],
+            slug: [''],
         });
         this.articleId = this.route.snapshot.queryParamMap.get('origin_id');
         if (!this.articleId) {
@@ -118,7 +122,8 @@ export class TranslateArticleComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
-        this.coffeeLabService.getCategory(this.selectedArticleLangCode).subscribe((category) => {
+        const params = { language: this.selectedArticleLangCode };
+        this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 category.result.forEach((item) => {
                     this.article.categories.forEach((element) => {
@@ -167,6 +172,17 @@ export class TranslateArticleComponent implements OnInit {
                         subtitle: translatedOutput[1].translatedText,
                         content: translatedOutput[2].translatedText,
                     });
+                    this.coffeeLabService
+                        .verifySlug('article', getUrl(translatedOutput[0].translatedText))
+                        .subscribe((res) => {
+                            if (res.success) {
+                                if (res.result.is_available) {
+                                    this.articleForm.get('slug').setValue(getUrl(translatedOutput[0].translatedText));
+                                } else {
+                                    this.articleForm.get('slug').setValue(res.result.available_slug);
+                                }
+                            }
+                        });
                 });
         }
     }
@@ -353,6 +369,20 @@ export class TranslateArticleComponent implements OnInit {
             });
         } else {
             this.router.navigateByUrl('/coffee-lab/articles/' + this.article?.slug);
+        }
+    }
+
+    onTitleChange(event) {
+        if (event.target.value) {
+            this.coffeeLabService.verifySlug('article', getUrl(event.target.value)).subscribe((res) => {
+                if (res.success) {
+                    if (res.result.is_available) {
+                        this.articleForm.get('slug').setValue(getUrl(event.target.value));
+                    } else {
+                        this.articleForm.get('slug').setValue(res.result.available_slug);
+                    }
+                }
+            });
         }
     }
 }

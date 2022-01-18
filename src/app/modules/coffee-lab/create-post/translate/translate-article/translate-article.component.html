@@ -44,21 +44,12 @@
                 </div>
             </div>
             <div class="bg-white mr-md-2 p-2 pt-3 pb-4 px-md-4">
-                <div>
+                <div [formGroup]="articleFormOriginal">
                     <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
                     <div class="position-relative border-main br-4">
                         <img [src]="article?.cover_image_url" class="banner-image br-4" />
                         <div
-                            class="
-                                bg-f8
-                                br-4
-                                py-2
-                                px-3
-                                d-flex
-                                align-items-center
-                                justify-content-center
-                                copy-paste-button
-                            "
+                            class="bg-f8 br-4 py-2 px-3 d-flex align-items-center justify-content-center copy-paste-button"
                             (click)="copyCoverImage()"
                         >
                             <img src="assets/images/copy.svg" class="mr-1" />
@@ -78,7 +69,7 @@
                             [categoryList]="article?.categories"
                         ></app-category-list>
                     </div>
-                    <div [formGroup]="articleFormOriginal" class="mt-4">
+                    <div class="mt-4">
                         <div class="col-12 sewn-form-field p-0">
                             <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{
                                 'title' | translate
@@ -107,10 +98,28 @@
                     </div>
                     <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'body' | translate }}</label>
                     <div
-                        class="bg-f8 border-main custom-hgt br-4 py-4 px-3"
+                        class="bg-f8 border-main custom-hgt br-4 py-4 px-3 mb-4"
                         appFullImgWrapper
                         [innerHTML]="article.content"
                     ></div>
+                    <div class="mb-3 mb-md-4 border-main p-3">
+                        <label>{{ 'article_url' | translate }}</label>
+                        <div class="p-error fnt-600 pb-3">{{ 'article_slug_msg' | translate }}</div>
+                        <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
+                            <div class="fnt-600 mb-2 mb-lg-0">
+                                {{ coffeeLabURL }}{{ articleForm.controls?.language?.value || 'en' }}/articles/
+                            </div>
+                            <div class="sewn-form-field col mb-0">
+                                <input
+                                    type="text"
+                                    formControlName="slug"
+                                    placeholder="{{ 'write_slug_here' | translate }}"
+                                    pInputText
+                                    [readonly]="articleId"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -239,7 +248,13 @@
                     {{ 'characters' | translate }}
                 </span></label
             >
-            <input type="text" [placeholder]="'give_a_title' | translate" pInputText formControlName="title" />
+            <input
+                type="text"
+                [placeholder]="'give_a_title' | translate"
+                pInputText
+                formControlName="title"
+                (change)="onTitleChange($event)"
+            />
             <small *ngIf="articleForm.controls['title'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
@@ -278,6 +293,23 @@
                 height="300"
                 [images]="images"
             ></app-forum-editor>
+        </div>
+        <div class="mb-3 mb-md-4 border-main p-3">
+            <label>{{ 'article_url' | translate }}</label>
+            <div class="p-error fnt-600 pb-3">{{ 'article_slug_msg' | translate }}</div>
+            <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
+                <div class="fnt-600 mb-2 mb-lg-0">
+                    {{ coffeeLabURL }}{{ selectedArticleLangCode || 'en' }}/articles/
+                </div>
+                <div class="sewn-form-field col mb-0">
+                    <input
+                        type="text"
+                        formControlName="slug"
+                        placeholder="{{ 'write_slug_here' | translate }}"
+                        pInputText
+                    />
+                </div>
+            </div>
         </div>
     </div>
 </ng-template>

@@ -11,7 +11,7 @@ export * from './orders';
 export * from './organization';
 export * from './outtake-orders';
 export * from './payment';
-export * from './post';
+export * from './coffee-lab';
 export * from './procured-coffee';
 export * from './product';
 export * from './service';

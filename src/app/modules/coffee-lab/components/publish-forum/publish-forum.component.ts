@@ -27,7 +27,6 @@ export class PublishForumComponent implements OnInit {
             placeHolderValue: 'ask_a_question',
         },
     };
-    routerValue: string;
     constructor(public authService: AuthService, private router: Router) {}
 
     ngOnInit(): void {}

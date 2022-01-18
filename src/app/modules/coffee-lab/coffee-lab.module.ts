@@ -7,6 +7,7 @@ import { SharedModule } from '@shared';
 import { ArticleDetailComponent } from './articles/article-detail/article-detail.component';
 import { ArticlesViewComponent } from './articles/articles-view/articles-view.component';
 import { AssignedToMeViewComponent } from './assigned-to-me/assigned-to-me-view/assigned-to-me-view.component';
+import { CategoryPostsComponent } from './category/category-posts/category-posts.component';
 import { CategoryComponent } from './category/category.component';
 import { CoffeeLabRoutingModule } from './coffee-lab-routing.module';
 import { CoffeeLabComponent } from './coffee-lab.component';
@@ -69,6 +70,7 @@ import { SavedRecipesComponent } from './saved-posts/saved-recipes/saved-recipes
         TranslateArticleComponent,
         TranslateRecipeComponent,
         CategoryComponent,
+        CategoryPostsComponent,
     ],
     imports: [
         CommonModule,

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestroyableComponent } from '@base-components';
-import { AuthService, CoffeeLabService } from '@services';
-import { ToastrService } from 'ngx-toastr';
+import { LinkType, PostType } from '@enums';
+import { CoffeeLabService } from '@services';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -19,26 +19,11 @@ export class CategoryComponent extends DestroyableComponent implements OnInit {
     slug: string;
     currentCategory: any;
     otherCategories: any[] = [];
-    isCategoryCall = 0;
-    cuurentLangCode: string;
     topWriters: any[] = [];
-    menuItems = [
-        {
-            label: 'qa_forum',
-            icon: 'assets/images/qa-forum.svg',
-            activeIcon: 'assets/images/qa-forum-active.svg',
-        },
-        {
-            label: 'posts',
-            icon: 'assets/images/article.svg',
-            activeIcon: 'assets/images/article-active.svg',
-        },
-        {
-            label: 'brewing_guides',
-            icon: 'assets/images/coffee-recipe.svg',
-            activeIcon: 'assets/images/coffee-recipe-active.svg',
-        },
-    ];
+    totalRecords: any;
+    rows: number;
+    pages = 1;
+    menuItems = [];
     sortOptions = [
         { label: 'latest', value: 'latest' },
         { label: 'most_answered', value: 'most_answered' },
@@ -52,168 +37,145 @@ export class CategoryComponent extends DestroyableComponent implements OnInit {
         { label: 'yes', value: true },
         { label: 'no', value: false },
     ];
+    selectedPostType: string;
+    isCategoryCall = 0;
+    cuurentLangCode: string;
 
     constructor(
-        public coffeeLabService: CoffeeLabService,
-        private toastService: ToastrService,
-        public authService: AuthService,
+        private coffeeLabService: CoffeeLabService,
         private activateRoute: ActivatedRoute,
         private router: Router,
+        private cdr: ChangeDetectorRef,
     ) {
         super();
+        this.selectedPostType = this.activateRoute.firstChild.routeConfig.path;
         this.activateRoute.params.subscribe((parmas) => {
             this.slug = parmas.slug;
-            if (this.isCategoryCall !== 1) {
-                this.getCategories(this.cuurentLangCode !== this.coffeeLabService.currentForumLanguage);
+            if (this.selectedPostType === LinkType.QA) {
+                this.getCategories(false);
             }
-            this.isCategoryCall++;
         });
-        this.cuurentLangCode = this.coffeeLabService.currentForumLanguage;
     }
 
     ngOnInit(): void {
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((language) => {
-            if (this.isCategoryCall !== 1) {
-                this.getCategories(this.cuurentLangCode !== language);
+            this.onTabChange(this.selectedPostType, true);
+            if (this.selectedPostType !== LinkType.QA) {
+                this.getSingleCategory(true);
+            } else {
+                this.getCategories(true);
             }
-            this.isCategoryCall++;
         });
     }
 
-    onChangeTab(index: number) {
-        this.selectedTab = index;
-        if (this.selectedTab === 0) {
-            this.getQuestions();
-            this.getAllTopWriters();
-        } else if (this.selectedTab === 1) {
-            this.getArticles();
-        } else if (this.selectedTab === 2) {
-            this.getRecipes();
+    getSingleCategory(isLangChanged?: boolean): void {
+        this.isLoading = true;
+        const params = {
+            language: this.coffeeLabService.currentForumLanguage,
+            slug: this.currentCategory ? '' : this.slug,
+            parent_id: this.currentCategory?.parent_id,
+            is_recipe: false,
+        };
+        if (this.selectedPostType === LinkType.RECIPE) {
+            params.is_recipe = true;
         }
-        window.scroll(0, 0);
-    }
-
-    getQuestions(): void {
-        const params = {
-            is_consumer: this.coffeeLabService.qaForumViewFilterBy || '',
-            sort_by: this.coffeeLabService.qaForumViewSortBy === 'most_answered' ? 'most_answered' : 'posted_at',
-            sort_order:
-                this.coffeeLabService.qaForumViewSortBy === 'most_answered'
-                    ? 'desc'
-                    : this.coffeeLabService.qaForumViewSortBy === 'latest' ||
-                      this.coffeeLabService.qaForumViewSortBy === null
-                    ? 'desc'
-                    : 'asc',
-            publish: true,
-            category_slug: this.slug,
-            page: 1,
-            per_page: 10000,
-        };
-        this.isLoading = true;
-        this.coffeeLabService
-            .getForumList('question', params, this.coffeeLabService.currentForumLanguage)
-            .subscribe((res: any) => {
-                this.isLoading = false;
-                if (res.success) {
-                    this.questions = res.result?.questions;
-                } else {
-                    this.toastService.error('Cannot get forum data');
+        this.coffeeLabService.getCategory(params).subscribe((res) => {
+            if (res.success) {
+                if (isLangChanged) {
+                    this.currentCategory = res.result[0];
+                    this.getMenuItems();
+                    this.router.navigateByUrl(
+                        '/coffee-lab/category/' + this.currentCategory.slug + '/' + this.selectedPostType,
+                    );
                 }
-            });
-    }
-
-    getArticles(): void {
-        const params = {
-            sort_by: 'created_at',
-            sort_order:
-                this.coffeeLabService.articleViewFilterBy === 'latest' ||
-                this.coffeeLabService.articleViewFilterBy === null
-                    ? 'desc'
-                    : 'asc',
-            translations_available: this.coffeeLabService.articleViewFilterBy,
-            publish: true,
-            category_slug: this.slug,
-            page: 1,
-            per_page: 10000,
-        };
-        this.isLoading = true;
-        this.coffeeLabService.getForumList('article', params).subscribe((res) => {
-            if (res.success) {
-                this.articles = res.result;
-            } else {
-                this.toastService.error('Cannot get Articles data');
             }
             this.isLoading = false;
-        });
-    }
-
-    getRecipes(): void {
-        const params = {
-            sort_by: 'created_at',
-            sort_order:
-                this.coffeeLabService.recipeViewSortBy === 'latest' || this.coffeeLabService.recipeViewSortBy === null
-                    ? 'desc'
-                    : 'asc',
-            publish: true,
-            translations_available: this.coffeeLabService.recipeViewIsAvailableTranslation,
-            category_slug: this.slug,
-            page: 1,
-            per_page: 10000,
-        };
-        this.isLoading = true;
-        this.coffeeLabService.getForumList('recipe', params).subscribe((res) => {
-            if (res.success) {
-                this.recipes = res.result;
-            } else {
-                this.toastService.error('Cannot get Articles data');
-            }
-            this.isLoading = false;
+            this.cdr.detectChanges();
         });
     }
 
     getCategories(isLangChanged: boolean) {
         this.otherCategories = [];
-        this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage).subscribe((res) => {
+        this.isLoading = true;
+        const params = { language: this.coffeeLabService.currentForumLanguage, is_recipe: false };
+        if (this.selectedPostType === LinkType.RECIPE) {
+            params.is_recipe = true;
+        }
+        this.coffeeLabService.getCategory(params).subscribe((res) => {
             if (res.success) {
                 if (isLangChanged) {
                     const isCategory = res.result.find(
                         (element) => element.parent_id === this.currentCategory?.parent_id,
                     );
                     if (isCategory) {
-                        this.router.navigateByUrl('/coffee-lab/category/' + isCategory.slug);
+                        this.slug = isCategory.slug;
+                        this.router.navigateByUrl('/coffee-lab/category/' + this.slug + '/' + this.selectedPostType);
                         this.currentCategory = isCategory;
-                        this.cuurentLangCode = isCategory.language;
-                    } else {
-                        this.asssignCategories(res.result);
+                        this.getMenuItems();
                     }
                 } else {
                     this.asssignCategories(res.result);
                 }
             }
+            this.isLoading = false;
+            this.cdr.detectChanges();
         });
     }
 
     asssignCategories(data: any) {
         this.otherCategories = data.filter((element) => element.slug !== this.slug);
+        this.coffeeLabService.otherCategories.next(this.otherCategories);
         this.currentCategory = data.find((item) => item.slug === this.slug);
-        this.onChangeTab(this.selectedTab);
-    }
-
-    getAllTopWriters() {
-        this.coffeeLabService.getTopWriters({ count: 4 }).subscribe((res) => {
-            if (res.success) {
-                this.topWriters = res.result;
-            }
-        });
+        this.getMenuItems();
     }
 
     onBack() {
-        if (this.selectedTab === 0) {
+        if (this.selectedPostType === LinkType.QA) {
             this.router.navigateByUrl('coffee-lab/overview/qa-forum');
-        } else if (this.selectedTab === 1) {
+        } else if (this.selectedPostType === LinkType.ARTICLE) {
             this.router.navigateByUrl('coffee-lab/overview/articles');
-        } else if (this.selectedTab === 2) {
+        } else if (this.selectedPostType === LinkType.RECIPE) {
             this.router.navigateByUrl('coffee-lab/overview/coffee-recipes');
+        }
+    }
+
+    onTabChange(type: string, onLoad?: boolean) {
+        if (type === PostType.QA && !onLoad) {
+            this.getCategories(false);
+        }
+    }
+
+    getMenuItems() {
+        if (this.currentCategory?.is_recipe) {
+            this.menuItems = [
+                {
+                    label: 'brewing_guides',
+                    postType: PostType.RECIPE,
+                    icon: 'assets/images/coffee-recipe.svg',
+                    activeIcon: 'assets/images/coffee-recipe-active.svg',
+                    routerLink: `/coffee-lab/category/${this.slug}/coffee-recipes`,
+                    command: () => this.onTabChange(PostType.RECIPE),
+                },
+            ];
+        } else {
+            this.menuItems = [
+                {
+                    label: 'question_answers',
+                    postType: PostType.QA,
+                    icon: 'assets/images/qa-forum.svg',
+                    activeIcon: 'assets/images/qa-forum-active.svg',
+                    routerLink: `/coffee-lab/category/${this.slug}/qa-forum`,
+                    command: () => this.onTabChange(PostType.QA),
+                },
+                {
+                    label: 'posts',
+                    postType: PostType.ARTICLE,
+                    icon: 'assets/images/article.svg',
+                    activeIcon: 'assets/images/article-active.svg',
+                    routerLink: `/coffee-lab/category/${this.slug}/articles`,
+                    command: () => this.onTabChange(PostType.ARTICLE),
+                },
+            ];
         }
     }
 }

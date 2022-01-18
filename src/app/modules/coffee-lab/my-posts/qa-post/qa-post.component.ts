@@ -55,50 +55,14 @@ export class QaPostComponent extends DestroyableComponent implements OnInit {
                     ? 'desc'
                     : 'asc',
             page: this.pages,
+            publish: true,
             per_page: this.rows,
         };
         if (this.pageDesc === 'saved-posts') {
             this.coffeeLabService.getSavedForumList('question', params).subscribe((res: any) => {
                 this.isLoading = false;
                 if (res.success) {
-                    this.questions = (res.result || []).map((item) => {
-                        const answers = 'answers';
-                        item[answers] = [];
-                        if (item.answer_1_content) {
-                            const answerObj1 = {
-                                answer: item.answer_1_content,
-                                id: item.answer_1_id,
-                                org_id: item.answer_1_org_id,
-                                org_type: item.answer_1_org_type,
-                                profile_image_url: item.answer_1_profile_image_thumb_url,
-                                user_id: item.answer_1_user_id,
-                                user_name: item.answer_1_user_name,
-                                updated_at: item.answer_1_updated_at,
-                                created_at: item.answer_1_created_at,
-                                company_name: item.answer_1_org_name,
-                            };
-                            item.answers.push(answerObj1);
-                            item.total_answers = 1;
-                        }
-                        if (item.answer_2_content) {
-                            const answerObj2 = {
-                                answer: item.answer_2_content,
-                                id: item.answer_2_id,
-                                org_id: item.answer_2_org_id,
-                                org_type: item.answer_2_org_type,
-                                profile_image_url: item.answer_2_profile_image_thumb_url,
-                                user_id: item.answer_2_user_id,
-                                user_name: item.answer_2_user_name,
-                                updated_at: item.answer_2_updated_at,
-                                created_at: item.answer_2_created_at,
-                                company_name: item.answer_2_org_name,
-                            };
-                            item.answers.push(answerObj2);
-                            item.total_answers += 1;
-                        }
-                        item.is_saved = true;
-                        return item;
-                    });
+                    this.questions = res.result || [];
                     this.totalRecords = res.result_info.total_count;
                 } else {
                     this.toastService.error('Cannot get forum data');

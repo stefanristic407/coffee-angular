@@ -20,7 +20,7 @@ export class CreatePostComponent implements OnInit {
     constructor(
         public location: Location,
         public dialogService: DialogService,
-        public coffeeLabService: CoffeeLabService,
+        private coffeeLabService: CoffeeLabService,
         private activateRoute: ActivatedRoute,
         private toastService: ToastrService,
         private router: Router,

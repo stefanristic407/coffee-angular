@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from '@env/environment';
 import { CoffeeLabService } from '@services';
+import { getUrl } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -9,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./recipe-original-post.component.scss'],
 })
 export class RecipeOriginalPostComponent implements OnInit, OnChanges {
+    coffeeLabURL = environment.coffeeLabWeb;
     @Input() recipeId;
     @Output() checkTranslationExits = new EventEmitter<any>();
     id: string | number = '';
@@ -18,65 +21,20 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
     recipeForm: FormGroup;
     ingredients: FormArray;
     brewRatio: string;
-    expertiseArray: any[] = [
-        {
-            label: 'Easy',
-            value: 'easy',
-        },
-        {
-            label: 'Intermediate',
-            value: 'intermediate',
-        },
-        {
-            label: 'Hard',
-            value: 'hard',
-        },
-    ];
-    qualityArray: any[] = [
-        {
-            label: 'ounces',
-            value: 'ounces',
-        },
-        {
-            label: 'lbs',
-            value: 'lbs',
-        },
-        {
-            label: 'tbsp',
-            value: 'tbsp',
-        },
-        {
-            label: 'cups',
-            value: 'cups',
-        },
-        {
-            label: 'grams',
-            value: 'grams',
-        },
-        {
-            label: 'kg',
-            value: 'kg',
-        },
-        {
-            label: 'units',
-            value: 'units',
-        },
-        {
-            label: 'ml',
-            value: 'ml',
-        },
-        {
-            label: 'L',
-            value: 'L',
-        },
-        {
-            label: 'glasses',
-            value: 'glasses',
-        },
-        {
-            label: 'N/A',
-            value: '',
-        },
+    qualityArray = [
+        { label: 'lbs', value: 'lbs' },
+        { label: 'cups', value: 'cups' },
+        { label: 'glasses', value: 'glasses' },
+        { label: 'grams', value: 'grams' },
+        { label: 'kg', value: 'kg' },
+        { label: 'ltr', value: 'ltr' },
+        { label: 'ml', value: 'ml' },
+        { label: 'ounces', value: 'ounces' },
+        { label: 'piece', value: 'piece' },
+        { label: 'tbsp', value: 'tbsp' },
+        { label: 'tsp', value: 'tsp' },
+        { label: 'units', value: 'units' },
+        { label: 'na', value: '' },
     ];
     buttonList = [{ button: 'Roasting' }, { button: 'Coffee grinding' }, { button: 'Brewing' }];
 
@@ -107,6 +65,7 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
                     name: res.result.name,
                     description: res.result.description,
                     expertise: res.result.expertise,
+                    slug: res.result.slug,
                     serves: res.result.serves,
                     equipment_name: res.result.equipment_name,
                     coffee_ratio: res.result.coffee_ratio,
@@ -159,6 +118,7 @@ export class RecipeOriginalPostComponent implements OnInit, OnChanges {
             name: [''],
             description: [''],
             expertise: [''],
+            slug: [''],
             serves: [''],
             equipment_name: [''],
             coffee_ratio: [''],

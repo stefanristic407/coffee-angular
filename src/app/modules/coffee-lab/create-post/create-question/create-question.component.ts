@@ -1,10 +1,13 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { APP_LANGUAGES } from '@constants';
+import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { CoffeeLabService, GlobalsService } from '@services';
+import { getUrl } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 import { combineLatest } from 'rxjs';
@@ -16,18 +19,17 @@ import { take } from 'rxjs/operators';
     styleUrls: ['./create-question.component.scss'],
 })
 export class CreateQuestionComponent implements OnInit {
-    content?: string;
+    coffeeLabURL = environment.coffeeLabWeb;
     isPosting = false;
     question: any;
-    questionId: any;
+    questionId: number;
     isLoading = false;
-    languageCode?: string;
-    isQuestion = false;
     languageList: any[] = APP_LANGUAGES;
     categoryList: any;
     categoryValue: any;
     selectedCategory: string;
     status: string;
+    questionForm: FormGroup;
 
     constructor(
         private location: Location,
@@ -39,9 +41,15 @@ export class CreateQuestionComponent implements OnInit {
         private toaster: ToastrService,
         private globalsService: GlobalsService,
         private translator: TranslateService,
+        private fb: FormBuilder,
     ) {}
 
     ngOnInit(): void {
+        this.questionForm = this.fb.group({
+            question: ['', Validators.required],
+            languageCode: ['', Validators.required],
+            slug: ['', Validators.required],
+        });
         this.route.queryParams.subscribe((params) => {
             const type = params.type;
             if (type === 'question') {
@@ -50,8 +58,8 @@ export class CreateQuestionComponent implements OnInit {
                 if (this.questionId) {
                     this.getCompleteData();
                 } else {
-                    this.languageCode = this.coffeeLabService.currentForumLanguage;
                     this.getCategory();
+                    this.questionForm.get('languageCode').setValue(this.coffeeLabService.currentForumLanguage);
                 }
             }
         });
@@ -59,9 +67,10 @@ export class CreateQuestionComponent implements OnInit {
 
     getCompleteData() {
         this.isLoading = true;
+        const params = { language: this.coffeeLabService.currentForumLanguage };
         combineLatest([
             this.coffeeLabService.getForumDetails('question', this.questionId),
-            this.coffeeLabService.getCategory(this.coffeeLabService.currentForumLanguage),
+            this.coffeeLabService.getCategory(params),
         ])
             .pipe(take(1))
             .subscribe(([res, category]: [any, any]) => {
@@ -69,10 +78,13 @@ export class CreateQuestionComponent implements OnInit {
                     this.categoryList = category.result;
                 }
                 if (res.success) {
-                    this.content = res.result.question;
                     this.question = res.result;
-                    this.languageCode = res.result.lang_code;
-                    this.categoryValue = res.result.categories;
+                    this.categoryValue = this.question.categories;
+                    this.questionForm.patchValue({
+                        question: res.result.question,
+                        slug: this.question.slug,
+                        languageCode: res.result.lang_code,
+                    });
                 } else {
                     this.toaster.error('Error while get question');
                     this.location.back();
@@ -83,8 +95,10 @@ export class CreateQuestionComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
-        this.languageCode = this.languageCode ? this.languageCode : 'en';
-        this.coffeeLabService.getCategory(this.languageCode).subscribe((category) => {
+        const params = {
+            language: this.questionForm.get('languageCode').value ? this.questionForm.get('languageCode').value : 'en',
+        };
+        this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
                 if (this.categoryValue) {
@@ -103,17 +117,17 @@ export class CreateQuestionComponent implements OnInit {
     }
 
     onPostQuestion(status: string): void {
-        if (!this.content) {
-            this.isQuestion = true;
-            this.toastrService.error('Please type your question.');
+        if (this.questionForm.invalid) {
+            this.toastrService.error('Please fill all the data');
             return;
         }
-        this.content = this.content.trim();
+        this.questionForm.get('question').setValue(this.questionForm.get('question').value.trim());
         const data = {
-            question: this.content,
+            question: this.questionForm.get('question').value,
             allow_translation: 1,
             status,
-            language: this.languageCode,
+            language: this.questionForm.get('languageCode').value,
+            slug: this.questionForm.get('slug').value,
             categories: this.categoryValue?.map((item) => item.id) || [],
         };
         const confirmText = status === 'DRAFT' ? 'save this question in draft?' : 'publish this question?';
@@ -217,8 +231,22 @@ export class CreateQuestionComponent implements OnInit {
     }
 
     changeLanguage(value) {
-        this.coffeeLabService.updateLang(this.languageCode).then(() => {
+        this.coffeeLabService.updateLang(this.questionForm.get('languageCode').value).then(() => {
             this.getCategory();
         });
+    }
+
+    onTitleChange(event) {
+        if (!this.questionId && event.target.value) {
+            this.coffeeLabService.verifySlug('question', getUrl(event.target.value)).subscribe((res) => {
+                if (res.success) {
+                    if (res.result.is_available) {
+                        this.questionForm.get('slug').setValue(getUrl(event.target.value));
+                    } else {
+                        this.questionForm.get('slug').setValue(res.result.available_slug);
+                    }
+                }
+            });
+        }
     }
 }

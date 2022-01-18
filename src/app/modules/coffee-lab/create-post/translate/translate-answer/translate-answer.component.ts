@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { APP_LANGUAGES } from '@constants';
+import { environment } from '@env/environment';
 import { AuthService, CoffeeLabService, GlobalsService, GoogletranslateService } from '@services';
-import { insertAltAttr } from '@utils';
+import { getUrl, insertAltAttr } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 
@@ -15,6 +16,7 @@ import { DialogService } from 'primeng/dynamicdialog';
     styleUrls: ['./translate-answer.component.scss'],
 })
 export class TranslateAnswerComponent implements OnInit {
+    coffeeLabURL = environment.coffeeLabWeb;
     answerId: any;
     answer: any;
     draftId: string;
@@ -37,6 +39,7 @@ export class TranslateAnswerComponent implements OnInit {
     showNoDataSection = false;
     isMobile = false;
     selectedLang: string;
+    slug: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -53,6 +56,7 @@ export class TranslateAnswerComponent implements OnInit {
         this.form = this.formBuilder.group({
             language: ['', Validators.required],
             question: ['', Validators.required],
+            slug: ['', Validators.required],
         });
         this.isMobile = window.innerWidth < 767;
     }
@@ -110,6 +114,7 @@ export class TranslateAnswerComponent implements OnInit {
                         this.isLoading = false;
                         if (questionRes.success) {
                             this.question = questionRes.result;
+                            this.slug = this.question.slug;
                             this.handleChange({ value: this.remainingAnswerLangugage[0].value });
                             this.checkQuestionTranslated(this.remainingAnswerLangugage[0].value);
                         } else {
@@ -143,16 +148,19 @@ export class TranslateAnswerComponent implements OnInit {
         );
         if (isTranslate) {
             this.form.get('question').disable();
+            this.form.get('slug').disable();
             return true;
         } else {
             this.form.get('question').enable();
+            this.form.get('slug').enable();
             return false;
         }
     }
 
     getCategory() {
         this.categoryList = [];
-        this.coffeeLabService.getCategory(this.translateLangCode).subscribe((category) => {
+        const params = { language: this.translateLangCode };
+        this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 category.result.forEach((item) => {
                     this.question.categories.forEach((element) => {
@@ -198,6 +206,7 @@ export class TranslateAnswerComponent implements OnInit {
                 this.form.patchValue({
                     question: translatedOutput[0].translatedText,
                 });
+                this.getSlugDetails(translatedOutput[0].translatedText);
                 this.translatedAnswer = translatedOutput[1].translatedText;
             });
         }
@@ -215,6 +224,7 @@ export class TranslateAnswerComponent implements OnInit {
             status,
             images: this.imageIdList,
             language: this.translateLangCode,
+            question_slug: this.form.get('slug').value,
         };
 
         if (!this.checkQuestionTranslated(this.selectedLang)) {
@@ -291,5 +301,23 @@ export class TranslateAnswerComponent implements OnInit {
         } else {
             this.router.navigateByUrl('/coffee-lab/questions/' + this.question?.slug);
         }
+    }
+
+    onTitleChange() {
+        if (this.form.get('question').value) {
+            this.getSlugDetails(this.form.get('question').value);
+        }
+    }
+
+    getSlugDetails(value) {
+        this.coffeeLabService.verifySlug('question', getUrl(value)).subscribe((res) => {
+            if (res.success) {
+                if (res.result.is_available) {
+                    this.form.get('slug').setValue(getUrl(value));
+                } else {
+                    this.form.get('slug').setValue(res.result.available_slug);
+                }
+            }
+        });
     }
 }

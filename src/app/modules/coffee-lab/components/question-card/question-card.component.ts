@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LinkType } from '@enums';
 import { AuthService, CoffeeLabService } from '@services';
 import { MenuItem } from 'primeng/api';
 
@@ -9,6 +10,7 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./question-card.component.scss'],
 })
 export class QuestionCardComponent implements OnInit {
+    readonly qaLink = LinkType.QA;
     @Input() question: any;
     @Input() isMyPost = false;
     @Input() isSavedPost = false;
@@ -20,7 +22,7 @@ export class QuestionCardComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    onQuestionNavigate(slug) {
+    onQuestionNavigate(slug: string) {
         if (this.isMyPost) {
             this.router.navigate(['/coffee-lab/questions/' + slug], {
                 queryParams: {
@@ -42,10 +44,6 @@ export class QuestionCardComponent implements OnInit {
         } else {
             this.router.navigateByUrl('/coffee-lab/questions/' + slug);
         }
-    }
-
-    onCategoryClick(slug: string) {
-        this.router.navigateByUrl('/coffee-lab/category/' + slug);
     }
 
     onLike(answer) {

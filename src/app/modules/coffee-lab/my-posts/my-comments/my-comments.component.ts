@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,7 +14,6 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
         { label: 'latest', value: 'desc' },
         { label: 'oldest', value: 'asc' },
     ];
-    organizationId: number;
     isLoading = false;
     isMyPostsPage = false;
     pageDesc: string;
@@ -25,8 +23,7 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
     rows = 10;
     displayData: any[] = [];
 
-    constructor(public coffeeLabService: CoffeeLabService, private authService: AuthService, private router: Router) {
-        this.organizationId = this.authService.getOrgId();
+    constructor(public coffeeLabService: CoffeeLabService, private router: Router) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 

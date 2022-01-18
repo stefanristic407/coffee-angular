@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthService, CoffeeLabService } from '@services';
 
 @Component({
     selector: 'app-articles',
@@ -11,7 +10,7 @@ export class ArticlesComponent implements OnInit {
     @Input() isMyPost = false;
     @Input() isSavedPost = false;
 
-    constructor(public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
+    constructor() {}
 
     ngOnInit(): void {}
 }

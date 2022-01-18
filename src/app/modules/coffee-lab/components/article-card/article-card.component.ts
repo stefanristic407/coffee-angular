@@ -17,8 +17,7 @@ export class ArticleCardComponent implements OnInit {
     isLikedBtn = false;
 
     constructor(
-        public coffeeLabService: CoffeeLabService,
-        public authService: AuthService,
+        private coffeeLabService: CoffeeLabService,
         private router: Router,
         private toastService: ToastrService,
     ) {}

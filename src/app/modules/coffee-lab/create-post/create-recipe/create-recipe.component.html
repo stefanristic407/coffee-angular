@@ -88,6 +88,7 @@
                 [placeholder]="'recipe_name_placeholder' | translate"
                 pInputText
                 formControlName="name"
+                (change)="onTitleChange($event)"
             />
             <small *ngIf="recipeForm.controls['name'].errors?.required" class="p-error">
                 {{ 'required' | translate }}
@@ -279,13 +280,7 @@
                     >
                         <div class="p-0 col-12">
                             <div
-                                class="
-                                    col-sm-12 col-md-12 col-lg-12
-                                    sewn-form-field
-                                    w-100
-                                    text-area-mobile
-                                    pl-0 pl-md-3
-                                "
+                                class="col-sm-12 col-md-12 col-lg-12 sewn-form-field w-100 text-area-mobile pl-0 pl-md-3"
                                 [ngClass]="{ 'col-xl-9': !isTranslate, 'col-xl-12': isTranslate }"
                             >
                                 <div>
@@ -360,11 +355,11 @@
         <div
             class="col-12 mb-md-45 d-md-flex mb-3 pl-0 pl-md-3"
             [ngClass]="{ 'align-another': recipeForm.controls['steps']['controls']?.length >= 2 }"
-            *ngIf="recipeForm?.value?.preparation_method == 'steps'"
+            *ngIf="recipeForm?.value?.preparation_method == 'steps' && !isTranslate"
         >
-            <span class="fnt-14" *ngIf="!isTranslate"
-                ><span class="editBtn" (click)="addStep()">{{ 'add_another_step' | translate }}</span></span
-            >
+            <span class="fnt-14">
+                <span class="editBtn" (click)="addStep()">{{ 'add_another_step' | translate }}</span>
+            </span>
         </div>
         <div
             *ngIf="!isTranslate"
@@ -436,6 +431,23 @@
                 class="mt-2"
             >
             </p-chips>
+        </div>
+        <div class="mb-3 mb-md-4 border-main p-3 mx-3">
+            <label>{{ 'recipe_url' | translate }}</label>
+            <div class="p-error fnt-600 pb-3">{{ 'recipe_slug_msg' | translate }}</div>
+            <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
+                <div class="fnt-600 mb-2 mb-lg-0">
+                    {{ coffeeLabURL }}{{ recipeForm.controls?.language?.value || 'en' }}/coffee-recipes/
+                </div>
+                <div class="sewn-form-field col mb-0">
+                    <input
+                        formControlName="slug"
+                        placeholder="{{ 'write_slug_here' | translate }}"
+                        pInputText
+                        (change)="onTitleChange($event)"
+                    />
+                </div>
+            </div>
         </div>
         <div *ngIf="!isTranslate" class="d-flex col-12 align-items-center my-4 pl-0 pl-md-3">
             <p-checkbox
