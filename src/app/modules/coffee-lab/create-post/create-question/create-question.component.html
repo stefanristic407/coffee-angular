@@ -26,7 +26,7 @@
             rows="8"
             [placeholder]="'post_your_question' | translate"
             formControlName="question"
-            (change)="onTitleChange()"
+            (change)="onTitleChange($event)"
         ></textarea>
         <small *ngIf="questionForm.get('question').errors?.required" class="p-error">
             {{ 'required' | translate }}
@@ -76,7 +76,7 @@
                     formControlName="slug"
                     placeholder="{{ 'write_slug_here' | translate }}"
                     pInputText
-                    (change)="onTitleChange()"
+                    (change)="onTitleChange($event)"
                     [disabled]="questionId"
                 />
                 <small *ngIf="questionForm.get('slug').errors?.required" class="p-error">

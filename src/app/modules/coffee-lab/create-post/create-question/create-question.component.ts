@@ -236,19 +236,17 @@ export class CreateQuestionComponent implements OnInit {
         });
     }
 
-    onTitleChange() {
-        if (!this.questionId && this.questionForm.get('question').value) {
-            this.coffeeLabService
-                .verifySlug('question', getUrl(this.questionForm.get('question').value))
-                .subscribe((res) => {
-                    if (res.success) {
-                        if (res.result.is_available) {
-                            this.questionForm.get('slug').setValue(getUrl(this.questionForm.get('question').value));
-                        } else {
-                            this.questionForm.get('slug').setValue(res.result.available_slug);
-                        }
+    onTitleChange(event) {
+        if (!this.questionId && event.target.value) {
+            this.coffeeLabService.verifySlug('question', getUrl(event.target.value)).subscribe((res) => {
+                if (res.success) {
+                    if (res.result.is_available) {
+                        this.questionForm.get('slug').setValue(getUrl(event.target.value));
+                    } else {
+                        this.questionForm.get('slug').setValue(res.result.available_slug);
                     }
-                });
+                }
+            });
         }
     }
 }
