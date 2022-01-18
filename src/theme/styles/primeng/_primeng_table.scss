@@ -105,7 +105,7 @@
 
             .p-column-title {
                 display: inline-block;
-                min-width: 40%;
+                width: 40%;
                 margin-right: 1rem;
                 font-weight: 600;
                 color: $muted-text-color;
@@ -160,7 +160,7 @@
 
             // Style for column title
             .p-column-title {
-                min-width: 40% !important;
+                width: 40% !important;
                 display: inline-block !important;
                 margin: 0;
                 padding: 0;
