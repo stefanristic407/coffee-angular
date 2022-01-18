@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { APP_LANGUAGES } from '@constants';
@@ -19,19 +20,16 @@ import { take } from 'rxjs/operators';
 })
 export class CreateQuestionComponent implements OnInit {
     coffeeLabURL = environment.coffeeLabWeb;
-    content?: string;
     isPosting = false;
     question: any;
-    questionId: any;
+    questionId: number;
     isLoading = false;
-    languageCode?: string;
-    isQuestion = false;
     languageList: any[] = APP_LANGUAGES;
     categoryList: any;
     categoryValue: any;
     selectedCategory: string;
     status: string;
-    slug: string;
+    questionForm: FormGroup;
 
     constructor(
         private location: Location,
@@ -43,9 +41,15 @@ export class CreateQuestionComponent implements OnInit {
         private toaster: ToastrService,
         private globalsService: GlobalsService,
         private translator: TranslateService,
+        private fb: FormBuilder,
     ) {}
 
     ngOnInit(): void {
+        this.questionForm = this.fb.group({
+            question: ['', Validators.required],
+            languageCode: ['', Validators.required],
+            slug: ['', Validators.required],
+        });
         this.route.queryParams.subscribe((params) => {
             const type = params.type;
             if (type === 'question') {
@@ -54,8 +58,8 @@ export class CreateQuestionComponent implements OnInit {
                 if (this.questionId) {
                     this.getCompleteData();
                 } else {
-                    this.languageCode = this.coffeeLabService.currentForumLanguage;
                     this.getCategory();
+                    this.questionForm.get('languageCode').setValue(this.coffeeLabService.currentForumLanguage);
                 }
             }
         });
@@ -74,11 +78,13 @@ export class CreateQuestionComponent implements OnInit {
                     this.categoryList = category.result;
                 }
                 if (res.success) {
-                    this.content = res.result.question;
                     this.question = res.result;
-                    this.slug = this.question.slug;
-                    this.languageCode = res.result.lang_code;
-                    this.categoryValue = res.result.categories;
+                    this.categoryValue = this.question.categories;
+                    this.questionForm.patchValue({
+                        question: res.result.question,
+                        slug: this.question.slug,
+                        languageCode: res.result.lang_code,
+                    });
                 } else {
                     this.toaster.error('Error while get question');
                     this.location.back();
@@ -89,7 +95,9 @@ export class CreateQuestionComponent implements OnInit {
 
     getCategory() {
         this.categoryList = [];
-        const params = { language: this.languageCode ? this.languageCode : 'en' };
+        const params = {
+            language: this.questionForm.get('languageCode').value ? this.questionForm.get('languageCode').value : 'en',
+        };
         this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
@@ -109,18 +117,17 @@ export class CreateQuestionComponent implements OnInit {
     }
 
     onPostQuestion(status: string): void {
-        if (!this.content) {
-            this.isQuestion = true;
-            this.toastrService.error('Please type your question.');
+        if (this.questionForm.invalid) {
+            this.toastrService.error('Please fill all the data');
             return;
         }
-        this.content = this.content.trim();
+        this.questionForm.get('question').setValue(this.questionForm.get('question').value.trim());
         const data = {
-            question: this.content,
+            question: this.questionForm.get('question').value,
             allow_translation: 1,
             status,
-            language: this.languageCode,
-            slug: this.slug,
+            language: this.questionForm.get('languageCode').value,
+            slug: this.questionForm.get('slug').value,
             categories: this.categoryValue?.map((item) => item.id) || [],
         };
         const confirmText = status === 'DRAFT' ? 'save this question in draft?' : 'publish this question?';
@@ -224,22 +231,24 @@ export class CreateQuestionComponent implements OnInit {
     }
 
     changeLanguage(value) {
-        this.coffeeLabService.updateLang(this.languageCode).then(() => {
+        this.coffeeLabService.updateLang(this.questionForm.get('languageCode').value).then(() => {
             this.getCategory();
         });
     }
 
     onTitleChange() {
-        if (!this.questionId && this.content) {
-            this.coffeeLabService.verifySlug('question', getUrl(this.content)).subscribe((res) => {
-                if (res.success) {
-                    if (res.result.is_available) {
-                        this.slug = getUrl(this.content);
-                    } else {
-                        this.slug = res.result.available_slug;
+        if (!this.questionId && this.questionForm.get('question').value) {
+            this.coffeeLabService
+                .verifySlug('question', getUrl(this.questionForm.get('question').value))
+                .subscribe((res) => {
+                    if (res.success) {
+                        if (res.result.is_available) {
+                            this.questionForm.get('slug').setValue(getUrl(this.questionForm.get('question').value));
+                        } else {
+                            this.questionForm.get('slug').setValue(res.result.available_slug);
+                        }
                     }
-                }
-            });
+                });
         }
     }
 }

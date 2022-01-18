@@ -22,7 +22,7 @@ export class QuestionCardComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    onQuestionNavigate(slug) {
+    onQuestionNavigate(slug: string) {
         if (this.isMyPost) {
             this.router.navigate(['/coffee-lab/questions/' + slug], {
                 queryParams: {
