@@ -110,26 +110,26 @@ export function emailValidator(validateService: ValidateEmailService, existenceQ
                 observer.next({ email: 'invalid' });
                 observer.complete();
             } else {
-                validateService.validate(control.value).subscribe((res: any) => {
-                    if (![200, 207, 114].includes(res.status)) {
-                        observer.next({ email: 'invalid' });
-                        observer.complete();
-                    } else {
-                        if (existenceQuery) {
-                            validateService.getUsersList(control.value, existenceQuery).subscribe((user: any) => {
-                                if (user.success && user.result?.length) {
-                                    observer.next({ exist: true });
-                                } else {
-                                    observer.next(null);
-                                }
-                                observer.complete();
-                            });
+                // validateService.validate(control.value).subscribe((res: any) => {
+                //     if (![200, 207, 114].includes(res.status)) {
+                //         observer.next({ email: 'invalid' });
+                //         observer.complete();
+                //     } else {
+                if (existenceQuery) {
+                    validateService.getUsersList(control.value, existenceQuery).subscribe((user: any) => {
+                        if (user.success && user.result?.length) {
+                            observer.next({ exist: true });
                         } else {
                             observer.next(null);
-                            observer.complete();
                         }
-                    }
-                });
+                        observer.complete();
+                    });
+                } else {
+                    observer.next(null);
+                    observer.complete();
+                }
+                //     }
+                // });
             }
         }).pipe(map((res) => res));
     };
