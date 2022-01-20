@@ -34,37 +34,51 @@ export class FileTableComponent extends ResizeableComponent implements OnInit {
 
     createTable() {
         this.tableColumns = [
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'checkbox',
+                      header: 'checkbox',
+                      width: this.resizeService.isDesktop() ? 8 : 8,
+                  },
             {
                 field: 'name',
                 header: 'files',
                 sortable: true,
                 width: this.resizeService.isDesktop() ? 34 : 33,
             },
-            {
-                field: 'order_ids',
-                header: 'order_id',
-                sortable: true,
-                width: this.resizeService.isDesktop() ? 12 : 12,
-            },
-            {
-                field: 'updated_at',
-                header: 'modified',
-                sortable: true,
-                width: this.resizeService.isDesktop() ? 22 : 25,
-            },
-            {
-                field: 'type',
-                header: 'type',
-                sortable: true,
-                width: this.resizeService.isDesktop() ? 10 : 12,
-            },
-            {
-                field: 'actions',
-                header: '',
-                sortable: false,
-                width: this.resizeService.isDesktop() ? 14 : 10,
-            },
-        ];
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'order_ids',
+                      header: 'order_id',
+                      sortable: true,
+                      width: this.resizeService.isDesktop() ? 12 : 12,
+                  },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'updated_at',
+                      header: 'modified',
+                      sortable: true,
+                      width: this.resizeService.isDesktop() ? 22 : 25,
+                  },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'type',
+                      header: 'type',
+                      sortable: true,
+                      width: this.resizeService.isDesktop() ? 10 : 12,
+                  },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'actions',
+                      header: 'actions',
+                      width: this.resizeService.isDesktop() ? 14 : 10,
+                  },
+        ].filter(Boolean);
     }
 
     onClick(item) {

@@ -43,6 +43,7 @@
         margin: 0;
         td {
             padding: 24px 0;
+            border-bottom: 2px dashed $primary-border-color !important;
         }
     }
 }
