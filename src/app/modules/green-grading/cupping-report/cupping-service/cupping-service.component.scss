@@ -115,7 +115,7 @@
     }
 }
 
-::ng-deep {
+:host ::ng-deep {
     .p-dialog.p-dialog-processdetails {
         min-height: 100%;
         width: 100%;

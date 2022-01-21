@@ -1,10 +1,8 @@
 <section class="total-section prime-grid">
-    <div class="back-page pb-45" (click)="goBack()">
-        <a>
-            <span>Back</span>
-        </a>
-    </div>
-    <div class="request-title-text pb-z5">Green coffee grading</div>
+    <div class="back-page pb-45" (click)="goBack()">{{ 'back' | translate }}</div>
+
+    <div class="request-title-text pb-z5">{{ 'green_coffee_grading' | translate }}</div>
+
     <div class="mt-3">
         <app-estate-info
             [cuppingDetails]="cuppingDetails"
@@ -12,96 +10,104 @@
             (showDetail)="showDetail.emit()"
         ></app-estate-info>
     </div>
-    <div class="d-flex flex-wrap mt-4 p-0 cupping_select_wrapper cupping_wrapper">
-        <div class="p-0 pr-md-3 mb-4 mb-md-0" style="flex: 1">
-            <p class="mt-0 mb-2 select-cupping-title fnt-muli fnt-14 fnt-600 text-clr334">Select type of cupping</p>
-            <p-dropdown
-                [options]="cuppingItems"
-                [(ngModel)]="cupping"
-                placeholder="Select type of cupping"
-                styleClass="p-cuppings-dropdown"
-                optionLabel="name"
-                [readonly]="!isEditable"
-            ></p-dropdown>
-        </div>
-        <div class="sample-size-wrapper p-0">
-            <p class="mt-0 mb-2 select-cupping-title fnt-muli fnt-14 fnt-600 text-clr334">
-                Sample Size<span class="star">*</span>
-            </p>
-            <div class="p-inputgroup">
-                <input type="number" pInputText [(ngModel)]="sampleSize" class="sampleSize" [readonly]="!isEditable" />
+
+    <div class="cupping_wrapper">
+        <div class="row gutter-16 mt-4 p-0">
+            <div class="sewn-form-field col-md-8">
+                <label>{{ 'type_of_cupping' | translate }}<span class="star">*</span></label>
                 <p-dropdown
-                    [options]="sampleUnitList"
-                    [(ngModel)]="sampleSizeUnit"
-                    styleClass="p-dropdown-sampleUnit"
-                    optionLabel="value"
-                    optionValue="value"
-                    [readonly]="!isEditable"
-                >
-                </p-dropdown>
+                    [options]="cuppingItems"
+                    [formControl]="infoForm.get('cupping_type')"
+                    [placeholder]="'select_type_of_cupping' | translate"
+                ></p-dropdown>
+                <small *ngIf="infoForm.get('cupping_type').errors?.required" class="p-error">{{
+                    'required' | translate
+                }}</small>
             </div>
-        </div>
-    </div>
-    <div class="mt-4 p-0 evaluators__table cupping_wrapper">
-        <p>Evaluators</p>
-        <div class="evaluator_table_body">
-            <div class="eval_heading">
-                <label class="fnt-muli fnt-14 fnt-600 text-clr588 mb-0 w-50">Name</label>
-                <label class="fnt-muli fnt-14 fnt-600 text-clr588 mb-0 w-50">Role</label>
-            </div>
-            <ul class="mb-0">
-                <li *ngFor="let item of evaluatorsListArray; let i = index">
-                    <div class="eval_info">
-                        <p *ngIf="item">
-                            {{ i + 1 }}. {{ item.evaluator_name }} <span *ngIf="item.is_primary == true">(You)</span>
-                        </p>
-                        <p *ngIf="item">{{ item.evaluator_type }}</p>
-                    </div>
-                    <span
-                        class="delete_btn"
-                        *ngIf="i != 0 && isEditable"
-                        (click)="deleteEvaluatorData(item.evaluator_id)"
+            <div class="sewn-form-field col-md-4">
+                <label>{{ 'sample_size' | translate }}<span class="star">*</span></label>
+                <div class="input-and-select gray">
+                    <p-inputNumber [formControl]="infoForm.get('sample_size')"></p-inputNumber>
+                    <p-dropdown
+                        [options]="sampleUnitList"
+                        [formControl]="infoForm.get('sample_size_unit')"
+                        optionLabel="value"
+                        optionValue="value"
                     >
-                        <i class="pi pi-trash"></i>
-                        <span class="pl-2 fnt-muli text-clr334 fnt-600 d-none d-md-block">Delete</span>
-                    </span>
-                </li>
-                <li *ngIf="inputBoxShow">
-                    <div class="d-flex col-12 p-0">
-                        <div style="flex: 1; padding-right: 12px">
-                            <p-autoComplete
-                                [(ngModel)]="selectedValue"
-                                class="float-left px-0 typeBox"
-                                [suggestions]="filteredUsers"
-                                (completeMethod)="filterUsers($event)"
-                                styleClass="p-autocomplete-evaluator"
-                                placeholder="Enter name or email"
-                                field="firstname"
-                                [minLength]="1"
-                            >
-                            </p-autoComplete>
+                    </p-dropdown>
+                    <small *ngIf="infoForm.get('sample_size').errors?.required" class="p-error">{{
+                        'required' | translate
+                    }}</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="evaluators__table">
+            <p class="fnt-md-16 fnt-bold mb-2 mb-md-25">{{ 'evaluators' | translate }}</p>
+            <div class="evaluator_table_body">
+                <div class="eval_heading">
+                    <label class="fnt-600 text-clr588 mb-0 w-50">{{ 'name' | translate }}</label>
+                    <label class="fnt-600 text-clr588 mb-0 w-50">{{ 'role' | translate }}</label>
+                </div>
+                <ul class="mb-0">
+                    <li *ngFor="let item of evaluatorsListArray; let i = index">
+                        <div class="eval_info">
+                            <p *ngIf="item">
+                                {{ i + 1 }}. {{ item.evaluator_name }}
+                                <span *ngIf="item.is_primary == true">(You)</span>
+                            </p>
+                            <p *ngIf="item">{{ item.evaluator_type }}</p>
                         </div>
-                        <div>
-                            <button class="green-button btn-raised" type="button" (click)="addEvaluators()">Add</button>
-                            <button class="green-button btn-stroked ml-2" type="button" (click)="cancelEvaluators()">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </li>
-                <li *ngIf="addBtnShow && isEditable">
-                    <span class="cursor-pointer">
-                        <span class="pi pi-plus fnt-14 fnt-bold text-clr60b pr-1"></span>
-                        <span class="fnt-muli fnt-14 fnt-bold text-clr60b pl-2" (click)="addBtnClick()"
-                            >Add and invite evaluators</span
+                        <span
+                            class="delete_btn"
+                            *ngIf="i != 0 && isEditable"
+                            (click)="deleteEvaluatorData(item.evaluator_id)"
                         >
-                    </span>
-                </li>
-            </ul>
+                            <i class="pi pi-trash"></i>
+                            <span class="pl-2 text-clr334 fnt-600 d-none d-md-block">{{ 'delete' | translate }}</span>
+                        </span>
+                    </li>
+                    <li *ngIf="inputBoxShow">
+                        <div class="d-flex col-12 p-0">
+                            <div style="flex: 1; padding-right: 12px">
+                                <p-autoComplete
+                                    [(ngModel)]="selectedValue"
+                                    class="float-left px-0 typeBox"
+                                    [suggestions]="filteredUsers"
+                                    (completeMethod)="filterUsers($event)"
+                                    styleClass="p-autocomplete-evaluator"
+                                    placeholder="Enter name or email"
+                                    field="firstname"
+                                    [minLength]="1"
+                                >
+                                </p-autoComplete>
+                            </div>
+                            <div>
+                                <button class="btn-raised" type="button" (click)="addEvaluators()">
+                                    {{ 'add' | translate }}
+                                </button>
+                                <button class="btn-stroked ml-2" type="button" (click)="cancelEvaluators()">
+                                    {{ 'cancel' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li *ngIf="addBtnShow && isEditable">
+                        <span class="brown-cta" (click)="addBtnClick()"
+                            ><span class="pi pi-plus pr-1"></span>{{ 'add_and_invite_evaluators' | translate }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+
     <div class="button-wrapper mt-4 pt-2 pt-md-4">
-        <button type="submit" class="green-button btn-stroked mr-0 mr-md-3" (click)="cancel()">Cancel</button>
-        <button type="submit" class="green-button btn-raised mb-2 mb-md-0" (click)="goNext()">Start Cupping</button>
+        <button type="submit" class="green-button btn-stroked mr-0 mr-md-3" (click)="cancel()">
+            {{ 'cancel' | translate }}
+        </button>
+        <button type="submit" class="green-button btn-raised mb-2 mb-md-0" (click)="goNext()">
+            {{ 'start_cupping' | translate }}
+        </button>
     </div>
 </section>

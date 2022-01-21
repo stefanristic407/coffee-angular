@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@shared';
+import { GenerateReportService } from '../generate-report.service';
 
 @Component({
     selector: 'app-generate-cupping-results',
@@ -16,7 +17,6 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     @Output() next = new EventEmitter<any>();
     @Output() handleChangeCuppingVersion = new EventEmitter<any>();
     @Input() cuppingDetails;
-    @Input() fromQueryParam;
 
     roasterId: number;
     cuppingReportId: any;
@@ -38,12 +38,13 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     constructor(
-        private toastrService: ToastrService,
+        private authService: AuthService,
         private cookieService: CookieService,
+        private generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
         private router: Router,
+        private toastrService: ToastrService,
         public dialogSrv: DialogService,
-        private authService: AuthService,
     ) {
         this.type = true;
         this.roasterId = this.authService.getOrgId();
@@ -59,73 +60,61 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
             {
                 field: 'evaluator_name',
                 header: 'Evaluator',
-                sortable: false,
                 width: 100,
             },
             {
                 field: 'final_score',
                 header: 'Final Score',
-                sortable: false,
             },
             {
                 field: 'fragrance_score',
                 header: 'Fragrance/\nAroma',
-                sortable: false,
-                width: 100,
+                width: 130,
             },
             {
                 field: 'flavour_score',
                 header: 'flavor',
-                sortable: false,
             },
             {
                 field: 'aftertaste_score',
                 header: 'Aftertaste',
-                sortable: false,
             },
             {
                 field: 'acidity_score',
                 header: 'Acidity',
-                sortable: false,
             },
             {
                 field: 'body_score',
                 header: 'Body',
-                sortable: false,
             },
             {
                 field: 'balance_score',
                 header: 'Balance',
-                sortable: false,
             },
             {
                 field: 'uniformity_score',
                 header: 'Uniformirty',
-                sortable: false,
             },
             {
                 field: 'cleancup_score',
                 header: 'Clean cup',
-                sortable: false,
             },
             {
                 field: 'sweetness_score',
                 header: 'Sweetness',
-                sortable: false,
             },
             {
                 field: 'overall_score',
                 header: 'Overall',
-                sortable: false,
             },
         ];
     }
 
     ngOnChanges() {
         this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-        if (this.fromQueryParam === 'ServiceRequest') {
+        if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
             this.serviceRequestId = this.cuppingDetails.order_id;
-        } else if (this.fromQueryParam === 'SampleRequest') {
+        } else if (this.generateReportService.fromQueryParam === 'SampleRequest') {
             this.sampleRequestId = this.cuppingDetails.external_sample_id;
         }
         this.getCupReports();
@@ -143,7 +132,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     getEvaluators() {
-        this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingReportId).subscribe((res: any) => {
+        this.greenGradingService.getEvaluatorsList(this.cuppingReportId).subscribe((res: any) => {
             if (res.success === true) {
                 this.evaluatorsList = res.result;
                 const evaluatorData = res.result.find((ele) => ele.is_primary === true);
@@ -158,7 +147,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     getCupReports() {
-        if (this.fromQueryParam === 'ServiceRequest') {
+        if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
             this.greenGradingService
                 .listServiceCuppingReports(this.roasterId, this.serviceRequestId)
                 .subscribe((res: any) => {
@@ -237,7 +226,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
     }
 
     reGrade() {
-        if (this.fromQueryParam === 'ServiceRequest') {
+        if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
             this.greenGradingService.recupSample(this.roasterId, this.serviceRequestId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
@@ -260,16 +249,14 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
 
     singleCuppingData() {
         if (this.cuppingReportId) {
-            this.greenGradingService
-                .getSingleCuppingDetails(this.roasterId, this.cuppingReportId)
-                .subscribe((data: any) => {
-                    if (data.success === true) {
-                        this.singleCuppingDetails = data.result;
-                    } else {
-                        this.singleCuppingDetails = {};
-                        this.toastrService.error('Error while loading cupping details');
-                    }
-                });
+            this.greenGradingService.getSingleCuppingDetails(this.cuppingReportId).subscribe((data: any) => {
+                if (data.success === true) {
+                    this.singleCuppingDetails = data.result;
+                } else {
+                    this.singleCuppingDetails = {};
+                    this.toastrService.error('Error while loading cupping details');
+                }
+            });
         }
     }
 

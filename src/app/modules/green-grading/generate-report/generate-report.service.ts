@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GlobalsService } from '@services';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -7,6 +7,17 @@ import { GlobalsService } from '@services';
 export class GenerateReportService {
     serviceRequestsList: any = [];
     totalRequestList: any = [];
+    fromQueryParam: 'ServiceRequest' | 'SampleRequest';
 
-    constructor(private globalsService: GlobalsService) {}
+    constructor(private router: Router) {}
+
+    backToOriginalPage() {
+        if (this.fromQueryParam === 'ServiceRequest') {
+            this.router.navigate(['/green-grading/green-coffee-orders']);
+        } else if (this.fromQueryParam === 'SampleRequest') {
+            this.router.navigate(['/green-grading/grade-sample']);
+        } else {
+            this.router.navigate(['/green-grading/green-coffee-orders']);
+        }
+    }
 }

@@ -32,16 +32,16 @@ export class GreenGradingService extends ApiService {
         );
     }
 
-    getEvaluatorsList(roasterId: any, cuppingReportId: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/cupping-process/${cuppingReportId}/evaluators`, 'GET');
+    getEvaluatorsList(cuppingReportId: any) {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/evaluators`, 'GET');
     }
 
     listCuppingRequest(roasterId: any) {
         return this.post(this.orgPostUrl, `ro/${roasterId}/external-cupping-invite-list`, 'GET');
     }
 
-    getSingleCuppingDetails(roasterId: any, cuppingReportId: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/cupping-process/${cuppingReportId}`, 'GET');
+    getSingleCuppingDetails(cuppingReportId: any) {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}`, 'GET');
     }
 
     updateStatus(roasterId: any, cuppingReportId: any, body: any) {
@@ -92,10 +92,10 @@ export class GreenGradingService extends ApiService {
         );
     }
 
-    deleteEvaluator(roasterId: any, cuppingReportId: any, evaluatorId: any) {
-        return this.post(
+    deleteEvaluator(cuppingReportId: any, evaluatorId: any) {
+        return this.postWithOrg(
             this.orgPostUrl,
-            `ro/${roasterId}/cupping-process/${cuppingReportId}/evaluators/${evaluatorId}`,
+            `cupping-process/${cuppingReportId}/evaluators/${evaluatorId}`,
             'DELETE',
         );
     }

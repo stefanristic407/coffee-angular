@@ -3,6 +3,7 @@ import { AuthService, GreenGradingService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { GenerateReportService } from '../generate-report.service';
 
 @Component({
     selector: 'app-generate-coffee-grading',
@@ -141,7 +142,6 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
     @Output() next = new EventEmitter<any>();
     @Output() showDetail = new EventEmitter<any>();
     @Input() cuppingDetails;
-    @Input() fromQueryParam;
     roasterId: any;
     cuppingId: any;
     evaluatorData: any;
@@ -150,17 +150,18 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
     isEditable = true;
 
     constructor(
-        public greenGradingService: GreenGradingService,
-        public cookieService: CookieService,
-        private toastrService: ToastrService,
-        private router: Router,
         private authService: AuthService,
+        private router: Router,
+        private toastrService: ToastrService,
+        public cookieService: CookieService,
+        public generateReportService: GenerateReportService,
+        public greenGradingService: GreenGradingService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
 
     ngOnChanges(): void {
-        const statusKey = this.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
+        const statusKey = this.generateReportService.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
         this.isEditable = this.cuppingDetails?.[statusKey] === 'DRAFT' || this.cuppingDetails?.[statusKey] === 'NEW';
         if (this.cuppingDetails?.type === 'Invited') {
             this.next.emit('screen3');
@@ -172,7 +173,7 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
 
     getEvaluatorData() {
         this.cuppingId = this.cuppingDetails?.cupping_report_id;
-        this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingId).subscribe((res: any) => {
+        this.greenGradingService.getEvaluatorsList(this.cuppingId).subscribe((res: any) => {
             if (res.success === true) {
                 this.evaluatorData = res.result[0];
                 this.evaluatorName = this.evaluatorData.evaluator_name;
@@ -286,13 +287,7 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
     }
 
     cancel() {
-        if (this.fromQueryParam === 'ServiceRequest') {
-            this.router.navigate(['/green-grading/green-coffee-orders']);
-        } else if (this.fromQueryParam === 'SampleRequest') {
-            this.router.navigate(['/green-grading/grade-sample']);
-        } else {
-            this.router.navigate(['/green-grading/green-coffee-orders']);
-        }
+        this.generateReportService.backToOriginalPage();
     }
 
     handleDefectsChange(event) {

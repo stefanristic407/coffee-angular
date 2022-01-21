@@ -143,3 +143,13 @@ export function editorRequired(commonservice: CommonService): ValidatorFn {
             : { required: true };
     };
 }
+
+export function cuppingScoreValidator() {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+        return !control.value || control.value < 6 || control.value > 10 || (control.value * 100) % 25
+            ? {
+                  invalid: true,
+              }
+            : null;
+    };
+}

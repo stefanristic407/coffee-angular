@@ -138,14 +138,14 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        public generateReportService: GenerateReportService,
-        private location: Location,
-        private toastrService: ToastrService,
-        private greenGradingService: GreenGradingService,
         private authService: AuthService,
-        private translateService: TranslateService,
+        private greenGradingService: GreenGradingService,
+        private location: Location,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        public generateReportService: GenerateReportService,
     ) {
         this.route.queryParams.subscribe((params) => {
             this.serviceId = params.serviceId;
@@ -165,11 +165,11 @@ export class CuppingServiceComponent implements OnInit {
     ngOnInit(): void {
         this.initializeTable();
         this.breadCrumbItems = [
-            { label: this.translateService.instant('home'), routerLink: '/features/micro-roaster-dashboard' },
-            { label: this.translateService.instant('menu_sourcing') },
-            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
-            { label: 'My Cupping Reports', routerLink: '/green-grading/cupping-reports' },
-            { label: `Order iD #${this.serviceId}` },
+            { label: this.translator.instant('home'), routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.translator.instant('menu_sourcing') },
+            { label: this.translator.instant('quality_control'), routerLink: '/green-grading' },
+            { label: this.translator.instant('my_cupping_reports'), routerLink: '/green-grading/cupping-reports' },
+            { label: `${this.translator.instant('order_id')} #${this.serviceId}` },
         ];
     }
 
@@ -182,64 +182,52 @@ export class CuppingServiceComponent implements OnInit {
             {
                 field: 'evaluator_name',
                 header: 'Evaluator',
-                sortable: false,
                 width: 100,
             },
             {
                 field: 'final_score',
                 header: 'Final Score',
-                sortable: false,
             },
             {
                 field: 'fragrance_score',
                 header: 'Fragrance/\nAroma',
-                sortable: false,
-                width: 100,
+                width: 130,
             },
             {
                 field: 'flavour_score',
                 header: 'flavor',
-                sortable: false,
             },
             {
                 field: 'aftertaste_score',
                 header: 'Aftertaste',
-                sortable: false,
             },
             {
                 field: 'acidity_score',
                 header: 'Acidity',
-                sortable: false,
             },
             {
                 field: 'body_score',
                 header: 'Body',
-                sortable: false,
             },
             {
                 field: 'balance_score',
                 header: 'Balance',
-                sortable: false,
             },
             {
                 field: 'uniformity_score',
                 header: 'Uniformirty',
-                sortable: false,
             },
             {
                 field: 'cleancup_score',
                 header: 'Clean cup',
-                sortable: false,
             },
             {
                 field: 'sweetness_score',
                 header: 'Sweetness',
-                sortable: false,
             },
             {
                 field: 'overall_score',
                 header: 'Overall',
-                sortable: false,
             },
         ];
     }
@@ -267,7 +255,7 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     getEvaluators() {
-        this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingReportId).subscribe((res: any) => {
+        this.greenGradingService.getEvaluatorsList(this.cuppingReportId).subscribe((res: any) => {
             if (res.success === true) {
                 this.evaluatorsList = res.result;
                 this.evaluatorData = res.result.find((ele) => ele.is_primary === true);
@@ -330,7 +318,7 @@ export class CuppingServiceComponent implements OnInit {
                 this.cat2Defects = defectsList.total_category_two;
                 this.waterActivity = defectsList.water_activity;
                 this.odor = defectsList.odor;
-                this.totalColors = defectsList.colors.split(',');
+                this.totalColors = defectsList.colors?.split(',');
                 this.moistureContent = defectsList.moisture_content;
             } else {
                 this.toastrService.error('Error while getting physical defects');
@@ -340,18 +328,16 @@ export class CuppingServiceComponent implements OnInit {
 
     singleCuppingData() {
         if (this.cuppingReportId) {
-            this.greenGradingService
-                .getSingleCuppingDetails(this.roasterId, this.cuppingReportId)
-                .subscribe((data: any) => {
-                    if (data.success === true) {
-                        this.singleCuppingDetails = data.result;
-                        this.singleStatus = this.singleCuppingDetails.status;
-                        this.completedOn = this.singleCuppingDetails.completed_on;
-                    } else {
-                        this.singleCuppingDetails = {};
-                        this.toastrService.error('Error while loading cupping details');
-                    }
-                });
+            this.greenGradingService.getSingleCuppingDetails(this.cuppingReportId).subscribe((data: any) => {
+                if (data.success === true) {
+                    this.singleCuppingDetails = data.result;
+                    this.singleStatus = this.singleCuppingDetails.status;
+                    this.completedOn = this.singleCuppingDetails.completed_on;
+                } else {
+                    this.singleCuppingDetails = {};
+                    this.toastrService.error('Error while loading cupping details');
+                }
+            });
         }
     }
 

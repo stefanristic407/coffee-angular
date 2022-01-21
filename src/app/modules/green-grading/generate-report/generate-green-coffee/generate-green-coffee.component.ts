@@ -1,15 +1,14 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService, GreenGradingService, RoasterService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
+import { QuantityUnit } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { GreenGradingService, RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { PrimeNGConfig } from 'primeng/api';
 import { combineLatest } from 'rxjs';
 import { take } from 'rxjs/operators';
-interface Cupping {
-    name: string;
-    key: string;
-}
+import { GenerateReportService } from '../generate-report.service';
 
 @Component({
     selector: 'app-generate-green-coffee',
@@ -17,16 +16,26 @@ interface Cupping {
     styleUrls: ['./generate-green-coffee.component.scss'],
 })
 export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
-    cupping: Cupping;
     showCupping = true;
-    sampleSize: number;
-    sampleSizeUnit: string;
-    sampleUnitList = [{ value: 'gm' }, { value: 'lb' }, { value: 'kg' }];
+    sampleUnitList = [{ value: QuantityUnit.g }, { value: QuantityUnit.lb }, { value: QuantityUnit.kg }];
+    cuppingItems: any[] = [
+        {
+            label: 'Non-Blinded cupping',
+            value: 'NON_BLINDED',
+        },
+        {
+            label: 'Blinded cupping',
+            value: 'BLINDED',
+        },
+        {
+            label: 'Double-Blinded cupping',
+            value: 'DOUBLE_BLINDED',
+        },
+    ];
+
     @Output() next = new EventEmitter<any>();
     @Output() showDetail = new EventEmitter<any>();
     @Input() cuppingDetails;
-    @Input() fromQueryParam;
-    roasterId: number;
     usersList: any = [];
     cuppingReportId: any;
     evaluatorsListArray: any = [];
@@ -35,51 +44,37 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     selectedValue: any;
     addBtnShow = true;
     inputBoxShow = false;
-    singleCuppingDetails: {};
     evaluatorId: any;
-    cuppingItems: Cupping[];
     filteredUsers: any[];
     isEditable = true;
     evaluatorIds = [];
 
+    infoForm: FormGroup;
+
     constructor(
-        private roasterService: RoasterService,
-        private toastrService: ToastrService,
+        private fb: FormBuilder,
+        private generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
-        public cookieService: CookieService,
         private primengConfig: PrimeNGConfig,
+        private roasterService: RoasterService,
         private router: Router,
-        private authService: AuthService,
-    ) {
-        this.roasterId = this.authService.getOrgId();
-    }
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+    ) {}
 
     ngOnInit(): void {
-        this.cupping = {
-            name: '',
-            key: '',
-        };
         this.primengConfig.ripple = true;
 
-        this.cuppingItems = [
-            {
-                name: 'Non-Blinded Cupping',
-                key: 'NON_BLINDED',
-            },
-            {
-                name: 'Blinded Cupping',
-                key: 'BLINDED',
-            },
-            {
-                name: 'Double-Blinded Cupping',
-                key: 'DOUBLE_BLINDED',
-            },
-        ];
+        this.infoForm = this.fb.group({
+            cupping_type: [{ value: null, disabled: !this.isEditable }, [Validators.required]],
+            sample_size: [{ value: null, disabled: !this.isEditable }, [Validators.required]],
+            sample_size_unit: [{ value: QuantityUnit.g, disabled: !this.isEditable }, [Validators.required]],
+        });
     }
 
     ngOnChanges(): void {
         this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-        const statusKey = this.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
+        const statusKey = this.generateReportService.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
         this.isEditable = this.cuppingDetails[statusKey] === 'DRAFT' || this.cuppingDetails[statusKey] === 'NEW';
         this.evaluatorsList();
         this.singleCuppingData();
@@ -91,7 +86,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
             per_page: 1000,
         };
         combineLatest([
-            this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingReportId),
+            this.greenGradingService.getEvaluatorsList(this.cuppingReportId),
             this.roasterService.getOrgUsers(options),
         ])
             .pipe(take(1))
@@ -115,18 +110,11 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
 
     singleCuppingData() {
         if (this.cuppingReportId) {
-            this.greenGradingService
-                .getSingleCuppingDetails(this.roasterId, this.cuppingReportId)
-                .subscribe((data: any) => {
-                    if (data.success === true) {
-                        this.singleCuppingDetails = data.result;
-                        this.sampleSize = data.result.sample_size;
-                        this.sampleSizeUnit = !!data.result.sample_size_unit ? data.result.sample_size_unit : 'gm';
-                        this.cupping = this.cuppingItems.find((item: Cupping) => item.key === data.result.cupping_type);
-                    } else {
-                        this.singleCuppingDetails = {};
-                    }
-                });
+            this.greenGradingService.getSingleCuppingDetails(this.cuppingReportId).subscribe((data: any) => {
+                if (data.success) {
+                    this.infoForm.patchValue({ ...data.result, sample_size: data.result?.sample_size || null });
+                }
+            });
         }
     }
 
@@ -184,16 +172,15 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     }
 
     goNext() {
-        if (!this.cupping || (this.cupping && this.cupping.key === '') || this.sampleSize === undefined) {
-            this.toastrService.error('Please enter cupping type & Sample size');
-        } else {
-            if (this.isEditable) {
-                const data = {
-                    cupping_type: this.cupping.key,
-                    sample_size: this.sampleSize,
-                    sample_size_unit: this.sampleSizeUnit,
-                };
-                this.greenGradingService.updateCuppingType(this.cuppingReportId, data).subscribe((res: any) => {
+        if (this.isEditable) {
+            if (!this.infoForm.valid) {
+                this.toastrService.error(this.translator.instant('please_check_form_data'));
+                this.infoForm.markAllAsTouched();
+                return;
+            }
+            this.greenGradingService
+                .updateCuppingType(this.cuppingReportId, this.infoForm.value)
+                .subscribe((res: any) => {
                     if (res.success) {
                         this.toastrService.success('Cupping type updated');
                         this.next.emit('screen3');
@@ -201,36 +188,27 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
                         this.toastrService.error('Error while Updating');
                     }
                 });
-            } else {
-                this.next.emit('screen3');
-            }
+        } else {
+            this.next.emit('screen3');
         }
     }
 
     deleteEvaluatorData(data: any) {
         this.evaluatorId = data;
-        this.greenGradingService
-            .deleteEvaluator(this.roasterId, this.cuppingReportId, this.evaluatorId)
-            .subscribe((res: any) => {
-                if (res.success) {
-                    this.toastrService.success('Removed assigned evaluator');
-                    this.evaluatorsList();
-                } else if (res.messages) {
-                    this.toastrService.error('Evaluator status ' + res.messages.status[0].replace('_', ' ') + '.');
-                } else {
-                    this.toastrService.error('Error while removing evaluator');
-                }
-            });
+        this.greenGradingService.deleteEvaluator(this.cuppingReportId, this.evaluatorId).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('Removed assigned evaluator');
+                this.evaluatorsList();
+            } else if (res.messages) {
+                this.toastrService.error('Evaluator status ' + res.messages.status[0].replace('_', ' ') + '.');
+            } else {
+                this.toastrService.error('Error while removing evaluator');
+            }
+        });
     }
 
     cancel() {
-        if (this.fromQueryParam === 'ServiceRequest') {
-            this.router.navigate(['/green-grading/green-coffee-orders']);
-        } else if (this.fromQueryParam === 'SampleRequest') {
-            this.router.navigate(['/green-grading/grade-sample']);
-        } else {
-            this.router.navigate(['/green-grading/green-coffee-orders']);
-        }
+        this.generateReportService.backToOriginalPage();
     }
 
     goBack() {

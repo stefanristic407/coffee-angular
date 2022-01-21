@@ -73,22 +73,20 @@ export class GenerateNewReportComponent implements OnInit {
 
     singleCuppingData() {
         if (this.cuppingReportId) {
-            this.greenGradingService
-                .getSingleCuppingDetails(this.roasterId, this.cuppingReportId)
-                .subscribe((data: any) => {
-                    if (data.success === true) {
-                        this.singleCuppingDetails = data.result;
-                    } else {
-                        this.singleCuppingDetails = {};
-                        this.toastrService.error('Error while loading cupping details');
-                    }
-                });
+            this.greenGradingService.getSingleCuppingDetails(this.cuppingReportId).subscribe((data: any) => {
+                if (data.success === true) {
+                    this.singleCuppingDetails = data.result;
+                } else {
+                    this.singleCuppingDetails = {};
+                    this.toastrService.error('Error while loading cupping details');
+                }
+            });
         }
     }
 
     evaluatorsList() {
         if (this.cuppingReportId) {
-            this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingReportId).subscribe((res: any) => {
+            this.greenGradingService.getEvaluatorsList(this.cuppingReportId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.evalDataList = res.result;
                     this.evaluatorData = res.result.filter((ele) => ele.is_primary === true);
