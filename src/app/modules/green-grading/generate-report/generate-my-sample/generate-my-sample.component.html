@@ -17,20 +17,10 @@
     </div>
 
     <!-- Final Score -->
-    <div class="final-score mt-4">
+    <div [formGroup]="infoForm" class="final-score mt-4">
         <div class="col-12 final-label">
             <div class="d-flex justify-content-between align-items-start flex-column flex-md-row align-items-md-center">
-                <span class="fnt-16 fnt-700 fnt-muli mr-2 black"> Final Score </span>
-                <span>
-                    <input
-                        class="lots-input col-6"
-                        type="number"
-                        placeholder="00"
-                        [(ngModel)]="finalScore"
-                        [readonly]="true"
-                        [ngModelOptions]="{ standalone: true }"
-                    />
-                </span>
+                <span class="fnt-16 fnt-700 mr-2"> Final Score: {{ finalScore }}</span>
             </div>
 
             <div class="btn-group btn-toggle active__main" (click)="changeMode()">
@@ -39,7 +29,7 @@
             </div>
         </div>
 
-        <div class="select-roaster-level">
+        <div class="py-3 px-md-3">
             <div>
                 <label class="fnt-12 fnt-700 fnt-muli black mb-0">Select roast level</label>
                 <div class="roast-custom-check">
@@ -47,39 +37,37 @@
                         <p-checkbox
                             name="roastLevel"
                             [value]="i"
-                            [(ngModel)]="roastLevel"
+                            formControlName="roast_level"
                             (onChange)="onCheckRoastLevel(i)"
                             inputId="sf"
                             class="roast-checkbox"
-                            styleClass="p-checkbox-roast"
-                            [readonly]="!isEditable"
                         >
                         </p-checkbox>
                     </span>
                 </div>
 
                 <div class="table-final-score d-flex mt-3 pb-0">
-                    <div class="w-md-10 fragrance-wrapper">
-                        <label class="field-title-label fnt-700 fnt-muli black"> Fragrance/Aroma</label>
-                        <input
-                            class="roast-input col-12"
-                            type="number"
+                    <div class="w-md-10 sewn-form-field mini">
+                        <label>Fragrance/Aroma</label>
+                        <p-inputNumber
+                            step="0.25"
+                            minFractionDigits="1"
                             placeholder="Enter score"
-                            [(ngModel)]="fragrance"
-                            [ngModelOptions]="{ standalone: true }"
-                            (change)="calculateFinalScore()"
-                            [readonly]="!isEditable"
-                        />
+                            formControlName="fragrance_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
+                        <small *ngIf="infoForm.get('fragrance_score').invalid" class="p-error">{{
+                            'cupping_score_validation' | translate
+                        }}</small>
                         <div *ngIf="isAdvance" class="fragrance">
                             <div class="fragrance-border">
                                 <p class="fnt-10 fnt-700 fnt-muli black mb-1">Dry</p>
                                 <p-slider
-                                    [(ngModel)]="fragranceDry"
+                                    formControlName="fragrance_dry"
                                     [step]="1"
                                     [min]="-3"
                                     [max]="3"
                                     styleClass="p-frag-slider"
-                                    [disabled]="!isEditable"
                                 ></p-slider>
                                 <div class="dry-break-wrapper">
                                     <p
@@ -93,12 +81,11 @@
                             <div class="fragrance-border">
                                 <p class="fnt-10 fnt-700 fnt-muli black mb-1">Break</p>
                                 <p-slider
-                                    [(ngModel)]="fragranceBreak"
+                                    formControlName="fragrance_break"
                                     [step]="1"
                                     [min]="-3"
                                     [max]="3"
                                     styleClass="p-frag-slider"
-                                    [disabled]="!isEditable"
                                 ></p-slider>
                                 <div class="dry-break-wrapper">
                                     <p
@@ -111,43 +98,44 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mdev-tab">
-                        <div>
-                            <label class="field-title-label fnt-700 fnt-muli black"> Flavor</label>
-                            <input
-                                class="roast-input col-12"
-                                type="number"
-                                placeholder="Enter score"
-                                [(ngModel)]="flavorScore"
-                                [ngModelOptions]="{ standalone: true }"
-                                (change)="calculateFinalScore()"
-                                [readonly]="!isEditable"
-                            />
-                        </div>
-                        <div>
-                            <label class="field-title-label fnt-700 fnt-muli black"> Aftertaste</label>
-                            <input
-                                class="roast-input col-12"
-                                type="number"
-                                placeholder="Enter score"
-                                [(ngModel)]="aftertasteScore"
-                                [ngModelOptions]="{ standalone: true }"
-                                (change)="calculateFinalScore()"
-                                [readonly]="!isEditable"
-                            />
-                        </div>
-                    </div>
-                    <div class="w-md-10">
-                        <label class="field-title-label fnt-700 fnt-muli black"> Acidity</label>
-                        <input
-                            class="roast-input col-12"
-                            type="number"
+                    <div class="w-md-10 sewn-form-field mini">
+                        <label>Flavor</label>
+                        <p-inputNumber
+                            step="0.25"
+                            minFractionDigits="1"
                             placeholder="Enter score"
-                            [(ngModel)]="acidityScore"
-                            [ngModelOptions]="{ standalone: true }"
-                            (change)="calculateFinalScore()"
-                            [readonly]="!isEditable"
-                        />
+                            formControlName="flavour_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
+                        <small *ngIf="infoForm.get('flavour_score').invalid" class="p-error">{{
+                            'cupping_score_validation' | translate
+                        }}</small>
+                    </div>
+                    <div class="w-md-10 sewn-form-field mini">
+                        <label>Aftertaste</label>
+                        <p-inputNumber
+                            step="0.25"
+                            minFractionDigits="1"
+                            placeholder="Enter score"
+                            formControlName="aftertaste_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
+                        <small *ngIf="infoForm.get('aftertaste_score').invalid" class="p-error">{{
+                            'cupping_score_validation' | translate
+                        }}</small>
+                    </div>
+                    <div class="w-md-10 sewn-form-field mini">
+                        <label>Acidity</label>
+                        <p-inputNumber
+                            step="0.25"
+                            minFractionDigits="1"
+                            placeholder="Enter score"
+                            formControlName="acidity_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
+                        <small *ngIf="infoForm.get('acidity_score').invalid" class="p-error">{{
+                            'cupping_score_validation' | translate
+                        }}</small>
                         <div *ngIf="isAdvance" class="level-wrapper">
                             <p class="fnt-10 fnt-700 fnt-muli mb-0 black">Intensity</p>
                             <div class="custom-check mb-1 mt-1">
@@ -155,7 +143,7 @@
                                     <input
                                         type="radio"
                                         name="intensity"
-                                        [checked]="acidityIntensity === i"
+                                        [checked]="infoForm.get('acidity_intensity').value === i"
                                         (click)="selectColor($event, 'acidity', i)"
                                         [disabled]="!isEditable"
                                     />
@@ -168,17 +156,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-md-10">
-                        <label class="field-title-label fnt-700 fnt-muli black"> Body</label>
-                        <input
-                            class="roast-input col-12"
-                            type="number"
+                    <div class="w-md-10 sewn-form-field mini">
+                        <label>Body</label>
+                        <p-inputNumber
+                            step="0.25"
+                            minFractionDigits="1"
                             placeholder="Enter score"
-                            [(ngModel)]="bodyScore"
-                            [ngModelOptions]="{ standalone: true }"
-                            (change)="calculateFinalScore()"
-                            [readonly]="!isEditable"
-                        />
+                            formControlName="body_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
                         <div *ngIf="isAdvance" class="level-wrapper">
                             <p class="fnt-10 fnt-700 fnt-muli mb-0 black">Level</p>
                             <div class="custom-check mb-1 mt-1">
@@ -186,7 +172,7 @@
                                     <input
                                         type="radio"
                                         name="level"
-                                        [checked]="bodyLevel === i"
+                                        [checked]="infoForm.get('body_level').value === i"
                                         (click)="selectColor($event, 'body', i)"
                                         [disabled]="!isEditable"
                                     />
@@ -199,29 +185,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-md-8">
-                        <label class="field-title-label fnt-700 fnt-muli black"> Balance</label>
-                        <input
-                            class="roast-input col-12"
-                            type="number"
+                    <div class="w-md-8 sewn-form-field mini">
+                        <label>Balance</label>
+                        <p-inputNumber
+                            step="0.25"
+                            minFractionDigits="1"
                             placeholder="Enter score"
-                            [(ngModel)]="balanceScore"
-                            [ngModelOptions]="{ standalone: true }"
-                            (change)="calculateFinalScore()"
-                            [readonly]="!isEditable"
-                        />
+                            formControlName="balance_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
+                        <small *ngIf="infoForm.get('balance_score').invalid" class="p-error">{{
+                            'cupping_score_validation' | translate
+                        }}</small>
                     </div>
-                    <div class="w-md-10">
-                        <label class="field-title-label fnt-700 fnt-muli black"> Uniformity</label>
-                        <input
-                            class="roast-input col-12"
-                            type="number"
+                    <div class="w-md-10 sewn-form-field mini">
+                        <label>Uniformity</label>
+                        <p-inputNumber
+                            minFractionDigits="1"
                             placeholder="Enter score"
-                            [(ngModel)]="uniformityScore"
-                            [ngModelOptions]="{ standalone: true }"
-                            [readonly]="isAdvance && !isEditable"
-                            (change)="calculateFinalScore()"
-                        />
+                            formControlName="uniformity_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
                         <div *ngIf="isAdvance" class="level-wrapper">
                             <div class="custom-check">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
@@ -237,17 +221,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-md-10">
-                        <label class="field-title-label fnt-700 fnt-muli black"> Clean Cup</label>
-                        <input
-                            class="roast-input col-12"
-                            type="number"
+                    <div class="w-md-10 sewn-form-field mini">
+                        <label>Clean Cup</label>
+                        <p-inputNumber
+                            minFractionDigits="1"
                             placeholder="Enter score"
-                            [(ngModel)]="cleancupScore"
-                            [ngModelOptions]="{ standalone: true }"
-                            [readonly]="isAdvance && !isEditable"
-                            (change)="calculateFinalScore()"
-                        />
+                            formControlName="cleancup_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
                         <div *ngIf="isAdvance" class="level-wrapper">
                             <div class="custom-check">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
@@ -263,17 +244,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-md-10">
-                        <label class="field-title-label fnt-700 fnt-muli black"> Sweetness </label>
-                        <input
-                            class="roast-input col-12"
-                            type="number"
+                    <div class="w-md-10 sewn-form-field mini">
+                        <label>Sweetness </label>
+                        <p-inputNumber
+                            minFractionDigits="1"
                             placeholder="Enter score"
-                            [(ngModel)]="sweetnessScore"
-                            [ngModelOptions]="{ standalone: true }"
-                            [readonly]="isAdvance && !isEditable"
-                            (change)="calculateFinalScore()"
-                        />
+                            formControlName="sweetness_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
                         <div *ngIf="isAdvance" class="level-wrapper">
                             <div class="custom-check">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
@@ -289,17 +267,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-md-8">
-                        <label class="field-title-label fnt-700 fnt-muli black"> Overall</label>
-                        <input
-                            class="roast-input col-12"
-                            type="number"
+                    <div class="w-md-8 sewn-form-field mini">
+                        <label>Overall</label>
+                        <p-inputNumber
+                            step="0.25"
+                            minFractionDigits="1"
                             placeholder="Enter score"
-                            [(ngModel)]="overallScore"
-                            [ngModelOptions]="{ standalone: true }"
-                            (change)="calculateFinalScore()"
-                            [readonly]="!isEditable"
-                        />
+                            formControlName="overall_score"
+                            (ngModelChange)="calculateFinalScore()"
+                        ></p-inputNumber>
+                        <small *ngIf="infoForm.get('overall_score').invalid" class="p-error">{{
+                            'cupping_score_validation' | translate
+                        }}</small>
                     </div>
                     <div class="w-md-10">
                         <label class="field-title-label fnt-700 fnt-muli black"> Defects </label>
@@ -310,7 +289,7 @@
                                     <input
                                         type="radio"
                                         name="Defects"
-                                        [checked]="defectsNoOfCups === i"
+                                        [checked]="infoForm.get('defects_no_of_cups').value === i"
                                         (click)="selectColor($event, 'defects', i)"
                                         [disabled]="!isEditable"
                                     />
@@ -318,65 +297,34 @@
                                 </label>
                             </div>
                             <p class="fnt-10 fnt-700 fnt-muli black m-0">Intensity</p>
-                            <div
-                                class="btn-group toggle_butn ml-auto pull-right defect__main mt-2"
-                                (click)="changeDefectIntensity()"
-                            >
-                                <div
-                                    class="btn group-btn"
-                                    [ngClass]="btnToggle ? 'taint_default' : 'active fault_default'"
-                                >
-                                    Taint
-                                </div>
-                                <div
-                                    class="btn group-btn"
-                                    [ngClass]="!btnToggle ? 'taint_default active' : 'fault_default'"
-                                >
-                                    Fault
-                                </div>
-                            </div>
+                            <p-selectButton
+                                [options]="intensityOptions"
+                                formControlName="defects_intensity"
+                                (onChange)="calculateFinalScore()"
+                                styleClass="p-selectbutton-intensity"
+                            ></p-selectButton>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Add Descriptors  -->
-            <div class="add-description">
+            <div class="mt-2 mt-md-35">
                 <div class="row">
-                    <div class="col-lg-6 col-12 d-flex flex-column">
-                        <p-dropdown
-                            #myDropdown
-                            [options]="flavourArray"
-                            (onChange)="addLang($event)"
-                            styleClass="p-descriptors-dropdown"
-                            placeholder="Add Descriptors"
-                            optionLabel="name"
-                            [filter]="true"
-                            filterBy="name"
-                            dropdownIcon="pi pi-plus"
-                            [readonly]="!isEditable"
-                        >
-                            <ng-template pTemplate="selectedItem">Add Descriptors</ng-template>
-                        </p-dropdown>
-                        <p-chips
-                            [(ngModel)]="langChips"
-                            field="name"
-                            addOnBlur
-                            [allowDuplicate]="false"
-                            styleClass="p-descriptors-chips"
-                            [disabled]="!isEditable"
-                        ></p-chips>
+                    <div class="sewn-form-field col-lg-6">
+                        <label>{{ 'descriptors' | translate }}<span class="star">*</span></label>
+                        <app-multiselect-chips
+                            formControlName="descriptors"
+                            [placeholder]="'add_descriptors' | translate"
+                            [itemList]="flavourArray"
+                        ></app-multiselect-chips>
+                        <small *ngIf="infoForm.get('descriptors').errors?.required" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
                     </div>
-                    <div class="col-lg-6 col-12 mt-lg-0 mt-3">
-                        <label class="fnt-muli fnt-14 fnt-600 text-clr334">Add a comment</label>
-                        <input
-                            type="text"
-                            placeholder="Please enter your comment here"
-                            class="comment-input"
-                            [(ngModel)]="comments"
-                            [ngModelOptions]="{ standalone: true }"
-                            [readonly]="!isEditable"
-                        />
+                    <div class="sewn-form-field col-lg-6">
+                        <label>{{ 'add_a_comment' | translate }}</label>
+                        <input placeholder="Please enter your comment here" formControlName="comments" pInputText />
                     </div>
                 </div>
             </div>

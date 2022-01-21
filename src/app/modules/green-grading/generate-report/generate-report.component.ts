@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
     styleUrls: ['./generate-report.component.scss'],
 })
 export class GenerateReportComponent implements OnInit {
-    currentScreen: any = 'screen1';
+    currentScreen: any = 'screen3';
     showProcessDetail = false;
 
     cuppingDetails: any;
