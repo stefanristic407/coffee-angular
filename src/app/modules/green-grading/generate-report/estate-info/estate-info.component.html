@@ -75,9 +75,11 @@
                 <ul class="no-bullet-ul clearfix mb-0">
                     <li *ngIf="singleCuppingDetails?.cupping_type">
                         <div>
-                            <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Cupping type :</label>
+                            <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
+                                >{{ 'cupping_type' | translate }} :</label
+                            >
                             <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
-                                {{ singleCuppingDetails.cupping_type | titlecase }} Cupping
+                                {{ singleCuppingDetails.cupping_type | sentencecase }} {{ 'cupping' | translate }}
                             </p>
                         </div>
                     </li>
