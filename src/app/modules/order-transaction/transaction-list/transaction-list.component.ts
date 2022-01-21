@@ -27,8 +27,8 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
     ];
 
     public readonly channelItemList = [
-        { label: 'Horeca Outtake', value: 'OUTTAKE_ROASTED' },
-        { label: 'Micro roaster Outtake', value: 'OUTTAKE_GREEN' },
+        { label: 'Horeca outtake', value: 'OUTTAKE_ROASTED' },
+        { label: 'Micro roaster outtake', value: 'OUTTAKE_GREEN' },
         { label: 'B2B', value: 'B2B' },
         { label: 'B2C', value: 'B2C' },
         { label: 'Micro roaster', value: 'MICRO_ROASTER' },
@@ -180,7 +180,7 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
             {
                 field: 'transaction_date',
                 header: 'Date',
-                sortable: true,
+                sortable: false,
                 width: 10,
             },
             {
