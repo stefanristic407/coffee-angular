@@ -15,7 +15,6 @@ export class GenerateReportComponent implements OnInit {
     cuppingDetails: any;
     selectedRequestIndex = 0;
     selectedCuppingId: any;
-    fromQueryParam: string;
 
     constructor(
         public generateReportService: GenerateReportService,
@@ -24,14 +23,14 @@ export class GenerateReportComponent implements OnInit {
         private location: Location,
     ) {
         this.route.queryParams.subscribe((params) => {
-            this.fromQueryParam = params.from;
+            this.generateReportService.fromQueryParam = params.from;
             if (
-                this.fromQueryParam === 'ServiceRequest' &&
+                this.generateReportService.fromQueryParam === 'ServiceRequest' &&
                 this.generateReportService.serviceRequestsList.length === 0
             ) {
                 this.router.navigate(['/green-grading/green-coffee-orders']);
             } else if (
-                this.fromQueryParam === 'SampleRequest' &&
+                this.generateReportService.fromQueryParam === 'SampleRequest' &&
                 this.generateReportService.serviceRequestsList.length === 0
             ) {
                 this.router.navigate(['/green-grading/grade-sample']);

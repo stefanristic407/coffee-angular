@@ -255,7 +255,7 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     getEvaluators() {
-        this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingReportId).subscribe((res: any) => {
+        this.greenGradingService.getEvaluatorsList(this.cuppingReportId).subscribe((res: any) => {
             if (res.success === true) {
                 this.evaluatorsList = res.result;
                 this.evaluatorData = res.result.find((ele) => ele.is_primary === true);
@@ -328,18 +328,16 @@ export class CuppingServiceComponent implements OnInit {
 
     singleCuppingData() {
         if (this.cuppingReportId) {
-            this.greenGradingService
-                .getSingleCuppingDetails(this.roasterId, this.cuppingReportId)
-                .subscribe((data: any) => {
-                    if (data.success === true) {
-                        this.singleCuppingDetails = data.result;
-                        this.singleStatus = this.singleCuppingDetails.status;
-                        this.completedOn = this.singleCuppingDetails.completed_on;
-                    } else {
-                        this.singleCuppingDetails = {};
-                        this.toastrService.error('Error while loading cupping details');
-                    }
-                });
+            this.greenGradingService.getSingleCuppingDetails(this.cuppingReportId).subscribe((data: any) => {
+                if (data.success === true) {
+                    this.singleCuppingDetails = data.result;
+                    this.singleStatus = this.singleCuppingDetails.status;
+                    this.completedOn = this.singleCuppingDetails.completed_on;
+                } else {
+                    this.singleCuppingDetails = {};
+                    this.toastrService.error('Error while loading cupping details');
+                }
+            });
         }
     }
 

@@ -1,12 +1,12 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { GreenGradingService } from '@services';
-import { GenerateReportService } from '../generate-report/generate-report.service';
-import { MenuItem, LazyLoadEvent } from 'primeng/api';
-import { LabelValue } from '@models';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { OrderType } from '@enums';
-import { ToastrService } from 'ngx-toastr';
+import { LabelValue } from '@models';
 import { TranslateService } from '@ngx-translate/core';
+import { GreenGradingService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { LazyLoadEvent, MenuItem } from 'primeng/api';
+import { GenerateReportService } from '../generate-report/generate-report.service';
 
 @Component({
     selector: 'app-green-coffee-orders',

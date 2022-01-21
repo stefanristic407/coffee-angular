@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService, GreenGradingService, UserService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { GenerateReportService } from '../generate-report.service';
 
 @Component({
     selector: 'app-generate-my-sample',
@@ -16,7 +17,6 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     @Output() next = new EventEmitter<any>();
     @Output() showDetail = new EventEmitter<any>();
     @Input() cuppingDetails;
-    @Input() fromQueryParam;
     cuppingReportId: any;
     roasterId: number;
     singleCuppingDetails: any = {};
@@ -60,12 +60,11 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     isEditable = true;
 
     constructor(
-        private toastrService: ToastrService,
-        private cookieService: CookieService,
-        private userService: UserService,
-        private greenGradingService: GreenGradingService,
-        private router: Router,
         private authService: AuthService,
+        private generateReportService: GenerateReportService,
+        private greenGradingService: GreenGradingService,
+        private toastrService: ToastrService,
+        private userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -80,7 +79,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-        const statusKey = this.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
+        const statusKey = this.generateReportService.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
         this.isEditable = this.cuppingDetails[statusKey] === 'DRAFT' || this.cuppingDetails[statusKey] === 'NEW';
         this.isAdvance = true;
         this.uniformityValue = [];
@@ -92,16 +91,14 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
     singleCuppingData() {
         if (this.cuppingReportId) {
-            this.greenGradingService
-                .getSingleCuppingDetails(this.roasterId, this.cuppingReportId)
-                .subscribe((data: any) => {
-                    if (data.success === true) {
-                        this.singleCuppingDetails = data.result;
-                    } else {
-                        this.singleCuppingDetails = {};
-                        this.toastrService.error('Error while loading cupping details');
-                    }
-                });
+            this.greenGradingService.getSingleCuppingDetails(this.cuppingReportId).subscribe((data: any) => {
+                if (data.success === true) {
+                    this.singleCuppingDetails = data.result;
+                } else {
+                    this.singleCuppingDetails = {};
+                    this.toastrService.error('Error while loading cupping details');
+                }
+            });
         }
     }
 
@@ -280,7 +277,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     evaluatorsList() {
-        this.greenGradingService.getEvaluatorsList(this.roasterId, this.cuppingReportId).subscribe((response: any) => {
+        this.greenGradingService.getEvaluatorsList(this.cuppingReportId).subscribe((response: any) => {
             if (response.success === true) {
                 this.evaluatorData = response.result.filter((ele) => ele.is_primary === true);
                 this.evaluatorName = this.evaluatorData[0].evaluator_name;
@@ -386,13 +383,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     cancel() {
-        if (this.fromQueryParam === 'ServiceRequest') {
-            this.router.navigate(['/green-grading/green-coffee-orders']);
-        } else if (this.fromQueryParam === 'SampleRequest') {
-            this.router.navigate(['/green-grading/grade-sample']);
-        } else {
-            this.router.navigate(['/green-grading/green-coffee-orders']);
-        }
+        this.generateReportService.backToOriginalPage();
     }
 
     goBack() {

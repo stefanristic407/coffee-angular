@@ -44,7 +44,6 @@
                 <div class="tab-pad-wrapper">
                     <app-generate-coffee-grading
                         *ngIf="!showProcessDetail && currentScreen == 'screen1'"
-                        [fromQueryParam]="fromQueryParam"
                         [cuppingDetails]="cuppingDetails"
                         (next)="goNext($event)"
                         (showDetail)="onShowDetail()"
@@ -53,7 +52,6 @@
 
                     <app-generate-green-coffee
                         *ngIf="!showProcessDetail && currentScreen == 'screen2'"
-                        [fromQueryParam]="fromQueryParam"
                         [cuppingDetails]="cuppingDetails"
                         (next)="goNext($event)"
                         (showDetail)="onShowDetail()"
@@ -62,7 +60,6 @@
 
                     <app-generate-my-sample
                         *ngIf="!showProcessDetail && currentScreen == 'screen3'"
-                        [fromQueryParam]="fromQueryParam"
                         [cuppingDetails]="cuppingDetails"
                         (next)="goNext($event)"
                         (showDetail)="onShowDetail()"
@@ -71,7 +68,6 @@
 
                     <app-generate-cupping-results
                         *ngIf="!showProcessDetail && currentScreen == 'screen4'"
-                        [fromQueryParam]="fromQueryParam"
                         [cuppingDetails]="cuppingDetails"
                         (next)="goNext($event)"
                         (handleChangeCuppingVersion)="handleChangeCuppingVersion($event)"
@@ -80,7 +76,6 @@
                     </app-generate-cupping-results>
                     <app-generate-cupping-report
                         *ngIf="!showProcessDetail && currentScreen == 'screen5'"
-                        [fromQueryParam]="fromQueryParam"
                         [selectedCuppingId]="selectedCuppingId"
                         [cuppingDetails]="cuppingDetails"
                         (next)="goNext($event)"

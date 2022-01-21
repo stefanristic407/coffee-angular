@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, Input, OnChanges } from '@angu
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService, GreenGradingService } from '@services';
 import { ToastrService } from 'ngx-toastr';
+import { GenerateReportService } from '../generate-report.service';
 
 @Component({
     selector: 'app-generate-cupping-report',
@@ -14,7 +15,6 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     @Output() afterUpload = new EventEmitter<any>();
     @Input() cuppingDetails;
     @Input() selectedCuppingId;
-    @Input() fromQueryParam;
     roasterId: number;
     evaluatorData: any;
     evaluatorName: any;
@@ -33,6 +33,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
         private cookieService: CookieService,
         private greenGradingService: GreenGradingService,
         private authService: AuthService,
+        public generateReportService: GenerateReportService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -40,9 +41,9 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     ngOnInit(): void {}
 
     ngOnChanges() {
-        if (this.fromQueryParam === 'ServiceRequest') {
+        if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
             this.serviceRequestId = this.cuppingDetails.order_id;
-        } else if (this.fromQueryParam === 'SampleRequest') {
+        } else if (this.generateReportService.fromQueryParam === 'SampleRequest') {
             this.sampleRequestId = this.cuppingDetails.external_sample_id;
         }
         this.cuppingReportId = this.selectedCuppingId ?? this.cuppingDetails.cupping_report_id;
@@ -55,7 +56,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     }
 
     getEvaluatorData(reportingId) {
-        this.greenGradingService.getEvaluatorsList(this.roasterId, reportingId).subscribe((res: any) => {
+        this.greenGradingService.getEvaluatorsList(reportingId).subscribe((res: any) => {
             if (res.success === true) {
                 this.evaluatorArray[reportingId] = res.result;
                 this.evaluatorData = res.result.find((item) => item.is_primary);
@@ -68,21 +69,19 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
 
     singleCuppingData() {
         if (this.cuppingReportId) {
-            this.greenGradingService
-                .getSingleCuppingDetails(this.roasterId, this.cuppingReportId)
-                .subscribe((data: any) => {
-                    if (data.success === true) {
-                        this.singleCuppingDetails = data.result;
-                    } else {
-                        this.singleCuppingDetails = {};
-                        this.toastrService.error('Error while loading cupping details');
-                    }
-                });
+            this.greenGradingService.getSingleCuppingDetails(this.cuppingReportId).subscribe((data: any) => {
+                if (data.success === true) {
+                    this.singleCuppingDetails = data.result;
+                } else {
+                    this.singleCuppingDetails = {};
+                    this.toastrService.error('Error while loading cupping details');
+                }
+            });
         }
     }
 
     getCupReports() {
-        if (this.fromQueryParam === 'ServiceRequest') {
+        if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
             this.greenGradingService
                 .listServiceCuppingReports(this.roasterId, this.serviceRequestId)
                 .subscribe((res: any) => {
@@ -113,7 +112,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     }
 
     reGrade() {
-        if (this.fromQueryParam === 'ServiceRequest') {
+        if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
             this.greenGradingService.recupSample(this.roasterId, this.serviceRequestId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
