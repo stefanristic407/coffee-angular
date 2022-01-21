@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, CommonService, GreenGradingService } from '@services';
+import { AuthService, GreenGradingService } from '@services';
+import { getCountry } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, SortEvent } from 'primeng/api';
 import { GenerateReportService } from '../generate-report/generate-report.service';
@@ -40,15 +41,14 @@ export class GradeSampleComponent implements OnInit {
     }
 
     constructor(
-        private router: Router,
-        public generateReportService: GenerateReportService,
-        private toastrService: ToastrService,
-        private greenGradingService: GreenGradingService,
         private activeRoute: ActivatedRoute,
         private authService: AuthService,
-        private commonService: CommonService,
-        private translateService: TranslateService,
         private fb: FormBuilder,
+        private greenGradingService: GreenGradingService,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translateService: TranslateService,
+        public generateReportService: GenerateReportService,
     ) {
         this.roasterId = this.authService.getOrgId();
     }
@@ -85,7 +85,7 @@ export class GradeSampleComponent implements OnInit {
             {
                 field: 'estate_name',
                 header: 'Estate name',
-                sortable: false,
+                sortable: true,
             },
             {
                 field: 'origin',
@@ -234,8 +234,8 @@ export class GradeSampleComponent implements OnInit {
 
     customSort(event: SortEvent) {
         event.data.sort((data1, data2) => {
-            const value1 = this.commonService.getCountryName(data1[event.field]);
-            const value2 = this.commonService.getCountryName(data2[event.field]);
+            const value1 = getCountry(data1[event.field]) ? getCountry(data1[event.field]).name : data1[event.field];
+            const value2 = getCountry(data2[event.field]) ? getCountry(data2[event.field]).name : data2[event.field];
             const result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
             return event.order * result;
         });
