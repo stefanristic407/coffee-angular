@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { QuantityUnit } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { GreenGradingService, RoasterService } from '@services';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +17,7 @@ import { GenerateReportService } from '../generate-report.service';
 })
 export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     showCupping = true;
-    sampleUnitList = [{ value: 'grams' }, { value: 'lbs' }, { value: 'kg' }];
+    sampleUnitList = [{ value: QuantityUnit.g }, { value: QuantityUnit.lb }, { value: QuantityUnit.kg }];
     cuppingItems: any[] = [
         {
             label: 'Non-Blinded cupping',
@@ -67,7 +68,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
         this.infoForm = this.fb.group({
             cupping_type: [{ value: null, disabled: !this.isEditable }, [Validators.required]],
             sample_size: [{ value: null, disabled: !this.isEditable }, [Validators.required]],
-            sample_size_unit: [{ value: 'gm', disabled: !this.isEditable }, [Validators.required]],
+            sample_size_unit: [{ value: QuantityUnit.g, disabled: !this.isEditable }, [Validators.required]],
         });
     }
 
