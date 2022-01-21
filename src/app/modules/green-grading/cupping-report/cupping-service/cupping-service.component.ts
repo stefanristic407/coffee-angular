@@ -182,64 +182,52 @@ export class CuppingServiceComponent implements OnInit {
             {
                 field: 'evaluator_name',
                 header: 'Evaluator',
-                sortable: false,
                 width: 100,
             },
             {
                 field: 'final_score',
                 header: 'Final Score',
-                sortable: false,
             },
             {
                 field: 'fragrance_score',
                 header: 'Fragrance/\nAroma',
-                sortable: false,
-                width: 100,
+                width: 130,
             },
             {
                 field: 'flavour_score',
                 header: 'flavor',
-                sortable: false,
             },
             {
                 field: 'aftertaste_score',
                 header: 'Aftertaste',
-                sortable: false,
             },
             {
                 field: 'acidity_score',
                 header: 'Acidity',
-                sortable: false,
             },
             {
                 field: 'body_score',
                 header: 'Body',
-                sortable: false,
             },
             {
                 field: 'balance_score',
                 header: 'Balance',
-                sortable: false,
             },
             {
                 field: 'uniformity_score',
                 header: 'Uniformirty',
-                sortable: false,
             },
             {
                 field: 'cleancup_score',
                 header: 'Clean cup',
-                sortable: false,
             },
             {
                 field: 'sweetness_score',
                 header: 'Sweetness',
-                sortable: false,
             },
             {
                 field: 'overall_score',
                 header: 'Overall',
-                sortable: false,
             },
         ];
     }
@@ -330,7 +318,7 @@ export class CuppingServiceComponent implements OnInit {
                 this.cat2Defects = defectsList.total_category_two;
                 this.waterActivity = defectsList.water_activity;
                 this.odor = defectsList.odor;
-                this.totalColors = defectsList.colors.split(',');
+                this.totalColors = defectsList.colors?.split(',');
                 this.moistureContent = defectsList.moisture_content;
             } else {
                 this.toastrService.error('Error while getting physical defects');

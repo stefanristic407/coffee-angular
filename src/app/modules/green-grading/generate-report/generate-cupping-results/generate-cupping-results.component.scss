@@ -50,7 +50,7 @@
     }
 }
 
-::ng-deep {
+:host ::ng-deep {
     .confirm-dialog.p-dialog {
         max-width: 530px;
     }

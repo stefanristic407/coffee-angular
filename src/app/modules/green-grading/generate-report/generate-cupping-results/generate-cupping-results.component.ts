@@ -59,64 +59,52 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
             {
                 field: 'evaluator_name',
                 header: 'Evaluator',
-                sortable: false,
                 width: 100,
             },
             {
                 field: 'final_score',
                 header: 'Final Score',
-                sortable: false,
             },
             {
                 field: 'fragrance_score',
                 header: 'Fragrance/\nAroma',
-                sortable: false,
-                width: 100,
+                width: 130,
             },
             {
                 field: 'flavour_score',
                 header: 'flavor',
-                sortable: false,
             },
             {
                 field: 'aftertaste_score',
                 header: 'Aftertaste',
-                sortable: false,
             },
             {
                 field: 'acidity_score',
                 header: 'Acidity',
-                sortable: false,
             },
             {
                 field: 'body_score',
                 header: 'Body',
-                sortable: false,
             },
             {
                 field: 'balance_score',
                 header: 'Balance',
-                sortable: false,
             },
             {
                 field: 'uniformity_score',
                 header: 'Uniformirty',
-                sortable: false,
             },
             {
                 field: 'cleancup_score',
                 header: 'Clean cup',
-                sortable: false,
             },
             {
                 field: 'sweetness_score',
                 header: 'Sweetness',
-                sortable: false,
             },
             {
                 field: 'overall_score',
                 header: 'Overall',
-                sortable: false,
             },
         ];
     }
