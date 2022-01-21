@@ -176,7 +176,7 @@ export class TransactionDetailComponent extends ResizeableComponent implements O
             { label: 'channel', value: getOrgName(OrganizationType[this.transaction?.channel]) },
         ];
         this.paymentDetails = [
-            { label: 'payment_date', value: this.transaction?.payment_date },
+            { label: 'transaction_date', value: this.transaction?.transaction_date },
             { label: 'payment_type', value: this.transaction?.payment_type },
             { label: 'payment_status', value: this.titleCasePipe.transform(this.transaction?.status) },
             {

@@ -25,7 +25,7 @@ export interface Transaction {
     order_items: TransactionOrder[];
     order_type: string;
     org_number: string;
-    payment_date: string;
+    transaction_date: string;
     payment_type: string;
     phone_number: string;
     roaster_reference_number: string;

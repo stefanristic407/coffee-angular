@@ -4,7 +4,8 @@
     </div>
     <div class="d-md-flex justify-content-between align-items-center mb-3 mb-md-4">
         <h1 class="fnt-16 fnt-md-18 fnt-bold mb-3 mb-md-0">
-            {{ 'Document number' | translate }} - {{ transaction?.document_number }}
+            {{ 'transaction_number' | translate }} {{ transaction?.id }} -
+            {{ transaction?.transaction_type }}
         </h1>
         <button class="btn-raised w-mob-100" (click)="export()" [disabled]="isDownloading">
             {{ 'export' | translate }}
@@ -13,7 +14,7 @@
 
     <div class="row gutter-20 v-gutter-16">
         <div class="col-md-6 col-lg-4">
-            <ng-container *ngTemplateOutlet="detailCard; context: { title: 'order_details', items: orderDetails }">
+            <ng-container *ngTemplateOutlet="detailCard; context: { title: 'document_details', items: orderDetails }">
             </ng-container>
         </div>
         <div class="col-md-6 col-lg-4">

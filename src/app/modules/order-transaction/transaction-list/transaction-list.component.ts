@@ -163,12 +163,6 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
                 width: 7,
             },
             {
-                field: 'document_date',
-                header: 'Doc. date',
-                sortable: true,
-                width: 10,
-            },
-            {
                 field: 'document_type',
                 header: 'Doc. type',
                 width: 8,
@@ -182,6 +176,12 @@ export class TransactionListComponent extends ResizeableComponent implements OnI
                 field: 'id',
                 header: 'ID',
                 width: 5,
+            },
+            {
+                field: 'transaction_date',
+                header: 'Date',
+                sortable: true,
+                width: 10,
             },
             {
                 field: 'payment_type',

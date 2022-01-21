@@ -178,12 +178,6 @@
                             {{ rowData['document_number'] || '--' }}
                         </span>
                     </ng-container>
-                    <ng-container *ngSwitchCase="'document_date'">
-                        <span class="p-column-title"> {{ col.header | translate }} </span>
-                        <span>
-                            {{ (rowData['document_date'] | date: 'd MMM y') || '--' }}
-                        </span>
-                    </ng-container>
                     <ng-container *ngSwitchCase="'document_type'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span>
@@ -200,6 +194,12 @@
                         <span class="p-column-title"> {{ col.header | translate }} </span>
                         <span>
                             {{ rowData['id'] || '--' }}
+                        </span>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'transaction_date'">
+                        <span class="p-column-title"> {{ col.header | translate }} </span>
+                        <span>
+                            {{ (rowData['transaction_date'] | date: 'd MMM y') || '--' }}
                         </span>
                     </ng-container>
                     <ng-container *ngSwitchCase="'payment_type'">
