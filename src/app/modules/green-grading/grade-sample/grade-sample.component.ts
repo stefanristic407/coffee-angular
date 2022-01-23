@@ -100,7 +100,7 @@ export class GradeSampleComponent implements OnInit {
             {
                 field: 'date_requested',
                 header: 'Date',
-                sortable: false,
+                sortable: true,
             },
         ];
     }
