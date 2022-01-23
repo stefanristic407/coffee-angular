@@ -1,10 +1,12 @@
+@import 'variables';
+
 .total-section {
     padding: 1.875rem 1.5rem 1.5rem;
 }
 
 .final-score {
     border-radius: 4px;
-    border: solid 1px #d6d6d6;
+    border: solid 1px $primary-border-color;
 }
 
 .final-label {
@@ -19,7 +21,7 @@
 
 .lots-input {
     outline: 0;
-    border: 1px solid #d6d6d6;
+    border: 1px solid $primary-border-color;
     border-radius: 4px;
     font-size: 14px;
     font-family: 'Muli', sans-serif;
@@ -32,7 +34,7 @@
 
 .active__main {
     border-radius: 4px;
-    border: solid 1px #3d8462;
+    border: solid 1px $primary-color;
     padding: 2px;
     min-width: 150px;
 
@@ -50,12 +52,12 @@
 }
 
 .active_default {
-    background-color: #3d8462;
-    color: #fff !important;
+    background-color: $primary-color;
+    color: $white !important;
 }
 
 .disable_default {
-    background-color: #ffffff;
+    background-color: $white;
     color: #979797;
 }
 
@@ -169,20 +171,6 @@
     flex: 1;
 }
 
-.roast-input {
-    outline: 0;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-    font-size: 12px;
-    font-family: 'Muli', sans-serif;
-    color: #232334;
-    padding: 10px 5px;
-    display: block;
-    width: 100%;
-    flex-basis: auto;
-    line-height: normal;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -264,7 +252,7 @@ input[type='number'] {
                 height: 25px;
                 width: 100%;
                 border-right: solid 1px #d8d8d8;
-                background-color: #fff;
+                background-color: $white;
                 border-radius: 0 !important;
                 color: #232334;
                 font-size: 10px;
@@ -290,12 +278,12 @@ input[type='number'] {
         }
 
         &:hover input ~ .checkmark {
-            background-color: #fff;
+            background-color: $white;
         }
 
         input:checked ~ .checkmark {
             background-color: #32a822;
-            color: #ffffff;
+            color: $white;
 
             &:after {
                 display: none;
@@ -316,7 +304,7 @@ input[type='number'] {
 
 .table-final-score {
     flex-wrap: wrap;
-    border-bottom: 1px dashed #d6d6d6;
+    border-bottom: 1px dashed $primary-border-color;
 
     @media only screen and (max-width: 767px) {
         border-bottom: none;
@@ -495,11 +483,11 @@ input[type='number'] {
             box-shadow: 0 4px 7px 0 rgba(36, 36, 36, 0.34);
             width: 10px;
             height: 10px;
-            border: solid 0.9px #ffffff;
+            border: solid 0.9px $white;
             margin-top: -0.4em !important;
 
             &:hover {
-                border: solid 0.9px #ffffff;
+                border: solid 0.9px $white;
             }
 
             &:focus {
@@ -583,10 +571,14 @@ input[type='number'] {
     }
 
     .p-selectbutton.p-selectbutton-intensity {
+        width: 100%;
         border-radius: 2px;
         .p-button {
-            font-size: 10px;
             padding: 4px 9px;
+            width: 50%;
+            .p-button-label {
+                font-size: 10px;
+            }
         }
     }
 

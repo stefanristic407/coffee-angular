@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Intensity } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, GreenGradingService, UserService } from '@services';
+import { GreenGradingService, UserService } from '@services';
 import { cuppingScoreValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { GenerateReportService } from '../generate-report.service';
@@ -13,13 +13,10 @@ import { GenerateReportService } from '../generate-report.service';
     styleUrls: ['./generate-my-sample.component.scss'],
 })
 export class GenerateMySampleComponent implements OnInit, OnChanges {
-    selectable = true;
-    removable = true;
     @Output() next = new EventEmitter<any>();
     @Output() showDetail = new EventEmitter<any>();
     @Input() cuppingDetails;
     cuppingReportId: any;
-    roasterId: number;
     singleCuppingDetails: any = {};
     evaluatorsListArray: any = [];
     evaluatorData: any;
@@ -48,16 +45,13 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     infoForm: FormGroup;
 
     constructor(
-        private authService: AuthService,
         private fb: FormBuilder,
         private generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
         private toastrService: ToastrService,
         private translator: TranslateService,
         private userService: UserService,
-    ) {
-        this.roasterId = this.authService.getOrgId();
-    }
+    ) {}
 
     ngOnInit(): void {
         this.availableValues = [];
@@ -90,6 +84,10 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(event) {
+        this.cuppingReportId = this.cuppingDetails.cupping_report_id;
+        const statusKey = this.generateReportService.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
+        this.isEditable = this.cuppingDetails[statusKey] === 'DRAFT' || this.cuppingDetails[statusKey] === 'NEW';
+        this.isAdvance = true;
         if (this.flavourArray?.length) {
             this.getData();
         } else {
@@ -105,10 +103,6 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     getData() {
-        this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-        const statusKey = this.generateReportService.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
-        this.isEditable = this.cuppingDetails[statusKey] === 'DRAFT' || this.cuppingDetails[statusKey] === 'NEW';
-        this.isAdvance = true;
         this.uniformityValue = [];
         this.cleancupValue = [];
         this.sweetnessValue = [];
@@ -256,7 +250,7 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
         });
     }
 
-    goNext() {
+    goNext(isTabChange?: boolean) {
         if (!!this.cuppingReportId) {
             if (this.isEditable) {
                 if (!this.infoForm.valid) {
@@ -277,20 +271,24 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
                     roast_level: this.infoForm.value.roast_level[0],
                     flavour_profile_ids: (this.infoForm.value.descriptors || []).map((item) => item.value),
                 };
-                this.greenGradingService
-                    .addCuppingScore(this.roasterId, this.cuppingReportId, data)
-                    .subscribe((result: any) => {
-                        if (result.success === true) {
+                delete data.descriptors;
+
+                this.greenGradingService.addCuppingScore(this.cuppingReportId, data).subscribe((result: any) => {
+                    if (result.success === true) {
+                        if (!isTabChange) {
                             this.toastrService.success('Final Score details has been updated');
-                            if (this.cuppingDetails?.type === 'Invited') {
-                                this.cancel();
-                            } else {
+                        }
+                        if (this.cuppingDetails?.type === 'Invited') {
+                            this.cancel();
+                        } else {
+                            if (!isTabChange) {
                                 this.next.emit('screen4');
                             }
-                        } else {
-                            this.toastrService.error('Please fill all the details');
                         }
-                    });
+                    } else {
+                        this.toastrService.error('Please fill all the details');
+                    }
+                });
             } else {
                 if (this.cuppingDetails?.type === 'Invited') {
                     this.cancel();
