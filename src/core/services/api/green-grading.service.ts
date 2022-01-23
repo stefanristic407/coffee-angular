@@ -66,20 +66,11 @@ export class GreenGradingService extends ApiService {
             params = params.append('evaluator_ids', evaluatorIds);
         }
         const url = type === 'Invited' ? 'my-cupping-score' : 'cupping-score';
-        return this.post(
-            this.orgPostUrl,
-            `ro/${this.getOrgId()}/cupping-process/${cuppingReportId}/${url}${params}`,
-            'GET',
-        );
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/${url}${params}`, 'GET');
     }
 
-    addCuppingScore(roasterId: any, cuppingReportId: any, body: any): Observable<any> {
-        return this.post(
-            this.orgPostUrl,
-            `ro/${roasterId}/cupping-process/${cuppingReportId}/cupping-score`,
-            'POST',
-            body,
-        );
+    addCuppingScore(cuppingReportId: number, body: any): Observable<any> {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/cupping-score`, 'POST', body);
     }
 
     addEvaluators(cuppingReportId: any, body: any) {

@@ -1209,15 +1209,6 @@ export class UserService extends ApiService {
         return this.http.post(this.orgPostUrl, data);
     }
 
-    addCuppingScore(roasterId: any, cupping_report_id, body: any): Observable<any> {
-        const data = {
-            api_call: '/ro/' + roasterId + '/cupping-process/' + cupping_report_id + '/cupping-score',
-            method: 'POST',
-            token: this.authService.token,
-            data: body,
-        };
-        return this.http.post(this.orgPostUrl, data);
-    }
     editAddress(roasterId: any, address_id: any, body: any) {
         const data = {
             api_call: '/ro/' + roasterId + '/addresses/' + address_id,

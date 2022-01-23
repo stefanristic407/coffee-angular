@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { GenerateReportService } from './generate-report.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GenerateReportService } from './generate-report.service';
 
 @Component({
     selector: 'app-generate-report',
@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
     styleUrls: ['./generate-report.component.scss'],
 })
 export class GenerateReportComponent implements OnInit {
-    currentScreen: any = 'screen3';
+    currentScreen: any = 'screen1';
     showProcessDetail = false;
 
     cuppingDetails: any;
