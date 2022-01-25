@@ -110,15 +110,17 @@
                                 (click)="selectRow(rowData.roles)"
                             ></p-tableCheckbox>
                             <div *ngIf="!isAddMember" class="float-right">
-                                <ng-container *ngTemplateOutlet="popTpl; context: { rowData: rowData }"></ng-container>
+                                <ng-container
+                                    *ngTemplateOutlet="actionsTpl; context: { rowData: rowData }"
+                                ></ng-container>
                             </div>
                         </div>
                     </span>
                     <span *ngSwitchCase="'last_login_at'">
-                        {{ (rowData[col.field] | date: 'dd/MM/yyyy h:mm a') || '-' }}
+                        {{ (rowData[col.field] | date: 'd MMM y h:mm a') || '-' }}
                     </span>
                     <span *ngSwitchCase="'created_at'">
-                        {{ (rowData[col.field] | date: 'dd/MM/yyyy h:mm a') || '-' }}
+                        {{ (rowData[col.field] | date: 'd MMM y h:mm a') || '-' }}
                     </span>
                     <span *ngSwitchCase="'email'" class="text-break"> {{ rowData[col.field] }} </span>
                     <span *ngSwitchCase="'roles'"> {{ rowData['roleLable'] }} </span>
@@ -126,14 +128,7 @@
                         >{{ rowData['status'] | titlecase }}
                     </span>
                     <span *ngSwitchCase="'actions'">
-                        <div *ngIf="route.snapshot.routeConfig.path === 'pending-invitations'">
-                            <div class="brown-cta" (click)="inviteTeamMember(rowData); $event.stopPropagation()">
-                                {{ 'resend_invite' | translate }}
-                            </div>
-                        </div>
-                        <div *ngIf="route.snapshot.routeConfig.path !== 'pending-invitations'">
-                            <ng-container *ngTemplateOutlet="popTpl; context: { rowData: rowData }"></ng-container>
-                        </div>
+                        <ng-container *ngTemplateOutlet="actionsTpl; context: { rowData: rowData }"></ng-container>
                     </span>
                     <span *ngSwitchDefault> {{ rowData[col.field] }} </span>
                 </td>
@@ -147,6 +142,13 @@
 </div>
 <button class="btn-stroked d-none d-md-block mt-4" *ngIf="isAddMember" (click)="location.back()">Cancel</button>
 
-<ng-template #popTpl let-rowData="rowData">
-    <app-action-menu *ngIf="rowData.id !== loginId" [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
+<ng-template #actionsTpl let-rowData="rowData">
+    <div *ngIf="route.snapshot.routeConfig.path === 'pending-invitations'">
+        <div class="brown-cta" (click)="inviteTeamMember(rowData); $event.stopPropagation()">
+            {{ 'resend_invite' | translate }}
+        </div>
+    </div>
+    <div *ngIf="route.snapshot.routeConfig.path !== 'pending-invitations'">
+        <app-action-menu *ngIf="rowData.id !== loginId" [menuItems]="getMenuItemsForItem(rowData)"></app-action-menu>
+    </div>
 </ng-template>
