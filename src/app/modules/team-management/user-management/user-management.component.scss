@@ -1,0 +1,8 @@
+@import 'variables';
+
+:host ::ng-deep {
+    .role-selector.p-dropdown .p-dropdown-label {
+        font-size: 18px;
+        font-weight: 700;
+    }
+}

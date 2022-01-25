@@ -16,8 +16,8 @@
     <div class="d-flex justify-content-between">
         <div class="w-mob-100">
             <div *ngIf="isAddMember">
-                <span class="d-none d-md-flex fnt-18 fnt-700 mb-1">
-                    {{ 'add_team_members_to' | translate }}&nbsp;
+                <div class="d-md-flex fnt-18 fnt-bold mb-2">
+                    <div class="mb-1 mb-md-0">{{ 'add_team_members_to' | translate }}&nbsp;</div>
                     <p-dropdown
                         [options]="roleList"
                         optionLabel="name"
@@ -29,7 +29,7 @@
                         styleClass="no-border no-padding accent role-selector"
                     >
                     </p-dropdown>
-                </span>
+                </div>
                 <div class="fnt-600 text-clr588">{{ 'select_members_role' | translate }}</div>
             </div>
             <div *ngIf="!isAddMember" class="d-inline primary_txt p-0">{{ 'user_management' | translate }}</div>
