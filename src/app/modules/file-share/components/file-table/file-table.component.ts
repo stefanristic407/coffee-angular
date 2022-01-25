@@ -75,7 +75,7 @@ export class FileTableComponent extends ResizeableComponent implements OnInit {
                 ? null
                 : {
                       field: 'actions',
-                      header: 'actions',
+                      header: '',
                       width: this.resizeService.isDesktop() ? 14 : 10,
                   },
         ].filter(Boolean);
