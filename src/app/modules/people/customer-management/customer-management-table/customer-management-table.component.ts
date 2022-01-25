@@ -23,6 +23,7 @@ export class CustomerManagementTableComponent implements OnInit {
     @Input() sortedMainData: any;
     @Input() customerType: OrganizationType;
     @Input() isPartners: boolean;
+    @Input() isLoading = true;
 
     itemId: any;
     isMobileView = false;

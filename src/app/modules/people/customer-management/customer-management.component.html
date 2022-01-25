@@ -85,6 +85,7 @@
                                 [searchTerm]="searchTerm"
                                 [sortedMainData]="sortedMainData"
                                 [customerType]="customerType"
+                                [isLoading]="isLoading"
                             >
                             </app-customer-management-table>
                         </p-tabPanel>
@@ -94,6 +95,7 @@
                                 [searchTerm]="searchTerm"
                                 [sortedMainData]="sortedMainData"
                                 [customerType]="customerType"
+                                [isLoading]="isLoading"
                             >
                             </app-customer-management-table>
                         </p-tabPanel>
@@ -102,6 +104,7 @@
                                 *ngIf="!customerType"
                                 [searchTerm]="searchTerm"
                                 [sortedMainData]="sortedMainData"
+                                [isLoading]="isLoading"
                             >
                             </app-customer-management-table>
                         </p-tabPanel>
