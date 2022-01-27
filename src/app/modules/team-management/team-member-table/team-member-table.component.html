@@ -117,10 +117,10 @@
                         </div>
                     </span>
                     <span *ngSwitchCase="'last_login_at'">
-                        {{ (rowData[col.field] | date: 'd MMM y h:mm a') || '-' }}
+                        {{ (rowData[col.field] | date: 'd MMM y, h:mm a') || '-' }}
                     </span>
                     <span *ngSwitchCase="'created_at'">
-                        {{ (rowData[col.field] | date: 'd MMM y h:mm a') || '-' }}
+                        {{ (rowData[col.field] | date: 'd MMM y, h:mm a') || '-' }}
                     </span>
                     <span *ngSwitchCase="'email'" class="text-break"> {{ rowData[col.field] }} </span>
                     <span *ngSwitchCase="'roles'"> {{ rowData['roleLable'] }} </span>
