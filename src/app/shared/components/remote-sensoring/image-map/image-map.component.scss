@@ -50,3 +50,15 @@
         width: 434px;
     }
 }
+
+:host ::ng-deep .gm-style .gm-style-mtc li {
+    label {
+        margin-bottom: 0 !important;
+    }
+    span img {
+        transform: translate(0) !important;
+        margin-right: 0.5rem;
+        width: 18px !important;
+        height: 18px !important;
+    }
+}
