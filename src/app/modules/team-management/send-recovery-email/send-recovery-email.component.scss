@@ -1,4 +1,5 @@
 @import 'variables';
+
 .editBorder {
     border: 1px solid #d6d6d6;
     padding: 1.5rem;
@@ -8,69 +9,11 @@
     min-height: 37.56rem;
     height: auto;
 }
-.inputPadding {
-    margin-top: 3rem;
-}
-.role_txt {
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-}
 .emailDiv {
     width: 20.5rem;
 }
-.dateFont {
-    font-size: 14px;
-    font-weight: 700;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-}
-
 .containerBackground {
     background: #fcfbf8;
-}
-.toggleDiv {
-    border: 1px solid #d6d6d6;
-    padding: 2px;
-    height: 2rem;
-    border-radius: 4px;
-}
-.enableBtn {
-    background-color: $primary-color;
-    padding: 4px 16px;
-    color: #fff !important;
-    font-size: 12px;
-    border-radius: 4px !important;
-}
-.disbableBtn {
-    padding: 4px 16px;
-    color: #979797;
-    font-size: 12px;
-}
-.greyText {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-.disabledbutton {
-    pointer-events: none;
-    opacity: 0.4;
-}
-@media only screen and (max-width: 1240px) {
-    .recoveryDiv {
-        display: none !important;
-    }
-    .recoveryTablet {
-        display: block !important;
-    }
 }
 @media all and (max-width: 767px) {
     .editBorder {
@@ -78,7 +21,11 @@
         padding: 0px;
         border-radius: 4px;
     }
-    .inputPadding {
-        margin-top: 1rem;
+}
+
+:host ::ng-deep .p-selectbutton.p-selectbutton-status {
+    .p-button {
+        font-size: 12px;
+        padding: 6px 12px;
     }
 }

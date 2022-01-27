@@ -37,40 +37,29 @@
             </div>
         </div>
         <div *ngIf="userDetails" class="row no-gutters contentDiv">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 editBorder">
+            <div class="col-12 col-xl-8 editBorder">
                 <div class="row p-0">
-                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="col-md-6">
                         <span class="primary_txt">{{ 'edit' | translate }}</span>
                         <div class="mt-2">
-                            <span class="greyText">{{ 'account_activated' | translate }}</span
+                            <span class="fnt-semi-bold text-clr588">{{ 'account_activated' | translate }}</span
                             >&nbsp;
-                            <span *ngIf="userDetails && userDetails['last_activated']" class="dateFont">{{
+                            <span *ngIf="userDetails && userDetails['last_activated']" class="fnt-bold">{{
                                 userDetails['last_activated'] | date: 'd MMM, y, h:mm a'
                             }}</span>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-none d-sm-none d-md-block">
-                        <div class="btn-group pull-right toggleDiv" [ngClass]="{ disabledbutton: !isEdit }">
-                            <div
-                                class="btn disbableBtn"
-                                [ngClass]="statusToggle ? 'enableBtn' : ''"
-                                id="activeStatus"
-                                (click)="statusToggle = !statusToggle; updateForm()"
-                            >
-                                Active
-                            </div>
-                            <div
-                                class="btn disbableBtn"
-                                (click)="statusToggle = !statusToggle; updateForm()"
-                                [ngClass]="!statusToggle ? 'enableBtn' : ''"
-                                id="disableStatus"
-                            >
-                                Disable
-                            </div>
-                        </div>
+                    <div class="col-md-6 d-none d-md-flex justify-content-end">
+                        <p-selectButton
+                            [options]="statusOptions"
+                            [(ngModel)]="userStatus"
+                            (onChange)="updateForm()"
+                            styleClass="p-selectbutton-status"
+                            [disabled]="!isEdit"
+                        ></p-selectButton>
                     </div>
                 </div>
-                <div [formGroup]="userForm" class="row inputPadding p-0">
+                <div [formGroup]="userForm" class="row mt-3 mt-md-5 p-0">
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'first_name' | translate }}<span class="star">*</span></label>
                         <input
@@ -107,7 +96,7 @@
                     </div>
                 </div>
                 <div>
-                    <label class="role_txt">Role(s)<span class="star">*</span></label>
+                    <label class="fnt-semi-bold">Role(s)<span class="star">*</span></label>
                 </div>
                 <div *ngFor="let role of roles.controls; let i = index; last as isLast">
                     <div class="row gutter-16 mb-4 mb-md-3">
@@ -124,7 +113,7 @@
                             <small *ngIf="role.errors?.required" class="p-error">{{ 'required' | translate }}</small>
                         </div>
                         <div
-                            *ngIf="isEdit && statusToggle && (i || roles.controls?.length > 1)"
+                            *ngIf="isEdit && userStatus === UserStatus.ACTIVE && (i || roles.controls?.length > 1)"
                             class="brown-cta col-auto mt-2 mt-md-3"
                             (click)="removeRole(i)"
                         >
@@ -135,37 +124,31 @@
                         type="dashed"
                         styleClass="mt-2 mb-4"
                         class="d-block d-md-none"
-                        *ngIf="isEdit && isLast && statusToggle"
+                        *ngIf="isEdit && isLast && userStatus === UserStatus.ACTIVE"
                     ></p-divider>
-                    <div class="d-block d-sm-block d-md-block mb-2 mt-2" *ngIf="isEdit && isLast && statusToggle">
+                    <div
+                        class="d-block d-sm-block d-md-block mb-2 mt-2"
+                        *ngIf="isEdit && isLast && userStatus === UserStatus.ACTIVE"
+                    >
                         <img src="assets/images/add-partner.svg" />
                         <span class="ml-2 brown-cta" (click)="addRole()">
                             {{ 'assign_role' | translate }}
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-block d-sm-block d-md-none p-0 mt-3 mb-4">
-                    <label class="d-block d-sm-block d-md-none">Status<span class="star">*</span></label>
-                    <div class="btn-group toggleDiv" [ngClass]="{ disabledbutton: !isEdit }">
-                        <div
-                            class="btn disbableBtn"
-                            [ngClass]="statusToggle ? 'enableBtn' : ''"
-                            id="activeStatus"
-                            (click)="statusToggle = !statusToggle"
-                        >
-                            Active
-                        </div>
-                        <div
-                            class="btn disbableBtn"
-                            (click)="statusToggle = !statusToggle"
-                            [ngClass]="!statusToggle ? 'enableBtn' : ''"
-                            id="disableStatus"
-                        >
-                            Disable
-                        </div>
+                <div class="col-md-6 d-md-none p-0 mt-3 mb-4">
+                    <label>{{ 'status' | translate }}<span class="star">*</span></label>
+                    <div>
+                        <p-selectButton
+                            [options]="statusOptions"
+                            [(ngModel)]="userStatus"
+                            (onChange)="updateForm()"
+                            styleClass="p-selectbutton-status"
+                            [disabled]="!isEdit"
+                        ></p-selectButton>
                     </div>
                 </div>
-                <div class="d-block d-sm-block d-md-none">
+                <div class="d-md-none">
                     <button *ngIf="!isEdit" class="btn btn-raised w-100" (click)="isEdit = !isEdit; updateForm()">
                         {{ 'edit' | translate }}
                     </button>
@@ -180,11 +163,11 @@
                     </button>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-none d-sm-none d-md-block emailDiv recoveryDiv">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-none d-xl-block emailDiv">
                 <div class="ml-3 h-100 containerBackground">
                     <div class="col-12 p-0 ml-3 p-3">
                         <div class="primary_txt mb-1">{{ 'recovery_email' | translate }}</div>
-                        <span class="greyText">{{ 'recovery_link_desription' | translate }}. </span>
+                        <span class="fnt-semi-bold text-clr588">{{ 'recovery_link_desription' | translate }}. </span>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 ml-3 p-3">
                         <button class="btn btn-stroked mt-2" (click)="sendMail()">
@@ -193,11 +176,11 @@
                     </div>
                 </div>
             </div>
-            <div class="d-block d-sm-block d-md-none col-sm-12 col-md-12 col-lg-12 pt-4 recoveryTablet">
+            <div class="d-xl-none col-12 pt-4">
                 <div class="h-100 containerBackground">
                     <div class="col-12 p-3">
                         <div class="primary_txt mb-1">{{ 'recovery_email' | translate }}</div>
-                        <span class="greyText">{{ 'recovery_link_desription' | translate }}. </span>
+                        <span class="fnt-semi-bold text-clr588">{{ 'recovery_link_desription' | translate }}. </span>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-3">
                         <button class="btn btn-stroked w-100 mt-2" (click)="sendMail()">
