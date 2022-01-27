@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PERMISSION_DESCRIPTION } from '@constants';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, RoasterService, UserService } from '@services';
+import { toSentenceCase } from '@utils';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, TreeNode } from 'primeng/api';
@@ -247,9 +248,7 @@ export class CreateRoleComponent implements OnInit {
             if (ele.values) {
                 childItems = ele.values.map((item) => {
                     const obj: any = {};
-                    let childLabel = item.slug;
-                    childLabel = childLabel.replace('-', ' ');
-                    childLabel = childLabel.charAt(0).toUpperCase() + childLabel.slice(1);
+                    const childLabel = toSentenceCase(item.slug).replace('Apikey', 'API key');
                     obj.label = childLabel + ' (' + item.access_type + ')';
                     obj.key = item.id;
                     obj.data = item.slug;
