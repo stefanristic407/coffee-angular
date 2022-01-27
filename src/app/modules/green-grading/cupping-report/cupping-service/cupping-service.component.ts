@@ -186,7 +186,7 @@ export class CuppingServiceComponent implements OnInit {
             },
             {
                 field: 'final_score',
-                header: 'Final Score',
+                header: 'final_score',
             },
             {
                 field: 'fragrance_score',
