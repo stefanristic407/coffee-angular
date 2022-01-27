@@ -61,8 +61,12 @@
                                     *ngFor="let element of item"
                                     [ngSwitch]="element.field"
                                     [style.width]="element.width ? element.width + '%' : '30%'"
+                                    class="flex-wrap"
                                 >
-                                    <div *ngIf="element.field === 'customer'" class="d-md-none fnt-16 fnt-bold mb-35">
+                                    <div
+                                        *ngIf="element.field === 'customer'"
+                                        class="p-mobile-row-content d-md-none fnt-16 fnt-bold mb-35"
+                                    >
                                         {{ 'order_details' | translate }}
                                     </div>
                                     <span class="p-column-title"> {{ element.label }} </span>
@@ -114,12 +118,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="
-                                        col-4 col-lg-3 col-xl-2
-                                        fnt-16 fnt-md-18 fnt-bold
-                                        form-middle
-                                        d-none d-md-block
-                                    "
+                                    class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold form-middle d-none d-md-block"
                                 >
                                     {{ coffeePrice | number: '1.2-4' }} {{ sourcing.harvestDetail.price_unit }}
                                 </div>
@@ -136,12 +135,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="
-                                        col-4 col-lg-3 col-xl-2
-                                        fnt-16 fnt-md-18 fnt-bold
-                                        form-middle
-                                        d-none d-md-block
-                                    "
+                                    class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold form-middle d-none d-md-block"
                                 >
                                     {{ shipmentPrice | number: '1.2-4' }} {{ shipmentPriceCurrency || 'NA' }}
                                 </div>
@@ -163,12 +157,7 @@
                             </ng-container>
                             <!-- Total price -->
                             <div
-                                class="
-                                    col-12 col-md-4 col-lg-3 col-xl-2
-                                    offset-md-8 offset-lg-9 offset-xl-10
-                                    d-flex d-md-block
-                                    justify-content-between
-                                "
+                                class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
                             >
                                 <div class="fnt-14 fnt-bold text-clr334">
                                     {{ 'total_amount' | translate }}
@@ -182,13 +171,7 @@
                     <div class="row gutter-md-24 gutter-lg-38 mt-5" *ngIf="!editAddress">
                         <div class="col-12 col-md-6">
                             <div
-                                class="
-                                    fnt-16 fnt-md-18 fnt-bold
-                                    text-clr000
-                                    d-flex
-                                    justify-content-between
-                                    align-items-center
-                                "
+                                class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
                             >
                                 <div
                                     *ngIf="
@@ -214,18 +197,7 @@
                                 </div>
                             </div>
                             <div
-                                class="
-                                    fnt-14
-                                    lh-normal
-                                    fnt-600
-                                    text-clr334
-                                    d-md-flex
-                                    justify-content-between
-                                    bg-f8
-                                    br-4
-                                    p-3 p-md-4
-                                    mt-2
-                                "
+                                class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
                             >
                                 <div class="pr-2">
                                     {{ addressData?.address_line1 ? addressData.address_line1 + ', ' : '' }}
@@ -257,13 +229,7 @@
                         </div>
                         <div class="col-12 col-md-6 mt-4 mt-md-0">
                             <div
-                                class="
-                                    fnt-16 fnt-md-18 fnt-bold
-                                    text-clr000
-                                    d-flex
-                                    justify-content-between
-                                    align-items-center
-                                "
+                                class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
                             >
                                 <div>
                                     {{ 'billing_address' | translate }}
@@ -277,18 +243,7 @@
                                 </div>
                             </div>
                             <div
-                                class="
-                                    fnt-14
-                                    lh-normal
-                                    fnt-600
-                                    text-clr334
-                                    d-md-flex
-                                    justify-content-between
-                                    bg-f8
-                                    br-4
-                                    p-3 p-md-4
-                                    mt-2
-                                "
+                                class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
                             >
                                 <div class="pr-2">
                                     {{ billingAddress?.address_line1 ? billingAddress.address_line1 + ', ' : '' }}
