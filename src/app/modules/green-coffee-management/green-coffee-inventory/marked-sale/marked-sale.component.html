@@ -104,7 +104,7 @@
                     </ng-container>
 
                     <ng-container *ngSwitchCase="'status'">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex w-mob-100 justify-content-between">
                             <span>{{ rowData[col.field] | sentencecase }}</span>
                             <span class="d-md-none brown-cta" (click)="onView(rowData)">
                                 {{ 'view' | translate }}
