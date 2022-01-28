@@ -33,6 +33,7 @@
         [showCurrentPageReport]="false"
         [loading]="loading"
         [paginator]="totalCount > tableRows"
+        [pageLinks]="(isMobile$ | async) ? 3 : 5"
         [rows]="tableRows"
         [lazy]="true"
         (onLazyLoad)="getTableData($event)"

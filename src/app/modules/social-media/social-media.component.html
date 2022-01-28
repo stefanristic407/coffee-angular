@@ -1,260 +1,121 @@
-<section>
-    <div class="sewn-container">
-        <div class="bg-white pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-5 pt-md-4 pb-md-4 pl-md-3 pr-md-3 p-3">
-            <div class="d-md-flex justify-content-md-between" style="height: 40px">
-                <p-breadcrumb [model]="breadItems"> </p-breadcrumb>
-                <!-- <form class="custom-search mt-3 mt-md-0 order-search">
-                    <input
-                        type="text"
-                        pInputText
-                        [(ngModel)]="searchKey"
-                        (input)="filterCall()"
-                        placeholder="Search"
-                        [ngModelOptions]="{ standalone: true }"
-                        class="w-100 br-4"
-                    />
-                </form> -->
-            </div>
-            <section class="social-media">
-                <p class="fnt-18 fnt-bold text-clr334 mt-3 mb-25">
-                    {{ 'social_media_posts' | translate }}
-                </p>
-                <div class="fnt-14 fnt-normal text-clr588 mb-3 mb-md-4">{{ 'get_your_media_text' | translate }}</div>
-                <div class="col-lg-12 col-md-12 col-12">
-                    <div class="row">
-                        <div class="mt-1 mt-lg-3 col-lg-12 col-md-12 p-0">
-                            <p-tabView [(activeIndex)]="tabIndex" (onChange)="handleChange($event)">
-                                <p-tabPanel header="{{ 'images' | translate }}">
-                                    <ng-template pTemplate="content">
+<section class="main-block">
+    <div class="d-md-flex justify-content-md-between" style="height: 40px">
+        <p-breadcrumb [model]="breadItems"> </p-breadcrumb>
+    </div>
+    <section class="social-media">
+        <p class="fnt-18 fnt-bold text-clr334 mt-3 mb-25">
+            {{ 'social_media_posts' | translate }}
+        </p>
+        <div class="fnt-14 fnt-normal text-clr588 mb-3 mb-md-4">{{ 'get_your_media_text' | translate }}</div>
+        <div class="col-12">
+            <div class="row">
+                <div class="mt-1 mt-lg-3 col-lg-12 col-md-12 p-0">
+                    <p-tabView [(activeIndex)]="tabIndex" (onChange)="handleChange($event)">
+                        <p-tabPanel header="{{ 'images' | translate }}">
+                            <ng-template pTemplate="content">
+                                <div class="mt-25 mt-md-4">
+                                    <div class="row gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20">
                                         <div
-                                            class="row mt-25 mt-md-4 gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20 social-post-farmlink"
+                                            class="col-lg-4 col-md-6 col-sm-6 col-6 p-2"
+                                            *ngFor="let images of imagesListArray"
+                                            (click)="imagesModal(images)"
                                         >
-                                            <div
-                                                class="col-lg-4 col-md-6 col-sm-6 col-6 p-2"
-                                                *ngFor="let images of filteredImagesList"
-                                                (click)="imagesModal(imagetemplate, images)"
-                                            >
-                                                <div class="square-container">
-                                                    <div class="content overflow-hidden">
+                                            <div class="square-container">
+                                                <div class="content overflow-hidden">
+                                                    <div
+                                                        class="social-post-farmlink__item w-100 h-100 position-relative br-4"
+                                                    >
                                                         <div
-                                                            class="social-post-farmlink__item w-100 h-100 position-relative br-4"
-                                                        >
-                                                            <div
-                                                                class="h-100 social-bg-image br-4"
-                                                                [ngStyle]="{
-                                                                    backgroundImage:
-                                                                        'url(' +
-                                                                        (images.url ||
-                                                                            'assets/images/selling-your-green-coffee.png') +
-                                                                        ')'
-                                                                }"
-                                                            ></div>
-                                                            <!--  <p class="mb-0 post-info">
-                                                                {{ images.description }} &nbsp; @
-                                                                {{ images.owner_name }}
-                                                            </p>-->
-                                                        </div>
+                                                            class="h-100 social-bg-image br-4"
+                                                            [ngStyle]="{
+                                                                backgroundImage:
+                                                                    'url(' +
+                                                                    (images.url ||
+                                                                        'assets/images/selling-your-green-coffee.png') +
+                                                                    ')'
+                                                            }"
+                                                        ></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </ng-template>
-                                </p-tabPanel>
-                                <!-- <p-tabPanel header="{{ globals.languageJson?.videos }}">
-                                    <ng-template pTemplate="content">
-                                        <div class="row cursor-pointer custom-media-container mt-2 mt-md-3">
-                                            <a
-                                                class="col-lg-4 col-md-6 col-sm-6 col-6 p-2"
-                                                *ngFor="let videos of filteredVideosList"
-                                                (click)="videosModal(videotemplate, videos)"
-                                            >
-                                                <div
-                                                    class="social-post-farmlink__item w-100 h-100 position-relative square-container br-4"
-                                                >
-                                                    <img
-                                                        class="w-100 h-100 cover-fill"
-                                                        src="assets/images/farm-video.png"
-                                                        alt="farm"
-                                                    />
-                                                    <img
-                                                        class="video-play"
-                                                        src="assets/images/play-button.png"
-                                                        alt="farm"
-                                                    />
-                                                    <p class="mb-0 post-info">{{ videos.description }}</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </ng-template>
-                                </p-tabPanel> -->
-                                <p-tabPanel header="{{ 'blogs' | translate }}">
-                                    <ng-template pTemplate="content">
-                                        <div class="row mt-2 mt-md-3">
-                                            <div
-                                                *ngFor="let blog of blogs"
-                                                class="col-lg-4 col-md-6 col-12 mb-3 mb-lg-0"
-                                            >
-                                                <app-blog-card
-                                                    [imgUrl]="blog.img_url"
-                                                    [title]="blog.title"
-                                                    [description]="blog.description | convertToShortDescription: 20"
-                                                    [routerLink]="'/social-media/blog-details/' + blog.id"
-                                                ></app-blog-card>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </p-tabPanel>
-                            </p-tabView>
-                        </div>
-                    </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-tabPanel>
+                        <p-tabPanel header="{{ 'blogs' | translate }}">
+                            <ng-template pTemplate="content">
+                                <div class="row mt-25 mt-md-4">
+                                    <div *ngFor="let blog of blogs" class="col-lg-4 col-md-6 col-12 mb-3 mb-lg-0">
+                                        <app-blog-card
+                                            [imgUrl]="blog.img_url"
+                                            [title]="blog.title"
+                                            [description]="blog.description | convertToShortDescription: 20"
+                                            [routerLink]="'/social-media/blog-details/' + blog.id"
+                                        ></app-blog-card>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-tabPanel>
+                    </p-tabView>
                 </div>
-            </section>
+            </div>
         </div>
-
-        <!-- image modal -->
-        <ng-template #imagetemplate>
-            <div class="modal-body text-center mt-0 p-0 p-md-45 p-lg-45">
-                <div class="row m-0">
-                    <div class="w-100 d-xl-none pt-25 pr-25 p-md-0">
-                        <button
-                            type="button"
-                            class="close pull-right mb-3 mb-sm-4"
-                            aria-label="Close"
-                            (click)="modalRef.hide()"
-                        >
-                            <span aria-hidden="true">
-                                <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <div class="col-xl-5 col-12 p-0">
-                        <div class="modal-square-container">
-                            <img class="w-100 fram-img" src="{{ selectedImage.url }}" alt="farm-img" />
-                        </div>
-                    </div>
-
-                    <div class="col-xl-7 col-12 pl-3 pr-3 pb-4 p-md-0 text-left">
-                        <div class="w-100 d-none d-xl-block">
-                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                                <span aria-hidden="true">
-                                    <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="m-0 mt-3 mt-md-4 m-xl-45">
-                            <h4 class="fnt-16 fnt-bold text-clr334 mb-3">
-                                <span *ngIf="selectedImage.description">{{ selectedImage.description }} &nbsp; </span>@
-                                {{ selectedImage.owner_name }}
-                            </h4>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #eraofwe</p>
-                            <div class="d-flex">
-                                <span class="share-bor pt-2 pb-2 pl-25 pr-25">
-                                    <a
-                                        class="text-decoration-none d-flex"
-                                        href="javascript:void(0);"
-                                        (click)="download(selectedImage)"
-                                    >
-                                        <img class="share-img" src="assets/images/dwnd.svg" alt="farm" />
-                                        <span class="fnt-14 fnt-500 text-clr334">
-                                            {{ 'download_image' | translate }}
-                                        </span>
-                                    </a>
-                                </span>
-                            </div>
-                            <div class="mt-3" *ngIf="isDownload">
-                                <p-progressBar
-                                    [style]="{ height: '6px', width: '100%' }"
-                                    [value]="downloadStatus?.progress"
-                                ></p-progressBar>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-        <!-- end image modal -->
-
-        <ng-template #videotemplate>
-            <div class="modal-body text-center mt-0 p-0 p-md-45 p-lg-45">
-                <div class="row m-0">
-                    <div class="w-100 d-xl-none pt-25 pr-25 p-md-0">
-                        <button
-                            type="button"
-                            class="close pull-right mb-3 mb-sm-4"
-                            aria-label="Close"
-                            (click)="modalRef1.hide()"
-                        >
-                            <span aria-hidden="true">
-                                <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <div
-                        class="col-xl-5 col-12 p-0 position-relative"
-                        (click)="videoPopup(popTemplate); modalRef1.hide()"
-                    >
-                        <img class="w-100 fram-img" src="assets/images/farm-video.png" alt="farm" />
-                        <img class="video-play cursor-pointer" src="assets/images/play-button.png" alt="farm" />
-                    </div>
-
-                    <div class="col-xl-7 col-12 pl-3 pr-3 pb-4 p-md-0 text-left">
-                        <div class="w-100 d-none d-xl-block">
-                            <button
-                                type="button"
-                                class="close pull-right"
-                                aria-label="Close"
-                                (click)="modalRef1.hide()"
-                            >
-                                <span aria-hidden="true">
-                                    <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="m-0 mt-3 mt-md-4 m-xl-45">
-                            <h4 class="fnt-16 fnt-bold text-clr334 mb-3">
-                                <span *ngIf="selectedImage.description">{{ selectedVideo.description }} &nbsp; </span>@
-                                {{ selectedVideo.owner_name }}
-                            </h4>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #sewn</p>
-                            <div class="d-flex">
-                                <span class="share-bor pt-2 pb-2 pl-25 pr-25">
-                                    <a
-                                        class="text-decoration-none d-flex"
-                                        href="javascript:void(0);"
-                                        (click)="download(selectedVideo)"
-                                    >
-                                        <img class="share-img" src="assets/images/dwnd.svg" alt="farm" />
-                                        <span class="fnt-14 fnt-500 text-clr334">
-                                            {{ 'download_video' | translate }}
-                                        </span>
-                                    </a>
-                                </span>
-                            </div>
-                            <div class="mt-3" *ngIf="isDownload">
-                                <p-progressBar
-                                    [style]="{ height: '6px', width: '100%' }"
-                                    [value]="downloadStatus?.progress"
-                                ></p-progressBar>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-
-        <ng-template #popTemplate>
-            <div class="popup-video">
-                <div class="video-close" (click)="modalRef2.hide()">
-                    <span>&#x2715;</span>
-                </div>
-                <div class="modal-body video-section-modal p-0">
-                    <div>
-                        <video id="player" class="w-100" playsinline controls data-poster="/path/to/poster.jpg">
-                            <source [src]="selectedVideo.url" type="video/mp4" />
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </div>
+    </section>
 </section>
+
+<p-dialog
+    [(visible)]="showImageModal"
+    position="center"
+    [showHeader]="false"
+    [dismissableMask]="true"
+    [modal]="true"
+    [closeOnEscape]="true"
+    styleClass="image-dialog"
+>
+    <div class="text-center p-md-45 p-lg-45">
+        <div class="row m-0">
+            <div class="w-100 d-xl-none pt-25 pr-25 p-md-0">
+                <button
+                    type="button"
+                    class="close pull-right mb-3 mb-sm-4"
+                    aria-label="Close"
+                    (click)="showImageModal = false"
+                >
+                    <span aria-hidden="true">
+                        <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="col-xl-5 col-12 p-0">
+                <div class="modal-square-container">
+                    <img class="w-100 fram-img" src="{{ selectedImage?.url }}" alt="farm-img" />
+                </div>
+            </div>
+
+            <div class="col-xl-7 col-12 pl-3 pr-3 pb-4 p-md-0 text-left">
+                <div class="w-100 d-none d-xl-block">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="showImageModal = false">
+                        <span aria-hidden="true">
+                            <i class="pi pi-times custom-close-icon text-clr97 fnt-sm-600"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="m-0 mt-3 mt-md-4 m-xl-45">
+                    <h4 class="fnt-16 fnt-bold text-clr334 mb-3">
+                        <span *ngIf="selectedImage?.description">{{ selectedImage?.description }} &nbsp; </span>@
+                        {{ selectedImage?.owner_name }}
+                    </h4>
+                    <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #eraofwe</p>
+                    <div class="row gutter-16 v-gutter-16 align-items-center">
+                        <div class="col-auto">
+                            <span class="btn-trans-icon download-icon" (click)="download(selectedImage)">{{
+                                'download_image' | translate
+                            }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>

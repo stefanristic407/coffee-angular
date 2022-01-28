@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiResponse, ShopDetails, UserProfile } from '@models';
-import { ContactGroup, OrganizationType, ProfileImageType, VatType } from '@enums';
+import { ContactGroup, FileModule, FileType, OrganizationType, ProfileImageType, VatType } from '@enums';
 import { AuthService } from '../auth';
 import { SocketService } from '../socket';
 import { map, tap } from 'rxjs/operators';
@@ -977,16 +977,12 @@ export class UserService extends ApiService {
         };
         return this.http.put(this.orgPutUrl, data);
     }
-    getSocialMediaPosts(roaster_id, type_in: any) {
+
+    getSocialMediaPosts(typeIn: FileType) {
         let params = new HttpParams();
-        params = params.append('file_module', 'Social-Media');
-        params = params.append('type_in', type_in);
-        const data = {
-            api_call: `/general/ro/${roaster_id}/file-manager/all-files?${params}`,
-            method: 'GET',
-            token: this.authService.token,
-        };
-        return this.http.post(this.orgPostUrl, data);
+        params = params.append('file_module', FileModule.SocialMedia);
+        params = params.append('type_in', typeIn);
+        return this.post(this.generalUrl, `general/${this.apiCallPrefix}/file-manager/all-files?${params}`);
     }
 
     postDefaultCoffeeExperienceDetail(roaster_id: any, body: any) {
