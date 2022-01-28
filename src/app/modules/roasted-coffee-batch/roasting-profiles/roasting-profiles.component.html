@@ -16,7 +16,7 @@
             class="w-100"
             [(ngModel)]="termSearch"
             (ngModelChange)="getData()"
-            placeholder="Search by roast name"
+            placeholder="{{ 'search_by_roast' | translate }}"
             pInputText
         />
     </div>
@@ -41,7 +41,7 @@
                     class="w-100"
                     [(ngModel)]="termSearch"
                     (ngModelChange)="getData()"
-                    placeholder="Search by roast name"
+                    placeholder="{{ 'search_by_roast' | translate }}"
                     pInputText
                 />
             </div>

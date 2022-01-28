@@ -19,7 +19,7 @@
                     class="btn btn-raised pull-right"
                     (click)="editShippingInfo()"
                 >
-                    Edit
+                    {{ 'edit' | translate }}
                 </button>
                 <button
                     *ngIf="saveshippingmode"
@@ -266,15 +266,15 @@
                     <div class="feature-card">
                         <label class="primary_txt fnt-14 fnt-md-16" for="">VAT management</label>
                         <span class="secondary_txt fnt-12">Manage VAT for green coffee and B2B orders</span>
-                        <button class="btn btn-raised mt-4" (click)="selectMobileTab('VAT')">Manage VAT Rate</button>
+                        <button class="btn btn-raised mt-4" (click)="selectMobileTab('VAT')">Manage VAT rate</button>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 pl-md-2">
                     <div class="feature-card">
-                        <label class="primary_txt fnt-14 fnt-md-16" for="">Shipping Details</label>
+                        <label class="primary_txt fnt-14 fnt-md-16" for="">Shipping details</label>
                         <span class="secondary_txt fnt-12">Set shipping price and estimated delivery time</span>
                         <button class="btn btn-raised mt-4" (click)="selectMobileTab('Shipment')">
-                            Manage Shipping Details
+                            Manage shipping details
                         </button>
                     </div>
                 </div>
