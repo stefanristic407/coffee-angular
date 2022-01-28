@@ -1,3 +1,5 @@
+@import 'variables';
+
 .square-container {
     position: relative;
     width: 100%;
@@ -13,9 +15,6 @@
         height: 100%;
     }
 }
-.order-search {
-    width: 296px;
-}
 
 .close {
     text-shadow: none !important;
@@ -25,7 +24,7 @@
 .custom-close-icon {
     font-size: 21px;
     &:hover {
-        color: #232334;
+        color: $primary-color;
     }
 }
 
@@ -39,7 +38,7 @@
         height: 0;
         z-index: 1;
         mix-blend-mode: multiply;
-        background-image: linear-gradient(to bottom, #ffffff, #000000);
+        background-image: linear-gradient(to bottom, $white, $black);
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -50,10 +49,6 @@
         &::after {
             height: 100%;
         }
-        .post-info {
-            bottom: 25px;
-            opacity: 1;
-        }
     }
 
     .social-bg-image {
@@ -61,114 +56,9 @@
     }
 }
 
-.post-info {
-    position: absolute;
-    bottom: 0;
-    opacity: 0;
-    transition: 0.5s ease-in-out;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.38;
-    color: #ffffff;
-    text-align: left;
-    z-index: 9;
-    padding: 0px 25px;
-}
-
-.video-play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9;
-}
-
-::ng-deep .modal-body {
-    position: relative;
-    flex: 1 1 auto;
-}
-
-::ng-deep .modal-dialog {
-    @media (min-width: 1200px) {
-        max-width: 58% !important;
-        margin: 5rem auto 3rem auto;
-    }
-    @media (max-width: 1199px) {
-        margin: 3rem auto 3rem auto;
-        min-width: 572px;
-        max-width: 572px;
-    }
-    @media (max-width: 768px) {
-        min-width: 328px;
-        max-width: 328px;
-        margin: 3rem auto 3rem auto;
+:host ::ng-deep {
+    .p-dialog.image-dialog {
+        padding: 0 !important;
+        max-width: 800px;
     }
 }
-
-.popup-video {
-    margin-bottom: -10px;
-}
-
-@media (max-width: 767px) {
-    .popup-video {
-        margin: -40px -15px;
-    }
-    .post-info {
-        font-size: 12px;
-        padding: 0px 5px;
-    }
-    ::ng-deep .modal-body {
-        position: relative;
-        flex: 1 1 auto;
-    }
-    .grey-bor {
-        border-bottom: 2px dashed #ebebeb;
-    }
-}
-
-@media (max-width: 320px) {
-    .fnt-18 {
-        font-size: 14px !important;
-    }
-}
-
-/* Video model popup */
-
-::ng-deep .mat-slider-horizontal .mat-slider-wrapper {
-    top: 4px !important;
-}
-::ng-deep .controls .progress {
-    height: 8px !important;
-}
-::ng-deep .mat-slider {
-    position: unset !important;
-}
-::ng-deep .modal-content.video-content {
-    padding: 0 !important;
-    background: none !important;
-}
-
-.video-close {
-    background: #00b3ff;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-    font-weight: 700;
-    margin: 0 0 0 auto;
-    transform: translate(50%, -50%);
-    position: absolute;
-    z-index: 99;
-    cursor: pointer;
-    right: 0;
-    top: 0;
-    pointer-events: all;
-}
-
-// .custom-media-container {
-//     margin-left: -9px;
-//     margin-right: -9px;
-// }

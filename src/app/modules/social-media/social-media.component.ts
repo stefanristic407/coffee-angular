@@ -1,12 +1,11 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, GlobalsService, UserService } from '@services';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
-import { Download } from '@models';
-import { DownloadService } from '@services';
 import { DUMMY_BLOGS } from '@constants';
+import { FileType } from '@enums';
+import { Download } from '@models';
+import { TranslateService } from '@ngx-translate/core';
+import { DownloadService, UserService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-social-media',
@@ -14,183 +13,79 @@ import { DUMMY_BLOGS } from '@constants';
     styleUrls: ['./social-media.component.scss'],
 })
 export class SocialMediaComponent implements OnInit {
-    modalRef: BsModalRef;
-    modalRef1: BsModalRef;
-    modalRef2: BsModalRef;
-    blogResult: string;
+    breadItems = [
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('brand_experience') },
+        { label: this.translator.instant('social_pr') },
+    ];
     imagesListArray: any = [];
-    filteredImagesList: any = [];
-    videosListArray: any = [];
-    filteredVideosList: any = [];
-    roasterId: any;
+    selectedImage: any;
     mediaType = '';
     tabIndex = 0;
-    breadItems = [
-        { label: this.globals.languageJson?.home, routerLink: '/' },
-        { label: this.globals.languageJson?.brand_experience },
-        { label: this.globals.languageJson?.social_pr },
-    ];
-    searchKey = '';
-    selectedImage: any;
-    selectedVideo: any;
-    isDownload = false;
-    downloadStatus: Download;
     blogs = DUMMY_BLOGS;
 
+    showImageModal = false;
+
     constructor(
-        private modalService: BsModalService,
-        private route: ActivatedRoute,
-        public globals: GlobalsService,
-        private cookieService: CookieService,
-        private userService: UserService,
-        private toastrService: ToastrService,
-        private router: Router,
         private downloads: DownloadService,
-        private authService: AuthService,
-    ) {
-        this.roasterId = this.authService.getOrgId();
-    }
+        private route: ActivatedRoute,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        private userService: UserService,
+    ) {}
 
     download(socialMediaItem) {
-        console.log('download data356: ', socialMediaItem);
-        this.isDownload = true;
-        if (socialMediaItem.type === 'IMAGE') {
-            this.downloads.imageDownload(socialMediaItem.url, socialMediaItem.name, socialMediaItem.mime).subscribe(
-                (res: Download) => {
-                    console.log('download res: ', res);
-                    this.downloadStatus = res;
-                    if (this.downloadStatus.progress === 100) {
-                        this.isDownload = false;
-                    }
-                },
-                (error) => {
-                    this.isDownload = false;
-                    console.log('download social error: ', error);
-                    this.toastrService.error('Download failed');
-                },
-            );
+        if (socialMediaItem.type === FileType.IMAGE) {
+            this.downloads
+                .imageDownload(socialMediaItem.url, socialMediaItem.name, socialMediaItem.mime)
+                .subscribe((res: Download) => {});
         } else {
-            this.downloads.download(socialMediaItem.url, socialMediaItem.name, socialMediaItem.mime).subscribe(
-                (res: Download) => {
-                    console.log('download res: ', res);
-                    this.downloadStatus = res;
-                    if (this.downloadStatus.progress === 100) {
-                        this.isDownload = false;
-                    }
-                },
-                (error) => {
-                    this.isDownload = false;
-                    console.log('download social error: ', error);
-                    this.toastrService.error('Download failed');
-                },
-            );
+            this.downloads
+                .download(socialMediaItem.url, socialMediaItem.name, socialMediaItem.mime)
+                .subscribe((res: Download) => {});
         }
     }
 
-    openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
-    }
-
     ngOnInit(): void {
-        this.blogResult = decodeURIComponent(this.route.snapshot.queryParams.data);
         this.mediaType = this.route.snapshot.params?.type || '';
         switch (this.mediaType) {
             case 'images' || '':
                 this.tabIndex = 0;
                 break;
-            case 'videos':
-                this.tabIndex = 1;
-                break;
             case 'blogs':
-                this.tabIndex = 2;
-                break;
-            default:
+                this.tabIndex = 1;
                 break;
         }
 
         this.getSocialImages();
-        this.getSocialVideos();
     }
 
     handleChange(e) {
         this.tabIndex = e.index;
-        this.searchKey = '';
         switch (this.tabIndex) {
             case 0:
                 this.mediaType = 'images';
-                this.filteredImagesList = this.imagesListArray;
                 break;
             case 1:
-                this.mediaType = 'videos';
-                this.filteredVideosList = this.videosListArray;
-                break;
-            case 2:
                 this.mediaType = 'blogs';
-                break;
-            default:
                 break;
         }
         this.router.navigateByUrl(`social-media/media/${this.mediaType}`);
     }
 
-    filterCall() {
-        switch (this.tabIndex) {
-            case 0:
-                this.filteredImagesList = this.imagesListArray.filter((item) => {
-                    return item.name.toLowerCase().includes(this.searchKey.toLowerCase());
-                });
-                break;
-            case 1:
-                this.filteredVideosList = this.videosListArray.filter((item) => {
-                    return item.name.toLowerCase().includes(this.searchKey.toLowerCase());
-                });
-                break;
-            case 2:
-                this.mediaType = 'blogs';
-                break;
-            default:
-                break;
-        }
-    }
-
-    imagesModal(template: TemplateRef<any>, item: any) {
-        this.modalRef = this.modalService.show(template);
+    imagesModal(item: any) {
         this.selectedImage = item;
-    }
-
-    videosModal(template: TemplateRef<any>, item: any) {
-        this.modalRef1 = this.modalService.show(template);
-        this.selectedVideo = item;
-    }
-    videoPopup(template: TemplateRef<any>) {
-        this.modalRef2 = this.modalService.show(template);
-    }
-    toggleVideo(event: any) {
-        event.toElement.play();
+        this.showImageModal = true;
     }
 
     getSocialImages() {
-        this.userService.getSocialMediaPosts(this.roasterId, 'IMAGE').subscribe((response: any) => {
+        this.userService.getSocialMediaPosts(FileType.IMAGE).subscribe((response: any) => {
             if (response.success === true) {
                 this.imagesListArray = response.result;
-                this.filteredImagesList = this.imagesListArray;
             } else {
                 this.toastrService.error('Error While loading the Images');
             }
         });
-    }
-    getSocialVideos() {
-        this.userService.getSocialMediaPosts(this.roasterId, 'VIDEO').subscribe((response: any) => {
-            if (response.success === true) {
-                this.videosListArray = response.result;
-                this.filteredVideosList = this.videosListArray;
-            } else {
-                this.toastrService.error('Error While loading the Videos');
-            }
-        });
-    }
-
-    copySuccessAlert() {
-        this.toastrService.success('Media url is copied');
     }
 }
