@@ -111,6 +111,7 @@ export class CoffeeRecipesViewComponent extends DestroyableComponent implements 
     paginate(event: any) {
         if (this.pages !== event.page + 1) {
             this.pages = event.page + 1;
+            window.scroll(0, 0);
             this.getCoffeeRecipesData();
         }
     }

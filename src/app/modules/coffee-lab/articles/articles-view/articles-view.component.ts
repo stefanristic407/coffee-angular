@@ -99,6 +99,7 @@ export class ArticlesViewComponent extends DestroyableComponent implements OnIni
     paginate(event: any) {
         if (this.pages !== event.page + 1) {
             this.pages = event.page + 1;
+            window.scroll(0, 0);
             this.getData();
         }
     }
