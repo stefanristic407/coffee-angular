@@ -32,6 +32,7 @@ export class QaForumViewComponent extends DestroyableComponent implements OnInit
     pages = 1;
     totalRecords: number;
     rows = 10;
+    testData = new Date();
 
     constructor(
         public coffeeLabService: CoffeeLabService,

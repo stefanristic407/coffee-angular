@@ -325,8 +325,8 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
             water_ratio: value.water_ratio,
             brew_ratio: value.coffee_ratio + ':' + value.water_ratio,
             preparation_method: value.preparation_method,
-            description: value.description,
-            introduction: value.introduction,
+            description: this.commonService.getJustText(value.description),
+            introduction: this.commonService.getJustText(value.introduction),
             language: value.lang_code,
             steps: value.steps ? value.steps : [],
             cover_image_id: value.cover_image_id,
@@ -355,7 +355,7 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
                 const steps = {
                     image_id: step?.image_id,
                     coverImageUrl: step?.image_url,
-                    description: step.description,
+                    description: this.commonService.getJustText(step.description),
                 };
                 const controlArray = this.recipeForm.controls?.steps as FormArray;
                 controlArray.controls[j]?.patchValue(steps);
