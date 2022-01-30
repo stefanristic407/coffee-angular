@@ -65,14 +65,6 @@
                 }
             }
         }
-        .p-highlight {
-            .p-menuitem-link {
-                &::before {
-                    width: 100%;
-                    opacity: 1;
-                }
-            }
-        }
     }
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link,
