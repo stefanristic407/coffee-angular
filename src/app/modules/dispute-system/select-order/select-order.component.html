@@ -1,12 +1,6 @@
 <div class="main-block select-order">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex align-items-center">
-            <div class="back-href cursor-pointer" [routerLink]="['/dispute-system/raise-ticket/', orgType, orderId]">
-                <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
-                Back to ticket
-            </div>
-        </div>
-    </div>
+    <div class="back-page" [routerLink]="['/dispute-system/raise-ticket/', orgType, orderId]">Back to ticket</div>
+
     <div class="row mt-4">
         <div class="col-8">
             <div class="primary_txt mb-2">Select an order</div>
@@ -19,258 +13,160 @@
             <button class="btn btn-raised ml-3" (click)="onContinue()">Continue</button>
         </div>
     </div>
-    <div class="row">
-        <div *ngIf="selectedOrder" class="col-12 d-flex d-sm-flex d-md-none">
-            <button class="btn btn-stroked flex-grow-1" [routerLink]="['/dispute-system/order-chat/', orderId]">
-                {{ 'cancel' | translate }}
-            </button>
-            <button class="btn btn-raised ml-3 flex-grow-1" (click)="onContinue()">Continue</button>
-        </div>
+
+    <div *ngIf="selectedOrder" class="d-flex d-sm-flex d-md-none">
+        <button class="btn btn-stroked flex-grow-1" [routerLink]="['/dispute-system/order-chat/', orderId]">
+            {{ 'cancel' | translate }}
+        </button>
+        <button class="btn btn-raised ml-3 flex-grow-1" (click)="onContinue()">Continue</button>
     </div>
-    <div class="row tabPadding">
-        <div class="col-12">
-            <p-tabView [(activeIndex)]="currentIndex" (onChange)="onTabChange($event)">
-                <p-tabPanel>
-                    <ng-template pTemplate="header">
-                        <span>Estate</span>
-                    </ng-template>
-                </p-tabPanel>
-                <p-tabPanel>
-                    <ng-template pTemplate="header">
-                        <span>Micro-roaster</span>
-                    </ng-template>
-                </p-tabPanel>
-            </p-tabView>
-        </div>
-    </div>
-    <div class="row mt-4 mb-md-0 mb-4">
-        <div class="col-12">
-            <p-dropdown
-                [options]="originArray"
-                optionLabel="name"
-                optionValue="isoCode"
-                [(ngModel)]="originFilter"
-                (onChange)="filterCall()"
-                scrollHeight="225px"
-                [showClear]="true"
-                placeholder="Origin"
-                styleClass="round-border mr-2 mb-3 mb-md-4 {{ originFilter ? 'highlight' : '' }}"
-            >
-            </p-dropdown>
-            <p-dropdown
-                [options]="statusTypeArray"
-                optionLabel="label"
-                optionValue="value"
-                [(ngModel)]="statusFilter"
-                (onChange)="filterCall()"
-                scrollHeight="225px"
-                [showClear]="true"
-                placeholder="Type of order"
-                styleClass="round-border mr-2 mb-3 mb-md-4 {{ statusFilter ? 'highlight' : '' }}"
-            >
-            </p-dropdown>
-            <p-dropdown
-                [options]="orderTypeArray"
-                optionLabel="label"
-                optionValue="value"
-                [(ngModel)]="typeFilter"
-                (onChange)="filterCall()"
-                scrollHeight="225px"
-                [showClear]="true"
-                placeholder="Status"
-                styleClass="round-border mr-2 mb-3 mb-md-4 {{ typeFilter ? 'highlight' : '' }}"
-            >
-            </p-dropdown>
-            <p-calendar
-                styleClass="only-icon"
-                [(ngModel)]="rangeDates"
-                [showIcon]="true"
-                selectionMode="range"
-                dateFormat="dd.mm.yy"
-                (onClose)="filterCall()"
-                [readonlyInput]="true"
-                [showButtonBar]="true"
-                placeholder="{{ 'date_range' | translate }}"
-                styleClass="round-border"
-            ></p-calendar>
-            <p-dropdown
-                [options]="displayArray"
-                optionLabel="label"
-                optionValue="value"
-                [(ngModel)]="displayFilter"
-                (onChange)="filterCall()"
-                scrollHeight="225px"
-                [showClear]="true"
-                placeholder="Display"
-                styleClass="round-border d-none d-sm-none d-md-flex float-right {{ displayFilter ? 'highlight' : '' }}"
-            >
-            </p-dropdown>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 orderTable">
-            <p-table
-                #myTable
-                [class.table-mobile]="true"
-                [value]="tableValue"
-                [columns]="tableColumns"
-                dataKey="id"
-                [resizableColumns]="true"
-                [rows]="displayFilter"
-                styleClass="ui-table-disputes"
-                selectionMode="single"
-                [(selection)]="selectedOrder"
-                [showCurrentPageReport]="false"
-                [paginator]="totalRecords > displayFilter"
-                [rows]="displayFilter"
-                [lazy]="true"
-                (onLazyLoad)="filterCall($event)"
-                [loading]="loading"
-                [totalRecords]="totalRecords"
-                [responsive]="true"
-                [scrollable]="isTablet$ | async"
-            >
-                <ng-template pTemplate="header" let-columns>
-                    <tr class="d-none d-sm-none d-md-table-row">
-                        <th style="width: 5%"></th>
-                        <th
-                            *ngFor="let col of columns"
-                            [style.width]="col.width ? col.width + '%' : '30%'"
-                            [ngClass]="{ 'd-md-none': col.field == 'add_user' }"
-                        >
-                            <span class="primeng-table-header">{{ col.header }}</span>
-                        </th>
-                    </tr>
+
+    <div class="mt-475">
+        <p-tabView [(activeIndex)]="currentIndex" (onChange)="onTabChange($event)">
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <span>Estate</span>
                 </ng-template>
-                <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr class="rowClass">
-                        <td class="d-none d-sm-none d-md-table-cell">
-                            <p-tableRadioButton class="ml-2" [value]="rowData"></p-tableRadioButton>
-                        </td>
-                        <td
-                            *ngFor="let col of columns"
-                            [ngSwitch]="col.field"
-                            [style.width]="col.width ? col.width + '%' : '30%'"
-                            [ngClass]="{
-                                'd-none':
-                                    col.field == 'created_at' ||
-                                    col.field == 'price' ||
-                                    col.field == 'quantity' ||
-                                    col.field == 'type' ||
-                                    col.field == 'cup_score',
-                                'd-sm-none':
-                                    col.field == 'created_at' ||
-                                    col.field == 'price' ||
-                                    col.field == 'quantity' ||
-                                    col.field == 'type' ||
-                                    col.field == 'cup_score',
-                                'd-md-table-cell':
-                                    col.field == 'created_at' ||
-                                    col.field == 'price' ||
-                                    col.field == 'quantity' ||
-                                    col.field == 'type' ||
-                                    col.field == 'cup_score',
-                                nameMobileHeader: col.field == 'id',
-                                mobileBorderClass:
-                                    col.field == 'estate_name' || col.field == 'origin' || col.field == 'species',
-                                mobileBottom: col.field == 'status'
-                            }"
-                        >
-                            <span *ngSwitchCase="'id'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-block d-sm-block d-md-none mobileNameDiv">
-                                    <span class="primary_txt tableDataFont p-column-title"
-                                        >Order ID #{{ rowData[col.field] }}</span
-                                    >
-                                    <span
-                                        class="ml-3 p-column-title"
-                                        [ngClass]="{
-                                            'typeofStatus-booked': rowData['type'] == 'Booked',
-                                            'typeofStatus-sample': rowData['type'] == 'Sample',
-                                            'typeofStatus-preBook': rowData['type'] == 'Pre-Booked'
-                                        }"
-                                        >&#9679; {{ rowData['type'] }}</span
-                                    >
-                                    <p-tableRadioButton class="float-right" [value]="rowData"></p-tableRadioButton>
-                                </div>
-                            </span>
-                            <span *ngSwitchCase="'estate_name'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 p-column-title"> Estate name </span>
-                                    <div class="w-50 d-flex">
-                                        <span>
-                                            {{ rowData[col.field] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchCase="'created_at'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{
-                                    rowData[col.field] | date: 'dd MMM yyyy'
+            </p-tabPanel>
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <span>Micro-roaster</span>
+                </ng-template>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+
+    <div class="mt-4 mb-md-0 mb-4">
+        <p-dropdown
+            [options]="originArray"
+            optionLabel="name"
+            optionValue="isoCode"
+            [(ngModel)]="originFilter"
+            (onChange)="filterCall()"
+            scrollHeight="225px"
+            [showClear]="true"
+            placeholder="Origin"
+            styleClass="round-border mr-2 mb-3 mb-md-4 {{ originFilter ? 'highlight' : '' }}"
+        >
+        </p-dropdown>
+        <p-dropdown
+            [options]="statusTypeArray"
+            optionLabel="label"
+            optionValue="value"
+            [(ngModel)]="statusFilter"
+            (onChange)="filterCall()"
+            scrollHeight="225px"
+            [showClear]="true"
+            placeholder="Type of order"
+            styleClass="round-border mr-2 mb-3 mb-md-4 {{ statusFilter ? 'highlight' : '' }}"
+        >
+        </p-dropdown>
+        <p-dropdown
+            [options]="orderTypeArray"
+            optionLabel="label"
+            optionValue="value"
+            [(ngModel)]="typeFilter"
+            (onChange)="filterCall()"
+            scrollHeight="225px"
+            [showClear]="true"
+            placeholder="Status"
+            styleClass="round-border mr-2 mb-3 mb-md-4 {{ typeFilter ? 'highlight' : '' }}"
+        >
+        </p-dropdown>
+        <p-calendar
+            styleClass="only-icon"
+            [(ngModel)]="rangeDates"
+            [showIcon]="true"
+            selectionMode="range"
+            dateFormat="dd.mm.yy"
+            (onClose)="filterCall()"
+            [readonlyInput]="true"
+            [showButtonBar]="true"
+            placeholder="{{ 'date_range' | translate }}"
+            styleClass="round-border"
+        ></p-calendar>
+        <p-dropdown
+            [options]="displayArray"
+            optionLabel="label"
+            optionValue="value"
+            [(ngModel)]="displayFilter"
+            (onChange)="filterCall()"
+            scrollHeight="225px"
+            [showClear]="true"
+            placeholder="Display"
+            styleClass="round-border d-none d-sm-none d-md-flex float-right {{ displayFilter ? 'highlight' : '' }}"
+        >
+        </p-dropdown>
+    </div>
+
+    <p-table
+        #myTable
+        [value]="tableValue"
+        [columns]="tableColumns"
+        dataKey="id"
+        [rows]="displayFilter"
+        selectionMode="single"
+        [(selection)]="selectedOrder"
+        [showCurrentPageReport]="false"
+        [paginator]="totalRecords > displayFilter"
+        [rows]="displayFilter"
+        [lazy]="true"
+        (onLazyLoad)="filterCall($event)"
+        [loading]="loading"
+        [totalRecords]="totalRecords"
+        [responsive]="true"
+        [scrollable]="isTablet$ | async"
+        styleClass="mobile-card-view"
+    >
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [style.width]="col.width ? col.width + '%' : '30%'">
+                    <span>{{ col.header | translate }}</span>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td
+                    *ngFor="let col of columns"
+                    [ngSwitch]="col.field"
+                    [style.width]="col.width ? col.width + '%' : '30%'"
+                >
+                    <span *ngIf="col.field !== 'id' && col.field !== 'checkbox'" class="p-column-title">{{
+                        col.header | translate
+                    }}</span>
+                    <p-tableRadioButton *ngSwitchCase="'checkbox'" [value]="rowData"></p-tableRadioButton>
+                    <ng-container *ngSwitchCase="'id'">
+                        <span class="d-none d-md-block">{{ rowData[col.field] }}</span>
+                        <div class="d-flex d-md-none justify-content-between align-items-center p-mobile-row-content">
+                            <div class="d-flex">
+                                <span class="fnt-bold">{{ 'order_id' | translate }} #{{ rowData[col.field] }}</span>
+                                <span class="ml-3 fnt-600 status-badge" [ngClass]="rowData.type">{{
+                                    rowData.type | orderType
                                 }}</span>
-                            </span>
-                            <span *ngSwitchCase="'price'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block"
-                                    >{{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span
-                                >
-                            </span>
-                            <span *ngSwitchCase="'quantity'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block"
-                                    >{{ rowData[col.field] }} {{ rowData['quantity_type'] | quantityType }}</span
-                                >
-                            </span>
-                            <span *ngSwitchCase="'origin'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] | country }}</span>
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 p-column-title"> Origin </span>
-                                    <div class="w-50 d-flex">
-                                        <span class="tableDataFont">
-                                            {{ rowData[col.field] | country }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchCase="'type'" class="d-md-block">
-                                <span
-                                    class="d-none d-sm-none d-md-block"
-                                    [ngClass]="{
-                                        'typeofStatus-booked': rowData[col.field] == 'Booked',
-                                        'typeofStatus-sample': rowData[col.field] == 'Sample',
-                                        'typeofStatus-preBook': rowData[col.field] == 'Pre-Booked'
-                                    }"
-                                    >&#9679; {{ rowData[col.field] }}</span
-                                >
-                            </span>
-                            <span *ngSwitchCase="'status'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 p-column-title"> Status </span>
-                                    <div class="w-50 d-flex">
-                                        <span class="tableDataFont">
-                                            {{ rowData[col.field] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchCase="'species'" class="d-md-block">
-                                <span class="d-none d-sm-none d-md-block">{{ rowData[col.field] }}</span>
-                                <div class="d-flex d-sm-flex d-md-none">
-                                    <span class="prime-table-label w-50 p-column-title"> Species </span>
-                                    <div class="w-50 d-flex">
-                                        <span class="tableDataFont">
-                                            {{ rowData[col.field] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </span>
-                            <span *ngSwitchDefault>
-                                {{ rowData[col.field] }}
-                            </span>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    </div>
+                            </div>
+                            <p-tableRadioButton [value]="rowData"></p-tableRadioButton>
+                        </div>
+                    </ng-container>
+                    <span *ngSwitchCase="'estate_name'">{{ rowData[col.field] }} </span>
+                    <span *ngSwitchCase="'created_at'">{{ rowData[col.field] | date: 'dd MMM yyyy' }}</span>
+                    <span *ngSwitchCase="'price'"
+                        >{{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span
+                    >
+                    <span *ngSwitchCase="'quantity'">
+                        {{ rowData[col.field] }} {{ rowData['quantity_type'] | quantityType }}
+                    </span>
+                    <span *ngSwitchCase="'origin'">{{ rowData.origin | country }}</span>
+                    <span *ngSwitchCase="'type'" class="fnt-600 status-badge" [ngClass]="rowData.type">{{
+                        rowData.type | orderType
+                    }}</span>
+                    <span *ngSwitchCase="'status'">{{ rowData.status | sentencecase }}</span>
+                    <span *ngSwitchDefault>
+                        {{ rowData[col.field] }}
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>

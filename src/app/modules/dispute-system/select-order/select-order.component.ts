@@ -58,66 +58,74 @@ export class SelectOrderComponent extends ResizeableComponent implements OnInit 
     }
     createRoasterTable() {
         this.tableColumns = [
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'checkbox',
+                      header: '',
+                      width: 5,
+                  },
             {
                 field: 'id',
-                header: 'Order ID',
-                sortable: false,
+                header: 'order_id',
                 width: 7,
             },
             {
                 field: 'estate_name',
-                header: 'Estate name',
-                sortable: false,
+                header: 'estate_name',
                 width: 14,
             },
-            {
-                field: 'created_at',
-                header: 'Date ordered',
-                width: 10,
-            },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'created_at',
+                      header: 'date_ordered',
+                      width: 10,
+                  },
             {
                 field: 'origin',
-                header: 'Origin',
-                sortable: false,
-                width: 10,
+                header: 'origin',
+                width: 8,
             },
             {
                 field: 'species',
-                header: 'Species',
-                sortable: false,
+                header: 'species',
                 width: 8,
             },
-            {
-                field: 'price',
-                header: 'Price',
-                sortable: false,
-                width: 10,
-            },
-            {
-                field: 'quantity',
-                header: 'Quantity',
-                sortable: false,
-                width: 8,
-            },
-            {
-                field: 'type',
-                header: 'Type of order',
-                sortable: false,
-                width: 10,
-            },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'price',
+                      header: 'price',
+                      width: 10,
+                  },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'quantity',
+                      header: 'quantity',
+                      width: 8,
+                  },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'type',
+                      header: 'type_of_order',
+                      width: 10,
+                  },
             {
                 field: 'status',
-                header: 'Status',
-                sortable: false,
-                width: 10,
+                header: 'status',
+                width: 8,
             },
-            {
-                field: 'cup_score',
-                header: 'Cupping Score',
-                sortable: false,
-                width: 10,
-            },
-        ];
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'cup_score',
+                      header: 'cupping_score',
+                      width: 12,
+                  },
+        ].filter(Boolean);
     }
 
     onTabChange(event) {
