@@ -28,20 +28,15 @@
                             <div class="d-flex">
                                 <label class="mobileOrderDiv">Order ID #<span class="star">*</span></label>
                                 <div
-                                    class="
-                                        col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4
-                                        d-flex d-sm-flex
-                                        p-0
-                                        d-md-none
-                                        mobileOrderDiv
-                                    "
+                                    class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex d-sm-flex p-0 d-md-none mobileOrderDiv"
                                 >
                                     <span
                                         class="raise-chng-ord fnt-muli ml-auto"
                                         routerLink="/dispute-system/select-order"
                                         [queryParams]="{ orderId: orderId, orgType: orgType }"
                                     >
-                                        <img src="/assets/images/change_order.svg" alt="" /> change order</span
+                                        <img src="/assets/images/change_order.svg" alt="" />
+                                        {{ 'change_order' | translate }}</span
                                     >
                                 </div>
                             </div>
@@ -51,19 +46,15 @@
                             </small>
                         </div>
                         <div
-                            class="
-                                col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4
-                                d-none d-sm-none d-md-flex
-                                pl-3
-                                align-items-center
-                            "
+                            class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-none d-sm-none d-md-flex pl-3 align-items-center"
                         >
                             <span
                                 class="raise-chng-ord fnt-muli"
                                 routerLink="/dispute-system/select-order"
                                 [queryParams]="{ id: orderId, orderType: orgType }"
                             >
-                                <img src="/assets/images/shape-2.png" alt="" /> change order</span
+                                <img src="/assets/images/shape-2.png" alt="" />
+                                {{ 'change_order' | translate }}</span
                             >
                         </div>
                     </div>
