@@ -56,15 +56,19 @@ export class RoasterAgreementsComponent implements OnInit {
             if (resp.success) {
                 this.loading = false;
                 this.mainData = resp.result;
-                this.sortedMainData = this.mainData.sort((a, b) => b.created_at.localeCompare(a.created_at));
-                this.newList = this.sortedMainData.map((item) => {
-                    const transformItem = { label: '', value: '' };
-                    transformItem.label = item.customer_name;
-                    transformItem.value = item.customer_name;
-                    return transformItem;
-                });
-                this.newList = this.newList.filter((v, i, a) => a.findIndex((t) => t.label === v.label) === i);
-                this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
+                if (resp.result === null) {
+                    this.sortedMainData = resp.result;
+                } else {
+                    this.sortedMainData = this.mainData.sort((a, b) => b.created_at.localeCompare(a.created_at));
+                    this.newList = this.sortedMainData.map((item) => {
+                        const transformItem = { label: '', value: '' };
+                        transformItem.label = item.customer_name;
+                        transformItem.value = item.customer_name;
+                        return transformItem;
+                    });
+                    this.newList = this.newList.filter((v, i, a) => a.findIndex((t) => t.label === v.label) === i);
+                    this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
+                }
             } else {
                 this.toastrService.error(this.globals.languageJson?.error_getting_horeca_list);
             }
