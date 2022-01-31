@@ -112,7 +112,11 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
         if (this.cuppingReportId) {
             this.greenGradingService.getSingleCuppingDetails(this.cuppingReportId).subscribe((data: any) => {
                 if (data.success) {
-                    this.infoForm.patchValue({ ...data.result, sample_size: data.result?.sample_size || null });
+                    this.infoForm.patchValue({
+                        ...data.result,
+                        sample_size: data.result?.sample_size || null,
+                        sample_size_unit: data.result?.sample_size_unit || QuantityUnit.g,
+                    });
                 }
             });
         }
