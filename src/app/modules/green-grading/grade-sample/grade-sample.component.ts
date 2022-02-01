@@ -1,9 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, GreenGradingService } from '@services';
+import { GreenGradingService, ResizeService } from '@services';
 import { getCountry } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem, SortEvent } from 'primeng/api';
@@ -14,11 +15,12 @@ import { GenerateReportService } from '../generate-report/generate-report.servic
     templateUrl: './grade-sample.component.html',
     styleUrls: ['./grade-sample.component.scss'],
 })
-export class GradeSampleComponent implements OnInit {
+export class GradeSampleComponent extends ResizeableComponent implements OnInit {
+    readonly COUNTRY_LIST = COUNTRY_LIST;
     breadCrumbItems: MenuItem[];
-    roasterId: any;
     cuppingRequestList: any;
     sampleDetailForm: FormGroup;
+
     selectedEstateName: any;
     selectedStatus: any;
     estateArray: any[];
@@ -27,7 +29,6 @@ export class GradeSampleComponent implements OnInit {
     tableData: any[] = [];
     tableColumns: any[] = [];
     selectedRows: any[] = [];
-    isMobileView = false;
     loading = false;
     term = '';
 
@@ -35,22 +36,17 @@ export class GradeSampleComponent implements OnInit {
     clonedSamples: { [s: string]: any } = {};
     selectedCuppingReportId: any;
 
-    @HostListener('window:resize', ['$event'])
-    onResize(event?) {
-        this.initializeTable();
-    }
-
     constructor(
         private activeRoute: ActivatedRoute,
-        private authService: AuthService,
         private fb: FormBuilder,
+        private generateReportService: GenerateReportService,
         private greenGradingService: GreenGradingService,
         private router: Router,
         private toastrService: ToastrService,
-        private translateService: TranslateService,
-        public generateReportService: GenerateReportService,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
     ) {
-        this.roasterId = this.authService.getOrgId();
+        super(resizeService);
     }
 
     ngOnInit(): void {
@@ -59,15 +55,15 @@ export class GradeSampleComponent implements OnInit {
         });
         this.sampleDetailForm = this.fb.group({
             origin: ['', Validators.compose([Validators.required])],
-            estateName: ['', Validators.compose([Validators.required])],
+            estate_name: ['', Validators.compose([Validators.required])],
             variety: ['', Validators.compose([Validators.required])],
-            sampleId: ['', Validators.compose([Validators.required])],
+            sample_id: ['', Validators.compose([Validators.required])],
         });
         this.breadCrumbItems = [
-            { label: this.translateService.instant('home'), routerLink: '/' },
-            { label: this.translateService.instant('menu_sourcing') },
-            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
-            { label: this.translateService.instant('score_sample') },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('menu_sourcing') },
+            { label: this.translator.instant('quality_control'), routerLink: '/green-grading' },
+            { label: this.translator.instant('score_sample') },
         ];
         this.countries = COUNTRY_LIST;
         this.getExternalReports();
@@ -75,34 +71,43 @@ export class GradeSampleComponent implements OnInit {
     }
 
     initializeTable() {
-        this.isMobileView = window.innerWidth <= 767;
         this.tableColumns = [
             {
                 field: 'external_sample_id',
                 header: 'ID',
-                sortable: false,
+                width: 5,
             },
             {
                 field: 'estate_name',
                 header: 'Estate name',
                 sortable: true,
+                width: 15,
             },
             {
                 field: 'origin',
                 header: 'Origin',
                 sortable: true,
+                width: 15,
             },
             {
                 field: 'variety',
                 header: 'Variety',
-                sortable: false,
+                width: 15,
             },
             {
                 field: 'date_requested',
                 header: 'Date',
                 sortable: true,
+                width: 20,
             },
-        ];
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'actions',
+                      header: '',
+                      width: 22,
+                  },
+        ].filter(Boolean);
     }
 
     onRowEditInit(sample: any) {
@@ -118,7 +123,7 @@ export class GradeSampleComponent implements OnInit {
             sample_id: sample.external_sample_id,
         };
         this.greenGradingService
-            .updateExternalSample(this.roasterId, sample.cupping_report_id, updateSample)
+            .updateExternalSample(sample.cupping_report_id, updateSample)
             .subscribe((result: any) => {
                 if (result.success === true) {
                     this.toastrService.success('Micro roaster Sample Details updated successfully');
@@ -135,33 +140,33 @@ export class GradeSampleComponent implements OnInit {
     }
 
     addExternalReport() {
-        this.sampleDetailForm.markAllAsTouched();
-        if (this.sampleDetailForm.invalid) {
-            this.toastrService.error('Fields should not be empty.');
-        } else {
-            const data = {
-                origin: this.sampleDetailForm.get('origin').value,
-                estate_name: this.sampleDetailForm.get('estateName').value,
-                variety: this.sampleDetailForm.get('variety').value,
-                sample_id: this.sampleDetailForm.get('sampleId').value,
-            };
-            this.greenGradingService.addExternalCuppingReport(this.roasterId, data).subscribe((res: any) => {
-                if (res.success === true) {
-                    this.toastrService.success('External cupping report added successfully.');
-                    this.getExternalReports();
-                    this.sampleDetailForm.reset();
-                } else {
-                    this.toastrService.error('Error while adding reports.');
-                }
-            });
+        if (!this.sampleDetailForm.valid) {
+            this.toastrService.error(this.translator.instant('please_check_form_data'));
+            this.sampleDetailForm.markAllAsTouched();
+            return;
         }
+        const data = {
+            origin: this.sampleDetailForm.get('origin').value,
+            estate_name: this.sampleDetailForm.get('estate_name').value,
+            variety: this.sampleDetailForm.get('variety').value,
+            sample_id: this.sampleDetailForm.get('sample_id').value,
+        };
+        this.greenGradingService.addExternalCuppingReport(data).subscribe((res: any) => {
+            if (res.success === true) {
+                this.toastrService.success('External cupping report added successfully.');
+                this.getExternalReports();
+                this.sampleDetailForm.reset();
+            } else {
+                this.toastrService.error('Error while adding reports.');
+            }
+        });
     }
 
     getExternalReports() {
         this.estateArray = [];
         this.statusArray = [{ name: 'All' }];
         this.loading = true;
-        this.greenGradingService.listCuppingRequest(this.roasterId).subscribe((data: any) => {
+        this.greenGradingService.listCuppingRequest().subscribe((data: any) => {
             this.cuppingRequestList = data.result;
             this.tableData = this.cuppingRequestList;
             for (const cupping of this.cuppingRequestList) {
@@ -184,20 +189,18 @@ export class GradeSampleComponent implements OnInit {
 
     deleteSample(sample: any) {
         this.loading = true;
-        this.greenGradingService
-            .deleteExternalSample(this.roasterId, sample.cupping_report_id)
-            .subscribe((result: any) => {
-                if (result.success === true) {
-                    this.toastrService.success('Sample deleted successfully.');
-                    this.selectedRows = this.selectedRows.filter(
-                        (item) => item.cupping_report_id !== sample.cupping_report_id,
-                    );
-                    this.getExternalReports();
-                } else {
-                    this.loading = false;
-                    this.toastrService.error('Error while deleting VAT details');
-                }
-            });
+        this.greenGradingService.deleteExternalSample(sample.cupping_report_id).subscribe((result: any) => {
+            if (result.success === true) {
+                this.toastrService.success('Sample deleted successfully.');
+                this.selectedRows = this.selectedRows.filter(
+                    (item) => item.cupping_report_id !== sample.cupping_report_id,
+                );
+                this.getExternalReports();
+            } else {
+                this.loading = false;
+                this.toastrService.error('Error while deleting VAT details');
+            }
+        });
     }
 
     generateReportLink() {

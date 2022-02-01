@@ -60,7 +60,7 @@ export class GenerateNewReportComponent implements OnInit {
                 }
             });
         } else {
-            this.greenGradingService.listCuppingRequest(this.roasterId).subscribe((res: any) => {
+            this.greenGradingService.listCuppingRequest().subscribe((res: any) => {
                 const mainData = res.success ? res.result : [];
                 if (this.cuppingReportId) {
                     this.eachServiceData = mainData.find(
