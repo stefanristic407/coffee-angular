@@ -36,8 +36,8 @@ export class GreenGradingService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/evaluators`, 'GET');
     }
 
-    listCuppingRequest(roasterId: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/external-cupping-invite-list`, 'GET');
+    listCuppingRequest() {
+        return this.postWithOrg(this.orgPostUrl, `external-cupping-invite-list`, 'GET');
     }
 
     getSingleCuppingDetails(cuppingReportId: any) {
@@ -101,25 +101,16 @@ export class GreenGradingService extends ApiService {
         );
     }
 
-    addExternalCuppingReport(roasterId: any, body: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/cupping-process/external-samples`, 'POST', body);
+    addExternalCuppingReport(body: any) {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/external-samples`, 'POST', body);
     }
 
-    updateExternalSample(roasterId: any, cuppingReportId: any, body: any) {
-        return this.post(
-            this.orgPostUrl,
-            `ro/${roasterId}/cupping-process/${cuppingReportId}/external-samples`,
-            'PUT',
-            body,
-        );
+    updateExternalSample(cuppingReportId: any, body: any) {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/external-samples`, 'PUT', body);
     }
 
-    deleteExternalSample(roasterId: any, cuppingReportId: any) {
-        return this.post(
-            this.orgPostUrl,
-            `ro/${roasterId}/cupping-process/${cuppingReportId}/external-samples`,
-            'DELETE',
-        );
+    deleteExternalSample(cuppingReportId: any) {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/external-samples`, 'DELETE');
     }
 
     listCuppingReports(roasterId: any) {
