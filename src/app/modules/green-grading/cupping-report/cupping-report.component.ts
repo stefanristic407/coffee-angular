@@ -194,7 +194,13 @@ export class CuppingReportComponent implements OnInit {
         this.tableData =
             this.term.length === 0
                 ? reportsData
-                : reportsData.filter((item) => item.estate_name.toLowerCase().indexOf(this.term.toLowerCase()) >= 0);
+                : reportsData.filter(
+                      (item) =>
+                          item.estate_name.toLowerCase().indexOf(this.term.toLowerCase()) >= 0 ||
+                          (this.activeIndex === 0 ? item.cupping_report_id : item.external_sample_id)
+                              .toString()
+                              .indexOf(this.term) >= 0,
+                  );
     }
 
     serviceReportLink(data: any) {
