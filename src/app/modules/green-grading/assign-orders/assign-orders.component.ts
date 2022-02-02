@@ -54,7 +54,7 @@ export class AssignOrdersComponent extends ResizeableComponent implements OnInit
         private greenGradingService: GreenGradingService,
         private location: Location,
         private toaster: ToastrService,
-        private translateService: TranslateService,
+        private translator: TranslateService,
         protected resizeService: ResizeService,
     ) {
         super(resizeService);
@@ -62,10 +62,10 @@ export class AssignOrdersComponent extends ResizeableComponent implements OnInit
 
     ngOnInit(): void {
         this.breadCrumbItems = [
-            { label: this.translateService.instant('home'), routerLink: '/' },
-            { label: this.translateService.instant('menu_sourcing') },
-            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
-            { label: this.translateService.instant('assign_orders') },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('menu_sourcing') },
+            { label: this.translator.instant('quality_control'), routerLink: '/green-grading' },
+            { label: this.translator.instant('assign_orders') },
         ];
         if (!this.aclService.checkPermission('cupping-management')) {
             this.toaster.error('You have no permission.');
