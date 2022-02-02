@@ -37,6 +37,7 @@
 
                     .eval_info {
                         display: flex;
+                        width: 100%;
 
                         p {
                             width: 50%;
@@ -83,6 +84,10 @@
 
                         .eval_info {
                             flex-direction: column;
+
+                            p {
+                                width: 100%;
+                            }
 
                             p:last-child {
                                 font-size: 12px;
