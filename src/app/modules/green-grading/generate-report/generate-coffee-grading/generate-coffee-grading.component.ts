@@ -14,44 +14,44 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
     dataObj: { [key: string]: any } = {};
     category1List = [
         {
-            label: 'Full Black',
+            label: 'Full black',
             key1: 'full_black_no',
             key2: 'full_black_eqv',
         },
         {
-            label: 'Full Sour',
+            label: 'Full sour',
             key1: 'full_sour_no',
             key2: 'full_sour_eqv',
         },
         {
-            label: 'Dried Cherry/Pod',
+            label: 'Dried cherry/Pod',
             key1: 'dried_cherry_no',
             key2: 'dried_cherry_eqv',
         },
         {
-            label: 'Fungus Damaged',
+            label: 'Fungus damaged',
             key1: 'fungus_damaged_no',
             key2: 'fungus_damaged_eqv',
         },
         {
-            label: 'Foreign Matter',
+            label: 'Foreign matter',
             key1: 'foreign_matter_no',
             key2: 'foreign_matter_eqv',
         },
         {
-            label: 'Severe Insect Damage',
+            label: 'Severe insect damage',
             key1: 'severe_insect_damage_no',
             key2: 'severe_insect_damage_eqv',
         },
     ];
     category2List = [
         {
-            label: 'Partial Black',
+            label: 'Partial black',
             key1: 'partial_black_no',
             key2: 'partial_black_eqv',
         },
         {
-            label: 'Partial Sour',
+            label: 'Partial sour',
             key1: 'partial_sour_no',
             key2: 'partial_sour_eqv',
         },
@@ -86,12 +86,12 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
             key2: 'brocken_chipped_eqv',
         },
         {
-            label: 'Hull/Husk',
+            label: 'Hull / Husk',
             key1: 'hull_husk_no',
             key2: 'hull_husk_eqv',
         },
         {
-            label: 'Slight Insect Damage',
+            label: 'Slight insect damage',
             key1: 'slight_insect_damage_no',
             key2: 'slight_insect_damage_eqv',
         },
