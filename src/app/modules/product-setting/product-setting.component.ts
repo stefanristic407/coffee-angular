@@ -146,7 +146,7 @@ export class ProductSettingComponent implements OnInit {
                 this.userService.updateRoasterShippingTypes(this.roasterId, this.shipId, data).subscribe((res) => {
                     if (res.success) {
                         this.resetButtonValue = 'Save';
-                        this.toastrService.success('Shipping Details Updated successfully');
+                        this.toastrService.success('Shipping details updated successfully');
                         this.getShippingInfo();
                         this.editshippingmode = true;
                         this.saveshippingmode = false;
