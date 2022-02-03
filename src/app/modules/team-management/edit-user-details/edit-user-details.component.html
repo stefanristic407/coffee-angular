@@ -1,57 +1,58 @@
-<div class="pt-0 pt-md-4">
+<div class="pt-md-4">
     <form [formGroup]="userForm" novalidate>
         <div
             formArrayName="items"
             *ngFor="let item of userForm.controls['items']['controls']; let i = index; last as isLast"
         >
-            <div [formGroupName]="i" class="row gutter-16 gutter-lg-24">
-                <div class="sewn-form-field col-lg-3">
-                    <label
-                        >{{ 'first_name' | translate }}<span class="star">*</span>
-                        <span *ngIf="i > 0" class="brown-cta d-md-none float-right" (click)="deleteEmail(i)"
-                            >{{ 'delete' | translate }}
-                        </span>
-                    </label>
-                    <input
-                        type="text"
-                        [placeholder]="'please_enter_first_name' | translate"
-                        formControlName="firstname"
-                        pInputText
-                    />
-                    <small *ngIf="item['controls']['firstname'].errors?.required" class="p-error"> Required </small>
+            <div [formGroupName]="i">
+                <div class="d-flex justify-content-between align-items-center d-md-none mb-3">
+                    <div class="fnt-16 fnt-md-18 fnt-bold">{{ 'invite' | translate }} {{ i + 1 }}</div>
+                    <span *ngIf="i" class="brown-cta" (click)="deleteEmail(i)">{{ 'delete' | translate }}</span>
                 </div>
-                <div class="sewn-form-field col-lg-3">
-                    <label>{{ 'last_name' | translate }}<span class="star">*</span></label>
-                    <input
-                        type="text"
-                        [placeholder]="'please_enter_last_name' | translate"
-                        formControlName="lastname"
-                        pInputText
-                    />
-                    <small *ngIf="item['controls']['lastname'].errors?.required" class="p-error"> Required </small>
+
+                <div class="row gutter-16 gutter-lg-24">
+                    <div class="sewn-form-field col-lg-3">
+                        <label>{{ 'first_name' | translate }}<span class="star">*</span></label>
+                        <input
+                            type="text"
+                            [placeholder]="'please_enter_first_name' | translate"
+                            formControlName="firstname"
+                            pInputText
+                        />
+                        <small *ngIf="item['controls']['firstname'].errors?.required" class="p-error"> Required </small>
+                    </div>
+                    <div class="sewn-form-field col-lg-3">
+                        <label>{{ 'last_name' | translate }}<span class="star">*</span></label>
+                        <input
+                            type="text"
+                            [placeholder]="'please_enter_last_name' | translate"
+                            formControlName="lastname"
+                            pInputText
+                        />
+                        <small *ngIf="item['controls']['lastname'].errors?.required" class="p-error"> Required </small>
+                    </div>
+                    <div class="sewn-form-field col-lg-3">
+                        <label>{{ 'enter_yoru_work_email' | translate }}<span class="star">*</span></label>
+                        <input type="text" placeholder="you@example.com" formControlName="email" pInputText />
+                        <small *ngIf="item['controls']['email'].errors?.required" class="p-error"> Required </small>
+                        <small *ngIf="item['controls']['email'].errors?.email" class="p-error">{{
+                            'please_fill_valid_email' | translate
+                        }}</small>
+                        <small *ngIf="item['controls']['email'].errors?.exist" class="p-error">{{
+                            'email_already_exists' | translate
+                        }}</small>
+                    </div>
+                    <div *ngIf="i > 0" class="col-auto form-middle d-none d-md-block">
+                        <span class="brown-cta" (click)="deleteEmail(i)">{{ 'delete' | translate }}</span>
+                    </div>
                 </div>
-                <div class="sewn-form-field col-lg-3">
-                    <label>{{ 'enter_yoru_work_email' | translate }}<span class="star">*</span></label>
-                    <input type="text" placeholder="you@example.com" formControlName="email" pInputText />
-                    <small *ngIf="item['controls']['email'].errors?.required" class="p-error"> Required </small>
-                    <small *ngIf="item['controls']['email'].errors?.email" class="p-error">{{
-                        'please_fill_valid_email' | translate
-                    }}</small>
-                    <small *ngIf="item['controls']['email'].errors?.exist" class="p-error">{{
-                        'email_already_exists' | translate
-                    }}</small>
-                </div>
-                <div *ngIf="i > 0" class="col-auto form-middle d-none d-md-block">
-                    <span class="brown-cta" (click)="deleteEmail(i)">{{ 'delete' | translate }}</span>
-                </div>
+
+                <div class="divider d-md-none mt-2 mb-4"></div>
             </div>
-            <div class="row">
-                <div *ngIf="isLast" class="col-12 d-none d-sm-none d-md-inline-flex align-items-center">
-                    <span class="brown-cta" (click)="addUser()"
-                        ><i class="pi pi-plus fnt-14 mr-1"></i>{{ 'add_another_member' | translate }}</span
-                    >
-                </div>
-            </div>
+
+            <span *ngIf="isLast" class="brown-cta" (click)="addUser()"
+                ><i class="pi pi-plus fnt-14 mr-1"></i>{{ 'add_another_member' | translate }}</span
+            >
         </div>
     </form>
 </div>
