@@ -68,7 +68,7 @@
 
                     <span *ngSwitchCase="'order_ids'">{{ rowData[col.field] ? '#' + rowData[col.field] : '-' }}</span>
                     <span *ngSwitchCase="'type'">{{ rowData[col.field] | titlecase }}</span>
-                    <span *ngSwitchCase="'updated_at'">{{ rowData[col.field] | date: 'dd/MM/yyyy, hh:mm a' }}</span>
+                    <span *ngSwitchCase="'updated_at'">{{ rowData[col.field] | date: 'd MMM y, h:mm a' }}</span>
 
                     <span *ngSwitchCase="'actions'" class="d-flex justify-content-end align-items-center">
                         <span *ngIf="!rowData.shared_count" class="tr-hover-visible mr-3 d-none d-lg-block">
