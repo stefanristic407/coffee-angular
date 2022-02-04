@@ -23,7 +23,13 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [style.width]="col.width ? col.width + '%' : '30%'">
-                    <p-tableHeaderCheckbox *ngIf="col.field === 'checkbox'"></p-tableHeaderCheckbox>
+                    <p-checkbox
+                        *ngIf="col.field === 'checkbox'"
+                        [binary]="true"
+                        [(ngModel)]="isAllSelected"
+                        (click)="selectRows(tableAllCheck.checked)"
+                        #tableAllCheck
+                    ></p-checkbox>
                     <span *ngIf="col.field !== 'checkbox'" [pSortableColumn]="col.sortable ? col.field : ''">
                         {{ col.header | translate }}
                         <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
@@ -41,7 +47,7 @@
                     <p-tableCheckbox
                         *ngSwitchCase="'checkbox'"
                         [value]="rowData"
-                        (click)="$event.stopPropagation()"
+                        (click)="selectRow(); $event.stopPropagation()"
                         [disabled]="rowData.permission !== FilePermission.EDIT"
                     ></p-tableCheckbox>
 
