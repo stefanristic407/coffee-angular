@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { FileType } from '@enums';
+import { FilePermission, FileType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { ResizeService } from '@services';
 import { FileShareService } from '../../file-share.service';
@@ -12,6 +12,7 @@ import { FileShareService } from '../../file-share.service';
     styleUrls: ['./file-table.component.scss'],
 })
 export class FileTableComponent extends ResizeableComponent implements OnInit {
+    readonly FilePermission = FilePermission;
     @Input() listType = '';
     @Input() emptyTitle = this.translator.instant('no_data_available');
     tableColumns = [];

@@ -42,6 +42,7 @@
                         *ngSwitchCase="'checkbox'"
                         [value]="rowData"
                         (click)="$event.stopPropagation()"
+                        [disabled]="rowData.permission !== FilePermission.EDIT"
                     ></p-tableCheckbox>
 
                     <ng-container *ngSwitchCase="'name'">
