@@ -46,8 +46,10 @@
             <p class="fnt-md-16 fnt-bold mb-2 mb-md-25">{{ 'evaluators' | translate }}</p>
             <div class="evaluator_table_body">
                 <div class="eval_heading">
-                    <label class="fnt-600 text-clr588 mb-0 w-50">{{ 'name' | translate }}</label>
-                    <label class="fnt-600 text-clr588 mb-0 w-50">{{ 'role' | translate }}</label>
+                    <div>
+                        <label class="fnt-600 text-clr588 mb-0 w-50">{{ 'name' | translate }}</label>
+                        <label class="fnt-600 text-clr588 mb-0 w-50">{{ 'role' | translate }}</label>
+                    </div>
                 </div>
                 <ul class="mb-0">
                     <li *ngFor="let item of evaluatorsListArray; let i = index">
