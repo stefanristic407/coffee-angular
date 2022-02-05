@@ -1,25 +1,29 @@
-<div class="d-md-flex">
-    <p-multiSelect
-        [options]="LANGUAGES"
-        [(ngModel)]="converseLanguages"
-        (ngModelChange)="onLanguagesChange()"
-        optionLabel="name"
-        dataKey="value"
-        scrollHeight="225px"
-        dropdownIcon="pi pi-plus"
-        [placeholder]="'add_language' | translate"
-        styleClass="p-language-dropdown"
-    >
-        <ng-template let-value pTemplate="selectedItems">
-            <div>{{ 'add_language' | translate }}</div>
-        </ng-template>
-    </p-multiSelect>
-    <p-chips
-        [(ngModel)]="converseLanguages"
-        (ngModelChange)="onLanguagesChange()"
-        field="name"
-        [allowDuplicate]="false"
-        styleClass="p-language-chips mt-3 mt-md-0 ml-n2 ml-md-0"
-    >
-    </p-chips>
+<div class="row gutter-12 v-gutter-12">
+    <div class="col-auto">
+        <p-multiSelect
+            [options]="LANGUAGES"
+            [(ngModel)]="converseLanguages"
+            (ngModelChange)="onLanguagesChange()"
+            optionLabel="name"
+            dataKey="value"
+            scrollHeight="225px"
+            dropdownIcon="pi pi-plus"
+            [placeholder]="'add_language' | translate"
+            styleClass="p-language-dropdown"
+        >
+            <ng-template let-value pTemplate="selectedItems">
+                <div>{{ 'add_language' | translate }}</div>
+            </ng-template>
+        </p-multiSelect>
+    </div>
+    <div class="col-auto">
+        <p-chips
+            [(ngModel)]="converseLanguages"
+            (ngModelChange)="onLanguagesChange()"
+            field="name"
+            [allowDuplicate]="false"
+            styleClass="p-language-chips ml-n2"
+        >
+        </p-chips>
+    </div>
 </div>

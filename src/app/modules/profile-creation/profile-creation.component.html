@@ -1,8 +1,7 @@
-<div class="bg-fff pl-lg-5 pr-lg-5 pt-lg-45 pb-lg-325 p-md-3">
-    <div class="w-100 d-flex justify-content-between mb-3">
-        <div class="d-none d-md-block">
-            <p-breadcrumb [model]="breadItems"> </p-breadcrumb>
-        </div>
+<div class="main-block">
+    <div class="d-none d-md-flex justify-content-between w-100 mb-3">
+        <p-breadcrumb [model]="breadItems"> </p-breadcrumb>
+
         <div class="d-none d-lg-block">
             <button
                 pButton
@@ -31,7 +30,7 @@
             ></button>
         </div>
     </div>
-    <div class="p-0">
+    <div>
         <div class="d-flex justify-content-between">
             <div class="w-100 text-center text-md-left">
                 <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
@@ -70,7 +69,7 @@
             </div>
         </div>
 
-        <div class="profile-header-details border-md-main br-4 position-relative">
+        <div class="profile-header-details border-md-main br-md-4 position-relative mx-n3 mx-md-0">
             <img
                 class="cover-image-profile-banner w-100"
                 *ngIf="isSaveMode && profileCreationService.bannerUrl"
@@ -155,6 +154,7 @@
                 ></button>
             </div>
         </div>
+
         <div class="profile-description-container">
             <div class="profile-avatar bg-fff" [ngClass]="{ 'border-main': !profileCreationService.orgImgPrevUrl }">
                 <img
@@ -197,10 +197,10 @@
                         />
                     </div>
                 </form>
-                <p class="fnt-14 text-clr334 mt-2 fnt-bold underline text-break d-md-none" *ngIf="isEditMode">
+                <p class="text-clr334 mt-2 fnt-bold text-break d-md-none" *ngIf="isEditMode">
                     {{ profileCreationService.organizationProfile?.website }}
                 </p>
-                <p class="fnt-14 text-clr588 mt-2 fnt-bold text-break d-none d-md-block" *ngIf="isEditMode">
+                <p class="text-clr588 mt-2 fnt-bold text-break d-none d-md-block" *ngIf="isEditMode">
                     {{ profileCreationService.organizationProfile?.website }}
                 </p>
                 <a target="blank" href="{{ profileCreationService.organizationProfile?.website }}" #link hidden></a>
