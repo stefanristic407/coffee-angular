@@ -44,6 +44,14 @@ export class RaiseTicketComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.helpTextArray = [
+            { label: 'Buying coffee', value: 'Buying Coffee' },
+            { label: 'Requesting samples', value: 'Requesting Samples' },
+            { label: 'Payment', value: 'Payment' },
+            { label: 'Coffee bulks', value: 'Coffee Bulks' },
+            { label: 'Shipping', value: 'Shipping' },
+            { label: 'Others', value: 'Others' },
+        ];
         this.roasterID = this.authService.getOrgId();
         this.route.paramMap.subscribe((params) => {
             if (params.has('orderId') && params.has('orgType')) {
@@ -64,14 +72,6 @@ export class RaiseTicketComponent implements OnInit {
             solution: [''],
             images: [],
         });
-        this.helpTextArray = [
-            { label: 'Buying Coffee', value: 'Buying Coffee' },
-            { label: 'Requesting Samples', value: 'Requesting Samples' },
-            { label: 'Payment', value: 'Payment' },
-            { label: 'Coffee Bulks', value: 'Coffee Bulks' },
-            { label: 'Shipping', value: 'Shipping' },
-            { label: 'Others', value: 'Others' },
-        ];
         this.reasonTextArray = [
             {
                 label: 'Why do I have to pay before the coffee is shipped ?',
@@ -117,15 +117,13 @@ export class RaiseTicketComponent implements OnInit {
                         this.disputeID = res.result.id;
                         this.pushInfoTochatThread(this.disputeID, obj.dispute_type, () => {
                             this.attachFiles().subscribe(
-                                () => {
-                                    this.redirectOrderChat();
-                                },
+                                () => {},
                                 () => {
                                     this.toastrService.error('Error occured while attaching the files');
-                                    this.redirectOrderChat();
                                 },
                             );
                         });
+                        this.redirectOrderChat();
                     }
                 },
                 (err) => {
