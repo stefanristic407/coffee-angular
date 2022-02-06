@@ -8,16 +8,14 @@
                     defaultLabel="{{ 'select_origin' | translate }}"
                     [maxSelectedLabels]="1"
                     selectedItemsLabel="{0} Origins"
-                    [filter]="false"
+                    [showToggleAll]="false"
                     (onChange)="filterCall()"
                     styleClass="w-100 mb-3 mb-md-4 br-right-0 {{ queryParams.origin?.length ? 'highlight' : '' }}"
                 >
-                    <ng-template pTemplate="header">
-                        <span class="all-mark">{{ 'all' | translate }}</span>
-                        <span
-                            class="clear-btn pi pi-times {{ queryParams.origin?.length ? 'show' : '' }}"
-                            (click)="queryParams.origin = null; filterCall()"
-                        ></span>
+                    <ng-template pTemplate="footer">
+                        <span class="brown-cta" (click)="queryParams.origin = null; filterCall()">
+                            {{ 'clear' | translate }}
+                        </span>
                     </ng-template>
                 </p-multiSelect>
             </div>
