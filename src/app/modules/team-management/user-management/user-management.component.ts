@@ -22,7 +22,9 @@ export class UserManagementComponent implements OnInit {
     roleList: any[] = [];
     statusFilterArray: any = [];
     isAddMember = false;
-    showAddbutton = true;
+    get showAddbutton() {
+        return this.router.routerState.snapshot.url === '/team-management/team-members/accepted' ? true : false;
+    }
 
     constructor(
         private roasterService: RoasterService,
@@ -34,16 +36,8 @@ export class UserManagementComponent implements OnInit {
 
     ngOnInit(): void {
         this.menuItems = [
-            {
-                label: this.translator.instant('user_management'),
-                routerLink: 'accepted',
-                command: () => (this.showAddbutton = true),
-            },
-            {
-                label: this.translator.instant('pending_invitations'),
-                routerLink: 'pending-invitations',
-                command: () => (this.showAddbutton = false),
-            },
+            { label: this.translator.instant('user_management'), routerLink: 'accepted' },
+            { label: this.translator.instant('pending_invitations'), routerLink: 'pending-invitations' },
         ];
         this.statusFilterArray = [
             { name: 'Active', value: 'active' },
@@ -55,8 +49,6 @@ export class UserManagementComponent implements OnInit {
             this.supplyBreadCrumb();
             this.listRoles();
         });
-        this.showAddbutton =
-            this.router.routerState.snapshot.url === '/team-management/team-members/accepted' ? true : false;
     }
 
     onSearch() {
