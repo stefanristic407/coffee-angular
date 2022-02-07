@@ -32,7 +32,6 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
     loading = false;
     term = '';
 
-    countries: any[];
     clonedSamples: { [s: string]: any } = {};
     selectedCuppingReportId: any;
 
@@ -65,7 +64,6 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
             { label: this.translator.instant('quality_control'), routerLink: '/green-grading' },
             { label: this.translator.instant('score_sample') },
         ];
-        this.countries = COUNTRY_LIST;
         this.getExternalReports();
         this.initializeTable();
     }
