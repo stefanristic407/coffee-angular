@@ -887,14 +887,6 @@ export class RoasterService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `orders/${orderID}/activity-logs`);
     }
 
-    listServiceCuppingReports(roaster_id: any, gc_order_id: any) {
-        var data = {};
-        data['api_call'] = `​/gc/${roaster_id}​/orders/${gc_order_id}​/cupping-reports`;
-        data['token'] = this.authService.token;
-        data['method'] = 'GET';
-        return this.http.post(this.url, data);
-    }
-
     listSampleCuppingReports(roaster_id: any, external_sample_id: any) {
         var data = {};
         data[

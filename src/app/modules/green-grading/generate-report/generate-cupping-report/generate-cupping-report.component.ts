@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, Input, OnChanges } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService, GreenGradingService } from '@services';
+import { CuppingStatus } from '@enums';
+import { Download } from '@models';
+import { DownloadService, GreenGradingService } from '@services';
+import { trackFileName } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { GenerateReportService } from '../generate-report.service';
 
@@ -15,7 +17,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     @Output() afterUpload = new EventEmitter<any>();
     @Input() cuppingDetails;
     @Input() selectedCuppingId;
-    roasterId: number;
+
     evaluatorData: any;
     evaluatorName: any;
     cuppingReportId: any;
@@ -28,15 +30,17 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
     singleCuppingDetails: any;
     activeState: boolean[] = [];
 
-    constructor(
-        private toastrService: ToastrService,
-        private cookieService: CookieService,
-        private greenGradingService: GreenGradingService,
-        private authService: AuthService,
-        public generateReportService: GenerateReportService,
-    ) {
-        this.roasterId = this.authService.getOrgId();
+    get completed() {
+        const statusKey = this.generateReportService.fromQueryParam === 'ServiceRequest' ? 'cupping_status' : 'status';
+        return this.cuppingDetails[statusKey] === CuppingStatus.COMPLETED;
     }
+
+    constructor(
+        private downloadService: DownloadService,
+        private generateReportService: GenerateReportService,
+        private greenGradingService: GreenGradingService,
+        private toastrService: ToastrService,
+    ) {}
 
     ngOnInit(): void {}
 
@@ -82,32 +86,28 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
 
     getCupReports() {
         if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
-            this.greenGradingService
-                .listServiceCuppingReports(this.roasterId, this.serviceRequestId)
-                .subscribe((res: any) => {
-                    if (res.success === true) {
-                        this.cuppingReports = res.result;
-                        this.cuppingReports.forEach((element, index) => {
-                            this.getEvaluatorData(element.id);
-                            this.activeState[index] = index === 0 ? true : false;
-                        });
-                    } else {
-                        this.toastrService.error('Error while getting the cupping reports.');
-                    }
-                });
+            this.greenGradingService.listServiceCuppingReports(this.serviceRequestId).subscribe((res: any) => {
+                if (res.success === true) {
+                    this.cuppingReports = res.result;
+                    this.cuppingReports.forEach((element, index) => {
+                        this.getEvaluatorData(element.id);
+                        this.activeState[index] = index === 0 ? true : false;
+                    });
+                } else {
+                    this.toastrService.error('Error while getting the cupping reports.');
+                }
+            });
         } else {
-            this.greenGradingService
-                .listSampleCuppingReports(this.roasterId, this.sampleRequestId)
-                .subscribe((res: any) => {
-                    if (res.success === true) {
-                        this.cuppingReports = res.result;
-                        this.cuppingReports.forEach((element, index) => {
-                            this.activeState[index] = index === 0 ? true : false;
-                        });
-                    } else {
-                        this.toastrService.error('Error while getting the cupping reports.');
-                    }
-                });
+            this.greenGradingService.listSampleCuppingReports(this.sampleRequestId).subscribe((res: any) => {
+                if (res.success === true) {
+                    this.cuppingReports = res.result;
+                    this.cuppingReports.forEach((element, index) => {
+                        this.activeState[index] = index === 0 ? true : false;
+                    });
+                } else {
+                    this.toastrService.error('Error while getting the cupping reports.');
+                }
+            });
         }
     }
 
@@ -133,37 +133,37 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
         }
     }
 
-    downloadFile(item: any) {
-        const a = document.createElement('a');
-        a.href = item;
-        a.download = 'Report' + '.pdf';
-        a.target = '_blank';
-        // document.body.appendChild(a);
-        a.click();
-        // document.body.removeChild(a);
+    downloadFile(url: string) {
+        this.downloadService.download(url, trackFileName(url), 'application/pdf').subscribe(
+            (res: Download) => {
+                if (res?.state === 'DONE') {
+                    this.toastrService.success('Downloaded successfully');
+                }
+            },
+            (error) => {
+                this.toastrService.error('Download failed');
+            },
+        );
     }
 
     downloadReport() {
         const evalIds = this.evaluatorArray[this.cuppingReportId].map((item) => item.evaluator_id);
-        this.greenGradingService
-            .downloadReport(this.roasterId, this.cuppingReportId, evalIds.join(','))
-            .subscribe((res: any) => {
-                if (res.success === true) {
-                    this.toastrService.success('The report has been downloaded');
-                    this.downloadFile(res.result.url);
-                } else {
-                    this.toastrService.error('Cupping Scores not found!');
-                }
-            });
+        this.greenGradingService.downloadReport(this.cuppingReportId, evalIds.join(',')).subscribe((res: any) => {
+            if (res.success === true) {
+                this.downloadFile(res.result.url);
+            } else {
+                this.toastrService.error('Cupping Scores not found!');
+            }
+        });
     }
 
     completeReport() {
         const ids = this.evaluatorArray[this.cuppingReportId].map((item: any) => item.evaluator_id);
         const data = {
-            status: 'COMPLETED',
+            status: CuppingStatus.COMPLETED,
             evaluator_ids: ids,
         };
-        this.greenGradingService.updateStatus(this.roasterId, this.cuppingReportId, data).subscribe((res: any) => {
+        this.greenGradingService.updateStatus(this.cuppingReportId, data).subscribe((res: any) => {
             if (res.success === true) {
                 this.toastrService.success('The Report has been completed.');
                 this.afterUpload.emit();

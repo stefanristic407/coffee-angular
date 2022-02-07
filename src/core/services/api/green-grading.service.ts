@@ -45,20 +45,16 @@ export class GreenGradingService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}`, 'GET');
     }
 
-    updateStatus(roasterId: any, cuppingReportId: any, body: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/cupping-process/${cuppingReportId}/status`, 'PUT', body);
+    updateStatus(cuppingReportId: any, body: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/status`, 'PUT', body);
     }
 
-    downloadReport(roasterId: any, cuppingReportId: any, evaluatorIds: any = null) {
+    downloadReport(cuppingReportId: any, evaluatorIds: any = null): Observable<ApiResponse<any>> {
         let params = new HttpParams();
         if (evaluatorIds) {
             params = params.append('evaluator_ids_in', evaluatorIds);
         }
-        return this.post(
-            this.orgPostUrl,
-            `ro/${roasterId}/cupping-process/${cuppingReportId}/download?${params}`,
-            'GET',
-        );
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/download?${params}`, 'GET');
     }
 
     getCuppingScore(cuppingReportId: any, type: string, evaluatorIds: any = null) {
@@ -130,15 +126,14 @@ export class GreenGradingService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `external-cupping-reports?status_in=GENERATED,COMPLETED`);
     }
 
-    listServiceCuppingReports(roasterId: any, gcOrderId: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/orders/${gcOrderId}/cupping-reports`, 'GET');
+    listServiceCuppingReports(gcOrderId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `orders/${gcOrderId}/cupping-reports`);
     }
 
-    listSampleCuppingReports(roasterId: any, externalSampleId: any) {
-        return this.post(
+    listSampleCuppingReports(externalSampleId: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(
             this.orgPostUrl,
-            `ro/${roasterId}/cupping-process/external-samples/${externalSampleId}/cupping-reports`,
-            'GET',
+            `cupping-process/external-samples/${externalSampleId}/cupping-reports`,
         );
     }
 

@@ -148,43 +148,39 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
 
     getCupReports() {
         if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
-            this.greenGradingService
-                .listServiceCuppingReports(this.roasterId, this.serviceRequestId)
-                .subscribe((res: any) => {
-                    if (res.success === true) {
-                        this.cuppingReports = res.result;
-                        this.selectedCuppingVersion = this.cuppingReports.find(
-                            (item) => item.id === this.cuppingDetails.cupping_report_id,
-                        );
-                        if (this.selectedCuppingVersion) {
-                            this.cuppingReportId = this.selectedCuppingVersion.id;
-                        } else {
-                            this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-                        }
-                        this.reset();
+            this.greenGradingService.listServiceCuppingReports(this.serviceRequestId).subscribe((res: any) => {
+                if (res.success === true) {
+                    this.cuppingReports = res.result;
+                    this.selectedCuppingVersion = this.cuppingReports.find(
+                        (item) => item.id === this.cuppingDetails.cupping_report_id,
+                    );
+                    if (this.selectedCuppingVersion) {
+                        this.cuppingReportId = this.selectedCuppingVersion.id;
                     } else {
-                        this.toastrService.error('Error while getting the cupping reports.');
+                        this.cuppingReportId = this.cuppingDetails.cupping_report_id;
                     }
-                });
+                    this.reset();
+                } else {
+                    this.toastrService.error('Error while getting the cupping reports.');
+                }
+            });
         } else {
-            this.greenGradingService
-                .listSampleCuppingReports(this.roasterId, this.sampleRequestId)
-                .subscribe((res: any) => {
-                    if (res.success === true) {
-                        this.cuppingReports = res.result;
-                        this.selectedCuppingVersion = this.cuppingReports.find(
-                            (item) => item.id === this.cuppingDetails.cupping_report_id,
-                        );
-                        if (this.selectedCuppingVersion) {
-                            this.cuppingReportId = this.selectedCuppingVersion.id;
-                        } else {
-                            this.cuppingReportId = this.cuppingDetails.cupping_report_id;
-                        }
-                        this.reset();
+            this.greenGradingService.listSampleCuppingReports(this.sampleRequestId).subscribe((res: any) => {
+                if (res.success === true) {
+                    this.cuppingReports = res.result;
+                    this.selectedCuppingVersion = this.cuppingReports.find(
+                        (item) => item.id === this.cuppingDetails.cupping_report_id,
+                    );
+                    if (this.selectedCuppingVersion) {
+                        this.cuppingReportId = this.selectedCuppingVersion.id;
                     } else {
-                        this.toastrService.error('Error while getting the cupping reports.');
+                        this.cuppingReportId = this.cuppingDetails.cupping_report_id;
                     }
-                });
+                    this.reset();
+                } else {
+                    this.toastrService.error('Error while getting the cupping reports.');
+                }
+            });
         }
     }
 
@@ -292,7 +288,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
                 evaluator_ids: this.selectedEvaluators,
                 status: 'GENERATED',
             };
-            this.greenGradingService.updateStatus(this.roasterId, this.cuppingReportId, data).subscribe((res: any) => {
+            this.greenGradingService.updateStatus(this.cuppingReportId, data).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('The Report has been updated.');
                     this.next.emit('screen5');
@@ -315,7 +311,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
             status: 'DRAFT',
         };
 
-        this.greenGradingService.updateStatus(this.roasterId, this.cuppingReportId, data).subscribe((res: any) => {
+        this.greenGradingService.updateStatus(this.cuppingReportId, data).subscribe((res: any) => {
             if (res.success === true) {
                 this.toastrService.success('The Report has been updated.');
                 this.router.navigate(['/green-grading/green-coffee-orders']);

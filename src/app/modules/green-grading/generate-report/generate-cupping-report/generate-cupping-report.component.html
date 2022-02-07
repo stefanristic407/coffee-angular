@@ -1,14 +1,14 @@
 <section class="total-section prime-grid">
     <div class="back-page pb-45" (click)="back()">
         <a>
-            <span>Back</span>
+            <span>{{ 'back' | translate }}</span>
         </a>
     </div>
     <div class="d-flex flex-wrap justify-content-between">
-        <span class="request-title-text">Generate Report</span>
+        <span class="request-title-text">{{ 'generate_report' | translate }}</span>
     </div>
-    <p class="fnt-14 fnt-muli fnt-normal fnt-400 text-clr588 mt-4 mt-md-2 mt-lg-1 mb-0 d-none d-md-block">
-        Select the details of the report you want to generate
+    <p class="fnt-14 fnt-normal fnt-400 text-clr588 mt-4 mt-md-2 mt-lg-1 mb-0 d-none d-md-block">
+        {{ 'select_details' | translate }}
     </p>
     <div class="mt-2 mt-md-4">
         <app-estate-info
@@ -26,22 +26,30 @@
         <div class="d-flex justify-content-between align-itemscenter header-wrapper pr-1">
             <div>
                 <div class="p-field-radiobutton pt-0 pl-0 pb-3 pb-md-2 ml-0">
-                    <label for="version" class="ml-0"> Cupping Report {{ singleCuppingDetails.version }}.0 </label>
+                    <label for="version" class="ml-0">
+                        {{ 'cupping_report' | translate }} {{ singleCuppingDetails.version }}.0
+                    </label>
                 </div>
-                <p class="fnt-14 fnt-400 fnt-muli text-clr588 mb-0 pt-md-1 generate_date pl-0">
-                    Generated on:
+                <p class="fnt-14 fnt-400 text-clr588 mb-0 pt-md-1 generate_date pl-0">
+                    {{ 'generated_on' | translate }}:
                     {{ singleCuppingDetails.generated_on | date: 'dd/MM/y' }}
                 </p>
             </div>
             <div class="pb-3 pb-md-0">
-                <p class="average_score_value">{{ singleCuppingDetails.average_score }}</p>
-                <p class="average_score_label">Average score</p>
+                <p class="fnt-24 fnt-md-32 fnt-bold text-clr334 pb-1 mb-0 lh-normal">
+                    {{ singleCuppingDetails.average_score }}
+                </p>
+                <p class="fnt-16 fnt-md-18 fnt-600 text-clr588 mb-0 lh-normal">
+                    {{ 'average_score' | translate }}
+                </p>
             </div>
         </div>
         <div class="bottom-dash d-block d-md-none ml-0 mb-1"></div>
-        <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-3 pt-3 pt-md-2 md-mb-0">Selected Evaluators</p>
+        <p class="fnt-14 fnt-normal text-clr588 mb-3 pt-3 pt-md-2 md-mb-0">
+            {{ 'selected_evaluators' | translate }}
+        </p>
         <p
-            class="fnt-14 fnt-600 fnt-muli text-clr334 my-3"
+            class="fnt-14 fnt-600 text-clr334 my-3"
             *ngFor="let eval of evaluatorArray[selectedCuppingId]; let j = index"
         >
             {{ j + 1 }}. {{ eval.evaluator_name }}
@@ -64,24 +72,32 @@
                                     styleClass="p-cuppings-radiobutton"
                                 >
                                 </p-radioButton>
-                                <label class="pl-25" [for]="i"> Cupping Report {{ item.version }}.0 </label>
+                                <label class="pl-25" [for]="i">
+                                    {{ 'cupping_report' | translate }} {{ item.version }}.0
+                                </label>
                             </div>
-                            <p class="fnt-14 fnt-400 fnt-muli text-clr588 mb-0 generate_date">
-                                Generated on:
+                            <p class="fnt-14 fnt-400 text-clr588 mb-0 generate_date">
+                                {{ 'generated_on' | translate }}:
                                 {{ item.generated_on | date: 'dd/MM/y' }}
                             </p>
                         </div>
                         <div class="pl-3 pl-md-0 pb-3 pb-md-0">
-                            <p class="average_score_value">{{ item.average_score }}</p>
-                            <p class="average_score_label">Average score</p>
+                            <p class="fnt-24 fnt-md-32 fnt-bold text-clr334 pb-1 mb-0 lh-normal">
+                                {{ item.average_score }}
+                            </p>
+                            <p class="fnt-16 fnt-md-18 fnt-600 text-clr588 mb-0 lh-normal">
+                                {{ 'average_score' | translate }}
+                            </p>
                         </div>
                         <div class="bottom-dash d-block d-md-none"></div>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-3 md-mb-0">Selected Evaluators</p>
+                    <p class="fnt-14 fnt-600 text-clr588 mb-3 md-mb-0">
+                        {{ 'selected_evaluators' | translate }}
+                    </p>
                     <p
-                        class="fnt-14 fnt-600 fnt-muli text-clr334 my-3"
+                        class="fnt-14 fnt-600 text-clr334 my-3"
                         *ngFor="let eval of evaluatorArray[item.id]; let j = index"
                     >
                         {{ j + 1 }}. {{ eval.evaluator_name }}
@@ -94,34 +110,21 @@
     </div>
 
     <!-- Re-grade sample -->
-    <div
-        class="d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row-reverse w-100"
-    >
-        <div class="d-flex flex-md-row-reverse justify-content-end flex-column w-mob-100">
-            <button
-                class="btn-raised ml-md-2"
-                (click)="completeReport()"
-                *ngIf="cuppingDetails.cupping_status !== 'COMPLETED'"
-            >
-                {{ 'done' | translate }}
-            </button>
-            <button
-                class="btn-stroked mt-md-0 mr-md-2"
-                [ngClass]="{ 'mt-3': cuppingDetails.cupping_status !== 'COMPLETED' }"
-                (click)="reGrade()"
-            >
-                Re-grade sample
-            </button>
+    <div class="row v-gutter-16 justify-content-between">
+        <div class="col-md-auto order-md-2">
+            <div class="row gutter-12 v-gutter-16">
+                <div *ngIf="!completed" class="col-md-auto order-md-2">
+                    <button class="btn-raised w-100" (click)="completeReport()">{{ 'done' | translate }}</button>
+                </div>
+                <div class="col-md-auto order-md-1">
+                    <button class="btn-stroked w-100" (click)="reGrade()">{{ 'regrade_sample' | translate }}</button>
+                </div>
+            </div>
         </div>
-        <div class="mt-3 mt-md-0 report-button-wrapper">
-            <button
-                pButton
-                class="p-button-outlined mr-0 mr-md-3 mb-1 mb-md-0"
-                label="Download as PDF"
-                icon="pi pi-download"
-                iconPos="left"
-                (click)="downloadReport()"
-            ></button>
+        <div class="col-md-auto order-md-1">
+            <div class="btn-trans-icon download-icon w-100" (click)="downloadReport()">
+                {{ 'download_as_pdf' | translate }}
+            </div>
         </div>
     </div>
 </section>
