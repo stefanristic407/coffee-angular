@@ -6,7 +6,7 @@ import { convertKg, countWords } from './common.utils';
 
 export function maxWordCountValidator(limit: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-        return countWords(control.value) > limit ? { maxWordCount: true } : null;
+        return countWords(control.value || '') > limit ? { maxWordCount: true } : null;
     };
 }
 
