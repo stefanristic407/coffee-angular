@@ -113,7 +113,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
 
     reGrade() {
         if (this.generateReportService.fromQueryParam === 'ServiceRequest') {
-            this.greenGradingService.recupSample(this.roasterId, this.serviceRequestId).subscribe((res: any) => {
+            this.greenGradingService.recupSample(this.serviceRequestId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
                     this.next.emit('screen1');
@@ -122,7 +122,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
                 }
             });
         } else {
-            this.greenGradingService.recupSampleRequest(this.roasterId, this.sampleRequestId).subscribe((res: any) => {
+            this.greenGradingService.recupSampleRequest(this.sampleRequestId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
                     this.next.emit('screen1');

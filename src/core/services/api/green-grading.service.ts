@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { AuthService } from '../auth';
+import { ApiResponse } from '@models';
 
 @Injectable({
     providedIn: 'root',
@@ -113,28 +114,20 @@ export class GreenGradingService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/external-samples`, 'DELETE');
     }
 
-    listCuppingReports(roasterId: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/my-cupping-reports?status_in=GENERATED,COMPLETED`, 'GET');
+    listCuppingReports(): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `my-cupping-reports?status_in=GENERATED,COMPLETED`);
     }
 
-    recupSample(roasterId: any, orderId: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/orders/${orderId}/re-cup`, 'POST');
+    recupSample(orderId: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `orders/${orderId}/re-cup`, 'POST');
     }
 
-    recupSampleRequest(roasterId: any, externalSampleId: any) {
-        return this.post(
-            this.orgPostUrl,
-            `ro/${roasterId}/cupping-process/external-samples/${externalSampleId}/re-cup`,
-            'POST',
-        );
+    recupSampleRequest(externalSampleId: any): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/external-samples/${externalSampleId}/re-cup`, 'POST');
     }
 
-    externalCuppingReportsList(roasterId: any) {
-        return this.post(
-            this.orgPostUrl,
-            `ro/${roasterId}/external-cupping-reports?status_in=GENERATED,COMPLETED`,
-            'GET',
-        );
+    externalCuppingReportsList(): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `external-cupping-reports?status_in=GENERATED,COMPLETED`);
     }
 
     listServiceCuppingReports(roasterId: any, gcOrderId: any) {

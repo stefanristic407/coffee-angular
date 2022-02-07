@@ -1,23 +1,23 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
+import { Download } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, GreenGradingService } from '@services';
+import { DownloadService, GreenGradingService, ResizeService } from '@services';
+import { trackFileName } from '@utils';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
-import { GenerateReportService } from '../generate-report/generate-report.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-cupping-report',
     templateUrl: './cupping-report.component.html',
     styleUrls: ['./cupping-report.component.scss'],
 })
-export class CuppingReportComponent implements OnInit {
+export class CuppingReportComponent extends ResizeableComponent implements OnInit {
+    readonly COUNTRY_LIST = COUNTRY_LIST;
     breadCrumbItems: MenuItem[];
-    roasterId: any;
     term = '';
-    calendar: any;
-    countries: any[];
     selectedOrigin: any;
     selectedDate: any;
 
@@ -27,78 +27,37 @@ export class CuppingReportComponent implements OnInit {
     tableData: any[] = [];
     tableColumns: any[] = [];
     selectedRows: any[] = [];
-    isMobileView = false;
-    isMiddleView = false;
     loading = false;
     activeIndex = 0;
 
     serviceReportsData: any[];
     otherReportsData: any[];
 
-    @HostListener('window:resize', ['$event'])
-    onResize(event?) {
-        this.initializeTable();
-    }
-
     constructor(
-        public generateReportService: GenerateReportService,
-        private toastrService: ToastrService,
-        private primengConfig: PrimeNGConfig,
-        private router: Router,
+        private downloadService: DownloadService,
         private greenGradingService: GreenGradingService,
-        private authService: AuthService,
-        private translateService: TranslateService,
+        private router: Router,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
     ) {
-        this.roasterId = this.authService.getOrgId();
+        super(resizeService);
     }
 
     ngOnInit(): void {
-        this.primengConfig.ripple = true;
         this.breadCrumbItems = [
-            { label: this.translateService.instant('home'), routerLink: '/' },
-            { label: this.translateService.instant('menu_sourcing') },
-            { label: this.translateService.instant('quality_control'), routerLink: '/green-grading' },
-            { label: this.translateService.instant('my_cupping_reports') },
+            { label: this.translator.instant('home'), routerLink: '/' },
+            { label: this.translator.instant('menu_sourcing') },
+            { label: this.translator.instant('quality_control'), routerLink: '/green-grading' },
+            { label: this.translator.instant('my_cupping_reports') },
         ];
-        this.countries = COUNTRY_LIST;
         this.getReportsData();
-        this.initializeTable();
-    }
-
-    initializeTable() {
-        this.isMobileView = window.innerWidth <= 767;
-        this.isMiddleView = window.innerWidth > 767 && window.innerWidth <= 1024;
-        this.tableColumns = [
-            {
-                field: 'cupping_report_id',
-                header: 'service_id',
-            },
-            {
-                field: 'estate_name',
-                header: 'estate_name',
-            },
-            {
-                field: 'region',
-                header: 'region',
-            },
-            {
-                field: 'evaluators',
-                header: 'evaluators',
-            },
-            {
-                field: 'completed_on',
-                header: 'date_conducted',
-            },
-            {
-                field: 'average_score',
-                header: 'avg_cup_score',
-            },
-        ];
+        this.handleTabChange();
     }
 
     getReportsData() {
-        this.greenGradingService.listCuppingReports(this.roasterId).subscribe((res: any) => {
-            if (res.success === true) {
+        this.greenGradingService.listCuppingReports().subscribe((res) => {
+            if (res.success) {
                 this.serviceReportsData = res.result;
                 this.tableData = res.result;
                 this.regions = [];
@@ -111,8 +70,8 @@ export class CuppingReportComponent implements OnInit {
                 this.toastrService.error('Error while listing service Reports.');
             }
         });
-        this.greenGradingService.externalCuppingReportsList(this.roasterId).subscribe((res: any) => {
-            if (res.success === true) {
+        this.greenGradingService.externalCuppingReportsList().subscribe((res) => {
+            if (res.success) {
                 this.otherReportsData = res.result;
             } else {
                 this.toastrService.error('Error while listing Other Reports.');
@@ -120,60 +79,85 @@ export class CuppingReportComponent implements OnInit {
         });
     }
 
-    handleTabChange(item) {
-        this.activeIndex = item.index;
-        if (item.index === 0) {
+    handleTabChange(index: number = 0) {
+        this.activeIndex = index;
+        if (this.activeIndex === 0) {
             this.tableData = this.serviceReportsData;
             this.tableColumns = [
                 {
                     field: 'cupping_report_id',
                     header: 'service_id',
+                    width: 10,
                 },
                 {
                     field: 'estate_name',
                     header: 'estate_name',
+                    width: 15,
                 },
                 {
                     field: 'region',
                     header: 'region',
+                    width: 11,
                 },
                 {
                     field: 'evaluators',
                     header: 'evaluators',
+                    width: 12,
                 },
                 {
                     field: 'completed_on',
                     header: 'date_conducted',
+                    width: 15,
                 },
                 {
                     field: 'average_score',
                     header: 'avg_cup_score',
+                    width: 12,
                 },
-            ];
+                this.resizeService.isMobile()
+                    ? null
+                    : {
+                          field: 'actions',
+                          header: 'action',
+                          width: 25,
+                      },
+            ].filter(Boolean);
         } else {
             this.tableData = this.otherReportsData;
             this.tableColumns = [
                 {
                     field: 'external_sample_id',
                     header: 'ID',
+                    width: 10,
                 },
                 {
                     field: 'estate_name',
                     header: 'estate_name',
+                    width: 20,
                 },
                 {
                     field: 'origin',
                     header: 'origin',
+                    width: 15,
                 },
                 {
                     field: 'completed_on',
                     header: 'date_conducted',
+                    width: 18,
                 },
                 {
                     field: 'average_score',
                     header: 'cup_score',
+                    width: 12,
                 },
-            ];
+                this.resizeService.isMobile()
+                    ? null
+                    : {
+                          field: 'actions',
+                          header: 'action',
+                          width: 25,
+                      },
+            ].filter(Boolean);
         }
     }
 
@@ -223,7 +207,7 @@ export class CuppingReportComponent implements OnInit {
 
     reGrade(item) {
         if (this.activeIndex === 0) {
-            this.greenGradingService.recupSample(this.roasterId, item.gc_order_id).subscribe((res: any) => {
+            this.greenGradingService.recupSample(item.gc_order_id).subscribe((res) => {
                 if (res.success) {
                     this.toastrService.success('Recupping has started');
                     this.router.navigate(['/green-grading/green-coffee-orders'], {
@@ -236,58 +220,40 @@ export class CuppingReportComponent implements OnInit {
                 }
             });
         } else {
-            this.greenGradingService
-                .recupSampleRequest(this.roasterId, item.external_sample_id)
-                .subscribe((res: any) => {
-                    if (res.success) {
-                        this.toastrService.success('Recupping has started');
-                        this.router.navigate(['/green-grading/grade-sample'], {
-                            queryParams: {
-                                cuppingReportId: res.result.id,
-                            },
-                        });
-                    } else {
-                        this.toastrService.error('Error while downloading report');
-                    }
-                });
+            this.greenGradingService.recupSampleRequest(item.external_sample_id).subscribe((res) => {
+                if (res.success) {
+                    this.toastrService.success('Recupping has started');
+                    this.router.navigate(['/green-grading/grade-sample'], {
+                        queryParams: {
+                            cuppingReportId: res.result.id,
+                        },
+                    });
+                } else {
+                    this.toastrService.error('Error while downloading report');
+                }
+            });
         }
     }
 
     getMenuItemsForItem(item) {
-        const items = [
-            {
-                label: 'View table',
-                command: () => {
-                    this.serviceReportLink(item);
-                },
-            },
-            {
-                label: 'View PDF',
-                command: () => {
-                    this.viewPdf(item.url);
-                },
-            },
-            {
-                label: 'Download PDF',
-                command: () => {
-                    this.downloadFile(item);
-                },
-            },
-            {
-                label: 'Re-cup sample',
-                command: () => {
-                    this.reGrade(item);
-                },
-            },
+        return [
+            { label: 'View table', command: () => this.serviceReportLink(item) },
+            { label: 'View PDF', command: () => this.viewPdf(item.url) },
+            { label: 'Download PDF', command: () => this.downloadFile(item) },
+            { label: 'Re-cup sample', command: () => this.reGrade(item) },
         ];
-        return [{ items }];
     }
 
     downloadFile(item: any) {
-        const a = document.createElement('a');
-        a.href = item.url;
-        a.download = 'Report' + '.pdf';
-        a.target = '_blank';
-        a.click();
+        this.downloadService.download(item.url, trackFileName(item.url), 'application/pdf').subscribe(
+            (res: Download) => {
+                if (res?.state === 'DONE') {
+                    this.toastrService.success('Downloaded successfully');
+                }
+            },
+            (error) => {
+                this.toastrService.error('Download failed');
+            },
+        );
     }
 }
