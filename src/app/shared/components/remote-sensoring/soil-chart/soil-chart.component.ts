@@ -234,9 +234,9 @@ export class SoilChartComponent implements OnInit {
 
             const tooltip =
                 `<div class='chart-tooltip' >` +
-                `<div class='fnt-12 fnt-600  text-clr334'>` +
+                `<div class='fnt-12 fw-m  text-clr334'>` +
                 `${timeStr}` +
-                `</div><div class='fnt-14 fnt-600  text-clr588'>` +
+                `</div><div class='fnt-14 fw-m  text-clr588'>` +
                 `${data1Str}` +
                 `${data2Str}` +
                 `</div></div>`;

@@ -11,7 +11,7 @@
 
     td {
         font-family: $general-font-family;
-        font-weight: 500;
+        font-weight: $fw-m;
         font-stretch: normal;
         font-style: normal;
         line-height: normal;
@@ -24,7 +24,7 @@
     .list-que {
         font-family: $general-font-family;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: $fw-m;
         font-stretch: normal;
         font-style: normal;
         line-height: normal;
@@ -35,7 +35,7 @@
     .list-ans {
         font-family: $general-font-family;
         font-size: 14px;
-        font-weight: 600 !important;
+        font-weight: $fw-m !important;
         font-stretch: normal;
         font-style: normal;
         line-height: normal;
@@ -93,7 +93,7 @@ span.star {
     padding-left: 40px;
     font-size: 16px;
     color: $brown-color !important;
-    font-weight: 600;
+    font-weight: $fw-m;
     cursor: pointer;
     line-height: 20px;
     text-decoration: none !important;
@@ -142,15 +142,15 @@ span.star {
     h6 {
         font-size: 14px;
         line-height: 18px;
-        font-weight: 600;
+        font-weight: $fw-m;
         margin-bottom: 4px;
-        color: #747588;
+        color: $muted-text-color;
     }
     h3 {
         font-size: 14px;
         line-height: 18px;
-        font-weight: bold;
-        color: #232334;
+        font-weight: $fw-m;
+        color: $general-text-color;
         margin-bottom: 0;
     }
     @media (max-width: 767px) {
@@ -183,7 +183,7 @@ span.star {
             margin-bottom: 0;
             color: #747588;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: $fw-m;
             line-height: normal;
             padding-right: 24px;
             @media (min-width: 768px) {
@@ -196,7 +196,7 @@ span.star {
             width: 52%;
             float: left;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: $fw-m;
             line-height: normal;
             color: #232334;
         }
@@ -221,7 +221,7 @@ span.star {
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
     background-color: #232334;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -273,7 +273,7 @@ span.star {
 .custom-chip {
     display: inline-block;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: $fw-m;
     line-height: 15px;
     border: 1px solid #ebebeb;
     padding: 4px 7px 3px 15px;
@@ -300,7 +300,7 @@ span.star {
 .primary_txt {
     font-family: $general-font-family;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: $fw-b;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -310,7 +310,7 @@ span.star {
 .secondary_txt {
     font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -394,7 +394,7 @@ span.star {
             color: $muted-text-color;
             border-radius: 2px;
             padding: 0.75rem 3rem 0.75rem 0.75rem;
-            font-weight: 600;
+            font-weight: $fw-m;
             line-height: normal;
             cursor: pointer;
             white-space: nowrap;
@@ -478,7 +478,6 @@ span.star {
 
 .green_grading_cont {
     h1 {
-        font-family: $secondary-font-family;
         font-size: 24px;
         font-weight: normal;
         color: #232334;

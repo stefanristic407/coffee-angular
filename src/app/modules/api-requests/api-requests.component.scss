@@ -76,32 +76,6 @@
         cursor: pointer;
     }
 
-    .file-share-search input[type='search'] {
-        outline: 0;
-        border: 0;
-        width: 235px;
-        background: none;
-        font-size: 12px;
-        font-weight: 600;
-        color: $general-text-color;
-        font-family: $general-font-family;
-    }
-
-    .file-share-search input[type='search']::placeholder {
-        font-size: 12px;
-        font-weight: 600;
-        color: $muted-text-color;
-        font-family: $general-font-family;
-    }
-
-    .file-share-search {
-        display: inline-block;
-        border-radius: 4px;
-        border: solid 1px $primary-border-color;
-        background-color: #ffffff;
-        padding: 5px 10px 5px 10px;
-    }
-
     ul li {
         list-style: none;
     }

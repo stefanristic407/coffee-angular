@@ -86,7 +86,7 @@
         color: $general-text-color;
         line-height: normal;
         margin-bottom: 0.5rem;
-        font-weight: 600;
+        font-weight: $fw-m;
     }
     .p-inputtext {
         padding: 0.9375rem 0.75rem;
@@ -110,7 +110,7 @@
     .p-error {
         display: none;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
     }
     .ng-invalid.ng-touched,
     .ng-invalid.ng-dirty {
@@ -314,5 +314,5 @@ textarea {
     background: transparent;
     color: $general-text-color;
     border-color: $primary-border-color !important;
-    font-weight: 600;
+    font-weight: $fw-m;
 }

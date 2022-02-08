@@ -514,12 +514,6 @@ input::-ms-input-placeholder {
     font-weight: 600 !important;
 }
 
-input::placeholder {
-    color: #747588 !important;
-    opacity: 1;
-    font-weight: 600 !important;
-}
-
 .fade {
     -webkit-transition: opacity 0.15s linear;
     -o-transition: opacity 0.15s linear;
@@ -5152,14 +5146,7 @@ a.b-cum:hover {
     color: #747588;
 }
 
-.star-no {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: 600;
-    color: #232334;
-    position: relative;
-    top: 2px;
-}
+
 
 .pay-ml {
     margin-left: -1rem !important;
@@ -5456,12 +5443,6 @@ a.b-cum:hover {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-}
-
-.search-messages__input::placeholder {
-    font-size: 14px;
-    color: #747588;
-    font-weight: 600;
 }
 
 .order-status {
@@ -5947,69 +5928,12 @@ a.b-cum:hover {
     display: none;
 }
 
-.farm-input input {
-    width: 100%;
-    outline: 0;
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    color: #232334;
-    font-size: 12px;
-    line-height: 22px;
-    font-family: 'Muli', sans-serif;
-    font-weight: 600;
-    padding: 5px;
-}
-
-.farm-input input::placeholder {
-    font-size: 12px;
-    color: #747588;
-    font-weight: 600;
-    font-family: 'Muli', sans-serif;
-}
-
-.farm-input textarea::placeholder {
-    font-size: 12px;
-    color: #747588;
-    font-weight: 600;
-    font-family: 'Muli', sans-serif;
-}
-
-.farm-input textarea {
-    width: 100%;
-    outline: 0;
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    color: #232334;
-    font-size: 12px;
-    line-height: 22px;
-    font-family: 'Muli', sans-serif;
-    font-weight: 600;
-    padding: 5px;
-}
-
-.farm-input label {
-    font-size: 12px;
-    line-break: 22px;
-    font-family: 'Muli', sans-serif;
-    font-weight: 600;
-    color: #232334;
-    display: block;
-}
-
 .form-section__head {
     margin-bottom: 15px;
 }
 
 .form-section__inputs--withHead {
     padding: 0 !important;
-}
-
-.farm-input--rightaligned {
-    margin-bottom: 15px;
-}
-
-.farm-input--rightaligned:last-of-type {
-    margin-bottom: 0;
 }
 
 .roastery-tags__checkboxes input {
@@ -6199,10 +6123,6 @@ a.b-cum:hover {
     .logo-upload {
         margin: auto;
     }
-    .farm-input {
-        padding: 0;
-        margin-bottom: 15px;
-    }
 }
 
 @media (max-width: 991px) {
@@ -6243,25 +6163,11 @@ a.b-cum:hover {
 }
 
 @media (min-width: 768px) {
-    .farm-input input {
-        font-size: 14px;
-        line-height: 24px;
-        padding: 5px;
-        height: 46px;
-    }
-    /* .logo-upload {
-        margin-right: 25px;
-       
-    } */
     .roastery-fields__logo {
         align-items: center;
     }
     .form-section__inputs {
         padding: 20px;
-    }
-    .farm-input label {
-        font-size: 14px;
-        line-break: 24px;
     }
     .form-section__inputs .roastery-fields {
         margin-bottom: 15px;
@@ -6278,9 +6184,6 @@ a.b-cum:hover {
     .form-section__inputs .input-head {
         padding: 10px 20px;
     }
-    .farm-input--rightaligned {
-        margin-bottom: 25px;
-    }
     .roastery-tags__checkboxes label {
         margin: 9px 5px 0 0;
     }
@@ -6291,18 +6194,6 @@ a.b-cum:hover {
     }
     .roastery-fields--flex {
         width: 100%;
-    }
-    .roastery-fields--flex .farm-input {
-        width: 49%;
-        margin-right: 2%;
-        margin-bottom: 10px;
-        flex-wrap: wrap;
-    }
-    .roastery-fields--flex .farm-input:nth-child(2) {
-        margin-right: 0;
-    }
-    .roastery-fields--flex .farm-input:last-of-type {
-        margin-right: 0;
     }
     .farmlink-container {
         padding: 25px 35px;
@@ -6354,12 +6245,6 @@ a.b-cum:hover {
     .form-section__inputs {
         padding: 25px;
     }
-    .farm-input input::placeholder {
-        font-size: 14px;
-    }
-    .farm-input textarea::placeholder {
-        font-size: 14px;
-    }
     .roastery-fields {
         margin-bottom: 20px;
     }
@@ -6371,9 +6256,6 @@ a.b-cum:hover {
     }
     .form-section__inputs {
         margin-bottom: 20px;
-    }
-    .farm-input--rightaligned {
-        margin-bottom: 32px;
     }
     .roastery-tags__checkboxes .custom-raotary-tags {
         font-size: 14px;
@@ -6387,18 +6269,6 @@ a.b-cum:hover {
     }
     .farmlink-container {
         padding: 30px 45px;
-    }
-    .roastery-fields--flex .farm-input {
-        width: 28%;
-        margin-right: 2%;
-        margin-bottom: 0;
-    }
-    .roastery-fields--flex .farm-input:nth-child(2) {
-        margin-right: 2%;
-    }
-    .roastery-fields--flex .farm-input:last-of-type {
-        width: 40%;
-        margin-right: 0;
     }
     .logo-upload__input {
         width: 90px;
@@ -6751,14 +6621,6 @@ li.select-list__item {
     }
     .roastery-fields--flex {
         justify-content: space-between;
-    }
-    .roastery-fields--flex .farm-input {
-        padding: 0 !important;
-        height: auto !important;
-    }
-    .roastery-fields--flex .farm-input input {
-        height: auto !important;
-        border-radius: 4px !important;
     }
     .roastery-fields select {
         height: auto !important;
@@ -7509,26 +7371,6 @@ li.select-list__item {
     }
 }
 
-.fadout-search:focus::-webkit-input-placeholder {
-    transition: opacity 0.45s ease;
-    opacity: 0;
-}
-
-.fadout-search:focus::-moz-placeholder {
-    transition: opacity 0.45s ease;
-    opacity: 0;
-}
-
-.fadout-search:focus:-ms-placeholder {
-    transition: opacity 0.45s ease;
-    opacity: 0;
-}
-
-.fadout-search:focus::placeholder {
-    color: transparent !important;
-}
-
-
 /* nav pills tabs */
 
 .nav-pills .nav-link.active {
@@ -7969,14 +7811,6 @@ li.select-list__item {
     left: -126px !important;
 }
 
-.auto-comlte-search .search-on-site>.search-on-site__input input {
-    width: 148% !important;
-    position: relative !important;
-    top: -7px !important;
-    height: 36px !important;
-    left: -75% !important;
-}
-
 
 /* auto complete ends*/
 
@@ -8170,13 +8004,6 @@ li.select-list__item {
     border-left: 0px;
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
-}
-
-::placeholder {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588 !important;
 }
 
 .select-arrow-no {

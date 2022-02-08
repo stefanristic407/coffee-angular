@@ -41,8 +41,10 @@ button:focus {
     outline: none;
 }
 
-::placeholder {
+input::placeholder {
     font-family: $general-font-family;
+    font-weight: $fw-n !important;
+    color: $muted-text-color;
 }
 
 ul,
@@ -152,7 +154,7 @@ input[type='number'] {
 // link with arrow
 .arrow-link {
     color: $brown-color !important;
-    font-weight: 700;
+    font-weight: $fw-b;
     position: relative;
     padding-right: 16px;
     line-height: normal !important;
@@ -190,7 +192,7 @@ input[type='number'] {
 .custom-link {
     color: $brown-color !important;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: $fw-b;
     position: relative;
     text-decoration: underline !important;
 
@@ -208,7 +210,7 @@ input[type='number'] {
 // link with up arrow
 .uparrow-link {
     color: $brown-color !important;
-    font-weight: 700;
+    font-weight: $fw-b;
     position: relative;
     padding-right: 16px;
     line-height: normal !important;
@@ -236,7 +238,7 @@ input[type='number'] {
 // link with add
 .add-link {
     color: $brown-color !important;
-    font-weight: 700;
+    font-weight: $fw-b;
     position: relative;
     padding-right: 16px;
     line-height: normal !important;
@@ -265,7 +267,7 @@ input[type='number'] {
 .brown-cta {
     color: $brown-color !important;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: $fw-b;
     white-space: nowrap;
 
     &:hover {

@@ -92,22 +92,9 @@ $font-sizes: (
 
 // Custom font size
 $font-weights: (
-    100: 100,
-    200: 200,
-    300: 300,
-    350: 350,
-    400: 400,
-    500: 500,
-    600: 600,
-    700: 700,
-    thin: 100,
-    extra-light: 200,
-    light: 300,
-    semi-light: 350,
-    normal: 400,
-    medium: 500,
-    semi-bold: 600,
-    bold: 700,
+    n: $fw-n,
+    m: $fw-m,
+    b: $fw-b,
 );
 
 // line-height
@@ -189,7 +176,7 @@ $border-widths: (
             }
         }
         @each $size, $value in $font-weights {
-            .fnt#{$infix}-#{$size} {
+            .fw#{$infix}-#{$size} {
                 font-weight: $value !important;
             }
         }
