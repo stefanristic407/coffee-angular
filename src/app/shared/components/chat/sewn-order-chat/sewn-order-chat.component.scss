@@ -1,3 +1,5 @@
+@import 'variables';
+
 .order-chat-image {
     margin-top: -5px;
 }
@@ -47,7 +49,7 @@
 }
 
 .view-chat-profile {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 700;
     color: #ffffff;
@@ -350,7 +352,7 @@
         width: 100%;
         .name {
             margin: 0 0 2px;
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 14px;
             font-weight: bold;
             font-stretch: normal;
@@ -361,7 +363,7 @@
         }
         .status {
             margin: 2px 25px 0 0;
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 12px;
             font-weight: 600;
             font-stretch: normal;
@@ -389,7 +391,7 @@
 }
 .message-info {
     .live-time {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 12px;
         font-weight: 600;
         font-stretch: normal;
@@ -506,7 +508,7 @@
                 color: #232334;
             }
             .drm-content-body {
-                font-family: Muli;
+                font-family: $general-font-family;
                 font-size: 14px;
                 font-weight: 600;
                 font-stretch: normal;
@@ -526,7 +528,7 @@
                 display: none;
                 color: #80460b;
                 font-size: 14px;
-                font-family: Muli;
+                font-family: $general-font-family;
                 font-size: 14px;
                 font-weight: bold;
                 text-align: right;

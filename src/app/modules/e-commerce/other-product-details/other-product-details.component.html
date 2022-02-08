@@ -6,13 +6,13 @@
     </div>
     <div [formGroup]="productForm" (ngSubmit)="onSave()" novalidate>
         <div class="d-flex flex-column flex-md-row justify-content-md-between">
-            <span class="fnt-16 fnt-md-18 fnt-700 fnt-muli fnt-clr334">
+            <span class="fnt-16 fnt-md-18 fnt-700 fnt-clr334">
                 {{ (productName | titlecase) || ('add_new_product' | translate) }}
             </span>
             <div *ngIf="productID" class="">
                 <p-divider type="dashed" styleClass="d-block d-md-none"></p-divider>
                 <div class="pt-3 pt-md-0 d-flex justify-content-between align-items-center">
-                    <span class="fnt-muli fnt-14 fnt-md-18 fnt-bold text-clr334 pr-2"
+                    <span class="fnt-14 fnt-md-18 fnt-bold text-clr334 pr-2"
                         >{{ 'product_visibility' | translate }} :</span
                     >
                     <p-selectButton
@@ -239,13 +239,13 @@
                         formControlName="weight"
                         [placeholder]="'enter_number' | translate"
                     />
-                    <span class="right-icon fnt-muli fnt-14 fnt-normal text-clr334 lh-normal">kg</span>
+                    <span class="right-icon fnt-14 fnt-normal text-clr334 lh-normal">kg</span>
                 </div>
             </div>
         </div>
         <p-divider type="dashed" class="col-12 p-0" styleClass="mt-3 mb-4 d-md-none"></p-divider>
         <div class="mt-lg-2">
-            <div class="fnt-16 fnt-muli fnt-700 text-clr334 mb-3">
+            <div class="fnt-16 fnt-700 text-clr334 mb-3">
                 {{ 'upload_product_images' | translate }}<span class="star">*</span>
             </div>
 
@@ -325,7 +325,7 @@
                 </small>
             </div>
             <div class="sewn-form-field ml-md-3 ml-lg-4 mt-2 mt-md-0 col-12 col-md-6 p-0">
-                <label class="fnt-14 fnt-600 fnt-muli txt-clr-554">
+                <label class="fnt-14 fnt-600 txt-clr-554">
                     {{ 'is_product_price_vat' | translate }}<span class="star">*</span>
                 </label>
                 <p-checkbox

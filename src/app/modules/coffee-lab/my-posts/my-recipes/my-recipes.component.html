@@ -24,7 +24,7 @@
     <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
 </div>
 
-<div *ngIf="!isLoading && !recipes.length" class="text-center my-4 fnt-muli text-clr24">
+<div *ngIf="!isLoading && !recipes.length" class="text-center my-4 text-clr24">
     <app-empty
         [title]="'you_have_not_posted_anything_yet' | translate"
         [description]="'no_my_posts_description' | translate"

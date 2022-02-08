@@ -9,5 +9,6 @@ export * from './organization';
 export * from './permission-description';
 export * from './product-status-items';
 export * from './quantity-unit-list';
+export * from './style';
 export * from './validation-list';
 export * from './weight-convertion';

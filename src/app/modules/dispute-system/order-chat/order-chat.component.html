@@ -126,14 +126,7 @@
                 </div>
             </div>
             <div
-                class="
-                    col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4
-                    no-gutters
-                    d-flex
-                    align-items-center
-                    justify-content-end
-                    p-0
-                "
+                class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end p-0"
             >
                 <span class="oc-link pr-3 pr-md-0" (click)="navigateAssignUser()">
                     {{ 'change_assigned_user' | translate }}</span
@@ -150,14 +143,11 @@
         <div class="row m-0 bg-white floting-containerDiv position-absolute w-100">
             <div *ngIf="isView" class="order-ticket">
                 <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
-                    <div
-                        class="fnt-14 m-0 fnt-muli fnt-bold"
-                        [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label'"
-                    >
+                    <div class="fnt-14 m-0 fnt-bold" [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label'">
                         {{ 'order' | translate }}
                     </div>
                     <div
-                        class="fnt-14 fnt-bold fnt-muli mb-2 mb-md-3"
+                        class="fnt-14 fnt-bold mb-2 mb-md-3"
                         [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label text-clr588'"
                     >
                         #{{ orderDetails?.id }}

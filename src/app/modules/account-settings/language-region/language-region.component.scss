@@ -1,3 +1,5 @@
+@import 'variables';
+
 :host {
     color: #232334;
 }
@@ -5,7 +7,7 @@
 ::ng-deep .language-mat-menu .mat-menu-content {
     height: 240px !important;
     button {
-        font-family: Muli !important;
+        font-family: $general-font-family !important;
     }
 }
 

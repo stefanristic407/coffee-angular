@@ -2,9 +2,9 @@
     <div class="br-4 bg-white mb-4 mb-md-45 mb-lg-475 p-1 p-md-2 p-xl-25">
         <div class="text-center bg-fa pt-5 pt-md-475 pb-35 pb-md-5">
             <img src="assets/images/roaster-dashboard.svg" alt="welcome-illustration" class="" />
-            <h1 class="fnt-26 fnt-sm-30 fnt-md-34 fnt-play mb-4 mb-lg-45">{{ 'welcome_aboard' | translate }}!</h1>
+            <h1 class="fnt-26 fnt-sm-30 fnt-md-34 fnt-head mb-4 mb-lg-45">{{ 'welcome_aboard' | translate }}!</h1>
             <ng-container *ngIf="welcomeBoardStatus === 0">
-                <p class="fnt-18 fnt-700 fnt-muli mb-2">{{ 'add_roles_team_members' | translate }}</p>
+                <p class="fnt-18 fnt-700 mb-2">{{ 'add_roles_team_members' | translate }}</p>
                 <p class="fnt-14 text-clr588 create-txt mb-4 mb-lg-45">{{ 'dashboard_text' | translate }}!</p>
                 <div class="text-center">
                     <button class="btn-stroked mr-3" (click)="welcomeBoardStatus = 1; skip('isAddedMembers')">
@@ -36,7 +36,7 @@
     </div>
 
     <div>
-        <h2 class="fnt-26 fnt-sm-30 fnt-md-34 fnt-play mb-3">{{ 'complete_text' | translate }}...</h2>
+        <h2 class="fnt-26 fnt-sm-30 fnt-md-34 fnt-head mb-3">{{ 'complete_text' | translate }}...</h2>
         <div class="row gutter-16 gutter-lg-26 v-gutter-16">
             <ng-container *ngFor="let item of cards; index as i">
                 <div class="col-md-6 col-lg-4 d-lg-block" [class.d-md-none]="i === 2">
@@ -44,7 +44,7 @@
                         <div class="hover-img card border-0 h-100">
                             <img class="card-img-top" [src]="item.img" alt="Card image cap" />
                             <div class="card-body">
-                                <h5 class="fnt-18 fnt-700 fnt-muli">{{ item.title | translate }}</h5>
+                                <h5 class="fnt-18 fnt-700">{{ item.title | translate }}</h5>
                                 <p class="fnt-14 text-clr588 pad-card">
                                     {{ item.description | translate }}
                                 </p>

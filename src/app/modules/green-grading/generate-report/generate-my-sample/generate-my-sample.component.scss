@@ -24,7 +24,7 @@
     border: 1px solid $primary-border-color;
     border-radius: 4px;
     font-size: 14px;
-    font-family: 'Muli', sans-serif;
+    font-family: $general-font-family;
     color: #747588;
     padding: 8px 22px 9px;
     display: block;
@@ -45,7 +45,7 @@
         padding: 8px 10px;
         font-size: 12px;
         border-radius: 2px !important;
-        font-family: Muli;
+        font-family: $general-font-family;
         font-weight: 600;
         margin: auto;
     }

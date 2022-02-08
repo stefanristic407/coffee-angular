@@ -15,7 +15,7 @@
             </p-dropdown>
         </div>
         <div class="col-12 sewn-form-field w-100 pl-0 pl-md-3">
-            <label class="fnt-14 fnt-600 fnt-muli position-relative" [ngClass]="{ 'mb-25': isTranslate }"
+            <label class="fnt-14 fnt-600 position-relative" [ngClass]="{ 'mb-25': isTranslate }"
                 >{{ 'cover_image' | translate }}<span class="star">*</span></label
             >
             <div
@@ -54,7 +54,7 @@
                     />
                     <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
                         <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1">{{
+                        <span class="fnt-14 fnt-600 lh-normal text-clr588 mb-1">{{
                             'add_cover_image' | translate
                         }}</span>
                     </div>
@@ -65,7 +65,7 @@
                     (click)="pasteCoverImage()"
                 >
                     <img src="assets/images/paste.svg" class="mr-1" />
-                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{ 'paste' | translate }}</span>
+                    <span class="fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{ 'paste' | translate }}</span>
                 </div>
             </div>
         </div>
@@ -299,7 +299,7 @@
                                 </small>
                             </div>
                             <div class="col-12 mt-2 mb-3 d-flex">
-                                <div class="fnt-muli d-flex justify-content-between">
+                                <div class="d-flex justify-content-between">
                                     <span class="fnt-14"
                                         ><span class="editBtn" (click)="addStep()">{{
                                             'add_another_step' | translate
@@ -340,7 +340,7 @@
                     </small>
                 </div>
                 <div class="col-12 d-flex justify-content-end" *ngIf="recipeForm?.value?.preparation_method == 'steps'">
-                    <div class="fnt-muli bring-top" *ngIf="!isTranslate">
+                    <div class="bring-top" *ngIf="!isTranslate">
                         <span
                             class="editBtn"
                             *ngIf="recipeForm.controls.steps.value?.length > 1 && i > 0"

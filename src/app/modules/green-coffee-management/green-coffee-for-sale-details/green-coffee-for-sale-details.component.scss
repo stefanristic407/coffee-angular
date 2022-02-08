@@ -1,3 +1,5 @@
+@import 'variables';
+
 .g-box .ng-star-inserted {
     border-radius: 0px !important;
 }
@@ -13,7 +15,7 @@
         text-transform: capitalize;
     }
     h6 {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 18px;
         font-weight: bold;
         color: #242424;

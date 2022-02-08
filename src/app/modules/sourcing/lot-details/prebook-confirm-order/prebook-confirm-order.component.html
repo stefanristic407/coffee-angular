@@ -11,7 +11,7 @@
             <div class="bg-fa br-4 p-3 mt-3">
                 <div class="row">
                     <div class="col-12 col-md-12">
-                        <h4 class="confirm-txt fnt-play">
+                        <h4 class="confirm-txt fnt-head">
                             {{ 'confirm_order' | translate }}
                         </h4>
                         <div class="fill-txt text-clr588">{{ 'sample_recieved' | translate }}.</div>
@@ -29,7 +29,7 @@
                 <div class="bg-fa br-4 confirm-order mt-4 mb-5 d-none d-md-block">
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-12">
-                            <h4 class="confirm-txt fnt-play">
+                            <h4 class="confirm-txt fnt-head">
                                 {{ 'confirm_order' | translate }}
                             </h4>
                             <div class="fill-txt text-clr588">
@@ -98,12 +98,7 @@
                         <div class="row">
                             <!-- Total price -->
                             <div
-                                class="
-                                    col-12 col-md-4 col-lg-3 col-xl-2
-                                    offset-md-8 offset-lg-9 offset-xl-10
-                                    d-flex d-md-block
-                                    justify-content-between
-                                "
+                                class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
                             >
                                 <div class="fnt-14 fnt-bold text-clr334">
                                     {{ 'total_amount' | translate }}
@@ -117,13 +112,7 @@
 
                     <div *ngIf="!editAddress" class="col-12 col-md-7 mt-5 px-0">
                         <div
-                            class="
-                                fnt-16 fnt-md-18 fnt-bold
-                                text-clr000
-                                d-flex
-                                justify-content-between
-                                align-items-center
-                            "
+                            class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
                         >
                             <div>
                                 {{ 'delivery_address' | translate }}
@@ -137,18 +126,7 @@
                             </div>
                         </div>
                         <div
-                            class="
-                                fnt-14
-                                lh-normal
-                                fnt-600
-                                text-clr334
-                                d-md-flex
-                                justify-content-between
-                                bg-f8
-                                br-4
-                                p-3 p-md-4
-                                mt-2
-                            "
+                            class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
                         >
                             <div>
                                 {{ billingAddress?.address_line1 }}, {{ billingAddress?.address_line2 }},
@@ -321,7 +299,7 @@
             <div class="order-sec">
                 <div class="text-center">
                     <img src="assets/images/check-brown.svg" alt="" class="" />
-                    <h1 class="fnt-34 black fnt-normal fnt-play mb-4 mt-3">
+                    <h1 class="fnt-34 black fnt-normal fnt-head mb-4 mt-3">
                         {{ 'order_placed' | translate }}
                     </h1>
                     <div class="text-center mt-2">

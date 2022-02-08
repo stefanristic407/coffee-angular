@@ -3,7 +3,7 @@
 .footer-container {
     background-color: #f8f8f8;
     .text-content {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
         font-weight: 600;
         font-stretch: normal;
@@ -41,7 +41,7 @@
     }
     .copyright-wrapper {
         padding: 2rem 0;
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
         font-weight: 600;
         line-height: normal;

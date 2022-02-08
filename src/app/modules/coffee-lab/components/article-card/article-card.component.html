@@ -22,15 +22,15 @@
                 ></button>
                 <!-- <span class="d-flex ml-1 mb-05 mr-2 fnt-300 text-clr334">{{ article.likes }}</span> -->
             </div>
-            <span class="align-items-center d-flex fnt-14 fnt-muli mt-2 text-clr588"
+            <span class="align-items-center d-flex fnt-14 mt-2 text-clr588"
                 >{{ article?.posted_at || article?.created_at | date: 'MMMM' | translate }}
                 {{ article?.posted_at || article?.created_at | date: 'd, yyyy' }}</span
             >
         </div>
-        <h3 class="fnt-muli fnt-14 fnt-bold lh-157 mt-3 text-clr334 cursor-pointer article-title-text text-break">
+        <h3 class="fnt-14 fnt-bold lh-157 mt-3 text-clr334 cursor-pointer article-title-text text-break">
             {{ article?.title.length < 65 ? article?.title : article?.title.slice(0, 65).concat('...') }}
         </h3>
-        <div class="fnt-muli fnt-14 fnt-normal lh-143 text-clr334 mt-2">
+        <div class="fnt-14 fnt-normal lh-143 text-clr334 mt-2">
             <a class="article-title-text">
                 {{ article?.subtitle }}
             </a>

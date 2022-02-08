@@ -42,7 +42,7 @@
 .cursor-dots {
     cursor: pointer;
     color: $muted-text-color;
-    font-family: Muli;
+    font-family: $general-font-family;
 }
 
 .cursor-dots:hover {
@@ -58,7 +58,7 @@
 
 .list-group-item {
     border: none;
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-size: 12px;
     font-weight: 600 !important;
     font-stretch: normal;

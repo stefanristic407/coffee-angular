@@ -19,24 +19,24 @@
     <div class="row gutter-16 mt-4 mt-md-45" *ngIf="type === 'mr'">
         <div class="px-2 w-mob-100">
             <div class="total-card-wrapper border-main br-4 py-3 py-md-4 py-lg-45">
-                <p class="fnt-18 fnt-600 text-clr588 fnt-muli lh-129 lh-md-normal mb-3 px-3 px-md-4">
+                <p class="fnt-18 fnt-600 text-clr588 lh-129 lh-md-normal mb-3 px-3 px-md-4">
                     {{ 'total_team_members' | translate }}
                 </p>
-                <p class="fnt-40 fnt-md-32 fnt-bold text-clr334 fnt-muli lh-1.25 lh-md-normal mb-0 px-3 px-md-4">
+                <p class="fnt-40 fnt-md-32 fnt-bold text-clr334 lh-1.25 lh-md-normal mb-0 px-3 px-md-4">
                     {{ portalDetails?.member_count || 0 }}
                 </p>
             </div>
         </div>
         <div class="px-2 flex-1">
             <div class="border-md-main br-md-4 d-flex flex-wrap p-3 p-md-4 py-lg-45">
-                <p class="w-100 fnt-muli fnt-16 fnt-bold lh-125 text-clr334 mt-2 mb-3 d-block d-md-none">
+                <p class="w-100 fnt-16 fnt-bold lh-125 text-clr334 mt-2 mb-3 d-block d-md-none">
                     {{ 'roastery_capabilities' | translate }}
                 </p>
                 <div>
-                    <p class="fnt-muli fnt-14 fnt-md-18 fnt-600 lh-129 lh-md-normal text-clr588 mb-3">
+                    <p class="fnt-14 fnt-md-18 fnt-600 lh-129 lh-md-normal text-clr588 mb-3">
                         {{ 'roaster_capacity' | translate }}
                     </p>
-                    <p class="fnt-muli fnt-28 fnt-md-32 fnt-bold lh-125 lh-md-normal text-clr334 mb-0">
+                    <p class="fnt-28 fnt-md-32 fnt-bold lh-125 lh-md-normal text-clr334 mb-0">
                         {{ portalDetails?.capacity }} {{ portalDetails?.capacity_unit || 'Kg' }}
                     </p>
                 </div>
@@ -44,10 +44,10 @@
                 <div class="flex-1">
                     <ul class="flo-list w-100 pb-2 pb-md-3 pl-0" *ngIf="portalDetails?.capabilities">
                         <div class="flo-item-container" *ngFor="let c of capabilities">
-                            <div class="flo-item fnt-muli fnt-600 fnt-12 lh-1 text-clr588">&#9679;&nbsp;{{ c }}</div>
+                            <div class="flo-item fnt-600 fnt-12 lh-1 text-clr588">&#9679;&nbsp;{{ c }}</div>
                         </div>
                     </ul>
-                    <p class="fnt-muli fnt-14 fnt-md-16 fnt-600 fnt-md-500 lh-157 lh-md-normal text-clr334 mb-0">
+                    <p class="fnt-14 fnt-md-16 fnt-600 fnt-md-500 lh-157 lh-md-normal text-clr334 mb-0">
                         We are known for our three main blends Café Blend, Mocha Java and Black Gold.
                     </p>
                 </div>

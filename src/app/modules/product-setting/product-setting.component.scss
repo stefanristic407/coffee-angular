@@ -1,3 +1,5 @@
+@import 'variables';
+
 .tabView {
     display: none;
 }
@@ -57,7 +59,7 @@
     padding: 12px 9px;
     background-color: #fafafa;
     margin: 2px;
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -93,7 +95,7 @@
 }
 
 .shipping-time tr {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -105,7 +107,7 @@
 }
 
 .shipping-time td {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;

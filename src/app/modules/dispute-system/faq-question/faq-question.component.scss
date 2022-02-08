@@ -1,6 +1,8 @@
+@import 'variables';
+
 ::ng-deep .p-accordion-header .p-accordion-header-link {
     background: #ffffff !important;
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 16px;
     font-weight: bold;
     color: #232334;
@@ -11,7 +13,7 @@
 }
 ::ng-deep .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
     background: #ffffff !important;
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 16px !important;
     font-weight: bold;
     color: #232334 !important;
@@ -23,7 +25,7 @@
     background-color: #faf8f4;
 }
 .resultText {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 16px !important;
     font-weight: bold;
     color: #232334 !important;
@@ -44,13 +46,13 @@
     padding: 0px;
 }
 .questionContent {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: normal;
     color: #232334;
 }
 .commonContent {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 500;
     color: #232334;

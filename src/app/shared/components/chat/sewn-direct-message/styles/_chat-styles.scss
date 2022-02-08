@@ -32,7 +32,7 @@
 }
 
 :root {
-    font-family: 'Muli', sans-serif;
+    font-family: $general-font-family;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -1000,7 +1000,7 @@
             padding: 7px;
             border-radius: 4px;
             background-color: #ffffff;
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 12px;
             font-weight: 600;
             color: #979797;
@@ -1807,7 +1807,7 @@
                 padding-right: 4.5rem;
                 border: none !important;
                 font-weight: 600 !important;
-                font-family: Muli;
+                font-family: $general-font-family;
                 font-size: 14px;
                 color: #747588;
                 padding: 0.75rem 1.25rem;

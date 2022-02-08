@@ -121,12 +121,12 @@
         <div class="col-lg-12 col-md-12">
             <div class="text-center success-wrap">
                 <img class="mail-img" src="assets/images/mail.svg" alt="mail" />
-                <h4 class="fnt-32 fnt-play text-clr334 mt-3 mt-md-4 mb-3">{{ 'successful' | translate }}!</h4>
-                <p class="fnt-14 fnt-400 fnt-muli text-clr588 mb-3">
+                <h4 class="fnt-32 fnt-head text-clr334 mt-3 mt-md-4 mb-3">{{ 'successful' | translate }}!</h4>
+                <p class="fnt-14 fnt-400 text-clr588 mb-3">
                     <span class="d-none d-md-block">{{ 'invitation_sent' | translate }}</span>
                     <span class="d-md-none">{{ 'invitation_sent_to' | translate }}</span>
                 </p>
-                <p class="fnt-700 fnt-muli text-clr334 mb-45 mb-md-5">
+                <p class="fnt-700 text-clr334 mb-45 mb-md-5">
                     {{ userInvitesArray.slice(0, 3).join(', ') }}
                     {{ userInvitesArray.length > 3 ? ' and ' + (userInvitesArray.length - 3) + ' others' : '' }}
                 </p>

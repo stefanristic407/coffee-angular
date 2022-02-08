@@ -14,7 +14,7 @@
         </div> -->
         <div class="col-12 d-flex d-sm-flex d-md-none justify-content-end mt-2">
             <span
-                class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
+                class="ml-2 fnt-700 fnt-14 text-highlited cursor-pointer"
                 [routerLink]="['/dispute-system/raised-tickets/' + orderID]"
             >
                 {{ 'view_all_tickets' | translate }}
@@ -40,7 +40,7 @@
         >
             <div class="d-flex d-sm-flex d-md-none align-items-center mobileCardDiv" (click)="selectCard(item.label)">
                 <img class="logo-img" [src]="item.logo" />
-                <p class="fnt-16 fnt-md-18 fnt-muli fnt-500 black m-0 pl-3">{{ item.label }}</p>
+                <p class="fnt-16 fnt-md-18 fnt-500 black m-0 pl-3">{{ item.label }}</p>
                 <i class="icon-img ml-auto arrowClass fa fa-angle-right" aria-hidden="true"></i>
             </div>
             <button class="btn dashboard-button d-none d-sm-none d-md-block" (click)="selectCard(item.label)">

@@ -1,3 +1,5 @@
+@import 'variables';
+
 .total-wrap {
     @media (min-width: 992px) {
         border-right: solid 1px #ebebeb;
@@ -84,14 +86,14 @@ li.nav-item {
 }
 
 .nav-pills .nav-link {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 600;
     color: #232334;
 }
 
 .nav-pills .nav-link.active {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 600;
     color: #30855c;
@@ -131,7 +133,7 @@ li.nav-item {
 
 ::ng-deep .textDataLabel {
     font-size: 12px;
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-weight: bold;
     // transform: translate(-20px, -8px);
 }

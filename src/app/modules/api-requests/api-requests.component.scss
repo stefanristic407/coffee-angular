@@ -20,7 +20,7 @@
     }
 
     .estate-order-title {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 18px;
         font-weight: bold;
         color: $general-text-color;
@@ -38,14 +38,14 @@
     }
 
     .filter-text {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
         font-weight: 600;
         color: $muted-text-color;
     }
 
     .filter {
-        font-family: 'Muli';
+        font-family: $general-font-family;
         font-weight: 600;
         color: $general-text-color;
         font-size: 14px;
@@ -55,7 +55,7 @@
 
     .list-group-item {
         border: none;
-        font-family: 'Muli';
+        font-family: $general-font-family;
         font-size: 12px;
         font-weight: 600;
         color: $muted-text-color;
@@ -84,14 +84,14 @@
         font-size: 12px;
         font-weight: 600;
         color: $general-text-color;
-        font-family: 'Muli', sans-serif;
+        font-family: $general-font-family;
     }
 
     .file-share-search input[type='search']::placeholder {
         font-size: 12px;
         font-weight: 600;
         color: $muted-text-color;
-        font-family: 'Muli', sans-serif;
+        font-family: $general-font-family;
     }
 
     .file-share-search {
@@ -107,9 +107,8 @@
     }
 }
 
-
 .give-your-end-users {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: normal;
     color: $muted-text-color;

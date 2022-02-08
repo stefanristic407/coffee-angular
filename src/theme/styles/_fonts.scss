@@ -1,13 +1,9 @@
-.fnt-play {
-    font-family: 'Playfair Display', serif !important;
+.fnt-general {
+    font-family: $general-font-family !important;
 }
 
-.fnt-mont {
-    font-family: 'Muli', sans-serif;
-}
-
-.fnt-muli {
-    font-family: 'Muli', sans-serif !important;
+.fnt-head {
+    font-family: $secondary-font-family !important;
 }
 
 //////////////////// Font Color

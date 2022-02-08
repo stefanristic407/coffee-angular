@@ -1,7 +1,7 @@
 <div class="col-lg-8 col-md px-0">
     <div class="d-md-block d-none">
         <div class="d-flex justify-content-between">
-            <h1 class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">{{ 'my_posts' | translate }}</h1>
+            <h1 class="fnt-24 fnt-bold text-clr334 mb-0 mb-4">{{ 'my_posts' | translate }}</h1>
             <div>
                 <p-dropdown
                     [options]="sortOptions"
@@ -40,7 +40,7 @@
                             </div>
                             <div class="d-flex d-md-inline justify-content-between w-100 mt-md-2">
                                 <div class="d-flex align-items-center">
-                                    <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-3">
+                                    <div class="font-weight-bold fnt-14 text-clr24 mr-3">
                                         {{
                                             comment?.user_name ||
                                                 comment?.question_user ||
@@ -48,7 +48,7 @@
                                                 'unknown_user' | translate
                                         }}
                                     </div>
-                                    <div class="fnt-muli fnt-12 text-clr588">
+                                    <div class="fnt-12 text-clr588">
                                         {{ comment?.posted_at || comment?.created_at | amTimeAgo | dateAgoReplace }}
                                     </div>
                                     <div *ngIf="comment?.post_type" class="ml-3 d-none d-md-block">
@@ -57,7 +57,7 @@
                                                 src="/assets/images/noun-questions-and-answers-1950001-copy-2.svg"
                                                 alt="article"
                                             />
-                                            <span class="fnt-14 fnt-600 fnt-muli text-clr24 ml-2">{{
+                                            <span class="fnt-14 fnt-600 text-clr24 ml-2">{{
                                                 'article' | translate
                                             }}</span>
                                         </div>
@@ -66,7 +66,7 @@
                                                 src="/assets/images/noun-questions-and-answers-1950001-copy.svg"
                                                 alt="recipe"
                                             />
-                                            <span class="fnt-14 fnt-600 fnt-muli text-clr24 ml-2">{{
+                                            <span class="fnt-14 fnt-600 text-clr24 ml-2">{{
                                                 'recipe' | translate
                                             }}</span>
                                         </div>
@@ -86,15 +86,15 @@
                         <div *ngIf="comment?.post_type" class="ml-5 d-md-none">
                             <div *ngIf="comment?.post_type === 'article'" class="align-items-center d-flex">
                                 <img src="/assets/images/noun-questions-and-answers-1950001-copy-2.svg" alt="article" />
-                                <span class="fnt-14 fnt-600 fnt-muli text-clr24 ml-2">{{ 'article' | translate }}</span>
+                                <span class="fnt-14 fnt-600 text-clr24 ml-2">{{ 'article' | translate }}</span>
                             </div>
                             <div *ngIf="comment?.post_type === 'recipe'" class="align-items-center d-flex">
                                 <img src="/assets/images/noun-questions-and-answers-1950001-copy.svg" alt="recipe" />
-                                <span class="fnt-14 fnt-600 fnt-muli text-clr24 ml-2">{{ 'recipe' | translate }}</span>
+                                <span class="fnt-14 fnt-600 text-clr24 ml-2">{{ 'recipe' | translate }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="mb-4 fnt-md-18 fnt-16 fnt-bold fnt-muli text-clr24">
+                    <div class="mb-4 fnt-md-18 fnt-16 fnt-bold text-clr24">
                         {{ comment?.post_title | translate }}
                     </div>
                     <div
@@ -104,20 +104,20 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <div class="d-flex align-items-center mb-2">
-                                    <div class="fnt-muli text-clr334 fnt-600 fnt-14 mr-3">
+                                    <div class="text-clr334 fnt-600 fnt-14 mr-3">
                                         {{ 'your_comment' | translate }}
                                     </div>
-                                    <div class="fnt-muli fnt-12 text-clr588 d-md-flex">
+                                    <div class="fnt-12 text-clr588 d-md-flex">
                                         <span class="d-none d-md-block">{{ 'posted' | translate }}</span
                                         >&nbsp;
                                         {{ cmt?.posted_at | amTimeAgo | dateAgoReplace }}
                                     </div>
                                 </div>
-                                <div class="fnt-muli fnt-14 text-clr24 lh-15 mt-2">
+                                <div class="fnt-14 text-clr24 lh-15 mt-2">
                                     <span [innerHTML]="cmt?.comment | translate | convertToShortDescription: 20"></span>
                                 </div>
                             </div>
-                            <div class="fnt-muli fnt-12 text-clr588">
+                            <div class="fnt-12 text-clr588">
                                 <app-forum-menu
                                     [selectedItem]="cmt"
                                     forumType="comment"
@@ -150,7 +150,7 @@
     <div *ngIf="isLoading">
         <app-loading></app-loading>
     </div>
-    <div *ngIf="!isLoading && !comments.length" class="text-center my-4 fnt-muli text-clr24">
+    <div *ngIf="!isLoading && !comments.length" class="text-center my-4 text-clr24">
         <app-empty
             [title]="'you_have_not_posted_anything_yet' | translate"
             [description]="'no_my_posts_description' | translate"

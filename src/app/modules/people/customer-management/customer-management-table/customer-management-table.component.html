@@ -1,5 +1,5 @@
 <div class="pt-3 pt-md-4">
-    <p class="fnt-muli fnt-16 fnt-md-18 fnt-bold lh-125 lh-md-normal text-clr334 mb-25" *ngIf="isPartners">
+    <p class="fnt-16 fnt-md-18 fnt-bold lh-125 lh-md-normal text-clr334 mb-25" *ngIf="isPartners">
         {{ 'partners_by_horeca' | translate }}
     </p>
     <div class="customer-table-wrapper">
@@ -94,15 +94,11 @@
 
                             <span *ngSwitchCase="'actions'" class="d-flex">
                                 <ng-container *ngIf="!isMobileView">
-                                    <a
-                                        class="fnt-muli brown-cta pr-3 pt-2"
-                                        (click)="shareDetails(rowData)"
-                                        *ngIf="customerType"
-                                    >
+                                    <a class="brown-cta pr-3 pt-2" (click)="shareDetails(rowData)" *ngIf="customerType">
                                         {{ 'view_details' | translate }}
                                     </a>
                                     <a
-                                        class="fnt-muli brown-cta pr-3 pt-2"
+                                        class="brown-cta pr-3 pt-2"
                                         *ngIf="!customerType"
                                         (click)="sendInite($event, rowData)"
                                     >

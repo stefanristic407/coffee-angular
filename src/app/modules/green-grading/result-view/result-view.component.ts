@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { GENERAL_FONT_FAMILY } from '@constants';
 import { GlobalsService } from '@services';
 import * as Chart from 'chart.js';
 
@@ -122,7 +123,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
                             autoSkip: false,
                             fontColor: '#747588',
                             fontSize: 10,
-                            fontFamily: `'Muli', 'sans-serif'`,
+                            fontFamily: GENERAL_FONT_FAMILY,
                         },
                     },
                 ],
@@ -140,7 +141,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
                             padding: 12,
                             fontColor: '#747588',
                             fontSize: 14,
-                            fontFamily: `'Muli', 'sans-serif'`,
+                            fontFamily: GENERAL_FONT_FAMILY,
                             min: 0,
                             max: self.type ? 10 : 100,
                             beginAtZero: true,
@@ -171,7 +172,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
                             autoSkip: false,
                             fontColor: '#747588',
                             fontSize: 10,
-                            fontFamily: `'Muli', 'sans-serif'`,
+                            fontFamily: GENERAL_FONT_FAMILY,
                         },
                     },
                 ],
@@ -189,7 +190,7 @@ export class ResultViewComponent implements OnInit, OnChanges {
                             padding: 12,
                             fontColor: '#747588',
                             fontSize: 14,
-                            fontFamily: `'Muli', 'sans-serif'`,
+                            fontFamily: GENERAL_FONT_FAMILY,
                         },
                     },
                 ],

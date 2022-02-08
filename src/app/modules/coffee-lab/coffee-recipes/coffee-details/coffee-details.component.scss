@@ -1,4 +1,5 @@
 @import 'variables';
+
 .page-wrapper {
     @media screen and(max-width:767px) {
         .recipe-info-wrapper {
@@ -99,7 +100,7 @@
     }
 }
 .user-header {
-    font-family: Cormorant Garamond;
+    font-family: $secondary-font-family;
     font-size: 48px;
     @media (max-width: 768px) {
         font-size: 32px;

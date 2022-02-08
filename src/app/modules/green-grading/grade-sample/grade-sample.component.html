@@ -18,7 +18,7 @@
     <section class="grading__total pt-4 pt-lg-25">
         <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
             <div class="green_grading_cont">
-                <h1 class="fnt-muli fnt-18 fnt-bold mb-2">{{ 'score_sample' | translate }}</h1>
+                <h1 class="fnt-18 fnt-bold mb-2">{{ 'score_sample' | translate }}</h1>
                 <h3 class="mb-0 pt-1">Cup samples from your inventory</h3>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div *ngIf="selectedRows.length" class="mt-3 mt-md-0 d-flex align-items-center justify-content-between">
-                <span class="fnt-14 fnt-muli fnt-bold text-clr588 pr-3">Selected:{{ selectedRows.length }}</span>
+                <span class="fnt-14 fnt-bold text-clr588 pr-3">Selected:{{ selectedRows.length }}</span>
                 <button class="btn-raised" (click)="generateReportLink()">Next</button>
             </div>
         </div>

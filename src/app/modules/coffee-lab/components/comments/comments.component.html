@@ -25,7 +25,7 @@
         </span>
     </div>
     <div class="pt-4 pt-lg-45">
-        <p class="fnt-muli fnt-14 fnt-bold text-clr334 mb-0 mb-md-2">{{ 'comment' | translate }}s</p>
+        <p class="fnt-14 fnt-bold text-clr334 mb-0 mb-md-2">{{ 'comment' | translate }}s</p>
         <div
             class="w-100 pt-4 pt-lg-45"
             *ngFor="let commentItem of commentList; let isLast = last"
@@ -36,7 +36,7 @@
             }"
         >
             <app-user-header [prop]="commentItem"></app-user-header>
-            <p class="fnt-muli fnt-14 fnt-normal text-clr334 lh-157 mb-0 mt-3 comment-text">
+            <p class="fnt-14 fnt-normal text-clr334 lh-157 mb-0 mt-3 comment-text">
                 {{ commentItem?.comment }}
             </p>
         </div>

@@ -1,13 +1,13 @@
 <div class="p-md-3 p-lg-4 border-md-main br-4 h-100 d-flex flex-column">
-    <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block">
+    <p class="fnt-16 fnt-bold text-clr334 mb-1 mb-md-2 d-none d-md-block">
         {{ 'afew_selected_estates' | translate }}
     </p>
-    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2 mb-md-4 d-none d-md-block">
+    <p class="fnt-14 fnt-normal text-clr588 mb-2 mb-md-4 d-none d-md-block">
         {{ 'afew_selected_estates_description' | translate }}
         <!-- {{ 'special_estate_chart_des' | translate }} -->
     </p>
 
-    <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 d-md-none">{{ 'sourced_coffee' | translate }}</p>
+    <p class="fnt-16 fnt-bold text-clr334 mb-1 d-md-none">{{ 'sourced_coffee' | translate }}</p>
     <div class="row flex-fill">
         <div class="col-12 col-lg-5 col-md-5 mb-3 mb-md-0 pr-md-0 pl-md-0">
             <a routerLink="/sourcing/coffee-list">
@@ -45,16 +45,16 @@
                             </div>
                             <div>
                                 <p
-                                    class="cursor-pointer fnt-14 fnt-bold fnt-muli text-clr334 mb-0"
+                                    class="cursor-pointer fnt-14 fnt-bold text-clr334 mb-0"
                                     routerLink="/sourcing/estate-details/{{ item.estate_id }}"
                                 >
                                     {{ item.name }}
                                 </p>
-                                <p class="fnt-12 fnt-md-14 fnt-600 fnt-muli text-clr334 mb-0">
+                                <p class="fnt-12 fnt-md-14 fnt-600 text-clr334 mb-0">
                                     <span class="text-clr588">{{ 'origin' | translate }}:&nbsp;</span>
                                     {{ item.country | country }}
                                 </p>
-                                <p class="fnt-12 fnt-md-14 fnt-600 fnt-muli text-clr334 mb-2">
+                                <p class="fnt-12 fnt-md-14 fnt-600 text-clr334 mb-2">
                                     <span class="text-clr588">Varieties:&nbsp;</span>
                                     <span *ngFor="let tag of item.tags; let i = index">
                                         {{ tag }}<span *ngIf="i !== item.tags.length - 1">,</span>

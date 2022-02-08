@@ -14,7 +14,7 @@
             <div class="d-flex align-items-center mr-3 text-nowrap">
                 <div
                     [ngClass]="{ ellipsis: enableEllipsis, 'cursor-pointer': isTopWriters }"
-                    class="fnt-muli font-weight-bold fnt-14 text-clr334 mr-md-3 mr-1"
+                    class="font-weight-bold fnt-14 text-clr334 mr-md-3 mr-1"
                 >
                     <a
                         *ngIf="isTopWriters"
@@ -50,7 +50,7 @@
                     </span>
                 </div>
             </div>
-            <div class="fnt-14 fnt-muli lh-1 text-clr588 mt-2 d-flex text-nowrap extra-mob">
+            <div class="fnt-14 lh-1 text-clr588 mt-2 d-flex text-nowrap extra-mob">
                 <span class="font-semi-bold mr-1" *ngIf="orgType !== 'co'">{{ 'coffee_experts' | translate }}</span>
                 <span class="font-semi-bold mr-1" *ngIf="orgType === 'co'">{{ 'coffee_consumer' | translate }}</span>
                 <span

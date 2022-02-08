@@ -7,8 +7,8 @@
             <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
         <div class="request-details">
-            <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.generated_key }}</h4>
-            <p class="fnt-14 fnt-muli fnt-400 text-clr588 m-0">
+            <h4 class="fnt-18 fnt-700 text-clr334">{{ globals.languageJson?.generated_key }}</h4>
+            <p class="fnt-14 fnt-400 text-clr588 m-0">
                 {{ 'api_key_details' | translate }}
             </p>
         </div>
@@ -16,7 +16,7 @@
         <div class="col-lg-7 col-12 mt-475 p-0">
             <div class="express__delivery">
                 <div class="delivery__head">
-                    <p class="m-0 fnt-14 fnt-muli fnt-700 black">{{ 'key_generation_request' | translate }}</p>
+                    <p class="m-0 fnt-14 fnt-700 black">{{ 'key_generation_request' | translate }}</p>
                     <p class="view-order m-0 cursor-pointer mobile-delete-key" (click)="delete()">
                         {{ 'delete_key' | translate }}
                     </p>
@@ -24,7 +24,7 @@
                 <div class="delivery__body">
                     <div class="w-100">
                         <div class="float-left key-activate-block">
-                            <p class="m-0 fnt-14 fnt-muli fnt-700 black">
+                            <p class="m-0 fnt-14 fnt-700 black">
                                 {{ 'key_activated_on' | translate }}
                                 {{ requestDetailData?.requested_at | date: 'MMM d, y' }}
                             </p>
@@ -101,7 +101,7 @@
             <!-- pause-->
             <div class="d-flex pt-45" *ngIf="apikeyStatus == 'paused'">
                 <div class="generate-border col-12">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                    <p class="fnt-14 fnt-700 text-clr334 float-left m-0">
                         <span><img class="mr-2" src="assets/images/pause.png" alt="" /> </span>
                         {{ 'api_key_paused' | translate }}
                     </p>
@@ -110,7 +110,7 @@
 
             <div class="d-flex pt-3" *ngIf="apikeyStatus == 'paused'">
                 <div class="col-12 p-0">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                    <p class="fnt-14 fnt-700 text-clr334 float-left m-0">
                         {{ 'api_key_activated' | translate }}
                     </p>
                 </div>
@@ -118,7 +118,7 @@
 
             <!--<div class="d-flex pt-45" *ngIf="apikeyStatus == 'active'">
                 <div class="generate-border col-12">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                    <p class="fnt-14  fnt-700 text-clr334 float-left m-0">
                         <span
                             ><img class="mr-2" src="assets/images/pause.png" alt="" />{{
                                 'api_key_reactivated' | translate

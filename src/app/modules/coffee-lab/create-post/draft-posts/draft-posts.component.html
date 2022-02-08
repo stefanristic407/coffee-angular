@@ -44,11 +44,11 @@
                 </div>
                 <div class="post-list-content">
                     <div
-                        class="fnt-14 font-weight-bold fnt-muli text-clr334 mb-2"
+                        class="fnt-14 font-weight-bold text-clr334 mb-2"
                         appFullImgWrapper
                         [innerHTML]="draft.post_title"
                     ></div>
-                    <div class="fnt-12 fnt-muli text-clr588">
+                    <div class="fnt-12 text-clr588">
                         {{ 'draft_saved' | translate }}: {{ draft.created_at | amTimeAgo: true | dateAgoReplace: true }}
                     </div>
                 </div>

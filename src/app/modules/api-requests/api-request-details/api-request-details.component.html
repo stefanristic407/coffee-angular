@@ -7,8 +7,8 @@
             <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
         <div class="request-details">
-            <h4 class="fnt-18 fnt-muli fnt-700 text-clr334">{{ globals.languageJson?.request_details }}</h4>
-            <p class="fnt-14 fnt-muli fnt-400 text-clr588 m-0">
+            <h4 class="fnt-18 fnt-700 text-clr334">{{ globals.languageJson?.request_details }}</h4>
+            <p class="fnt-14 fnt-400 text-clr588 m-0">
                 {{ 'api_key_details' | translate }}
             </p>
         </div>
@@ -16,7 +16,7 @@
         <div class="col-lg-7 col-12 mt-475 p-0">
             <div class="express__delivery">
                 <div class="delivery__head">
-                    <p class="m-0 fnt-14 fnt-muli fnt-700 black">{{ 'key_generation_request' | translate }}</p>
+                    <p class="m-0 fnt-14 fnt-700 black">{{ 'key_generation_request' | translate }}</p>
                     <p class="view-order m-0 cursor-pointer mobile-delete-key" (click)="delete()">
                         {{ 'delete_key' | translate }}
                     </p>
@@ -24,7 +24,7 @@
                 <div [class.delivery__body]="apikeyStatus === 'GENERATED'">
                     <div class="w-100">
                         <div class="float-left key-activate-block" *ngIf="apikeyStatus == 'GENERATED'">
-                            <p class="m-0 fnt-14 fnt-muli fnt-700 black">
+                            <p class="m-0 fnt-14 fnt-700 black">
                                 {{ 'key_activated_on' | translate }}
                                 {{
                                     initialStatus == 'GENERATED'
@@ -108,11 +108,11 @@
 
             <div class="note-heading" *ngIf="apikeyStatus == 'PENDING'">
                 <div>
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 note">{{ 'note' | translate }}</p>
+                    <p class="fnt-14 fnt-700 text-clr334 note">{{ 'note' | translate }}</p>
                 </div>
 
                 <div class="pl-2">
-                    <p class="fnt-14 fnt-muli fnt-500 text-clr588 m-0">
+                    <p class="fnt-14 fnt-500 text-clr588 m-0">
                         {{ 'api_key_confirmation' | translate }}
                     </p>
                 </div>
@@ -120,7 +120,7 @@
 
             <div class="d-flex" *ngIf="apikeyStatus == 'PENDING'">
                 <div class="generate-border col-12">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 w-70 float-left m-0 p-0">
+                    <p class="fnt-14 fnt-700 text-clr334 w-70 float-left m-0 p-0">
                         {{ 'confirm_api_key_generation_request' | translate }}
                     </p>
                     <button
@@ -142,7 +142,7 @@
             <!-- API key is generated -->
             <div class="d-flex pt-45" *ngIf="apikeyStatus == 'GENERATED'">
                 <div class="generate-border col-12">
-                    <div class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0 d-flex">
+                    <div class="fnt-14 fnt-700 text-clr334 float-left m-0 d-flex">
                         <p class="m-0"><img class="mr-2" src="assets/images/correct.png" alt="" /></p>
                         <p class="m-0 pl-3">{{ 'api_key_generated' | translate }}</p>
                     </div>
@@ -153,7 +153,7 @@
             <!-- The API key is generated and the customer is notified!-->
             <div class="d-flex pt-3" *ngIf="apikeyStatus == 'Notified'">
                 <div class="generate-border col-12">
-                    <div class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0 d-flex">
+                    <div class="fnt-14 fnt-700 text-clr334 float-left m-0 d-flex">
                         <p class="m-0"><img class="mr-2" src="assets/images/correct.png" alt="" /></p>
                         <p class="m-0 pl-3">{{ 'customer_notified' | translate }}</p>
                     </div>
@@ -163,7 +163,7 @@
             <!-- pause-->
             <div class="d-flex pt-45" *ngIf="apikeyStatus == 'paused'">
                 <div class="generate-border col-md-7 col-12">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                    <p class="fnt-14 fnt-700 text-clr334 float-left m-0">
                         <span><img class="mr-2" src="assets/images/pause.png" alt="" /> </span>
                         {{ 'api_key_paused' | translate }}
                     </p>
@@ -172,7 +172,7 @@
 
             <div class="d-flex pt-3" *ngIf="apikeyStatus == 'paused'">
                 <div class="col-md-7 col-12 p-0">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                    <p class="fnt-14 fnt-700 text-clr334 float-left m-0">
                         {{ 'api_key_activated' | translate }}
                     </p>
                 </div>
@@ -180,7 +180,7 @@
 
             <div class="d-flex pt-45" *ngIf="apikeyStatus == 'active'">
                 <div class="generate-border col-md-7 col-12">
-                    <p class="fnt-14 fnt-muli fnt-700 text-clr334 float-left m-0">
+                    <p class="fnt-14 fnt-700 text-clr334 float-left m-0">
                         <span
                             ><img class="mr-2" src="assets/images/pause.png" alt="" />{{
                                 'api_key_reactivated' | translate

@@ -1,3 +1,5 @@
+@import 'variables';
+
 .scroll_chart {
     display: block;
     min-width: 490px;
@@ -39,7 +41,7 @@
             border-radius: 4px;
             margin: 6px 6px 0 6px;
             padding: 14px 18px;
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 18px;
             font-weight: bold;
             color: #232334;
@@ -49,7 +51,7 @@
             padding: 1.5rem;
 
             h4 {
-                font-family: Muli;
+                font-family: $general-font-family;
                 font-size: 32px;
                 font-weight: 800;
                 font-stretch: normal;
@@ -60,7 +62,7 @@
             }
 
             p {
-                font-family: Muli;
+                font-family: $general-font-family;
                 font-size: 18px;
                 font-weight: 600;
                 font-stretch: normal;

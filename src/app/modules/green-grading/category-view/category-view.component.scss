@@ -1,3 +1,5 @@
+@import 'variables';
+
 .category-wrapper {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
@@ -12,7 +14,7 @@
 
 .categ-label {
     font-size: 14px;
-    font-family: Muli, sans-serif;
+    font-family: $general-font-family;
     font-weight: 500;
     margin-bottom: 0;
     color: #232334;
@@ -21,7 +23,7 @@
 
 .categ-labels {
     font-size: 14px;
-    font-family: Muli, sans-serif;
+    font-family: $general-font-family;
     font-weight: bold;
     margin-bottom: 0;
     color: #232334;
@@ -35,7 +37,7 @@
     border: 1px solid #d6d6d6;
     border-radius: 4px;
     font-size: 14px;
-    font-family: Muli, sans-serif;
+    font-family: $general-font-family;
     color: #232334;
     height: 50px;
     padding: 13px 16px;

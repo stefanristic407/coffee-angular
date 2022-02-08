@@ -6,7 +6,7 @@
     </div>
     <section>
         <div class="d-flex mb-md-3 mt-4 pb-md-2">
-            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-md-1">
+            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 mb-md-1">
                 <span *ngIf="!outtakeOrderId">
                     <span *ngIf="!addOrdersForm.get('product_name').value">{{ 'add_new_order' | translate }}</span>
                     <span *ngIf="addOrdersForm.get('product_name').value">{{
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="d-flex">
-                    <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-lg-2 mb-md-1">
+                    <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 mb-lg-2 mb-md-1">
                         {{ 'order_id' | translate }}*
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                                 >
                                 <span
                                     *ngIf="addOrdersForm.get('order_id').value"
-                                    class="d-block d-md-none fnt-14 text-center fnt-600 fnt-muli order-h text-clr334 mobile-w p-inputgroup-addon"
+                                    class="d-block d-md-none fnt-14 text-center fnt-600  order-h text-clr334 mobile-w p-inputgroup-addon"
                                     >{{ 'order_id' | translate }} #</span
                                 > -->
                                 <input
@@ -177,10 +177,10 @@
                     <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
                 </div>
                 <div class="d-flex flex-column border-top-dashed-d6 mt-4 pt-4 mt-md-3 pt-md-3">
-                    <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 pt-md-3 mb-md-1">
+                    <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 mb-2 pt-md-3 mb-md-1">
                         {{ 'order_details' | translate }}
                     </div>
-                    <div class="fnt-14 fnt-400 text-clr334 fnt-muli mb-3">
+                    <div class="fnt-14 fnt-400 text-clr334 mb-3">
                         {{ 'select_the_green_coffee_order' | translate }}
                     </div>
                 </div>
@@ -232,14 +232,7 @@
                                     pInputText
                                 />
                                 <span
-                                    class="
-                                        p-inputgroup-addon
-                                        border-0
-                                        cursor-pointer
-                                        pi pi-angle-right
-                                        text-clr97
-                                        fnt-100 fnt-20
-                                    "
+                                    class="p-inputgroup-addon border-0 cursor-pointer pi pi-angle-right text-clr97 fnt-100 fnt-20"
                                 ></span>
                             </div>
                         </div>
@@ -278,30 +271,14 @@
                                         placeholder="{{ 'price_paid_by_the_customer' | translate }}"
                                     ></p-inputNumber>
                                     <span
-                                        class="
-                                            fnt-600
-                                            p-inputgroup-addon
-                                            text-clr334
-                                            br-4
-                                            right-dropdown-background
-                                            addon-position-fix
-                                            lh-1
-                                        "
+                                        class="fnt-600 p-inputgroup-addon text-clr334 br-4 right-dropdown-background addon-position-fix lh-1"
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
                                         >{{ baseCurrency }} / kg</span
                                     >
                                     <span
-                                        class="
-                                            p-inputgroup-addon
-                                            fnt-600
-                                            br-4
-                                            text-clr334
-                                            addon-position-fix
-                                            right-dropdown-background
-                                            lh-1
-                                        "
+                                        class="p-inputgroup-addon fnt-600 br-4 text-clr334 addon-position-fix right-dropdown-background lh-1"
                                         *ngIf="outtakeOrderDetails?.unit_currency && outtakeOrderDetails?.quantity_unit"
                                         >{{ outtakeOrderDetails?.unit_currency }} /
                                         {{ outtakeOrderDetails?.quantity_unit }}</span
@@ -328,31 +305,14 @@
                                 >
                                 <div class="p-inputgroup custom-addon">
                                     <span
-                                        class="
-                                            p-inputgroup-addon
-                                            fnt-14 fnt-600 fnt-muli
-                                            text-clr334
-                                            br-4
-                                            addon-position-fix
-                                            right-dropdown-background
-                                            lh-1
-                                        "
+                                        class="p-inputgroup-addon fnt-14 fnt-600 text-clr334 br-4 addon-position-fix right-dropdown-background lh-1"
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
                                         >{{ baseCurrency }}</span
                                     >
                                     <span
-                                        class="
-                                            p-inputgroup-addon
-                                            fnt-14 fnt-600 fnt-muli
-                                            text-clr334
-                                            br-4
-                                            addon-position-fix
-                                            right-dropdown-background
-                                            fnt-600
-                                            lh-1
-                                        "
+                                        class="p-inputgroup-addon fnt-14 fnt-600 text-clr334 br-4 addon-position-fix right-dropdown-background fnt-600 lh-1"
                                         *ngIf="outtakeOrderDetails?.total_price_currency"
                                         >{{ outtakeOrderDetails?.total_price_currency }}</span
                                     >
@@ -392,7 +352,7 @@
                                         [minFractionDigits]="1"
                                         [maxFractionDigits]="2"
                                     ></p-inputNumber>
-                                    <div class="p-inputgroup-addon fnt-14 fnt-600 fnt-muli text-clr334">%</div>
+                                    <div class="p-inputgroup-addon fnt-14 fnt-600 text-clr334">%</div>
                                 </div>
                                 <small
                                     *ngIf="
@@ -497,20 +457,15 @@
                         <div *ngIf="coffeeExperienceLink" class="form-section__inputs mt-4 d-block d-md-none">
                             <div class="roastery-fields tab">
                                 <div class="tab-width">
-                                    <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
+                                    <h4 class="fnt-16 fnt-700 text-clr334 tab-bottom-margin">
                                         {{ 'share_your_story' | translate }}
                                     </h4>
                                     <div class="copy-link">
-                                        <label class="fnt-14 fnt-600 fnt-muli text-clr588">
+                                        <label class="fnt-14 fnt-600 text-clr588">
                                             {{ 'share_story_text' | translate }}
                                         </label>
                                         <div
-                                            class="
-                                                copy-link__value
-                                                d-flex d-md-column d-lg-row
-                                                flex-wrap
-                                                align-items-center
-                                            "
+                                            class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center"
                                         >
                                             <input
                                                 class="tab-input"
@@ -527,26 +482,11 @@
                                 <div class="tab-width-right">
                                     <div class="scan-qr-link text-center">
                                         <span
-                                            class="
-                                                mx-auto
-                                                fnt-12 fnt-600 fnt-muli
-                                                text-clr334
-                                                mb-3
-                                                mt-3 mt-md-0
-                                                mb-lg-4
-                                                text-capitalize
-                                                hideTabView
-                                            "
+                                            class="mx-auto fnt-12 fnt-600 text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
                                             >or</span
                                         >
                                         <p
-                                            class="
-                                                text-md-left
-                                                fnt-14 fnt-600 fnt-muli
-                                                text-clr334
-                                                mb-3 mb-lg-4
-                                                tab-bottom-margin
-                                            "
+                                            class="text-md-left fnt-14 fnt-600 text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
                                         >
                                             {{ 'scan_download_text' | translate }}
                                         </p>
@@ -574,7 +514,7 @@
                         class="border-top-dashed-d6 mt-4 pt-4 mt-md-0 pt-md-0"
                     >
                         <div class="d-flex flex-column padd-2r mt-md-3">
-                            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 fnt-muli mb-2 mb-md-1">
+                            <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 mb-2 mb-md-1">
                                 {{ 'roast_details' | translate }}
                             </div>
                         </div>
@@ -648,15 +588,7 @@
                                     </div>
                                     <div class="p-inputgroup custom-addon">
                                         <span
-                                            class="
-                                                p-inputgroup-addon
-                                                fnt-14 fnt-600 fnt-muli
-                                                text-clr334
-                                                br-4
-                                                addon-position-fix
-                                                right-dropdown-background
-                                                lh-1
-                                            "
+                                            class="p-inputgroup-addon fnt-14 fnt-600 text-clr334 br-4 addon-position-fix right-dropdown-background lh-1"
                                             >{{ outtakeOrderDetails?.waste_produced_unit || 'Kg' }}</span
                                         >
 
@@ -734,15 +666,7 @@
                                 <label>{{ 'waste_produced' | translate }}</label>
                                 <div class="p-inputgroup custom-addon">
                                     <span
-                                        class="
-                                            p-inputgroup-addon
-                                            fnt-14 fnt-600 fnt-muli
-                                            text-clr334
-                                            br-4
-                                            addon-position-fix
-                                            right-dropdown-background
-                                            lh-1
-                                        "
+                                        class="p-inputgroup-addon fnt-14 fnt-600 text-clr334 br-4 addon-position-fix right-dropdown-background lh-1"
                                         >{{ outtakeOrderDetails?.waste_produced_unit || 'Kg' }}</span
                                     >
 
@@ -775,13 +699,7 @@
                     </div>
                     <div
                         *ngIf="addOrdersForm.get('customer_id').value"
-                        class="
-                            col-lg-12 col-md-6
-                            mob-form-top-margin
-                            d-lg-block d-md-block d-none d-sm-none d-xl-block
-                            ml-lg-0 ml-md-2
-                            px-0
-                        "
+                        class="col-lg-12 col-md-6 mob-form-top-margin d-lg-block d-md-block d-none d-sm-none d-xl-block ml-lg-0 ml-md-2 px-0"
                     >
                         <ng-container *ngTemplateOutlet="customerOrderDetails"></ng-container>
                     </div>
@@ -790,11 +708,11 @@
                 <div *ngIf="coffeeExperienceLink" class="form-section__inputs mt-4 d-none d-md-block">
                     <div class="roastery-fields tab">
                         <div class="tab-width">
-                            <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 tab-bottom-margin">
+                            <h4 class="fnt-16 fnt-700 text-clr334 tab-bottom-margin">
                                 {{ 'share_your_story' | translate }}
                             </h4>
                             <div class="copy-link">
-                                <label class="fnt-14 fnt-600 fnt-muli text-clr588">
+                                <label class="fnt-14 fnt-600 text-clr588">
                                     {{ 'share_story_text' | translate }}
                                 </label>
                                 <div class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center">
@@ -813,28 +731,10 @@
                         <div class="tab-width-right">
                             <div class="scan-qr-link text-center">
                                 <span
-                                    class="
-                                        d-lg-inline-block d-none d-lg-block
-                                        mx-auto
-                                        fnt-12 fnt-600 fnt-muli
-                                        text-clr334
-                                        mb-3
-                                        mt-3 mt-md-0
-                                        mb-lg-4
-                                        text-capitalize
-                                        hideTabView
-                                    "
+                                    class="d-lg-inline-block d-none d-lg-block mx-auto fnt-12 fnt-600 text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
                                     >or</span
                                 >
-                                <p
-                                    class="
-                                        text-md-left
-                                        fnt-14 fnt-600 fnt-muli
-                                        text-clr334
-                                        mb-3 mb-lg-4
-                                        tab-bottom-margin
-                                    "
-                                >
+                                <p class="text-md-left fnt-14 fnt-600 text-clr334 mb-3 mb-lg-4 tab-bottom-margin">
                                     {{ 'scan_download_text' | translate }}
                                 </p>
                                 <div class="text-center d-lg-flex margin-left">
@@ -971,12 +871,12 @@
             </table>
             <div class="mt-3 d-md-flex cust-profile p-4 br-4 d-none d-md-block">
                 <div class="mr-3">
-                    <div class="fnt-md-14 fnt-muli fnt-600 text-clr588 mb-2">
+                    <div class="fnt-md-14 fnt-600 text-clr588 mb-2">
                         {{ orderDetails?.cupped_at | date: 'd MMM yyyy' }}
                     </div>
-                    <div class="fnt-md-14 fnt-muli fnt-600 text-clr588">
+                    <div class="fnt-md-14 fnt-600 text-clr588">
                         {{ 'cup_score' | translate }} :
-                        <span class="fnt-md-14 fnt fnt-muli fnt-bold text-clr334">{{
+                        <span class="fnt-md-14 fnt fnt-bold text-clr334">{{
                             orderDetails?.cup_score | translate
                         }}</span>
                     </div>
@@ -990,10 +890,10 @@
                         </app-avatar>
                     </div>
                     <div>
-                        <div class="fnt-md-16 fnt-14 fnt fnt-muli fnt-bold text-clr334 mb-1">
+                        <div class="fnt-md-16 fnt-14 fnt fnt-bold text-clr334 mb-1">
                             {{ orderDetails?.evaluator_name }}
                         </div>
-                        <div class="fnt-md-14 fnt-muli fnt-bold text-clr588">
+                        <div class="fnt-md-14 fnt-bold text-clr588">
                             {{ orderDetails?.evaluator_facilitator_name }}
                         </div>
                     </div>

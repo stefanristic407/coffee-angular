@@ -1,3 +1,5 @@
+@import 'variables';
+
 .forum-card-wrapper {
     .cover-image {
         height: 160px;
@@ -18,7 +20,7 @@
     }
     .expertise {
         text-transform: capitalize;
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 12px;
         font-weight: 600;
         font-stretch: normal;

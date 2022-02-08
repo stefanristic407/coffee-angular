@@ -1,3 +1,5 @@
+@import 'variables';
+
 .det-tit {
     h2 {
         font-size: 18px;
@@ -6,7 +8,7 @@
         text-transform: capitalize;
     }
     h6 {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 18px;
         font-weight: bold;
         color: #242424;

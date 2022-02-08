@@ -1,6 +1,6 @@
 <div class="in-order mt-3 br-4" *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected">
     <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
-        <h4 class="fnt-play fnt-700 fnt-24 text-clr334 mb-4 mb-md-2">
+        <h4 class="fnt-head fnt-700 fnt-24 text-clr334 mb-4 mb-md-2">
             {{ statusLabel }}
         </h4>
         <ng-container *ngTemplateOutlet="timeline"></ng-container>
@@ -78,7 +78,7 @@
         <p-accordionTab #tab [selected]="true">
             <ng-template pTemplate="header">
                 <div class="d-flex justify-content-between align-items-center w-100 mb-4 mb-md-2">
-                    <span class="fnt-play fnt-700 fnt-18 text-clr334">{{ statusLabel }}</span>
+                    <span class="fnt-head fnt-700 fnt-18 text-clr334">{{ statusLabel }}</span>
                     <img class="p-1" src="assets/images/collapse-arrow.svg" *ngIf="!tab.selected" />
                     <img class="p-1" src="assets/images/expand-arrow.svg" *ngIf="tab.selected" />
                 </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="w-100 ml-md-3 d-flex flex-column flex-md-row justify-content-between">
                         <div class="d-flex flex-column">
-                            <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-play">
+                            <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-head">
                                 {{ 'received_on' | translate }} {{ receivedDate | date: 'd MMMM y' }}
                             </h4>
                             <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
@@ -148,7 +148,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between">
                 <div class="d-flex-column">
-                    <div class="text-clr334 fnt-play fnt-700 fnt-md-26 fnt-sm-18">Confirm Order</div>
+                    <div class="text-clr334 fnt-head fnt-700 fnt-md-26 fnt-sm-18">Confirm Order</div>
                     <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
                         Please confirm if you have recieved the shipment you have ordered.<br />
                         The order will be marked as complete then
@@ -183,7 +183,7 @@
             <div class="row">
                 <div class="col-lg-9 col-md-8 col-sm-12 d-flex px-2 px-md-3">
                     <div class="col-md-12">
-                        <h4 class="fnt-26 text-black334 fnt-play">Waiting for a confirmation</h4>
+                        <h4 class="fnt-26 text-black334 fnt-head">Waiting for a confirmation</h4>
                         <div class="fnt-12 fnt-md-16 text-clr5d pt-2">
                             The roaster will review the sample recieved and confirm the if the correct order has been
                             received.
@@ -221,7 +221,7 @@
                         /></span>
                     </div>
                     <div class="txt-block ml-2">
-                        <h4 class="fnt-18 fnt-md-28 fnt-700 text-black334 fnt-play">
+                        <h4 class="fnt-18 fnt-md-28 fnt-700 text-black334 fnt-head">
                             Received on {{ receivedDate | date: 'd MMMM y' }}
                         </h4>
                         <div class="fnt-12 fnt-md-16 text-clr5d pt-2">
@@ -265,7 +265,7 @@
                 </div>
                 <div class="w-100 ml-md-3 d-flex flex-column flex-md-row justify-content-between">
                     <div class="d-flex flex-column">
-                        <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-play">{{ 'rejected' | translate }}</h4>
+                        <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-head">{{ 'rejected' | translate }}</h4>
                         <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
                             Sorry! The order has been rejected by the estate due to certain reasons.<br />
                             Get in touch with the estate or browse other availabilities

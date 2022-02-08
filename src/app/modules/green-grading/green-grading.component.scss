@@ -2,7 +2,7 @@
 
 .green_grading_cont {
     h1 {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 18px;
         font-weight: bold;
     }
@@ -39,7 +39,7 @@
 }
 
 .grade_heading {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 18px;
     font-weight: 600;
     color: #232334;
@@ -52,7 +52,7 @@
 }
 
 .grade_para {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 600;
     color: #747588;

@@ -1,3 +1,5 @@
+@import 'variables';
+
 .chart-block {
     border: solid 1px #ebebeb;
     @media (min-width: 768px) {
@@ -24,7 +26,7 @@ table td,
         border-radius: 4px;
         background-color: #f8f8f8;
         th {
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 14px;
             font-weight: bold;
             color: #232334;
@@ -41,7 +43,7 @@ table td,
         }
     }
     td {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
         font-weight: 600;
         color: #232334;

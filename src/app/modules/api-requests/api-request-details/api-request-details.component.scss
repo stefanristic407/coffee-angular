@@ -1,3 +1,5 @@
+@import 'variables';
+
 .api-request-detail-container {
     padding: 32px 48px;
     border-radius: 4px;
@@ -33,7 +35,7 @@
     }
 
     th {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
         font-weight: bold !important;
         color: #232334;
@@ -57,7 +59,7 @@
     }
 
     td {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
         font-weight: 600;
         color: #232334;
@@ -123,7 +125,7 @@
         padding: 4px 16px;
         font-size: 14px;
         border-radius: 4px !important;
-        font-family: Muli;
+        font-family: $general-font-family;
         font-weight: 600;
     }
 

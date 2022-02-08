@@ -1,5 +1,5 @@
 <div *ngIf="!isLoading" class="question-header mb-4" [class.no-border]="!showBorderBottom">
-    <p class="fnt-16 fnt-bold fnt-muli text-clr24 mt-3">
+    <p class="fnt-16 fnt-bold text-clr24 mt-3">
         <span *ngIf="related">{{ 'related_discussions_on_the_forum' | translate }}</span>
         <span *ngIf="!related">{{ 'recent_discussions_on_forum' | translate }}</span>
     </p>
@@ -10,12 +10,12 @@
         >
             <a
                 [routerLink]="getLink(data)"
-                class="fnt-14 fnt-muli fnt-600 text-clr24"
+                class="fnt-14 fnt-600 text-clr24"
                 [innerHTML]="(type === PostType.ARTICLE ? data.title : data.question) || 'N/A'"
             ></a>
         </p>
     </div>
-    <div *ngIf="!relatedData?.length" class="text-center my-4 fnt-muli text-clr24">
+    <div *ngIf="!relatedData?.length" class="text-center my-4 text-clr24">
         {{ 'no_data_is_available' | translate }}
     </div>
 </div>

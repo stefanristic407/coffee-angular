@@ -41,6 +41,10 @@ button:focus {
     outline: none;
 }
 
+::placeholder {
+    font-family: $general-font-family;
+}
+
 ul,
 p {
     margin: 0;
@@ -98,7 +102,7 @@ div[class^='col-'] {
 
 .list-group-item.chart {
     border: none;
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-size: 12px;
     font-weight: 600;
     color: #747588;

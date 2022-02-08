@@ -31,7 +31,7 @@
                                     class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex d-sm-flex p-0 d-md-none mobileOrderDiv"
                                 >
                                     <span
-                                        class="raise-chng-ord fnt-muli ml-auto"
+                                        class="raise-chng-ord ml-auto"
                                         routerLink="/dispute-system/select-order"
                                         [queryParams]="{ orderId: orderId, orgType: orgType }"
                                     >
@@ -49,7 +49,7 @@
                             class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-none d-sm-none d-md-flex pl-3 align-items-center"
                         >
                             <span
-                                class="raise-chng-ord fnt-muli"
+                                class="raise-chng-ord"
                                 routerLink="/dispute-system/select-order"
                                 [queryParams]="{ id: orderId, orderType: orgType }"
                             >
@@ -115,7 +115,7 @@
                     >
                     <div class="file-box" *ngIf="filesArray.length">
                         <div class="file-name-wrapper" *ngFor="let file of filesArray; let i = index">
-                            <label class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-0">{{ file.name }}</label>
+                            <label class="fnt-14 fnt-600 lh-normal text-clr588 mb-0">{{ file.name }}</label>
 
                             <i
                                 *ngIf="file.uploadStatus === 'DONE'"

@@ -1,3 +1,5 @@
+@import 'variables';
+
 .estate-orders {
     position: relative;
 }
@@ -6,7 +8,7 @@
     color: #232334 !important;
     font-size: 14px !important;
     font-weight: bold !important;
-    font-family: 'Muli' !important;
+    font-family: $general-font-family !important;
     border-bottom: none !important;
 }
 
@@ -18,7 +20,7 @@
 
 .list-group-item {
     border: none;
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 600;
     color: #747588;
@@ -44,7 +46,7 @@
     color: #232334 !important;
     font-size: 14px;
     font-weight: 600;
-    font-family: 'Muli';
+    font-family: $general-font-family;
     text-decoration: none !important;
 }
 
