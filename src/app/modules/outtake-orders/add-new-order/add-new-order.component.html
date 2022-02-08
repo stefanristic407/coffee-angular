@@ -452,57 +452,8 @@
                         </div>
                     </div>
                     <div *ngIf="addOrdersForm.get('customer_type').value !== 'mr'" class="d-block d-md-none mt-4">
-                        <div *ngIf="coffeeExperienceLink" class="form-section__inputs mt-4 d-block d-md-none">
-                            <div class="roastery-fields tab">
-                                <div class="tab-width">
-                                    <h4 class="fnt-16 fw-b text-clr334 tab-bottom-margin">
-                                        {{ 'share_your_story' | translate }}
-                                    </h4>
-                                    <div class="copy-link">
-                                        <label class="fnt-14 fw-m text-clr588">
-                                            {{ 'share_story_text' | translate }}
-                                        </label>
-                                        <div
-                                            class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center"
-                                        >
-                                            <input
-                                                class="tab-input"
-                                                type="text"
-                                                [value]="coffeeExperienceLink?.coffee_story_url"
-                                                readonly
-                                            />
-                                            <button class="tab-btn" (click)="handleCopyCoffeeExperienceLink()">
-                                                {{ 'copy_link' | translate }}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-width-right">
-                                    <div class="scan-qr-link text-center">
-                                        <span
-                                            class="mx-auto fnt-12 fw-m text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
-                                            >or</span
-                                        >
-                                        <p class="text-md-left fnt-14 fw-m text-clr334 mb-3 mb-lg-4 tab-bottom-margin">
-                                            {{ 'scan_download_text' | translate }}
-                                        </p>
-                                        <div class="text-center d-md-flex">
-                                            <img class="img-fluid" src="{{ coffeeExperienceLink?.qr_code_url }}" />
-                                            <div class="download-qr-link d-flex justify-content-center">
-                                                <a class="btn-trans-icon download-icon" (click)="onDownloadQr()">
-                                                    {{ 'download' | translate }}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center contact-for-help">
-                                <p class="mb-0 contact-for-help__text">
-                                    {{ 'having_trouble' | translate }}?
-                                    <a class="ml-1" href="#">{{ 'contact_us' | translate }}</a>
-                                </p>
-                            </div>
+                        <div *ngIf="coffeeExperienceLink" class="mt-4 d-block d-md-none">
+                            <app-story-card [coffeeExperienceLink]="coffeeExperienceLink"></app-story-card>
                         </div>
                     </div>
                     <div
@@ -701,55 +652,8 @@
                     </div>
                 </div>
 
-                <div *ngIf="coffeeExperienceLink" class="form-section__inputs mt-4 d-none d-md-block">
-                    <div class="roastery-fields tab">
-                        <div class="tab-width">
-                            <h4 class="fnt-16 fw-b text-clr334 tab-bottom-margin">
-                                {{ 'share_your_story' | translate }}
-                            </h4>
-                            <div class="copy-link">
-                                <label class="fnt-14 fw-m text-clr588">
-                                    {{ 'share_story_text' | translate }}
-                                </label>
-                                <div class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center">
-                                    <input
-                                        class="tab-input"
-                                        type="text"
-                                        [value]="coffeeExperienceLink?.coffee_story_url"
-                                        readonly
-                                    />
-                                    <button class="tab-btn" (click)="handleCopyCoffeeExperienceLink()">
-                                        {{ 'copy_link' | translate }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-width-right">
-                            <div class="scan-qr-link text-center">
-                                <span
-                                    class="d-lg-inline-block d-none d-lg-block mx-auto fnt-12 fw-m text-clr334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize hideTabView"
-                                    >or</span
-                                >
-                                <p class="text-md-left fnt-14 fw-m text-clr334 mb-3 mb-lg-4 tab-bottom-margin">
-                                    {{ 'scan_download_text' | translate }}
-                                </p>
-                                <div class="text-center d-lg-flex margin-left">
-                                    <img class="img-fluid" src="{{ coffeeExperienceLink?.qr_code_url }}" />
-                                    <div class="download-qr-link d-flex justify-content-center align-items-end">
-                                        <a class="btn-trans-icon download-icon" (click)="onDownloadQr()">
-                                            {{ 'download' | translate }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center contact-for-help">
-                        <p class="mb-0 contact-for-help__text">
-                            {{ 'having_trouble' | translate }}?
-                            <a class="ml-1" href="#">{{ 'contact_us' | translate }}</a>
-                        </p>
-                    </div>
+                <div *ngIf="coffeeExperienceLink" class="mt-4 d-none d-md-block">
+                    <app-story-card [coffeeExperienceLink]="coffeeExperienceLink"></app-story-card>
                 </div>
                 <div class="mt-4 mb-2 d-block d-lg-none">
                     <button class="btn-raised text-nowrap px-4 w-mob-100 mt-3 mt-md-0" (click)="addOrderDetails()">

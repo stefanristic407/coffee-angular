@@ -41,12 +41,6 @@ button:focus {
     outline: none;
 }
 
-input::placeholder {
-    font-family: $general-font-family;
-    font-weight: $fw-n !important;
-    color: $muted-text-color;
-}
-
 ul,
 p {
     margin: 0;

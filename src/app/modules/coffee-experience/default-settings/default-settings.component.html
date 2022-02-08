@@ -593,69 +593,8 @@
                                     </div>
 
                                     <!--Share your story-->
-                                    <div
-                                        *ngIf="isCoffeeDetailsPage && coffeeExperienceLink"
-                                        class="form-section__inputs scan-margin"
-                                    >
-                                        <div class="roastery-fields tab">
-                                            <div class="tab-width mb-4 mb-md-0">
-                                                <h4 class="fnt-16 fw-b text-clr334 tab-bottom-margin">
-                                                    {{ 'share_your_story' | translate }}
-                                                </h4>
-                                                <div class="copy-link">
-                                                    <label class="fnt-14 fw-m text-clr588">
-                                                        {{ 'share_story_text' | translate }}
-                                                    </label>
-                                                    <div class="link-wrapper">
-                                                        <span class="fnt-14 fw-m flex-1 link-text">{{
-                                                            coffeeExperienceLink?.coffee_story_url
-                                                        }}</span>
-                                                        <button
-                                                            class="btn-raised"
-                                                            ngxClipboard
-                                                            [cbContent]="coffeeExperienceLink?.coffee_story_url"
-                                                        >
-                                                            {{ 'copy_link' | translate }}
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-width-right">
-                                                <div class="scan-qr-link text-center">
-                                                    <p
-                                                        class="text-md-left fnt-14 fw-b text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
-                                                    >
-                                                        {{ 'scan_download_text' | translate }}
-                                                    </p>
-                                                    <div class="text-center d-flex">
-                                                        <div>
-                                                            <img
-                                                                class="img-fluid"
-                                                                src="{{ coffeeExperienceLink?.qr_code_url }}"
-                                                            />
-                                                        </div>
-                                                        <div
-                                                            class="download-qr-link d-flex justify-content-center align-items-end mb-md-3"
-                                                        >
-                                                            <a
-                                                                class="btn-trans-icon download-icon"
-                                                                (click)="onDownloadQr()"
-                                                            >
-                                                                {{ 'download' | translate }}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-center contact-for-help">
-                                            <p class="mb-0 contact-for-help__text">
-                                                {{ 'having_trouble' | translate }}?
-                                                <a class="ml-1" href="mailto:support@eraofwe.com">{{
-                                                    'contact_us' | translate
-                                                }}</a>
-                                            </p>
-                                        </div>
+                                    <div *ngIf="isCoffeeDetailsPage && coffeeExperienceLink" class="scan-margin">
+                                        <app-story-card [coffeeExperienceLink]="coffeeExperienceLink"></app-story-card>
                                     </div>
                                     <div class="mt-2 d-block d-md-none">
                                         <div *ngIf="isEditableMode">

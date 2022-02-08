@@ -163,6 +163,7 @@ import { WeatherChartComponent } from './components/remote-sensoring/weather-cha
 import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 import { OtpInputComponent } from './components/form-controls/otp-input/otp-input.component';
 import { SingleselectComponent } from './components/form-controls/singleselect/singleselect.component';
+import { StoryCardComponent } from './components//story-card/story-card.component';
 
 const COMPONENTS = [
     ActionMenuComponent,
@@ -196,6 +197,7 @@ const COMPONENTS = [
     SewnOrderChatComponent,
     SingleselectComponent,
     SoilChartComponent,
+    StoryCardComponent,
     TimeRangeComponent,
     UploaderComponent,
     UrlInputComponent,

@@ -447,24 +447,6 @@ pre code {
     overflow-y: scroll
 }
 
-input::-webkit-input-placeholder {
-    color: #747588 !important;
-    opacity: 1;
-    font-weight: 600 !important;
-}
-
-input:-ms-input-placeholder {
-    color: #747588 !important;
-    opacity: 1;
-    font-weight: 600 !important;
-}
-
-input::-ms-input-placeholder {
-    color: #747588 !important;
-    opacity: 1;
-    font-weight: 600 !important;
-}
-
 .fade {
     -webkit-transition: opacity 0.15s linear;
     -o-transition: opacity 0.15s linear;
@@ -3407,10 +3389,6 @@ body .jqstooltip {
     border-bottom: 2px solid #2962FF
 }
 
-label {
-    font-weight: 600
-}
-
 .r-separator .form-group {
     border-bottom: 1px solid #e9ecef
 }
@@ -4054,13 +4032,6 @@ span.hide-menu {
     font-weight: 400;
 }
 
-.b-cum {
-    font-size: 14px !important;
-    color: #747588 !important;
-    font-weight: 600 !important;
-    font-family: Muli !important;
-}
-
 .padl-r {
     padding: 0 12px 0 2px;
 }
@@ -4085,14 +4056,6 @@ span.hide-menu {
     -webkit-clip-path: inset(50%);
     clip-path: inset(50%);
     border: 0;
-}
-
-nav.breadcrumb {
-    margin-top: 20px;
-}
-
-li.b-cum {
-    display: inline;
 }
 
 .sewn-bg-logo {
@@ -4435,12 +4398,6 @@ body .ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
 
 .ui-calendar .ui-datepicker {
     min-width: 70% !important;
-}
-
-a.b-cum:hover {
-    color: #232334 !important;
-    text-decoration: underline !important;
-    font-weight: 600 !important;
 }
 
 .com-bed {
@@ -5189,34 +5146,7 @@ a.b-cum:hover {
     padding: 0;
 }
 
-.copy-link input {
-    outline: 0;
-    border: 0;
-    font-size: 12px;
-    font-weight: 600;
-    color: #232334;
-    background: none;
-    padding: 5px 10px;
-    margin-bottom: 15px;
-}
 
-.copy-link button {
-    outline: 0;
-    border: 0;
-    border-radius: 4px;
-    background-color: #30855c;
-    padding: 5px 10px;
-    color: #ffffff;
-    font-size: 12px;
-}
-
-.copy-link button:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.download-qr-link {
-    margin-top: 25px;
-}
 
 .download-qr-link__file {
     border-radius: 2px;
@@ -5229,30 +5159,6 @@ a.b-cum:hover {
     color: #232334;
 }
 
-.contact-for-help {
-    position: relative;
-}
-
-.contact-for-help::after {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: -15px;
-    width: calc(100% + 30px);
-    height: 1px;
-    background: #ebebeb !important;
-}
-
-.contact-for-help a {
-    font-weight: 600 !important;
-    color: #80460b !important;
-}
-
-.contact-for-help a:hover {
-    text-decoration: none;
-    color: #80460b;
-}
-
 @media (max-width: 767px) {
     .logo-upload {
         margin: auto;
@@ -5260,15 +5166,6 @@ a.b-cum:hover {
 }
 
 @media (max-width: 991px) {
-    .copy-link__value {
-        justify-content: center;
-    }
-    .copy-link__value input {
-        border-radius: 4px;
-        border: solid 1px #ebebeb;
-        background-color: #f8f8f8;
-        margin-bottom: 15px;
-    }
     .web-lead{
         display: block !important;
     }
@@ -5286,14 +5183,6 @@ a.b-cum:hover {
 
 .form-section__inputs .input-body {
     padding: 15px;
-}
-
-.copy-link input {
-    width: 100%;
-}
-
-.download-qr-link {
-    margin-bottom: 25px;
 }
 
 @media (min-width: 768px) {
@@ -5339,25 +5228,6 @@ a.b-cum:hover {
         font-size: 14px;
         line-height: 18px;
     }
-    .copy-link {
-        margin-bottom: 20px;
-    }
-    .copy-link button {
-        font-size: 14px;
-    }
-    .download-qr-link {
-        margin-top: 35px;
-        margin-bottom: 35px;
-    }
-    .contact-for-help::after {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: -20px;
-        width: calc(100% + 40px);
-        height: 1px;
-        background: #ebebeb !important;
-    }
 }
 
 @media (min-width: 992px) {
@@ -5400,53 +5270,6 @@ a.b-cum:hover {
     .upload-file-results__item button {
         padding: 0 10px;
     }
-    .copy-link input {
-        font-size: 14px;
-        width: 65%;
-        text-overflow: ellipsis;
-        margin: 0;
-    }
-    .copy-link {
-        margin-bottom: 25px;
-    }
-    .copy-link button {
-        margin-left: auto;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-    .copy-link__value {
-        border-radius: 4px;
-        border: solid 1px #ebebeb;
-        background-color: #f8f8f8;
-    }
-    .download-qr-link {
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-    .contact-for-help::after {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: -25px;
-        width: calc(100% + 50px);
-        height: 1px;
-        background: #ebebeb !important;
-    }
-}
-
-.preview {
-    border-radius: 4px;
-    color: #30855c;
-    border: solid 1px #30855c;
-    padding: 12px 16px;
-    text-align: center;
-    font-size: 14px;
-    background-color: #ffffff;
-}
-
-.preview:hover {
-    color: #ffffff;
-    background-color: #30855c;
 }
 
 .butn-prev-save {
@@ -5622,9 +5445,6 @@ li.select-list__item {
 @media (max-width:767px) {
     .farm-breadcum {
         padding-left: 0rem;
-    }
-    .b-cum {
-        font-size: 12px !important;
     }
     .mobile-farm {
         display: block !important;
@@ -5921,26 +5741,6 @@ li.select-list__item {
     border-top: solid 1px #d6d6d6;
 }
 
-.clear-filter {
-    font-family: Muli;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    color: #80460b !important;
-    margin-top: 10px !important;
-    text-decoration: underline !important;
-}
-
-.apply-filter {
-    border-radius: 4px !important;
-    background-color: #30855c !important;
-    padding: 10px 20px !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    color: #fff !important;
-    font-family: Muli;
-    margin-left: 2rem !important;
-}
-
 .display-none {
     display: none;
 }
@@ -6034,23 +5834,6 @@ body .ui-widget {
     font-weight: 400 !important;
 }
 
-.previous {
-    border-radius: 4px !important;
-    background-color: #ffffff !important;
-    padding: 10px 20px !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    color: #30855c !important;
-    /* border: 1px solid #30855c !important; */
-    margin-right: 1rem !important;
-    font-family: Muli !important;
-}
-
-.previous:hover {
-    background-color: #30855c !important;
-    color: #ffffff !important;
-}
-
 .mail-box {
     margin-top: 8% !important;
     margin-bottom: 15% !important;
@@ -6062,18 +5845,6 @@ body .ui-widget {
     background-color: #30855c !important;
     padding: 0% 3% !important;
     margin-top: 5% !important;
-}
-
-.done-text {
-    font-family: Muli !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    font-stretch: normal !important;
-    font-style: normal !important;
-    line-height: normal !important;
-    letter-spacing: normal !important;
-    text-align: center !important;
-    color: #ffffff !important;
 }
 
 li.select-list__item {
