@@ -128,7 +128,7 @@ input[type='number'] {
 // link with arrow
 .arrow-link {
     color: $brown-color !important;
-    font-weight: $fw-b;
+    font-weight: $fw-m;
     position: relative;
     padding-right: 16px;
     line-height: normal !important;
@@ -166,7 +166,7 @@ input[type='number'] {
 .custom-link {
     color: $brown-color !important;
     font-size: 12px;
-    font-weight: $fw-b;
+    font-weight: $fw-m;
     position: relative;
     text-decoration: underline !important;
 
@@ -184,7 +184,7 @@ input[type='number'] {
 // link with up arrow
 .uparrow-link {
     color: $brown-color !important;
-    font-weight: $fw-b;
+    font-weight: $fw-m;
     position: relative;
     padding-right: 16px;
     line-height: normal !important;
@@ -212,7 +212,7 @@ input[type='number'] {
 // link with add
 .add-link {
     color: $brown-color !important;
-    font-weight: $fw-b;
+    font-weight: $fw-m;
     position: relative;
     padding-right: 16px;
     line-height: normal !important;
@@ -241,7 +241,7 @@ input[type='number'] {
 .brown-cta {
     color: $brown-color !important;
     font-size: 14px;
-    font-weight: $fw-b;
+    font-weight: $fw-m;
     white-space: nowrap;
 
     &:hover {
