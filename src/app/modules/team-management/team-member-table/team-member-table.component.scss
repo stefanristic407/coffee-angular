@@ -9,3 +9,9 @@
         margin-top: -70px;
     }
 }
+
+:host ::ng-deep {
+    .p-dropdown {
+        background-color: transparent;
+    }
+}
