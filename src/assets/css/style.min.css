@@ -4235,62 +4235,6 @@ li.b-cum {
     cursor: pointer;
 }
 
-div.dataTables_wrapper div.dataTables_paginate {
-    margin: 1rem 0 !important;
-    white-space: nowrap !important;
-    text-align: center !important;
-    width: 100%;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    color: #333333 !important;
-    border: none !important;
-    background-color: unset !important;
-    background: unset !important;
-}
-
-.estate-orders .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    color: #3d8462 !important;
-    border: none !important;
-    background-color: unset !important;
-    background: unset !important;
-}
-
-.estate-orders .dataTables_wrapper .dataTables_paginate .paginate_button:active {
-    outline: none !important;
-    background-color: unset !important;
-    background: unset !important;
-    box-shadow: unset !important;
-    border: none !important;
-    color: #3d8462 !important;
-}
-
-.estate-orders .dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    color: #30855c !important;
-    border: none !important;
-    background-color: unset !important;
-    background: unset !important;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-}
-
-div.dataTables_wrapper div.dataTables_filter {
-    /* text-align: left !important;
-    float: left !important; */
-    /* text-align: right;
-    margin-top: -7.3rem;
-    margin-right: 6.3rem; */
-    top: -4.5rem;
-    right: 10rem;
-    position: absolute;
-}
-
 table.dataTable thead th {
     border-bottom: none !important;
     padding: 14px 11px !important;
@@ -4311,72 +4255,8 @@ table.dataTable thead .sorting_desc:before {
     display: none !important;
 }
 
-.view-order {
-    font-weight: bold !important;
-    color: #80450a !important;
-    position: relative;
-}
-
-.view-order::after {
-    position: absolute;
-    content: "";
-    width: 0;
-    height: 1px;
-    left: 0;
-    bottom: 15px;
-    background-color: #80450a;
-    transition: 0.4s ease-in-out;
-}
-
-.view-order:hover {
-    color: #80450a;
-    text-decoration: underline;
-}
-
-
-/* .view-order:hover::after {
-    width: 77%;
-} */
-
-.estate-boby-txt thead tr th {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: bold !important;
-    color: #232334 !important;
-    text-decoration: none;
-}
-
-.estate-boby-txt tbody tr td {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: 600 !important;
-    color: #232334;
-}
-
-.estate-boby-txt tbody tr td {
-    border-bottom: 1px dashed #d6d6d6 !important;
-    cursor: pointer !important;
-    padding: 20px 10px !important;
-}
-
-.estate-boby-txt tbody tr td p {
-    margin-bottom: 0;
-}
-
-.estate-boby-txt tbody tr:last-child td {
-    border-bottom: none !important;
-}
-
-.dataTables_wrapper .dataTables_length {
-    float: right !important;
-}
-
 .estate-orders #DataTables_Table_0_length {
     display: none;
-}
-
-.estate-boby-txt thead tr {
-    background-color: #f8f8f8 !important;
 }
 
 .account-setting-option__item {
@@ -4502,46 +4382,8 @@ body::-webkit-scrollbar-thumb {
     margin-right: 0rem;
 }
 
-.top-padding {
-    margin-top: 3px;
-    color: #232334;
-    font-weight: bold;
-}
-
-.order-id {
-    font-family: Muli;
-    font-size: 15px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-}
-
 .ship-pl {
     padding-left: 5.6rem !important;
-}
-
-.booked {
-    border-radius: 4px;
-    /* background-color: rgba(71, 180, 13, 0.1); */
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #e78926;
-    padding: 4px;
-}
-
-.note-prebooked {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: normal;
-    color: #d50000;
-}
-
-.bold-note {
-    font-weight: bold;
 }
 
 .in-order {
@@ -4711,22 +4553,6 @@ a.b-cum:hover {
     margin-bottom: 0rem !important;
 }
 
-.edit-text {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: bold;
-    color: #3d8462;
-}
-
-.view-details {
-    color: #80460b;
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: bold;
-    text-decoration: underline!important;
-    cursor: pointer;
-}
-
 .pay-ml {
     margin-left: -1rem !important;
 }
@@ -4737,23 +4563,6 @@ a.b-cum:hover {
 
 .length-ml {
     margin-left: -2.5rem !important;
-}
-
-.date-vr {
-    color: #747588;
-    margin-left: -1.5rem !important;
-    font-weight: bold;
-}
-
-.date-ur {
-    color: #80460b;
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: normal;
-    /* margin-left: -1.5rem; */
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: underline!important;
 }
 
 .table td,
@@ -5232,36 +5041,12 @@ a.b-cum:hover {
 }
 
 
-
-/* dispute system order-chat css ends here*/
-
-
-
-.coffee-exp div.dataTables_wrapper div.dataTables_filter {
-    top: -8.5rem !important;
-    right: 2rem !important;
-    position: absolute !important;
-}
-
 .mat-chip-ripple {
     border: 1px solid #747588 !important;
 }
 
 .mat-chip-list-wrapper {
     padding-left: 1rem !important;
-}
-
-.agreements .dataTables_wrapper .dataTables_filter input {
-    font-family: 'Muli';
-    height: 40px;
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    background: url(../../assets/images/search-user.png) no-repeat scroll 8px 11px;
-    background-size: 16px 16px;
-    padding-left: 33px;
-    margin-top: 3rem !important;
-    width: 284px !important;
 }
 
 
@@ -5847,20 +5632,6 @@ li.select-list__item {
     .web-farm {
         display: none !important;
     }
-    .coffee-exp div.dataTables_wrapper div.dataTables_filter {
-        top: -1.5rem !important;
-        right: 3rem !important;
-        position: absolute !important;
-        width: 100% !important;
-    }
-    .agreements .dataTables_wrapper .dataTables_filter input {
-        position: relative;
-        top: 3rem;
-    }
-    .coffee-exp div.dataTables_wrapper div.dataTables_filter input,
-    .agreements div.dataTables_wrapper div.dataTables_filter input {
-        margin-bottom: 0 !important;
-    }
     .coffee-exp #DataTables_Table_0_paginate,
     .agreements #DataTables_Table_1_paginate,
     .file-share-container #DataTables_Table_0_paginate,
@@ -5896,9 +5667,6 @@ li.select-list__item {
 @media (max-width:375px) {
     .padl-r {
         padding: 0 5px 0 2px;
-    }
-    .coffee-exp div.dataTables_wrapper div.dataTables_filter {
-        right: 1rem !important;
     }
 }
 
@@ -6097,49 +5865,6 @@ li.select-list__item {
     }
 }
 
-
-/**********Available List***********/
-
-.source-knowmore-avail .contact-us-avail {
-    padding: 12px 16px;
-    font-family: Muli;
-    font-size: 14px;
-    border: 1px solid #30855c;
-    font-weight: bold;
-    border-radius: 4px;
-    background-color: #30855c;
-    display: inline-block;
-    color: #ffffff !important;
-    cursor: pointer;
-    text-decoration: none !important;
-}
-
-.source-knowmore-avail .contact-us-avail:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.source-knowmore-avail .know-more-avail {
-    padding: 12px 16px;
-    border: 1px solid #30855c;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #30855c !important;
-    border-radius: 4px;
-    margin-left: 10px;
-    display: inline-block;
-    margin-top: 5px;
-    cursor: pointer;
-}
-
-.source-knowmore-avail .know-more-avail:hover {
-    background: #30855c !important;
-    color: #fff !important;
-}
-
-
-/*******Side Bar********/
-
 .settings-list {
     top: 17%;
 }
@@ -6150,69 +5875,6 @@ li.select-list__item {
 
 .logout-list {
     top: 19%;
-}
-
-
-/***********Why Us Tab***********/
-
-@media (max-width:480px) {
-    .us-padding {
-        padding: 8px 12px;
-        margin-bottom: 3rem;
-    }
-    .licence-text {
-        font-weight: bold;
-        margin-bottom: 16px;
-        color: #232334;
-        font-size: 18px;
-    }
-    .proced-text {
-        font-size: 14px;
-        color: #232334;
-        padding-top: 12px;
-        font-weight: normal;
-        padding-bottom: 22px;
-    }
-    .unlimited-text {
-        background: #c69c6c;
-        color: #fff;
-        margin-top: 3.6rem !important;
-        padding: 24px 16px;
-    }
-    .unlimited-text h2 {
-        font-size: 30px;
-        font-style: italic;
-        margin-bottom: 18px;
-        font-weight: normal;
-    }
-    .unlimited-text h5 {
-        font-size: 14px;
-        font-weight: normal;
-        line-height: 25px;
-    }
-    .brand-text h3 {
-        font-size: 30px;
-        font-style: italic;
-        color: #a88057;
-        font-weight: normal;
-    }
-    .brand-text h3 span {
-        display: block;
-    }
-    .padd-top-6 {
-        padding-top: 6px;
-    }
-    .guide-text p {
-        font-weight: normal;
-        color: #232334;
-        font-size: 14px;
-    }
-    .padd-left-6 {
-        padding-left: 6px !important;
-    }
-    .padd-right-6 {
-        padding-right: 6px !important;
-    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -6253,15 +5915,6 @@ li.select-list__item {
 
 .ng-autocomplete {
     width: 100% !important;
-}
-
-.available__lot,
-.know__listing {
-    font-family: Muli;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    color: #80460b !important;
-    text-decoration: underline;
 }
 
 .top-origin-border {
@@ -6311,32 +5964,6 @@ li.select-list__item {
 
 .btn-save-cancel {
     padding: 1rem 0rem 2rem 0rem;
-}
-
-.grade-cancel {
-    text-align: center;
-    color: #30855c;
-    background-color: #ffffff;
-    border-radius: 2px;
-    font-size: 14px;
-    font-weight: bold;
-    border: solid 1px #30855c;
-    padding: 8px 18px;
-}
-
-.grade-save {
-    border-radius: 4px;
-    background-color: #30855c;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffffff;
-    padding: 8px 18px;
-    border: solid 1px #30855c;
-}
-
-.grade-save:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .fragrance {
@@ -6731,49 +6358,6 @@ li.select-list__item {
         position: relative;
         width: 100%;
     }
-    .raised-tit {
-        background: #f8f8f8;
-        padding: 10px 9px 4px 0px;
-        border: 5px solid #fff;
-        border-radius: 5px;
-    }
-    .raised-tit h4 {
-        font-size: 16px;
-        font-weight: bold;
-    }
-    .raised-ticket h3 {
-        font-size: 14px;
-        font-weight: bold;
-        width: 100%;
-    }
-    .raised-ticket h4 {
-        font-size: 16px;
-        font-weight: bold;
-    }
-    .raised-ticket h6 {
-        color: #747588;
-        font-size: 12px;
-    }
-    .raised-ticket label {
-        position: relative;
-        border-radius: 30px;
-        padding: 4px 10px 4px 15px;
-    }
-    .raised-ticket label:before {
-        content: "";
-        position: absolute;
-        top: 11px;
-        left: 0px;
-        width: 6px;
-        height: 6px;
-        background: #747588;
-        border-radius: 50%;
-    }
-    .raised-ticket a {
-        color: #80460b;
-        font-size: 12px;
-        font-weight: bold;
-    }
     .select-cont {
         margin-bottom: 3rem;
         width: 100%;
@@ -6997,23 +6581,6 @@ li.select-list__item {
 
 /* Why Us Section  */
 
-.gmt-marklist {
-    position: absolute;
-    bottom: 0;
-    z-index: 9;
-    background: #c69c6c;
-    color: #fff;
-    height: 90%;
-    left: 32px;
-    width: 480px;
-    padding: 3rem 2.5rem 0rem 3rem;
-}
-
-.gmt-marklist h2 {
-    font-size: 38px;
-    font-weight: bold;
-    color: #ffffff;
-}
 
 .download_gtm {
     border-radius: 4px;
@@ -7052,14 +6619,6 @@ li.select-list__item {
 
 .mr-orders .dataTables_filter {
     display: none !important;
-}
-
-.view-report {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 1.57;
-    color: #80460b;
 }
 
 .delete-vat-section {
@@ -7167,10 +6726,6 @@ li.select-list__item {
     border-bottom: 1px dashed #cccccc;
 }
 
-.border-bottom-dashed-sub-secondary {
-    border-bottom: 2px dashed #ebebeb;
-}
-
 .custom-chip-container {
     padding: 4px 15px;
     border-radius: 13px;
@@ -7193,17 +6748,4 @@ li.select-list__item {
 
 a.text-clr60b:hover {
     color: #80460b;
-}
-
-.btn-f8 {
-    text-align: center;
-    display: inline-block;
-    border-radius: 4px;
-    padding: 12px;
-    background-color: #f8f8f8;
-    border-width: 0;
-    color: #80460b;
-    font-size: 14px;
-    font-weight: bold;
-    font-family: "Muli", sans-serif;
 }

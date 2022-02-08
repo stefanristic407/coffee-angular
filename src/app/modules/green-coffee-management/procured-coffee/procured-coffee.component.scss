@@ -3,14 +3,14 @@
 .det-tit {
     h2 {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #242424;
         text-transform: capitalize;
     }
     h6 {
         font-family: $general-font-family;
         font-size: 18px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #242424;
         text-transform: capitalize;
     }
@@ -29,7 +29,7 @@
     }
     h3 {
         font-size: 16px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #232334;
         text-transform: capitalize;
         margin-bottom: 6px;
@@ -41,7 +41,7 @@
 .estate-focus {
     h3 {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: $fw-b;
         margin-top: 32px;
         margin-bottom: 13px;
     }
@@ -94,7 +94,7 @@
     margin-top: 10px;
     a {
         font-size: 14px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #80460b;
     }
 }
@@ -161,7 +161,7 @@ ul {
         p,
         span {
             color: #232334;
-            font-weight: bold;
+            font-weight: $fw-b;
         }
         img {
             height: 32px;

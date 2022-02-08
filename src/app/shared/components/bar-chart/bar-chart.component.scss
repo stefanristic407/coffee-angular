@@ -40,7 +40,7 @@
 ::ng-deep .textDataLabel {
     font-size: 12px;
     font-family: $general-font-family;
-    font-weight: bold;
+    font-weight: $fw-b;
     fill: #747588;
     transform: translate(-20px, -8px);
 }

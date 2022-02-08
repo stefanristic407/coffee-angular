@@ -311,7 +311,7 @@
     padding: 0px 24px;
     .dm-lvh-message {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #232334;
     }
     .dm-lvh-action-buttons {
@@ -419,7 +419,7 @@
                 .dm-tlep-error-text {
                     margin-top: 2px;
                     font-size: 16px;
-                    font-weight: bold;
+                    font-weight: $fw-b;
                     line-height: 1.38;
                     text-align: center;
                     color: #232334;
@@ -592,7 +592,7 @@
                 .dm-sup-error-text {
                     margin-top: 2px;
                     font-size: 16px;
-                    font-weight: bold;
+                    font-weight: $fw-b;
                     line-height: 1.38;
                     text-align: center;
                     color: #232334;
@@ -681,7 +681,7 @@
                 .dm-rup-error-text {
                     margin-top: 2px;
                     font-size: 16px;
-                    font-weight: bold;
+                    font-weight: $fw-b;
                     line-height: 1.38;
                     text-align: center;
                     color: #232334;
@@ -760,7 +760,7 @@
             .dm-rli-name {
                 position: relative;
                 font-size: 14px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 line-height: 1.57;
                 color: #232334;
                 padding-right: 5px;
@@ -839,7 +839,7 @@
             .dm-fli-name {
                 position: relative;
                 font-size: 14px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 line-height: 1.57;
                 color: #232334;
                 padding-right: 5px;
@@ -911,7 +911,7 @@
             .dm-thi-name {
                 position: relative;
                 font-size: 14px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 line-height: 1.57;
                 color: #232334;
             }
@@ -1145,7 +1145,7 @@
                     ::ng-deep .dm-highlight-marker {
                         text-decoration: underline;
                         margin: 1px;
-                        font-weight: bold;
+                        font-weight: $fw-b;
                         color: #232334;
                     }
                 }
@@ -1178,7 +1178,7 @@
                 align-items: center;
                 .dm-ci-translation {
                     font-size: 14px;
-                    font-weight: bold;
+                    font-weight: $fw-b;
                     line-height: 1.57;
                     color: #80460b;
                     margin-right: 17px;
@@ -1229,7 +1229,7 @@
     .dm-btn-label {
         display: block;
         font-size: 14px;
-        font-weight: bold;
+        font-weight: $fw-b;
         line-height: 1.43;
         color: #232334;
     }
@@ -1325,7 +1325,7 @@
                 border-bottom: 1px solid #dedede;
                 .dm-udv-option-item-text {
                     font-size: 14px;
-                    font-weight: bold;
+                    font-weight: $fw-b;
                     line-height: 1.43;
                     color: #232334;
                 }
@@ -1394,7 +1394,7 @@
             .dm-ltm-panel-title {
                 position: relative;
                 font-size: 18px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 color: #232334;
                 margin-bottom: 21px;
             }
@@ -1414,7 +1414,7 @@
                     .dm-ltm-option-name {
                         margin-bottom: 8px;
                         font-size: 14px;
-                        font-weight: bold;
+                        font-weight: $fw-b;
                         line-height: 1.43;
                         color: #232334;
                     }
@@ -1692,7 +1692,7 @@
             .dm-hub-user-name {
                 display: block;
                 font-size: 14px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 line-height: 1.57;
                 color: #232334;
             }

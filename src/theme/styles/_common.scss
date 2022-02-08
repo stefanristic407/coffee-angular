@@ -319,7 +319,7 @@ span.star {
 }
 
 .editBtn {
-    font-weight: bold;
+    font-weight: $fw-b;
     color: #80460b !important;
     cursor: pointer;
     text-decoration: underline !important;
@@ -413,7 +413,7 @@ span.star {
 }
 
 .navigation-link {
-    font-weight: bold;
+    font-weight: $fw-b;
     text-decoration: none !important;
     color: $brown-color !important;
     cursor: pointer !important;

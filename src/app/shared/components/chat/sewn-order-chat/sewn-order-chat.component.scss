@@ -354,7 +354,7 @@
             margin: 0 0 2px;
             font-family: $general-font-family;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: $fw-b;
             font-stretch: normal;
             font-style: normal;
             line-height: 1.57;
@@ -502,7 +502,7 @@
                 height: 18px;
                 margin: 0px 0px 8px 0px;
                 font-size: 14px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 line-height: normal;
                 letter-spacing: normal;
                 color: #232334;
@@ -530,7 +530,7 @@
                 font-size: 14px;
                 font-family: $general-font-family;
                 font-size: 14px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 text-align: right;
                 cursor: pointer;
                 text-decoration: underline;

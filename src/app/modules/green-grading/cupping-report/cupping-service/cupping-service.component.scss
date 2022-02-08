@@ -22,7 +22,7 @@
             padding: 0.875rem 0.75rem;
             font-family: $general-font-family;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: $fw-b;
             line-height: normal;
             color: #232334;
 
@@ -56,7 +56,7 @@
 
             label {
                 font-size: 12px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 margin-bottom: 0.5rem;
                 color: #232334;
                 line-height: normal;

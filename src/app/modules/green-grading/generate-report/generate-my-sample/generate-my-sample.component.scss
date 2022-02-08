@@ -585,7 +585,7 @@ input[type='number'] {
     .sewn-form-field.mini {
         label {
             font-size: 12px !important;
-            font-weight: bold !important;
+            font-weight: $fw-b !important;
         }
         .p-inputtext {
             padding: 0.53125rem 0.75rem !important;

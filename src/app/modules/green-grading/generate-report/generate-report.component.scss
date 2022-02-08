@@ -14,7 +14,7 @@
     .sid-value {
         font-family: $general-font-family;
         font-size: 14px;
-        font-weight: bold;
+        font-weight: $fw-b;
         line-height: 1.43;
         color: #232334;
         margin: 0;
@@ -94,7 +94,7 @@
     color: #80460b;
     cursor: pointer;
     padding: 1rem 1.5rem;
-    font-weight: bold;
+    font-weight: $fw-b;
     background: #faf8f4;
 }
 
@@ -165,7 +165,7 @@
 
         .sid-text,
         .sid-value {
-            font-weight: bold;
+            font-weight: $fw-b;
             line-height: normal;
         }
 
@@ -175,7 +175,7 @@
 
         .origin-text {
             font-size: 12px;
-            font-weight: bold;
+            font-weight: $fw-b;
             line-height: normal;
             color: #747588;
             padding-top: 0.5rem;

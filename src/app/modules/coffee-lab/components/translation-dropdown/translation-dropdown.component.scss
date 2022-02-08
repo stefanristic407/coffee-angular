@@ -1,3 +1,5 @@
+@import 'variables';
+
 .translate-icon {
     width: 16px;
     height: 16px;
@@ -30,7 +32,7 @@
         }
         .p-dropdown-label.p-placeholder {
             font-size: 14px;
-            font-weight: bold;
+            font-weight: $fw-b;
             line-height: 1.57;
             color: #80460b !important;
             display: flex;
