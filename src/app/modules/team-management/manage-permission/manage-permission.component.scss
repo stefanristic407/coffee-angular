@@ -1,3 +1,5 @@
+@import 'variables';
+
 .create-role {
     padding: 1.5rem 1.5rem 0.5rem;
     border-radius: 4px;
@@ -56,7 +58,7 @@
                         & > span {
                             padding: 16px 0;
                             line-height: normal;
-                            font-weight: 600;
+                            font-weight: $fw-m;
                             color: #232334;
                         }
                         @media screen and (max-width: 767px) {

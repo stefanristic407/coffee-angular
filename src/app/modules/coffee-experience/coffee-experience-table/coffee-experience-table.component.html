@@ -271,37 +271,7 @@
                             <ng-template #mobile_name>
                                 <span class="ml-auto">
                                     <ng-container *ngIf="primeTableService.isMobileView">
-                                        <a
-                                            class="menu-arrow"
-                                            [popover]="poplistTemplate"
-                                            placement="left"
-                                            [outsideClick]="true"
-                                            #pop="bs-popover"
-                                        >
-                                            <span class="mb-0">
-                                                <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
-                                            </span>
-                                        </a>
-                                        <ng-template #poplistTemplate>
-                                            <div id="popover-mobile-content">
-                                                <ul class="list-group custom-popover">
-                                                    <li class="list-group-item">
-                                                        <a
-                                                            *ngIf="path === 'orders'"
-                                                            class="text-clr588 fw-m fnt-14"
-                                                            (click)="availabilityPage(rowData)"
-                                                            >{{ 'view_details' | translate }}</a
-                                                        >
-                                                        <a
-                                                            *ngIf="path !== 'orders'"
-                                                            class="text-clr588 fw-m fnt-14"
-                                                            (click)="availabilityPage(rowData)"
-                                                            >{{ 'update_details' | translate }}</a
-                                                        >
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </ng-template>
+                                        <app-action-menu [menuItems]="getMenuItems(rowData)"></app-action-menu>
                                     </ng-container>
                                 </span>
                             </ng-template>

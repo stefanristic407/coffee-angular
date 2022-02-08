@@ -61,7 +61,7 @@
     margin: 2px;
     font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -96,7 +96,7 @@
 
 .shipping-time tr {
     font-family: $general-font-family;
-    font-weight: 500;
+    font-weight: $fw-m;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -108,7 +108,7 @@
 
 .shipping-time td {
     font-family: $general-font-family;
-    font-weight: 500;
+    font-weight: $fw-m;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;

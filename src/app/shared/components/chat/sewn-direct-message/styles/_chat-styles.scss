@@ -298,7 +298,7 @@
 }
 .brown-text {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #80460b;
 }
 .dm-list-view-header {
@@ -358,7 +358,7 @@
                 border-radius: 4px;
                 border: solid 1px #d6d6d6;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 line-height: 1.43;
                 color: #232334;
                 width: 100%;
@@ -427,7 +427,7 @@
                 .dm-tlep-error-sub-text {
                     margin-top: 16px;
                     font-size: 14px;
-                    font-weight: 600;
+                    font-weight: $fw-m;
                     line-height: 1.43;
                     text-align: center;
                     color: #747588;
@@ -460,7 +460,7 @@
             span {
                 font-size: 14px;
                 color: #ffffff;
-                font-weight: 700;
+                font-weight: $fw-b;
                 margin-right: 10px;
             }
             &:hover {
@@ -516,7 +516,7 @@
                 border-radius: 4px;
                 border: solid 1px #d6d6d6;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 line-height: 1.43;
                 color: #232334;
                 width: 100%;
@@ -600,7 +600,7 @@
                 .dm-sup-error-sub-text {
                     margin-top: 16px;
                     font-size: 14px;
-                    font-weight: 600;
+                    font-weight: $fw-m;
                     line-height: 1.43;
                     text-align: center;
                     color: #747588;
@@ -614,7 +614,7 @@
             .dm-sup-listing-recent-tag {
                 font-size: 14px;
                 color: #747588;
-                font-weight: 600;
+                font-weight: $fw-m;
                 display: block;
                 padding: 0px 20px;
             }
@@ -689,7 +689,7 @@
                 .dm-rup-error-sub-text {
                     margin-top: 16px;
                     font-size: 14px;
-                    font-weight: 600;
+                    font-weight: $fw-m;
                     line-height: 1.43;
                     text-align: center;
                     color: #747588;
@@ -753,7 +753,7 @@
             }
             .dm-rli-block-text {
                 font-size: 14px;
-                font-weight: 500;
+                font-weight: $fw-m;
                 font-style: italic;
                 color: #747588;
             }
@@ -832,7 +832,7 @@
             }
             .dm-fli-block-text {
                 font-size: 14px;
-                font-weight: 500;
+                font-weight: $fw-m;
                 font-style: italic;
                 color: #747588;
             }
@@ -847,7 +847,7 @@
             .dm-fli-org-name {
                 position: relative;
                 font-size: 12px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 color: #747588;
             }
         }
@@ -927,14 +927,14 @@
         .dm-thi-date {
             position: relative;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: $fw-m;
             text-align: right;
             color: #979797;
         }
         .dm-thi-org-name {
             position: relative;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: $fw-m;
             color: #747588;
         }
         .dm-thi-lastmsg {
@@ -951,7 +951,7 @@
                 left: 0px;
                 height: 24px;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 line-height: 1.43;
                 color: #232334;
                 text-overflow: ellipsis;
@@ -967,7 +967,7 @@
             height: 24px;
             background-color: #232334;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: $fw-m;
             border-radius: 50%;
             color: #fff;
         }
@@ -1002,7 +1002,7 @@
             background-color: #ffffff;
             font-family: $general-font-family;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: $fw-m;
             color: #979797;
         }
     }
@@ -1139,7 +1139,7 @@
                     line-break: anywhere;
                     font-size: 14px;
                     line-height: 1.43;
-                    font-weight: 600;
+                    font-weight: $fw-m;
                     color: #232334;
                     padding: 0px 8px;
                     ::ng-deep .dm-highlight-marker {
@@ -1157,7 +1157,7 @@
                     white-space: pre-line;
                     font-size: 14px;
                     line-height: 1.43;
-                    font-weight: 600;
+                    font-weight: $fw-m;
                     color: #232334;
                     ::ng-deep .p-progress-spinner {
                         width: 14px;
@@ -1302,12 +1302,12 @@
                     font-size: 14px;
                     line-height: 16px;
                     color: #232334;
-                    font-weight: 700;
+                    font-weight: $fw-b;
                 }
                 .dm-udv-user-org {
                     font-size: 12px;
                     color: #747588;
-                    font-weight: 600;
+                    font-weight: $fw-m;
                     display: inline-block;
                 }
             }
@@ -1420,7 +1420,7 @@
                     }
                     .dm-ltm-option-description {
                         font-size: 14px;
-                        font-weight: 600;
+                        font-weight: $fw-m;
                         line-height: 1.43;
                         color: #747588;
                     }
@@ -1441,7 +1441,7 @@
         background-color: #d50000;
         padding: 10px;
         font-size: 12px;
-        font-weight: 500;
+        font-weight: $fw-m;
         color: #fff;
         position: absolute;
         width: calc(100% - 30px);
@@ -1617,7 +1617,7 @@
                 background-color: #ffffff;
                 font-size: 14px;
                 line-height: 14px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 color: #232334;
                 padding: 14px;
                 resize: none;
@@ -1707,7 +1707,7 @@
 
         .dm-hub-org-name {
             font-size: 12px;
-            font-weight: 600;
+            font-weight: $fw-m;
             color: #747588;
             .dm-hub-org-name-wrapper {
                 width: 100%;
@@ -1876,7 +1876,7 @@
                 align-items: center;
                 margin-right: 8px;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 line-height: 1.43;
                 letter-spacing: normal;
                 text-align: left;

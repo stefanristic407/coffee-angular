@@ -30,16 +30,16 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="file_name" class="pl-4 ml-3 cust-width">
-                        {{ globals.languageJson?.files }} <p-sortIcon field="file_name"> </p-sortIcon>
+                        {{ 'files' | translate }} <p-sortIcon field="file_name"> </p-sortIcon>
                     </th>
                     <th pSortableColumn="created_at">
-                        {{ globals.languageJson?.added_on }} <p-sortIcon field="created_at"> </p-sortIcon>
+                        {{ 'added_on' | translate }} <p-sortIcon field="created_at"> </p-sortIcon>
                     </th>
                     <th pSortableColumn="customer_name">
-                        {{ globals.languageJson?.customer_name }} <p-sortIcon field="customer_name"></p-sortIcon>
+                        {{ 'customer_name' | translate }} <p-sortIcon field="customer_name"></p-sortIcon>
                     </th>
                     <th pSortableColumn="origin">
-                        {{ globals.languageJson?.origin }} <p-sortIcon field="origin"> </p-sortIcon>
+                        {{ 'origin' | translate }} <p-sortIcon field="origin"> </p-sortIcon>
                     </th>
                     <th style="width: 5%"></th>
                 </tr>
@@ -58,35 +58,7 @@
                     <td class="fnt-14">{{ item.customer_name }}</td>
                     <td class="fnt-14">{{ item.origin | country }}</td>
                     <td id="sales-contract-popup">
-                        <a
-                            class="menu-arrow"
-                            [popover]="poplistTemplate"
-                            placement="left"
-                            [outsideClick]="true"
-                            #pop="bs-popover"
-                        >
-                            <p><img src="assets/images/kebab-menu.svg" /></p>
-                        </a>
-                        <ng-template #poplistTemplate id="{{ item.id }}">
-                            <div id="popover-mobile-content">
-                                <ul class="list-group custom-popover">
-                                    <li class="list-group-item">
-                                        <a class="pointer-item" (click)="pop.hide(); onUpdateModal(item.id)">{{
-                                            globals.languageJson?.update
-                                        }}</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a
-                                            class="pointer-item"
-                                            (click)="
-                                                pop.hide(); deleteAgreementId = item.id; onOpenDeleteModal(item.id)
-                                            "
-                                            >{{ globals.languageJson?.delete }}</a
-                                        >
-                                    </li>
-                                </ul>
-                            </div>
-                        </ng-template>
+                        <app-action-menu [menuItems]="getMenuItems(item)"></app-action-menu>
                     </td>
                 </tr>
             </ng-template>
@@ -107,44 +79,12 @@
                                     <p class="black fnt-14">{{ data.file_name }}</p>
                                 </div>
                                 <div>
-                                    <a
-                                        [popover]="poplistTemplate"
-                                        placement="left"
-                                        [outsideClick]="true"
-                                        #pop="bs-popover"
-                                    >
-                                        <p><img src="assets/images/kebab-menu.svg" /></p>
-                                    </a>
-                                    <ng-template #poplistTemplate id="{{ data.id }}">
-                                        <div id="popover-mobile-content">
-                                            <ul class="list-group custom-popover">
-                                                <li class="list-group-item">
-                                                    <a
-                                                        class="pointer-item text-clr588"
-                                                        [routerLink]="'/sales-contract/' + customerType + '/' + data.id"
-                                                        (click)="pop.hide(); onUpdateModal(data.id)"
-                                                        >{{ globals.languageJson?.update }}</a
-                                                    >
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <a
-                                                        class="pointer-item text-clr588"
-                                                        (click)="
-                                                            pop.hide();
-                                                            onOpenDeleteModal(data.id);
-                                                            deleteAgreementId = data.id
-                                                        "
-                                                        >{{ globals.languageJson?.delete }}</a
-                                                    >
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </ng-template>
+                                    <app-action-menu [menuItems]="getMenuItems(data)"></app-action-menu>
                                 </div>
                             </div>
                             <div class="bor-bot-d6d6 mx-3 py-3 row">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-14 fw-m">{{ globals.languageJson?.customer_name }}</p>
+                                    <p class="light-eight fnt-14 fw-m">{{ 'customer_name' | translate }}</p>
                                 </div>
                                 <div class="col-7 p-0">
                                     <p class="fnt-14 fw-m text-clr24">{{ data.customer_name }}</p>
@@ -152,7 +92,7 @@
                             </div>
                             <div class="bor-bot-d6d6 mx-3 py-3 row">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-14 fw-m">{{ globals.languageJson?.origin }}</p>
+                                    <p class="light-eight fnt-14 fw-m">{{ 'origin' | translate }}</p>
                                 </div>
                                 <div class="col-7 p-0">
                                     <p class="fnt-14 fw-m text-clr24">{{ data.origin | country }}</p>
@@ -160,7 +100,7 @@
                             </div>
                             <div class="row mx-3 mb-3 pt-3">
                                 <div class="col-5 p-0">
-                                    <p class="light-eight fnt-14 fw-m">{{ globals.languageJson?.date_added }}</p>
+                                    <p class="light-eight fnt-14 fw-m">{{ 'date_added' | translate }}</p>
                                 </div>
                                 <div class="col-7 p-0">
                                     <p class="fnt-14 fw-m text-clr24">
@@ -187,7 +127,7 @@
 >
     <ng-template pTemplate="header">
         <div class="d-flex justify-content-between w-100">
-            <h4 class="fnt-18 fw-b text-clr334">{{ globals.languageJson?.upload_new_agreement }}</h4>
+            <h4 class="fnt-18 fw-b text-clr334">{{ 'upload_new_agreement' | translate }}</h4>
             <a (click)="onUpdateModalClose()" style="cursor: pointer">
                 <i class="pi pi-times fnt-24 text-clr97"></i>
             </a>

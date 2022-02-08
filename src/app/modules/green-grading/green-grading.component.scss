@@ -41,20 +41,20 @@
 .grade_heading {
     font-family: $general-font-family;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #232334;
     margin-bottom: 0.5rem;
 
     @media (max-width: 575px) {
         font-size: 14px;
-        font-weight: 500;
+        font-weight: $fw-m;
     }
 }
 
 .grade_para {
     font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #747588;
     padding-top: 4px;
 

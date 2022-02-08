@@ -36,7 +36,7 @@ a.nav-link {
 .nav-pills .show > .nav-link {
     color: #232334;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     background-color: unset !important;
     border-radius: unset;
 }
@@ -88,14 +88,14 @@ li.nav-item {
 .nav-pills .nav-link {
     font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #232334;
 }
 
 .nav-pills .nav-link.active {
     font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #30855c;
 }
 

@@ -67,7 +67,7 @@
                 border: solid 0.5px #747588;
                 background-color: #ffffff;
                 font-size: 12px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 font-stretch: normal;
                 color: #747588;
                 line-height: 1;
@@ -85,7 +85,7 @@
 
     .normal-text {
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
         line-height: normal;
         color: #232334;
     }
@@ -99,7 +99,7 @@
             background-color: #747588;
             padding: 0.5rem;
             color: #ffffff;
-            font-weight: 500;
+            font-weight: $fw-m;
             margin-right: 0.25rem;
         }
     }

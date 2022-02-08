@@ -54,16 +54,8 @@
 .commonContent {
     font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: $fw-m;
     color: #232334;
-}
-.text-highlited {
-    font-weight: 700;
-    color: #80460b !important;
-    cursor: pointer;
-}
-.text-highlited:hover {
-    text-decoration: underline !important;
 }
 
 @media (max-width: 768px) {

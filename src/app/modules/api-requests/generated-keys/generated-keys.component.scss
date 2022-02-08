@@ -1,80 +1,8 @@
 @import 'variables';
 
-.generted-key-container {
-    .active-status {
-        color: #32a822 !important;
-    }
-
-    .status-paused {
-        color: $invalid-color !important;
-    }
-
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        overflow: scroll;
-
-        th {
-            width: 175px;
-        }
-    }
-}
-
-.view-api-request {
-    font-family: $general-font-family !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    color: #80460b !important;
-
-    &:hover {
-        text-decoration: underline !important;
-    }
-
-    cursor: pointer !important;
-}
-
-::ng-deep .popover-content ul li:hover {
-    background-color: #f8f8f8;
-}
-
-::ng-deep .p-paginator {
-    padding: 22px 0;
-    border: none;
-    background: transparent;
-}
-
-.mobile-row {
-    border-bottom: 1px dashed $primary-border-color;
-}
-
-.api-request-header {
-    background-color: #f8f8f8;
-}
-
-.cell-header {
-    width: 40%;
-}
-
-.pointer-item {
-    font-size: 14px;
-    color: $muted-text-color !important;
-}
-
-#popover-mobile-content {
-    .custom-popover {
-        border-bottom: none !important;
-    }
-}
-
-.list-group-item:hover {
-    .pointer-item {
-        color: $general-text-color !important;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .menu-arrow {
-        p {
-            padding-right: 10px;
-        }
+:host ::ng-deep {
+    .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
+        width: 50% !important;
     }
 }
 

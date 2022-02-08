@@ -22,7 +22,7 @@
 .real-estate {
     h6 {
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
         margin-bottom: 3px;
         margin-top: 12px;
         color: #747588;
@@ -67,7 +67,7 @@
                 margin-bottom: 0;
                 color: #747588;
                 font-size: 14px;
-                font-weight: 500;
+                font-weight: $fw-m;
             }
             p {
                 margin-bottom: 0;
@@ -75,7 +75,7 @@
                 float: left;
                 font-size: 14px;
                 color: #232334;
-                font-weight: 600;
+                font-weight: $fw-m;
                 word-break: break-word;
             }
         }
@@ -155,7 +155,7 @@ ul {
         }
         h3 {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: $fw-m;
             margin-bottom: 5px;
         }
         p,

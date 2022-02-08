@@ -19,7 +19,7 @@
                 border: solid 1px $muted-text-color;
                 background-color: $muted-text-color;
                 padding: 0.5rem 0.75rem;
-                font-weight: 500;
+                font-weight: $fw-m;
                 margin: 0 0 0.5rem 0.5rem;
                 .p-chips-token-icon::before {
                     content: '\e90b';

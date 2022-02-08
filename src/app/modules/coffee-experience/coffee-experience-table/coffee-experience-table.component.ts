@@ -5,6 +5,7 @@ import { CustomerServiceService } from '@app/modules/people/customer-management/
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
 import { OrderStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService, GlobalsService, PrimeTableService, ResizeService, RoasterService } from '@services';
 import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
@@ -64,18 +65,19 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
     });
 
     constructor(
-        public router: Router,
-        public globals: GlobalsService,
-        public cookieService: CookieService,
-        public toastrService: ToastrService,
-        public customer: CustomerServiceService,
-        private roasterService: RoasterService,
-        public primeTableService: PrimeTableService,
-        public fb: FormBuilder,
-        public activeRoute: ActivatedRoute,
-        protected resizeService: ResizeService,
-        private coffeeService: CoffeeExpService,
         private authService: AuthService,
+        private coffeeService: CoffeeExpService,
+        private roasterService: RoasterService,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
+        public activeRoute: ActivatedRoute,
+        public cookieService: CookieService,
+        public customer: CustomerServiceService,
+        public fb: FormBuilder,
+        public globals: GlobalsService,
+        public primeTableService: PrimeTableService,
+        public router: Router,
+        public toastrService: ToastrService,
     ) {
         super(resizeService);
         this.display = 10;
@@ -489,5 +491,20 @@ export class CoffeeExperienceTableComponent extends ResizeableComponent implemen
                     );
                 });
         }
+    }
+
+    getMenuItems(item) {
+        return [
+            {
+                label: this.translator.instant('view_details'),
+                command: () => this.availabilityPage(item),
+                visible: this.path === 'orders',
+            },
+            {
+                label: this.translator.instant('update_details'),
+                command: () => this.availabilityPage(item),
+                visible: this.path !== 'orders',
+            },
+        ];
     }
 }

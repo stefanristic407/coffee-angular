@@ -91,32 +91,6 @@ div[class^='col-'] {
     margin-top: -4px;
 }
 
-/********Chart Css*********/
-
-.border-total-chart {
-    border-radius: 20px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding: 10px 12px;
-    margin-right: 12px;
-    cursor: pointer;
-}
-
-.list-group-item.chart {
-    border: none;
-    font-family: $general-font-family;
-    font-size: 12px;
-    font-weight: 600;
-    color: #747588;
-    cursor: pointer;
-}
-
-.list-group-item.chart:hover {
-    color: #232334;
-    font-weight: 600;
-    background-color: #f8f8f8;
-}
-
 .pointer-items {
     cursor: pointer;
 }
@@ -408,7 +382,7 @@ input[type='number'] {
         background-image: url(assets/images/copy.svg);
         background-repeat: no-repeat;
         background-position: 16px;
-        font-weight: 600;
+        font-weight: $fw-m;
         color: $general-text-color;
         @media (max-width: 767px) {
             bottom: 8px;

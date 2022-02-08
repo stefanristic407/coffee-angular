@@ -31,7 +31,7 @@
             .iti__country {
                 border-radius: 2px;
                 padding: 0.75rem 2rem 0.75rem 0.75rem;
-                font-weight: 600;
+                font-weight: $fw-m;
                 color: $muted-text-color;
                 &.iti__highlight {
                     background-color: $primary-bg-color;

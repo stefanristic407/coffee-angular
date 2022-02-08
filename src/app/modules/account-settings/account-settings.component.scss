@@ -1,4 +1,4 @@
-@import '../../../theme/styles/variables';
+@import 'variables';
 
 :host {
     color: #232334;
@@ -13,7 +13,7 @@
     line-height: normal;
     color: $general-text-color;
     text-align: center;
-    font-weight: 600;
+    font-weight: $fw-m;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
         box-shadow 0.15s ease-in-out !important;
     .cta-arrow-hover {
@@ -41,7 +41,7 @@
     border-radius: 2px;
     padding: 12.5px 12.8px;
     margin-bottom: 16px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #232334;
     cursor: pointer;
 }

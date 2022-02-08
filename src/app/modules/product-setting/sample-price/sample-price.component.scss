@@ -2,7 +2,7 @@
 
 :host table.list-table {
     tr {
-        font-weight: 500;
+        font-weight: $fw-m;
         padding: 1rem 1rem 1rem 0rem;
         border-bottom: 1px dashed $primary-border-color !important;
         &:last-child {
@@ -11,7 +11,7 @@
     }
 
     td {
-        font-weight: 500;
+        font-weight: $fw-m;
         padding: 1rem 1rem 1rem 0rem;
         width: 50%;
     }

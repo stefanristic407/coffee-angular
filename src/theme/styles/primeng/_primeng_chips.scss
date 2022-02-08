@@ -1,3 +1,5 @@
+@import 'variables';
+
 .p-chips {
     &.no-remove-icon {
         .p-chips-token-icon {
@@ -25,7 +27,7 @@
                 background-color: #747588;
                 padding: 0.5rem 0.75rem;
                 margin-bottom: 0.5rem;
-                font-weight: 500;
+                font-weight: $fw-m;
 
                 .p-chips-token-icon::before {
                     content: '\e90b';

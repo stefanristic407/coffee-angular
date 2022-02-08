@@ -16,28 +16,6 @@
     z-index: 999 !important;
 }
 
-/**********popover*******/
-
-.list-group-item {
-    border: none;
-    font-family: $general-font-family;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.list-group-item:hover {
-    color: #232334;
-    font-weight: 600;
-    background-color: #f8f8f8;
-}
-
-.menu-arrow {
-    cursor: pointer;
-    position: relative;
-    top: 6px;
-}
-
 .cust-width {
     width: 40%;
 }
@@ -45,7 +23,7 @@
 .file_url {
     color: #232334 !important;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     font-family: $general-font-family;
     text-decoration: none !important;
 }

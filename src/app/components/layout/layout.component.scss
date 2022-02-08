@@ -56,25 +56,6 @@
     top: 5px;
 }
 
-.list-group-item {
-    border: none;
-    font-family: $general-font-family;
-    font-size: 12px;
-    font-weight: 600 !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: $muted-text-color !important;
-}
-
-.list-group-item:hover {
-    color: $general-text-color !important;
-    font-weight: 600 !important;
-    background-color: $primary-bg-color;
-    border-radius: 4px;
-}
-
 ::ng-deep .popover-body {
     padding: 0.25rem 0.25rem !important;
 }

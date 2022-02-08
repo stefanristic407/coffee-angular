@@ -1,3 +1,5 @@
+@import 'variables';
+
 .recent-question-item {
     cursor: pointer;
     &:hover {
@@ -10,7 +12,7 @@
     h1,
     p {
         font-size: 18px;
-        font-weight: 700;
+        font-weight: $fw-b;
         @media (max-width: 768px) {
             font-size: 16px;
         }

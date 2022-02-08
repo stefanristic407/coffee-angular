@@ -41,7 +41,7 @@
 .roastery-tags__checkboxes .custom-raotary-tags {
     font-size: 12px;
     line-height: 22px;
-    font-weight: 500;
+    font-weight: $fw-m;
     color: #747588;
     border-radius: 17px;
     border: solid 1px #747588;
@@ -154,7 +154,7 @@
     outline: 0;
     border: 0;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #232334;
     background: none;
     padding: 5px 10px;
@@ -212,7 +212,7 @@
 .contact-for-help__text {
     padding-top: 15px;
     color: #242424;
-    font-weight: 500;
+    font-weight: $fw-m;
 }
 
 .contact-for-help a {
@@ -447,7 +447,7 @@ label {
 .no-editable-text {
     padding-bottom: 16px;
     color: #232334;
-    font-weight: 500;
+    font-weight: $fw-m;
 }
 
 .download:hover {
@@ -555,7 +555,7 @@ label {
     .page-description {
         font-size: 12px;
         width: 100%;
-        font-weight: 600;
+        font-weight: $fw-m;
         margin-bottom: 16px;
     }
     .page-title {

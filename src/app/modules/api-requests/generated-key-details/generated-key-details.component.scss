@@ -57,7 +57,7 @@
     td {
         font-family: $general-font-family;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
         color: #232334;
     }
 
@@ -126,7 +126,7 @@
         font-size: 14px;
         border-radius: 4px !important;
         font-family: $general-font-family;
-        font-weight: 600;
+        font-weight: $fw-m;
     }
 
     .active_default {

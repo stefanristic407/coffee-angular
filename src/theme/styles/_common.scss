@@ -581,6 +581,13 @@ span.star {
             background: #7c6be8;
         }
     }
+
+    &.paused {
+        color: #d50000;
+        &::before {
+            background: #d50000;
+        }
+    }
 }
 
 .cursor-not-allowed {

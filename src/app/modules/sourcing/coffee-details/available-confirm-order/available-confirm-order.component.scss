@@ -15,7 +15,7 @@
 
 .fill-txt {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: $fw-m;
     line-height: 20px;
     @media (min-width: 768px) {
         font-size: 16px;

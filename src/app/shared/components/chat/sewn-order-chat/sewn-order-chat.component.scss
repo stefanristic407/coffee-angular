@@ -51,7 +51,7 @@
 .view-chat-profile {
     font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: $fw-b;
     color: #ffffff;
     line-height: 24px;
     padding: 8px 16px;
@@ -92,7 +92,7 @@
 .send-message__btn span {
     font-size: 14px;
     color: #ffffff;
-    font-weight: 700;
+    font-weight: $fw-b;
     text-transform: capitalize;
     margin-right: 10px;
 }
@@ -166,13 +166,13 @@
 .chat-inputs__text::-moz-placeholder {
     font-size: 14px;
     color: #747588;
-    font-weight: 600;
+    font-weight: $fw-m;
     vertical-align: middle;
 }
 .chat-inputs__text::placeholder {
     font-size: 14px;
     color: #747588;
-    font-weight: 600;
+    font-weight: $fw-m;
     vertical-align: middle;
 }
 .chat-inputs .send-message {
@@ -229,7 +229,7 @@
 .send-message__btn span {
     font-size: 14px;
     color: #ffffff;
-    font-weight: 700;
+    font-weight: $fw-b;
     text-transform: capitalize;
     margin-right: 10px;
 }
@@ -320,7 +320,7 @@
     background-color: #d50000;
     padding: 10px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: $fw-m;
     color: #ffffff;
     position: absolute;
     width: 0px;
@@ -365,7 +365,7 @@
             margin: 2px 25px 0 0;
             font-family: $general-font-family;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: $fw-m;
             font-stretch: normal;
             font-style: normal;
             line-height: normal;
@@ -393,7 +393,7 @@
     .live-time {
         font-family: $general-font-family;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: $fw-m;
         font-stretch: normal;
         font-style: normal;
         line-height: normal;
@@ -441,7 +441,7 @@
         padding: 2px 5px;
         font-size: 14px;
         line-height: 22px;
-        font-weight: 600;
+        font-weight: $fw-m;
         color: #232334;
     }
 }
@@ -510,7 +510,7 @@
             .drm-content-body {
                 font-family: $general-font-family;
                 font-size: 14px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 font-stretch: normal;
                 font-style: normal;
                 line-height: normal;
@@ -547,7 +547,7 @@
 .new-date {
     width: 100%;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #979797;
     padding: 10px;
     display: flex;

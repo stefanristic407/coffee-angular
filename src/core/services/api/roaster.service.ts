@@ -345,12 +345,8 @@ export class RoasterService extends ApiService {
 
     // API Function Name : Get Agreements
     // API Description: This API calls helps to get the agreements .
-    getAgreements(roaster_id: any, customer_type: any) {
-        const data = { api_call: '', token: '', method: '' };
-        data.api_call = '/ro/' + roaster_id + '/' + customer_type + '/agreements';
-        data.token = this.authService.token;
-        data.method = 'GET';
-        return this.http.post(this.url, data);
+    getAgreements(customerType: OrganizationType): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgPostUrl, `${customerType}/agreements`);
     }
 
     // API Function Name : Upload Agreements
@@ -391,11 +387,8 @@ export class RoasterService extends ApiService {
     //API Function Name : Delete Agreement
     //API Description: This API calls helps to Delete the Agreement.
 
-    deleteAgreement(roaster_id: any, customer_type: any, id: any) {
-        var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/' + customer_type + '/agreements/' + id;
-        data['token'] = this.authService.token;
-        return this.http.post(this.orgDeleteUrl, data);
+    deleteAgreement(customerType: OrganizationType, id: number): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgDeleteUrl, `${customerType}/agreements/${id}`, 'DELETE');
     }
 
     //API Function Name : Get Users List

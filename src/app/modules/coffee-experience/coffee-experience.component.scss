@@ -1,3 +1,5 @@
+@import 'variables';
+
 :host ::ng-deep .ui-inputtext {
     display: none !important;
 }
@@ -48,7 +50,7 @@
     .give-your-end-users {
         font-size: 12px;
         width: 100%;
-        font-weight: 600;
+        font-weight: $fw-m;
         padding-bottom: 0.5rem;
     }
     .estate-order-title {

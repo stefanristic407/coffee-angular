@@ -68,7 +68,7 @@
 .estate-message {
     font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: $fw-m;
 }
 .back-page a {
     font-size: 16px;
@@ -76,7 +76,7 @@
     cursor: pointer;
     font-family: $general-font-family;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: $fw-m;
 }
 @media (max-width: 767px) {
     .customer-status-width {

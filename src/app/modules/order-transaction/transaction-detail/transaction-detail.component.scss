@@ -26,7 +26,7 @@
                 border-top: dashed 1px $primary-border-color;
                 > td {
                     padding: 14px 12px 18px;
-                    font-weight: 700;
+                    font-weight: $fw-b;
                     &:nth-child(1),
                     &:nth-child(2),
                     &:nth-child(3),

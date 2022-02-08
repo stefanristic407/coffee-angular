@@ -31,14 +31,14 @@
         line-height: normal;
         @media (min-width: 768px) {
             font-size: 18px;
-            font-weight: 600;
+            font-weight: $fw-m;
         }
     }
 }
 
 .blog-chip {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: $fw-m;
     color: #747588;
     border-radius: 13px;
     border: solid 0.5px #747588;
