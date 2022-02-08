@@ -10,10 +10,10 @@
 
         <div class="row">
             <div class="col-md-6 mb-4">
-                <div class="mb-2 mb-md-25 fnt-16 fnt-md-18 fnt-bold">
+                <div class="mb-2 mb-md-25 fnt-16 fnt-md-18 fw-b">
                     {{ 'login_security' | translate }}
                 </div>
-                <div class="text-clr588 fnt-14 fnt-600 font-weight-md-normal">
+                <div class="text-clr588 fnt-14 fw-m font-weight-md-normal">
                     {{ 'login_security_text' | translate }}
                 </div>
             </div>
@@ -23,7 +23,7 @@
 
         <div *ngIf="!isLoading" class="row p-0 border-md-main round-4 p-md-45 mx-0 mb-4">
             <div class="col-lg-6 px-0 pb-lg-2">
-                <div class="fnt-16 fnt-md-18 fnt-bold">{{ 'security' | translate }}</div>
+                <div class="fnt-16 fnt-md-18 fw-b">{{ 'security' | translate }}</div>
                 <div class="text-clr588 border-bottom-dashed-primary pb-4 mt-25">
                     {{ 'manage_your_accounts_security' | translate }}
                 </div>
@@ -32,14 +32,14 @@
                         class="cursor-pointer d-flex justify-content-between mt-4"
                         [routerLink]="['/account-settings/login-security/mfa']"
                     >
-                        <div class="fnt-16 fnt-md-18 fnt-bold">{{ 'two_factor_authentication' | translate }}</div>
+                        <div class="fnt-16 fnt-md-18 fw-b">{{ 'two_factor_authentication' | translate }}</div>
                         <i class="pi pi-angle-right text-clr588"></i>
                     </div>
                     <div class="text-clr588 border-bottom-dashed-primary pb-4 mt-25">
                         {{ 'two_factor_authentication_desp' | translate }}
                     </div> -->
 
-                <div class="fnt-16 fnt-md-18 fnt-bold mb-35 mb-md-4 mt-4 mt-md-45">
+                <div class="fnt-16 fnt-md-18 fw-b mb-35 mb-md-4 mt-4 mt-md-45">
                     {{ 'login' | translate }}
                 </div>
                 <button (click)="changePasswordMode = true" type="button" class="btn-stroked px-4 mb-25">
@@ -47,7 +47,7 @@
                 </button>
                 <div class="fnt-12 text-clr588">Last update a year ago</div>
 
-                <div class="fnt-16 fnt-md-18 mb-md-2 fnt-bold login-history-title">
+                <div class="fnt-16 fnt-md-18 mb-md-2 fw-b login-history-title">
                     {{ 'login_history' | translate }}
                 </div>
                 <div *ngFor="let session of sessions" class="border-bottom-dashed-primary session-list">
@@ -77,7 +77,7 @@
                                 *ngIf="session.current_session"
                                 (click)="userLogout()"
                                 href="javascript:void(0)"
-                                class="text-clr60b fnt-14 fnt-bold"
+                                class="text-clr60b fnt-14 fw-b"
                                 >Log out</a
                             >
                             <span *ngIf="!session.current_session" class="text-secondary cursor-not-allowed fnt-14"
@@ -92,7 +92,7 @@
                     </button>
                 </div>
 
-                <div class="fnt-16 fnt-md-18 fnt-bold mb-25 login-history-title">
+                <div class="fnt-16 fnt-md-18 fw-b mb-25 login-history-title">
                     {{ 'deactivate_account' | translate }}
                 </div>
                 <div class="fnt-14 text-clr588 mt-2 mb-4">
@@ -113,11 +113,11 @@
         </div>
 
         <form [formGroup]="form" (ngSubmit)="handleSubmitPasswords()">
-            <div class="fnt-16 fnt-md-18 fnt-bold mb-2 mb-md-25">
+            <div class="fnt-16 fnt-md-18 fw-b mb-2 mb-md-25">
                 {{ 'change_password' | translate }}
             </div>
 
-            <div class="text-clr588 fnt-14 fnt-600 font-weight-md-normal set-up-password-description">
+            <div class="text-clr588 fnt-14 fw-m font-weight-md-normal set-up-password-description">
                 {{ 'change_password_subtext' | translate }}
             </div>
 

@@ -2,16 +2,16 @@
     <ng-container *ngIf="orgType === OrgType.MICRO_ROASTER; else estate_order">
         <div class="row no-gutters gutter-md-24 v-gutter-24">
             <div class="d-flex flex-md-column col-md-auto lot-box">
-                <span class="fnt-500 text-muted">{{ 'product_name' | translate }}</span>
-                <span class="mt-md-3 fnt-600">{{ lot?.product_name }}</span>
+                <span class="fw-m text-muted">{{ 'product_name' | translate }}</span>
+                <span class="mt-md-3 fw-m">{{ lot?.product_name }}</span>
             </div>
             <div class="d-flex flex-md-column col-md-auto lot-box">
-                <span class="fnt-500 text-muted">{{ 'variety' | translate }}</span>
-                <span class="mt-md-3 fnt-600">{{ lot?.varieties }}</span>
+                <span class="fw-m text-muted">{{ 'variety' | translate }}</span>
+                <span class="mt-md-3 fw-m">{{ lot?.varieties }}</span>
             </div>
             <div class="d-flex flex-md-column col-md-auto lot-box">
-                <span class="fnt-500 text-muted">{{ 'quantity' | translate }}</span>
-                <span class="mt-md-3 fnt-600">
+                <span class="fw-m text-muted">{{ 'quantity' | translate }}</span>
+                <span class="mt-md-3 fw-m">
                     <div>{{ quantity || '-' }}</div>
                     <div class="brown-cta mt-2" [routerLink]="['/sourcing/lot-details/', lot?.estate_id, lot?.lot_id]">
                         {{ 'view_lot_details' | translate }}
@@ -19,37 +19,35 @@
                 </span>
             </div>
             <div class="d-flex flex-md-column col-md-auto lot-box">
-                <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} bag</span>
-                <span class="mt-md-3 fnt-600">{{ lot?.unit_price | number: '1.2-4' }} {{ lot?.total_price_unit }}</span>
+                <span class="fw-m text-muted">{{ 'rate_per' | translate }} bag</span>
+                <span class="mt-md-3 fw-m">{{ lot?.unit_price | number: '1.2-4' }} {{ lot?.total_price_unit }}</span>
             </div>
             <div *ngIf="lot?.type === OrderType.Sample" class="d-flex flex-md-column col-md-auto lot-box">
-                <span class="fnt-500 text-muted">{{ 'sample_price' | translate }}</span>
-                <span class="mt-md-3 fnt-600"
+                <span class="fw-m text-muted">{{ 'sample_price' | translate }}</span>
+                <span class="mt-md-3 fw-m"
                     >{{ lot?.gc_price | number: '1.2-2' }} {{ lot?.total_price_unit }} /
                     {{ lot?.quantity | convertKg: lot?.quantity_unit }}{{ lot?.quantity_unit }}</span
                 >
             </div>
             <div class="d-flex flex-md-column col-md-auto lot-box">
-                <span class="fnt-500 text-muted">{{ 'total' | translate }}</span>
-                <span class="mt-md-3 fnt-600"
-                    >{{ lot?.total_price | number: '1.2-4' }} {{ lot?.total_price_unit }}</span
-                >
+                <span class="fw-m text-muted">{{ 'total' | translate }}</span>
+                <span class="mt-md-3 fw-m">{{ lot?.total_price | number: '1.2-4' }} {{ lot?.total_price_unit }}</span>
             </div>
         </div>
     </ng-container>
     <ng-template #estate_order>
         <div class="lot-detail-wrapper d-flex flex-column flex-md-row">
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
-                <span class="fnt-500 text-muted">{{ 'origin' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.origin | country }}</span>
+                <span class="fw-m text-muted">{{ 'origin' | translate }}</span>
+                <span class="mt-md-3 fw-m text-clr334">{{ lot?.origin | country }}</span>
             </div>
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
-                <span class="fnt-500 text-muted">{{ 'variety' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">{{ lot?.varieties }}</span>
+                <span class="fw-m text-muted">{{ 'variety' | translate }}</span>
+                <span class="mt-md-3 fw-m text-clr334">{{ lot?.varieties }}</span>
             </div>
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
-                <span class="fnt-500 text-muted">{{ 'quantity' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334">
+                <span class="fw-m text-muted">{{ 'quantity' | translate }}</span>
+                <span class="mt-md-3 fw-m text-clr334">
                     <span *ngIf="lot?.order_type === OrderType.Sample">{{ 'sample' | translate }}</span>
                     <span *ngIf="lot?.order_type !== OrderType.Sample"
                         >{{ lot?.quantity_count }}&nbsp;{{ lot?.quantity_type | quantityType }} x {{ lot?.quantity
@@ -61,12 +59,12 @@
                 </span>
             </div>
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
-                <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} kg</span>
-                <span class="mt-md-3 fnt-600 text-clr334" *ngIf="lot?.order_type !== OrderType.Sample"
+                <span class="fw-m text-muted">{{ 'rate_per' | translate }} kg</span>
+                <span class="mt-md-3 fw-m text-clr334" *ngIf="lot?.order_type !== OrderType.Sample"
                     >{{ lot?.quantity ? (lot?.price / (lot?.quantity * lot?.quantity_count) | number: '1.2-4') : '-' }}
                     {{ lot?.price_unit }}
                 </span>
-                <span class="mt-md-3 fnt-600 text-clr334" *ngIf="lot?.order_type === OrderType.Sample"
+                <span class="mt-md-3 fw-m text-clr334" *ngIf="lot?.order_type === OrderType.Sample"
                     >{{ availability?.price ? (availability?.price | number: '1.2-4') : '-' }}
                     {{ lot?.price_unit }}</span
                 >
@@ -74,14 +72,14 @@
         </div>
         <div class="lot-detail-wrapper d-flex flex-column flex-md-row">
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust" *ngIf="lot?.shipping_price">
-                <span class="fnt-500 text-muted">{{ 'import_fee' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334"
+                <span class="fw-m text-muted">{{ 'import_fee' | translate }}</span>
+                <span class="mt-md-3 fw-m text-clr334"
                     >{{ lot?.shipping_price | number: '1.2-4' }} {{ lot?.price_unit }}</span
                 >
             </div>
             <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
-                <span class="fnt-500 text-muted">{{ 'total' | translate }}</span>
-                <span class="mt-md-3 fnt-600 text-clr334"
+                <span class="fw-m text-muted">{{ 'total' | translate }}</span>
+                <span class="mt-md-3 fw-m text-clr334"
                     >{{ lot?.price + lot?.shipping_price | number: '1.2-4' }} {{ lot?.price_unit }}</span
                 >
             </div>

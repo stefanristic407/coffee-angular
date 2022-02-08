@@ -23,13 +23,13 @@
                     </div>
 
                     <div class="d-inline-block">
-                        <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr24 mb-0">
+                        <h2 class="fnt-16 fnt-md-18 fw-b text-clr24 mb-0">
                             {{ sourcing.estate?.name }}
                         </h2>
                         <div class="d-flex align-items-center">
                             <span class="fa fa-star checked mr-2"></span>
                             <h6
-                                class="fnt-16 fnt-md-18 fnt-700 custom-link mb-0"
+                                class="fnt-16 fnt-md-18 fw-b custom-link mb-0"
                                 [routerLink]="['/sourcing/estate-details/' + sourcing.estate?.id]"
                                 [queryParams]="{ goToReviews: true }"
                             >
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <div class="certify-green d-none d-lg-block" *ngIf="sourcing.estateCertify != ''">
-                            <h5 class="fnt-16 fnt-md-18 fnt-bold text-clr000">Certificates</h5>
+                            <h5 class="fnt-16 fnt-md-18 fw-b text-clr000">Certificates</h5>
                             <div class="pt-3">
                                 <img
                                     *ngFor="let cert of sourcing.estateCertify"
@@ -92,7 +92,7 @@
                                     </a>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-2 mb-md-3 mb-lg-4">
+                                    <h2 class="fnt-16 fnt-md-18 fw-b text-clr334 mb-2 mb-md-3 mb-lg-4">
                                         {{ 'land_lot' | translate }} : {{ sourcing.lot?.name }}
                                     </h2>
                                     <div class="d-lg-none d-flex">
@@ -212,7 +212,7 @@
                                             </div>
                                             <h3
                                                 *ngIf="!sourcing.lot?.flavours?.length"
-                                                class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0"
+                                                class="fnt-14 lh-normal fw-b text-clr334 ellipsis mb-0"
                                             >
                                                 NA
                                             </h3>
@@ -222,7 +222,7 @@
                             </div>
 
                             <div class="estate-focus with-last-border border-main border-lg-0 br-4 p-3 p-lg-0">
-                                <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr000">
+                                <h3 class="fnt-16 fnt-md-18 fw-b text-clr000">
                                     {{ 'estate_details' | translate }}
                                 </h3>
                                 <ul class="clearfix">
@@ -285,7 +285,7 @@
 
     <div class="bg-white br-4 pl-2 px-md-3 px-lg-5 py-3 py-lg-4 mt-4">
         <div class="px-0">
-            <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mt-lg-2 mb-3 mb-lg-4">
+            <div class="fnt-16 fnt-md-18 fw-b text-clr000 mt-lg-2 mb-3 mb-lg-4">
                 {{ 'estates_other_green_coffee' | translate }}
             </div>
             <div

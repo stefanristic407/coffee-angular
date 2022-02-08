@@ -1,5 +1,5 @@
 <div class="pt-3 pt-md-4">
-    <p class="fnt-16 fnt-md-18 fnt-bold lh-125 lh-md-normal text-clr334 mb-25" *ngIf="isPartners">
+    <p class="fnt-16 fnt-md-18 fw-b lh-125 lh-md-normal text-clr334 mb-25" *ngIf="isPartners">
         {{ 'partners_by_horeca' | translate }}
     </p>
     <div class="customer-table-wrapper">
@@ -72,7 +72,7 @@
                             <span *ngSwitchCase="'admin_id'">
                                 <div class="d-flex" *ngIf="isMobileView">
                                     <div class="d-flex">
-                                        <span class="fnt-14 fnt-600 txt-clr334 mr-2">
+                                        <span class="fnt-14 fw-m txt-clr334 mr-2">
                                             {{ 'customer_id' | translate }} #{{ rowData.admin_id || rowData.id }}
                                         </span>
                                         <span>
@@ -117,9 +117,9 @@
                             <span *ngSwitchCase="'name'">
                                 <div>
                                     <div class="pb-3" *ngIf="isMobileView">
-                                        <p class="text-clr588 fnt-12 fnt-600 mb-0">
+                                        <p class="text-clr588 fnt-12 fw-m mb-0">
                                             {{ 'created_on' | translate }}:
-                                            <span class="txt-clr334 fnt-12 fnt-600">
+                                            <span class="txt-clr334 fnt-12 fw-m">
                                                 {{ rowData['created_at'] | date: 'd MMM y, h:mm a' || '--' }}
                                             </span>
                                         </p>

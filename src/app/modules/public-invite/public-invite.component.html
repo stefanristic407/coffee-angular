@@ -7,15 +7,15 @@
     <section>
         <div class="d-md-flex flex-column flex-md-row justify-content-between align-items-end mt-4 mt-md-475 mb-4">
             <div>
-                <div class="fnt-md-18 fnt-16 fnt-bold text-clr334 mb-2">
+                <div class="fnt-md-18 fnt-16 fw-b text-clr334 mb-2">
                     {{ 'micro_roaster_invite' | translate }}
                 </div>
-                <div class="text-clr588 fnt-md-14 fnt-12 fnt-600 mb-0">{{ 'send_public' | translate }}.</div>
-                <div class="text-clr588 fnt-md-14 fnt-12 fnt-600">{{ 'you_can_manually' | translate }}.</div>
+                <div class="text-clr588 fnt-md-14 fnt-12 fw-m mb-0">{{ 'send_public' | translate }}.</div>
+                <div class="text-clr588 fnt-md-14 fnt-12 fw-m">{{ 'you_can_manually' | translate }}.</div>
             </div>
         </div>
         <div class="link-wrapper">
-            <span class="fnt-14 fnt-600 flex-1 link-text">{{ microRoasterLink?.invite_url }}</span>
+            <span class="fnt-14 fw-m flex-1 link-text">{{ microRoasterLink?.invite_url }}</span>
             <button (click)="onCopy()" class="btn-raised" ngxClipboard [cbContent]="microRoasterLink?.invite_url">
                 {{ 'copy_link' | translate }}
             </button>

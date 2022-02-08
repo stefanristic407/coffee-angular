@@ -16,7 +16,7 @@
     <div class="d-flex justify-content-between">
         <div class="w-mob-100">
             <div *ngIf="isAddMember">
-                <div class="d-md-flex fnt-18 fnt-bold mb-2">
+                <div class="d-md-flex fnt-18 fw-b mb-2">
                     <div class="mb-1 mb-md-0">{{ 'add_team_members_to' | translate }}&nbsp;</div>
                     <p-dropdown
                         [options]="roleList"
@@ -30,7 +30,7 @@
                     >
                     </p-dropdown>
                 </div>
-                <div class="fnt-600 text-clr588">{{ 'select_members_role' | translate }}</div>
+                <div class="fw-m text-clr588">{{ 'select_members_role' | translate }}</div>
             </div>
             <div *ngIf="!isAddMember" class="d-inline primary_txt p-0">{{ 'user_management' | translate }}</div>
             <div class="d-flex d-md-none mt-4 flex-column">

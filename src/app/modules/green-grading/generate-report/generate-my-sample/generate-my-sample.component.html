@@ -20,7 +20,7 @@
     <div [formGroup]="infoForm" class="final-score mt-4">
         <div class="col-12 final-label">
             <div class="d-flex justify-content-between align-items-start flex-column flex-md-row align-items-md-center">
-                <span class="fnt-16 fnt-700 mr-2"> Final Score: {{ finalScore }}</span>
+                <span class="fnt-16 fw-b mr-2"> Final Score: {{ finalScore }}</span>
             </div>
 
             <div class="btn-group btn-toggle active__main" (click)="changeMode()">
@@ -31,7 +31,7 @@
 
         <div class="py-3 px-md-3">
             <div>
-                <label class="fnt-12 fnt-700 black mb-0">Select roast level</label>
+                <label class="fnt-12 fw-b black mb-0">Select roast level</label>
                 <div class="roast-custom-check">
                     <span class="roast-container" *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8]">
                         <p-checkbox
@@ -61,7 +61,7 @@
                         }}</small>
                         <div *ngIf="isAdvance" class="fragrance">
                             <div class="fragrance-border">
-                                <p class="fnt-10 fnt-700 black mb-1">Dry</p>
+                                <p class="fnt-10 fw-b black mb-1">Dry</p>
                                 <p-slider
                                     formControlName="fragrance_dry"
                                     [step]="1"
@@ -71,7 +71,7 @@
                                 ></p-slider>
                                 <div class="dry-break-wrapper">
                                     <p
-                                        class="fnt-10 fnt-700 black mt-1 mb-0"
+                                        class="fnt-10 fw-b black mt-1 mb-0"
                                         *ngFor="let fragranceValue of [-3, -2, -1, 0, 1, 2, 3]"
                                     >
                                         {{ fragranceValue }}
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="fragrance-border">
-                                <p class="fnt-10 fnt-700 black mb-1">Break</p>
+                                <p class="fnt-10 fw-b black mb-1">Break</p>
                                 <p-slider
                                     formControlName="fragrance_break"
                                     [step]="1"
@@ -89,7 +89,7 @@
                                 ></p-slider>
                                 <div class="dry-break-wrapper">
                                     <p
-                                        class="fnt-10 fnt-700 black mt-1 mb-0"
+                                        class="fnt-10 fw-b black mt-1 mb-0"
                                         *ngFor="let fragBreak of [-3, -2, -1, 0, 1, 2, 3]"
                                     >
                                         {{ fragBreak }}
@@ -137,7 +137,7 @@
                             'cupping_score_validation' | translate
                         }}</small>
                         <div *ngIf="isAdvance" class="level-wrapper">
-                            <p class="fnt-10 fnt-700 mb-0 black">Intensity</p>
+                            <p class="fnt-10 fw-b mb-0 black">Intensity</p>
                             <div class="custom-check mb-1 mt-1">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
                                     <input
@@ -151,8 +151,8 @@
                                 </label>
                             </div>
                             <div class="low-high-content">
-                                <p class="fnt-10 fnt-700 black">Low</p>
-                                <p class="fnt-10 fnt-700 black">High</p>
+                                <p class="fnt-10 fw-b black">Low</p>
+                                <p class="fnt-10 fw-b black">High</p>
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                             (ngModelChange)="calculateFinalScore()"
                         ></p-inputNumber>
                         <div *ngIf="isAdvance" class="level-wrapper">
-                            <p class="fnt-10 fnt-700 mb-0 black">Level</p>
+                            <p class="fnt-10 fw-b mb-0 black">Level</p>
                             <div class="custom-check mb-1 mt-1">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
                                     <input
@@ -180,8 +180,8 @@
                                 </label>
                             </div>
                             <div class="low-high-content">
-                                <p class="fnt-10 fnt-700 black">Low</p>
-                                <p class="fnt-10 fnt-700 black heavy-high">High</p>
+                                <p class="fnt-10 fw-b black">Low</p>
+                                <p class="fnt-10 fw-b black heavy-high">High</p>
                             </div>
                         </div>
                     </div>
@@ -281,9 +281,9 @@
                         }}</small>
                     </div>
                     <div class="w-md-10">
-                        <label class="field-title-label fnt-700 black"> Defects </label>
+                        <label class="field-title-label fw-b black"> Defects </label>
                         <div class="level-wrapper defect-wrapper flex-1">
-                            <p class="fnt-10 fnt-700 black m-0">Number of cups</p>
+                            <p class="fnt-10 fw-b black m-0">Number of cups</p>
                             <div class="custom-check mb-2 mt-1">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
                                     <input
@@ -296,7 +296,7 @@
                                     <span class="checkmark">{{ i }}</span>
                                 </label>
                             </div>
-                            <p class="fnt-10 fnt-700 black m-0">Intensity</p>
+                            <p class="fnt-10 fw-b black m-0">Intensity</p>
                             <p-selectButton
                                 [options]="intensityOptions"
                                 formControlName="defects_intensity"

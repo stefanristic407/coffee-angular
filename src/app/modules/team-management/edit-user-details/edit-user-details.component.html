@@ -6,7 +6,7 @@
         >
             <div [formGroupName]="i">
                 <div class="d-flex justify-content-between align-items-center d-md-none mb-3">
-                    <div class="fnt-16 fnt-md-18 fnt-bold">{{ 'invite' | translate }} {{ i + 1 }}</div>
+                    <div class="fnt-16 fnt-md-18 fw-b">{{ 'invite' | translate }} {{ i + 1 }}</div>
                     <span *ngIf="i" class="brown-cta" (click)="deleteEmail(i)">{{ 'delete' | translate }}</span>
                 </div>
 

@@ -7,17 +7,17 @@
                     class="col p-0 order-tracking completed mixups-track"
                 >
                     <div class="tooltips is-complete" [class.in-progress]="!item.final_score">
-                        <p *ngIf="item.final_score" class="cup-score fnt-14 fnt-bold text-clr334 pb-2">
+                        <p *ngIf="item.final_score" class="cup-score fnt-14 fw-b text-clr334 pb-2">
                             {{ item.final_score }}
                         </p>
-                        <p *ngIf="item.final_score" class="score-text text-muted fnt-bold fnt-14 pb-2">
+                        <p *ngIf="item.final_score" class="score-text text-muted fw-b fnt-14 pb-2">
                             {{ 'cupping_score' | translate }}
                         </p>
                     </div>
-                    <p class="order-date mt-3 mb-0 fnt-14 fnt-bold text-clr334">
+                    <p class="order-date mt-3 mb-0 fnt-14 fw-b text-clr334">
                         {{ item.cupping_date | date: 'd MMM yyyy' }}
                     </p>
-                    <p class="order-status mt-1 mb-25 text-muted fnt-bold fnt-12 fnt-md-14">
+                    <p class="order-status mt-1 mb-25 text-muted fw-b fnt-12 fnt-md-14">
                         {{ 'graded_by' | translate }} {{ item.evaluator_name | titlecase }}
                     </p>
                     <a
@@ -53,7 +53,7 @@
                 {{ 'once_order_is_ready' | translate }}
             </span>
         </div>
-        <div class="fnt-14 fnt-bold navigation-link text-clr60b mt-45">
+        <div class="fnt-14 fw-b navigation-link text-clr60b mt-45">
             {{ 'know_more' | translate }}
         </div>
     </div>

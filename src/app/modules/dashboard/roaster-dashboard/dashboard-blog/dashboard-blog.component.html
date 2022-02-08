@@ -1,15 +1,12 @@
 <div>
-    <p class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-2 mb-md-3">{{ 'era_of_we_blog' | translate }}</p>
+    <p class="fnt-16 fnt-md-18 fw-b text-clr334 mb-2 mb-md-3">{{ 'era_of_we_blog' | translate }}</p>
     <div class="row gutter-24">
-        <div
-                *ngFor="let blog of blogs"
-                class="col-md-6 col-lg-4 col-12 mb-3 mb-lg-0"
-        >
+        <div *ngFor="let blog of blogs" class="col-md-6 col-lg-4 col-12 mb-3 mb-lg-0">
             <app-blog-card
-                    [imgUrl]="blog.img_url"
-                    [title]="blog.title"
-                    [description]="blog.description | convertToShortDescription: 20"
-                    [link]="'/social-media/blog-details/' + blog.id"
+                [imgUrl]="blog.img_url"
+                [title]="blog.title"
+                [description]="blog.description | convertToShortDescription: 20"
+                [link]="'/social-media/blog-details/' + blog.id"
             ></app-blog-card>
         </div>
     </div>

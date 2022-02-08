@@ -9,21 +9,21 @@
     >
         <ng-container *ngIf="!menu.hasSubMenu">
             <ng-container *ngIf="menu.type == MenuType.GENERAL">
-                <a *ngIf="!menu.href" class="d-inline-block fnt-600" [routerLink]="[menu.routerLink]"
+                <a *ngIf="!menu.href" class="d-inline-block fw-m" [routerLink]="[menu.routerLink]"
                     >{{ menu.title | translate }}
                 </a>
-                <a *ngIf="menu.href" class="d-inline-block fnt-600" [href]="menu.href" target="_blank" rel="noreferrer"
+                <a *ngIf="menu.href" class="d-inline-block fw-m" [href]="menu.href" target="_blank" rel="noreferrer"
                     >{{ menu.title | translate }}
                 </a>
             </ng-container>
             <ng-container *ngIf="menu.type == MenuType.SHOPLINK">
-                <a class="d-inline-block fnt-600" [href]="menu.href | shopLink" target="_blank" rel="noreferrer"
+                <a class="d-inline-block fw-m" [href]="menu.href | shopLink" target="_blank" rel="noreferrer"
                     >{{ menu.title | translate }}
                 </a>
             </ng-container>
         </ng-container>
 
-        <a *ngIf="menu.hasSubMenu" class="d-inline-block fnt-600" href="javascript:void(0)" (click)="onClick(menu.id)"
+        <a *ngIf="menu.hasSubMenu" class="d-inline-block fw-m" href="javascript:void(0)" (click)="onClick(menu.id)"
             >{{ menu.title | translate }}
         </a>
         <ul

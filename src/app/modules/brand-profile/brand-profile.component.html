@@ -3,7 +3,7 @@
         <p-breadcrumb [model]="breadItems" styleClass="mb-25 mb-md-4"></p-breadcrumb>
         <div class="pt-3 d-md-flex justify-content-between align-items-start">
             <div class="mb-4">
-                <h4 class="fnt-16 fnt-md-18 lh-normal fnt-700 text-clr334 mb-2 mb-md-25">
+                <h4 class="fnt-16 fnt-md-18 lh-normal fw-b text-clr334 mb-2 mb-md-25">
                     {{ 'brand_profile' | translate }}
                 </h4>
                 <div class="fnt-12 fnt-md-14 lh-normal fnt-normal text-clr588">
@@ -22,16 +22,16 @@
         <div class="divider mb-4"></div>
         <div class="row mb-4 pb-md-3 pt-md-3">
             <div class="col-md-6 mb-3 mb-md-0">
-                <div class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                <div class="fnt-14 lh-normal fw-m text-clr334 mb-2">
                     {{ 'permalink' | translate }} - {{ 'customise_your_brand_profile_url' | translate
                     }}<span class="star">*</span>
                 </div>
-                <div class="fnt-14 lh-normal fnt-600 text-clrb1f">
+                <div class="fnt-14 lh-normal fw-m text-clrb1f">
                     {{ 'chosen_name_can_be_subject_to_availability' | translate }}.
                 </div>
             </div>
             <div class="col-md-6 d-flex flex-wrap align-items-center justify-content-lg-end">
-                <div class="fnt-14 lh-normal fnt-600 text-clr334 w-mob-100 mb-2 mb-lg-0 mr-lg-3">
+                <div class="fnt-14 lh-normal fw-m text-clr334 w-mob-100 mb-2 mb-lg-0 mr-lg-3">
                     {{ '' | roasterBrandLink }}
                 </div>
                 <div class="sewn-form-field slug-input mr-3 mr-md-2 mb-0">
@@ -54,7 +54,7 @@
             <div *ngFor="let page of pages; index as i" class="col-md-6 col-lg-4 mb-3 mb-md-4 mb-lg-45">
                 <div class="page-wrap small d-flex flex-column">
                     <p class="title-wrap text-clr334 mb-3 mb-md-25">{{ page.title | translate }}</p>
-                    <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-2 mb-md-4">
+                    <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-2 mb-md-4">
                         {{ page.desp | translate }}
                     </p>
                     <div class="flex-fill">

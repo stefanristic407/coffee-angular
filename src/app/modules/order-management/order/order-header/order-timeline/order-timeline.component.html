@@ -1,6 +1,6 @@
 <div class="in-order mt-3 br-4" *ngIf="!showTextBlock && !showMrTextBlock && order?.status !== OrderStatus.Rejected">
     <ng-container *ngIf="(isMobile$ | async) !== true; else mobileTimeline">
-        <h4 class="fnt-head fnt-700 fnt-24 text-clr334 mb-4 mb-md-2">
+        <h4 class="fnt-head fw-b fnt-24 text-clr334 mb-4 mb-md-2">
             {{ statusLabel }}
         </h4>
         <ng-container *ngTemplateOutlet="timeline"></ng-container>
@@ -24,7 +24,7 @@
                     <span class="d-block is-complete"></span>
                     <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                         <p
-                            class="order-status fnt-13 fnt-bold text-clr334 mt-md-2 mb-1"
+                            class="order-status fnt-13 fw-b text-clr334 mt-md-2 mb-1"
                             [class.text-muted]="index > currentPointIndex"
                         >
                             {{ point.label }}
@@ -39,7 +39,7 @@
                         </p>
                         <ng-template #statusInfo>
                             <p
-                                class="mb-0 fnt-14 fnt-sm-12 text-muted fnt-bold d-lg-block d-md-none d-sm-block"
+                                class="mb-0 fnt-14 fnt-sm-12 text-muted fw-b d-lg-block d-md-none d-sm-block"
                                 *ngIf="(index < 2 || index === 3) && getStatusAuthor(point) as statusAuthor"
                             >
                                 <ng-container *ngIf="index < 2 && statusAuthor.id">By : </ng-container>
@@ -49,7 +49,7 @@
                                     [name]="statusAuthor.name"
                                     [orgType]="statusAuthor.orgType"
                                     type="text"
-                                    class="fnt-14 lh-157 fnt-bold text-clr588"
+                                    class="fnt-14 lh-157 fw-b text-clr588"
                                 ></app-user-detail>
                             </p>
                             <p class="pt-1 fnt-12 d-lg-block d-md-none d-sm-block">
@@ -78,7 +78,7 @@
         <p-accordionTab #tab [selected]="true">
             <ng-template pTemplate="header">
                 <div class="d-flex justify-content-between align-items-center w-100 mb-4 mb-md-2">
-                    <span class="fnt-head fnt-700 fnt-18 text-clr334">{{ statusLabel }}</span>
+                    <span class="fnt-head fw-b fnt-18 text-clr334">{{ statusLabel }}</span>
                     <img class="p-1" src="assets/images/collapse-arrow.svg" *ngIf="!tab.selected" />
                     <img class="p-1" src="assets/images/expand-arrow.svg" *ngIf="tab.selected" />
                 </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="w-100 ml-md-3 d-flex flex-column flex-md-row justify-content-between">
                         <div class="d-flex flex-column">
-                            <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-head">
+                            <h4 class="fnt-md-26 fnt-sm-18 fw-b text-clr334 fnt-head">
                                 {{ 'received_on' | translate }} {{ receivedDate | date: 'd MMMM y' }}
                             </h4>
                             <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
@@ -148,7 +148,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between">
                 <div class="d-flex-column">
-                    <div class="text-clr334 fnt-head fnt-700 fnt-md-26 fnt-sm-18">Confirm Order</div>
+                    <div class="text-clr334 fnt-head fw-b fnt-md-26 fnt-sm-18">Confirm Order</div>
                     <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
                         Please confirm if you have recieved the shipment you have ordered.<br />
                         The order will be marked as complete then
@@ -221,7 +221,7 @@
                         /></span>
                     </div>
                     <div class="txt-block ml-2">
-                        <h4 class="fnt-18 fnt-md-28 fnt-700 text-black334 fnt-head">
+                        <h4 class="fnt-18 fnt-md-28 fw-b text-black334 fnt-head">
                             Received on {{ receivedDate | date: 'd MMMM y' }}
                         </h4>
                         <div class="fnt-12 fnt-md-16 text-clr5d pt-2">
@@ -265,7 +265,7 @@
                 </div>
                 <div class="w-100 ml-md-3 d-flex flex-column flex-md-row justify-content-between">
                     <div class="d-flex flex-column">
-                        <h4 class="fnt-md-26 fnt-sm-18 fnt-700 text-clr334 fnt-head">{{ 'rejected' | translate }}</h4>
+                        <h4 class="fnt-md-26 fnt-sm-18 fw-b text-clr334 fnt-head">{{ 'rejected' | translate }}</h4>
                         <div class="fnt-md-16 fnt-sm-12 text-clr5d pt-2">
                             Sorry! The order has been rejected by the estate due to certain reasons.<br />
                             Get in touch with the estate or browse other availabilities

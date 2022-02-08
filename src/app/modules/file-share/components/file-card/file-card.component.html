@@ -30,16 +30,16 @@
     <div class="bg-white p-2 p-md-25 d-flex justify-content-between align-items-center">
         <div class="col-8 px-0">
             <div
-                class="fnt-12 lh-normal fnt-600 text-clr334 mb-1 cursor-pointer ellipsis"
+                class="fnt-12 lh-normal fw-m text-clr334 mb-1 cursor-pointer ellipsis"
                 *ngIf="data.type == 'FOLDER'"
                 routerLink="/file-share/file-share-details/{{ data.id }}"
             >
                 {{ data.name }}
             </div>
-            <div class="fnt-12 lh-normal fnt-600 text-clr334 mb-1 ellipsis" *ngIf="data.type != 'FOLDER'">
+            <div class="fnt-12 lh-normal fw-m text-clr334 mb-1 ellipsis" *ngIf="data.type != 'FOLDER'">
                 {{ data.name }}
             </div>
-            <span class="fnt-12 lh-normal fnt-600 text-clr588">{{ data.type | titlecase }}</span>
+            <span class="fnt-12 lh-normal fw-m text-clr588">{{ data.type | titlecase }}</span>
         </div>
         <div class="">
             <a class="cursor-pointer d-none d-md-inline mr-25" (click)="fileShareSrv.downloadFile(data)">

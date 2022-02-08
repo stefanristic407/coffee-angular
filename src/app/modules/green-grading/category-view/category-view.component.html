@@ -32,13 +32,13 @@
         </div>
 
         <div class="d-flex flex-wrap align-items-center pt-5 pt-md-2 mb-2">
-            <label class="fnt-bold col-md-6 col-lg-4 p-0 mb-2 mb-md-0"
+            <label class="fw-b col-md-6 col-lg-4 p-0 mb-2 mb-md-0"
                 >{{ 'total_category' | translate }} {{ categoryIndex }} {{ 'defects' | translate | lowercase }} :</label
             >
             <div class="col-md-6 col-lg-8 p-0">
                 <input
                     type="number"
-                    class="category-value fnt-bold br-4 w-100"
+                    class="category-value fw-b br-4 w-100"
                     (focus)="$event.target.select()"
                     [readonly]="readonly"
                     [(ngModel)]="categoryDefects"

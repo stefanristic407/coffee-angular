@@ -27,10 +27,10 @@
             <a class="back-page" href="javascript:void(0);" (click)="onReturnOrder()"> </a>
 
             <div class="orderDiv">
-                <span *ngIf="!currentDisputeID" class="fnt-18 fnt-700 text-clr334 nowrap"
+                <span *ngIf="!currentDisputeID" class="fnt-18 fw-b text-clr334 nowrap"
                     >{{ 'order' | translate }} #{{ orderDetails?.id }}</span
                 >
-                <span *ngIf="currentDisputeID" class="fnt-18 fnt-700 text-clr334 nowrap"
+                <span *ngIf="currentDisputeID" class="fnt-18 fw-b text-clr334 nowrap"
                     >{{ 'ticket' | translate }} #{{ currentDisputeID }}</span
                 >
                 <span class="fnt-12 text-clr588">{{ orderDetails?.order_type }}</span>
@@ -70,7 +70,7 @@
                     <div id="popover-mobile-content">
                         <ul class="list-data custom-popover">
                             <li
-                                class="list-item fnt-14 fnt-600 text-clr588 border-none"
+                                class="list-item fnt-14 fw-m text-clr588 border-none"
                                 (click)="navigateAssignUser(); pop1.hide()"
                             >
                                 <a class="pointer-item"> {{ 'change_assigned_user' | translate }} </a>
@@ -90,10 +90,10 @@
         <div class="row m-0 p-3 headerDiv bg-white d-none d-md-flex">
             <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 no-gutters d-flex align-items-center p-0">
                 <div class="orderDiv pr-5">
-                    <span *ngIf="!currentDisputeID" class="fnt-18 fnt-bold-700 text-clr334 nowrap"
+                    <span *ngIf="!currentDisputeID" class="fnt-18 fw-b-700 text-clr334 nowrap"
                         >Order #{{ orderDetails?.id }}</span
                     >
-                    <span *ngIf="currentDisputeID" class="fnt-18 fnt-bold-700 text-clr334 nowrap"
+                    <span *ngIf="currentDisputeID" class="fnt-18 fw-b-700 text-clr334 nowrap"
                         >Ticket #{{ currentDisputeID }}</span
                     >
                     <span class="statusLable fnt-12">Order Status - {{ orderDetails?.status }}</span>
@@ -119,8 +119,8 @@
                 </div>
 
                 <div class="orderDiv pl-3">
-                    <p class="fnt-14 fnt-600 text-clr588 nowrap m-0">{{ 'type_of_order' | translate }}</p>
-                    <p class="fnt-14 fnt-bold text-clr334 m-0" style="margin-top: 2px !important">
+                    <p class="fnt-14 fw-m text-clr588 nowrap m-0">{{ 'type_of_order' | translate }}</p>
+                    <p class="fnt-14 fw-b text-clr334 m-0" style="margin-top: 2px !important">
                         {{ orderDetails?.order_type }}&nbsp;
                     </p>
                 </div>
@@ -143,16 +143,16 @@
         <div class="row m-0 bg-white floting-containerDiv position-absolute w-100">
             <div *ngIf="isView" class="order-ticket">
                 <div class="card-width" (click)="clickOrder()" [ngClass]="!currentDisputeID ? 'cardSelect' : ''">
-                    <div class="fnt-14 m-0 fnt-bold" [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label'">
+                    <div class="fnt-14 m-0 fw-b" [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label'">
                         {{ 'order' | translate }}
                     </div>
                     <div
-                        class="fnt-14 fnt-bold mb-2 mb-md-3"
+                        class="fnt-14 fw-b mb-2 mb-md-3"
                         [ngClass]="!currentDisputeID ? 'text-clr334' : 'primary-label text-clr588'"
                     >
                         #{{ orderDetails?.id }}
                     </div>
-                    <div class="primary-label fnt-bold fnt-12 mt-0 mb-0">
+                    <div class="primary-label fw-b fnt-12 mt-0 mb-0">
                         {{ orderDetails?.created_at | date: 'h:mm a' }}
                     </div>
                 </div>

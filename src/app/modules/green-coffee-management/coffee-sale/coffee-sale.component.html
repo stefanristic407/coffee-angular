@@ -6,13 +6,13 @@
                     <div class="d-md-none"><app-back-link (handleBack)="onCancel()"></app-back-link></div>
                     <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
                 </div>
-                <div class="fnt-16 fnt-md-18 fnt-bold">Order #{{ orderDetails?.id }}</div>
+                <div class="fnt-16 fnt-md-18 fw-b">Order #{{ orderDetails?.id }}</div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="bg-fa br-4 px-4 py-3">
                     <ng-container *ngIf="!showDropdown">
                         <p class="fnt-semi-bold text-clr588 mb-2">{{ 'current_status' | translate }}</p>
-                        <span class="fnt-bold">{{ statusLabel }}</span>
+                        <span class="fw-b">{{ statusLabel }}</span>
                         <span class="brown-cta float-right" (click)="showDropdown = true">{{
                             'edit_status' | translate
                         }}</span>
@@ -36,7 +36,7 @@
 
         <section *ngIf="orderDetails" class="border-main br-4 pt-3 pt-md-4 pb-3 pb-md-0 px-3 px-md-4 mt-4">
             <div class="mb-4">
-                <div class="fnt-16 fnt-md-18 fnt-bold mb-2">{{ 'green_coffee_details' | translate }}</div>
+                <div class="fnt-16 fnt-md-18 fw-b mb-2">{{ 'green_coffee_details' | translate }}</div>
                 <div>{{ 'green_coffee_details_desp' | translate }}</div>
             </div>
             <p-table
@@ -84,7 +84,7 @@
 
         <section class="border-main br-4 p-3 p-md-4 mt-4">
             <div class="mb-4">
-                <div class="fnt-16 fnt-md-18 fnt-bold mb-2">{{ 'sale_information' | translate }}</div>
+                <div class="fnt-16 fnt-md-18 fw-b mb-2">{{ 'sale_information' | translate }}</div>
                 <div>{{ 'sale_information_desp' | translate }}</div>
             </div>
 
@@ -203,7 +203,7 @@
 
         <section class="border-main br-4 p-3 p-md-4 mt-4">
             <div class="mb-4">
-                <div class="fnt-16 fnt-md-18 fnt-bold mb-2">{{ 'sample_information' | translate }}</div>
+                <div class="fnt-16 fnt-md-18 fw-b mb-2">{{ 'sample_information' | translate }}</div>
                 <div class="row v-gutter-16">
                     <div class="col-md-8">{{ 'sample_information_note' | translate }}</div>
                     <div class="col-md-4 text-right">

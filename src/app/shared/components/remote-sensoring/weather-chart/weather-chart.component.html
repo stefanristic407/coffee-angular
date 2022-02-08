@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12 mb-3 mb-md-45">
-        <div class="bg-fa br-4 fnt-14 fnt-md-16 fnt-600 text-clr5d p-3 mt-4 mt-4">
+        <div class="bg-fa br-4 fnt-14 fnt-md-16 fw-m text-clr5d p-3 mt-4 mt-4">
             <span>
                 Get hourly forecast and historic data of parameters like temperature, wind, rainfall, cloudiness,
                 rainfall and humidity for your ordered lot.
@@ -11,13 +11,13 @@
         <div class="d-inline-flex mr-5 mb-3 mb-md-0" *ngIf="showLegend">
             <div *ngFor="let item of legends; let i = index" class="legend-wrap d-inline-flex align-items-center">
                 <div [style.background-color]="palette[i]"></div>
-                <span class="fnt-12 fnt-md-16 fnt-500 text-clr334">
+                <span class="fnt-12 fnt-md-16 fw-m text-clr334">
                     {{ item.label }}
                 </span>
             </div>
         </div>
         <ng-container *ngIf="periods[selPeriod].period === 'daily'">
-            <span class="fnt-14 fnt-bold text-clr588 mr-3 d-none d-md-block">Selected day</span>
+            <span class="fnt-14 fw-b text-clr588 mr-3 d-none d-md-block">Selected day</span>
             <p-calendar
                 [(ngModel)]="selectedDate"
                 (onSelect)="changeDate()"
@@ -31,7 +31,7 @@
             ></p-calendar>
         </ng-container>
         <ng-container *ngIf="periods[selPeriod].period === 'range'">
-            <span class="fnt-14 fnt-bold text-clr588 mr-3 d-none d-md-block">Selected dates</span>
+            <span class="fnt-14 fw-b text-clr588 mr-3 d-none d-md-block">Selected dates</span>
             <p-calendar
                 [(ngModel)]="startDate"
                 (onSelect)="changeDate()"

@@ -6,16 +6,16 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="border-main br-2 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-3">
                             Banner<span class="star">*</span>
                         </h4>
-                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                        <p class="fnt-14 lh-normal fw-m text-clr334 mb-2">
                             Image/Video banner<span class="star">*</span>
                         </p>
-                        <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-2">
+                        <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-2">
                             {{ 'upload_banner_cover_about_your_roastery' | translate }}
                         </p>
-                        <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
+                        <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field">
                             <app-brand-uploader
@@ -46,8 +46,8 @@
                     </div>
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Intro</h4>
-                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Give yourself a small intro!</p>
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-2 mb-md-3">Intro</h4>
+                        <p class="fnt-14 lh-normal fw-m text-clr334 mb-4">Give yourself a small intro!</p>
 
                         <div class="w-100 sewn-form-field">
                             <label>
@@ -91,12 +91,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-0">
-                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                            <p class="fnt-14 lh-normal fw-m text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
-                                Size - 500 x 540 px
-                            </p>
+                            <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-3 mb-md-4">Size - 500 x 540 px</p>
                             <app-brand-uploader
                                 formControlName="intro_file"
                                 [width]="500"
@@ -109,10 +107,10 @@
                     </div>
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-2 mb-md-3">
                             {{ 'your_work_in_sustainability' | translate }}
                         </h4>
-                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
+                        <p class="fnt-14 lh-normal fw-m text-clr334 mb-4">
                             Give a brief intro about your sustainability practises
                         </p>
 
@@ -155,7 +153,7 @@
 
                         <ng-container *ngFor="let i of [1, 2, 3, 4]">
                             <div class="divider my-4"></div>
-                            <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-4">
+                            <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-4">
                                 Your sustainability pratice #{{ i }}
                             </h4>
 
@@ -217,10 +215,10 @@
                             </div>
 
                             <div class="w-100 sewn-form-field mb-0">
-                                <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                                <p class="fnt-14 lh-normal fw-m text-clr334 mb-2">
                                     Upload {{ i === 3 ? '2 Image/Video' : 'an Image/Video' }}<span class="star">*</span>
                                 </p>
-                                <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
+                                <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-3 mb-md-4">
                                     Size - {{ i === 3 ? '282 x 460' : '389 x 417' }} px
                                 </p>
                                 <app-brand-uploader
@@ -240,7 +238,7 @@
                     </div>
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-4">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-4">
                             {{ 'product_labels' | translate }}
                         </h4>
 
@@ -271,13 +269,11 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-0">
-                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                            <p class="fnt-14 lh-normal fw-m text-clr334 mb-2">
                                 {{ 'upload' | translate }} 4 {{ 'label' | translate }} {{ 'icons' | translate
                                 }}<span class="star">*</span>
                             </p>
-                            <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
-                                Size - 100 x 100 px
-                            </p>
+                            <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-3 mb-md-4">Size - 100 x 100 px</p>
                             <app-brand-uploader
                                 formControlName="product_label_icon"
                                 [count]="4"

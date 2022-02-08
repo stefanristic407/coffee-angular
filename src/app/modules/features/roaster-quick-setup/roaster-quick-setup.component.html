@@ -7,7 +7,7 @@
         <section class="pt-4 pt-md-5">
             <div class="row">
                 <div class="col-12">
-                    <div class="fnt-18 fnt-bold mb-2">
+                    <div class="fnt-18 fw-b mb-2">
                         Invite
                         {{
                             orgType === OrgType.MICRO_ROASTER
@@ -25,7 +25,7 @@
                     <form class="form-container">
                         <div *ngFor="let invite of inviteFormArray.controls; let i = index">
                             <div class="d-flex justify-content-between align-items-center d-md-none mb-3">
-                                <h4 class="fnt-16 fnt-md-18 lh-normal fnt-bold text-clr334 mb-0">
+                                <h4 class="fnt-16 fnt-md-18 lh-normal fw-b text-clr334 mb-0">
                                     {{ 'invite' | translate }} {{ i + 1 }}
                                 </h4>
                                 <div *ngIf="i">
@@ -122,11 +122,11 @@
             <div class="text-center success-wrap">
                 <img class="mail-img" src="assets/images/mail.svg" alt="mail" />
                 <h4 class="fnt-32 fnt-head text-clr334 mt-3 mt-md-4 mb-3">{{ 'successful' | translate }}!</h4>
-                <p class="fnt-14 fnt-400 text-clr588 mb-3">
+                <p class="fnt-14 fw-n text-clr588 mb-3">
                     <span class="d-none d-md-block">{{ 'invitation_sent' | translate }}</span>
                     <span class="d-md-none">{{ 'invitation_sent_to' | translate }}</span>
                 </p>
-                <p class="fnt-700 text-clr334 mb-45 mb-md-5">
+                <p class="fw-b text-clr334 mb-45 mb-md-5">
                     {{ userInvitesArray.slice(0, 3).join(', ') }}
                     {{ userInvitesArray.length > 3 ? ' and ' + (userInvitesArray.length - 3) + ' others' : '' }}
                 </p>

@@ -7,7 +7,7 @@
                         <label class="fnt-12 fnt-md-14" for="founded_in">
                             {{ 'founded_in' | translate }}
                         </label>
-                        <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                        <p class="fnt-14 fw-m text-clr334 mb-1">
                             {{ profileCreationService.organizationProfile?.founded_on }}
                         </p>
                     </div>
@@ -16,7 +16,7 @@
                         <label class="fnt-12 fnt-md-14" for="owner_name">
                             {{ 'owner_name' | translate }}
                         </label>
-                        <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                        <p class="fnt-14 fw-m text-clr334 mb-1">
                             {{ profileCreationService.organizationProfile?.owner_name }}
                         </p>
                     </div>
@@ -27,7 +27,7 @@
                 >
                     <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
                         <label class="fnt-12 fnt-md-14" for="summary">Company Summary </label>
-                        <p class="fnt-14 fnt-600 text-clr334">
+                        <p class="fnt-14 fw-m text-clr334">
                             {{ profileCreationService.organizationProfile?.description }}
                         </p>
                     </div>
@@ -38,21 +38,21 @@
                 <hr class="mt-2" />
                 <div class="row border-md-main border-md-none br-4 mt-md-45 mb-4 mb-md-45 m-0 p-0 p-md-0">
                     <div class="col-9 mb-3 mb-md-45 p-0">
-                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">Company details</p>
+                        <p class="fnt-18 fw-b text-clr334 w-100 mb-1">Company details</p>
                     </div>
 
                     <!-- save mode company details -->
                     <div class="col-12 p-0">
                         <div class="border-main pl-3 pr-3 pl-md-4 pr-md-4">
                             <div class="border-bottom pt-3 pb-3 d-flex justify-content-between">
-                                <p class="fnt-14 m-0 fnt-600 text-clr588">VAT number</p>
-                                <p class="fnt-14 m-0 fnt-600 text-clr276">
+                                <p class="fnt-14 m-0 fw-m text-clr588">VAT number</p>
+                                <p class="fnt-14 m-0 fw-m text-clr276">
                                     {{ profileCreationService.organizationProfile?.vat_number }}
                                 </p>
                             </div>
                             <div class="pt-3 pb-3 d-flex justify-content-between">
-                                <p class="fnt-14 m-0 fnt-600 text-clr588">Customer ID</p>
-                                <p class="fnt-14 m-0 fnt-600 text-clr276">
+                                <p class="fnt-14 m-0 fw-m text-clr588">Customer ID</p>
+                                <p class="fnt-14 m-0 fw-m text-clr276">
                                     {{ profileCreationService.organizationProfile?.registration_id }}
                                 </p>
                             </div>
@@ -66,8 +66,8 @@
                 <!-- partner -->
                 <div class="row mt-md-45 mb-4 mb-md-45">
                     <div class="col-12">
-                        <p class="fnt-18 fnt-bold text-clr334 w-100 mt-2 mt-md-0 mb-1">
-                            Your partners <span class="fnt-14 fnt-600 text-clr588">(optional)</span>
+                        <p class="fnt-18 fw-b text-clr334 w-100 mt-2 mt-md-0 mb-1">
+                            Your partners <span class="fnt-14 fw-m text-clr588">(optional)</span>
                         </p>
                     </div>
                 </div>
@@ -80,10 +80,10 @@
                                     <img [src]="partnerImageUrl" class="partner-image" />
                                 </div>
                                 <div class="partner-meta-container">
-                                    <p class="fnt-16 fnt-bold text-clr334 mb-2">
+                                    <p class="fnt-16 fw-b text-clr334 mb-2">
                                         {{ partner.name }}
                                     </p>
-                                    <p class="fnt-14 fnt-600 text-clr334 mb-0">
+                                    <p class="fnt-14 fw-m text-clr334 mb-0">
                                         {{ partner.type }}
                                     </p>
                                 </div>
@@ -99,8 +99,8 @@
 
                 <div class="d-block">
                     <div class="employer mt-4">
-                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
+                        <p class="fnt-18 fw-b text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
+                        <p class="fnt-14 fw-m text-clr588 w-100 m-0 mb-4">
                             {{ 'list_down_top_employees' | translate }}
                         </p>
                         <div class="row p-0">
@@ -116,10 +116,10 @@
                                         />
                                     </div>
                                     <div class="profile-des">
-                                        <p class="fnt-16 fnt-bold mb-1 mt-3 text-clr334">
+                                        <p class="fnt-16 fw-b mb-1 mt-3 text-clr334">
                                             {{ contact.name | titlecase }}
                                         </p>
-                                        <p class="fnt-14 fnt-500 text-clr588 mb-0">
+                                        <p class="fnt-14 fw-m text-clr588 mb-0">
                                             {{ contact.roles[0] || '-' }}
                                         </p>
                                     </div>

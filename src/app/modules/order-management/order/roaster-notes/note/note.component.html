@@ -4,10 +4,10 @@
     </div>
     <div class="d-flex flex-column">
         <div class="d-flex">
-            <div class="fnt-14 text-clr334 fnt-600">
+            <div class="fnt-14 text-clr334 fw-m">
                 {{ 'posted_by' | translate }} {{ note?.first_name }} {{ note?.last_name }}
             </div>
-            <div class="fnt-14 text-clr334 fnt-600 ml-2">
+            <div class="fnt-14 text-clr334 fw-m ml-2">
                 {{ note?.created_at | date: 'dd MMMM yyyy' }}
             </div>
         </div>

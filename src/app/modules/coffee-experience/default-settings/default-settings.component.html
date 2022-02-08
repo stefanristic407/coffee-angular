@@ -14,7 +14,7 @@
                                 <p-breadcrumb [model]="items"></p-breadcrumb>
                             </div>
                             <div class="mb-4 d-block d-md-none">
-                                <a class="back-page fnt-500" (click)="location.back()"> {{ 'back' | translate }}</a>
+                                <a class="back-page fw-m" (click)="location.back()"> {{ 'back' | translate }}</a>
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                                                     />
                                                     <div
                                                         class="no-editable-text"
-                                                        [ngClass]="isEditableMode ? 'fnt-500' : 'text-break'"
+                                                        [ngClass]="isEditableMode ? 'fw-m' : 'text-break'"
                                                         *ngIf="!isEditableMode"
                                                     >
                                                         {{ defaultDetails.website }}
@@ -183,7 +183,7 @@
                                         <div
                                             class="input-head input-head--uplaod d-flex align-items-center justify-content-between"
                                         >
-                                            <h5 class="fnt-14 fnt-700 text-clr334 mb-0">
+                                            <h5 class="fnt-14 fw-b text-clr334 mb-0">
                                                 {{ 'ro_certificates' | translate }}
                                             </h5>
                                         </div>
@@ -194,15 +194,15 @@
                                                     class="upload-file-results__item d-flex justify-content-between align-items-center"
                                                 >
                                                     <div class="pr-3">
-                                                        <h4 class="mb-0 fnt-14 fnt-700 text-clr334 mb-1">
+                                                        <h4 class="mb-0 fnt-14 fw-b text-clr334 mb-1">
                                                             {{ item.certificate_type_name }}
                                                         </h4>
-                                                        <span class="d-block fnt-12 fnt-600 text-clr588">{{
+                                                        <span class="d-block fnt-12 fw-m text-clr588">{{
                                                             item.year
                                                         }}</span>
                                                     </div>
                                                     <div class="d-none d-md-flex">
-                                                        <button class="fnt-14 fnt-700" (click)="viewCertificate(item)">
+                                                        <button class="fnt-14 fw-b" (click)="viewCertificate(item)">
                                                             {{ 'view' | titlecase | translate }}
                                                         </button>
                                                     </div>
@@ -247,7 +247,7 @@
                                                         />
                                                         <div
                                                             class="no-editable-text"
-                                                            [ngClass]="isEditableMode ? 'fnt-500' : 'text-break'"
+                                                            [ngClass]="isEditableMode ? 'fw-m' : 'text-break'"
                                                             *ngIf="!isEditableMode"
                                                         >
                                                             {{ defaultDetails.website }}
@@ -380,7 +380,7 @@
                                                                 >
                                                                     <img src="assets/images/upload-black.svg" />
                                                                     <span
-                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fnt-500 text-clr334"
+                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fw-m text-clr334"
                                                                     >
                                                                         {{ 'ro_upload_an_image' | translate }}
                                                                     </span>
@@ -501,7 +501,7 @@
                                                                 >
                                                                     <img src="assets/images/upload-black.svg" />
                                                                     <span
-                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fnt-500 text-clr334"
+                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fw-m text-clr334"
                                                                         >{{ 'ro_upload_an_video' | translate }}</span
                                                                     >
                                                                     <p
@@ -569,7 +569,7 @@
                                                                 >
                                                                     <img src="assets/images/upload-black.svg" />
                                                                     <span
-                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fnt-500 text-clr334"
+                                                                        class="mb-0 ml-2 d-inline-block fnt-14 fw-m text-clr334"
                                                                     >
                                                                         {{ 'marketing_material' | translate }}
                                                                     </span>
@@ -599,15 +599,15 @@
                                     >
                                         <div class="roastery-fields tab">
                                             <div class="tab-width mb-4 mb-md-0">
-                                                <h4 class="fnt-16 fnt-700 text-clr334 tab-bottom-margin">
+                                                <h4 class="fnt-16 fw-b text-clr334 tab-bottom-margin">
                                                     {{ 'share_your_story' | translate }}
                                                 </h4>
                                                 <div class="copy-link">
-                                                    <label class="fnt-14 fnt-600 text-clr588">
+                                                    <label class="fnt-14 fw-m text-clr588">
                                                         {{ 'share_story_text' | translate }}
                                                     </label>
                                                     <div class="link-wrapper">
-                                                        <span class="fnt-14 fnt-600 flex-1 link-text">{{
+                                                        <span class="fnt-14 fw-m flex-1 link-text">{{
                                                             coffeeExperienceLink?.coffee_story_url
                                                         }}</span>
                                                         <button
@@ -623,7 +623,7 @@
                                             <div class="tab-width-right">
                                                 <div class="scan-qr-link text-center">
                                                     <p
-                                                        class="text-md-left fnt-14 fnt-bold text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
+                                                        class="text-md-left fnt-14 fw-b text-clr334 mb-3 mb-lg-4 tab-bottom-margin"
                                                     >
                                                         {{ 'scan_download_text' | translate }}
                                                     </p>

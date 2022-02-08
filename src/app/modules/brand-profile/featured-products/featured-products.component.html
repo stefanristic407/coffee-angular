@@ -16,11 +16,11 @@
     </div>
     <div class="d-flex justify-content-between mb-4 mb-md-45">
         <div>
-            <div class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-2">Select the products you want to feature</div>
+            <div class="fnt-16 fnt-md-18 fw-b text-clr334 mb-2">Select the products you want to feature</div>
             <div class="fnt-14 fnt-normal text-clr588">Select upto 4 products</div>
         </div>
         <div>
-            <span class="fnt-bold text-clr55c mr-3">{{ productIds.length }} selected</span>
+            <span class="fw-b text-clr55c mr-3">{{ productIds.length }} selected</span>
             <button class="btn-raised" (click)="save()">Save</button>
         </div>
     </div>
@@ -58,8 +58,8 @@
                             </div>
                             <div *ngIf="!item.flavours" class="no-flavours">NA</div>
                             <div class="text-clr334 ellipsis mb-4">{{ item.name }}</div>
-                            <h3 class="fnt-20 fnt-bold text-clr334 mb-1">{{ item.origin | country }}</h3>
-                            <div class="fnt-bold text-clr588">
+                            <h3 class="fnt-20 fw-b text-clr334 mb-1">{{ item.origin | country }}</h3>
+                            <div class="fw-b text-clr588">
                                 <span>{{ item.price | number: '1.2-4' }} {{ item.price_unit }}</span>
                                 <span class="v-divider mx-2"></span>
                                 <span>{{ item.weight }} {{ item.weight_unit }} bag</span>

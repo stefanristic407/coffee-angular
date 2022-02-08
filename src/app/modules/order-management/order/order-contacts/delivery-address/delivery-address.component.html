@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-between">
-    <div class="fnt-bold text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
+    <div class="fw-b text-clr334" [class.fnt-18]="!orderConfirmation" [class.fnt-14]="orderConfirmation">
         {{ (order?.is_fully_serviced_delivery ? 'pickup_address' : 'delivery_address') | translate }}
     </div>
     <div
-        class="fnt-bold text-clr55c cursor-pointer"
+        class="fw-b text-clr55c cursor-pointer"
         [routerLink]="['/orders', orgType, order?.id, 'edit']"
         *ngIf="order && orgType === OrgType.ESTATE && !order.is_fully_serviced_delivery && isNotShipped"
     >
@@ -24,7 +24,7 @@
 </div>
 
 <ng-template #addressText let-address="address">
-    <div class="d-flex mt-1 text-clr588 fnt-14 fnt-500" *ngIf="address">
+    <div class="d-flex mt-1 text-clr588 fnt-14 fw-m" *ngIf="address">
         {{ address.address_line1 }}, {{ address.address_line2 }}, {{ address.country | country }}, {{ address.state }}
         {{ address.city }}, {{ address.zipcode }}
     </div>

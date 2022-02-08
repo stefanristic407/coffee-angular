@@ -7,7 +7,7 @@
     <div class="d-flex flex-wrap justify-content-between">
         <span class="request-title-text">{{ 'generate_report' | translate }}</span>
     </div>
-    <p class="fnt-14 fnt-normal fnt-400 text-clr588 mt-4 mt-md-2 mt-lg-1 mb-0 d-none d-md-block">
+    <p class="fnt-14 fnt-normal fw-n text-clr588 mt-4 mt-md-2 mt-lg-1 mb-0 d-none d-md-block">
         {{ 'select_details' | translate }}
     </p>
     <div class="mt-2 mt-md-4">
@@ -30,16 +30,16 @@
                         {{ 'cupping_report' | translate }} {{ singleCuppingDetails.version }}.0
                     </label>
                 </div>
-                <p class="fnt-14 fnt-400 text-clr588 mb-0 pt-md-1 generate_date pl-0">
+                <p class="fnt-14 fw-n text-clr588 mb-0 pt-md-1 generate_date pl-0">
                     {{ 'generated_on' | translate }}:
                     {{ singleCuppingDetails.generated_on | date: 'dd/MM/y' }}
                 </p>
             </div>
             <div class="pb-3 pb-md-0">
-                <p class="fnt-24 fnt-md-32 fnt-bold text-clr334 pb-1 mb-0 lh-normal">
+                <p class="fnt-24 fnt-md-32 fw-b text-clr334 pb-1 mb-0 lh-normal">
                     {{ singleCuppingDetails.average_score }}
                 </p>
-                <p class="fnt-16 fnt-md-18 fnt-600 text-clr588 mb-0 lh-normal">
+                <p class="fnt-16 fnt-md-18 fw-m text-clr588 mb-0 lh-normal">
                     {{ 'average_score' | translate }}
                 </p>
             </div>
@@ -48,10 +48,7 @@
         <p class="fnt-14 fnt-normal text-clr588 mb-3 pt-3 pt-md-2 md-mb-0">
             {{ 'selected_evaluators' | translate }}
         </p>
-        <p
-            class="fnt-14 fnt-600 text-clr334 my-3"
-            *ngFor="let eval of evaluatorArray[selectedCuppingId]; let j = index"
-        >
+        <p class="fnt-14 fw-m text-clr334 my-3" *ngFor="let eval of evaluatorArray[selectedCuppingId]; let j = index">
             {{ j + 1 }}. {{ eval.evaluator_name }}
             <span *ngIf="eval.is_primary == true">(You)</span>
             /{{ eval.evaluator_type }} ({{ eval.final_score }})
@@ -76,16 +73,16 @@
                                     {{ 'cupping_report' | translate }} {{ item.version }}.0
                                 </label>
                             </div>
-                            <p class="fnt-14 fnt-400 text-clr588 mb-0 generate_date">
+                            <p class="fnt-14 fw-n text-clr588 mb-0 generate_date">
                                 {{ 'generated_on' | translate }}:
                                 {{ item.generated_on | date: 'dd/MM/y' }}
                             </p>
                         </div>
                         <div class="pl-3 pl-md-0 pb-3 pb-md-0">
-                            <p class="fnt-24 fnt-md-32 fnt-bold text-clr334 pb-1 mb-0 lh-normal">
+                            <p class="fnt-24 fnt-md-32 fw-b text-clr334 pb-1 mb-0 lh-normal">
                                 {{ item.average_score }}
                             </p>
-                            <p class="fnt-16 fnt-md-18 fnt-600 text-clr588 mb-0 lh-normal">
+                            <p class="fnt-16 fnt-md-18 fw-m text-clr588 mb-0 lh-normal">
                                 {{ 'average_score' | translate }}
                             </p>
                         </div>
@@ -93,13 +90,10 @@
                     </div>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <p class="fnt-14 fnt-600 text-clr588 mb-3 md-mb-0">
+                    <p class="fnt-14 fw-m text-clr588 mb-3 md-mb-0">
                         {{ 'selected_evaluators' | translate }}
                     </p>
-                    <p
-                        class="fnt-14 fnt-600 text-clr334 my-3"
-                        *ngFor="let eval of evaluatorArray[item.id]; let j = index"
-                    >
+                    <p class="fnt-14 fw-m text-clr334 my-3" *ngFor="let eval of evaluatorArray[item.id]; let j = index">
                         {{ j + 1 }}. {{ eval.evaluator_name }}
                         <span *ngIf="eval.is_primary == true">(You)</span>
                         /{{ eval.evaluator_type }} ({{ eval.final_score }})

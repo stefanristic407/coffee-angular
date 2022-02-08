@@ -77,7 +77,7 @@
                         <div class="col-12 pl-2" *ngIf="selectedTab.index == 1">
                             <div class="row no-gutters m-0" *ngIf="saveshippingmode">
                                 <div class="pls-note col-12">
-                                    <p class="fnt-14 fnt-400 text-clr334 m-0">
+                                    <p class="fnt-14 fw-n text-clr334 m-0">
                                         Please note: The shipping price & estimated delivery time you set will be
                                         applicable to all green coffee and roasted coffee you sell on the platform.
                                     </p>
@@ -108,7 +108,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-12 col-md-6 sewn-form-field">
-                                                    <label class="fnt-14 fnt-600 text-clr334"
+                                                    <label class="fnt-14 fw-m text-clr334"
                                                         >Shipping price<span class="star">*</span></label
                                                     >
                                                     <div class="p-inputgroup custom-addon">
@@ -178,7 +178,7 @@
                                             <div class="col-12 p-0">
                                                 <button
                                                     type="submit"
-                                                    class="fnt-14 fnt-700 btn btn-raised pull-right"
+                                                    class="fnt-14 fw-b btn btn-raised pull-right"
                                                     (click)="saveShippingInfo()"
                                                     [disabled]="resetButtonValue === 'Saving'"
                                                 >
@@ -199,7 +199,7 @@
 
                             <div class="row no-gutters m-0" *ngIf="editshippingmode && shippData != null">
                                 <div class="pls-note col-12">
-                                    <p class="fnt-14 fnt-400 text-clr334 m-0">
+                                    <p class="fnt-14 fw-n text-clr334 m-0">
                                         The shipping price & estimated delivery time you set will be applicable to all
                                         green coffee and roasted coffee you sell on the platform.
                                     </p>
@@ -244,7 +244,7 @@
                                 <div class="col-12 mt-3 p-0">
                                     <button
                                         type="button"
-                                        class="fnt-14 fnt-700 btn btn-raised pull-right"
+                                        class="fnt-14 fw-b btn btn-raised pull-right"
                                         (click)="editShippingInfo()"
                                     >
                                         {{ 'edit' | translate }}
@@ -303,7 +303,7 @@
             <div class="pt-4" *ngIf="selectedMobileTab == 'Shipment'">
                 <div class="row no-gutters" *ngIf="saveshippingmode">
                     <div class="pls-note col-12">
-                        <p class="fnt-14 fnt-400 text-clr334 m-0">
+                        <p class="fnt-14 fw-n text-clr334 m-0">
                             The shipping price & estimated delivery time you set will be applicable to all green coffee
                             and roasted coffee you sell on the platform.
                         </p>
@@ -313,7 +313,7 @@
                             <div class="Onboard-rows__inputs">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 sewn-form-field pr-md-3">
-                                        <label class="fnt-14 fnt-600 text-clr334">Shipping type *</label>
+                                        <label class="fnt-14 fw-m text-clr334">Shipping type *</label>
                                         <input
                                             type="text"
                                             placeholder="Please enter shipping name"
@@ -386,7 +386,7 @@
                                 <div class="row no-gutters d-sm-block d-md-none">
                                     <button
                                         type="submit"
-                                        class="col-12 fnt-14 fnt-700 btn btn-raised"
+                                        class="col-12 fnt-14 fw-b btn btn-raised"
                                         (click)="saveShippingInfo()"
                                         [disabled]="detailsForm.invalid || resetButtonValue === 'Saving'"
                                     >
@@ -404,7 +404,7 @@
                 </div>
                 <div class="row no-gutters" *ngIf="editshippingmode && shippData != null">
                     <div class="pls-note col-12">
-                        <p class="fnt-14 fnt-400 text-clr334 m-0">
+                        <p class="fnt-14 fw-n text-clr334 m-0">
                             Please note: The shipping price & estimated delivery time you set will be applicable to all
                             green coffee and roasted coffee you sell on the platform.
                         </p>
@@ -441,7 +441,7 @@
                         </table>
                     </div>
                     <div class="col-12 p-0 d-sm-block d-md-none mt-3">
-                        <button type="button" class="col-12 fnt-14 fnt-700 btn btn-raised" (click)="editShippingInfo()">
+                        <button type="button" class="col-12 fnt-14 fw-b btn btn-raised" (click)="editShippingInfo()">
                             {{ 'edit' | translate }}
                         </button>
                     </div>

@@ -1,5 +1,5 @@
 <ng-container *ngIf="!refNumber || editMode; else refNoInfo">
-    <div class="fnt-14 fnt-600 text-clr334">
+    <div class="fnt-14 fw-m text-clr334">
         {{ 'create_order_reference_number' | translate }}
     </div>
     <div class="d-flex mt-4">
@@ -20,15 +20,15 @@
         <div class="d-flex justify-content-between border-bottom-dashed pb-3">
             <div>
                 <img width="20" height="20" src="assets/images/timeline-check-active.svg" />
-                <span class="ml-3 fnt-14 fnt-bold text-clr334">{{ 'ref_no_created' | translate }}!</span>
+                <span class="ml-3 fnt-14 fw-b text-clr334">{{ 'ref_no_created' | translate }}!</span>
             </div>
             <div class="navigation-link" (click)="editMode = true">
                 {{ 'edit' | translate }}
             </div>
         </div>
         <div class="d-flex pt-3">
-            <div class="w-50 fnt-500 text-clr588">{{ 'order_reference_number' | translate }} :</div>
-            <div class="w-50 fnt-bold text-clr334">{{ refNumber }}</div>
+            <div class="w-50 fw-m text-clr588">{{ 'order_reference_number' | translate }} :</div>
+            <div class="w-50 fw-b text-clr334">{{ refNumber }}</div>
         </div>
     </div>
 </ng-template>

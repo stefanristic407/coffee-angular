@@ -1,10 +1,10 @@
 <div class="col-lg-8 col-md px-0">
     <div class="d-md-block d-none">
         <div class="d-flex justify-content-between">
-            <h1 *ngIf="pageDesc === 'my-posts'" class="fnt-24 fnt-bold text-clr334 mb-0 mb-4">
+            <h1 *ngIf="pageDesc === 'my-posts'" class="fnt-24 fw-b text-clr334 mb-0 mb-4">
                 {{ 'my_posts' | translate }}
             </h1>
-            <h1 *ngIf="pageDesc === 'saved-posts'" class="fnt-24 fnt-bold text-clr334 mb-0 mb-4">
+            <h1 *ngIf="pageDesc === 'saved-posts'" class="fnt-24 fw-b text-clr334 mb-0 mb-4">
                 {{ 'saved_answers' | translate }}
             </h1>
             <div>
@@ -73,7 +73,7 @@
                             ></app-forum-menu>
                         </div>
                     </div>
-                    <div class="mb-4 fnt-md-18 fnt-16 fnt-bold text-clr24 ml-md-5" [innerHTML]="answer?.question"></div>
+                    <div class="mb-4 fnt-md-18 fnt-16 fw-b text-clr24 ml-md-5" [innerHTML]="answer?.question"></div>
                     <div class="border-main inner-bg br-4 p-md-4 p-3 mb-3">
                         <div class="d-flex">
                             <div class="mr-md-25 mr-1">
@@ -93,15 +93,12 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2 w-100">
                                 <div class="d-flex">
-                                    <div
-                                        *ngIf="pageDesc === 'my-posts'"
-                                        class="text-clr334 fnt-600 fnt-14 mr-md-3 mr-1"
-                                    >
+                                    <div *ngIf="pageDesc === 'my-posts'" class="text-clr334 fw-m fnt-14 mr-md-3 mr-1">
                                         {{ 'your_answer' | translate }}
                                     </div>
                                     <div
                                         *ngIf="pageDesc === 'saved-posts'"
-                                        class="text-clr334 fnt-600 fnt-14 mr-md-3 mr-1"
+                                        class="text-clr334 fw-m fnt-14 mr-md-3 mr-1"
                                     >
                                         {{ 'saved_answer' | translate }}
                                     </div>
@@ -177,7 +174,7 @@
                             [queryParams]="{ isMyAnswer: true }"
                             >{{ 'read_complete_answer' | translate }}</a
                         >
-                        <div *ngIf="answer?.question_state === 'DELETED'" class="fnt-bold fnt-14 text-clr334">
+                        <div *ngIf="answer?.question_state === 'DELETED'" class="fw-b fnt-14 text-clr334">
                             {{ 'note' | translate }}: {{ 'the_author_delete' | translate }}
                         </div>
                     </div>

@@ -10,10 +10,10 @@
                 ></app-category-list>
             </div>
             <div class="pr-md-0 px-0">
-                <h1 class="bg-transparent fnt-bold main-heading mb-2 mb-md-3 mt-25 mt-md-4 text-break text-clr334">
+                <h1 class="bg-transparent fw-b main-heading mb-2 mb-md-3 mt-25 mt-md-4 text-break text-clr334">
                     {{ detailsData?.title }}
                 </h1>
-                <p class="fnt-16 fnt-md-20 fnt-600 text-clr334 text-md-center px-0 px-lg-5">
+                <p class="fnt-16 fnt-md-20 fw-m text-clr334 text-md-center px-0 px-lg-5">
                     {{ detailsData?.subtitle }}
                 </p>
             </div>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="articles-answer w-100 pt-3 pb-4">
                             <div>
-                                <p class="fnt-16 fnt-bold text-clr334 mb-35">
+                                <p class="fnt-16 fw-b text-clr334 mb-35">
                                     {{ 'about_the_author' | translate }}
                                 </p>
                                 <div class="d-flex">
@@ -146,11 +146,11 @@
                                                     stickySecData?.organisation_type ||
                                                     stickySecData?.organization_type
                                             }"
-                                            class="fnt-14 fnt-bold text-clr334 cursor-point text-underline mb-2"
+                                            class="fnt-14 fw-b text-clr334 cursor-point text-underline mb-2"
                                         >
                                             {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
                                         </p>
-                                        <p class="fnt-14 fnt-600 text-clr334 text-justify">
+                                        <p class="fnt-14 fw-m text-clr334 text-justify">
                                             {{ stickySecData?.about_me }}
                                         </p>
                                     </div>
@@ -192,12 +192,12 @@
                             <div class="d-flex justify-content-between mb-4">
                                 <div class="d-flex">
                                     <img src="assets/images/noun-questions.svg" alt="file-imag" />
-                                    <p class="align-items-center d-flex text-nowrap fnt-bold fnt-14 text-clr334 ml-2">
+                                    <p class="align-items-center d-flex text-nowrap fw-b fnt-14 text-clr334 ml-2">
                                         {{ 'read_the_original_article' | translate }}
                                     </p>
                                 </div>
                                 <div class="bg-f8 px-25 py-2">
-                                    <p class="fnt-600 fnt-12 text-clr334">
+                                    <p class="fw-m fnt-12 text-clr334">
                                         {{ 'original_language' | translate }} :
                                         {{ detailsData?.original_article?.language | language }}
                                     </p>
@@ -206,7 +206,7 @@
                             <app-user-header [prop]="orginalUserData"></app-user-header>
                             <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
                                 <a
-                                    class="fnt-14 fnt-600"
+                                    class="fnt-14 fw-m"
                                     (click)="
                                         onRealtedRoute(
                                             detailsData?.original_article?.slug,
@@ -228,7 +228,7 @@
 
                         <div class="mt-md-5 mt-4 mb-4 w-100">
                             <div class="w-100">
-                                <p class="fnt-16 fnt-bold text-clr334 mb-25">{{ 'comments' | translate }}</p>
+                                <p class="fnt-16 fw-b text-clr334 mb-25">{{ 'comments' | translate }}</p>
                             </div>
                             <div class="d-flex">
                                 <div class="d-flex mt-1">
@@ -264,7 +264,7 @@
                         <!-- Answers -->
                         <div *ngIf="allComments?.length > 0" class="w-100">
                             <div class="comment-border pb-1">
-                                <p class="fnt-14 fnt-600 text-clr334">
+                                <p class="fnt-14 fw-m text-clr334">
                                     {{ allComments?.length }} {{ 'answers' | translate }}
                                 </p>
                             </div>
@@ -289,7 +289,7 @@
                             <div class="text-center w-100" *ngIf="showCommentBtn">
                                 <button
                                     (click)="viewAllComments()"
-                                    class="fnt-14 fnt-bold text-clr60b mb-4 bg-transparent border-0 text-underline"
+                                    class="fnt-14 fw-b text-clr60b mb-4 bg-transparent border-0 text-underline"
                                 >
                                     {{ 'view_all_comments' | translate }}
                                 </button>
@@ -302,7 +302,7 @@
     </div>
     <article class="w-100 row mx-0" *ngIf="!isLoading">
         <div class="col-12 col-md-8 px-0 px-md-3">
-            <div class="fnt-16 fnt-bold text-clr334 pt-3 pb-45 background-header">
+            <div class="fnt-16 fw-b text-clr334 pt-3 pb-45 background-header">
                 {{ 'recent_articles' | translate }}
             </div>
             <div class="row py-2">
@@ -312,10 +312,10 @@
                             <img [src]="forum?.cover_image_thumb_url" alt="" />
                         </div>
                         <div class="cursor-point d-flex flex-column">
-                            <p class="fnt-fly fnt-bold text-clr334 cust-flex-grow">
+                            <p class="fnt-fly fw-b text-clr334 cust-flex-grow">
                                 {{ forum?.title | convertToShortDescription: 6 }}
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr334 text-underline">
+                            <p class="fnt-14 fw-m text-clr334 text-underline">
                                 {{ forum?.user_name }}
                             </p>
                         </div>
@@ -338,16 +338,13 @@
             <div class="pb-4 d-flex">
                 <div class="w-100 d-flex justify-content-between">
                     <div>
-                        <p class="fnt-14 fnt-bold text-clr334 mb-1">
+                        <p class="fnt-14 fw-b text-clr334 mb-1">
                             {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
                         </p>
-                        <p class="fnt-14 fnt-600 text-clr588 mb-1">
+                        <p class="fnt-14 fw-m text-clr588 mb-1">
                             {{ stickySecData?.organisation_name || stickySecData?.organization_name }}
                         </p>
-                        <p
-                            *ngIf="stickySecData?.country || stickySecData?.city"
-                            class="fnt-14 fnt-600 text-clr588 mb-1"
-                        >
+                        <p *ngIf="stickySecData?.country || stickySecData?.city" class="fnt-14 fw-m text-clr588 mb-1">
                             {{ stickySecData?.city || stickySecData?.organization_city }},
                             {{ stickySecData?.country | country }}
                         </p>

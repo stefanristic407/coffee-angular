@@ -9,17 +9,17 @@
                 <div class="row pt-4 mt-md-3">
                     <div class="col-md-7 col-lg-8 mb-4 pb-2">
                         <div class="mb-md-4">
-                            <p class="fnt-16 fnt-md-18 lh-normal fnt-700 text-clr334 mb-2 mb-md-25">
+                            <p class="fnt-16 fnt-md-18 lh-normal fw-b text-clr334 mb-2 mb-md-25">
                                 {{ 'invite_a_new_end-user' | translate }}
                             </p>
-                            <p class="fnt-14 lh-normal fnt-400 text-clr588 mb-0">
+                            <p class="fnt-14 lh-normal fw-n text-clr588 mb-0">
                                 {{ 'invite_others_desp' | translate }}
                             </p>
                         </div>
                         <div class="pt-4" formArrayName="emails">
                             <div *ngFor="let email of emails.controls; let i = index">
                                 <div class="d-flex justify-content-between align-items-center d-md-none mb-3">
-                                    <h4 class="fnt-16 fnt-md-18 lh-normal fnt-bold text-clr334 mb-0">
+                                    <h4 class="fnt-16 fnt-md-18 lh-normal fw-b text-clr334 mb-0">
                                         {{ 'invite' | translate }} {{ i + 1 }}
                                     </h4>
                                     <div *ngIf="i">
@@ -84,12 +84,12 @@
         <div class="col-lg-12 col-md-12">
             <div class="text-center success-wrap">
                 <img class="mail-img" src="assets/images/mail.svg" alt="mail" />
-                <h4 class="fnt-32 fnt-700 fnt-head text-clr334 mt-3 mt-md-4 mb-3">Successful!</h4>
-                <p class="fnt-14 lh-normal fnt-400 text-clr588 mb-3">
+                <h4 class="fnt-32 fw-b fnt-head text-clr334 mt-3 mt-md-4 mb-3">Successful!</h4>
+                <p class="fnt-14 lh-normal fw-n text-clr588 mb-3">
                     <span class="d-none d-md-block">An invitation email has been successfully sent out to</span>
                     <span class="d-md-none">Invitation sent to</span>
                 </p>
-                <p class="fnt-16 fnt-md-18 fnt-700 text-clr334 mb-45 mb-md-5">
+                <p class="fnt-16 fnt-md-18 fw-b text-clr334 mb-45 mb-md-5">
                     {{ infoForm.value.emails.slice(0, 3).join(', ') }}
                     {{
                         infoForm.value.emails.length > 3 ? ' and ' + (infoForm.value.emails.length - 3) + ' others' : ''

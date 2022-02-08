@@ -4,10 +4,10 @@
         <span class="expertise" *ngIf="data.expertise"> {{ data.expertise }} </span>
     </div>
     <div class="d-flex justify-content-between pt-3">
-        <a class="fnt-14 fnt-bold text-clr334 lh-157 cursor-pointer recipe-des" *ngIf="forumType == 'recipe'">
+        <a class="fnt-14 fw-b text-clr334 lh-157 cursor-pointer recipe-des" *ngIf="forumType == 'recipe'">
             {{ data?.name }}
         </a>
-        <a class="fnt-14 fnt-bold text-clr334 lh-157 cursor-pointer forum-title-text" *ngIf="forumType == 'article'">
+        <a class="fnt-14 fw-b text-clr334 lh-157 cursor-pointer forum-title-text" *ngIf="forumType == 'article'">
             {{ data?.title }}
             <br />
             {{ data?.subtitle }}

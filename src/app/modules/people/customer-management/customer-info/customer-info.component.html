@@ -9,15 +9,15 @@
             class="py-md-2 d-flex flex-column flex-md-row justify-content-md-between align-items-md-center border-top-md-primary border-top-lg-none"
         >
             <div class="d-flex justify-content-between align-items-center py-3 py-md-0 border-top-dashed">
-                <p class="fnt-bold fnt-14 lh-13 text-clr334 info-label">{{ 'last_login' | translate }}</p>
-                <p class="fnt-14 fnt-600 lh-13 text-clr588">
+                <p class="fw-b fnt-14 lh-13 text-clr334 info-label">{{ 'last_login' | translate }}</p>
+                <p class="fnt-14 fw-m lh-13 text-clr588">
                     {{ (data?.last_login_at | date: 'h:mm:ss | dd MMM yyyy') || '--' }}
                 </p>
             </div>
             <div
                 class="d-flex align-items-center justify-content-between py-3 py-md-0 border-top-dashed-primary border-top-md-none"
             >
-                <p class="fnt-14 fnt-bold lh-normal text-clr334 pr-md-5">
+                <p class="fnt-14 fw-b lh-normal text-clr334 pr-md-5">
                     {{ 'customer_status' | translate }}
                 </p>
                 <p-selectButton
@@ -31,16 +31,16 @@
         <div
             class="border-top-md-primary py-3 d-flex justify-content-between justify-content-md-start border-top-dashed-primary"
         >
-            <p class="fnt-bold fnt-14 lh-13 text-clr334 info-label">{{ 'vat_number' | translate }}</p>
-            <p class="fnt-14 fnt-600 lh-13 text-clr588">{{ data?.vat_number || '--' }}</p>
+            <p class="fw-b fnt-14 lh-13 text-clr334 info-label">{{ 'vat_number' | translate }}</p>
+            <p class="fnt-14 fw-m lh-13 text-clr588">{{ data?.vat_number || '--' }}</p>
         </div>
         <div
             class="border-top-md-primary py-3 d-flex justify-content-between justify-content-md-start border-top-dashed-primary border-bottom-dashed border-bottom-md-none"
         >
-            <p class="fnt-bold fnt-14 lh-13 text-clr334 info-label">
+            <p class="fw-b fnt-14 lh-13 text-clr334 info-label">
                 {{ 'company_registration_id' | translate }}
             </p>
-            <p class="fnt-14 fnt-600 lh-13 text-clr588">{{ data?.registration_id || '--' }}</p>
+            <p class="fnt-14 fw-m lh-13 text-clr588">{{ data?.registration_id || '--' }}</p>
         </div>
     </div>
 </div>

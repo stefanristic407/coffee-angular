@@ -1,26 +1,26 @@
 <div>
-    <p class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-1 mb-md-2">
+    <p class="fnt-16 fnt-md-18 fw-b text-clr334 mb-1 mb-md-2">
         {{ 'your_sales_and_orders' | translate }}
     </p>
 
     <div class="border-main br-4 p-3 p-md-0">
         <div class="total-wrap py-lg-3 px-lg-2 h-100 d-md-none">
-            <div class="fnt-14 fnt-bold text-clr334 mb-3 fnt-bold">{{ 'you_have_earned' | translate }}</div>
-            <div class="fnt-32 fnt-bold text-clr334 mb-2">
+            <div class="fnt-14 fw-b text-clr334 mb-3 fw-b">{{ 'you_have_earned' | translate }}</div>
+            <div class="fnt-32 fw-b text-clr334 mb-2">
                 {{ sales?.total_earnings || 0 | thousandSuff }} {{ baseCurrency }}
             </div>
             <div class="fnt-14 text-clr588 mb-4">{{ 'all_time_earnings' | translate }}</div>
-            <div class="fnt-32 fnt-bold text-clr334 mb-2">
+            <div class="fnt-32 fw-b text-clr334 mb-2">
                 {{ sales?.weekly_earnings || 0 | thousandSuff }} {{ baseCurrency }}
             </div>
             <div class="fnt-14 text-clr588 mb-4">{{ 'earned' | translate }} in the last 7 days</div>
         </div>
         <div
-            class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 py-1 d-md-none d-flex justify-content-between align-items-center"
+            class="fnt-14 fw-b text-clr334 br-4 bg-f8 py-1 d-md-none d-flex justify-content-between align-items-center"
         >
             <div class="ml-25">{{ 'total_sales' | translate }}</div>
             <div>
-                <span class="fnt-14 fnt-600 text-clr334">Sort by :</span>
+                <span class="fnt-14 fw-m text-clr334">Sort by :</span>
                 <p-dropdown
                     [options]="periods"
                     [(ngModel)]="periodsValue"
@@ -68,25 +68,25 @@
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-4 d-none d-md-block">
                             <div class="total-wrap py-lg-3 px-lg-2 h-100">
-                                <p class="fnt-14 fnt-md-bold fnt-600 text-clr334 mb-md-2 mb-lg-5">
+                                <p class="fnt-14 fw-b text-clr334 mb-md-2 mb-lg-5">
                                     {{ 'you_have_earned' | translate }}
                                 </p>
                                 <div class="d-md-flex d-lg-block">
                                     <div class="d-md-block mr-md-5 mr-lg-0">
-                                        <h1 class="fnt-32 fnt-bold text-clr334">
+                                        <h1 class="fnt-32 fw-b text-clr334">
                                             {{ sales?.total_earnings.toFixed(3) || 0 | thousandSuff }}
                                             {{ baseCurrency }}
                                         </h1>
-                                        <p class="fnt-16 fnt-md-18 fnt-600 text-clr588 mb-lg-5">
+                                        <p class="fnt-16 fnt-md-18 fw-m text-clr588 mb-lg-5">
                                             {{ 'all_time_earnings' | translate }}
                                         </p>
                                     </div>
                                     <div class="d-md-block">
-                                        <h1 class="fnt-32 fnt-bold text-clr334">
+                                        <h1 class="fnt-32 fw-b text-clr334">
                                             {{ sales?.weekly_earnings.toFixed(3) || 0 | thousandSuff }}
                                             {{ baseCurrency }}
                                         </h1>
-                                        <p class="fnt-16 fnt-md-18 fnt-600 text-clr588">
+                                        <p class="fnt-16 fnt-md-18 fw-m text-clr588">
                                             {{ 'earned' | translate }} in the last 7 days
                                         </p>
                                     </div>
@@ -127,7 +127,7 @@
                                         </li>
                                     </ul>
                                     <div class="select-wrap">
-                                        <span class="fnt-14 fnt-600 text-clr334">{{ 'sort_by' | translate }} :</span>
+                                        <span class="fnt-14 fw-m text-clr334">{{ 'sort_by' | translate }} :</span>
                                         <p-dropdown
                                             [options]="periods"
                                             [(ngModel)]="periodsValue"

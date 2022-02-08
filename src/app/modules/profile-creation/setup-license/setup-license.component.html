@@ -3,10 +3,10 @@
         <app-back-link [defaultBackTo]="'/roastery-profile'"></app-back-link>
     </div>
     <div>
-        <div class="fnt-18 fnt-bold text-center text-md-left mb-1">
+        <div class="fnt-18 fw-b text-center text-md-left mb-1">
             {{ 'license' | translate }} & {{ 'certificates' | translate }}
         </div>
-        <div class="fnt-600 txt-clr588">
+        <div class="fw-m txt-clr588">
             {{ 'upload_certificates_note' | translate }}
         </div>
     </div>
@@ -14,31 +14,22 @@
         <div class="pt-45 pt-md-5">
             <ng-container *ngFor="let certificationItem of certificationArray; let i = index">
                 <div
-                    class="
-                        certification-item
-                        d-flex
-                        align-items-center
-                        justify-content-between
-                        br-4
-                        bg-f8
-                        px-3
-                        mb-3 mb-md-4
-                    "
+                    class="certification-item d-flex align-items-center justify-content-between br-4 bg-f8 px-3 mb-3 mb-md-4"
                     *ngIf="i !== editingRowIndex; else addAndEditTemplate"
                 >
                     <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
                         <img class="d-none d-lg-block mr-4" src="assets/images/reorder.svg" alt="certification" />
-                        <label class="fnt-600 mb-0">{{ certificationItem.certificate_type_name }}</label>
+                        <label class="fw-m mb-0">{{ certificationItem.certificate_type_name }}</label>
                         <p-divider class="divider border-none" layout="vertical"></p-divider>
-                        <label class="fnt-600 fnt-14 text-clr334 mb-0">{{ certificationItem.year }}</label>
+                        <label class="fw-m fnt-14 text-clr334 mb-0">{{ certificationItem.year }}</label>
                     </div>
                     <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
-                        <span class="fnt-14 fnt-600 lh-normal text-clr97 cursor-pointer" (click)="onEdit(i)">
+                        <span class="fnt-14 fw-m lh-normal text-clr97 cursor-pointer" (click)="onEdit(i)">
                             <i class="pi pi-pencil mr-2"></i>
                             {{ 'edit' | translate }}
                         </span>
                         <p-divider class="divider border-none" layout="vertical"></p-divider>
-                        <span class="fnt-14 fnt-600 lh-normal text-clr97 cursor-pointer" (click)="onDelete(i)">
+                        <span class="fnt-14 fw-m lh-normal text-clr97 cursor-pointer" (click)="onDelete(i)">
                             <i class="pi pi-trash mr-2"></i>
                             {{ 'delete' | translate }}
                         </span>
@@ -48,8 +39,8 @@
             <div class="mt-2" *ngIf="editingRowIndex === -1 || !certificationArray.length">
                 <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
             </div>
-            <span class="fnt-14 fnt-bold text-clr60b cursor-pointer" (click)="onAdd()"
-                ><i class="pi pi-plus mr-25 fnt-bold fnt-14"></i>{{ 'add_another_certificate' | translate }}
+            <span class="fnt-14 fw-b text-clr60b cursor-pointer" (click)="onAdd()"
+                ><i class="pi pi-plus mr-25 fw-b fnt-14"></i>{{ 'add_another_certificate' | translate }}
             </span>
         </div>
         <div class="py-2 py-lg-3">
@@ -100,25 +91,20 @@
                 </div>
             </div>
             <div class="pl-lg-25">
-                <label class="fnt-600 fnt-14 text-clr334 lh-normal mb-2">
+                <label class="fw-m fnt-14 text-clr334 lh-normal mb-2">
                     {{ 'upload_certificate' | translate }}
                 </label>
                 <div
-                    class="
-                        d-flex
-                        flex-column flex-md-row
-                        align-items-start align-items-md-center
-                        justify-content-between
-                    "
+                    class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between"
                 >
                     <div class="file-name" *ngIf="file || certificationArray[editingRowIndex]?.public_url">
-                        <span class="fnt-600 fnt-14 text-clr588 lh-normal mb-0 ellipsis">
+                        <span class="fw-m fnt-14 text-clr588 lh-normal mb-0 ellipsis">
                             {{ file?.name || certificationArray[editingRowIndex]?.public_url.split('/').pop() }}
                         </span>
                         <i class="pi pi-times fnt-14 text-clr588 ml-25 cursor-pointer" (click)="onRemoveFile()"></i>
                     </div>
                     <div
-                        class="fnt-14 fnt-500 lh-normal text-clr334 mr-md-4 upload-button"
+                        class="fnt-14 fw-m lh-normal text-clr334 mr-md-4 upload-button"
                         (click)="onUpload()"
                         *ngIf="!file && !certificationArray[editingRowIndex]?.public_url"
                     >

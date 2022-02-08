@@ -27,7 +27,7 @@
                 {{ article?.posted_at || article?.created_at | date: 'd, yyyy' }}</span
             >
         </div>
-        <h3 class="fnt-14 fnt-bold lh-157 mt-3 text-clr334 cursor-pointer article-title-text text-break">
+        <h3 class="fnt-14 fw-b lh-157 mt-3 text-clr334 cursor-pointer article-title-text text-break">
             {{ article?.title.length < 65 ? article?.title : article?.title.slice(0, 65).concat('...') }}
         </h3>
         <div class="fnt-14 fnt-normal lh-143 text-clr334 mt-2">

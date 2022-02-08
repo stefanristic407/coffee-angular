@@ -3,7 +3,7 @@
         <p-breadcrumb [model]="breadItems"> </p-breadcrumb>
     </div>
     <section class="social-media">
-        <p class="fnt-18 fnt-bold text-clr334 mt-3 mb-25">
+        <p class="fnt-18 fw-b text-clr334 mt-3 mb-25">
             {{ 'social_media_posts' | translate }}
         </p>
         <div class="fnt-14 fnt-normal text-clr588 mb-3 mb-md-4">{{ 'get_your_media_text' | translate }}</div>
@@ -102,11 +102,11 @@
                     </button>
                 </div>
                 <div class="m-0 mt-3 mt-md-4 m-xl-45">
-                    <h4 class="fnt-16 fnt-bold text-clr334 mb-3">
+                    <h4 class="fnt-16 fw-b text-clr334 mb-3">
                         <span *ngIf="selectedImage?.description">{{ selectedImage?.description }} &nbsp; </span>@
                         {{ selectedImage?.owner_name }}
                     </h4>
-                    <p class="fnt-14 fnt-600 text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #eraofwe</p>
+                    <p class="fnt-14 fw-m text-clr588 mb-4 mb-md-3125">#coffee #specialitycoffee #eraofwe</p>
                     <div class="row gutter-16 v-gutter-16 align-items-center">
                         <div class="col-auto">
                             <span class="btn-trans-icon download-icon" (click)="download(selectedImage)">{{

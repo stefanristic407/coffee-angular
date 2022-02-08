@@ -2,26 +2,26 @@
     <ng-container *ngIf="reviews?.length; else empty">
         <div class="d-flex flex-wrap mb-md-3">
             <div class="mr-3 mr-md-5 mb-3">
-                <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
+                <p class="fnt-12 lh-normal fw-m text-clr588 mb-1 mb-md-2 text-nowrap">
                     {{ 'overall_experience' | translate }}
                 </p>
-                <p class="fnt-14 lh-normal fnt-bold text-clr334">
+                <p class="fnt-14 lh-normal fw-b text-clr334">
                     <span class="fa fa-star mr-1"></span>
                     {{ average?.overall_experience | number: '1.1-1' }}
                 </p>
             </div>
             <div class="mr-3 mr-md-5 mb-3">
-                <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
+                <p class="fnt-12 lh-normal fw-m text-clr588 mb-1 mb-md-2 text-nowrap">
                     {{ 'communication' | translate }}
                 </p>
-                <p class="fnt-14 lh-normal fnt-bold text-clr334">
+                <p class="fnt-14 lh-normal fw-b text-clr334">
                     <span class="fa fa-star mr-1"></span>
                     {{ average?.communication | number: '1.1-1' }}
                 </p>
             </div>
             <div *ngIf="orgType == OrgType.ESTATE" class="mr-3 mr-md-5 mb-3 d-none d-md-block">
-                <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">Green coffee</p>
-                <p class="fnt-14 lh-normal fnt-bold text-clr334">
+                <p class="fnt-12 lh-normal fw-m text-clr588 mb-1 mb-md-2 text-nowrap">Green coffee</p>
+                <p class="fnt-14 lh-normal fw-b text-clr334">
                     <span class="fa fa-star mr-1"></span>
                     {{ average?.green_coffee | number: '1.1-1' }}
                 </p>
@@ -48,10 +48,10 @@
                             ></app-avatar>
                         </div>
                         <div class="mb-25 mb-md-4">
-                            <h3 class="fnt-14 fnt-md-16 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
+                            <h3 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-1 mb-md-2">
                                 {{ review.reviewed_by_name | titlecase }}
                             </h3>
-                            <p class="fnt-14 lh-normal fnt-bold text-clr588 mb-1 mb-md-2">
+                            <p class="fnt-14 lh-normal fw-b text-clr588 mb-1 mb-md-2">
                                 {{ review.reviewed_by_type == 'ro' ? 'Roaster' : 'Facilitator' }}
                             </p>
                             <div class="d-flex align-items-center">
@@ -63,19 +63,19 @@
                                         class="fnt-12 lh-normal"
                                     ></p-rating
                                 ></span>
-                                <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">
+                                <span class="fnt-14 lh-normal fw-b text-clr334 ml-1">
                                     {{ review.total_rating | number: '1.1-1' }}
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <p class="fnt-12 lh-normal fnt-600 text-clr588">
+                        <p class="fnt-12 lh-normal fw-m text-clr588">
                             {{ review.created_at | date: 'MMM, y' }}
                         </p>
                     </div>
                 </div>
-                <div class="fnt-12 fnt-md-14 lh-normal fnt-500 text-clr588 text-md-clr334 message-space">
+                <div class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 text-md-clr334 message-space">
                     <app-read-more [content]="review.comment" rows="3"></app-read-more>
                 </div>
             </div>

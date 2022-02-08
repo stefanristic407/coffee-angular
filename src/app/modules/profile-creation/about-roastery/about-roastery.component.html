@@ -28,7 +28,7 @@
                                 formControlName="founded_on"
                                 placeholder="Please enter founded year"
                             />
-                            <p class="fnt-14 fnt-600 text-clr334 mb-1" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334 mb-1" *ngIf="isEditMode">
                                 {{ profileCreationService.organizationProfile?.founded_on }}
                             </p>
                             <small *ngIf="isControlHasError('founded_on', 'required')" class="p-error">
@@ -56,7 +56,7 @@
                                 formControlName="owner_name"
                                 placeholder="Please enter owner name"
                             />
-                            <p class="fnt-14 fnt-600 text-clr334 mb-1" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334 mb-1" *ngIf="isEditMode">
                                 {{ profileCreationService.organizationProfile?.owner_name }}
                             </p>
                             <small *ngIf="isControlHasError('owner_name', 'required')" class="p-error">
@@ -91,7 +91,7 @@
                             <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
                                 Description shouldn't be over 150 words
                             </small>
-                            <p class="fnt-14 fnt-600 text-clr334" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334" *ngIf="isEditMode">
                                 {{ profileCreationService.organizationProfile?.description }}
                             </p>
                         </div>
@@ -100,10 +100,10 @@
 
                     <div class="row mt-md-45" *ngIf="isSaveMode">
                         <div class="col-12 mb-3 mb-md-45">
-                            <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">
+                            <p class="fnt-18 fw-b text-clr334 w-100 mb-1">
                                 {{ 'employee_details' | translate }}
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0">{{ 'give_overview_text' | translate }}.</p>
+                            <p class="fnt-14 fw-m text-clr588 w-100 m-0">{{ 'give_overview_text' | translate }}.</p>
                         </div>
                     </div>
 
@@ -136,7 +136,7 @@
                             </small>
                         </div>
                     </div>
-                    <span class="fnt-14 fnt-bold text-clr334" *ngIf="isSaveMode">
+                    <span class="fnt-14 fw-b text-clr334" *ngIf="isSaveMode">
                         {{ 'gender_distribution' | translate }}
                         <span class="star">*</span>
                     </span>
@@ -186,13 +186,13 @@
                     <hr class="d-none d-lg-block" />
                     <div class="row border-md-main border-md-none br-4 mt-md-45 mb-2 m-0 p-0 p-md-0">
                         <div class="col-9 mb-3 mb-md-45 p-0">
-                            <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">Company details</p>
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
+                            <p class="fnt-18 fw-b text-clr334 w-100 mb-1">Company details</p>
+                            <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isSaveMode">
                                 Enter your VAT and customer ID for billing purposes
                             </p>
                         </div>
                         <div class="col-3 text-right p-0" *ngIf="isSaveMode">
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 mb-2 text-clr588">Private</p>
+                            <p class="fnt-14 fw-m text-clr588 w-100 mb-2 text-clr588">Private</p>
                             <p-inputSwitch
                                 styleClass="custom-input-switch"
                                 formControlName="company_details_public"
@@ -216,7 +216,7 @@
                                 formControlName="vat_number"
                                 placeholder="Please VAT Number"
                             />
-                            <p class="fnt-14 fnt-600 text-clr334 text-break mb-0" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334 text-break mb-0" *ngIf="isEditMode">
                                 {{ profileCreationService.organizationProfile?.vat_number }}
                             </p>
                             <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
@@ -240,7 +240,7 @@
                                 formControlName="registration_id"
                                 placeholder="Please enter employee avg. age"
                             />
-                            <p class="fnt-14 fnt-600 text-clr334 text-break mb-0" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334 text-break mb-0" *ngIf="isEditMode">
                                 {{ profileCreationService.organizationProfile?.registration_id }}
                             </p>
                             <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
@@ -252,13 +252,13 @@
                     <hr class="mt-4 mb-4 mt-md-3" />
 
                     <div class="mt-md-45 mb-4">
-                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">
+                        <p class="fnt-18 fw-b text-clr334 w-100 mb-1">
                             {{ 'roastery_capabilities' | translate }}
                         </p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
+                        <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isSaveMode">
                             {{ 'tell_us_capability_text' | translate }}.
                         </p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isEditMode">
+                        <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isEditMode">
                             {{ 'our_roastery_capabilities_storage' | translate }}.
                         </p>
                     </div>
@@ -315,15 +315,15 @@
                         <div class="col-lg-12">
                             <div class="d-flex border-md-main br-4 px-md-3 py-md-4">
                                 <div class="pr-25 pr-md-3 border-right">
-                                    <label class="fnt-600 text-clr588 mb-25 mb-md-1">
+                                    <label class="fw-m text-clr588 mb-25 mb-md-1">
                                         {{ 'roastery_capacity' | translate }}
                                     </label>
-                                    <div class="fnt-md-38 fnt-28 fnt-bold text-clr334">
+                                    <div class="fnt-md-38 fnt-28 fw-b text-clr334">
                                         {{ profileCreationService.organizationProfile?.capacity | number }}
                                         {{ profileCreationService.organizationProfile?.capacity_unit }}
                                     </div>
                                 </div>
-                                <div class="fnt-600 text-clr334 pl-25 pl-md-3 pt-md-3">
+                                <div class="fw-m text-clr334 pl-25 pl-md-3 pt-md-3">
                                     {{ profileCreationService.organizationProfile?.capabilities }}
                                 </div>
                             </div>
@@ -346,10 +346,10 @@
                     <!-- new brand form -->
                     <div class="row mt-md-45 mb-4 mb-md-45">
                         <div class="col-12">
-                            <p class="fnt-18 fnt-bold text-clr334 w-100 mt-2 mt-md-0 mb-1">
+                            <p class="fnt-18 fw-b text-clr334 w-100 mt-2 mt-md-0 mb-1">
                                 {{ 'brands' | translate }}
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr588 w-100 m-0" *ngIf="isSaveMode">
+                            <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isSaveMode">
                                 {{ 'list_down_brands' | translate }}.
                             </p>
                         </div>
@@ -373,10 +373,10 @@
                                     <img [src]="brand.url" class="brand-image" />
                                 </div>
                                 <div class="brand-meta-container">
-                                    <p class="fnt-16 fnt-bold text-clr334 mb-2">
+                                    <p class="fnt-16 fw-b text-clr334 mb-2">
                                         {{ brand.name }}
                                     </p>
-                                    <p class="fnt-14 fnt-600 text-clr334">
+                                    <p class="fnt-14 fw-m text-clr334">
                                         {{ brand.description }}
                                     </p>
                                 </div>
@@ -398,7 +398,7 @@
                     <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
                         <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-left">
                             <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
-                                <span class="fnt-14 fnt-bold add-text ml-4">Add another brand</span>
+                                <span class="fnt-14 fw-b add-text ml-4">Add another brand</span>
                             </a>
                         </div>
                     </div>
@@ -410,12 +410,10 @@
                     <div class="" *ngIf="isSaveMode" formArrayName="members">
                         <div class="row mt-3 mb-md-4 mb-3">
                             <div class="col-12">
-                                <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">
+                                <p class="fnt-18 fw-b text-clr334 w-100 mb-1">
                                     {{ 'contacts' | translate }}<span class="star">*</span>
                                 </p>
-                                <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-0">
-                                    {{ 'list_contacts' | translate }}!
-                                </p>
+                                <p class="fnt-14 fw-m text-clr588 w-100 m-0 mb-0">{{ 'list_contacts' | translate }}!</p>
                             </div>
                         </div>
                         <ng-container *ngFor="let member of members.controls; let i = index">
@@ -479,8 +477,8 @@
 
                 <div class="d-block" *ngIf="isEditMode">
                     <div class="employer mt-4">
-                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
+                        <p class="fnt-18 fw-b text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
+                        <p class="fnt-14 fw-m text-clr588 w-100 m-0 mb-4">
                             {{ 'list_down_top_employees' | translate }}
                         </p>
                         <div class="row p-0">
@@ -498,10 +496,10 @@
                                         size="150"
                                     ></app-user-detail>
                                     <div class="profile-des">
-                                        <p class="fnt-16 fnt-bold mb-1 mt-3 text-clr334">
+                                        <p class="fnt-16 fw-b mb-1 mt-3 text-clr334">
                                             {{ contact.name | titlecase }}
                                         </p>
-                                        <p class="fnt-14 fnt-500 text-clr588 mb-0">
+                                        <p class="fnt-14 fw-m text-clr588 mb-0">
                                             {{ contact.roles[0] || '-' }}
                                         </p>
                                     </div>
@@ -560,7 +558,7 @@
         <ng-container *ngIf="certificatesArray?.length || certificateTypes?.length">
             <div class="col-md-6 col-lg-12" *appAclIf="'brand-profile-management'">
                 <div class="border-main br-4">
-                    <div class="header fnt-18 fnt-bold text-clr334 m-1">
+                    <div class="header fnt-18 fw-b text-clr334 m-1">
                         {{ 'awards_and_certificates' | translate }}
                     </div>
                     <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
@@ -578,12 +576,12 @@
                                     /></a>
                                     <div class="ml-2">
                                         <ul class="no-bullet-ul">
-                                            <li class="fnt-600">
+                                            <li class="fw-m">
                                                 <a [href]="certificate.public_url" target="_blank">{{
                                                     certificate.certificate_type_name
                                                 }}</a>
                                             </li>
-                                            <li class="fnt-600 text-clr588">
+                                            <li class="fw-m text-clr588">
                                                 {{ certificate.year }}
                                             </li>
                                         </ul>
@@ -604,7 +602,7 @@
                                         <div id="popover-mobile-content">
                                             <ul class="list-data custom-popover">
                                                 <li
-                                                    class="list-item fnt-14 fnt-600 text-clr588 border-none"
+                                                    class="list-item fnt-14 fw-m text-clr588 border-none"
                                                     (click)="editCertificate($event, certificate); pop1.hide()"
                                                     *appAclIf="'brand-profile-management'"
                                                 >
@@ -613,7 +611,7 @@
                                                     </a>
                                                 </li>
                                                 <li
-                                                    class="list-item fnt-14 fnt-600 text-clr588 border-none"
+                                                    class="list-item fnt-14 fw-m text-clr588 border-none"
                                                     (click)="deleteCertificate(certificate.id); pop1.hide()"
                                                     *appAclIf="'brand-profile-management'"
                                                 >
@@ -639,20 +637,20 @@
 
         <div class="col-md-6 col-lg-12">
             <div class="border-main br-4">
-                <div class="header fnt-18 fnt-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
+                <div class="header fnt-18 fw-b text-clr334 m-1">{{ 'employee_details' | translate }}</div>
                 <div class="w-100">
                     <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
                         <div class="w-50 border-right">
-                            <p class="m-0 fnt-32 fnt-bold text-clr334">
+                            <p class="m-0 fnt-32 fw-b text-clr334">
                                 {{ profileCreationService.organizationProfile?.total_employees }}
                             </p>
-                            <p class="mt-2 mb-0 fnt-18 fnt-600 text-clr588">{{ 'total_employees' | translate }}</p>
+                            <p class="mt-2 mb-0 fnt-18 fw-m text-clr588">{{ 'total_employees' | translate }}</p>
                         </div>
                         <div class="w-50 pl-45">
-                            <p class="m-0 fnt-24 fnt-md-32 fnt-bold text-clr334">
+                            <p class="m-0 fnt-24 fnt-md-32 fw-b text-clr334">
                                 {{ profileCreationService.organizationProfile?.avg_employee_age }}
                             </p>
-                            <p class="mt-2 mb-0 fnt-14 fnt-md-18 fnt-600 text-clr588">
+                            <p class="mt-2 mb-0 fnt-14 fnt-md-18 fw-m text-clr588">
                                 {{ 'average_age' | translate }}
                             </p>
                         </div>
@@ -666,7 +664,7 @@
                             this.profileCreationService.organizationProfile?.female_employee_count == null
                         "
                     >
-                        <p class="fnt-18 fnt-bold text-center">{{ 'no_data_display' | translate }}</p>
+                        <p class="fnt-18 fw-b text-center">{{ 'no_data_display' | translate }}</p>
                     </div>
                     <div class="custom-chart-container">
                         <app-pie-area-chart [results]="profileCreationService.single"></app-pie-area-chart>
@@ -744,7 +742,7 @@
                         <label> {{ 'brand' | translate }} {{ 'logo' | translate }}<span class="star">*</span> </label>
                         <div class="brand-button-group d-flex justify-content-between">
                             <div
-                                class="fnt-14 fnt-500 lh-normal txt-clr334 upload-button mt-md-2"
+                                class="fnt-14 fw-m lh-normal txt-clr334 upload-button mt-md-2"
                                 (click)="brandImageInput.click()"
                             >
                                 <i class="pi pi-upload fnt-14 mr-1"></i>

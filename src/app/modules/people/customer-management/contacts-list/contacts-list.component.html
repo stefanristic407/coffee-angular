@@ -1,5 +1,5 @@
 <div *ngIf="data?.length > 0">
-    <p class="fnt-16 fnt-md-18 fnt-bold lh-125 lh-md-normal text-clr334 mb-0">
+    <p class="fnt-16 fnt-md-18 fw-b lh-125 lh-md-normal text-clr334 mb-0">
         {{ 'top_contacts' | translate }}
     </p>
     <div class="row gutter-16 flex-column flex-md-row">
@@ -14,17 +14,17 @@
                         [src]="contact.profile_image_url || 'assets/images/default-avatar.png'"
                     />
                     <div>
-                        <p class="fnt-14 fnt-bold lh-129 lh-md-normal text-clr334 mb-1">
+                        <p class="fnt-14 fw-b lh-129 lh-md-normal text-clr334 mb-1">
                             {{ contact.name }}
                         </p>
-                        <p class="fnt-14 fnt-bold lh-129 lh-md-normal text-clr588 mb-0">
+                        <p class="fnt-14 fw-b lh-129 lh-md-normal text-clr588 mb-0">
                             {{ contact.roles[0] }}
                         </p>
                     </div>
                 </div>
                 <div class="msg-chat mt-md-3">
                     <img src="assets/images/message-icon.svg" />
-                    <span class="fnt-14 fnt-600 lh-600 text-clr334 ml-2 d-none d-md-block">{{
+                    <span class="fnt-14 fw-m lh-600 text-clr334 ml-2 d-none d-md-block">{{
                         'message' | translate
                     }}</span>
                 </div>

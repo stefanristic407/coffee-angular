@@ -9,10 +9,10 @@
     </div>
     <div class="pull-left">
         <ul class="details-list p-0 ml-3 mb-4">
-            <li class="fnt-16 fnt-600 text-clr334 cursor-pointer" (click)="routeToOrgProfile()">
+            <li class="fnt-16 fw-m text-clr334 cursor-pointer" (click)="routeToOrgProfile()">
                 {{ companyName }}
             </li>
-            <li class="fnt-12 fnt-600 pt-1 cursor-pointer" [routerLink]="[orgType | reviewLink: orderId]">
+            <li class="fnt-12 fw-m pt-1 cursor-pointer" [routerLink]="[orgType | reviewLink: orderId]">
                 <span class="cursor-pointer">
                     <img class="" src="assets/images/star-1.svg" alt="User" />
                     <span class="star-no pl-1"> {{ rating }}</span>

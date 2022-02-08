@@ -33,10 +33,10 @@
     <div>
         <div class="d-flex justify-content-between">
             <div class="w-100 text-center text-md-left">
-                <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fw-b text-clr334 text-center text-md-left">
                     {{ subProfileForm.controls.name.value }}
                 </p>
-                <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fw-b text-clr334 text-center text-md-left">
                     {{ profileCreationService.organizationProfile?.name }}
                 </p>
             </div>
@@ -101,10 +101,10 @@
                     src="assets/images/plus-circle.svg"
                     (click)="bannerFileInput.click()"
                 />
-                <p class="fnt-12 fnt-md-14 fnt-bold text-clr588 pt-0 pt-md-2 mb-1">
+                <p class="fnt-12 fnt-md-14 fw-b text-clr588 pt-0 pt-md-2 mb-1">
                     {{ 'add_cover_image' | translate }}
                 </p>
-                <p class="fnt-12 fnt-md-14 fnt-bold text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
+                <p class="fnt-12 fnt-md-14 fw-b text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
             </div>
             <input
                 type="file"
@@ -171,11 +171,11 @@
             </div>
 
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
-                <p class="fnt-18 fnt-bold text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
+                <p class="fnt-18 fw-b text-clr334 d-none d-md-block m-0 pt-4" *ngIf="isEditMode">
                     {{ profileCreationService.organizationProfile?.name }}
                 </p>
                 <a
-                    class="d-md-none fnt-16 text-clr334 fnt-bold"
+                    class="d-md-none fnt-16 text-clr334 fw-b"
                     href="{{ profileCreationService.organizationProfile?.website }}"
                     target="blank"
                     >{{ profileCreationService.organizationProfile?.name }}</a
@@ -197,10 +197,10 @@
                         />
                     </div>
                 </form>
-                <p class="text-clr334 mt-2 fnt-bold text-break d-md-none" *ngIf="isEditMode">
+                <p class="text-clr334 mt-2 fw-b text-break d-md-none" *ngIf="isEditMode">
                     {{ profileCreationService.organizationProfile?.website }}
                 </p>
-                <p class="text-clr588 mt-2 fnt-bold text-break d-none d-md-block" *ngIf="isEditMode">
+                <p class="text-clr588 mt-2 fw-b text-break d-none d-md-block" *ngIf="isEditMode">
                     {{ profileCreationService.organizationProfile?.website }}
                 </p>
                 <a target="blank" href="{{ profileCreationService.organizationProfile?.website }}" #link hidden></a>

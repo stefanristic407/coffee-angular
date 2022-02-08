@@ -12,19 +12,19 @@
         [tooltipDisabled]="tooltipDisabled"
     >
         <ng-template #tooltipTemplate let-model="model">
-            <div class="custom-chart-tooltip fnt-bold">{{ model.name }}</div>
+            <div class="custom-chart-tooltip fw-b">{{ model.name }}</div>
             <div class="custom-chart-tooltip" *ngIf="!isWeight">{{ model.value | number: '1.0' }}</div>
             <div class="custom-chart-tooltip" *ngIf="isWeight">{{ model.value | number: '1.0' }} {{ unit }}</div>
         </ng-template>
     </ngx-charts-pie-chart>
     <div class="total-info text-center" [style.top]="view[1] / 2 + 'px'">
-        <p *ngIf="isWeight && unit === 'kg'" class="fnt-24 fnt-bold text-clr334 mb-0">
+        <p *ngIf="isWeight && unit === 'kg'" class="fnt-24 fw-b text-clr334 mb-0">
             <span *ngIf="total >= 1000"> {{ ((total || 0) / 1000).toFixed(0) | number: '1.0' }} MT </span>
             <span *ngIf="total < 1000"> {{ total | number: '1.0' }} Kgs </span>
         </p>
-        <p *ngIf="!isWeight" class="fnt-24 fnt-bold text-clr334 mb-0">
+        <p *ngIf="!isWeight" class="fnt-24 fw-b text-clr334 mb-0">
             {{ total }}
         </p>
-        <p class="fnt-12 fnt-600 text-clr588 mb-0">{{ description }}</p>
+        <p class="fnt-12 fw-m text-clr588 mb-0">{{ description }}</p>
     </div>
 </div>

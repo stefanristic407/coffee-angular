@@ -7,7 +7,7 @@
     <div class="p-0">
         <div class="d-flex justify-content-between">
             <div class="w-100 text-center text-md-left">
-                <p class="fnt-16 fnt-md-18 mb-0 mb-3 fnt-bold text-clr334 text-center text-md-left">
+                <p class="fnt-16 fnt-md-18 mb-0 mb-3 fw-b text-clr334 text-center text-md-left">
                     {{ profileCreationService.organizationProfile?.name }}
                 </p>
             </div>
@@ -41,19 +41,19 @@
             </div>
 
             <div class="profile-metadata-container pl-0 pr-0 pl-md-3 pr-md-3 pb-3 p-md-0">
-                <p class="fnt-18 fnt-bold text-clr334 d-none d-md-block m-0 pt-4">
+                <p class="fnt-18 fw-b text-clr334 d-none d-md-block m-0 pt-4">
                     {{ profileCreationService.organizationProfile?.name }}
                 </p>
                 <a
-                    class="d-md-none fnt-16 text-clr334 fnt-bold"
+                    class="d-md-none fnt-16 text-clr334 fw-b"
                     href="{{ profileCreationService.organizationProfile?.website }}"
                     target="blank"
                     >{{ profileCreationService.organizationProfile?.name }}</a
                 >
-                <p class="fnt-14 text-clr334 mt-2 fnt-bold d-md-none underline">
+                <p class="fnt-14 text-clr334 mt-2 fw-b d-md-none underline">
                     {{ profileCreationService.organizationProfile?.website }}
                 </p>
-                <p class="fnt-14 text-clr588 mt-2 fnt-600 d-none d-md-block">
+                <p class="fnt-14 text-clr588 mt-2 fw-m d-none d-md-block">
                     {{ profileCreationService.organizationProfile?.website }}
                 </p>
                 <a target="blank" href="{{ profileCreationService.organizationProfile?.website }}" #link hidden></a>

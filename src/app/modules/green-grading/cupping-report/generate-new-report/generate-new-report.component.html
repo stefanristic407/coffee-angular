@@ -32,11 +32,11 @@
                 >
                     <div>
                         <div class="p-field-radiobutton pt-0 pl-0 pb-3 pb-md-2 ml-0">
-                            <label for="version" class="ml-0 fnt-18 fnt-bold text-clr334 mb-0 mb-md-2">
+                            <label for="version" class="ml-0 fnt-18 fw-b text-clr334 mb-0 mb-md-2">
                                 Cupping Report {{ singleCuppingDetails.version }}.0
                             </label>
                         </div>
-                        <p class="fnt-14 fnt-400 text-clr588 mb-0 pt-md-1 generate_date pl-0">
+                        <p class="fnt-14 fw-n text-clr588 mb-0 pt-md-1 generate_date pl-0">
                             Generated on: {{ singleCuppingDetails.generated_on | date: 'dd/MM/y' }}
                         </p>
                     </div>
@@ -50,7 +50,7 @@
                 <div *ngIf="generateStep === 0">
                     <div class="p-field-checkbox my-3" *ngFor="let eval of evalDataList; let j = index">
                         <p-checkbox name="group1" [value]="eval" [(ngModel)]="filterEval" inputId="sf"> </p-checkbox>
-                        <label class="fnt-14 fnt-600 mb-0 text-clr334" for="sf">
+                        <label class="fnt-14 fw-m mb-0 text-clr334" for="sf">
                             {{ j + 1 }}. {{ eval.evaluator_name }}
                             <span *ngIf="eval.is_primary == true">(You)</span>
                             /{{ eval.evaluator_type }} ({{ eval.final_score }})
@@ -59,7 +59,7 @@
                 </div>
                 <div *ngIf="generateStep === 1">
                     <div class="my-3" *ngFor="let eval of filterEval; let j = index">
-                        <label class="fnt-14 fnt-600 mb-0 text-clr334" for="sf">
+                        <label class="fnt-14 fw-m mb-0 text-clr334" for="sf">
                             {{ j + 1 }}. {{ eval.evaluator_name }}
                             <span *ngIf="eval.is_primary == true">(You)</span>
                             /{{ eval.evaluator_type }} ({{ eval.final_score }})

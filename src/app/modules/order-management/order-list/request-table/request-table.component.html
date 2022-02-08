@@ -36,8 +36,8 @@
             >
                 <ng-container *ngSwitchCase="'id'">
                     <div class="d-flex justify-content-between flex-1">
-                        <span class="fnt-bold text-clr334"> {{ 'order' | translate }}# {{ rowData.id }} </span>
-                        <span class="fnt-500 fnt-12 status-pen">{{ getStatus(rowData.status) }}</span>
+                        <span class="fw-b text-clr334"> {{ 'order' | translate }}# {{ rowData.id }} </span>
+                        <span class="fw-m fnt-12 status-pen">{{ getStatus(rowData.status) }}</span>
                     </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="'created_at'">

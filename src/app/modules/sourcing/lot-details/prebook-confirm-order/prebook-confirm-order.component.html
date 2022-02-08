@@ -43,7 +43,7 @@
                 <!-- Order detail table -->
                 <div class="mb-325">
                     <div class="border-main border-md-none br-4 p-3 p-md-0">
-                        <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 pb-2">
+                        <div class="fnt-16 fnt-md-18 fw-b text-clr000 pb-2">
                             {{ 'order_details' | translate }}
                         </div>
                         <p-table
@@ -80,9 +80,9 @@
                 <!-- Prebook lot message -->
                 <div class="row">
                     <div class="col-12 d-flex">
-                        <span class="fnt-14 fnt-700 text-clr334"> {{ 'note' | translate }}:</span>
+                        <span class="fnt-14 fw-b text-clr334"> {{ 'note' | translate }}:</span>
                         <div class="col-lg-7">
-                            <div class="fnt-14 fnt-400 text-clr334">
+                            <div class="fnt-14 fw-n text-clr334">
                                 {{ 'pre_book_note' | translate }}
                             </div>
                         </div>
@@ -100,10 +100,10 @@
                             <div
                                 class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
                             >
-                                <div class="fnt-14 fnt-bold text-clr334">
+                                <div class="fnt-14 fw-b text-clr334">
                                     {{ 'total_amount' | translate }}
                                 </div>
-                                <div class="fnt-16 fnt-md-18 fnt-bold text-clr334 pt-md-2">
+                                <div class="fnt-16 fnt-md-18 fw-b text-clr334 pt-md-2">
                                     ${{ totalPrice | number: '1.0-0' }}
                                 </div>
                             </div>
@@ -112,13 +112,13 @@
 
                     <div *ngIf="!editAddress" class="col-12 col-md-7 mt-5 px-0">
                         <div
-                            class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
+                            class="fnt-16 fnt-md-18 fw-b text-clr000 d-flex justify-content-between align-items-center"
                         >
                             <div>
                                 {{ 'delivery_address' | translate }}
                             </div>
                             <div
-                                class="fnt-14 fnt-bold text-clr55c cursor-pointer d-flex align-items-center"
+                                class="fnt-14 fw-b text-clr55c cursor-pointer d-flex align-items-center"
                                 (click)="refreshAddressForm()"
                             >
                                 <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <div
-                            class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
+                            class="fnt-14 lh-normal fw-m text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
                         >
                             <div>
                                 {{ billingAddress?.address_line1 }}, {{ billingAddress?.address_line2 }},
@@ -142,7 +142,7 @@
                     </div>
 
                     <div *ngIf="editAddress" class="mt-4 mt-md-45">
-                        <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mb-4">
+                        <div class="fnt-16 fnt-md-18 fw-b text-clr000 mb-4">
                             {{ 'shipping_address' | translate }}
                         </div>
                         <form [formGroup]="addressForm" class="form-container">
@@ -253,7 +253,7 @@
                                         inputId="terms"
                                         class="dark"
                                     ></p-checkbox>
-                                    <label for="terms" class="fnt-14 fnt-600 text-clr334 mb-0 flex-fill">
+                                    <label for="terms" class="fnt-14 fw-m text-clr334 mb-0 flex-fill">
                                         {{ 'i_have_understood' | translate }}
                                         <a class="custom-link fnt-14">{{ 'terms_conditions' | translate }}</a>
                                         {{ 'platform_agree' | translate }}.

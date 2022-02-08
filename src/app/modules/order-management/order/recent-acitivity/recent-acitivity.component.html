@@ -1,10 +1,10 @@
 <div class="w-100 col-12 recent-activity-content border-md-none border-mobile p-3 px-md-4 py-md-45">
-    <p class="w-100 fnt-18 fnt-600 mb-2 mb-md-3 text-clr334">{{ 'recent_activity' | translate }}</p>
+    <p class="w-100 fnt-18 fw-m mb-2 mb-md-3 text-clr334">{{ 'recent_activity' | translate }}</p>
     <p-accordion [multiple]="true">
         <ng-container *ngFor="let day of recentActivityList; let lastDay = last">
             <p-accordionTab class="d-block my-md-0" #tab [selected]="false">
                 <ng-template pTemplate="header">
-                    <p class="w-100 activity-date fnt-12 fnt-md-16 fnt-600 text-black334 mb-3 mb-md-4">
+                    <p class="w-100 activity-date fnt-12 fnt-md-16 fw-m text-black334 mb-3 mb-md-4">
                         {{ day.date | date: 'EEEE, d MMM yyyy' }}
                         <img class="pl-2" src="assets/images/collapse-arrow.svg" *ngIf="tab.selected" />
                         <img class="pl-2" src="assets/images/expand-arrow.svg" *ngIf="!tab.selected" />
@@ -18,19 +18,13 @@
                         *ngFor="let activity of day.activities; let lastStatus = last"
                     >
                         <div class="d-none d-md-inline-block txt-clr334 p-0">
-                            <p class="timing txt-clr334 fnt-600">{{ activity.created_at | date: 'shortTime' }}</p>
+                            <p class="timing txt-clr334 fw-m">{{ activity.created_at | date: 'shortTime' }}</p>
                         </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-0 ml-md-4 mb-0 mb-md-3">
                                 <li class="list-activity py-3 py-md-0">
                                     <div
-                                        class="
-                                            mb-1
-                                            text-left
-                                            fnt-normal fnt-sm-12
-                                            d-block d-md-none
-                                            list-time list-time--mobile
-                                        "
+                                        class="mb-1 text-left fnt-normal fnt-sm-12 d-block d-md-none list-time list-time--mobile"
                                     >
                                         {{ activity.created_at | date: 'shortTime' }}
                                     </div>

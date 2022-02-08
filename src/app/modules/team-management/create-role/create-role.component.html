@@ -14,13 +14,13 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6 p-0 pr-md-2">
                     <div class="create-role">
-                        <div *ngIf="!role?.is_system" class="fnt-16 fnt-md-18 fnt-bold mb-3 mb-md-45">
+                        <div *ngIf="!role?.is_system" class="fnt-16 fnt-md-18 fw-b mb-3 mb-md-45">
                             {{ 'create_role' | translate }}
                         </div>
                         <form [formGroup]="roleForm" (onSubmit)="roleAdd()" class="form-container">
                             <div class="row">
                                 <div class="col-12 col-lg-10 sewn-form-field">
-                                    <label class="fnt-14 fnt-600 lh-normal text-clr588">{{
+                                    <label class="fnt-14 fw-m lh-normal text-clr588">{{
                                         'give_your_role_a_name' | translate
                                     }}</label>
                                     <input
