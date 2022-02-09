@@ -29,7 +29,7 @@
                 <div class="fnt-14 fw-b text-clr334 br-4 bg-f8 p-2 m-1 d-md-none">Source from latest estates</div>
                 <div class="p-3">
                     <div *ngFor="let item of estates">
-                        <div class="d-flex estate-wrap mb-3 mb-md-35">
+                        <div class="d-flex estate-wrap mb-3 mb-md-35 pb-3 pb-md-35">
                             <div class="mr-2 ml-lg-3">
                                 <div class="cursor-pointer" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
                                     <app-avatar
@@ -45,16 +45,16 @@
                             </div>
                             <div>
                                 <p
-                                    class="cursor-pointer fnt-14 fw-b text-clr334 mb-0"
+                                    class="cursor-pointer fnt-14 fw-b text-clr334 mb-1"
                                     routerLink="/sourcing/estate-details/{{ item.estate_id }}"
                                 >
                                     {{ item.name }}
                                 </p>
-                                <p class="fnt-12 fnt-md-14 fw-m text-clr334 mb-0">
+                                <p class="fnt-12 fnt-md-14 fw-m text-clr334 mb-1">
                                     <span class="text-clr588">{{ 'origin' | translate }}:&nbsp;</span>
                                     {{ item.country | country }}
                                 </p>
-                                <p class="fnt-12 fnt-md-14 fw-m text-clr334 mb-2">
+                                <p class="fnt-12 fnt-md-14 fw-m text-clr334 mb-0">
                                     <span class="text-clr588">Varieties:&nbsp;</span>
                                     <span *ngFor="let tag of item.tags; let i = index">
                                         {{ tag }}<span *ngIf="i !== item.tags.length - 1">,</span>
