@@ -60,7 +60,7 @@
                 scrollHeight="225px"
                 [showClear]="true"
                 placeholder="Grade"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-dropdown
                 [options]="cropItems"
@@ -69,12 +69,12 @@
                 scrollHeight="225px"
                 [showClear]="true"
                 placeholder="{{ 'crop_month' | translate }}"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-dropdown
                 (click)="openFilter()"
                 placeholder="{{ 'more_filters' | translate }}"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{
                     queryParams.altitude_start ||
                     queryParams.altitude_end ||
                     queryParams.flavours?.length ||
@@ -91,13 +91,13 @@
                 (onChange)="filterCall()"
                 [showClear]="true"
                 placeholder="Available coffee"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-selectButton
                 *ngIf="sourcingSrv.showUnitFilter"
                 [options]="weightItems"
                 [(ngModel)]="sourcingSrv.quantityUnit"
-                styleClass="round-select  mb-25 mb-md-4 "
+                styleClass="round-select mb-25 mb-md-4 "
             >
             </p-selectButton>
         </div>
