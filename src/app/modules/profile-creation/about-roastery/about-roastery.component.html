@@ -336,11 +336,10 @@
 
                 <input
                     type="file"
-                    class="file-inpt"
+                    accept="image/png, image/jpeg"
                     hidden
                     #brandImageInput
-                    (click)="setFormat($event)"
-                    (change)="handleRoasterFile($event)"
+                    (change)="handleBrandFile($event)"
                 />
                 <ng-container *ngIf="filteredBrands?.length || isSaveMode">
                     <!-- new brand form -->
@@ -382,7 +381,7 @@
                                 </div>
                             </div>
                             <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
-                                <a class="view-order cursor-pointer hover-underline" (click)="editBrand(brand)">
+                                <a class="brown-cta" (click)="editBrand(brand)">
                                     {{ 'edit' | translate }}
                                 </a>
                             </div>
@@ -523,33 +522,18 @@
 
 <ng-template #brandButtonGroup>
     <div class="add-brand-btns d-flex float-right float-md-none">
-        <a
-            *ngIf="!isEditBrandMode"
-            class="view-order cursor-pointer mr-3"
-            href="javascript:void(0);"
-            (click)="addNewBrand()"
-        >
+        <span *ngIf="!isEditBrandMode" class="brown-cta mr-3" (click)="addNewBrand()">
             {{ 'save' | translate }}
-        </a>
-        <a
-            *ngIf="isEditBrandMode"
-            class="view-order cursor-pointer mr-3"
-            href="javascript:void(0);"
-            (click)="updateBrandProfile()"
-        >
+        </span>
+        <span *ngIf="isEditBrandMode" class="brown-cta mr-3" (click)="updateBrandProfile()">
             {{ 'save' | translate }}
-        </a>
-        <a
-            *ngIf="isEditBrandMode"
-            class="view-order cursor-pointer mr-3"
-            href="javascript:void(0);"
-            (click)="deleteBrand()"
-        >
+        </span>
+        <span *ngIf="isEditBrandMode" class="brown-cta mr-3" (click)="deleteBrand()">
             {{ 'delete' | translate }}
-        </a>
-        <a class="view-order cursor-pointer" href="javascript:void(0);" (click)="cancelAddBrand()">
+        </span>
+        <span class="brown-cta" (click)="cancelAddBrand()">
             {{ 'cancel' | translate }}
-        </a>
+        </span>
     </div>
 </ng-template>
 
@@ -587,40 +571,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="certificaion-action d-flex">
-                                    <a
-                                        class="menu-arrow"
-                                        [ngClass]="{ 'd-none': !isSaveMode }"
-                                        [popover]="listTemplate"
-                                        placement="left"
-                                        [outsideClick]="true"
-                                        #pop1="bs-popover"
-                                    >
-                                        <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
-                                    </a>
-                                    <ng-template #listTemplate id="{{ certificate.id }}">
-                                        <div id="popover-mobile-content">
-                                            <ul class="list-data custom-popover">
-                                                <li
-                                                    class="list-item fnt-14 fw-m text-clr588 border-none"
-                                                    (click)="editCertificate($event, certificate); pop1.hide()"
-                                                    *appAclIf="'brand-profile-management'"
-                                                >
-                                                    <a class="pointer-item">
-                                                        {{ 'edit' | translate }}
-                                                    </a>
-                                                </li>
-                                                <li
-                                                    class="list-item fnt-14 fw-m text-clr588 border-none"
-                                                    (click)="deleteCertificate(certificate.id); pop1.hide()"
-                                                    *appAclIf="'brand-profile-management'"
-                                                >
-                                                    <a class="pointer-item">{{ 'delete' | translate }}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </ng-template>
-                                </div>
+
+                                <app-action-menu
+                                    *ngIf="isSaveMode"
+                                    [menuItems]="getCertMenuItems(certificate)"
+                                ></app-action-menu>
                             </div>
                         </div>
                     </div>
@@ -785,49 +740,3 @@
         </div>
     </form>
 </ng-template>
-<!-- end brand form template -->
-<p-dialog
-    header="Edit photo"
-    [(visible)]="isShowBrandImageModal"
-    [modal]="true"
-    [baseZIndex]="10000"
-    [draggable]="false"
-    [resizable]="false"
-    styleClass="p-0"
->
-    <div class="image-crop-div">
-        <div class="img-pos-div" style="max-height: 80vh">
-            <image-cropper
-                style="max-height: 60vh"
-                [imageChangedEvent]="imageChangedEvent"
-                [maintainAspectRatio]="true"
-                [containWithinAspectRatio]="false"
-                [aspectRatio]="1 / 1"
-                [resizeToWidth]="256"
-                [resizeToHeight]="256"
-                [cropperMinWidth]="128"
-                [onlyScaleDown]="false"
-                [roundCropper]="true"
-                [canvasRotation]="canvasRotation"
-                [transform]="transform"
-                [autoCrop]="false"
-                [style.display]="showCropper ? null : 'none'"
-                format="png"
-                (imageCropped)="imageCropped($event)"
-                (imageLoaded)="imageLoaded()"
-                (loadImageFailed)="loadImageFailed()"
-            ></image-cropper>
-        </div>
-        <div class="zoom-div w-100">
-            <div class="slider-div mt-3">
-                <p-slider [min]="1" [max]="5" [step]="0.1" [(ngModel)]="scale" (onChange)="zoom()"></p-slider>
-            </div>
-        </div>
-    </div>
-    <p-footer>
-        <button type="button" id="change-pic" class="btn-raised" (click)="selectBrandImage()">
-            {{ 'change_photo' | translate }}
-        </button>
-        <button type="button" id="save-pic" class="btn-raised" (click)="cropImage()">Crop Image</button>
-    </p-footer>
-</p-dialog>

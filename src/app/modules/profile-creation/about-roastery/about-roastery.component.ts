@@ -1,63 +1,34 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { CropperDialogComponent } from '@app/shared';
 import { QUANTIRY_UNIT_LIST } from '@constants';
 import { CertificateType, OrganizationType } from '@enums';
-import { AclService, AuthService, ChatHandlerService, GlobalsService, RoasterService, UserService } from '@services';
+import { CroppedImage } from '@models';
+import { AclService, AuthService, ChatHandlerService, RoasterService, UserService } from '@services';
 import { maxWordCountValidator } from '@utils';
-import { ImageCroppedEvent, ImageCropperComponent, ImageTransform } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 import { RoasteryProfileService } from '../roastery-profile.service';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'sewn-about-roastery',
+    selector: 'app-about-roastery',
     templateUrl: './about-roastery.component.html',
     styleUrls: ['./about-roastery.component.scss'],
 })
 export class AboutRoasteryComponent implements OnInit {
     readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
     readonly OrgType = OrganizationType;
-    ownerName?: string;
-    foundedIn?: any;
-    summary: string;
-    kgs: any = '';
-    capacity: string;
-    capabilities: string;
-    maleNum: string;
-    femaleNum: string;
-    employeeAvg: any;
-    employeeNos: any;
-    brandName: string;
-    shortFescr: string;
-    empName = '';
     roasterId: any;
     certificateTypes: any[];
     certificatesArray: any = [];
     userId: any;
     single: any[];
-    view: any[] = [300, 200];
-    // options
-    gradient = true;
-    showLegend = false;
-    showLabels = false;
-    isDoughnut = false;
-    legendPosition = 'below';
 
-    colorScheme = {
-        domain: ['#747588', '#f8f8f8'],
-    };
-    contacts = [
-        {
-            contactid: '',
-        },
-    ];
     addBtn = true;
     assignRow = false;
     brands = [];
     filteredBrands = [];
     chartData: any;
-    @ViewChild('brandImageInput', { static: true }) brandImageInput: ElementRef;
 
     allUsers: any[] = [];
     aboutForm: FormGroup;
@@ -75,18 +46,6 @@ export class AboutRoasteryComponent implements OnInit {
     toEditBrand: any;
     brandImageUrl = 'assets/images/default-brand.png';
 
-    // brand cropped image relative values
-    isShowBrandImageModal = false;
-    canvasRotation = 0;
-    rotation = 0;
-    scale = 1;
-    showCropper = false;
-    containWithinAspectRatio = false;
-    transform: ImageTransform = {};
-    imageChangedEvent: any = '';
-    @ViewChild(ImageCropperComponent, { static: false })
-    imageCropper: ImageCropperComponent;
-
     get members() {
         return this.membersForm.get('members') as FormArray;
     }
@@ -95,14 +54,13 @@ export class AboutRoasteryComponent implements OnInit {
         private aclService: AclService,
         private authService: AuthService,
         private chatHandler: ChatHandlerService,
+        private dialogService: DialogService,
         private fb: FormBuilder,
-        private router: Router,
+        private roasterService: RoasterService,
         private toastrService: ToastrService,
+        private userService: UserService,
         private usrService: UserService,
-        public globals: GlobalsService,
-        public roasterService: RoasterService,
         public profileCreationService: RoasteryProfileService,
-        public userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.userId = this.authService.userId;
@@ -294,12 +252,7 @@ export class AboutRoasteryComponent implements OnInit {
         }
     }
 
-    editCertificate(event, certificates: any) {
-        console.log('button clicked', certificates.name);
-        this.router.navigateByUrl(`/roastery-profile/certificate/${certificates.id}`);
-    }
-
-    deleteCertificate(certificateId: any) {
+    deleteCertificate(certificateId: number) {
         this.userService.deleteCompanyCertificate(certificateId).subscribe((response: any) => {
             if (response.success) {
                 this.toastrService.success('The selected Certificate has been successfully deleted');
@@ -308,6 +261,13 @@ export class AboutRoasteryComponent implements OnInit {
                 this.toastrService.error('Something went wrong while deleting the certificate');
             }
         });
+    }
+
+    getCertMenuItems(item) {
+        return [
+            { label: 'edit', routerLink: `/roastery-profile/certificate/${item.id}` },
+            { label: 'delete', command: () => this.deleteCertificate(item.id) },
+        ];
     }
 
     deleteMember(idx) {
@@ -333,20 +293,15 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     editBrand(brand) {
-        console.log('brand data to delete: ', brand);
         this.toEditBrand = brand;
         this.brandImageUrl = brand.url;
         const formValue = {
             name: brand.name,
             description: brand.description,
         };
-        console.log('brand data to edit: ', formValue);
         this.brandForm.setValue(formValue);
         this.isEditBrandMode = true;
         this.isAddBrandMode = false;
-        // this.filteredBrands = this.brands.filter((item) => {
-        //     return item.id !== brand.id;
-        // });
     }
 
     addBrandProfileMode() {
@@ -359,7 +314,6 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     addNewBrand() {
-        console.log('added brand: ');
         if (this.brandForm.invalid || !this.brandFile) {
             const controls = this.brandForm.controls;
             if (this.brandForm.invalid) {
@@ -459,84 +413,26 @@ export class AboutRoasteryComponent implements OnInit {
         return result;
     }
 
-    setFormat($event) {
-        $event.target.value = null;
-    }
-
-    handleRoasterFile(e) {
-        if (e.target.files.length > 0) {
-            for (let i = 0; i <= e.target.files.length - 1; i++) {
-                const fsize = e.target.files.item(i).size;
-                const file = Math.round(fsize / 1024);
-                if (file >= 2048) {
-                    this.toastrService.error('File too big, please select a file smaller than 2mb');
-                } else {
-                    if (e.target.files[0].type.split('/')[0] !== 'image') {
-                        this.toastrService.error('Please select image file');
-                        return;
-                    }
-                    this.isShowBrandImageModal = true;
-                    this.imageChangedEvent = e;
+    handleBrandFile(event) {
+        if (!event.target.files?.length) {
+            return;
+        }
+        this.dialogService
+            .open(CropperDialogComponent, {
+                data: {
+                    imageChangedEvent: event,
+                    resizeToWidth: 256,
+                    resizeToHeight: 256,
+                    roundCropper: true,
+                },
+            })
+            .onClose.subscribe((data: CroppedImage) => {
+                if (data.status) {
+                    this.brandImageUrl = data.croppedImgUrl;
+                    this.brandFile = data.croppedImgFile;
                 }
-            }
-        }
-    }
-
-    cropImage() {
-        this.imageCropper.crop();
-        this.isShowBrandImageModal = false;
-    }
-
-    imageCropped(event: ImageCroppedEvent) {
-        this.brandImageUrl = event.base64;
-        const block = this.brandImageUrl.split(';');
-        const contentType = block[0].split(':')[1];
-        const realData = block[1].split(',')[1];
-        this.brandFile = this.b64toBlob(realData, contentType, 0);
-    }
-
-    b64toBlob(b64Data, contentType, sliceSize) {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
-
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            const byteArray = new Uint8Array(byteNumbers);
-
-            byteArrays.push(byteArray);
-        }
-
-        const blob = new Blob(byteArrays, { type: contentType });
-        return blob;
-    }
-
-    imageLoaded() {
-        this.showCropper = true;
-        console.log('Image loaded');
-    }
-
-    loadImageFailed() {
-        console.log('Load failed');
-    }
-
-    zoom() {
-        this.transform = {
-            ...this.transform,
-            scale: this.scale,
-        };
-    }
-
-    selectBrandImage() {
-        this.brandImageInput.nativeElement.click();
+                event.target.value = null;
+            });
     }
 
     openChat(contactData): void {
