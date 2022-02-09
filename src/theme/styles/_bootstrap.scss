@@ -193,12 +193,12 @@ $border-widths: (
         }
         // Disable border radius
         .br-left#{$infix}-0 {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
         }
         .br-right#{$infix}-0 {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
         }
 
         @each $size, $value in $borders {

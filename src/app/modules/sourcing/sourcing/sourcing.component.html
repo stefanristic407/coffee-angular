@@ -47,7 +47,7 @@
                         pInputText
                         [(ngModel)]="queryParams.name"
                         placeholder="{{ 'search_by_name' | translate }}"
-                        class="w-100 br-left-md-0 {{ queryParams.name ? 'highlight' : '' }}"
+                        class="w-100 {{ queryParams.name ? 'highlight' : '' }}"
                     />
                 </span>
             </div>
