@@ -36,6 +36,7 @@
         [pageLinks]="(isMobile$ | async) ? 3 : 5"
         [rows]="tableRows"
         [lazy]="true"
+        [lazyLoadOnInit]="false"
         (onLazyLoad)="getTableData($event)"
         [totalRecords]="totalCount"
         selectionMode="multiple"

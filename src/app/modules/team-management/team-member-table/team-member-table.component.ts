@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { InvitationStatus, OrganizationType, UserStatus } from '@enums';
+import { InvitationStatus, UserStatus } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, ChatHandlerService, CommonService, ResizeService, RoasterService, UserService } from '@services';
 import { ConfirmComponent } from '@shared';
@@ -58,7 +58,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     }
 
     ngOnInit(): void {
-        this.allFunction();
+        this.initFilters();
         this.loginId = this.authService.userId;
         this.route.queryParams.subscribe((params) => {
             this.currentRoleID = Number(params.roleID);
@@ -176,8 +176,8 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
         });
     }
 
-    allFunction() {
-        this.userManagementSearchService.clearSearch();
+    initFilters() {
+        this.userManagementSearchService.clearFilters();
         this.userManagementSearchService.search$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((search: any) => {
             this.termSearch = search;
             this.getTableData();
@@ -200,24 +200,19 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
     }
 
     listRoles(): void {
-        this.roasterService.getRoles().subscribe(
-            (response) => {
-                if (response.success) {
-                    const getCurrentRole: any = response.result.find((ele) => ele.id === this.currentRoleID);
-                    if (!this.isAddMember) {
-                        this.termRole = this.currentRoleID;
-                        this.termRoleName = getCurrentRole ? getCurrentRole.name : '';
-                    }
+        this.roasterService.getRoles().subscribe((res) => {
+            if (res.success) {
+                const getCurrentRole: any = res.result.find((ele) => ele.id === this.currentRoleID);
+                if (!this.isAddMember) {
+                    this.termRole = this.currentRoleID;
+                    this.termRoleName = getCurrentRole ? getCurrentRole.name : '';
                 }
-                this.roleList = response.result;
-                this.getTableData();
-            },
-            (err) => {
-                this.getTableData();
-                console.error(err);
-            },
-        );
+            }
+            this.roleList = res.result;
+            this.getTableData();
+        });
     }
+
     getTableData(event?): void {
         this.loading = true;
         if (this.route.snapshot.routeConfig.path === 'pending-invitations') {
@@ -297,6 +292,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
             );
         }
     }
+
     filterSelectedRoleUser(): void {
         this.assignedUsers = [];
         this.roasterUsers.forEach((ele) => {
