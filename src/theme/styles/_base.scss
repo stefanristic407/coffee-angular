@@ -64,31 +64,6 @@ div[class^='col-'] {
     position: unset;
 }
 
-.overlay-sewn {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 150px;
-    z-index: 9;
-    opacity: 0.8;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0) 65%);
-    background-image: -webkit-linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0) 65%);
-    background-image: -o-linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0) 65%);
-}
-
-/* common css responsive for login reset change password */
-
-.loader {
-    height: 17px;
-    width: 17px;
-    margin-left: 4px;
-    margin-top: -4px;
-}
-
-.pointer-items {
-    cursor: pointer;
-}
-
 /* Chrome, Safari, Edge, Opera */
 
 input::-webkit-outer-spin-button,
@@ -172,62 +147,6 @@ input[type='number'] {
 
     @media (min-width: 992px) {
         font-size: 14px;
-    }
-}
-
-// link with up arrow
-.uparrow-link {
-    color: $brown-color !important;
-    font-weight: $fw-m;
-    position: relative;
-    padding-right: 16px;
-    line-height: normal !important;
-    cursor: pointer;
-
-    &::after {
-        content: '';
-        position: absolute;
-        width: 16px;
-        height: 100%;
-        top: 0px;
-        right: -8px;
-        background-image: url('/assets/images/back_arrow_link.svg');
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
-
-    &:hover {
-        color: $brown-color;
-        text-decoration: underline !important;
-    }
-}
-
-// link with add
-.add-link {
-    color: $brown-color !important;
-    font-weight: $fw-m;
-    position: relative;
-    padding-right: 16px;
-    line-height: normal !important;
-    cursor: pointer;
-
-    &::before {
-        content: '';
-        position: absolute;
-        width: 16px;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-        background-image: url('/assets/images/add-field.svg');
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
-
-    &:hover {
-        color: $brown-color;
-        text-decoration: underline !important;
     }
 }
 

@@ -240,34 +240,6 @@ hr {
     margin: auto;
 }
 
-// link with add
-.add-link {
-    color: $brown-color !important;
-    font-weight: $fw-b;
-    position: relative;
-    padding-right: 16px;
-    line-height: normal !important;
-    cursor: pointer;
-
-    &::before {
-        content: '';
-        position: absolute;
-        width: 16px;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-        background-image: url('/assets/images/add-field.svg');
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
-
-    &:hover {
-        color: $brown-color;
-        text-decoration: underline !important;
-    }
-}
-
 .service-content {
     min-height: 100%;
 }

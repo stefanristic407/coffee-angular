@@ -396,9 +396,7 @@
 
                     <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
                         <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-left">
-                            <a class="add-link" href="javascript:void(0);" (click)="addBrandProfileMode()">
-                                <span class="fnt-14 fw-b add-text ml-4">Add another brand</span>
-                            </a>
+                            <span class="brown-cta" (click)="addBrandProfileMode()"> + Add another brand </span>
                         </div>
                     </div>
 
@@ -467,9 +465,9 @@
                             </div>
                         </div>
                         <div class="add-brand-div mt-3 mb-3 text-left">
-                            <a class="brand-tag add-link" (click)="showContact()">
-                                <span class="add-text ml-4">{{ 'add_another_contact' | translate }}</span>
-                            </a>
+                            <span class="brown-cta ml-4" (click)="showContact()">
+                                + {{ 'add_another_contact' | translate }}
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -581,9 +579,9 @@
                     </div>
                     <div *ngIf="isSaveMode && certificateTypes?.length">
                         <div class="add-brand-div p-25 p-md-4" *appAclIf="'brand-profile-management'">
-                            <a class="brand-tag add-link" routerLink="/roastery-profile/certificate">
-                                <span class="add-text ml-4">{{ 'add_another_certificate' | translate }}</span>
-                            </a>
+                            <span class="brown-cta ml-4" routerLink="/roastery-profile/certificate">
+                                + {{ 'add_another_certificate' | translate }}
+                            </span>
                         </div>
                     </div>
                 </div>
