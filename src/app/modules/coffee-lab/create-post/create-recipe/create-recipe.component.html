@@ -199,7 +199,7 @@
                         >{{ 'ingredient' | translate }}<span class="star">*</span>
                         <span
                             *ngIf="i > 0 && !isTranslate"
-                            class="d-md-none editBtn float-right"
+                            class="d-md-none brown-cta float-right"
                             (click)="deleteIngredient(i)"
                         >
                             {{ 'delete' | translate }}
@@ -249,7 +249,7 @@
                     class="col-md-1 pl-md-0 pl-lg-2 d-none d-md-flex justify-content-end form-middle"
                     [ngClass]="{ 'pr-0': langCode === 'nl' }"
                 >
-                    <span class="editBtn" (click)="deleteIngredient(i)">
+                    <span class="brown-cta" (click)="deleteIngredient(i)">
                         {{ 'delete' | translate }}
                     </span>
                 </div>
@@ -258,7 +258,7 @@
 
         <div *ngIf="!isTranslate" class="col-12 mb-3 d-flex pl-0 pl-md-3">
             <span class="fnt-14"
-                ><span class="editBtn" (click)="addIngredient()">{{ 'add_ingredients' | translate }}</span></span
+                ><span class="brown-cta" (click)="addIngredient()">{{ 'add_ingredients' | translate }}</span></span
             >
         </div>
         <div
@@ -299,13 +299,13 @@
                             <div class="col-12 mt-2 mb-3 d-flex">
                                 <div class="d-flex justify-content-between">
                                     <span class="fnt-14"
-                                        ><span class="editBtn" (click)="addStep()">{{
+                                        ><span class="brown-cta" (click)="addStep()">{{
                                             'add_another_step' | translate
                                         }}</span></span
                                     >
                                     <span
                                         *ngIf="recipeForm.controls.steps.value?.length > 1 && i > 0"
-                                        class="editBtn"
+                                        class="brown-cta"
                                         (click)="deleteStep(i)"
                                     >
                                         {{ 'delete_step' | translate }}
@@ -340,7 +340,7 @@
                 <div class="col-12 d-flex justify-content-end" *ngIf="recipeForm?.value?.preparation_method == 'steps'">
                     <div class="bring-top" *ngIf="!isTranslate">
                         <span
-                            class="editBtn"
+                            class="brown-cta"
                             *ngIf="recipeForm.controls.steps.value?.length > 1 && i > 0"
                             (click)="deleteStep(i)"
                             >{{ 'delete_step' | translate }}
@@ -356,7 +356,7 @@
             *ngIf="recipeForm?.value?.preparation_method == 'steps' && !isTranslate"
         >
             <span class="fnt-14">
-                <span class="editBtn" (click)="addStep()">{{ 'add_another_step' | translate }}</span>
+                <span class="brown-cta" (click)="addStep()">{{ 'add_another_step' | translate }}</span>
             </span>
         </div>
         <div
