@@ -28,13 +28,13 @@
                         </h2>
                         <div class="d-flex align-items-center">
                             <span class="fa fa-star checked mr-2"></span>
-                            <h6
-                                class="fnt-16 fnt-md-18 fw-b custom-link mb-0"
+                            <div
+                                class="fnt-16 fnt-md-18 fw-b brown-cta"
                                 [routerLink]="['/sourcing/estate-details/' + sourcing.estate?.id]"
                                 [queryParams]="{ goToReviews: true }"
                             >
                                 {{ sourcing.estate?.rating | number: '1.2-2' }}
-                            </h6>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                             <div class="border-main border-lg-0 br-4 p-3 p-lg-0">
                                 <div class="mb-2 mb-md-3 mb-lg-4">
                                     <a
-                                        class="custom-link fnt-14"
+                                        class="brown-cta"
                                         routerLink="/sourcing/lot-details/{{ sourcing.lot?.estate_id }}/{{
                                             sourcing.lot?.id
                                         }}"
