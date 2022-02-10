@@ -19,27 +19,27 @@
             <div class="d-flex flex-wrap">
                 <div class="orgin-att">
                     <label class="fnt-12 fnt-md-14 text-clr588 mb-2">{{ 'origin' | translate }}</label>
-                    <h6 class="fnt-14 fw-b text-clr334 ellipsis mb-0">
+                    <h6 class="fnt-14 fw-m text-clr334 ellipsis mb-0">
                         {{ data.lot?.country | country }}
                     </h6>
                 </div>
                 <div class="orgin-att">
                     <label class="fnt-12 fnt-md-14 text-clr588 mb-2">{{ 'species' | translate }}</label>
-                    <h6 class="fnt-14 fw-b text-clr334 ellipsis mb-0">
+                    <h6 class="fnt-14 fw-m text-clr334 ellipsis mb-0">
                         {{ data.lot?.species[0] || 'NA' }}
                         {{ data.lot?.species?.length > 1 ? ' +' + (data.lot.species.length - 1) : '' }}
                     </h6>
                 </div>
                 <div class="orgin-att">
                     <label class="fnt-12 fnt-md-14 text-clr588 mb-2">{{ 'variety' | translate }}</label>
-                    <h6 class="fnt-14 fw-b text-clr334 ellipsis mb-0">
+                    <h6 class="fnt-14 fw-m text-clr334 ellipsis mb-0">
                         {{ data.lot?.varieties[0] || 'NA' }}
                         {{ data.lot?.varieties?.length > 1 ? ' +' + (data.lot.varieties.length - 1) : '' }}
                     </h6>
                 </div>
                 <div class="orgin-att">
                     <label class="fnt-12 fnt-md-14 text-clr588 mb-2">{{ 'processing' | translate }}</label>
-                    <h6 class="fnt-14 fw-b text-clr334 ellipsis mb-0">
+                    <h6 class="fnt-14 fw-m text-clr334 ellipsis mb-0">
                         {{ data.wetmilling_process_name || 'NA' }}
                     </h6>
                 </div>
@@ -52,10 +52,10 @@
                             </div>
                         </div>
                         <div *ngIf="data.flavours?.length > 3" class="col-auto d-flex align-items-center">
-                            <span class="fw-b">+ {{ data.flavours?.length - 3 }}</span>
+                            <span class="fw-m">+ {{ data.flavours?.length - 3 }}</span>
                         </div>
                     </div>
-                    <h6 *ngIf="!data.flavours?.length" class="fnt-14 fw-b ellipsis mb-0">NA</h6>
+                    <h6 *ngIf="!data.flavours?.length" class="fnt-14 fw-m ellipsis mb-0">NA</h6>
                 </div>
             </div>
         </div>
