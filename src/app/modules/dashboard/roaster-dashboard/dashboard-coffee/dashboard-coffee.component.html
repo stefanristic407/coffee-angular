@@ -50,10 +50,9 @@
                                     <td>#{{ item.id }}</td>
                                     <td>{{ item.estate_name }}</td>
                                     <td>
-                                        <div class="custom-badge" [style.color]="orderTypes[item.type].color">
-                                            <div [style.background-color]="orderTypes[item.type].color"></div>
-                                            <span class="fnt-14 fw-m">{{ orderTypes[item.type].name }}</span>
-                                        </div>
+                                        <span class="status-badge fw-m" [ngClass]="item.type">
+                                            {{ item.type | orderType }}
+                                        </span>
                                     </td>
                                     <td>{{ item.created_at | date: 'dd MMM' }} '{{ item.created_at | date: 'yy' }}</td>
                                     <td class="ticket-status">{{ item.status }}</td>
@@ -71,15 +70,14 @@
                             <div class="main-content br-4 border-main" (click)="goToOrderDetails(item)">
                                 <div class="row m-0 order-card-item order-card-header bg-f8">
                                     <div class="col-6 p-0">
-                                        <p class="fnt-14 fw-b m-0 text-clr334 d-inline-block">Order #{{ item.id }}</p>
+                                        <p class="fnt-14 fw-b m-0 text-clr334 d-inline-block">
+                                            {{ 'order' | translate }} #{{ item.id }}
+                                        </p>
                                     </div>
                                     <div class="col-6 p-0 text-right">
-                                        <div class="custom-badge" [style.color]="orderTypes[item.type].color">
-                                            <div [style.background-color]="orderTypes[item.type].color"></div>
-                                            <span class="fnt-12 fw-m">{{
-                                                orderTypes[item.type].name || item.type
-                                            }}</span>
-                                        </div>
+                                        <span class="status-badge fnt-12 fw-m" [ngClass]="item.type">
+                                            {{ item.type | orderType }}
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="row m-0 order-card-item order-card-date">
@@ -94,7 +92,7 @@
                                 </div>
                                 <div class="row order-card-item2 dashed-br">
                                     <div class="col-5 p-0">
-                                        <span class="fnt-12 fw-m text-clr588"> Estate name </span>
+                                        <span class="fnt-12 fw-m text-clr588">{{ 'estate_name' | translate }}</span>
                                     </div>
                                     <div class="col-7 p-0">
                                         <span class="fnt-12 fw-m text-clr334">
@@ -104,7 +102,7 @@
                                 </div>
                                 <div class="row order-card-item2 dashed-br">
                                     <div class="col-5 p-0">
-                                        <span class="fnt-12 fw-m text-clr588"> Origin </span>
+                                        <span class="fnt-12 fw-m text-clr588"> {{ 'origin' | translate }} </span>
                                     </div>
                                     <div class="col-7 p-0 text-left">
                                         <span class="fnt-12 fw-m text-clr334">
@@ -114,7 +112,7 @@
                                 </div>
                                 <div class="row order-card-item2">
                                     <div class="col-5 p-0">
-                                        <span class="fnt-12 fw-m text-clr588"> Variety </span>
+                                        <span class="fnt-12 fw-m text-clr588"> {{ 'variety' | translate }} </span>
                                     </div>
                                     <div class="col-7 p-0 text-left">
                                         <span class="fnt-12 fw-m text-clr334">
