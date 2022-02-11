@@ -382,17 +382,6 @@ span.star {
     }
 }
 
-.navigation-link {
-    font-weight: $fw-b;
-    text-decoration: none !important;
-    color: $brown-color !important;
-    cursor: pointer !important;
-
-    &:hover {
-        text-decoration: underline !important;
-    }
-}
-
 .flex-1 {
     flex: 1;
 }

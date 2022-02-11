@@ -49,7 +49,7 @@
                     <span>{{ rowData[col.field] | country }} </span>
                 </ng-container>
                 <ng-container *ngSwitchCase="'actions'">
-                    <a class="navigation-link" [routerLink]="['/orders/mr', rowData.id, 'request']">{{
+                    <a class="brown-cta" [routerLink]="['/orders/mr', rowData.id, 'request']">{{
                         'view_details' | translate
                     }}</a>
                 </ng-container>

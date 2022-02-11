@@ -17,7 +17,7 @@
             <div class="express__delivery">
                 <div class="delivery__head">
                     <p class="m-0 fnt-14 fw-b black">{{ 'key_generation_request' | translate }}</p>
-                    <p class="view-order m-0 cursor-pointer mobile-delete-key" (click)="delete()">
+                    <p class="brown-cta m-0 cursor-pointer mobile-delete-key" (click)="delete()">
                         {{ 'delete_key' | translate }}
                     </p>
                 </div>
@@ -32,7 +32,7 @@
                                         : (requestDetailData?.created_at | date: 'MMM d, y')
                                 }}
                             </p>
-                            <p class="view-order m-0 pt-3 cursor-pointer delete-key" (click)="delete()">
+                            <p class="brown-cta m-0 pt-3 cursor-pointer delete-key" (click)="delete()">
                                 {{ 'delete_key' | translate }}
                             </p>
                         </div>
