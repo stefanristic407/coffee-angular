@@ -293,7 +293,7 @@ textarea {
     & > .p-inputtext {
         color: $general-text-color;
         font-size: 16px;
-        font-weight: normal;
+        font-weight: $fw-n;
         width: 100%;
         background: #f4f4f5 !important;
         border-radius: 19px;
@@ -305,7 +305,7 @@ textarea {
     input::placeholder {
         color: $button-icon-color !important;
         font-size: 16px !important;
-        font-weight: normal !important;
+        font-weight: $fw-n !important;
     }
 }
 
