@@ -1,6 +1,6 @@
 <div *ngIf="file?.url; else uploader" class="addImageContainer">
     <img [src]="file.url" alt="" class="uploadImg" />
-    <div class="imageLabel fnt-bold text-white">
+    <div class="imageLabel fw-b text-white">
         <span class="ellipsis">
             {{ file?.file?.name || (file?.url | fileName) }}
         </span>

@@ -34,10 +34,7 @@
                             <div *ngIf="item.flavours == null">NA</div>
                         </td>
                         <td>
-                            <a
-                                class="custom-link text-nowrap"
-                                routerLink="/sourcing/lot-details/{{ item.estate_id }}/{{ item.id }}"
-                            >
+                            <a class="brown-cta" routerLink="/sourcing/lot-details/{{ item.estate_id }}/{{ item.id }}">
                                 {{ 'view_lot' | translate }}
                             </a>
                         </td>
@@ -50,7 +47,7 @@
             <div *ngFor="let item of sourcing.estateLots">
                 <div class="border-main br-4 mb-4">
                     <div class="p-3">
-                        <h6 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-bold text-clr24 mb-3">{{ item.name }}</h6>
+                        <h6 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fw-b text-clr24 mb-3">{{ item.name }}</h6>
                         <div class="row mt-4 mt-md-0">
                             <div class="col-4">
                                 <div class="real-estate">
@@ -97,10 +94,7 @@
                     </div>
                     <div class="solid-divider"></div>
                     <div class="p-3">
-                        <a
-                            class="custom-link fnt-14 fnt-md-16"
-                            routerLink="/sourcing/lot-details/{{ item.estate_id }}/{{ item.id }}"
-                        >
+                        <a class="brown-cta" routerLink="/sourcing/lot-details/{{ item.estate_id }}/{{ item.id }}">
                             {{ 'view_lot' | translate }}
                         </a>
                     </div>

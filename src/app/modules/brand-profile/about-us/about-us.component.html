@@ -6,16 +6,16 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="border-main br-2 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-3">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-3">
                             Banner<span class="star">*</span>
                         </h4>
-                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                        <p class="fnt-14 lh-normal fw-m text-clr334 mb-2">
                             Image/Video banner<span class="star">*</span>
                         </p>
-                        <p class="fnt-12 fnt-md-14 lh-normal fnt-600 fnt-muli text-clr588 mb-2">
+                        <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-2">
                             {{ 'upload_banner_cover_about_your_roastery' | translate }}
                         </p>
-                        <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
+                        <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field">
                             <app-brand-uploader
@@ -50,8 +50,8 @@
                     </div>
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Intro</h4>
-                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-2 mb-md-3">Intro</h4>
+                        <p class="fnt-14 lh-normal fw-m text-clr334 mb-4">
                             {{ 'tell_us_about_yourself' | translate }}
                         </p>
 
@@ -98,12 +98,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-0">
-                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                            <p class="fnt-14 lh-normal fw-m text-clr334 mb-2">
                                 Upload an Image / Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
-                                Size - 495 x 536 px
-                            </p>
+                            <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-3 mb-md-4">Size - 495 x 536 px</p>
                             <app-brand-uploader
                                 formControlName="intro_file_1"
                                 [width]="495"
@@ -116,10 +114,10 @@
                     </div>
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-2 mb-md-3">
                             {{ 'who_we_are' | translate }}
                         </h4>
-                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
+                        <p class="fnt-14 lh-normal fw-m text-clr334 mb-4">
                             {{ 'give_a_more_detailed_brief_on_your_work' | translate }}
                         </p>
 
@@ -161,12 +159,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-0">
-                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
+                            <p class="fnt-14 lh-normal fw-m text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-12 fnt-md-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
-                                Size - 600 x 543 px
-                            </p>
+                            <p class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-3 mb-md-4">Size - 600 x 543 px</p>
                             <app-brand-uploader
                                 formControlName="file"
                                 [width]="600"
@@ -179,10 +175,10 @@
                     </div>
 
                     <div class="border-main br-2 mt-4 mt-lg-45 p-3 p-lg-4">
-                        <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
+                        <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-2 mb-md-3">
                             {{ 'your_team_members' | translate }}
                         </h4>
-                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
+                        <p class="fnt-14 lh-normal fw-m text-clr334 mb-4">
                             Select your emplyees to display on your website page
                         </p>
 
@@ -269,9 +265,9 @@
 <ng-template #certificatesBlock>
     <div class="border-main br-4 p-1 mb-4 mb-lg-45">
         <div class="bg-f8 br-4 d-flex align-items-center justify-content-between cert-header">
-            <h5 class="fnt-14 fnt-700 text-clr334 mb-0">Certificates</h5>
+            <h5 class="fnt-14 fw-b text-clr334 mb-0">Certificates</h5>
             <div routerLink="/roastery-profile/certificate" class="cert-add d-flex align-items-center">
-                <span class="fnt-700 text-clr334">+</span>
+                <span class="fw-b text-clr334">+</span>
             </div>
         </div>
         <div class="p-3 p-lg-4">
@@ -279,10 +275,10 @@
                 <div *ngIf="i" class="w-100 solid-divider my-3"></div>
                 <div class="d-flex flex-md-column flex-lg-row justify-content-between align-items-lg-center">
                     <div class="pr-3">
-                        <h4 class="fnt-14 lh-normal fnt-700 text-clr334 mb-1">
+                        <h4 class="fnt-14 lh-normal fw-b text-clr334 mb-1">
                             {{ item.certificate_type_name }}
                         </h4>
-                        <div class="fnt-12 lh-normal fnt-600 text-clr588">{{ item.year }}</div>
+                        <div class="fnt-12 lh-normal fw-m text-clr588">{{ item.year }}</div>
                     </div>
                     <div class="d-none d-md-block">
                         <a class="brown-cta" [href]="item.public_url" target="_blank" rel="noreferrer"> View </a>

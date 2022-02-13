@@ -1,67 +1,60 @@
 <div class="d-flex flex-wrap" style="margin-top: -1rem">
     <div class="sample_info mt-3">
         <div class="info_heading d-flex">
-            <div class="pull-left fnt-muli fnt-14 fnt-bold text-clr334">Sample Info</div>
+            <div class="pull-left fnt-14 fw-b text-clr334">Sample Info</div>
             <div
                 class="ml-auto pull-right cursor-pointer d-none d-md-flex details-wrapper"
                 *ngIf="cuppingDetails?.order_id"
                 (click)="routeToProcessDet()"
             >
-                <span class="fnt-muli fnt-12 fnt-bold text-clr60b">view process details</span>
-                <i class="pi pi-angle-right fnt-12 fnt-bold text-clr60b"></i>
+                <span class="fnt-12 fw-b text-clr60b">view process details</span>
+                <i class="pi pi-angle-right fnt-12 fw-b text-clr60b"></i>
             </div>
         </div>
         <div class="info_list">
             <ul class="no-bullet-ul clearfix mb-0">
                 <li>
                     <div>
-                        <label
-                            class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
-                            *ngIf="cuppingDetails?.order_id"
+                        <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails?.order_id"
                             >{{ 'order_id' | translate }} :</label
                         >
-                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails?.order_id">
+                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails?.order_id">
                             {{ cuppingDetails['order_id'] }}
                         </p>
                         <label
-                            class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
+                            class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
                             *ngIf="cuppingDetails?.external_sample_id"
                             >Sample ID :</label
                         >
-                        <p
-                            class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0"
-                            *ngIf="cuppingDetails?.external_sample_id"
-                        >
+                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails?.external_sample_id">
                             {{ cuppingDetails['external_sample_id'] }}
                         </p>
                     </div>
                 </li>
                 <li *ngIf="cuppingDetails?.estate_name">
                     <div>
-                        <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
+                        <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
                             >{{ 'estate_name' | translate }} :</label
                         >
-                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
+                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                             {{ cuppingDetails['estate_name'] }}
                         </p>
                     </div>
                 </li>
                 <li *ngIf="cuppingDetails?.origin">
                     <div>
-                        <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
-                            >{{ 'origin' | translate }} :</label
-                        >
-                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
+                        <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">{{ 'origin' | translate }} :</label>
+                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                             {{ cuppingDetails['origin'] | country }}
                         </p>
                     </div>
                 </li>
                 <li *ngIf="cuppingDetails?.harvest_date">
                     <div>
-                        <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
+                        <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
                             >{{ 'harvest_year' | translate }} :</label
                         >
-                        <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
+                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                             {{ cuppingDetails['harvest_date'] | date: 'MMMM y' }}
                         </p>
                     </div>
@@ -75,30 +68,30 @@
                 <ul class="no-bullet-ul clearfix mb-0">
                     <li *ngIf="singleCuppingDetails?.cupping_type">
                         <div>
-                            <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
+                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
                                 >{{ 'cupping_type' | translate }} :</label
                             >
-                            <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
+                            <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                                 {{ singleCuppingDetails.cupping_type | sentencecase }} {{ 'cupping' | translate }}
                             </p>
                         </div>
                     </li>
                     <li *ngIf="evaluatorName">
                         <div>
-                            <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Evaluator :</label>
-                            <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">
+                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Evaluator :</label>
+                            <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                                 {{ evaluatorName | titlecase }}
                             </p>
                         </div>
                     </li>
                     <li *ngIf="evaluatorsListArray">
                         <div>
-                            <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
+                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
                                 >{{ 'invited_evaluators' | translate }} :</label
                             >
                             <div class="float-right">
                                 <p
-                                    class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0"
+                                    class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0"
                                     *ngFor="let item of evaluatorsListArray"
                                 >
                                     {{ item.evaluator_name | titlecase }}
@@ -114,16 +107,14 @@
                 <ul class="no-bullet-ul clearfix mb-0">
                     <li *ngIf="status">
                         <div>
-                            <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Status :</label>
-                            <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">{{ status }}</p>
+                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Status :</label>
+                            <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">{{ status }}</p>
                         </div>
                     </li>
                     <li *ngIf="completedOn">
                         <div>
-                            <label class="fnt-muli fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
-                                >Date completed :</label
-                            >
-                            <p class="fnt-muli fnt-12 fnt-600 text-clr334 col-5 p-0 mb-0">{{ completedOn }}</p>
+                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Date completed :</label>
+                            <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">{{ completedOn }}</p>
                         </div>
                     </li>
                 </ul>

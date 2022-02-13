@@ -86,6 +86,7 @@ export class SamplePriceComponent implements OnInit {
                 if (res.success) {
                     this.getOrderSettings();
                     this.onCancel();
+                    this.toastrService.success('Simple price updated successfully');
                 }
                 this.submitted = false;
             });

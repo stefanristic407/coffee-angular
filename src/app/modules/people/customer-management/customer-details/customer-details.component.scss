@@ -21,14 +21,14 @@
     .service-item {
         padding: 16px;
         color: #747588;
-        font-weight: 600;
+        font-weight: $fw-m;
     }
     .service-active-item {
         background: #f8f8f8;
         margin: 4px;
         padding: 12px;
         color: #232334;
-        font-weight: bold;
+        font-weight: $fw-b;
     }
 }
 

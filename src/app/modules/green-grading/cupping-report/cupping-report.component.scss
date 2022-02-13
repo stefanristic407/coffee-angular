@@ -1,11 +1,9 @@
+@import 'variables';
+
 .green_grading_cont {
     h1 {
         font-size: 18px;
     }
-}
-
-.table-responsive {
-    overflow: visible;
 }
 
 ::ng-deep {
@@ -24,21 +22,13 @@
         }
     }
 
-    .p-datatable.p-table-estate {
+    .p-datatable {
         table tr td {
-            span {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                @media (max-width: 767px) {
-                    overflow: unset;
-                }
-            }
-
             .action-button {
                 color: #747588;
                 padding-left: 0.25rem;
                 padding-right: 0.25rem;
-                font-weight: 600;
+                font-weight: $fw-m;
             }
 
             .p-inputtext {
@@ -52,107 +42,13 @@
                 position: relative;
             }
 
-            .p-menu.p-menu-overlay {
-                top: -15px !important;
-                left: -185px !important;
-                .p-menuitem-link {
-                    .p-menuitem-text {
-                        color: #747588;
-
-                        &:hover {
-                            color: #232334;
-                        }
-                    }
-
-                    &:not(.p-disabled):hover {
-                        background-color: #f8f8f8;
-                    }
-                }
-            }
-
             .p-button-outlined {
                 padding: 0.5rem;
                 color: #232334;
                 border-color: #747588;
-                font-family: Muli;
+                font-family: $general-font-family;
                 font-size: 14px;
                 font-weight: 500 !important;
-            }
-        }
-
-        &.p-datatable-responsive {
-            table {
-                tbody tr {
-                    padding: 0;
-                    td {
-                        padding: 1rem 1rem 0;
-                        border-radius: 4px;
-                        border-bottom: none !important;
-
-                        &:first-child,
-                        &:last-child {
-                            & > span {
-                                border: none;
-                            }
-                        }
-
-                        .table-action-button {
-                            .p-button-label {
-                                color: #232334;
-                            }
-                        }
-
-                        & > span {
-                            border-bottom: 1px dashed #d6d6d6;
-                            padding-bottom: 1rem;
-
-                            span:first-child {
-                                color: #747588;
-                            }
-
-                            @media (max-width: 767px) {
-                                font-size: 12px;
-                                font-weight: 600;
-                            }
-                        }
-
-                        &:first-child {
-                            background-color: #f8f8f8;
-
-                            span > span > span:first-child {
-                                font-size: 14px;
-                                font-weight: bold;
-                                color: #232334;
-                            }
-                        }
-
-                        .id-t-sample {
-                            @media (max-width: 991px) {
-                                border: none;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .p-checkbox {
-                width: 20px;
-                height: 20px;
-
-                .p-checkbox-box {
-                    border-radius: 10px;
-                    border: solid 0.5px #d6d6d6;
-                    width: 20px;
-                    height: 20px;
-
-                    &.p-highlight {
-                        background-color: #32a822;
-                    }
-
-                    .p-checkbox-icon {
-                        color: #ffffff !important;
-                    }
-                }
             }
         }
     }

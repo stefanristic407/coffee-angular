@@ -1,4 +1,5 @@
 @import 'variables';
+
 .page-wrapper {
     background: $white;
     display: flex;
@@ -53,9 +54,9 @@
         border-radius: 4px;
         background-color: $primary-bg-color;
         .expertise-level {
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: $fw-b;
             font-stretch: normal;
             font-style: normal;
             line-height: normal;
@@ -63,7 +64,7 @@
             color: $general-text-color;
         }
         .expertise {
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
@@ -75,9 +76,9 @@
     }
 
     .coffee-name {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
         font-stretch: normal;
         font-style: normal;
         line-height: normal;

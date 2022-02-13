@@ -1,3 +1,5 @@
+@import 'variables';
+
 .grading__total {
     .cupping-report {
         padding: 0rem 2.5rem;
@@ -13,7 +15,7 @@
         }
 
         .average_score_value {
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 2rem;
             font-weight: 800;
             color: #232334;
@@ -23,9 +25,9 @@
         }
 
         .average_score_label {
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 1.125rem;
-            font-weight: 600;
+            font-weight: $fw-m;
             color: #747588;
             margin-bottom: 0;
         }
@@ -70,7 +72,7 @@
     .p-button-outlined {
         border: solid 1px #747588;
         color: #232334;
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
         font-weight: 500 !important;
     }

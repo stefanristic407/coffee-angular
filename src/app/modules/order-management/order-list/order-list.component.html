@@ -15,7 +15,7 @@
 
     <div class="row no-gutters" [formGroup]="searchForm">
         <div class="col-12 col-md-4 px-0 d-flex align-items-center">
-            <h4 class="fnt-18 fnt-bold text-clr334 m-0 mt-4 mt-md-0">
+            <h4 class="fnt-18 fw-b text-clr334 m-0 mt-4 mt-md-0">
                 {{ (orgType === OrgType.ESTATE ? 'orders_of_estates' : 'orders_by_mr') | translate }}
             </h4>
         </div>
@@ -51,7 +51,7 @@
                     formControlName="origin"
                 >
                     <ng-template pTemplate="footer">
-                        <span class="d-block w-100 text-center my-2 navigation-link" (click)="resetOriginFilter()">
+                        <span class="d-block w-100 text-center brown-cta" (click)="resetOriginFilter()">
                             {{ 'clear' | translate }}
                         </span>
                     </ng-template>

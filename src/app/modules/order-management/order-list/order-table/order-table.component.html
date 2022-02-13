@@ -46,10 +46,8 @@
                         class="d-flex d-md-none justify-content-between align-items-center p-mobile-row-content"
                         [routerLink]="OrgTypes.ROASTER | orderLink: rowData.id"
                     >
-                        <span class="fnt-bold">{{ 'order' | translate }} #{{ rowData.id }}</span>
-                        <span class="fnt-600 status-badge" [ngClass]="rowData.type">{{
-                            rowData.type | orderType
-                        }}</span>
+                        <span class="fw-b">{{ 'order' | translate }} #{{ rowData.id }}</span>
+                        <span class="fw-m status-badge" [ngClass]="rowData.type">{{ rowData.type | orderType }}</span>
                     </div>
                 </ng-container>
                 <span *ngSwitchCase="'origin'">{{ rowData.origin | country }}</span>
@@ -57,7 +55,7 @@
                     {{ getPrice(rowData) | number: '1.2-4' }} {{ rowData.price_unit }}
                 </span>
                 <span *ngSwitchCase="'date_received'">{{ rowData.created_at | date: 'd MMM yyyy' }}</span>
-                <span *ngSwitchCase="'type'" class="fnt-600 status-badge" [ngClass]="rowData.type">{{
+                <span *ngSwitchCase="'type'" class="fw-m status-badge" [ngClass]="rowData.type">{{
                     rowData.type | orderType
                 }}</span>
                 <span *ngSwitchCase="'status'">{{ rowData.status | sentencecase }}</span>

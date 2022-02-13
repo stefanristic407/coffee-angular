@@ -138,7 +138,7 @@ export class SelectOrderComponent extends ResizeableComponent implements OnInit 
     }
 
     filterCall(event?: LazyLoadEvent) {
-        if (event.first > -1) {
+        if (event?.first > -1) {
             this.pageNumber = event.first / event.rows + 1;
         }
         this.getTableData();
@@ -149,8 +149,8 @@ export class SelectOrderComponent extends ResizeableComponent implements OnInit 
         this.orderTypeArray = [
             { label: 'Shipped', value: 'SHIPPED' },
             { label: 'Confirmed', value: 'CONFIRMED' },
-            { label: 'Harvest Ready', value: 'HARVEST READY' },
-            { label: 'GRADED', value: 'RECEIVED' },
+            { label: 'Harvest ready', value: 'HARVEST READY' },
+            { label: 'Received', value: 'RECEIVED' },
         ];
         this.statusTypeArray = [
             { label: 'Sample', value: 'GC_ORDER_SAMPLE' },

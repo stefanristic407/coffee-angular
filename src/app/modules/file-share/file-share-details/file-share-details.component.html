@@ -17,15 +17,15 @@
         <div class="social-media">
             <div class="d-flex flex-wrap w-100">
                 <div class="col-md-8 px-0">
-                    <h4 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fnt-700 text-clr334">{{ folderDetail?.name }}</h4>
-                    <div class="fnt-14 fnt-md-16 lh-normal fnt-600 text-clr588">{{ folderDetail?.description }}</div>
+                    <h4 class="fnt-16 fnt-md-18 fnt-md-18 lh-normal fw-b text-clr334">{{ folderDetail?.name }}</h4>
+                    <div class="fnt-14 fnt-md-16 lh-normal fw-m text-clr588">{{ folderDetail?.description }}</div>
                 </div>
 
                 <div class="col-md-4 flex-column align-items-end px-0 d-none d-md-flex mt-lg-35">
                     <span class="btn-trans-icon share-icon" (click)="fileShareSrv.openShareModal(folderDetail)">
                         {{ 'share' | translate }}
                     </span>
-                    <p class="fnt-14 fnt-600 text-clr588 mt-25" *ngIf="sharedUsers?.length">
+                    <p class="fnt-14 fw-m text-clr588 mt-25" *ngIf="sharedUsers?.length">
                         Sharing with {{ sharedUsers?.length }} members
                     </p>
                 </div>

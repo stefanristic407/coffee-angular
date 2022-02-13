@@ -10,7 +10,7 @@
                     </div>
                     <div *ngIf="batchId">
                         <div class="fnt-semi-bold mb-1">{{ 'batch' | translate }} #{{ batchId }}</div>
-                        <div class="fnt-16 fnt-md-18 fnt-bold">{{ batchForm.controls['name'].value || 'NA' }}</div>
+                        <div class="fnt-16 fnt-md-18 fw-b">{{ batchForm.controls['name'].value || 'NA' }}</div>
                     </div>
                 </section>
 
@@ -21,7 +21,7 @@
                     novalidate
                 >
                     <div class="mb-4">
-                        <div class="fnt-16 fnt-bold mb-2">{{ 'batch_details' | translate }}</div>
+                        <div class="fnt-16 fw-b mb-2">{{ 'batch_details' | translate }}</div>
                         <div class="fnt-semi-bold text-clr588">{{ 'batch_details_note' | translate }}</div>
                     </div>
 
@@ -164,7 +164,7 @@
 
                     <ng-container *ngIf="!batchForm.value.is_test_batch">
                         <div class="mt-475 mb-4">
-                            <div class="fnt-16 fnt-bold mb-2">{{ 'roast_details' | translate }}</div>
+                            <div class="fnt-16 fw-b mb-2">{{ 'roast_details' | translate }}</div>
                             <div class="fnt-semi-bold text-clr588">{{ 'roast_details_note' | translate }}</div>
                         </div>
 
@@ -245,10 +245,10 @@
                     >
                     </app-avatar>
                     <div class="ml-2">
-                        <div class="fnt-14 fnt-600 mb-1">
+                        <div class="fnt-14 fw-m mb-1">
                             {{ orderDetails.estate_name }}
                         </div>
-                        <div class="fnt-12 fnt-600 text-clr588">
+                        <div class="fnt-12 fw-m text-clr588">
                             {{ 'coffee_estate' | translate }}
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                     <p>
                         <span class="d-flex align-items-center">
                             <img src="assets/images/star-1.svg" alt="Star" />
-                            <span class="fnt-14 fnt-bold pl-1"> {{ rating | number: '1.2-2' }}</span>
+                            <span class="fnt-14 fw-b pl-1"> {{ rating | number: '1.2-2' }}</span>
                         </span>
                     </p>
                 </div>
@@ -334,17 +334,17 @@
 <ng-template #shareStoryTemplate>
     <div *ngIf="coffeeStory" class="story-wrapper border-main br-4 pt-35 pt-md-4">
         <div class="py-0 px-3 px-md-4 mb-45">
-            <p class="fnt-16 fnt-bold mb-3">{{ 'share_your_story' | translate }}</p>
-            <p class="fnt-14 fnt-600 mb-2 text-clr588">{{ 'share_coffee_experience_link' | translate }}!</p>
+            <p class="fnt-16 fw-b mb-3">{{ 'share_your_story' | translate }}</p>
+            <p class="fnt-14 fw-m mb-2 text-clr588">{{ 'share_coffee_experience_link' | translate }}!</p>
             <div class="link-wrapper">
-                <span class="fnt-14 fnt-600 flex-1 link-text">{{ coffeeStory.coffee_story_url }}</span>
+                <span class="fnt-14 fw-m flex-1 link-text">{{ coffeeStory.coffee_story_url }}</span>
                 <button (click)="onCopy()" class="btn-raised" ngxClipboard [cbContent]="coffeeStory.coffee_story_url">
                     {{ 'copy_link' | translate }}
                 </button>
             </div>
         </div>
         <div class="py-0 px-3 px-md-4 mb-45">
-            <p class="fnt-14 fnt-bold mb-4">
+            <p class="fnt-14 fw-b mb-4">
                 {{ 'scan_or_download_qr_code' | translate }}
             </p>
             <div class="d-flex align-items-end">
@@ -355,8 +355,8 @@
             </div>
         </div>
         <div class="d-flex justify-content-center border-top-main px-3 px-md-4 py-3 px-3 px-md-4 py-3">
-            <span class="fnt-14 fnt-bold">{{ 'having_trouble' | translate }}?&nbsp;</span>
-            <a class="custom-link" [href]="'mailto:' + env.supportEmailAddress">{{ 'contact_us' | translate }}</a>
+            <span class="fnt-14 fw-b">{{ 'having_trouble' | translate }}?&nbsp;</span>
+            <a class="brown-cta" [href]="'mailto:' + env.supportEmailAddress">{{ 'contact_us' | translate }}</a>
         </div>
     </div>
 </ng-template>

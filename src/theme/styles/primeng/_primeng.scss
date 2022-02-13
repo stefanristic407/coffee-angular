@@ -1,18 +1,25 @@
 // Custom Theming for Prime Ng
 
-@import '../variables';
+@import 'variables';
+
 @import 'primeng_accordion';
 @import 'primeng_autocomplete';
+@import 'primeng_avatar';
 @import 'primeng_breadcrumb';
+@import 'primeng_button';
 @import 'primeng_calendar';
 @import 'primeng_carousel';
 @import 'primeng_checkbox';
+@import 'primeng_chips';
 @import 'primeng_dialog';
 @import 'primeng_dropdown';
+@import 'primeng_editor';
+@import 'primeng_inputswitch';
 @import 'primeng_inputtext';
 @import 'primeng_listbox';
 @import 'primeng_menu';
 @import 'primeng_multiselect';
+@import 'primeng_overlaypanel';
 @import 'primeng_paginator';
 @import 'primeng_progressbar';
 @import 'primeng_radio';
@@ -21,13 +28,8 @@
 @import 'primeng_table';
 @import 'primeng_tabmenu';
 @import 'primeng_tabview';
-@import 'primeng_listbox';
-@import 'primeng_button';
-@import 'primeng_inputswitch';
-@import 'primeng_editor';
+@import 'primeng_timeline';
 @import 'primeng_toast';
-@import 'primeng_avatar';
-@import 'primeng_chips';
 
 @mixin horizontal-form-field() {
     flex-direction: row;
@@ -44,6 +46,9 @@
     }
     & > :nth-child(2) {
         width: 70%;
+    }
+    &.with-hint > :nth-child(1) {
+        transform: translateY(calc(51px - 50%));
     }
 }
 
@@ -86,7 +91,7 @@
         color: $general-text-color;
         line-height: normal;
         margin-bottom: 0.5rem;
-        font-weight: 600;
+        font-weight: $fw-m;
     }
     .p-inputtext {
         padding: 0.9375rem 0.75rem;
@@ -110,7 +115,7 @@
     .p-error {
         display: none;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
     }
     .ng-invalid.ng-touched,
     .ng-invalid.ng-dirty {
@@ -276,6 +281,7 @@ textarea {
     }
     & > .p-inputtext {
         padding-left: 3.125rem;
+        border-radius: 19px;
     }
 }
 
@@ -287,7 +293,7 @@ textarea {
     & > .p-inputtext {
         color: $general-text-color;
         font-size: 16px;
-        font-weight: normal;
+        font-weight: $fw-n;
         width: 100%;
         background: #f4f4f5 !important;
         border-radius: 19px;
@@ -299,7 +305,7 @@ textarea {
     input::placeholder {
         color: $button-icon-color !important;
         font-size: 16px !important;
-        font-weight: normal !important;
+        font-weight: $fw-n !important;
     }
 }
 
@@ -314,5 +320,5 @@ textarea {
     background: transparent;
     color: $general-text-color;
     border-color: $primary-border-color !important;
-    font-weight: 600;
+    font-weight: $fw-m;
 }

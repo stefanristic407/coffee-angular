@@ -1,6 +1,6 @@
 <div class="row gutter-8 v-gutter-8">
     <div *ngFor="let item of files; index as i" class="col">
-        <div class="file-wrap fnt-600 text-clr588 ellipsis">
+        <div class="file-wrap fw-m text-clr588 ellipsis">
             <span *ngIf="item.url">{{ item.url | fileName: 15 }}</span>
             <span *ngIf="item.file">{{ item.file.name | fileName: 15 }}</span>
             <i class="pi pi-times fnt-12 text-clr588 p-1" (click)="$event.stopPropagation(); delete(i)"></i>

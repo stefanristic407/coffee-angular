@@ -14,11 +14,11 @@
     </div>
     <section class="api-request-heading">
         <div class="row justify-content-between align-items-center heading">
-            <div class="col-lg-8 col-md-8 p-0">
+            <div class="col-lg-8 col-md-8">
                 <h5 class="estate-order-title m-0">{{ 'api_request' | translate }}</h5>
                 <p class="give-your-end-users">{{ 'api_key_details' | translate }}</p>
             </div>
-            <div class="col-lg-4 col-md-8 text-right p-0">
+            <div class="col-lg-4 col-md-8 text-right">
                 <div class="custom-search search">
                     <input
                         type="text"
@@ -32,8 +32,8 @@
             </div>
         </div>
 
-        <div class="header-details row justify-content-between align-items-center">
-            <div class="header-inner col-lg-9 col-md-9 p-0">
+        <div class="row gutter-16 v-gutter-16 align-items-center">
+            <div class="col-auto">
                 <p-dropdown
                     [options]="FilterTypeList"
                     optionLabel="org_type"
@@ -42,9 +42,11 @@
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="{{ 'customer_type' | translate }}"
-                    styleClass="round-border mr-2 {{ customerType ? 'highlight' : '' }}"
+                    styleClass="round-border {{ customerType ? 'highlight' : '' }}"
                 >
                 </p-dropdown>
+            </div>
+            <div class="col-auto">
                 <p-calendar
                     [(ngModel)]="rangeDates"
                     [showIcon]="true"
@@ -58,49 +60,41 @@
                 >
                 </p-calendar>
             </div>
-            <div class="col-lg-3 col-md-3 p-0">
-                <div class="d-inline">
-                    <p-dropdown
-                        [options]="displayArray"
-                        optionLabel="label"
-                        optionValue="value"
-                        [(ngModel)]="perPage"
-                        scrollHeight="225px"
-                        [showClear]="true"
-                        placeholder="Display"
-                        styleClass="round-border d-none d-sm-none d-md-flex float-right {{
-                            perPage ? 'highlight' : ''
-                        }}"
-                    >
-                    </p-dropdown>
-                </div>
+            <div class="col-auto ml-md-auto d-none d-md-block">
+                <p-dropdown
+                    [options]="displayArray"
+                    optionLabel="label"
+                    optionValue="value"
+                    [(ngModel)]="perPage"
+                    scrollHeight="225px"
+                    [showClear]="true"
+                    placeholder="Display"
+                    styleClass="round-border {{ perPage ? 'highlight' : '' }}"
+                >
+                </p-dropdown>
             </div>
         </div>
 
-        <div class="api-requests-tabs mt-32">
-            <p-tabView styleClass="pb-3 pb-md-4" [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
-                <div class="api-requests-tabs mt-45">
-                    <p-tabView [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
-                        <p-tabPanel [header]="'api_key_requests' | translate">
-                            <app-api-key-requests
-                                *ngIf="isApiRequestPage"
-                                [searchRequestId]="KeySearch"
-                                [filterData]="customerType"
-                                [dateRange]="rangeDates"
-                                [perPage]="perPage"
-                            ></app-api-key-requests>
-                        </p-tabPanel>
-                        <p-tabPanel [header]="'generated_keys' | translate">
-                            <app-generated-keys
-                                *ngIf="!isApiRequestPage"
-                                [searchRequestId]="KeySearch"
-                                [filterData]="customerType"
-                                [dateRange]="rangeDates"
-                                [perPage]="perPage"
-                            ></app-generated-keys>
-                        </p-tabPanel>
-                    </p-tabView>
-                </div>
+        <div class="api-requests-tabs mt-45">
+            <p-tabView [(activeIndex)]="selectedTab" (onChange)="handleChange($event)">
+                <p-tabPanel [header]="'api_key_requests' | translate">
+                    <app-api-key-requests
+                        *ngIf="isApiRequestPage"
+                        [searchRequestId]="KeySearch"
+                        [filterData]="customerType"
+                        [dateRange]="rangeDates"
+                        [perPage]="perPage"
+                    ></app-api-key-requests>
+                </p-tabPanel>
+                <p-tabPanel [header]="'generated_keys' | translate">
+                    <app-generated-keys
+                        *ngIf="!isApiRequestPage"
+                        [searchRequestId]="KeySearch"
+                        [filterData]="customerType"
+                        [dateRange]="rangeDates"
+                        [perPage]="perPage"
+                    ></app-generated-keys>
+                </p-tabPanel>
             </p-tabView>
         </div>
     </section>

@@ -15,7 +15,7 @@
             </p-dropdown>
         </div>
         <div class="col-12 sewn-form-field w-100 pl-0 pl-md-3">
-            <label class="fnt-14 fnt-600 fnt-muli position-relative" [ngClass]="{ 'mb-25': isTranslate }"
+            <label class="fnt-14 fw-m position-relative" [ngClass]="{ 'mb-25': isTranslate }"
                 >{{ 'cover_image' | translate }}<span class="star">*</span></label
             >
             <div
@@ -54,9 +54,7 @@
                     />
                     <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
                         <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-1">{{
-                            'add_cover_image' | translate
-                        }}</span>
+                        <span class="fnt-14 fw-m lh-normal text-clr588 mb-1">{{ 'add_cover_image' | translate }}</span>
                     </div>
                 </label>
                 <div
@@ -65,13 +63,13 @@
                     (click)="pasteCoverImage()"
                 >
                     <img src="assets/images/paste.svg" class="mr-1" />
-                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{ 'paste' | translate }}</span>
+                    <span class="fnt-14 fw-m lh-normal text-clr334 ml-1">{{ 'paste' | translate }}</span>
                 </div>
             </div>
         </div>
         <div *ngIf="isTranslate && translatedCategory && translatedCategory.length > 0" class="mx-3 mt-2 mb-md-4">
             <div class="row mx-0">
-                <label class="fnt-600 mb-3"> {{ 'categories' | translate }}</label>
+                <label class="fw-m mb-3"> {{ 'categories' | translate }}</label>
             </div>
             <app-category-list [isTranslatePage]="true" [categoryList]="translatedCategory"></app-category-list>
         </div>
@@ -201,7 +199,7 @@
                         >{{ 'ingredient' | translate }}<span class="star">*</span>
                         <span
                             *ngIf="i > 0 && !isTranslate"
-                            class="d-md-none editBtn float-right"
+                            class="d-md-none brown-cta float-right"
                             (click)="deleteIngredient(i)"
                         >
                             {{ 'delete' | translate }}
@@ -251,7 +249,7 @@
                     class="col-md-1 pl-md-0 pl-lg-2 d-none d-md-flex justify-content-end form-middle"
                     [ngClass]="{ 'pr-0': langCode === 'nl' }"
                 >
-                    <span class="editBtn" (click)="deleteIngredient(i)">
+                    <span class="brown-cta" (click)="deleteIngredient(i)">
                         {{ 'delete' | translate }}
                     </span>
                 </div>
@@ -260,7 +258,7 @@
 
         <div *ngIf="!isTranslate" class="col-12 mb-3 d-flex pl-0 pl-md-3">
             <span class="fnt-14"
-                ><span class="editBtn" (click)="addIngredient()">{{ 'add_ingredients' | translate }}</span></span
+                ><span class="brown-cta" (click)="addIngredient()">{{ 'add_ingredients' | translate }}</span></span
             >
         </div>
         <div
@@ -299,15 +297,15 @@
                                 </small>
                             </div>
                             <div class="col-12 mt-2 mb-3 d-flex">
-                                <div class="fnt-muli d-flex justify-content-between">
+                                <div class="d-flex justify-content-between">
                                     <span class="fnt-14"
-                                        ><span class="editBtn" (click)="addStep()">{{
+                                        ><span class="brown-cta" (click)="addStep()">{{
                                             'add_another_step' | translate
                                         }}</span></span
                                     >
                                     <span
                                         *ngIf="recipeForm.controls.steps.value?.length > 1 && i > 0"
-                                        class="editBtn"
+                                        class="brown-cta"
                                         (click)="deleteStep(i)"
                                     >
                                         {{ 'delete_step' | translate }}
@@ -340,9 +338,9 @@
                     </small>
                 </div>
                 <div class="col-12 d-flex justify-content-end" *ngIf="recipeForm?.value?.preparation_method == 'steps'">
-                    <div class="fnt-muli bring-top" *ngIf="!isTranslate">
+                    <div class="bring-top" *ngIf="!isTranslate">
                         <span
-                            class="editBtn"
+                            class="brown-cta"
                             *ngIf="recipeForm.controls.steps.value?.length > 1 && i > 0"
                             (click)="deleteStep(i)"
                             >{{ 'delete_step' | translate }}
@@ -358,7 +356,7 @@
             *ngIf="recipeForm?.value?.preparation_method == 'steps' && !isTranslate"
         >
             <span class="fnt-14">
-                <span class="editBtn" (click)="addStep()">{{ 'add_another_step' | translate }}</span>
+                <span class="brown-cta" (click)="addStep()">{{ 'add_another_step' | translate }}</span>
             </span>
         </div>
         <div
@@ -381,7 +379,7 @@
                 class="category-multi"
             >
                 <ng-template pTemplate="footer">
-                    <span class="d-block w-100 text-center my-2 navigation-link" (click)="resetCategory()">
+                    <span class="d-block w-100 text-center brown-cta" (click)="resetCategory()">
                         {{ 'clear' | translate }}
                     </span>
                 </ng-template>
@@ -434,9 +432,9 @@
         </div>
         <div class="mb-3 mb-md-4 border-main p-3 mx-3">
             <label>{{ 'recipe_url' | translate }}</label>
-            <div class="p-error fnt-600 pb-3">{{ 'recipe_slug_msg' | translate }}</div>
+            <div class="p-error fw-m pb-3">{{ 'recipe_slug_msg' | translate }}</div>
             <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
-                <div class="fnt-600 mb-2 mb-lg-0">
+                <div class="fw-m mb-2 mb-lg-0">
                     {{ coffeeLabURL }}{{ recipeForm.controls?.language?.value || 'en' }}/coffee-recipes/
                 </div>
                 <div class="sewn-form-field col mb-0">

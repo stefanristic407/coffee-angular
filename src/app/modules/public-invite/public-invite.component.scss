@@ -19,3 +19,9 @@
         border-radius: 0 4px 4px 0 !important;
     }
 }
+
+::ng-deep .w-cal {
+    .p-calendar .p-calendar {
+        width: 150px !important;
+    }
+}

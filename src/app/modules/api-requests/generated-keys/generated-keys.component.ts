@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, ApiRequestService, AuthService, ResizeService } from '@services';
+import { ApiRequestService, AuthService, ResizeService } from '@services';
 import * as moment from 'moment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmComponent } from '@app/shared';
 import { AppKeyConfirmationComponent } from '@app/shared/components/app-key-confirmation/app-key-confirmation.component';
 import { ResizeableComponent } from '@base-components';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-generated-keys',
@@ -18,6 +18,8 @@ export class GeneratedKeysComponent extends ResizeableComponent implements OnIni
     @Input() filterData;
     @Input() dateRange;
     @Input() perPage;
+
+    tableColumns: any = [];
     sortOrder = '';
     sortType = '';
     termStatus: any;
@@ -33,16 +35,15 @@ export class GeneratedKeysComponent extends ResizeableComponent implements OnIni
     display: any;
     showDisplay = true;
     roasterID: number;
-    loader = true;
+    loading = true;
 
     constructor(
         private apiRequestService: ApiRequestService,
         private authService: AuthService,
+        private dialogSrv: DialogService,
         private toastrService: ToastrService,
+        private translator: TranslateService,
         protected resizeService: ResizeService,
-        public cookieService: CookieService,
-        public dialogSrv: DialogService,
-        public globals: GlobalsService,
     ) {
         super(resizeService);
         this.termStatus = '';
@@ -62,7 +63,44 @@ export class GeneratedKeysComponent extends ResizeableComponent implements OnIni
         this.getGeneratedRoKeys();
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.tableColumns = [
+            {
+                field: 'org_name',
+                header: 'customer',
+                width: 17,
+            },
+            {
+                field: 'org_type',
+                header: 'customer_type',
+                width: 17,
+            },
+            {
+                field: 'requested_at',
+                header: 'date_requested',
+                width: 17,
+            },
+            {
+                field: 'generated_at',
+                header: 'key_generated_on',
+                width: 17,
+            },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'is_active',
+                      header: 'key_status',
+                      width: 17,
+                  },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'actions',
+                      header: 'action',
+                      width: 15,
+                  },
+        ].filter(Boolean);
+    }
 
     getTableData(event) {
         if (event.sortField) {
@@ -100,7 +138,7 @@ export class GeneratedKeysComponent extends ResizeableComponent implements OnIni
         }
         this.apiRequestService.getGeneratedRoKeys(data).subscribe((res) => {
             if (res.success) {
-                this.loader = false;
+                this.loading = false;
                 this.generatedKeyData = res.result;
                 this.totalRecords = res.result_info.total_count;
                 this.rows = res.result_info.per_page;
@@ -214,5 +252,30 @@ export class GeneratedKeysComponent extends ResizeableComponent implements OnIni
                 this.toastrService.success('Key has been reactivated!');
             }
         });
+    }
+
+    getMenuItems(item) {
+        return [
+            {
+                label: this.translator.instant('pause_key_access'),
+                command: () => this.pause(item),
+                visible: item.is_active,
+            },
+            {
+                label: this.translator.instant('delete_key'),
+                command: () => this.deleteKey(item.id),
+                visible: item.is_active,
+            },
+            {
+                label: this.translator.instant('notify_customer'),
+                command: () => this.notifyCustomer(item.id),
+                visible: item.is_active,
+            },
+            {
+                label: this.translator.instant('resume_access_and_notify_customer'),
+                command: () => this.resume(item),
+                visible: !item.is_active,
+            },
+        ];
     }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { FileType } from '@enums';
+import { FilePermission, FileType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { ResizeService } from '@services';
 import { FileShareService } from '../../file-share.service';
@@ -12,10 +12,12 @@ import { FileShareService } from '../../file-share.service';
     styleUrls: ['./file-table.component.scss'],
 })
 export class FileTableComponent extends ResizeableComponent implements OnInit {
+    readonly FilePermission = FilePermission;
     @Input() listType = '';
     @Input() emptyTitle = this.translator.instant('no_data_available');
     tableColumns = [];
     disableAction = false;
+    isAllSelected = false;
 
     constructor(
         private router: Router,
@@ -114,14 +116,22 @@ export class FileTableComponent extends ResizeableComponent implements OnInit {
         }, 100);
     }
 
-    filterCall(event) {
-        console.log(event);
-        // setTimeout(() => {
-        //     this.sourcingSrv.queryParams.next({
-        //         ...this.queryParams,
-        //         sort_by: event.sortField,
-        //         sort_order: event.sortOrder === 1 ? 'asc' : 'desc',
-        //     });
-        // });
+    selectRows(checkValue) {
+        if (checkValue) {
+            this.fileShareSrv.selectedItems = (this.fileShareSrv.mainData || []).filter(
+                (item) => item.permission === FilePermission.EDIT,
+            );
+        } else {
+            this.fileShareSrv.selectedItems = [];
+        }
+    }
+
+    selectRow() {
+        const allItems = (this.fileShareSrv.mainData || []).filter((item) => item.permission === FilePermission.EDIT);
+        if (allItems?.length === this.fileShareSrv.selectedItems?.length) {
+            this.isAllSelected = true;
+        } else {
+            this.isAllSelected = false;
+        }
     }
 }

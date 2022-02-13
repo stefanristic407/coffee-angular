@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="d-md-flex justify-content-between align-items-end mb-4">
-        <div class="fnt-18 fnt-bold mb-4 mb-md-0">{{ 'order_support' | translate }}</div>
+        <div class="fnt-18 fw-b mb-4 mb-md-0">{{ 'order_support' | translate }}</div>
         <button class="btn-raised w-mob-100" routerLink="/dispute-system/raised-tickets/{{ orgType }}/{{ orderId }}">
             {{ 'view_all_raised_tickets' | translate }}
         </button>
@@ -31,7 +31,7 @@
                                     class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex d-sm-flex p-0 d-md-none mobileOrderDiv"
                                 >
                                     <span
-                                        class="raise-chng-ord fnt-muli ml-auto"
+                                        class="raise-chng-ord ml-auto"
                                         routerLink="/dispute-system/select-order"
                                         [queryParams]="{ orderId: orderId, orgType: orgType }"
                                     >
@@ -49,7 +49,7 @@
                             class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-none d-sm-none d-md-flex pl-3 align-items-center"
                         >
                             <span
-                                class="raise-chng-ord fnt-muli"
+                                class="raise-chng-ord"
                                 routerLink="/dispute-system/select-order"
                                 [queryParams]="{ id: orderId, orderType: orgType }"
                             >
@@ -115,7 +115,7 @@
                     >
                     <div class="file-box" *ngIf="filesArray.length">
                         <div class="file-name-wrapper" *ngFor="let file of filesArray; let i = index">
-                            <label class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-0">{{ file.name }}</label>
+                            <label class="fnt-14 fw-m lh-normal text-clr588 mb-0">{{ file.name }}</label>
 
                             <i
                                 *ngIf="file.uploadStatus === 'DONE'"
@@ -155,11 +155,11 @@
                             </div>
                             <div class="col-10 p-0 ownerDiv">
                                 <span class="estateMediumFont mb-1"
-                                    ><span class="fnt-600">{{ 'estate_name' | translate }}: </span
+                                    ><span class="fw-m">{{ 'estate_name' | translate }}: </span
                                     >{{ orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}</span
                                 >
                                 <span class="estateMediumFont"
-                                    ><span class="fnt-600">{{ 'manager' | translate }}:</span>
+                                    ><span class="fw-m">{{ 'manager' | translate }}:</span>
                                     {{ orderDetails.estate_owner ? orderDetails.estate_owner : 'NA' }}</span
                                 >
                             </div>
@@ -174,11 +174,11 @@
                             </div>
                             <div class="col-10 p-0 ownerDiv">
                                 <span class="estateMediumFont mb-1"
-                                    ><span class="fnt-600">{{ 'roaster_name' | translate }}:</span>
+                                    ><span class="fw-m">{{ 'roaster_name' | translate }}:</span>
                                     {{ orderDetails.roaster_name ? orderDetails.roaster_name : 'NA' }}</span
                                 >
                                 <span class="estateMediumFont"
-                                    ><span class="fnt-600">{{ 'manager' | translate }}:</span>
+                                    ><span class="fw-m">{{ 'manager' | translate }}:</span>
                                     {{ orderDetails.roaster_owner ? orderDetails.roaster_owner : 'NA' }}</span
                                 >
                             </div>
@@ -187,7 +187,7 @@
 
                     <div class="col-xl-12 col-lg-7 col-md-6 col-sm-12 mt-2 origin-pad">
                         <div class="row pt-3 pb-3 border-bottom-primary">
-                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fw-m">
                                 {{ 'origin' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
@@ -195,7 +195,7 @@
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 border-bottom-primary">
-                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fw-m">
                                 {{ 'variety' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
@@ -203,7 +203,7 @@
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 border-bottom-primary">
-                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fw-m">
                                 {{ 'price' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
@@ -212,7 +212,7 @@
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 border-bottom-primary">
-                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fw-m">
                                 {{ 'type_of_order' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">
@@ -220,7 +220,7 @@
                             </div>
                         </div>
                         <div class="row pt-3 pb-3 statusBorder">
-                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fnt-500">
+                            <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 secondary_txt fw-m">
                                 {{ 'status' | translate }} :
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 p-0 col-lg-3 col-xl-3 tableContentFont">

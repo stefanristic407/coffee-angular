@@ -134,16 +134,14 @@ export class GenerateNewReportComponent implements OnInit {
 
     downloadReport() {
         const evaluatorIds = this.filterEval.map((item) => item.evaluator_id);
-        this.greenGradingService
-            .downloadReport(this.roasterId, this.cuppingReportId, evaluatorIds.join(','))
-            .subscribe((res: any) => {
-                if (res.success === true) {
-                    this.toastrService.success('The report has been downloaded');
-                    this.downloadFile(res.result.url);
-                } else {
-                    this.toastrService.error('Cupping Scores not found!');
-                }
-            });
+        this.greenGradingService.downloadReport(this.cuppingReportId, evaluatorIds.join(',')).subscribe((res: any) => {
+            if (res.success === true) {
+                this.toastrService.success('The report has been downloaded');
+                this.downloadFile(res.result.url);
+            } else {
+                this.toastrService.error('Cupping Scores not found!');
+            }
+        });
     }
 
     back() {

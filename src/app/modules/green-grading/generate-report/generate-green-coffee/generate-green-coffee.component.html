@@ -43,11 +43,13 @@
         </div>
 
         <div class="evaluators__table">
-            <p class="fnt-md-16 fnt-bold mb-2 mb-md-25">{{ 'evaluators' | translate }}</p>
+            <p class="fnt-md-16 fw-b mb-2 mb-md-25">{{ 'evaluators' | translate }}</p>
             <div class="evaluator_table_body">
                 <div class="eval_heading">
-                    <label class="fnt-600 text-clr588 mb-0 w-50">{{ 'name' | translate }}</label>
-                    <label class="fnt-600 text-clr588 mb-0 w-50">{{ 'role' | translate }}</label>
+                    <div>
+                        <label class="fw-m text-clr588 mb-0 w-50">{{ 'name' | translate }}</label>
+                        <label class="fw-m text-clr588 mb-0 w-50">{{ 'role' | translate }}</label>
+                    </div>
                 </div>
                 <ul class="mb-0">
                     <li *ngFor="let item of evaluatorsListArray; let i = index">
@@ -64,7 +66,7 @@
                             (click)="deleteEvaluatorData(item.evaluator_id)"
                         >
                             <i class="pi pi-trash"></i>
-                            <span class="pl-2 text-clr334 fnt-600 d-none d-md-block">{{ 'delete' | translate }}</span>
+                            <span class="pl-2 text-clr334 fw-m d-none d-md-block">{{ 'delete' | translate }}</span>
                         </span>
                     </li>
                     <li *ngIf="inputBoxShow">

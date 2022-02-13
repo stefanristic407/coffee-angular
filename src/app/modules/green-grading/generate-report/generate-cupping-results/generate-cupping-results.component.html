@@ -119,26 +119,38 @@
             </ng-template>
         </p-table>
     </div>
-    <div class="d-flex justify-content-between flex-column flex-md-row pt-5 pt-md-4">
-        <button type="submit" class="green-button btn-stroked btn order-1 order-md-0" (click)="reGrade()">
-            Re-grade sample
-        </button>
-        <div class="d-flex flex-column flex-md-row">
-            <button
-                *ngIf="evaluatorsList && evaluatorsList.length > 1"
-                type="submit"
-                class="green-button btn-stroked btn mr-2 order-1 order-md-0"
-                (click)="save()"
-            >
-                Save as draft
+
+    <div class="row justify-content-between v-gutter-16 pt-5 pt-md-4">
+        <div class="col-md-auto order-1 order-md-0">
+            <button type="submit" class="btn-stroked w-100" (click)="reGrade()">
+                {{ 'regrade_sample' | translate }}
             </button>
-            <button type="submit" class="green-button btn-raised btn" (click)="onConfirmGenerate()">
-                {{
-                    singleCuppingDetails?.status === 'DRAFT' || singleCuppingDetails?.status === 'NEW'
-                        ? 'Generate Report'
-                        : 'Continue'
-                }}
-            </button>
+        </div>
+        <div class="col-md-auto">
+            <div class="row gutter-16 v-gutter-16">
+                <div
+                    *ngIf="
+                        (singleCuppingDetails?.status === 'DRAFT' || singleCuppingDetails?.status === 'NEW') &&
+                        evaluatorsList &&
+                        evaluatorsList.length > 1
+                    "
+                    class="col-md-auto order-1 order-md-0"
+                >
+                    <button type="submit" class="btn-stroked w-100" (click)="save()">
+                        {{ 'save_as_draft' | translate }}
+                    </button>
+                </div>
+                <div class="col-md-auto">
+                    <button type="submit" class="btn-raised w-100" (click)="onConfirmGenerate()">
+                        {{
+                            (singleCuppingDetails?.status === 'DRAFT' || singleCuppingDetails?.status === 'NEW'
+                                ? 'generate_report'
+                                : 'continue'
+                            ) | translate
+                        }}
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </section>

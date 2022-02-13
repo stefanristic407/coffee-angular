@@ -9,6 +9,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { ThousandSuffPipe } from '@app/shared/pipes/thousand-suff.pipe';
+import { FW_B, GENERAL_FONT_FAMILY } from '@constants';
 
 import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
@@ -40,21 +41,21 @@ export class BarChartComponent implements OnInit, OnChanges {
             textStyle: {
                 color: '#232334',
                 fontSize: '12px',
-                fontFamily: 'Muli',
+                fontFamily: GENERAL_FONT_FAMILY,
             },
             alwaysShowContent: true,
             formatter: (params) => {
                 const icon0 = `<span data-tooltip="minimum" style="border-left: 2px solid #fff;display: inline-block;height: 12px;margin-right: 5px;width: 20px;"><span style="background-color:${params[0].color};display: block;height: 4px;margin-top: 4px;width: 20px;"></span></span>`;
                 const icon1 = `<span data-tooltip="implied-high" style="background-color:rgba(255,255,255,.75);border-radius: 2px;display: inline-block;height: 12px;margin-right:5px;width: 20px;"><span style="background-color:${params[0].color};border: 1px solid ${params[0].color};border-radius:50%;display:block;height:6px;margin-left:7px;margin-top:3px;width:6px;"></span></span>`;
                 const convertedValue = this.thousandSuffPipe.transform(params[0].value, 0);
-                return `<span style="font-weight: bold;">${params[0].name}</span><br/> ${convertedValue}`;
+                return `<span style="font-weight: ${FW_B};">${params[0].name}</span><br/> ${convertedValue}`;
             },
         },
         xAxis: {
             type: 'category',
             axisLabel: {
                 color: '#747588',
-                fontFamily: 'Muli',
+                fontFamily: GENERAL_FONT_FAMILY,
             },
             axisTick: {
                 show: false,
@@ -70,11 +71,11 @@ export class BarChartComponent implements OnInit, OnChanges {
             nameTextStyle: {
                 fontWeight: 'bold',
                 align: 'right',
-                fontFamily: 'Muli',
+                fontFamily: GENERAL_FONT_FAMILY,
             },
             axisLabel: {
                 color: '#747588',
-                fontFamily: 'Muli',
+                fontFamily: GENERAL_FONT_FAMILY,
                 formatter: (value) => {
                     const suffixes = ['', 'K', 'M', 'B', 'T'];
                     const suffixNum = Math.floor(('' + value).length / 3);
@@ -105,7 +106,7 @@ export class BarChartComponent implements OnInit, OnChanges {
                     show: true,
                     position: 'top',
                     distance: 10,
-                    fontFamily: 'Muli',
+                    fontFamily: GENERAL_FONT_FAMILY,
                     formatter: (label) => {},
                 },
             },

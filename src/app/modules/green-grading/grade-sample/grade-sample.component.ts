@@ -32,7 +32,6 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
     loading = false;
     term = '';
 
-    countries: any[];
     clonedSamples: { [s: string]: any } = {};
     selectedCuppingReportId: any;
 
@@ -65,7 +64,6 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
             { label: this.translator.instant('quality_control'), routerLink: '/green-grading' },
             { label: this.translator.instant('score_sample') },
         ];
-        this.countries = COUNTRY_LIST;
         this.getExternalReports();
         this.initializeTable();
     }
@@ -145,13 +143,7 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
             this.sampleDetailForm.markAllAsTouched();
             return;
         }
-        const data = {
-            origin: this.sampleDetailForm.get('origin').value,
-            estate_name: this.sampleDetailForm.get('estate_name').value,
-            variety: this.sampleDetailForm.get('variety').value,
-            sample_id: this.sampleDetailForm.get('sample_id').value,
-        };
-        this.greenGradingService.addExternalCuppingReport(data).subscribe((res: any) => {
+        this.greenGradingService.addExternalCuppingReport(this.sampleDetailForm.value).subscribe((res: any) => {
             if (res.success === true) {
                 this.toastrService.success('External cupping report added successfully.');
                 this.getExternalReports();

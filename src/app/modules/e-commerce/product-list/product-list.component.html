@@ -6,7 +6,7 @@
         </button>
     </div>
 
-    <h4 class="fnt-16 fnt-md-18 fnt-muli fnt-bold text-clr334 lh-normal mb-3">
+    <h4 class="fnt-16 fnt-md-18 fw-b text-clr334 lh-normal mb-3">
         {{ (type === 'other' ? 'other_products' : type + '_product_catalog') | translate }}
     </h4>
     <button class="btn-raised d-block d-md-none mb-3" [routerLink]="'/e-commerce/product-details/' + type + '/add'">
@@ -120,7 +120,7 @@
                     <span *ngSwitchCase="'name'">
                         <div class="d-flex d-md-none justify-content-between align-items-center table-mobile-first-col">
                             <div class="d-flex align-items-center">
-                                <span class="fnt-bold ellipsis mr-2"> {{ rowData[col.field] || '--' }} </span>
+                                <span class="fw-b ellipsis mr-2"> {{ rowData[col.field] || '--' }} </span>
                                 <ng-container *ngIf="type !== 'other'">
                                     <i class="pi pi-star" style="color: #ffc107"></i>
                                     <span class="pl-1">
@@ -152,19 +152,19 @@
                             <div class="w-100">
                                 <div *ngFor="let item of mobileFields" [ngSwitch]="item.field">
                                     <span class="pr-2">{{ item.header | translate }}:</span>
-                                    <span class="fnt-bold" *ngSwitchCase="'status'">{{
+                                    <span class="fw-b" *ngSwitchCase="'status'">{{
                                         rowData[item.field] | strReplace: '-':' ' | titlecase
                                     }}</span>
-                                    <span class="fnt-bold" *ngSwitchCase="'origin'">{{
+                                    <span class="fw-b" *ngSwitchCase="'origin'">{{
                                         rowData[item.field] | country
                                     }}</span>
                                     <span *ngSwitchCase="'roast_level_name'">
                                         {{ rowData[item.field] | sentencecase | strReplace: ' roast':'' }}
                                     </span>
-                                    <span class="fnt-bold" *ngSwitchCase="'price'"
+                                    <span class="fw-b" *ngSwitchCase="'price'"
                                         >{{ rowData[item.field] | number: '1.2-4' }} {{ rowData.price_unit }}</span
                                     >
-                                    <span class="fnt-bold" *ngSwitchDefault>{{ rowData[item.field] }}</span>
+                                    <span class="fw-b" *ngSwitchDefault>{{ rowData[item.field] }}</span>
                                 </div>
                             </div>
                         </div>
@@ -199,7 +199,7 @@
 
                     <span *ngSwitchDefault>
                         <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
-                            <span *ngIf="isMobile$ | async" class="fnt-muli fnt-14 fnt-bold text-clr588">
+                            <span *ngIf="isMobile$ | async" class="fnt-14 fw-b text-clr588">
                                 {{ col.header | translate }}
                             </span>
 

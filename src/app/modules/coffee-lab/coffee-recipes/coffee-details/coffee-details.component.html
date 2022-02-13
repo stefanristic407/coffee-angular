@@ -17,14 +17,14 @@
                                 [categoryList]="detailsData?.categories"
                             ></app-category-list>
                         </div>
-                        <h1 class="fnt-bold text-clr334 mb-0 user-header mt-0 text-break">
+                        <h1 class="fw-b text-clr334 mb-0 user-header mt-0 text-break">
                             {{ detailsData?.name | titlecase }}
                         </h1>
-                        <p class="fnt-20 fnt-600 fnt-muli text-clr334 mt-3 mb-md-35 mb-35 my-md-4">
+                        <p class="fnt-20 fw-m text-clr334 mt-3 mb-md-35 mb-35 my-md-4">
                             {{ detailsData?.description }}
                         </p>
                         <div class="d-md-flex mb-4 mb-md-0">
-                            <div class="fnt-14 fnt-muli fnt-600 text-clr588 mb-md-45">
+                            <div class="fnt-14 fw-m text-clr588 mb-md-45">
                                 {{ 'published' | translate }}
                                 {{ detailsData?.posted_at || detailsData?.created_at | date: 'MMMM' | translate }}
                                 {{ detailsData?.posted_at || detailsData?.created_at | date: 'd, yyyy' }}
@@ -103,10 +103,10 @@
                                         <img [src]="recipeInfo.icon" [alt]="recipeInfo.label" />
                                     </div>
                                     <div class="pl-2">
-                                        <label class="fnt-muli fnt-16 fnt-normal text-clr588 mb-0">{{
+                                        <label class="fnt-16 fnt-normal text-clr588 mb-0">{{
                                             recipeInfo.label | translate
                                         }}</label>
-                                        <p class="fnt-muli fnt-16 fnt-bold text-clr334 mb-0 pt-1" *ngIf="detailsData">
+                                        <p class="fnt-16 fw-b text-clr334 mb-0 pt-1" *ngIf="detailsData">
                                             <span *ngIf="recipeInfo.label === 'equipment'"
                                                 >{{ detailsData[recipeInfo.key] | translate }}
                                                 {{ recipeInfo.key2 ? ':' : '' }}
@@ -127,10 +127,10 @@
                                     <img [src]="recipeInfo.icon" [alt]="recipeInfo.label" />
                                 </div>
                                 <div class="pl-2">
-                                    <label class="fnt-muli fnt-16 fnt-normal text-clr588 mb-0">{{
+                                    <label class="fnt-16 fnt-normal text-clr588 mb-0">{{
                                         recipeInfo.label | translate
                                     }}</label>
-                                    <p class="fnt-muli fnt-16 fnt-bold text-clr334 mb-0 pt-1" *ngIf="detailsData">
+                                    <p class="fnt-16 fw-b text-clr334 mb-0 pt-1" *ngIf="detailsData">
                                         <span *ngIf="recipeInfo.label === 'equipment'"
                                             >{{ detailsData[recipeInfo.key] | titlecase }}{{ recipeInfo.key2 ? ':' : ''
                                             }}{{ recipeInfo.key2 ? detailsData[recipeInfo.key2] : '' }}</span
@@ -153,7 +153,7 @@
                             >
                                 <i class="pi pi-check"></i>
                             </div>
-                            <p class="fnt-18 fnt-muli fnt-600 text-clr334">{{ 'mark_as_brewed' | translate }}</p>
+                            <p class="fnt-18 fw-m text-clr334">{{ 'mark_as_brewed' | translate }}</p>
                         </div>
                     </div>
                     <div *ngIf="detailsData?.introduction" class="mx-md-5 mx-0 mt-425 row step-desc border-0">
@@ -162,7 +162,7 @@
                     <div class="row pl-md-5">
                         <div class="col-md-5">
                             <div *ngIf="detailsData?.ingredients" class="mt-45">
-                                <h1 class="user-header mt-0 mb-0 mb-md-45 fnt-bold text-clr334">
+                                <h1 class="user-header mt-0 mb-0 mb-md-45 fw-b text-clr334">
                                     {{ 'ingredients' | translate }}
                                 </h1>
                                 <div class="ingredients-wrapper">
@@ -171,15 +171,13 @@
                                         *ngFor="let ingredientsItem of detailsData.ingredients"
                                     >
                                         <label
-                                            class="fnt-muli fnt-14 fnt-bold text-clr334 mb-0 pr-3"
+                                            class="fnt-14 fw-b text-clr334 mb-0 pr-3"
                                             *ngIf="ingredientsItem.quantity !== '-'"
                                         >
                                             {{ ingredientsItem.quantity }}
                                             {{ ingredientsItem.quantity_unit | translate }}
                                         </label>
-                                        <label class="fnt-muli fnt-14 fnt-600 text-clr334 mb-0">{{
-                                            ingredientsItem.name
-                                        }}</label>
+                                        <label class="fnt-14 fw-m text-clr334 mb-0">{{ ingredientsItem.name }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +185,7 @@
                         </div>
 
                         <div class="mt-4 mt-md-45 col-md-7">
-                            <h2 class="user-header fnt-bold text-clr334 mt-0 mb-4 mb-md-45">
+                            <h2 class="user-header fw-b text-clr334 mt-0 mb-4 mb-md-45">
                                 {{ 'directions' | translate }}
                             </h2>
                             <div
@@ -217,7 +215,7 @@
                 <div class="col-md-7 mx-auto mt-5 px-md-0">
                     <div class="recipe-answer w-100 pt-3 pb-4">
                         <div>
-                            <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-35">
+                            <p class="fnt-16 fw-b text-clr334 mb-35">
                                 {{ 'about_the_author' | translate }}
                             </p>
                             <div class="d-flex">
@@ -234,7 +232,7 @@
                                 </div>
                                 <div>
                                     <p
-                                        class="fnt-14 fnt-bold fnt-muli text-clr334 cursor-point text-underline mb-2"
+                                        class="fnt-14 fw-b text-clr334 cursor-point text-underline mb-2"
                                         routerLink="/user-profile"
                                         [queryParams]="{
                                             user_id: stickySecData?.id,
@@ -247,7 +245,7 @@
                                         {{ stickySecData?.firstname }}
                                         {{ stickySecData?.lastname }}
                                     </p>
-                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 text-justify">
+                                    <p class="fnt-14 fw-m text-clr334 text-justify">
                                         {{ stickySecData?.about_me }}
                                     </p>
                                 </div>
@@ -295,14 +293,12 @@
                             <div class="d-flex justify-content-between mb-4">
                                 <div class="d-flex">
                                     <img src="assets/images/noun-questions.svg" alt="file-imag" />
-                                    <p
-                                        class="align-items-center d-flex text-nowrap fnt-muli fnt-bold fnt-14 text-clr334 ml-2"
-                                    >
+                                    <p class="align-items-center d-flex text-nowrap fw-b fnt-14 text-clr334 ml-2">
                                         {{ 'read_the_guide' | translate }}
                                     </p>
                                 </div>
                                 <div class="bg-f8 px-25 py-2">
-                                    <p class="fnt-600 fnt-12 fnt-muli text-clr334">
+                                    <p class="fw-m fnt-12 text-clr334">
                                         {{ 'original_language' | translate }} :
                                         {{ detailsData?.original_details?.language | language }}
                                     </p>
@@ -311,7 +307,7 @@
                             <app-user-header [prop]="orginalUserData"></app-user-header>
                             <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
                                 <a
-                                    class="fnt-14 fnt-600 fnt-muli"
+                                    class="fnt-14 fw-m"
                                     (click)="
                                         onRealtedRoute(
                                             detailsData?.original_details?.slug,
@@ -327,7 +323,7 @@
 
                     <div class="mt-md-5 mt-45 mb-4 w-100">
                         <div class="w-100">
-                            <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-25">{{ 'comments' | translate }}</p>
+                            <p class="fnt-16 fw-b text-clr334 mb-25">{{ 'comments' | translate }}</p>
                         </div>
                         <div class="d-flex">
                             <div class="d-flex mt-1">
@@ -360,9 +356,7 @@
                     </div>
                     <div *ngIf="allComments?.length > 0">
                         <div class="comment-border">
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr334">
-                                {{ allComments.length }} {{ 'answers' | translate }}
-                            </p>
+                            <p class="fnt-14 fw-m text-clr334">{{ allComments.length }} {{ 'answers' | translate }}</p>
                         </div>
                         <div
                             class="answer-wrapper mt-45"
@@ -385,7 +379,7 @@
                         <div class="text-center w-100" *ngIf="showCommentBtn">
                             <button
                                 (click)="viewAllComments()"
-                                class="fnt-14 fnt-bold fnt-muli text-clr60b mb-4 bg-transparent border-0 text-underline"
+                                class="fnt-14 fw-b text-clr60b mb-4 bg-transparent border-0 text-underline"
                             >
                                 {{ 'view_all_comments' | translate }}
                             </button>
@@ -397,7 +391,7 @@
     </div>
     <article class="row" *ngIf="!isLoading">
         <div class="col-12 col-md-8 px-md-3 mt-md-45">
-            <div class="fnt-16 fnt-muli fnt-bold text-clr334 pt-3 pb-45 background-header">
+            <div class="fnt-16 fw-b text-clr334 pt-3 pb-45 background-header">
                 {{ 'popular_brewing_guides' | translate }}
             </div>
             <div class="row py-2">
@@ -405,10 +399,10 @@
                     <div class="d-flex pb-4 footer-border" (click)="onRealtedRoute(forum.slug, false)">
                         <div class="p-articles pr-2"><img [src]="forum?.cover_image_thumb_url" alt="" /></div>
                         <div class="cursor-point d-flex flex-column">
-                            <p class="fnt-fly fnt-bold text-clr334 cust-flex-grow">
+                            <p class="fnt-fly fw-b text-clr334 cust-flex-grow">
                                 {{ forum?.title | convertToShortDescription: 6 }}
                             </p>
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr334 text-underline">
+                            <p class="fnt-14 fw-m text-clr334 text-underline">
                                 {{ forum?.user_name }}
                             </p>
                         </div>
@@ -429,16 +423,13 @@
             <div class="pb-4 d-flex">
                 <div class="w-100 d-flex justify-content-between">
                     <div>
-                        <p class="fnt-muli fnt-14 fnt-bold text-clr334 mb-1">
+                        <p class="fnt-14 fw-b text-clr334 mb-1">
                             {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
                         </p>
-                        <p class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1">
+                        <p class="fnt-14 fw-m text-clr588 mb-1">
                             {{ stickySecData?.organisation_name || stickySecData?.organization_name }}
                         </p>
-                        <p
-                            *ngIf="stickySecData?.country || stickySecData?.city"
-                            class="fnt-muli fnt-14 fnt-600 text-clr588 mb-1"
-                        >
+                        <p *ngIf="stickySecData?.country || stickySecData?.city" class="fnt-14 fw-m text-clr588 mb-1">
                             {{ stickySecData?.city || stickySecData?.organization_city }},
                             {{ stickySecData?.country | country }}
                         </p>

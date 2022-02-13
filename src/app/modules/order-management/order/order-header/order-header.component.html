@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 pull-right ml-auto d-none d-md-block pl-0 pr-0">
-                <span class="fnt-600 text-clr588 pull-right ml-auto">
+                <span class="fw-m text-clr588 pull-right ml-auto">
                     {{ 'order_placed_on' | translate }} :
                     <span class="text-clr334">{{ createdAt | date: 'd MMM, y' }}</span>
                 </span>
@@ -19,11 +19,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 pr-0">
                 <div class="row">
                     <div class="col-md-6 pl-0 pr-0">
-                        <div class="order__id d-flex align-items-center pt-2 fnt-16 fnt-md-18 fnt-bold text-clr334">
+                        <div class="order__id d-flex align-items-center pt-2 fnt-16 fnt-md-18 fw-b text-clr334">
                             {{ 'order' | translate }}# {{ orderId }}
-                            <span class="ml-2 fnt-12 fnt-md-14 fnt-600" [ngClass]="typeClass"
-                                >&#9679; {{ typeName }}</span
-                            >
+                            <span class="ml-2 fnt-12 fnt-md-14 fw-m" [ngClass]="typeClass">&#9679; {{ typeName }}</span>
                         </div>
                     </div>
                     <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
@@ -34,8 +32,8 @@
                 </div>
                 <div class="row" *ngIf="orderType === OrderTypes.Prebook">
                     <div class="col-12 p-0 mb-2 text-invalid fnt-12">
-                        <span class="fnt-bold">{{ 'note' | translate }}</span>
-                        <span class="fnt-400">{{ 'lot_has_been_prebooked' | translate }}</span>
+                        <span class="fw-b">{{ 'note' | translate }}</span>
+                        <span class="fw-n">{{ 'lot_has_been_prebooked' | translate }}</span>
                     </div>
                 </div>
             </div>

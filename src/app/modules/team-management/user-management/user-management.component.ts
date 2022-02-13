@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { DestroyableComponent } from '@base-components';
 import { UserStatus } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { RoasterService } from '@services';
 import { MenuItem } from 'primeng/api';
+import { takeUntil } from 'rxjs/operators';
 import { UserManagementSearchService } from '../user-management-service';
 
 @Component({
@@ -11,7 +13,7 @@ import { UserManagementSearchService } from '../user-management-service';
     templateUrl: './user-management.component.html',
     styleUrls: ['./user-management.component.scss'],
 })
-export class UserManagementComponent implements OnInit {
+export class UserManagementComponent extends DestroyableComponent implements OnInit {
     readonly UserStatus = UserStatus;
     breadCrumbItem: MenuItem[] = [];
     menuItems: MenuItem[];
@@ -20,9 +22,14 @@ export class UserManagementComponent implements OnInit {
     termSearch = '';
     currentRoleID;
     roleList: any[] = [];
-    statusFilterArray: any = [];
+    statusFilterArray: any[] = [
+        { label: 'Active', value: UserStatus.ACTIVE },
+        { label: 'Inactive', value: UserStatus.INACTIVE },
+    ];
     isAddMember = false;
-    showAddbutton = true;
+    get showAddbutton() {
+        return this.router.routerState.snapshot.url === '/team-management/team-members/accepted' ? true : false;
+    }
 
     constructor(
         private roasterService: RoasterService,
@@ -30,24 +37,14 @@ export class UserManagementComponent implements OnInit {
         private router: Router,
         private translator: TranslateService,
         private userManagementSearchService: UserManagementSearchService,
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         this.menuItems = [
-            {
-                label: this.translator.instant('user_management'),
-                routerLink: 'accepted',
-                command: () => (this.showAddbutton = true),
-            },
-            {
-                label: this.translator.instant('pending_invitations'),
-                routerLink: 'pending-invitations',
-                command: () => (this.showAddbutton = false),
-            },
-        ];
-        this.statusFilterArray = [
-            { name: 'Active', value: 'active' },
-            { name: 'Inactive', value: 'Inactive' },
+            { label: this.translator.instant('user_management'), routerLink: 'accepted' },
+            { label: this.translator.instant('pending_invitations'), routerLink: 'pending-invitations' },
         ];
         this.route.queryParams.subscribe((params) => {
             this.currentRoleID = +params.roleID || null;
@@ -55,8 +52,18 @@ export class UserManagementComponent implements OnInit {
             this.supplyBreadCrumb();
             this.listRoles();
         });
-        this.showAddbutton =
-            this.router.routerState.snapshot.url === '/team-management/team-members/accepted' ? true : false;
+
+        this.userManagementSearchService.clearFilters$
+            .pipe(takeUntil(this.unsubscribeAll$))
+            .subscribe((clearFilters) => {
+                if (clearFilters) {
+                    setTimeout(() => {
+                        this.termStatus = null;
+                        this.termRole = null;
+                        this.termSearch = null;
+                    });
+                }
+            });
     }
 
     onSearch() {
@@ -76,19 +83,14 @@ export class UserManagementComponent implements OnInit {
     }
 
     listRoles(): void {
-        this.roasterService.getRoles().subscribe(
-            (response: any) => {
-                if (response.success) {
-                    if (!this.isAddMember) {
-                        this.termRole = this.currentRoleID;
-                    }
+        this.roasterService.getRoles().subscribe((response: any) => {
+            if (response.success) {
+                if (!this.isAddMember) {
+                    this.termRole = this.currentRoleID;
                 }
-                this.roleList = response.result;
-            },
-            (err) => {
-                console.error(err);
-            },
-        );
+            }
+            this.roleList = response.result;
+        });
     }
 
     supplyBreadCrumb(): void {

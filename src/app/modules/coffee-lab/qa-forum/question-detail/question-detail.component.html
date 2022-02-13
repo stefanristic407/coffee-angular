@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div
-                class="fnt-muli fnt-16 fnt-md-18 fnt-700 text-clr334 question-name px-md-4 px-3"
+                class="fnt-16 fnt-md-18 fw-b text-clr334 question-name px-md-4 px-3"
                 [ngClass]="{ 'mb-4': !detailsData?.categories }"
                 [innerHTML]="detailsData.question"
             ></div>
@@ -130,7 +130,7 @@
                     </div>
                     <div
                         *ngIf="!answer.isEdit"
-                        class="fnt-muli fnt-14 text-clr334 lh-15 pt-md-4 question-name pt-25 px-0"
+                        class="fnt-14 text-clr334 lh-15 pt-md-4 question-name pt-25 px-0"
                         [ngClass]="{ 'mb-2': !last }"
                         appFullImgWrapper
                         [innerHTML]="answer.answer"
@@ -197,14 +197,12 @@
                         <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                             <div class="d-flex">
                                 <img src="assets/images/qa-forum.svg" alt="question-image" />
-                                <p
-                                    class="align-items-center d-flex text-nowrap fnt-muli fnt-bold fnt-14 text-clr334 ml-2"
-                                >
+                                <p class="align-items-center d-flex text-nowrap fw-b fnt-14 text-clr334 ml-2">
                                     {{ 'read_the_original_answer' | translate }}
                                 </p>
                             </div>
                             <div class="bg-f8 px-25 py-2 mt-3 mt-md-0">
-                                <p class="fnt-600 fnt-12 fnt-muli text-clr334">
+                                <p class="fw-m fnt-12 text-clr334">
                                     {{ 'original_language' | translate }} :
                                     {{ answerDetail?.original_details?.language | language }}
                                 </p>
@@ -213,7 +211,7 @@
                         <app-user-header [prop]="answerDetail.original_details"></app-user-header>
                         <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
                             <a
-                                class="fnt-14 fnt-600 fnt-muli"
+                                class="fnt-14 fw-m"
                                 [routerLink]="getLink(answerDetail?.original_details?.question_slug)"
                                 [queryParams]="
                                     isAssignedToMe

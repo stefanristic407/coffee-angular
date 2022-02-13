@@ -1,3 +1,5 @@
+@import 'variables';
+
 .total-wrap {
     @media (min-width: 992px) {
         border-right: solid 1px #ebebeb;
@@ -34,7 +36,7 @@ a.nav-link {
 .nav-pills .show > .nav-link {
     color: #232334;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     background-color: unset !important;
     border-radius: unset;
 }
@@ -84,16 +86,16 @@ li.nav-item {
 }
 
 .nav-pills .nav-link {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #232334;
 }
 
 .nav-pills .nav-link.active {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #30855c;
 }
 
@@ -131,8 +133,8 @@ li.nav-item {
 
 ::ng-deep .textDataLabel {
     font-size: 12px;
-    font-family: 'Muli';
-    font-weight: bold;
+    font-family: $general-font-family;
+    font-weight: $fw-b;
     // transform: translate(-20px, -8px);
 }
 

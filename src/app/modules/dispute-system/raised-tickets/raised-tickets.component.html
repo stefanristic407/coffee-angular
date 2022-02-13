@@ -8,7 +8,7 @@
         }}</a>
     </div>
     <div class="mb-3">
-        <span class="fnt-18 fnt-bold">{{ 'raised_tickets' | translate }}</span>
+        <span class="fnt-18 fw-b">{{ 'raised_tickets' | translate }}</span>
     </div>
     <div class="row">
         <div class="col-12 userTable">
@@ -99,7 +99,9 @@
                                 </div>
                             </span>
                             <span *ngSwitchCase="'actions'" class="d-md-block">
-                                <span class="text-highlited" (click)="goToDispute(rowData)">Go to ticket</span>
+                                <span class="brown-cta" (click)="goToDispute(rowData)">{{
+                                    'go_to_ticket' | translate
+                                }}</span>
                             </span>
                             <span *ngSwitchDefault>
                                 {{ rowData[col.field] }}

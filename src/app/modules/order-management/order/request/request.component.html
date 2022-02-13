@@ -3,7 +3,7 @@
         <div>
             <p-breadcrumb [model]="breadcrumbs"></p-breadcrumb>
         </div>
-        <div class="fnt-bold" *ngIf="request">
+        <div class="fw-b" *ngIf="request">
             <span class="text-clr588">{{ 'date_requested' | translate }}: </span>
             <span class="text-clr334">{{ request.created_at | date: 'd MMM yyyy' }}</span>
         </div>
@@ -11,7 +11,7 @@
     <ng-container *ngIf="request">
         <div class="col-sm-12 col-md-12 col-lg-7 mt-lg-5 p-0">
             <div class="d-flex flex-wrap justify-content-between">
-                <div class="d-flex align-items-center text-clr334 fnt-18 fnt-bold">
+                <div class="d-flex align-items-center text-clr334 fnt-18 fw-b">
                     {{ 'request_details' | translate }}
                 </div>
                 <div>
@@ -24,26 +24,26 @@
             <div class="mt-3 w-100 border-ebebeb br-4 px-lg-3 py-lg-4">
                 <div class="d-flex flex-column flex-md-row fnt-14 lh-18 w-100 justify-content-between">
                     <div class="d-flex flex-row flex-md-column w-fit">
-                        <span class="fnt-500 text-muted">{{ 'estate' | translate }}</span>
-                        <span class="mt-md-3 fnt-600 text-clr334">
+                        <span class="fw-m text-muted">{{ 'estate' | translate }}</span>
+                        <span class="mt-md-3 fw-m text-clr334">
                             <div>{{ request.estate_name }},</div>
                             <div>{{ commonService.getContinentName(request.origin) || request.origin }}</div>
                         </span>
                     </div>
                     <div class="d-flex flex-row flex-md-column w-fit">
-                        <span class="fnt-500 text-muted">{{ 'lot_id' | translate }}</span>
-                        <span class="mt-md-3 fnt-600 text-clr334">
+                        <span class="fw-m text-muted">{{ 'lot_id' | translate }}</span>
+                        <span class="mt-md-3 fw-m text-clr334">
                             <div>{{ request.lot_id }}</div>
-                            <div class="mt-md-2 navigation-link">{{ 'view_lot_details' | translate }}</div>
+                            <div class="mt-md-2 brown-cta">{{ 'view_lot_details' | translate }}</div>
                         </span>
                     </div>
                     <div class="d-flex flex-row flex-md-column w-fit">
-                        <span class="fnt-500 text-muted">{{ 'variety' | translate }}</span>
-                        <span class="mt-md-3 fnt-600 text-clr334">{{ request.varieties | strReplace: ',':', ' }}</span>
+                        <span class="fw-m text-muted">{{ 'variety' | translate }}</span>
+                        <span class="mt-md-3 fw-m text-clr334">{{ request.varieties | strReplace: ',':', ' }}</span>
                     </div>
                     <div class="d-flex flex-row flex-md-column w-fit">
-                        <span class="fnt-500 text-muted">{{ 'rate_per' | translate }} {{ request.quantity_unit }}</span>
-                        <span class="mt-md-3 fnt-600 text-clr334"
+                        <span class="fw-m text-muted">{{ 'rate_per' | translate }} {{ request.quantity_unit }}</span>
+                        <span class="mt-md-3 fw-m text-clr334"
                             >{{ request.unit_price | number: '1.2-4' }} {{ request.price_unit }}</span
                         >
                     </div>
@@ -56,7 +56,7 @@
                         <i class="pi pi-times"></i>
                     </div>
                     <div class="w-100 ml-3">
-                        <div class="text-clrd50 fnt-16 fnt-600 mb-1">
+                        <div class="text-clrd50 fnt-16 fw-m mb-1">
                             {{ 'request_has_been_cancelled' | translate }}
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                     *ngIf="request.status === RequestStatus.APPROVAL_PENDING"
                 >
                     <ng-container *ngIf="!isRejectMode; else rejectForm">
-                        <div class="text-clr334 fnt-bold fnt-14 when-receive-container">
+                        <div class="text-clr334 fw-b fnt-14 when-receive-container">
                             {{ 'when_you_receive_from_estate' | translate }}
                         </div>
                         <div>
@@ -79,7 +79,7 @@
                         </div>
                     </ng-container>
                     <ng-template #rejectForm>
-                        <div class="text-clr334 fnt-bold fnt-14">
+                        <div class="text-clr334 fw-b fnt-14">
                             {{ 'this_request_has_been_cancelled' | translate }}
                         </div>
                         <div class="reject-form mt-4 pb-4 d-flex flex-column" [formGroup]="rejectReasonForm">
@@ -145,7 +145,7 @@
                 <div *ngIf="request.status === RequestStatus.APPROVED">
                     <div class="d-flex">
                         <img src="assets/images/timeline-check-active.svg" />
-                        <div class="d-flex align-items-center ml-3 text-clr334 fnt-bold fnt-14">
+                        <div class="d-flex align-items-center ml-3 text-clr334 fw-b fnt-14">
                             {{ 'micro_roaster_has_been_notified' }}
                         </div>
                     </div>

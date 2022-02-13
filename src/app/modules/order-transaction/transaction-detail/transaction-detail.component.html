@@ -3,7 +3,7 @@
         {{ 'back' | translate }}
     </div>
     <div class="d-md-flex justify-content-between align-items-center mb-3 mb-md-4">
-        <h1 class="fnt-16 fnt-md-18 fnt-bold mb-3 mb-md-0">
+        <h1 class="fnt-16 fnt-md-18 fw-b mb-3 mb-md-0">
             {{ 'transaction_number' | translate }} {{ transaction?.id }} -
             {{ transaction?.transaction_type }}
         </h1>
@@ -44,20 +44,20 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom-dashed pb-3">
                     <div class="d-flex align-items-center">
                         <img width="20" height="20" src="assets/images/timeline-check-active.svg" />
-                        <span class="ml-3 fnt-14 fnt-bold text-clr334">{{ 'ref_no_created' | translate }}!</span>
+                        <span class="ml-3 fnt-14 fw-b text-clr334">{{ 'ref_no_created' | translate }}!</span>
                     </div>
-                    <div class="navigation-link" (click)="editRefMode = true">{{ 'edit' | translate }}</div>
+                    <div class="brown-cta" (click)="editRefMode = true">{{ 'edit' | translate }}</div>
                 </div>
                 <div class="d-flex pt-3">
                     <div class="fnt-semi-bold text-clr588">{{ 'order_reference_number' | translate }} :&nbsp;</div>
-                    <div class="fnt-bold">{{ refNumber }}</div>
+                    <div class="fw-b">{{ refNumber }}</div>
                 </div>
             </ng-template>
         </div>
     </div>
 
     <div class="mt-4">
-        <div class="d-md-none fnt-16 fnt-bold mb-3">{{ 'order_items' | translate }}</div>
+        <div class="d-md-none fnt-16 fw-b mb-3">{{ 'order_items' | translate }}</div>
         <p-table
             [value]="orderItems"
             [columns]="orderTableColumns"
@@ -88,7 +88,7 @@
                         [class.not-has-summary]="rowData.summary && !col.hasSummary"
                     >
                         <ng-container *ngSwitchCase="'item_system_id'">
-                            <span class="fnt-bold d-md-none">
+                            <span class="fw-b d-md-none">
                                 <span *ngIf="!rowData.summary">Sr no - </span>{{ rowData[col.field] }}</span
                             >
                             <span class="d-none d-md-block">{{ rowData[col.field] }}</span>
@@ -114,7 +114,7 @@
 
     <div class="mt-4">
         <div class="d-none d-md-block border-main br-4 p-1">
-            <div class="fnt-bold bg-f8 br-4 px-25 px-md-16 py-2 py-md-25">
+            <div class="fw-b bg-f8 br-4 px-25 px-md-16 py-2 py-md-25">
                 {{ 'customer_information' | translate }}
             </div>
             <div class="px-25 px-md-3 py-md-25">
@@ -122,14 +122,14 @@
                     <div class="col-7 col-lg-5">
                         <ng-container *ngFor="let item of customerDetails; index as i">
                             <div *ngIf="i" class="d-md-none divider ml-n2"></div>
-                            <div class="row py-3 py-md-2 fnt-600">
+                            <div class="row py-3 py-md-2 fw-m">
                                 <div class="col-6 text-clr588">{{ item.label | translate }}</div>
                                 <div class="col-6 text-right text-md-left">{{ item.value || '--' }}</div>
                             </div>
                         </ng-container>
                     </div>
                     <div class="col-5 offset-lg-1">
-                        <div class="d-flex py-3 py-md-2 fnt-600">
+                        <div class="d-flex py-3 py-md-2 fw-m">
                             <div class="text-clr588">{{ 'delivery_address' | translate }} :&nbsp;&nbsp;&nbsp;</div>
                             <div>
                                 <div>{{ transaction?.delivery_address_line1 }}</div>
@@ -159,13 +159,13 @@
 
 <ng-template #detailCard let-title="title" let-items="items">
     <div class="border-main br-4 p-1">
-        <div class="fnt-bold bg-f8 br-4 px-25 px-md-16 py-2 py-md-25">
+        <div class="fw-b bg-f8 br-4 px-25 px-md-16 py-2 py-md-25">
             {{ title | translate }}
         </div>
         <div class="px-25 px-md-3 py-md-25">
             <ng-container *ngFor="let item of items; index as i">
                 <div *ngIf="i" class="d-md-none divider ml-n2"></div>
-                <div class="row py-3 py-md-2 fnt-600">
+                <div class="row py-3 py-md-2 fw-m">
                     <div class="col-6 text-clr588">{{ item.label | translate }}</div>
                     <div class="col-6 text-right text-md-left">{{ item.value || '--' }}</div>
                 </div>

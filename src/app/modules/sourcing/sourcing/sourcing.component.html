@@ -8,16 +8,14 @@
                     defaultLabel="{{ 'select_origin' | translate }}"
                     [maxSelectedLabels]="1"
                     selectedItemsLabel="{0} Origins"
-                    [filter]="false"
+                    [showToggleAll]="false"
                     (onChange)="filterCall()"
                     styleClass="w-100 mb-3 mb-md-4 br-right-0 {{ queryParams.origin?.length ? 'highlight' : '' }}"
                 >
-                    <ng-template pTemplate="header">
-                        <span class="all-mark">{{ 'all' | translate }}</span>
-                        <span
-                            class="clear-btn pi pi-times {{ queryParams.origin?.length ? 'show' : '' }}"
-                            (click)="queryParams.origin = null; filterCall()"
-                        ></span>
+                    <ng-template pTemplate="footer">
+                        <span class="brown-cta" (click)="queryParams.origin = null; filterCall()">
+                            {{ 'clear' | translate }}
+                        </span>
                     </ng-template>
                 </p-multiSelect>
             </div>
@@ -49,7 +47,7 @@
                         pInputText
                         [(ngModel)]="queryParams.name"
                         placeholder="{{ 'search_by_name' | translate }}"
-                        class="w-100 br-left-md-0 {{ queryParams.name ? 'highlight' : '' }}"
+                        class="w-100 {{ queryParams.name ? 'highlight' : '' }}"
                     />
                 </span>
             </div>
@@ -62,7 +60,7 @@
                 scrollHeight="225px"
                 [showClear]="true"
                 placeholder="Grade"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-dropdown
                 [options]="cropItems"
@@ -71,12 +69,12 @@
                 scrollHeight="225px"
                 [showClear]="true"
                 placeholder="{{ 'crop_month' | translate }}"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-dropdown
                 (click)="openFilter()"
                 placeholder="{{ 'more_filters' | translate }}"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{
                     queryParams.altitude_start ||
                     queryParams.altitude_end ||
                     queryParams.flavours?.length ||
@@ -93,13 +91,13 @@
                 (onChange)="filterCall()"
                 [showClear]="true"
                 placeholder="Available coffee"
-                styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
             ></p-dropdown>
             <p-selectButton
                 *ngIf="sourcingSrv.showUnitFilter"
                 [options]="weightItems"
                 [(ngModel)]="sourcingSrv.quantityUnit"
-                styleClass="round-select  mb-25 mb-md-4 "
+                styleClass="round-select mb-25 mb-md-4 "
             >
             </p-selectButton>
         </div>

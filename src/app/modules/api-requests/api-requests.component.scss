@@ -1,11 +1,7 @@
-@import '_variables.scss';
+@import 'variables';
 
 .request-table-container {
     padding: 32px 48px;
-
-    .row {
-        margin: 0;
-    }
 
     .border-total {
         border-radius: 20px;
@@ -20,9 +16,9 @@
     }
 
     .estate-order-title {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 18px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: $general-text-color;
     }
 
@@ -38,33 +34,17 @@
     }
 
     .filter-text {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
         color: $muted-text-color;
     }
 
     .filter {
-        font-family: 'Muli';
-        font-weight: 600;
+        font-family: $general-font-family;
+        font-weight: $fw-m;
         color: $general-text-color;
         font-size: 14px;
-    }
-
-    /**********popover*******/
-
-    .list-group-item {
-        border: none;
-        font-family: 'Muli';
-        font-size: 12px;
-        font-weight: 600;
-        color: $muted-text-color;
-    }
-
-    .list-group-item:hover {
-        color: $general-text-color;
-        font-weight: 600;
-        background-color: $primary-bg-color;
     }
 
     .api-requests {
@@ -76,40 +56,13 @@
         cursor: pointer;
     }
 
-    .file-share-search input[type='search'] {
-        outline: 0;
-        border: 0;
-        width: 235px;
-        background: none;
-        font-size: 12px;
-        font-weight: 600;
-        color: $general-text-color;
-        font-family: 'Muli', sans-serif;
-    }
-
-    .file-share-search input[type='search']::placeholder {
-        font-size: 12px;
-        font-weight: 600;
-        color: $muted-text-color;
-        font-family: 'Muli', sans-serif;
-    }
-
-    .file-share-search {
-        display: inline-block;
-        border-radius: 4px;
-        border: solid 1px $primary-border-color;
-        background-color: #ffffff;
-        padding: 5px 10px 5px 10px;
-    }
-
     ul li {
         list-style: none;
     }
 }
 
-
 .give-your-end-users {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: normal;
     color: $muted-text-color;
@@ -136,16 +89,6 @@
     top: 0px !important;
 }
 
-:host ::ng-deep .p-tabview-nav {
-    border: none;
-}
-
-::ng-deep .p-tabview-panels {
-    ul {
-        border-bottom: 1px solid #d6d6d6 !important;
-    }
-}
-
 .search-tab-view {
     display: none;
 }
@@ -158,11 +101,6 @@
     .heading {
         flex-direction: column;
         align-items: flex-start !important;
-    }
-
-    .header-inner {
-        display: flex;
-        align-items: center;
     }
 }
 
@@ -206,18 +144,6 @@
 
     .custom-search {
         margin-bottom: 16px;
-    }
-}
-
-@media (max-width: 360px) {
-    .header-inner {
-        flex-direction: column;
-        align-items: flex-start;
-
-        ::ng-deep .p-calendar {
-            width: 165px;
-            margin-top: 16px;
-        }
     }
 }
 

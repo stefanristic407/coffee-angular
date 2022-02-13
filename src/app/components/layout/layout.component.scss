@@ -42,7 +42,7 @@
 .cursor-dots {
     cursor: pointer;
     color: $muted-text-color;
-    font-family: Muli;
+    font-family: $general-font-family;
 }
 
 .cursor-dots:hover {
@@ -54,25 +54,6 @@
     cursor: pointer;
     position: relative;
     top: 5px;
-}
-
-.list-group-item {
-    border: none;
-    font-family: 'Muli';
-    font-size: 12px;
-    font-weight: 600 !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: $muted-text-color !important;
-}
-
-.list-group-item:hover {
-    color: $general-text-color !important;
-    font-weight: 600 !important;
-    background-color: $primary-bg-color;
-    border-radius: 4px;
 }
 
 ::ng-deep .popover-body {
@@ -132,7 +113,7 @@
 
 .under-mark {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: $fw-b;
     color: #80460b;
     text-decoration: underline;
 }

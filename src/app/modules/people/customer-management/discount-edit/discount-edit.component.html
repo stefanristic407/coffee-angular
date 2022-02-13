@@ -1,7 +1,7 @@
 <div class="bg-fff">
     <div class="col-lg-12 mb-3 px-0">
         <div class="back-page w-100">
-            <a class="back-href fnt-500" routerLink="/people/customer-management">Back </a>
+            <a class="back-href fw-m" routerLink="/people/customer-management">Back </a>
         </div>
     </div>
     <!-- Royal coffee roasters company -->
@@ -14,20 +14,16 @@
                     </div>
                     <div class="col-9 mt-2 pt-1">
                         <p>
-                            <span
-                                class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
-                                *ngIf="customerService.pendingCompany != ''"
-                                >{{ customerService.pendingCompany }}</span
-                            >
+                            <span class="fnt-16 fnt-md-18 fw-b black" *ngIf="customerService.pendingCompany != ''">{{
+                                customerService.pendingCompany
+                            }}</span>
                         </p>
                         <p>
-                            <span
-                                class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
-                                *ngIf="customerService.pendingCompany == ''"
+                            <span class="fnt-16 fnt-md-18 fw-b black" *ngIf="customerService.pendingCompany == ''"
                                 >-</span
                             >
                         </p>
-                        <p class="fnt-14 fnt-700 fnt-muli black fnt-normal">{{ customerService.pendingEmail }}</p>
+                        <p class="fnt-14 fw-b black fnt-normal">{{ customerService.pendingEmail }}</p>
                     </div>
                 </div>
             </div>
@@ -40,20 +36,16 @@
                     </div>
                     <div class="text-center pt-4">
                         <p class="mb-2">
-                            <span
-                                class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
-                                *ngIf="customerService.pendingCompany != ''"
-                                >{{ customerService.pendingCompany }}</span
-                            >
+                            <span class="fnt-16 fnt-md-18 fw-b black" *ngIf="customerService.pendingCompany != ''">{{
+                                customerService.pendingCompany
+                            }}</span>
                         </p>
                         <p class="mb-2">
-                            <span
-                                class="fnt-16 fnt-md-18 fnt-muli fnt-700 black"
-                                *ngIf="customerService.pendingCompany == ''"
+                            <span class="fnt-16 fnt-md-18 fw-b black" *ngIf="customerService.pendingCompany == ''"
                                 >-</span
                             >
                         </p>
-                        <p class="fnt-14 fnt-700 fnt-muli black fnt-normal m-0">{{ customerService.pendingEmail }}</p>
+                        <p class="fnt-14 fw-b black fnt-normal m-0">{{ customerService.pendingEmail }}</p>
                     </div>
                 </div>
             </div>
@@ -66,12 +58,12 @@
                 <div class="col-lg-8 col-12 discount-border">
                     <div class="row web-farm">
                         <div class="col-8">
-                            <p class="fnt-14 fnt-md-16 fnt-bold fnt-muli black m-0">Customer Status</p>
-                            <p class="fnt-14 fnt-md-16 fnt-bold fnt-muli black">Manage their status on the platform</p>
+                            <p class="fnt-14 fnt-md-16 fw-b black m-0">Customer Status</p>
+                            <p class="fnt-14 fnt-md-16 fw-b black">Manage their status on the platform</p>
                         </div>
                         <div class="col-4">
                             <div class="d-flex flex-column">
-                                <p class="black fnt-18 fnt-500 fnt-md-16 fnt-muli mb-1 pull-right text-right">
+                                <p class="black fnt-18 fw-m fnt-md-16 mb-1 pull-right text-right">
                                     {{ customerService.pendingStatus }}
                                 </p>
                             </div>
@@ -79,12 +71,12 @@
                     </div>
                     <div class="row mobile-farm mx-0">
                         <div class="col-12 pending-border px-0">
-                            <p class="fnt-16 fnt-md-16 fnt-bold fnt-muli black mb-2">Customer Status</p>
-                            <p class="fnt-14 fnt-md-14 fnt-bold fnt-muli black">Manage their status on the platform</p>
+                            <p class="fnt-16 fnt-md-16 fw-b black mb-2">Customer Status</p>
+                            <p class="fnt-14 fnt-md-14 fw-b black">Manage their status on the platform</p>
                         </div>
                         <div class="col-12 px-0">
                             <div class="d-flex flex-column">
-                                <p class="black fnt-16 fnt-500 fnt-md-16 fnt-muli mb-3 pt-3">
+                                <p class="black fnt-16 fw-m fnt-md-16 mb-3 pt-3">
                                     {{ customerService.pendingStatus }}
                                 </p>
                             </div>

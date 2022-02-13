@@ -48,7 +48,7 @@
             styleClass="question-dropdown"
         >
             <ng-template pTemplate="footer">
-                <span class="d-block w-100 text-center my-2 navigation-link" (click)="resetCategory()">
+                <span class="d-block w-100 text-center brown-cta" (click)="resetCategory()">
                     {{ 'clear' | translate }}
                 </span>
             </ng-template>
@@ -66,9 +66,9 @@
     </div>
     <div class="mb-3 mb-md-4 border-main p-3">
         <label>{{ 'qa_url' | translate }}</label>
-        <div class="p-error fnt-600 pb-3">{{ 'qa_slug_msg' | translate }}</div>
+        <div class="p-error fw-m pb-3">{{ 'qa_slug_msg' | translate }}</div>
         <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
-            <div class="fnt-600 mb-2 mb-lg-0">
+            <div class="fw-m mb-2 mb-lg-0">
                 {{ coffeeLabURL }}{{ questionForm?.get('languageCode')?.value || 'en' }}/questions/
             </div>
             <div class="sewn-form-field col mb-0">

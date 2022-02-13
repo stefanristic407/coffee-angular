@@ -1,9 +1,9 @@
 <div class="border-main br-4 m-0">
     <div class="embed-responsive blog-img" [style.backgroundImage]="'url(' + imgUrl + ')'"></div>
     <div class="px-4 py-3">
-        <div *ngIf="date" class="fnt-12 fnt-600 text-clr97">{{ date | date: 'MMMM y' }}</div>
-        <div class="fnt-18 text-clr334 fnt-700 fnt-muli mt-3 mb-25">{{ title }}</div>
-        <div class="fnt-14 fnt-muli pb-4 text-clr588 border-bottom-dashed mb-3 lh-15" [innerHTML]="description"></div>
+        <div *ngIf="date" class="fnt-12 fw-m text-clr97">{{ date | date: 'MMMM y' }}</div>
+        <div class="fnt-18 text-clr334 fw-b mt-3 mb-25">{{ title }}</div>
+        <div class="fnt-14 pb-4 text-clr588 border-bottom-dashed mb-3 lh-15" [innerHTML]="description"></div>
         <div>
             <a class="arrow-link" [routerLink]="link">{{ 'read_more' | translate }}</a>
         </div>

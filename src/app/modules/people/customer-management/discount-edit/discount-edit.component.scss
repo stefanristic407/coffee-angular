@@ -1,3 +1,5 @@
+@import 'variables';
+
 .ft-roastry-profile {
     width: 94px;
 }
@@ -64,17 +66,17 @@
     height: 14px;
 }
 .estate-message {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: $fw-m;
 }
 .back-page a {
     font-size: 16px;
     color: #80460b;
     cursor: pointer;
-    font-family: Muli;
+    font-family: $general-font-family;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: $fw-m;
 }
 @media (max-width: 767px) {
     .customer-status-width {

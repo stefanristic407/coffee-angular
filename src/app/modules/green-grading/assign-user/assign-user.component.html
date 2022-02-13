@@ -19,7 +19,7 @@
     </div>
 
     <div class="header-wrapper">
-        <h4 class="fnt-18 fnt-muli fnt-bold text-clr334 lh-normal">{{ 'assign_user' | translate }}</h4>
+        <h4 class="fnt-18 fw-b text-clr334 lh-normal">{{ 'assign_user' | translate }}</h4>
     </div>
     <span class="p-input-icon-left d-inline-block d-md-none mb-4">
         <i class="pi pi-search"></i>
@@ -113,15 +113,10 @@
                         <td *ngFor="let col of columns" [ngSwitch]="col.field">
                             <span *ngSwitchCase="'name'">
                                 <div
-                                    class="
-                                        d-flex d-md-none
-                                        justify-content-between
-                                        align-items-center
-                                        table-mobile-first-col
-                                    "
+                                    class="d-flex d-md-none justify-content-between align-items-center table-mobile-first-col"
                                 >
                                     <div class="d-flex align-items-center">
-                                        <span class="fnt-bold">
+                                        <span class="fw-b">
                                             {{ rowData['firstname'] }}&nbsp;{{ rowData['lastname'] }}
                                         </span>
                                         <span
@@ -131,7 +126,7 @@
                                             }"
                                         ></span>
                                         <span
-                                            class="fnt-600"
+                                            class="fw-m"
                                             [ngStyle]="{
                                                 color: rowData['status'] === 'ACTIVE' ? '#649a2b' : '#979797'
                                             }"
@@ -149,7 +144,7 @@
                             </span>
                             <span *ngSwitchCase="'last_login_at'">
                                 <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
-                                    <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588">
+                                    <span *ngIf="isMobileView" class="fnt-14 fw-b text-clr588">
                                         {{ col['header'] }}
                                     </span>
 
@@ -161,7 +156,7 @@
 
                             <span *ngSwitchCase="'status'">
                                 <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
-                                    <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588">
+                                    <span *ngIf="isMobileView" class="fnt-14 fw-b text-clr588">
                                         {{ col['header'] }}
                                     </span>
                                     <div class="d-flex align-items-center">
@@ -183,7 +178,7 @@
                             </span>
                             <span *ngSwitchDefault>
                                 <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
-                                    <span *ngIf="isMobileView" class="fnt-muli fnt-14 fnt-bold text-clr588 col-6 p-0">
+                                    <span *ngIf="isMobileView" class="fnt-14 fw-b text-clr588 col-6 p-0">
                                         {{ col['header'] }}
                                     </span>
 

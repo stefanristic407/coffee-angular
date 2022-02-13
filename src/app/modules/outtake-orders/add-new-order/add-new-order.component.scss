@@ -129,19 +129,6 @@ table.recent-time {
             border: 1px solid #dddddd !important;
         }
     }
-    .copy-link input {
-        width: 70% !important;
-        padding: 0.75rem;
-        border-top-right-radius: 0px !important;
-        border-bottom-right-radius: 0px !important;
-    }
-    .copy-link button {
-        position: relative;
-        bottom: 8px;
-        padding: 0.75rem;
-        border-top-left-radius: 0px !important;
-        border-bottom-left-radius: 0px !important;
-    }
     ::-webkit-scrollbar-track {
         box-shadow: none !important;
         border-radius: 6px;
@@ -151,21 +138,12 @@ table.recent-time {
         background: transparent !important;
         box-shadow: none !important;
     }
-    .download-qr-link {
-        margin-top: 10px;
-    }
     .order-details-clr {
         padding: 12px;
     }
 }
 
 @media (min-width: 992px) {
-    .copy-link button {
-        padding: 15px 24px;
-    }
-    .copy-link input {
-        padding: 14px;
-    }
     .padd-2r {
         padding: 1rem 0;
     }
@@ -206,27 +184,8 @@ table.recent-time {
         display: flex;
         justify-content: center;
     }
-    .tab-btn {
-        width: 100%;
-        height: 45px;
-        border-radius: 0px !important;
-    }
-    .tab-input {
-        margin-bottom: 0 !important;
-        height: 45px;
-    }
-    .download-qr-link {
-        margin-top: 14px;
-        margin-bottom: 12px;
-    }
     .tab-bottom-margin {
         margin-bottom: 24px !important;
-    }
-    .contact-for-help__text {
-        padding-top: 16px !important;
-    }
-    .contact-for-help {
-        margin-bottom: -16px;
     }
     .padd-2r {
         padding-top: 1rem;

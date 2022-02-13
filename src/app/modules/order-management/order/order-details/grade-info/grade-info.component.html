@@ -7,22 +7,22 @@
                     class="col p-0 order-tracking completed mixups-track"
                 >
                     <div class="tooltips is-complete" [class.in-progress]="!item.final_score">
-                        <p *ngIf="item.final_score" class="cup-score fnt-14 fnt-bold text-clr334 pb-2">
+                        <p *ngIf="item.final_score" class="cup-score fnt-14 fw-b text-clr334 pb-2">
                             {{ item.final_score }}
                         </p>
-                        <p *ngIf="item.final_score" class="score-text text-muted fnt-bold fnt-14 pb-2">
+                        <p *ngIf="item.final_score" class="score-text text-muted fw-b fnt-14 pb-2">
                             {{ 'cupping_score' | translate }}
                         </p>
                     </div>
-                    <p class="order-date mt-3 mb-0 fnt-14 fnt-bold text-clr334">
+                    <p class="order-date mt-3 mb-0 fnt-14 fw-b text-clr334">
                         {{ item.cupping_date | date: 'd MMM yyyy' }}
                     </p>
-                    <p class="order-status mt-1 mb-25 text-muted fnt-bold fnt-12 fnt-md-14">
+                    <p class="order-status mt-1 mb-25 text-muted fw-b fnt-12 fnt-md-14">
                         {{ 'graded_by' | translate }} {{ item.evaluator_name | titlecase }}
                     </p>
                     <a
                         *ngIf="first"
-                        class="navigation-link d-block my-3"
+                        class="brown-cta d-block my-3"
                         data-toggle="collapse"
                         data-target="#estate"
                         (click)="viewReport()"
@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <div class="fnt-28 mb-2 fnt-play text-clr334 mt-5 d-none d-md-block">{{ 'trying_best' | translate }} :)</div>
+    <div class="fnt-28 mb-2 fnt-head text-clr334 mt-5 d-none d-md-block">{{ 'trying_best' | translate }} :)</div>
     <div class="fnt-12 fnt-md-16 mt-2 mt-md-4 text-clr334">
         {{ 'to_get_your_coffee_roaster' | translate }}
     </div>
@@ -45,7 +45,7 @@
 
 <ng-template #noGradeInfo>
     <div class="grade-container d-flex flex-column align-items-center justify-content-center">
-        <div class="fnt-28 fnt-normal fnt-play text-clr02">
+        <div class="fnt-28 fnt-normal fnt-head text-clr02">
             {{ 'order_placed_text' | translate }}
         </div>
         <div class="fnt-16 fnt-normal text-clr334 text-center mt-4">
@@ -53,7 +53,7 @@
                 {{ 'once_order_is_ready' | translate }}
             </span>
         </div>
-        <div class="fnt-14 fnt-bold navigation-link text-clr60b mt-45">
+        <div class="brown-cta mt-45">
             {{ 'know_more' | translate }}
         </div>
     </div>

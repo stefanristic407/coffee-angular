@@ -7,13 +7,11 @@
         </div>
     </div>
     <div class="category__body">
-        <div class="category-inputs d-flex flex-wrap align-items-center" *ngFor="let cat of categoryList">
+        <div class="d-flex flex-wrap align-items-center mb-2" *ngFor="let cat of categoryList">
             <label class="categ-label col-4 col-md-6 col-lg-4">{{ cat.label }}</label>
             <div class="col-4 col-md-3 col-lg-4 py-0 pl-0 pr-1">
                 <input
                     type="number"
-                    name=""
-                    id=""
                     class="category-value"
                     (focus)="$event.target.select()"
                     [readonly]="readonly"
@@ -24,8 +22,6 @@
             <div class="col-4 col-md-3 col-lg-4 py-0 pl-1 pr-0">
                 <input
                     type="number"
-                    name=""
-                    id=""
                     class="category-value"
                     (focus)="$event.target.select()"
                     [readonly]="readonly"
@@ -35,16 +31,14 @@
             </div>
         </div>
 
-        <div class="category-inputs d-flex flex-wrap align-items-center pt-5 pt-md-2">
-            <label class="fnt-14 fnt-muli fnt-bold text-clr334 p-0 col-12 col-md-6 col-lg-4 mb-0"
-                >Total category {{ categoryIndex }} defects :</label
+        <div class="d-flex flex-wrap align-items-center pt-5 pt-md-2 mb-2">
+            <label class="fw-b col-md-6 col-lg-4 p-0 mb-2 mb-md-0"
+                >{{ 'total_category' | translate }} {{ categoryIndex }} {{ 'defects' | translate | lowercase }} :</label
             >
-            <div class="col-12 col-md-6 col-lg-8 p-0">
+            <div class="col-md-6 col-lg-8 p-0">
                 <input
                     type="number"
-                    name=""
-                    id=""
-                    class="category-value"
+                    class="category-value fw-b br-4 w-100"
                     (focus)="$event.target.select()"
                     [readonly]="readonly"
                     [(ngModel)]="categoryDefects"

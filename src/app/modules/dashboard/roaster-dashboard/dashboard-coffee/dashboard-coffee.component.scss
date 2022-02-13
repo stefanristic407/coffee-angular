@@ -1,3 +1,5 @@
+@import 'variables';
+
 .chart-block {
     border: solid 1px #ebebeb;
     @media (min-width: 768px) {
@@ -24,9 +26,9 @@ table td,
         border-radius: 4px;
         background-color: #f8f8f8;
         th {
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: $fw-b;
             color: #232334;
             padding: 14px 15px;
         }
@@ -41,24 +43,11 @@ table td,
         }
     }
     td {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-n;
         color: #232334;
         padding: 18px 15px;
-    }
-}
-
-.custom-badge {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    div {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        margin-right: 0.5rem;
     }
 }
 
@@ -112,12 +101,6 @@ table td,
     @media screen and (min-width: 768px) and (max-width: 992px) {
         font-size: 16px !important;
         line-height: normal !important;
-    }
-}
-
-.fnt-md-bold {
-    @media screen and (min-width: 768px) and (max-width: 992px) {
-        font-weight: bold;
     }
 }
 

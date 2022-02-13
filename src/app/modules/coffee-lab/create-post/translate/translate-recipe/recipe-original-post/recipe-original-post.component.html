@@ -2,7 +2,7 @@
 <div class="page-wrapper m-0 p-0 border-mob" *ngIf="!isLoading">
     <div class="bg-f8 w-100">
         <div class="d-flex justify-content-between border-btm pt-4">
-            <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-25 align-original">
+            <p class="fnt-14 fw-m text-clr334 pl-4 pb-25 align-original">
                 {{ 'original_language' | translate }} - {{ detailsData?.lang_code | language }}
             </p>
             <img src="assets/images/swap_horiz_black_24dp.svg" class="align-arrow" alt="swap_horiz" />
@@ -15,7 +15,7 @@
                 <div class="w-100 position-relative border-d6">
                     <img class="w-100 banner-image br-4" id="imgClick" [src]="detailsData?.cover_image_url" />
                     <span
-                        class="copy-btn fnt-14 fnt-muli fnt-bold"
+                        class="copy-btn fnt-14 fw-b"
                         (click)="copyImage(detailsData.cover_image_id, 'cover')"
                         [ngClass]="{ 'cursor-not-allowed': isCopying }"
                         ><span><img class="mr-2" src="assets/images/group-18.svg" /></span
@@ -24,7 +24,7 @@
                 </div>
                 <div *ngIf="detailsData?.categories" class="mt-4 mb-md-4">
                     <div class="row mx-0">
-                        <label class="fnt-600 mb-3"> {{ 'categories' | translate }}</label>
+                        <label class="fw-m mb-3"> {{ 'categories' | translate }}</label>
                     </div>
                     <app-category-list
                         [isTranslatePage]="true"
@@ -107,7 +107,7 @@
                     </div>
                     <div class="border-main pt-4 pb-25 px-3 bg-f8 mb-3 br-4 description">
                         <p
-                            class="m-0 pb-2 fnt-14 fnt-600 fnt-muli disable-color"
+                            class="m-0 pb-2 fnt-14 fw-m disable-color"
                             [innerHTML]="detailsData?.introduction"
                             appFullImgWrapper
                         ></p>
@@ -181,13 +181,13 @@
                 class="directions mt-25"
                 *ngIf="detailsData?.steps && detailsData?.steps.length && detailsData?.steps[0]?.description"
             >
-                <p class="m-0 fnt-14 fnt-muli fnt-bold text-clr334 pb-2 text-underline">
+                <p class="m-0 fnt-14 fw-b text-clr334 pb-2 text-underline">
                     {{ 'directions' | translate }}
                 </p>
                 <div *ngFor="let step of detailsData?.steps; index as i">
-                    <p class="m-0 pb-1 fnt-14 fnt-muli fnt-600 mt-2 mb-1">{{ 'step' | translate }} {{ i + 1 }}</p>
+                    <p class="m-0 pb-1 fnt-14 fw-m mt-2 mb-1">{{ 'step' | translate }} {{ i + 1 }}</p>
                     <div class="border-main pt-4 pb-25 px-3 bg-f8 mb-3 br-4 description">
-                        <p class="m-0 pb-2 fnt-14 fnt-600 fnt-muli disable-color" [innerHTML]="step?.description"></p>
+                        <p class="m-0 pb-2 fnt-14 fw-m disable-color" [innerHTML]="step?.description"></p>
                         <div class="w-100 position-relative mb-3" *ngIf="step.image_url">
                             <img [src]="step.image_url" class="w-100" />
                         </div>
@@ -196,9 +196,9 @@
             </div>
             <div class="mb-3 mb-md-4 border-main p-3">
                 <label>{{ 'recipe_url' | translate }}</label>
-                <div class="p-error fnt-600 pb-3">{{ 'recipe_slug_msg' | translate }}</div>
+                <div class="p-error fw-m pb-3">{{ 'recipe_slug_msg' | translate }}</div>
                 <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
-                    <div class="fnt-600 mb-2 mb-lg-0">
+                    <div class="fw-m mb-2 mb-lg-0">
                         {{ coffeeLabURL }}{{ recipeForm.controls?.language?.value || 'en' }}/coffee-recipes/
                     </div>
                     <div class="sewn-form-field col mb-0">

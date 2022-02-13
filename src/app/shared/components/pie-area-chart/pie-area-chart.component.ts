@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { GENERAL_FONT_FAMILY } from '@constants';
 
 import * as echarts from 'echarts';
 import ECharts = echarts.ECharts;
@@ -21,7 +22,7 @@ export class PieAreaChartComponent implements OnInit, OnChanges {
             textStyle: {
                 color: '#232334',
                 fontSize: '12',
-                fontFamily: 'Muli',
+                fontFamily: GENERAL_FONT_FAMILY,
             },
         },
         series: [
@@ -34,7 +35,7 @@ export class PieAreaChartComponent implements OnInit, OnChanges {
                     fontSize: 14,
                     textStyle: {
                         fontSize: '18',
-                        fontFamily: 'Muli',
+                        fontFamily: GENERAL_FONT_FAMILY,
                         fontWeight: 'bold',
                     },
                     formatter: '{d}%\n{b}',

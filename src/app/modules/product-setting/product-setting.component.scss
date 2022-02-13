@@ -1,3 +1,5 @@
+@import 'variables';
+
 .tabView {
     display: none;
 }
@@ -39,9 +41,6 @@
     }
 }
 @media (min-width: 769px) {
-    .select-arrow-no {
-        padding: 8px 22px !important;
-    }
     .bg-fff {
         padding: 2rem 3rem;
         border-radius: 4px;
@@ -57,9 +56,9 @@
     padding: 12px 9px;
     background-color: #fafafa;
     margin: 2px;
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -70,10 +69,6 @@
     border-radius: 4px;
     background-color: #f8f8f8;
     padding: 16px;
-}
-.select-arrow-no {
-    background: #f8f8f8 !important;
-    border: none !important;
 }
 
 .shipping-border {
@@ -93,8 +88,8 @@
 }
 
 .shipping-time tr {
-    font-family: Muli;
-    font-weight: 500;
+    font-family: $general-font-family;
+    font-weight: $fw-m;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -105,8 +100,8 @@
 }
 
 .shipping-time td {
-    font-family: Muli;
-    font-weight: 500;
+    font-family: $general-font-family;
+    font-weight: $fw-m;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;

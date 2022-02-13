@@ -337,14 +337,14 @@ export class DefaultSettingsComponent implements OnInit {
     getMarketingMaterial() {
         this.userService.getMarketingMaterials(this.roasterId).subscribe((response: any) => {
             if (response.success) {
-                response.result = response.result.find(
+                response.result = (response.result || []).find(
                     (item) =>
                         item.mime === 'application/zip' ||
                         item.mime === 'application/rar' ||
                         item.mime === 'application/7zip',
                 );
-                this.materialUrl = response.result.url;
-                this.materialFileName = response.result.name;
+                this.materialUrl = response.result?.url;
+                this.materialFileName = response.result?.name;
                 this.materialOnRequest = false;
                 this.materialOnResponse = true;
             } else {

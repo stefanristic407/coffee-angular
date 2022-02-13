@@ -1,10 +1,10 @@
 <div class="col-lg-8 col-md px-0">
     <div class="d-md-block d-none">
         <div class="d-flex justify-content-between">
-            <h1 *ngIf="pageDesc === 'my-posts'" class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">
+            <h1 *ngIf="pageDesc === 'my-posts'" class="fnt-24 fw-b text-clr334 mb-0 mb-4">
                 {{ 'my_posts' | translate }}
             </h1>
-            <h1 *ngIf="pageDesc === 'saved-posts'" class="fnt-24 fnt-muli fnt-bold text-clr334 mb-0 mb-4">
+            <h1 *ngIf="pageDesc === 'saved-posts'" class="fnt-24 fw-b text-clr334 mb-0 mb-4">
                 {{ 'saved_answers' | translate }}
             </h1>
             <div>
@@ -45,10 +45,10 @@
                                 />
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1 d-none d-md-block">
+                                <div class="font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1 d-none d-md-block">
                                     {{ answer?.question_user_name || 'unknown_user' | translate }}
                                 </div>
-                                <div class="fnt-muli font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1 d-block d-md-none">
+                                <div class="font-weight-bold fnt-14 text-clr24 mr-md-3 mr-1 d-block d-md-none">
                                     {{
                                         answer?.question_user_name && answer?.question_user_name.length > 10
                                             ? answer?.question_user_name.slice(0, 10)
@@ -58,7 +58,7 @@
                                         >...</span
                                     >
                                 </div>
-                                <div class="fnt-muli fnt-12 text-clr588">
+                                <div class="fnt-12 text-clr588">
                                     {{ answer?.posted_at || answer?.question_created_at | amTimeAgo | dateAgoReplace }}
                                 </div>
                             </div>
@@ -73,10 +73,7 @@
                             ></app-forum-menu>
                         </div>
                     </div>
-                    <div
-                        class="mb-4 fnt-md-18 fnt-16 fnt-bold fnt-muli text-clr24 ml-md-5"
-                        [innerHTML]="answer?.question"
-                    ></div>
+                    <div class="mb-4 fnt-md-18 fnt-16 fw-b text-clr24 ml-md-5" [innerHTML]="answer?.question"></div>
                     <div class="border-main inner-bg br-4 p-md-4 p-3 mb-3">
                         <div class="d-flex">
                             <div class="mr-md-25 mr-1">
@@ -96,19 +93,16 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2 w-100">
                                 <div class="d-flex">
-                                    <div
-                                        *ngIf="pageDesc === 'my-posts'"
-                                        class="fnt-muli text-clr334 fnt-600 fnt-14 mr-md-3 mr-1"
-                                    >
+                                    <div *ngIf="pageDesc === 'my-posts'" class="text-clr334 fw-m fnt-14 mr-md-3 mr-1">
                                         {{ 'your_answer' | translate }}
                                     </div>
                                     <div
                                         *ngIf="pageDesc === 'saved-posts'"
-                                        class="fnt-muli text-clr334 fnt-600 fnt-14 mr-md-3 mr-1"
+                                        class="text-clr334 fw-m fnt-14 mr-md-3 mr-1"
                                     >
                                         {{ 'saved_answer' | translate }}
                                     </div>
-                                    <div class="fnt-muli fnt-12 text-clr588 d-md-flex align-items-center">
+                                    <div class="fnt-12 text-clr588 d-md-flex align-items-center">
                                         <span *ngIf="pageDesc === 'my-posts'">{{
                                             answer?.answer_created_at | amTimeAgo | dateAgoReplace
                                         }}</span>
@@ -117,7 +111,7 @@
                                         }}</span>
                                     </div>
                                 </div>
-                                <div class="fnt-muli fnt-12 text-clr588">
+                                <div class="fnt-12 text-clr588">
                                     <app-forum-menu
                                         (editAnswer)="onEditAnswer($event, i)"
                                         [selectedItem]="answer"
@@ -130,7 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="!answer.isEdit" class="fnt-muli fnt-14 text-clr24 lh-15 mt-2 pt-1">
+                        <div *ngIf="!answer.isEdit" class="fnt-14 text-clr24 lh-15 mt-2 pt-1">
                             <span
                                 appFullImgWrapper
                                 [innerHTML]="answer?.answer | translate | convertToShortDescription: 20"
@@ -151,14 +145,7 @@
                                 </div>
                             </div>
                             <div
-                                class="
-                                    d-flex
-                                    justify-content-between
-                                    flex-column flex-md-row
-                                    mr-2 mr-md-0
-                                    align-items-center
-                                    mt-4
-                                "
+                                class="d-flex justify-content-between flex-column flex-md-row mr-2 mr-md-0 align-items-center mt-4"
                             >
                                 <div>
                                     <p-checkbox
@@ -187,7 +174,7 @@
                             [queryParams]="{ isMyAnswer: true }"
                             >{{ 'read_complete_answer' | translate }}</a
                         >
-                        <div *ngIf="answer?.question_state === 'DELETED'" class="fnt-bold fnt-14 text-clr334">
+                        <div *ngIf="answer?.question_state === 'DELETED'" class="fw-b fnt-14 text-clr334">
                             {{ 'note' | translate }}: {{ 'the_author_delete' | translate }}
                         </div>
                     </div>
@@ -201,7 +188,7 @@
     <div *ngIf="isLoading">
         <app-loading></app-loading>
     </div>
-    <div *ngIf="!isLoading && !answers.length" class="text-center my-4 fnt-muli text-clr24">
+    <div *ngIf="!isLoading && !answers.length" class="text-center my-4 text-clr24">
         <app-empty
             [title]="'you_have_not_posted_anything_yet' | translate"
             [description]="'no_my_posts_description' | translate"

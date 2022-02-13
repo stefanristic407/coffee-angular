@@ -6,7 +6,7 @@
             <div class="bg-fa br-4 p-3 mt-3">
                 <div class="row">
                     <div class="col-12 col-md-12">
-                        <h4 class="confirm-txt fnt-play">
+                        <h4 class="confirm-txt fnt-head">
                             {{ 'confirm_order' | translate }}
                         </h4>
                         <div class="fill-txt text-clr588">{{ 'sample_recieved' | translate }}.</div>
@@ -24,7 +24,7 @@
                 <div class="bg-fa br-4 confirm-order mt-4 mb-5 d-none d-md-block">
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-12">
-                            <h4 class="confirm-txt fnt-play">
+                            <h4 class="confirm-txt fnt-head">
                                 {{ 'confirm_order' | translate }}
                             </h4>
                             <div class="fill-txt text-clr588">
@@ -38,7 +38,7 @@
                 </div>
                 <!-- Order detail table -->
                 <div class="mb-3">
-                    <div class="d-none d-md-block fnt-18 fnt-bold mb-25">{{ 'order_details' | translate }}</div>
+                    <div class="d-none d-md-block fnt-18 fw-b mb-25">{{ 'order_details' | translate }}</div>
                     <p-table
                         *ngIf="orderDetail"
                         [value]="[orderDetail]"
@@ -65,7 +65,7 @@
                                 >
                                     <div
                                         *ngIf="element.field === 'customer'"
-                                        class="p-mobile-row-content d-md-none fnt-16 fnt-bold mb-35"
+                                        class="p-mobile-row-content d-md-none fnt-16 fw-b mb-35"
                                     >
                                         {{ 'order_details' | translate }}
                                     </div>
@@ -90,7 +90,7 @@
                                 <!-- Quantity -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
                                     <div class="sewn-form-field mb-md-45">
-                                        <label class="fnt-bold">{{ 'order_quantity' | translate }}:</label>
+                                        <label class="fw-b">{{ 'order_quantity' | translate }}:</label>
                                         <div class="p-inputgroup custom-addon">
                                             <span class="p-inputgroup-addon gray">Bags</span>
                                             <p-inputNumber
@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="fnt-14 fnt-bold text-clr334 form-middle">
+                                    <div class="fnt-14 fw-b text-clr334 form-middle">
                                         &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;{{
                                             sourcing.harvestDetail?.price * sourcing.harvestDetail?.quantity
                                                 | number: '1.2-4'
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold form-middle d-none d-md-block"
+                                    class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fw-b form-middle d-none d-md-block"
                                 >
                                     {{ coffeePrice | number: '1.2-4' }} {{ sourcing.harvestDetail.price_unit }}
                                 </div>
@@ -126,7 +126,7 @@
                                 <!-- Service -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
                                     <div class="sewn-form-field flex-fill service-wrap">
-                                        <label class="fnt-bold">{{ 'select_service' | translate }}:</label>
+                                        <label class="fw-b">{{ 'select_service' | translate }}:</label>
                                         <p-dropdown
                                             [options]="serviceItems"
                                             formControlName="service"
@@ -135,7 +135,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fnt-bold form-middle d-none d-md-block"
+                                    class="col-4 col-lg-3 col-xl-2 fnt-16 fnt-md-18 fw-b form-middle d-none d-md-block"
                                 >
                                     {{ shipmentPrice | number: '1.2-4' }} {{ shipmentPriceCurrency || 'NA' }}
                                 </div>
@@ -159,10 +159,10 @@
                             <div
                                 class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
                             >
-                                <div class="fnt-14 fnt-bold text-clr334">
+                                <div class="fnt-14 fw-b text-clr334">
                                     {{ 'total_amount' | translate }}
                                 </div>
-                                <div class="fnt-16 fnt-md-18 fnt-bold text-clr334 pt-md-2">
+                                <div class="fnt-16 fnt-md-18 fw-b text-clr334 pt-md-2">
                                     {{ totalPrice | number: '1.2-4' }} {{ totalPriceCurrency }}
                                 </div>
                             </div>
@@ -171,7 +171,7 @@
                     <div class="row gutter-md-24 gutter-lg-38 mt-5" *ngIf="!editAddress">
                         <div class="col-12 col-md-6">
                             <div
-                                class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
+                                class="fnt-16 fnt-md-18 fw-b text-clr000 d-flex justify-content-between align-items-center"
                             >
                                 <div
                                     *ngIf="
@@ -189,7 +189,7 @@
                                         (!infoForm.value.service && orderType == OrderType.Booked) ||
                                         orderType == OrderType.Sample
                                     "
-                                    class="fnt-14 fnt-bold text-clr55c cursor-pointer"
+                                    class="fnt-14 fw-b text-clr55c cursor-pointer"
                                     (click)="refreshAddressForm(false)"
                                 >
                                     <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
@@ -197,7 +197,7 @@
                                 </div>
                             </div>
                             <div
-                                class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
+                                class="fnt-14 lh-normal fw-m text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
                             >
                                 <div class="pr-2">
                                     {{ addressData?.address_line1 ? addressData.address_line1 + ', ' : '' }}
@@ -229,21 +229,18 @@
                         </div>
                         <div class="col-12 col-md-6 mt-4 mt-md-0">
                             <div
-                                class="fnt-16 fnt-md-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center"
+                                class="fnt-16 fnt-md-18 fw-b text-clr000 d-flex justify-content-between align-items-center"
                             >
                                 <div>
                                     {{ 'billing_address' | translate }}
                                 </div>
-                                <div
-                                    class="fnt-14 fnt-bold text-clr55c cursor-pointer"
-                                    (click)="refreshAddressForm(true)"
-                                >
+                                <div class="fnt-14 fw-b text-clr55c cursor-pointer" (click)="refreshAddressForm(true)">
                                     <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
                                     {{ 'edit_billing_details' | translate }}
                                 </div>
                             </div>
                             <div
-                                class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
+                                class="fnt-14 lh-normal fw-m text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
                             >
                                 <div class="pr-2">
                                     {{ billingAddress?.address_line1 ? billingAddress.address_line1 + ', ' : '' }}
@@ -264,7 +261,7 @@
                     </div>
 
                     <div *ngIf="editAddress" class="mt-4 mt-md-45">
-                        <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mb-4">
+                        <div class="fnt-16 fnt-md-18 fw-b text-clr000 mb-4">
                             {{ (isBilling ? 'billing_address' : 'shipping_address') | translate }}
                         </div>
                         <form [formGroup]="addressForm" class="form-container">
@@ -375,7 +372,7 @@
                                         inputId="terms"
                                         class="dark"
                                     ></p-checkbox>
-                                    <label for="terms" class="fnt-14 fnt-600 text-clr334 mb-0 flex-fill">
+                                    <label for="terms" class="fnt-14 fw-m text-clr334 mb-0 flex-fill">
                                         {{ 'i_have_understood' | translate }}
                                         <a
                                             class="brown-cta"
@@ -427,7 +424,7 @@
             <div class="order-sec">
                 <div class="text-center">
                     <img src="assets/images/check-brown.svg" alt="" class="" />
-                    <h1 class="fnt-34 black fnt-normal fnt-play mb-4 mt-3">
+                    <h1 class="fnt-34 black fnt-normal fnt-head mb-4 mt-3">
                         {{ 'order_placed' | translate }}
                     </h1>
                     <div class="text-center mt-2">

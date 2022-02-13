@@ -9,7 +9,7 @@
     class="mob-padd"
 >
     <ng-template pTemplate="selectedItem">
-        <span class="fnt-14 fnt-muli fnt-bold text-clr60b pr-2">
+        <span class="fnt-14 fw-b text-clr60b pr-2">
             <img src="assets/images/translate.svg" class="translate-icon" />
             {{ 'select_language' | translate }}
         </span>
@@ -26,20 +26,17 @@
                 styleClass="user-avatar"
             ></p-avatar>
             <div class="d-flex flex-column justify-content-between pl-3">
-                <p
-                    class="fnt-14 fnt-muli fnt-bold text-clr334 mb-2"
-                    *ngIf="forumType === 'article' || forumType === 'question'"
-                >
+                <p class="fnt-14 fw-b text-clr334 mb-2" *ngIf="forumType === 'article' || forumType === 'question'">
                     {{ translateItem.user_name }}
                 </p>
-                <p class="fnt-14 fnt-muli fnt-bold text-clr334 mb-2" *ngIf="forumType == 'recipe'">
+                <p class="fnt-14 fw-b text-clr334 mb-2" *ngIf="forumType == 'recipe'">
                     {{ translateItem.first_name }}
                 </p>
                 <div class="d-flex align-items-center">
-                    <p class="fnt-12 fnt-muli fnt-bold text-clr588 mb-0 pr-2">
+                    <p class="fnt-12 fw-b text-clr588 mb-0 pr-2">
                         {{ translateItem.language | language }} {{ 'translation' | translate }}
                     </p>
-                    <p class="fnt-12 fnt-muli fnt-normal text-clr588 mb-0">
+                    <p class="fnt-12 fnt-normal text-clr588 mb-0">
                         {{ translateItem.created_at | amTimeAgo | dateAgoReplace }}
                     </p>
                 </div>

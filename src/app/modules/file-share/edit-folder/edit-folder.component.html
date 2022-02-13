@@ -4,7 +4,7 @@
             {{ 'back' | translate }}
         </a>
     </div>
-    <div class="fnt-16 fnt-md-18 lh-normal fnt-bold text-clr24">
+    <div class="fnt-16 fnt-md-18 lh-normal fw-b text-clr24">
         {{ 'create_folder' | translate }}
     </div>
     <div class="row">
@@ -31,14 +31,14 @@
                 </form>
 
                 <div>
-                    <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-1">
+                    <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-1">
                         {{ 'select_an_order' | translate }}
                     </h4>
-                    <div class="fnt-14 lh-normal fnt-500 text-clr588 mb-3">
+                    <div class="fnt-14 lh-normal fw-m text-clr588 mb-3">
                         {{ 'link_your_files' | translate }}
                     </div>
                     <div class="d-flex align-items-center">
-                        <div *ngIf="selectedOrderId" class="fnt-600 text-clr55c mr-3">
+                        <div *ngIf="selectedOrderId" class="fw-m text-clr55c mr-3">
                             {{ 'order' | translate }} #{{ selectedOrderId }} {{ 'selected' | translate }}
                         </div>
                         <span class="btn-trans-icon zoom-icon mr-3" (click)="showOrderPanel = true">
@@ -50,10 +50,10 @@
 
             <div class="border-main br-4 p-3 p-md-45 mt-4">
                 <div>
-                    <h4 class="fnt-14 fnt-md-16 lh-normal fnt-700 text-clr334 mb-1">
+                    <h4 class="fnt-14 fnt-md-16 lh-normal fw-b text-clr334 mb-1">
                         {{ 'sharing_access' | translate }}
                     </h4>
-                    <div class="fnt-14 lh-normal fnt-500 text-clr588 mb-3">
+                    <div class="fnt-14 lh-normal fw-m text-clr588 mb-3">
                         {{ 'invite_to_access' | translate }}
                     </div>
                     <div>
@@ -92,8 +92,8 @@
                                         <div class="d-flex">
                                             <app-avatar [src]="item.profile_image_url" [size]="36"></app-avatar>
                                             <div class="ml-2">
-                                                <div class="fnt-bold mb-1">{{ item.name }}</div>
-                                                <div class="fnt-12 fnt-600 text-clr588">
+                                                <div class="fw-b mb-1">{{ item.name }}</div>
+                                                <div class="fnt-12 fw-m text-clr588">
                                                     {{
                                                         (item.organization_type | lowercase) === OrgType.SEWN_ADMIN
                                                             ? 'Era of We'
@@ -125,8 +125,8 @@
                                     size="35"
                                 ></app-user-detail>
                                 <div class="ml-2">
-                                    <div class="fnt-bold mb-1">{{ item.name }}</div>
-                                    <div class="fnt-12 fnt-600 text-clr588">
+                                    <div class="fw-b mb-1">{{ item.name }}</div>
+                                    <div class="fnt-12 fw-m text-clr588">
                                         {{
                                             (item.organization_type | lowercase) === OrgType.SEWN_ADMIN
                                                 ? 'Era of We'

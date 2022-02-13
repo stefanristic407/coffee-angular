@@ -1,3 +1,5 @@
+@import 'variables';
+
 .grading__total {
     .border__cupping {
         margin-top: 1.5rem;
@@ -18,9 +20,9 @@
             border-radius: 4px;
             background-color: #f8f8f8;
             padding: 0.875rem 0.75rem;
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: $fw-b;
             line-height: normal;
             color: #232334;
 
@@ -54,7 +56,7 @@
 
             label {
                 font-size: 12px;
-                font-weight: bold;
+                font-weight: $fw-b;
                 margin-bottom: 0.5rem;
                 color: #232334;
                 line-height: normal;
@@ -65,7 +67,7 @@
                 border: solid 0.5px #747588;
                 background-color: #ffffff;
                 font-size: 12px;
-                font-weight: 600;
+                font-weight: $fw-m;
                 font-stretch: normal;
                 color: #747588;
                 line-height: 1;
@@ -83,7 +85,7 @@
 
     .normal-text {
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
         line-height: normal;
         color: #232334;
     }
@@ -97,7 +99,7 @@
             background-color: #747588;
             padding: 0.5rem;
             color: #ffffff;
-            font-weight: 500;
+            font-weight: $fw-m;
             margin-right: 0.25rem;
         }
     }

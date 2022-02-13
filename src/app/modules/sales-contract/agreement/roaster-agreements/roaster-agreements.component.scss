@@ -1,3 +1,5 @@
+@import 'variables';
+
 .estate-orders {
     position: relative;
 }
@@ -5,35 +7,13 @@
 .row {
     color: #232334 !important;
     font-size: 14px !important;
-    font-weight: bold !important;
-    font-family: 'Muli' !important;
+    font-weight: $fw-b !important;
+    font-family: $general-font-family !important;
     border-bottom: none !important;
 }
 
 ::ng-deep .index .p-dialog-mask {
     z-index: 999 !important;
-}
-
-/**********popover*******/
-
-.list-group-item {
-    border: none;
-    font-family: 'Muli';
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.list-group-item:hover {
-    color: #232334;
-    font-weight: 600;
-    background-color: #f8f8f8;
-}
-
-.menu-arrow {
-    cursor: pointer;
-    position: relative;
-    top: 6px;
 }
 
 .cust-width {
@@ -43,8 +23,8 @@
 .file_url {
     color: #232334 !important;
     font-size: 14px;
-    font-weight: 600;
-    font-family: 'Muli';
+    font-weight: $fw-m;
+    font-family: $general-font-family;
     text-decoration: none !important;
 }
 

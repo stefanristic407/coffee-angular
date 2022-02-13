@@ -1,5 +1,5 @@
 <div class="mt-4">
-    <div class="fnt-14 fnt-600 text-clr588 mb-2">{{ 'altitude_range' | translate }}</div>
+    <div class="fnt-14 fw-m text-clr588 mb-2">{{ 'altitude_range' | translate }}</div>
     <div class="altitude-block d-flex justify-content-between">
         <div class="sewn-form-field mb-0 altitude-wrap">
             <div class="p-inputgroup custom-addon">
@@ -7,7 +7,7 @@
                 <span class="p-inputgroup-addon text-clr334">m</span>
             </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center fnt-14 fnt-600 text-clr588">to</div>
+        <div class="d-flex align-items-center justify-content-center fnt-14 fw-m text-clr588">to</div>
         <div class="sewn-form-field mb-0 altitude-wrap">
             <div class="p-inputgroup custom-addon">
                 <p-inputNumber [(ngModel)]="queryParams.altitude_end" placeholder="2000"> </p-inputNumber>
@@ -18,7 +18,7 @@
 
     <div class="solid-divider-de my-4"></div>
 
-    <h3 class="fnt-14 fnt-md-16 fnt-bold text-clr334 mb-4">{{ 'flavor_profile' | translate }} (A-Z)</h3>
+    <h3 class="fnt-14 fnt-md-16 fw-b text-clr334 mb-4">{{ 'flavor_profile' | translate }} (A-Z)</h3>
     <div class="row no-gutters flavour-block">
         <div
             *ngFor="let item of limitFlavour ? sourcingSrv.generalFlavourList : sourcingSrv.flavourList"
@@ -26,14 +26,14 @@
         >
             <p-checkbox [value]="item.id" [(ngModel)]="queryParams.flavours" [label]="item.name"></p-checkbox>
         </div>
-        <div class="custom-link" (click)="limitFlavour = !limitFlavour">
+        <div class="brown-cta" (click)="limitFlavour = !limitFlavour">
             {{ limitFlavour ? ('load_more' | translate) : ('load_less' | translate) }}
         </div>
     </div>
 
     <div class="solid-divider-de my-4"></div>
 
-    <h3 class="fnt-14 fnt-md-16 fnt-bold text-clr334 mb-4">{{ 'listing_status' | translate }}</h3>
+    <h3 class="fnt-14 fnt-md-16 fw-b text-clr334 mb-4">{{ 'listing_status' | translate }}</h3>
     <div class="row no-gutters">
         <div *ngFor="let item of listingStatusItems" class="col-6 col-md-4 col-lg-3 mb-4">
             <p-checkbox [value]="item.value" [(ngModel)]="queryParams.listing_status" [label]="item.label"></p-checkbox>
@@ -42,7 +42,7 @@
 
     <div class="solid-divider-de mb-4"></div>
 
-    <h3 class="fnt-14 fnt-md-16 fnt-bold text-clr334 mb-4">{{ 'certificates' | translate }}</h3>
+    <h3 class="fnt-14 fnt-md-16 fw-b text-clr334 mb-4">{{ 'certificates' | translate }}</h3>
     <p-checkbox value="1" [(ngModel)]="queryParams.certificates" label="Show listings with certificates"></p-checkbox>
 </div>
 

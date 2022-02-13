@@ -15,10 +15,10 @@
                 }}"
             />
             <div class="pl-lg-35 d-flex flex-column align-items-center align-items-lg-start pt-4">
-                <p class="fnt-bold fnt-16 text-clr334 fnt-muli mb-3 mb-md-2 mt-4 mt-lg-0">
+                <p class="fw-b fnt-16 text-clr334 mb-3 mb-md-2 mt-4 mt-lg-0">
                     {{ userDetails?.name }}
                 </p>
-                <p class="fnt-14 fnt-600 text-clr588 fnt-muli mb-3">
+                <p class="fnt-14 fw-m text-clr588 mb-3">
                     Owned by {{ userDetails?.user_first_name }} {{ userDetails?.user_last_name }} &nbsp;&nbsp; &#9679;
                     &nbsp; Founded in
                     {{ userDetails?.founded_on }}
@@ -44,10 +44,7 @@
                     {{ 'view' | translate }}
                 </a>
             </div>
-            <div
-                *ngIf="userDetails?.status === 'rejected'"
-                class="col fnt-700 fnt-muli fnt-md-18 pl-2 pl-md-0 pr-0 pr-md-2"
-            >
+            <div *ngIf="userDetails?.status === 'rejected'" class="col fw-b fnt-md-18 pl-2 pl-md-0 pr-0 pr-md-2">
                 <span class="text-clr588"> {{ 'status' | translate }}</span
                 >: <span class="text-clrd5">{{ 'rejected' | translate }}</span>
             </div>
@@ -55,10 +52,10 @@
         <div class="login-section w-100 mt-3">
             <table class="pl-3 pr-3 p-md-0 d-block">
                 <tr *ngIf="userDetails?.status !== 'rejected'" class="pt-3 pb-3 p-0 d-block d-md-flex">
-                    <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334 pl-md-2">
+                    <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334 pl-md-2">
                         {{ 'last_login' | translate }}
                     </td>
-                    <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                    <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                         {{
                             userDetails?.last_login_at
                                 ? lastLoginFormat(userDetails?.last_login_at)
@@ -67,18 +64,18 @@
                     </td>
                 </tr>
                 <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                    <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334 pl-md-2">
+                    <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334 pl-md-2">
                         {{ 'vat_number' | translate }}
                     </td>
-                    <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                    <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                         {{ userDetails?.vat_number }}
                     </td>
                 </tr>
                 <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                    <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334 pl-md-2">
+                    <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334 pl-md-2">
                         {{ 'company_registration_id' | translate }}
                     </td>
-                    <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                    <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                         {{ userDetails?.registration_id }}
                     </td>
                 </tr>
@@ -92,42 +89,42 @@
                 <div class="pl-0 pr-0">
                     <table class="pl-3 pr-3 p-md-0 d-block">
                         <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                            <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334">
                                 {{ 'website' | translate }}
                             </td>
-                            <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                                 {{ userDetails?.website }}
                             </td>
                         </tr>
                         <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                            <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334">
                                 {{ 'email_address' | translate }}
                             </td>
-                            <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                                 {{ userDetails?.email }}
                             </td>
                         </tr>
                         <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                            <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334">
                                 {{ 'phone_number' | translate }}
                             </td>
-                            <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                                 {{ userDetails?.phone }}
                             </td>
                         </tr>
                         <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                            <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334">
                                 {{ 'country' | translate }}
                             </td>
-                            <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                                 {{ userDetails?.country | country }}
                             </td>
                         </tr>
                         <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                            <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334">
                                 {{ 'address' | translate }}
                             </td>
-                            <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                                 {{ userDetails?.address_line1 }}
                                 {{ userDetails?.address_line2 }}
                                 <p class="mb-0">{{ userDetails?.city }}</p>
@@ -135,10 +132,10 @@
                             </td>
                         </tr>
                         <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                            <td class="fnt-12 fnt-bold fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-12 fw-b fnt-md-14 pt-0 text-clr334">
                                 {{ 'social_media' | translate }}
                             </td>
-                            <td class="fnt-14 fnt-600 fnt-md-14 pt-0 text-clr334">
+                            <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
                                 <p class="mb-0">{{ userDetails?.fb_profile }}</p>
                                 <p class="mb-0">{{ userDetails?.ig_profile }}</p>
                             </td>

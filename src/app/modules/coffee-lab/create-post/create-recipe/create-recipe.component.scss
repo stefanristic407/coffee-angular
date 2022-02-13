@@ -35,7 +35,7 @@
         }
     }
     .limitFont {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
         font-weight: normal;
         font-stretch: normal;
@@ -199,13 +199,6 @@
     }
     @media screen and (min-width: 768px) {
         padding-top: 40px;
-    }
-}
-
-.editBtn {
-    text-decoration: none !important;
-    &:hover {
-        text-decoration: underline !important;
     }
 }
 

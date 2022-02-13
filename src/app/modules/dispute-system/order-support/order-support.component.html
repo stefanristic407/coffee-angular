@@ -3,20 +3,8 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mb-md-2 mb-3">
             <p-breadcrumb [model]="breadCrumbItem"></p-breadcrumb>
         </div>
-        <!-- <div [formGroup]="searchForm" class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-            <input
-                type="text"
-                name="search"
-                class="search-raised w-100 m-0"
-                formControlName="searchField"
-                placeholder="{{ globals.languageJson?.search_name_role }}"
-            />
-        </div> -->
         <div class="col-12 d-flex d-sm-flex d-md-none justify-content-end mt-2">
-            <span
-                class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
-                [routerLink]="['/dispute-system/raised-tickets/' + orderID]"
-            >
+            <span class="brown-cta ml-2" [routerLink]="['/dispute-system/raised-tickets/' + orderID]">
                 {{ 'view_all_tickets' | translate }}
             </span>
         </div>
@@ -40,7 +28,7 @@
         >
             <div class="d-flex d-sm-flex d-md-none align-items-center mobileCardDiv" (click)="selectCard(item.label)">
                 <img class="logo-img" [src]="item.logo" />
-                <p class="fnt-16 fnt-md-18 fnt-muli fnt-500 black m-0 pl-3">{{ item.label }}</p>
+                <p class="fnt-16 fnt-md-18 fw-m black m-0 pl-3">{{ item.label }}</p>
                 <i class="icon-img ml-auto arrowClass fa fa-angle-right" aria-hidden="true"></i>
             </div>
             <button class="btn dashboard-button d-none d-sm-none d-md-block" (click)="selectCard(item.label)">

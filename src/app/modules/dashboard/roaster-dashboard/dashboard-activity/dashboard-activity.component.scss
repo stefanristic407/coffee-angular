@@ -1,3 +1,5 @@
+@import 'variables';
+
 table th,
 table td,
 .header-row {
@@ -9,9 +11,9 @@ table td,
         border-radius: 4px;
         background-color: #f8f8f8;
         th {
-            font-family: Muli;
+            font-family: $general-font-family;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: $fw-b;
             color: #232334;
             padding: 14px 15px;
         }
@@ -26,9 +28,9 @@ table td,
         }
     }
     td {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
         color: #232334;
         padding: 18px 15px;
     }

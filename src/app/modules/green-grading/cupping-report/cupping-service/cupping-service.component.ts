@@ -343,7 +343,7 @@ export class CuppingServiceComponent implements OnInit {
 
     reGrade() {
         if (this.requestType === 'serviceRequest') {
-            this.greenGradingService.recupSample(this.roasterId, this.serviceId).subscribe((res: any) => {
+            this.greenGradingService.recupSample(this.serviceId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
                     this.router.navigate(['/green-grading/green-coffee-orders'], {
@@ -356,7 +356,7 @@ export class CuppingServiceComponent implements OnInit {
                 }
             });
         } else {
-            this.greenGradingService.recupSampleRequest(this.roasterId, this.serviceId).subscribe((res: any) => {
+            this.greenGradingService.recupSampleRequest(this.serviceId).subscribe((res: any) => {
                 if (res.success === true) {
                     this.toastrService.success('Recupping has started');
                     this.router.navigate(['/green-grading/grade-sample'], {

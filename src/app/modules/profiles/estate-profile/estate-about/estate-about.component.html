@@ -10,7 +10,7 @@
                         <label class="fnt-12 fnt-md-14" for="founded_in">
                             {{ 'founded_in' | translate }}
                         </label>
-                        <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                        <p class="fnt-14 fw-m text-clr334 mb-1">
                             {{ profileCreationService.organizationProfile?.foundedOn }}
                         </p>
                     </div>
@@ -19,29 +19,19 @@
                         <label class="fnt-12 fnt-md-14" for="owner_name">
                             {{ 'owner_name' | translate }}
                         </label>
-                        <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                        <p class="fnt-14 fw-m text-clr334 mb-1">
                             {{ profileCreationService.organizationProfile?.ownerName }}
                         </p>
                     </div>
                 </div>
 
                 <div
-                    class="
-                        row
-                        border-md-main border-md-none
-                        br-4
-                        mb-3 mb-md-45
-                        m-0
-                        mt-3 mt-md-0
-                        p-0 p-md-0
-                        mr-md-0
-                        ml-md-0
-                    "
+                    class="row border-md-main border-md-none br-4 mb-3 mb-md-45 m-0 mt-3 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
                 >
                     <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
                         <label class="fnt-12 fnt-md-14" for="summary">Estate Summary </label>
 
-                        <p class="fnt-14 fnt-600 text-clr334">
+                        <p class="fnt-14 fw-m text-clr334">
                             {{ profileCreationService.organizationProfile?.description }}
                         </p>
                     </div>
@@ -56,7 +46,7 @@
                 <!-- estate details -->
                 <div class="row mt-4 mt-md-45 mb-3 mb-md-4 ml-0 mr-0">
                     <div class="col-12 p-0">
-                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">Estate details</p>
+                        <p class="fnt-18 fw-b text-clr334 w-100 mb-1">Estate details</p>
                     </div>
                 </div>
 
@@ -64,8 +54,8 @@
                     <div class="col-6 col-md-3 mb-3 mb-md-0">
                         <div class="estate-items pl-2 pl-md-0">
                             <img src="assets/images/total_farm_area.svg" />
-                            <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Total from area</p>
-                            <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
+                            <p class="fnt-14 fw-m text-clr588 mt-25 mb-1">Total from area</p>
+                            <p class="fnt-14 fw-b text-clr73c mt-0 mb-0">
                                 {{ profileCreationService.organizationProfile?.totalArea }}
                                 {{ profileCreationService.organizationProfile?.totalAreaUnit }}
                             </p>
@@ -74,8 +64,8 @@
                     <div class="col-6 col-md-3 mb-3 mb-md-0 p-0">
                         <div class="estate-items">
                             <img src="assets/images/total_coffee_area.svg" />
-                            <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Total coffee area</p>
-                            <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
+                            <p class="fnt-14 fw-m text-clr588 mt-25 mb-1">Total coffee area</p>
+                            <p class="fnt-14 fw-b text-clr73c mt-0 mb-0">
                                 {{ profileCreationService.organizationProfile?.coffeeArea }}
                                 {{ profileCreationService.organizationProfile?.coffeeAreaUnit }}
                             </p>
@@ -84,8 +74,8 @@
                     <div class="col-6 col-md-3 p-md-0">
                         <div class="estate-items pl-2 pl-md-0">
                             <img src="assets/images/altitude_range.svg" />
-                            <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Altitude range</p>
-                            <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
+                            <p class="fnt-14 fw-m text-clr588 mt-25 mb-1">Altitude range</p>
+                            <p class="fnt-14 fw-b text-clr73c mt-0 mb-0">
                                 {{ profileCreationService.organizationProfile?.altitudeStart }} -
                                 {{ profileCreationService.organizationProfile?.altitudeEnd }}
                                 m
@@ -95,8 +85,8 @@
                     <div class="col-6 col-md-3 p-0">
                         <div class="estate-items">
                             <img src="assets/images/harvested_year.svg" />
-                            <p class="fnt-14 fnt-600 text-clr588 mt-25 mb-1">Harvested year</p>
-                            <p class="fnt-14 fnt-bold text-clr73c mt-0 mb-0">
+                            <p class="fnt-14 fw-m text-clr588 mt-25 mb-1">Harvested year</p>
+                            <p class="fnt-14 fw-b text-clr73c mt-0 mb-0">
                                 {{ profileCreationService.organizationProfile?.cropYearStart | month: 'MMMM' }} -
                                 {{ profileCreationService.organizationProfile?.cropYearEnd | month: 'MMMM' }}
                             </p>
@@ -108,12 +98,10 @@
                     <div class="col-12 border-main br-4 pt-0 pb-0 pl-3 pr-3 pl-md-4 pr-md-4">
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">
-                                    Annual production of all crops
-                                </p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Annual production of all crops</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.totalProduction }}
                                     {{ profileCreationService.organizationProfile?.totalProductionUnit }}
                                 </p>
@@ -121,10 +109,10 @@
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">Annual production of coffee</p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Annual production of coffee</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.coffeeProduction }}
                                     {{ profileCreationService.organizationProfile?.coffeeProductionUnit }}
                                 </p>
@@ -132,42 +120,42 @@
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">Access to agronomist</p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Access to agronomist</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.agronomistAccess }}
                                 </p>
                             </div>
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">Wild animals in the region</p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Wild animals in the region</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.wildAnimals }}
                                 </p>
                             </div>
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">Number of family members</p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Number of family members</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.familyMemberCount }}
                                 </p>
                             </div>
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">
                                     Number of family members working on the estate
                                 </p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.estateFamilyMemberCount }}
                                 </p>
                             </div>
@@ -179,54 +167,50 @@
                     <div class="col-12 border-main br-4 pt-0 pb-0 pl-3 pr-3 pl-md-4 pr-md-4">
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">Company Name</p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Company Name</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.companyName }}
                                 </p>
                             </div>
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">
-                                    Indentification/ Company Number
-                                </p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Indentification/ Company Number</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.companyNumber }}
                                 </p>
                             </div>
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">Legal entity</p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Legal entity</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.legalEntity }}
                                 </p>
                             </div>
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4 border-bottom">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">Belongs to</p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Belongs to</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.belongsTo }}
                                 </p>
                             </div>
                         </div>
                         <div class="row m-0 pt-3 pb-3 pt-md-4 pb-md-4">
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr588 m-0 w-85 w-md-100">
-                                    Name of cluster/ Co-operative
-                                </p>
+                                <p class="fnt-14 fw-m text-clr588 m-0 w-85 w-md-100">Name of cluster/ Co-operative</p>
                             </div>
                             <div class="col-6 p-0">
-                                <p class="fnt-14 fnt-600 text-clr051 m-0 text-left text-md-right">
+                                <p class="fnt-14 fw-m text-clr051 m-0 text-left text-md-right">
                                     {{ profileCreationService.organizationProfile?.clusterCopName }}
                                 </p>
                             </div>
@@ -239,8 +223,8 @@
 
                 <div class="d-block">
                     <div class="employer mt-4">
-                        <p class="fnt-18 fnt-bold text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
-                        <p class="fnt-14 fnt-600 text-clr588 w-100 m-0 mb-4">
+                        <p class="fnt-18 fw-b text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
+                        <p class="fnt-14 fw-m text-clr588 w-100 m-0 mb-4">
                             {{ 'list_down_top_employees' | translate }}
                         </p>
                         <div class="row p-0">
@@ -260,10 +244,10 @@
                                         ></app-user-detail>
                                     </div>
                                     <div class="profile-des">
-                                        <p class="fnt-16 fnt-bold mb-1 mt-3 text-clr334">
+                                        <p class="fnt-16 fw-b mb-1 mt-3 text-clr334">
                                             {{ contact.name | titlecase }}
                                         </p>
-                                        <p class="fnt-14 fnt-500 text-clr588 mb-0">
+                                        <p class="fnt-14 fw-m text-clr588 mb-0">
                                             {{ contact.roles[0] || '-' }}
                                         </p>
                                     </div>
@@ -290,7 +274,7 @@
     <div class="row m-0">
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-0 pr-md-2 p-lg-0">
             <div class="border-main br-4 p-0">
-                <div class="header fnt-18 fnt-bold text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
+                <div class="header fnt-18 fw-b text-clr334 m-1">{{ 'awards_and_certificates' | translate }}</div>
                 <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                     <div class="col-12 cursor-pointer" (click)="certificateClicked(certificate)">
                         <div
@@ -305,10 +289,10 @@
                                 />
                                 <div class="certification-description ml-2">
                                     <ul class="no-bullet-ul">
-                                        <li class="fnt-600">
+                                        <li class="fw-m">
                                             {{ certificate.certificate_type_name }}
                                         </li>
-                                        <li class="fnt-600 text-clr588">
+                                        <li class="fw-m text-clr588">
                                             {{ certificate.year }}
                                         </li>
                                     </ul>
@@ -322,22 +306,22 @@
 
         <div class="col-12 col-md-6 col-lg-12 p-0 pl-md-2 pr-md-0 p-lg-0">
             <div class="border-main br-4 mt-3 mt-md-0 mt-lg-3 p-0">
-                <div class="header fnt-18 fnt-bold text-clr334 m-1">{{ 'employee_details' | translate }}</div>
+                <div class="header fnt-18 fw-b text-clr334 m-1">{{ 'employee_details' | translate }}</div>
                 <div class="w-100">
                     <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
                         <div class="w-50 border-right">
-                            <p class="m-0 fnt-24 fnt-md-32 fnt-bold text-clr334">
+                            <p class="m-0 fnt-24 fnt-md-32 fw-b text-clr334">
                                 {{ profileCreationService.organizationProfile?.totalEmployees }}
                             </p>
-                            <p class="mt-2 mb-0 fnt-14 fnt-md-18 fnt-600 text-clr588">
+                            <p class="mt-2 mb-0 fnt-14 fnt-md-18 fw-m text-clr588">
                                 {{ 'total_employees' | translate }}
                             </p>
                         </div>
                         <div class="w-50 pl-45">
-                            <p class="m-0 fnt-32 fnt-bold text-clr334">
+                            <p class="m-0 fnt-32 fw-b text-clr334">
                                 <!-- {{ profileCreationService.organizationProfile?.avg_employee_age }} -->
                             </p>
-                            <!-- <p class="mt-2 mb-0 fnt-18 fnt-600 text-clr588">{{ 'average_age' | translate }}</p> -->
+                            <!-- <p class="mt-2 mb-0 fnt-18 fw-m text-clr588">{{ 'average_age' | translate }}</p> -->
                         </div>
                     </div>
                 </div>
@@ -349,7 +333,7 @@
                             this.profileCreationService.organizationProfile?.fullTimeEmployeeCount == null
                         "
                     >
-                        <p class="fnt-18 fnt-bold text-center">{{ 'no_data_display' | translate }}</p>
+                        <p class="fnt-18 fw-b text-center">{{ 'no_data_display' | translate }}</p>
                     </div>
                     <div class="custom-chart-container">
                         <app-pie-area-chart [results]="profileCreationService.single"></app-pie-area-chart>

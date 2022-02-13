@@ -12,7 +12,7 @@
     color: $muted-text-color;
     border-radius: 2px;
     padding: 0.75rem 2rem 0.75rem 0.75rem;
-    font-weight: 600;
+    font-weight: $fw-m;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item:not(.p-highlight):not(.p-disabled):hover {
     color: $general-text-color;
@@ -37,7 +37,7 @@
         margin-bottom: 4px;
         input {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: $fw-m;
             font-family: $general-font-family;
             color: $muted-text-color;
         }

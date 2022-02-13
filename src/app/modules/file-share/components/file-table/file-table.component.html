@@ -23,7 +23,13 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" [style.width]="col.width ? col.width + '%' : '30%'">
-                    <p-tableHeaderCheckbox *ngIf="col.field === 'checkbox'"></p-tableHeaderCheckbox>
+                    <p-checkbox
+                        *ngIf="col.field === 'checkbox'"
+                        [binary]="true"
+                        [(ngModel)]="isAllSelected"
+                        (click)="selectRows(tableAllCheck.checked)"
+                        #tableAllCheck
+                    ></p-checkbox>
                     <span *ngIf="col.field !== 'checkbox'" [pSortableColumn]="col.sortable ? col.field : ''">
                         {{ col.header | translate }}
                         <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
@@ -41,7 +47,8 @@
                     <p-tableCheckbox
                         *ngSwitchCase="'checkbox'"
                         [value]="rowData"
-                        (click)="$event.stopPropagation()"
+                        (click)="selectRow(); $event.stopPropagation()"
+                        [disabled]="rowData.permission !== FilePermission.EDIT"
                     ></p-tableCheckbox>
 
                     <ng-container *ngSwitchCase="'name'">
@@ -68,7 +75,7 @@
 
                     <span *ngSwitchCase="'order_ids'">{{ rowData[col.field] ? '#' + rowData[col.field] : '-' }}</span>
                     <span *ngSwitchCase="'type'">{{ rowData[col.field] | titlecase }}</span>
-                    <span *ngSwitchCase="'updated_at'">{{ rowData[col.field] | date: 'dd/MM/yyyy, hh:mm a' }}</span>
+                    <span *ngSwitchCase="'updated_at'">{{ rowData[col.field] | date: 'd MMM y, h:mm a' }}</span>
 
                     <span *ngSwitchCase="'actions'" class="d-flex justify-content-end align-items-center">
                         <span *ngIf="!rowData.shared_count" class="tr-hover-visible mr-3 d-none d-lg-block">

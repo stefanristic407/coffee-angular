@@ -1,8 +1,10 @@
+@import 'variables';
+
 ::ng-deep .p-accordion-header .p-accordion-header-link {
     background: #ffffff !important;
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: $fw-b;
     color: #232334;
     border: 0px !important;
     text-decoration: none !important;
@@ -11,9 +13,9 @@
 }
 ::ng-deep .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
     background: #ffffff !important;
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 16px !important;
-    font-weight: bold;
+    font-weight: $fw-b;
     color: #232334 !important;
     border: 0px !important;
     text-decoration: none;
@@ -23,9 +25,9 @@
     background-color: #faf8f4;
 }
 .resultText {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 16px !important;
-    font-weight: bold;
+    font-weight: $fw-b;
     color: #232334 !important;
     border: 0px !important;
     text-decoration: none;
@@ -44,24 +46,16 @@
     padding: 0px;
 }
 .questionContent {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: normal;
     color: #232334;
 }
 .commonContent {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: $fw-m;
     color: #232334;
-}
-.text-highlited {
-    font-weight: 700;
-    color: #80460b !important;
-    cursor: pointer;
-}
-.text-highlited:hover {
-    text-decoration: underline !important;
 }
 
 @media (max-width: 768px) {

@@ -1,9 +1,11 @@
+@import 'variables';
+
 .roasterDiv {
     padding-top: 1.5rem;
 }
 .raise-chng-ord {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: $fw-b;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -15,9 +17,9 @@
     height: 6.75rem;
 }
 .estateMediumFont {
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #232334;
 }
 
@@ -25,9 +27,9 @@
     display: grid;
 }
 .tableContentFont {
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #232334;
 }
 .imgContainer {

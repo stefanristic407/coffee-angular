@@ -11,10 +11,10 @@
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <div class="name-wrap">
-                <h5 class="fnt-16 fnt-md-18 fnt-700 text-clr334 mb-2 ellipsis">{{ data.name }}</h5>
+                <h5 class="fnt-16 fnt-md-18 fw-b text-clr334 mb-2 ellipsis">{{ data.name }}</h5>
                 <div class="mb-1 d-flex align-items-center">
                     <span class="fa fa-star checked mr-2"></span>
-                    <h6 class="fnt-16 fnt-md-18 black fnt-700 mb-0">
+                    <h6 class="fnt-16 fnt-md-18 black fw-b mb-0">
                         {{ (data.rating || 0).toFixed(2) }}
                     </h6>
                 </div>
@@ -32,25 +32,25 @@
             <div class="d-flex flex-wrap">
                 <div class="orgin-att">
                     <label class="fnt-12 fnt-md-14 lh-normal text-clr588 mb-2">{{ 'origin' | translate }}</label>
-                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">{{ data.country | country }}</h6>
+                    <h6 class="fnt-14 lh-normal fw-m text-clr334 ellipsis mb-0">{{ data.country | country }}</h6>
                 </div>
                 <div class="orgin-att">
                     <label class="fnt-12 fnt-md-14 lh-normal text-clr588 mb-2">{{ 'region' | translate }}</label>
-                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">{{ data.region }}</h6>
+                    <h6 class="fnt-14 lh-normal fw-m text-clr334 ellipsis mb-0">{{ data.region }}</h6>
                 </div>
                 <div class="orgin-att">
                     <label class="fnt-12 fnt-md-14 lh-normal text-clr588 mb-2">{{ 'altitude' | translate }}</label>
-                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
+                    <h6 class="fnt-14 lh-normal fw-m text-clr334 ellipsis mb-0">
                         {{ data.altitude?.gte }}-{{ data.altitude?.lte }} m
                     </h6>
                 </div>
                 <div class="orgin-att">
                     <label class="fnt-12 fnt-md-14 lh-normal text-clr588 mb-2">{{ 'variety' | translate }}</label>
-                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0 d-none d-md-block">
+                    <h6 class="fnt-14 lh-normal fw-m text-clr334 ellipsis mb-0 d-none d-md-block">
                         {{ data.varieties?.slice(0, 2).join(', ') || 'NA' }}
                         {{ data.varieties?.length > 2 ? ', +' + (data.varieties.length - 2) + ' more' : '' }}
                     </h6>
-                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0 d-md-none">
+                    <h6 class="fnt-14 lh-normal fw-m text-clr334 ellipsis mb-0 d-md-none">
                         {{ data.varieties?.slice(0, 1).join(', ') || 'NA' }}
                         {{ data.varieties?.length > 1 ? ' +' + (data.varieties.length - 1) : '' }}
                     </h6>
@@ -59,7 +59,7 @@
         </div>
         <div class="solid-divider-de mb-3"></div>
         <div>
-            <div class="fnt-12 fnt-md-14 lh-normal fnt-bold text-clr588 mb-2">{{ 'top_lots' | translate }}</div>
+            <div class="fnt-12 fnt-md-14 lh-normal fw-m text-clr588 mb-2">{{ 'top_lots' | translate }}</div>
             <div>
                 <a
                     *ngFor="let item of data.lots | slice: 0:3"

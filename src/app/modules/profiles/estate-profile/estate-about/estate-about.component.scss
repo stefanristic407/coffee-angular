@@ -35,14 +35,6 @@ hr {
     color: #80460b;
 }
 
-.brand-tag {
-    cursor: pointer;
-}
-
-.brand-tag:hover {
-    text-decoration: underline !important;
-}
-
 .img-estate {
     width: 32px;
     height: 32px;
@@ -81,7 +73,7 @@ hr {
 
 .list-item {
     border: none;
-    font-family: 'Muli';
+    font-family: $general-font-family;
     font-size: 14px;
     font-weight: 600 !important;
     font-stretch: normal;
@@ -244,34 +236,6 @@ hr {
 .slider-div {
     width: 80%;
     margin: auto;
-}
-
-// link with add
-.add-link {
-    color: $brown-color !important;
-    font-weight: 700;
-    position: relative;
-    padding-right: 16px;
-    line-height: normal !important;
-    cursor: pointer;
-
-    &::before {
-        content: '';
-        position: absolute;
-        width: 16px;
-        height: 100%;
-        top: 0px;
-        left: 0px;
-        background-image: url('/assets/images/add-field.svg');
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
-
-    &:hover {
-        color: $brown-color;
-        text-decoration: underline !important;
-    }
 }
 
 .w-85 {

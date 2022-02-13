@@ -1,3 +1,5 @@
+@import 'variables';
+
 .vertical-bar {
     display: none;
 }
@@ -37,8 +39,8 @@
 
 ::ng-deep .textDataLabel {
     font-size: 12px;
-    font-family: 'Muli';
-    font-weight: bold;
+    font-family: $general-font-family;
+    font-weight: $fw-b;
     fill: #747588;
     transform: translate(-20px, -8px);
 }

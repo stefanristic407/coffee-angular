@@ -37,8 +37,9 @@
 }
 
 .user-name-text {
-    font-weight: 700;
+    font-weight: $fw-b;
 }
+
 .user-details-wrapper {
     max-width: 100%;
     .user-image {

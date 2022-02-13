@@ -1,3 +1,5 @@
+@import 'variables';
+
 .g-box .ng-star-inserted {
     border-radius: 0px !important;
 }
@@ -8,14 +10,14 @@
 .det-tit {
     h2 {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #242424;
         text-transform: capitalize;
     }
     h6 {
-        font-family: Muli;
+        font-family: $general-font-family;
         font-size: 18px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #242424;
         text-transform: capitalize;
     }
@@ -27,14 +29,14 @@
 .real-estate {
     h6 {
         font-size: 14px;
-        font-weight: 600;
+        font-weight: $fw-m;
         margin-bottom: 3px;
         margin-top: 12px;
         color: #747588;
     }
     h3 {
         font-size: 16px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #232334;
         text-transform: capitalize;
         margin-bottom: 6px;
@@ -46,7 +48,7 @@
 .estate-focus {
     h3 {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: $fw-b;
         margin-top: 32px;
         margin-bottom: 13px;
     }
@@ -72,7 +74,7 @@
                 margin-bottom: 0;
                 color: #747588;
                 font-size: 14px;
-                font-weight: 500;
+                font-weight: $fw-m;
             }
             p {
                 margin-bottom: 0;
@@ -80,7 +82,7 @@
                 float: left;
                 font-size: 14px;
                 color: #232334;
-                font-weight: 600;
+                font-weight: $fw-m;
             }
         }
     }
@@ -98,7 +100,7 @@
     margin-top: 10px;
     a {
         font-size: 14px;
-        font-weight: bold;
+        font-weight: $fw-b;
         color: #80460b;
     }
 }
@@ -169,13 +171,13 @@ ul {
         }
         h3 {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: $fw-m;
             margin-bottom: 5px;
         }
         p,
         span {
             color: #232334;
-            font-weight: bold;
+            font-weight: $fw-b;
         }
         img {
             height: 32px;

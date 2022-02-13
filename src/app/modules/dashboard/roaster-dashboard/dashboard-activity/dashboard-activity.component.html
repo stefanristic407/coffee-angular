@@ -1,10 +1,10 @@
 <div>
-    <p class="fnt-16 fnt-md-18 fnt-bold mb-2 mb-md-3 d-none d-md-block">
+    <p class="fnt-16 fnt-md-18 fw-b mb-2 mb-md-3 d-none d-md-block">
         {{ 'recent_activity' | translate }}
     </p>
 
     <div class="p-3 p-md-0 border-main border-md-none br-4 h-100">
-        <p class="fnt-16 fnt-bold mb-4 d-md-none">{{ 'recent_activity' | translate }}</p>
+        <p class="fnt-16 fw-b mb-4 d-md-none">{{ 'recent_activity' | translate }}</p>
         <div class="d-none d-md-block">
             <p-table
                 *ngIf="recentActivities"
@@ -59,8 +59,8 @@
                             {{ item.created_at | date: 'd MMM h:mm a' }}
                         </div>
                     </div>
-                    <p class="fnt-12 fnt-600 text-clr588 mb-25">{{ item.organisation_name }}</p>
-                    <p class="fnt-600 mb-3 text-break">
+                    <p class="fnt-12 fw-m text-clr588 mb-25">{{ item.organisation_name }}</p>
+                    <p class="fw-m mb-3 text-break">
                         {{ ACTIVITY_TYPE[item.description] ? ACTIVITY_TYPE[item.description].name : item.description }}
                     </p>
                 </div>

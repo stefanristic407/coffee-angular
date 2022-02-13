@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GENERAL_FONT_FAMILY } from '@constants';
 import { IPointRenderEventArgs } from '@syncfusion/ej2-angular-charts';
 
 @Component({
@@ -36,7 +37,7 @@ export class LineChartComponent implements OnInit {
         labelStyle: {
             size: '16px',
             color: '#747588',
-            fontFamily: 'Muli',
+            fontFamily: GENERAL_FONT_FAMILY,
             fontWeight: '500',
         },
     };
@@ -50,13 +51,13 @@ export class LineChartComponent implements OnInit {
         labelStyle: {
             size: '16px',
             color: '#747588',
-            fontFamily: 'Muli',
+            fontFamily: GENERAL_FONT_FAMILY,
             fontWeight: '500',
         },
         titleStyle: {
             size: '16px',
             color: '#232334',
-            fontFamily: 'Muli',
+            fontFamily: GENERAL_FONT_FAMILY,
             fontWeight: '500',
         },
     };

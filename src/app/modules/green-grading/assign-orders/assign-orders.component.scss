@@ -1,3 +1,5 @@
+@import 'variables';
+
 .green_grading_cont {
     h1 {
         font-size: 18px;
@@ -49,7 +51,7 @@
                 color: #747588;
                 padding-left: 0.25rem;
                 padding-right: 0.25rem;
-                font-weight: 600;
+                font-weight: $fw-m;
             }
 
             .p-inputtext {
@@ -85,7 +87,7 @@
                 padding: 0.5rem;
                 color: #232334;
                 border-color: #747588;
-                font-family: Muli;
+                font-family: $general-font-family;
                 font-size: 14px;
                 font-weight: 500 !important;
             }
@@ -121,7 +123,7 @@
 
                             @media (max-width: 767px) {
                                 font-size: 12px;
-                                font-weight: 600;
+                                font-weight: $fw-m;
                             }
                         }
 
@@ -130,7 +132,7 @@
 
                             span > span > span:first-child {
                                 font-size: 14px;
-                                font-weight: bold;
+                                font-weight: $fw-b;
                                 color: #232334;
                             }
                         }

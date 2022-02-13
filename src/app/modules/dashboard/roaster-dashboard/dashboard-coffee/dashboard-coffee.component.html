@@ -1,6 +1,6 @@
 <div class="h-100">
     <div class="d-flex justify-content-between align-items-center mb-1 mt-3 mt-md-45">
-        <p class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2">
+        <p class="fnt-16 fnt-md-18 fw-b text-clr334 mb-1 mb-md-2">
             {{ 'sourced_green_coffee' | translate }}
         </p>
         <a class="arrow-link" routerLink="/orders/es">{{ 'see_all_orders' | translate }}</a>
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 mb-sm-4 mb-4 mb-md-0">
                 <div class="chart-block br-4 h-100 mb-3">
-                    <div class="fnt-14 fnt-bold text-clr334 br-4 bg-f8 p-2 m-1 d-md-none">
+                    <div class="fnt-14 fw-b text-clr334 br-4 bg-f8 p-2 m-1 d-md-none">
                         {{ 'total_sourced_coffee' | translate }}
                     </div>
 
@@ -50,10 +50,9 @@
                                     <td>#{{ item.id }}</td>
                                     <td>{{ item.estate_name }}</td>
                                     <td>
-                                        <div class="custom-badge" [style.color]="orderTypes[item.type].color">
-                                            <div [style.background-color]="orderTypes[item.type].color"></div>
-                                            <span class="fnt-14 fnt-600">{{ orderTypes[item.type].name }}</span>
-                                        </div>
+                                        <span class="status-badge fw-m" [ngClass]="item.type">
+                                            {{ item.type | orderType }}
+                                        </span>
                                     </td>
                                     <td>{{ item.created_at | date: 'dd MMM' }} '{{ item.created_at | date: 'yy' }}</td>
                                     <td class="ticket-status">{{ item.status }}</td>
@@ -71,17 +70,14 @@
                             <div class="main-content br-4 border-main" (click)="goToOrderDetails(item)">
                                 <div class="row m-0 order-card-item order-card-header bg-f8">
                                     <div class="col-6 p-0">
-                                        <p class="fnt-14 fnt-bold m-0 text-clr334 d-inline-block">
-                                            Order #{{ item.id }}
+                                        <p class="fnt-14 fw-b m-0 text-clr334 d-inline-block">
+                                            {{ 'order' | translate }} #{{ item.id }}
                                         </p>
                                     </div>
                                     <div class="col-6 p-0 text-right">
-                                        <div class="custom-badge" [style.color]="orderTypes[item.type].color">
-                                            <div [style.background-color]="orderTypes[item.type].color"></div>
-                                            <span class="fnt-12 fnt-600">{{
-                                                orderTypes[item.type].name || item.type
-                                            }}</span>
-                                        </div>
+                                        <span class="status-badge fnt-12 fw-m" [ngClass]="item.type">
+                                            {{ item.type | orderType }}
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="row m-0 order-card-item order-card-date">
@@ -96,30 +92,30 @@
                                 </div>
                                 <div class="row order-card-item2 dashed-br">
                                     <div class="col-5 p-0">
-                                        <span class="fnt-12 fnt-600 text-clr588"> Estate name </span>
+                                        <span class="fnt-12 fw-m text-clr588">{{ 'estate_name' | translate }}</span>
                                     </div>
                                     <div class="col-7 p-0">
-                                        <span class="fnt-12 fnt-600 text-clr334">
+                                        <span class="fnt-12 fw-m text-clr334">
                                             {{ item.estate_name }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="row order-card-item2 dashed-br">
                                     <div class="col-5 p-0">
-                                        <span class="fnt-12 fnt-600 text-clr588"> Origin </span>
+                                        <span class="fnt-12 fw-m text-clr588"> {{ 'origin' | translate }} </span>
                                     </div>
                                     <div class="col-7 p-0 text-left">
-                                        <span class="fnt-12 fnt-600 text-clr334">
+                                        <span class="fnt-12 fw-m text-clr334">
                                             {{ item.origin | country }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="row order-card-item2">
                                     <div class="col-5 p-0">
-                                        <span class="fnt-12 fnt-600 text-clr588"> Variety </span>
+                                        <span class="fnt-12 fw-m text-clr588"> {{ 'variety' | translate }} </span>
                                     </div>
                                     <div class="col-7 p-0 text-left">
-                                        <span class="fnt-12 fnt-600 text-clr334">
+                                        <span class="fnt-12 fw-m text-clr334">
                                             {{ item.varieties }}
                                         </span>
                                     </div>
@@ -136,7 +132,7 @@
         <div class="p-md-3 border-main br-4">
             <div class="flex-fill d-flex flex-column justify-content-center align-items-center text-center px-4 py-5">
                 <img class="mb-3" src="assets/images/leaf-active.svg" alt="" />
-                <p class="fnt-14 fnt-muli fnt-normal text-clr588 mb-4">
+                <p class="fnt-14 fnt-normal text-clr588 mb-4">
                     You haven't sourced any coffee yet. Start buying coffee from estates to get insights.
                 </p>
 

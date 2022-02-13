@@ -8,7 +8,7 @@
 <div *ngIf="totalRecords" class="pt-3 pt-md-4 text-center">
     <p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="paginate($event)"></p-paginator>
 </div>
-<div *ngIf="!isLoading && !articles.length" class="text-center my-4 fnt-muli text-clr334">
+<div *ngIf="!isLoading && !articles.length" class="text-center my-4 text-clr334">
     <app-empty
         [title]="'you_have_not_saved_any_post' | translate"
         [description]="'no_saved_posts_description' | translate"

@@ -7,9 +7,7 @@
         <div *ngIf="isMobile && !showNoDataSection" class="col-12 bg-f8 mb-4 px-0 border-main br-4">
             <div class="w-100 bg-f8">
                 <div class="d-flex border-btm drop-pad">
-                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25"
-                        >{{ 'translation_language' | translate }} -
-                    </span>
+                    <span class="fnt-14 fw-m text-clr334 pr-2 pt-25">{{ 'translation_language' | translate }} - </span>
                     <p-dropdown
                         [options]="remainingLangugage"
                         [(ngModel)]="selectedArticleLangCode"
@@ -37,7 +35,7 @@
         <div class="col-12 col-md-6 px-0 border-mob">
             <div class="bg-f8 w-100">
                 <div class="d-flex justify-content-between border-btm pt-4 pr-45">
-                    <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-25">
+                    <p class="fnt-14 fw-m text-clr334 pl-4 pb-25">
                         {{ 'original_language' | translate }} - {{ article?.language | language }}
                     </p>
                     <img class="swap-img" src="assets/images/swap_horiz_black_24dp.svg" alt="swap_horiz" />
@@ -45,7 +43,7 @@
             </div>
             <div class="bg-white mr-md-2 p-2 pt-3 pb-4 px-md-4">
                 <div [formGroup]="articleFormOriginal">
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
+                    <p class="fnt-14 fw-m text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
                     <div class="position-relative border-main br-4">
                         <img [src]="article?.cover_image_url" class="banner-image br-4" />
                         <div
@@ -54,7 +52,7 @@
                         >
                             <img src="assets/images/copy.svg" class="mr-1" />
                             <span
-                                class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1"
+                                class="fnt-14 fw-m lh-normal text-clr334 ml-1"
                                 [ngClass]="{ 'cursor-not-allowed': isCopying }"
                                 >{{ 'copy' | translate }}</span
                             >
@@ -62,7 +60,7 @@
                     </div>
                     <div *ngIf="article?.categories" class="mt-4">
                         <div class="row mx-0">
-                            <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
+                            <label class="fw-m mb-25"> {{ 'categories' | translate }}</label>
                         </div>
                         <app-category-list
                             [isTranslatePage]="true"
@@ -71,9 +69,7 @@
                     </div>
                     <div class="mt-4">
                         <div class="col-12 sewn-form-field p-0">
-                            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{
-                                'title' | translate
-                            }}</label>
+                            <label class="fnt-14 fw-m text-clr-334" for="title">{{ 'title' | translate }}</label>
                             <input
                                 type="text"
                                 [placeholder]="'give_a_title' | translate"
@@ -83,9 +79,7 @@
                             />
                         </div>
                         <div class="col-12 sewn-form-field p-0">
-                            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{
-                                'subtitle' | translate
-                            }}</label>
+                            <label class="fnt-14 fw-m text-clr-334" for="title">{{ 'subtitle' | translate }}</label>
                             <textarea
                                 [placeholder]="'translate_answer' | translate"
                                 pInputTextarea
@@ -96,7 +90,7 @@
                             ></textarea>
                         </div>
                     </div>
-                    <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'body' | translate }}</label>
+                    <label class="fnt-14 fw-m text-clr-334" for="title">{{ 'body' | translate }}</label>
                     <div
                         class="bg-f8 border-main custom-hgt br-4 py-4 px-3 mb-4"
                         appFullImgWrapper
@@ -104,9 +98,9 @@
                     ></div>
                     <div class="mb-3 mb-md-4 border-main p-3">
                         <label>{{ 'article_url' | translate }}</label>
-                        <div class="p-error fnt-600 pb-3">{{ 'article_slug_msg' | translate }}</div>
+                        <div class="p-error fw-m pb-3">{{ 'article_slug_msg' | translate }}</div>
                         <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
-                            <div class="fnt-600 mb-2 mb-lg-0">
+                            <div class="fw-m mb-2 mb-lg-0">
                                 {{ coffeeLabURL }}{{ articleForm.controls?.language?.value || 'en' }}/articles/
                             </div>
                             <div class="sewn-form-field col mb-0">
@@ -126,9 +120,7 @@
         <div *ngIf="!isMobile && !showNoDataSection" class="col-12 bg-f8 col-md-6 px-0 border-left">
             <div class="w-100 bg-f8">
                 <div class="d-flex border-btm drop-pad">
-                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25"
-                        >{{ 'translation_language' | translate }} -
-                    </span>
+                    <span class="fnt-14 fw-m text-clr334 pr-2 pt-25">{{ 'translation_language' | translate }} - </span>
                     <p-dropdown
                         [options]="remainingLangugage"
                         [(ngModel)]="selectedArticleLangCode"
@@ -190,7 +182,7 @@
 
 <ng-template #createArticle>
     <div class="px-2 px-md-4 pt-3 bg-f8" [formGroup]="articleForm" novalidate>
-        <p class="fnt-14 fnt-600 fnt-muli text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
+        <p class="fnt-14 fw-m text-clr-334 pt-4 pb-2">{{ 'cover_image' | translate }}</p>
         <div class="col-12 sewn-form-field p-0">
             <div class="addImageContainer d-flex align-items-center justify-content-center border-main br-4">
                 <img [src]="coverImageUrl" *ngIf="coverImageUrl" class="cover-image br-4" />
@@ -204,10 +196,10 @@
                     />
                     <div class="d-flex flex-column align-items-center" *ngIf="!coverImageUrl">
                         <img src="assets/images/plus-circle.svg" class="mb-2 mb-md-25" />
-                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                        <span class="fnt-14 fw-m lh-normal text-clr588 mb-2 mb-md-25"
                             >{{ 'add_cover_image' | translate }}<span class="star">*</span></span
                         >
-                        <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr588 mb-2 mb-md-25"
+                        <span class="fnt-14 fw-m lh-normal text-clr588 mb-2 mb-md-25"
                             >({{ 'max_size' | translate }} 2mb)</span
                         >
                     </div>
@@ -230,18 +222,18 @@
                     (click)="pasteCoverImage()"
                 >
                     <img src="assets/images/paste.svg" class="mr-1" />
-                    <span class="fnt-muli fnt-14 fnt-600 lh-normal text-clr334 ml-1">{{ 'paste' | translate }}</span>
+                    <span class="fnt-14 fw-m lh-normal text-clr334 ml-1">{{ 'paste' | translate }}</span>
                 </div>
             </div>
         </div>
         <div *ngIf="categoryList && categoryList.length > 0">
             <div class="row mx-0">
-                <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
+                <label class="fw-m mb-25"> {{ 'categories' | translate }}</label>
             </div>
             <app-category-list [isTranslatePage]="true" [categoryList]="categoryList"></app-category-list>
         </div>
         <div class="col-12 sewn-form-field p-0" [ngClass]="{ 'mt-4': categoryList && categoryList.length > 0 }">
-            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title"
+            <label class="fnt-14 fw-m text-clr-334" for="title"
                 >{{ 'title' | translate
                 }}<span class="pull-right text-clr588"
                     >{{ articleForm.get('title')?.value?.length }}/120
@@ -263,7 +255,7 @@
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
-            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title"
+            <label class="fnt-14 fw-m text-clr-334" for="title"
                 >{{ 'subtitle' | translate }}
                 <span class="pull-right text-clr588">
                     {{ articleForm.get('subtitle')?.value | wordCount }}/20 words
@@ -284,7 +276,7 @@
             </small>
         </div>
         <div class="col-12 sewn-form-field p-0">
-            <label class="fnt-14 fnt-600 fnt-muli text-clr-334" for="title">{{ 'body' | translate }}</label>
+            <label class="fnt-14 fw-m text-clr-334" for="title">{{ 'body' | translate }}</label>
             <app-forum-editor
                 formControlName="content"
                 [(isUploadingImage)]="isUploadingImage"
@@ -296,11 +288,9 @@
         </div>
         <div class="mb-3 mb-md-4 border-main p-3">
             <label>{{ 'article_url' | translate }}</label>
-            <div class="p-error fnt-600 pb-3">{{ 'article_slug_msg' | translate }}</div>
+            <div class="p-error fw-m pb-3">{{ 'article_slug_msg' | translate }}</div>
             <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
-                <div class="fnt-600 mb-2 mb-lg-0">
-                    {{ coffeeLabURL }}{{ selectedArticleLangCode || 'en' }}/articles/
-                </div>
+                <div class="fw-m mb-2 mb-lg-0">{{ coffeeLabURL }}{{ selectedArticleLangCode || 'en' }}/articles/</div>
                 <div class="sewn-form-field col mb-0">
                     <input
                         type="text"

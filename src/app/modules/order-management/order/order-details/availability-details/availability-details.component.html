@@ -1,4 +1,4 @@
-<h4 class="fnt-18 fnt-bold text-clr334">{{ 'availability_details' | translate }}</h4>
+<h4 class="fnt-18 fw-b text-clr334">{{ 'availability_details' | translate }}</h4>
 
 <table class="recent-time w-100 mb-2">
     <tr>
@@ -84,7 +84,7 @@
             <span class="list-que"> {{ 'ico' | translate | uppercase }}: </span>
         </td>
         <td class="no-border">
-            <span class="list-ans"> {{ (bulk?.ico_number | sentencecase) || '-' }} </span>
+            <span class="list-ans"> {{ bulk?.ico_number || '-' }} </span>
         </td>
     </tr>
 </table>

@@ -2,7 +2,7 @@
     *ngIf="selectedUsers && selectedUsers.length > 0"
     class="d-none d-md-flex align-items-center justify-content-end p-0 pt-4 assign"
 >
-    <span class="fnt-600 text-clr588 float-right mr-3"> Selected: {{ selectedUsers.length | number: '2.0' }} </span>
+    <span class="fw-m text-clr588 float-right mr-3"> Selected: {{ selectedUsers.length | number: '2.0' }} </span>
     <button
         *ngIf="selectedUsers.length > 0"
         type="button"
@@ -13,7 +13,7 @@
     </button>
 </div>
 <div *ngIf="selectedUsers && selectedUsers.length > 0" class="d-flex d-sm-flex d-md-none pt-3 align-items-center">
-    <span class="fnt-600 text-clr588"> {{ selectedUsers.length }} selected </span>
+    <span class="fw-m text-clr588"> {{ selectedUsers.length }} selected </span>
     <button
         *ngIf="selectedUsers.length > 0"
         type="button"
@@ -36,6 +36,7 @@
         [pageLinks]="(isMobile$ | async) ? 3 : 5"
         [rows]="tableRows"
         [lazy]="true"
+        [lazyLoadOnInit]="false"
         (onLazyLoad)="getTableData($event)"
         [totalRecords]="totalCount"
         selectionMode="multiple"
@@ -69,7 +70,7 @@
                         styleClass="no-border no-padding"
                     >
                         <ng-template pTemplate="selectedItem">
-                            <span class="fnt-700">{{ termRoleName }}</span>
+                            <span class="fw-b">{{ termRoleName }}</span>
                         </ng-template>
                     </p-dropdown>
                 </th>

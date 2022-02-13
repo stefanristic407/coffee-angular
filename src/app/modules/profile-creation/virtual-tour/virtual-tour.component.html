@@ -3,7 +3,7 @@
 <div *ngIf="!isLoading">
     <div class="row">
         <div class="col-lg-12">
-            <div class="fnt-12 fnt-md-14 fnt-600 text-clr334 mt-2 mt-md-4 mb-3">
+            <div class="fnt-12 fnt-md-14 fw-m text-clr334 mt-2 mt-md-4 mb-3">
                 {{ 'add_photo_files' | translate }}
             </div>
         </div>
@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-lg-12 pl-25 pr-25">
             <div class="row gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20">
-                <div *ngIf="isSaveMode" class="d-md-none col-lg-4 col-6">
+                <div *ngIf="isSaveMode" class="col-lg-4 col-6">
                     <ng-container *ngTemplateOutlet="fileUploadTpl"></ng-container>
                 </div>
 
@@ -36,7 +36,7 @@
                                     src="assets/images/play-button.png"
                                     alt="farm"
                                 />
-                                <p class="mb-0 post-info fnt-16 fnt-600 pt-0 pb-0 pl-3">
+                                <p class="mb-0 post-info fnt-16 fw-m pt-0 pb-0 pl-3">
                                     {{ mediaItem.description }}
                                 </p>
                             </div>
@@ -50,10 +50,6 @@
                         </div>
                     </div>
                 </a>
-
-                <div *ngIf="isSaveMode" class="d-none d-md-block col-lg-4 col-6">
-                    <ng-container *ngTemplateOutlet="fileUploadTpl"></ng-container>
-                </div>
             </div>
         </div>
     </div>
@@ -66,7 +62,7 @@
                 <div>
                     <input hidden type="file" accept="image/png, image/jpeg" (change)="handleFile($event)" />
                     <img class="mb-25 mt-2" src="assets/images/plus-circle.svg" />
-                    <p class="fnt-14 fnt-600 text-clr588">Add photo or videos</p>
+                    <p class="fnt-14 fw-m text-clr588">Add photo or videos</p>
                 </div>
             </label>
         </div>

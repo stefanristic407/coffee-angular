@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12 mb-3 mb-md-45">
-        <div class="bg-fa br-4 fnt-14 fnt-md-16 fnt-600 fnt-muli text-clr5d p-3 mt-4">
+        <div class="bg-fa br-4 fnt-14 fnt-md-16 fw-m text-clr5d p-3 mt-4">
             <span *ngIf="selType === 0">
                 Monitor the level of vegetation on the fields. True color map offers a natural color rendition.
             </span>
@@ -20,21 +20,21 @@
         <div class="d-inline-flex ndvi-mark flex-column mb-25 mb-md-0" *ngIf="selType === 2">
             <div class="color-wrap"></div>
             <div class="label-wrap d-flex justify-content-between">
-                <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli text-clr334 m-0">High</p>
-                <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli text-clr334 m-0">Med</p>
-                <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli text-clr334 m-0">Low</p>
+                <p class="fnt-14 fnt-md-16 fw-m text-clr334 m-0">High</p>
+                <p class="fnt-14 fnt-md-16 fw-m text-clr334 m-0">Med</p>
+                <p class="fnt-14 fnt-md-16 fw-m text-clr334 m-0">Low</p>
             </div>
         </div>
         <div class="d-inline-flex evi-mark flex-column mb-25 mb-md-0" *ngIf="selType === 3">
             <div class="color-wrap"></div>
             <div class="label-wrap d-flex justify-content-between">
-                <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli text-clr334 m-0">High</p>
-                <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli text-clr334 m-0">Med</p>
-                <p class="fnt-14 fnt-md-16 fnt-500 fnt-muli text-clr334 m-0">Low</p>
+                <p class="fnt-14 fnt-md-16 fw-m text-clr334 m-0">High</p>
+                <p class="fnt-14 fnt-md-16 fw-m text-clr334 m-0">Med</p>
+                <p class="fnt-14 fnt-md-16 fw-m text-clr334 m-0">Low</p>
             </div>
         </div>
         <div class="w-100 d-flex justify-content-end align-items-center">
-            <span class="fnt-14 fnt-bold fnt-muli text-clr588 mr-3 d-none d-md-block"> Selected day </span>
+            <span class="fnt-14 fw-b text-clr588 mr-3 d-none d-md-block"> Selected day </span>
             <p-calendar
                 [(ngModel)]="selectedDate"
                 (onSelect)="changeDate()"

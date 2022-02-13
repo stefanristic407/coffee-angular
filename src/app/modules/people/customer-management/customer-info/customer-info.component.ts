@@ -2,7 +2,8 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from '@services';
 import { ToastrService } from 'ngx-toastr';
-import { OrganizationType } from '@enums';
+import { OrganizationType, UserStatus } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-customer-info',
@@ -20,16 +21,17 @@ export class CustomerInfoComponent implements OnInit, OnChanges {
         { label: 'Active', value: true },
         { label: 'Disable', value: false },
     ];
-    status: boolean;
+    isStatus: boolean;
 
     constructor(
-        private route: ActivatedRoute,
         private customerService: CustomerService,
+        private route: ActivatedRoute,
         private toastrService: ToastrService,
+        private translator: TranslateService,
     ) {}
 
     ngOnChanges(): void {
-        this.status = this.data?.status === 'ACTIVE';
+        this.isStatus = this.data?.status === UserStatus.ACTIVE;
     }
 
     ngOnInit(): void {
@@ -44,7 +46,12 @@ export class CustomerInfoComponent implements OnInit, OnChanges {
     }
 
     updateStatus() {
-        if (this.status) {
+        if (this.data.status === UserStatus.PENDING) {
+            this.toastrService.error(this.translator.instant('pending_customer_status_cannot_change'));
+            setTimeout(() => (this.isStatus = false));
+            return;
+        }
+        if (this.isStatus) {
             this.customerService.enableAccount(this.organizationType, this.customerID).subscribe((res) => {
                 if (res.success) {
                     this.toastrService.success('Customer Enabled');

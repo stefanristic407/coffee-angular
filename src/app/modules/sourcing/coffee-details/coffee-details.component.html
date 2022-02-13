@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="d-inline-block">
-                        <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr24 mb-0">
+                        <h2 class="fnt-16 fnt-md-18 fw-b text-clr24 mb-0">
                             {{ sourcing.harvestDetail?.estate_name }}
                         </h2>
                         <div class="d-flex align-items-center">
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="certify-green d-none d-lg-block" *ngIf="sourcing.estateCertify != ''">
-                            <h5 class="fnt-16 fnt-md-18 fnt-bold text-clr000">Certificates</h5>
+                            <h5 class="fnt-16 fnt-md-18 fw-b text-clr000">Certificates</h5>
                             <div class="pt-3">
                                 <img
                                     *ngFor="let cert of sourcing.estateCertify"
@@ -81,7 +81,7 @@
                             <div class="border-main border-lg-0 br-4 p-3 p-lg-0">
                                 <div class="mb-2 mb-md-3 mb-lg-4">
                                     <a
-                                        class="custom-link fnt-14"
+                                        class="brown-cta"
                                         routerLink="/sourcing/lot-details/{{ sourcing.lot?.estate_id }}/{{
                                             sourcing.lot?.id
                                         }}"
@@ -90,7 +90,7 @@
                                     </a>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <h2 class="fnt-16 fnt-md-18 fnt-bold text-clr334 mb-1">
+                                    <h2 class="fnt-16 fnt-md-18 fw-b text-clr334 mb-1">
                                         {{ sourcing.harvestDetail?.name }}
                                     </h2>
                                     <div class="d-lg-none d-flex">
@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
 
-                                <h6 class="fnt-14 fnt-md-16 lh-normal fnt-600 text-clr334 mb-3">
+                                <h6 class="fnt-14 fnt-md-16 lh-normal fw-m text-clr334 mb-3">
                                     <img src="assets/images/location-rating.png" alt="" />
                                     {{ sourcing.harvestDetail?.country | country }}
                                 </h6>
@@ -259,14 +259,14 @@
                                                     *ngIf="sourcing.harvestDetail?.flavours?.length > 3"
                                                     class="col-auto d-flex align-items-center"
                                                 >
-                                                    <span class="fnt-bold"
+                                                    <span class="fw-b"
                                                         >+ {{ sourcing.harvestDetail.flavours?.length - 3 }}</span
                                                     >
                                                 </div>
                                             </div>
                                             <h3
                                                 *ngIf="!sourcing.harvestDetail?.flavours?.length"
-                                                class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0"
+                                                class="fnt-14 lh-normal fw-b text-clr334 ellipsis mb-0"
                                             >
                                                 NA
                                             </h3>
@@ -287,7 +287,7 @@
                             </div>
 
                             <div class="estate-focus with-last-border border-main border-lg-0 br-4 p-3 p-lg-0">
-                                <h3 class="fnt-16 fnt-md-18 fnt-bold text-clr000">
+                                <h3 class="fnt-16 fnt-md-18 fw-b text-clr000">
                                     {{ 'estate_details' | translate }}
                                 </h3>
                                 <ul class="clearfix">
@@ -368,7 +368,7 @@
 
     <div class="bg-white br-4 pl-2 px-md-3 px-lg-5 py-3 py-lg-4 mt-4">
         <div class="px-0">
-            <div class="fnt-16 fnt-md-18 fnt-bold text-clr000 mt-lg-2 mb-3 mb-lg-4">
+            <div class="fnt-16 fnt-md-18 fw-b text-clr000 mt-lg-2 mb-3 mb-lg-4">
                 {{ 'estates_other_green_coffee' | translate }}
             </div>
             <div

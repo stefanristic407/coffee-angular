@@ -22,7 +22,7 @@
             </div>
         </div>
         <div
-            class="fnt-muli fnt-16 fnt-md-18 fnt-700 text-clr334 mt-4 cursor-pointer hover-underline"
+            class="fnt-16 fnt-md-18 fw-b text-clr334 mt-4 cursor-pointer hover-underline"
             (click)="onQuestionNavigate(question.slug)"
             [innerHTML]="question?.question"
         ></div>
@@ -66,7 +66,7 @@
                     </button>
                 </div>
             </div>
-            <div class="fnt-muli fnt-14 text-clr334 lh-15 mb-md-4" [ngClass]="{ 'mb-3': !last }">
+            <div class="fnt-14 text-clr334 lh-15 mb-md-4" [ngClass]="{ 'mb-3': !last }">
                 <span [innerHTML]="answer?.answer | convertToShortDescription: 25"></span>
             </div>
         </div>

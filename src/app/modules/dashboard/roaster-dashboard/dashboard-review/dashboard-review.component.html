@@ -1,20 +1,20 @@
 <div class="p-md-3 p-lg-4 p-4 border-main br-4 h-100">
-    <p class="fnt-14 fnt-md-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block">
+    <p class="fnt-14 fnt-md-16 fw-b text-clr334 mb-1 mb-md-2 d-none d-md-block">
         {{ 'your_rating' | translate }}
     </p>
-    <p class="fnt-12 fnt-md-14 fnt-normal fnt-muli text-clr588 mb-2 mb-lg-4 mb-md-2 d-none d-md-block">
+    <p class="fnt-12 fnt-md-14 fnt-normal text-clr588 mb-2 mb-lg-4 mb-md-2 d-none d-md-block">
         {{ 'dashboard_your_rating_desp' | translate }}
     </p>
 
     <div class="row">
         <div class="col-12">
             <div class="review-block">
-                <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-2 d-md-none">{{ 'reviews' | translate }}</p>
+                <p class="fnt-16 fw-b text-clr334 mb-2 d-md-none">{{ 'reviews' | translate }}</p>
 
-                <h2 class="fnt-32 fnt-bold fnt-muli text-clr334 mb-md-1 mb-0">
+                <h2 class="fnt-32 fw-b text-clr334 mb-md-1 mb-0">
                     {{ reviewsSummary?.rating.toFixed(1) || '-' }}
                 </h2>
-                <div class="fnt-14 fnt-bold fnt-muli text-clr588">out of 5</div>
+                <div class="fnt-14 fw-b text-clr588">out of 5</div>
                 <div>
                     <div *ngIf="reviewsSummary" class="d-flex star-wrap mt-md-1 mt-2 mb-45">
                         <p-rating
@@ -27,15 +27,13 @@
                     </div>
                 </div>
 
-                <p class="fnt-14 fnt-md-84 fnt-bold fnt-muli text-clr334 mb-3">
+                <p class="fnt-14 fnt-md-84 fw-b text-clr334 mb-3">
                     {{ reviewsSummary?.total_review || '0' }} customer reviews
                 </p>
                 <div class="rating-bar" *ngIf="reviewsSummary">
                     <div class="row" *ngFor="let item of reviewStars; let i = index">
                         <div class="col-2 col-md-2 col-lg-2 common-rating-item core-star" style="display: flex">
-                            <span class="fnt-14 fnt-md-84 fnt-bold fnt-muli text-clr334 pr-1 pr-lg-2 pr-md-1">{{
-                                item.label
-                            }}</span>
+                            <span class="fnt-14 fnt-md-84 fw-b text-clr334 pr-1 pr-lg-2 pr-md-1">{{ item.label }}</span>
                             <p-rating
                                 value="1"
                                 [readonly]="true"
@@ -54,7 +52,7 @@
                             ></p-progressBar>
                         </div>
                         <div class="col-2 col-md-2 col-lg-2 common-rating-item core-count">
-                            <span class="fnt-14 fnt-md-84 fnt-bold fnt-muli text-clr588"> ({{ item.value }}) </span>
+                            <span class="fnt-14 fnt-md-84 fw-b text-clr588"> ({{ item.value }}) </span>
                         </div>
                     </div>
                 </div>

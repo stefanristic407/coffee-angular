@@ -7,9 +7,7 @@
         <div *ngIf="isMobile && !showNoDataSection" class="col-12 bg-f8 my-4 px-0 border-mob">
             <div class="w-100 bg-f8">
                 <div class="d-flex border-btm drop-pad">
-                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25"
-                        >{{ 'translation_language' | translate }} -
-                    </span>
+                    <span class="fnt-14 fw-m text-clr334 pr-2 pt-25">{{ 'translation_language' | translate }} - </span>
                     <p-dropdown
                         [options]="remainingAnswerLangugage"
                         [(ngModel)]="selectedLang"
@@ -37,7 +35,7 @@
         <div class="col-12 col-md-6 px-0 border-mob">
             <div class="w-100 bg-f8">
                 <div class="d-flex justify-content-between border-btm pt-35 pr-25">
-                    <p class="fnt-14 fnt-muli fnt-600 text-clr334 pl-4 pb-3">
+                    <p class="fnt-14 fw-m text-clr334 pl-4 pb-3">
                         {{ 'original_language' | translate }} - {{ answer?.lang_code | language }}
                     </p>
                     <img class="swap-img" src="assets/images/swap_horiz_black_24dp.svg" alt="swap_horiz" />
@@ -46,7 +44,7 @@
             <div class="px-2 py-3 p-md-4 bg-white mr-md-4">
                 <div *ngIf="question?.categories" class="mb-md-3">
                     <div class="row mx-0">
-                        <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
+                        <label class="fw-m mb-25"> {{ 'categories' | translate }}</label>
                     </div>
                     <app-category-list
                         [isTranslatePage]="true"
@@ -54,9 +52,7 @@
                     ></app-category-list>
                 </div>
                 <div class="sewn-form-field w-100 mb-3 mb-md-4">
-                    <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
-                        'question' | translate
-                    }}</label>
+                    <label class="fnt-14 fw-m text-clr334" for="question">{{ 'question' | translate }}</label>
                     <input
                         class="w-100"
                         type="text"
@@ -67,7 +63,7 @@
                         disabled
                     />
                 </div>
-                <div class="fnt-600 fnt-14 mb-2">
+                <div class="fw-m fnt-14 mb-2">
                     {{ 'answer' | translate | titlecase }}
                 </div>
                 <div class="border-main bg-f8 px-3 py-4 br-4">
@@ -80,9 +76,9 @@
                 </div>
                 <div class="mb-3 mb-md-4 border-main mt-4 p-3">
                     <label>{{ 'qa_url' | translate }}</label>
-                    <div class="p-error fnt-600 pb-3">{{ 'qa_slug_msg' | translate }}</div>
+                    <div class="p-error fw-m pb-3">{{ 'qa_slug_msg' | translate }}</div>
                     <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
-                        <div class="fnt-600 mb-2 mb-lg-0">{{ coffeeLabURL }}{{ selectedLang || 'en' }}/questions/</div>
+                        <div class="fw-m mb-2 mb-lg-0">{{ coffeeLabURL }}{{ selectedLang || 'en' }}/questions/</div>
                         <div class="sewn-form-field col mb-0">
                             <input
                                 placeholder="{{ 'write_slug_here' | translate }}"
@@ -98,9 +94,7 @@
         <div *ngIf="!isMobile && !showNoDataSection" class="col-md-6 col-12 bg-f8 px-md-0 border-left">
             <div class="w-100 bg-f8">
                 <div class="d-flex border-btm drop-pad">
-                    <span class="fnt-14 fnt-muli fnt-600 text-clr334 pr-2 pt-25"
-                        >{{ 'translation_language' | translate }} -
-                    </span>
+                    <span class="fnt-14 fw-m text-clr334 pr-2 pt-25">{{ 'translation_language' | translate }} - </span>
                     <p-dropdown
                         [options]="remainingAnswerLangugage"
                         [(ngModel)]="selectedLang"
@@ -165,12 +159,12 @@
     <div>
         <div *ngIf="categoryList && categoryList.length > 0" class="mb-md-3">
             <div class="row mx-0">
-                <label class="fnt-600 mb-25"> {{ 'categories' | translate }}</label>
+                <label class="fw-m mb-25"> {{ 'categories' | translate }}</label>
             </div>
             <app-category-list [isTranslatePage]="true" [categoryList]="categoryList"></app-category-list>
         </div>
         <div [formGroup]="form" *ngIf="needToTranslateQuestion" class="sewn-form-field w-100 mb-3 mb-md-4">
-            <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{ 'question' | translate }}</label>
+            <label class="fnt-14 fw-m text-clr334" for="question">{{ 'question' | translate }}</label>
             <input
                 class="w-100"
                 type="text"
@@ -184,9 +178,7 @@
             </div>
         </div>
         <div class="col-12 sewn-form-field px-0">
-            <label class="fnt-14 fnt-600 fnt-muli text-clr334" for="question">{{
-                'answer' | translate | titlecase
-            }}</label>
+            <label class="fnt-14 fw-m text-clr334" for="question">{{ 'answer' | translate | titlecase }}</label>
             <textarea
                 id="text-focus"
                 class="active-comment"
@@ -198,9 +190,9 @@
         </div>
         <div [formGroup]="form" class="mb-3 mb-md-4 border-main p-3">
             <label>{{ 'qa_url' | translate }}</label>
-            <div class="p-error fnt-600 pb-3">{{ 'qa_slug_msg' | translate }}</div>
+            <div class="p-error fw-m pb-3">{{ 'qa_slug_msg' | translate }}</div>
             <div class="mt-md-3 mt-lg-0 d-flex flex-wrap align-items-center">
-                <div class="fnt-600 mb-2 mb-lg-0">{{ coffeeLabURL }}{{ selectedLang || 'en' }}/questions/</div>
+                <div class="fw-m mb-2 mb-lg-0">{{ coffeeLabURL }}{{ selectedLang || 'en' }}/questions/</div>
                 <div class="sewn-form-field col mb-0">
                     <input
                         formControlName="slug"

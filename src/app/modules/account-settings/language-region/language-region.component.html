@@ -15,7 +15,7 @@
                 <div class="mb-2 mb-md-25 fnt-16 fnt-md-18 font-weight-bold">
                     {{ 'language_region' | translate }}
                 </div>
-                <div class="text-clr588 fnt-14 fnt-600 font-weight-md-normal">
+                <div class="text-clr588 fnt-14 fw-m font-weight-md-normal">
                     {{ 'select_language_timezone' | translate }}
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="col-lg-5 px-0 pb-lg-2">
                 <div>
                     <div class="mt-2 mb-4 mb-md-45 sewn-form-field language-timezone-fields">
-                        <label class="fnt-14 fnt-600">{{ 'language' | translate }}</label>
+                        <label class="fnt-14 fw-m">{{ 'language' | translate }}</label>
                         <p-dropdown
                             [options]="applicationLanguages"
                             class="w-100"
@@ -42,13 +42,9 @@
                     </div>
 
                     <div class="mb-4 mb-md-45">
-                        <label class="fnt-14 fnt-600">{{ 'add_language_label' | translate }}</label>
+                        <label class="fnt-14 fw-m">{{ 'add_language_label' | translate }}</label>
                         <div class="d-flex flex-row flex-wrap">
-                            <button
-                                type="button"
-                                [matMenuTriggerFor]="profileMenu"
-                                class="mr-4 mb-2 fnt-muli add-language-btn"
-                            >
+                            <button type="button" [matMenuTriggerFor]="profileMenu" class="mr-4 mb-2 add-language-btn">
                                 <img src="../../../../assets/images/icon-add.svg" alt="icon" class="mr-2" />
                                 <span>{{ 'add_language' | translate }}</span>
                             </button>
@@ -83,7 +79,7 @@
                     </div>
 
                     <div class="sewn-form-field mb-0 language-timezone-fields">
-                        <label class="fnt-14 fnt-600">{{ 'time_zone_title' | translate }}</label>
+                        <label class="fnt-14 fw-m">{{ 'time_zone_title' | translate }}</label>
 
                         <p-dropdown
                             [options]="timezones"

@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService, CommonService, GlobalsService, RoasterService } from '@services';
+import { ResizeableComponent } from '@base-components';
+import { OrganizationType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
+import { ResizeService, RoasterService } from '@services';
 import { ConfirmComponent } from '@shared';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
 
@@ -11,11 +12,9 @@ import { DialogService } from 'primeng/dynamicdialog';
     templateUrl: './roaster-agreements.component.html',
     styleUrls: ['./roaster-agreements.component.scss'],
 })
-export class RoasterAgreementsComponent implements OnInit {
+export class RoasterAgreementsComponent extends ResizeableComponent implements OnInit {
     estatetermOrigin: any;
     customerMob: any;
-    roasterId: number;
-    deleteAgreementId: any;
     horecaList: any;
     newList: any = [];
     mainData: any = [];
@@ -28,19 +27,16 @@ export class RoasterAgreementsComponent implements OnInit {
     loading = false;
 
     @Input() searchTerm = '';
-    @Input() customerType = 'hrc';
+    @Input() customerType = OrganizationType.HORECA;
 
     constructor(
-        public router: Router,
-        public cookieService: CookieService,
-        public roasterService: RoasterService,
-        public toastrService: ToastrService,
-        public globals: GlobalsService,
-        public dialogSrv: DialogService,
-        private commonService: CommonService,
-        private authService: AuthService,
+        private dialogSrv: DialogService,
+        private roasterService: RoasterService,
+        private toastrService: ToastrService,
+        private translator: TranslateService,
+        protected resizeService: ResizeService,
     ) {
-        this.roasterId = this.authService.getOrgId();
+        super(resizeService);
     }
 
     ngOnInit(): void {
@@ -52,7 +48,7 @@ export class RoasterAgreementsComponent implements OnInit {
     getAgreements(event?: any): void {
         this.mainData = [];
         this.loading = true;
-        this.roasterService.getAgreements(this.roasterId, this.customerType).subscribe((resp: any) => {
+        this.roasterService.getAgreements(this.customerType).subscribe((resp: any) => {
             if (resp.success) {
                 this.loading = false;
                 this.mainData = resp.result;
@@ -70,7 +66,7 @@ export class RoasterAgreementsComponent implements OnInit {
                     this.newList = this.newList.sort((a, b) => a.label.localeCompare(b.label));
                 }
             } else {
-                this.toastrService.error(this.globals.languageJson?.error_getting_horeca_list);
+                this.toastrService.error(this.translator.instant('error_getting_horeca_list'));
             }
         });
     }
@@ -108,18 +104,27 @@ export class RoasterAgreementsComponent implements OnInit {
             })
             .onClose.subscribe((action: any) => {
                 if (action === 'yes') {
-                    this.roasterService
-                        .deleteAgreement(this.roasterId, this.customerType, item)
-                        .subscribe((res: any) => {
-                            if (res.success) {
-                                // this.displayDeleteModal = false;
-                                this.toastrService.success(this.globals.languageJson?.success_deleting_agreement);
-                                this.getAgreements();
-                            } else {
-                                this.toastrService.error(this.globals.languageJson?.error_deleting_agreement);
-                            }
-                        });
+                    this.roasterService.deleteAgreement(this.customerType, item).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success(this.translator.instant('success_deleting_agreement'));
+                            this.getAgreements();
+                        } else {
+                            this.toastrService.error(this.translator.instant('error_deleting_agreement'));
+                        }
+                    });
                 }
             });
+    }
+
+    getMenuItems(item) {
+        return [
+            this.resizeService.isMobile()
+                ? {
+                      label: this.translator.instant('update'),
+                      routerLink: `/sales-contract/${this.customerType}/${item.id}`,
+                  }
+                : { label: this.translator.instant('update'), command: () => this.onUpdateModal(item.id) },
+            { label: this.translator.instant('delete'), command: () => this.onOpenDeleteModal(item.id) },
+        ];
     }
 }

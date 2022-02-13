@@ -1,7 +1,9 @@
+@import 'variables';
+
 .read-more-button {
     font-size: 14px;
     position: relative;
-    font-weight: 600;
+    font-weight: $fw-m;
     color: #30855c;
     cursor: pointer;
     .fa-angle-down {

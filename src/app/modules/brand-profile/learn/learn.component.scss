@@ -1,3 +1,4 @@
+@import 'variables';
 
 .bg-fff {
     padding: 2rem;
@@ -5,16 +6,16 @@
 }
 
 .brand-profile {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: $fw-b;
     line-height: normal;
     letter-spacing: normal;
     color: #232334;
 }
 
 .brand-para {
-    font-family: Muli;
+    font-family: $general-font-family;
     font-size: 14px;
     font-style: normal;
     line-height: normal;
@@ -36,7 +37,7 @@
     color: #ffffff;
     background-color: #30855c;
 }
-.save{
+.save {
     border-radius: 4px;
     color: #ffffff;
     border: solid 1px #30855c;
@@ -45,46 +46,46 @@
     font-size: 14px;
     background-color: #30855c;
 }
-.save:hover{
+.save:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
-.header-text{
+.header-text {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: $fw-b;
     color: #232334;
 }
-.star{
+.star {
     color: #ff1e5a;
 }
-.sub-header-text{
-    font-weight: 600;
+.sub-header-text {
+    font-weight: $fw-m;
     color: #232334;
 }
-.sub-text{
-    font-weight: 600;
+.sub-text {
+    font-weight: $fw-m;
     color: #747588;
 }
-.border{
+.border {
     border: 1px solid #d6d6d6;
     border-radius: 2px;
 }
-.banner-title{
+.banner-title {
     height: 50px;
 }
-.dashed{
+.dashed {
     border: 1px dashed #d6d6d6;
 }
-.cancel{
+.cancel {
     height: 46px;
-  padding: 12px 20px;
-  border-radius: 4px;
-  border: solid 1px #30855c;
-  background-color: #ffffff;
-  font-weight: bold;
-  line-height: 1.57;
-  text-align: center;
-  color: #30855c;
+    padding: 12px 20px;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #ffffff;
+    font-weight: $fw-b;
+    line-height: 1.57;
+    text-align: center;
+    color: #30855c;
 }
-.cancel:hover{
+.cancel:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }

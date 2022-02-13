@@ -1,0 +1,43 @@
+<div *ngIf="coffeeExperienceLink" class="border-main br-4 p-3 p-md-4">
+    <div class="row gutter-24 v-gutter-24">
+        <div class="col-md-6 col-lg-12">
+            <h4 class="fnt-16 fw-b mb-2 mb-md-4 mb-lg-2">{{ 'share_your_story' | translate }}</h4>
+            <div class="fw-m text-clr588 mb-2">{{ 'share_story_text' | translate }}</div>
+            <div class="link-wrapper">
+                <span class="flex-1 link-text">{{ coffeeExperienceLink.coffee_story_url }}</span>
+                <button
+                    (click)="handleCopyCoffeeExperienceLink()"
+                    class="btn-raised"
+                    ngxClipboard
+                    [cbContent]="coffeeExperienceLink.coffee_story_url"
+                >
+                    {{ 'copy_link' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-12">
+            <div class="text-center">
+                <div class="d-md-none d-lg-block fnt-12 fw-m mb-3 mb-lg-4">{{ 'or' | titlecase }}</div>
+                <div class="text-md-left fw-m mb-3 mb-2 mb-md-4">{{ 'scan_download_text' | translate }}</div>
+                <div class="d-lg-flex align-items-end flex-wrap justify-content-center">
+                    <div>
+                        <img class="qr-image" [src]="coffeeExperienceLink.qr_code_url" />
+                    </div>
+                    <a class="mt-2 btn-trans-icon download-icon mx-auto" (click)="onDownloadQr()">
+                        {{ 'download' | translate }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="solid-divider mx-n3 mx-md-n4 my-3 my-md-4"></div>
+
+    <div class="text-center">
+        <div class="fw-m">
+            {{ 'having_trouble' | translate }}?
+            <a class="ml-1 brown-cta" [href]="'mailto:' + env.supportEmailAddress">{{ 'contact_us' | translate }}</a>
+        </div>
+    </div>
+</div>

@@ -7,11 +7,11 @@
     </div>
 
     <div class="d-none d-lg-block pb-2">
-        <span class="fnt-18 fnt-bold">{{ 'manage_roles' | translate }}</span>
+        <span class="fnt-18 fw-b">{{ 'manage_roles' | translate }}</span>
     </div>
 
     <div class="d-flex d-lg-none align-items-center justify-content-between">
-        <span class="fnt-18 fnt-bold">{{ 'manage_roles' | translate }}</span>
+        <span class="fnt-18 fw-b">{{ 'manage_roles' | translate }}</span>
         <button routerLink="/team-management/create-role" class="btn-raised d-sm-block mr-0">
             {{ 'create_new_role' | translate }}
         </button>
@@ -81,7 +81,7 @@
                                 </span>
                             </div>
                             <div class="d-block d-md-none">
-                                <span class="d-flex fnt-bold mb-1">{{ rowData['name'] }}</span>
+                                <span class="d-flex fw-b mb-1">{{ rowData['name'] }}</span>
                                 <span class="d-flex d-md-none text-clr588"
                                     >{{ rowData['user_count'] }} {{ 'members' | translate | lowercase }}</span
                                 >

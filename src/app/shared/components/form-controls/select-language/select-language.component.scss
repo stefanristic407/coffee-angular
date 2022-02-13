@@ -9,7 +9,7 @@
         .p-multiselect-label {
             padding: 0.5rem 0.75rem 0.5rem 0;
             color: $general-text-color;
-            font-weight: 600;
+            font-weight: $fw-m;
         }
 
         .p-multiselect-trigger-icon {
@@ -37,7 +37,7 @@
                 border: solid 1px $muted-text-color;
                 color: $muted-text-color;
                 background: $white;
-                font-weight: 500;
+                font-weight: $fw-m;
                 margin: 0 0 0.5rem 0.5rem;
 
                 .p-chips-token-icon::before {

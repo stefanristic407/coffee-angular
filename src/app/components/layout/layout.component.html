@@ -69,13 +69,13 @@
                                     (onHide)="onHideNotification()"
                                 >
                                     <div class="notification-header">
-                                        <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">
+                                        <span class="fnt-16 fnt-md-18 fw-b text-clr334">
                                             {{ 'notifications' | translate }}
                                         </span>
                                         <div class="d-flex">
                                             <div
                                                 *ngIf="hasUnreadNotification"
-                                                class="custom-link fnt-14 mr-3"
+                                                class="brown-cta mr-3"
                                                 (click)="makeAsAllRead(myOp)"
                                             >
                                                 {{ 'mark_all_read' | translate }}
@@ -120,12 +120,12 @@
                                         container="body"
                                         [outsideClick]="true"
                                     >
-                                        <h6 class="d-block fnt-14 fnt-md-16 fnt-600 text-clr24 m-0">
+                                        <h6 class="d-block fnt-14 fnt-md-16 fw-m text-clr24 m-0">
                                             {{ authService.currentUser?.firstname }}
                                             <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
                                         </h6>
                                         <span
-                                            class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
+                                            class="d-inline-block text-clr5d fnt-12 fw-m pt-2"
                                             style="transform: translateY(-10px)"
                                             >{{ rolename | titlecase }}</span
                                         >
@@ -187,23 +187,16 @@
                     <div class="">
                         <app-menu [menuParentId]="0"></app-menu>
                     </div>
-                    <ul class="nav-links fnt-muli px-2">
+                    <ul class="nav-links px-2">
                         <li
-                            class="
-                                nav-links__item
-                                d-md-inline-block
-                                position-relative
-                                mobile-farm
-                                settings-list
-                                mt-md-0 mt-5
-                            "
+                            class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
                         >
-                            <a class="d-inline-block fnt-600" [routerLink]="['/account-settings']"
+                            <a class="d-inline-block fw-m" [routerLink]="['/account-settings']"
                                 >{{ 'account_settings' | translate }}
                             </a>
                         </li>
                         <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
-                            <a class="d-inline-block fnt-600" (click)="userLogout()">{{ 'logout' | translate }} </a>
+                            <a class="d-inline-block fw-m" (click)="userLogout()">{{ 'logout' | translate }} </a>
                         </li>
                     </ul>
                 </div>
@@ -227,7 +220,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
-                                    <p class="mb-0 fnt-10 fnt-600">
+                                    <p class="mb-0 fnt-10 fw-m">
                                         {{ 'dashboard' | translate }}
                                     </p>
                                 </div>
@@ -238,7 +231,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-coffeelab.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-coffeelab.svg" />
-                                    <p class="mb-0 fnt-10 fnt-600">
+                                    <p class="mb-0 fnt-10 fw-m">
                                         {{ 'coffee_lab' | translate | titlecase }}
                                     </p>
                                 </div>
@@ -251,7 +244,7 @@
                                         <img class="in-active" src="assets/images/ft-icon-message.svg" />
                                         <img class="active" src="assets/images/ft-icon-active-message.svg" />
                                     </div>
-                                    <p class="mb-0 fnt-10 fnt-600">{{ 'messages' | translate }}</p>
+                                    <p class="mb-0 fnt-10 fw-m">{{ 'messages' | translate }}</p>
                                 </div>
                             </a>
                         </li>
@@ -262,7 +255,7 @@
                                         <img class="in-active" src="assets/images/ft-icon-notification.svg" />
                                         <img class="active" src="assets/images/ft-icon-active-notification.svg" />
                                     </div>
-                                    <p class="mb-0 fnt-10 fnt-600">
+                                    <p class="mb-0 fnt-10 fw-m">
                                         {{ 'notifications' | translate }}
                                     </p>
                                 </div>
@@ -275,13 +268,13 @@
                                 (onHide)="onHideNotification()"
                             >
                                 <div class="notification-header m-0 p-3">
-                                    <span class="fnt-16 fnt-md-18 fnt-bold fnt-muli text-clr334">
+                                    <span class="fnt-16 fnt-md-18 fw-b text-clr334">
                                         {{ 'notifications' | translate }}
                                     </span>
                                     <div class="d-flex">
                                         <div
                                             *ngIf="hasUnreadNotification"
-                                            class="custom-link fnt-14"
+                                            class="brown-cta"
                                             (click)="makeAsAllRead(myOp)"
                                         >
                                             {{ 'mark_all_read' | translate }}
@@ -313,7 +306,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
-                                    <p class="mb-0 fnt-10 fnt-600">{{ 'profile' | translate }}</p>
+                                    <p class="mb-0 fnt-10 fw-m">{{ 'profile' | translate }}</p>
                                 </div>
                             </a>
 
@@ -345,7 +338,7 @@
                                     <div class="d-flex flex-column align-items-center">
                                         <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                         <img class="active" src="assets/images/ft-icon-active-profile.svg" />
-                                        <p class="mb-0 fnt-10 fnt-600">{{ 'profile' | translate }}</p>
+                                        <p class="mb-0 fnt-10 fw-m">{{ 'profile' | translate }}</p>
                                     </div>
                                 </a>
                             </li>
@@ -388,12 +381,12 @@
         <div *ngFor="let notification of notifications">
             <div class="notifi-cotainer pl-25 pr-4 py-2" (click)="onClickNotification(notification, myOp)">
                 <div class="d-flex justify-content-between align-items-center">
-                    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-0 pr-4">
+                    <p class="fnt-14 fnt-normal text-clr588 mb-0 pr-4">
                         {{ notification.content }}
                     </p>
                     <p class="fnt-18" [ngClass]="notification.is_read ? 'text-clrcb' : 'text-clr55c'">&#9679;</p>
                 </div>
-                <p class="fnt-12 fnt-normal fnt-muli text-clr588 mt-3">
+                <p class="fnt-12 fnt-normal text-clr588 mt-3">
                     {{ notification.status_updated_at | amTimeAgo }}
                 </p>
             </div>
