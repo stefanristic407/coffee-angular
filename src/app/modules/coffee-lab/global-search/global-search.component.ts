@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResizeableComponent } from '@base-components';
+import { DestroyableComponent } from '@base-components';
 import { PostType } from '@enums';
-import { CoffeeLabService, ResizeService, StartupService } from '@services';
+import { CoffeeLabService, StartupService } from '@services';
 import { forkJoin, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
     templateUrl: './global-search.component.html',
     styleUrls: ['./global-search.component.scss'],
 })
-export class GlobalSearchComponent extends ResizeableComponent implements OnInit {
+export class GlobalSearchComponent extends DestroyableComponent implements OnInit {
     readonly PostType = PostType;
     isLoading: boolean;
     keyword = '';
@@ -44,14 +44,12 @@ export class GlobalSearchComponent extends ResizeableComponent implements OnInit
     page = 1;
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: object,
         private coffeeLabService: CoffeeLabService,
         private router: Router,
         private route: ActivatedRoute,
         private startupService: StartupService,
-        protected resizeService: ResizeService,
     ) {
-        super(resizeService);
+        super();
         const searchQueryParam = this.route.snapshot.queryParamMap.get('query');
         if (searchQueryParam) {
             this.keyword = searchQueryParam;
@@ -248,7 +246,6 @@ export class GlobalSearchComponent extends ResizeableComponent implements OnInit
                 });
             }
             this.onTabChange({ index: 0 });
-            console.log(this.searchResult);
             this.coffeeLabService.searchResult.next(this.searchResult);
             this.isLoading = false;
         });
@@ -295,7 +292,7 @@ export class GlobalSearchComponent extends ResizeableComponent implements OnInit
         if (this.page !== event.page + 1) {
             this.page = event.page + 1;
             window.scroll(0, 0);
-            // this.getData();
+            this.startSearch();
         }
     }
 }

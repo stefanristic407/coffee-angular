@@ -18,6 +18,6 @@ export class PopularPostsComponent implements OnInit {
     onFocus() {}
 
     onRealtedRoute(slug: string) {
-        return `/${this.type === 'article' ? 'articles' : 'coffee-recipes'}/${slug}`;
+        return `/coffee-lab/${this.type === 'article' ? 'articles' : 'coffee-recipes'}/${slug}`;
     }
 }

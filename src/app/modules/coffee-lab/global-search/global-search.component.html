@@ -97,16 +97,18 @@
     <div
         *ngIf="
             !isLoading &&
-            (searchResult?.questions?.length === 0 ||
-                searchResult?.articles?.length === 0 ||
-                searchResult?.recipes?.length === 0)
+            searchResult?.questions?.length === 0 &&
+            searchResult?.articles?.length === 0 &&
+            searchResult?.recipes?.length === 0
         "
         class="text-center my-4 text-clr24"
     >
         <app-empty [title]="'no_data_available' | translate"></app-empty>
     </div>
+    <div *ngIf="isLoading">
+        <app-loading></app-loading>
+    </div>
 </div>
-<app-loading *ngIf="isLoading"></app-loading>
 
 <ng-template #filterDropdowns>
     <div class="d-flex mb-md-4 ml-md-45">

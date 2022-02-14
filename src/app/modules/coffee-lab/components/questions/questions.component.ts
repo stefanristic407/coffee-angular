@@ -17,7 +17,5 @@ export class QuestionsComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {
-        console.log(this.questions);
-    }
+    ngOnInit(): void {}
 }

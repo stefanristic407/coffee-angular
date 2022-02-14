@@ -665,7 +665,6 @@ export class CreateRecipeComponent extends DestroyableComponent implements OnIni
 
     changeLanguage(event: any) {
         this.langCode = event.value;
-        console.log(event.value);
         this.coffeeLabService.updateLang(event.value).then(() => {
             this.getCategory();
         });

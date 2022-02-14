@@ -20,9 +20,7 @@ export class QuestionCardComponent implements OnInit {
 
     constructor(private router: Router, public coffeeLabService: CoffeeLabService, public authService: AuthService) {}
 
-    ngOnInit(): void {
-        console.log(this.question);
-    }
+    ngOnInit(): void {}
 
     onQuestionNavigate(slug: string) {
         if (this.isMyPost) {
