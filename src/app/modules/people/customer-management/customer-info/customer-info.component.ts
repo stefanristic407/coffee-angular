@@ -62,7 +62,7 @@ export class CustomerInfoComponent implements OnInit, OnChanges {
         } else {
             this.customerService.disableAccount(this.organizationType, this.customerID).subscribe((res) => {
                 if (res.success) {
-                    this.toastrService.success('Customer Disabled');
+                    this.toastrService.success('Customer disabled');
                 } else {
                     this.toastrService.error('Error while disabling');
                 }
