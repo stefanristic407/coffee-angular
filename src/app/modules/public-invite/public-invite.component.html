@@ -27,7 +27,7 @@
                     pInputText
                     class="w-100 round-border {{ searchTerm ? 'highlight' : '' }} "
                     [(ngModel)]="searchTerm"
-                    placeholder="{{ 'Search with company name' | translate }}"
+                    placeholder="{{ 'search_companyname' | translate }}"
                 />
             </span>
         </div>
@@ -69,7 +69,7 @@
                     class="w-100 round-border {{ searchTerm ? 'highlight' : '' }}"
                     [(ngModel)]="searchTerm"
                     (input)="search()"
-                    placeholder="{{ 'Search with company name' | translate }}"
+                    placeholder="{{ 'search_companyname' | translate }}"
                 />
             </span>
         </div>
