@@ -54,7 +54,7 @@ export class CustomerInfoComponent implements OnInit, OnChanges {
         if (this.isStatus) {
             this.customerService.enableAccount(this.organizationType, this.customerID).subscribe((res) => {
                 if (res.success) {
-                    this.toastrService.success('Customer Enabled');
+                    this.toastrService.success('Customer enabled');
                 } else {
                     this.toastrService.error('Error while enabling');
                 }
