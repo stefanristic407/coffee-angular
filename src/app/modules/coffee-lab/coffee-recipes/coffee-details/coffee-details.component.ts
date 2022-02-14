@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConvertToShortDescriptionPipe } from '@app/shared/pipes/convert-to-short-description.pipe';
 import { DestroyableComponent } from '@base-components';
 import { LinkType, PostType } from '@enums';
 import { environment } from '@env/environment';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService, ChatHandlerService, CoffeeLabService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
@@ -12,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'app-coffee-details',
     templateUrl: './coffee-details.component.html',
     styleUrls: ['./coffee-details.component.scss'],
-    providers: [MessageService],
+    providers: [MessageService, ConvertToShortDescriptionPipe],
 })
 export class CoffeeDetailsComponent extends DestroyableComponent implements OnInit {
     readonly PostType = PostType;
@@ -51,6 +53,7 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
             key: 'serves',
         },
     ];
+    items: ({ label: any; routerLink: string } | { label: any; routerLink?: undefined })[];
 
     constructor(
         public router: Router,
@@ -60,7 +63,9 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
         public authService: AuthService,
         private userService: UserService,
         private toastrService: ToastrService,
+        private translator: TranslateService,
         private chatHandler: ChatHandlerService,
+        private convertToShortDescription: ConvertToShortDescriptionPipe,
     ) {
         super();
         this.activatedRoute.params.subscribe((params) => {
@@ -92,6 +97,16 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
             if (res.success) {
                 this.coffeeLabService.updateLang(res.result.lang_code).then(() => {
                     this.detailsData = res.result;
+                    this.items = [
+                        { label: this.translator.instant('the_coffee_lab'), routerLink: '/' },
+                        {
+                            label: this.translator.instant('brewing_guides'),
+                            routerLink: `/coffee-lab/overview/coffee-recipes`,
+                        },
+                        {
+                            label: this.convertToShortDescription.transform(this.detailsData?.name, 4),
+                        },
+                    ];
                     this.getCoffeeRecipesData();
                     this.detailsData.description = this.getJustText(this.detailsData.description);
                     if (
@@ -129,18 +144,15 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
             .getPopularList(
                 PostType.RECIPE,
                 {
-                    count: 11,
+                    count: 7,
                 },
                 this.detailsData.lang_code,
             )
             .subscribe((res) => {
                 if (res.success) {
-                    this.relatedData = res.result.filter((item) => item.id !== this.detailsData.id);
-                    this.relatedData = this.relatedData.slice(0, 10);
-                    this.relatedData.map((item) => {
-                        item.description = this.getJustText(item.description);
-                        return item;
-                    });
+                    this.relatedData = (res.result || [])
+                        .filter((item) => item && item?.slug !== this.slug)
+                        .slice(0, 6);
                 }
             });
     }

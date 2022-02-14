@@ -41,6 +41,7 @@ export class ForumMenuComponent extends DestroyableComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log(this.selectedItem);
         this.coffeeLabService.forumLanguage.pipe(takeUntil(this.unsubscribeAll$)).subscribe((lang) => {
             this.items = [];
             if (this.enableEdit) {

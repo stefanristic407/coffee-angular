@@ -9,8 +9,21 @@
 >
     <ng-template let-selectedItem pTemplate="selectedItem">
         <span class="fnt-14 fw-b text-clr60b pr-2">
-            <i class="pi pi-globe pr-1 align-middle"></i>
-            {{ 'language' | translate }} : {{ selectedItem.label }}
+            <img
+                *ngIf="selectedLanguage !== 'pt'"
+                [src]="'assets/images/' + selectedLanguage + '-flag.svg'"
+                alt="flag-image"
+                class="flag-image"
+            />
+            <img
+                *ngIf="selectedLanguage === 'pt'"
+                [src]="'assets/images/brazil-flag.png'"
+                class="flag-image"
+                alt="flag-image"
+            />
+            <span class="fw-sb fnt-16">
+                {{ selectedItem.label | titlecase }}
+            </span>
         </span>
     </ng-template>
     <ng-template let-languageItem pTemplate="item">

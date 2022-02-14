@@ -1,255 +1,254 @@
-<a *ngIf="!isLoading" class="back-page mt-1 mt-lg-3 mb-35 mb-lg-45" (click)="onBack()">{{
-    'back_to_forum' | translate
-}}</a>
-<div *ngIf="!isLoading" class="d-block d-lg-flex justify-content-between">
-    <div class="pr-lg-2 flex-1 mb-4 col-md-7 col-12 pl-md-0 pl-0 pr-0 pr-md-3">
-        <div class="border-question-view">
-            <div class="d-flex justify-content-between p-3 pt-lg-4 px-lg-4">
-                <div class="flex-1">
-                    <app-user-header [prop]="detailsData"></app-user-header>
-                </div>
-                <div>
-                    <app-forum-menu
-                        [selectedItem]="detailsData"
-                        forumType="question"
-                        [enableSave]="false"
-                        [enableEdit]="
-                            detailsData.org_type === coffeeLabService.organization &&
-                            detailsData.user_id == authService.currentUser.id
-                        "
-                        [enableDelete]="
-                            detailsData.org_type === coffeeLabService.organization &&
-                            detailsData.user_id == authService.currentUser.id
-                        "
-                    ></app-forum-menu>
-                </div>
-            </div>
-            <div
-                class="fnt-16 fnt-md-18 fw-b text-clr334 question-name px-md-4 px-3"
-                [ngClass]="{ 'mb-4': !detailsData?.categories }"
-                [innerHTML]="detailsData.question"
-            ></div>
-            <div *ngIf="detailsData?.categories" class="row mb-md-4 ml-3 mr-1 mr-md-4 ml-md-4 mt-3">
-                <app-category-list
-                    [selectedPostType]="qaLink"
-                    [categoryList]="detailsData?.categories"
-                ></app-category-list>
-            </div>
-            <app-like-divider
-                (commentBoxClicked)="onFocusCommentBox($event)"
-                [question]="detailsData"
-            ></app-like-divider>
-            <div class="border-top-main py-4 px-0 px-md-45" *ngIf="detailsData?.parent_question_id <= 0">
-                <div class="d-flex justify-content-center ml-md-3">
-                    <img
-                        [src]="
-                            authService.currentUser?.profile_image_thumb_url
-                                ? authService.currentUser?.profile_image_thumb_url
-                                : authService.currentUser?.profile_image_url || 'assets/images/default-avatar.png'
-                        "
-                        alt="avatar"
-                        class="rounded-circle mt-1"
-                        width="40"
-                        height="40"
-                    />
-                    <div class="sewn-form-field width-comment mb-0">
-                        <textarea
-                            id="text-focus"
-                            class="add-comment active-comment"
-                            [ngClass]="{ 'comment-hgt': !comment }"
-                            [(ngModel)]="comment"
-                            [placeholder]="'add_a_comment' | translate"
-                            pInputTextarea
-                            autoResize="autoResize"
-                        ></textarea>
+<main class="main-block pb-0">
+    <div class="pt-3 pt-md-0"><p-breadcrumb [model]="items"></p-breadcrumb></div>
+    <div *ngIf="!isLoading" class="d-block d-lg-flex justify-content-between mt-md-4 mt-2">
+        <div class="pr-lg-2 flex-1 mb-4 col-md-7 col-12 pl-md-0 pl-0 pr-0 pr-md-3">
+            <div class="border-question-view">
+                <div class="d-flex justify-content-between p-3 pt-lg-4 px-lg-4">
+                    <div class="flex-1">
+                        <app-user-header [prop]="detailsData"></app-user-header>
+                    </div>
+                    <div>
+                        <app-forum-menu
+                            [selectedItem]="detailsData"
+                            forumType="question"
+                            [enableSave]="false"
+                            [enableEdit]="
+                                detailsData.org_type === coffeeLabService.organization &&
+                                detailsData.user_id == authService.currentUser.id
+                            "
+                            [enableDelete]="
+                                detailsData.org_type === coffeeLabService.organization &&
+                                detailsData.user_id == authService.currentUser.id
+                            "
+                        ></app-forum-menu>
                     </div>
                 </div>
-
                 <div
-                    *ngIf="comment"
-                    class="d-flex justify-content-between ml-35 mr-2 ml-md-0 mr-md-0 align-items-center mt-4"
-                >
-                    <p-checkbox
-                        class="d-flex align-items-start ml-md-5"
-                        [(ngModel)]="isAllowTranslation"
-                        [binary]="true"
-                        [label]="'allow_translations_by_other_authors' | translate"
-                    ></p-checkbox>
-                    <button (click)="onPost()" class="btn-raised">
-                        {{ 'add_comment' | translate }}
-                    </button>
+                    class="fnt-16 fnt-md-18 fw-b text-clr334 question-name px-md-4 px-3"
+                    [ngClass]="{ 'mb-4': !detailsData?.categories }"
+                    [innerHTML]="detailsData.question"
+                ></div>
+                <div *ngIf="detailsData?.categories" class="row mb-md-4 ml-3 mr-1 mr-md-4 ml-md-4 mt-3">
+                    <app-category-list
+                        [selectedPostType]="qaLink"
+                        [categoryList]="detailsData?.categories"
+                    ></app-category-list>
                 </div>
-            </div>
-            <div *ngIf="detailsData?.answers">
-                <div
-                    *ngFor="let answer of detailsData.answers; let last = last; let i = index"
-                    [id]="'answer-' + answer.id"
-                    class="mb-35 mx-3 ml-md-5 mr-md-4 answer-wrapper"
-                    [ngClass]="{ 'border-top-0': detailsData?.parent_question_id > 0 }"
-                >
-                    <div class="d-flex flex-wrap w-100 mt-35">
-                        <div class="d-flex justify-content-between align-items-md-end w-100">
-                            <app-user-header [prop]="answer"></app-user-header>
-                            <div class="d-flex flex-column align-items-end icon-height">
-                                <div>
-                                    <app-forum-menu
-                                        (editAnswer)="onEditAnswer($event, i)"
-                                        [selectedItem]="answer"
-                                        forumType="answer"
-                                        [extraInfo]="detailsData"
-                                        [enableSave]="false"
-                                        [enableEdit]="
-                                            answer.org_type === coffeeLabService.organization &&
-                                            answer.user_id == authService.currentUser.id
-                                        "
-                                        [enableDelete]="
-                                            answer.org_type === coffeeLabService.organization &&
-                                            answer.user_id == authService.currentUser.id
-                                        "
-                                        [enableTranslation]="
-                                            answer?.allow_translation && answer?.translations?.length < 8
-                                        "
-                                    ></app-forum-menu>
-                                </div>
-                                <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
-                                    <app-translation-dropdown
-                                        (isToastCalled)="toastCalled($event)"
-                                        forumType="question"
-                                        [translatedList]="answer?.translations"
-                                    ></app-translation-dropdown>
-                                </div>
-                            </div>
-                        </div>
-                        <div *ngIf="answer?.translations?.length" class="d-block d-md-none pt-3 text-center">
-                            <app-translation-dropdown
-                                (isToastCalled)="toastCalled($event)"
-                                forumType="question"
-                                [translatedList]="answer?.translations"
-                            ></app-translation-dropdown>
+                <app-like-divider
+                    (commentBoxClicked)="onFocusCommentBox($event)"
+                    [question]="detailsData"
+                ></app-like-divider>
+                <div class="border-top-main py-4 px-0 px-md-45" *ngIf="detailsData?.parent_question_id <= 0">
+                    <div class="d-flex justify-content-center ml-md-3">
+                        <img
+                            [src]="
+                                authService.currentUser?.profile_image_thumb_url
+                                    ? authService.currentUser?.profile_image_thumb_url
+                                    : authService.currentUser?.profile_image_url || 'assets/images/default-avatar.png'
+                            "
+                            alt="avatar"
+                            class="rounded-circle mt-1"
+                            width="40"
+                            height="40"
+                        />
+                        <div class="sewn-form-field width-comment mb-0">
+                            <textarea
+                                id="text-focus"
+                                class="add-comment active-comment"
+                                [ngClass]="{ 'comment-hgt': !comment }"
+                                [(ngModel)]="comment"
+                                [placeholder]="'add_a_comment' | translate"
+                                pInputTextarea
+                                autoResize="autoResize"
+                            ></textarea>
                         </div>
                     </div>
-                    <div
-                        *ngIf="!answer.isEdit"
-                        class="fnt-14 text-clr334 lh-15 pt-md-4 question-name pt-25 px-0"
-                        [ngClass]="{ 'mb-2': !last }"
-                        appFullImgWrapper
-                        [innerHTML]="answer.answer"
-                    ></div>
-                    <div *ngIf="answer.isEdit" class="border-top-main py-4 px-0 px-md-45">
-                        <div class="d-flex justify-content-center">
-                            <div class="sewn-form-field width-comment mb-0">
-                                <textarea
-                                    class="add-comment active-comment"
-                                    [ngClass]="{ 'comment-hgt': !answerComment }"
-                                    [(ngModel)]="answerComment"
-                                    [placeholder]="'add_a_comment' | translate"
-                                    pInputTextarea
-                                    autoResize="autoResize"
-                                ></textarea>
-                            </div>
-                        </div>
 
-                        <div
-                            class="d-flex justify-content-between flex-column flex-md-row mr-2 mr-md-0 align-items-center mt-4"
-                        >
-                            <div>
-                                <p-checkbox
-                                    class="d-flex align-items-start ml-md-3"
-                                    [(ngModel)]="answerAllowTranslation"
-                                    [binary]="true"
-                                    [label]="'allow_translations_by_other_authors' | translate"
-                                ></p-checkbox>
-                            </div>
-                            <div class="mt-3 mt-md-0">
-                                <button (click)="onCancel(i)" class="btn-stroked">
-                                    {{ 'cancel' | translate }}
-                                </button>
-                                <button (click)="onEditPost(answer.id)" class="btn-raised ml-3">
-                                    {{ 'update' | translate }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between my-3 my-md-4">
-                        <div class="d-flex">
-                            <div class="d-flex align-like">
-                                <button
-                                    class="btn-icon thumbsup"
-                                    [class.thumbed]="answer?.is_liked"
-                                    (click)="onLike(answer)"
-                                    [disabled]="isLikedBtn"
-                                ></button>
-                                <!-- <span class="d-flex mt-25 mb-05 mr-2 fnt-300 text-clr334">{{ answer.likes }}</span> -->
-                            </div>
-                            <button
-                                class="btn-icon save ml-25"
-                                [class.saved]="answer?.is_saved"
-                                (click)="onSave(answer.id, i)"
-                                [disabled]="isSaveBtn"
-                            ></button>
-                        </div>
-                        <div (click)="onShare()" class="btn-icon share"></div>
-                    </div>
                     <div
-                        *ngIf="answerDetail && answerDetail?.original_answer_state === 'ACTIVE'"
-                        class="border-main br-4 p-4 mb-4 w-100"
+                        *ngIf="comment"
+                        class="d-flex justify-content-between ml-35 mr-2 ml-md-0 mr-md-0 align-items-center mt-4"
                     >
-                        <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
-                            <div class="d-flex">
-                                <img src="assets/images/qa-forum.svg" alt="question-image" />
-                                <p class="align-items-center d-flex text-nowrap fw-b fnt-14 text-clr334 ml-2">
-                                    {{ 'read_the_original_answer' | translate }}
-                                </p>
+                        <p-checkbox
+                            class="d-flex align-items-start ml-md-5"
+                            [(ngModel)]="isAllowTranslation"
+                            [binary]="true"
+                            [label]="'allow_translations_by_other_authors' | translate"
+                        ></p-checkbox>
+                        <button (click)="onPost()" class="btn-raised">
+                            {{ 'add_comment' | translate }}
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="detailsData?.answers">
+                    <div
+                        *ngFor="let answer of detailsData.answers; let last = last; let i = index"
+                        [id]="'answer-' + answer.id"
+                        class="mb-35 mx-3 ml-md-5 mr-md-4 answer-wrapper"
+                        [ngClass]="{ 'border-top-0': detailsData?.parent_question_id > 0 }"
+                    >
+                        <div class="d-flex flex-wrap w-100 mt-35">
+                            <div class="d-flex justify-content-between align-items-md-end w-100">
+                                <app-user-header [prop]="answer"></app-user-header>
+                                <div class="d-flex flex-column align-items-end icon-height">
+                                    <div>
+                                        <app-forum-menu
+                                            (editAnswer)="onEditAnswer($event, i)"
+                                            [selectedItem]="answer"
+                                            forumType="answer"
+                                            [extraInfo]="detailsData"
+                                            [enableSave]="false"
+                                            [enableEdit]="
+                                                answer.org_type === coffeeLabService.organization &&
+                                                answer.user_id == authService.currentUser.id
+                                            "
+                                            [enableDelete]="
+                                                answer.org_type === coffeeLabService.organization &&
+                                                answer.user_id == authService.currentUser.id
+                                            "
+                                            [enableTranslation]="
+                                                answer?.allow_translation && answer?.translations?.length < 8
+                                            "
+                                        ></app-forum-menu>
+                                    </div>
+                                    <div *ngIf="answer?.translations?.length" class="d-none d-md-block">
+                                        <app-translation-dropdown
+                                            (isToastCalled)="toastCalled($event)"
+                                            forumType="question"
+                                            [translatedList]="answer?.translations"
+                                        ></app-translation-dropdown>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bg-f8 px-25 py-2 mt-3 mt-md-0">
-                                <p class="fw-m fnt-12 text-clr334">
-                                    {{ 'original_language' | translate }} :
-                                    {{ answerDetail?.original_details?.language | language }}
-                                </p>
+                            <div *ngIf="answer?.translations?.length" class="d-block d-md-none pt-3 text-center">
+                                <app-translation-dropdown
+                                    (isToastCalled)="toastCalled($event)"
+                                    forumType="question"
+                                    [translatedList]="answer?.translations"
+                                ></app-translation-dropdown>
                             </div>
                         </div>
-                        <app-user-header [prop]="answerDetail.original_details"></app-user-header>
-                        <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
-                            <a
-                                class="fnt-14 fw-m"
-                                [routerLink]="getLink(answerDetail?.original_details?.question_slug)"
-                                [queryParams]="
-                                    isAssignedToMe
-                                        ? { isAssignedToMe: true }
-                                        : isMyPost
-                                        ? { isMyPost: true }
-                                        : isSavedPost
-                                        ? { isSavedPost: true }
-                                        : isMyAnswer
-                                        ? { isMyAnswer: true }
-                                        : ''
-                                "
-                                (click)="onOrginalArticle(answerDetail?.original_details?.language)"
-                                >{{ answerDetail?.original_details?.question | titlecase }}</a
+                        <div
+                            *ngIf="!answer.isEdit"
+                            class="fnt-14 text-clr334 lh-15 pt-md-4 question-name pt-25 px-0"
+                            [ngClass]="{ 'mb-2': !last }"
+                            appFullImgWrapper
+                            [innerHTML]="answer.answer"
+                        ></div>
+                        <div *ngIf="answer.isEdit" class="border-top-main py-4 px-0 px-md-45">
+                            <div class="d-flex justify-content-center">
+                                <div class="sewn-form-field width-comment mb-0">
+                                    <textarea
+                                        class="add-comment active-comment"
+                                        [ngClass]="{ 'comment-hgt': !answerComment }"
+                                        [(ngModel)]="answerComment"
+                                        [placeholder]="'add_a_comment' | translate"
+                                        pInputTextarea
+                                        autoResize="autoResize"
+                                    ></textarea>
+                                </div>
+                            </div>
+
+                            <div
+                                class="d-flex justify-content-between flex-column flex-md-row mr-2 mr-md-0 align-items-center mt-4"
                             >
+                                <div>
+                                    <p-checkbox
+                                        class="d-flex align-items-start ml-md-3"
+                                        [(ngModel)]="answerAllowTranslation"
+                                        [binary]="true"
+                                        [label]="'allow_translations_by_other_authors' | translate"
+                                    ></p-checkbox>
+                                </div>
+                                <div class="mt-3 mt-md-0">
+                                    <button (click)="onCancel(i)" class="btn-stroked">
+                                        {{ 'cancel' | translate }}
+                                    </button>
+                                    <button (click)="onEditPost(answer.id)" class="btn-raised ml-3">
+                                        {{ 'update' | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between my-3 my-md-4">
+                            <div class="d-flex">
+                                <div class="d-flex align-like">
+                                    <button
+                                        class="btn-icon thumbsup"
+                                        [class.thumbed]="answer?.is_liked"
+                                        (click)="onLike(answer)"
+                                        [disabled]="isLikedBtn"
+                                    ></button>
+                                    <!-- <span class="d-flex mt-25 mb-05 mr-2 fnt-300 text-clr334">{{ answer.likes }}</span> -->
+                                </div>
+                                <button
+                                    class="btn-icon save ml-25"
+                                    [class.saved]="answer?.is_saved"
+                                    (click)="onSave(answer.id, i)"
+                                    [disabled]="isSaveBtn"
+                                ></button>
+                            </div>
+                            <div (click)="onShare()" class="btn-icon share"></div>
+                        </div>
+                        <div
+                            *ngIf="answerDetail && answerDetail?.original_answer_state === 'ACTIVE'"
+                            class="border-main br-4 p-4 mb-4 w-100"
+                        >
+                            <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
+                                <div class="d-flex">
+                                    <img src="assets/images/qa-forum.svg" alt="question-image" />
+                                    <p class="align-items-center d-flex text-nowrap fw-b fnt-14 text-clr334 ml-2">
+                                        {{ 'read_the_original_answer' | translate }}
+                                    </p>
+                                </div>
+                                <div class="bg-f8 px-25 py-2 mt-3 mt-md-0">
+                                    <p class="fw-m fnt-12 text-clr334">
+                                        {{ 'original_language' | translate }} :
+                                        {{ answerDetail?.original_details?.language | language }}
+                                    </p>
+                                </div>
+                            </div>
+                            <app-user-header [prop]="answerDetail.original_details"></app-user-header>
+                            <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
+                                <a
+                                    class="fnt-14 fw-m"
+                                    [routerLink]="getLink(answerDetail?.original_details?.question_slug)"
+                                    [queryParams]="
+                                        isAssignedToMe
+                                            ? { isAssignedToMe: true }
+                                            : isMyPost
+                                            ? { isMyPost: true }
+                                            : isSavedPost
+                                            ? { isSavedPost: true }
+                                            : isMyAnswer
+                                            ? { isMyAnswer: true }
+                                            : ''
+                                    "
+                                    (click)="onOrginalArticle(answerDetail?.original_details?.language)"
+                                    >{{ answerDetail?.original_details?.question | titlecase }}</a
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div
-                *ngIf="detailsData?.parent_question_id <= 0"
-                (click)="onFocusCommentBox()"
-                class="brown-cta mb-4 ml-4 ml-md-5"
-            >
-                {{ 'write_comment' | translate }}
+                <div
+                    *ngIf="detailsData?.parent_question_id <= 0"
+                    (click)="onFocusCommentBox()"
+                    class="brown-cta mb-4 ml-4 ml-md-5"
+                >
+                    {{ 'write_comment' | translate }}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div *ngIf="!isLoading" class="col-lg-5 px-0 pl-md-5">
-        <app-join-community
-            [categories]="detailsData.categories"
-            [type]="PostType.QA"
-            [related]="true"
-        ></app-join-community>
+        <div *ngIf="!isLoading" class="col-lg-5 px-0 pl-md-5">
+            <app-join-community
+                [categories]="detailsData.categories"
+                [type]="PostType.QA"
+                [related]="true"
+            ></app-join-community>
+        </div>
     </div>
-</div>
-
+</main>
 <div *ngIf="isLoading">
     <app-loading></app-loading>
 </div>

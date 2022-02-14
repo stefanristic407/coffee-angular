@@ -2,8 +2,6 @@
     <p-tabView [(activeIndex)]="selectedIndex" (onChange)="onTabChage($event)" styleClass="tabview-create-post">
         <p-tabPanel>
             <ng-template pTemplate="header">
-                <img src="assets/images/qa-forum.svg" alt="icon" />
-                <img src="assets/images/qa-forum-active.svg" alt="icon" class="active-icon" />
                 <span class="pl-1">{{ 'qa_post' | translate }}</span>
             </ng-template>
             <div class="px-3 px-md-2 px-md-4 pt-3 pb-0 py-md-4 bg-f8">
@@ -13,8 +11,6 @@
 
         <p-tabPanel>
             <ng-template pTemplate="header">
-                <img src="assets/images/article.svg" alt="icon" />
-                <img src="assets/images/article-active.svg" alt="icon" class="active-icon" />
                 <span class="pl-1">{{ 'article' | translate }}</span>
             </ng-template>
             <div class="px-3 px-md-2 px-md-4 pt-3 pb-0 py-md-4 bg-f8">
@@ -24,8 +20,6 @@
 
         <p-tabPanel>
             <ng-template pTemplate="header">
-                <img src="assets/images/coffee-recipe.svg" alt="icon" />
-                <img src="assets/images/coffee-recipe-active.svg" alt="icon" class="active-icon" />
                 <span class="pl-1">{{ 'brewing_guide' | translate }}</span>
             </ng-template>
             <div class="px-2 px-lg-4 pt-3 pb-0 py-md-3 py-lg-4 bg-f8">
@@ -35,8 +29,6 @@
 
         <p-tabPanel>
             <ng-template pTemplate="header">
-                <img src="assets/images/draft-edit.svg" alt="icon" />
-                <img src="assets/images/edit-active.svg" alt="icon" class="active-icon" />
                 <span class="pl-1">{{ 'drafts' | translate }} ({{ draftsLength || 0 }})</span>
             </ng-template>
             <div class="px-2 px-lg-4 pt-3 pb-0 py-md-3 py-lg-4 bg-f8">

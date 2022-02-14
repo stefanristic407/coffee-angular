@@ -19,6 +19,7 @@ export class CoffeeLabService extends ApiService {
     forumDeleteEvent = new EventEmitter();
     copyCoverImage = new EventEmitter();
     forumLanguage = new BehaviorSubject('en');
+    searchResult = new BehaviorSubject([]);
     allDrafts = new BehaviorSubject([]);
     otherCategories = new BehaviorSubject([]);
     organization = this.orgType;

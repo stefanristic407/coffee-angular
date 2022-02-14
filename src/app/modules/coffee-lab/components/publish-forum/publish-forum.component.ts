@@ -9,6 +9,7 @@ import { AuthService } from '@services';
     styleUrls: ['./publish-forum.component.scss'],
 })
 export class PublishForumComponent implements OnInit {
+    readonly Postype = PostType;
     @Input() type = PostType.QA;
     btnValues = {
         [PostType.ARTICLE]: {
@@ -27,6 +28,8 @@ export class PublishForumComponent implements OnInit {
             placeHolderValue: 'ask_a_question',
         },
     };
+    hideContent: boolean;
+
     constructor(public authService: AuthService, private router: Router) {}
 
     ngOnInit(): void {}

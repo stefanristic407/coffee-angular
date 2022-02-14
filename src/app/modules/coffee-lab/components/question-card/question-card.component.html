@@ -1,5 +1,5 @@
 <div class="border-box">
-    <div class="p-md-4 p-3">
+    <div class="pb-2">
         <div class="d-flex justify-content-between">
             <div class="flex-1 mob-ques-header">
                 <app-user-header [prop]="question"></app-user-header>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div
-            class="fnt-16 fnt-md-18 fw-b text-clr334 mt-4 cursor-pointer hover-underline"
+            class="fnt-16 fw-b mt-4 cursor-pointer hover-underline"
             (click)="onQuestionNavigate(question.slug)"
             [innerHTML]="question?.question"
         ></div>
@@ -30,13 +30,13 @@
             <app-category-list [selectedPostType]="qaLink" [categoryList]="question?.categories"></app-category-list>
         </div>
     </div>
-    <app-like-divider
+    <!-- <app-like-divider
         [question]="question"
         [isSavedPost]="isSavedPost"
         [isMyPost]="isMyPost"
         [total]="question.answers"
-    ></app-like-divider>
-    <div
+    ></app-like-divider> -->
+    <!-- <div
         *ngIf="question.answers && question.answers.length > 0"
         class="pt-md-4 pb-md-0 py-3 pl-3 pl-md-5 pr-md-4 pr-3 border-top-main"
     >
@@ -70,5 +70,5 @@
                 <span [innerHTML]="answer?.answer | convertToShortDescription: 25"></span>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
