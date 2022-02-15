@@ -11,8 +11,8 @@
                         Roaster {{ roasterName }} has raised a dispute on the purchase of
                         {{ orderDetails?.order_type }}. Please take appropriate action.
                     </p>
-                    <span><b>Message: </b></span>
-                    <p>{{ orderDisputes?.message || 'NA' }}</p>
+                    <span *ngIf="orderDisputes?.message"><b>Message: </b></span>
+                    <p *ngIf="orderDisputes?.message">{{ orderDisputes?.message || 'NA' }}</p>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <button
