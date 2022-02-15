@@ -84,6 +84,6 @@ export function getUrl(title: string) {
     title = title.toLowerCase();
     const removeSpace = title.replace(/[^A-Z0-9]/gi, '-');
     let slug = removeSpace.replace(/[._!"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+/gi, '');
-    slug = removeSpace.replace(/^-+|-+(?=-|$)/g, '');
+    slug = slug.replace(/^-+|-+(?=-|$)/g, '');
     return slug;
 }
