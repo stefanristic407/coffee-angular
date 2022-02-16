@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DestroyableComponent } from '@base-components';
 import { GRADE_ITEMS, MONTH_LIST } from '@constants';
+import { HarvestType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
+import { SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { fromEvent } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -26,6 +28,10 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         { label: 'lb', value: 'lb' },
         { label: 'kg', value: 'kg' },
     ];
+    harvestTypeItems: SelectItem[] = [
+        { label: 'in_parchment', value: HarvestType.PARCHMENT },
+        { label: 'milling_completed', value: HarvestType.MILLING },
+    ];
 
     queryParams: any;
     viewMode = 'grid';
@@ -49,6 +55,7 @@ export class SourcingComponent extends DestroyableComponent implements OnInit, A
         ];
         this.sourcingSrv.showUnitFilter = false;
         this.sourcingSrv.showAvailableFilter = false;
+        this.sourcingSrv.showTypeFilter = false;
         this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();

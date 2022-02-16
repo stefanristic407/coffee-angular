@@ -93,6 +93,18 @@
                 placeholder="Available coffee"
                 styleClass="round-border mr-2 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
             ></p-dropdown>
+            <p-dropdown
+                *ngIf="sourcingSrv.showTypeFilter"
+                [options]="harvestTypeItems"
+                [(ngModel)]="queryParams.type"
+                (onChange)="filterCall()"
+                [showClear]="true"
+                [placeholder]="'availability_type' | translate"
+                styleClass="round-border mr-2 mb-25 mb-md-4 {{ queryParams.type ? 'highlight' : '' }}"
+            >
+                <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+            </p-dropdown>
             <p-selectButton
                 *ngIf="sourcingSrv.showUnitFilter"
                 [options]="weightItems"
