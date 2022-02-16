@@ -8,6 +8,26 @@
     }
 }
 
+.parchment-mark {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: auto;
+    padding: 4px 8px;
+    background-color: rgba(0, 0, 0, 0.38);
+    border-radius: 15px;
+    color: $white;
+    font-size: 12px;
+    font-weight: $fw-m;
+
+    @media (min-width: 992px) {
+        top: 16px;
+        left: 8px;
+        padding: 6px 14px;
+        font-size: 14px;
+    }
+}
+
 .pad-card {
     padding-top: 2rem;
     @media (max-width: 991px) {
