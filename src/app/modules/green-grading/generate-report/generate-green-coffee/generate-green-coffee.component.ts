@@ -41,13 +41,12 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     evaluatorsListArray: any = [];
     evaluatorData: any;
     evaluatorName: any;
-    selectedValue: any;
+    selectedUser: any;
     addBtnShow = true;
     inputBoxShow = false;
     evaluatorId: any;
     filteredUsers: any[];
     isEditable = true;
-    evaluatorIds = [];
 
     infoForm: FormGroup;
 
@@ -90,18 +89,20 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
             this.roasterService.getOrgUsers(options),
         ])
             .pipe(take(1))
-            .subscribe(([response, data]: [any, any]) => {
-                if (response.success) {
-                    this.evaluatorsListArray = response.result;
+            .subscribe(([evaluatosRes, usersRes]: [any, any]) => {
+                const evaluatorIds = [];
+                if (evaluatosRes.success) {
+                    this.evaluatorsListArray = evaluatosRes.result;
                     this.evaluatorsListArray.map((item) => {
-                        this.evaluatorIds.push(item.evaluator_id);
+                        evaluatorIds.push(item.evaluator_id);
                     });
-                    this.evaluatorData = response.result.find((ele) => ele.is_primary);
+                    this.evaluatorData = evaluatosRes.result.find((ele) => ele.is_primary);
                     this.evaluatorName = this.evaluatorData.evaluator_name;
                 }
 
-                if (data.success) {
-                    this.usersList = data.result.filter((element) => !this.evaluatorIds.includes(element.id));
+                if (usersRes.success) {
+                    this.usersList = usersRes.result.filter((element) => !evaluatorIds.includes(element.id));
+                    this.filteredUsers = this.usersList;
                 } else {
                     this.toastrService.error('Error while fetching users list');
                 }
@@ -139,12 +140,12 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     }
 
     addEvaluators() {
-        if (this.selectedValue !== '') {
-            this.roasterService.getUserBasedRoles(this.selectedValue.id).subscribe((result: any) => {
+        if (this.selectedUser) {
+            this.roasterService.getUserBasedRoles(this.selectedUser.id).subscribe((result: any) => {
                 if (result.success === true) {
                     const roleName = result.result[0].name;
                     const data = {
-                        evaluator_id: this.selectedValue.id,
+                        evaluator_id: this.selectedUser.id,
                         evaluator_type: roleName,
                     };
                     this.greenGradingService.addEvaluators(this.cuppingReportId, data).subscribe((res: any) => {
@@ -153,6 +154,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
                             this.evaluatorsList();
                             this.addBtnShow = true;
                             this.inputBoxShow = false;
+                            this.selectedUser = null;
                         } else {
                             this.toastrService.error('Error while adding the evaluator');
                         }
@@ -172,7 +174,7 @@ export class GenerateGreenCoffeeComponent implements OnInit, OnChanges {
     cancelEvaluators() {
         this.addBtnShow = true;
         this.inputBoxShow = false;
-        this.selectedValue = '';
+        this.selectedUser = null;
     }
 
     goNext() {

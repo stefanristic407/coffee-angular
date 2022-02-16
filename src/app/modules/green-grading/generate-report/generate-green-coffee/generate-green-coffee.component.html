@@ -43,7 +43,8 @@
         </div>
 
         <div class="evaluators__table">
-            <p class="fnt-md-16 fw-b mb-2 mb-md-25">{{ 'evaluators' | translate }}</p>
+            <p class="fnt-md-16 fw-b mb-2">{{ 'evaluators' | translate }}</p>
+            <div class="fw-m text-clr588 mb-2 mb-md-25">{{ 'invite_evaluators_desp' | translate }}</div>
             <div class="evaluator_table_body">
                 <div class="eval_heading">
                     <div>
@@ -52,11 +53,15 @@
                     </div>
                 </div>
                 <ul class="mb-0">
-                    <li *ngFor="let item of evaluatorsListArray; let i = index">
+                    <li
+                        *ngFor="let item of evaluatorsListArray; let i = index; let isLast = last"
+                        class="mb-3 mb-md-0"
+                        [class.border-md-none]="isLast"
+                    >
                         <div class="eval_info">
                             <p *ngIf="item">
                                 {{ i + 1 }}. {{ item.evaluator_name }}
-                                <span *ngIf="item.is_primary == true">(You)</span>
+                                <span *ngIf="item.is_primary">(You)</span>
                             </p>
                             <p *ngIf="item">{{ item.evaluator_type }}</p>
                         </div>
@@ -69,13 +74,15 @@
                             <span class="pl-2 text-clr334 fw-m d-none d-md-block">{{ 'delete' | translate }}</span>
                         </span>
                     </li>
-                    <li *ngIf="inputBoxShow">
+                    <li *ngIf="inputBoxShow" class="border-none border-top-dashed-md-primary p-0 py-md-4">
                         <div class="d-flex col-12 p-0">
-                            <div style="flex: 1; padding-right: 12px">
+                            <div style="flex: 1">
                                 <p-autoComplete
-                                    [(ngModel)]="selectedValue"
+                                    [(ngModel)]="selectedUser"
                                     class="float-left px-0 typeBox"
                                     [suggestions]="filteredUsers"
+                                    [forceSelection]="true"
+                                    completeOnFocus="true"
                                     (completeMethod)="filterUsers($event)"
                                     styleClass="p-autocomplete-evaluator"
                                     placeholder="Enter name or email"
@@ -84,7 +91,7 @@
                                 >
                                 </p-autoComplete>
                             </div>
-                            <div>
+                            <div class="ml-25">
                                 <button class="btn-raised" type="button" (click)="addEvaluators()">
                                     {{ 'add' | translate }}
                                 </button>
@@ -94,8 +101,14 @@
                             </div>
                         </div>
                     </li>
-                    <li *ngIf="addBtnShow && isEditable">
-                        <span class="brown-cta" (click)="addBtnClick()"
+                    <li
+                        *ngIf="addBtnShow && isEditable && usersList?.length"
+                        class="border-none border-top-dashed-md-primary p-0 py-md-4"
+                    >
+                        <span
+                            *ngIf="addBtnShow && isEditable && usersList?.length"
+                            class="brown-cta"
+                            (click)="addBtnClick()"
                             ><span class="pi pi-plus pr-1"></span>{{ 'add_and_invite_evaluators' | translate }}
                         </span>
                     </li>
