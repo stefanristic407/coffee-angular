@@ -79,7 +79,7 @@
                     <div class="col-lg-7 right-block">
                         <div class="mx-n2 mx-md-0">
                             <div class="border-main border-lg-0 br-4 p-3 p-lg-0">
-                                <div class="mb-2 mb-md-3 mb-lg-4">
+                                <div class="d-flex justify-content-between align-items-start mb-2 mb-md-3 mb-lg-4">
                                     <a
                                         class="brown-cta"
                                         routerLink="/sourcing/lot-details/{{ sourcing.lot?.estate_id }}/{{
@@ -88,6 +88,12 @@
                                     >
                                         {{ 'lot_id' | translate }} - {{ sourcing.lot?.number }}
                                     </a>
+                                    <div
+                                        *ngIf="sourcing.harvestDetail?.harvest_type === HarvestType.PARCHMENT"
+                                        class="parchment-mark"
+                                    >
+                                        {{ 'still_in_parchment' | translate }}
+                                    </div>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h2 class="fnt-16 fnt-md-18 fw-b text-clr334 mb-1">
