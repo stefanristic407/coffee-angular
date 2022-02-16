@@ -9,6 +9,7 @@ import { ForumEditorComponent } from './forum-editor/forum-editor.component';
 import { InfoTooltipComponent } from './info-tooltip/info-tooltip.component';
 import { JoinCommunityComponent } from './join-community/join-community.component';
 import { LanguageDropdownComponent } from './language-dropdown/language-dropdown.component';
+import { PopularPostsComponent } from './popular-posts/popular-posts.component';
 import { PublishForumComponent } from './publish-forum/publish-forum.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { RecipesComponent } from './recipes/recipes.component';
@@ -27,6 +28,7 @@ const COMPONENTS = [
     RecipesComponent,
     TranslateToastComponent,
     TranslationDropdownComponent,
+    PopularPostsComponent,
 ];
 
 @NgModule({

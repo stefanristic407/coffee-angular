@@ -10,7 +10,7 @@
                 size="40"
             ></app-user-detail>
         </div>
-        <div class="flex-1 overflow-hidden">
+        <div class="flex-1">
             <div class="d-flex align-items-center mr-3 text-nowrap">
                 <div
                     [ngClass]="{ ellipsis: enableEllipsis, 'cursor-pointer': isTopWriters }"
@@ -50,30 +50,39 @@
                     </span>
                 </div>
             </div>
-            <div class="fnt-14 lh-1 text-clr588 mt-2 d-flex text-nowrap extra-mob">
-                <span class="fw-m mr-1" *ngIf="orgType !== 'co'">{{ 'coffee_experts' | translate }}</span>
-                <span class="fw-m mr-1" *ngIf="orgType === 'co'">{{ 'coffee_consumer' | translate }}</span>
-                <span
-                    *ngIf="
-                        prop?.org_type !== 'sa' && prop?.organisation_type !== 'sa' && prop?.organization_type !== 'sa'
-                    "
-                    [ngClass]="{ ellipsis: enableEllipsis }"
-                    class="pb-1"
-                    >@{{
-                        prop?.company_name || prop?.organization_name || prop?.organisation_name || prop?.org_type
-                    }}</span
-                >
-                <span
-                    *ngIf="
-                        prop?.org_type === 'sa' || prop?.organisation_type === 'sa' || prop?.organization_type === 'sa'
-                    "
-                    [ngClass]="{ ellipsis: enableEllipsis }"
-                    class="pb-1"
-                    >@{{ orgType === 'sa' || !orgType ? 'Era of We' : orgType }}</span
-                >
+            <div class="fnt-14 lh-1 text-clr588 mt-2 d-flex text-nowrap justify-content-md-between">
+                <div>
+                    <span class="fw-m mr-1" *ngIf="orgType !== 'co'">{{ 'coffee_experts' | translate }}</span>
+                    <span class="fw-m mr-1" *ngIf="orgType === 'co'">{{ 'coffee_consumer' | translate }}</span>
+                    <span
+                        *ngIf="
+                            prop?.org_type !== 'sa' &&
+                            prop?.organisation_type !== 'sa' &&
+                            prop?.organization_type !== 'sa'
+                        "
+                        [ngClass]="{ ellipsis: enableEllipsis }"
+                        class="pb-1"
+                        >@{{
+                            prop?.company_name || prop?.organization_name || prop?.organisation_name || prop?.org_type
+                        }}</span
+                    >
+                    <span
+                        *ngIf="
+                            prop?.org_type === 'sa' ||
+                            prop?.organisation_type === 'sa' ||
+                            prop?.organization_type === 'sa'
+                        "
+                        [ngClass]="{ ellipsis: enableEllipsis }"
+                        class="pb-1"
+                        >@{{ orgType === 'sa' || !orgType ? 'Era of We' : orgType }}</span
+                    >
+                </div>
                 <div class="d-flex" *ngIf="prop?.question || prop?.answer || isArticleDetail || isRecipeDetail">
-                    <span class="d-none d-md-block time-point"></span>
-                    <span class="fw-m text-clr588 d-none d-md-block">
+                    <span *ngIf="prop?.answer" class="d-none d-md-block time-point"></span>
+                    <span
+                        class="fw-m text-clr588 d-none d-md-block position-relative"
+                        [class.align-time]="prop.question"
+                    >
                         {{
                             prop?.updated_at || prop?.posted_at || prop?.created_at
                                 | amTimeAgo: true
@@ -81,13 +90,18 @@
                         }}
                     </span>
                 </div>
-            </div>
-            <div class="d-flex d-md-none" *ngIf="prop?.question || prop?.answer || isArticleDetail || isRecipeDetail">
-                <span class="fw-m text-clr588">
-                    {{
-                        prop?.updated_at || prop?.posted_at || prop?.created_at | amTimeAgo: true | dateAgoReplace: true
-                    }}
-                </span>
+                <!-- <div
+                    class="d-flex d-md-none"
+                    *ngIf="prop?.question || prop?.answer || isArticleDetail || isRecipeDetail"
+                >
+                    <span class="fw-m text-clr588">
+                        {{
+                            prop?.updated_at || prop?.posted_at || prop?.created_at
+                                | amTimeAgo: true
+                                | dateAgoReplace: true
+                        }}
+                    </span>
+                </div> -->
             </div>
         </div>
     </div>

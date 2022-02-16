@@ -62,43 +62,31 @@ export class OverviewComponent extends DestroyableComponent implements OnInit {
             {
                 label: 'qa_forum',
                 routerLink: 'qa-forum',
-                icon: 'assets/images/qa-forum.svg',
-                activeIcon: 'assets/images/qa-forum-active.svg',
                 command: () => this.changeH1Title(0),
             },
             {
                 label: 'posts',
                 routerLink: 'articles',
-                icon: 'assets/images/article.svg',
-                activeIcon: 'assets/images/article-active.svg',
                 command: () => this.changeH1Title(1),
             },
             {
                 label: 'brewing_guides',
                 routerLink: 'coffee-recipes',
-                icon: 'assets/images/coffee-recipe.svg',
-                activeIcon: 'assets/images/coffee-recipe-active.svg',
                 command: () => this.changeH1Title(2),
             },
             {
                 label: 'my_posts',
                 routerLink: 'my-posts',
-                icon: 'assets/images/my-posts.svg',
-                activeIcon: 'assets/images/my-posts-active.svg',
                 command: () => this.changeH1Title(3),
             },
             {
                 label: 'saved_posts',
                 routerLink: 'saved-posts',
-                icon: 'assets/images/saved-post.svg',
-                activeIcon: 'assets/images/saved-post-active.svg',
                 command: () => this.changeH1Title(4),
             },
             {
                 label: 'assigned_to_me',
                 routerLink: 'assigned-to-me',
-                icon: 'assets/images/assigned-to-me.svg',
-                activeIcon: 'assets/images/assigned-to-me-active.svg',
                 command: () => this.changeH1Title(5),
             },
         ];
@@ -144,6 +132,28 @@ export class OverviewComponent extends DestroyableComponent implements OnInit {
                 total_count: questions.length + articles.length + recipes.length,
             };
             this.isLoading = false;
+        });
+    }
+
+    onSearch() {
+        this.router.navigate([`/coffee-lab/search`], {
+            queryParams: { query: '' },
+        });
+    }
+
+    onStart() {
+        let selectedtype: string;
+        if (this.currentTabIndex === 0) {
+            selectedtype = 'question';
+        }
+        if (this.currentTabIndex === 1) {
+            selectedtype = 'article';
+        }
+        if (this.currentTabIndex === 2) {
+            selectedtype = 'recipe';
+        }
+        this.router.navigate(['/coffee-lab/create-post/tab'], {
+            queryParams: { type: selectedtype },
         });
     }
 

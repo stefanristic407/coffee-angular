@@ -101,7 +101,7 @@ export class CustomerManagementComponent implements OnInit {
         this.sortedMainData = [];
         this.mainData = [];
         this.roasterService.getMicroRoasters(this.roasterId, params).subscribe((getRoaster: any) => {
-            if (getRoaster.success === true) {
+            if (getRoaster.success) {
                 if (getRoaster.result == null || getRoaster.result.length === 0) {
                     this.odd = true;
                     // this.toastrService.error('Table Data is empty');
@@ -110,12 +110,12 @@ export class CustomerManagementComponent implements OnInit {
                     this.mainData = getRoaster.result;
                     this.totalRecords = getRoaster.result_info.total_count;
                     this.sortedMainData = this.mainData;
-                    this.isLoading = false;
                 }
             } else {
                 this.odd = true;
                 this.toastrService.error('Error while getting the table list!');
             }
+            this.isLoading = false;
         });
     }
 
@@ -130,7 +130,7 @@ export class CustomerManagementComponent implements OnInit {
         this.sortedMainData = [];
         this.mainData = [];
         this.roasterService.getPartnerDetails(this.roasterId, params).subscribe((data: any) => {
-            if (data.success === true) {
+            if (data.success) {
                 if (data.result == null || data.result.length === 0) {
                     this.odd = true;
                     // this.toastrService.error('Table Data is empty');
@@ -139,13 +139,13 @@ export class CustomerManagementComponent implements OnInit {
                     this.mainData = data.result;
                     this.sortedMainData = data.result;
                     this.totalRecords = data.result_info.total_count;
-                    this.isLoading = false;
                 }
                 this.horecaActive++;
             } else {
                 this.odd = true;
                 this.toastrService.error('Error while getting the table list!');
             }
+            this.isLoading = false;
         });
     }
 
@@ -161,7 +161,7 @@ export class CustomerManagementComponent implements OnInit {
         this.sortedMainData = [];
         this.mainData = [];
         this.roasterService.getInviteUsers(params).subscribe((getRoaster: any) => {
-            if (getRoaster.success === true) {
+            if (getRoaster.success) {
                 if (getRoaster.result == null || getRoaster.result.length === 0) {
                     this.odd = true;
                     // this.toastrService.error('Table Data is empty');
@@ -170,12 +170,12 @@ export class CustomerManagementComponent implements OnInit {
                     this.mainData = getRoaster.result;
                     this.totalRecords = getRoaster.result_info.total_count;
                     this.sortedMainData = this.mainData;
-                    this.isLoading = false;
                 }
             } else {
                 this.odd = true;
                 this.toastrService.error('Error while getting the table list!');
             }
+            this.isLoading = false;
         });
     }
 

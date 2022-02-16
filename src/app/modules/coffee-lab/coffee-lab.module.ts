@@ -24,13 +24,13 @@ import { TranslateAnswerComponent } from './create-post/translate/translate-answ
 import { TranslateArticleComponent } from './create-post/translate/translate-article/translate-article.component';
 import { RecipeOriginalPostComponent } from './create-post/translate/translate-recipe/recipe-original-post/recipe-original-post.component';
 import { TranslateRecipeComponent } from './create-post/translate/translate-recipe/translate-recipe.component';
+import { GlobalSearchComponent } from './global-search/global-search.component';
 import { MyAnswersComponent } from './my-posts/my-answers/my-answers.component';
 import { MyArticlesComponent } from './my-posts/my-articles/my-articles.component';
 import { MyCommentsComponent } from './my-posts/my-comments/my-comments.component';
 import { MyPostsViewComponent } from './my-posts/my-posts-view/my-posts-view.component';
 import { MyRecipesComponent } from './my-posts/my-recipes/my-recipes.component';
 import { QaPostComponent } from './my-posts/qa-post/qa-post.component';
-import { GlobalSearchResultComponent } from './overview/global-search-result/global-search-result.component';
 import { OverviewComponent } from './overview/overview.component';
 import { QaForumViewComponent } from './qa-forum/qa-forum-view/qa-forum-view.component';
 import { QuestionDetailComponent } from './qa-forum/question-detail/question-detail.component';
@@ -51,7 +51,7 @@ import { SavedRecipesComponent } from './saved-posts/saved-recipes/saved-recipes
         CreateQuestionComponent,
         CreateRecipeComponent,
         DraftPostsComponent,
-        GlobalSearchResultComponent,
+        GlobalSearchComponent,
         MyAnswersComponent,
         MyArticlesComponent,
         MyCommentsComponent,

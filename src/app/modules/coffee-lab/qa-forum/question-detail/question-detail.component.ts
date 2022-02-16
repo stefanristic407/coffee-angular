@@ -1,9 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConvertToShortDescriptionPipe } from '@app/shared/pipes/convert-to-short-description.pipe';
 import { DestroyableComponent } from '@base-components';
 import { LinkType, PostType } from '@enums';
 import { environment } from '@env/environment';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService, CoffeeLabService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
@@ -13,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'app-question-detail',
     templateUrl: './question-detail.component.html',
     styleUrls: ['./question-detail.component.scss'],
-    providers: [MessageService],
+    providers: [MessageService, ConvertToShortDescriptionPipe],
 })
 export class QuestionDetailComponent extends DestroyableComponent implements OnInit {
     readonly PostType = PostType;
@@ -33,6 +35,7 @@ export class QuestionDetailComponent extends DestroyableComponent implements OnI
     showToaster = false;
     answerComment: any;
     answerAllowTranslation: boolean;
+    items: ({ label: any; routerLink: string } | { label: any; routerLink?: undefined })[];
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -43,6 +46,8 @@ export class QuestionDetailComponent extends DestroyableComponent implements OnI
         private messageService: MessageService,
         public router: Router,
         private toastrService: ToastrService,
+        private translator: TranslateService,
+        private convertToShortDescription: ConvertToShortDescriptionPipe,
     ) {
         super();
         this.activatedRoute.params.subscribe((params) => {
@@ -80,6 +85,13 @@ export class QuestionDetailComponent extends DestroyableComponent implements OnI
             if (res.success) {
                 this.coffeeLabService.updateLang(res.result.lang_code).then(() => {
                     this.detailsData = res.result;
+                    this.items = [
+                        { label: this.translator.instant('the_coffee_lab'), routerLink: '/' },
+                        { label: this.translator.instant('qa_forum'), routerLink: `/coffee-lab/overview/qa-forum` },
+                        {
+                            label: this.convertToShortDescription.transform(this.detailsData.question, 4),
+                        },
+                    ];
                     if (this.detailsData.parent_question_id > 0) {
                         this.detailsData.answers.forEach((element) => {
                             if (element.parent_answer_id > 0) {

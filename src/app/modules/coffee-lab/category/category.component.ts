@@ -151,8 +151,6 @@ export class CategoryComponent extends DestroyableComponent implements OnInit {
                 {
                     label: 'brewing_guides',
                     postType: PostType.RECIPE,
-                    icon: 'assets/images/coffee-recipe.svg',
-                    activeIcon: 'assets/images/coffee-recipe-active.svg',
                     routerLink: `/coffee-lab/category/${this.slug}/coffee-recipes`,
                     command: () => this.onTabChange(PostType.RECIPE),
                 },
@@ -162,16 +160,12 @@ export class CategoryComponent extends DestroyableComponent implements OnInit {
                 {
                     label: 'question_answers',
                     postType: PostType.QA,
-                    icon: 'assets/images/qa-forum.svg',
-                    activeIcon: 'assets/images/qa-forum-active.svg',
                     routerLink: `/coffee-lab/category/${this.slug}/qa-forum`,
                     command: () => this.onTabChange(PostType.QA),
                 },
                 {
                     label: 'posts',
                     postType: PostType.ARTICLE,
-                    icon: 'assets/images/article.svg',
-                    activeIcon: 'assets/images/article-active.svg',
                     routerLink: `/coffee-lab/category/${this.slug}/articles`,
                     command: () => this.onTabChange(PostType.ARTICLE),
                 },

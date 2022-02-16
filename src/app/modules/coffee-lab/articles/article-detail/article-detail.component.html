@@ -1,5 +1,5 @@
-<main>
-    <a class="back-page mt-1 mt-lg-3 mb-35 mb-lg-45" (click)="onBack()">{{ 'back_to_forum' | translate }}</a>
+<main class="main-block pb-0">
+    <div class="pt-3 pt-md-0"><p-breadcrumb [model]="items"></p-breadcrumb></div>
     <div class="container article-main-block" *ngIf="!isLoading">
         <div class="mt-4 mt-lg-425">
             <div *ngIf="detailsData?.categories" class="mx-md-5 d-flex justify-content-md-center">
@@ -88,7 +88,72 @@
                 </div>
             </div>
             <div class="d-flex">
-                <ng-container *ngTemplateOutlet="userWrapper"></ng-container>
+                <span class="d-flex">
+                    <div class="py-2 py-md-0 user-wrapper d-none d-md-block">
+                        <div class="pb-4 d-flex">
+                            <div class="w-100 d-flex justify-content-between">
+                                <div>
+                                    <p class="fnt-14 fw-b text-clr334 mb-1">
+                                        {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
+                                    </p>
+                                    <p class="fnt-14 fw-m text-clr588 mb-1">
+                                        {{ stickySecData?.organisation_name || stickySecData?.organization_name }}
+                                    </p>
+                                    <p
+                                        *ngIf="stickySecData?.country || stickySecData?.city"
+                                        class="fnt-14 fw-m text-clr588 mb-1"
+                                    >
+                                        {{ stickySecData?.city || stickySecData?.organization_city }},
+                                        {{ stickySecData?.country | country }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pb-4">
+                            <div class="d-flex align-items-center">
+                                <button
+                                    class="btn-stroked mr-2"
+                                    routerLink="/user-profile"
+                                    [queryParams]="{
+                                        user_id: detailsData?.user_id || detailsData?.posted_by,
+                                        organization:
+                                            detailsData?.org_type ||
+                                            detailsData?.organisation_type ||
+                                            detailsData?.organization_type
+                                    }"
+                                >
+                                    {{ 'view_profile' | translate }}
+                                </button>
+                                <button
+                                    class="btn-raised"
+                                    *ngIf="detailsData?.user_id !== authService?.currentUser.id"
+                                    (click)="openChat()"
+                                >
+                                    <img src="assets/images/message-icon-white.svg" />
+                                </button>
+                            </div>
+                        </div>
+                        <div class="divder"></div>
+                        <div class="d-flex my-4">
+                            <div class="d-flex align-like">
+                                <button
+                                    class="btn-icon thumbsup"
+                                    [class.thumbed]="detailsData?.is_liked"
+                                    (click)="onLike(detailsData.id)"
+                                    [disabled]="isLikedBtn"
+                                ></button>
+                                <!-- <span class="d-flex mt-25 ml-1 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span> -->
+                            </div>
+                            <div (click)="onFocusCommentBox()" class="btn-icon message ml-25"></div>
+                            <button
+                                class="btn-icon save ml-25"
+                                [class.saved]="detailsData?.is_saved"
+                                (click)="onSave(detailsData.id)"
+                                [disabled]="isSaveBtn"
+                            ></button>
+                        </div>
+                    </div>
+                </span>
                 <span>
                     <div class="d-flex flex-wrap w-100 innter-box">
                         <div class="d-flex justify-content-between align-items-md-end w-100">
@@ -300,100 +365,10 @@
             </div>
         </div>
     </div>
-    <article class="w-100 row mx-0" *ngIf="!isLoading">
-        <div class="col-12 col-md-8 px-0 px-md-3">
-            <div class="fnt-16 fw-b text-clr334 pt-3 pb-45 background-header">
-                {{ 'recent_articles' | translate }}
-            </div>
-            <div class="row py-2">
-                <div *ngFor="let forum of relatedData" class="col-12 col-md-6 pb-4">
-                    <div class="d-flex pb-4 footer-border" (click)="onRealtedRoute(forum.slug, false)">
-                        <div class="p-articles pr-2 cursor-point">
-                            <img [src]="forum?.cover_image_thumb_url" alt="" />
-                        </div>
-                        <div class="cursor-point d-flex flex-column">
-                            <p class="fnt-fly fw-b text-clr334 cust-flex-grow">
-                                {{ forum?.title | convertToShortDescription: 6 }}
-                            </p>
-                            <p class="fnt-14 fw-m text-clr334 text-underline">
-                                {{ forum?.user_name }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4 mb-4 px-0 px-md-3">
-            <app-join-community [type]="PostType.QA" [showBorderBottom]="false"></app-join-community>
-        </div>
-    </article>
+    <div *ngIf="!isLoading">
+        <app-popular-posts [type]="'article'" [relatedData]="relatedData"></app-popular-posts>
+    </div>
     <app-loading *ngIf="isLoading"></app-loading>
 </main>
 
 <app-translate-toast *ngIf="showToaster" [language]="detailsData?.language"></app-translate-toast>
-
-<ng-template #userWrapper>
-    <span class="d-flex">
-        <div class="py-2 py-md-0 user-wrapper d-none d-md-block">
-            <div class="pb-4 d-flex">
-                <div class="w-100 d-flex justify-content-between">
-                    <div>
-                        <p class="fnt-14 fw-b text-clr334 mb-1">
-                            {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
-                        </p>
-                        <p class="fnt-14 fw-m text-clr588 mb-1">
-                            {{ stickySecData?.organisation_name || stickySecData?.organization_name }}
-                        </p>
-                        <p *ngIf="stickySecData?.country || stickySecData?.city" class="fnt-14 fw-m text-clr588 mb-1">
-                            {{ stickySecData?.city || stickySecData?.organization_city }},
-                            {{ stickySecData?.country | country }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="pb-4">
-                <div class="d-flex align-items-center">
-                    <button
-                        class="btn-stroked mr-2"
-                        routerLink="/user-profile"
-                        [queryParams]="{
-                            user_id: detailsData?.user_id || detailsData?.posted_by,
-                            organization:
-                                detailsData?.org_type ||
-                                detailsData?.organisation_type ||
-                                detailsData?.organization_type
-                        }"
-                    >
-                        {{ 'view_profile' | translate }}
-                    </button>
-                    <button
-                        class="btn-raised"
-                        *ngIf="detailsData?.user_id !== authService?.currentUser.id"
-                        (click)="openChat()"
-                    >
-                        <img src="assets/images/message-icon-white.svg" />
-                    </button>
-                </div>
-            </div>
-            <div class="divder"></div>
-            <div class="d-flex my-4">
-                <div class="d-flex align-like">
-                    <button
-                        class="btn-icon thumbsup"
-                        [class.thumbed]="detailsData?.is_liked"
-                        (click)="onLike(detailsData.id)"
-                        [disabled]="isLikedBtn"
-                    ></button>
-                    <!-- <span class="d-flex mt-25 ml-1 mr-2 fnt-300 text-clr334">{{ detailsData.likes }}</span> -->
-                </div>
-                <div (click)="onFocusCommentBox()" class="btn-icon message ml-25"></div>
-                <button
-                    class="btn-icon save ml-25"
-                    [class.saved]="detailsData?.is_saved"
-                    (click)="onSave(detailsData.id)"
-                    [disabled]="isSaveBtn"
-                ></button>
-            </div>
-        </div>
-    </span>
-</ng-template>

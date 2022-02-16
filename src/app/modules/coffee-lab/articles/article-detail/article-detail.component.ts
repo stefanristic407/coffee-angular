@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConvertToShortDescriptionPipe } from '@app/shared/pipes/convert-to-short-description.pipe';
 import { DestroyableComponent } from '@base-components';
 import { LinkType, PostType } from '@enums';
 import { environment } from '@env/environment';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService, ChatHandlerService, CoffeeLabService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
@@ -11,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'app-aticle-details',
     templateUrl: './article-detail.component.html',
     styleUrls: ['./article-detail.component.scss'],
-    providers: [MessageService],
+    providers: [MessageService, ConvertToShortDescriptionPipe],
 })
 export class ArticleDetailComponent extends DestroyableComponent implements OnInit {
     readonly PostType = PostType;
@@ -33,6 +35,7 @@ export class ArticleDetailComponent extends DestroyableComponent implements OnIn
     isSaveBtn = false;
     isLikedBtn = false;
     showToaster = false;
+    items: ({ label: any; routerLink: string } | { label: any; routerLink?: undefined })[];
 
     constructor(
         public coffeeLabService: CoffeeLabService,
@@ -43,6 +46,8 @@ export class ArticleDetailComponent extends DestroyableComponent implements OnIn
         private toastrService: ToastrService,
         private userService: UserService,
         private chatHandler: ChatHandlerService,
+        private translator: TranslateService,
+        private convertToShortDescription: ConvertToShortDescriptionPipe,
     ) {
         super();
         this.activatedRoute.params.subscribe((params) => {
@@ -70,14 +75,15 @@ export class ArticleDetailComponent extends DestroyableComponent implements OnIn
             .getPopularList(
                 PostType.ARTICLE,
                 {
-                    count: 11,
+                    count: 7,
                 },
                 this.detailsData.language,
             )
             .subscribe((res: any) => {
                 if (res.success) {
-                    this.relatedData = res.result.filter((item) => item.id !== this.detailsData.id);
-                    this.relatedData = this.relatedData.slice(0, 10);
+                    this.relatedData = (res.result || [])
+                        .filter((item) => item && item?.slug !== this.idOrSlug)
+                        .slice(0, 6);
                 }
             });
     }
@@ -92,6 +98,13 @@ export class ArticleDetailComponent extends DestroyableComponent implements OnIn
             if (res.success) {
                 this.coffeeLabService.updateLang(res.result.language).then(() => {
                     this.detailsData = res.result;
+                    this.items = [
+                        { label: this.translator.instant('the_coffee_lab'), routerLink: '/' },
+                        { label: this.translator.instant('articles'), routerLink: `/coffee-lab/overview/articles` },
+                        {
+                            label: this.convertToShortDescription.transform(this.detailsData.title, 4),
+                        },
+                    ];
                     this.getArticleList();
                     if (
                         this.detailsData?.original_article_state &&

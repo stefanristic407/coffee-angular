@@ -1,0 +1,41 @@
+<div class="more bg-f8">
+    <div class="container pt-4 py-md-5">
+        <div class="more-text fnt-head fw-b mt-md-4 mb-3 mb-md-45 text-center">
+            {{ 'more_on_the_coffee_lab' | translate }}
+        </div>
+        <div class="d-flex justify-content-center mt-md-25 mb-md-5 pb-md-3">
+            <div class="d-flex sign-up p-md-4 bg-white align-items-center">
+                <div class="fnt-18 mr-md-4 px-3 py-2">{{ 'sign_up_and_contribute_now' | translate }}</div>
+                <button class="btn-raised mt-1 mt-md-0" (click)="onFocus()">
+                    {{ 'sign_up' | translate }}
+                </button>
+            </div>
+        </div>
+        <article class="row mx-0 px-2 px-md-0 mx-md-45">
+            <div class="col-md-7 px-0 px-md-3">
+                <div class="fnt-16 fnt-md-18 fw-b pb-25 background-header pt-3">
+                    <span class="fnt-head" *ngIf="type === 'article'">{{ 'recent_articles' | translate }}</span>
+                    <span class="fnt-head" *ngIf="type === 'recipe'">{{ 'popular_brewing_guides' | translate }}</span>
+                </div>
+                <div *ngFor="let forum of relatedData" class="pt-3">
+                    <div class="d-md-flex pb-3 footer-border">
+                        <a class="p-articles pr-2 cursor-pointer" [routerLink]="onRealtedRoute(forum.slug)">
+                            <img class="w-mob-100" [src]="forum?.cover_image_thumb_url" [alt]="forum.title" />
+                        </a>
+                        <a class="cursor-pointer d-flex flex-column" [routerLink]="onRealtedRoute(forum.slug)">
+                            <p class="fw-b fnt-20 cust-flex-grow mb-2 text-break mt-25 mt-md-0">
+                                {{ forum?.title }}
+                            </p>
+                            <p class="fw-b text-underline">
+                                {{ forum?.user_name }}
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-4 px-0 px-md-3">
+                <app-join-community [type]="PostType.QA" [showBorderBottom]="false"></app-join-community>
+            </div>
+        </article>
+    </div>
+</div>
