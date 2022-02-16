@@ -24,7 +24,7 @@
                             {{ detailsData?.description }}
                         </p>
                         <div class="d-md-flex mb-4 mb-md-0">
-                            <div class="fnt-14 fw-m text-clr588 mb-md-45">
+                            <div class="fw-m text-clr588 mb-md-45">
                                 {{ 'published' | translate }}
                                 {{ detailsData?.posted_at || detailsData?.created_at | date: 'MMMM' | translate }}
                                 {{ detailsData?.posted_at || detailsData?.created_at | date: 'd, yyyy' }}
@@ -171,13 +171,13 @@
                                         *ngFor="let ingredientsItem of detailsData.ingredients"
                                     >
                                         <label
-                                            class="fnt-14 fw-b text-clr334 mb-0 pr-3"
+                                            class="fnt-16 fw-b text-clr334 mb-0 pr-3"
                                             *ngIf="ingredientsItem.quantity !== '-'"
                                         >
                                             {{ ingredientsItem.quantity }}
                                             {{ ingredientsItem.quantity_unit | translate }}
                                         </label>
-                                        <label class="fnt-14 fw-m text-clr334 mb-0">{{ ingredientsItem.name }}</label>
+                                        <label class="fnt-16 fw-m text-clr334 mb-0">{{ ingredientsItem.name }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -186,10 +186,10 @@
                                     <div class="pb-4 d-flex">
                                         <div class="w-100 d-flex justify-content-between">
                                             <div>
-                                                <p class="fnt-14 fw-b text-clr334 mb-1">
+                                                <p class="fw-b text-clr334 mb-1">
                                                     {{ stickySecData?.firstname }} {{ stickySecData?.lastname }}
                                                 </p>
-                                                <p class="fnt-14 fw-m text-clr588 mb-1">
+                                                <p class="fw-m text-clr588 mb-1">
                                                     {{
                                                         stickySecData?.organisation_name ||
                                                             stickySecData?.organization_name
@@ -197,7 +197,7 @@
                                                 </p>
                                                 <p
                                                     *ngIf="stickySecData?.country || stickySecData?.city"
-                                                    class="fnt-14 fw-m text-clr588 mb-1"
+                                                    class="fw-m text-clr588 mb-1"
                                                 >
                                                     {{ stickySecData?.city || stickySecData?.organization_city }},
                                                     {{ stickySecData?.country | country }}
@@ -264,7 +264,7 @@
                                 <div class="d-flex step-desc">
                                     <span class="fnt-24 fnt-semi-bold text-clr334 lh-157 mb-1">{{ i + 1 }}</span>
                                     <div
-                                        class="ml-md-3 ml-25 fnt-14 fnt-md-16 fnt-semi-bold text-clr334 lh-157 mb-0"
+                                        class="ml-md-3 ml-25 fnt-md-16 fnt-semi-bold text-clr334 lh-157 mb-0"
                                         [ngClass]="{ 'remove-border': last }"
                                         [innerHTML]="step.description"
                                     ></div>
@@ -300,7 +300,7 @@
                                 </div>
                                 <div>
                                     <p
-                                        class="fnt-14 fw-b text-clr334 cursor-point text-underline mb-2"
+                                        class="fw-b text-clr334 cursor-point text-underline mb-2"
                                         routerLink="/user-profile"
                                         [queryParams]="{
                                             user_id: stickySecData?.id,
@@ -313,7 +313,7 @@
                                         {{ stickySecData?.firstname }}
                                         {{ stickySecData?.lastname }}
                                     </p>
-                                    <p class="fnt-14 fw-m text-clr334 text-justify">
+                                    <p class="fw-m text-clr334 text-justify">
                                         {{ stickySecData?.about_me }}
                                     </p>
                                 </div>
@@ -361,7 +361,7 @@
                             <div class="d-flex justify-content-between mb-4">
                                 <div class="d-flex">
                                     <img src="assets/images/noun-questions.svg" alt="file-imag" />
-                                    <p class="align-items-center d-flex text-nowrap fw-b fnt-14 text-clr334 ml-2">
+                                    <p class="align-items-center d-flex text-nowrap fw-b text-clr334 ml-2">
                                         {{ 'read_the_guide' | translate }}
                                     </p>
                                 </div>
@@ -375,7 +375,7 @@
                             <app-user-header [prop]="orginalUserData"></app-user-header>
                             <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
                                 <a
-                                    class="fnt-14 fw-m"
+                                    class="fw-m"
                                     (click)="
                                         onRealtedRoute(
                                             detailsData?.original_details?.slug,
@@ -424,7 +424,7 @@
                     </div>
                     <div *ngIf="allComments?.length > 0">
                         <div class="comment-border">
-                            <p class="fnt-14 fw-m text-clr334">{{ allComments.length }} {{ 'answers' | translate }}</p>
+                            <p class="fw-m text-clr334">{{ allComments.length }} {{ 'answers' | translate }}</p>
                         </div>
                         <div
                             class="answer-wrapper mt-45"
@@ -447,7 +447,7 @@
                         <div class="text-center w-100" *ngIf="showCommentBtn">
                             <button
                                 (click)="viewAllComments()"
-                                class="fnt-14 fw-b text-clr60b mb-4 bg-transparent border-0 text-underline"
+                                class="fw-b text-clr60b mb-4 bg-transparent border-0 text-underline"
                             >
                                 {{ 'view_all_comments' | translate }}
                             </button>

@@ -86,8 +86,11 @@ export class QuestionDetailComponent extends DestroyableComponent implements OnI
                 this.coffeeLabService.updateLang(res.result.lang_code).then(() => {
                     this.detailsData = res.result;
                     this.items = [
-                        { label: this.translator.instant('the_coffee_lab'), routerLink: '/' },
-                        { label: this.translator.instant('qa_forum'), routerLink: `/coffee-lab/overview/qa-forum` },
+                        { label: this.translator.instant('the_coffee_lab'), routerLink: '/coffee-lab' },
+                        {
+                            label: this.translator.instant('question_answers'),
+                            routerLink: `/coffee-lab/overview/qa-forum`,
+                        },
                         {
                             label: this.convertToShortDescription.transform(this.detailsData.question, 4),
                         },

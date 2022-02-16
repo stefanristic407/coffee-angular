@@ -6,7 +6,9 @@
         <h2 class="fnt-16 fnt-md-18 fw-m mt-3">{{ 'coffee_lab_sub_text' | translate }}</h2>
         <div class="d-flex mt-45">
             <button class="btn-raised fnt-md-16" (click)="onStart()">{{ 'start_writing' | translate }}</button>
-            <button class="btn-stroked ml-3 fnt-md-16 custom-stroked">{{ 'know_more' | translate }}</button>
+            <a class="btn-stroked ml-3 fnt-md-16 custom-stroked" routerLink="{{ coffeeLabURL }}">{{
+                'know_more' | translate
+            }}</a>
         </div>
     </div>
 </div>

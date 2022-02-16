@@ -19,7 +19,7 @@
         </div>
     </div>
     <div *ngIf="!isLoading">
-        <div class="gutter-24" *ngFor="let comment of displayData; let last = last">
+        <div class="gutter-24" *ngFor="let comment of displayData; let last = last; let ind = index">
             <div class="w-100 br-4 border-main mb-4 mb-md-3 mb-lg-4">
                 <div class="p-md-4 p-3 bg">
                     <div class="mb-4 d-md-flex justify-content-between">
@@ -109,12 +109,13 @@
                                         {{ cmt?.posted_at | amTimeAgo | dateAgoReplace }}
                                     </div>
                                 </div>
-                                <div class="fnt-14 text-clr24 lh-15 mt-2">
+                                <div *ngIf="!cmt.isEdit" class="fnt-14 text-clr24 lh-15 mt-2">
                                     <span [innerHTML]="cmt?.comment | translate | convertToShortDescription: 20"></span>
                                 </div>
                             </div>
                             <div class="fnt-12 text-clr588">
                                 <app-forum-menu
+                                    (editComment)="onEditComments($event, ind, i)"
                                     [selectedItem]="cmt"
                                     forumType="comment"
                                     [enableEdit]="isMyPostsPage"
@@ -122,6 +123,33 @@
                                     [enableShare]="!isMyPostsPage"
                                     [enableSave]="!isMyPostsPage"
                                 ></app-forum-menu>
+                            </div>
+                        </div>
+                        <div *ngIf="cmt.isEdit" class="mt-2 pt-1">
+                            <div>
+                                <div class="sewn-form-field width-comment col-12 pl-0 pr-2">
+                                    <textarea
+                                        id="text-focus"
+                                        class="add-comment active-comment"
+                                        [ngClass]="{ 'comment-hgt': !mycomment }"
+                                        [(ngModel)]="mycomment"
+                                        [placeholder]="'add_a_comment' | translate"
+                                        pInputTextarea
+                                        autoResize="autoResize"
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex justify-content-between flex-column flex-md-row mr-2 mr-md-0 align-items-center mt-4"
+                            >
+                                <div class="mt-3 mt-md-0">
+                                    <button (click)="onCancel(ind, i)" class="btn-stroked">
+                                        {{ 'cancel' | translate }}
+                                    </button>
+                                    <button (click)="onEditPost(cmt.id)" class="btn-raised ml-3">
+                                        {{ 'update' | translate }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

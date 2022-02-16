@@ -25,6 +25,12 @@ export class GlobalSearchComponent extends DestroyableComponent implements OnIni
     selectedRecipeOrder: string;
     isAvailableRecipeTranslation?: any;
     selectedCategory: any;
+    level: any;
+    levels = [
+        { label: 'expertise_easy', value: 'expertise_easy' },
+        { label: 'expertise_intermediate', value: 'expertise_intermediate' },
+        { label: 'expertise_hard', value: 'expertise_hard' },
+    ];
     sortOptions = [
         { label: 'latest', value: 'latest' },
         { label: 'most_answered', value: 'most_answered' },
@@ -38,10 +44,18 @@ export class GlobalSearchComponent extends DestroyableComponent implements OnIni
         { label: 'yes', value: true },
         { label: 'no', value: false },
     ];
+    orderList: any[] = [
+        { label: 'latest', value: 'latest' },
+        { label: 'oldest', value: 'oldest' },
+    ];
     categoryList: any;
     tabMenuItems: { label: string; postType: PostType }[] = [];
     rows = 9;
     page = 1;
+
+    get postType(): PostType {
+        return this.tabMenuItems[this.selectedTab]?.postType || PostType.QA;
+    }
 
     constructor(
         private coffeeLabService: CoffeeLabService,
@@ -75,15 +89,30 @@ export class GlobalSearchComponent extends DestroyableComponent implements OnIni
             }
             this.startSearch();
         });
-        window.scrollTo(0, 0);
+        this.scrollTop();
     }
 
     handleSearch(): void {
         this.searchInput$.next(this.keyword);
     }
 
-    getCategory(isRecipe: boolean) {
-        const params = { language: this.coffeeLabService.currentForumLanguage, is_recipe: isRecipe };
+    clearFilters() {
+        this.sortBy = null;
+        this.filterBy = null;
+        this.isAvailableTranslation = null;
+        this.selectedCategory = null;
+        this.page = 1;
+        this.router.navigate([], {
+            queryParams: { query: this.keyword },
+            queryParamsHandling: 'merge',
+        });
+    }
+
+    getCategory() {
+        const params = {
+            language: this.coffeeLabService.currentForumLanguage,
+            is_recipe: this.postType === PostType.RECIPE,
+        };
         this.coffeeLabService.getCategory(params).subscribe((category) => {
             if (category.success) {
                 this.categoryList = category.result;
@@ -91,109 +120,54 @@ export class GlobalSearchComponent extends DestroyableComponent implements OnIni
         });
     }
 
-    getArticles() {
+    getPosts() {
+        const postType = this.tabMenuItems[this.selectedTab]?.postType;
+        if (!postType) {
+            return;
+        }
         const params = {
             query: this.keyword,
-            sort_by: 'created_at',
-            translations_available: this.isAvailableTranslation,
-            sort_order: 'desc',
-            publish: true,
-            category_id: this.selectedCategory,
-            page: this.page,
-            per_page: this.rows,
-        };
-
-        this.coffeeLabService.getForumList(PostType.ARTICLE, params).subscribe((res: any) => {
-            if (res.success) {
-                this.searchResult.articles = res.result;
-            }
-        });
-    }
-    getRecipes() {
-        const params = {
-            query: this.keyword,
-            translations_available: this.isAvailableRecipeTranslation,
-            sort_by: 'created_at',
-            sort_order: 'desc',
-            publish: true,
-            category_id: this.selectedCategory,
-            page: this.page,
-            per_page: this.rows,
-        };
-
-        this.coffeeLabService.getForumList(PostType.RECIPE, params).subscribe((res: any) => {
-            if (res.success) {
-                this.searchResult.articles = res.result;
-            }
-        });
-    }
-    getQuestions() {
-        const params = {
-            query: this.keyword,
-            sort_by: 'created_at',
-            sort_order: 'desc',
-            publish: true,
-            category_id: this.selectedCategory,
-            page: this.page,
-            per_page: this.rows,
-        };
-
-        this.coffeeLabService.getForumList(PostType.QA, params).subscribe((res: any) => {
-            if (res.success) {
-                this.searchResult.questions = res.result.questions;
-            }
-        });
-    }
-
-    filterSortBy() {
-        const params = {
-            query: this.keyword,
-            sort_by: 'created_at',
+            sort_by:
+                postType === PostType.QA
+                    ? this.sortBy === 'most_answered'
+                        ? 'most_answered'
+                        : 'posted_at'
+                    : 'created_at',
             sort_order:
-                this.selectedOrder === 'most_answered'
-                    ? 'desc'
+                postType === PostType.QA
+                    ? this.sortBy === 'most_answered'
+                        ? 'desc'
+                        : this.sortBy === 'latest' || !this.sortBy
+                        ? 'desc'
+                        : 'asc'
                     : this.selectedOrder === 'latest' || !this.selectedOrder
                     ? 'desc'
                     : 'asc',
-            publish: true,
-            category_id: this.selectedCategory,
-            page: this.page,
-            per_page: this.rows,
-        };
-        this.coffeeLabService.getForumList(this.getSelectedType(), params).subscribe((res: any) => {
-            if (res.success) {
-                if (this.getSelectedType() === PostType.QA) {
-                    this.searchResult.questions = res.result.questions;
-                } else if (this.getSelectedType() === PostType.ARTICLE) {
-                    this.searchResult.articles = res.result;
-                } else if (this.getSelectedType() === PostType.RECIPE) {
-                    this.searchResult.recipes = res.result;
-                }
-            }
-        });
-    }
-
-    filterCategory() {
-        const params = {
-            query: this.keyword,
-            sort_by: 'created_at',
-            sort_order: 'desc',
+            is_consumer: this.filterBy,
+            level: this.level?.toLowerCase(),
+            translations_available: this.isAvailableTranslation,
             publish: true,
             category_id: this.selectedCategory,
             page: this.page,
             per_page: this.rows,
         };
 
-        this.coffeeLabService.getForumList(this.getSelectedType(), params).subscribe((res: any) => {
+        this.isLoading = true;
+        this.scrollTop();
+        this.coffeeLabService.getForumList(postType, params).subscribe((res: any) => {
             if (res.success) {
-                if (this.getSelectedType() === PostType.QA) {
+                if (postType === PostType.QA) {
                     this.searchResult.questions = res.result.questions;
-                } else if (this.getSelectedType() === PostType.ARTICLE) {
+                    this.searchResult.qa_total_count = res.result_info.total_count || 0;
+                } else if (postType === PostType.ARTICLE) {
                     this.searchResult.articles = res.result;
-                } else if (this.getSelectedType() === PostType.RECIPE) {
+                    this.searchResult.article_total_count = res.result_info.total_count || 0;
+                } else if (postType === PostType.RECIPE) {
                     this.searchResult.recipes = res.result;
+                    this.searchResult.recipe_total_count = res.result_info.total_count || 0;
                 }
             }
+            this.isLoading = false;
         });
     }
 
@@ -228,24 +202,17 @@ export class GlobalSearchComponent extends DestroyableComponent implements OnIni
             };
             this.tabMenuItems = [];
             if (this.searchResult.questions.length > 0) {
-                this.tabMenuItems.push({
-                    label: 'question_answers',
-                    postType: PostType.QA,
-                });
+                this.tabMenuItems.push({ label: 'question_answers', postType: PostType.QA });
             }
             if (this.searchResult.articles.length > 0) {
-                this.tabMenuItems.push({
-                    label: 'posts',
-                    postType: PostType.ARTICLE,
-                });
+                this.tabMenuItems.push({ label: 'posts', postType: PostType.ARTICLE });
             }
             if (this.searchResult.recipes.length > 0) {
-                this.tabMenuItems.push({
-                    label: 'brewing_guides',
-                    postType: PostType.RECIPE,
-                });
+                this.tabMenuItems.push({ label: 'brewing_guides', postType: PostType.RECIPE });
             }
-            this.onTabChange({ index: 0 });
+            this.selectedTab = 0;
+            this.clearFilters();
+            this.getCategory();
             this.coffeeLabService.searchResult.next(this.searchResult);
             this.isLoading = false;
         });
@@ -253,34 +220,9 @@ export class GlobalSearchComponent extends DestroyableComponent implements OnIni
 
     onTabChange(event) {
         this.selectedTab = event.index;
-        this.selectedCategory = null;
-        this.searchResult.recipes.length > 0 && this.tabMenuItems.length - 1 === event.index
-            ? this.getCategory(true)
-            : this.getCategory(false);
-    }
-
-    getSelectedType(): string {
-        let type: string;
-        if (this.selectedTab === 0) {
-            if (this.searchResult.questions) {
-                type = PostType.QA;
-            } else if (this.searchResult.articles) {
-                type = PostType.ARTICLE;
-            } else if (this.searchResult.recipes) {
-                type = PostType.RECIPE;
-            }
-        } else if (this.selectedTab === 1) {
-            if (this.searchResult.articles) {
-                type = PostType.ARTICLE;
-            } else if (this.searchResult.recipes) {
-                type = PostType.RECIPE;
-            }
-        } else if (this.selectedTab === 2) {
-            if (this.searchResult.recipes) {
-                type = PostType.RECIPE;
-            }
-        }
-        return type;
+        this.clearFilters();
+        this.getPosts();
+        this.getCategory();
     }
 
     onClose(): void {
@@ -291,8 +233,12 @@ export class GlobalSearchComponent extends DestroyableComponent implements OnIni
     paginate(event: any) {
         if (this.page !== event.page + 1) {
             this.page = event.page + 1;
-            window.scroll(0, 0);
+            this.scrollTop();
             this.startSearch();
         }
+    }
+
+    scrollTop() {
+        window.scrollTo(0, 0);
     }
 }
