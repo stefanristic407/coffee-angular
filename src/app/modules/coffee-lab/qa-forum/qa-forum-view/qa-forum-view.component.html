@@ -42,13 +42,13 @@
                             styleClass="round-border text-clr588"
                             [placeholder]="'posted_by' | translate"
                             [showClear]="true"
-                            class="ml-3"
+                            class="ml-2"
                         >
                             <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
                             <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                         </p-dropdown>
 
-                        <div class="ml-md-3 d-none d-md-block">
+                        <div class="ml-md-2 d-none d-md-block">
                             <p-dropdown
                                 [options]="sortOptions"
                                 [(ngModel)]="coffeeLabService.qaForumViewSortBy"
