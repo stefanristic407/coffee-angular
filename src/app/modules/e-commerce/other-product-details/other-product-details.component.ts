@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { FileModule } from '@enums';
+import { FileModule, ProductStatus } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, ECommerceService, FileService, ResizeService } from '@services';
 import { fileRequired, maxWordCountValidator } from '@utils';
@@ -32,8 +32,8 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
         { label: 'Both', value: 'both' },
     ];
     statusList: any[] = [
-        { label: 'In stock', value: 'in-stock' },
-        { label: 'Out of stock', value: 'sold' },
+        { label: 'In stock', value: ProductStatus.INSTOCK },
+        { label: 'Out of stock', value: ProductStatus.SOLD },
     ];
     lengthUnitList: any[] = [
         { label: 'mm', value: 'mm' },
