@@ -30,7 +30,7 @@ export class JoinCommunityComponent implements OnInit {
     getList() {
         this.isLoading = true;
         const categories = [];
-        this.categories?.filter((item: any) => categories.push(item.parent_id));
+        this.categories?.filter((item: any) => categories.push(item.id));
         this.coffeeLabService
             .getForumList(this.type, {
                 page: 1,
