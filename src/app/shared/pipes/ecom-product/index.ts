@@ -1,1 +1,1 @@
-export * from './ecom-product-status';
+export * from './product-status.pipe';
