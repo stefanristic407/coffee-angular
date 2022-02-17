@@ -140,7 +140,7 @@
                         <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                     </p-dropdown>
                 </div>
-                <div *ngIf="postType === PostType.QA" class="col-auto">
+                <div *ngIf="postType === PostType.QA" class="col-auto pl-0">
                     <p-dropdown
                         [options]="filterPostedByOptions"
                         [(ngModel)]="filterBy"
