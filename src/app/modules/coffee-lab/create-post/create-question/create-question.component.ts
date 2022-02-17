@@ -128,7 +128,7 @@ export class CreateQuestionComponent implements OnInit {
             allow_translation: 1,
             status,
             language: this.questionForm.get('languageCode').value,
-            slug: this.questionForm.get('slug').value || this.question.slug,
+            slug: this.questionForm.controls.slug.value || this.question.slug,
             categories: this.categoryValue?.map((item) => item.id) || [],
         };
         const confirmText = status === 'DRAFT' ? 'save this question in draft?' : 'publish this question?';
