@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { PRODUCT_STATUS_ITEMS } from '@constants';
+import { ECOM_PRODUCT_STATUS_ITEMS, OTHER_PRODUCT_STATUS_ITEMS } from '@constants';
 import { ProductType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, InventoryService, OriginService, ResizeService } from '@services';
@@ -19,7 +19,9 @@ import * as _ from 'underscore';
     styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent extends ResizeableComponent implements OnInit {
-    readonly PRODUCT_STATUS_ITEMS = PRODUCT_STATUS_ITEMS;
+    readonly ProductType = ProductType;
+    readonly ECOM_PRODUCT_STATUS_ITEMS = ECOM_PRODUCT_STATUS_ITEMS;
+    readonly OTHER_PRODUCT_STATUS_ITEMS = OTHER_PRODUCT_STATUS_ITEMS;
     breadCrumbItems: MenuItem[];
     tableData: any[] = [];
     tableColumns: any[] = [];
