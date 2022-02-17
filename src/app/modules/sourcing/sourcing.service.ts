@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import {
-    GlobalsService,
-    OriginService,
-    CommonService,
-    AuthService,
-    VarietyService,
-    UserService,
-    OrganizationService,
-} from '@services';
-import * as _ from 'underscore';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { ApiResponse, EstateOrganizationProfile } from '@models';
+import {
+    AuthService,
+    CommonService,
+    GlobalsService,
+    OrganizationService,
+    OriginService,
+    UserService,
+    VarietyService,
+} from '@services';
 import { DropdownItem } from 'primeng/dropdown';
+import { BehaviorSubject } from 'rxjs';
+import * as _ from 'underscore';
 
 @Injectable({
     providedIn: 'root',
@@ -36,6 +36,7 @@ export class SourcingService {
 
     showUnitFilter = false;
     showAvailableFilter = false;
+    showTypeFilter = false;
 
     flavourList: any[];
     generalFlavourList: any[];
@@ -93,6 +94,7 @@ export class SourcingService {
             grade: null,
             crop_year: null,
             available_coffee: null,
+            type: null,
             shipping_available: true,
             sort_by: 'name',
             sort_order: 'asc',

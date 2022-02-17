@@ -42,6 +42,7 @@ export class CoffeeListComponent extends ResizeableComponent implements OnInit {
             ];
             this.sourcingSrv.showUnitFilter = true;
             this.sourcingSrv.showAvailableFilter = false;
+            this.sourcingSrv.showTypeFilter = true;
         });
         this.sourcingSrv.clearQueryParams();
         this.sourcingSrv.queryParams$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: any) => {
