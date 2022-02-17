@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
+import { PRODUCT_STATUS_ITEMS } from '@constants';
 import { FileModule, ProductStatus } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, ECommerceService, FileService, ResizeService } from '@services';
@@ -31,10 +32,7 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
         { label: 'B2C', value: 'b2c' },
         { label: 'Both', value: 'both' },
     ];
-    statusList: any[] = [
-        { label: 'In stock', value: ProductStatus.INSTOCK },
-        { label: 'Out of stock', value: ProductStatus.SOLD },
-    ];
+    statusList = PRODUCT_STATUS_ITEMS.filter((item) => item.value !== ProductStatus.INDRAFT);
     lengthUnitList: any[] = [
         { label: 'mm', value: 'mm' },
         { label: 'cm', value: 'cm' },
