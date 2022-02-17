@@ -1,5 +1,5 @@
 export enum ProductStatus {
-    INSTOCK = 'IN-STOCK',
-    SOLD = 'SOLD',
-    INDRAFT = 'IN-DRAFT',
+    INSTOCK = 'in-stock',
+    SOLD = 'sold',
+    INDRAFT = 'in-draft',
 }
