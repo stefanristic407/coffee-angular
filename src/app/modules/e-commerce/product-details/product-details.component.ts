@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from '@app/shared';
 import { ResizeableComponent } from '@base-components';
-import { BREWING_METHOD_ITEMS, COUNTRY_LIST } from '@constants';
+import { BREWING_METHOD_ITEMS, COUNTRY_LIST, PRODUCT_STATUS_ITEMS } from '@constants';
 import { FileModule, ProductStatus, ProductType, QuantityUnit } from '@enums';
 import { ApiResponse, RoastingProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
@@ -51,10 +51,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
         { label: 'kg', value: 'kg' },
         { label: 'g', value: 'g' },
     ];
-    statusArray = [
-        { label: 'In Stock', value: ProductStatus.INSTOCK },
-        { label: 'Out of Stock', value: ProductStatus.SOLD },
-    ];
+    statusArray = PRODUCT_STATUS_ITEMS.filter((item) => item.value !== ProductStatus.INDRAFT);
     grindArray = [
         { label: 'Whole beans', value: 'whole-beans' },
         { label: 'Extra coarse', value: 'extra-coarse' },

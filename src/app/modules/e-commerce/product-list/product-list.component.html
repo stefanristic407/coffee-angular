@@ -153,7 +153,7 @@
                                 <div *ngFor="let item of mobileFields" [ngSwitch]="item.field">
                                     <span class="pr-2">{{ item.header | translate }}:</span>
                                     <span class="fnt-bold" *ngSwitchCase="'status'">{{
-                                        rowData[item.field] | strReplace: '-':' ' | titlecase
+                                        rowData[item.field] | ecomProductStatus
                                     }}</span>
                                     <span class="fnt-bold" *ngSwitchCase="'origin'">{{
                                         rowData[item.field] | country
@@ -175,7 +175,7 @@
                     </span>
 
                     <span *ngSwitchCase="'status'">
-                        {{ rowData[col.field] | sentencecase }}
+                        {{ rowData[col.field] | ecomProductStatus }}
                     </span>
 
                     <span *ngSwitchCase="'origin'">
