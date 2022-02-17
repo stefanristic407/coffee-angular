@@ -223,7 +223,7 @@ export class CreateArticleComponent implements OnInit {
             images: this.imageIdList,
             status,
             categories: this.categoryValue?.map((item) => item.id),
-            slug: this.articleForm.get('slug').value,
+            slug: this.articleForm.controls.slug.value,
         };
         if (this.isCoverImageUploaded) {
             data = {
