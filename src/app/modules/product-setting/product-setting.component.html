@@ -215,8 +215,11 @@
                                             </td>
                                             <td>
                                                 <span class="list-ans">
-                                                    {{ shippingDetails?.price | number: '1.2-4' }}
-                                                    {{ shippingDetails?.price_unit }}
+                                                    <span *ngIf="shippingDetails?.price">
+                                                        {{ shippingDetails?.price | number: '1.2-4' }}
+                                                        {{ shippingDetails?.price_unit }}
+                                                    </span>
+                                                    <span *ngIf="!shippingDetails?.price">NA</span>
                                                 </span>
                                             </td>
                                         </tr>
@@ -415,7 +418,13 @@
                                     <span class="list-que"> {{ 'shipping_price' | translate }} : </span>
                                 </td>
                                 <td>
-                                    <span class="list-ans"> {{ shippingDetails.price || 'NA' }} kr </span>
+                                    <span class="list-ans">
+                                        <span *ngIf="shippingDetails?.price">
+                                            {{ shippingDetails?.price | number: '1.2-4' }}
+                                            {{ shippingDetails?.price_unit }}
+                                        </span>
+                                        <span *ngIf="!shippingDetails?.price">NA</span>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
