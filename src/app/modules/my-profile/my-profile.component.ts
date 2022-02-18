@@ -90,7 +90,7 @@ export class MyProfileComponent implements OnInit {
 
     ngOnInit(): void {
         this.breadcrumbItems = [
-            { label: this.translator.instant('home'), routerLink: '/dashboard' },
+            { label: this.translator.instant('home'), routerLink: '/' },
             { label: this.translator.instant('my_profile') },
         ];
 
@@ -171,8 +171,8 @@ export class MyProfileComponent implements OnInit {
             .open(CropperDialogComponent, {
                 data: {
                     imageChangedEvent: event,
-                    resizeToWidth: 1144,
-                    maintainAspectRatio: false,
+                    aspectRatio: 1240 / 274,
+                    resizeToWidth: 1240,
                 },
             })
             .onClose.subscribe((data: CroppedImage) => {
