@@ -1,13 +1,13 @@
 <div class="main-block">
-    <div class="d-flex flex-wrap justify-content-between pb-2 pb-md-0">
-        <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
-        <div class="col-lg-4 w-100">
-            <span class="custom-search d-none d-md-inline-block w-100">
+    <div class="d-flex flex-wrap justify-content-between">
+        <p-breadcrumb [model]="breadCrumbItems" class="breadcrumb-mb"></p-breadcrumb>
+        <div class="d-none d-lg-block col-lg-4 p-0">
+            <span class="custom-search w-100">
                 <input
                     type="text"
                     pInputText
                     class="w-100"
-                    [placeholder]="'search_by_id_name' | translate"
+                    [placeholder]="'search_orderid_estate' | translate"
                     [(ngModel)]="term"
                     (ngModelChange)="onFilter()"
                 />
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <section class="grading__total pt-4 pt-lg-25">
+    <section>
         <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
             <div class="green_grading_cont">
                 <h1 class="fnt-18 fw-b mb-2">{{ 'score_sample' | translate }}</h1>

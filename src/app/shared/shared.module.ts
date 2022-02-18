@@ -216,9 +216,11 @@ import { ChatHighlighterDirective } from './directives/chat-highlighter/chat-hig
 import { ImageFallbackDirective } from './directives/image-fallback/image-fallback.directive';
 import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
 import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
-import { AclDirective, InputNumberDirective } from './directives';
+
+import { AclDirective, BackLinkDirective, InputNumberDirective } from './directives';
 const DIRECTIVES = [
     AclDirective,
+    BackLinkDirective,
     ChatHighlighterDirective,
     CopyImageToClipboardDirective,
     FullImgWrapperDirective,
