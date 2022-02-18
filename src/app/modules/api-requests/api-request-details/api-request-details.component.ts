@@ -69,7 +69,7 @@ export class ApiRequestDetailsComponent implements OnInit {
         };
         const obj3: MenuItem = {
             label: this.globals.languageJson?.api_request_details,
-            routerLink: '/api-requests-list/api-request-details',
+            // routerLink: '/api-requests-list/api-request-details',
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
