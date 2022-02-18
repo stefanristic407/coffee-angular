@@ -37,8 +37,8 @@ export class CoffeeListComponent extends ResizeableComponent implements OnInit {
                 { label: 'Name (A-Z)', value: ['name', 'asc'] },
                 { label: 'Recently added', value: ['available_at', 'desc'] },
                 { label: 'Cup score (High-Low)', value: ['cup_score', 'desc'] },
-                { label: 'Price (High - low)', value: ['price', 'desc'] },
-                { label: 'Quantity (High- Low)', value: ['total_quantity', 'desc'] },
+                { label: 'Price (High-Low)', value: ['price', 'desc'] },
+                { label: 'Quantity (High-Low)', value: ['total_quantity', 'desc'] },
             ];
             this.sourcingSrv.showUnitFilter = true;
             this.sourcingSrv.showAvailableFilter = false;
