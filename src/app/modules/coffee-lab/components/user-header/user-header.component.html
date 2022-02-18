@@ -55,8 +55,8 @@
                 [class.justify-content-md-between]="prop?.question && !prop.question_id"
             >
                 <div>
-                    <span class="fw-m mr-1" *ngIf="orgType !== 'co'">{{ 'coffee_experts' | translate }}</span>
-                    <span class="fw-m mr-1" *ngIf="orgType === 'co'">{{ 'coffee_consumer' | translate }}</span>
+                    <span class="mr-1" *ngIf="orgType !== 'co'">{{ 'coffee_experts' | translate }}</span>
+                    <span class="mr-1" *ngIf="orgType === 'co'">{{ 'coffee_consumer' | translate }}</span>
                     <span
                         *ngIf="
                             prop?.org_type !== 'sa' &&
@@ -86,7 +86,7 @@
                         class="d-none d-md-block time-point"
                     ></span>
                     <span
-                        class="fw-n text-clr588 d-none d-md-block position-relative"
+                        class="text-clr588 d-none d-md-block position-relative"
                         [class.align-time]="prop?.question && !prop.question_id"
                     >
                         {{
