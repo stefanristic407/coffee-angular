@@ -271,20 +271,14 @@
                                     <tr>
                                         <th
                                             *ngFor="let col of columns"
-                                            [pSortableColumn]="col.sortable === true ? col.field : null"
+                                            [pSortableColumn]="col.sortable ? col.field : null"
                                         >
                                             <span class="primeng-table-header">{{ col.header }}</span>
-                                            <p-sortIcon
-                                                *ngIf="col.sortable === true"
-                                                [field]="col.field"
-                                                ariaLabel="Activate to sort"
-                                                ariaLabelDesc="Activate to sort in descending order"
-                                                ariaLabelAsc="Activate to sort in ascending order"
-                                            >
-                                            </p-sortIcon>
+                                            <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
                                         </th>
                                     </tr>
                                 </ng-template>
+
                                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                                     <tr>
                                         <td *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -345,13 +339,14 @@
                                                     </span>
                                                 </div>
                                             </span>
-                                            <span
-                                                *ngSwitchCase="'actions'"
-                                                class="text-center"
-                                                (click)="availabilityPage(rowData)"
-                                            >
+                                            <span *ngSwitchCase="'actions'" class="text-center">
                                                 <ng-container *ngIf="!primeTableService.isMobileView">
-                                                    <span class="brown-cta">View</span>
+                                                    <span
+                                                        *ngIf="!rowData.is_deleted"
+                                                        class="brown-cta"
+                                                        (click)="availabilityPage(rowData)"
+                                                        >{{ 'view' | translate }}</span
+                                                    >
                                                 </ng-container>
                                             </span>
                                             <span *ngSwitchDefault>
