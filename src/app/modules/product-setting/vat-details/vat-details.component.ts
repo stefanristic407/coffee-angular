@@ -130,6 +130,7 @@ export class VatDetailsComponent extends ResizeableComponent implements OnInit {
                 this.resetButtonValue = 'Save';
                 this.toastrService.success(`VAT Details added successfully`);
                 this.getVatDetails();
+                this.mrList[this.editIndex] = body;
                 this.editIndex = null;
             } else {
                 this.toastrService.error('Error while adding VAT details');
