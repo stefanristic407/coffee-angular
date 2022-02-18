@@ -247,33 +247,25 @@
                         </div>
                         <div class="row mt-4 ml-md-0 mr-md-0">
                             <div class="fnt-14 fw-b mb-2">{{ 'order_activity' | translate }}</div>
-                            <p-table
-                                id="tabTable"
-                                #markedTable
-                                [class.table-mobile]="primeTableService.isMobileView"
-                                [value]="activityValue"
-                                [columns]="primeTableService._allColumns"
-                                dataKey="id"
-                                styleClass="ui-table-customers"
-                                [showCurrentPageReport]="false"
-                                [responsive]="primeTableService.isMobileView"
-                            >
-                                <ng-template pTemplate="colgroup" let-columns>
-                                    <colgroup>
-                                        <col
-                                            *ngFor="let col of columns"
-                                            [style.width]="col.width ? col.width + 'px' : '50px'"
-                                        />
-                                    </colgroup>
-                                </ng-template>
 
+                            <p-table
+                                #markedTable
+                                [value]="activityValue"
+                                [columns]="tableColumns"
+                                dataKey="id"
+                                [showCurrentPageReport]="false"
+                                [paginator]="totalRecords > rows"
+                                [rows]="rows"
+                                [responsive]="true"
+                            >
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
                                         <th
                                             *ngFor="let col of columns"
+                                            [style.width]="col.width ? col.width + '%' : '30%'"
                                             [pSortableColumn]="col.sortable ? col.field : null"
                                         >
-                                            <span class="primeng-table-header">{{ col.header }}</span>
+                                            <span>{{ col.header | translate }}</span>
                                             <p-sortIcon *ngIf="col.sortable" [field]="col.field"> </p-sortIcon>
                                         </th>
                                     </tr>
@@ -281,80 +273,50 @@
 
                                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                                     <tr>
-                                        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                                        <td
+                                            *ngFor="let col of columns"
+                                            [ngSwitch]="col.field"
+                                            [style.width]="col.width ? col.width + '%' : '30%'"
+                                        >
+                                            <span class="p-column-title">{{ col.header | translate }}</span>
                                             <span *ngSwitchCase="'created_at'">
-                                                <div class="d-flex">
-                                                    <span
-                                                        *ngIf="primeTableService.isMobileView"
-                                                        class="prime-table-label text-clr588 w-50"
-                                                    >
-                                                        {{ 'date' | translate }}
-                                                    </span>
-                                                    <span [class.w-50]="primeTableService.isMobileView">
-                                                        {{ rowData['created_at'] | date: 'd MMM yyyy' }}
-                                                    </span>
-                                                </div>
+                                                {{ rowData[col.field] | date: 'dd MMM y' }}
                                             </span>
                                             <span *ngSwitchCase="'location'">
-                                                <div class="d-flex">
-                                                    <span
-                                                        *ngIf="primeTableService.isMobileView"
-                                                        class="prime-table-label text-clr588 w-50"
-                                                    >
-                                                        {{ 'location' | translate }}
-                                                    </span>
-                                                    <span
-                                                        [class.w-50]="primeTableService.isMobileView"
-                                                        class="truncate break-word"
-                                                    >
-                                                        <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE'">{{
-                                                            'green_inventory' | translate
-                                                        }}</span>
-                                                        <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE_SAMPLE'">{{
-                                                            'sample quantity' | translate
-                                                        }}</span>
-                                                        <span *ngIf="rowData.catalogue === 'OUTTAKE_ORDER'">{{
-                                                            'outtake_order' | translate
-                                                        }}</span>
-                                                        <span *ngIf="rowData.catalogue === 'RO_BATCH'">{{
-                                                            'roasted_coffee_batch' | translate
-                                                        }}</span>
-                                                        <span *ngIf="rowData.catalogue === 'RO_CUPPING'">{{
-                                                            'sample_cupping' | translate
-                                                        }}</span>
-                                                    </span>
-                                                </div>
+                                                <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE'">{{
+                                                    'green_inventory' | translate
+                                                }}</span>
+                                                <span *ngIf="rowData.catalogue === 'RO_GREEN_COFFEE_SAMPLE'">{{
+                                                    'sample_quantity' | translate
+                                                }}</span>
+                                                <span *ngIf="rowData.catalogue === 'OUTTAKE_ORDER'">{{
+                                                    'outtake_order' | translate
+                                                }}</span>
+                                                <span *ngIf="rowData.catalogue === 'RO_BATCH'">{{
+                                                    'roasted_coffee_batch' | translate
+                                                }}</span>
+                                                <span *ngIf="rowData.catalogue === 'RO_CUPPING'">{{
+                                                    'sample_cupping' | translate
+                                                }}</span>
                                             </span>
                                             <span *ngSwitchCase="'quantity'">
-                                                <div class="d-flex">
-                                                    <span
-                                                        *ngIf="primeTableService.isMobileView"
-                                                        class="prime-table-label text-clr588 w-50"
-                                                    >
-                                                        {{ 'quantity' | translate }}
-                                                    </span>
-
-                                                    <span [class.w-50]="primeTableService.isMobileView">
-                                                        {{ rowData['total_quantity'] }}&nbsp; kg
-                                                    </span>
-                                                </div>
+                                                {{ rowData['total_quantity'] }}&nbsp; kg
                                             </span>
-                                            <span *ngSwitchCase="'actions'" class="text-center">
-                                                <ng-container *ngIf="!primeTableService.isMobileView">
-                                                    <span
-                                                        *ngIf="!rowData.is_deleted"
-                                                        class="brown-cta"
-                                                        (click)="availabilityPage(rowData)"
-                                                        >{{ 'view' | translate }}</span
-                                                    >
-                                                </ng-container>
+                                            <span *ngSwitchCase="'actions'">
+                                                <span
+                                                    *ngIf="!rowData.is_deleted"
+                                                    class="brown-cta"
+                                                    (click)="availabilityPage(rowData)"
+                                                    >{{ 'view' | translate }}</span
+                                                >
                                             </span>
                                             <span *ngSwitchDefault>
-                                                {{ rowData[col.field] }}
+                                                {{ rowData[col.field] || '-' }}
                                             </span>
                                         </td>
                                     </tr>
                                 </ng-template>
+
                                 <ng-template pTemplate="summary">
                                     <app-empty
                                         *ngIf="!activityValue?.length || activityValue?.length < 1"
@@ -362,13 +324,6 @@
                                     ></app-empty>
                                 </ng-template>
                             </p-table>
-                            <div class="w-100 mt-4">
-                                <p-paginator
-                                    [rows]="5"
-                                    [totalRecords]="totalRecords"
-                                    (onPageChange)="paginate($event)"
-                                ></p-paginator>
-                            </div>
                         </div>
                     </div>
                 </div>
