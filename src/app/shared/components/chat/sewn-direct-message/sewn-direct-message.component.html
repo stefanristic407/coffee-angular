@@ -717,9 +717,11 @@
                             <div *ngIf="message.showTranslation === 'OFF'" class="dm-ci-content-text">
                                 {{ message.content || '_' }}
                             </div>
-                            <div *ngIf="message.showTranslation === 'ON'" class="dm-ci-content-text">
-                                {{ message.translatedText }}
-                            </div>
+                            <div
+                                *ngIf="message.showTranslation === 'ON'"
+                                class="dm-ci-content-text"
+                                [innerHtml]="message.translatedText"
+                            ></div>
                             <div *ngIf="message.showTranslation === 'IP'" class="dm-ci-content-translation">
                                 <p-progressSpinner strokeWidth="5"></p-progressSpinner>
                                 <span class="dm-ci-content-translating-text">{{ 'translating' | translate }}...</span>
@@ -836,9 +838,11 @@
                                         class="dm-ci-content-text"
                                     ></div>
                                 </ng-container>
-                                <div *ngIf="unit.message.showTranslation === 'ON'" class="dm-ci-content-text">
-                                    {{ unit.message.translatedText }}
-                                </div>
+                                <div
+                                    *ngIf="unit.message.showTranslation === 'ON'"
+                                    class="dm-ci-content-text"
+                                    [innerHtml]="unit.message.translatedText"
+                                ></div>
                                 <div *ngIf="unit.message.showTranslation === 'IP'" class="dm-ci-content-translation">
                                     <p-progressSpinner strokeWidth="5"></p-progressSpinner>
                                     <span class="dm-ci-content-translating-text"
