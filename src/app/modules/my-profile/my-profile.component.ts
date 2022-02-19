@@ -1,17 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { COUNTRY_LIST, LANGUAGES } from '@constants';
+import { OrganizationType, PostType, ProfileImageType } from '@enums';
+import { CroppedImage, UserProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService, ChatHandlerService, UserService, ValidateEmailService } from '@services';
+import { CropperDialogComponent } from '@shared';
+import { emailValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService, ChatHandlerService, UserService, ValidateEmailService } from '@services';
-import { CropperDialogComponent } from '@shared';
-import { CroppedImage, UserProfile } from '@models';
-import { emailValidator } from '@utils';
-import { COUNTRY_LIST, LANGUAGES } from '@constants';
-import { OrganizationType, PostType, ProfileImageType } from '@enums';
 
 @Component({
     selector: 'app-my-profile',
@@ -42,7 +42,7 @@ export class MyProfileComponent implements OnInit {
     isMyProfile = true;
     menuItems = [
         {
-            label: 'qa_forum',
+            label: 'question_answers',
             postType: PostType.QA,
             icon: 'assets/images/qa-forum.svg',
             activeIcon: 'assets/images/qa-forum-active.svg',
@@ -90,7 +90,7 @@ export class MyProfileComponent implements OnInit {
 
     ngOnInit(): void {
         this.breadcrumbItems = [
-            { label: this.translator.instant('home'), routerLink: '/dashboard' },
+            { label: this.translator.instant('home'), routerLink: '/' },
             { label: this.translator.instant('my_profile') },
         ];
 
@@ -171,8 +171,8 @@ export class MyProfileComponent implements OnInit {
             .open(CropperDialogComponent, {
                 data: {
                     imageChangedEvent: event,
-                    resizeToWidth: 1144,
-                    maintainAspectRatio: false,
+                    aspectRatio: 1240 / 274,
+                    resizeToWidth: 1240,
                 },
             })
             .onClose.subscribe((data: CroppedImage) => {

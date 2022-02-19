@@ -99,7 +99,7 @@ export class ArticleDetailComponent extends DestroyableComponent implements OnIn
                 this.coffeeLabService.updateLang(res.result.language).then(() => {
                     this.detailsData = res.result;
                     this.items = [
-                        { label: this.translator.instant('the_coffee_lab'), routerLink: '/' },
+                        { label: this.translator.instant('the_coffee_lab'), routerLink: '/coffee-lab' },
                         { label: this.translator.instant('articles'), routerLink: `/coffee-lab/overview/articles` },
                         {
                             label: this.convertToShortDescription.transform(this.detailsData.title, 4),

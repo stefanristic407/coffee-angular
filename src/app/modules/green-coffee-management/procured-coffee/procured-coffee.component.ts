@@ -1,11 +1,9 @@
-import { Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { TranslateService } from '@ngx-translate/core';
-import { PrimeTableService, ResizeService, RoasterService } from '@services';
+import { ResizeService, RoasterService } from '@services';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
-import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-procured-coffee',
@@ -21,22 +19,11 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
     breadItems: any = [];
     selectedTab = 0;
     roasterNotes: any = [];
-    originArray: any;
-    termStatus: any;
-    termOrigin: any;
-    totalRecords = 0;
-    public _form: FormGroup;
-    activityValue: any;
-    filterAtivity: any;
-    first: any;
-    @Input('form')
-    set form(value: FormGroup) {
-        this._form = value;
-    }
 
-    get form() {
-        return this._form;
-    }
+    rows = 5;
+    totalRecords = 0;
+    tableColumns: any[];
+    activityValue: any;
 
     constructor(
         private gallery: Gallery,
@@ -45,7 +32,6 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         private router: Router,
         private translator: TranslateService,
         protected resizeService: ResizeService,
-        public primeTableService: PrimeTableService,
     ) {
         super(resizeService);
         this.route.params.subscribe((params) => {
@@ -66,60 +52,31 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         ];
     }
 
-    @ViewChild('activityLog', { static: true }) table: Table;
-    public isMobile = false;
-
-    @HostListener('window:resize', ['$event'])
-    onResize(event?) {
-        this.initializeTableProcuredCoffee();
-    }
     initializeTableProcuredCoffee() {
-        this.primeTableService.windowWidth = window.innerWidth;
-
-        if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
-            this.primeTableService.isMobileView = true;
-            this.primeTableService.allColumns = [
-                {
-                    field: 'created_at',
-                    header: 'Date',
-                    sortable: false,
-                },
-                {
-                    field: 'location',
-                    header: 'Location',
-                    sortable: false,
-                },
-                {
-                    field: 'quantity',
-                    header: 'quantity',
-                    sortable: false,
-                },
-            ];
-        } else {
-            this.primeTableService.isMobileView = false;
-            this.primeTableService.allColumns = [
-                {
-                    field: 'created_at',
-                    header: 'Date',
-                    sortable: false,
-                },
-                {
-                    field: 'location',
-                    header: 'Location',
-                    sortable: false,
-                },
-                {
-                    field: 'quantity',
-                    header: 'Quantity',
-                    sortable: false,
-                },
-                {
-                    field: 'actions',
-                    header: 'Actions',
-                    sortable: false,
-                },
-            ];
-        }
+        this.tableColumns = [
+            {
+                field: 'created_at',
+                header: 'Date',
+                width: 27,
+            },
+            {
+                field: 'location',
+                header: 'Location',
+                width: 35,
+            },
+            {
+                field: 'quantity',
+                header: 'Quantity',
+                width: 23,
+            },
+            this.resizeService.isMobile()
+                ? null
+                : {
+                      field: 'actions',
+                      header: 'Actions',
+                      width: 20,
+                  },
+        ].filter(Boolean);
     }
 
     ngOnInit(): void {
@@ -133,78 +90,56 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         this.getOrderDetails();
         this.getRoasterNotes();
         this.initializeTableProcuredCoffee();
-        this.primeTableService.form = this.form;
-        this.primeTableService.form?.valueChanges.subscribe((data) =>
-            setTimeout(() => {
-                this.table.reset();
-            }, 100),
-        );
     }
 
     getOrderDetails() {
         this.isLoaded = false;
-        this.roasterService.getProcuredOrderDetails(this.orderID).subscribe(
-            (response) => {
-                if (response.success && response.result) {
-                    this.orderDetails = response.result;
-                    if (this.orderDetails && this.orderDetails.harvest_id) {
-                        this.getGCAvailableDetails(this.orderDetails.harvest_id);
-                    }
-                    this.isLoaded = true;
+        this.roasterService.getProcuredOrderDetails(this.orderID).subscribe((response) => {
+            if (response.success && response.result) {
+                this.orderDetails = response.result;
+                if (this.orderDetails && this.orderDetails.harvest_id) {
+                    this.getGCAvailableDetails(this.orderDetails.harvest_id);
                 }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
+                this.isLoaded = true;
+            }
+        });
     }
 
     getGCAvailableDetails(harvestID) {
-        this.roasterService.getGCAvailableDetails(harvestID).subscribe(
-            (response) => {
-                if (response && response.success && response.result) {
-                    const result = response.result;
-                    this.orderDetails.availability_name = result.name;
-                    this.orderDetails.cup_score = result.cupping.cup_score;
-                    this.orderDetails.cupping_at = result.cupping.cupped_at;
-                    this.orderDetails.dry_milling = result.dry_milling;
-                    this.orderDetails.dry_milling.moisture_content =
-                        this.orderDetails.dry_milling.moisture_content + '%';
-                    this.orderDetails.evaluator_name = result.cupping.evaluator_name;
-                    this.orderDetails.evaluator_dp_thumb = result.cupping.evaluator_dp_thumb;
-                    this.orderDetails.altitude = result.min_altitude + '-' + result.max_altitude;
-                    this.orderDetails.flavour_profile = result.flavours.map((item) => item.name).join(', ');
-                    this.orderDetails.wet_mill = result.wet_milling.name;
-                    this.orderDetails.processing = result.wet_milling.process + ',' + result.dry_milling.process;
-                    this.orderDetails.images = result.images;
-                    this.orderDetails.available_quantity = result.quantity;
-                    this.orderDetails.available_quantity_count = result.quantity_count;
-                    this.orderDetails.available_quantity_unit = result.quantity_unit;
-                    this.orderDetails.available_quantity_type = result.quantity_type;
-                    this.orderDetails.buying_price = result.price;
-                    this.orderDetails.buying_price_unit = result.price_unit;
-                    this.items = result.images.map(
-                        (item) => new ImageItem({ src: item.url, thumb: item.thumb_url ? item.thumb_url : item.url }),
-                    );
-                }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
+        this.roasterService.getGCAvailableDetails(harvestID).subscribe((response) => {
+            if (response && response.success && response.result) {
+                const result = response.result;
+                this.orderDetails.availability_name = result.name;
+                this.orderDetails.cup_score = result.cupping.cup_score;
+                this.orderDetails.cupping_at = result.cupping.cupped_at;
+                this.orderDetails.dry_milling = result.dry_milling;
+                this.orderDetails.dry_milling.moisture_content = this.orderDetails.dry_milling.moisture_content + '%';
+                this.orderDetails.evaluator_name = result.cupping.evaluator_name;
+                this.orderDetails.evaluator_dp_thumb = result.cupping.evaluator_dp_thumb;
+                this.orderDetails.altitude = result.min_altitude + '-' + result.max_altitude;
+                this.orderDetails.flavour_profile = result.flavours.map((item) => item.name).join(', ');
+                this.orderDetails.wet_mill = result.wet_milling.name;
+                this.orderDetails.processing = result.wet_milling.process + ',' + result.dry_milling.process;
+                this.orderDetails.images = result.images;
+                this.orderDetails.available_quantity = result.quantity;
+                this.orderDetails.available_quantity_count = result.quantity_count;
+                this.orderDetails.available_quantity_unit = result.quantity_unit;
+                this.orderDetails.available_quantity_type = result.quantity_type;
+                this.orderDetails.buying_price = result.price;
+                this.orderDetails.buying_price_unit = result.price_unit;
+                this.items = result.images.map(
+                    (item) => new ImageItem({ src: item.url, thumb: item.thumb_url ? item.thumb_url : item.url }),
+                );
+            }
+        });
     }
 
     getRoasterNotes() {
-        this.roasterService.getRoasterNotes(this.orderID).subscribe(
-            (response) => {
-                if (response && response.success && response.result) {
-                    this.roasterNotes = response.result;
-                }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
+        this.roasterService.getRoasterNotes(this.orderID).subscribe((response) => {
+            if (response && response.success && response.result) {
+                this.roasterNotes = response.result;
+            }
+        });
     }
 
     availabilityPage(data) {
@@ -223,35 +158,28 @@ export class ProcuredCoffeeComponent extends ResizeableComponent implements OnIn
         if (data.catalogue === 'RO_GREEN_COFFEE') {
             this.router.navigateByUrl(`/green-coffee-management/green-coffee-for-sale-details/${data.gc_order_id}`);
         }
+        if (data.catalogue === 'RO_GREEN_COFFEE_SAMPLE') {
+            this.router.navigateByUrl(`/green-coffee-management/lot-sale?orderId=${data.gc_order_id}`);
+        }
     }
 
     viewReport() {
-        this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe(
-            (res) => {
-                if (res.success && res.result && res.result.url) {
-                    const hiddenElement = document.createElement('a');
-                    hiddenElement.href = res.result.url;
-                    hiddenElement.target = '_blank';
-                    hiddenElement.click();
-                }
-            },
-            (err) => {
-                console.log(err);
-            },
-        );
+        this.roasterService.getCuppingReportDetails(this.orderDetails.harvest_id).subscribe((res) => {
+            if (res.success && res.result && res.result.url) {
+                const hiddenElement = document.createElement('a');
+                hiddenElement.href = res.result.url;
+                hiddenElement.target = '_blank';
+                hiddenElement.click();
+            }
+        });
     }
 
     getActivityDetails() {
         this.roasterService.getActivityDetails(this.orderID).subscribe((res: any) => {
             if (res.success) {
-                this.filterAtivity = res.result;
-                this.activityValue = this.filterAtivity.slice(0, 5);
+                this.activityValue = res.result;
                 this.totalRecords = res.result.length;
             }
         });
-    }
-
-    paginate(event: any) {
-        this.activityValue = this.filterAtivity.slice(event.first, event.first + 5);
     }
 }

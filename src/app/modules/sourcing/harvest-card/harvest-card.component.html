@@ -7,6 +7,9 @@
         <div class="cupping">
             <p>Cup score {{ data.cup_score || '-' }}</p>
         </div>
+        <div *ngIf="data.type === HarvestType.PARCHMENT" class="parchment-mark">
+            {{ 'in_parchment' | translate }}
+        </div>
     </div>
     <div class="card-body d-flex flex-column">
         <h5 class="fnt-16 fnt-md-18 black fw-b mb-1 ellipsis">{{ data.name }}</h5>

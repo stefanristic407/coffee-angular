@@ -27,6 +27,7 @@ export class ForumMenuComponent extends DestroyableComponent implements OnInit {
     @Input() enableDeleteSave = false;
     @Input() enableTranslation = false;
     @Output() editAnswer = new EventEmitter();
+    @Output() editComment = new EventEmitter();
     items: MenuItem[] = [];
     @ViewChild('menu', { static: false }) menu: Menu;
 
@@ -174,12 +175,7 @@ export class ForumMenuComponent extends DestroyableComponent implements OnInit {
                 this.editAnswer.emit(true);
                 break;
             case 'comment':
-                this.router.navigate(['/coffee-lab/create-post/comment'], {
-                    queryParams: {
-                        forumType: 'comment',
-                        forumId: this.selectedItem.id,
-                    },
-                });
+                this.editComment.emit(true);
                 break;
         }
     }

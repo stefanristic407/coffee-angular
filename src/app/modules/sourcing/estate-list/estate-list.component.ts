@@ -34,6 +34,7 @@ export class EstateListComponent extends DestroyableComponent implements OnInit 
             ];
             this.sourcingSrv.showUnitFilter = false;
             this.sourcingSrv.showAvailableFilter = true;
+            this.sourcingSrv.showTypeFilter = false;
         });
         this.sourcingSrv.clearQueryParams();
         this.sourcingSrv.queryParams$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: any) => {

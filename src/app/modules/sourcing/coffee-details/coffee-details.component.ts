@@ -1,12 +1,11 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
+import { HarvestType } from '@enums';
 import { AuthService, ResizeService } from '@services';
 import { getContinentName, getCountry } from '@utils';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
-import { Lightbox } from 'ng-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'underscore';
 import { SourcingService } from '../sourcing.service';
@@ -17,6 +16,7 @@ import { SourcingService } from '../sourcing.service';
     styleUrls: ['./coffee-details.component.scss'],
 })
 export class CoffeeDetailsComponent extends ResizeableComponent implements OnInit {
+    readonly HarvestType = HarvestType;
     items: GalleryItem[];
     isLoaded = false;
     buyable = false;
@@ -24,13 +24,11 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
 
     constructor(
         private authService: AuthService,
+        private gallery: Gallery,
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
         protected resizeService: ResizeService,
-        public gallery: Gallery,
-        public lightbox: Lightbox,
-        public location: Location,
         public sourcing: SourcingService,
     ) {
         super(resizeService);

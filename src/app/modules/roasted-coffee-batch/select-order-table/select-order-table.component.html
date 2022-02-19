@@ -119,7 +119,7 @@
 
                     <ng-container *ngSwitchCase="'quantity'">
                         <span class="p-column-title"> {{ col.header | translate }} </span>
-                        <span>{{ rowData[col.field] }} {{ rowData['quantity_type'] }}</span>
+                        <span>{{ rowData.quantity_count }} {{ rowData['quantity_type'] }}</span>
                     </ng-container>
 
                     <ng-container *ngSwitchDefault>

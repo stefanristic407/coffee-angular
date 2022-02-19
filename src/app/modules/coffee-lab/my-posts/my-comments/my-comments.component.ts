@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, CoffeeLabService } from '@services';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class MyCommentsComponent implements OnInit, OnDestroy {
     comments: any[] = [];
+    mycomment: string;
     sortOptions = [
         { label: 'latest', value: 'desc' },
         { label: 'oldest', value: 'asc' },
@@ -23,7 +25,11 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
     rows = 10;
     displayData: any[] = [];
 
-    constructor(public coffeeLabService: CoffeeLabService, private router: Router) {
+    constructor(
+        public coffeeLabService: CoffeeLabService,
+        private router: Router,
+        private toastrService: ToastrService,
+    ) {
         this.pageDesc = this.router.url.split('/')[this.router.url.split('/').length - 2];
     }
 
@@ -66,6 +72,51 @@ export class MyCommentsComponent implements OnInit, OnDestroy {
             this.displayData = this.comments;
             this.isLoading = false;
         });
+    }
+
+    onEditComments(event: any, mainIndex: number, index?: number) {
+        if (event) {
+            console.log(this.displayData);
+            const isEdit = 'isEdit';
+            this.displayData[mainIndex].comments[index][isEdit] = true;
+            this.getForumById(this.displayData[mainIndex].comments[index].id);
+        }
+    }
+
+    getForumById(forumId: number): void {
+        this.mycomment = '';
+        this.coffeeLabService.getForumDetails('comment', forumId).subscribe((res: any) => {
+            if (res.success) {
+                this.mycomment = res.result.comment;
+            } else {
+                this.toastrService.error('Error while get comment');
+            }
+        });
+    }
+
+    onEditPost(forumId: number): void {
+        if (!this.mycomment) {
+            this.toastrService.error('Please fill out field.');
+            return;
+        }
+        let data: any = {};
+        data = {
+            comment: this.mycomment,
+        };
+        if (forumId) {
+            this.coffeeLabService.updateForum('comment', forumId, data).subscribe((res: any) => {
+                if (res.success) {
+                    this.toastrService.success('Your comment updated successfully');
+                    this.getComments();
+                } else {
+                    this.toastrService.error('Failed to update article.');
+                }
+            });
+        }
+    }
+
+    onCancel(mainIndex: number, index: number) {
+        this.displayData[mainIndex].comments[index].isEdit = false;
     }
 
     paginate(event: any) {

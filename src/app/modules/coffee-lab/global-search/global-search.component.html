@@ -1,7 +1,7 @@
 <div class="search-pad main-block">
     <div class="search-bg">
         <div class="d-flex justify-content-between">
-            <h1 class="fw-sb mt-0 mb-25 fnt-18">Search The Coffee Lab</h1>
+            <h1 class="fw-b mt-0 mb-25 fnt-18">{{ 'search_the_coffee_lab' | translate }}</h1>
             <i class="pi pi-times-circle tc-m cursor-pointer" (click)="onClose()"></i>
         </div>
         <div class="d-flex flex-column pb-3 pb-md-0">
@@ -15,7 +15,7 @@
                     (ngModelChange)="handleSearch()"
                 />
             </div>
-            <span class="mt-25">Search results for "{{ keyword }}"</span>
+            <span class="mt-25">{{ 'search_results_for' | translate }} "{{ keyword }}"</span>
         </div>
     </div>
     <div
@@ -54,8 +54,8 @@
         >
             <p-tabPanel header="{{ item.label | translate }}" *ngFor="let item of tabMenuItems">
                 <div class="row mb-475 mb-md-0">
-                    <div class="fw-sb fnt-md-18 fnt-16 d-flex flex-column mb-25">
-                        <span class="mb-35 mt-4 pl-4">{{ item.label | translate }}</span>
+                    <div class="fw-b fnt-md-18 fnt-16 d-flex flex-column mb-25">
+                        <span class="mb-35 mt-4 pl-4 fw-b">{{ item.label | translate }}</span>
                         <ng-container *ngTemplateOutlet="filterDropdowns"></ng-container>
                     </div>
                 </div>
@@ -113,11 +113,11 @@
 <ng-template #filterDropdowns>
     <div class="d-flex mb-md-4 ml-md-45">
         <div class="d-md-flex justify-content-md-between align-items-center pr-lg-2 flex-1">
-            <div class="row" [ngClass]="{ 'flex-column': selectedTab !== 0 }">
-                <div class="col-auto pl-md-0">
+            <div class="row gutter-16 v-gutter-16">
+                <div class="col-auto pl-md-0 pl-45 pr-2">
                     <p-multiSelect
                         [options]="categoryList"
-                        (onChange)="filterCategory()"
+                        (onChange)="getPosts()"
                         [(ngModel)]="selectedCategory"
                         styleClass="round-border"
                         [placeholder]="'categories' | translate"
@@ -127,44 +127,25 @@
                         optionValue="id"
                     ></p-multiSelect>
                 </div>
-                <div class="mb-md-0 mb-3 col-auto pl-md-0" *ngIf="selectedTab === 1">
+                <div class="col-auto pl-0" *ngIf="postType === PostType.RECIPE">
                     <p-dropdown
-                        [options]="translationsList"
-                        optionLabel="label"
-                        optionValue="value"
-                        [(ngModel)]="isAvailableTranslation"
-                        (onChange)="getArticles()"
-                        placeholder="{{ 'translations_available' | translate }}"
-                        styleClass="round-border"
+                        [options]="levels"
+                        [(ngModel)]="level"
+                        (onChange)="getPosts()"
+                        [placeholder]="'levels' | translate"
                         [showClear]="true"
+                        styleClass="round-border {{ level ? 'highlight' : '' }}"
                     >
                         <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
                         <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                     </p-dropdown>
                 </div>
-                <div class="mb-md-0 mb-3 col-auto pl-md-0" *ngIf="selectedTab === 2">
-                    <p-dropdown
-                        [options]="translationsList"
-                        optionLabel="label"
-                        optionValue="value"
-                        [(ngModel)]="isAvailableRecipeTranslation"
-                        (onChange)="getRecipes()"
-                        [placeholder]="'translation_available' | translate"
-                        styleClass="round-border"
-                        [showClear]="true"
-                    >
-                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
-                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
-                    </p-dropdown>
-                </div>
-                <div class="col-auto pl-md-0" *ngIf="selectedTab === 0">
+                <div *ngIf="postType === PostType.QA" class="col-auto pl-0">
                     <p-dropdown
                         [options]="filterPostedByOptions"
-                        optionLabel="label"
-                        optionValue="value"
                         [(ngModel)]="filterBy"
-                        (onChange)="getQuestions()"
-                        styleClass="round-border text-clr588"
+                        (ngModelChange)="getPosts()"
+                        styleClass="round-border {{ filterBy ? 'highlight' : '' }}"
                         [placeholder]="'posted_by' | translate"
                         [showClear]="true"
                     >
@@ -172,16 +153,40 @@
                         <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
                     </p-dropdown>
                 </div>
-                <div class="col-auto pl-md-0">
+                <div *ngIf="postType === PostType.QA" class="col-auto pl-md-0 pl-45">
                     <p-dropdown
                         [options]="sortOptions"
-                        [(ngModel)]="selectedOrder"
-                        (onChange)="filterSortBy()"
+                        [(ngModel)]="sortBy"
+                        (ngModelChange)="getPosts()"
                         [placeholder]="'sort_by' | translate"
-                        styleClass="round-border text-clr588"
-                        optionLabel="label"
-                        optionValue="value"
+                        styleClass="round-border {{ sortBy ? 'highlight' : '' }}"
                         [showClear]="true"
+                    >
+                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                    </p-dropdown>
+                </div>
+                <div *ngIf="postType !== PostType.QA" class="col-auto pl-md-0 pl-45">
+                    <p-dropdown
+                        [options]="translationsList"
+                        [(ngModel)]="isAvailableTranslation"
+                        (ngModelChange)="getPosts()"
+                        placeholder="{{ 'translations_available' | translate }}"
+                        styleClass="round-border {{ isAvailableTranslation ? 'highlight' : '' }}"
+                        [showClear]="true"
+                    >
+                        <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
+                        <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>
+                    </p-dropdown>
+                </div>
+                <div *ngIf="postType !== PostType.QA" class="col-auto pl-md-0 pl-45">
+                    <p-dropdown
+                        [options]="orderList"
+                        [placeholder]="'sort_by' | translate"
+                        [(ngModel)]="selectedOrder"
+                        (ngModelChange)="getPosts()"
+                        [showClear]="true"
+                        styleClass="round-border {{ selectedOrder ? 'highlight' : '' }}"
                     >
                         <ng-template let-item pTemplate="selectedItem">{{ item.label | translate }}</ng-template>
                         <ng-template let-item pTemplate="item">{{ item.label | translate }}</ng-template>

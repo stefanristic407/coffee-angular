@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LBUNIT } from '@constants';
-import { QuantityUnit } from '@enums';
-import { GlobalsService } from '@services';
+import { HarvestType, QuantityUnit } from '@enums';
 import { SourcingService } from '../sourcing.service';
 
 @Component({
@@ -10,11 +9,12 @@ import { SourcingService } from '../sourcing.service';
     styleUrls: ['./harvest-card.component.scss'],
 })
 export class HarvestCardComponent implements OnInit {
+    readonly HarvestType = HarvestType;
     @Input() data: any;
     public readonly QuantityUnit = QuantityUnit;
     public readonly LBUNIT = LBUNIT;
 
-    constructor(public globals: GlobalsService, public sourcingSrv: SourcingService) {}
+    constructor(public sourcingSrv: SourcingService) {}
 
     ngOnInit(): void {}
 }

@@ -47,7 +47,7 @@
             <p-divider type="dashed"></p-divider>
         </div>
         <div class="mt-1 mb-3 mb-md-5">
-            <button class="btn-stroked" routerLink="/roastery-profile/about_roastery">
+            <button class="btn-stroked" appBackLink [defaultBackTo]="'/roastery-profile'">
                 {{ 'cancel' | translate }}
             </button>
         </div>

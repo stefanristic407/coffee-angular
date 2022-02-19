@@ -1,5 +1,12 @@
 @import 'variables';
 
+.custom-search {
+    @media (min-width: 767px) {
+        margin-left: auto;
+        width: 360px;
+    }
+}
+
 .qa-forum-search {
     width: 100%;
     @media (max-width: 991px) {

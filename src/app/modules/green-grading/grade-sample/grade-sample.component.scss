@@ -1,12 +1,5 @@
 @import 'variables';
 
-.custom-width {
-    width: 300px;
-    @media (min-width: 768px) {
-        width: 320px;
-    }
-}
-
 .action-button {
     color: $muted-text-color;
     padding-left: 0.25rem;

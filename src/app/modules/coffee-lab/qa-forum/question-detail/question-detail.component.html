@@ -195,7 +195,6 @@
                         >
                             <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                                 <div class="d-flex">
-                                    <img src="assets/images/qa-forum.svg" alt="question-image" />
                                     <p class="align-items-center d-flex text-nowrap fw-b fnt-14 text-clr334 ml-2">
                                         {{ 'read_the_original_answer' | translate }}
                                     </p>
@@ -210,7 +209,7 @@
                             <app-user-header [prop]="answerDetail.original_details"></app-user-header>
                             <div class="flavour-profiles bg-f8 w-100 p-3 mt-35">
                                 <a
-                                    class="fnt-14 fw-m"
+                                    class="fw-b"
                                     [routerLink]="getLink(answerDetail?.original_details?.question_slug)"
                                     [queryParams]="
                                         isAssignedToMe

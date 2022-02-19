@@ -18,3 +18,9 @@
         z-index: 1;
     }
 }
+
+:host ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    @media (min-width: 992px) {
+        padding: 0 16px 9px 15px;
+    }
+}

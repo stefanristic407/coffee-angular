@@ -88,6 +88,9 @@
         max-width: 100%;
         margin-top: 1rem;
     }
+    a {
+        text-decoration: underline !important;
+    }
 }
 .recipe-content .recipe-img {
     object-fit: cover;
@@ -101,7 +104,7 @@
 }
 .user-header {
     font-family: $secondary-font-family;
-    font-size: 48px;
+    font-size: 42px;
     @media (max-width: 768px) {
         font-size: 32px;
     }
