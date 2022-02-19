@@ -11,7 +11,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { checkFile } from '@utils';
 import { ToastrService } from 'ngx-toastr';
-import { TargetLocator } from 'selenium-webdriver';
 
 @Component({
     selector: 'app-product-image',
