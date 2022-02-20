@@ -36,16 +36,16 @@
         </div>
     </ng-container>
     <ng-template #estate_order>
-        <div class="lot-detail-wrapper d-flex flex-column flex-md-row">
-            <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
+        <div class="row no-gutters gutter-md-24">
+            <div class="d-flex flex-row flex-md-column col-md-2 lot-box">
                 <span class="fw-m text-muted">{{ 'origin' | translate }}</span>
                 <span class="mt-md-3 fw-m text-clr334">{{ lot?.origin | country }}</span>
             </div>
-            <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
+            <div class="d-flex flex-row flex-md-column col-md-4 lot-box">
                 <span class="fw-m text-muted">{{ 'variety' | translate }}</span>
                 <span class="mt-md-3 fw-m text-clr334">{{ lot?.varieties }}</span>
             </div>
-            <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
+            <div class="d-flex flex-row flex-md-column col-md-4 lot-box">
                 <span class="fw-m text-muted">{{ 'quantity' | translate }}</span>
                 <span class="mt-md-3 fw-m text-clr334">
                     <span *ngIf="lot?.order_type === OrderType.Sample">{{ 'sample' | translate }}</span>
@@ -58,7 +58,7 @@
                     </div>
                 </span>
             </div>
-            <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
+            <div class="d-flex flex-row flex-md-column col-md-2 lot-box">
                 <span class="fw-m text-muted">{{ 'rate_per' | translate }} kg</span>
                 <span class="mt-md-3 fw-m text-clr334" *ngIf="lot?.order_type !== OrderType.Sample"
                     >{{ lot?.quantity ? (lot?.price / (lot?.quantity * lot?.quantity_count) | number: '1.2-4') : '-' }}
@@ -69,15 +69,18 @@
                     {{ lot?.price_unit }}</span
                 >
             </div>
-        </div>
-        <div class="lot-detail-wrapper d-flex flex-column flex-md-row">
-            <div class="d-flex flex-row flex-md-column lot-detail-width-adjust" *ngIf="lot?.shipping_price">
+
+            <div class="col-12 py-4 d-none d-md-block">
+                <div class="divider"></div>
+            </div>
+
+            <div class="d-flex flex-row flex-md-column col-md-2 lot-box" *ngIf="lot?.shipping_price">
                 <span class="fw-m text-muted">{{ 'import_fee' | translate }}</span>
                 <span class="mt-md-3 fw-m text-clr334"
                     >{{ lot?.shipping_price | number: '1.2-4' }} {{ lot?.price_unit }}</span
                 >
             </div>
-            <div class="d-flex flex-row flex-md-column lot-detail-width-adjust">
+            <div class="d-flex flex-row flex-md-column col-md-auto lot-box">
                 <span class="fw-m text-muted">{{ 'total' | translate }}</span>
                 <span class="mt-md-3 fw-m text-clr334"
                     >{{ lot?.price + lot?.shipping_price | number: '1.2-4' }} {{ lot?.price_unit }}</span

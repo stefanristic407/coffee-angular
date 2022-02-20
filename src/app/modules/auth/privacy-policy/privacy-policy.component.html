@@ -17,84 +17,55 @@
             <p class="fnt-12 fnt-md-14 fnt-lg-16 fw-m lh-normal text-clr588 mb-45 text-center">
                 {{
                     type === 'org'
-                        ? 'To use and access the platform and our services, you need to agree to our terms of service (including
-                our Master Agreement, the General Terms and Conditions and the Data Processing Agreement). Please ensure
-                that prior to checking the “I agree” tick box, you have read and understood these documents since they
-                contain important information regarding your legal rights, remedies and obligations. The documents
-                contain various limitations and exclusions as well as a binding arbitration agreement.'
+                        ? 'To use and access the platform and our services, you need to agree to our terms of service (including our Master Agreement, the General Terms and Conditions and the Data Processing Agreement). Please ensure that prior to checking the “I agree” tick box, you have read and understood these documents since they contain important information regarding your legal rights, remedies and obligations. The documents contain various limitations and exclusions as well as a binding arbitration agreement.'
                         : 'When you use our services, you need to trust us with certain information regarding yourself. This is a responsibility we take seriously. We undertake that we will process your information in accordance with our Privacy policy. By checking the boxes below, you confirm that you have read the policy documents listed below. You also agree that your information will be processed in accordance with our Privacy policy and to adhere to our Terms and conditions.'
                 }}
             </p>
             <p-divider styleClass="mt-0 mb-45" type="dashed"></p-divider>
             <div class="mx-auto pb-z5 pb-md-0 checkbox-wrapper" *ngIf="type === 'org'">
-                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
-                    <p-checkbox
-                        [binary]="true"
-                        styleClass="p-checkbox-privacy"
-                        label="I have read and agree to the "
-                        [(ngModel)]="cookieAndPrivacy"
-                    ></p-checkbox>
-                    <label class="fnt-14 fw-m lh-normal text-clr60b mb-0 terms-text">
-                        <span class="terms-link" (click)="viewDocument('cookie')">Cookie policy</span>
-                        <span [ngClass]="cookieAndPrivacy ? 'text-clr334' : 'text-clr588'"> and </span>
-                        <span class="terms-link" (click)="viewDocument('privacy')">Privacy policy</span>
+                <div class="p-field-checkbox mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox [binary]="true" [(ngModel)]="cookieAndPrivacy"></p-checkbox>
+                    <label>
+                        I have read and agree to the
+                        <span class="brown-cta" (click)="viewDocument('cookie')">Cookie policy</span>
+                        and
+                        <span class="brown-cta" (click)="viewDocument('privacy')">Privacy policy</span>
                     </label>
                 </div>
-                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
-                    <p-checkbox
-                        [binary]="true"
-                        styleClass="p-checkbox-privacy"
-                        label="I have read and agree to the General Terms and Conditions for "
-                        [(ngModel)]="legalEntity"
-                    ></p-checkbox>
-                    <label
-                        class="fnt-14 fw-m lh-normal text-clr60b mb-0 terms-text terms-link"
-                        (click)="viewDocument('legalEntity')"
-                    >
-                        Legal entity.
+                <div class="p-field-checkbox mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox [binary]="true" [(ngModel)]="legalEntity"></p-checkbox>
+                    <label>
+                        I have read and agree to the General Terms and Conditions for
+                        <span class="brown-cta" (click)="viewDocument('legalEntity')">Legal entity</span>
                     </label>
                 </div>
-                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
-                    <p-checkbox
-                        [binary]="true"
-                        styleClass="p-checkbox-privacy"
-                        label="I have read and agree to the "
-                        [(ngModel)]="dataProcessingAgreement"
-                    ></p-checkbox>
-                    <label
-                        class="fnt-14 fw-m lh-normal text-clr60b mb-0 terms-text terms-link"
-                        (click)="viewDocument('dataProcessing')"
-                    >
-                        Data processing agreement
+                <div class="p-field-checkbox mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox [binary]="true" [(ngModel)]="dataProcessingAgreement"></p-checkbox>
+                    <label>
+                        I have read and agree to the
+                        <span class="brown-cta" (click)="viewDocument('dataProcessing')"
+                            >Data processing agreement</span
+                        >
                     </label>
                 </div>
             </div>
             <div class="mx-auto pb-z5 pb-md-0 checkbox-wrapper" *ngIf="type === 'user'">
-                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
-                    <p-checkbox
-                        [binary]="true"
-                        styleClass="p-checkbox-privacy"
-                        label="I have read and agree to the "
-                        [(ngModel)]="cookieAndPrivacy"
-                    ></p-checkbox>
-                    <label class="fnt-14 fw-m lh-normal text-clr60b mb-0 terms-text">
-                        <span class="terms-link" (click)="viewDocument('cookie')">Cookie policy</span>
-                        <span [ngClass]="cookieAndPrivacy ? 'text-clr334' : 'text-clr588'"> and </span>
-                        <span class="terms-link" (click)="viewDocument('privacy')">Privacy policy</span>
+                <div class="p-field-checkbox mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox [binary]="true" [(ngModel)]="cookieAndPrivacy"></p-checkbox>
+                    <label>
+                        I have read and agree to the
+                        <span class="brown-cta" (click)="viewDocument('cookie')">Cookie policy</span>
+                        and
+                        <span class="brown-cta" (click)="viewDocument('privacy')">Privacy policy</span>
                     </label>
                 </div>
-                <div class="mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
-                    <p-checkbox
-                        [binary]="true"
-                        styleClass="p-checkbox-privacy"
-                        label="I have read and agree to the "
-                        [(ngModel)]="generalTermsUser"
-                    ></p-checkbox>
-                    <label
-                        class="fnt-14 fw-m lh-normal text-clr60b mb-0 terms-text terms-link"
-                        (click)="viewDocument('generalTermsUser')"
-                    >
-                        General terms and conditions user
+                <div class="p-field-checkbox mb-4 pb-1 pb-md-0 d-flex flex-column flex-md-row">
+                    <p-checkbox [binary]="true" [(ngModel)]="generalTermsUser"></p-checkbox>
+                    <label (click)="viewDocument('generalTermsUser')">
+                        I have read and agree to the
+                        <span class="brown-cta" (click)="viewDocument('generalTermsUser')"
+                            >General terms and conditions user</span
+                        >
                     </label>
                 </div>
             </div>

@@ -40,7 +40,7 @@
                             {{ item.user_name }}
                         </td>
                         <td>
-                            {{ item.created_at | date: 'd MMM h:mm a' }}
+                            {{ item.created_at | date: 'd MMM, h:mm a' }}
                         </td>
                     </tr>
                 </ng-template>
@@ -56,7 +56,7 @@
                     <div class="d-flex justify-content-between mb-2">
                         <div class="fnt-semi-bold">{{ item.user_name }}</div>
                         <div class="fnt-12 fnt-semi-bold text-clr588">
-                            {{ item.created_at | date: 'd MMM h:mm a' }}
+                            {{ item.created_at | date: 'd MMM, h:mm a' }}
                         </div>
                     </div>
                     <p class="fnt-12 fw-m text-clr588 mb-25">{{ item.organisation_name }}</p>

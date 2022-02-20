@@ -10,19 +10,9 @@
         max-width: 100%;
         margin: 0 auto;
     }
-    .terms-text {
-        padding-left: 4px;
-        @media (max-width: 767px) {
-            padding-left: 30px;
-        }
-    }
     .checkbox-wrapper {
-        width: 525px;
+        width: 540px;
         max-width: 100%;
-    }
-    .terms-link:hover {
-        text-decoration: underline;
-        cursor: pointer;
     }
     @media (min-width: 768px) and (max-width: 991px) {
         height: 820px;
@@ -41,26 +31,6 @@
         padding: 12px 0;
         .logo_sewn {
             height: 32px;
-        }
-    }
-}
-
-::ng-deep {
-    p-checkbox {
-        .p-checkbox-privacy {
-            .p-checkbox-box {
-                border: 1px solid $muted-text-color;
-            }
-        }
-        .p-checkbox-label {
-            font-size: 14px;
-            color: $muted-text-color;
-            @media (min-width: 768px) {
-                font-size: 14px;
-            }
-        }
-        .p-checkbox-label-active {
-            color: $general-text-color;
         }
     }
 }
