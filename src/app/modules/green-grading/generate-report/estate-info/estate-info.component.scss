@@ -1,7 +1,9 @@
+@import 'variables';
+
 .sample_info,
 .evaluator {
     border-radius: 4px;
-    border: solid 1px #d6d6d6;
+    border: solid 1px $secondary-border-color;
     height: fit-content;
     max-width: 286px;
     @media (max-width: 767px) {
@@ -21,7 +23,7 @@
 
 .info_heading {
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: $primary-bg-color;
     padding: 12px 10px;
     align-items: center;
     .details-wrapper {
@@ -39,7 +41,7 @@
 
     & > div {
         padding: 12px 0;
-        border-bottom: 1px dashed #d6d6d6;
+        border-bottom: 1px dashed $primary-border-color;
         display: flex;
         align-items: center;
     }

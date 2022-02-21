@@ -12,22 +12,10 @@
     }
 
     .info-border-wrapper {
-        padding: 0.25rem;
-        border-radius: 4px;
-        border: solid 1px #d6d6d6;
-
+        border: solid 1px $secondary-border-color;
         .info-heading {
-            border-radius: 4px;
-            background-color: #f8f8f8;
             padding: 0.875rem 0.75rem;
-            font-family: $general-font-family;
-            font-size: 18px;
-            font-weight: $fw-b;
-            line-height: normal;
-            color: #232334;
-
             @media (max-width: 767px) {
-                font-size: 14px;
                 padding: 0.75rem;
             }
         }
@@ -35,7 +23,7 @@
         .info-list {
             padding: 0 0.75rem;
 
-            li {
+            .info-item {
                 border-bottom: solid 1px #d8d8d8;
                 padding: 1rem 0;
 
@@ -44,7 +32,7 @@
                 }
 
                 label {
-                    color: #747588;
+                    color: $muted-text-color;
                     width: 50%;
                     margin-bottom: 0;
                 }
@@ -52,61 +40,35 @@
         }
 
         .info-view {
-            padding: 1.5rem 0.5rem;
-
-            label {
-                font-size: 12px;
-                font-weight: $fw-b;
-                margin-bottom: 0.5rem;
-                color: #232334;
-                line-height: normal;
-            }
-
             .descriptor {
                 border-radius: 12px;
-                border: solid 0.5px #747588;
-                background-color: #ffffff;
-                font-size: 12px;
-                font-weight: $fw-m;
-                font-stretch: normal;
-                color: #747588;
-                line-height: 1;
-                padding: 0.25rem 0.5rem !important;
-                margin-right: 0.25rem;
-            }
-
-            .normal-text {
-                font-size: 12px;
-                font-weight: normal;
-                margin-top: 0.25rem;
+                border: solid 0.5px $muted-text-color;
             }
         }
     }
 
-    .normal-text {
-        font-size: 14px;
-        font-weight: $fw-m;
-        line-height: normal;
-        color: #232334;
-    }
-
     .descriptor {
         padding: 0.5rem 0 !important;
-
-        .normal-text {
-            border-radius: 17px;
-            border: solid 1px #747588;
-            background-color: #747588;
-            padding: 0.5rem;
-            color: #ffffff;
-            font-weight: $fw-m;
-            margin-right: 0.25rem;
+        @media (min-width: 768px) {
+            .custom-chip {
+                padding: 7px;
+                color: $white;
+                border-radius: 17px;
+                border: solid 1px $muted-text-color;
+                background-color: $muted-text-color;
+                font-size: 14px;
+                font-weight: $fw-m;
+                line-height: normal;
+                &:before {
+                    display: none;
+                }
+            }
         }
     }
 
     .dash-line {
         width: 100%;
-        border-bottom: dashed 1px #d6d6d6;
+        border-bottom: dashed 1px $secondary-border-color;
     }
 
     @media screen and (max-width: 767px) {
@@ -134,56 +96,28 @@
                 font-size: 12px;
             }
         }
-    }
-
-    .p-datatable.p-datatable-evaluators-mobile {
-        table {
-            border-collapse: separate;
-            border-spacing: 0;
-            border: solid 1px #ebebeb;
-
-            tr {
+        @media (min-width: 768px) {
+            .p-datatable-thead > tr > th {
+                padding: 1rem 0.125rem;
                 &:first-child {
-                    th:first-child {
-                        border-top-left-radius: 4px;
-                    }
-
-                    th:last-child {
-                        border-top-right-radius: 4px;
-                    }
+                    padding-left: 0.5rem;
                 }
-
                 &:last-child {
-                    td:first-child {
-                        border-bottom-left-radius: 4px;
-                    }
-
-                    td:last-child {
-                        border-bottom-right-radius: 4px;
-                    }
-
-                    td,
-                    th {
-                        border-bottom: none;
-                    }
-                }
-
-                td,
-                th {
-                    border-bottom: solid 1px #ebebeb;
-                    border-right: solid 1px #ebebeb;
-                    border-radius: 0;
-                    padding: 12px;
-
-                    &:last-child {
-                        border-right: 0;
-                    }
-
-                    .mobile-header-cell {
-                        display: flex;
-                    }
+                    padding-right: 0.5rem;
                 }
             }
+            .p-datatable-tbody > tr > td {
+                padding: 1.25rem 0.125rem;
+                &:first-child {
+                    padding-left: 0.5rem;
+                }
+                &:last-child {
+                    padding-right: 0.5rem;
+                }
+            }
+        }
+        .p-datatable-tbody > tr > td .p-column-title {
+            width: 50% !important;
         }
     }
 }

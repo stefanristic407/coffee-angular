@@ -108,14 +108,16 @@
                 <ul class="no-bullet-ul clearfix mb-0">
                     <li *ngIf="status">
                         <div>
-                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Status :</label>
-                            <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">{{ status }}</p>
+                            <label class="fnt-12 text-clr588 col-7 p-0 mb-0">{{ 'status' | translate }} :</label>
+                            <p class="fnt-12 fw-m col-5 p-0 mb-0">{{ status | sentencecase }}</p>
                         </div>
                     </li>
                     <li *ngIf="completedOn">
                         <div>
-                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Date completed :</label>
-                            <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">{{ completedOn }}</p>
+                            <label class="fnt-12 text-clr588 col-7 p-0 mb-0"
+                                >{{ 'date_completed' | translate }} :</label
+                            >
+                            <p class="fnt-12 fw-m col-5 p-0 mb-0">{{ completedOn | date: 'd MMM y' }}</p>
                         </div>
                     </li>
                 </ul>
