@@ -1,12 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { AuthService } from '@services';
-import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { GreenGradingService } from '@services';
-import { GenerateReportService } from '../../generate-report/generate-report.service';
-import { MenuItem } from 'primeng/api';
 import { Location } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { GreenGradingService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { GenerateReportService } from '../../generate-report/generate-report.service';
 
 @Component({
     selector: 'app-cupping-service',
@@ -15,7 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CuppingServiceComponent implements OnInit {
     breadCrumbItems: MenuItem[];
-    roasterId: number;
     viewType = true;
     serviceId: string;
     cuppingReportId: string;
@@ -26,32 +24,32 @@ export class CuppingServiceComponent implements OnInit {
     dataObj: { [key: string]: any } = {};
     category1List = [
         {
-            label: 'Full Black',
+            label: 'Full black',
             key1: 'full_black_no',
             key2: 'full_black_eqv',
         },
         {
-            label: 'Full Sour',
+            label: 'Full sour',
             key1: 'full_sour_no',
             key2: 'full_sour_eqv',
         },
         {
-            label: 'Dried Cherry/Pod',
+            label: 'Dried cherry/Pod',
             key1: 'dried_cherry_no',
             key2: 'dried_cherry_eqv',
         },
         {
-            label: 'Fungus Damaged',
+            label: 'Fungus damaged',
             key1: 'fungus_damaged_no',
             key2: 'fungus_damaged_eqv',
         },
         {
-            label: 'Foreign Matter',
+            label: 'Foreign matter',
             key1: 'foreign_matter_no',
             key2: 'foreign_matter_eqv',
         },
         {
-            label: 'Severe Insect Damage',
+            label: 'Severe insect damage',
             key1: 'severe_insect_damage_no',
             key2: 'severe_insect_damage_eqv',
         },
@@ -59,12 +57,12 @@ export class CuppingServiceComponent implements OnInit {
 
     category2List = [
         {
-            label: 'Partial Black',
+            label: 'Partial black',
             key1: 'partial_black_no',
             key2: 'partial_black_eqv',
         },
         {
-            label: 'Partial Sour',
+            label: 'Partial sour',
             key1: 'partial_sour_no',
             key2: 'partial_sour_eqv',
         },
@@ -99,12 +97,12 @@ export class CuppingServiceComponent implements OnInit {
             key2: 'brocken_chipped_eqv',
         },
         {
-            label: 'Hull/Husk',
+            label: 'Hull / Husk',
             key1: 'hull_husk_no',
             key2: 'hull_husk_eqv',
         },
         {
-            label: 'Slight Insect Damage',
+            label: 'Slight insect damage',
             key1: 'slight_insect_damage_no',
             key2: 'slight_insect_damage_eqv',
         },
@@ -138,7 +136,6 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     constructor(
-        private authService: AuthService,
         private greenGradingService: GreenGradingService,
         private location: Location,
         private route: ActivatedRoute,
@@ -151,7 +148,6 @@ export class CuppingServiceComponent implements OnInit {
             this.serviceId = params.serviceId;
             this.cuppingReportId = params.cuppingReportId;
             this.requestType = params.requestType;
-            this.roasterId = this.authService.getOrgId();
             this.ViewCuppingInviteList();
             this.getCuppingScoreDetails();
             this.getEvaluators();
@@ -303,7 +299,7 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     physicalDefectsList() {
-        this.greenGradingService.getPhysicalDefectsList(this.roasterId, this.cuppingReportId).subscribe((res: any) => {
+        this.greenGradingService.getPhysicalDefectsList(this.cuppingReportId).subscribe((res: any) => {
             if (res.success === true) {
                 const defectsList = res.result;
                 for (const cat of this.category1List) {

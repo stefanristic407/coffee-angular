@@ -20,8 +20,8 @@ export class GreenGradingService extends ApiService {
         return this.post(this.orgPostUrl, `ro/${roasterId}/cupping-invite-list?${params}`, 'GET');
     }
 
-    getPhysicalDefectsList(roasterId: any, cuppingReportId: any) {
-        return this.post(this.orgPostUrl, `ro/${roasterId}/cupping-process/${cuppingReportId}/physical-defects`, 'GET');
+    getPhysicalDefectsList(cuppingReportId: any) {
+        return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/physical-defects`, 'GET');
     }
 
     addPhysicalDefects(roasterId: any, cuppingReportId: any, body: any) {
