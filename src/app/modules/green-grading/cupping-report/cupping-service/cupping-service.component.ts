@@ -1,21 +1,20 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { AuthService } from '@services';
-import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { GreenGradingService } from '@services';
-import { GenerateReportService } from '../../generate-report/generate-report.service';
-import { MenuItem } from 'primeng/api';
 import { Location } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ResizeableComponent } from '@base-components';
 import { TranslateService } from '@ngx-translate/core';
+import { GreenGradingService, ResizeService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
+import { GenerateReportService } from '../../generate-report/generate-report.service';
 
 @Component({
     selector: 'app-cupping-service',
     templateUrl: './cupping-service.component.html',
     styleUrls: ['./cupping-service.component.scss'],
 })
-export class CuppingServiceComponent implements OnInit {
+export class CuppingServiceComponent extends ResizeableComponent implements OnInit {
     breadCrumbItems: MenuItem[];
-    roasterId: number;
     viewType = true;
     serviceId: string;
     cuppingReportId: string;
@@ -26,32 +25,32 @@ export class CuppingServiceComponent implements OnInit {
     dataObj: { [key: string]: any } = {};
     category1List = [
         {
-            label: 'Full Black',
+            label: 'Full black',
             key1: 'full_black_no',
             key2: 'full_black_eqv',
         },
         {
-            label: 'Full Sour',
+            label: 'Full sour',
             key1: 'full_sour_no',
             key2: 'full_sour_eqv',
         },
         {
-            label: 'Dried Cherry/Pod',
+            label: 'Dried cherry/Pod',
             key1: 'dried_cherry_no',
             key2: 'dried_cherry_eqv',
         },
         {
-            label: 'Fungus Damaged',
+            label: 'Fungus damaged',
             key1: 'fungus_damaged_no',
             key2: 'fungus_damaged_eqv',
         },
         {
-            label: 'Foreign Matter',
+            label: 'Foreign matter',
             key1: 'foreign_matter_no',
             key2: 'foreign_matter_eqv',
         },
         {
-            label: 'Severe Insect Damage',
+            label: 'Severe insect damage',
             key1: 'severe_insect_damage_no',
             key2: 'severe_insect_damage_eqv',
         },
@@ -59,12 +58,12 @@ export class CuppingServiceComponent implements OnInit {
 
     category2List = [
         {
-            label: 'Partial Black',
+            label: 'Partial black',
             key1: 'partial_black_no',
             key2: 'partial_black_eqv',
         },
         {
-            label: 'Partial Sour',
+            label: 'Partial sour',
             key1: 'partial_sour_no',
             key2: 'partial_sour_eqv',
         },
@@ -99,23 +98,21 @@ export class CuppingServiceComponent implements OnInit {
             key2: 'brocken_chipped_eqv',
         },
         {
-            label: 'Hull/Husk',
+            label: 'Hull / Husk',
             key1: 'hull_husk_no',
             key2: 'hull_husk_eqv',
         },
         {
-            label: 'Slight Insect Damage',
+            label: 'Slight insect damage',
             key1: 'slight_insect_damage_no',
             key2: 'slight_insect_damage_eqv',
         },
     ];
 
-    isMobileView = false;
     allColumns: any[];
     evaluatorsList: any = [];
     evaluatorName: string;
     evaluatorsListArray: any[];
-    mobileTableData: any[] = [];
     evaluatorData: any;
     singleCuppingDetails: any;
     singleStatus: string;
@@ -138,39 +135,37 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     constructor(
-        private authService: AuthService,
         private greenGradingService: GreenGradingService,
         private location: Location,
         private route: ActivatedRoute,
         private router: Router,
         private toastrService: ToastrService,
         private translator: TranslateService,
+        protected resizeService: ResizeService,
         public generateReportService: GenerateReportService,
     ) {
+        super(resizeService);
         this.route.queryParams.subscribe((params) => {
             this.serviceId = params.serviceId;
             this.cuppingReportId = params.cuppingReportId;
             this.requestType = params.requestType;
-            this.roasterId = this.authService.getOrgId();
-            this.ViewCuppingInviteList();
-            this.getCuppingScoreDetails();
-            this.getEvaluators();
-            // this.viewProcessDetails();
-            this.getCuppingScoreDetails();
-            this.physicalDefectsList();
-            this.singleCuppingData();
         });
     }
 
     ngOnInit(): void {
         this.initializeTable();
         this.breadCrumbItems = [
-            { label: this.translator.instant('home'), routerLink: '/features/micro-roaster-dashboard' },
+            { label: this.translator.instant('home'), routerLink: '/' },
             { label: this.translator.instant('menu_sourcing') },
             { label: this.translator.instant('quality_control'), routerLink: '/green-grading' },
             { label: this.translator.instant('my_cupping_reports'), routerLink: '/green-grading/cupping-reports' },
             { label: `${this.translator.instant('order_id')} #${this.serviceId}` },
         ];
+        this.ViewCuppingInviteList();
+        this.getCuppingScoreDetails();
+        this.getEvaluators();
+        this.physicalDefectsList();
+        this.singleCuppingData();
     }
 
     toggleMobileView() {
@@ -182,52 +177,62 @@ export class CuppingServiceComponent implements OnInit {
             {
                 field: 'evaluator_name',
                 header: 'Evaluator',
-                width: 100,
+                width: 12,
             },
             {
                 field: 'final_score',
                 header: 'final_score',
+                width: 8,
             },
             {
                 field: 'fragrance_score',
                 header: 'Fragrance/\nAroma',
-                width: 130,
+                width: 12,
             },
             {
                 field: 'flavour_score',
                 header: 'flavor',
+                width: 7,
             },
             {
                 field: 'aftertaste_score',
                 header: 'Aftertaste',
+                width: 8,
             },
             {
                 field: 'acidity_score',
                 header: 'Acidity',
+                width: 7,
             },
             {
                 field: 'body_score',
                 header: 'Body',
+                width: 7,
             },
             {
                 field: 'balance_score',
                 header: 'Balance',
+                width: 8,
             },
             {
                 field: 'uniformity_score',
                 header: 'Uniformirty',
+                width: 8,
             },
             {
                 field: 'cleancup_score',
                 header: 'Clean cup',
+                width: 8,
             },
             {
                 field: 'sweetness_score',
                 header: 'Sweetness',
+                width: 8,
             },
             {
                 field: 'overall_score',
                 header: 'Overall',
+                width: 7,
             },
         ];
     }
@@ -273,29 +278,6 @@ export class CuppingServiceComponent implements OnInit {
             .subscribe((data: any) => {
                 if (data.success === true) {
                     this.cuppingScoreDetails = data.result;
-                    this.mobileTableData = [];
-                    for (const label of this.allColumns) {
-                        const tempRow = [label.header];
-                        for (const evaluator of this.evaluatorsList) {
-                            const dataItem = data.result.find((item) => item.evaluator_id === evaluator.evaluator_id);
-                            const value = dataItem ? dataItem[label.field] : '';
-                            let additionalValue = '';
-                            if (label.field === 'fragrance_score') {
-                                additionalValue = dataItem
-                                    ? `(D:${dataItem.fragrance_dry}, B:${dataItem.fragrance_break})`
-                                    : '';
-                            }
-                            if (label.field === 'acidity_score') {
-                                additionalValue = dataItem ? `(${dataItem.acidity_intensity})` : '';
-                            }
-                            if (label.field === 'body_score') {
-                                additionalValue = dataItem ? `(${dataItem.body_level})` : '';
-                            }
-                            tempRow.push(`${value}${additionalValue}`);
-                        }
-                        this.mobileTableData.push(tempRow);
-                    }
-                    this.mobileTableData = this.mobileTableData.slice(1);
                 } else {
                     this.toastrService.error('Error while getting the Cupping score details');
                 }
@@ -303,7 +285,7 @@ export class CuppingServiceComponent implements OnInit {
     }
 
     physicalDefectsList() {
-        this.greenGradingService.getPhysicalDefectsList(this.roasterId, this.cuppingReportId).subscribe((res: any) => {
+        this.greenGradingService.getPhysicalDefectsList(this.cuppingReportId).subscribe((res: any) => {
             if (res.success === true) {
                 const defectsList = res.result;
                 for (const cat of this.category1List) {

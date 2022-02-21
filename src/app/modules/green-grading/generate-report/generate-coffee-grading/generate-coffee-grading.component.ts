@@ -238,7 +238,7 @@ export class GenerateCoffeeGradingComponent implements OnChanges {
 
     physicalDefectsList() {
         this.cuppingId = this.cuppingDetails?.cupping_report_id;
-        this.greenGradingService.getPhysicalDefectsList(this.roasterId, this.cuppingId).subscribe((res: any) => {
+        this.greenGradingService.getPhysicalDefectsList(this.cuppingId).subscribe((res: any) => {
             if (res.success === true) {
                 const defectsList = res.result;
                 for (const cat of this.category1List) {

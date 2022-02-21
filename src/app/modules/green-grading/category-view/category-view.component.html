@@ -1,15 +1,17 @@
-<div class="category-wrapper mb-3 mb-md-4">
-    <div class="category__head">
-        <div class="d-flex flex-wrap align-items-center">
-            <label class="categ-labels col-4 col-md-6 col-lg-4 p-0">Category {{ categoryIndex }}</label>
-            <label class="categ-labels col-4 col-md-6 col-lg-4 p-0">Number of defects</label>
-            <label class="categ-labels col-4 col-md-6 col-lg-4 p-0 pl-lg-0">Equivalent defects</label>
+<div class="border-main br-4 mb-3 mb-md-4">
+    <div class="px-2 px-md-35 py-3 m-0 m-md-1 br-4 bg-f8">
+        <div class="row gutter-8 flex-wrap align-items-center">
+            <div class="fnt-12 fnt-md-14 fw-b col-4 col-md-6 col-lg-4">
+                {{ 'category' | translate }} {{ categoryIndex }}
+            </div>
+            <div class="fnt-12 fnt-md-14 fw-b col-4 col-md-3 col-lg-4">{{ 'number_of_defects' | translate }}</div>
+            <div class="fnt-12 fnt-md-14 fw-b col-4 col-md-3 col-lg-4">{{ 'equivalent_defects' | translate }}</div>
         </div>
     </div>
-    <div class="category__body">
-        <div class="d-flex flex-wrap align-items-center mb-2" *ngFor="let cat of categoryList">
-            <label class="categ-label col-4 col-md-6 col-lg-4">{{ cat.label }}</label>
-            <div class="col-4 col-md-3 col-lg-4 py-0 pl-0 pr-1">
+    <div class="px-2 px-md-4 pt-3 pb-0">
+        <div class="row gutter-8 flex-wrap align-items-center mb-2" *ngFor="let cat of categoryList">
+            <label class="fw-m col-4 col-md-6 col-lg-4 mb-0">{{ cat.label }}</label>
+            <div class="col-4 col-md-3 col-lg-4">
                 <input
                     type="number"
                     class="category-value"
@@ -19,7 +21,7 @@
                     (change)="onChange()"
                 />
             </div>
-            <div class="col-4 col-md-3 col-lg-4 py-0 pl-1 pr-0">
+            <div class="col-4 col-md-3 col-lg-4">
                 <input
                     type="number"
                     class="category-value"
@@ -31,14 +33,14 @@
             </div>
         </div>
 
-        <div class="d-flex flex-wrap align-items-center pt-5 pt-md-2 mb-2">
-            <label class="fw-b col-md-6 col-lg-4 p-0 mb-2 mb-md-0"
-                >{{ 'total_category' | translate }} {{ categoryIndex }} {{ 'defects' | translate | lowercase }} :</label
+        <div class="row gutter-8 flex-wrap align-items-center pt-5 pt-md-2 mb-2">
+            <label class="fw-b col-md-6 col-lg-4 mb-2 mb-md-0"
+                >{{ 'total_category' | translate }} {{ categoryIndex }} {{ 'defects' | translate | lowercase }}</label
             >
-            <div class="col-md-6 col-lg-8 p-0">
+            <div class="col-md-6 col-lg-8">
                 <input
                     type="number"
-                    class="category-value fw-b br-4 w-100"
+                    class="category-value fw-b"
                     (focus)="$event.target.select()"
                     [readonly]="readonly"
                     [(ngModel)]="categoryDefects"

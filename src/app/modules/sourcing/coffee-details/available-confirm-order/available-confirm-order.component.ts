@@ -358,6 +358,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 new Promise((resolve, reject) =>
                     this.userService.addAddresses(this.roasterId, postData).subscribe((res: any) => {
                         if (res.success) {
+                            this.deliveryAddress.id = res.result.id;
                             resolve(res);
                         } else {
                             reject();
@@ -375,6 +376,7 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 new Promise((resolve, reject) =>
                     this.userService.addAddresses(this.roasterId, postData).subscribe((res: any) => {
                         if (res.success) {
+                            this.billingAddress.id = res.result.id;
                             resolve(res);
                         } else {
                             reject();
