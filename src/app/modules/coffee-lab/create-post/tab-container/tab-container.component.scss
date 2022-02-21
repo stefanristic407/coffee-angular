@@ -18,13 +18,7 @@
                     @media (min-width: 768px) {
                         position: absolute;
                     }
-                    right: 0px;
-                    a {
-                        height: 52px;
-                        img {
-                            width: 19px;
-                        }
-                    }
+                    right: -1px;
                 }
                 .p-tabview-nav-link {
                     padding: 15px 16px 13px 16px !important;
@@ -33,14 +27,6 @@
                         width: 24px;
                         &.active-icon {
                             display: none;
-                        }
-                    }
-                }
-                &.p-highlight {
-                    img {
-                        display: none;
-                        &.active-icon {
-                            display: inline-block;
                         }
                     }
                 }

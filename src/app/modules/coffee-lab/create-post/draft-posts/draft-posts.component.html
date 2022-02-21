@@ -67,6 +67,6 @@
         ></p-paginator>
     </div>
     <div *ngIf="filteredDrafts.length == 0" class="text-center py-4">
-        {{ 'no_data_is_available' | translate }}
+        <app-empty [title]="'no_data_available' | translate"></app-empty>
     </div>
 </div>

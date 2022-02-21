@@ -100,7 +100,12 @@
                                         {{ stickySecData?.organisation_name || stickySecData?.organization_name }}
                                     </p>
                                     <p
-                                        *ngIf="stickySecData?.country || stickySecData?.city"
+                                        *ngIf="
+                                            stickySecData?.country ||
+                                            stickySecData?.organization_country ||
+                                            stickySecData?.city ||
+                                            stickySecData?.organization_city
+                                        "
                                         class="fw-m text-clr588 mb-1"
                                     >
                                         <span
@@ -108,7 +113,7 @@
                                             >@</span
                                         >
                                         {{ stickySecData?.city || stickySecData?.organization_city }},
-                                        {{ stickySecData?.country | country }}
+                                        {{ stickySecData?.country || stickySecData?.organization_country | country }}
                                     </p>
                                 </div>
                             </div>
