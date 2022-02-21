@@ -1,247 +1,224 @@
-<div class="sewn-container prime-grid">
-    <div class="bg-fff content-wrapper">
-        <div class="d-none d-md-flex flex-wrap justify-content-between pb-4">
-            <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
+<div class="main-block">
+    <div class="d-none d-md-flex flex-wrap justify-content-between pb-4">
+        <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
+    </div>
+    <div class="back-page pb-45 d-block d-md-none" (click)="back()">
+        <a>
+            <span>{{ 'back' | translate }}</span>
+        </a>
+    </div>
+    <section class="grading__total">
+        <div class="green_grading_cont">
+            <h1 class="fw-b fnt-18 mb-2">{{ 'order_id' | translate }} #{{ serviceId }}</h1>
         </div>
-        <div class="back-page pb-45 d-block d-md-none" (click)="back()">
-            <a>
-                <span>Back</span>
-            </a>
+        <div class="mt-4">
+            <app-estate-info
+                [cuppingDetails]="eachServiceData"
+                [singleCuppingDetails]="singleCuppingDetails"
+                [evaluatorName]="evaluatorName"
+                [evaluatorsListArray]="evaluatorsListArray"
+                [status]="singleStatus"
+                [completedOn]="completedOn"
+                (showDetail)="routeToProcessDet()"
+            >
+            </app-estate-info>
         </div>
-        <section class="grading__total">
-            <div class="green_grading_cont">
-                <h1 class="mb-2">Order ID #{{ serviceId }}</h1>
-            </div>
-            <div class="mt-4">
-                <app-estate-info
-                    [cuppingDetails]="eachServiceData"
-                    [singleCuppingDetails]="singleCuppingDetails"
-                    [evaluatorName]="evaluatorName"
-                    [evaluatorsListArray]="evaluatorsListArray"
-                    [status]="singleStatus"
-                    [completedOn]="completedOn"
-                    (showDetail)="routeToProcessDet()"
-                >
-                </app-estate-info>
-            </div>
-            <div class="col-12 d-none d-md-block mt-4 pt-lg-2 border__cupping p-0">
-                <p-table
-                    #myTable
-                    [value]="cuppingScoreDetails"
-                    [columns]="allColumns"
-                    dataKey="id"
-                    styleClass="p-datatable-evaluators"
-                    [responsive]="false"
-                >
-                    <ng-template pTemplate="colgroup" let-columns>
-                        <colgroup>
-                            <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : 'unset'" />
-                        </colgroup>
-                    </ng-template>
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th
-                                class="ellipsis"
-                                *ngFor="let col of columns"
-                                [pSortableColumn]="col.sortable === true ? col.field : null"
-                            >
-                                <span class="primeng-table-header">{{ col.header | translate }}</span>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-columns="columns">
-                        <tr>
-                            <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                                <span class="d-flex" *ngSwitchCase="'fragrance_score'">
-                                    {{ rowData[col.field] }}
-                                    <span class="text-clr588 ml-1"
-                                        >(D:{{ rowData.fragrance_dry }}, B:{{ rowData.fragrance_break }})</span
-                                    >
-                                </span>
-                                <span class="d-flex" *ngSwitchCase="'acidity_score'">
-                                    {{ rowData[col.field] }}
-                                    <span class="text-clr588 ml-1">({{ rowData.acidity_intensity }})</span>
-                                </span>
-                                <span class="d-flex" *ngSwitchCase="'body_score'">
-                                    {{ rowData[col.field] }}
-                                    <span class="text-clr588 ml-1">({{ rowData.body_level }})</span>
-                                </span>
-                                <span *ngSwitchDefault>
-                                    {{ rowData[col.field] }}
-                                </span>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-            <div class="col-12 d-block d-md-none mt-4 pt-lg-2 border__cupping" *ngIf="showMobileView">
-                <p-table
-                    #mobileTable
-                    [value]="mobileTableData"
-                    [columns]="evaluatorsList"
-                    dataKey="id"
-                    styleClass="p-datatable-evaluators-mobile"
-                >
-                    <ng-template pTemplate="colgroup" let-columns>
-                        <colgroup>
-                            <col *ngFor="let col of columns" [style.width]="'130px'" />
-                        </colgroup>
-                    </ng-template>
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th></th>
-                            <th *ngFor="let col of columns; let i = index">
-                                <div class="mobile-header-cell">
-                                    <span class="primeng-table-header">{{ col.evaluator_name }}</span>
-                                </div>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-columns="columns">
-                        <tr>
-                            <td *ngFor="let colValue of rowData">
-                                {{ colValue }}
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-            <div class="col-12 px-0 pt-3 pb-0 d-block d-md-none">
-                <button class="green-button btn-raised col-12" (click)="toggleMobileView()">
-                    Expand evaluator score details
-                </button>
-            </div>
-            <div class="mt-4 d-none d-md-flex flex-wrap p-0 pt-lg-2" *ngIf="cuppingScoreDetails">
-                <div class="col-6 col-lg-4 pl-0 pr-2 py-0">
-                    <div class="info-border-wrapper">
-                        <div class="info-heading">
-                            <span>Evaluators</span>
-                        </div>
-                        <div class="info-list">
-                            <ul class="clearfix mb-0">
-                                <li *ngFor="let eval of cuppingScoreDetails">
-                                    <span class="normal-text"
-                                        >{{ eval.evaluator_name }} / {{ eval.evaluator_type }}</span
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-4 pl-2 pr-0 px-lg-1 py-0">
-                    <div class="info-border-wrapper">
-                        <div class="info-heading">
-                            <span>Descriptors</span>
-                        </div>
-                        <div class="info-list">
-                            <ul class="clearfix mb-0">
-                                <li *ngFor="let eval of cuppingScoreDetails" class="d-flex flex-wrap descriptor">
-                                    <ng-container *ngIf="eval?.descriptors">
-                                        <span *ngFor="let des of eval.descriptors.split(',')" class="normal-text">
-                                            {{ des }}
-                                        </span>
-                                    </ng-container>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-4 pl-0 pr-2 pl-lg-2 pr-lg-0 py-0 mt-3 mt-lg-0">
-                    <div class="info-border-wrapper">
-                        <div class="info-heading">
-                            <span>Comments</span>
-                        </div>
-                        <div class="info-list">
-                            <ul class="clearfix mb-0">
-                                <li *ngFor="let eval of cuppingScoreDetails">
-                                    <span class="normal-text">{{ eval.comments }}</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-4 d-md-none" *ngIf="cuppingScoreDetails">
-                <div *ngFor="let eval of cuppingScoreDetails" class="info-border-wrapper mb-3">
-                    <div class="info-heading">
-                        <span>{{ eval.evaluator_name }} / {{ eval.evaluator_type }}</span>
-                    </div>
-                    <div class="info-view">
-                        <label>Descriptors</label>
-                        <div class="d-flex flex-wrapper pb-3" *ngIf="eval?.descriptors">
-                            <span *ngFor="let des of eval.descriptors.split(',')" class="descriptor">
-                                {{ des }}
+        <div class="col-12 mt-4 pt-lg-2 border__cupping p-0 d-md-block" [class.d-none]="!showMobileView">
+            <p-table
+                #myTable
+                [value]="cuppingScoreDetails"
+                [columns]="allColumns"
+                dataKey="id"
+                [responsive]="true"
+                [scrollable]="isTablet$ | async"
+                styleClass="mobile-card-view p-datatable-evaluators"
+            >
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [style.width]="col.width ? col.width + '%' : '30%'">
+                            <span>{{ col.header | translate }}</span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td
+                            *ngFor="let col of columns"
+                            [ngSwitch]="col.field"
+                            [style.width]="col.width ? col.width + '%' : '30%'"
+                        >
+                            <span *ngIf="col.field !== 'evaluator_name'" class="p-column-title">{{
+                                col.header | translate
+                            }}</span>
+                            <ng-container *ngSwitchCase="'evaluator_name'">
+                                <span class="d-none d-md-block">{{ rowData[col.field] }}</span>
+                                <span class="d-md-none fnt-14 fw-b">{{ rowData[col.field] }}</span>
+                            </ng-container>
+                            <span *ngSwitchCase="'fragrance_score'">
+                                {{ rowData[col.field] }}
+                                <span class="text-clr588 ml-1"
+                                    >(D:{{ rowData.fragrance_dry }}, B:{{ rowData.fragrance_break }})</span
+                                >
                             </span>
-                        </div>
-                        <label>comments</label>
-                        <div class="normal-text">{{ eval.comments }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="d-none d-md-block d-lg-none dash-line mt-4 mb-1 pt-2"></div>
-            <div class="w-100 mt-4 pt-0 pt-md-2 pb-md-2">
-                <app-result-view [data]="cuppingScoreDetails" [evaluatorsList]="evaluatorsList"> </app-result-view>
-            </div>
-            <div class="col-12 col-md-8 col-lg-6 p-0 mt-4 pt-lg-2">
-                <div class="info-border-wrapper mt-2">
-                    <div class="info-heading">
-                        <span>Green coffee grading</span>
+                            <span *ngSwitchCase="'acidity_score'">
+                                {{ rowData[col.field] }}
+                                <span class="text-clr588 ml-1">({{ rowData.acidity_intensity }})</span>
+                            </span>
+                            <span *ngSwitchCase="'body_score'">
+                                {{ rowData[col.field] }}
+                                <span class="text-clr588 ml-1">({{ rowData.body_level }})</span>
+                            </span>
+                            <span *ngSwitchDefault>
+                                {{ rowData[col.field] }}
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="col-12 px-0 pt-3 pb-0 d-block d-md-none">
+            <button class="btn-raised col-12" (click)="toggleMobileView()">
+                {{ 'evaluator_score_details' | translate }}
+            </button>
+        </div>
+        <div class="mt-4 d-none d-md-flex flex-wrap p-0 pt-lg-2" *ngIf="cuppingScoreDetails">
+            <div class="col-6 col-lg-4 pl-0 pr-2 py-0">
+                <div class="info-border-wrapper p-1 br-4">
+                    <div class="info-heading br-4 bg-f8 fnt-14 fnt-md-18 fw-b">
+                        <span>{{ 'evaluators' | translate }}</span>
                     </div>
                     <div class="info-list">
-                        <ul class="clearfix mb-0">
-                            <li>
-                                <label class="normal-text">Moisture content</label>
-                                <span class="normal-text">{{ moistureContent }}%</span>
-                            </li>
-                            <li>
-                                <label class="normal-text">Water Activity</label>
-                                <span class="normal-text">{{ waterActivity }} aw</span>
-                            </li>
-                            <li>
-                                <label class="normal-text">Odor</label>
-                                <span class="normal-text">{{ odor }}</span>
-                            </li>
-                            <li>
-                                <label class="normal-text">Color</label>
-                                <span class="normal-text">{{ totalColors }}</span>
-                            </li>
-                        </ul>
+                        <div *ngFor="let eval of cuppingScoreDetails" class="info-item">
+                            <span class="fw-m">{{ eval.evaluator_name }} / {{ eval.evaluator_type }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex flex-wrap mt-4 pt-md-2">
-                <div class="col-lg-6 col-12 px-0 pt-0 pr-lg-2">
-                    <app-category-view
-                        [categoryData]="dataObj"
-                        [categoryList]="category1List"
-                        categoryIndex="1"
-                        readonly="true"
-                        [categoryDefects]="category1Defects"
-                    >
-                    </app-category-view>
-                </div>
-                <div class="col-lg-6 col-12 px-0 pt-0 pl-lg-2 mt-2 mt-md-4 mt-lg-0">
-                    <app-category-view
-                        [categoryData]="dataObj"
-                        [categoryList]="category2List"
-                        categoryIndex="2"
-                        [readonly]="true"
-                        [categoryDefects]="cat2Defects"
-                    >
-                    </app-category-view>
+            <div class="col-6 col-lg-4 pl-2 pr-0 px-lg-1 py-0">
+                <div class="info-border-wrapper p-1 br-4">
+                    <div class="info-heading br-4 bg-f8 fnt-14 fnt-md-18 fw-b">
+                        <span>{{ 'descriptors' | translate }}</span>
+                    </div>
+                    <div class="info-list">
+                        <div *ngFor="let eval of cuppingScoreDetails" class="d-flex flex-wrap descriptor info-item">
+                            <div *ngIf="eval.descriptors" class="row gutter-4 v-gutter-4">
+                                <div *ngFor="let des of eval.descriptors.split(',') | slice: 0:3" class="col-auto">
+                                    <div class="custom-chip">
+                                        {{ des }}
+                                    </div>
+                                </div>
+                                <div *ngIf="eval.descriptors.split(',').length > 3" class="col-auto">
+                                    <div class="custom-chip">+{{ eval.descriptors.split(',').length - 3 }}</div>
+                                </div>
+                            </div>
+
+                            <span *ngIf="!eval.descriptors">NA</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div
-                class="col-12 d-flex justify-content-end flex-column-reverse flex-md-row pt-2 pt-md-0 mt-4 p-0 button-wrapper"
-                *ngIf="eachServiceData?.type !== 'Invited'"
-            >
-                <button class="green-button btn-stroked mr-md-2" (click)="reGrade()">Re-grade sample</button>
-                <button class="green-button btn-raised ml-md-2" (click)="generateReportLink()">
-                    Generate new report
-                </button>
+            <div class="col-6 col-lg-4 pl-0 pr-2 pl-lg-2 pr-lg-0 py-0 mt-3 mt-lg-0">
+                <div class="info-border-wrapper p-1 br-4">
+                    <div class="info-heading br-4 bg-f8 fnt-14 fnt-md-18 fw-b">
+                        <span>{{ 'comments' | translate }}</span>
+                    </div>
+                    <div class="info-list">
+                        <div *ngFor="let eval of cuppingScoreDetails" class="info-item">
+                            <span class="fw-m">{{ eval.comments || ('no_comments_show' | translate) }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-    </div>
+        </div>
+        <div class="mt-4 d-md-none" *ngIf="cuppingScoreDetails">
+            <div *ngFor="let eval of cuppingScoreDetails" class="info-border-wrapper p-1 br-4 mb-3">
+                <div class="info-heading br-4 bg-f8 fnt-14 fnt-md-18 fw-b">
+                    <span>{{ eval.evaluator_name }} / {{ eval.evaluator_type }}</span>
+                </div>
+                <div class="info-view py-3 px-2">
+                    <label class="fnt-12 fw-b mb-2">{{ 'descriptors' | translate }}</label>
+                    <div class="d-flex flex-wrapper pb-3">
+                        <div *ngIf="eval.descriptors" class="row gutter-4 v-gutter-4">
+                            <div *ngFor="let des of eval.descriptors.split(',') | slice: 0:3" class="col-auto">
+                                <div class="custom-chip">
+                                    {{ des }}
+                                </div>
+                            </div>
+                            <div *ngIf="eval.descriptors.split(',').length > 3" class="col-auto">
+                                <div class="custom-chip">+{{ eval.descriptors.split(',').length - 3 }}</div>
+                            </div>
+                        </div>
+
+                        <span *ngIf="!eval.descriptors">NA</span>
+                    </div>
+                    <label class="fnt-12 fw-b mb-2">{{ 'comments' | translate }}</label>
+                    <div class="fnt-12">{{ eval.comments || ('no_comments_show' | translate) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-block d-lg-none dash-line mt-4 mb-1 pt-2"></div>
+        <div class="w-100 mt-4 pt-0 pt-md-2 pb-md-2">
+            <app-result-view [data]="cuppingScoreDetails" [evaluatorsList]="evaluatorsList"> </app-result-view>
+        </div>
+        <div class="col-12 col-md-8 col-lg-6 p-0 mt-4 pt-lg-2">
+            <div class="info-border-wrapper p-1 br-4 mt-2">
+                <div class="info-heading br-4 bg-f8 fnt-14 fnt-md-18 fw-b">
+                    <span>{{ 'green_coffee_grading' | translate }}</span>
+                </div>
+                <div class="info-list">
+                    <div class="info-item">
+                        <label class="fw-m">{{ 'moisture_content' | translate }}</label>
+                        <span class="fw-m">{{ moistureContent ? moistureContent + ' %' : 'NA' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label class="fw-m">{{ 'water_activity' | translate }}</label>
+                        <span class="fw-m">{{ waterActivity ? waterActivity + ' aw' : 'NA' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label class="fw-m">{{ 'odor' | translate }}</label>
+                        <span class="fw-m">{{ odor || 'NA' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label class="fw-m">{{ 'color' | translate }}</label>
+                        <span class="fw-m">{{ totalColors || 'NA' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap mt-4 pt-md-2">
+            <div class="col-lg-6 col-12 px-0 pt-0 pr-lg-2">
+                <app-category-view
+                    [categoryData]="dataObj"
+                    [categoryList]="category1List"
+                    categoryIndex="1"
+                    readonly="true"
+                    [categoryDefects]="category1Defects"
+                >
+                </app-category-view>
+            </div>
+            <div class="col-lg-6 col-12 px-0 pt-0 pl-lg-2 mt-2 mt-md-4 mt-lg-0">
+                <app-category-view
+                    [categoryData]="dataObj"
+                    [categoryList]="category2List"
+                    categoryIndex="2"
+                    [readonly]="true"
+                    [categoryDefects]="cat2Defects"
+                >
+                </app-category-view>
+            </div>
+        </div>
+        <div
+            class="col-12 d-flex justify-content-end flex-column-reverse flex-md-row pt-2 pt-md-0 mt-4 p-0 button-wrapper"
+            *ngIf="eachServiceData?.type !== 'Invited'"
+        >
+            <button class="btn-stroked mr-md-2" (click)="reGrade()">
+                {{ 'regrade_sample' | translate }}
+            </button>
+            <button class="btn-raised ml-md-2" (click)="generateReportLink()">
+                {{ 'generate_new_report' | translate }}
+            </button>
+        </div>
+    </section>
 </div>
 
 <p-dialog
