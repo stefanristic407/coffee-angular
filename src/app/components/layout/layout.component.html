@@ -381,12 +381,12 @@
         <div *ngFor="let notification of notifications">
             <div class="notifi-cotainer pl-25 pr-4 py-2" (click)="onClickNotification(notification, myOp)">
                 <div class="d-flex justify-content-between align-items-center">
-                    <p class="fnt-14 fnt-normal text-clr588 mb-0 pr-4">
+                    <p class="fnt-14 fw-n text-clr588 mb-0 pr-4">
                         {{ notification.content }}
                     </p>
                     <p class="fnt-18" [ngClass]="notification.is_read ? 'text-clrcb' : 'text-clr55c'">&#9679;</p>
                 </div>
-                <p class="fnt-12 fnt-normal text-clr588 mt-3">
+                <p class="fnt-12 fw-n text-clr588 mt-3">
                     {{ notification.status_updated_at | amTimeAgo }}
                 </p>
             </div>

@@ -137,7 +137,7 @@
                 >
                     <span class="primeng-table-header">{{ col.header }}</span>
                     <p-sortIcon *ngIf="col.sortable === true" [field]="col.field"> </p-sortIcon>
-                    <div class="fnt-12 fnt-normal" *ngIf="col.field === 'total_amount'">(Inc. VAT)</div>
+                    <div class="fnt-12 fw-n" *ngIf="col.field === 'total_amount'">(Inc. VAT)</div>
                 </th>
             </tr>
         </ng-template>

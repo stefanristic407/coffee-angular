@@ -10,7 +10,7 @@
                 <div class="notify-content col-12 col-md-9">
                     <ng-container *ngIf="isNewDispute; else noDispute">
                         <p class="fnt-16 fnt-md-18 fw-b text-clr334 mb-1 mb-md-2">New Dispute Raised!</p>
-                        <p class="fnt-14 fnt-normal text-clr588 mb-2 mb-md-4">
+                        <p class="fnt-14 fw-n text-clr588 mb-2 mb-md-4">
                             Raised by {{ disputes?.disputer_org_name || '' }} for Order #{{ disputes?.order_id || '' }}
                         </p>
                         <a routerLink="/dispute" class="arrow-link fnt-12 fnt-md-14 float-right float-md-left"
@@ -43,7 +43,7 @@
                             <span class="d-none d-md-inline">You have </span>
                             {{ chat.unReadCount | async }} new messages
                         </p>
-                        <p class="fnt-14 fnt-normal text-clr588 mb-2 mb-md-4">See what your contacts have to say!</p>
+                        <p class="fnt-14 fw-n text-clr588 mb-2 mb-md-4">See what your contacts have to say!</p>
                         <a
                             (click)="openMessagePanel()"
                             href="javascript:void(0)"

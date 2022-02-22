@@ -131,7 +131,7 @@
                 <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
                 <div class="p-input-icon-right">
                     <input type="number" pInputText formControlName="available_quantity" />
-                    <span class="right-icon fnt-14 fnt-normal">{{ productForm.value.available_quantity_type }}</span>
+                    <span class="right-icon fnt-14 fw-n">{{ productForm.value.available_quantity_type }}</span>
                     <small
                         *ngIf="productForm.controls['available_quantity'].errors?.required"
                         class="position-absolute p-error"
@@ -237,7 +237,7 @@
                         formControlName="weight"
                         [placeholder]="'enter_number' | translate"
                     />
-                    <span class="right-icon fnt-14 fnt-normal text-clr334 lh-normal">kg</span>
+                    <span class="right-icon fnt-14 fw-n text-clr334 lh-normal">kg</span>
                 </div>
             </div>
         </div>
