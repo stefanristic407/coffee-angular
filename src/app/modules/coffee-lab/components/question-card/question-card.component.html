@@ -23,6 +23,7 @@
         </div>
         <div
             class="fnt-16 fw-b mt-4 cursor-pointer hover-underline"
+            [class.mb-3]="!question?.categories"
             (click)="onQuestionNavigate(question.slug)"
             [innerHTML]="question?.question"
         ></div>
