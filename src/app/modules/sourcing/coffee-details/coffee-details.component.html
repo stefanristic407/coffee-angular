@@ -109,12 +109,7 @@
                                     <img src="assets/images/location-rating.png" alt="" />
                                     {{ sourcing.harvestDetail?.country | country }}
                                 </h6>
-                                <p class="d-none d-md-block fnt-14 fnt-md-16 text-clr334">
-                                    {{ sourcing.harvestDetail?.about }}
-                                </p>
-                                <p class="d-md-none mb-0 fnt-14 text-clr588">
-                                    {{ sourcing.harvestDetail?.about }}
-                                </p>
+                                <div class="fnt-md-16" [innerText]="sourcing.harvestDetail?.about"></div>
 
                                 <div class="row mt-lg-5 mt-4">
                                     <div class="col-lg-3 col-md-3 col-5">
