@@ -47,7 +47,7 @@ export class JoinCommunityComponent implements OnInit {
             });
     }
 
-    getLink(item: any) {
-        return `/coffee-lab/${this.type}s/${item.slug}`;
+    getLink(slug: string) {
+        return `/coffee-lab/${this.type}s/${slug}`;
     }
 }
