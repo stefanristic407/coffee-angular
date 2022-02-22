@@ -11,11 +11,7 @@
                     <div class="d-inline-block mr-2 pr-1">
                         <app-avatar
                             [size]="(isMobile$ | async) ? 48 : 54"
-                            [src]="
-                                sourcing.harvestDetail?.estate_profile_image_thumbnail_url
-                                    ? sourcing.estate?.companyImageThumbnailUrl
-                                    : sourcing.estate?.sourcingImageUrl
-                            "
+                            [src]="sourcing.harvestDetail?.estate_profile_image_thumbnail_url"
                             [name]="sourcing.harvestDetail?.estate_name"
                         ></app-avatar>
                     </div>
@@ -313,31 +309,33 @@
                                         <label>{{ 'listing_status' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.listing_status | abailabilityListingStatus }}</p>
                                     </li>
-                                    <li>
-                                        <label>{{ 'wet_mill_processing' | translate }} :</label>
-                                        <p>{{ sourcing.harvestDetail?.wet_milling?.process }}</p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'fermentation_hr' | translate }} :</label>
-                                        <p>{{ sourcing.harvestDetail?.wet_milling?.fermentation }}</p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'dry_milling_process' | translate }} :</label>
-                                        <p>{{ sourcing.harvestDetail?.dry_milling?.process }}</p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'drying_period' | translate }} :</label>
-                                        <p>{{ sourcing.harvestDetail?.dry_milling?.drying_period }}</p>
-                                    </li>
-                                    <li>
-                                        <label>{{ 'water_activity' | translate }} :</label>
-                                        <p>{{ sourcing.harvestDetail?.dry_milling?.water_activity }}</p>
-                                    </li>
+                                    <ng-container *ngIf="sourcing.harvestDetail?.harvest_type === HarvestType.MILLING">
+                                        <li>
+                                            <label>{{ 'wet_mill_processing' | translate }} :</label>
+                                            <p>{{ sourcing.harvestDetail?.wet_milling?.process }}</p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'fermentation_hr' | translate }} :</label>
+                                            <p>{{ sourcing.harvestDetail?.wet_milling?.fermentation }}</p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'dry_milling_process' | translate }} :</label>
+                                            <p>{{ sourcing.harvestDetail?.dry_milling?.process }}</p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'drying_period' | translate }} :</label>
+                                            <p>{{ sourcing.harvestDetail?.dry_milling?.drying_period }}</p>
+                                        </li>
+                                        <li>
+                                            <label>{{ 'water_activity' | translate }} :</label>
+                                            <p>{{ sourcing.harvestDetail?.dry_milling?.water_activity }}</p>
+                                        </li>
 
-                                    <li>
-                                        <label>{{ 'moisture' | translate }} :</label>
-                                        <p>{{ sourcing.harvestDetail?.dry_milling?.moisture_content }}%</p>
-                                    </li>
+                                        <li>
+                                            <label>{{ 'moisture' | translate }} :</label>
+                                            <p>{{ sourcing.harvestDetail?.dry_milling?.moisture_content }}%</p>
+                                        </li>
+                                    </ng-container>
                                     <li>
                                         <label>{{ 'packaging' | translate }} :</label>
                                         <p>{{ sourcing.harvestDetail?.packaging }}</p>
