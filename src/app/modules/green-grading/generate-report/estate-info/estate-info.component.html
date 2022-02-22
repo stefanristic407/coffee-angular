@@ -1,120 +1,86 @@
 <div class="d-flex flex-wrap" style="margin-top: -1rem">
     <div class="sample_info mt-3">
         <div class="info_heading d-flex">
-            <div class="pull-left fnt-14 fw-b text-clr334">Sample Info</div>
-            <div
-                class="ml-auto pull-right cursor-pointer d-none d-md-flex details-wrapper"
-                *ngIf="cuppingDetails?.order_id"
-                (click)="routeToProcessDet()"
-            >
-                <span class="fnt-12 fw-b text-clr60b">view process details</span>
-                <i class="pi pi-angle-right fnt-12 fw-b text-clr60b"></i>
+            <div class="fnt-14 fw-b">{{ 'sample_info' | translate }}</div>
+            <div class="ml-auto arrow-link fnt-12" *ngIf="cuppingDetails?.order_id" (click)="routeToProcessDet()">
+                {{ 'view_process_details' | translate }}
             </div>
         </div>
         <div class="info_list">
-            <ul class="no-bullet-ul clearfix mb-0">
-                <li>
-                    <div>
-                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails?.order_id"
-                            >{{ 'order_id' | translate }} :</label
-                        >
-                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails?.order_id">
-                            {{ cuppingDetails['order_id'] }}
-                        </p>
-                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails?.external_sample_id"
-                            >Sample ID :</label
-                        >
-                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails?.external_sample_id">
-                            {{ cuppingDetails['external_sample_id'] }}
-                        </p>
-                    </div>
-                </li>
-                <li *ngIf="cuppingDetails?.estate_name">
-                    <div>
-                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'estate_name' | translate }} :</label>
-                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
-                            {{ cuppingDetails['estate_name'] }}
-                        </p>
-                    </div>
-                </li>
-                <li *ngIf="cuppingDetails?.origin">
-                    <div>
-                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'origin' | translate }} :</label>
-                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
-                            {{ cuppingDetails['origin'] | country }}
-                        </p>
-                    </div>
-                </li>
-                <li *ngIf="cuppingDetails?.harvest_date">
-                    <div>
-                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'harvest_year' | translate }} :</label>
-                        <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
-                            {{ cuppingDetails['harvest_date'] | date: 'MMMM y' }}
-                        </p>
-                    </div>
-                </li>
-            </ul>
+            <div class="info-item">
+                <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails?.order_id"
+                    >{{ 'order_id' | translate }} :</label
+                >
+                <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngIf="cuppingDetails?.order_id">
+                    {{ cuppingDetails['order_id'] }}
+                </p>
+                <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails?.external_sample_id"
+                    >{{ 'sample_id' | translate }} :</label
+                >
+                <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngIf="cuppingDetails?.external_sample_id">
+                    {{ cuppingDetails['external_sample_id'] }}
+                </p>
+            </div>
+            <div class="info-item">
+                <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'estate_name' | translate }} :</label>
+                <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngIf="cuppingDetails">
+                    {{ cuppingDetails['estate_name'] }}
+                </p>
+            </div>
+            <div class="info-item">
+                <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'origin' | translate }} :</label>
+                <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngIf="cuppingDetails">
+                    {{ cuppingDetails['origin'] | country }}
+                </p>
+            </div>
+            <div class="info-item">
+                <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails"
+                    >{{ 'harvest_year' | translate }} :</label
+                >
+                <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngIf="cuppingDetails?.harvest_date">
+                    {{ cuppingDetails['harvest_date'] | date: 'MMMM y' }}
+                </p>
+            </div>
         </div>
     </div>
-    <div class="d-flex flex-wrap" style="flex: 1">
+    <div class="d-flex flex-wrap flex-1">
         <div class="evaluator mt-3 ml-md-3">
             <div class="info_list">
-                <ul class="no-bullet-ul clearfix mb-0">
-                    <li *ngIf="singleCuppingDetails?.cupping_type">
-                        <div>
-                            <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0"
-                                >{{ 'cupping_type' | translate }} :</label
-                            >
-                            <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
-                                {{ singleCuppingDetails.cupping_type | sentencecase }}
-                                {{ 'cupping' | translate | lowercase }}
-                            </p>
-                        </div>
-                    </li>
-                    <li *ngIf="evaluatorName">
-                        <div>
-                            <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">Evaluator :</label>
-                            <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
-                                {{ evaluatorName | titlecase }}
-                            </p>
-                        </div>
-                    </li>
-                    <li *ngIf="evaluatorsListArray">
-                        <div>
-                            <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0"
-                                >{{ 'invited_evaluators' | translate }} :</label
-                            >
-                            <div class="float-right">
-                                <p
-                                    class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0"
-                                    *ngFor="let item of evaluatorsListArray"
-                                >
-                                    {{ item.evaluator_name | titlecase }}
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <div *ngIf="singleCuppingDetails" class="info-item">
+                    <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'cupping_type' | translate }} :</label>
+                    <p class="fnt-12 fw-m col-5 p-0 mb-0">
+                        {{ singleCuppingDetails.cupping_type | sentencecase }}
+                        {{ 'cupping' | translate | lowercase }}
+                    </p>
+                </div>
+                <div class="info-item">
+                    <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'evaluator' | translate }} :</label>
+                    <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngIf="evaluatorName">
+                        {{ evaluatorName | titlecase }}
+                    </p>
+                </div>
+                <div *ngIf="evaluatorsListArray" class="info-item">
+                    <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0"
+                        >{{ 'invited_evaluators' | translate }} :</label
+                    >
+                    <div class="float-right">
+                        <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngFor="let item of evaluatorsListArray">
+                            {{ item.evaluator_name | titlecase }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="ml-md-3 mt-3 evaluator" *ngIf="status || completedOn">
             <div class="info_list">
-                <ul class="no-bullet-ul clearfix mb-0">
-                    <li *ngIf="status">
-                        <div>
-                            <label class="fnt-12 text-clr588 col-7 p-0 mb-0">{{ 'status' | translate }} :</label>
-                            <p class="fnt-12 fw-m col-5 p-0 mb-0">{{ status | sentencecase }}</p>
-                        </div>
-                    </li>
-                    <li *ngIf="completedOn">
-                        <div>
-                            <label class="fnt-12 text-clr588 col-7 p-0 mb-0"
-                                >{{ 'date_completed' | translate }} :</label
-                            >
-                            <p class="fnt-12 fw-m col-5 p-0 mb-0">{{ completedOn | date: 'd MMM y' }}</p>
-                        </div>
-                    </li>
-                </ul>
+                <div *ngIf="status" class="info-item">
+                    <label class="fnt-12 text-clr588 col-7 p-0 mb-0">{{ 'status' | translate }} :</label>
+                    <p class="fnt-12 fw-m col-5 p-0 mb-0">{{ status | sentencecase }}</p>
+                </div>
+                <div *ngIf="completedOn" class="info-item">
+                    <label class="fnt-12 text-clr588 col-7 p-0 mb-0">{{ 'date_completed' | translate }} :</label>
+                    <p class="fnt-12 fw-m col-5 p-0 mb-0">{{ completedOn | date: 'd MMM y' }}</p>
+                </div>
             </div>
         </div>
     </div>
