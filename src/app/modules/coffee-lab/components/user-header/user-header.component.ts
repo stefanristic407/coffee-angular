@@ -17,7 +17,6 @@ export class UserHeaderComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {
-        console.log(this.prop);
         this.orgType =
             this.prop?.company_name ||
             this.prop?.organization_name ||
