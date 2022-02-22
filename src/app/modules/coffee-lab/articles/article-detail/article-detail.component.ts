@@ -124,6 +124,9 @@ export class ArticleDetailComponent extends DestroyableComponent implements OnIn
                     }
                     this.isLoading = false;
                 });
+            } else if (res.response_code === 410) {
+                this.toastrService.error('Article is deleted');
+                this.router.navigateByUrl(`/coffee-lab/overview/articles`);
             } else {
                 this.toastrService.error('Cannot get detail data');
             }

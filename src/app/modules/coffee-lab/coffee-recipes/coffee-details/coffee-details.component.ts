@@ -133,6 +133,9 @@ export class CoffeeDetailsComponent extends DestroyableComponent implements OnIn
                     }
                     this.isLoading = false;
                 });
+            } else if (res.response_code === 410) {
+                this.toastrService.error('Recipe is deleted');
+                this.router.navigateByUrl(`/coffee-lab/overview/coffee-recipes`);
             } else {
                 this.toastrService.error('Cannot get detail data');
             }

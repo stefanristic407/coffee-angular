@@ -118,6 +118,9 @@ export class QuestionDetailComponent extends DestroyableComponent implements OnI
                     }
                     this.isLoading = false;
                 });
+            } else if (res.response_code === 410) {
+                this.toastService.error('Question is deleted');
+                this.router.navigateByUrl(`/coffee-lab/overview/qa-forum`);
             } else {
                 this.toastService.error('Cannot get detail data');
             }
