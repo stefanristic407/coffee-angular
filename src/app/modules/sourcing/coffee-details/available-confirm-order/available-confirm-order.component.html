@@ -262,7 +262,7 @@
 
                     <div *ngIf="editAddress" class="mt-4 mt-md-45">
                         <div class="fnt-16 fnt-md-18 fw-b text-clr000 mb-4">
-                            {{ (isBilling ? 'billing_address' : 'shipping_address') | translate }}
+                            {{ (isBilling ? 'billing_address' : 'delivery_address') | translate }}
                         </div>
                         <form [formGroup]="addressForm" class="form-container">
                             <div class="row">
