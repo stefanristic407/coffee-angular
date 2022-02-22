@@ -15,15 +15,13 @@
             <ul class="no-bullet-ul clearfix mb-0">
                 <li>
                     <div>
-                        <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails?.order_id"
+                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails?.order_id"
                             >{{ 'order_id' | translate }} :</label
                         >
                         <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails?.order_id">
                             {{ cuppingDetails['order_id'] }}
                         </p>
-                        <label
-                            class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
-                            *ngIf="cuppingDetails?.external_sample_id"
+                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails?.external_sample_id"
                             >Sample ID :</label
                         >
                         <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0" *ngIf="cuppingDetails?.external_sample_id">
@@ -33,9 +31,7 @@
                 </li>
                 <li *ngIf="cuppingDetails?.estate_name">
                     <div>
-                        <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
-                            >{{ 'estate_name' | translate }} :</label
-                        >
+                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'estate_name' | translate }} :</label>
                         <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                             {{ cuppingDetails['estate_name'] }}
                         </p>
@@ -43,7 +39,7 @@
                 </li>
                 <li *ngIf="cuppingDetails?.origin">
                     <div>
-                        <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">{{ 'origin' | translate }} :</label>
+                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'origin' | translate }} :</label>
                         <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                             {{ cuppingDetails['origin'] | country }}
                         </p>
@@ -51,9 +47,7 @@
                 </li>
                 <li *ngIf="cuppingDetails?.harvest_date">
                     <div>
-                        <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
-                            >{{ 'harvest_year' | translate }} :</label
-                        >
+                        <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'harvest_year' | translate }} :</label>
                         <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                             {{ cuppingDetails['harvest_date'] | date: 'MMMM y' }}
                         </p>
@@ -68,7 +62,7 @@
                 <ul class="no-bullet-ul clearfix mb-0">
                     <li *ngIf="singleCuppingDetails?.cupping_type">
                         <div>
-                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
+                            <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0"
                                 >{{ 'cupping_type' | translate }} :</label
                             >
                             <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
@@ -79,7 +73,7 @@
                     </li>
                     <li *ngIf="evaluatorName">
                         <div>
-                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0">Evaluator :</label>
+                            <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">Evaluator :</label>
                             <p class="fnt-12 fw-m text-clr334 col-5 p-0 mb-0">
                                 {{ evaluatorName | titlecase }}
                             </p>
@@ -87,7 +81,7 @@
                     </li>
                     <li *ngIf="evaluatorsListArray">
                         <div>
-                            <label class="fnt-12 fnt-normal text-clr588 col-7 p-0 mb-0"
+                            <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0"
                                 >{{ 'invited_evaluators' | translate }} :</label
                             >
                             <div class="float-right">
