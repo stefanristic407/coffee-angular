@@ -338,7 +338,7 @@ export class OrderManagementService {
                 }
 
                 const documents = this.documentsSubject.getValue();
-                documents.push(...res.result);
+                documents.push(...(res.result || []));
                 this.documentsSubject.next(documents);
             }
         });
