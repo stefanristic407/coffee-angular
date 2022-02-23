@@ -26,28 +26,21 @@
     background-color: $primary-bg-color;
     padding: 12px 10px;
     align-items: center;
-    .details-wrapper {
-        align-items: center;
-        & span:hover {
-            text-decoration: underline;
-        }
-    }
 }
 
-.info_list ul li {
-    width: 100%;
-    float: left;
+.info_list {
     padding: 0 12px;
-
-    & > div {
+    .info-item {
+        width: 100%;
+        float: left;
         padding: 12px 0;
         border-bottom: 1px dashed $primary-border-color;
         display: flex;
         align-items: center;
-    }
 
-    &:last-child > div {
-        border-bottom: none;
-        margin-bottom: 0;
+        &:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
     }
 }
