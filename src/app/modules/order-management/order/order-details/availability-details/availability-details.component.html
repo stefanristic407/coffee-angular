@@ -75,7 +75,7 @@
             <span class="list-que"> {{ 'water_activity' | translate }}: </span>
         </td>
         <td>
-            <span class="list-ans"> {{ (bulk?.water_activity | sentencecase) || '-' }} </span>
+            <span class="list-ans"> {{ bulk?.water_activity || '-' }} </span>
         </td>
     </tr>
 
