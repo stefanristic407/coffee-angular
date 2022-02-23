@@ -22,7 +22,7 @@ export class DocumentsComponent extends DestroyableComponent implements OnInit {
 
     ngOnInit(): void {
         this.orderService.documents$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((documents) => {
-            this.showLoadMore = this.documents.length === documents.length;
+            this.showLoadMore = this.orderService.documentsTotalCount > documents.length;
             this.documents = documents;
             this.owners = this.documents
                 .map((x) => x.file_owner)

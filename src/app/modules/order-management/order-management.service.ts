@@ -70,6 +70,8 @@ export class OrderManagementService {
     private ordersSub: Subscription;
     private requestsSub: Subscription;
 
+    documentsTotalCount: number;
+
     constructor(
         private addressesSrv: AddressesService,
         private availabilitySrv: AvailabilityService,
@@ -328,16 +330,17 @@ export class OrderManagementService {
     }
 
     loadDocuments(page = 1, perPage = 5, rewrite = false): void {
-        this.orderSrv.getOrderDocuments(this.orderId, page, perPage).subscribe({
-            next: (result) => {
+        this.orderSrv.getOrderDocuments(this.orderId, page, perPage).subscribe((res) => {
+            if (res.success) {
+                this.documentsTotalCount = res.result_info.total_count;
                 if (rewrite) {
                     this.documentsSubject.next([]);
                 }
 
                 const documents = this.documentsSubject.getValue();
-                documents.push(...result);
+                documents.push(...res.result);
                 this.documentsSubject.next(documents);
-            },
+            }
         });
     }
 
