@@ -82,7 +82,7 @@ export const checkFile = (file: File, maxSize = 30, maxWidth = 5000, maxHeight =
 
 export function getUrl(title: string) {
     title = title.toLowerCase();
-    let removeSpace = title.replace(/[._!"`'#%&,:;<>=@{}¿~\$\(\)\*\+\/\\\?\[\]\^\|]+/g, '');
+    let removeSpace = title.replace(/[._!"`'#%&,:;<>=@{}¿”~\$\(\)\*\+\/\\\?\[\]\^\|]+/g, '');
     removeSpace = removeSpace.replace(/[ ]+/g, '-');
     const slug = removeSpace.replace(/^-+|-+(?=-|$)/g, '');
     return slug;
