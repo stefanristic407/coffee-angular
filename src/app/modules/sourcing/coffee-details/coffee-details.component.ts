@@ -23,6 +23,13 @@ export class CoffeeDetailsComponent extends ResizeableComponent implements OnIni
     buyable = false;
     shippingTo: string;
 
+    get isStillParchment() {
+        return (
+            this.sourcing.harvestDetail?.harvest_type === HarvestType.PARCHMENT &&
+            this.sourcing.harvestDetail?.status === AvailabilityStatus.IN_STOCK
+        );
+    }
+
     constructor(
         private authService: AuthService,
         private gallery: Gallery,
