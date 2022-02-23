@@ -85,7 +85,10 @@
                                         {{ 'lot_id' | translate }} - {{ sourcing.lot?.number }}
                                     </a>
                                     <div
-                                        *ngIf="sourcing.harvestDetail?.harvest_type === HarvestType.PARCHMENT"
+                                        *ngIf="
+                                            sourcing.harvestDetail?.harvest_type === HarvestType.PARCHMENT &&
+                                            sourcing.harvestDetail?.status === AvailabilityStatus.IN_STOCK
+                                        "
                                         class="parchment-mark"
                                     >
                                         {{ 'still_in_parchment' | translate }}
