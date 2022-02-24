@@ -46,7 +46,7 @@
 }
 
 .w-md-10 {
-    width: 100px;
+    width: 112px;
     margin: 0px 0.25rem 1.5rem;
     display: flex;
     flex-direction: column;
@@ -193,11 +193,19 @@ input[type='number'] {
     border-bottom: solid 1px $primary-border-color;
     border-left: solid 1px $primary-border-color;
     border-right: solid 1px $primary-border-color;
+    padding: 12px;
+    @media (min-width: 768px) {
+        padding: 4px;
+    }
 }
 
 .fragrance-border {
     padding: 0.5rem 0.25rem;
     border-bottom: dashed 1px #dddddd;
+
+    @media (max-width: 767px) {
+        padding: 1rem 0.75rem;
+    }
 
     &:last-child {
         border: none;
@@ -254,15 +262,6 @@ input[type='number'] {
     .roast-container {
         height: 46px;
         max-width: unset;
-    }
-
-    .fragrance-border {
-        padding: 1rem 0.75rem;
-        border-bottom: dashed 1px #dddddd;
-
-        &:last-child {
-            border: none;
-        }
     }
 
     .level-wrapper {
