@@ -1,9 +1,7 @@
-import { ValidationErrors } from '@angular/forms';
 import { CONTINENT_LIST, COUNTRY_LIST, LANGUAGES, OrganizationName, WEIGHT2KG } from '@constants';
 import { OrganizationType, QuantityUnit } from '@enums';
 import { Country, Language } from '@models';
 import { Observable } from 'rxjs';
-import Slugify from 'slugify';
 
 export const getOrgName = (orgType: OrganizationType | string): string => {
     const type = orgType?.toLowerCase() as OrganizationType;
