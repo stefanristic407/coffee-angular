@@ -27,6 +27,10 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
         { label: 'Taint', value: Intensity.TAINT },
         { label: 'Fault', value: Intensity.FAULT },
     ];
+    advanceOptions = [
+        { label: this.translator.instant('advance'), value: true },
+        { label: this.translator.instant('quick'), value: false },
+    ];
 
     finalScore: any;
     uniformityComment: any;
@@ -228,7 +232,6 @@ export class GenerateMySampleComponent implements OnInit, OnChanges {
     }
 
     changeMode() {
-        this.isAdvance = !this.isAdvance;
         if (this.isAdvance && !this.isEditable) {
             this.infoForm.get('uniformity_score').disable();
             this.infoForm.get('cleancup_score').disable();

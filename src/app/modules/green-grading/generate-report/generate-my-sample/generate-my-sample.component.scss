@@ -4,61 +4,14 @@
     padding: 1.875rem 1.5rem 1.5rem;
 }
 
-.final-score {
-    border-radius: 4px;
-    border: solid 1px $primary-border-color;
-}
-
 .final-label {
-    background: #f8f8f8;
+    background: $primary-bg-color;
     border-radius: 4px;
     margin: 0px;
     padding: 0.75rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.lots-input {
-    outline: 0;
-    border: 1px solid $primary-border-color;
-    border-radius: 4px;
-    font-size: 14px;
-    font-family: $general-font-family;
-    color: #747588;
-    padding: 8px 22px 9px;
-    display: block;
-    width: 100%;
-    line-height: normal;
-}
-
-.active__main {
-    border-radius: 4px;
-    border: solid 1px $primary-color;
-    padding: 2px;
-    min-width: 150px;
-
-    .group-btn {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 50%;
-        padding: 8px 10px;
-        font-size: 12px;
-        border-radius: 2px !important;
-        font-family: $general-font-family;
-        font-weight: $fw-m;
-        margin: auto;
-    }
-}
-
-.active_default {
-    background-color: $primary-color;
-    color: $white !important;
-}
-
-.disable_default {
-    background-color: $white;
-    color: #979797;
 }
 
 /* roaster containercheck box */
@@ -75,55 +28,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
-    &:nth-child(2) {
-        .checkmark,
-        &:hover input ~ .checkmark {
-            background-color: #744a24;
-        }
-    }
-
-    &:nth-child(3) {
-        .checkmark,
-        &:hover input ~ .checkmark {
-            background-color: #72492b;
-        }
-    }
-
-    &:nth-child(4) {
-        .checkmark,
-        &:hover input ~ .checkmark {
-            background-color: #643f24;
-        }
-    }
-
-    &:nth-child(5) {
-        .checkmark,
-        &:hover input ~ .checkmark {
-            background-color: #583522;
-        }
-    }
-
-    &:nth-child(6) {
-        .checkmark,
-        &:hover input ~ .checkmark {
-            background-color: #3e2a23;
-        }
-    }
-
-    &:nth-child(7) {
-        .checkmark,
-        &:hover input ~ .checkmark {
-            background-color: #2c211b;
-        }
-    }
-
-    &:nth-child(8) {
-        .checkmark,
-        &:hover input ~ .checkmark {
-            background-color: #2d221e;
-        }
-    }
 }
 
 .roast-custom-check {
@@ -148,29 +52,6 @@
     flex-direction: column;
 }
 
-.mdev-tab {
-    width: 208px;
-    margin: 0px 0.25rem 1.5rem;
-    display: flex;
-
-    div {
-        display: flex;
-        flex-direction: column;
-
-        &:first-child {
-            margin-right: 0.25rem;
-        }
-
-        &:last-child {
-            margin-left: 0.25rem;
-        }
-    }
-}
-
-.flex-1 {
-    flex: 1;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -182,42 +63,19 @@ input[type='number'] {
     -moz-appearance: textfield;
 }
 
-/* acidity check */
-
-.acidity-container {
-    display: block;
-    position: relative;
-    padding-left: 17px;
-    margin-bottom: 17px;
-    cursor: pointer;
-    font-size: 0px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
-    input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-    }
-}
-
 .defect-wrapper {
-    border-top: solid 1px #d8d8d8;
+    border-top: solid 1px $primary-border-color;
 }
 
 .level-wrapper {
-    border-bottom: solid 1px #d8d8d8;
-    border-left: solid 1px #d8d8d8;
-    border-right: solid 1px #d8d8d8;
+    border-bottom: solid 1px $primary-border-color;
+    border-left: solid 1px $primary-border-color;
+    border-right: solid 1px $primary-border-color;
     padding: 0.25rem;
 
     .custom-check {
         display: flex;
-        border: solid 1px #d8d8d8;
+        border: solid 1px $primary-border-color;
 
         .level-container {
             display: block;
@@ -251,7 +109,7 @@ input[type='number'] {
                 left: 0;
                 height: 25px;
                 width: 100%;
-                border-right: solid 1px #d8d8d8;
+                border-right: solid 1px $primary-border-color;
                 background-color: $white;
                 border-radius: 0 !important;
                 color: #232334;
@@ -332,9 +190,9 @@ input[type='number'] {
 }
 
 .fragrance {
-    border-bottom: solid 1px #d8d8d8;
-    border-left: solid 1px #d8d8d8;
-    border-right: solid 1px #d8d8d8;
+    border-bottom: solid 1px $primary-border-color;
+    border-left: solid 1px $primary-border-color;
+    border-right: solid 1px $primary-border-color;
 }
 
 .fragrance-border {
@@ -344,14 +202,6 @@ input[type='number'] {
     &:last-child {
         border: none;
     }
-}
-
-.field-title-label {
-    font-size: 12px;
-}
-
-.fnt-10 {
-    line-height: normal !important;
 }
 
 @media only screen and (max-width: 991px) {
@@ -381,30 +231,11 @@ input[type='number'] {
         display: block !important;
         width: 45%;
     }
-
-    .active_default,
-    .disable_default {
-        padding: 4px 10px;
-    }
 }
 
 @media only screen and (max-width: 991px) {
     .total-section {
         padding: 1rem 1rem 1.5rem;
-    }
-
-    .mdev-tab {
-        width: 100px;
-        display: block;
-
-        div {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-
-            &:last-child {
-                margin-top: 9px;
-            }
-        }
     }
 }
 
@@ -414,36 +245,15 @@ input[type='number'] {
         align-items: flex-end;
     }
 
-    .lots-input {
-        max-width: 80%;
-    }
-
     .w-md-8,
-    .w-md-10,
-    .mdev-tab {
+    .w-md-10 {
         min-width: 100%;
         margin: 0 0 1rem 0;
-    }
-
-    .mdev-tab > div:last-child {
-        margin-top: 1rem;
-    }
-
-    .final-score {
-        border: none;
     }
 
     .roast-container {
         height: 46px;
         max-width: unset;
-    }
-
-    .fnt-10 {
-        font-size: 12px;
-    }
-
-    .field-title-label {
-        font-size: 14px;
     }
 
     .fragrance-border {
@@ -466,7 +276,7 @@ input[type='number'] {
     }
 }
 
-::ng-deep {
+:host ::ng-deep {
     .p-slider.p-frag-slider {
         &.p-slider-horizontal {
             height: 2px;
@@ -562,6 +372,9 @@ input[type='number'] {
                 border: unset;
                 &.p-highlight {
                     box-shadow: 0 4px 7px 0 rgb(0 0 0 / 60%);
+                    &:hover {
+                        background: #7d562d;
+                    }
                 }
                 &:hover {
                     background: #7d562d;
@@ -590,6 +403,16 @@ input[type='number'] {
         .p-inputtext {
             padding: 0.53125rem 0.75rem !important;
             border-radius: 2px !important;
+        }
+    }
+
+    .p-selectbutton.p-selectbutton-advance {
+        .p-button {
+            font-size: 12px;
+            padding: 6px 12px;
+            @media (min-width: 768px) {
+                padding: 11px 15px;
+            }
         }
     }
 }

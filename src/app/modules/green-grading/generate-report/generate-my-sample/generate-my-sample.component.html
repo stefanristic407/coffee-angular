@@ -1,10 +1,8 @@
 <section class="total-section prime-grid">
-    <div class="back-page pb-4 pb-md-45" (click)="goBack()">
-        <a>
-            <span class="pl-2">Back</span>
-        </a>
+    <div class="back-page mb-4 mb-md-45" (click)="goBack()">
+        {{ 'back' | translate }}
     </div>
-    <div class="request-title-text">Green coffee grading</div>
+    <div class="request-title-text">{{ 'green_coffee_grading' | translate }}</div>
     <!-- Sample -->
     <div class="pt-3 pt-md-4">
         <app-estate-info
@@ -17,21 +15,24 @@
     </div>
 
     <!-- Final Score -->
-    <div [formGroup]="infoForm" class="final-score mt-4">
+    <div [formGroup]="infoForm" class="border-md-main br-4 mt-4">
         <div class="col-12 final-label">
             <div class="d-flex justify-content-between align-items-start flex-column flex-md-row align-items-md-center">
-                <span class="fnt-16 fw-b mr-2"> Final Score: {{ finalScore }}</span>
+                <span class="fnt-16 fw-b mr-2"> {{ 'final_score' | translate }}: {{ finalScore }}</span>
             </div>
 
-            <div class="btn-group btn-toggle active__main" (click)="changeMode()">
-                <div class="btn group-btn" [ngClass]="isAdvance ? 'active_default' : 'disable_default'">Advance</div>
-                <div class="btn group-btn" [ngClass]="isAdvance ? 'disable_default' : 'active_default'">Quick</div>
-            </div>
+            <p-selectButton
+                [options]="advanceOptions"
+                [(ngModel)]="isAdvance"
+                [ngModelOptions]="{ standalone: true }"
+                (onChange)="changeMode()"
+                styleClass="p-selectbutton-advance"
+            ></p-selectButton>
         </div>
 
         <div class="py-3 px-md-3">
             <div>
-                <label class="fnt-12 fw-b black mb-0">Select roast level</label>
+                <label class="fnt-12 fw-b mb-0">{{ 'select_roast_level' | translate }}</label>
                 <div class="roast-custom-check">
                     <span class="roast-container" *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8]">
                         <p-checkbox
@@ -39,7 +40,6 @@
                             [value]="i"
                             formControlName="roast_level"
                             (onChange)="onCheckRoastLevel(i)"
-                            inputId="sf"
                             class="roast-checkbox"
                         >
                         </p-checkbox>
@@ -48,7 +48,7 @@
 
                 <div class="table-final-score d-flex mt-3 pb-0">
                     <div class="w-md-10 sewn-form-field mini">
-                        <label>Fragrance/Aroma</label>
+                        <label>{{ 'fragrance_aroma' | translate }}</label>
                         <p-inputNumber
                             step="0.25"
                             minFractionDigits="1"
@@ -61,7 +61,7 @@
                         }}</small>
                         <div *ngIf="isAdvance" class="fragrance">
                             <div class="fragrance-border">
-                                <p class="fnt-10 fw-b black mb-1">Dry</p>
+                                <p class="fnt-10 fw-b mb-1">{{ 'dry' | translate }}</p>
                                 <p-slider
                                     formControlName="fragrance_dry"
                                     [step]="1"
@@ -71,7 +71,7 @@
                                 ></p-slider>
                                 <div class="dry-break-wrapper">
                                     <p
-                                        class="fnt-10 fw-b black mt-1 mb-0"
+                                        class="fnt-10 fw-b mt-1 mb-0"
                                         *ngFor="let fragranceValue of [-3, -2, -1, 0, 1, 2, 3]"
                                     >
                                         {{ fragranceValue }}
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="fragrance-border">
-                                <p class="fnt-10 fw-b black mb-1">Break</p>
+                                <p class="fnt-10 fw-b mb-1">{{ 'break' | translate }}</p>
                                 <p-slider
                                     formControlName="fragrance_break"
                                     [step]="1"
@@ -88,10 +88,7 @@
                                     styleClass="p-frag-slider"
                                 ></p-slider>
                                 <div class="dry-break-wrapper">
-                                    <p
-                                        class="fnt-10 fw-b black mt-1 mb-0"
-                                        *ngFor="let fragBreak of [-3, -2, -1, 0, 1, 2, 3]"
-                                    >
+                                    <p class="fnt-10 fw-b mt-1 mb-0" *ngFor="let fragBreak of [-3, -2, -1, 0, 1, 2, 3]">
                                         {{ fragBreak }}
                                     </p>
                                 </div>
@@ -99,7 +96,7 @@
                         </div>
                     </div>
                     <div class="w-md-10 sewn-form-field mini">
-                        <label>Flavor</label>
+                        <label>{{ 'flavor' | translate }}</label>
                         <p-inputNumber
                             step="0.25"
                             minFractionDigits="1"
@@ -112,7 +109,7 @@
                         }}</small>
                     </div>
                     <div class="w-md-10 sewn-form-field mini">
-                        <label>Aftertaste</label>
+                        <label>{{ 'aftertaste' | translate }}</label>
                         <p-inputNumber
                             step="0.25"
                             minFractionDigits="1"
@@ -125,7 +122,7 @@
                         }}</small>
                     </div>
                     <div class="w-md-10 sewn-form-field mini">
-                        <label>Acidity</label>
+                        <label>{{ 'acidity' | translate }}</label>
                         <p-inputNumber
                             step="0.25"
                             minFractionDigits="1"
@@ -137,7 +134,7 @@
                             'cupping_score_validation' | translate
                         }}</small>
                         <div *ngIf="isAdvance" class="level-wrapper">
-                            <p class="fnt-10 fw-b mb-0 black">Intensity</p>
+                            <p class="fnt-10 fw-b mb-0">{{ 'intensity' | translate }}</p>
                             <div class="custom-check mb-1 mt-1">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
                                     <input
@@ -151,13 +148,13 @@
                                 </label>
                             </div>
                             <div class="low-high-content">
-                                <p class="fnt-10 fw-b black">Low</p>
-                                <p class="fnt-10 fw-b black">High</p>
+                                <p class="fnt-10 fw-b">{{ 'low' | translate }}</p>
+                                <p class="fnt-10 fw-b">{{ 'high' | translate }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="w-md-10 sewn-form-field mini">
-                        <label>Body</label>
+                        <label>{{ 'body' | translate }}</label>
                         <p-inputNumber
                             step="0.25"
                             minFractionDigits="1"
@@ -166,7 +163,7 @@
                             (ngModelChange)="calculateFinalScore()"
                         ></p-inputNumber>
                         <div *ngIf="isAdvance" class="level-wrapper">
-                            <p class="fnt-10 fw-b mb-0 black">Level</p>
+                            <p class="fnt-10 fw-b mb-0">{{ 'level' | translate }}</p>
                             <div class="custom-check mb-1 mt-1">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
                                     <input
@@ -180,13 +177,13 @@
                                 </label>
                             </div>
                             <div class="low-high-content">
-                                <p class="fnt-10 fw-b black">Low</p>
-                                <p class="fnt-10 fw-b black heavy-high">High</p>
+                                <p class="fnt-10 fw-b">{{ 'low' | translate }}</p>
+                                <p class="fnt-10 fw-b heavy-high">{{ 'high' | translate }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="w-md-8 sewn-form-field mini">
-                        <label>Balance</label>
+                        <label>{{ 'balance' | translate }}</label>
                         <p-inputNumber
                             step="0.25"
                             minFractionDigits="1"
@@ -199,7 +196,7 @@
                         }}</small>
                     </div>
                     <div class="w-md-10 sewn-form-field mini">
-                        <label>Uniformity</label>
+                        <label>{{ 'uniformity' | translate }}</label>
                         <p-inputNumber
                             minFractionDigits="1"
                             placeholder="Enter score"
@@ -222,7 +219,7 @@
                         </div>
                     </div>
                     <div class="w-md-10 sewn-form-field mini">
-                        <label>Clean Cup</label>
+                        <label>{{ 'clean_cup' | translate }}</label>
                         <p-inputNumber
                             minFractionDigits="1"
                             placeholder="Enter score"
@@ -245,7 +242,7 @@
                         </div>
                     </div>
                     <div class="w-md-10 sewn-form-field mini">
-                        <label>Sweetness </label>
+                        <label>{{ 'sweetness' | translate }}</label>
                         <p-inputNumber
                             minFractionDigits="1"
                             placeholder="Enter score"
@@ -268,7 +265,7 @@
                         </div>
                     </div>
                     <div class="w-md-8 sewn-form-field mini">
-                        <label>Overall</label>
+                        <label>{{ 'overall' | translate }}</label>
                         <p-inputNumber
                             step="0.25"
                             minFractionDigits="1"
@@ -281,9 +278,9 @@
                         }}</small>
                     </div>
                     <div class="w-md-10">
-                        <label class="field-title-label fw-b black"> Defects </label>
+                        <label class="fnt-md-12 fw-b"> {{ 'defects' | translate }} </label>
                         <div class="level-wrapper defect-wrapper flex-1">
-                            <p class="fnt-10 fw-b black m-0">Number of cups</p>
+                            <p class="fnt-10 fw-b m-0">{{ 'number_of_cups' | translate }}</p>
                             <div class="custom-check mb-2 mt-1">
                                 <label class="level-container" *ngFor="let i of [1, 2, 3, 4, 5]">
                                     <input
@@ -296,7 +293,7 @@
                                     <span class="checkmark">{{ i }}</span>
                                 </label>
                             </div>
-                            <p class="fnt-10 fw-b black m-0">Intensity</p>
+                            <p class="fnt-10 fw-b m-0">{{ 'intensity' | translate }}</p>
                             <p-selectButton
                                 [options]="intensityOptions"
                                 formControlName="defects_intensity"
@@ -335,7 +332,7 @@
     <div
         class="d-flex justify-content-lg-end justify-content-md-between flex-column-reverse flex-md-row w-100 pt-3 pt-md-4"
     >
-        <button class="green-button btn-stroked mr-0 mr-md-4" (click)="cancel()">Cancel</button>
-        <button class="green-button btn-raised mb-2 mb-md-0" (click)="goNext()">Submit</button>
+        <button class="btn-stroked mr-0 mr-md-4" (click)="cancel()">{{ 'cancel' | translate }}</button>
+        <button class="btn-raised mb-2 mb-md-0" (click)="goNext()">{{ 'submit' | translate }}</button>
     </div>
 </section>
