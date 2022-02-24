@@ -3,6 +3,7 @@ import { CONTINENT_LIST, COUNTRY_LIST, LANGUAGES, OrganizationName, WEIGHT2KG } 
 import { OrganizationType, QuantityUnit } from '@enums';
 import { Country, Language } from '@models';
 import { Observable } from 'rxjs';
+import Slugify from 'slugify';
 
 export const getOrgName = (orgType: OrganizationType | string): string => {
     const type = orgType?.toLowerCase() as OrganizationType;
@@ -82,7 +83,7 @@ export const checkFile = (file: File, maxSize = 30, maxWidth = 5000, maxHeight =
 
 export function getUrl(title: string) {
     title = title.toLowerCase();
-    let removeSpace = title.replace(/[._!"`'#%&,:;<>=@{}¿”~\$\(\)\*\+\/\\\?\[\]\^\|]+/g, '');
+    let removeSpace = title.replace(/[._!"`'#%&,:;<>=@{}»¿”~\$\(\)\*\+\/\\\?\[\]\^\|]+/g, '');
     removeSpace = removeSpace.replace(/[ ]+/g, '-');
     const slug = removeSpace.replace(/^-+|-+(?=-|$)/g, '');
     return slug;
