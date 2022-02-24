@@ -6,6 +6,7 @@ import { Download } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { DownloadService, GreenGradingService, ResizeService } from '@services';
 import { trackFileName } from '@utils';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 
@@ -163,8 +164,14 @@ export class CuppingReportComponent extends ResizeableComponent implements OnIni
 
     onFilter() {
         let reportsData = this.activeIndex === 0 ? this.serviceReportsData : this.otherReportsData;
-        reportsData = reportsData.filter((row: any) =>
-            this.selectedDate ? new Date(row.completed_on) <= new Date(this.selectedDate) : true,
+        reportsData = reportsData.filter(
+            (row: any) =>
+                (this.selectedDate && this.selectedDate[0]
+                    ? new Date(row.completed_on) >= new Date(this.selectedDate[0])
+                    : true) &&
+                (this.selectedDate && this.selectedDate[1]
+                    ? new Date(row.completed_on) <= moment(this.selectedDate[1]).startOf('day').add(1, 'day').toDate()
+                    : true),
         );
         if (this.activeIndex === 0) {
             reportsData = reportsData.filter((row: any) =>

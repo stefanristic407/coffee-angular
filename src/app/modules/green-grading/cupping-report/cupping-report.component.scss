@@ -48,15 +48,15 @@
                 border-color: #747588;
                 font-family: $general-font-family;
                 font-size: 14px;
-                font-weight: 500 !important;
+                font-weight: $fw-m !important;
             }
         }
     }
 
     .table-action-button:hover {
-        border-color: #30855c !important;
+        border-color: $primary-color !important;
         .p-button-label {
-            color: #30855c !important;
+            color: $primary-color !important;
         }
     }
 }

@@ -18,7 +18,7 @@
         <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
             <div class="green_grading_cont">
                 <h1 class="fnt-18 fw-b mb-2">{{ 'my_cupping_reports' | translate }}</h1>
-                <h3 class="mb-0 pt-1">{{ 'edit_evaluators' | translate }}</h3>
+                <h3 class="text-clr588 mb-0 pt-1">{{ 'edit_evaluators' | translate }}</h3>
             </div>
             <span class="custom-search d-inline-block d-lg-none mt-3">
                 <input
@@ -52,23 +52,24 @@
                     [options]="regions"
                     [(ngModel)]="selectedRegion"
                     [placeholder]="'region' | translate"
-                    styleClass="round-border"
                     [showClear]="true"
                     (onChange)="onFilter()"
+                    styleClass="round-border {{ selectedRegion ? ' highlight' : '' }}"
                 >
                 </p-dropdown>
             </span>
             <span class="ml-1">
                 <p-calendar
                     [(ngModel)]="selectedDate"
-                    [placeholder]="'date' | translate"
+                    [readonlyInput]="true"
                     [showIcon]="true"
-                    inputId="icon"
+                    placeholder="{{ 'date_range' | translate }}"
+                    selectionMode="range"
+                    dateFormat="dd/mm/yy"
                     [showButtonBar]="true"
-                    dateFormat="dd-mm-yy"
-                    styleClass="round-border"
                     (onSelect)="onFilter()"
                     (onClearClick)="onFilter()"
+                    styleClass="round-border {{ selectedDate ? ' highlight' : '' }}"
                 >
                 </p-calendar>
             </span>
