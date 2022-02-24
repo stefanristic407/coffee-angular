@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
 import { COUNTRY_LIST } from '@constants';
-import { HarvestType } from '@enums';
+import { AvailabilityStatus, HarvestType } from '@enums';
 import { AuthService, ResizeService } from '@services';
 import { getContinentName, getCountry } from '@utils';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
@@ -16,11 +16,19 @@ import { SourcingService } from '../sourcing.service';
     styleUrls: ['./coffee-details.component.scss'],
 })
 export class CoffeeDetailsComponent extends ResizeableComponent implements OnInit {
+    readonly AvailabilityStatus = AvailabilityStatus;
     readonly HarvestType = HarvestType;
     items: GalleryItem[];
     isLoaded = false;
     buyable = false;
     shippingTo: string;
+
+    get isStillParchment() {
+        return (
+            this.sourcing.harvestDetail?.harvest_type === HarvestType.PARCHMENT &&
+            this.sourcing.harvestDetail?.status === AvailabilityStatus.IN_STOCK
+        );
+    }
 
     constructor(
         private authService: AuthService,

@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OrderDocument } from '@models';
-import { CookieService } from 'ngx-cookie-service';
+import { ApiResponse, OrderDocument } from '@models';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AuthService } from '../auth';
 import { ApiService } from './api.service';
 
@@ -15,17 +13,9 @@ export class OrderService extends ApiService {
         super(http, authService);
     }
 
-    getOrderDocuments(orderId: number, page = 1, perPage = 5): Observable<OrderDocument[]> {
+    getOrderDocuments(orderId: number, page = 1, perPage = 5): Observable<ApiResponse<OrderDocument[]>> {
         const params = this.serializeParams({ page, per_page: perPage });
 
-        return this.postWithOrg(this.orgPostUrl, `orders/${orderId}/documents?${params}`).pipe(
-            map((response) => {
-                if (response.success && response.result) {
-                    return response.result;
-                }
-
-                return [];
-            }),
-        );
+        return this.postWithOrg(this.orgPostUrl, `orders/${orderId}/documents?${params}`);
     }
 }

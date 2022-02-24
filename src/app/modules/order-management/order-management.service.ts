@@ -70,6 +70,8 @@ export class OrderManagementService {
     private ordersSub: Subscription;
     private requestsSub: Subscription;
 
+    documentsTotalCount: number;
+
     constructor(
         private addressesSrv: AddressesService,
         private availabilitySrv: AvailabilityService,
@@ -285,6 +287,7 @@ export class OrderManagementService {
 
                     this.orderDetailsSubject.next(details);
 
+                    const promises = [];
                     if (!skipAdditionalDetails) {
                         this.loadActivities(orderId, orgType);
                         this.loadBulkDetails(details.harvest_id);
@@ -296,22 +299,25 @@ export class OrderManagementService {
                         this.loadUserProfile();
                         this.checkReviews(orderId, orgType);
 
+                        if (details.order_type === OrderType.Prebook) {
+                            this.loadLotDetails(details.estate_id, details.lot_id);
+                        }
+
+                        // These should be loaded before rendering UI
                         if (
                             details.estimated_departure_date ||
                             details.estimated_pickup_date ||
                             details.exporter_status === ServiceRequestStatus.COMPLETED ||
                             details.exporter_status === ServiceRequestStatus.CLOSED
                         ) {
-                            this.loadShippingDetails(orderId);
-                        }
-
-                        if (details.order_type === OrderType.Prebook) {
-                            this.loadLotDetails(details.estate_id, details.lot_id);
+                            promises.push(new Promise((cResolve) => this.loadShippingDetails(orderId, cResolve)));
                         }
                     }
-                    if (resolve) {
-                        resolve();
-                    }
+                    Promise.all(promises).finally(() => {
+                        if (resolve) {
+                            resolve();
+                        }
+                    });
                 } else {
                     if (reject) {
                         reject();
@@ -328,16 +334,17 @@ export class OrderManagementService {
     }
 
     loadDocuments(page = 1, perPage = 5, rewrite = false): void {
-        this.orderSrv.getOrderDocuments(this.orderId, page, perPage).subscribe({
-            next: (result) => {
+        this.orderSrv.getOrderDocuments(this.orderId, page, perPage).subscribe((res) => {
+            if (res.success) {
+                this.documentsTotalCount = res.result_info.total_count;
                 if (rewrite) {
                     this.documentsSubject.next([]);
                 }
 
                 const documents = this.documentsSubject.getValue();
-                documents.push(...result);
+                documents.push(...(res.result || []));
                 this.documentsSubject.next(documents);
-            },
+            }
         });
     }
 
@@ -375,12 +382,15 @@ export class OrderManagementService {
         return this.purchaseSrv.markAsReceived(orderId);
     }
 
-    private loadShippingDetails(orderId: number): void {
+    private loadShippingDetails(orderId: number, resolve?): void {
         this.shippingDetailsSrv.getShippingDetails(orderId).subscribe({
             next: (response) => {
                 if (response.success) {
                     const shippingDetails = response.result;
                     this.shippingDetailsSubject.next(shippingDetails);
+                }
+                if (resolve) {
+                    resolve();
                 }
             },
         });
