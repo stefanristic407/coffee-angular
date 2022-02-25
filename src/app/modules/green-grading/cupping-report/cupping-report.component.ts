@@ -81,6 +81,7 @@ export class CuppingReportComponent extends ResizeableComponent implements OnIni
     }
 
     handleTabChange(index: number = 0) {
+        this.clearFilter();
         this.activeIndex = index;
         if (this.activeIndex === 0) {
             this.tableData = this.serviceReportsData;
@@ -160,6 +161,12 @@ export class CuppingReportComponent extends ResizeableComponent implements OnIni
                       },
             ].filter(Boolean);
         }
+    }
+
+    clearFilter() {
+        this.term = '';
+        this.selectedRegion = null;
+        this.selectedDate = null;
     }
 
     onFilter() {
