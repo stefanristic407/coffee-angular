@@ -48,6 +48,8 @@ export class AddNewOrderComponent implements OnInit {
     loginUserID: number;
     wasteProduced = '';
     baseCurrency: string;
+    isMember: boolean;
+    isCustomer: boolean;
 
     constructor(
         private activeRoute: ActivatedRoute,
@@ -245,12 +247,14 @@ export class AddNewOrderComponent implements OnInit {
 
     onSelectType(type: string) {
         if (type === 'customer-name') {
+            this.isCustomer = true;
             if (this.addOrdersForm.get('customer_type').value === 'mr') {
                 this.selectedType = 'micro-roasters';
             } else if (this.addOrdersForm.get('customer_type').value === 'hrc') {
                 this.selectedType = 'hrc';
             }
         } else {
+            this.isMember = true;
             this.selectedType = type;
         }
     }

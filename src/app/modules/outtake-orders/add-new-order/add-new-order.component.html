@@ -149,6 +149,11 @@
                                 <input
                                     pInputText
                                     class="cursor-pointer pr-0"
+                                    [ngClass]="
+                                        addOrdersForm.get('sales_member_id').value === '' && isMember
+                                            ? 'error-border'
+                                            : ''
+                                    "
                                     placeholder="{{ 'select_the_sales_member' | translate }}"
                                     [formControl]="addOrdersForm.controls['sales_member_id']"
                                 />
@@ -157,12 +162,8 @@
                                 </span>
                             </div>
                             <small
-                                *ngIf="
-                                    addOrdersForm.controls['sales_member_id'].errors?.required &&
-                                    addOrdersForm.controls['sales_member_id'].invalid &&
-                                    addOrdersForm.controls['sales_member_id'].touched
-                                "
-                                class="p-error my-1"
+                                *ngIf="addOrdersForm.get('sales_member_id').value === '' && isMember"
+                                class="error my-1"
                             >
                                 {{ 'select_the_sales_member' | translate }} {{ 'is' | translate }}
                                 {{ 'required' | translate }}
@@ -227,11 +228,23 @@
                                     class="cursor-pointer"
                                     [formControl]="addOrdersForm.controls['customer_id']"
                                     placeholder="{{ 'customer_name' | translate }}"
+                                    [ngClass]="
+                                        addOrdersForm.get('customer_id').value === '' && isCustomer
+                                            ? 'error-border'
+                                            : ''
+                                    "
                                     pInputText
                                 />
                                 <span
                                     class="p-inputgroup-addon border-0 cursor-pointer pi pi-angle-right text-clr97 fnt-100 fnt-20"
                                 ></span>
+                                <small
+                                    *ngIf="addOrdersForm.get('customer_id').value === '' && isCustomer"
+                                    class="error my-1"
+                                >
+                                    {{ 'customer_name' | translate }} {{ 'is' | translate }}
+                                    {{ 'required' | translate }}
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -358,7 +371,7 @@
                                         addOrdersForm.controls['vat_percentage'].invalid &&
                                         addOrdersForm.controls['vat_percentage'].touched
                                     "
-                                    class="p-error my-1"
+                                    class="error my-1"
                                 >
                                     {{ 'vat_percentage' | translate }} {{ 'is' | translate }}
                                     {{ 'required' | translate }}

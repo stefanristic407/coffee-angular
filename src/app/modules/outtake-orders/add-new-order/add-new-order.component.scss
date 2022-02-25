@@ -191,3 +191,14 @@ table.recent-time {
         padding-top: 1rem;
     }
 }
+
+.sewn-form-field {
+    .error-border {
+        border-color: #d50000;
+    }
+    .error {
+        font-size: 14px;
+        font-weight: 500;
+        color: #d50000;
+    }
+}
