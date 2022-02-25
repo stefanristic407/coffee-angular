@@ -179,7 +179,7 @@ export class SelectOrderComponent extends ResizeableComponent implements OnInit 
         postData.end_date = '';
         if (this.rangeDates && this.rangeDates.length === 2) {
             postData.start_date = moment(this.rangeDates[0], 'DD/MM/YYYY').format('YYYY-MM-DD');
-            postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').format('YYYY-MM-DD');
+            postData.end_date = moment(this.rangeDates[1], 'DD/MM/YYYY').add(1, 'day').format('YYYY-MM-DD');
         }
         this.loading = true;
         this.purchaseService.getOrders(this.orgType, postData).subscribe((data: ApiResponse<OrderSummary[]>) => {
