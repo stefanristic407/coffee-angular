@@ -37,8 +37,8 @@ export class GreenGradingService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `cupping-process/${cuppingReportId}/evaluators`, 'GET');
     }
 
-    listCuppingRequest() {
-        return this.postWithOrg(this.orgPostUrl, `external-cupping-invite-list`, 'GET');
+    listCuppingRequest(params?) {
+        return this.postWithOrg(this.orgPostUrl, `external-cupping-invite-list?${this.serializeParams(params)}`, 'GET');
     }
 
     getSingleCuppingDetails(cuppingReportId: any) {

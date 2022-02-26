@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
@@ -22,9 +22,7 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
     sampleDetailForm: FormGroup;
 
     selectedEstateName: any;
-    selectedStatus: any;
     estateArray: any[];
-    statusArray: any[];
 
     tableData: any[] = [];
     tableColumns: any[] = [];
@@ -72,29 +70,29 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
         this.tableColumns = [
             {
                 field: 'external_sample_id',
-                header: 'ID',
+                header: 'id',
                 width: 5,
             },
             {
                 field: 'estate_name',
-                header: 'Estate name',
+                header: 'estate_name',
                 sortable: true,
                 width: 15,
             },
             {
                 field: 'origin',
-                header: 'Origin',
+                header: 'origin',
                 sortable: true,
                 width: 15,
             },
             {
                 field: 'variety',
-                header: 'Variety',
+                header: 'variety',
                 width: 15,
             },
             {
                 field: 'date_requested',
-                header: 'Date',
+                header: 'date',
                 sortable: true,
                 width: 20,
             },
@@ -117,7 +115,7 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
         const updateSample = {
             origin: sample.origin,
             estate_name: sample.estate_name,
-            species: sample.species,
+            variety: sample.variety,
             sample_id: sample.external_sample_id,
         };
         this.greenGradingService
@@ -156,17 +154,13 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
 
     getExternalReports() {
         this.estateArray = [];
-        this.statusArray = [{ name: 'All' }];
         this.loading = true;
-        this.greenGradingService.listCuppingRequest().subscribe((data: any) => {
+        this.greenGradingService.listCuppingRequest({ per_page: 1000 }).subscribe((data: any) => {
             this.cuppingRequestList = data.result;
             this.tableData = this.cuppingRequestList;
             for (const cupping of this.cuppingRequestList) {
                 if (!this.estateArray.find((item) => item.name === cupping.estate_name)) {
                     this.estateArray = [...this.estateArray, { name: cupping.estate_name }];
-                }
-                if (!this.statusArray.find((item) => item.name === cupping.status)) {
-                    this.statusArray = [...this.statusArray, { name: cupping.status }];
                 }
             }
             this.loading = false;
@@ -213,9 +207,6 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
             !this.selectedEstateName || this.selectedEstateName === 'All'
                 ? true
                 : row.estate_name === this.selectedEstateName,
-        );
-        filteredData = filteredData.filter((row: any) =>
-            !this.selectedStatus || this.selectedStatus === 'All' ? true : row.status === this.selectedStatus,
         );
         this.tableData =
             this.term.length === 0

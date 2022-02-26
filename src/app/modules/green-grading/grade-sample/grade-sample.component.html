@@ -17,9 +17,9 @@
 
     <section>
         <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
-            <div class="green_grading_cont">
-                <h1 class="fnt-18 fw-b mb-2">{{ 'score_sample' | translate }}</h1>
-                <h3 class="mb-0 pt-1">Cup samples from your inventory</h3>
+            <div>
+                <div class="fnt-16 fnt-md-18 fw-b mb-2">{{ 'score_sample' | translate }}</div>
+                <div class="text-clr588">{{ 'cup_samples_inventory' | translate }}</div>
             </div>
         </div>
         <div class="col-12 p-0 d-flex flex-column flex-md-row justify-content-md-between">
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div *ngIf="selectedRows.length" class="mt-3 mt-md-0 d-flex align-items-center justify-content-between">
-                <span class="fnt-14 fw-b text-clr588 pr-3">Selected:{{ selectedRows.length }}</span>
+                <span class="fw-b text-clr588 pr-3">Selected:{{ selectedRows.length }}</span>
                 <button class="btn-raised" (click)="generateReportLink()">Next</button>
             </div>
         </div>
@@ -89,7 +89,9 @@
                             <ng-container *ngSwitchCase="'external_sample_id'">
                                 <span class="d-flex">
                                     <span *ngIf="isMobile$ | async" class="d-flex w-100 align-items-center">
-                                        <span class="fw-b mr-4"> ID #{{ rowData['external_sample_id'] }} </span>
+                                        <span class="fw-b mr-4">
+                                            {{ 'id' | translate }} #{{ rowData['external_sample_id'] }}
+                                        </span>
                                         <button
                                             *ngIf="!editing"
                                             pButton
@@ -285,7 +287,7 @@
                 </div>
                 <div class="sewn-form-field col-md-6 col-xl-3">
                     <label
-                        >ID<span class="star">*</span
+                        >{{ 'id' | translate }}<span class="star">*</span
                         ><span class="fnt-10 fw-m text-clr588">(Give your sample ID to identify it quicker)</span>
                     </label>
                     <input type="text" pInputText formControlName="sample_id" placeholder="Please enter your ID" />
