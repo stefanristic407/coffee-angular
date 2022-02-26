@@ -1,77 +1,71 @@
-<div class="sewn-container">
-    <div class="bg-fff content-wrapper">
-        <div class="mb-3">
-            <p-breadcrumb [model]="items"></p-breadcrumb>
-        </div>
-        <section class="pt-3 pt-md-4">
-            <div class="green_grading_cont">
-                <h1>{{ 'quality_control' | translate }}</h1>
-                <h3 class="mb-3">{{ 'grade_orders_view_reports' | translate }}</h3>
-                <div class="row gutter-16 gutter-lg-20 pt-2 pt-md-3">
-                    <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35" *appAclIf="'cupping-management'">
-                        <button
-                            class="btn green_grade_button"
-                            routerLink="/green-grading/assign-orders"
-                            (click)="onClickButton()"
-                        >
-                            <p class="grade_heading">{{ 'assign_orders' | translate }}</p>
-                            <p class="grade_para">Assign green coffee orders to your team members for cupping</p>
-                            <div class="w-100 pt-2 pt-md-3">
-                                <button type="button" class="btn-stroked w-100">
-                                    {{ 'assign_an_orders' | translate }}
-                                </button>
-                            </div>
+<div class="main-block">
+    <p-breadcrumb [model]="items" styleClass="breadcrumb-mb"></p-breadcrumb>
+
+    <section>
+        <div class="fnt-16 fnt-md-18 fw-b mb-25">{{ 'quality_control' | translate }}</div>
+        <div class="text-clr588 mb-3">{{ 'grade_orders_view_reports' | translate }}</div>
+
+        <div class="row gutter-16 gutter-lg-20 pt-2 pt-md-3">
+            <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35" *appAclIf="'cupping-management'">
+                <button
+                    class="btn green_grade_button"
+                    routerLink="/green-grading/assign-orders"
+                    (click)="onClickButton()"
+                >
+                    <p class="grade_heading">{{ 'assign_orders' | translate }}</p>
+                    <p class="grade_para">{{ 'assign_green' | translate }}</p>
+                    <div class="w-100 pt-2 pt-md-3">
+                        <button type="button" class="btn-stroked w-100">
+                            {{ 'assign_an_orders' | translate }}
                         </button>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35">
-                        <button
-                            class="btn green_grade_button"
-                            routerLink="/green-grading/green-coffee-orders"
-                            (click)="onClickButton()"
-                        >
-                            <p class="grade_heading">Green coffee orders</p>
-                            <p class="grade_para">
-                                Cup multiple samples for service requests and generate their reports
-                            </p>
-                            <div class="w-100 pt-2 pt-md-3">
-                                <button type="button" class="btn-stroked w-100">
-                                    {{ 'grade_my_requests' | translate }}
-                                </button>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35">
-                        <button
-                            class="btn green_grade_button"
-                            routerLink="/green-grading/grade-sample"
-                            (click)="onClickButton()"
-                        >
-                            <p class="grade_heading">{{ 'score_sample' | translate }}</p>
-                            <p class="grade_para">{{ 'cup_samples' | translate }}</p>
-                            <div class="w-100 pt-2 pt-md-3">
-                                <button type="button" class="btn-stroked w-100">
-                                    {{ 'grade_my_samples' | translate }}
-                                </button>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35">
-                        <button
-                            class="btn green_grade_button"
-                            routerLink="/green-grading/cupping-reports"
-                            (click)="onClickButton()"
-                        >
-                            <p class="grade_heading">{{ 'my_cupping_reports' | translate }}</p>
-                            <p class="grade_para">View all your reports</p>
-                            <div class="w-100 pt-2 pt-md-3">
-                                <button type="button" class="btn-stroked w-100">
-                                    {{ 'view_reports' | translate }}
-                                </button>
-                            </div>
-                        </button>
-                    </div>
-                </div>
+                </button>
             </div>
-        </section>
-    </div>
+            <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35">
+                <button
+                    class="btn green_grade_button"
+                    routerLink="/green-grading/green-coffee-orders"
+                    (click)="onClickButton()"
+                >
+                    <p class="grade_heading">{{ 'green_coffee_orders' | translate }}</p>
+                    <p class="grade_para">{{ 'cup_generate_service_request' | translate }}</p>
+                    <div class="w-100 pt-2 pt-md-3">
+                        <button type="button" class="btn-stroked w-100">
+                            {{ 'grade_my_requests' | translate }}
+                        </button>
+                    </div>
+                </button>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35">
+                <button
+                    class="btn green_grade_button"
+                    routerLink="/green-grading/grade-sample"
+                    (click)="onClickButton()"
+                >
+                    <p class="grade_heading">{{ 'score_sample' | translate }}</p>
+                    <p class="grade_para">{{ 'cup_samples' | translate }}</p>
+                    <div class="w-100 pt-2 pt-md-3">
+                        <button type="button" class="btn-stroked w-100">
+                            {{ 'grade_my_samples' | translate }}
+                        </button>
+                    </div>
+                </button>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 pb-25 pb-md-3 pb-lg-35">
+                <button
+                    class="btn green_grade_button"
+                    routerLink="/green-grading/cupping-reports"
+                    (click)="onClickButton()"
+                >
+                    <p class="grade_heading">{{ 'my_cupping_reports' | translate }}</p>
+                    <p class="grade_para">{{ 'view_your_reports' | translate }}</p>
+                    <div class="w-100 pt-2 pt-md-3">
+                        <button type="button" class="btn-stroked w-100">
+                            {{ 'view_reports' | translate }}
+                        </button>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
 </div>
