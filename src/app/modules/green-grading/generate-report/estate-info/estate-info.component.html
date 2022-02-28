@@ -57,7 +57,7 @@
                         {{ evaluatorName | titlecase }}
                     </p>
                 </div>
-                <div *ngIf="evaluatorsListArray" class="info-item">
+                <div *ngIf="evaluatorsListArray?.length" class="info-item">
                     <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0"
                         >{{ 'invited_evaluators' | translate }} :</label
                     >
