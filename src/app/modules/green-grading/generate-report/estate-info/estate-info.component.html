@@ -33,11 +33,9 @@
                     {{ cuppingDetails['origin'] | country }}
                 </p>
             </div>
-            <div class="info-item">
-                <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0" *ngIf="cuppingDetails"
-                    >{{ 'harvest_year' | translate }} :</label
-                >
-                <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngIf="cuppingDetails?.harvest_date">
+            <div *ngIf="cuppingDetails?.harvest_date" class="info-item">
+                <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0">{{ 'harvest_year' | translate }} :</label>
+                <p class="fnt-12 fw-m col-5 p-0 mb-0">
                     {{ cuppingDetails['harvest_date'] | date: 'MMMM y' }}
                 </p>
             </div>
