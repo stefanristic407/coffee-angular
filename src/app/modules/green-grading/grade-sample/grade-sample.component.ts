@@ -31,7 +31,7 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
     term = '';
 
     clonedSamples: { [s: string]: any } = {};
-    selectedCuppingReportId: any;
+    selectedCuppingReportId: number;
 
     constructor(
         private activeRoute: ActivatedRoute,
@@ -48,7 +48,7 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
 
     ngOnInit(): void {
         this.activeRoute.queryParams.subscribe((params) => {
-            this.selectedCuppingReportId = params.cuppingReportId;
+            this.selectedCuppingReportId = +params.cuppingReportId;
         });
         this.sampleDetailForm = this.fb.group({
             origin: ['', Validators.compose([Validators.required])],
@@ -165,8 +165,8 @@ export class GradeSampleComponent extends ResizeableComponent implements OnInit 
             }
             this.loading = false;
             if (this.selectedCuppingReportId) {
-                this.generateReportService.serviceRequestsList = this.cuppingRequestList.find(
-                    (item) => item.cupping_report_id === +this.selectedCuppingReportId,
+                this.generateReportService.serviceRequestsList = this.cuppingRequestList.filter(
+                    (item) => item.cupping_report_id === this.selectedCuppingReportId,
                 );
             }
             this.selectedRows = this.generateReportService.serviceRequestsList ?? [];
