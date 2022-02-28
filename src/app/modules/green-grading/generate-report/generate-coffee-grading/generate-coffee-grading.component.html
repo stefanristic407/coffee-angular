@@ -1,13 +1,11 @@
-<section class="total-section prime-grid">
-    <div class="back-page pb-45" (click)="cancel()">
-        <a>
-            <span>Back</span>
-        </a>
+<section class="total-section">
+    <div class="back-page pb-45" (click)="cancel()">{{ 'back' | translate }}</div>
+
+    <div class="d-flex justify-content-between align-items-center align-items-md-start">
+        <div class="fnt-head fnt-24">{{ 'green_coffee_grading' | translate }}</div>
+        <button class="btn-stroked skip_btn" (click)="skip()">{{ 'skip' | translate }}</button>
     </div>
-    <div class="d-flex justify-content-between">
-        <span class="request-title-text">Green coffee grading</span>
-        <button type="submit" class="green-button btn-stroked skip_btn" (click)="skip()">Skip</button>
-    </div>
+
     <div class="mt-1">
         <app-estate-info
             [cuppingDetails]="cuppingDetails"

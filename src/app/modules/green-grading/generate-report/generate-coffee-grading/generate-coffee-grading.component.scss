@@ -54,8 +54,8 @@ input::-webkit-inner-spin-button {
     .skip_btn {
         border: 0 !important;
         text-decoration: underline;
-        width: fit-content !important;
-        margin-bottom: 0 !important;
+        padding: 0;
+        line-height: normal;
     }
 
     .category__body {
