@@ -252,14 +252,14 @@ export class CuppingReportComponent extends ResizeableComponent implements OnIni
     getMenuItemsForItem(item) {
         return [
             { label: 'View table', command: () => this.serviceReportLink(item) },
-            { label: 'View PDF', command: () => this.viewPdf(item.url) },
-            { label: 'Download PDF', command: () => this.downloadFile(item) },
+            { label: 'View PDF', command: () => this.viewPdf(item.url), visible: !!item.url },
+            { label: 'Download PDF', command: () => this.downloadFile(item.url), visible: !!item.url },
             { label: 'Re-cup sample', command: () => this.reGrade(item) },
         ];
     }
 
-    downloadFile(item: any) {
-        this.downloadService.download(item.url, trackFileName(item.url), 'application/pdf').subscribe(
+    downloadFile(url: string) {
+        this.downloadService.download(url, trackFileName(url), 'application/pdf').subscribe(
             (res: Download) => {
                 if (res?.state === 'DONE') {
                     this.toastrService.success('Downloaded successfully');

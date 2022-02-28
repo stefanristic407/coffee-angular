@@ -47,7 +47,7 @@
         }
     }
 
-    .table-action-button:hover {
+    .table-action-button:not(:disabled):hover {
         border-color: $primary-color !important;
         .p-button-label {
             color: $primary-color !important;

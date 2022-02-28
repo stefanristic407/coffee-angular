@@ -142,6 +142,7 @@
                                             (click)="viewPdf(rowData.url)"
                                             class="p-button-rounded p-button-outlined table-action-button"
                                             label="View PDF"
+                                            [disabled]="!rowData.url"
                                         ></button>
                                         <button
                                             pButton
