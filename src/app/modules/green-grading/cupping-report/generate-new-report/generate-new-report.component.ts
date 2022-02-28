@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService, GreenGradingService } from '@services';
-import { ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { GenerateReportService } from '../../generate-report/generate-report.service';
-import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
-import { DialogService } from 'primeng/dynamicdialog';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Download } from '@models';
+import { DownloadService, GreenGradingService } from '@services';
 import { ConfirmComponent } from '@shared';
+import { trackFileName } from '@utils';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-generate-new-report',
@@ -14,10 +14,9 @@ import { ConfirmComponent } from '@shared';
     styleUrls: ['./generate-new-report.component.scss'],
 })
 export class GenerateNewReportComponent implements OnInit {
-    roasterId: any;
     requestType: string;
     eachServiceData: any;
-    cuppingReportId: any;
+    cuppingReportId: number;
     singleCuppingDetails: any;
     evaluatorData: any;
     evaluatorName: any;
@@ -28,18 +27,15 @@ export class GenerateNewReportComponent implements OnInit {
     generateStep = 0;
 
     constructor(
-        private route: ActivatedRoute,
-        private location: Location,
-        private cookieService: CookieService,
-        private toastrService: ToastrService,
-        public generateReportService: GenerateReportService,
+        private dialogSrv: DialogService,
+        private downloadService: DownloadService,
         private greenGradingService: GreenGradingService,
-        public dialogSrv: DialogService,
-        private authService: AuthService,
+        private location: Location,
+        private route: ActivatedRoute,
+        private toastrService: ToastrService,
     ) {
-        this.roasterId = this.authService.getOrgId();
         this.route.queryParams.subscribe((params) => {
-            this.cuppingReportId = params.id;
+            this.cuppingReportId = +params.id;
             this.requestType = params.requestType;
             this.ViewCuppingInviteList();
             this.evaluatorsList();
@@ -54,18 +50,14 @@ export class GenerateNewReportComponent implements OnInit {
             this.greenGradingService.getCuppingInviteList().subscribe((res: any) => {
                 const mainData = res.success ? res.result : [];
                 if (this.cuppingReportId) {
-                    this.eachServiceData = mainData.find(
-                        (ele) => ele.cupping_report_id.toString() === this.cuppingReportId.toString(),
-                    );
+                    this.eachServiceData = mainData.find((ele) => ele.cupping_report_id === this.cuppingReportId);
                 }
             });
         } else {
             this.greenGradingService.listCuppingRequest().subscribe((res: any) => {
                 const mainData = res.success ? res.result : [];
                 if (this.cuppingReportId) {
-                    this.eachServiceData = mainData.find(
-                        (ele) => ele.cupping_report_id.toString() === this.cuppingReportId.toString(),
-                    );
+                    this.eachServiceData = mainData.find((ele) => ele.cupping_report_id === this.cuppingReportId);
                 }
             });
         }
@@ -121,15 +113,17 @@ export class GenerateNewReportComponent implements OnInit {
         this.title = 'Generated Report';
     }
 
-    downloadFile(item: any) {
-        console.log(item);
-        const a = document.createElement('a');
-        a.href = item;
-        a.download = 'report' + '.pdf';
-        a.target = '_blank';
-        // document.body.appendChild(a);
-        a.click();
-        // document.body.removeChild(a);
+    downloadFile(url: string) {
+        this.downloadService.download(url, trackFileName(url), 'application/pdf').subscribe(
+            (res: Download) => {
+                if (res?.state === 'DONE') {
+                    this.toastrService.success('Downloaded successfully');
+                }
+            },
+            (error) => {
+                this.toastrService.error('Download failed');
+            },
+        );
     }
 
     downloadReport() {
