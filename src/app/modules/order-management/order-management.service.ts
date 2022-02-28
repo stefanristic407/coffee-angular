@@ -269,6 +269,11 @@ export class OrderManagementService {
         });
     }
 
+    clearData() {
+        this.orderDetailsSubject.next(null);
+        this.shippingDetailsSubject.next(null);
+    }
+
     loadOrderDetails(
         orderId: number,
         orgType: OrganizationType,
