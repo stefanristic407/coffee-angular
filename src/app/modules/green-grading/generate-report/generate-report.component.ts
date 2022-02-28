@@ -75,7 +75,7 @@ export class GenerateReportComponent implements OnInit {
     afterUpload() {
         if (this.generateReportService.serviceRequestsList.length === 1) {
             this.generateReportService.serviceRequestsList = [];
-            this.router.navigate(['/green-grading/green-coffee-orders']);
+            this.generateReportService.backToOriginalPage();
         } else {
             this.generateReportService.serviceRequestsList = this.generateReportService.serviceRequestsList.filter(
                 (item) => item.cupping_report_id !== this.cuppingDetails.cupping_report_id,
