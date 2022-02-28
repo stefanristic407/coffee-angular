@@ -61,11 +61,11 @@
                     <label class="fnt-12 fw-n text-clr588 col-7 p-0 mb-0"
                         >{{ 'invited_evaluators' | translate }} :</label
                     >
-                    <div class="float-right">
-                        <p class="fnt-12 fw-m col-5 p-0 mb-0" *ngFor="let item of evaluatorsListArray">
-                            {{ item.evaluator_name | titlecase }}
-                        </p>
-                    </div>
+                    <p class="fnt-12 fw-m col-5 p-0 mb-0">
+                        <span *ngFor="let item of evaluatorsListArray; let isLast = last"
+                            >{{ item.evaluator_name }}<span *ngIf="!isLast">, </span>
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
