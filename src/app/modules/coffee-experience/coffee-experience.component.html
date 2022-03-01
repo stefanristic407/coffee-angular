@@ -1,59 +1,50 @@
 <div class="main-block">
-    <div class="d-flex justify-content-between">
-        <div class="breadcrumb-container">
-            <p-breadcrumb [model]="items"></p-breadcrumb>
-        </div>
-        <div class="px-0 web-farm custom-search-width">
-            <span class="custom-search place">
-                <input
-                    type="text"
-                    pInputText
-                    class="w-100 {{ searchString ? 'highlight' : '' }}"
-                    [(ngModel)]="searchString"
-                    [placeholder]="placeholder"
-                    (input)="onSearch()"
-                    name="filesTerm"
-                />
-            </span>
-        </div>
-    </div>
     <section>
         <div class="d-flex justify-content-between">
-            <div class="estate-order-title mb-2 mb-md-0">{{ 'coffee_experience' | translate }}</div>
+            <p-breadcrumb [model]="breadItems" styleClass="breadcrumb-mb"></p-breadcrumb>
+            <div class="d-none d-md-block custom-search-width">
+                <span class="custom-search">
+                    <input
+                        type="text"
+                        pInputText
+                        class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                        [(ngModel)]="searchTerm"
+                        [placeholder]="placeholder"
+                        (ngModelChange)="onSearch()"
+                    />
+                </span>
+            </div>
         </div>
+
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-end mb-3 mb-md-4 mb-lg-475">
             <div>
-                <p class="fnt-14 fw-n text-clr588">{{ 'your_end_users' | translate }}.</p>
-                <p class="give-your-end-users">{{ 'update_and_personalise' | translate }}.</p>
+                <div class="fnt-16 fnt-md-18 fw-b mb-2 mb-md-25">{{ 'coffee_experience' | translate }}</div>
+                <p class="text-clr588">
+                    {{ 'your_end_users' | translate }}. <br class="d-none d-md-block" />
+                    {{ 'update_and_personalise' | translate }}.
+                </p>
             </div>
-            <div class="default-settings-container">
-                <button
-                    class="btn-raised text-nowrap default-settings px-4"
-                    type="button"
-                    routerLink="./default-settings"
-                >
-                    {{ 'roaster_default_settings' | translate }}
-                </button>
-            </div>
+            <button class="btn-raised w-mob-100 mt-3" type="button" routerLink="./default-settings">
+                {{ 'default_settings' | translate }}
+            </button>
         </div>
-        <div class="d-block d-md-none mb-3 custom-search-width">
-            <span class="custom-search mobile-bord place">
+        <div class="d-md-none w-100 mb-3">
+            <span class="custom-search">
                 <input
                     type="text"
                     pInputText
-                    class="w-100 {{ searchString ? 'highlight' : '' }} "
+                    class="w-100 {{ searchTerm ? 'highlight' : '' }} "
                     [placeholder]="placeholder"
-                    [(ngModel)]="searchString"
-                    (input)="onSearch()"
-                    name="filesTerm"
+                    [(ngModel)]="searchTerm"
+                    (ngModelChange)="onSearch()"
                 />
             </span>
         </div>
     </section>
-    <!-- tab -->
-    <p-tabMenu [model]="menuItems" styleClass="inner-menu mt-3">
+
+    <p-tabMenu [model]="menuItems" styleClass="mt-3">
         <ng-template pTemplate="item" let-item let-i="index">
-            <span class="pl-1">{{ item.label | translate }}</span>
+            <span>{{ item.label | translate }}</span>
         </ng-template>
     </p-tabMenu>
     <div class="mt-4">

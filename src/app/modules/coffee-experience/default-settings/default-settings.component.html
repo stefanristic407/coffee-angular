@@ -26,9 +26,7 @@
                                         <span *ngIf="isCoffeeDetailsPage"
                                             >{{ 'order' | translate }} #{{ orderId }}</span
                                         >
-                                        <span *ngIf="!isCoffeeDetailsPage">{{
-                                            'roaster_default_settings' | translate
-                                        }}</span>
+                                        <span *ngIf="!isCoffeeDetailsPage">{{ 'default_settings' | translate }}</span>
                                     </div>
                                     <div class="page-description">
                                         <span *ngIf="!isCoffeeDetailsPage">

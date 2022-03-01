@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService, GlobalsService } from '@services';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '@services';
 import { CoffeeExperienceTableComponent } from './coffee-experience-table/coffee-experience-table.component';
 import { CoffeeExpService } from './coffee-experience.service';
 
@@ -9,13 +10,13 @@ import { CoffeeExpService } from './coffee-experience.service';
     styleUrls: ['./coffee-experience.component.scss'],
 })
 export class CoffeeExperienceComponent implements OnInit {
-    items = [
-        { label: this.globals.languageJson.home, routerLink: '/' },
-        { label: this.globals.languageJson.brand_experience },
-        { label: this.globals.languageJson.the_coffee_experience },
+    breadItems = [
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('brand_experience') },
+        { label: this.translator.instant('the_coffee_experience') },
     ];
     menuItems: any[] = [];
-    searchString = '';
+    searchTerm = '';
     placeholders = {
         estate_orders: 'Search by Estate name, order ID, order reference',
         micro_roaster_orders: 'Search by Order ID, Customer or Product name',
@@ -29,12 +30,12 @@ export class CoffeeExperienceComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private coffeeService: CoffeeExpService,
-        private globals: GlobalsService,
+        private translator: TranslateService,
     ) {}
 
     ngOnInit(): void {
         this.coffeeService.clearSearch();
-        this.searchString = this.coffeeService.search.getValue();
+        this.searchTerm = this.coffeeService.search.getValue();
         this.menuItems = [
             {
                 label: 'estate_orders',
@@ -71,7 +72,7 @@ export class CoffeeExperienceComponent implements OnInit {
     }
 
     onSearch() {
-        this.coffeeService.setSearch(this.searchString);
+        this.coffeeService.setSearch(this.searchTerm);
     }
 
     updatePlaceholder(val) {
