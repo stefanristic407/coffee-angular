@@ -74,25 +74,15 @@
                                 class="p-inputgroup custom-addon cursor-pointer"
                                 (click)="showOrderPanel = true; onSelectType('orders')"
                             >
-                                <!-- <span
-                                    *ngIf="addOrdersForm.get('order_id').value"
-                                    class="d-none d-md-block border-0 text-center order-h p-inputgroup-addon"
-                                    >#</span
-                                >
-                                <span
-                                    *ngIf="addOrdersForm.get('order_id').value"
-                                    class="d-block d-md-none fnt-14 text-center fw-m  order-h text-clr334 mobile-w p-inputgroup-addon"
-                                    >{{ 'order_id' | translate }} #</span
-                                > -->
                                 <input
                                     class="cursor-pointer"
                                     pInputText
                                     placeholder="Select the order"
                                     [formControl]="addOrdersForm.controls['order_id']"
                                 />
-                                <span
-                                    class="p-inputgroup-addon border-0 pi pi-angle-right text-clr97 fnt-100 fnt-20"
-                                ></span>
+                                <span class="p-inputgroup-addon border-0 cursor-pointer">
+                                    <i class="pi pi-angle-right text-clr97 fnt-100 fnt-20"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -235,9 +225,9 @@
                                     "
                                     pInputText
                                 />
-                                <span
-                                    class="p-inputgroup-addon border-0 cursor-pointer pi pi-angle-right text-clr97 fnt-100 fnt-20"
-                                ></span>
+                                <span class="p-inputgroup-addon border-0 cursor-pointer">
+                                    <i class="pi pi-angle-right text-clr97 fnt-100 fnt-20"></i>
+                                </span>
                                 <small
                                     *ngIf="addOrdersForm.get('customer_id').value === '' && isCustomer"
                                     class="error my-1"
@@ -282,14 +272,14 @@
                                         placeholder="{{ 'price_paid_by_the_customer' | translate }}"
                                     ></p-inputNumber>
                                     <span
-                                        class="fw-m p-inputgroup-addon text-clr334 br-4 right-dropdown-background addon-position-fix lh-1"
+                                        class="p-inputgroup-addon gray"
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
                                         >{{ baseCurrency }} / kg</span
                                     >
                                     <span
-                                        class="p-inputgroup-addon fw-m br-4 text-clr334 addon-position-fix right-dropdown-background lh-1"
+                                        class="p-inputgroup-addon gray"
                                         *ngIf="outtakeOrderDetails?.unit_currency && outtakeOrderDetails?.quantity_unit"
                                         >{{ outtakeOrderDetails?.unit_currency }} /
                                         {{ outtakeOrderDetails?.quantity_unit }}</span
@@ -316,14 +306,14 @@
                                 >
                                 <div class="p-inputgroup custom-addon">
                                     <span
-                                        class="p-inputgroup-addon fnt-14 fw-m text-clr334 br-4 addon-position-fix right-dropdown-background lh-1"
+                                        class="p-inputgroup-addon gray"
                                         *ngIf="
                                             !outtakeOrderDetails?.unit_currency && !outtakeOrderDetails?.quantity_unit
                                         "
                                         >{{ baseCurrency }}</span
                                     >
                                     <span
-                                        class="p-inputgroup-addon fnt-14 fw-m text-clr334 br-4 addon-position-fix right-dropdown-background fw-m lh-1"
+                                        class="p-inputgroup-addon gray"
                                         *ngIf="outtakeOrderDetails?.total_price_currency"
                                         >{{ outtakeOrderDetails?.total_price_currency }}</span
                                     >
@@ -363,7 +353,7 @@
                                         [minFractionDigits]="1"
                                         [maxFractionDigits]="2"
                                     ></p-inputNumber>
-                                    <div class="p-inputgroup-addon fnt-14 fw-m text-clr334">%</div>
+                                    <div class="p-inputgroup-addon">%</div>
                                 </div>
                                 <small
                                     *ngIf="
@@ -386,25 +376,14 @@
                                     >{{ 'total_weight_of_coffee' | translate
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
-                                <div class="p-inputgroup custom-addon">
+                                <div class="input-and-select gray">
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['gc_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1 position-fix">
-                                        <p-dropdown
-                                            [options]="weightTypeArray"
-                                            optionLabel="label"
-                                            placeholder=""
-                                            [style]="{
-                                                width: '100%',
-                                                height: '40px',
-                                                border: '0px',
-                                                background: '#f8f8f8'
-                                            }"
-                                            [formControl]="addOrdersForm.controls['gc_total_quantity_unit']"
-                                            optionValue="value"
-                                        ></p-dropdown>
-                                    </span>
+                                    <p-dropdown
+                                        [options]="weightTypeArray"
+                                        [formControl]="addOrdersForm.controls['gc_total_quantity_unit']"
+                                    ></p-dropdown>
                                     <small
                                         *ngIf="
                                             addOrdersForm.controls['gc_total_quantity'].invalid &&
@@ -430,25 +409,14 @@
                                     >{{ 'total_weight_roasted_of_coffee' | translate
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
-                                <div class="p-inputgroup custom-addon">
+                                <div class="input-and-select gray">
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['roasted_coffee_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1 position-fix">
-                                        <p-dropdown
-                                            [options]="weightTypeArray"
-                                            optionLabel="label"
-                                            placeholder=""
-                                            [style]="{
-                                                width: '100%',
-                                                height: '40px',
-                                                border: '0px',
-                                                background: '#f8f8f8'
-                                            }"
-                                            [formControl]="addOrdersForm.controls['roasted_coffee_total_quantity_unit']"
-                                            optionValue="value"
-                                        ></p-dropdown>
-                                    </span>
+                                    <p-dropdown
+                                        [options]="weightTypeArray"
+                                        [formControl]="addOrdersForm.controls['roasted_coffee_total_quantity_unit']"
+                                    ></p-dropdown>
                                     <small
                                         *ngIf="
                                             addOrdersForm.controls['roasted_coffee_total_quantity'].errors?.required &&
@@ -547,10 +515,9 @@
                                         <label>{{ 'waste_produced' | translate }}</label>
                                     </div>
                                     <div class="p-inputgroup custom-addon">
-                                        <span
-                                            class="p-inputgroup-addon fnt-14 fw-m text-clr334 br-4 addon-position-fix right-dropdown-background lh-1"
-                                            >{{ outtakeOrderDetails?.waste_produced_unit || 'Kg' }}</span
-                                        >
+                                        <span class="p-inputgroup-addon gray">{{
+                                            outtakeOrderDetails?.waste_produced_unit || 'Kg'
+                                        }}</span>
 
                                         <input
                                             pInputText
@@ -569,25 +536,14 @@
                                     >{{ 'green_coffee_quantity_sold' | translate
                                     }}<span class="text-clr-e5a">*</span></label
                                 >
-                                <div class="p-inputgroup custom-addon">
+                                <div class="input-and-select gray">
                                     <p-inputNumber
                                         [formControl]="addOrdersForm.controls['gc_total_quantity']"
                                     ></p-inputNumber>
-                                    <span class="p-inputgroup-addon pr-1 right-dropdown pt-1 position-fix">
-                                        <p-dropdown
-                                            [options]="weightTypeArray"
-                                            optionLabel="label"
-                                            placeholder=""
-                                            [style]="{
-                                                width: '100%',
-                                                height: '40px',
-                                                border: '0px',
-                                                background: '#f8f8f8'
-                                            }"
-                                            [formControl]="addOrdersForm.controls['gc_total_quantity_unit']"
-                                            optionValue="value"
-                                        ></p-dropdown>
-                                    </span>
+                                    <p-dropdown
+                                        [options]="weightTypeArray"
+                                        [formControl]="addOrdersForm.controls['gc_total_quantity_unit']"
+                                    ></p-dropdown>
                                     <small
                                         *ngIf="
                                             addOrdersForm.controls['gc_total_quantity'].invalid &&
@@ -625,10 +581,9 @@
                             <div class="sewn-form-field mb-0 w-100">
                                 <label>{{ 'waste_produced' | translate }}</label>
                                 <div class="p-inputgroup custom-addon">
-                                    <span
-                                        class="p-inputgroup-addon fnt-14 fw-m text-clr334 br-4 addon-position-fix right-dropdown-background lh-1"
-                                        >{{ outtakeOrderDetails?.waste_produced_unit || 'Kg' }}</span
-                                    >
+                                    <span class="p-inputgroup-addon gray">{{
+                                        outtakeOrderDetails?.waste_produced_unit || 'Kg'
+                                    }}</span>
 
                                     <input
                                         pInputText

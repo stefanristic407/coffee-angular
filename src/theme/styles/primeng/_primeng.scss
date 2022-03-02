@@ -94,13 +94,18 @@
         font-weight: $fw-m;
     }
     .p-inputtext {
-        padding: 0.9375rem 0.75rem;
+        padding: 0.8125rem 0.75rem;
         border-radius: 4px;
         width: 100%;
+        line-height: normal;
     }
     .p-multiselect-label {
-        padding: 0.9375rem 0.75rem;
+        padding: 0.8125rem 0.75rem;
         padding-right: 0;
+        line-height: normal;
+        &.p-placeholder {
+            line-height: normal;
+        }
     }
     .p-dropdown .p-inputtext {
         padding-right: 0;
@@ -145,7 +150,7 @@
             margin: 0;
             top: 1px;
             right: 1px;
-            height: 48px;
+            height: 43px;
             border: none;
             display: flex;
             align-items: center;
@@ -156,7 +161,7 @@
                 border: none;
                 top: 4px;
                 right: 4px;
-                height: 42px;
+                height: 37px;
                 border-radius: 4px;
                 color: $general-text-color;
             }
@@ -215,13 +220,13 @@
                 border: none;
                 top: 4px;
                 right: 4px;
-                height: 42px;
+                height: 37px;
                 border-radius: 4px;
                 margin: 0;
                 display: flex;
                 align-items: center;
                 .p-inputtext {
-                    padding: 0.75rem 0 0.75rem 0.75rem;
+                    padding: 0.625rem 0 0.625rem 0.75rem;
                     @media (max-width: 767px) {
                         padding-top: 0.625rem;
                         padding-bottom: 0.625rem;

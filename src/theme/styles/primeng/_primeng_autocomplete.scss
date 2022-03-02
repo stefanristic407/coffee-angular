@@ -24,7 +24,7 @@
 }
 
 .p-autocomplete .p-autocomplete-multiple-container {
-    padding: 0.4375rem 0.625rem 0.1875rem !important;
+    padding: 0.3125rem 0.625rem 0.0625rem !important;
 
     &:not(.p-disabled):hover,
     &:not(.p-disabled).p-focus {
@@ -37,7 +37,6 @@
         margin-bottom: 4px;
         input {
             font-size: 14px;
-            font-weight: $fw-m;
             font-family: $general-font-family;
             color: $muted-text-color;
         }

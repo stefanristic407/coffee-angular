@@ -28,33 +28,7 @@
     background-color: #faf8f4;
     padding: 2rem;
 }
-.p-inputgroup.custom-addon {
-    p-inputnumber::ng-deep {
-        span.p-inputnumber {
-            height: 50px;
-        }
-    }
-    .p-inputgroup-addon.addon-position-fix {
-        height: 40px;
-        margin: 4px;
-    }
-    .p-inputgroup-addon.position-fix {
-        margin: 0px !important;
-        padding: 0px !important;
-        p-dropdown {
-            margin: 4px;
-            height: 40px;
-            &::ng-deep {
-                .p-dropdown {
-                    height: 40px !important;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-            }
-        }
-    }
-}
+
 table.recent-time {
     td:first-of-type {
         width: 52%;
@@ -76,9 +50,6 @@ table.recent-time {
     bottom: 22px;
 }
 
-.right-dropdown-background {
-    background-color: $primary-bg-color;
-}
 .recent-time {
     td {
         padding: 1rem 1rem 1rem 1.5rem !important;
