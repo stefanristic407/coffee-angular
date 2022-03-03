@@ -1,31 +1,3 @@
-.p-input-icon-left {
-    position: relative;
-    .left-icon {
-        position: absolute;
-        padding: 12px 20px;
-        background-color: #f8f8f8;
-        margin: 4px;
-        left: 0;
-    }
-    input {
-        padding-left: 84px;
-    }
-}
-
-.p-input-icon-right {
-    position: relative;
-    .right-icon {
-        position: absolute;
-        padding: 12px;
-        background-color: #f8f8f8;
-        margin: 4px;
-        right: 0;
-    }
-    input {
-        padding-right: 56px;
-    }
-}
-
 .information-wrapper {
     width: calc(75% - 16px);
 }

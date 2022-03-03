@@ -119,9 +119,9 @@
             </div>
             <div class="col-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                 <label>{{ 'price' | translate }}<span class="star">*</span></label>
-                <div class="p-input-icon-right">
+                <div class="p-inputgroup custom-addon">
                     <input type="number" formControlName="price" pInputText />
-                    <span class="right-icon fnt-14 fw-m">{{ baseCurrency }}</span>
+                    <span class="p-inputgroup-addon gray">{{ baseCurrency }}</span>
                     <small *ngIf="productForm.controls['price'].errors?.required" class="position-absolute p-error">
                         {{ 'required' | translate }}
                     </small>
@@ -129,9 +129,9 @@
             </div>
             <div class="col-sm-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                 <label>{{ 'stock_available' | translate }}<span class="star">*</span></label>
-                <div class="p-input-icon-right">
+                <div class="p-inputgroup custom-addon">
                     <input type="number" pInputText formControlName="available_quantity" />
-                    <span class="right-icon fnt-14 fw-n">{{ productForm.value.available_quantity_type }}</span>
+                    <span class="p-inputgroup-addon gray">{{ productForm.value.available_quantity_type }}</span>
                     <small
                         *ngIf="productForm.controls['available_quantity'].errors?.required"
                         class="position-absolute p-error"
@@ -230,14 +230,14 @@
             </div>
             <div class="col-sm-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                 <label>{{ 'weight' | translate }}</label>
-                <div class="p-input-icon-right">
+                <div class="p-inputgroup custom-addon">
                     <input
                         type="number"
                         pInputText
                         formControlName="weight"
                         [placeholder]="'enter_number' | translate"
                     />
-                    <span class="right-icon fnt-14 fw-n text-clr334 lh-normal">kg</span>
+                    <span class="p-inputgroup-addon gray">kg</span>
                 </div>
             </div>
         </div>
