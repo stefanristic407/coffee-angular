@@ -38,17 +38,17 @@
         width: 30%;
         padding-right: 24px;
         margin-bottom: 0;
-        transform: translateY(calc(25px - 50%));
+        transform: translateY(calc(22px - 50%));
 
         @media (min-width: 992px) {
-            padding-right: 48px;
+            padding-right: 40px;
         }
     }
     & > :nth-child(2) {
         width: 70%;
     }
     &.with-hint > :nth-child(1) {
-        transform: translateY(calc(51px - 50%));
+        transform: translateY(calc(47px - 50%));
     }
 }
 
@@ -87,7 +87,7 @@
         display: none;
     }
 
-    label {
+    & > label {
         color: $general-text-color;
         line-height: normal;
         margin-bottom: 0.5rem;
@@ -242,6 +242,9 @@
     }
 
     &.horizontal {
+        @include horizontal-form-field();
+    }
+    &.horizontal-md {
         @media (min-width: 768px) {
             @include horizontal-form-field();
         }
