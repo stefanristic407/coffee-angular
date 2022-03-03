@@ -14,8 +14,8 @@
         >
         </app-estate-info>
     </div>
-    <div class="d-flex flex-wrap mt-3 mt-md-4">
-        <div class="col-lg-6 col-12 p-0 pr-lg-2">
+    <div class="row gutter-16 mt-3 mt-md-4">
+        <div class="col-lg-6 col-12">
             <app-category-view
                 [categoryData]="dataObj"
                 [categoryList]="category1List"
@@ -26,73 +26,13 @@
                 [readonly]="!isEditable"
             >
             </app-category-view>
-            <div class="category-wrapper d-none d-lg-block">
-                <div class="category__body">
-                    <div class="category-inputs d-flex flex-wrap align-items-center">
-                        <label class="categ-label col-4">Moisture content</label>
-                        <span class="col-8 p-0 p-input-icon-right">
-                            <span class="text-clr334 fnt-14 fw-m right-icon">%</span>
-                            <input
-                                type="number"
-                                class="category-value"
-                                (focus)="$event.target.select()"
-                                placeholder="Type a number"
-                                [(ngModel)]="moistureContent"
-                                [readonly]="!isEditable"
-                            />
-                        </span>
-                    </div>
-                    <div class="category-inputs d-flex flex-wrap align-items-center">
-                        <label class="categ-label col-4">{{ 'water_activity' | translate }}</label>
-                        <span class="col-8 p-0 p-input-icon-right">
-                            <span class="text-clr334 fnt-14 fw-m right-icon">aw</span>
-                            <input
-                                type="number"
-                                name=""
-                                id=""
-                                class="category-value"
-                                (focus)="$event.target.select()"
-                                [(ngModel)]="waterActivity"
-                                [readonly]="!isEditable"
-                            />
-                        </span>
-                    </div>
-                    <div class="category-inputs d-flex flex-wrap align-items-center">
-                        <label class="categ-label col-4">Odor</label>
-                        <div class="col-8 p-0">
-                            <input
-                                type="text"
-                                name=""
-                                id=""
-                                (focus)="$event.target.select()"
-                                class="category-value"
-                                [(ngModel)]="odor"
-                                [readonly]="!isEditable"
-                            />
-                        </div>
-                    </div>
-                    <div class="d-flex flex-wrap pt-2 md-pt-4">
-                        <label class="categ-label col-12 col-md-4">Color</label>
-                        <div class="col-12 col-md-8 px-0 d-flex flex-wrap">
-                            <span class="p-field-checkbox pb-3 pr-2 pr-lg-3" *ngFor="let color of colorList">
-                                <p-checkbox
-                                    name="colors"
-                                    [value]="color.value"
-                                    [(ngModel)]="totalColors"
-                                    inputId="sf"
-                                    [readonly]="!isEditable"
-                                >
-                                </p-checkbox>
-                                <label class="fnt-14 fw-m mb-0 text-clr334 text-nowrap" for="sf">
-                                    {{ color.label }}
-                                </label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+
+            <div class="d-none d-lg-block">
+                <ng-container *ngTemplateOutlet="otherDefectsTpl"></ng-container>
             </div>
         </div>
-        <div class="col-lg-6 col-12 p-0 pl-lg-2">
+
+        <div class="col-lg-6 col-12">
             <app-category-view
                 [categoryData]="dataObj"
                 [categoryList]="category2List"
@@ -103,100 +43,79 @@
                 [readonly]="!isEditable"
             >
             </app-category-view>
-            <div class="category-inputs align-items-center mt-4 pt-2 d-none d-md-flex flex-wrap">
-                <label class="fnt-14 fw-b text-clr334 p-0 fnt-16 col-4 col-md-3 col-lg-4">Total green defects :</label>
-                <div class="col-8 col-md-9 col-lg-8 p-0">
-                    <input
-                        type="number"
-                        name=""
-                        id=""
-                        class="category-value"
-                        (focus)="$event.target.select()"
-                        [(ngModel)]="totalDefects"
-                        [readonly]="!isEditable"
-                    />
+
+            <div class="sewn-form-field horizontal-md d-flex row gutter-8 mt-4 mt-md-45 mb-4 mb-md-45">
+                <label class="fnt-16 fw-b col-md-4 col-lg-5 pr-1">{{ 'total_green_defects' | translate }} :</label>
+                <div class="col-md-8 col-lg-7">
+                    <input type="number" pInputText [(ngModel)]="totalDefects" [readonly]="!isEditable" />
                 </div>
             </div>
         </div>
-        <div class="category-wrapper d-block d-lg-none mb-3 mt-0 mt-md-3">
-            <div class="category__body">
-                <div class="category-inputs d-flex flex-wrap align-items-center">
-                    <label class="categ-label col-4">Moisture content</label>
-                    <span class="col-8 p-0 p-input-icon-right">
-                        <span class="text-clr334 fnt-14 fw-m right-icon">%</span>
-                        <input
-                            type="number"
-                            class="category-value"
-                            (focus)="$event.target.select()"
-                            placeholder="Type a number"
-                            [(ngModel)]="moistureContent"
-                            [readonly]="!isEditable"
-                        />
-                    </span>
-                </div>
-                <div class="category-inputs d-flex flex-wrap align-items-center">
-                    <label class="categ-label col-4">{{ 'water_activity' | translate }}</label>
-                    <span class="col-8 p-0 p-input-icon-right">
-                        <span class="text-clr334 fnt-14 fw-m right-icon">aw</span>
-                        <input
-                            type="number"
-                            name=""
-                            id=""
-                            class="category-value"
-                            (focus)="$event.target.select()"
-                            [(ngModel)]="waterActivity"
-                            [readonly]="!isEditable"
-                        />
-                    </span>
-                </div>
-                <div class="category-inputs d-flex flex-wrap align-items-center">
-                    <label class="categ-label col-4">Odor</label>
-                    <div class="col-8 p-0">
-                        <input
-                            type="text"
-                            name=""
-                            id=""
-                            (focus)="$event.target.select()"
-                            class="category-value"
-                            [(ngModel)]="odor"
-                            [readonly]="!isEditable"
-                        />
-                    </div>
-                </div>
-                <div class="d-flex flex-wrap pt-2 md-pt-4">
-                    <label class="categ-label col-12 col-md-4">Color</label>
-                    <div class="col-12 col-md-8 px-0 d-flex flex-wrap">
-                        <span class="p-field-checkbox pb-3 pr-2 pr-lg-3" *ngFor="let color of colorList">
-                            <p-checkbox
-                                name="colors"
-                                [value]="color.value"
-                                [(ngModel)]="totalColors"
-                                inputId="sf"
-                                [readonly]="!isEditable"
-                            >
-                            </p-checkbox>
-                            <label class="fnt-14 fw-m mb-0 text-clr334 text-nowrap" for="sf">
-                                {{ color.label }}
-                            </label>
-                        </span>
-                    </div>
-                </div>
-            </div>
+
+        <div class="col-12 d-lg-none mb-3">
+            <ng-container *ngTemplateOutlet="otherDefectsTpl"></ng-container>
         </div>
     </div>
-    <div class="col-12 p-0 border__grade d-none d-lg-block"></div>
+
     <div class="d-flex justify-content-between flex-column flex-md-row pt-0 pt-md-4">
-        <button type="submit" class="green-button btn-stroked btn order-1 order-md-0" (click)="cancel()">Cancel</button>
+        <button class="btn-stroked order-1 order-md-0 w-mob-100 mb-2 mb-md-0" (click)="cancel()">
+            {{ 'cancel' | translate }}
+        </button>
         <div class="d-flex flex-column flex-md-row">
             <button
-                type="submit"
                 [disabled]="!isEditable"
-                class="green-button btn-stroked btn mr-2 order-1 order-md-0"
+                class="btn-stroked mr-2 order-1 order-md-0 w-mob-100 mb-2 mb-md-0"
                 (click)="clear()"
             >
-                Clear
+                {{ 'clear' | translate }}
             </button>
-            <button type="submit" class="green-button btn-raised btn" (click)="goNext()">Next</button>
+            <button class="btn-raised w-mob-100 mb-2 mb-md-0" (click)="goNext()">{{ 'next' | translate }}</button>
         </div>
     </div>
 </section>
+
+<ng-template #otherDefectsTpl>
+    <div class="border-main br-4 pt-3 px-2 px-md-4">
+        <div class="sewn-form-field horizontal d-flex row gutter-8 mb-2">
+            <label class="col-4 pr-1">{{ 'moisture_content' | translate }}</label>
+            <div class="col-8 p-inputgroup custom-addon">
+                <input
+                    type="number"
+                    pInputText
+                    placeholder="Type a number"
+                    [(ngModel)]="moistureContent"
+                    [readonly]="!isEditable"
+                />
+                <span class="p-inputgroup-addon">%</span>
+            </div>
+        </div>
+        <div class="sewn-form-field horizontal d-flex row gutter-8 mb-2">
+            <label class="col-4 pr-1">{{ 'water_activity' | translate }}</label>
+            <div class="col-8 p-inputgroup custom-addon">
+                <input type="number" pInputText [(ngModel)]="waterActivity" [readonly]="!isEditable" />
+                <span class="p-inputgroup-addon">aw</span>
+            </div>
+        </div>
+        <div class="sewn-form-field horizontal d-flex row gutter-8 mb-2">
+            <label class="col-4 pr-1">{{ 'odor' | translate }}</label>
+            <div class="col-8">
+                <input type="text" pInputText [(ngModel)]="odor" [readonly]="!isEditable" />
+            </div>
+        </div>
+        <div class="sewn-form-field horizontal-md d-flex row gutter-8 pt-md-2">
+            <label class="col-md-4 pr-2">{{ 'color' | translate }}</label>
+            <div class="col-md-8 d-flex flex-wrap">
+                <span class="pb-3 pr-2 pr-lg-3" *ngFor="let color of colorList">
+                    <p-checkbox
+                        name="colors"
+                        [value]="color.value"
+                        [(ngModel)]="totalColors"
+                        [label]="color.label"
+                        [readonly]="!isEditable"
+                    >
+                    </p-checkbox>
+                </span>
+            </div>
+        </div>
+    </div>
+</ng-template>

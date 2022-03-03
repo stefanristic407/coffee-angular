@@ -11,21 +11,19 @@
     <div class="px-2 px-md-4 pt-3 pb-0">
         <div class="row gutter-8 flex-wrap align-items-center mb-2" *ngFor="let cat of categoryList">
             <label class="fw-m col-4 col-md-6 col-lg-4 mb-0">{{ cat.label }}</label>
-            <div class="col-4 col-md-3 col-lg-4">
+            <div class="col-4 col-md-3 col-lg-4 sewn-form-field mb-0">
                 <input
                     type="number"
-                    class="category-value"
-                    (focus)="$event.target.select()"
+                    pInputText
                     [readonly]="readonly"
                     [(ngModel)]="categoryData[cat.key1]"
                     (change)="onChange()"
                 />
             </div>
-            <div class="col-4 col-md-3 col-lg-4">
+            <div class="col-4 col-md-3 col-lg-4 sewn-form-field mb-0">
                 <input
                     type="number"
-                    class="category-value"
-                    (focus)="$event.target.select()"
+                    pInputText
                     [readonly]="readonly"
                     [(ngModel)]="categoryData[cat.key2]"
                     (change)="onChange()"
@@ -37,11 +35,10 @@
             <label class="fw-b col-md-6 col-lg-4 mb-2 mb-md-0"
                 >{{ 'total_category' | translate }} {{ categoryIndex }} {{ 'defects' | translate | lowercase }}</label
             >
-            <div class="col-md-6 col-lg-8">
+            <div class="col-md-6 col-lg-8 sewn-form-field mb-0">
                 <input
                     type="number"
-                    class="category-value fw-b"
-                    (focus)="$event.target.select()"
+                    pInputText
                     [readonly]="readonly"
                     [(ngModel)]="categoryDefects"
                     (change)="onChangeDefects()"
