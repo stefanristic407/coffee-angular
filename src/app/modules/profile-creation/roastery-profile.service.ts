@@ -17,9 +17,6 @@ import { BehaviorSubject } from 'rxjs';
 export class RoasteryProfileService {
     countryList = [];
 
-    public editMode = new BehaviorSubject(true);
-    public editMode$ = this.editMode.asObservable();
-
     public saveMode = new BehaviorSubject(false);
     public saveMode$ = this.saveMode.asObservable();
 
@@ -97,7 +94,6 @@ export class RoasteryProfileService {
                     },
                 ];
                 this.saveMode.next(false);
-                this.editMode.next(true);
             }
         });
 
@@ -279,7 +275,6 @@ export class RoasteryProfileService {
         this.toUpdateProfileData = this.organizationProfile;
         this.isSaving = false;
         this.showDelete = true;
-        this.editMode.next(false);
         this.saveMode.next(true);
     }
 
@@ -287,7 +282,6 @@ export class RoasteryProfileService {
         this.bannerUrl = this.organizationProfile.banner_url;
         this.orgImgPrevUrl = this.organizationProfile.company_image_url;
         this.orgImgCroppedFile = null;
-        this.editMode.next(true);
         this.saveMode.next(false);
     }
 }

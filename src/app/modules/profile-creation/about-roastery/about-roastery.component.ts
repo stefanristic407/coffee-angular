@@ -36,7 +36,6 @@ export class AboutRoasteryComponent implements OnInit {
     membersForm: FormGroup;
 
     isSaveMode: boolean;
-    isEditMode: boolean;
     employeeId: any;
 
     isAddBrandMode = false;
@@ -99,9 +98,6 @@ export class AboutRoasteryComponent implements OnInit {
 
                 this.profileCreationService.single = this.chartData;
             }
-        });
-        this.profileCreationService.editMode$.subscribe((res: boolean) => {
-            this.isEditMode = res;
         });
     }
 

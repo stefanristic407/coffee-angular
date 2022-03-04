@@ -27,7 +27,6 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         { label: this.globals.languageJson?.roastery_profile },
     ];
     isSaveMode: boolean;
-    isEditMode: boolean;
 
     subProfileForm: FormGroup;
     isAdminRole = false;
@@ -49,7 +48,6 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.profileCreationService.saveMode.next(false);
-        this.profileCreationService.editMode.next(true);
     }
 
     checkAdminRole() {
@@ -81,9 +79,6 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
                 this.profileCreationService.bannerFile = null;
                 this.profileCreationService.bannerUrl = '';
             }
-        });
-        this.profileCreationService.editMode$.subscribe((res: boolean) => {
-            this.isEditMode = res;
         });
     }
 

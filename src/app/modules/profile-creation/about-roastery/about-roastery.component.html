@@ -28,7 +28,7 @@
                                 formControlName="founded_on"
                                 placeholder="Please enter founded year"
                             />
-                            <p class="fnt-14 fw-m text-clr334 mb-1" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334 mb-1" *ngIf="!isSaveMode">
                                 {{ profileCreationService.organizationProfile?.founded_on }}
                             </p>
                             <small *ngIf="isControlHasError('founded_on', 'required')" class="p-error">
@@ -56,7 +56,7 @@
                                 formControlName="owner_name"
                                 placeholder="Please enter owner name"
                             />
-                            <p class="fnt-14 fw-m text-clr334 mb-1" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334 mb-1" *ngIf="!isSaveMode">
                                 {{ profileCreationService.organizationProfile?.owner_name }}
                             </p>
                             <small *ngIf="isControlHasError('owner_name', 'required')" class="p-error">
@@ -91,7 +91,7 @@
                             <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
                                 Description shouldn't be over 150 words
                             </small>
-                            <p class="fnt-14 fw-m text-clr334" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334" *ngIf="!isSaveMode">
                                 {{ profileCreationService.organizationProfile?.description }}
                             </p>
                         </div>
@@ -216,7 +216,7 @@
                                 formControlName="vat_number"
                                 placeholder="Please VAT Number"
                             />
-                            <p class="fnt-14 fw-m text-clr334 text-break mb-0" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334 text-break mb-0" *ngIf="!isSaveMode">
                                 {{ profileCreationService.organizationProfile?.vat_number }}
                             </p>
                             <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
@@ -240,7 +240,7 @@
                                 formControlName="registration_id"
                                 placeholder="Please enter employee avg. age"
                             />
-                            <p class="fnt-14 fw-m text-clr334 text-break mb-0" *ngIf="isEditMode">
+                            <p class="fnt-14 fw-m text-clr334 text-break mb-0" *ngIf="!isSaveMode">
                                 {{ profileCreationService.organizationProfile?.registration_id }}
                             </p>
                             <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
@@ -258,7 +258,7 @@
                         <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isSaveMode">
                             {{ 'tell_us_capability_text' | translate }}.
                         </p>
-                        <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isEditMode">
+                        <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="!isSaveMode">
                             {{ 'our_roastery_capabilities_storage' | translate }}.
                         </p>
                     </div>
@@ -311,7 +311,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-4 mb-md-425" *ngIf="isEditMode">
+                    <div class="row mb-4 mb-md-425" *ngIf="!isSaveMode">
                         <div class="col-lg-12">
                             <div class="d-flex border-md-main br-4 px-md-3 py-md-4">
                                 <div class="pr-25 pr-md-3 border-right">
@@ -472,7 +472,7 @@
                     </div>
                 </form>
 
-                <div class="d-block" *ngIf="isEditMode">
+                <div class="d-block" *ngIf="!isSaveMode">
                     <div class="employer mt-4">
                         <p class="fnt-18 fw-b text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
                         <p class="fnt-14 fw-m text-clr588 w-100 m-0 mb-4">
