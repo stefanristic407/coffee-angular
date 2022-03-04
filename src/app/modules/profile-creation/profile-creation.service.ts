@@ -100,10 +100,10 @@ export class ProfileCreationService {
             }
         });
 
-        this.getcontactList();
+        this.getContactList();
     }
 
-    getcontactList() {
+    getContactList() {
         this.newUserService.getContacts(ContactGroup.TOP).subscribe((res: any) => {
             if (res.success) {
                 this.topContacts = res.result || [];
@@ -145,6 +145,8 @@ export class ProfileCreationService {
                         this.toastrService.error('Error while deleting banner image, please try again.');
                     }
                 });
+            } else {
+                this.updateRoasterAccount();
             }
         }
     }
@@ -255,6 +257,7 @@ export class ProfileCreationService {
     }
 
     clear() {
-        console.log('clear');
+        this.aboutForm.reset();
+        this.contactForm.reset();
     }
 }

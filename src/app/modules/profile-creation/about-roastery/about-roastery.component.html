@@ -1,114 +1,255 @@
 <div class="form-container">
-    <div class="row pl-2 pr-2 mt-4">
-        <div class="col-md-12 pl-2 pr-2 pb-3 d-none d-md-block d-lg-none">
+    <div class="row gutter-16 v-gutter-16">
+        <div class="col-12 d-none d-md-block d-lg-none">
             <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
         </div>
-        <div class="col-lg-8 col-12 pt-0 pl-2 pr-2">
-            <div class="border-md-main br-4 p-lg-4 p-md-3">
-                <form [formGroup]="aboutForm">
-                    <div class="row border-md-main border-md-none br-6 mt-3 m-0 p-0 p-md-0 mr-md-0 ml-md-0">
-                        <div
-                            class="sewn-form-field col-md-6 m-0 pl-0 pr-md-2 pr-0 pt-0 pt-md-0"
-                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
+
+        <div class="col-lg-8">
+            <section [formGroup]="aboutForm" class="border-md-main br-4 p-md-3 p-lg-4">
+                <div class="pb-4 pb-md-475">
+                    <div class="fnt-16 fnt-md-18 fw-b">{{ 'roastery_details' | translate }}</div>
+                    <div class="fw-m text-clr588 mt-2">{{ 'roastery_details_desp' | translate }}</div>
+                </div>
+
+                <!-- Company details -->
+                <div *ngIf="isSaveMode" class="row gutter-16">
+                    <div class="sewn-form-field col-md-6">
+                        <label> {{ 'roastery_name' | translate }}<span class="star">*</span></label>
+                        <input
+                            pInputText
+                            formControlName="name"
+                            [placeholder]="'enter_name_your_roastery' | translate"
+                        />
+                        <small *ngIf="isControlHasError('name', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-6 d-none d-md-block"></div>
+                    <div class="sewn-form-field col-md-6">
+                        <label> {{ 'manager' | translate }}<span class="star">*</span></label>
+                        <input
+                            pInputText
+                            type="text"
+                            formControlName="owner_name"
+                            placeholder="Please enter owner name"
+                        />
+                        <small *ngIf="isControlHasError('owner_name', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field col-md-6">
+                        <label>{{ 'founded_in' | translate }}<span class="star">*</span></label>
+                        <input
+                            type="number"
+                            limit="4"
+                            pInputText
+                            formControlName="founded_on"
+                            placeholder="Please enter founded year"
+                        />
+                        <small *ngIf="isControlHasError('founded_on', 'required')" class="p-error">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field col-12 mb-0">
+                        <label
+                            >{{ 'roastery_summary' | translate }}
+                            <span class="pull-right text-clr588">
+                                {{ aboutForm.get('description').value | wordCount }}/150 words
+                            </span>
+                        </label>
+                        <textarea
+                            appWordLimit
+                            [limit]="150"
+                            pInputTextarea
+                            rows="5"
+                            formControlName="description"
+                            placeholder="Tell us and to our users about who you are as a company!"
                         >
-                            <label
-                                [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14 text-clr588']"
-                                for="founded_in"
-                            >
-                                {{ 'founded_in' | translate }}
-                                <span class="star" *ngIf="isSaveMode">*</span>
-                            </label>
-                            <input
-                                *ngIf="isSaveMode"
-                                id="founded_in"
+                        </textarea>
+                        <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
+                            Description shouldn't be over 150 words
+                        </small>
+                    </div>
+                </div>
+                <div *ngIf="!isSaveMode" class="row gutter-16 v-gutter-32">
+                    <div class="col-6 col-lg-3 d-flex company-detail">
+                        <img src="assets/images/small-avatar.svg" />
+                        <div class="ml-2 ml-md-3">
+                            <div class="fnt-16 fw-m text-clr588 mb-2">{{ 'manager' | translate }}</div>
+                            <div class="fw-m">
+                                {{ profileCreationService.organizationProfile?.owner_name || 'NA' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3 d-flex company-detail">
+                        <img src="assets/images/harveaster.svg" />
+                        <div class="ml-2 ml-md-3">
+                            <div class="fnt-16 fw-m text-clr588 mb-2">{{ 'founded_in' | translate }}</div>
+                            <div class="fw-m">
+                                {{ profileCreationService.organizationProfile?.founded_on || 'NA' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="fnt-16 fw-m text-clr588 mb-2">{{ 'roastery_summary' | translate }}</div>
+                        <div
+                            class="fw-m lh-157"
+                            [innerText]="profileCreationService.organizationProfile?.description || 'NA'"
+                        ></div>
+                    </div>
+                </div>
+
+                <hr *ngIf="isSaveMode" class="mb-4 mt-4 mx-md-n3 mx-lg-n4" />
+
+                <!-- Capability -->
+                <div *ngIf="isSaveMode" class="row gutter-16">
+                    <div class="col-12 fw-m text-clr588 mb-4">{{ 'tell_us_capability_text' | translate }}.</div>
+                    <div class="sewn-form-field col-md-6 mb-md-0">
+                        <label>{{ 'roastery_capacity' | translate }}<span class="star">*</span></label>
+                        <div class="input-and-select gray">
+                            <p-inputNumber
                                 type="number"
-                                limit="4"
-                                pInputText
-                                name="founded_in"
-                                formControlName="founded_on"
-                                placeholder="Please enter founded year"
-                            />
-                            <p class="fnt-14 fw-m text-clr334 mb-1" *ngIf="!isSaveMode">
-                                {{ profileCreationService.organizationProfile?.founded_on }}
-                            </p>
-                            <small *ngIf="isControlHasError('founded_on', 'required')" class="p-error">
+                                formControlName="capacity"
+                                placeholder="Enter capacity"
+                            ></p-inputNumber>
+                            <p-dropdown
+                                [options]="QUANTIRY_UNIT_LIST"
+                                [autoDisplayFirst]="false"
+                                formControlName="capacity_unit"
+                                placeholder="{{ 'select_unit' | translate }}"
+                            ></p-dropdown>
+                            <small *ngIf="isControlHasError('capacity', 'required')" class="p-error">
                                 {{ 'required' | translate }}
                             </small>
-                        </div>
-
-                        <div
-                            class="sewn-form-field col-md-6 mt-md-0 mb-0 pl-0 pr-0 pl-md-2"
-                            [ngClass]="[isSaveMode ? 'col-12 mt-3' : 'col-6 mt-0']"
-                        >
-                            <label
-                                [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14 text-clr588']"
-                                for="owner_name"
-                            >
-                                {{ 'manager' | translate }}<span class="star" *ngIf="isSaveMode">*</span>
-                            </label>
-                            <input
-                                *ngIf="isSaveMode"
-                                pInputText
-                                id="owner_name"
-                                type="text"
-                                required
-                                name="owner_name"
-                                formControlName="owner_name"
-                                placeholder="Please enter owner name"
-                            />
-                            <p class="fnt-14 fw-m text-clr334 mb-1" *ngIf="!isSaveMode">
-                                {{ profileCreationService.organizationProfile?.owner_name }}
-                            </p>
-                            <small *ngIf="isControlHasError('owner_name', 'required')" class="p-error">
-                                {{ 'required' | translate }}
+                            <small *ngIf="isControlHasError('capacity_unit', 'required')" class="p-error">
+                                {{ 'select_unit' | translate }}
                             </small>
                         </div>
                     </div>
+                    <div class="sewn-form-field col-md-6 mb-0">
+                        <label>{{ 'capabilities' | translate }}<span class="star">*</span></label>
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="capabilities"
+                            placeholder="Eg. Hand roasted, Blended, Mocha-Java"
+                        />
+                        <small class="p-error" *ngIf="isControlHasError('capabilities', 'required')">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                </div>
+                <div *ngIf="!isSaveMode" class="border-md-main br-4 p-2 p-md-3 mt-4">
+                    <div class="row gutter-24 v-gutter-24 gutter-md-32 v-gutter-md-32 align-items-center">
+                        <div class="col-auto border-right-main">
+                            <div class="fw-m text-clr588 mb-25 mb-md-1">{{ 'roastery_capacity' | translate }}</div>
+                            <div class="fnt-28 fnt-md-38 fw-b">
+                                {{ profileCreationService.organizationProfile?.capacity | number }}
+                                {{ profileCreationService.organizationProfile?.capacity_unit }}
+                            </div>
+                        </div>
+                        <div class="col-auto flex-1 fw-m lh-157">
+                            {{ profileCreationService.organizationProfile?.capabilities }}
+                        </div>
+                    </div>
+                </div>
 
+                <hr *ngIf="isSaveMode" class="mb-4 mt-4 mx-md-n3 mx-lg-n4" />
+
+                <!-- VAT and Customer ID -->
+                <div *ngIf="isSaveMode" class="row gutter-16">
+                    <div class="col-12 fw-m text-clr588 mb-4">{{ 'enter_vat_customer_id' | translate }}</div>
+
+                    <div class="sewn-form-field col-md-6 mb-md-0">
+                        <label>{{ 'vat_number' | translate }}<span class="star" *ngIf="isSaveMode">*</span></label>
+                        <input type="text" pInputText formControlName="vat_number" placeholder="Please VAT Number" />
+                        <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                    <div class="sewn-form-field col-md-6 mb-0">
+                        <label>{{ 'company_registration_id' | translate }}<span class="star">*</span></label>
+                        <input
+                            pInputText
+                            type="text"
+                            formControlName="registration_id"
+                            placeholder="Please enter employee avg. age"
+                        />
+                        <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
+                            {{ 'required' | translate }}
+                        </small>
+                    </div>
+                </div>
+            </section>
+
+            <div class="d-block d-md-none mb-3 mb-md-4">
+                <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+            </div>
+
+            <!-- Brands -->
+            <section
+                *ngIf="brands?.length || isSaveMode"
+                class="mt-4"
+                [ngClass]="isSaveMode ? 'border-md-main br-4 p-md-3 p-lg-4' : ''"
+            >
+                <ng-container *ngIf="isSaveMode">
+                    <div class="mb-4 mb-md-45">
+                        <div class="fnt-16 fnt-md-18 fw-b">{{ 'associated_brands' | translate }}</div>
+                        <div class="fw-m text-clr588 mt-2">{{ 'list_down_brands' | translate }}.</div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!isSaveMode">
+                    <div class="mb-4 mb-md-45">
+                        <div class="fnt-16 fnt-md-18 fw-b">{{ 'brands' | translate }}</div>
+                        <div class="fw-m text-clr588 mt-2">{{ 'know_about_brands' | translate }}.</div>
+                    </div>
+                </ng-container>
+
+                <div class="mb-3" *ngFor="let brand of brands; let isLast = last" [class.mb-3]="!isLast">
                     <div
-                        class="row border-md-main border-md-none br-4 mb-3 mb-md-45 m-0 mt-3 mt-md-0 p-0 p-md-0 mr-md-0 ml-md-0"
+                        class="d-flex justify-content-between"
+                        *ngIf="(isEditBrandMode && brand.id !== toEditBrand?.id) || !isEditBrandMode"
                     >
-                        <div class="sewn-form-field col-md-12 mt-md-45 p-0 mb-0">
-                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14 text-clr588']" for="summary"
-                                >{{ 'roastery_summary' | translate }}
-                                <span class="pull-right text-clr588" *ngIf="isSaveMode">
-                                    {{ aboutForm.get('description').value | wordCount }}/150 words
-                                </span>
-                            </label>
-                            <textarea
-                                *ngIf="isSaveMode"
-                                appWordLimit
-                                [limit]="150"
-                                pInputTextarea
-                                class="w-100"
-                                id="summary"
-                                name="summary"
-                                rows="5"
-                                formControlName="description"
-                                placeholder="Tell us and to our users about who you are as a company!"
-                            >
-                            </textarea>
-                            <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
-                                Description shouldn't be over 150 words
-                            </small>
-                            <p class="fnt-14 fw-m text-clr334" *ngIf="!isSaveMode">
-                                {{ profileCreationService.organizationProfile?.description }}
-                            </p>
+                        <div class="border-md-main br-4 w-100 p-md-35 d-flex">
+                            <img [src]="brand.url" class="brand-image mr-3" />
+                            <div>
+                                <p class="fnt-16 fw-b mb-2">{{ brand.name }}</p>
+                                <p class="fw-m lh-157">{{ brand.description }}</p>
+                            </div>
+                        </div>
+                        <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
+                            <a class="brown-cta" (click)="editBrand(brand)">
+                                {{ 'edit' | translate }}
+                            </a>
                         </div>
                     </div>
-                    <hr class="mb-4 mt-4" *ngIf="isSaveMode" />
-
-                    <div class="row mt-md-45" *ngIf="isSaveMode">
-                        <div class="col-12 mb-3 mb-md-45">
-                            <p class="fnt-18 fw-b text-clr334 w-100 mb-1">
-                                {{ 'employee_details' | translate }}
-                            </p>
-                            <p class="fnt-14 fw-m text-clr588 w-100 m-0">{{ 'give_overview_text' | translate }}.</p>
-                        </div>
+                    <div *ngIf="isSaveMode && isEditBrandMode && brand.id === toEditBrand?.id">
+                        <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
                     </div>
+                </div>
 
-                    <div class="row mb-md-3" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
+                <div *ngIf="isSaveMode && isEditBrandMode && !toEditBrand?.id">
+                    <hr class="mt-4 mb-4 mx-md-n3 mx-lg-n4" />
+                    <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
+                </div>
+
+                <div *ngIf="isSaveMode && !isEditBrandMode" class="brown-cta mt-4" (click)="addBrandProfileMode()">
+                    + {{ 'add_another_brand' | translate }}
+                </div>
+            </section>
+
+            <section
+                [formGroup]="aboutForm"
+                class="mt-4"
+                [ngClass]="isSaveMode ? 'border-md-main br-4 p-md-3 p-lg-4' : ''"
+            >
+                <div *ngIf="isSaveMode">
+                    <div class="mb-4 mb-md-45">
+                        <div class="fnt-16 fnt-md-18 fw-b">{{ 'employee_details' | translate }}</div>
+                        <div class="fw-m text-clr588 mt-2">{{ 'give_overview_text' | translate }}!</div>
+                    </div>
+                    <div class="row gutter-16">
+                        <div class="sewn-form-field col-md-6">
                             <label>{{ 'total_number_employees' | translate }}<span class="star">*</span></label>
                             <p-inputNumber
                                 formControlName="total_employees"
@@ -125,7 +266,7 @@
                                 Please enter the correct no
                             </small>
                         </div>
-                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
+                        <div class="sewn-form-field col-md-6">
                             <label>{{ 'average_employee_age' | translate }}<span class="star">*</span></label>
                             <p-inputNumber
                                 formControlName="avg_employee_age"
@@ -135,13 +276,7 @@
                                 {{ 'required' | translate }}
                             </small>
                         </div>
-                    </div>
-                    <span class="fnt-14 fw-b text-clr334" *ngIf="isSaveMode">
-                        {{ 'gender_distribution' | translate }}
-                        <span class="star">*</span>
-                    </span>
-                    <div class="row" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4">
+                        <div class="sewn-form-field col-md-6 mb-md-0">
                             <label>{{ 'total_number_female_employees' | translate }}<span class="star">*</span></label>
                             <p-inputNumber
                                 formControlName="female_employee_count"
@@ -158,7 +293,7 @@
                                 Please enter the correct no
                             </small>
                         </div>
-                        <div class="sewn-form-field col-12 col-md-6 pl-md-2 mb-3 mb-md-4">
+                        <div class="sewn-form-field col-md-6 mb-0">
                             <label>{{ 'total_number_male_employees' | translate }}<span class="star">*</span></label>
                             <p-inputNumber
                                 formControlName="male_employee_count"
@@ -176,242 +311,14 @@
                             </small>
                         </div>
                     </div>
+                </div>
 
-                    <div class="d-block d-md-none mb-3 mb-md-4">
-                        <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
-                    </div>
+                <hr *ngIf="isSaveMode" class="mb-4 mt-4 mx-md-n3 mx-lg-n4" />
 
-                    <!-- company details -->
-
-                    <hr class="d-none d-lg-block" />
-                    <div class="row border-md-main border-md-none br-4 mt-md-45 mb-2 m-0 p-0 p-md-0">
-                        <div class="col-9 mb-3 mb-md-45 p-0">
-                            <p class="fnt-18 fw-b text-clr334 w-100 mb-1">Company details</p>
-                            <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isSaveMode">
-                                Enter your VAT and customer ID for billing purposes
-                            </p>
-                        </div>
-                        <div class="col-3 text-right p-0" *ngIf="isSaveMode">
-                            <p class="fnt-14 fw-m text-clr588 w-100 mb-2 text-clr588">Private</p>
-                            <p-inputSwitch
-                                styleClass="custom-input-switch"
-                                formControlName="company_details_public"
-                            ></p-inputSwitch>
-                        </div>
-
-                        <div
-                            class="sewn-form-field col-md-6 p-0 pr-md-2 mb-3 mb-md-4"
-                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
-                        >
-                            <label [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14 text-clr588']" for="vat_nos"
-                                >VAT number<span class="star" *ngIf="isSaveMode">*</span></label
-                            >
-                            <input
-                                *ngIf="isSaveMode"
-                                id="vat_nos"
-                                type="text"
-                                pInputText
-                                required
-                                name="vat_nos"
-                                formControlName="vat_number"
-                                placeholder="Please VAT Number"
-                            />
-                            <p class="fnt-14 fw-m text-clr334 text-break mb-0" *ngIf="!isSaveMode">
-                                {{ profileCreationService.organizationProfile?.vat_number }}
-                            </p>
-                            <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
-                                {{ 'required' | translate }}
-                            </small>
-                        </div>
-                        <div
-                            class="sewn-form-field col-md-6 p-0 pl-md-2 mb-0 mb-md-4"
-                            [ngClass]="[isSaveMode ? 'col-12' : 'col-6']"
-                        >
-                            <label for="cmpy_rid" [ngClass]="[isSaveMode ? 'fnt-14' : 'fnt-12 fnt-md-14 text-clr588']"
-                                >Company registration ID<span class="star" *ngIf="isSaveMode">*</span></label
-                            >
-                            <input
-                                *ngIf="isSaveMode"
-                                id="cmpy_rid"
-                                pInputText
-                                type="text"
-                                required
-                                name="cmpy_rid"
-                                formControlName="registration_id"
-                                placeholder="Please enter employee avg. age"
-                            />
-                            <p class="fnt-14 fw-m text-clr334 text-break mb-0" *ngIf="!isSaveMode">
-                                {{ profileCreationService.organizationProfile?.registration_id }}
-                            </p>
-                            <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
-                                {{ 'required' | translate }}
-                            </small>
-                        </div>
-                    </div>
-
-                    <hr class="mt-4 mb-4 mt-md-3" />
-
-                    <div class="mt-md-45 mb-4">
-                        <p class="fnt-18 fw-b text-clr334 w-100 mb-1">
-                            {{ 'roastery_capabilities' | translate }}
-                        </p>
-                        <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isSaveMode">
-                            {{ 'tell_us_capability_text' | translate }}.
-                        </p>
-                        <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="!isSaveMode">
-                            {{ 'our_roastery_capabilities_storage' | translate }}.
-                        </p>
-                    </div>
-
-                    <div class="row" *ngIf="isSaveMode">
-                        <div class="sewn-form-field col-12 col-md-6 pr-md-2 mb-3 mb-md-4 position-relative">
-                            <label for="capacity">
-                                {{ 'roastery_capacity' | translate }}
-                                <span class="star">*</span>
-                            </label>
-
-                            <div class="input-and-select gray">
-                                <p-inputNumber
-                                    type="number"
-                                    formControlName="capacity"
-                                    placeholder="Enter capacity"
-                                ></p-inputNumber>
-                                <p-dropdown
-                                    [options]="QUANTIRY_UNIT_LIST"
-                                    [autoDisplayFirst]="false"
-                                    formControlName="capacity_unit"
-                                    placeholder="{{ 'select_unit' | translate }}"
-                                ></p-dropdown>
-                                <small *ngIf="isControlHasError('capacity', 'required')" class="p-error">
-                                    {{ 'required' | translate }}
-                                </small>
-                                <small *ngIf="isControlHasError('capacity_unit', 'required')" class="p-error">
-                                    {{ 'select_unit' | translate }}
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="sewn-form-field col-12 col-md-6 pl-md-2">
-                            <label for="capabilities">
-                                {{ 'capabilities' | translate }}
-                                <span class="star">*</span>
-                            </label>
-                            <input
-                                id="capabilities"
-                                type="text"
-                                pInputText
-                                required
-                                name="capabilities"
-                                formControlName="capabilities"
-                                placeholder="Eg. Hand roasted, Blended, Mocha-Java"
-                            />
-                            <small class="p-error" *ngIf="isControlHasError('capabilities', 'required')">
-                                {{ 'required' | translate }}
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mb-4 mb-md-425" *ngIf="!isSaveMode">
-                        <div class="col-lg-12">
-                            <div class="d-flex border-md-main br-4 px-md-3 py-md-4">
-                                <div class="pr-25 pr-md-3 border-right">
-                                    <label class="fw-m text-clr588 mb-25 mb-md-1">
-                                        {{ 'roastery_capacity' | translate }}
-                                    </label>
-                                    <div class="fnt-md-38 fnt-28 fw-b text-clr334">
-                                        {{ profileCreationService.organizationProfile?.capacity | number }}
-                                        {{ profileCreationService.organizationProfile?.capacity_unit }}
-                                    </div>
-                                </div>
-                                <div class="fw-m text-clr334 pl-25 pl-md-3 pt-md-3">
-                                    {{ profileCreationService.organizationProfile?.capabilities }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="mt-2 mb-2" />
-                </form>
-                <!-- Brand Profile -->
-
-                <input
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    hidden
-                    #brandImageInput
-                    (change)="handleBrandFile($event)"
-                />
-                <ng-container *ngIf="filteredBrands?.length || isSaveMode">
-                    <!-- new brand form -->
-                    <div class="row mt-md-45 mb-4 mb-md-45">
-                        <div class="col-12">
-                            <p class="fnt-18 fw-b text-clr334 w-100 mt-2 mt-md-0 mb-1">
-                                {{ 'brands' | translate }}
-                            </p>
-                            <p class="fnt-14 fw-m text-clr588 w-100 m-0" *ngIf="isSaveMode">
-                                {{ 'list_down_brands' | translate }}.
-                            </p>
-                        </div>
-                    </div>
-                    <div *ngIf="isSaveMode && isAddBrandMode">
-                        <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
-                    </div>
-                    <!-- end new brand form -->
-                    <hr class="mt-2 mb-4 mb-md-45" *ngIf="isSaveMode && isAddBrandMode" />
-
-                    <div class="mb-3" *ngFor="let brand of filteredBrands">
-                        <div
-                            class="brand-item-container"
-                            *ngIf="(isEditBrandMode && brand.id !== toEditBrand?.id) || !isEditBrandMode"
-                        >
-                            <div
-                                class="border-md-main br-4 brand-item pl-md-3 p-md-4 d-flex align-items-center"
-                                [ngClass]="{ 'mr-3125': isSaveMode }"
-                            >
-                                <div class="mr-3">
-                                    <img [src]="brand.url" class="brand-image" />
-                                </div>
-                                <div class="brand-meta-container">
-                                    <p class="fnt-16 fw-b text-clr334 mb-2">
-                                        {{ brand.name }}
-                                    </p>
-                                    <p class="fnt-14 fw-m text-clr334">
-                                        {{ brand.description }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="brand-edit-btn" [ngClass]="{ 'visiblity-hidden': !isSaveMode }">
-                                <a class="brown-cta" (click)="editBrand(brand)">
-                                    {{ 'edit' | translate }}
-                                </a>
-                            </div>
-                        </div>
-                        <div *ngIf="isSaveMode && isEditBrandMode && brand.id === toEditBrand.id">
-                            <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
-                        </div>
-                        <div *ngIf="!brands?.length" class="text-center p-2">
-                            <span> No brands found.</span>
-                        </div>
-                    </div>
-
-                    <div class="row" *ngIf="isSaveMode && !isAddBrandMode">
-                        <div class="col-12 mt-4 mt-md-2 mb-4 mb-md-4 text-left">
-                            <span class="brown-cta" (click)="addBrandProfileMode()"> + Add another brand </span>
-                        </div>
-                    </div>
-
-                    <hr [ngClass]="[isAddBrandMode ? 'mt-4 mt-md-45 mb-4 mb-md-45' : 'mt-0 mb-0']" />
-                </ng-container>
-
-                <form [formGroup]="membersForm" novalidate>
-                    <div class="" *ngIf="isSaveMode" formArrayName="members">
-                        <div class="row mt-3 mb-md-4 mb-3">
-                            <div class="col-12">
-                                <p class="fnt-18 fw-b text-clr334 w-100 mb-1">
-                                    {{ 'contacts' | translate }}<span class="star">*</span>
-                                </p>
-                                <p class="fnt-14 fw-m text-clr588 w-100 m-0 mb-0">{{ 'list_contacts' | translate }}!</p>
-                            </div>
+                <form *ngIf="isSaveMode" [formGroup]="membersForm" novalidate>
+                    <div formArrayName="members">
+                        <div class="mb-4 mb-md-45">
+                            <div class="fw-m text-clr588 mt-2">{{ 'list_contacts' | translate }}!</div>
                         </div>
                         <ng-container *ngFor="let member of members.controls; let i = index">
                             <div class="row mb-1">
@@ -424,20 +331,17 @@
                                         [formControlName]="i"
                                     ></p-dropdown>
                                 </div>
-                                <div class="add-partner mb-3 mb-md-0 mt-md-3 col-12 col-md-6 p-md-0 text-left">
+                                <div class="mb-3 mb-md-0 mt-md-25 col-md-6 p-md-0">
                                     <span class="ml-2 brown-cta" (click)="deleteMember(i)">
                                         {{ 'remove_contact' | translate }}
                                     </span>
                                 </div>
                             </div>
                         </ng-container>
-                        <div class="row mt-3" *ngIf="assignRow">
-                            <div class="sewn-form-field col-md-6">
-                                <label for="emp_name">{{ 'select_employee' | translate }}</label>
+                        <div class="row gutter-16 align-items-end mt-3" *ngIf="assignRow">
+                            <div class="sewn-form-field col-md-6 mb-md-0">
+                                <label>{{ 'select_employee' | translate }}</label>
                                 <p-dropdown
-                                    class="w-100"
-                                    id="emp_name"
-                                    name="emp_name"
                                     [options]="usersOptions()"
                                     optionLabel="name"
                                     optionValue="value"
@@ -446,11 +350,11 @@
                                     [(ngModel)]="employeeId"
                                 ></p-dropdown>
                             </div>
-                            <div class="col-12 col-md-6 mt-md-4 p-md-0 add-contact-group">
+                            <div class="col-md-6">
                                 <button
                                     type="submit"
                                     pButton
-                                    class="btn-raised ml-md-2 mr-2"
+                                    class="btn-raised mr-2"
                                     [label]="'add_contact' | translate"
                                     [disabled]="!employeeId"
                                     (click)="addContact()"
@@ -464,62 +368,55 @@
                                 ></button>
                             </div>
                         </div>
-                        <div class="add-brand-div mt-3 mb-3 text-left">
-                            <span class="brown-cta ml-4" (click)="showContact()">
-                                + {{ 'add_another_contact' | translate }}
-                            </span>
+                        <div class="brown-cta mt-4" (click)="showContact()">
+                            + {{ 'add_another_contact' | translate }}
                         </div>
                     </div>
                 </form>
 
-                <div class="d-block" *ngIf="!isSaveMode">
-                    <div class="employer mt-4">
-                        <p class="fnt-18 fw-b text-clr334 w-100 mb-1">{{ 'contacts' | translate }}</p>
-                        <p class="fnt-14 fw-m text-clr588 w-100 m-0 mb-4">
-                            {{ 'list_down_top_employees' | translate }}
-                        </p>
-                        <div class="row p-0">
-                            <div
-                                class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pl-3 pr-3"
-                                *ngFor="let contact of profileCreationService.topContacts"
-                            >
-                                <div class="employ-profile">
-                                    <app-user-detail
-                                        [userId]="contact?.user_id"
-                                        [imageUrl]="contact?.profile_image_thumb_url"
-                                        [orgType]="OrgType.ROASTER"
-                                        shape="rectangle"
-                                        type="contact"
-                                        size="150"
-                                    ></app-user-detail>
-                                    <div class="profile-des">
-                                        <p class="fnt-16 fw-b mb-1 mt-3 text-clr334">
-                                            {{ contact.name | titlecase }}
-                                        </p>
-                                        <p class="fnt-14 fw-m text-clr588 mb-0">
-                                            {{ contact.roles[0] || '-' }}
-                                        </p>
-                                    </div>
-                                    <div class="mt-3">
-                                        <span class="btn-trans-icon message-icon" (click)="openChat(contact)">
-                                            {{ 'message' | translate }}
-                                        </span>
-                                    </div>
-                                </div>
+                <div *ngIf="!isSaveMode" class="d-block">
+                    <div class="mb-4 mb-md-45">
+                        <div class="fnt-16 fnt-md-18 fw-b">{{ 'contacts' | translate }}</div>
+                        <div class="fw-m text-clr588 mt-2">{{ 'get_touch_description' | translate }}!</div>
+                    </div>
+
+                    <div
+                        *ngIf="profileCreationService.topContacts?.length; else noContacts"
+                        class="row gutter-12 v-gutter-12 gutter-md-20 v-gutter-md-20"
+                    >
+                        <div class="col-auto" *ngFor="let contact of profileCreationService.topContacts">
+                            <app-user-detail
+                                [userId]="contact?.user_id"
+                                [imageUrl]="contact?.profile_image_thumb_url"
+                                [orgType]="OrgType.ROASTER"
+                                shape="rectangle"
+                                type="contact"
+                                size="150"
+                            ></app-user-detail>
+                            <div [style.width]="'150px'">
+                                <div class="fw-b mt-25 mb-1 ellipsis">{{ contact.name }}</div>
+                                <div class="text-clr588 ellipsis">{{ contact.roles[0] || '-' }}</div>
+                            </div>
+                            <div class="btn-trans-icon message-icon mt-35" (click)="openChat(contact)">
+                                {{ 'message' | translate }}
                             </div>
                         </div>
                     </div>
+                    <ng-template #noContacts>
+                        <app-empty [title]="'no_data_available' | translate"></app-empty>
+                    </ng-template>
                 </div>
-            </div>
+            </section>
         </div>
-        <div class="col-lg-4 col-12 pt-0 pl-2 pr-2 d-none d-lg-block">
+
+        <div class="col-lg-4 d-none d-lg-block">
             <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
         </div>
     </div>
 </div>
 
 <ng-template #brandButtonGroup>
-    <div class="add-brand-btns d-flex float-right float-md-none">
+    <div class="d-flex float-right float-md-none">
         <span *ngIf="!isEditBrandMode" class="brown-cta mr-3" (click)="addNewBrand()">
             {{ 'save' | translate }}
         </span>
@@ -540,19 +437,21 @@
         <ng-container *ngIf="certificatesArray?.length || certificateTypes?.length">
             <div class="col-md-6 col-lg-12" *appAclIf="'brand-profile-management'">
                 <div class="border-main br-4">
-                    <div class="header fnt-18 fw-b text-clr334 m-1">
+                    <div class="bg-f8 br-4 p-25 fnt-18 fw-b m-1">
                         {{ 'awards_and_certificates' | translate }}
                     </div>
                     <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
                         <div class="col-12">
                             <div
                                 class="w-100 d-flex justify-content-between"
-                                [ngClass]="{ 'border-div': i !== certificatesArray.length - 1 || isSaveMode }"
+                                [ngClass]="{
+                                    'border-bottom-dashed-main': i !== certificatesArray.length - 1 || isSaveMode
+                                }"
                             >
                                 <div class="d-flex mb-25">
                                     <a [href]="certificate.public_url" target="_blank">
                                         <img
-                                            class="img-estate"
+                                            class="cert-img"
                                             [src]="certificate.certificate_type_url"
                                             [alt]="certificate.certificate_type"
                                     /></a>
@@ -578,8 +477,8 @@
                         </div>
                     </div>
                     <div *ngIf="isSaveMode && certificateTypes?.length">
-                        <div class="add-brand-div p-25 p-md-4" *appAclIf="'brand-profile-management'">
-                            <span class="brown-cta ml-4" routerLink="/roastery-profile/certificate">
+                        <div class="p-25 p-md-4">
+                            <span class="brown-cta" routerLink="/roastery-profile/certificate">
                                 + {{ 'add_another_certificate' | translate }}
                             </span>
                         </div>
@@ -590,38 +489,33 @@
 
         <div class="col-md-6 col-lg-12">
             <div class="border-main br-4">
-                <div class="header fnt-18 fw-b text-clr334 m-1">{{ 'employee_details' | translate }}</div>
-                <div class="w-100">
-                    <div class="d-flex employee-details-container pt-45 pb-45 pl-4 pr-4">
-                        <div class="w-50 border-right">
-                            <p class="m-0 fnt-32 fw-b text-clr334">
-                                {{ profileCreationService.organizationProfile?.total_employees }}
-                            </p>
-                            <p class="mt-2 mb-0 fnt-18 fw-m text-clr588">{{ 'total_employees' | translate }}</p>
+                <div class="bg-f8 br-4 p-25 fnt-18 fw-b m-1">{{ 'employee_details' | translate }}</div>
+
+                <div class="row gutter-32 py-45 px-4">
+                    <div class="col-6 border-right-main">
+                        <div class="fnt-24 fnt-md-32 fw-b">
+                            {{ profileCreationService.organizationProfile?.total_employees }}
                         </div>
-                        <div class="w-50 pl-45">
-                            <p class="m-0 fnt-24 fnt-md-32 fw-b text-clr334">
-                                {{ profileCreationService.organizationProfile?.avg_employee_age }}
-                            </p>
-                            <p class="mt-2 mb-0 fnt-14 fnt-md-18 fw-m text-clr588">
-                                {{ 'average_age' | translate }}
-                            </p>
+                        <div class="fnt-md-18 fw-m text-clr588 mt-2">{{ 'total_employees' | translate }}</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="fnt-24 fnt-md-32 fw-b">
+                            {{ profileCreationService.organizationProfile?.avg_employee_age }}
                         </div>
+                        <div class="fnt-md-18 fw-m text-clr5 mt-2">{{ 'average_age' | translate }}</div>
                     </div>
                 </div>
 
-                <div class="w-100">
-                    <div
-                        *ngIf="
-                            this.profileCreationService.organizationProfile?.male_employee_count == null &&
-                            this.profileCreationService.organizationProfile?.female_employee_count == null
-                        "
-                    >
-                        <p class="fnt-18 fw-b text-center">{{ 'no_data_display' | translate }}</p>
-                    </div>
-                    <div class="custom-chart-container">
-                        <app-pie-area-chart [results]="profileCreationService.single"></app-pie-area-chart>
-                    </div>
+                <div
+                    *ngIf="
+                        profileCreationService.organizationProfile?.male_employee_count === null &&
+                        profileCreationService.organizationProfile?.female_employee_count === null
+                    "
+                >
+                    <p class="fnt-18 fw-b text-center">{{ 'no_data_display' | translate }}</p>
+                </div>
+                <div class="custom-chart-container">
+                    <app-pie-area-chart [results]="profileCreationService.single"></app-pie-area-chart>
                 </div>
             </div>
         </div>
@@ -631,110 +525,85 @@
 <!-- brand form template -->
 <ng-template #brandFormTemplate>
     <form [formGroup]="brandForm">
-        <div *ngIf="isSaveMode">
-            <div class="mt-4 mt-md-45">
-                <div class="row">
-                    <div
-                        class="sewn-form-field mb-45 brand-name"
-                        [ngClass]="[
-                            brandImageUrl === 'assets/images/default-brand.png' ? 'col-12 col-md-6 pr-md-2' : 'col-12'
-                        ]"
-                    >
-                        <div class="d-md-none">
-                            <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
-                        </div>
-                        <div class="d-flex">
-                            <div
-                                class="add-brand-data mr-3 mr-md-45"
-                                *ngIf="brandImageUrl !== 'assets/images/default-brand.png'"
-                            >
-                                <label>
-                                    {{ 'brand' | translate }} {{ 'logo' | translate }}<span class="star">*</span>
-                                </label>
-                                <div class="profile-avatar">
-                                    <img [src]="brandImageUrl" class="avatar-img" />
-                                    <a class="change-avatar-btn" *ngIf="isSaveMode" (click)="brandImageInput.click()">
-                                        <img src="assets/images/camera.svg" class="camera-pic" />
-                                    </a>
-                                </div>
-                                <div class="add-brand-btns">
-                                    <button
-                                        pButton
-                                        icon="pi pi-trash"
-                                        iconPos="left"
-                                        class="fnt-14 btn-delete-avatar"
-                                        (click)="deleteBrandImage()"
-                                        label="{{ 'delete' | translate }}"
-                                    ></button>
-                                </div>
-                            </div>
-
-                            <div class="sewn-form-field mb-0 w-100">
-                                <label> {{ 'brand_name' | translate }}<span class="star">*</span> </label>
-                                <input
-                                    type="text"
-                                    required
-                                    pInputText
-                                    formControlName="name"
-                                    placeholder="Please enter brand name"
-                                    class="brand-name-input"
-                                />
-                                <small *ngIf="isBrandControlHasError('name', 'required')" class="p-error">
-                                    {{ 'required' | translate }}
-                                </small>
-                            </div>
-                            <div *ngIf="brandImageUrl !== 'assets/images/default-brand.png'" class="d-none d-md-block">
-                                <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="col-12 col-md-6 pl-md-2 sewn-form-field mb-45"
-                        *ngIf="brandImageUrl === 'assets/images/default-brand.png'"
-                    >
-                        <label> {{ 'brand' | translate }} {{ 'logo' | translate }}<span class="star">*</span> </label>
-                        <div class="brand-button-group d-flex justify-content-between">
-                            <div
-                                class="fnt-14 fw-m lh-normal txt-clr334 upload-button mt-md-2"
-                                (click)="brandImageInput.click()"
-                            >
-                                <i class="pi pi-upload fnt-14 mr-1"></i>
-                                Upload
-                            </div>
-                            <div class="d-none d-md-flex">
-                                <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
-                            </div>
-                        </div>
-                    </div>
+        <div class="row gutter-16 gutter-md-32">
+            <div [ngClass]="[!brandImageUrl ? 'col-md-6' : 'col-12']">
+                <div class="d-md-none">
+                    <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
                 </div>
+                <div class="row gutter-16 gutter-md-32">
+                    <div class="sewn-form-field add-brand-data col-auto" *ngIf="brandImageUrl">
+                        <label>{{ 'brand_logo' | translate }}<span class="star">*</span> </label>
+                        <div class="profile-avatar">
+                            <img [src]="brandImageUrl" class="avatar-img" />
+                            <a class="change-avatar-btn" *ngIf="isSaveMode" (click)="brandImageInput.click()">
+                                <img src="assets/images/camera.svg" class="camera-pic" />
+                            </a>
+                        </div>
+                        <div>
+                            <button
+                                pButton
+                                icon="pi pi-trash"
+                                iconPos="left"
+                                class="fnt-14 btn-delete-avatar"
+                                (click)="deleteBrandImage()"
+                                label="{{ 'delete' | translate }}"
+                            ></button>
+                        </div>
+                    </div>
 
-                <div class="row">
-                    <div class="sewn-form-field col-md-12 mt-0">
-                        <label
-                            >{{ 'short_description_brand' | translate }}<span class="star">*</span>
-                            <span class="pull-right text-clr588">
-                                {{ brandForm.controls.description.value | wordCount }}/50 words
-                            </span>
-                        </label>
-                        <textarea
-                            class="w-100"
-                            appWordLimit
-                            [limit]="50"
-                            pInputTextarea
-                            rows="5"
-                            formControlName="description"
-                            placeholder="Tell us a bit about your brand"
-                        >
-                        </textarea>
-                        <small *ngIf="isBrandControlHasError('description', 'required')" class="p-error">
+                    <div class="sewn-form-field col-auto flex-1">
+                        <label> {{ 'brand_name' | translate }}<span class="star">*</span> </label>
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="name"
+                            placeholder="Please enter brand name"
+                            class="brand-name-input"
+                        />
+                        <small *ngIf="isBrandControlHasError('name', 'required')" class="p-error">
                             {{ 'required' | translate }}
                         </small>
-                        <small *ngIf="isBrandControlHasError('description', 'maxWordCount')" class="p-error">
-                            Description shouldn't over 50 words
-                        </small>
+                    </div>
+                    <div *ngIf="brandImageUrl" class="d-none d-md-block col-auto">
+                        <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
                     </div>
                 </div>
             </div>
+            <div *ngIf="!brandImageUrl" class="col-md-6 sewn-form-field">
+                <label>{{ 'brand_logo' | translate }}<span class="star">*</span></label>
+                <div class="brand-button-group d-flex justify-content-between">
+                    <div class="btn-trans-icon upload-icon mt-md-2" (click)="brandImageInput.click()">
+                        {{ 'upload' | translate }}
+                    </div>
+                    <div class="d-none d-md-flex">
+                        <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="sewn-form-field col-12 mb-0">
+                <label
+                    >{{ 'short_description_brand' | translate }}<span class="star">*</span>
+                    <span class="pull-right text-clr588">
+                        {{ brandForm.controls.description.value | wordCount }}/50 words
+                    </span>
+                </label>
+                <textarea
+                    appWordLimit
+                    [limit]="50"
+                    pInputTextarea
+                    rows="5"
+                    formControlName="description"
+                    placeholder="Tell us a bit about your brand"
+                >
+                </textarea>
+                <small *ngIf="isBrandControlHasError('description', 'required')" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
+                <small *ngIf="isBrandControlHasError('description', 'maxWordCount')" class="p-error">
+                    {{ 'should_not_be_over_n_words' | translate | strReplace: '{limit}':'50' }}
+                </small>
+            </div>
         </div>
     </form>
+    <input type="file" accept="image/png, image/jpeg" hidden #brandImageInput (change)="handleBrandFile($event)" />
 </ng-template>

@@ -18,16 +18,11 @@ import { ProfileCreationService } from '../profile-creation.service';
 export class AboutRoasteryComponent implements OnInit {
     readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
     readonly OrgType = OrganizationType;
-    roasterId: any;
     certificateTypes: any[];
     certificatesArray: any = [];
-    userId: any;
-    single: any[];
 
-    addBtn = true;
     assignRow = false;
     brands = [];
-    filteredBrands = [];
     chartData: any;
 
     allUsers: any[] = [];
@@ -38,12 +33,10 @@ export class AboutRoasteryComponent implements OnInit {
     isSaveMode: boolean;
     employeeId: any;
 
-    isAddBrandMode = false;
     isEditBrandMode = false;
-
     brandFile: any;
     toEditBrand: any;
-    brandImageUrl = 'assets/images/default-brand.png';
+    brandImageUrl: string;
 
     get members() {
         return this.membersForm.get('members') as FormArray;
@@ -60,15 +53,12 @@ export class AboutRoasteryComponent implements OnInit {
         private userService: UserService,
         private usrService: UserService,
         public profileCreationService: ProfileCreationService,
-    ) {
-        this.roasterId = this.authService.getOrgId();
-        this.userId = this.authService.userId;
-    }
+    ) {}
 
     ngOnInit(): void {
         this.getCertificateTypes();
         this.getCertificates();
-        this.profileCreationService.getcontactList();
+        this.profileCreationService.getContactList();
         this.getBrands();
         this.getOrgUsers();
         this.initialForm();
@@ -103,6 +93,7 @@ export class AboutRoasteryComponent implements OnInit {
 
     initialForm() {
         this.aboutForm = this.fb.group({
+            name: ['', Validators.compose([Validators.required])],
             owner_name: ['', Validators.compose([Validators.required])],
             founded_on: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([maxWordCountValidator(150)])],
@@ -274,39 +265,51 @@ export class AboutRoasteryComponent implements OnInit {
         this.members.push(this.fb.control(this.employeeId, Validators.compose([Validators.required])));
         this.employeeId = null;
         this.assignRow = false;
-        this.addBtn = true;
     }
 
     showContact() {
-        this.addBtn = false;
         this.assignRow = true;
     }
 
     cancelAssign() {
-        this.addBtn = true;
         this.assignRow = false;
         this.employeeId = null;
+    }
+
+    getBrands() {
+        this.roasterService.getRoasterBrands().subscribe((res) => {
+            this.brands = res.success ? res.result : [];
+        });
     }
 
     editBrand(brand) {
         this.toEditBrand = brand;
         this.brandImageUrl = brand.url;
-        const formValue = {
+        this.brandForm.setValue({
             name: brand.name,
             description: brand.description,
-        };
-        this.brandForm.setValue(formValue);
+        });
         this.isEditBrandMode = true;
-        this.isAddBrandMode = false;
     }
 
     addBrandProfileMode() {
-        this.brandForm = this.fb.group({
-            name: ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
-        });
-        this.isAddBrandMode = true;
+        this.toEditBrand = null;
+        this.brandForm.reset();
+        this.isEditBrandMode = true;
+    }
+
+    cancelAddBrand() {
+        this.brandForm.reset();
+        this.brandFile = null;
         this.isEditBrandMode = false;
+        this.brandImageUrl = null;
+    }
+
+    deleteBrandImage() {
+        this.brandImageUrl = null;
+        if (this.brandFile) {
+            this.brandFile = null;
+        }
     }
 
     addNewBrand() {
@@ -323,7 +326,7 @@ export class AboutRoasteryComponent implements OnInit {
         data.append('name', this.brandForm.controls.name.value);
         data.append('description', this.brandForm.controls.description.value);
         data.append('file', this.brandFile);
-        data.append('api_call', `/ro/${this.roasterId}/brands`);
+        data.append('api_call', `${this.roasterService.apiCallPrefix}/brands`);
         data.append('token', this.authService.token);
         this.roasterService.addRoasterBrand(data).subscribe((res) => {
             this.cancelAddBrand();
@@ -343,7 +346,7 @@ export class AboutRoasteryComponent implements OnInit {
         if (this.brandFile) {
             data.append('file', this.brandFile);
         }
-        data.append('api_call', `/ro/${this.roasterId}/brands/${this.toEditBrand.id}`);
+        data.append('api_call', `${this.roasterService.apiCallPrefix}/brands/${this.toEditBrand.id}`);
         data.append('token', this.authService.token);
         data.append('method', 'PUT');
         this.roasterService.updateRoasterBrand(data).subscribe((res) => {
@@ -360,32 +363,6 @@ export class AboutRoasteryComponent implements OnInit {
             this.toastrService.success('Brand is deleted successfully');
             this.isEditBrandMode = false;
             this.cancelAddBrand();
-        });
-    }
-
-    cancelAddBrand() {
-        this.brandForm.setValue({
-            name: '',
-            description: '',
-        });
-        this.brandFile = null;
-        this.isAddBrandMode = false;
-        this.isEditBrandMode = false;
-        this.filteredBrands = this.brands;
-        this.brandImageUrl = 'assets/images/default-brand.png';
-    }
-
-    deleteBrandImage() {
-        this.brandImageUrl = 'assets/images/default-brand.png';
-        if (this.brandFile) {
-            this.brandFile = null;
-        }
-    }
-
-    getBrands() {
-        this.roasterService.getRoasterBrands().subscribe((res) => {
-            this.brands = res.success ? res.result : [];
-            this.filteredBrands = this.brands;
         });
     }
 
