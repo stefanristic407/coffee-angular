@@ -1,10 +1,9 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { GlobalsService, RoasterService, GreenGradingService, AuthService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
-import { LazyLoadEvent } from 'primeng/api';
 import { Location } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService, GlobalsService, GreenGradingService, RoasterService } from '@services';
+import { ToastrService } from 'ngx-toastr';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
     selector: 'app-assign-user',
@@ -21,11 +20,11 @@ export class AssignUserComponent implements OnInit {
     selectedRole: any;
     selectedStatus: any;
     keywords: string;
-    totalCount = 0;
-
+    totalRecords;
+    rows = 10;
     roasterId: number;
     orderId: any;
-
+    page = 1;
     statusList: any[] = [
         {
             title: 'Active',
@@ -45,11 +44,9 @@ export class AssignUserComponent implements OnInit {
 
     constructor(
         public globals: GlobalsService,
-        private cookieService: CookieService,
         private roasterService: RoasterService,
         private greenGradingService: GreenGradingService,
         private toaster: ToastrService,
-        private router: Router,
         private route: ActivatedRoute,
         public location: Location,
         private authService: AuthService,
@@ -75,15 +72,13 @@ export class AssignUserComponent implements OnInit {
     }
 
     loadData(event?: LazyLoadEvent): void {
-        console.log(event);
-        let page = 1;
         if (event) {
-            page = event.first / event.rows + 1;
+            this.page = event.first / event.rows + 1;
         }
         setTimeout(() => (this.loading = true), 0); // To prevent expression has been checked error
         const options = {
-            page,
-            per_page: 10,
+            page: this.page,
+            per_page: this.rows,
             name: this.keywords ?? '',
             status: this.selectedStatus ?? '',
             role_id: this.selectedRole ?? '',
@@ -91,9 +86,9 @@ export class AssignUserComponent implements OnInit {
             sort_order: event?.sortOrder === 1 ? 'asc' : 'desc',
         };
         this.roasterService.getOrgUsers(options).subscribe((requestData: any) => {
-            if (requestData.success === true) {
+            if (requestData.success) {
                 this.tableData = requestData.result;
-                this.totalCount = requestData.result_info.total_count;
+                this.totalRecords = requestData.result_info.total_count;
             }
             this.loading = false;
         });
@@ -105,12 +100,17 @@ export class AssignUserComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: this.globals.languageJson?.name,
+                    header: this.globals.languageJson.name,
                     sortable: true,
                 },
                 {
+                    field: 'email',
+                    header: this.globals.languageJson.email,
+                    sortable: false,
+                },
+                {
                     field: 'last_login_at',
-                    header: this.globals.languageJson?.last_login,
+                    header: this.globals.languageJson.last_login,
                     sortable: true,
                 },
                 {
@@ -123,27 +123,27 @@ export class AssignUserComponent implements OnInit {
             this.tableColumns = [
                 {
                     field: 'name',
-                    header: this.globals.languageJson?.name,
+                    header: this.globals.languageJson.name,
                     sortable: true,
                 },
                 {
                     field: 'last_login_at',
-                    header: this.globals.languageJson?.last_login,
+                    header: this.globals.languageJson.last_login,
                     sortable: true,
                 },
                 {
                     field: 'email',
-                    header: this.globals.languageJson?.email,
+                    header: this.globals.languageJson.email,
                     sortable: false,
                 },
                 {
                     field: 'status',
-                    header: this.globals.languageJson?.status,
+                    header: this.globals.languageJson.status,
                     sortable: false,
                 },
                 {
                     field: 'roles',
-                    header: this.globals.languageJson?.all_roles,
+                    header: this.globals.languageJson.all_roles,
                     sortable: true,
                 },
             ];

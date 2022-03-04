@@ -160,7 +160,9 @@
             width: 100% !important;
             bottom: 0;
             top: auto;
-            left: 48px;
+            @media (min-width: 768px) {
+                left: 48px;
+            }
         }
 
         .sid-text,

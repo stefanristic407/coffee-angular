@@ -1,5 +1,5 @@
 <div class="main-block">
-    <div class="d-flex justify-content-between pb-2 pb-md-0">
+    <div class="d-md-flex justify-content-between pb-2 pb-md-0">
         <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
         <div class="col-4 w-100">
             <span class="custom-search d-none d-lg-inline-block w-100">
@@ -32,8 +32,8 @@
             </span>
         </div>
 
-        <div class="col-12 p-0 mt-3">
-            <span class="mr-2">
+        <div class="col-12 p-0 mt-45 mt-md-3">
+            <span class="mr-2 drop-space">
                 <p-dropdown
                     *ngIf="activeIndex === 1"
                     [options]="COUNTRY_LIST"
@@ -108,13 +108,29 @@
                                     [ngSwitch]="col.field"
                                     [style.width]="col.width ? col.width + '%' : 'unset'"
                                 >
-                                    <span *ngIf="col.field !== 'cupping_report_id'" class="p-column-title">{{
-                                        col.header | translate
-                                    }}</span>
+                                    <span
+                                        *ngIf="col.field !== 'cupping_report_id' && col.field !== 'external_sample_id'"
+                                        class="p-column-title"
+                                        >{{ col.header | translate }}</span
+                                    >
                                     <span class="d-flex" *ngSwitchCase="'cupping_report_id'">
                                         <span class="d-none d-md-block">{{ rowData[col.field] }}</span>
-                                        <div class="d-flex align-items-center justify-content-between d-md-none">
-                                            <span>{{ col.header | translate }} #{{ rowData[col.field] }}</span>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between w-mob-100 d-md-none"
+                                        >
+                                            <span>{{ col.header | translate }}# {{ rowData[col.field] }}</span>
+                                            <span class="d-flex align-items-center">
+                                                <app-action-menu [menuItems]="getMenuItemsForItem(rowData)">
+                                                </app-action-menu>
+                                            </span>
+                                        </div>
+                                    </span>
+                                    <span class="d-flex" *ngSwitchCase="'external_sample_id'">
+                                        <span class="d-none d-md-block">{{ rowData[col.field] }}</span>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between w-mob-100 d-md-none"
+                                        >
+                                            <span>{{ col.header | translate }}# {{ rowData[col.field] }}</span>
                                             <span class="d-flex align-items-center">
                                                 <app-action-menu [menuItems]="getMenuItemsForItem(rowData)">
                                                 </app-action-menu>

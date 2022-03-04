@@ -7,7 +7,7 @@
                     type="text"
                     pInputText
                     class="w-100"
-                    [placeholder]="'search_by_id_name' | translate"
+                    [placeholder]="'search_orderid_estate' | translate"
                     [(ngModel)]="term"
                     (ngModelChange)="termSubject.next(term)"
                 />
@@ -17,22 +17,24 @@
     <section class="grading__total pt-3 pt-lg-25 pt-md-4">
         <div class="d-flex flex-wrap justify-content-between flex-column flex-md-row">
             <div class="green_grading_cont">
-                <h1 class="fnt-18 fw-b">{{ 'assign_orders' | translate }}</h1>
-                <h3 class="mb-0">{{ 'assign_orders_your_members' | translate }}</h3>
+                <h1 class="fnt-general fw-b fnt-18">{{ 'assign_orders' | translate }}</h1>
+                <h3 class="mb-0 fnt-general fnt-14 text-clr588 pt-1 mb-0">
+                    {{ 'assign_orders_your_members' | translate }}
+                </h3>
             </div>
-            <span class="custom-search d-inline-block d-lg-none mt-3 mt-md-0" style="height: fit-content">
+            <span class="custom-search d-inline-block d-lg-none mt-3 mt-md-0 custom-search-width">
                 <input
                     type="text"
                     class="w-100"
                     pInputText
-                    [placeholder]="'search_by_id_name' | translate"
+                    placeholder="{{ 'search_orderid_estate' | translate }}"
                     [(ngModel)]="term"
                     (ngModelChange)="termSubject.next(term)"
                 />
             </span>
         </div>
         <div class="d-flex flex-column flex-md-row">
-            <div class="d-flex flex-wrap d-col-12 justify-content-between px-0 dropdown-wrapper">
+            <div class="d-flex flex-wrap justify-content-between px-0 dropdown-wrapper">
                 <div class="mt-3 px-2">
                     <p-dropdown
                         [options]="orderTypeItems"
@@ -46,7 +48,7 @@
                     >
                     </p-dropdown>
                 </div>
-                <div class="mt-3 px-2">
+                <div class="mt-3 px-2 d-none d-md-block">
                     <p-dropdown
                         [options]="displayOptions"
                         [(ngModel)]="displayRowCounts"
@@ -54,6 +56,7 @@
                         styleClass="round-border"
                         optionLabel="label"
                         optionValue="value"
+                        [showClear]="true"
                         (onChange)="loadData()"
                     >
                         <ng-template pTemplate="selectedItem">
@@ -63,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="table-container mt-3 mt-md-4">
+        <div class="table-container mt-md-4">
             <div class="table-responsive">
                 <p-table
                     #myTable
@@ -88,7 +91,7 @@
                                 [style.width]="col.width ? col.width : 'unset'"
                                 [ngClass]="{ ellipsis: col.isCut }"
                             >
-                                <span class="primeng-table-header">{{ col.header }}</span>
+                                <span class="primeng-table-header">{{ col.header | translate }}</span>
                                 <p-sortIcon
                                     *ngIf="col.sortable === true"
                                     [field]="col.field"
@@ -107,7 +110,7 @@
                                 <span class="d-flex" *ngSwitchCase="'order_id'">
                                     <span *ngIf="isMobileView" class="d-flex w-100">
                                         <span class="prime-table-label w-50">
-                                            {{ col.header }} {{ rowData[col.field] }}
+                                            {{ col.header | translate }} {{ rowData[col.field] }}
                                         </span>
                                         <span class="fnt-14" [ngClass]="rowData.order_type">
                                             &#9679;&nbsp;{{
@@ -125,7 +128,7 @@
                                 </span>
                                 <span class="d-flex" *ngSwitchCase="'order_date'">
                                     <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                        {{ col.header }}
+                                        {{ col.header | translate }}
                                     </span>
 
                                     <span>
@@ -134,7 +137,7 @@
                                 </span>
                                 <span class="d-flex" *ngSwitchCase="'origin'">
                                     <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                        {{ col.header }}
+                                        {{ col.header | translate }}
                                     </span>
 
                                     <span>
@@ -143,7 +146,7 @@
                                 </span>
                                 <span class="d-flex" *ngSwitchCase="'order_type'">
                                     <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                        {{ col.header }}
+                                        {{ col.header | translate }}
                                     </span>
 
                                     <span [ngClass]="rowData.order_type">
@@ -156,30 +159,26 @@
                                         }}
                                     </span>
                                 </span>
-                                <span *ngSwitchCase="'type'">
-                                    <div class="d-flex justify-content-between align-items-center px-0">
-                                        <span
-                                            *ngIf="isMobileView"
-                                            class="fnt-14 fw-b text-clr588 col-6 p-0 d-none d-md-block"
-                                        >
-                                            {{ col['header'] }}
-                                        </span>
+                                <span class="d-flex" *ngSwitchCase="'type'">
+                                    <span *ngIf="isMobileView" class="prime-table-label w-50">
+                                        {{ col.header | translate }}
+                                    </span>
 
-                                        <span
-                                            class="ellipsis brown-cta mb-3 mb-md-0"
-                                            [routerLink]="'/green-grading/assign-user/' + rowData.order_id"
-                                        >
-                                            {{ rowData[col.field] ? 'Re-assign' : 'Assign' }}
-                                        </span>
-                                    </div>
+                                    <span
+                                        class="ellipsis brown-cta"
+                                        [routerLink]="'/green-grading/assign-user/' + rowData.order_id"
+                                        [style.color]="'#80460b'"
+                                    >
+                                        {{ rowData[col.field] ? 'Re-assign' : 'Assign' }}
+                                    </span>
                                 </span>
                                 <span class="d-flex" *ngSwitchDefault>
                                     <span *ngIf="isMobileView" class="prime-table-label w-50">
-                                        {{ col.header }}
+                                        {{ col.header | translate }}
                                     </span>
 
-                                    <span class="text-nowrap">
-                                        {{ rowData[col.field] }}
+                                    <span>
+                                        {{ capitalizeFirstLetter(rowData[col.field]) || 'N/A' }}
                                     </span>
                                 </span>
                             </td>

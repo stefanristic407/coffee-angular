@@ -1,20 +1,6 @@
+@import 'variables';
+
 .content-wrapper {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-
-    .header-wrapper {
-        h4 {
-            margin-bottom: 24px;
-        }
-        @media (max-width: 767px) {
-            h4 {
-                font-size: 16px;
-                margin-bottom: 16px;
-            }
-        }
-    }
-
     .dropdown-wrapper {
         display: flex;
         margin: 0 -6px;
@@ -30,17 +16,10 @@
             overflow: visible;
             .table-mobile-first-col {
                 @media (max-width: 767px) {
-                    background: #f8f8f8;
+                    background: $primary-bg-color;
                     padding: 4px 14px 5px 12px;
                     border-radius: 4px;
                 }
-            }
-            .circle-dot {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: #747588;
-                margin: 0 6px;
             }
             .p-button-text:hover {
                 background: #ffffff !important;
@@ -59,7 +38,27 @@
     }
 }
 
+@media (max-width: 767px) {
+    .circle-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: $muted-text-color;
+        margin: 0 6px;
+    }
+    .back-page {
+        padding-left: 24px !important;
+        padding-bottom: 12px;
+        &::before {
+            padding: 17px 11px !important;
+        }
+    }
+}
+
 ::ng-deep {
+    .p-paginator-current {
+        display: none !important;
+    }
     .p-radiobutton-assign-estate .p-radiobutton {
         width: 25px;
         height: 25px;

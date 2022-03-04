@@ -186,4 +186,9 @@ export class AssignOrdersComponent extends ResizeableComponent implements OnInit
             this.selectedRows = this.generateReportService.serviceRequestsList ?? [];
         });
     }
+
+    capitalizeFirstLetter(name) {
+        const x = name.charAt(0).toUpperCase() + name.slice(1);
+        return x ? x.replace(/_/g, ' ').replace(/-/g, ' ') : x;
+    }
 }

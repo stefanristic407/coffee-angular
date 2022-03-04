@@ -1,9 +1,7 @@
 @import 'variables';
 
-.green_grading_cont {
-    h1 {
-        font-size: 18px;
-    }
+.custom-width {
+    width: 300px;
 }
 
 .star {
@@ -13,6 +11,25 @@
 .dropdown-wrapper {
     flex: 1;
     margin: 0 -8px;
+}
+
+.dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin: 0 4px;
+    background: $muted-text-color;
+}
+
+.custom-search-width {
+    width: 26.5%;
+    height: fit-content;
+    @media (min-width: 768px) and (max-width: 992px) {
+        width: 43%;
+    }
+    @media (max-width: 767px) {
+        width: 100%;
+    }
 }
 
 .GC_ORDER_SAMPLE {
@@ -48,7 +65,7 @@
             }
 
             .action-button {
-                color: #747588;
+                color: $muted-text-color;
                 padding-left: 0.25rem;
                 padding-right: 0.25rem;
                 font-weight: $fw-m;
@@ -61,7 +78,7 @@
             }
 
             .p-button-text {
-                color: #747588;
+                color: $muted-text-color;
                 position: relative;
             }
 
@@ -70,7 +87,7 @@
                 left: -185px !important;
                 .p-menuitem-link {
                     .p-menuitem-text {
-                        color: #747588;
+                        color: $muted-text-color;
 
                         &:hover {
                             color: #232334;
@@ -86,10 +103,10 @@
             .p-button-outlined {
                 padding: 0.5rem;
                 color: #232334;
-                border-color: #747588;
+                border-color: $muted-text-color;
                 font-family: $general-font-family;
                 font-size: 14px;
-                font-weight: 500 !important;
+                font-weight: $fw-m !important;
             }
         }
 
@@ -108,6 +125,11 @@
                                 border: none;
                             }
                         }
+                        @media (max-width: 767px) {
+                            &:not(.border-none) {
+                                border-bottom: none !important;
+                            }
+                        }
 
                         .action-button .p-button-label {
                             color: #232334;
@@ -118,7 +140,7 @@
                             padding-bottom: 1rem;
 
                             span:first-child {
-                                color: #747588;
+                                color: $muted-text-color;
                             }
 
                             @media (max-width: 767px) {
@@ -166,5 +188,11 @@
                 }
             }
         }
+    }
+}
+
+@media (max-width: 767px) {
+    .brown-cta {
+        text-decoration: none !important;
     }
 }

@@ -1,14 +1,13 @@
-<section class="bg-white pt-2 px-3 px-lg-5 pb-3 pb-md-4 content-wrapper">
+<section class="bg-white pt-2 px-3 px-lg-5 pb-3 pb-md-4 d-flex flex-column">
     <div class="pt-3 pt-lg-4 d-flex flex-wrap justify-content-between">
-        <div class="back-page pb-45" (click)="location.back()">
+        <div class="back-page" (click)="location.back()">
             <a>
-                <span>Back</span>
+                <span>{{ 'back' | translate }}</span>
             </a>
         </div>
-        <span class="p-input-icon-left d-none d-md-inline-block h-fit-content">
-            <i class="pi pi-search"></i>
+        <span class="custom-search p-input-icon-left d-none d-md-inline-block h-fit-content">
             <input
-                type="text"
+                type="search"
                 class="w-100"
                 pInputText
                 [placeholder]="'search_by_name' | translate"
@@ -19,7 +18,9 @@
     </div>
 
     <div class="header-wrapper">
-        <h4 class="fnt-18 fw-b text-clr334 lh-normal">{{ 'assign_user' | translate }}</h4>
+        <h4 class="fnt-16 fnt-general fw-b text-clr334 lh-normal mb-3 mb-md-4 fnt-md-18">
+            {{ 'assign_user' | translate }}
+        </h4>
     </div>
     <span class="p-input-icon-left d-inline-block d-md-none mb-4">
         <i class="pi pi-search"></i>
@@ -33,8 +34,8 @@
         />
     </span>
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-        <div class="dropdown-wrapper">
-            <div class="dropdown-col">
+        <div class="dropdown-wrapper d-flex">
+            <div class="dropdown-col pr-3">
                 <p-dropdown
                     [options]="statusList"
                     optionLabel="title"
@@ -43,7 +44,7 @@
                     [autoDisplayFirst]="false"
                     [filter]="true"
                     [showClear]="true"
-                    placeholder="Status"
+                    placeholder="{{ 'status' | translate }}"
                     styleClass="p-dropdown-full-width round-border"
                     (onChange)="loadData()"
                 ></p-dropdown>
@@ -57,15 +58,17 @@
                     [autoDisplayFirst]="false"
                     [filter]="true"
                     [showClear]="true"
-                    placeholder="Role"
+                    placeholder="{{ 'role' | translate }}"
                     styleClass="p-dropdown-full-width round-border"
                     (onChange)="loadData()"
                 ></p-dropdown>
             </div>
         </div>
-        <button class="btn-raised mt-4 mt-md-0" (click)="onClickAssign()" *ngIf="selectedUser">Assign</button>
+        <button class="btn-raised mt-4 mt-md-0" (click)="onClickAssign()" *ngIf="selectedUser">
+            {{ 'assign' | translate }}
+        </button>
     </div>
-    <div class="mt-4 mt-lg-45 table-container">
+    <div class="mt-lg-45 table-container">
         <div class="table-responsive">
             <p-table
                 #myTable
@@ -76,11 +79,11 @@
                 [(selection)]="selectedUser"
                 [loading]="loading"
                 [responsive]="isMobileView"
-                [paginator]="totalCount > 10"
-                [rows]="10"
+                [paginator]="totalRecords > rows"
+                [rows]="rows"
                 [lazy]="true"
                 [showCurrentPageReport]="true"
-                [totalRecords]="totalCount"
+                [totalRecords]="totalRecords"
                 (onLazyLoad)="loadData($event)"
                 styleClass="p-table-service"
             >
@@ -143,20 +146,20 @@
                                 </span>
                             </span>
                             <span *ngSwitchCase="'last_login_at'">
-                                <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
-                                    <span *ngIf="isMobileView" class="fnt-14 fw-b text-clr588">
+                                <div class="d-flex align-items-center px-3 px-md-0">
+                                    <span *ngIf="isMobileView" class="fnt-general fnt-14 fw-b text-clr588 col-6 px-0">
                                         {{ col['header'] }}
                                     </span>
 
                                     <span>
-                                        {{ rowData['last_login_at'] | date: 'dd/MM/yyyy' }}
+                                        {{ (rowData['last_login_at'] | date: 'dd MMM yyyy') || '-' }}
                                     </span>
                                 </div>
                             </span>
 
                             <span *ngSwitchCase="'status'">
-                                <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
-                                    <span *ngIf="isMobileView" class="fnt-14 fw-b text-clr588">
+                                <div class="d-flex align-items-center px-3 px-md-0">
+                                    <span *ngIf="isMobileView" class="fnt-general fnt-14 fw-b text-clr588 col-6">
                                         {{ col['header'] }}
                                     </span>
                                     <div class="d-flex align-items-center">
@@ -177,13 +180,13 @@
                                 </div>
                             </span>
                             <span *ngSwitchDefault>
-                                <div class="d-flex justify-content-between align-items-center px-3 px-md-0">
-                                    <span *ngIf="isMobileView" class="fnt-14 fw-b text-clr588 col-6 p-0">
+                                <div class="d-flex align-items-center px-3 px-md-0">
+                                    <span *ngIf="isMobileView" class="fnt-general fnt-14 fw-b text-clr588 col-6 p-0">
                                         {{ col['header'] }}
                                     </span>
 
                                     <span class="ellipsis">
-                                        {{ rowData[col.field] }}
+                                        {{ rowData[col.field] || '-' }}
                                     </span>
                                 </div>
                             </span>

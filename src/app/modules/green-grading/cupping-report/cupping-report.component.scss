@@ -18,6 +18,9 @@
 
     .p-datatable {
         table tr td {
+            @media (max-width: 767px) {
+                display: flex !important;
+            }
             .action-button {
                 color: #747588;
                 padding-left: 0.25rem;
@@ -52,5 +55,12 @@
         .p-button-label {
             color: $primary-color !important;
         }
+    }
+}
+
+@media (max-width: 767px) {
+    .drop-space {
+        position: relative;
+        bottom: 12px;
     }
 }
