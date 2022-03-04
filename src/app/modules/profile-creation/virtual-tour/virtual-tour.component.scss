@@ -99,34 +99,3 @@
         box-shadow: 0 22px 54px -10px rgba(223, 223, 223, 0.5);
     }
 }
-
-::ng-deep .folder-dialog.p-dialog {
-    width: 90vw;
-    @media (min-width: 768px) {
-        width: 740px;
-    }
-}
-
-::ng-deep .file-dialog.p-dialog {
-    width: 90vw;
-    @media (min-width: 768px) {
-        width: 740px;
-    }
-}
-
-::ng-deep .share-dialog.p-dialog {
-    width: 90vw;
-    @media (min-width: 768px) {
-        width: 542px;
-    }
-}
-
-::ng-deep .preview-dialog.p-dialog {
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    background: transparent;
-    .p-dialog-content {
-        background: transparent;
-    }
-}

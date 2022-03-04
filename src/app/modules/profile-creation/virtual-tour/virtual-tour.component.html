@@ -1,55 +1,42 @@
-<div *ngIf="isLoading" class="text-center py-5">Loading...</div>
-
-<div *ngIf="!isLoading">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="fnt-12 fnt-md-14 fw-m text-clr334 mt-2 mt-md-4 mb-3">
-                {{ 'add_photo_files' | translate }}
-            </div>
-        </div>
+<div *ngIf="!isLoading; else loader">
+    <div *ngIf="isSaveMode" class="fnt-12 fnt-md-14 fw-m text-clr588 mt-2 mt-md-4 mb-3">
+        {{ 'add_photo_files' | translate }}
     </div>
-    <div class="row">
-        <div class="col-lg-12 pl-25 pr-25">
-            <div class="row gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20">
-                <div *ngIf="isSaveMode" class="col-lg-4 col-6">
-                    <ng-container *ngTemplateOutlet="fileUploadTpl"></ng-container>
-                </div>
 
-                <a
-                    href="javascript:void(0)"
-                    class="col-lg-4 col-6 text-decoration-none"
-                    *ngFor="let mediaItem of tourMedias"
-                >
-                    <div class="square">
-                        <div class="content br-4 overflow-hidden">
-                            <div class="social-post-farmlink__item w-100 h-100" (click)="preview(mediaItem)">
-                                <img
-                                    class="social-images w-100 h-100 br-4"
-                                    *ngIf="mediaItem.type === 'IMAGE'"
-                                    [src]="mediaItem.url"
-                                    alt="farm"
-                                />
-                                <video *ngIf="mediaItem.type != 'IMAGE'" [src]="mediaItem.url"></video>
-                                <img
-                                    class="video-play"
-                                    *ngIf="mediaItem.type !== 'IMAGE'"
-                                    src="assets/images/play-button.png"
-                                    alt="farm"
-                                />
-                                <p class="mb-0 post-info fnt-16 fw-m pt-0 pb-0 pl-3">
-                                    {{ mediaItem.description }}
-                                </p>
-                            </div>
-                            <div
-                                *ngIf="isSaveMode"
-                                class="media-delete-button bg-white justify-content-center align-items-center d-flex"
-                                (click)="handleRemoveMediaFile(mediaItem.id)"
-                            >
-                                <img src="assets/images/delete-icon.svg" alt="delete" />
-                            </div>
-                        </div>
+    <div class="row gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20">
+        <div *ngIf="isSaveMode" class="col-lg-4 col-6">
+            <ng-container *ngTemplateOutlet="fileUploadTpl"></ng-container>
+        </div>
+
+        <div class="col-lg-4 col-6" *ngFor="let mediaItem of tourMedias">
+            <div class="square">
+                <div class="content br-4 overflow-hidden">
+                    <div class="social-post-farmlink__item cursor-pointer w-100 h-100" (click)="preview(mediaItem)">
+                        <img
+                            class="social-images w-100 h-100 br-4"
+                            *ngIf="mediaItem.type === FileType.IMAGE"
+                            [src]="mediaItem.url"
+                            alt="farm"
+                        />
+                        <video *ngIf="mediaItem.type !== FileType.IMAGE" [src]="mediaItem.url"></video>
+                        <img
+                            class="video-play"
+                            *ngIf="mediaItem.type !== FileType.IMAGE"
+                            src="assets/images/play-button.png"
+                            alt="farm"
+                        />
+                        <p class="mb-0 post-info fnt-16 fw-m pt-0 pb-0 pl-3">
+                            {{ mediaItem.description }}
+                        </p>
                     </div>
-                </a>
+                    <div
+                        *ngIf="isSaveMode"
+                        class="media-delete-button bg-white justify-content-center align-items-center d-flex"
+                        (click)="handleRemoveMediaFile(mediaItem.id)"
+                    >
+                        <img src="assets/images/delete-icon.svg" alt="delete" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -60,9 +47,15 @@
         <div class="content bg-f8 border-main br-4 overflow-hidden">
             <label class="cursor-pointer h-100 w-100 d-flex align-items-center justify-content-center text-center">
                 <div>
-                    <input hidden type="file" accept="image/png, image/jpeg" (change)="handleFile($event)" />
+                    <input
+                        hidden
+                        type="file"
+                        accept="video/*,image/png, image/jpeg"
+                        multiple="multiple"
+                        (change)="handleFile($event)"
+                    />
                     <img class="mb-25 mt-2" src="assets/images/plus-circle.svg" />
-                    <p class="fnt-14 fw-m text-clr588">Add photo or videos</p>
+                    <p class="fnt-14 fw-m text-clr588">{{ 'add_photo_or_videos' | translate }}</p>
                 </div>
             </label>
         </div>
@@ -72,3 +65,7 @@
 <div *ngIf="!isLoading && !tourMedias.length && !isSaveMode" class="py-5 text-center">
     <app-empty [title]="'no_data_available' | translate"></app-empty>
 </div>
+
+<ng-template #loader>
+    <app-loading></app-loading>
+</ng-template>
