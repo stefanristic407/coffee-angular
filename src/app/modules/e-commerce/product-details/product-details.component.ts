@@ -625,7 +625,7 @@ export class ProductDetailsComponent extends ResizeableComponent implements OnIn
     setGrindValidators(grindForm: FormGroup) {
         grindForm.get('grind').setValidators([Validators.required]);
         grindForm.get('price').setValidators([Validators.required, Validators.min(1)]);
-        grindForm.get('available_quantity').setValidators([Validators.required, Validators.min(1)]);
+        grindForm.get('available_quantity').setValidators([Validators.required, Validators.min(0)]);
         grindForm.get('sku_number').setValidators([Validators.required]);
         grindForm.get('roast_level_id').setValidators([Validators.required]);
         grindForm.get('rc_batch_id').setValidators([Validators.required]);
