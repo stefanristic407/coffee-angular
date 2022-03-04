@@ -258,8 +258,6 @@ export class FileShareService {
     preview(item) {
         this.dialogSrv.open(MediaPreviewComponent, {
             data: { record: item },
-            showHeader: false,
-            styleClass: 'preview-dialog',
         });
     }
 

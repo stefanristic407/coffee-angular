@@ -1459,8 +1459,15 @@ export class UserService extends ApiService {
         formData.append('file', file);
         formData.append('name', name);
         formData.append('file_module', fileModule);
-        console.log('roaster id >>>>>>>>>>>', roasterId);
-        return this.http.post(this.fileUploadUrl, formData, { headers });
+
+        const processId = this.uploadService.addProcess(formData.get('name') as string);
+        return this.http
+            .post(this.fileUploadUrl, formData, {
+                headers: new HttpHeaders({ Accept: 'application/json' }),
+                reportProgress: true,
+                observe: 'events',
+            })
+            .pipe(this.uploadService.upload(processId));
     }
 
     deleteFile(roasterId: any, fileId: any): Observable<any> {

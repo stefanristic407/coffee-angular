@@ -16,10 +16,6 @@ export class EstateVirtulTourComponent implements OnInit {
     ngOnInit(): void {}
 
     preview(item) {
-        this.dialogSrv.open(MediaPreviewComponent, {
-            data: { record: item },
-            showHeader: false,
-            styleClass: 'preview-dialog',
-        });
+        this.dialogSrv.open(MediaPreviewComponent, { data: { record: item } });
     }
 }

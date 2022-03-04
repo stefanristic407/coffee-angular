@@ -120,13 +120,3 @@
         width: 542px;
     }
 }
-
-::ng-deep .preview-dialog.p-dialog {
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    background: transparent;
-    .p-dialog-content {
-        background: transparent;
-    }
-}

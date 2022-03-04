@@ -21,10 +21,6 @@ export class MicroVirtualTourComponent implements OnInit {
     async ngOnInit() {}
 
     preview(item) {
-        this.dialogSrv.open(MediaPreviewComponent, {
-            data: { record: item },
-            showHeader: false,
-            styleClass: 'preview-dialog',
-        });
+        this.dialogSrv.open(MediaPreviewComponent, { data: { record: item } });
     }
 }

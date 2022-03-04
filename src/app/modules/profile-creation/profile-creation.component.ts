@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RoasteryProfileService } from './roastery-profile.service';
-import { GlobalsService, UserService } from '@services';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
-import { DialogService } from 'primeng/dynamicdialog';
-import { CropperDialogComponent } from '@app/shared';
 import { CroppedImage } from '@models';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '@services';
+import { CropperDialogComponent } from '@shared';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ProfileCreationService } from './profile-creation.service';
 
 @Component({
     selector: 'app-profile-creation',
@@ -14,84 +13,47 @@ import { CroppedImage } from '@models';
 })
 export class ProfileCreationComponent implements OnInit, OnDestroy {
     menuItems = [
-        {
-            label: 'about_roastery',
-            routerLink: '/roastery-profile/about_roastery',
-        },
-        { label: 'virtual_tour', routerLink: '/roastery-profile/virtual_tour' },
-        { label: 'contact', routerLink: '/roastery-profile/contact' },
-        { label: 'reviews', routerLink: '/roastery-profile/reviews' },
+        { label: 'about_roastery', routerLink: './about_roastery' },
+        { label: 'virtual_tour', routerLink: './virtual_tour' },
+        { label: 'contact', routerLink: './contact' },
+        { label: 'reviews', routerLink: './reviews' },
     ];
     breadItems = [
-        { label: this.globals.languageJson?.home, routerLink: '/' },
-        { label: this.globals.languageJson?.roastery_profile },
+        { label: this.translator.instant('home'), routerLink: '/' },
+        { label: this.translator.instant('profile') },
     ];
     isSaveMode: boolean;
-    isEditMode: boolean;
-
-    subProfileForm: FormGroup;
-    isAdminRole = false;
+    hasSystemRole = false;
 
     constructor(
+        private authService: AuthService,
         private dialogService: DialogService,
-        private fb: FormBuilder,
-        private userService: UserService,
-        public cookieService: CookieService,
-        public globals: GlobalsService,
-        public profileCreationService: RoasteryProfileService,
+        private translator: TranslateService,
+        public profileCreationService: ProfileCreationService,
     ) {}
 
     ngOnInit(): void {
         this.detectMode();
-        this.initialForm();
-        this.checkAdminRole();
+        this.hasSystemRole = this.authService.hasSystemRole;
     }
 
     ngOnDestroy() {
         this.profileCreationService.saveMode.next(false);
-        this.profileCreationService.editMode.next(true);
-    }
-
-    checkAdminRole() {
-        this.userService.getUserDetail().subscribe((res: any) => {
-            if (res.success) {
-                this.isAdminRole = res.result.has_system_role;
-            }
-        });
-    }
-
-    initialForm() {
-        this.subProfileForm = this.fb.group({
-            name: ['', Validators.compose([Validators.required])],
-            website: [''],
-        });
-        this.profileCreationService.subProfileForm = this.subProfileForm;
-
-        this.subProfileForm.valueChanges.subscribe((changedData: any) => {
-            this.profileCreationService.editProfileData(changedData);
-        });
     }
 
     detectMode() {
         this.profileCreationService.saveMode$.subscribe((res: boolean) => {
             this.isSaveMode = res;
-            if (res) {
-                this.setFormValue();
+            if (this.isSaveMode) {
+                this.profileCreationService.bannerUrl = this.profileCreationService.organizationProfile?.banner_url;
             } else {
                 this.profileCreationService.bannerFile = null;
                 this.profileCreationService.bannerUrl = '';
             }
         });
-        this.profileCreationService.editMode$.subscribe((res: boolean) => {
-            this.isEditMode = res;
-        });
     }
 
-    setFormValue() {
-        this.subProfileForm.patchValue(this.profileCreationService.toUpdateProfileData);
-    }
-
-    handleFile(event) {
+    handleProfileFile(event) {
         if (!event.target.files?.length) {
             return;
         }
@@ -105,24 +67,34 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
                 },
             })
             .onClose.subscribe((data: CroppedImage) => {
-                if (data.status) {
+                if (data?.status) {
                     this.profileCreationService.orgImgPrevUrl = data.croppedImgUrl;
                     this.profileCreationService.orgImgCroppedFile = data.croppedImgFile;
                 }
             });
     }
 
-    isControlHasError(controlName: string, validationType: string): boolean {
-        const control = this.subProfileForm.controls[controlName];
-        if (!control) {
-            return false;
+    handleBannerFile(event: any): void {
+        if (!event.target.files?.length) {
+            return;
         }
-
-        const result = control.hasError(validationType) && (control.dirty || control.touched);
-        return result;
+        this.dialogService
+            .open(CropperDialogComponent, {
+                data: {
+                    imageChangedEvent: event,
+                    aspectRatio: 1144 / 190,
+                    resizeToWidth: 1144,
+                },
+            })
+            .onClose.subscribe((data: CroppedImage) => {
+                if (data?.status) {
+                    this.profileCreationService.bannerUrl = data.croppedImgUrl;
+                    this.profileCreationService.bannerFile = data.croppedImgFile;
+                }
+            });
     }
 
-    setFormat($event) {
-        $event.target.value = null;
+    handleDeleteBannerImage(): void {
+        this.profileCreationService.bannerUrl = '';
     }
 }
