@@ -1,28 +1,20 @@
 @import 'variables';
 
-.header {
-    height: 50px;
-}
-
-.list-section table tr td:first-child {
-    min-width: 200px;
-}
-
-@media screen and (max-width: 768px) {
-    .list-section table tr {
-        border-bottom: 1px dashed #d6d6d6;
-    }
-    .list-section table tr td {
-        display: block;
-    }
-    .list-section table tr td:first-child {
-        min-width: none;
-    }
-    .list-section table tr:last-child {
-        border-bottom: none;
-    }
-    .cont-info {
-        border: 4px solid #fff;
+ul.list-section {
+    li {
+        &:not(:last-child) {
+            @media screen and (max-width: 767px) {
+                border-bottom: 1px dashed $primary-border-color;
+            }
+        }
+        & > div:first-child {
+            color: $muted-text-color;
+            min-width: 112px;
+        }
+        & > div:last-child {
+            flex: 1;
+            font-weight: $fw-m;
+        }
     }
 }
 

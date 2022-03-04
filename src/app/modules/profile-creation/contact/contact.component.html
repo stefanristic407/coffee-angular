@@ -1,40 +1,30 @@
 <form [formGroup]="contactForm" *ngIf="isSaveMode">
-    <div class="row p-2">
-        <div class="col-lg-8 p-2">
-            <div class="border-md-main br-4 p-md-4 p-2">
-                <div class="row">
-                    <div class="sewn-form-field col-md-6 col-12 mt-3">
-                        <label>
-                            {{ 'email_address' | translate }}
-                            <span class="star">*</span></label
-                        >
+    <div class="row gutter-16 v-gutter-16">
+        <div class="col-lg-8">
+            <div class="border-md-main br-4 p-md-4">
+                <div class="row gutter-16">
+                    <div class="sewn-form-field col-md-6">
+                        <label>{{ 'email_address' | translate }}<span class="star">*</span></label>
                         <input type="email" pInputText formControlName="email" placeholder="Roastery email" />
-
                         <small *ngIf="isControlHasError('email', 'email')" class="p-error">
                             {{ 'invalid' | translate }} {{ 'email' | translate }}
                         </small>
-
                         <small *ngIf="isControlHasError('email', 'required')" class="p-error">
                             {{ 'required' | translate }}
                         </small>
                     </div>
-                    <div class="sewn-form-field col-md-6 col-12 mt-3">
-                        <label>
-                            {{ 'phone_number' | translate }}
-                            <span class="star">*</span>
-                        </label>
+                    <div class="sewn-form-field col-md-6">
+                        <label>{{ 'phone_number' | translate }}<span class="star">*</span> </label>
                         <app-phone-number formControlName="phone"></app-phone-number>
                         <small *ngIf="contactForm.controls.phone.invalid" class="p-error d-block">
                             Please enter valid phone number
                         </small>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="sewn-form-field col-md-6 mt-3">
+                    <div class="sewn-form-field col-md-6">
                         <label>{{ 'country' | translate }}<span class="star">*</span></label>
                         <p-dropdown
                             formControlName="country"
-                            [options]="countryList"
+                            [options]="COUNTRY_LIST"
                             optionLabel="name"
                             optionValue="isoCode"
                             filter="true"
@@ -44,81 +34,74 @@
                             {{ 'required' | translate }}
                         </small>
                     </div>
-                    <div class="sewn-form-field col-md-6 mt-3">
+                    <div class="sewn-form-field col-md-6">
                         <label>{{ 'state' | translate }}</label>
                         <p-dropdown formControlName="state" [options]="cityList" optionLabel="name" optionValue="value">
                         </p-dropdown>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="sewn-form-field col-md-6 mt-3">
+                    <div class="sewn-form-field col-md-6">
                         <label>{{ 'address' | translate }}<span class="star">*</span></label>
                         <input pInputText formControlName="address_line1" type="text" placeholder="Line 1" />
                         <small *ngIf="isControlHasError('address_line1', 'required')" class="p-error">
                             {{ 'required' | translate }}
                         </small>
                     </div>
-                    <div class="sewn-form-field col-md-6 mt-0 mt-md-3">
+                    <div class="sewn-form-field col-md-6">
                         <label class="d-none d-md-block">&nbsp;</label>
                         <input pInputText formControlName="address_line2" type="text" placeholder="Line 2" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="sewn-form-field col-md-6 mt-3">
+                    <div class="sewn-form-field col-md-6">
                         <label>{{ 'city' | translate }}<span class="star">*</span></label>
                         <input type="text" pInputText formControlName="city" placeholder="City" />
                         <small *ngIf="isControlHasError('city', 'required')" class="p-error">
                             {{ 'required' | translate }}
                         </small>
                     </div>
-                    <div class="sewn-form-field col-md-6 mt-3">
+                    <div class="sewn-form-field col-md-6">
                         <label>{{ 'zipcode' | translate }}</label>
                         <input type="text" pInputText formControlName="zipcode" placeholder="eg:23134" />
                     </div>
-                </div>
+                    <div class="sewn-form-field col-12 mb-0">
+                        <label>
+                            {{ 'roaster_location' | translate }}<span class="star">*</span>
+                            <span class="pull-right d-flex align-items-center">
+                                <img class="mr-1" src="assets/images/locate-icon.svg" alt="locate" />
+                                <span class="brown-cta" (click)="getCurrentLocation()">{{
+                                    'locate_me' | translate
+                                }}</span>
+                            </span>
+                        </label>
 
-                <div class="w-100 sewn-form-field mt-4 mt-lg-45">
-                    <label>
-                        {{ 'roaster_location' | translate }}<span class="star">*</span>
-                        <span class="pull-right d-flex align-items-center">
-                            <img class="mr-1" src="assets/images/locate-icon.svg" alt="locate" />
-                            <span class="brown-cta" (click)="getCurrentLocation()">{{ 'locate_me' | translate }}</span>
-                        </span>
-                    </label>
+                        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                            <agm-marker
+                                [latitude]="latitude"
+                                [longitude]="longitude"
+                                [markerDraggable]="true"
+                                (dragEnd)="markerDragEnd($event)"
+                            ></agm-marker>
+                        </agm-map>
 
-                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                        <agm-marker
-                            [latitude]="latitude"
-                            [longitude]="longitude"
-                            [markerDraggable]="true"
-                            (dragEnd)="markerDragEnd($event)"
-                        ></agm-marker>
-                    </agm-map>
-
-                    <div class="fw-m text-clr588 mt-2">
-                        {{ 'adjust_pin_roaster_location' | translate }}
+                        <div class="text-clr588 mt-2">{{ 'adjust_pin_roaster_location' | translate }}</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4 p-md-2 p-0">
+        <div class="col-lg-4">
             <div class="border-md-main br-4">
-                <div class="header d-none d-md-block fnt-18 fw-b br-4 bg-f8 p-25 m-1">
+                <div class="d-none d-md-block fnt-18 fw-b br-4 bg-f8 p-25 m-1">
                     {{ 'social_media_channels' | translate }}
                 </div>
-                <div class="p-3">
+                <div class="p-md-3">
                     <div class="row">
-                        <div class="sewn-form-field col-md-12">
+                        <div class="sewn-form-field col-12">
                             <label>{{ 'facebook_link' | translate }}</label>
                             <app-url-input formControlName="fb_profile" placeholder="Add facebook URL"></app-url-input>
                             <small *ngIf="isControlHasError('fb_profile', 'url')" class="p-error">
                                 {{ 'url_must_be_in_a_valid_format' | translate }}
                             </small>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="sewn-form-field col-md-12">
+                        <div class="sewn-form-field col-12 mb-0">
                             <label for="instagram">{{ 'instagram_link' | translate }}</label>
                             <app-url-input formControlName="ig_profile" placeholder="Add instagram URL"></app-url-input>
                             <small *ngIf="isControlHasError('ig_profile', 'url')" class="p-error">
@@ -132,82 +115,108 @@
     </div>
 </form>
 
-<div class="row list-section mt-4" *ngIf="!isSaveMode">
-    <div class="col-lg-12">
-        <div class="border-main p-0 pl-md-475 pr-md-475 pt-md-3 br-4">
-            <div class="col-lg-6 pl-0 pr-0">
-                <h3 class="cont-info bg-f8 fnt-16 fw-b text-clr334 pt-25 pl-3 pr-3 d-md-none mb-0 pb-25">
-                    {{ 'contact_info' | translate }}
-                </h3>
-                <table class="pl-3 pr-3 p-md-0 d-block">
-                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                        <td class="fnt-12 fw-m fnt-md-14 pt-0 text-clr588">
-                            {{ 'website' | translate }}
-                        </td>
-                        <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334 text-break">
-                            {{ profileCreationService.organizationProfile?.website }}
-                        </td>
-                    </tr>
-                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                        <td class="fnt-12 fw-m fnt-md-14 pt-0 text-clr588">
-                            {{ 'email_address' | translate }}
-                        </td>
-                        <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
-                            {{ profileCreationService.organizationProfile?.email }}
-                        </td>
-                    </tr>
-                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                        <td class="fnt-12 fw-m fnt-md-14 pt-0 text-clr588">
-                            {{ 'phone_number' | translate }}
-                        </td>
-                        <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
-                            {{ profileCreationService.organizationProfile?.phone }}
-                        </td>
-                    </tr>
-                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                        <td class="fnt-12 fw-m fnt-md-14 pt-0 text-clr588">
-                            {{ 'country' | translate }}
-                        </td>
-                        <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
+<div *ngIf="!isSaveMode" class="border-main p-md-475 br-4 mt-4">
+    <div class="col-lg-7 px-0">
+        <div class="bg-f8 fnt-16 fw-b p-25 m-1 d-md-none">{{ 'contact_info' | translate }}</div>
+
+        <div class="p-3 p-md-0">
+            <ul class="list-section no-bullet-ul row no-gutters gutter-md-32 v-gutter-32">
+                <li class="col-md-auto d-flex d-md-block">
+                    <div class="d-flex align-items-center mb-md-2">
+                        <i class="pi pi-globe fnt-18 mr-1"></i>{{ 'website' | translate }}
+                    </div>
+                    <div class="text-break">
+                        <a
+                            [href]="profileCreationService.organizationProfile?.website"
+                            target="_blank"
+                            class="text-underline"
+                            >{{ profileCreationService.organizationProfile?.website }}</a
+                        >
+                    </div>
+                </li>
+                <li class="col-md-auto d-flex d-md-block">
+                    <div class="d-flex align-items-center mb-md-2">
+                        <i class="pi pi-send fnt-18 mr-1"></i
+                        ><span class="d-none d-md-block">{{ 'email_address' | translate }}</span
+                        ><span class="d-md-none">{{ 'email' | translate }}</span>
+                    </div>
+                    <div class="text-break">{{ profileCreationService.organizationProfile?.email }}</div>
+                </li>
+                <li class="col-md-auto d-flex d-md-block">
+                    <div class="d-flex align-items-center mb-md-2">
+                        <i class="pi pi-phone fnt-18 mr-1"></i
+                        ><span class="d-none d-md-block">{{ 'phone_number' | translate }}</span
+                        ><span class="d-md-none">{{ 'phone' | translate }}</span>
+                    </div>
+                    <div>{{ profileCreationService.organizationProfile?.phone }}</div>
+                </li>
+                <li class="col-12 d-flex">
+                    <div>{{ 'country' | translate }}</div>
+                    <div>{{ profileCreationService.organizationProfile?.country | country }}</div>
+                </li>
+                <li class="col-12 d-flex">
+                    <div>{{ 'address' | translate }}</div>
+                    <div>
+                        <div>{{ profileCreationService.organizationProfile?.address_line1 }}</div>
+                        <div>{{ profileCreationService.organizationProfile?.address_line2 }}</div>
+                        <div>
+                            {{ profileCreationService.organizationProfile?.city }},
+                            {{ profileCreationService.organizationProfile?.zipcode }}
+                        </div>
+                        <div>
+                            {{ profileCreationService.organizationProfile?.state }},
                             {{ profileCreationService.organizationProfile?.country | country }}
-                        </td>
-                    </tr>
-                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                        <td class="fnt-12 fw-m fnt-md-14 pt-0 text-clr588">
-                            {{ 'address' | translate }}
-                        </td>
-                        <td class="fw-m pt-0">
-                            <div>{{ profileCreationService.organizationProfile?.address_line1 }}</div>
-                            <div>{{ profileCreationService.organizationProfile?.address_line2 }}</div>
-                            <div>
-                                {{ profileCreationService.organizationProfile?.city }},
-                                {{ profileCreationService.organizationProfile?.zipcode }}
-                            </div>
-                            <div>
-                                {{ profileCreationService.organizationProfile?.state }},
-                                {{ profileCreationService.organizationProfile?.country | country }}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                        <td class="fnt-12 fw-m fnt-md-14 pt-0 text-clr588">
-                            {{ 'zipcode' | translate }}
-                        </td>
-                        <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
-                            {{ profileCreationService.organizationProfile?.zipcode || '-' }}
-                        </td>
-                    </tr>
-                    <tr class="pt-3 pb-3 p-0 d-block d-md-flex">
-                        <td class="fnt-12 fw-m fnt-md-14 pt-0 text-clr588">
-                            {{ 'social_media' | translate }}
-                        </td>
-                        <td class="fnt-14 fw-m fnt-md-14 pt-0 text-clr334">
-                            <p class="mb-0">{{ profileCreationService.organizationProfile?.fb_profile }}</p>
-                            <p class="mb-0">{{ profileCreationService.organizationProfile?.ig_profile }}</p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                        </div>
+                        <div class="d-none d-md-block mt-4">
+                            <ng-container *ngTemplateOutlet="mapTpl"></ng-container>
+                        </div>
+                    </div>
+                </li>
+                <li class="col-12 d-md-none">
+                    <ng-container *ngTemplateOutlet="mapTpl"></ng-container>
+                </li>
+                <li class="col-12 d-flex align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="pi pi-instagram fnt-18 mr-1"></i>{{ 'instagram' | translate }}
+                    </div>
+                    <div>
+                        <a
+                            [href]="profileCreationService.organizationProfile?.ig_profile"
+                            target="_blank"
+                            class="text-underline"
+                        >
+                            {{ 'visit_profile' | translate }}</a
+                        >
+                    </div>
+                </li>
+                <li class="col-12 d-flex align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="pi pi-facebook fnt-18 mr-1"></i>{{ 'facebook' | translate }}
+                    </div>
+                    <div>
+                        <a
+                            [href]="profileCreationService.organizationProfile?.fb_profile"
+                            target="_blank"
+                            class="text-underline"
+                        >
+                            {{ 'visit_profile' | translate }}</a
+                        >
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
+
+<ng-template #mapTpl>
+    <agm-map
+        [latitude]="profileCreationService.organizationProfile?.latitude"
+        [longitude]="profileCreationService.organizationProfile?.longitude"
+        [zoom]="zoom"
+    >
+        <agm-marker
+            [latitude]="profileCreationService.organizationProfile?.latitude"
+            [longitude]="profileCreationService.organizationProfile?.longitude"
+        ></agm-marker>
+    </agm-map>
+</ng-template>
