@@ -1,19 +1,18 @@
 @import 'variables';
 
 .profile-header-details {
+    overflow: hidden;
     background: linear-gradient(#faf8f4, #ffffff);
-    height: 160px;
+    height: 190px;
+    @media screen and (max-width: 767px) {
+        height: 107px;
+    }
     .mv-change-icon {
         position: absolute;
         right: 12px;
         top: 7px;
     }
 
-    @media screen and (max-width: 767px) {
-        height: 109px;
-        border-bottom: 1px solid $primary-border-color;
-        border-top: 1px solid $primary-border-color;
-    }
     .cover-pic {
         cursor: pointer;
         position: absolute;
@@ -29,12 +28,9 @@
         }
     }
     .cover-image-profile-banner {
-        height: 158px;
+        height: 100%;
         width: 100%;
         object-fit: cover;
-        @media screen and (max-width: 767px) {
-            height: 107px;
-        }
     }
 
     .replace-img {
@@ -91,26 +87,8 @@
             margin: auto;
             max-width: 100%;
             text-align: center;
-            padding-top: 80px;
+            padding-top: 56px;
         }
-    }
-}
-
-::ng-deep .profile-tabmenu {
-    .p-tabmenu-nav {
-        flex-wrap: inherit !important;
-        overflow-x: scroll;
-        li {
-            a {
-                white-space: nowrap !important;
-            }
-        }
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
-    .p-menuitem-link {
-        margin: 0px !important;
     }
 }
 

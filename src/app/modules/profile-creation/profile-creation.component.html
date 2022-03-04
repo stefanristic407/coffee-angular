@@ -1,158 +1,80 @@
 <div class="main-block">
-    <div class="d-none d-md-flex justify-content-between w-100 mb-3">
-        <p-breadcrumb [model]="breadItems"> </p-breadcrumb>
+    <div class="d-none d-md-flex justify-content-between w-100">
+        <p-breadcrumb [model]="breadItems" class="breadcrumb-mb"> </p-breadcrumb>
 
-        <div class="d-none d-lg-block">
-            <button
-                pButton
-                type="button"
-                class="btn-stroked mr-2"
-                label="{{ 'cancel' | translate }}"
-                *ngIf="isSaveMode"
-                (click)="profileCreationService.preview()"
-            ></button>
-            <button
-                pButton
-                type="button"
-                class="btn-raised"
-                [disabled]="profileCreationService.isSaving"
-                label="{{ 'save' | translate }}"
-                *ngIf="isSaveMode"
-                (click)="profileCreationService.saveRoasterProfile()"
-            ></button>
+        <div *ngIf="hasSystemRole && !isSaveMode" class="d-none d-md-block">
             <button
                 pButton
                 type="button"
                 class="btn-raised"
                 label="{{ 'edit' | translate }}"
-                *ngIf="isAdminRole && !isSaveMode"
                 (click)="profileCreationService.editRoasterProfile()"
             ></button>
         </div>
     </div>
+
     <div>
-        <div class="d-flex justify-content-between">
-            <div class="w-100 text-center text-md-left">
-                <p *ngIf="isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fw-b text-clr334 text-center text-md-left">
-                    {{ subProfileForm.controls.name.value }}
-                </p>
-                <p *ngIf="!isSaveMode" class="fnt-16 fnt-md-18 mb-0 mb-3 fw-b text-clr334 text-center text-md-left">
-                    {{ profileCreationService.organizationProfile?.name }}
-                </p>
-            </div>
-            <div class="d-none d-md-flex d-lg-none mb-3">
-                <button
-                    pButton
-                    type="button"
-                    class="btn-stroked mr-2"
-                    label="{{ 'cancel' | translate }}"
-                    *ngIf="isSaveMode"
-                    (click)="profileCreationService.preview()"
-                ></button>
-                <button
-                    pButton
-                    type="button"
-                    class="btn-raised"
-                    [disabled]="profileCreationService.isSaving"
-                    label="{{ 'save' | translate }}"
-                    *ngIf="isSaveMode"
-                    (click)="profileCreationService.saveRoasterProfile()"
-                ></button>
-                <button
-                    pButton
-                    type="button"
-                    class="btn-raised"
-                    label="{{ 'edit' | translate }}"
-                    *ngIf="isAdminRole && !isSaveMode"
-                    (click)="profileCreationService.editRoasterProfile()"
-                ></button>
-            </div>
-        </div>
-
-        <div class="profile-header-details border-md-main br-md-4 position-relative mx-n3 mx-md-0">
+        <div
+            class="profile-header-details br-md-4 position-relative mx-n3 mx-md-0"
+            [ngClass]="
+                (isSaveMode && profileCreationService.bannerUrl) ||
+                (!isSaveMode && profileCreationService.organizationProfile?.banner_url)
+                    ? ''
+                    : 'border-top-main border-bottom-main border-md-main'
+            "
+        >
             <img
-                class="cover-image-profile-banner w-100"
-                *ngIf="isSaveMode && profileCreationService.bannerUrl"
-                [src]="profileCreationService.bannerUrl"
-                height="160"
-            />
-            <img
-                class="cover-image-profile-banner w-100"
-                *ngIf="isSaveMode && !profileCreationService.bannerUrl"
-                [src]="profileCreationService.organizationProfile?.banner_url || 'assets/images/blank.png'"
-                height="160"
-            />
-            <img
-                class="camera mv-change-icon d-md-none"
-                *ngIf="isSaveMode"
-                (click)="bannerFileInput.click()"
-                src="assets/images/camera.svg"
-            />
-            <div
-                class="cover-pic text-center"
-                *ngIf="
-                    isSaveMode &&
-                    !profileCreationService.organizationProfile?.banner_url &&
-                    !profileCreationService.bannerUrl
-                "
-            >
-                <img
-                    class="d-none d-md-block plus-circle"
-                    src="assets/images/plus-circle.svg"
-                    (click)="bannerFileInput.click()"
-                />
-                <p class="fnt-12 fnt-md-14 fw-b text-clr588 pt-0 pt-md-2 mb-1">
-                    {{ 'add_cover_image' | translate }}
-                </p>
-                <p class="fnt-12 fnt-md-14 fw-b text-clr588 m-0">{{ 'dimension' | translate }} 1144 x 160</p>
-            </div>
-            <input
-                type="file"
-                accept="image/png, image/jpeg"
-                hidden
-                #bannerFileInput
-                (click)="setFormat($event)"
-                (change)="profileCreationService.handleBannerImageFile($event.target)"
-            />
-
-            <img
-                class="cover-image-profile-banner w-100"
-                *ngIf="!isSaveMode && !profileCreationService.organizationProfile?.banner_url"
-                src="assets/images/blank.png"
-                height="160"
-            />
-            <img
-                class="cover-image-profile-banner w-100"
+                class="cover-image-profile-banner"
                 *ngIf="!isSaveMode && profileCreationService.organizationProfile?.banner_url"
                 [src]="profileCreationService.organizationProfile?.banner_url"
                 alt="profile banner image"
-                height="160"
             />
-
-            <div class="edit-btn-group d-flex">
-                <button
-                    *ngIf="
-                        isSaveMode &&
-                        (profileCreationService.organizationProfile?.banner_url || profileCreationService.bannerUrl)
-                    "
-                    class="btn-raised d-none d-md-flex mr-2"
+            <ng-container *ngIf="isSaveMode">
+                <img
+                    class="cover-image-profile-banner"
+                    *ngIf="profileCreationService.bannerUrl"
+                    [src]="profileCreationService.bannerUrl"
+                />
+                <img
+                    class="camera mv-change-icon d-md-none"
                     (click)="bannerFileInput.click()"
-                    pButton
-                    label="{{ 'replace_image' | translate }}"
-                ></button>
-                <button
-                    pButton
-                    icon="pi pi-trash"
-                    iconPos="left"
-                    *ngIf="
-                        isSaveMode &&
-                        (profileCreationService.organizationProfile?.banner_url || profileCreationService.bannerUrl)
-                    "
-                    class="fnt-14 btn-trans-nb d-none d-md-flex"
-                    (click)="profileCreationService.handleDeleteBannerImage()"
-                    label="{{ 'delete' | translate }}"
-                ></button>
-            </div>
+                    src="assets/images/camera.svg"
+                />
+                <div class="cover-pic text-center" *ngIf="!profileCreationService.bannerUrl">
+                    <img
+                        class="d-none d-md-block plus-circle"
+                        src="assets/images/plus-circle.svg"
+                        (click)="bannerFileInput.click()"
+                    />
+                    <p class="fnt-12 fnt-md-14 fw-b text-clr588 pt-0 pt-md-2">
+                        {{ 'add_cover_image' | translate }}
+                    </p>
+                </div>
+                <div *ngIf="profileCreationService.bannerUrl" class="edit-btn-group d-none d-md-flex">
+                    <button
+                        class="btn-raised mr-2"
+                        (click)="bannerFileInput.click()"
+                        pButton
+                        label="{{ 'replace_image' | translate }}"
+                    ></button>
+                    <button
+                        pButton
+                        icon="pi pi-trash"
+                        iconPos="left"
+                        class="fnt-14 btn-trans-nb"
+                        (click)="handleDeleteBannerImage()"
+                        label="{{ 'delete' | translate }}"
+                    ></button>
+                </div>
+
+                <input
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    hidden
+                    #bannerFileInput
+                    (change)="handleBannerFile($event)"
+                />
+            </ng-container>
         </div>
 
         <div class="profile-description-container">
@@ -167,87 +89,74 @@
                 </a>
             </div>
             <div>
-                <input type="file" accept="image/*" hidden #inputAvatarImage (change)="handleFile($event)" />
+                <input type="file" accept="image/*" hidden #inputAvatarImage (change)="handleProfileFile($event)" />
             </div>
 
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
-                <p class="fnt-18 fw-b text-clr334 d-none d-md-block m-0 pt-4" *ngIf="!isSaveMode">
+                <div class="fnt-18 fw-b pt-4">
                     {{ profileCreationService.organizationProfile?.name }}
-                </p>
-                <a
-                    class="d-md-none fnt-16 text-clr334 fw-b"
-                    href="{{ profileCreationService.organizationProfile?.website }}"
-                    target="blank"
-                    >{{ profileCreationService.organizationProfile?.name }}</a
-                >
-                <form [formGroup]="subProfileForm" *ngIf="isSaveMode">
-                    <div class="sewn-form-field w-100 mb-0">
-                        <input pInputText type="text" formControlName="name" style="margin-top: 11px" />
-                        <small *ngIf="isControlHasError('name', 'required')" class="p-error">
-                            {{ 'required' | translate }}
-                        </small>
-                    </div>
-                    <div class="sewn-form-field w-100">
-                        <input
-                            type="text"
-                            pInputText
-                            placeholder="www.royalcoffee.az.com"
-                            formControlName="website"
-                            style="margin-top: 10px"
-                        />
-                    </div>
-                </form>
-                <p class="text-clr334 mt-2 fw-b text-break d-md-none" *ngIf="!isSaveMode">
-                    {{ profileCreationService.organizationProfile?.website }}
-                </p>
-                <p class="text-clr588 mt-2 fw-b text-break d-none d-md-block" *ngIf="!isSaveMode">
-                    {{ profileCreationService.organizationProfile?.website }}
-                </p>
-                <a target="blank" href="{{ profileCreationService.organizationProfile?.website }}" #link hidden></a>
+                </div>
+                <div class="fw-m text-break mt-2">
+                    {{ profileCreationService.organizationProfile?.country | country }}
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="bg-fff pl-2 pr-2 p-lg-5 pl-md-3 pr-md-3 pb-md-3 pt-md-4 mt-md-3">
-    <div class="responsive-tabMenu pl-2 pr-2 pl-md-0 pr-md-0">
-        <p-tabMenu [model]="menuItems" styleClas="profile-tabmenu" class="profile-tabmenu">
-            <ng-template pTemplate="item" let-item let-i="index">
-                {{ item.label | translate }}
-            </ng-template>
-        </p-tabMenu>
-    </div>
-    <div class="m-2 mt-md-3 ml-md-0 mr-md-0 mb-md-0">
+    <p-tabMenu [model]="menuItems">
+        <ng-template pTemplate="item" let-item let-i="index">
+            {{ item.label | translate }}
+        </ng-template>
+    </p-tabMenu>
+
+    <div class="mt-4">
         <router-outlet></router-outlet>
     </div>
-    <div class="mobile-farm col-12 pl-2 pr-2">
-        <div class="row" *ngIf="isSaveMode">
-            <div class="col-12">
-                <button
-                    type="button"
-                    pButton
-                    class="btn-stroked w-100 mb-3"
-                    label="{{ 'preview' | translate }}"
-                    (click)="profileCreationService.preview()"
-                ></button>
-            </div>
-            <div class="col-12">
-                <button
-                    type="button"
-                    pButton
-                    class="btn-stroked w-100 mb-3"
-                    label="{{ 'save' | translate }}"
-                    (click)="profileCreationService.saveRoasterProfile()"
-                ></button>
-            </div>
-        </div>
+
+    <div *ngIf="hasSystemRole && !isSaveMode" class="d-md-none pt-45 pt-md-5">
         <button
             type="button"
             pButton
-            class="btn-stroked w-100 mb-3"
-            *ngIf="isAdminRole && !isSaveMode"
+            class="btn-stroked w-100"
             label="{{ 'edit' | translate }}"
             (click)="profileCreationService.editRoasterProfile()"
         ></button>
+    </div>
+
+    <div *ngIf="isSaveMode" class="pt-45 pt-md-5">
+        <div class="row gutter-16 v-gutter-16 justify-content-between">
+            <div class="col-md-auto order-md-2">
+                <button
+                    pButton
+                    type="button"
+                    class="btn-stroked w-100"
+                    label="{{ 'clear_all_fileds' | translate }}"
+                    (click)="profileCreationService.clear()"
+                ></button>
+            </div>
+            <div class="col-md-auto order-md-1">
+                <div class="row gutter-16 v-gutter-16">
+                    <div class="col-md-auto order-md-2">
+                        <button
+                            pButton
+                            type="button"
+                            class="btn-raised w-100"
+                            [disabled]="profileCreationService.isSaving"
+                            label="{{ 'save' | translate }}"
+                            (click)="profileCreationService.saveRoasterProfile()"
+                        ></button>
+                    </div>
+                    <div class="col-md-auto order-md-1">
+                        <button
+                            pButton
+                            type="button"
+                            class="btn-stroked w-100"
+                            label="{{ 'cancel' | translate }}"
+                            (click)="profileCreationService.preview()"
+                        ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

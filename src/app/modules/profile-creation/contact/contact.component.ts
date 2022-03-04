@@ -4,7 +4,7 @@ import { COUNTRY_LIST } from '@constants';
 import { Country } from '@models';
 import { GlobalsService, ValidateEmailService } from '@services';
 import { emailValidator, urlValidator } from '@utils';
-import { RoasteryProfileService } from '../roastery-profile.service';
+import { ProfileCreationService } from '../profile-creation.service';
 @Component({
     selector: 'app-sewn-contact',
     templateUrl: './contact.component.html',
@@ -21,7 +21,7 @@ export class ContactComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        public profileCreationService: RoasteryProfileService,
+        public profileCreationService: ProfileCreationService,
         public globals: GlobalsService,
         private validateService: ValidateEmailService,
     ) {}

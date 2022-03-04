@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { GlobalsService } from '@services';
 import { dataURItoBlob } from '@utils';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -10,7 +9,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
     templateUrl: './cropper-dialog.component.html',
     styleUrls: ['./cropper-dialog.component.scss'],
 })
-export class CropperDialogComponent implements OnInit {
+export class CropperDialogComponent implements OnInit, OnDestroy {
     croppedImgUrl: any = '';
     cropperConfig = {
         imageChangedEvent: null,
@@ -26,7 +25,6 @@ export class CropperDialogComponent implements OnInit {
     constructor(
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
-        public globals: GlobalsService,
         private translateService: TranslateService,
     ) {
         this.cropperConfig = {
@@ -39,10 +37,15 @@ export class CropperDialogComponent implements OnInit {
 
     ngOnInit(): void {}
 
+    ngOnDestroy(): void {
+        this.cropperConfig.imageChangedEvent.target.value = '';
+    }
+
     onFileChange(event: any): void {
         if (!event.target.files?.length) {
             return;
         }
+        this.cropperConfig.imageChangedEvent.target.value = '';
         this.cropperConfig.imageChangedEvent = event;
     }
 

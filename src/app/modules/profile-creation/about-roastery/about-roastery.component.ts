@@ -8,7 +8,7 @@ import { AclService, AuthService, ChatHandlerService, RoasterService, UserServic
 import { maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RoasteryProfileService } from '../roastery-profile.service';
+import { ProfileCreationService } from '../profile-creation.service';
 
 @Component({
     selector: 'app-about-roastery',
@@ -59,7 +59,7 @@ export class AboutRoasteryComponent implements OnInit {
         private toastrService: ToastrService,
         private userService: UserService,
         private usrService: UserService,
-        public profileCreationService: RoasteryProfileService,
+        public profileCreationService: ProfileCreationService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.userId = this.authService.userId;

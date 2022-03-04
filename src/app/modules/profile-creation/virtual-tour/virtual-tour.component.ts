@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs/operators';
 import { GlobalsService } from '@services';
-import { RoasteryProfileService } from '../roastery-profile.service';
+import { ProfileCreationService } from '../profile-creation.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MediaPreviewComponent } from '@app/modules/file-share/components/media-preview/media-preview.component';
 import { DestroyableComponent } from '@base-components';
@@ -20,7 +20,7 @@ export class VirtualTourComponent extends DestroyableComponent implements OnInit
     isSaveMode: boolean;
 
     constructor(
-        public roasteryProfileService: RoasteryProfileService,
+        public roasteryProfileService: ProfileCreationService,
         public globals: GlobalsService,
         private fileService: FileService,
         private toasterService: ToastrService,

@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
-import { ContactGroup, ProfileImageType } from '@enums';
+import { ContactGroup, FileModule, ProfileImageType } from '@enums';
 import { OrganizationProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, RoasterService, UserService } from '@services';
-import { checkFile } from '@utils';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export class RoasteryProfileService {
+export class ProfileCreationService {
     countryList = [];
 
     public saveMode = new BehaviorSubject(false);
@@ -23,7 +22,6 @@ export class RoasteryProfileService {
     public avatarImageChanged = new BehaviorSubject(null);
     public avatarImageChanged$ = this.avatarImageChanged.asObservable();
 
-    subProfileForm: FormGroup;
     aboutForm: FormGroup;
     contactForm: FormGroup;
 
@@ -39,7 +37,6 @@ export class RoasteryProfileService {
     topContacts: any = [];
     updatedContacts: number[] = [];
     single: { name: string; value: any }[];
-    showDelete = false;
     bannerUrl?: string;
     bannerFile?: any;
     profileInfo?: any;
@@ -119,16 +116,15 @@ export class RoasteryProfileService {
     }
 
     saveRoasterProfile() {
-        if (this.subProfileForm?.invalid || this.aboutForm?.invalid || this.contactForm?.invalid) {
+        if (this.aboutForm?.invalid || this.contactForm?.invalid) {
             this.toastrService.error(this.translator.instant('please_ensure_all_fields_filled_for_all_tabs'));
-            this.subProfileForm?.markAllAsTouched();
             this.aboutForm?.markAllAsTouched();
             this.contactForm?.markAllAsTouched();
             return;
         }
         this.isSaving = true;
         if (this.bannerFile) {
-            this.userService.uploadFile(this.roasterId, this.bannerFile, 'Cover-Image').subscribe((res) => {
+            this.userService.uploadFile(this.roasterId, this.bannerFile, FileModule.CoverImage).subscribe((res) => {
                 if (res.success) {
                     this.toUpdateProfileData.banner_file_id = res.result.id;
                     this.updateRoasterAccount();
@@ -138,7 +134,18 @@ export class RoasteryProfileService {
                 }
             });
         } else {
-            this.updateRoasterAccount();
+            if (this.organizationProfile.banner_url && this.organizationProfile.banner_file_id !== 0) {
+                this.userService.deleteBanner(this.roasterId).subscribe((res) => {
+                    if (res.success) {
+                        this.toUpdateProfileData.banner_file_id = 0;
+                        this.toUpdateProfileData.banner_url = '';
+                        this.updateRoasterAccount();
+                    } else {
+                        this.isSaving = false;
+                        this.toastrService.error('Error while deleting banner image, please try again.');
+                    }
+                });
+            }
         }
     }
 
@@ -234,47 +241,9 @@ export class RoasteryProfileService {
             });
     }
 
-    handleBannerImageFile(inputElement: any) {
-        const file: File = inputElement.files[0];
-        checkFile(file, 5).subscribe((res) => {
-            if (res) {
-                this.toastrService.error(res.message);
-            } else {
-                const reader = new FileReader();
-                reader.onload = (event: any) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        this.bannerFile = inputElement.files[0];
-                        this.bannerUrl = event.target.result;
-                    };
-                    img.src = window.URL.createObjectURL(file);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
-
-    handleDeleteBannerImage(): void {
-        if (this.organizationProfile.banner_url && this.organizationProfile.banner_file_id !== 0) {
-            this.userService.deleteBanner(this.roasterId).subscribe(
-                (res) => {
-                    this.toastrService.success('Deleted Banner Image');
-                    this.organizationProfile.banner_file_id = 0;
-                    this.organizationProfile.banner_url = '';
-                    this.bannerUrl = '';
-                },
-                (error) => {
-                    this.toastrService.error('Failed, Please try again later');
-                },
-            );
-        }
-        this.bannerUrl = '';
-    }
-
     editRoasterProfile() {
         this.toUpdateProfileData = this.organizationProfile;
         this.isSaving = false;
-        this.showDelete = true;
         this.saveMode.next(true);
     }
 
@@ -283,5 +252,9 @@ export class RoasteryProfileService {
         this.orgImgPrevUrl = this.organizationProfile.company_image_url;
         this.orgImgCroppedFile = null;
         this.saveMode.next(false);
+    }
+
+    clear() {
+        console.log('clear');
     }
 }
