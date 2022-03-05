@@ -22,8 +22,6 @@ export class VirtualTourComponent implements OnInit {
     preview(item) {
         this.dialogSrv.open(MediaPreviewComponent, {
             data: { record: item },
-            showHeader: false,
-            styleClass: 'preview-dialog',
         });
     }
 }

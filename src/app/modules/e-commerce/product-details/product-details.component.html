@@ -548,7 +548,7 @@
                         *ngIf="grindFormGroup['controls']['available_quantity'].errors?.min"
                         class="position-absolute p-error"
                     >
-                        {{ 'must_be_greater_than' | translate }} 0
+                        {{ 'must_be_greater_equal' | translate | strReplace: '{limit}':'0' }}
                     </small>
                 </div>
             </div>

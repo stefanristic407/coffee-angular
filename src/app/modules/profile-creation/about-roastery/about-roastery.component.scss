@@ -1,145 +1,35 @@
 @import 'variables';
 
-.header {
-    height: 50px;
-    border-radius: 4px;
-    background-color: $primary-bg-color;
-    padding: 0.75rem;
+.company-detail {
+    img {
+        height: 28px;
+        @media (max-width: 767px) {
+            height: 24px;
+        }
+    }
 }
 
 hr {
-    border-top: 1px dashed $primary-border-color !important;
+    border-top: 2px dashed $primary-border-color !important;
 }
 
-.border-right {
-    border-right: 1px solid $primary-border-color;
-}
-
-.star {
-    color: $invalid-color;
-}
-
-.add-text {
-    color: $brown-color;
-}
-
-.img-estate {
-    width: 32px;
-    height: 32px;
-}
-
-.details-list {
-    list-style: none;
-    margin-left: 1.5rem;
-}
-
-.border-div {
-    border-bottom: 1px dashed $primary-border-color;
-}
-
-/**********popover*******/
-
-.list-data li {
-    width: auto !important;
-    padding: 10px 3rem 10px 10px !important;
-}
-
-.list-data {
-    margin-bottom: 0%;
-}
-
-::ng-deep .popover-body {
-    padding: 0.25rem 0.25rem !important;
-}
-
-::ng-deep .popover {
-    border: none !important;
-    border-radius: 6px !important;
-    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
-    background-color: $white;
-}
-
-.list-item {
-    border: none;
-    font-family: $general-font-family;
-    font-size: 14px;
-    font-weight: 600 !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: $muted-text-color;
-    &:hover {
-        color: $general-text-color !important;
-        font-weight: 600 !important;
-        background-color: $primary-bg-color !important;
-    }
-}
-
-.pointer-item {
-    cursor: pointer;
+.cert-img {
+    width: 35px;
+    height: 35px;
 }
 
 .brand-image {
-    height: 90px;
-    width: 90px;
+    height: 80px;
+    width: 80px;
     border-radius: 100%;
-}
-
-.brand-meta-container {
-    height: 90px;
-}
-
-/* contacts view port Desktop view */
-
-.add-partner {
-    cursor: pointer;
-    color: $brown-color;
-}
-
-.unit-dropdown {
-    position: absolute;
-    bottom: 5px;
-    right: 13px;
-    @media screen and (max-width: 767px) {
-        right: 19px !important;
-    }
-}
-
-::ng-deep .unit-dropdown {
-    .p-dropdown {
-        height: 42px;
-        min-width: 87px;
-        background: $primary-bg-color;
-        border: none;
-    }
 }
 
 .custom-chart-container {
     height: 293px;
     width: 293px;
     margin: auto;
-    margin-top: -72px;
-    margin-bottom: 60px;
-}
-
-.menu-arrow {
-    height: 20px;
-    width: 20px;
-    text-align: center;
-    margin-right: -10px;
-}
-
-.add-contact-group {
-    padding-top: 0.1rem !important;
-}
-
-.brand-item-container {
-    display: flex;
-    justify-content: space-between;
-    .brand-item {
-        width: 100%;
-    }
+    margin-top: -55px;
+    margin-bottom: 20px;
 }
 
 .add-brand-data {
@@ -157,23 +47,12 @@ hr {
         }
     }
 
-    .brand-name {
-        width: 100%;
-        input {
-            max-width: 345px;
-            width: 100%;
-        }
-    }
-
     .btn-delete-avatar {
         background-color: transparent;
         border: none;
         color: $primary-color;
         padding: 8px 12px 0 12px;
     }
-}
-.add-brand-btns {
-    min-height: 26px;
 }
 
 .brand-name-input {
@@ -191,24 +70,6 @@ hr {
     margin-top: 10px;
 }
 
-.profile-des {
-    p {
-        white-space: nowrap;
-    }
-}
-
-.upload-button {
-    padding: 8px 12px;
-    border-radius: 2px;
-    border: solid 1px $muted-text-color;
-    cursor: pointer;
-}
-
 .visiblity-hidden {
     visibility: hidden;
-}
-
-.slider-div {
-    width: 80%;
-    margin: auto;
 }

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-review-summary',
@@ -26,7 +25,7 @@ export class ReviewSummaryComponent implements OnInit {
             }
         }
     }
-    constructor(public globals: GlobalsService) {}
+    constructor() {}
 
     ngOnInit(): void {}
 }

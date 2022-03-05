@@ -2,18 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
 import { Country } from '@models';
-import { GlobalsService, ValidateEmailService } from '@services';
+import { ValidateEmailService } from '@services';
 import { emailValidator, urlValidator } from '@utils';
-import { RoasteryProfileService } from '../roastery-profile.service';
+import { ProfileCreationService } from '../profile-creation.service';
+
 @Component({
     selector: 'app-sewn-contact',
     templateUrl: './contact.component.html',
     styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
+    readonly COUNTRY_LIST = COUNTRY_LIST;
     contactForm: FormGroup;
     isSaveMode: boolean;
-    countryList = COUNTRY_LIST;
     cityList = [];
     latitude: number;
     longitude: number;
@@ -21,9 +22,8 @@ export class ContactComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        public profileCreationService: RoasteryProfileService,
-        public globals: GlobalsService,
         private validateService: ValidateEmailService,
+        public profileCreationService: ProfileCreationService,
     ) {}
 
     ngOnInit(): void {
@@ -56,7 +56,7 @@ export class ContactComponent implements OnInit {
         this.profileCreationService.contactForm = this.contactForm;
 
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {
-            this.countryList.forEach((countryItem: Country) => {
+            this.COUNTRY_LIST.forEach((countryItem: Country) => {
                 if (countryItem.isoCode === updatedCountry.toUpperCase()) {
                     this.cityList = [];
                     countryItem.cities.map((stateItem: string) => {
@@ -75,7 +75,7 @@ export class ContactComponent implements OnInit {
     }
 
     setFormValue() {
-        this.countryList.forEach((item: Country) => {
+        this.COUNTRY_LIST.forEach((item: Country) => {
             if (item.isoCode === this.profileCreationService.toUpdateProfileData.country.toUpperCase()) {
                 this.cityList = item.cities;
             }
@@ -100,7 +100,6 @@ export class ContactComponent implements OnInit {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    console.log('Current position:', position.coords);
                     this.latitude = position.coords.latitude;
                     this.longitude = position.coords.longitude;
                 },

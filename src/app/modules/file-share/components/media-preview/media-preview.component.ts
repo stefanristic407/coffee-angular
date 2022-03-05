@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import * as Plyr from 'plyr';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import * as Plyr from 'plyr';
 
 @Component({
     selector: 'app-media-preview',
@@ -13,6 +13,8 @@ export class MediaPreviewComponent implements OnInit, AfterViewInit {
 
     constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
         this.record = this.config.data.record;
+        this.config.showHeader = false;
+        this.config.styleClass = 'preview-dialog';
     }
 
     ngOnInit(): void {}

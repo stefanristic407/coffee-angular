@@ -1,26 +1,26 @@
 <div class="p-4 border-main br-4">
     <div class="review-block row">
         <div class="col-12 col-md-6 col-lg-12">
-            <p class="fnt-16 fnt-md-18 fnt-md-16 lh-normal fw-b text-clr334 mb-2">
-                {{ globals.languageJson?.reviews }}
+            <p class="fnt-16 fnt-md-18 fnt-md-16 fw-b text-clr334 mb-2">
+                {{ 'reviews' | translate }}
             </p>
 
-            <h2 class="total-rating lh-normal fw-b text-clr334">
+            <h2 class="total-rating fw-b text-clr334">
                 {{ reviewSummary?.rating.toFixed(1) || '-' }}
             </h2>
-            <div class="fnt-14 lh-normal fw-b text-clr588 mb-25">out of 5</div>
+            <div class="fnt-14 fw-b text-clr588 mb-25">out of 5</div>
             <span class="star-wrap">
                 <p-rating [ngModel]="reviewSummary?.rating" [cancel]="false" [readonly]="true"></p-rating
             ></span>
         </div>
         <div class="col-12 col-md-6 col-lg-12">
-            <div class="fnt-14 lh-normal fw-b text-clr334 pt-3 pt-md-0 pt-lg-45 mb-4">
-                {{ reviewSummary?.total_review || '-' }} customer reviews
+            <div class="fnt-14 fw-b text-clr334 pt-3 pt-md-0 pt-lg-45 mb-4">
+                {{ reviewSummary?.total_review || '0' }} customer reviews
             </div>
             <table *ngIf="reviewSummary" class="mb-md-4">
                 <tr *ngFor="let item of reviewStars">
                     <td>
-                        <span class="fnt-14 lh-normal fw-b text-clr334 nowrap">
+                        <span class="fnt-14 fw-b text-clr334 nowrap">
                             {{ item.label }}
                             <span class="fa fa-star mr-25 mr-md-3"></span>
                         </span>
@@ -41,7 +41,7 @@
                         </div>
                     </td>
                     <td>
-                        <span class="fnt-14 lh-normal text-clr588 ml-25"> ({{ item.value }}) </span>
+                        <span class="fnt-14 text-clr588 ml-25"> ({{ item.value }}) </span>
                     </td>
                 </tr>
             </table>

@@ -1,13 +1,14 @@
-import { FileService } from '@services';
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { takeUntil } from 'rxjs/operators';
-import { GlobalsService } from '@services';
-import { RoasteryProfileService } from '../roastery-profile.service';
-import { DialogService } from 'primeng/dynamicdialog';
 import { MediaPreviewComponent } from '@app/modules/file-share/components/media-preview/media-preview.component';
 import { DestroyableComponent } from '@base-components';
 import { FileModule, FileType } from '@enums';
+import { FileService } from '@services';
+import { checkFile } from '@utils';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'primeng/dynamicdialog';
+import { takeUntil } from 'rxjs/operators';
+import { ProfileCreationService } from '../profile-creation.service';
 
 @Component({
     selector: 'app-sewn-virtual-tour',
@@ -15,27 +16,27 @@ import { FileModule, FileType } from '@enums';
     styleUrls: ['./virtual-tour.component.scss'],
 })
 export class VirtualTourComponent extends DestroyableComponent implements OnInit {
+    readonly FileType = FileType;
     tourMedias: any = [];
-    isLoading?: boolean;
+    isLoading = true;
     isSaveMode: boolean;
 
     constructor(
-        public roasteryProfileService: RoasteryProfileService,
-        public globals: GlobalsService,
+        private dialogSrv: DialogService,
         private fileService: FileService,
-        private toasterService: ToastrService,
-        public dialogSrv: DialogService,
+        private profileCreationService: ProfileCreationService,
+        private toastrService: ToastrService,
     ) {
         super();
     }
 
-    async ngOnInit() {
+    ngOnInit() {
         this.getFiles();
         this.detectMode();
     }
 
     detectMode() {
-        this.roasteryProfileService.saveMode$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: boolean) => {
+        this.profileCreationService.saveMode$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((res: boolean) => {
             this.isSaveMode = res;
         });
     }
@@ -52,49 +53,78 @@ export class VirtualTourComponent extends DestroyableComponent implements OnInit
             });
     }
 
-    addFile(data) {
-        this.fileService.uploadFiles(data).subscribe((res: any) => {
-            if (res.success) {
-                this.getFiles();
-            } else {
-                this.toasterService.error('Failed to upload image');
-            }
-        });
-    }
-
     handleRemoveMediaFile(id: number): void {
         this.tourMedias = this.tourMedias.filter((item) => item.id !== id);
         this.fileService.deleteFile(id).subscribe();
     }
 
-    handleFile(e) {
-        if (e.target.files.length > 0) {
-            for (let i = 0; i <= e.target.files.length - 1; i++) {
-                const fsize = e.target.files.item(i).size;
-                const file = Math.round(fsize / 1024);
-                // The size of the file.
-                if (file >= 2048) {
-                    this.toasterService.error('File too big, please select a file smaller than 2mb');
-                } else {
-                    const image = e.target.files[0];
-                    const File = new FormData();
-                    File.append(
-                        'name',
-                        Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-                    );
-                    File.append('file', image);
-                    File.append('file_module', FileModule.Gallery);
-                    this.addFile(File);
-                }
-            }
+    handleFile(event) {
+        if (!event.target.files?.length) {
+            this.toastrService.error(`Please select files.`);
+            return;
         }
+
+        let promises = [];
+        for (let idx = 0; event.target.files[idx]; idx++) {
+            const file = event.target.files[idx];
+            promises.push(
+                new Promise((resolve, reject) => {
+                    checkFile(file, 2).subscribe((res) => {
+                        if (res) {
+                            this.toastrService.error(res.message);
+                            reject();
+                        } else {
+                            resolve(file);
+                        }
+                    });
+                }),
+            );
+        }
+
+        Promise.all(promises)
+            .then(() => {
+                promises = [];
+                for (let idx = 0; event.target.files[idx]; idx++) {
+                    const file = event.target.files[idx];
+                    const formData: FormData = new FormData();
+                    formData.append('file', file, file.name);
+                    formData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
+                    formData.append('file_module', FileModule.Gallery);
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            this.fileService.uploadFiles(formData).subscribe(
+                                (res: any) => {
+                                    if (res.success) {
+                                        resolve(res.success);
+                                    } else {
+                                        reject();
+                                    }
+                                },
+                                (err) => {
+                                    reject();
+                                },
+                            );
+                        }),
+                    );
+                }
+
+                Promise.all(promises)
+                    .then(() => {
+                        this.toastrService.success('Items are uploaded successfully');
+                        event.target.value = '';
+                        this.getFiles();
+                    })
+                    .catch(() => {
+                        this.toastrService.error('Error while uploading');
+                        event.target.value = '';
+                    });
+            })
+            .catch(() => {
+                event.target.value = '';
+            });
     }
 
     preview(item) {
-        this.dialogSrv.open(MediaPreviewComponent, {
-            data: { record: item },
-            showHeader: false,
-            styleClass: 'preview-dialog',
-        });
+        this.dialogSrv.open(MediaPreviewComponent, { data: { record: item } });
     }
 }
