@@ -8,7 +8,7 @@
                 type="button"
                 class="btn-raised"
                 label="{{ 'edit' | translate }}"
-                (click)="profileCreationService.editRoasterProfile()"
+                (click)="profileCreationService.editProfile()"
             ></button>
         </div>
     </div>
@@ -119,7 +119,7 @@
             pButton
             class="btn-stroked w-100"
             label="{{ 'edit' | translate }}"
-            (click)="profileCreationService.editRoasterProfile()"
+            (click)="profileCreationService.editProfile()"
         ></button>
     </div>
 
@@ -143,7 +143,7 @@
                             class="btn-raised w-100"
                             [disabled]="profileCreationService.isSaving"
                             label="{{ 'save' | translate }}"
-                            (click)="profileCreationService.saveRoasterProfile()"
+                            (click)="profileCreationService.saveProfile()"
                         ></button>
                     </div>
                     <div class="col-md-auto order-md-1">

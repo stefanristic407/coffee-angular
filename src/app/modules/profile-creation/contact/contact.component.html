@@ -63,7 +63,7 @@
                     </div>
                     <div class="sewn-form-field col-12 mb-0">
                         <label>
-                            {{ 'roaster_location' | translate }}<span class="star">*</span>
+                            {{ profileCreationService.orgType + '_location' | translate }}<span class="star">*</span>
                             <span class="pull-right d-flex align-items-center">
                                 <img class="mr-1" src="assets/images/locate-icon.svg" alt="locate" />
                                 <span class="brown-cta" (click)="getCurrentLocation()">{{
@@ -81,7 +81,9 @@
                             ></agm-marker>
                         </agm-map>
 
-                        <div class="text-clr588 mt-2">{{ 'adjust_pin_roaster_location' | translate }}</div>
+                        <div class="text-clr588 mt-2">
+                            {{ 'adjust_pin_' + profileCreationService.orgType + '_location' | translate }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -127,11 +129,13 @@
                     </div>
                     <div class="text-break">
                         <a
+                            *ngIf="profileCreationService.organizationProfile?.website"
                             [href]="profileCreationService.organizationProfile?.website"
                             target="_blank"
                             class="text-underline"
                             >{{ profileCreationService.organizationProfile?.website }}</a
                         >
+                        <span *ngIf="!profileCreationService.organizationProfile?.website">NA</span>
                     </div>
                 </li>
                 <li class="col-md-auto d-flex d-md-block">
@@ -167,12 +171,24 @@
                             {{ profileCreationService.organizationProfile?.state }},
                             {{ profileCreationService.organizationProfile?.country | country }}
                         </div>
-                        <div class="d-none d-md-block mt-4">
+                        <div
+                            *ngIf="
+                                profileCreationService.orgType === OrgType.ROASTER ||
+                                profileCreationService.orgType === OrgType.ESTATE
+                            "
+                            class="d-none d-md-block mt-4"
+                        >
                             <ng-container *ngTemplateOutlet="mapTpl"></ng-container>
                         </div>
                     </div>
                 </li>
-                <li class="col-12 d-md-none">
+                <li
+                    *ngIf="
+                        profileCreationService.orgType === OrgType.ROASTER ||
+                        profileCreationService.orgType === OrgType.ESTATE
+                    "
+                    class="col-12 d-md-none"
+                >
                     <ng-container *ngTemplateOutlet="mapTpl"></ng-container>
                 </li>
                 <li class="col-12 d-flex align-items-center">
@@ -181,12 +197,14 @@
                     </div>
                     <div>
                         <a
+                            *ngIf="profileCreationService.organizationProfile?.ig_profile"
                             [href]="profileCreationService.organizationProfile?.ig_profile"
                             target="_blank"
                             class="text-underline"
                         >
                             {{ 'visit_profile' | translate }}</a
                         >
+                        <span *ngIf="!profileCreationService.organizationProfile?.ig_profile">NA</span>
                     </div>
                 </li>
                 <li class="col-12 d-flex align-items-center">
@@ -195,12 +213,14 @@
                     </div>
                     <div>
                         <a
+                            *ngIf="profileCreationService.organizationProfile?.fb_profile"
                             [href]="profileCreationService.organizationProfile?.fb_profile"
                             target="_blank"
                             class="text-underline"
                         >
                             {{ 'visit_profile' | translate }}</a
                         >
+                        <span *ngIf="!profileCreationService.organizationProfile?.fb_profile">NA</span>
                     </div>
                 </li>
             </ul>

@@ -63,6 +63,7 @@ export class AuthService {
             this.currentUser && this.currentOrganization && this.currentUser.id === this.currentOrganization.admin_id
         );
     }
+
     get hasSystemRole(): boolean {
         return !!this.currentUser?.has_system_role;
     }

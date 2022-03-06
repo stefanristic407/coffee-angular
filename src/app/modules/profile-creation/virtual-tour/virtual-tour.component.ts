@@ -24,8 +24,8 @@ export class VirtualTourComponent extends DestroyableComponent implements OnInit
     constructor(
         private dialogSrv: DialogService,
         private fileService: FileService,
-        private profileCreationService: ProfileCreationService,
         private toastrService: ToastrService,
+        public profileCreationService: ProfileCreationService,
     ) {
         super();
     }

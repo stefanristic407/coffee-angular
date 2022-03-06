@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { FileType } from '@enums';
 import * as Plyr from 'plyr';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
@@ -9,6 +10,7 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
     styleUrls: ['./media-preview.component.scss'],
 })
 export class MediaPreviewComponent implements OnInit, AfterViewInit {
+    readonly FileType = FileType;
     record: any;
 
     constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {

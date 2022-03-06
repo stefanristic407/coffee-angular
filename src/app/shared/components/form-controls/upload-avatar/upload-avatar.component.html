@@ -1,0 +1,19 @@
+<div class="">
+    <div class="avatar-wrapper" [style.width]="size + 'px'" [style.height]="size + 'px'">
+        <img
+            [src]="file?.url || 'assets/images/avatar-placeholder.svg'"
+            alt="profile"
+            class="profile-pic"
+            [class.placeholder]="!file?.url"
+        />
+        <a (click)="imageInput.click()" class="add-pic">
+            <img src="assets/images/camera.svg" alt="add_pic" />
+        </a>
+    </div>
+
+    <div *ngIf="file?.url && deletable" class="fw-m text-clr55c cursor-pointer mt-2" (click)="deletePhoto()">
+        <i class="pi pi-trash fnt-14 mr-2"></i>{{ 'delete' | translate }}
+    </div>
+</div>
+
+<input #imageInput type="file" accept="image/png, image/jpeg" hidden (change)="handleFile($event)" />

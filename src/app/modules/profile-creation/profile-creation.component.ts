@@ -13,7 +13,7 @@ import { ProfileCreationService } from './profile-creation.service';
 })
 export class ProfileCreationComponent implements OnInit, OnDestroy {
     menuItems = [
-        { label: 'about_roastery', routerLink: './about_roastery' },
+        { label: `about_${this.authService.orgType}`, routerLink: './about' },
         { label: 'virtual_tour', routerLink: './virtual_tour' },
         { label: 'contact', routerLink: './contact' },
         { label: 'reviews', routerLink: './reviews' },
@@ -30,7 +30,9 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
         private dialogService: DialogService,
         private translator: TranslateService,
         public profileCreationService: ProfileCreationService,
-    ) {}
+    ) {
+        this.profileCreationService.orgType = this.authService.orgType;
+    }
 
     ngOnInit(): void {
         this.detectMode();

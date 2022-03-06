@@ -7,8 +7,8 @@
         </div>
     </div>
     <div class="content-wrap">
-        <img *ngIf="record.type == 'IMAGE'" class="img" [src]="record.url" />
-        <div *ngIf="record.type == 'VIDEO'" class="video-wrap">
+        <img *ngIf="record.type == FileType.IMAGE" class="img" [src]="record.url" />
+        <div *ngIf="record.type == FileType.VIDEO" class="video-wrap">
             <div class="video-close" (click)="close()">
                 <span>&#x2715;</span>
             </div>

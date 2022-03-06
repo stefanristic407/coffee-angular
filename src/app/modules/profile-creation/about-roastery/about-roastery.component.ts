@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CropperDialogComponent } from '@app/shared';
 import { QUANTIRY_UNIT_LIST } from '@constants';
 import { CertificateType, OrganizationType } from '@enums';
-import { CroppedImage } from '@models';
+import { TranslateService } from '@ngx-translate/core';
 import { AclService, AuthService, ChatHandlerService, RoasterService, UserService } from '@services';
-import { maxWordCountValidator } from '@utils';
+import { fileRequired, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
-import { DialogService } from 'primeng/dynamicdialog';
 import { ProfileCreationService } from '../profile-creation.service';
 
 @Component({
@@ -18,6 +16,7 @@ import { ProfileCreationService } from '../profile-creation.service';
 export class AboutRoasteryComponent implements OnInit {
     readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
     readonly OrgType = OrganizationType;
+
     certificateTypes: any[];
     certificatesArray: any = [];
 
@@ -34,9 +33,7 @@ export class AboutRoasteryComponent implements OnInit {
     employeeId: any;
 
     isEditBrandMode = false;
-    brandFile: any;
     toEditBrand: any;
-    brandImageUrl: string;
 
     get members() {
         return this.membersForm.get('members') as FormArray;
@@ -46,12 +43,11 @@ export class AboutRoasteryComponent implements OnInit {
         private aclService: AclService,
         private authService: AuthService,
         private chatHandler: ChatHandlerService,
-        private dialogService: DialogService,
         private fb: FormBuilder,
         private roasterService: RoasterService,
         private toastrService: ToastrService,
+        private translator: TranslateService,
         private userService: UserService,
-        private usrService: UserService,
         public profileCreationService: ProfileCreationService,
     ) {}
 
@@ -140,6 +136,7 @@ export class AboutRoasteryComponent implements OnInit {
         });
 
         this.brandForm = this.fb.group({
+            file: [null, [fileRequired()]],
             name: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
         });
@@ -282,77 +279,63 @@ export class AboutRoasteryComponent implements OnInit {
         });
     }
 
+    addBrandMode() {
+        this.toEditBrand = null;
+        this.brandForm.reset();
+        this.isEditBrandMode = true;
+    }
+
     editBrand(brand) {
         this.toEditBrand = brand;
-        this.brandImageUrl = brand.url;
         this.brandForm.setValue({
+            file: {
+                id: this.toEditBrand.url,
+                url: this.toEditBrand.url,
+            },
             name: brand.name,
             description: brand.description,
         });
         this.isEditBrandMode = true;
     }
 
-    addBrandProfileMode() {
-        this.toEditBrand = null;
+    cancelEditBrand() {
         this.brandForm.reset();
-        this.isEditBrandMode = true;
-    }
-
-    cancelAddBrand() {
-        this.brandForm.reset();
-        this.brandFile = null;
         this.isEditBrandMode = false;
-        this.brandImageUrl = null;
     }
 
-    deleteBrandImage() {
-        this.brandImageUrl = null;
-        if (this.brandFile) {
-            this.brandFile = null;
-        }
-    }
-
-    addNewBrand() {
-        if (this.brandForm.invalid || !this.brandFile) {
-            const controls = this.brandForm.controls;
-            if (this.brandForm.invalid) {
-                Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
-                return;
-            }
-            this.toastrService.error('Please add brand details');
-            return;
-        }
-        const data: FormData = new FormData();
-        data.append('name', this.brandForm.controls.name.value);
-        data.append('description', this.brandForm.controls.description.value);
-        data.append('file', this.brandFile);
-        data.append('api_call', `${this.roasterService.apiCallPrefix}/brands`);
-        data.append('token', this.authService.token);
-        this.roasterService.addRoasterBrand(data).subscribe((res) => {
-            this.cancelAddBrand();
-            this.getBrands();
-        });
-    }
-
-    updateBrandProfile() {
-        const controls = this.brandForm.controls;
+    saveBrand() {
         if (this.brandForm.invalid) {
-            Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
+            this.brandForm.markAllAsTouched();
+            this.toastrService.error(this.translator.instant('please_check_form_data'));
             return;
         }
         const data: FormData = new FormData();
         data.append('name', this.brandForm.controls.name.value);
         data.append('description', this.brandForm.controls.description.value);
-        if (this.brandFile) {
-            data.append('file', this.brandFile);
+        if (this.brandForm.value.file) {
+            data.append('file', this.brandForm.value.file);
         }
-        data.append('api_call', `${this.roasterService.apiCallPrefix}/brands/${this.toEditBrand.id}`);
         data.append('token', this.authService.token);
-        data.append('method', 'PUT');
-        this.roasterService.updateRoasterBrand(data).subscribe((res) => {
-            this.cancelAddBrand();
-            this.getBrands();
-        });
+        if (this.toEditBrand?.id) {
+            data.append('api_call', `${this.roasterService.apiCallPrefix}/brands/${this.toEditBrand.id}`);
+            data.append('method', 'PUT');
+            this.roasterService.updateRoasterBrand(data).subscribe((res) => {
+                if (res.success) {
+                    this.cancelEditBrand();
+                    this.getBrands();
+                    this.toastrService.success('Brand is updated successfully');
+                }
+            });
+        } else {
+            data.append('api_call', `${this.roasterService.apiCallPrefix}/brands`);
+            this.roasterService.addRoasterBrand(data).subscribe((res) => {
+                if (res.success) {
+                    this.cancelEditBrand();
+                    this.getBrands();
+                    this.toastrService.success('Brand is added successfully');
+                }
+            });
+        }
     }
 
     deleteBrand() {
@@ -361,8 +344,7 @@ export class AboutRoasteryComponent implements OnInit {
                 return item.id !== this.toEditBrand.id;
             });
             this.toastrService.success('Brand is deleted successfully');
-            this.isEditBrandMode = false;
-            this.cancelAddBrand();
+            this.cancelEditBrand();
         });
     }
 
@@ -386,30 +368,8 @@ export class AboutRoasteryComponent implements OnInit {
         return result;
     }
 
-    handleBrandFile(event) {
-        if (!event.target.files?.length) {
-            return;
-        }
-        this.dialogService
-            .open(CropperDialogComponent, {
-                data: {
-                    imageChangedEvent: event,
-                    resizeToWidth: 256,
-                    resizeToHeight: 256,
-                    roundCropper: true,
-                },
-            })
-            .onClose.subscribe((data: CroppedImage) => {
-                if (data.status) {
-                    this.brandImageUrl = data.croppedImgUrl;
-                    this.brandFile = data.croppedImgFile;
-                }
-                event.target.value = null;
-            });
-    }
-
     openChat(contactData): void {
-        this.usrService.getUserDetail(contactData.user_id, OrganizationType.ROASTER).subscribe((res: any) => {
+        this.userService.getUserDetail(contactData.user_id, OrganizationType.ROASTER).subscribe((res: any) => {
             if (res.success) {
                 this.chatHandler.openChatThread({
                     user_id: contactData.user_id,
