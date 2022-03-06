@@ -171,12 +171,24 @@
                             {{ profileCreationService.organizationProfile?.state }},
                             {{ profileCreationService.organizationProfile?.country | country }}
                         </div>
-                        <div class="d-none d-md-block mt-4">
+                        <div
+                            *ngIf="
+                                profileCreationService.orgType === OrgType.ROASTER ||
+                                profileCreationService.orgType === OrgType.ESTATE
+                            "
+                            class="d-none d-md-block mt-4"
+                        >
                             <ng-container *ngTemplateOutlet="mapTpl"></ng-container>
                         </div>
                     </div>
                 </li>
-                <li class="col-12 d-md-none">
+                <li
+                    *ngIf="
+                        profileCreationService.orgType === OrgType.ROASTER ||
+                        profileCreationService.orgType === OrgType.ESTATE
+                    "
+                    class="col-12 d-md-none"
+                >
                     <ng-container *ngTemplateOutlet="mapTpl"></ng-container>
                 </li>
                 <li class="col-12 d-flex align-items-center">

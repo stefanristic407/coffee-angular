@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QUANTIRY_UNIT_LIST } from '@constants';
 import { CertificateType, OrganizationType } from '@enums';
+import { TranslateService } from '@ngx-translate/core';
 import { AclService, AuthService, ChatHandlerService, RoasterService, UserService } from '@services';
 import { fileRequired, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
@@ -45,6 +46,7 @@ export class AboutRoasteryComponent implements OnInit {
         private fb: FormBuilder,
         private roasterService: RoasterService,
         private toastrService: ToastrService,
+        private translator: TranslateService,
         private userService: UserService,
         public profileCreationService: ProfileCreationService,
     ) {}
@@ -277,6 +279,12 @@ export class AboutRoasteryComponent implements OnInit {
         });
     }
 
+    addBrandMode() {
+        this.toEditBrand = null;
+        this.brandForm.reset();
+        this.isEditBrandMode = true;
+    }
+
     editBrand(brand) {
         this.toEditBrand = brand;
         this.brandForm.setValue({
@@ -290,13 +298,7 @@ export class AboutRoasteryComponent implements OnInit {
         this.isEditBrandMode = true;
     }
 
-    addBrandProfileMode() {
-        this.toEditBrand = null;
-        this.brandForm.reset();
-        this.isEditBrandMode = true;
-    }
-
-    cancelAddBrand() {
+    cancelEditBrand() {
         this.brandForm.reset();
         this.isEditBrandMode = false;
     }
@@ -304,7 +306,7 @@ export class AboutRoasteryComponent implements OnInit {
     saveBrand() {
         if (this.brandForm.invalid) {
             this.brandForm.markAllAsTouched();
-            this.toastrService.error('Please add brand details');
+            this.toastrService.error(this.translator.instant('please_check_form_data'));
             return;
         }
         const data: FormData = new FormData();
@@ -319,7 +321,7 @@ export class AboutRoasteryComponent implements OnInit {
             data.append('method', 'PUT');
             this.roasterService.updateRoasterBrand(data).subscribe((res) => {
                 if (res.success) {
-                    this.cancelAddBrand();
+                    this.cancelEditBrand();
                     this.getBrands();
                     this.toastrService.success('Brand is updated successfully');
                 }
@@ -328,7 +330,7 @@ export class AboutRoasteryComponent implements OnInit {
             data.append('api_call', `${this.roasterService.apiCallPrefix}/brands`);
             this.roasterService.addRoasterBrand(data).subscribe((res) => {
                 if (res.success) {
-                    this.cancelAddBrand();
+                    this.cancelEditBrand();
                     this.getBrands();
                     this.toastrService.success('Brand is added successfully');
                 }
@@ -342,8 +344,7 @@ export class AboutRoasteryComponent implements OnInit {
                 return item.id !== this.toEditBrand.id;
             });
             this.toastrService.success('Brand is deleted successfully');
-            this.isEditBrandMode = false;
-            this.cancelAddBrand();
+            this.cancelEditBrand();
         });
     }
 

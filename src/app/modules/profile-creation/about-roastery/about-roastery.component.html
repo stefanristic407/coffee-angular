@@ -87,7 +87,13 @@
                         </div>
                         <div class="fnt-md-18 fw-m text-clr588 mt-2">{{ 'total_employees' | translate }}</div>
                     </div>
-                    <div *ngIf="profileCreationService.orgType === OrgType.ROASTER" class="col-6 border-left-main">
+                    <div
+                        *ngIf="
+                            profileCreationService.orgType === OrgType.ROASTER ||
+                            profileCreationService.orgType === OrgType.MICRO_ROASTER
+                        "
+                        class="col-6 border-left-main"
+                    >
                         <div class="fnt-24 fnt-md-32 fw-b">
                             {{ profileCreationService.organizationProfile?.avg_employee_age }}
                         </div>
@@ -498,7 +504,7 @@
             <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
         </div>
 
-        <div *ngIf="isSaveMode && !isEditBrandMode" class="brown-cta mt-4" (click)="addBrandProfileMode()">
+        <div *ngIf="isSaveMode && !isEditBrandMode" class="brown-cta mt-4" (click)="addBrandMode()">
             + {{ 'add_another_brand' | translate }}
         </div>
     </section>
@@ -560,6 +566,6 @@
     <div class="d-flex float-right float-md-none">
         <span class="brown-cta mr-3" (click)="saveBrand()">{{ 'save' | translate }}</span>
         <span *ngIf="toEditBrand?.id" class="brown-cta mr-3" (click)="deleteBrand()">{{ 'delete' | translate }}</span>
-        <span class="brown-cta" (click)="cancelAddBrand()">{{ 'cancel' | translate }}</span>
+        <span class="brown-cta" (click)="cancelEditBrand()">{{ 'cancel' | translate }}</span>
     </div>
 </ng-template>

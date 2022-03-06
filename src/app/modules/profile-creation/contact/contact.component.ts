@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
+import { OrganizationType } from '@enums';
 import { Country } from '@models';
 import { ValidateEmailService } from '@services';
 import { emailValidator, urlValidator } from '@utils';
@@ -13,6 +14,7 @@ import { ProfileCreationService } from '../profile-creation.service';
 })
 export class ContactComponent implements OnInit {
     readonly COUNTRY_LIST = COUNTRY_LIST;
+    readonly OrgType = OrganizationType;
     contactForm: FormGroup;
     isSaveMode: boolean;
     cityList = [];
