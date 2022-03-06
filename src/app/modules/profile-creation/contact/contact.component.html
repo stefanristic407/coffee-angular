@@ -127,11 +127,13 @@
                     </div>
                     <div class="text-break">
                         <a
+                            *ngIf="profileCreationService.organizationProfile?.website"
                             [href]="profileCreationService.organizationProfile?.website"
                             target="_blank"
                             class="text-underline"
                             >{{ profileCreationService.organizationProfile?.website }}</a
                         >
+                        <span *ngIf="!profileCreationService.organizationProfile?.website">NA</span>
                     </div>
                 </li>
                 <li class="col-md-auto d-flex d-md-block">
@@ -181,12 +183,14 @@
                     </div>
                     <div>
                         <a
+                            *ngIf="profileCreationService.organizationProfile?.ig_profile"
                             [href]="profileCreationService.organizationProfile?.ig_profile"
                             target="_blank"
                             class="text-underline"
                         >
                             {{ 'visit_profile' | translate }}</a
                         >
+                        <span *ngIf="!profileCreationService.organizationProfile?.ig_profile">NA</span>
                     </div>
                 </li>
                 <li class="col-12 d-flex align-items-center">
@@ -195,12 +199,14 @@
                     </div>
                     <div>
                         <a
+                            *ngIf="profileCreationService.organizationProfile?.fb_profile"
                             [href]="profileCreationService.organizationProfile?.fb_profile"
                             target="_blank"
                             class="text-underline"
                         >
                             {{ 'visit_profile' | translate }}</a
                         >
+                        <span *ngIf="!profileCreationService.organizationProfile?.fb_profile">NA</span>
                     </div>
                 </li>
             </ul>
