@@ -32,39 +32,6 @@ hr {
     margin-bottom: 20px;
 }
 
-.add-brand-data {
-    .profile-avatar {
-        position: relative;
-        .avatar-img {
-            height: 90px;
-            width: 90px;
-            border-radius: 50%;
-        }
-        .change-avatar-btn {
-            position: absolute;
-            bottom: 0px;
-            right: 0px;
-        }
-    }
-
-    .btn-delete-avatar {
-        background-color: transparent;
-        border: none;
-        color: $primary-color;
-        padding: 8px 12px 0 12px;
-    }
-}
-
-.brand-name-input {
-    max-width: 345px;
-    @media screen and (min-width: 768px) {
-        max-width: 310px;
-    }
-    @media screen and (max-width: 767px) {
-        max-width: none;
-    }
-}
-
 .brand-edit-btn {
     margin-left: 19px;
     margin-top: 10px;

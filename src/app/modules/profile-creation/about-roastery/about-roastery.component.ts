@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CropperDialogComponent } from '@app/shared';
 import { QUANTIRY_UNIT_LIST } from '@constants';
 import { CertificateType, OrganizationType } from '@enums';
-import { CroppedImage } from '@models';
 import { AclService, AuthService, ChatHandlerService, RoasterService, UserService } from '@services';
-import { maxWordCountValidator } from '@utils';
+import { fileRequired, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
-import { DialogService } from 'primeng/dynamicdialog';
 import { ProfileCreationService } from '../profile-creation.service';
 
 @Component({
@@ -34,9 +31,7 @@ export class AboutRoasteryComponent implements OnInit {
     employeeId: any;
 
     isEditBrandMode = false;
-    brandFile: any;
     toEditBrand: any;
-    brandImageUrl: string;
 
     get members() {
         return this.membersForm.get('members') as FormArray;
@@ -46,7 +41,6 @@ export class AboutRoasteryComponent implements OnInit {
         private aclService: AclService,
         private authService: AuthService,
         private chatHandler: ChatHandlerService,
-        private dialogService: DialogService,
         private fb: FormBuilder,
         private roasterService: RoasterService,
         private toastrService: ToastrService,
@@ -140,6 +134,7 @@ export class AboutRoasteryComponent implements OnInit {
         });
 
         this.brandForm = this.fb.group({
+            file: [null, [fileRequired()]],
             name: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
         });
@@ -284,8 +279,11 @@ export class AboutRoasteryComponent implements OnInit {
 
     editBrand(brand) {
         this.toEditBrand = brand;
-        this.brandImageUrl = brand.url;
         this.brandForm.setValue({
+            file: {
+                id: this.toEditBrand.url,
+                url: this.toEditBrand.url,
+            },
             name: brand.name,
             description: brand.description,
         });
@@ -300,59 +298,42 @@ export class AboutRoasteryComponent implements OnInit {
 
     cancelAddBrand() {
         this.brandForm.reset();
-        this.brandFile = null;
         this.isEditBrandMode = false;
-        this.brandImageUrl = null;
     }
 
-    deleteBrandImage() {
-        this.brandImageUrl = null;
-        if (this.brandFile) {
-            this.brandFile = null;
-        }
-    }
-
-    addNewBrand() {
-        if (this.brandForm.invalid || !this.brandFile) {
-            const controls = this.brandForm.controls;
-            if (this.brandForm.invalid) {
-                Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
-                return;
-            }
+    saveBrand() {
+        if (this.brandForm.invalid) {
+            this.brandForm.markAllAsTouched();
             this.toastrService.error('Please add brand details');
             return;
         }
         const data: FormData = new FormData();
         data.append('name', this.brandForm.controls.name.value);
         data.append('description', this.brandForm.controls.description.value);
-        data.append('file', this.brandFile);
-        data.append('api_call', `${this.roasterService.apiCallPrefix}/brands`);
-        data.append('token', this.authService.token);
-        this.roasterService.addRoasterBrand(data).subscribe((res) => {
-            this.cancelAddBrand();
-            this.getBrands();
-        });
-    }
-
-    updateBrandProfile() {
-        const controls = this.brandForm.controls;
-        if (this.brandForm.invalid) {
-            Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
-            return;
+        if (this.brandForm.value.file) {
+            data.append('file', this.brandForm.value.file);
         }
-        const data: FormData = new FormData();
-        data.append('name', this.brandForm.controls.name.value);
-        data.append('description', this.brandForm.controls.description.value);
-        if (this.brandFile) {
-            data.append('file', this.brandFile);
-        }
-        data.append('api_call', `${this.roasterService.apiCallPrefix}/brands/${this.toEditBrand.id}`);
         data.append('token', this.authService.token);
-        data.append('method', 'PUT');
-        this.roasterService.updateRoasterBrand(data).subscribe((res) => {
-            this.cancelAddBrand();
-            this.getBrands();
-        });
+        if (this.toEditBrand?.id) {
+            data.append('api_call', `${this.roasterService.apiCallPrefix}/brands/${this.toEditBrand.id}`);
+            data.append('method', 'PUT');
+            this.roasterService.updateRoasterBrand(data).subscribe((res) => {
+                if (res.success) {
+                    this.cancelAddBrand();
+                    this.getBrands();
+                    this.toastrService.success('Brand is updated successfully');
+                }
+            });
+        } else {
+            data.append('api_call', `${this.roasterService.apiCallPrefix}/brands`);
+            this.roasterService.addRoasterBrand(data).subscribe((res) => {
+                if (res.success) {
+                    this.cancelAddBrand();
+                    this.getBrands();
+                    this.toastrService.success('Brand is added successfully');
+                }
+            });
+        }
     }
 
     deleteBrand() {
@@ -384,28 +365,6 @@ export class AboutRoasteryComponent implements OnInit {
 
         const result = control.hasError(validationType) && (control.dirty || control.touched);
         return result;
-    }
-
-    handleBrandFile(event) {
-        if (!event.target.files?.length) {
-            return;
-        }
-        this.dialogService
-            .open(CropperDialogComponent, {
-                data: {
-                    imageChangedEvent: event,
-                    resizeToWidth: 256,
-                    resizeToHeight: 256,
-                    roundCropper: true,
-                },
-            })
-            .onClose.subscribe((data: CroppedImage) => {
-                if (data.status) {
-                    this.brandImageUrl = data.croppedImgUrl;
-                    this.brandFile = data.croppedImgFile;
-                }
-                event.target.value = null;
-            });
     }
 
     openChat(contactData): void {

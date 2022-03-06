@@ -417,18 +417,9 @@
 
 <ng-template #brandButtonGroup>
     <div class="d-flex float-right float-md-none">
-        <span *ngIf="!isEditBrandMode" class="brown-cta mr-3" (click)="addNewBrand()">
-            {{ 'save' | translate }}
-        </span>
-        <span *ngIf="isEditBrandMode" class="brown-cta mr-3" (click)="updateBrandProfile()">
-            {{ 'save' | translate }}
-        </span>
-        <span *ngIf="isEditBrandMode" class="brown-cta mr-3" (click)="deleteBrand()">
-            {{ 'delete' | translate }}
-        </span>
-        <span class="brown-cta" (click)="cancelAddBrand()">
-            {{ 'cancel' | translate }}
-        </span>
+        <span class="brown-cta mr-3" (click)="saveBrand()">{{ 'save' | translate }}</span>
+        <span *ngIf="toEditBrand?.id" class="brown-cta mr-3" (click)="deleteBrand()">{{ 'delete' | translate }}</span>
+        <span class="brown-cta" (click)="cancelAddBrand()">{{ 'cancel' | translate }}</span>
     </div>
 </ng-template>
 
@@ -502,7 +493,7 @@
                         <div class="fnt-24 fnt-md-32 fw-b">
                             {{ profileCreationService.organizationProfile?.avg_employee_age }}
                         </div>
-                        <div class="fnt-md-18 fw-m text-clr5 mt-2">{{ 'average_age' | translate }}</div>
+                        <div class="fnt-md-18 fw-m text-clr588 mt-2">{{ 'average_age' | translate }}</div>
                     </div>
                 </div>
 
@@ -525,60 +516,27 @@
 <!-- brand form template -->
 <ng-template #brandFormTemplate>
     <form [formGroup]="brandForm">
-        <div class="row gutter-16 gutter-md-32">
-            <div [ngClass]="[!brandImageUrl ? 'col-md-6' : 'col-12']">
-                <div class="d-md-none">
-                    <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
-                </div>
-                <div class="row gutter-16 gutter-md-32">
-                    <div class="sewn-form-field add-brand-data col-auto" *ngIf="brandImageUrl">
-                        <label>{{ 'brand_logo' | translate }}<span class="star">*</span> </label>
-                        <div class="profile-avatar">
-                            <img [src]="brandImageUrl" class="avatar-img" />
-                            <a class="change-avatar-btn" *ngIf="isSaveMode" (click)="brandImageInput.click()">
-                                <img src="assets/images/camera.svg" class="camera-pic" />
-                            </a>
-                        </div>
-                        <div>
-                            <button
-                                pButton
-                                icon="pi pi-trash"
-                                iconPos="left"
-                                class="fnt-14 btn-delete-avatar"
-                                (click)="deleteBrandImage()"
-                                label="{{ 'delete' | translate }}"
-                            ></button>
-                        </div>
-                    </div>
-
-                    <div class="sewn-form-field col-auto flex-1">
-                        <label> {{ 'brand_name' | translate }}<span class="star">*</span> </label>
-                        <input
-                            type="text"
-                            pInputText
-                            formControlName="name"
-                            placeholder="Please enter brand name"
-                            class="brand-name-input"
-                        />
-                        <small *ngIf="isBrandControlHasError('name', 'required')" class="p-error">
-                            {{ 'required' | translate }}
-                        </small>
-                    </div>
-                    <div *ngIf="brandImageUrl" class="d-none d-md-block col-auto">
-                        <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
-                    </div>
-                </div>
+        <div class="row gutter-16 gutter-md-24">
+            <div class="d-md-none col-12">
+                <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
             </div>
-            <div *ngIf="!brandImageUrl" class="col-md-6 sewn-form-field">
-                <label>{{ 'brand_logo' | translate }}<span class="star">*</span></label>
-                <div class="brand-button-group d-flex justify-content-between">
-                    <div class="btn-trans-icon upload-icon mt-md-2" (click)="brandImageInput.click()">
-                        {{ 'upload' | translate }}
-                    </div>
-                    <div class="d-none d-md-flex">
-                        <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
-                    </div>
-                </div>
+            <div class="sewn-form-field col-auto">
+                <label>{{ 'brand_logo' | translate }}<span class="star">*</span> </label>
+                <app-upload-avatar formControlName="file" [deletable]="true"></app-upload-avatar>
+                <small *ngIf="isBrandControlHasError('file', 'required')" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
+            </div>
+
+            <div class="sewn-form-field col-auto flex-1">
+                <label> {{ 'brand_name' | translate }}<span class="star">*</span> </label>
+                <input type="text" pInputText formControlName="name" placeholder="Please enter brand name" />
+                <small *ngIf="isBrandControlHasError('name', 'required')" class="p-error">
+                    {{ 'required' | translate }}
+                </small>
+            </div>
+            <div class="d-none d-md-block col-auto">
+                <ng-template *ngTemplateOutlet="brandButtonGroup"></ng-template>
             </div>
             <div class="sewn-form-field col-12 mb-0">
                 <label
@@ -605,5 +563,4 @@
             </div>
         </div>
     </form>
-    <input type="file" accept="image/png, image/jpeg" hidden #brandImageInput (change)="handleBrandFile($event)" />
 </ng-template>
