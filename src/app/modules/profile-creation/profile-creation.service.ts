@@ -13,7 +13,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ProfileCreationService {
     orgType: OrganizationType;
-    countryList = [];
 
     public saveMode = new BehaviorSubject(false);
     public saveMode$ = this.saveMode.asObservable();
@@ -51,7 +50,6 @@ export class ProfileCreationService {
     ) {
         this.roasterId = this.authService.getOrgId();
         this.roasterProfile();
-        this.countryList = COUNTRY_LIST;
     }
 
     public editProfileData(subData: any) {
