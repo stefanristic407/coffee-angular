@@ -1,6 +1,6 @@
 <div *ngIf="!isLoading; else loader">
     <div *ngIf="isSaveMode" class="fnt-12 fnt-md-14 fw-m text-clr588 mt-2 mt-md-4 mb-3">
-        {{ 'add_photo_files' | translate }}
+        {{ profileCreationService.orgType + '_add_photo_files' | translate }}
     </div>
 
     <div class="row gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20">

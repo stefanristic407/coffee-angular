@@ -15,6 +15,7 @@ import { ProfileCreationService } from '../profile-creation.service';
 export class AboutRoasteryComponent implements OnInit {
     readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
     readonly OrgType = OrganizationType;
+
     certificateTypes: any[];
     certificatesArray: any = [];
 
@@ -45,7 +46,6 @@ export class AboutRoasteryComponent implements OnInit {
         private roasterService: RoasterService,
         private toastrService: ToastrService,
         private userService: UserService,
-        private usrService: UserService,
         public profileCreationService: ProfileCreationService,
     ) {}
 
@@ -368,7 +368,7 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     openChat(contactData): void {
-        this.usrService.getUserDetail(contactData.user_id, OrganizationType.ROASTER).subscribe((res: any) => {
+        this.userService.getUserDetail(contactData.user_id, OrganizationType.ROASTER).subscribe((res: any) => {
             if (res.success) {
                 this.chatHandler.openChatThread({
                     user_id: contactData.user_id,

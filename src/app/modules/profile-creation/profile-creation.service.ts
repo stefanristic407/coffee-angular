@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { COUNTRY_LIST } from '@constants';
-import { ContactGroup, FileModule, ProfileImageType } from '@enums';
+import { ContactGroup, FileModule, OrganizationType, ProfileImageType } from '@enums';
 import { OrganizationProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, RoasterService, UserService } from '@services';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 
@@ -14,6 +12,7 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root',
 })
 export class ProfileCreationService {
+    orgType: OrganizationType;
     countryList = [];
 
     public saveMode = new BehaviorSubject(false);
@@ -45,12 +44,10 @@ export class ProfileCreationService {
     constructor(
         private authService: AuthService,
         private newUserService: UserService,
+        private roasterService: RoasterService,
+        private toastrService: ToastrService,
         private translator: TranslateService,
-        public cookieService: CookieService,
-        public roasterService: RoasterService,
-        public router: Router,
-        public toastrService: ToastrService,
-        public userService: UserService,
+        private userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
         this.roasterProfile();
@@ -69,7 +66,7 @@ export class ProfileCreationService {
     }
 
     roasterProfile() {
-        this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
+        this.userService.getOrgDetail().subscribe((result: any) => {
             if (result.success) {
                 this.organizationProfile = result.result;
                 this.toUpdateProfileData = result.result;
@@ -115,7 +112,7 @@ export class ProfileCreationService {
         this.cities = COUNTRY_LIST.find((con) => con.isoCode === count).cities;
     }
 
-    saveRoasterProfile() {
+    saveProfile() {
         if (this.aboutForm?.invalid || this.contactForm?.invalid) {
             this.toastrService.error(this.translator.instant('please_ensure_all_fields_filled_for_all_tabs'));
             this.aboutForm?.markAllAsTouched();
@@ -127,7 +124,7 @@ export class ProfileCreationService {
             this.userService.uploadFile(this.roasterId, this.bannerFile, FileModule.CoverImage).subscribe((res) => {
                 if (res.success) {
                     this.toUpdateProfileData.banner_file_id = res.result.id;
-                    this.updateRoasterAccount();
+                    this.updateProfile();
                 } else {
                     this.isSaving = false;
                     this.toastrService.error('Error while uploading banner image, please try again.');
@@ -139,19 +136,19 @@ export class ProfileCreationService {
                     if (res.success) {
                         this.toUpdateProfileData.banner_file_id = 0;
                         this.toUpdateProfileData.banner_url = '';
-                        this.updateRoasterAccount();
+                        this.updateProfile();
                     } else {
                         this.isSaving = false;
                         this.toastrService.error('Error while deleting banner image, please try again.');
                     }
                 });
             } else {
-                this.updateRoasterAccount();
+                this.updateProfile();
             }
         }
     }
 
-    updateRoasterAccount(): void {
+    updateProfile(): void {
         const promises = [];
         // add top contacts
         this.updatedContacts.forEach((element) => {
@@ -243,7 +240,7 @@ export class ProfileCreationService {
             });
     }
 
-    editRoasterProfile() {
+    editProfile() {
         this.toUpdateProfileData = this.organizationProfile;
         this.isSaving = false;
         this.saveMode.next(true);

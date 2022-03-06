@@ -226,18 +226,6 @@ export class UserService extends ApiService {
         return this.http.post(this.postUrl, data);
     }
 
-    // API Function Name : Roaster Account
-    // API Description: This API calls helps to get Roaster Account profile.
-
-    getRoasterAccount(id: any) {
-        const data = {
-            api_call: '/ro/' + id + '/profile',
-            token: this.authService.token,
-            method: 'GET',
-        };
-        return this.http.post(this.orgPostUrl, data);
-    }
-
     getProfileCreationData(orgId: any, orgType: OrganizationType): Observable<any> {
         return this.post(this.orgPostUrl, `${orgType}/${orgId}/profile`, 'GET');
     }

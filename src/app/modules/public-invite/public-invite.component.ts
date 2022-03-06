@@ -201,7 +201,7 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
                 this.table.reset();
             }, 0);
         });
-        this.userService.getRoasterAccount(this.roasterId).subscribe((result: any) => {
+        this.userService.getOrgDetail().subscribe((result: any) => {
             if (result.success) {
                 this.microRoasterLink = {
                     invite_url: `${this.env.ssoWeb}/setup/micro-roaster/${result.result.referral_code}`,

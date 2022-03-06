@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileCreationComponent } from './profile-creation.component';
 import { AboutRoasteryComponent } from './about-roastery/about-roastery.component';
-import { VirtualTourComponent } from './virtual-tour/virtual-tour.component';
 import { ContactComponent } from './contact/contact.component';
+import { ProfileCreationComponent } from './profile-creation.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { SetupLicenseComponent } from './setup-license/setup-license.component';
+import { VirtualTourComponent } from './virtual-tour/virtual-tour.component';
 
 const routes: Routes = [
     {
@@ -13,7 +13,7 @@ const routes: Routes = [
         component: ProfileCreationComponent,
         children: [
             {
-                path: 'about_roastery',
+                path: 'about',
                 component: AboutRoasteryComponent,
             },
             {
@@ -28,7 +28,7 @@ const routes: Routes = [
                 path: 'reviews',
                 component: ReviewsComponent,
             },
-            { path: '', redirectTo: 'about_roastery', pathMatch: 'full' },
+            { path: '', redirectTo: 'about', pathMatch: 'full' },
         ],
     },
     {
