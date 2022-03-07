@@ -133,7 +133,7 @@
                     <th style="width: 5%"></th>
                     <th
                         *ngFor="let col of columns"
-                        [style.width]="col.width ? col.width + '%' : '30%'"
+                        [style.width]="col.width ? col.width + '%' : ''"
                         [ngClass]="{ 'd-md-none': col.field == 'add_user' }"
                     >
                         <span class="primeng-table-header">{{ col.header }}</span>
@@ -148,7 +148,7 @@
                     <td
                         *ngFor="let col of columns"
                         [ngSwitch]="col.field"
-                        [style.width]="col.width ? col.width + '%' : '30%'"
+                        [style.width]="col.width ? col.width + '%' : ''"
                         [ngClass]="{
                             'd-none':
                                 col.field == 'id' ||

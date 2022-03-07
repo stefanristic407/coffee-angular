@@ -104,45 +104,36 @@ export class SelectOrdersComponent implements OnInit {
                     field: 'id',
                     header: this.globals.languageJson?.order_id,
                     sortable: true,
-                    width: 7,
                 },
                 {
                     field: 'estate_name',
                     header: this.globals.languageJson?.estate_name,
                     sortable: true,
-                    width: 14,
                 },
                 {
                     field: 'created_at',
                     header: this.globals.languageJson?.ordered_date,
                     sortable: true,
-                    width: 10,
                 },
                 {
                     field: 'origin',
                     header: this.globals.languageJson?.origin,
                     sortable: true,
-                    width: 8,
                 },
                 {
                     field: 'varieties',
                     header: this.globals.languageJson?.variety,
                     sortable: true,
-                    width: 12,
                 },
-
                 {
                     field: 'quantity',
                     header: this.globals.languageJson?.quantity,
                     sortable: true,
-                    width: 8,
                 },
-
                 {
                     field: 'cup_score',
                     header: this.globals.languageJson?.cupping_score,
                     sortable: true,
-                    width: 10,
                 },
             ];
         } else if (this.selectedType === 'users' || this.selectedType === 'sales-member') {
@@ -151,31 +142,27 @@ export class SelectOrdersComponent implements OnInit {
                     field: 'firstname',
                     header: this.globals.languageJson?.name,
                     sortable: true,
-                    width: 20,
                 },
                 {
                     field: 'last_login_at',
                     header: this.globals.languageJson?.last_login,
                     sortable: true,
-                    width: 15,
                 },
                 {
                     field: 'email',
                     header: this.globals.languageJson?.email,
                     sortable: true,
-                    width: 20,
+                    width: 30,
                 },
                 {
                     field: 'status',
                     header: this.globals.languageJson?.status,
                     sortable: true,
-                    width: 15,
                 },
                 {
                     field: 'roles',
                     header: this.globals.languageJson?.all_roles,
                     sortable: true,
-                    width: 25,
                 },
             ];
             if (window.innerWidth < 767) {
@@ -189,32 +176,28 @@ export class SelectOrdersComponent implements OnInit {
                     return item;
                 });
             }
-            console.log(this.tableColumns);
         } else {
             this.tableColumns = [
                 {
                     field: 'name',
                     header: this.globals.languageJson?.customer_name,
                     sortable: true,
-                    width: 20,
                 },
                 {
                     field: 'created_at',
                     header: this.globals.languageJson?.ordered_date,
                     sortable: true,
-                    width: 20,
                 },
                 {
                     field: 'email',
                     header: this.globals.languageJson?.email,
                     sortable: true,
-                    width: 35,
+                    width: 30,
                 },
                 {
                     field: 'status',
                     header: this.globals.languageJson?.status,
                     sortable: true,
-                    width: 20,
                 },
             ];
         }
