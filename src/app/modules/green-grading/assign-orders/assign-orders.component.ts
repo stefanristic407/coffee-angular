@@ -95,6 +95,11 @@ export class AssignOrdersComponent extends ResizeableComponent implements OnInit
                     sortable: false,
                 },
                 {
+                    field: 'order_date',
+                    header: 'Date ordered',
+                    sortable: true,
+                },
+                {
                     field: 'origin',
                     header: 'Origin',
                     sortable: false,
@@ -108,6 +113,11 @@ export class AssignOrdersComponent extends ResizeableComponent implements OnInit
                 {
                     field: 'type',
                     header: 'Type',
+                    sortable: false,
+                },
+                {
+                    field: 'assigned_to',
+                    header: 'Assigned to',
                     sortable: false,
                 },
             ];

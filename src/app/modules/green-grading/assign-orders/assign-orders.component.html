@@ -110,7 +110,7 @@
                                 <span class="d-flex" *ngSwitchCase="'order_id'">
                                     <span *ngIf="isMobileView" class="d-flex w-100">
                                         <span class="prime-table-label w-50">
-                                            {{ col.header | translate }} {{ rowData[col.field] }}
+                                            {{ col.header | translate }}# {{ rowData[col.field] }}
                                         </span>
                                         <span class="fnt-14" [ngClass]="rowData.order_type">
                                             &#9679;&nbsp;{{
