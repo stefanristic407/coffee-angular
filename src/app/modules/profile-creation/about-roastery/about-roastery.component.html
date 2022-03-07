@@ -500,8 +500,7 @@
             </div>
         </div>
 
-        <div *ngIf="isSaveMode && isEditBrandMode && !toEditBrand?.id">
-            <hr class="mt-4 mb-4 mx-md-n3 mx-lg-n4" />
+        <div *ngIf="isSaveMode && isEditBrandMode && !toEditBrand?.id" class="mt-4">
             <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
         </div>
 
