@@ -171,6 +171,7 @@
                 rows="5"
                 formControlName="description"
                 placeholder="Tell us and to our users about who you are as a company!"
+                autoResize="autoResize"
             >
             </textarea>
             <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
@@ -548,6 +549,7 @@
                     rows="5"
                     formControlName="description"
                     placeholder="Tell us a bit about your brand"
+                    autoResize="autoResize"
                 >
                 </textarea>
                 <small *ngIf="isBrandControlHasError('description', 'required')" class="p-error">
