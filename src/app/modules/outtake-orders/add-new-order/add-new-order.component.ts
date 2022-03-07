@@ -114,7 +114,7 @@ export class AddNewOrderComponent implements OnInit {
             gc_total_quantity: ['', [Validators.required, this.remainingQuantity.bind(this)]],
             gc_total_quantity_unit: ['kg'],
             total_price: ['', [Validators.required]],
-            total_price_currency: ['SEK'],
+            total_price_currency: ['DKK'],
             unit_price: ['', [Validators.required]],
             unit_currency: [''],
             quantity_unit: [''],
