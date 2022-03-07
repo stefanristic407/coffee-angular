@@ -312,8 +312,8 @@ export class AboutRoasteryComponent implements OnInit {
         const data: FormData = new FormData();
         data.append('name', this.brandForm.controls.name.value);
         data.append('description', this.brandForm.controls.description.value);
-        if (this.brandForm.value.file) {
-            data.append('file', this.brandForm.value.file);
+        if (this.brandForm.value.file.file) {
+            data.append('file', this.brandForm.value.file.file);
         }
         data.append('token', this.authService.token);
         if (this.toEditBrand?.id) {
