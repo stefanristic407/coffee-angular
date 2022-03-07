@@ -21,6 +21,7 @@ export class CustomerDetailsComponent extends ResizeableComponent implements OnI
     orgIndex: number;
     employeeList: any[] = [];
     loading = true;
+    isLoading = true;
     partnersList: any[] = [];
 
     constructor(
@@ -85,6 +86,7 @@ export class CustomerDetailsComponent extends ResizeableComponent implements OnI
             } else {
                 this.partnersList = [];
             }
+            this.isLoading = false;
         });
     }
 }

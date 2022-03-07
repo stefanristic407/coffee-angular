@@ -63,7 +63,12 @@
         <app-contacts-list [data]="topContacts" [organizationType]="orgType"></app-contacts-list>
     </div>
     <div class="pt-lg-4" *ngIf="type === 'hrc'">
-        <app-customer-management-table [sortedMainData]="partnersList" customerType="hrc" [isPartners]="true">
+        <app-customer-management-table
+            [sortedMainData]="partnersList"
+            customerType="hrc"
+            [isLoading]="isLoading"
+            [isPartners]="true"
+        >
         </app-customer-management-table>
     </div>
 </div>
