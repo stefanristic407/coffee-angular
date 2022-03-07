@@ -35,7 +35,7 @@
                                     {{ infoForm.get('banner_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="banner_title" appWordLimit [limit]="10" pInputText />
+                            <input type="text" formControlName="banner_title" appWordLimit="10" pInputText />
                             <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -62,7 +62,7 @@
                                     {{ infoForm.get('intro_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="intro_title" appWordLimit [limit]="15" pInputText />
+                            <input type="text" formControlName="intro_title" appWordLimit="15" pInputText />
                             <small *ngIf="infoForm.controls.intro_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -82,8 +82,7 @@
                                 formControlName="intro_short_description"
                                 rows="5"
                                 cols="50"
-                                appWordLimit
-                                [limit]="50"
+                                appWordLimit="50"
                                 pInputTextarea
                             ></textarea>
                             <small *ngIf="infoForm.controls.intro_short_description.errors?.required" class="p-error">
@@ -128,7 +127,7 @@
                                     {{ infoForm.get('title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="title" appWordLimit [limit]="10" pInputText />
+                            <input type="text" formControlName="title" appWordLimit="10" pInputText />
                             <small *ngIf="infoForm.controls.title.errors?.required" class="p-error"> Required </small>
                             <small *ngIf="infoForm.controls.title.errors?.maxWordCount" class="p-error">
                                 Please input 10 words
@@ -146,8 +145,7 @@
                                 formControlName="short_description"
                                 rows="5"
                                 cols="100"
-                                appWordLimit
-                                [limit]="100"
+                                appWordLimit="100"
                                 pInputTextarea
                             ></textarea>
                             <small *ngIf="infoForm.controls.short_description.errors?.required" class="p-error">
@@ -189,7 +187,7 @@
                                     {{ infoForm.get('team_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="team_title" appWordLimit [limit]="10" pInputText />
+                            <input type="text" formControlName="team_title" appWordLimit="10" pInputText />
                             <small *ngIf="infoForm.controls.team_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -209,8 +207,7 @@
                                 formControlName="team_description"
                                 rows="5"
                                 cols="100"
-                                appWordLimit
-                                [limit]="30"
+                                appWordLimit="30"
                                 pInputTextarea
                             ></textarea>
                             <small *ngIf="infoForm.controls.team_description.errors?.required" class="p-error">

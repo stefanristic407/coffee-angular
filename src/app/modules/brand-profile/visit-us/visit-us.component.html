@@ -35,7 +35,7 @@
                                     {{ infoForm.get('banner_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="banner_title" appWordLimit [limit]="15" pInputText />
+                            <input type="text" formControlName="banner_title" appWordLimit="15" pInputText />
                             <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
                                 {{ 'required' | translate }}
                             </small>
@@ -280,7 +280,7 @@
                     {{ questionForm.get('question').value | wordCount }}/15 words
                 </span>
             </label>
-            <input type="text" formControlName="question" appWordLimit [limit]="15" pInputText />
+            <input type="text" formControlName="question" appWordLimit="15" pInputText />
             <small *ngIf="questionForm.controls.question.errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
@@ -296,7 +296,7 @@
                     {{ questionForm.get('answer').value | wordCount }}/100 words
                 </span>
             </label>
-            <textarea formControlName="answer" rows="5" cols="50" appWordLimit [limit]="100" pInputTextarea></textarea>
+            <textarea formControlName="answer" rows="5" cols="50" appWordLimit="100" pInputTextarea></textarea>
             <small *ngIf="questionForm.controls.answer.errors?.required" class="p-error">
                 {{ 'required' | translate }}
             </small>
