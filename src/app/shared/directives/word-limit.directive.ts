@@ -4,14 +4,48 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
     selector: '[appWordLimit]',
 })
 export class WordLimitDirective {
-    @Input() limit: number; // number | decimal
+    @Input() appWordLimit: number;
 
     private specialKeys = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight'];
 
     constructor(private el: ElementRef) {}
 
+    // @HostListener('paste', ['$event']) // This is needed to prevent overflowing paste
     @HostListener('keydown', ['$event'])
-    onKeyDown(event: KeyboardEvent) {
+    onKeyDown(event) {
+        const availableTagList = ['INPUT', 'TEXTARE'];
+        let current = '';
+        if (availableTagList.indexOf(this.el.nativeElement.tagName) !== -1) {
+            current = this.el.nativeElement.value;
+        } else {
+            const inputElement = this.el.nativeElement.querySelector('input');
+            if (inputElement) {
+                current = inputElement.value;
+            }
+        }
+        let next: string;
+        if (event.type === 'paste') {
+            const { clipboardData } = event;
+            const text = clipboardData.getData('text/plain') || clipboardData.getData('text');
+            next = current.concat(text);
+        } else {
+            if (this.checkSpecialKeys(event)) {
+                return;
+            }
+            next = current.concat(event.key);
+        }
+        const stringData = next
+            .replace(/(^\s*)|(\s*$)/gi, '')
+            .replace(/[ ]{2,}/gi, ' ')
+            .replace(/\n /, '\n');
+        const length = stringData ? stringData.split(' ').length : 0;
+
+        if (length > this.appWordLimit) {
+            event.preventDefault();
+        }
+    }
+
+    checkSpecialKeys(event: KeyboardEvent) {
         if (
             // Allow: Delete, Backspace, Tab, Escape, Enter, etc
             this.specialKeys.indexOf(event.key) !== -1 ||
@@ -24,20 +58,9 @@ export class WordLimitDirective {
             (event.key === 'v' && event.metaKey === true) || // Cmd+V (Mac)
             (event.key === 'x' && event.metaKey === true) // Cmd+X (Mac)
         ) {
-            return; // let it happen, don't do anything
-        }
-        // Do not use event.keycode this is deprecated.
-        // See: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-        const current: string = this.el.nativeElement.value;
-        const next: string = current.concat(event.key);
-        const stringData = next
-            .replace(/(^\s*)|(\s*$)/gi, '')
-            .replace(/[ ]{2,}/gi, ' ')
-            .replace(/\n /, '\n');
-        const length = stringData ? stringData.split(' ').length : 0;
-
-        if (length > this.limit) {
-            event.preventDefault();
+            return true;
+        } else {
+            return false;
         }
     }
 }

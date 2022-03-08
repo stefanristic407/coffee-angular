@@ -35,7 +35,7 @@
                                     {{ infoForm.get('banner_title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="banner_title" appWordLimit [limit]="10" pInputText />
+                            <input type="text" formControlName="banner_title" appWordLimit="10" pInputText />
                             <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -56,7 +56,7 @@
                                     {{ infoForm.get('intro_title').value | wordCount }}/15 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="intro_title" appWordLimit [limit]="15" pInputText />
+                            <input type="text" formControlName="intro_title" appWordLimit="15" pInputText />
                             <small *ngIf="infoForm.controls.intro_title.errors?.required" class="p-error">
                                 Required
                             </small>
@@ -75,8 +75,7 @@
                             <textarea
                                 formControlName="intro_short_description"
                                 rows="3"
-                                appWordLimit
-                                [limit]="100"
+                                appWordLimit="100"
                                 pInputTextarea
                             ></textarea>
                             <small *ngIf="infoForm.controls.intro_short_description.errors?.required" class="p-error">
@@ -121,7 +120,7 @@
                                     {{ infoForm.get('title').value | wordCount }}/10 words
                                 </span>
                             </label>
-                            <input type="text" formControlName="title" appWordLimit [limit]="10" pInputText />
+                            <input type="text" formControlName="title" appWordLimit="10" pInputText />
                             <small *ngIf="infoForm.controls.title.errors?.required" class="p-error"> Required </small>
                             <small *ngIf="infoForm.controls.title.errors?.maxWordCount" class="p-error">
                                 Please input 10 words
@@ -139,8 +138,7 @@
                                 formControlName="short_description"
                                 rows="3"
                                 cols="50"
-                                appWordLimit
-                                [limit]="100"
+                                appWordLimit="100"
                                 pInputTextarea
                             ></textarea>
                             <small *ngIf="infoForm.controls.short_description.errors?.required" class="p-error">
@@ -167,8 +165,7 @@
                                 <input
                                     type="text"
                                     formControlName="section{{ i }}_title"
-                                    appWordLimit
-                                    [limit]="15"
+                                    appWordLimit="15"
                                     pInputText
                                 />
                                 <small
@@ -196,8 +193,7 @@
                                     formControlName="section{{ i }}_description"
                                     rows="3"
                                     cols="50"
-                                    appWordLimit
-                                    [limit]="70"
+                                    appWordLimit="70"
                                     pInputTextarea
                                 ></textarea>
                                 <small
@@ -253,8 +249,7 @@
                                 formControlName="product_short_description"
                                 rows="3"
                                 cols="50"
-                                appWordLimit
-                                [limit]="40"
+                                appWordLimit="40"
                                 pInputTextarea
                             ></textarea>
                             <small *ngIf="infoForm.controls.product_short_description.errors?.required" class="p-error">

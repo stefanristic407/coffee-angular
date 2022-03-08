@@ -90,7 +90,8 @@
                     <div
                         *ngIf="
                             profileCreationService.orgType === OrgType.ROASTER ||
-                            profileCreationService.orgType === OrgType.MICRO_ROASTER
+                            profileCreationService.orgType === OrgType.MICRO_ROASTER ||
+                            profileCreationService.orgType === OrgType.FACILITATOR
                         "
                         class="col-6 border-left-main"
                     >
@@ -165,12 +166,12 @@
                 </span>
             </label>
             <textarea
-                appWordLimit
-                [limit]="150"
+                appWordLimit="150"
                 pInputTextarea
                 rows="5"
                 formControlName="description"
                 placeholder="Tell us and to our users about who you are as a company!"
+                autoResize="autoResize"
             >
             </textarea>
             <small *ngIf="isControlHasError('description', 'maxWordCount')" class="p-error">
@@ -499,8 +500,7 @@
             </div>
         </div>
 
-        <div *ngIf="isSaveMode && isEditBrandMode && !toEditBrand?.id">
-            <hr class="mt-4 mb-4 mx-md-n3 mx-lg-n4" />
+        <div *ngIf="isSaveMode && isEditBrandMode && !toEditBrand?.id" class="mt-4">
             <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
         </div>
 
@@ -543,12 +543,12 @@
                     </span>
                 </label>
                 <textarea
-                    appWordLimit
-                    [limit]="50"
+                    appWordLimit="50"
                     pInputTextarea
                     rows="5"
                     formControlName="description"
                     placeholder="Tell us a bit about your brand"
+                    autoResize="autoResize"
                 >
                 </textarea>
                 <small *ngIf="isBrandControlHasError('description', 'required')" class="p-error">
