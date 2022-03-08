@@ -331,7 +331,7 @@ export class AddNewOrderComponent implements OnInit {
             });
         } else {
             data.unit_currency = this.baseCurrency;
-            data.total_price_currency = this.outtakeOrderDetails.total_price_currency;
+            data.total_price_currency = this.baseCurrency;
             data.quantity_unit = 'kg';
             this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
                 if (res.success) {
