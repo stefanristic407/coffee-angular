@@ -1,0 +1,36 @@
+<div *ngIf="!isLoading; else loader">
+    <div class="row gutter-8 gutter-md-20 v-gutter-8 v-gutter-md-20">
+        <div class="col-lg-4 col-6" *ngFor="let mediaItem of tourMedias">
+            <div class="square">
+                <div class="content br-4 overflow-hidden">
+                    <div class="social-post-farmlink__item cursor-pointer w-100 h-100" (click)="preview(mediaItem)">
+                        <img
+                            class="social-images w-100 h-100 br-4"
+                            *ngIf="mediaItem.type === FileType.IMAGE"
+                            [src]="mediaItem.url"
+                            alt="farm"
+                        />
+                        <video *ngIf="mediaItem.type !== FileType.IMAGE" [src]="mediaItem.url"></video>
+                        <img
+                            class="video-play"
+                            *ngIf="mediaItem.type !== FileType.IMAGE"
+                            src="assets/images/play-button.png"
+                            alt="farm"
+                        />
+                        <p class="mb-0 post-info fnt-16 fw-m pt-0 pb-0 pl-3">
+                            {{ mediaItem.description }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!isLoading && !tourMedias.length" class="py-5 text-center">
+    <app-empty [title]="'no_data_available' | translate"></app-empty>
+</div>
+
+<ng-template #loader>
+    <app-loading></app-loading>
+</ng-template>

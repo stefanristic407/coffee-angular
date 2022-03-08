@@ -49,6 +49,38 @@ export interface OrganizationProfile {
     vat_number: string;
     website: string;
     zipcode: string;
+
+    // Special in estate
+    agronomist_access: string;
+    altitude_end: number;
+    altitude_start: number;
+    belongs_to: string;
+    cluster_cop_name: string;
+    coffee_area_unit: string;
+    coffee_area: number;
+    coffee_production_unit: string;
+    coffee_production: number;
+    company_number: string;
+    crop_year_end: number;
+    crop_year_start: number;
+    estate_family_member_count: number;
+    family_member_count: number;
+    full_time_employee_count: number;
+    legal_entity: string;
+    part_time_employee_count: number;
+    total_area_unit: string;
+    total_area: number;
+    total_polygon_area: number;
+    total_production_unit: string;
+    total_production: number;
+    wild_animals: string;
+
+    // Special in facilitator
+    environmental_responsibility: string;
+    social_community_responsibility: string;
+
+    // Special in horeca
+    partner_id: number;
 }
 
 export interface MicroOrganizationProfile {

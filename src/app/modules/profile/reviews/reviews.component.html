@@ -1,0 +1,14 @@
+<div *ngIf="!isLoading; else loader" class="bg-fff mobile-review">
+    <div class="row gutter-8 gutter-md-16 mt-4">
+        <div class="col-lg-4 col-md-12">
+            <app-review-summary [summary]="summary"></app-review-summary>
+        </div>
+        <div class="col-lg-8 col-md-12 mt-3 mt-lg-0 p-25 pt-md-0 pl-md-2 pr-md-2">
+            <app-reviews [reviews]="reviews" [average]="average"></app-reviews>
+        </div>
+    </div>
+</div>
+
+<ng-template #loader>
+    <app-loading></app-loading>
+</ng-template>

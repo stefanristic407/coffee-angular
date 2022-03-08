@@ -29,6 +29,6 @@ export class RoasterDetailsComponent {
     }
 
     routeToOrgProfile() {
-        this.router.navigate([`profile-creation/${this.orgType}/${this.estateId}`]);
+        this.router.navigate([`/profile/${this.orgType}/${this.estateId}`]);
     }
 }

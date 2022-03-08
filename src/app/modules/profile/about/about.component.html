@@ -1,0 +1,524 @@
+<div class="row gutter-16 v-gutter-16">
+    <div class="col-12 d-none d-md-block d-lg-none">
+        <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+    </div>
+
+    <div class="col-lg-8">
+        <section class="border-md-main br-4 p-md-3 p-lg-4">
+            <ng-container *ngTemplateOutlet="organizationDetailSection"></ng-container>
+            <ng-container
+                *ngIf="profileService.orgType === OrgType.ROASTER || profileService.orgType === OrgType.MICRO_ROASTER"
+            >
+                <ng-container *ngTemplateOutlet="capabilitySection"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="profileService.orgType === OrgType.ESTATE">
+                <ng-container *ngTemplateOutlet="estateDetailSection"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="profileService.orgType === OrgType.FACILITATOR">
+                <ng-container *ngTemplateOutlet="infoSection"></ng-container>
+            </ng-container>
+        </section>
+        <div class="d-block d-md-none mt-4 mb-3 mb-md-4">
+            <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+        </div>
+        <ng-container *ngIf="profileService.orgType === OrgType.ROASTER">
+            <ng-container *ngTemplateOutlet="brandSection"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="profileService.orgType === OrgType.ESTATE">
+            <ng-container *ngTemplateOutlet="estateCompanySection"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="profileService.orgType === OrgType.MICRO_ROASTER">
+            <ng-container *ngTemplateOutlet="branchSection"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="profileService.orgType === OrgType.FACILITATOR">
+            <ng-container *ngTemplateOutlet="servicesSection"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="profileService.orgType === OrgType.HORECA">
+            <ng-container *ngTemplateOutlet="partnersSection"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="employeesSection"></ng-container>
+    </div>
+
+    <div class="col-lg-4 d-none d-lg-block">
+        <ng-template *ngTemplateOutlet="rightSidePanel"></ng-template>
+    </div>
+</div>
+
+<ng-template #rightSidePanel>
+    <div class="row gutter-16 v-gutter-16">
+        <ng-container *ngIf="certificatesArray?.length">
+            <div class="col-md-6 col-lg-12" *appAclIf="'brand-profile-management'">
+                <div class="border-main br-4">
+                    <div class="bg-f8 br-4 p-25 fnt-18 fw-b m-1">
+                        {{ 'awards_and_certificates' | translate }}
+                    </div>
+                    <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
+                        <div class="col-12">
+                            <div
+                                class="w-100 d-flex justify-content-between"
+                                [ngClass]="{
+                                    'border-bottom-dashed-main': i !== certificatesArray.length - 1
+                                }"
+                            >
+                                <div class="d-flex mb-25">
+                                    <a [href]="certificate.public_url" target="_blank">
+                                        <img
+                                            class="cert-img"
+                                            [src]="certificate.certificate_type_url"
+                                            [alt]="certificate.certificate_type"
+                                    /></a>
+                                    <div class="ml-2">
+                                        <ul class="no-bullet-ul">
+                                            <li class="fw-m">
+                                                <a [href]="certificate.public_url" target="_blank">{{
+                                                    certificate.certificate_type_name
+                                                }}</a>
+                                            </li>
+                                            <li class="fw-m text-clr588">
+                                                {{ certificate.year }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div *ngIf="profileService.orgType !== OrgType.HORECA" class="col-md-6 col-lg-12">
+            <div class="border-main br-4">
+                <div class="bg-f8 br-4 p-25 fnt-18 fw-b m-1">{{ 'employee_details' | translate }}</div>
+
+                <div class="row gutter-32 py-45 px-4">
+                    <div class="col-6">
+                        <div class="fnt-24 fnt-md-32 fw-b">
+                            {{ profileService.organizationProfile?.total_employees }}
+                        </div>
+                        <div class="fnt-md-18 fw-m text-clr588 mt-2">{{ 'total_employees' | translate }}</div>
+                    </div>
+                    <div
+                        *ngIf="
+                            profileService.orgType === OrgType.ROASTER ||
+                            profileService.orgType === OrgType.MICRO_ROASTER ||
+                            profileService.orgType === OrgType.FACILITATOR
+                        "
+                        class="col-6 border-left-main"
+                    >
+                        <div class="fnt-24 fnt-md-32 fw-b">
+                            {{ profileService.organizationProfile?.avg_employee_age }}
+                        </div>
+                        <div class="fnt-md-18 fw-m text-clr588 mt-2">{{ 'average_age' | translate }}</div>
+                    </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        profileService.organizationProfile?.male_employee_count === null &&
+                        profileService.organizationProfile?.female_employee_count === null
+                    "
+                >
+                    <p class="fnt-18 fw-b text-center">{{ 'no_data_display' | translate }}</p>
+                </div>
+                <div class="custom-chart-container">
+                    <app-pie-area-chart [results]="profileService.employeeChartData"></app-pie-area-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #organizationDetailSection>
+    <!-- Organization details section -->
+    <div class="pb-4 pb-md-475">
+        <div class="fnt-16 fnt-md-18 fw-b">
+            {{ profileService.orgType + '_details' | translate }}
+        </div>
+    </div>
+
+    <div class="row gutter-16 v-gutter-32">
+        <div class="col-6 col-lg-4 d-flex company-detail">
+            <img src="assets/images/small-avatar.svg" />
+            <div class="ml-2 ml-md-3">
+                <div class="fnt-16 fw-m text-clr588 mb-2">{{ 'manager' | translate }}</div>
+                <div class="fw-m">
+                    {{ profileService.organizationProfile?.owner_name || 'NA' }}
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-4 d-flex company-detail">
+            <img src="assets/images/harveaster.svg" />
+            <div class="ml-2 ml-md-3">
+                <div class="fnt-16 fw-m text-clr588 mb-2">{{ 'founded_in' | translate }}</div>
+                <div class="fw-m">
+                    {{ profileService.organizationProfile?.founded_on || 'NA' }}
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="fnt-16 fw-m text-clr588 mb-2">{{ profileService.orgType + '_summary' | translate }}</div>
+            <div class="fw-m lh-157" [innerText]="profileService.organizationProfile?.description || 'NA'"></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #employeesSection>
+    <!-- Employees Section -->
+    <section class="mt-4">
+        <div class="d-block">
+            <div class="mb-4 mb-md-45">
+                <div class="fnt-16 fnt-md-18 fw-b">{{ 'contacts' | translate }}</div>
+                <div class="fw-m text-clr588 mt-2">{{ 'get_touch_description' | translate }}!</div>
+            </div>
+
+            <div
+                *ngIf="profileService.topContacts?.length; else noContacts"
+                class="row gutter-12 v-gutter-12 gutter-md-20 v-gutter-md-20"
+            >
+                <div class="col-auto" *ngFor="let contact of profileService.topContacts">
+                    <app-user-detail
+                        [userId]="contact?.user_id"
+                        [imageUrl]="contact?.profile_image_thumb_url"
+                        [orgType]="profileService.orgType"
+                        shape="rectangle"
+                        type="contact"
+                        size="150"
+                    ></app-user-detail>
+                    <div [style.width]="'150px'">
+                        <div class="fw-b mt-25 mb-1 ellipsis">{{ contact.name }}</div>
+                        <div class="text-clr588 ellipsis">{{ contact.roles[0] || '-' }}</div>
+                    </div>
+                    <div class="btn-trans-icon message-icon mt-35" (click)="openChat(contact)">
+                        {{ 'message' | translate }}
+                    </div>
+                </div>
+            </div>
+            <ng-template #noContacts>
+                <app-empty [title]="'no_data_available' | translate"></app-empty>
+            </ng-template>
+        </div>
+    </section>
+</ng-template>
+
+<ng-template #capabilitySection>
+    <!-- Capability details section -->
+    <div class="border-md-main br-4 p-2 p-md-3 mt-4">
+        <div class="row gutter-24 v-gutter-24 gutter-md-32 v-gutter-md-32 align-items-center">
+            <div class="col-auto border-right-main">
+                <div class="fw-m text-clr588 mb-25 mb-md-1">{{ 'roastery_capacity' | translate }}</div>
+                <div class="fnt-28 fnt-md-38 fw-b">
+                    {{ profileService.organizationProfile?.capacity | number }}
+                    {{ profileService.organizationProfile?.capacity_unit }}
+                </div>
+            </div>
+            <div class="col-auto flex-1 fw-m lh-157">
+                {{ profileService.organizationProfile?.capabilities }}
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #brandSection>
+    <!-- Brands -->
+    <section class="mt-4">
+        <div class="mb-4 mb-md-45">
+            <div class="fnt-16 fnt-md-18 fw-b">{{ 'brands' | translate }}</div>
+            <div class="fw-m text-clr588 mt-2">{{ 'know_about_brands' | translate }}.</div>
+        </div>
+
+        <ng-container *ngIf="brands?.length; else noBrands">
+            <div class="mb-3" *ngFor="let brand of brands; let isLast = last" [class.mb-3]="!isLast">
+                <div class="d-flex justify-content-between">
+                    <div class="border-md-main br-4 w-100 p-md-35 d-flex">
+                        <img [src]="brand.url" class="brand-image mr-3" />
+                        <div>
+                            <p class="fnt-16 fw-b mb-2">{{ brand.name }}</p>
+                            <p class="fw-m lh-157">{{ brand.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #noBrands>
+            <div class="text-center">{{ 'no_data_available' | translate }}</div>
+        </ng-template>
+    </section>
+</ng-template>
+
+<ng-template #estateDetailSection>
+    <!-- Estate details section-->
+    <hr class="mb-4 mt-4 mx-md-n3 mx-lg-n4" />
+
+    <div class="row gutter-32 v-gutter-24 align-items-center">
+        <div class="col-md-7">
+            <div class="border-main br-4">
+                <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                    <div class="col-8 text-clr588">{{ 'average_annual_prodcution_crops' | translate }}</div>
+                    <div class="col-4 fw-m">
+                        {{ profileService.organizationProfile?.total_production }}
+                        {{ profileService.organizationProfile?.total_production_unit }}
+                    </div>
+                </div>
+                <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                    <div class="col-8 text-clr588">{{ 'average_annual_production_coffee' | translate }}</div>
+                    <div class="col-4 fw-m">
+                        {{ profileService.organizationProfile?.coffee_production }}
+                        {{ profileService.organizationProfile?.coffee_production_unit }}
+                    </div>
+                </div>
+                <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                    <div class="col-8 text-clr588">{{ 'access_to_agronomist' | translate }}</div>
+                    <div class="col-4 fw-m">
+                        {{ profileService.organizationProfile?.agronomist_access | titlecase }}
+                    </div>
+                </div>
+                <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                    <div class="col-8 text-clr588">{{ 'wild_animals_in_the_region' | translate }}</div>
+                    <div class="col-4 fw-m">
+                        {{ profileService.organizationProfile?.wild_animals }}
+                    </div>
+                </div>
+                <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                    <div class="col-8 text-clr588">{{ 'family_members' | translate }}</div>
+                    <div class="col-4 fw-m">
+                        {{ profileService.organizationProfile?.family_member_count }}
+                    </div>
+                </div>
+                <div class="row gutter-16 m-0 px-2 py-3">
+                    <div class="col-8 text-clr588">{{ 'family_members_on_estate' | translate }}</div>
+                    <div class="col-4 fw-m">
+                        {{ profileService.organizationProfile?.estate_family_member_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="row gutter-24">
+                <div class="col-6 mb-5">
+                    <div class="estate-items">
+                        <img src="assets/images/total_farm_area.svg" />
+                        <div class="text-clr588 mt-25 mb-1">{{ 'total_farm_area' | translate }}</div>
+                        <div class="fw-m">
+                            {{ profileService.organizationProfile?.total_area }}
+                            {{ profileService.organizationProfile?.total_area_unit }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-5">
+                    <div class="estate-items">
+                        <img src="assets/images/total_coffee_area.svg" />
+                        <div class="text-clr588 mt-25 mb-1">{{ 'total_coffee_area' | translate }}</div>
+                        <div class="fw-m">
+                            {{ profileService.organizationProfile?.coffee_area }}
+                            {{ profileService.organizationProfile?.coffee_area_unit }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="estate-items">
+                        <img src="assets/images/altitude_range.svg" />
+                        <div class="text-clr588 mt-25 mb-1">{{ 'altitude_range' | translate }}</div>
+                        <div class="fw-m">
+                            {{ profileService.organizationProfile?.altitude_start }} -
+                            {{ profileService.organizationProfile?.altitude_end }}
+                            m
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="estate-items">
+                        <img src="assets/images/harvested_year.svg" />
+                        <div class="text-clr588 mt-25 mb-1">{{ 'harvested_year' | translate }}</div>
+                        <div class="fw-m">
+                            {{ profileService.organizationProfile?.crop_year_start | month: 'MMMM' }}
+                            -
+                            {{ profileService.organizationProfile?.crop_year_end | month: 'MMMM' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #estateCompanySection>
+    <!-- Estate company details section-->
+    <section class="mt-4">
+        <div class="mb-3">
+            <div class="fnt-16 fnt-md-18 fw-b">{{ 'company_details' | translate }}</div>
+        </div>
+
+        <div class="border-main br-4">
+            <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                <div class="col-8 text-clr588">{{ 'company_name' | translate }}</div>
+                <div class="col-4 fw-m">{{ profileService.organizationProfile?.company_name }}</div>
+            </div>
+            <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                <div class="col-8 text-clr588">
+                    {{ 'indentification' | translate }}/ {{ 'company_number' | translate }}
+                </div>
+                <div class="col-4 fw-m">{{ profileService.organizationProfile?.company_number }}</div>
+            </div>
+            <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                <div class="col-8 text-clr588">{{ 'legal_entity' | translate }}</div>
+                <div class="col-4 fw-m">{{ profileService.organizationProfile?.legal_entity }}</div>
+            </div>
+            <div class="row gutter-16 m-0 px-2 py-3 border-bottom">
+                <div class="col-8 text-clr588">{{ 'belongs_to' | translate }}</div>
+                <div class="col-4 fw-m">{{ profileService.organizationProfile?.belongs_to }}</div>
+            </div>
+            <div class="row gutter-16 m-0 px-2 py-3">
+                <div class="col-8 text-clr588">{{ 'name_of_cluster' | translate }}</div>
+                <div class="col-4 fw-m">{{ profileService.organizationProfile?.cluster_cop_name }}</div>
+            </div>
+        </div>
+    </section>
+</ng-template>
+
+<ng-template #branchSection>
+    <!-- Branches -->
+    <section *ngIf="branches?.length" class="mt-4">
+        <div class="mb-4 mb-md-45">
+            <div class="fnt-16 fnt-md-18 fw-b">{{ 'micro_roastery_branches' | translate }}</div>
+            <div class="fw-m text-clr588 mt-2">{{ 'know_about_our_outlets' | translate }}.</div>
+        </div>
+
+        <div class="row gutter-24 v-gutter-24">
+            <ng-container *ngFor="let branch of branches; let i = index">
+                <div class="col-md-6">
+                    <div class="border-main br-4 p-3 p-md-4 position-relative h-100">
+                        <div class="fnt-16 fw-b mb-1">{{ branch.name }}</div>
+                        <div class="fnt-12 fnt-md-14 fw-m mb-25">
+                            {{ branch.address_line1 }} {{ branch.address_line2 }}, {{ branch.city }},
+                            {{ branch.state }}, {{ branch.zipcode }}
+                        </div>
+                        <div class="fnt-12 fnt-md-14 lh-157 text-clr588">
+                            {{ branch.description }}
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div *ngIf="!branches?.length" class="text-center p-2">
+                <span>{{ 'no_data_available' | translate }}</span>
+            </div>
+        </div>
+    </section>
+</ng-template>
+
+<ng-template #infoSection>
+    <!-- Information -->
+    <hr class="mb-4 mt-4 mx-md-n3 mx-lg-n4" />
+
+    <div>
+        <div class="fnt-16 fw-m text-clr588 mb-2">{{ 'info_social_responsiblity' | translate }}</div>
+        <div
+            class="fw-m lh-157"
+            [innerText]="profileService.organizationProfile?.social_community_responsibility || 'NA'"
+        ></div>
+    </div>
+    <hr class="mb-4 mt-4 mx-md-n3 mx-lg-n4" />
+    <div>
+        <div class="fnt-16 fw-m text-clr588 mb-2">{{ 'info_environmental_responsiblity' | translate }}</div>
+        <div
+            class="fw-m lh-157"
+            [innerText]="profileService.organizationProfile?.environmental_responsibility || 'NA'"
+        ></div>
+    </div>
+</ng-template>
+
+<ng-template #servicesSection>
+    <!-- Services -->
+    <section class="mt-4">
+        <div class="mb-4 mb-md-45">
+            <div class="fnt-16 fnt-md-18 fw-b">{{ 'services_offered' | translate }}</div>
+            <div class="fw-m text-clr588 mt-2">{{ 'our_company_services' | translate }}.</div>
+        </div>
+
+        <div>
+            <div class="sewn-form-field mb-0 w-100">
+                <ng-container *ngIf="serviceOptions?.length; else noServices">
+                    <div appArrowScroll class="border-main br-4 d-none d-md-block">
+                        <p-selectButton
+                            [options]="serviceOptions"
+                            optionLabel="name"
+                            optionValue="code"
+                            [(ngModel)]="selectedService"
+                            [ngModelOptions]="{ standalone: true }"
+                            (onChange)="onChangeService()"
+                            styleClass="p-selectbutton-service"
+                        >
+                            <ng-template let-item> {{ item.name | translate }} </ng-template>
+                        </p-selectButton>
+                    </div>
+                    <p-dropdown
+                        [options]="serviceOptions"
+                        optionLabel="name"
+                        optionValue="code"
+                        [(ngModel)]="selectedService"
+                        (onChange)="onChangeService()"
+                        class="d-md-none"
+                        [ngModelOptions]="{ standalone: true }"
+                    >
+                        <ng-template let-item pTemplate="selectedItem">{{ item.name | translate }}</ng-template>
+                        <ng-template let-item pTemplate="item"> {{ item.name | translate }} </ng-template>
+                    </p-dropdown>
+                </ng-container>
+                <ng-template #noServices>
+                    <div class="text-center">{{ 'no_data_available' | translate }}</div>
+                </ng-template>
+            </div>
+            <div *ngIf="selectedService" class="mt-3">
+                <div>
+                    <div *ngIf="selectedService !== ServiceType.MILLING">
+                        <div class="fw-m">{{ serviceDescription || 'NA' }}</div>
+                    </div>
+                    <div *ngIf="selectedService === ServiceType.MILLING">
+                        <div class="fw-b">{{ 'wet_milling' | translate }}</div>
+                        <hr class="mt-2 mb-2" />
+                        <div *ngFor="let millingItem of millingContent?.wet_milling">
+                            <div class="fw-m mb-2">{{ millingItem.name }}</div>
+                            <div class="fw-m">{{ millingItem.description }}</div>
+                            <hr class="mt-2 mb-2" />
+                        </div>
+                        <div class="fw-b">{{ 'dry_milling' | translate }}</div>
+                        <hr class="mt-2 mb-2" />
+                        <div *ngFor="let millingItem of millingContent?.dry_milling; let i = index">
+                            <div class="fw-m mb-2">{{ millingItem.name }}</div>
+                            <div class="fw-m">{{ millingItem.description }}</div>
+                            <hr class="mt-2 mb-2" *ngIf="i !== millingContent?.dry_milling.length - 1" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-template>
+
+<ng-template #partnersSection>
+    <!-- Partners -->
+    <section class="mt-4">
+        <div class="mb-4 mb-md-45">
+            <div class="fnt-16 fnt-md-18 fw-b">{{ 'your_partners' | translate }}</div>
+            <div class="fw-m text-clr588 mt-2">{{ 'know_about_brands' | translate }}.</div>
+        </div>
+
+        <div *ngIf="partners?.length; else noPartners" class="row gutter-24 v-gutter-16">
+            <div class="col-md-6" *ngFor="let partner of partners">
+                <div class="border-main br-4 d-flex p-25 p-md-35">
+                    <div class="mr-4">
+                        <img [src]="partnerImageUrl" class="partner-image" />
+                    </div>
+                    <div>
+                        <div class="fw-b mb-2">{{ partner.name }}</div>
+                        <div class="mb-25">{{ partner.type }}</div>
+                        <a class="brown-cta" routerLink="/invite-friends">{{ 'view_profile' | translate }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #noPartners>
+            <div class="text-center">{{ 'no_data_available' | translate }}</div>
+        </ng-template>
+    </section>
+</ng-template>

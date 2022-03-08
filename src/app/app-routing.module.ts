@@ -118,7 +118,7 @@ export const routes: Routes = [
             },
             {
                 path: 'profile',
-                loadChildren: () => import('./modules/profiles/profiles.module').then((m) => m.ProfilesModule),
+                loadChildren: () => import('./modules/profile/profile.module').then((m) => m.ProfileModule),
             },
             {
                 path: 'coffee-experience',
@@ -130,10 +130,6 @@ export const routes: Routes = [
             {
                 path: 'coffee-lab',
                 loadChildren: () => import('./modules/coffee-lab/coffee-lab.module').then((m) => m.CoffeeLabModule),
-            },
-            {
-                path: 'profile-creation',
-                loadChildren: () => import('./modules/profiles/profiles.module').then((m) => m.ProfilesModule),
             },
             {
                 path: 'e-commerce',

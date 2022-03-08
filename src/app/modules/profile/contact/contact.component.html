@@ -1,0 +1,119 @@
+<div class="border-main p-md-475 br-4 mt-4">
+    <div class="col-lg-7 px-0">
+        <div class="bg-f8 fnt-16 fw-b p-25 m-1 d-md-none">{{ 'contact_info' | translate }}</div>
+
+        <div class="p-3 p-md-0">
+            <ul class="list-section no-bullet-ul row no-gutters gutter-md-32 v-gutter-32">
+                <li class="col-md-auto d-flex d-md-block">
+                    <div class="d-flex align-items-center mb-md-2">
+                        <i class="pi pi-globe fnt-18 mr-1"></i>{{ 'website' | translate }}
+                    </div>
+                    <div class="text-break">
+                        <a
+                            *ngIf="profileService.organizationProfile?.website"
+                            [href]="profileService.organizationProfile?.website"
+                            target="_blank"
+                            class="text-underline"
+                            >{{ profileService.organizationProfile?.website }}</a
+                        >
+                        <span *ngIf="!profileService.organizationProfile?.website">NA</span>
+                    </div>
+                </li>
+                <li class="col-md-auto d-flex d-md-block">
+                    <div class="d-flex align-items-center mb-md-2">
+                        <i class="pi pi-send fnt-18 mr-1"></i
+                        ><span class="d-none d-md-block">{{ 'email_address' | translate }}</span
+                        ><span class="d-md-none">{{ 'email' | translate }}</span>
+                    </div>
+                    <div class="text-break">{{ profileService.organizationProfile?.email }}</div>
+                </li>
+                <li class="col-md-auto d-flex d-md-block">
+                    <div class="d-flex align-items-center mb-md-2">
+                        <i class="pi pi-phone fnt-18 mr-1"></i
+                        ><span class="d-none d-md-block">{{ 'phone_number' | translate }}</span
+                        ><span class="d-md-none">{{ 'phone' | translate }}</span>
+                    </div>
+                    <div>{{ profileService.organizationProfile?.phone }}</div>
+                </li>
+                <li class="col-12 d-flex">
+                    <div>{{ 'country' | translate }}</div>
+                    <div>{{ profileService.organizationProfile?.country | country }}</div>
+                </li>
+                <li class="col-12 d-flex">
+                    <div>{{ 'address' | translate }}</div>
+                    <div>
+                        <div>{{ profileService.organizationProfile?.address_line1 }}</div>
+                        <div>{{ profileService.organizationProfile?.address_line2 }}</div>
+                        <div>
+                            {{ profileService.organizationProfile?.city }},
+                            {{ profileService.organizationProfile?.zipcode }}
+                        </div>
+                        <div>
+                            {{ profileService.organizationProfile?.state }},
+                            {{ profileService.organizationProfile?.country | country }}
+                        </div>
+                        <div
+                            *ngIf="
+                                profileService.orgType === OrgType.ROASTER || profileService.orgType === OrgType.ESTATE
+                            "
+                            class="d-none d-md-block mt-4"
+                        >
+                            <ng-container *ngTemplateOutlet="mapTpl"></ng-container>
+                        </div>
+                    </div>
+                </li>
+                <li
+                    *ngIf="profileService.orgType === OrgType.ROASTER || profileService.orgType === OrgType.ESTATE"
+                    class="col-12 d-md-none"
+                >
+                    <ng-container *ngTemplateOutlet="mapTpl"></ng-container>
+                </li>
+                <li class="col-12 d-flex align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="pi pi-instagram fnt-18 mr-1"></i>{{ 'instagram' | translate }}
+                    </div>
+                    <div>
+                        <a
+                            *ngIf="profileService.organizationProfile?.ig_profile"
+                            [href]="profileService.organizationProfile?.ig_profile"
+                            target="_blank"
+                            class="text-underline"
+                        >
+                            {{ 'visit_profile' | translate }}</a
+                        >
+                        <span *ngIf="!profileService.organizationProfile?.ig_profile">NA</span>
+                    </div>
+                </li>
+                <li class="col-12 d-flex align-items-center">
+                    <div class="d-flex align-items-center">
+                        <i class="pi pi-facebook fnt-18 mr-1"></i>{{ 'facebook' | translate }}
+                    </div>
+                    <div>
+                        <a
+                            *ngIf="profileService.organizationProfile?.fb_profile"
+                            [href]="profileService.organizationProfile?.fb_profile"
+                            target="_blank"
+                            class="text-underline"
+                        >
+                            {{ 'visit_profile' | translate }}</a
+                        >
+                        <span *ngIf="!profileService.organizationProfile?.fb_profile">NA</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<ng-template #mapTpl>
+    <agm-map
+        [latitude]="profileService.organizationProfile?.latitude"
+        [longitude]="profileService.organizationProfile?.longitude"
+        [zoom]="zoom"
+    >
+        <agm-marker
+            [latitude]="profileService.organizationProfile?.latitude"
+            [longitude]="profileService.organizationProfile?.longitude"
+        ></agm-marker>
+    </agm-map>
+</ng-template>

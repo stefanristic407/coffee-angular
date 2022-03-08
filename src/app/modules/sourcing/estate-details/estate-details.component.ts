@@ -82,6 +82,6 @@ export class EstateDetailsComponent extends ResizeableComponent implements OnIni
     }
 
     routeToEstateProfile() {
-        this.router.navigate(['/profile-creation/es/' + this.sourcing.estateId]);
+        this.router.navigate(['/profile/es/' + this.sourcing.estateId]);
     }
 }

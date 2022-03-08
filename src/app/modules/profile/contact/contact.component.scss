@@ -1,0 +1,24 @@
+@import 'variables';
+
+ul.list-section {
+    li {
+        &:not(:last-child) {
+            @media screen and (max-width: 767px) {
+                border-bottom: 1px dashed $primary-border-color;
+            }
+        }
+        & > div:first-child {
+            color: $muted-text-color;
+            min-width: 112px;
+        }
+        & > div:last-child {
+            flex: 1;
+            font-weight: $fw-m;
+        }
+    }
+}
+
+agm-map {
+    height: 200px;
+    width: 100%;
+}

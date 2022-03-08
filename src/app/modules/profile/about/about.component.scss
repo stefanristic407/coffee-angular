@@ -1,0 +1,52 @@
+@import 'variables';
+
+.company-detail {
+    img {
+        height: 28px;
+        @media (max-width: 767px) {
+            height: 24px;
+        }
+    }
+}
+
+hr {
+    border-top: 2px dashed $primary-border-color !important;
+}
+
+.cert-img {
+    width: 35px;
+    height: 35px;
+}
+
+.brand-image {
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+}
+
+.custom-chart-container {
+    height: 293px;
+    width: 293px;
+    margin: auto;
+    margin-top: -55px;
+    margin-bottom: 20px;
+}
+
+:host ::ng-deep .p-selectbutton.p-selectbutton-service {
+    border: none;
+    padding: 3px;
+    .p-button {
+        padding: 10px 12px;
+        font-weight: $fw-m;
+        color: $general-text-color;
+        white-space: nowrap;
+        overflow: visible;
+
+        &.p-highlight,
+        &.p-highlight:not(.p-state-disabled):not(.p-state-active):hover {
+            color: $primary-color;
+            background: #e5f0eb;
+            border-radius: 4px;
+        }
+    }
+}

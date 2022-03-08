@@ -1,0 +1,65 @@
+<div class="main-block">
+    <div class="d-none d-md-flex justify-content-between w-100">
+        <p-breadcrumb [model]="breadItems" class="breadcrumb-mb"> </p-breadcrumb>
+    </div>
+
+    <ng-container *ngIf="!profileService.isLoading; else loader">
+        <div>
+            <div
+                class="profile-header-details br-md-4 position-relative mx-n3 mx-md-0"
+                [ngClass]="{
+                    'border-top-main border-bottom-main border-md-main': !profileService.organizationProfile?.banner_url
+                }"
+            >
+                <img
+                    *ngIf="profileService.organizationProfile?.banner_url"
+                    [src]="profileService.organizationProfile?.banner_url"
+                    alt="profile banner image"
+                    class="cover-image-profile-banner"
+                />
+            </div>
+
+            <div class="profile-description-container">
+                <div
+                    class="profile-avatar bg-fff"
+                    [ngClass]="{ 'border-main': !profileService.organizationProfile?.company_image_url }"
+                >
+                    <img
+                        *ngIf="profileService.organizationProfile?.company_image_url"
+                        [src]="profileService.organizationProfile.company_image_url"
+                        class="avatar-img"
+                    />
+                </div>
+
+                <div class="profile-metadata-container d-md-flex justify-content-between pl-3 pr-3 pb-3 p-md-0">
+                    <div>
+                        <div class="fnt-18 fw-b pt-4">
+                            {{ profileService.organizationProfile?.name }}
+                        </div>
+                        <div class="fw-m text-break mt-2">
+                            {{ profileService.organizationProfile?.country | country }}
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="btn-trans-icon message-icon" (click)="openChat()">
+                            {{ 'message_the_' + profileService.orgType | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p-tabMenu [model]="menuItems">
+            <ng-template pTemplate="item" let-item let-i="index">
+                {{ item.label | translate }}
+            </ng-template>
+        </p-tabMenu>
+
+        <div class="mt-4">
+            <router-outlet></router-outlet></div
+    ></ng-container>
+</div>
+
+<ng-template #loader>
+    <app-loading></app-loading>
+</ng-template>
