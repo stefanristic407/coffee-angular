@@ -114,7 +114,7 @@ export class AddNewOrderComponent implements OnInit {
             gc_total_quantity: ['', [Validators.required, this.remainingQuantity.bind(this)]],
             gc_total_quantity_unit: ['kg'],
             total_price: ['', [Validators.required]],
-            total_price_currency: ['DKK'],
+            total_price_currency: [''],
             unit_price: ['', [Validators.required]],
             unit_currency: [''],
             quantity_unit: [''],
@@ -331,6 +331,7 @@ export class AddNewOrderComponent implements OnInit {
             });
         } else {
             data.unit_currency = this.baseCurrency;
+            data.total_price_currency = this.outtakeOrderDetails.total_price_currency;
             data.quantity_unit = 'kg';
             this.roasterService.addOrderDetails(this.roasterId, data).subscribe((res) => {
                 if (res.success) {
