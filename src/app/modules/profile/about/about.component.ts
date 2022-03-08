@@ -22,8 +22,7 @@ export class AboutComponent implements OnInit {
     readonly QUANTIRY_UNIT_LIST = QUANTIRY_UNIT_LIST;
     readonly ServiceType = ServiceType;
 
-    certificatesArray: any = [];
-
+    certificates: any = [];
     brands = [];
     branches: any[] = [];
     partners: any[] = [];
@@ -67,7 +66,7 @@ export class AboutComponent implements OnInit {
             .getGeneralCertificates(this.profileService.orgId, this.profileService.orgType)
             .subscribe((result: any) => {
                 if (result.success) {
-                    this.certificatesArray = result.result || [];
+                    this.certificates = result.result || [];
                 } else {
                     this.toastrService.error('Error while loading certificates');
                 }

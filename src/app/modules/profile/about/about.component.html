@@ -46,19 +46,17 @@
 
 <ng-template #rightSidePanel>
     <div class="row gutter-16 v-gutter-16">
-        <ng-container *ngIf="certificatesArray?.length">
+        <ng-container *ngIf="certificates?.length">
             <div class="col-md-6 col-lg-12" *appAclIf="'brand-profile-management'">
                 <div class="border-main br-4">
                     <div class="bg-f8 br-4 p-25 fnt-18 fw-b m-1">
                         {{ 'awards_and_certificates' | translate }}
                     </div>
-                    <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
+                    <div class="row mt-3 m-0" *ngFor="let certificate of certificates; let isLast = last">
                         <div class="col-12">
                             <div
                                 class="w-100 d-flex justify-content-between"
-                                [ngClass]="{
-                                    'border-bottom-dashed-main': i !== certificatesArray.length - 1
-                                }"
+                                [ngClass]="{ 'border-bottom-dashed-main': !isLast }"
                             >
                                 <div class="d-flex mb-25">
                                     <a [href]="certificate.public_url" target="_blank">

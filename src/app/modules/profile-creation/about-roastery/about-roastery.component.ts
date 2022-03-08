@@ -18,11 +18,10 @@ export class AboutRoasteryComponent implements OnInit {
     readonly OrgType = OrganizationType;
 
     certificateTypes: any[];
-    certificatesArray: any = [];
+    certificates: any = [];
 
     assignRow = false;
     brands = [];
-    chartData: any;
 
     allUsers: any[] = [];
     aboutForm: FormGroup;
@@ -67,22 +66,16 @@ export class AboutRoasteryComponent implements OnInit {
             if (res) {
                 this.setFormValue();
             } else {
-                this.chartData = [
+                this.profileCreationService.employeeChartData = [
                     {
                         name: 'Female',
-                        value: this.profileCreationService.organizationProfile
-                            ? this.profileCreationService.organizationProfile.female_employee_count
-                            : 0,
+                        value: this.profileCreationService.organizationProfile?.female_employee_count || 0,
                     },
                     {
                         name: 'Male',
-                        value: this.profileCreationService.organizationProfile
-                            ? this.profileCreationService.organizationProfile.male_employee_count
-                            : 0,
+                        value: this.profileCreationService.organizationProfile?.male_employee_count || 0,
                     },
                 ];
-
-                this.profileCreationService.single = this.chartData;
             }
         });
     }
@@ -117,19 +110,10 @@ export class AboutRoasteryComponent implements OnInit {
 
         this.aboutForm.valueChanges.subscribe((changedData: any) => {
             if (changedData.total_employees === changedData.female_employee_count + changedData.male_employee_count) {
-                if (this.chartData) {
-                    this.chartData = [
-                        {
-                            name: 'Female',
-                            value: changedData.female_employee_count ? changedData.female_employee_count : 0,
-                        },
-                        {
-                            name: 'Male',
-                            value: changedData.male_employee_count ? changedData.male_employee_count : 0,
-                        },
-                    ];
-                    this.profileCreationService.single = this.chartData;
-                }
+                this.profileCreationService.employeeChartData = [
+                    { name: 'Female', value: changedData.female_employee_count || 0 },
+                    { name: 'Male', value: changedData.male_employee_count || 0 },
+                ];
             }
 
             this.profileCreationService.editProfileData(changedData);
@@ -174,8 +158,6 @@ export class AboutRoasteryComponent implements OnInit {
 
     setFormValue() {
         this.aboutForm.patchValue(this.profileCreationService.toUpdateProfileData);
-
-        this.chartData = this.profileCreationService.single;
 
         while (this.members.length !== 0) {
             this.members.removeAt(0);
@@ -228,7 +210,7 @@ export class AboutRoasteryComponent implements OnInit {
         if (this.aclService.checkPermission('brand-profile-management')) {
             this.userService.getCompanyCertificates().subscribe((result: any) => {
                 if (result.success === true) {
-                    this.certificatesArray = result.result;
+                    this.certificates = result.result;
                 } else {
                     this.toastrService.error('Error in loading Roaster Certificates');
                 }
