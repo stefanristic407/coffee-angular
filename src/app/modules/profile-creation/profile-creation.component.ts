@@ -98,5 +98,6 @@ export class ProfileCreationComponent implements OnInit, OnDestroy {
 
     handleDeleteBannerImage(): void {
         this.profileCreationService.bannerUrl = '';
+        this.profileCreationService.bannerFile = null;
     }
 }

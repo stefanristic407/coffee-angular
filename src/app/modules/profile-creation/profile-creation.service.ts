@@ -129,7 +129,7 @@ export class ProfileCreationService {
                 }
             });
         } else {
-            if (this.organizationProfile.banner_url && this.organizationProfile.banner_file_id !== 0) {
+            if (!this.bannerUrl && this.organizationProfile.banner_file_id) {
                 this.userService.deleteBanner(this.roasterId).subscribe((res) => {
                     if (res.success) {
                         this.toUpdateProfileData.banner_file_id = 0;
