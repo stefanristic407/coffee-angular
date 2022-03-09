@@ -447,7 +447,7 @@
                 pInputText
                 type="text"
                 formControlName="registration_id"
-                placeholder="Please enter employee avg. age"
+                [placeholder]="'enter_company_registration_id' | translate"
             />
             <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
                 {{ 'required' | translate }}
