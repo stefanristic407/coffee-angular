@@ -335,7 +335,9 @@
                         ></button>
                     </div>
                 </div>
-                <div class="brown-cta mt-4" (click)="showContact()">+ {{ 'add_another_contact' | translate }}</div>
+                <div class="brown-cta mt-4" (click)="showContact()">
+                    + {{ (members.controls?.length ? 'add_another_contact' : 'add_contact') | translate }}
+                </div>
             </div>
         </form>
 
