@@ -2,6 +2,7 @@ export * from './activity/activity';
 export * from './country-list';
 export * from './dropdown-items';
 export * from './dummy';
+export * from './fc-services';
 export * from './languages';
 export * from './month-list';
 export * from './organization-types';

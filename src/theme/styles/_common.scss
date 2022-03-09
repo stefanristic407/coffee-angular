@@ -559,3 +559,63 @@ span.star {
     text-overflow: ellipsis;
     max-width: 117px;
 }
+
+.arrow-scroll-wrap {
+    position: relative;
+    max-width: 100%;
+
+    .arrow-scroll-content {
+        display: block;
+        max-width: 100%;
+        overflow: scroll;
+        &::-webkit-scrollbar {
+            height: 0;
+        }
+        &::-webkit-scrollbar-track {
+            box-shadow: none;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: transparent;
+            box-shadow: none;
+        }
+    }
+
+    .scroll-right-arrow,
+    .scroll-left-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        background: #d4d4db;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1;
+
+        &::before {
+            content: '\e932';
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-top: -1px;
+            font-family: 'primeicons';
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
+
+    .scroll-right-arrow {
+        right: 8px;
+    }
+
+    .scroll-left-arrow {
+        left: 8px;
+        &::before {
+            content: '\e931';
+        }
+    }
+}

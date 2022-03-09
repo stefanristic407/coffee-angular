@@ -99,10 +99,10 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
         this.organizationService.getGeneralProfile(this.orgId, this.orgType).subscribe({
             next: (result) => {
                 if (result) {
-                    this.companyImg = result.companyImageThumbnailUrl;
+                    this.companyImg = result.company_image_thumbnail_url;
                     this.rating = result.rating;
                     this.country = result.country;
-                    this.adminId = result.adminId;
+                    this.adminId = result.admin_id;
                 }
             },
         });

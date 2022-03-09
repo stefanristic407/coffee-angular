@@ -211,17 +211,22 @@ const COMPONENTS = [
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 
-import { RatingDirective } from './directives/rating.directive';
-import { WordLimitDirective } from './directives/word-limit.directive';
-import { LifecyclehookDirective } from './directives/lifecyclehook/lifecyclehook.directive';
-import { ChatHighlighterDirective } from './directives/chat-highlighter/chat-highlighter.directive';
-import { ImageFallbackDirective } from './directives/image-fallback/image-fallback.directive';
-import { CopyImageToClipboardDirective } from './directives/copy-image-to-clipboard.directive';
-import { FullImgWrapperDirective } from './directives/full-img-wrapper.directive';
-
-import { AclDirective, BackLinkDirective, InputNumberDirective } from './directives';
+import {
+    AclDirective,
+    ArrowScrollDirective,
+    BackLinkDirective,
+    ChatHighlighterDirective,
+    CopyImageToClipboardDirective,
+    FullImgWrapperDirective,
+    ImageFallbackDirective,
+    InputNumberDirective,
+    LifecyclehookDirective,
+    RatingDirective,
+    WordLimitDirective,
+} from './directives';
 const DIRECTIVES = [
     AclDirective,
+    ArrowScrollDirective,
     BackLinkDirective,
     ChatHighlighterDirective,
     CopyImageToClipboardDirective,

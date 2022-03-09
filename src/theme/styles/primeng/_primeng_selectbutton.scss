@@ -13,8 +13,8 @@
 }
 
 .p-selectbutton .p-button {
-    background: #ffffff;
-    border: 1px solid #ffffff;
+    background: $white;
+    border: none;
     color: $muted-text-color;
 }
 
@@ -25,13 +25,16 @@
 
 .p-selectbutton .p-button.p-highlight {
     background: $primary-color;
-    border-color: $primary-color;
 }
 
 .p-selectbutton .p-button:not(.p-state-disabled):not(.p-state-active):hover {
     background-color: $gray-color;
-    border-color: $gray-color;
-    color: #ffffff;
+    color: $white;
+}
+.p-selectbutton .p-button .p-button-label {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: $fw-m;
 }
 
 .select-layout {
@@ -117,10 +120,10 @@
     border: none;
     flex-wrap: wrap;
     .p-button {
-        background-color: #f8f8f8;
+        background-color: $primary-bg-color;
         border-radius: 4px !important;
-        border: solid 1px #d8d8d8 !important;
-        color: #747588;
+        border: solid 1px $primary-border-color !important;
+        color: $muted-text-color;
         font-size: 14px;
         font-weight: $fw-m;
         line-height: 1.57;
@@ -129,9 +132,9 @@
         white-space: nowrap;
         margin-top: 12px;
         &.p-highlight {
-            border: solid 1px #232334 !important;
-            background-color: #f8f8f8;
-            color: #232334;
+            border: solid 1px $general-text-color !important;
+            background-color: $primary-bg-color;
+            color: $general-text-color;
         }
         &.p-disabled {
             opacity: 1;

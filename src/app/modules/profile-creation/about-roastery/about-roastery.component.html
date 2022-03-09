@@ -23,19 +23,17 @@
 
 <ng-template #rightSidePanel>
     <div class="row gutter-16 v-gutter-16">
-        <ng-container *ngIf="certificatesArray?.length || certificateTypes?.length">
+        <ng-container *ngIf="certificates?.length || certificateTypes?.length">
             <div class="col-md-6 col-lg-12" *appAclIf="'brand-profile-management'">
                 <div class="border-main br-4">
                     <div class="bg-f8 br-4 p-25 fnt-18 fw-b m-1">
                         {{ 'awards_and_certificates' | translate }}
                     </div>
-                    <div class="row mt-3 m-0" *ngFor="let certificate of certificatesArray; let i = index">
+                    <div class="row mt-3 m-0" *ngFor="let certificate of certificates; let isLast = last">
                         <div class="col-12">
                             <div
                                 class="w-100 d-flex justify-content-between"
-                                [ngClass]="{
-                                    'border-bottom-dashed-main': i !== certificatesArray.length - 1 || isSaveMode
-                                }"
+                                [ngClass]="{ 'border-bottom-dashed-main': !isLast || isSaveMode }"
                             >
                                 <div class="d-flex mb-25">
                                     <a [href]="certificate.public_url" target="_blank">
@@ -111,7 +109,7 @@
                     <p class="fnt-18 fw-b text-center">{{ 'no_data_display' | translate }}</p>
                 </div>
                 <div class="custom-chart-container">
-                    <app-pie-area-chart [results]="profileCreationService.single"></app-pie-area-chart>
+                    <app-pie-area-chart [results]="profileCreationService.employeeChartData"></app-pie-area-chart>
                 </div>
             </div>
         </div>
@@ -160,7 +158,7 @@
         </div>
         <div class="sewn-form-field col-12 mb-0">
             <label
-                >{{ 'roastery_summary' | translate }}
+                >{{ profileCreationService.orgType + '_summary' | translate }}
                 <span class="pull-right text-clr588">
                     {{ aboutForm.get('description').value | wordCount }}/150 words
                 </span>
@@ -199,7 +197,9 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="fnt-16 fw-m text-clr588 mb-2">{{ 'roastery_summary' | translate }}</div>
+            <div class="fnt-16 fw-m text-clr588 mb-2">
+                {{ profileCreationService.orgType + '_summary' | translate }}
+            </div>
             <div
                 class="fw-m lh-157"
                 [innerText]="profileCreationService.organizationProfile?.description || 'NA'"

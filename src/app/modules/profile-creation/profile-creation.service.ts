@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { COUNTRY_LIST } from '@constants';
 import { ContactGroup, FileModule, OrganizationType, ProfileImageType } from '@enums';
 import { OrganizationProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
@@ -28,13 +27,10 @@ export class ProfileCreationService {
     public orgImgPrevUrl: any;
     public orgImgCroppedFile: File;
 
-    cities: Array<any> = [];
-
     roasterId: number;
-    roasterUsers: any = [];
     topContacts: any = [];
     updatedContacts: number[] = [];
-    single: { name: string; value: any }[];
+    employeeChartData: { name: string; value: any }[];
     bannerUrl?: string;
     bannerFile?: any;
     profileInfo?: any;
@@ -71,27 +67,11 @@ export class ProfileCreationService {
                 this.authService.organizationSubject.next(result.result);
                 this.orgImgPrevUrl = this.organizationProfile.company_image_url;
 
-                this.single = [
-                    {
-                        name: 'Female',
-                        value: this.organizationProfile.female_employee_count
-                            ? this.organizationProfile.female_employee_count
-                            : 0,
-                    },
-                    {
-                        name: 'Male',
-                        value: this.organizationProfile.male_employee_count
-                            ? this.organizationProfile.male_employee_count
-                            : 0,
-                    },
+                this.employeeChartData = [
+                    { name: 'Female', value: this.organizationProfile.female_employee_count || 0 },
+                    { name: 'Male', value: this.organizationProfile.male_employee_count || 0 },
                 ];
                 this.saveMode.next(false);
-            }
-        });
-
-        this.roasterService.getOrgUsers().subscribe((data: any) => {
-            if (data.success) {
-                this.roasterUsers = data.result;
             }
         });
 
@@ -104,10 +84,6 @@ export class ProfileCreationService {
                 this.topContacts = res.result || [];
             }
         });
-    }
-
-    changeCountry(count) {
-        this.cities = COUNTRY_LIST.find((con) => con.isoCode === count).cities;
     }
 
     saveProfile() {
@@ -130,7 +106,7 @@ export class ProfileCreationService {
             });
         } else {
             if (!this.bannerUrl && this.organizationProfile.banner_file_id) {
-                this.userService.deleteBanner(this.roasterId).subscribe((res) => {
+                this.userService.deleteBanner().subscribe((res) => {
                     if (res.success) {
                         this.toUpdateProfileData.banner_file_id = 0;
                         this.toUpdateProfileData.banner_url = '';

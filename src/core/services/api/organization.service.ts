@@ -17,11 +17,11 @@ export class OrganizationService extends ApiService {
     }
 
     // General endpoint to view the details of the organization
-    getGeneralProfile(orgId: number, orgType: OrganizationType): Observable<OrganizationDetails> {
+    getGeneralProfile(orgId: number, orgType: OrganizationType): Observable<OrganizationProfile> {
         return this.post(this.postUrl, `general/${orgType}/${orgId}/profile`, 'GET').pipe(
             map((response) => {
                 if (response.success) {
-                    return toCamelCase<OrganizationDetails>(response.result);
+                    return response.result;
                 }
                 return null;
             }),

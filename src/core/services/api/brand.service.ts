@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
+import { Injectable } from '@angular/core';
+import { ApiResponse } from '@models';
 import { Observable } from 'rxjs';
 import { ApiService } from '../api/api.service';
-import { ApiResponse } from '@models';
 import { AuthService } from '../auth';
 
 @Injectable({

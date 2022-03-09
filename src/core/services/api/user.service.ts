@@ -30,6 +30,10 @@ export class UserService extends ApiService {
     getOrgDetail() {
         return this.postWithOrg(this.orgPostUrl, `profile`, 'GET');
     }
+    // Remove banner image
+    deleteBanner(): Observable<ApiResponse<any>> {
+        return this.postWithOrg(this.orgDeleteUrl, `profile/banner`, 'DELETE');
+    }
 
     // ------------ USER ------------
 
@@ -1463,16 +1467,6 @@ export class UserService extends ApiService {
         data['api_call'] = `/ro/${roasterId}/file-manager/files/${fileId}`;
         data['method'] = 'DELETE';
         data['token'] = this.authService.token;
-        return this.http.post(this.orgPostUrl, data);
-    }
-
-    deleteBanner(roasterId: any): Observable<any> {
-        const token = this.authService.token;
-        const data = {
-            api_call: `/ro/${roasterId}/profile/banner`,
-            method: 'DELETE',
-            token,
-        };
         return this.http.post(this.orgPostUrl, data);
     }
 
