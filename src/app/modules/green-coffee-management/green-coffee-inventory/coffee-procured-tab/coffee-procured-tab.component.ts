@@ -77,10 +77,6 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
                     header: 'order_id',
                 },
                 {
-                    field: 'order_reference',
-                    header: 'roaster_ref_no',
-                },
-                {
                     field: 'availability_name',
                     header: 'availability_name',
                 },
@@ -89,8 +85,20 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
                     header: 'estate_name',
                 },
                 {
+                    field: 'order_reference',
+                    header: 'roaster_ref_no',
+                },
+                {
                     field: 'quantity',
                     header: 'quantity',
+                },
+                {
+                    field: 'varieties',
+                    header: 'variety',
+                },
+                {
+                    field: 'remaining_total_quantity',
+                    header: 'remaining_quantity',
                 },
             ];
         } else {

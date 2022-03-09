@@ -82,6 +82,18 @@ export class MarkedSaleComponent extends ResizeableComponent implements OnInit {
                 { field: 'product_name', header: 'product_name' },
                 { field: 'estate_name', header: 'estate_name' },
                 { field: 'origin', header: 'origin' },
+                {
+                    field: 'varieties',
+                    header: 'variety',
+                },
+                {
+                    field: 'quantity',
+                    header: 'availability',
+                },
+                {
+                    field: 'cup_score',
+                    header: 'cup_score',
+                },
             ];
         } else {
             this.primeTableService.allColumns = [
