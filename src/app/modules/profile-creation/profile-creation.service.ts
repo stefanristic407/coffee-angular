@@ -51,6 +51,8 @@ export class ProfileCreationService {
     ) {
         this.roasterId = this.authService.getOrgId();
         this.roasterProfile();
+        this.organizationProfile = this.authService.currentOrganization;
+        this.toUpdateProfileData = this.authService.currentOrganization;
     }
 
     public editProfileData(subData: any) {
