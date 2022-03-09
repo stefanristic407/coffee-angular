@@ -1,5 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CertificateType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '@services';
@@ -12,7 +11,10 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./setup-license.component.scss'],
 })
 export class SetupLicenseComponent implements OnInit {
+    @Input() editId: number;
+    @Output() closeEvent = new EventEmitter<any>();
     @ViewChild('myFileInput') myFileInput: ElementRef;
+
     public certificationArray: any = [];
     file: File;
     certificateList: any[];
@@ -22,7 +24,6 @@ export class SetupLicenseComponent implements OnInit {
     yearList: any[] = [];
 
     constructor(
-        private route: ActivatedRoute,
         private toastrService: ToastrService,
         private translator: TranslateService,
         private userService: UserService,
@@ -103,11 +104,10 @@ export class SetupLicenseComponent implements OnInit {
     getCertificates() {
         this.userService.getCompanyCertificates().subscribe((res: any) => {
             if (res.success) {
-                const editId = this.route.snapshot.params?.id || '';
                 this.certificationArray = res.result || [];
-                if (editId) {
+                if (this.editId) {
                     this.certificationArray.map((item, index) => {
-                        if (item.id.toString() === editId) {
+                        if (item.id === this.editId) {
                             this.onEdit(index);
                         }
                     });
@@ -205,5 +205,9 @@ export class SetupLicenseComponent implements OnInit {
         if (this.editingRowIndex > -1) {
             this.certificationArray[this.editingRowIndex].public_url = null;
         }
+    }
+
+    close() {
+        this.closeEvent.emit();
     }
 }

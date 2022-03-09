@@ -23,13 +23,16 @@
 
 <ng-template #rightSidePanel>
     <div class="row gutter-16 v-gutter-16">
-        <ng-container *ngIf="certificates?.length || certificateTypes?.length">
+        <ng-container *ngIf="profileCreationService.certificates?.length || certificateTypes?.length">
             <div class="col-md-6 col-lg-12" *appAclIf="'brand-profile-management'">
                 <div class="border-main br-4">
                     <div class="bg-f8 br-4 p-25 fnt-18 fw-b m-1">
                         {{ 'awards_and_certificates' | translate }}
                     </div>
-                    <div class="row mt-3 m-0" *ngFor="let certificate of certificates; let isLast = last">
+                    <div
+                        class="row mt-3 m-0"
+                        *ngFor="let certificate of profileCreationService.certificates; let isLast = last"
+                    >
                         <div class="col-12">
                             <div
                                 class="w-100 d-flex justify-content-between"
@@ -64,9 +67,14 @@
                         </div>
                     </div>
                     <div *ngIf="isSaveMode && certificateTypes?.length" class="p-25 p-md-4">
-                        <span class="brown-cta" routerLink="../certificate">
+                        <span class="brown-cta" (click)="profileCreationService.editCertificate()">
                             +
-                            {{ (certificates?.length ? 'add_another_certificate' : 'add_certificate') | translate }}
+                            {{
+                                (profileCreationService.certificates?.length
+                                    ? 'add_another_certificate'
+                                    : 'add_certificate'
+                                ) | translate
+                            }}
                         </span>
                     </div>
                 </div>

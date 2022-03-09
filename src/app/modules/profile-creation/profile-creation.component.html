@@ -1,4 +1,4 @@
-<div class="main-block">
+<div class="main-block" [class.d-none]="profileCreationService.isEditCertMode">
     <div class="d-none d-md-flex justify-content-between w-100">
         <p-breadcrumb [model]="breadItems" class="breadcrumb-mb"> </p-breadcrumb>
 
@@ -160,3 +160,9 @@
         </div>
     </div>
 </div>
+
+<app-setup-license
+    *ngIf="profileCreationService.isEditCertMode"
+    [editId]="profileCreationService.editCertId"
+    (closeEvent)="profileCreationService.closeEditCert()"
+></app-setup-license>

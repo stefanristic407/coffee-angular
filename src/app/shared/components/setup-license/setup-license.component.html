@@ -1,15 +1,15 @@
 <div class="main-block">
-    <div class="w-100 mb-45">
-        <app-back-link [defaultBackTo]="'/roastery-profile'"></app-back-link>
+    <div class="breadcrumb-mb">
+        <app-back-link (handleBack)="close()"></app-back-link>
     </div>
+
     <div>
         <div class="fnt-18 fw-b text-center text-md-left mb-1">
             {{ 'license' | translate }} & {{ 'certificates' | translate }}
         </div>
-        <div class="fw-m txt-clr588">
-            {{ 'upload_certificates_note' | translate }}
-        </div>
+        <div class="fw-m txt-clr588">{{ 'upload_certificates_note' | translate }}</div>
     </div>
+
     <div class="license-content-wrapper">
         <div class="pt-45 pt-md-5">
             <ng-container *ngFor="let certificationItem of certificationArray; let i = index">
@@ -21,15 +21,15 @@
                         <img class="d-none d-lg-block mr-4" src="assets/images/reorder.svg" alt="certification" />
                         <label class="fw-m mb-0">{{ certificationItem.certificate_type_name }}</label>
                         <p-divider class="divider border-none" layout="vertical"></p-divider>
-                        <label class="fw-m fnt-14 text-clr334 mb-0">{{ certificationItem.year }}</label>
+                        <label class="fw-m mb-0">{{ certificationItem.year }}</label>
                     </div>
                     <div class="d-flex pt-2 pr-0 pb-2 pl-2 align-items-center">
-                        <span class="fnt-14 fw-m lh-normal text-clr97 cursor-pointer" (click)="onEdit(i)">
+                        <span class="fw-m text-clr97 cursor-pointer" (click)="onEdit(i)">
                             <i class="pi pi-pencil mr-2"></i>
                             {{ 'edit' | translate }}
                         </span>
                         <p-divider class="divider border-none" layout="vertical"></p-divider>
-                        <span class="fnt-14 fw-m lh-normal text-clr97 cursor-pointer" (click)="onDelete(i)">
+                        <span class="fw-m text-clr97 cursor-pointer" (click)="onDelete(i)">
                             <i class="pi pi-trash mr-2"></i>
                             {{ 'delete' | translate }}
                         </span>
@@ -39,15 +39,13 @@
             <div class="mt-2" *ngIf="editingRowIndex === -1 || !certificationArray.length">
                 <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
             </div>
-            <span class="fnt-14 fw-b text-clr60b cursor-pointer" (click)="onAdd()"
-                ><i class="pi pi-plus mr-25 fw-b fnt-14"></i>{{ 'add_another_certificate' | translate }}
-            </span>
+            <span class="brown-cta" (click)="onAdd()">+ {{ 'add_another_certificate' | translate }} </span>
         </div>
         <div class="py-2 py-lg-3">
             <p-divider type="dashed"></p-divider>
         </div>
         <div class="mt-1 mb-3 mb-md-5">
-            <button class="btn-stroked" appBackLink [defaultBackTo]="'/roastery-profile'">
+            <button class="btn-stroked" (click)="close()">
                 {{ 'cancel' | translate }}
             </button>
         </div>
@@ -91,24 +89,21 @@
                 </div>
             </div>
             <div class="pl-lg-25">
-                <label class="fw-m fnt-14 text-clr334 lh-normal mb-2">
-                    {{ 'upload_certificate' | translate }}
-                </label>
+                <label class="fw-m mb-2">{{ 'upload_certificate' | translate }}</label>
                 <div
                     class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between"
                 >
                     <div class="file-name" *ngIf="file || certificationArray[editingRowIndex]?.public_url">
-                        <span class="fw-m fnt-14 text-clr588 lh-normal mb-0 ellipsis">
+                        <span class="fw-m text-clr588 mb-0 ellipsis">
                             {{ file?.name || certificationArray[editingRowIndex]?.public_url.split('/').pop() }}
                         </span>
                         <i class="pi pi-times fnt-14 text-clr588 ml-25 cursor-pointer" (click)="onRemoveFile()"></i>
                     </div>
                     <div
-                        class="fnt-14 fw-m lh-normal text-clr334 mr-md-4 upload-button"
+                        class="btn-trans-icon upload-icon mr-md-4"
                         (click)="onUpload()"
                         *ngIf="!file && !certificationArray[editingRowIndex]?.public_url"
                     >
-                        <i class="pi pi-upload fnt-14 mr-1"></i>
                         {{ 'upload' | translate }}
                     </div>
                     <div class="d-flex flex-column flex-md-row button-wrapper align-items-center">

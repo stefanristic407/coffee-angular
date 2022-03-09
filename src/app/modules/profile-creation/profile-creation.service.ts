@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ContactGroup, FileModule, OrganizationType, ProfileImageType } from '@enums';
 import { OrganizationProfile } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService, RoasterService, UserService } from '@services';
+import { AclService, AuthService, RoasterService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 
@@ -36,7 +36,12 @@ export class ProfileCreationService {
     profileInfo?: any;
     isSaving?: boolean;
 
+    certificates: any = [];
+    editCertId: number;
+    isEditCertMode = false;
+
     constructor(
+        private aclService: AclService,
         private authService: AuthService,
         private newUserService: UserService,
         private roasterService: RoasterService,
@@ -57,6 +62,32 @@ export class ProfileCreationService {
 
     public editTopContacts(subData: any) {
         this.updatedContacts = subData;
+    }
+
+    public editCertificate(certId?: number) {
+        if (certId) {
+            this.editCertId = certId;
+        } else {
+            this.editCertId = null;
+        }
+        this.isEditCertMode = true;
+    }
+
+    public closeEditCert() {
+        this.getCertificates();
+        this.isEditCertMode = false;
+    }
+
+    getCertificates() {
+        if (this.aclService.checkPermission('brand-profile-management')) {
+            this.userService.getCompanyCertificates().subscribe((result: any) => {
+                if (result.success === true) {
+                    this.certificates = result.result;
+                } else {
+                    this.toastrService.error('Error while loading certificates');
+                }
+            });
+        }
     }
 
     roasterProfile() {

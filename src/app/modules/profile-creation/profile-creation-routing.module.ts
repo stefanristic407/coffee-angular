@@ -4,7 +4,6 @@ import { AboutRoasteryComponent } from './about-roastery/about-roastery.componen
 import { ContactComponent } from './contact/contact.component';
 import { ProfileCreationComponent } from './profile-creation.component';
 import { ReviewsComponent } from './reviews/reviews.component';
-import { SetupLicenseComponent } from './setup-license/setup-license.component';
 import { VirtualTourComponent } from './virtual-tour/virtual-tour.component';
 
 const routes: Routes = [
@@ -30,14 +29,6 @@ const routes: Routes = [
             },
             { path: '', redirectTo: 'about', pathMatch: 'full' },
         ],
-    },
-    {
-        path: 'certificate',
-        component: SetupLicenseComponent,
-    },
-    {
-        path: 'certificate/:id',
-        component: SetupLicenseComponent,
     },
 ];
 

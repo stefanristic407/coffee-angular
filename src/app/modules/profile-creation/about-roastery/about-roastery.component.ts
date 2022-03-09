@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '
 import { QUANTIRY_UNIT_LIST } from '@constants';
 import { CertificateType, OrganizationType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
-import { AclService, AuthService, ChatHandlerService, RoasterService, UserService } from '@services';
+import { AuthService, ChatHandlerService, RoasterService, UserService } from '@services';
 import { fileRequired, maxWordCountValidator } from '@utils';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileCreationService } from '../profile-creation.service';
@@ -18,7 +18,6 @@ export class AboutRoasteryComponent implements OnInit {
     readonly OrgType = OrganizationType;
 
     certificateTypes: any[];
-    certificates: any = [];
 
     assignRow = false;
     brands = [];
@@ -39,7 +38,6 @@ export class AboutRoasteryComponent implements OnInit {
     }
 
     constructor(
-        private aclService: AclService,
         private authService: AuthService,
         private chatHandler: ChatHandlerService,
         private fb: FormBuilder,
@@ -52,7 +50,7 @@ export class AboutRoasteryComponent implements OnInit {
 
     ngOnInit(): void {
         this.getCertificateTypes();
-        this.getCertificates();
+        this.profileCreationService.getCertificates();
         this.profileCreationService.getContactList();
         this.getBrands();
         this.getOrgUsers();
@@ -206,23 +204,11 @@ export class AboutRoasteryComponent implements OnInit {
         });
     }
 
-    getCertificates() {
-        if (this.aclService.checkPermission('brand-profile-management')) {
-            this.userService.getCompanyCertificates().subscribe((result: any) => {
-                if (result.success === true) {
-                    this.certificates = result.result;
-                } else {
-                    this.toastrService.error('Error in loading Roaster Certificates');
-                }
-            });
-        }
-    }
-
     deleteCertificate(certificateId: number) {
         this.userService.deleteCompanyCertificate(certificateId).subscribe((response: any) => {
             if (response.success) {
                 this.toastrService.success('The selected Certificate has been successfully deleted');
-                this.getCertificates();
+                this.profileCreationService.getCertificates();
             } else {
                 this.toastrService.error('Something went wrong while deleting the certificate');
             }
@@ -231,7 +217,7 @@ export class AboutRoasteryComponent implements OnInit {
 
     getCertMenuItems(item) {
         return [
-            { label: 'edit', routerLink: `/roastery-profile/certificate/${item.id}` },
+            { label: 'edit', command: () => this.profileCreationService.editCertificate(item.id) },
             { label: 'delete', command: () => this.deleteCertificate(item.id) },
         ];
     }

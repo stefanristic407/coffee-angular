@@ -1,15 +1,8 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { PopoverModule } from 'ngx-bootstrap/popover';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { ClipboardModule } from 'ngx-clipboard';
 
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -23,14 +16,14 @@ import { ChipsModule } from 'primeng/chips';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
-import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { EditorModule } from 'primeng/editor';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ListboxModule } from 'primeng/listbox';
 import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -51,18 +44,23 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 
 import { TranslateModule } from '@ngx-translate/core';
-import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { ImageCropperModule } from 'ngx-image-cropper';
+import { AccumulationChartAllModule, ChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import * as echarts from 'echarts';
+import { MatVideoModule } from 'mat-video';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
-import { MatVideoModule } from 'mat-video';
-import { Ng2TelInputModule } from 'ng2-tel-input';
-import { NgxEchartsModule } from 'ngx-echarts';
-import * as echarts from 'echarts';
-import { ChartsModule } from 'ng2-charts';
-import { MomentModule } from 'ngx-moment';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { ChartsModule } from 'ng2-charts';
+import { Ng2TelInputModule } from 'ng2-tel-input';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ClipboardModule } from 'ngx-clipboard';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { MomentModule } from 'ngx-moment';
 
 const THIRDMODULES = [
     AccordionModule,
@@ -124,47 +122,48 @@ const THIRDMODULES = [
     TypeaheadModule,
 ];
 
+import { ActionMenuComponent } from './components/action-menu/action-menu.component';
 import { AppKeyConfirmationComponent } from './components/app-key-confirmation/app-key-confirmation.component';
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BackLinkComponent } from './components/back-link/back-link.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { BlankComponent } from './components/blank/blank.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
+import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
+import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { CropperDialogComponent } from './components/cropper-dialog/cropper-dialog.component';
 import { DayPickerComponent } from './components/day-picker/day-picker.component';
 import { EmptyComponent } from './components/empty/empty.component';
+import { MultiselectChipsComponent } from './components/form-controls/multiselect-chips/multiselect-chips.component';
+import { OtpInputComponent } from './components/form-controls/otp-input/otp-input.component';
+import { PhoneNumberComponent } from './components/form-controls/phone-number/phone-number.component';
+import { SelectLanguageComponent } from './components/form-controls/select-language/select-language.component';
+import { SingleselectComponent } from './components/form-controls/singleselect/singleselect.component';
+import { UploadAvatarComponent } from './components/form-controls/upload-avatar/upload-avatar.component';
+import { UrlInputComponent } from './components/form-controls/url-input/url-input.component';
 import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
-import { ImageMapComponent } from './components/remote-sensoring/image-map/image-map.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { MediaComponent } from './components/media/media.component';
-import { MultiselectChipsComponent } from './components/form-controls/multiselect-chips/multiselect-chips.component';
-import { PhoneNumberComponent } from './components/form-controls/phone-number/phone-number.component';
 import { PieAreaChartComponent } from './components/pie-area-chart/pie-area-chart.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
+import { ImageMapComponent } from './components/remote-sensoring/image-map/image-map.component';
 import { RemoteSensoringComponent } from './components/remote-sensoring/remote-sensoring.component';
-import { ReviewsComponent } from './components/reviews/reviews.component';
-import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
-import { SelectLanguageComponent } from './components/form-controls/select-language/select-language.component';
-import { SelectOrdersComponent } from './components/select-orders/select-orders.component';
-import { SewnDirectMessageComponent } from './components/chat/sewn-direct-message/sewn-direct-message.component';
-import { SewnOrderChatComponent } from './components/chat/sewn-order-chat/sewn-order-chat.component';
 import { SoilChartComponent } from './components/remote-sensoring/soil-chart/soil-chart.component';
-import { TimeRangeComponent } from './components/time-range/time-range.component';
-import { UploaderComponent } from './components/uploader/uploader.component';
-import { UrlInputComponent } from './components/form-controls/url-input/url-input.component';
-import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UvChartComponent } from './components/remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './components/remote-sensoring/vegetation-chart/vegetation-chart.component';
-import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
-import { ActionMenuComponent } from './components/action-menu/action-menu.component';
-import { OtpInputComponent } from './components/form-controls/otp-input/otp-input.component';
-import { SingleselectComponent } from './components/form-controls/singleselect/singleselect.component';
-import { StoryCardComponent } from './components//story-card/story-card.component';
-import { UploadAvatarComponent } from './components/form-controls/upload-avatar/upload-avatar.component';
+import { ReviewSummaryComponent } from './components/review-summary/review-summary.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { SelectOrdersComponent } from './components/select-orders/select-orders.component';
+import { SetupLicenseComponent } from './components/setup-license/setup-license.component';
+import { StoryCardComponent } from './components/story-card/story-card.component';
+import { TimeRangeComponent } from './components/time-range/time-range.component';
+import { UploaderComponent } from './components/uploader/uploader.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 const COMPONENTS = [
     ActionMenuComponent,
@@ -194,6 +193,7 @@ const COMPONENTS = [
     ReviewSummaryComponent,
     SelectLanguageComponent,
     SelectOrdersComponent,
+    SetupLicenseComponent,
     SewnDirectMessageComponent,
     SewnOrderChatComponent,
     SingleselectComponent,
@@ -238,42 +238,41 @@ const DIRECTIVES = [
     WordLimitDirective,
 ];
 
-import { SearchFilterPipe } from './pipes/chat/search-filter.pipe';
-import { CountryPipe } from './pipes/country/country.pipe';
-import { FileIconPipe } from './pipes/file-icon.pipe';
-import { FileNamePipe } from './pipes/file-name.pipe';
-import { MonthPipe } from './pipes/month/month.pipe';
-import { OrgTypePipe } from './pipes/org-type.pipe';
-import { WordCountPipe } from './pipes/word-count/word-count.pipe';
-import { ConvertToShortDescriptionPipe } from './pipes/convert-to-short-description.pipe';
-import { WeightConvertPipe } from './pipes/weight-convert.pipe';
-import { ThousandSuffPipe } from './pipes/thousand-suff.pipe';
-import { ArrayFilterPipe } from './pipes/array-filter.pipe';
-import { StringReplacePipe } from './pipes/string-replace.pipe';
-import { ReversePipe } from './pipes/reverse.pipe';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
-
 import {
+    ArrayFilterPipe,
     AvailabilityListingStatusPipe,
     AvailabilityTypePipe,
     ConvertKgPipe,
+    ConvertToShortDescriptionPipe,
+    CountryPipe,
     CurrencyFormatPipe,
     EstateBrandLinkPipe,
+    FileIconPipe,
+    FileNamePipe,
     GcBrandLinkPipe,
     HtmlStringWordCountPipe,
     LanguagePipe,
     LotBrandLinkPipe,
+    MonthPipe,
     OrderLinkPipe,
     OrderRatingLinkPipe,
     OrderTypePipe,
+    OrgTypePipe,
     ProductStatusPipe,
     ProfileLinkPipe,
     QuantityTypePipe,
+    ReversePipe,
     ReviewLinkPipe,
     RoasterBrandCmsLinkPipe,
     RoasterBrandLinkPipe,
+    SafeHtmlPipe,
+    SearchFilterPipe,
     SentenceCasePipe,
     ShopLinkPipe,
+    StringReplacePipe,
+    ThousandSuffPipe,
+    WeightConvertPipe,
+    WordCountPipe,
 } from './pipes';
 
 const PIPES = [
