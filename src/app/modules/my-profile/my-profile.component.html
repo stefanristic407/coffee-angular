@@ -74,12 +74,10 @@
                         <div class="fnt-16 fw-b mt-4">
                             {{ profileInfo?.firstname + ' ' + profileInfo?.lastname }}
                         </div>
-                        <div class="fnt-semi-bold text-clr588">{{ orgType | orgType }}</div>
+                        <div class="fw-m text-clr588">{{ orgType | orgType }}</div>
                         <div class="d-flex align-items-center justify-content-center mt-4">
                             <i class="pi pi-map-marker fnt-22"></i>
-                            <span class="fnt-semi-bold ml-2"
-                                >{{ profileInfo?.city }}, {{ profileInfo?.country | country }}</span
-                            >
+                            <span class="fw-m ml-2">{{ profileInfo?.city }}, {{ profileInfo?.country | country }}</span>
                         </div>
                     </div>
 
@@ -191,7 +189,7 @@
                     <form [formGroup]="infoForm" (ngSubmit)="handleSubmit()">
                         <div class="right-container">
                             <div class="fnt-16 fw-b">{{ 'personal_details' | translate }}</div>
-                            <div class="fnt-semi-bold text-clr588 mt-1">{{ 'introduce_yourself' | translate }}!</div>
+                            <div class="fw-m text-clr588 mt-1">{{ 'introduce_yourself' | translate }}!</div>
 
                             <div class="row gutter-16 gutter-lg-24 mt-4">
                                 <div class="col-md-6 sewn-form-field">
@@ -256,7 +254,7 @@
                                 {{ 'location' | translate }} {{ 'and' | translate | lowercase }}
                                 {{ 'language' | translate }}
                             </div>
-                            <div class="fnt-semi-bold text-clr588 mt-1">
+                            <div class="fw-m text-clr588 mt-1">
                                 {{ 'profile_location_language_description' | translate }}!
                             </div>
 
@@ -296,9 +294,7 @@
 
                     <div class="right-container mt-4">
                         <div class="fnt-16 fw-b">{{ 'certificates' | translate }}</div>
-                        <div class="fnt-semi-bold text-clr588 mt-1">
-                            {{ 'profile_certificates_description' | translate }}!
-                        </div>
+                        <div class="fw-m text-clr588 mt-1">{{ 'profile_certificates_description' | translate }}!</div>
                         <div class="mt-4">
                             <app-profile-certificates-edit
                                 [certificationArray]="certificationArray"

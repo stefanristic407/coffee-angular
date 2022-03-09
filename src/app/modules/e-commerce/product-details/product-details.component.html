@@ -23,7 +23,7 @@
     <section class="border-main br-4 p-3 p-md-4 mt-4">
         <div class="mb-4">
             <div class="fnt-16 fnt-md-18 fw-b mb-1">{{ 'product_details' | translate }}</div>
-            <div class="fnt-semi-bold text-clr588">{{ 'product_details_note' | translate }}</div>
+            <div class="fw-m text-clr588">{{ 'product_details_note' | translate }}</div>
         </div>
 
         <div class="row gutter-16 gutter-lg-24">
@@ -122,7 +122,7 @@
     <section class="border-main br-4 p-3 p-md-4 mt-4">
         <div class="mb-4 mb-md-45">
             <div class="fnt-16 fnt-md-18 fw-b mb-1">{{ 'product_weights' | translate }}</div>
-            <div class="fnt-semi-bold text-clr588">{{ 'product_weights_note' | translate }}</div>
+            <div class="fw-m text-clr588">{{ 'product_weights_note' | translate }}</div>
         </div>
 
         <p-tabView
@@ -194,7 +194,7 @@
 
                     <div class="w-100 mt-2 mb-4 mb-md-45">
                         <div class="fnt-16 fw-b mb-2">{{ 'add_images' | translate }}</div>
-                        <div class="fnt-semi-bold text-clr588 mb-4">
+                        <div class="fw-m text-clr588 mb-4">
                             {{ 'add_product_images_note' | translate }}
                         </div>
 
@@ -229,7 +229,7 @@
 
                     <div *ngIf="type === ProductType.b2b" class="w-100">
                         <div class="fnt-16 fw-b mb-2">{{ 'boxes_details' | translate }}</div>
-                        <div class="fnt-semi-bold text-clr588 mb-4">
+                        <div class="fw-m text-clr588 mb-4">
                             {{ 'boxes_details_note' | translate }}
                         </div>
 
@@ -291,7 +291,7 @@
         <div class="mb-4 mb-md-45">
             <div class="fnt-16 fnt-md-18 fw-b mb-1">{{ 'inventory' | translate }}</div>
             <div class="row v-gutter-16">
-                <div class="col-md-8 fnt-semi-bold text-clr588">{{ 'product_inventory_note' | translate }}</div>
+                <div class="col-md-8 fw-m text-clr588">{{ 'product_inventory_note' | translate }}</div>
                 <div *ngIf="!isExternal" class="col-md-4 text-right">
                     <button class="btn-stroked w-mob-100" routerLink="/roasted-coffee-batch/new-roasted-batch">
                         {{ 'create_a_roasted_coffee_batch' | translate }}
@@ -330,18 +330,18 @@
                                                 (isExternal && col.field !== 'roasted_coffee_batch') ||
                                                 (!isExternal && col.field !== 'roast_level_id')
                                             "
-                                            class="grind-wrap fnt-semi-bold px-2 px-md-3 py-2"
+                                            class="grind-wrap fw-m px-2 px-md-3 py-2"
                                             [style.width]="col.width + '%'"
                                         >
                                             <div
                                                 *ngIf="col.field === 'id'"
-                                                class="fnt-semi-bold text-clr55c text-underline mb-1"
+                                                class="fw-m text-clr55c text-underline mb-1"
                                             >
                                                 {{ 'grind' | translate }} {{ i + 1 }}
                                             </div>
                                             <div
                                                 *ngIf="col.field !== 'id' && col.field !== 'actions'"
-                                                class="fnt-semi-bold text-clr588 mb-1"
+                                                class="fw-m text-clr588 mb-1"
                                             >
                                                 {{ col.label | translate }}
                                             </div>
@@ -443,9 +443,9 @@
 <ng-template #grindFormTpl let-grindFormGroup="grindFormGroup" let-index="index">
     <div [formGroup]="grindFormGroup" class="bg-f8 mx-n4 p-4">
         <div class="d-flex mb-4 mb-md-45">
-            <div class="fnt-semi-bold text-clr55c">{{ 'grind' | translate }} {{ index + 1 }}</div>
+            <div class="fw-m text-clr55c">{{ 'grind' | translate }} {{ index + 1 }}</div>
             <div class="v-divider mx-3"></div>
-            <div class="fnt-semi-bold">
+            <div class="fw-m">
                 {{ 'variant_id' | translate }} :
                 {{ grindFormGroup.value.grind_variant_id || '-' }}
             </div>
@@ -562,7 +562,7 @@
 
             <div class="col-12 mb-4">
                 <div class="fnt-16 fw-b mb-1">{{ 'batch_information' | translate }}</div>
-                <div class="fnt-semi-bold text-clr588">
+                <div class="fw-m text-clr588">
                     {{ (isExternal ? 'add_batch_information_note' : 'batch_information_note') | translate }}
                 </div>
             </div>

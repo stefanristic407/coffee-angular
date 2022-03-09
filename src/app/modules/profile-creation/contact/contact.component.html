@@ -5,7 +5,12 @@
                 <div class="row gutter-16">
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'email_address' | translate }}<span class="star">*</span></label>
-                        <input type="email" pInputText formControlName="email" placeholder="Roastery email" />
+                        <input
+                            type="email"
+                            pInputText
+                            formControlName="email"
+                            [placeholder]="'enter_your_company_email' | translate"
+                        />
                         <small *ngIf="isControlHasError('email', 'email')" class="p-error">
                             {{ 'invalid' | translate }} {{ 'email' | translate }}
                         </small>
@@ -16,7 +21,7 @@
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'phone_number' | translate }}<span class="star">*</span> </label>
                         <app-phone-number formControlName="phone"></app-phone-number>
-                        <small *ngIf="contactForm.controls.phone.invalid" class="p-error d-block">
+                        <small *ngIf="contactForm.controls.phone.invalid" class="p-error">
                             Please enter valid phone number
                         </small>
                     </div>
@@ -27,6 +32,7 @@
                             [options]="COUNTRY_LIST"
                             optionLabel="name"
                             optionValue="isoCode"
+                            [autoDisplayFirst]="false"
                             filter="true"
                         >
                         </p-dropdown>
@@ -36,8 +42,7 @@
                     </div>
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'state' | translate }}</label>
-                        <p-dropdown formControlName="state" [options]="cityList" optionLabel="name" optionValue="value">
-                        </p-dropdown>
+                        <p-dropdown formControlName="state" [options]="cities" [autoDisplayFirst]="false"> </p-dropdown>
                     </div>
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'address' | translate }}<span class="star">*</span></label>

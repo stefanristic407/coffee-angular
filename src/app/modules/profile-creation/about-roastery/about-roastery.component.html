@@ -44,12 +44,12 @@
                                     /></a>
                                     <div class="ml-2">
                                         <ul class="no-bullet-ul">
-                                            <li class="fw-m">
+                                            <li class="fw-b">
                                                 <a [href]="certificate.public_url" target="_blank">{{
                                                     certificate.certificate_type_name
                                                 }}</a>
                                             </li>
-                                            <li class="fw-m text-clr588">
+                                            <li class="fw-b text-clr588">
                                                 {{ certificate.year }}
                                             </li>
                                         </ul>
@@ -63,12 +63,11 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="isSaveMode && certificateTypes?.length">
-                        <div class="p-25 p-md-4">
-                            <span class="brown-cta" routerLink="/roastery-profile/certificate">
-                                + {{ 'add_another_certificate' | translate }}
-                            </span>
-                        </div>
+                    <div *ngIf="isSaveMode && certificateTypes?.length" class="p-25 p-md-4">
+                        <span class="brown-cta" routerLink="../certificate">
+                            +
+                            {{ (certificates?.length ? 'add_another_certificate' : 'add_certificate') | translate }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -336,7 +335,9 @@
                         ></button>
                     </div>
                 </div>
-                <div class="brown-cta mt-4" (click)="showContact()">+ {{ 'add_another_contact' | translate }}</div>
+                <div class="brown-cta mt-4" (click)="showContact()">
+                    + {{ (members.controls?.length ? 'add_another_contact' : 'add_contact') | translate }}
+                </div>
             </div>
         </form>
 
@@ -437,7 +438,12 @@
 
         <div class="sewn-form-field col-md-6 mb-md-0">
             <label>{{ 'vat_number' | translate }}<span class="star" *ngIf="isSaveMode">*</span></label>
-            <input type="text" pInputText formControlName="vat_number" placeholder="Please VAT Number" />
+            <input
+                type="text"
+                pInputText
+                formControlName="vat_number"
+                [placeholder]="'enter_company_vat_number' | translate"
+            />
             <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
                 {{ 'required' | translate }}
             </small>
@@ -448,7 +454,7 @@
                 pInputText
                 type="text"
                 formControlName="registration_id"
-                placeholder="Please enter employee avg. age"
+                [placeholder]="'enter_company_registration_id' | translate"
             />
             <small class="p-error" *ngIf="isControlHasError('registration_id', 'required')">
                 {{ 'required' | translate }}
@@ -505,7 +511,7 @@
         </div>
 
         <div *ngIf="isSaveMode && !isEditBrandMode" class="brown-cta mt-4" (click)="addBrandMode()">
-            + {{ 'add_another_brand' | translate }}
+            + {{ (brands?.length ? 'add_another_brand' : 'add_brand') | translate }}
         </div>
     </section>
 </ng-template>

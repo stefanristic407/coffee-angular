@@ -228,7 +228,7 @@ export class ProfileCreationService {
     }
 
     clear() {
-        this.aboutForm.reset();
-        this.contactForm.reset();
+        this.aboutForm?.reset();
+        this.contactForm?.reset();
     }
 }

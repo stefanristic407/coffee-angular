@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRY_LIST } from '@constants';
 import { OrganizationType } from '@enums';
-import { Country } from '@models';
 import { ValidateEmailService } from '@services';
-import { emailValidator, urlValidator } from '@utils';
+import { emailValidator, getCountry, urlValidator } from '@utils';
 import { ProfileCreationService } from '../profile-creation.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class ContactComponent implements OnInit {
     readonly OrgType = OrganizationType;
     contactForm: FormGroup;
     isSaveMode: boolean;
-    cityList = [];
+    cities = [];
     latitude: number;
     longitude: number;
     zoom = 13;
@@ -58,17 +57,15 @@ export class ContactComponent implements OnInit {
         this.profileCreationService.contactForm = this.contactForm;
 
         this.contactForm.controls.country.valueChanges.subscribe((updatedCountry: any) => {
-            this.COUNTRY_LIST.forEach((countryItem: Country) => {
-                if (countryItem.isoCode === updatedCountry.toUpperCase()) {
-                    this.cityList = [];
-                    countryItem.cities.map((stateItem: string) => {
-                        this.cityList.push({
-                            name: stateItem,
-                            value: stateItem,
-                        });
-                    });
+            if (updatedCountry) {
+                this.cities = getCountry(updatedCountry)?.cities;
+                if (this.cities.indexOf(this.contactForm.value.state) < 0) {
+                    this.contactForm.get('state').setValue(null);
                 }
-            });
+                this.cities = this.cities.map((element) => {
+                    return { label: element, value: element };
+                });
+            }
         });
 
         this.contactForm.valueChanges.subscribe((changedData: any) => {
@@ -77,11 +74,6 @@ export class ContactComponent implements OnInit {
     }
 
     setFormValue() {
-        this.COUNTRY_LIST.forEach((item: Country) => {
-            if (item.isoCode === this.profileCreationService.toUpdateProfileData.country.toUpperCase()) {
-                this.cityList = item.cities;
-            }
-        });
         this.contactForm.patchValue(this.profileCreationService.toUpdateProfileData);
 
         this.latitude = this.profileCreationService.toUpdateProfileData.latitude;

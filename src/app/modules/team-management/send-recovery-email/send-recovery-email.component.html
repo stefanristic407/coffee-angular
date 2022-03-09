@@ -42,7 +42,7 @@
                     <div class="col-md-6">
                         <span class="primary_txt">{{ 'edit' | translate }}</span>
                         <div class="mt-2">
-                            <span class="fnt-semi-bold text-clr588">{{ 'account_activated' | translate }}</span
+                            <span class="fw-m text-clr588">{{ 'account_activated' | translate }}</span
                             >&nbsp;
                             <span *ngIf="userDetails && userDetails['last_activated']" class="fw-b">{{
                                 userDetails['last_activated'] | date: 'd MMM, y, h:mm a'
@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <div>
-                    <label class="fnt-semi-bold">Role(s)<span class="star">*</span></label>
+                    <label class="fw-m">Role(s)<span class="star">*</span></label>
                 </div>
                 <div *ngFor="let role of roles.controls; let i = index; last as isLast">
                     <div class="row gutter-16 mb-4 mb-md-3">
@@ -167,7 +167,7 @@
                 <div class="ml-3 h-100 containerBackground">
                     <div class="col-12 p-0 ml-3 p-3">
                         <div class="primary_txt mb-1">{{ 'recovery_email' | translate }}</div>
-                        <span class="fnt-semi-bold text-clr588">{{ 'recovery_link_desription' | translate }}. </span>
+                        <span class="fw-m text-clr588">{{ 'recovery_link_desription' | translate }}. </span>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 ml-3 p-3">
                         <button class="btn btn-stroked mt-2" (click)="sendMail()">
@@ -180,7 +180,7 @@
                 <div class="h-100 containerBackground">
                     <div class="col-12 p-3">
                         <div class="primary_txt mb-1">{{ 'recovery_email' | translate }}</div>
-                        <span class="fnt-semi-bold text-clr588">{{ 'recovery_link_desription' | translate }}. </span>
+                        <span class="fw-m text-clr588">{{ 'recovery_link_desription' | translate }}. </span>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-3">
                         <button class="btn btn-stroked w-100 mt-2" (click)="sendMail()">

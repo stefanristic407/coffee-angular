@@ -35,6 +35,8 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
             const phoneNumber = parsePhoneNumber(value);
             this.countryCode = phoneNumber.country;
             this.nationalNumber = phoneNumber.nationalNumber as string;
+        } else {
+            this.nationalNumber = null;
         }
         this.setInputObj();
     }
@@ -117,5 +119,6 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor {
                 this.onChange(null);
             }
         });
+        this.onTouched();
     }
 }
