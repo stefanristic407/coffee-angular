@@ -141,9 +141,7 @@
                                 </div>
 
                                 <div *ngIf="shippingError" class="col-12">
-                                    <p class="fnt-semi-bold text-invalid">
-                                        {{ 'note' | translate }} - {{ shippingError }}
-                                    </p>
+                                    <p class="fw-m text-invalid">{{ 'note' | translate }} - {{ shippingError }}</p>
                                 </div>
 
                                 <div class="col-12" *ngIf="infoForm.value.service">

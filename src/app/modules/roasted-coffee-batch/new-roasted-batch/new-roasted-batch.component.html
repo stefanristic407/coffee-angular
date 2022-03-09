@@ -9,7 +9,7 @@
                         {{ 'create_roasted_batch' | translate }}
                     </div>
                     <div *ngIf="batchId">
-                        <div class="fnt-semi-bold mb-1">{{ 'batch' | translate }} #{{ batchId }}</div>
+                        <div class="fw-m mb-1">{{ 'batch' | translate }} #{{ batchId }}</div>
                         <div class="fnt-16 fnt-md-18 fw-b">{{ batchForm.controls['name'].value || 'NA' }}</div>
                     </div>
                 </section>
@@ -22,7 +22,7 @@
                 >
                     <div class="mb-4">
                         <div class="fnt-16 fw-b mb-2">{{ 'batch_details' | translate }}</div>
-                        <div class="fnt-semi-bold text-clr588">{{ 'batch_details_note' | translate }}</div>
+                        <div class="fw-m text-clr588">{{ 'batch_details_note' | translate }}</div>
                     </div>
 
                     <div class="row gutter-24">
@@ -165,7 +165,7 @@
                     <ng-container *ngIf="!batchForm.value.is_test_batch">
                         <div class="mt-475 mb-4">
                             <div class="fnt-16 fw-b mb-2">{{ 'roast_details' | translate }}</div>
-                            <div class="fnt-semi-bold text-clr588">{{ 'roast_details_note' | translate }}</div>
+                            <div class="fw-m text-clr588">{{ 'roast_details_note' | translate }}</div>
                         </div>
 
                         <div class="row gutter-24">
