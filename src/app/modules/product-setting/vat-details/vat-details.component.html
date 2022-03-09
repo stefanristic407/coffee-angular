@@ -72,7 +72,7 @@
                             </span>
                             <span *ngSwitchCase="'country'">
                                 <span *ngIf="editIndex !== i" class="p-column-title">{{ col.header | translate }}</span>
-                                <span *ngIf="editIndex !== i" class="float-right float-md-left">
+                                <span *ngIf="editIndex !== i" class="float-md-left">
                                     {{ rowData.country | country }}
                                 </span>
                                 <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
@@ -92,7 +92,7 @@
                             </span>
                             <span *ngSwitchCase="'transaction_type'">
                                 <span *ngIf="editIndex !== i" class="p-column-title">{{ col.header | translate }}</span>
-                                <span *ngIf="editIndex !== i" class="float-right float-md-left">
+                                <span *ngIf="editIndex !== i" class="float-md-left">
                                     {{ rowData.transaction_type }}
                                 </span>
                                 <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
@@ -105,7 +105,7 @@
                             </span>
                             <span *ngSwitchCase="'vat_percentage'">
                                 <span *ngIf="editIndex !== i" class="p-column-title">{{ col.header | translate }}</span>
-                                <span *ngIf="editIndex !== i" class="float-right float-md-left">
+                                <span *ngIf="editIndex !== i" class="float-md-left">
                                     {{ rowData.vat_percentage }}%</span
                                 >
                                 <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
