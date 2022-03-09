@@ -50,9 +50,7 @@ export class ProfileCreationService {
         private userService: UserService,
     ) {
         this.roasterId = this.authService.getOrgId();
-        this.roasterProfile();
-        this.organizationProfile = this.authService.currentOrganization;
-        this.toUpdateProfileData = this.authService.currentOrganization;
+        this.refreshData(this.authService.currentOrganization);
     }
 
     public editProfileData(subData: any) {
@@ -95,20 +93,21 @@ export class ProfileCreationService {
     roasterProfile() {
         this.userService.getOrgDetail().subscribe((result: any) => {
             if (result.success) {
-                this.organizationProfile = result.result;
-                this.toUpdateProfileData = result.result;
+                this.refreshData(result.result);
                 this.authService.organizationSubject.next(result.result);
-                this.orgImgPrevUrl = this.organizationProfile.company_image_url;
-
-                this.employeeChartData = [
-                    { name: 'Female', value: this.organizationProfile.female_employee_count || 0 },
-                    { name: 'Male', value: this.organizationProfile.male_employee_count || 0 },
-                ];
-                this.saveMode.next(false);
             }
         });
+    }
 
-        this.getContactList();
+    refreshData(orgProfile: OrganizationProfile) {
+        this.organizationProfile = orgProfile;
+        this.toUpdateProfileData = orgProfile;
+        this.orgImgPrevUrl = this.organizationProfile.company_image_url;
+        this.employeeChartData = [
+            { name: 'Female', value: this.organizationProfile.female_employee_count || 0 },
+            { name: 'Male', value: this.organizationProfile.male_employee_count || 0 },
+        ];
+        this.saveMode.next(false);
     }
 
     getContactList() {
