@@ -46,15 +46,13 @@ export class RoastedBatchTableComponent extends ResizeableComponent implements O
     ngOnInit(): void {
         this.getRoastLevels();
         this.tableColumns = [];
-        if (!this.resizeService.isMobile()) {
-            this.tableColumns.push({
+        this.tableColumns = this.tableColumns.concat([
+            {
                 field: 'id',
                 header: 'batch_id',
                 sortable: true,
                 width: 10,
-            });
-        }
-        this.tableColumns = this.tableColumns.concat([
+            },
             {
                 field: 'name',
                 header: 'batch_name',
