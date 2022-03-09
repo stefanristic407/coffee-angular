@@ -16,7 +16,6 @@ export class PieAreaChartComponent implements OnInit, OnChanges {
 
     chartOption = {
         color: ['#747588', '#f8f8f8'],
-        height: '335px',
         tooltip: {
             trigger: 'item',
             textStyle: {
