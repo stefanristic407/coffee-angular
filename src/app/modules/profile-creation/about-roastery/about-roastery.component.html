@@ -63,12 +63,11 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="isSaveMode && certificateTypes?.length">
-                        <div class="p-25 p-md-4">
-                            <span class="brown-cta" routerLink="/roastery-profile/certificate">
-                                + {{ 'add_another_certificate' | translate }}
-                            </span>
-                        </div>
+                    <div *ngIf="isSaveMode && certificateTypes?.length" class="p-25 p-md-4">
+                        <span class="brown-cta" routerLink="./certificate">
+                            +
+                            {{ (certificates?.length ? 'add_another_certificate' : 'add_certificate') | translate }}
+                        </span>
                     </div>
                 </div>
             </div>
