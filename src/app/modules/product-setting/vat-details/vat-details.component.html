@@ -76,7 +76,9 @@
                                     {{ rowData.country | country }}
                                 </span>
                                 <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
-                                    <label class="d-md-none">{{ col.header | translate }}</label>
+                                    <label class="d-md-none"
+                                        >{{ col.header | translate }}<span class="star">*</span></label
+                                    >
                                     <p-dropdown
                                         [options]="COUNTRY_LIST"
                                         optionLabel="name"
@@ -96,7 +98,9 @@
                                     {{ rowData.transaction_type }}
                                 </span>
                                 <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
-                                    <label class="d-md-none">{{ col.header | translate }}</label>
+                                    <label class="d-md-none"
+                                        >{{ col.header | translate }}<span class="star">*</span></label
+                                    >
                                     <input type="text" formControlName="transaction_type" pInputText />
                                     <span class="p-error" *ngIf="detailsFormControl.transaction_type.errors?.required">
                                         {{ 'required' | translate }}
@@ -109,7 +113,9 @@
                                     {{ rowData.vat_percentage }}%</span
                                 >
                                 <div class="sewn-form-field w-100 mb-0" *ngIf="editIndex === i">
-                                    <label class="d-md-none">{{ col.header | translate }}</label>
+                                    <label class="d-md-none"
+                                        >{{ col.header | translate }}<span class="star">*</span></label
+                                    >
                                     <input type="number" formControlName="vat_percentage" pInputText />
                                     <span class="p-error" *ngIf="detailsFormControl.vat_percentage.errors?.required">
                                         {{ 'required' | translate }}
