@@ -509,7 +509,7 @@
         </div>
 
         <div *ngIf="isSaveMode && !isEditBrandMode" class="brown-cta mt-4" (click)="addBrandMode()">
-            + {{ 'add_another_brand' | translate }}
+            + {{ (brands?.length ? 'add_another_brand' : 'add_brand') | translate }}
         </div>
     </section>
 </ng-template>
