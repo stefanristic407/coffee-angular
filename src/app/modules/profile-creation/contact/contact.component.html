@@ -5,7 +5,12 @@
                 <div class="row gutter-16">
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'email_address' | translate }}<span class="star">*</span></label>
-                        <input type="email" pInputText formControlName="email" placeholder="Roastery email" />
+                        <input
+                            type="email"
+                            pInputText
+                            formControlName="email"
+                            [placeholder]="'enter_your_company_email' | translate"
+                        />
                         <small *ngIf="isControlHasError('email', 'email')" class="p-error">
                             {{ 'invalid' | translate }} {{ 'email' | translate }}
                         </small>
