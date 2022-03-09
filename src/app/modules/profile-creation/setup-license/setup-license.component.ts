@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CertificateType, OrganizationSlug } from '@enums';
+import { CertificateType } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '@services';
 import { checkFile } from '@utils';
@@ -122,7 +122,7 @@ export class SetupLicenseComponent implements OnInit {
             return;
         }
         const certification = this.certificateList.find((item) => item.id === this.selectedCertification);
-        if (this.editingRowIndex === -1) {
+        if (this.editingRowIndex < 0) {
             if (!this.file) {
                 this.toastrService.error(this.translator.instant('please_check_form_data'));
                 return;
