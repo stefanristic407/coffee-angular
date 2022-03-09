@@ -21,7 +21,7 @@
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'phone_number' | translate }}<span class="star">*</span> </label>
                         <app-phone-number formControlName="phone"></app-phone-number>
-                        <small *ngIf="contactForm.controls.phone.invalid" class="p-error d-block">
+                        <small *ngIf="contactForm.controls.phone.invalid" class="p-error">
                             Please enter valid phone number
                         </small>
                     </div>
