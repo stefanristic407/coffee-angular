@@ -436,7 +436,12 @@
 
         <div class="sewn-form-field col-md-6 mb-md-0">
             <label>{{ 'vat_number' | translate }}<span class="star" *ngIf="isSaveMode">*</span></label>
-            <input type="text" pInputText formControlName="vat_number" placeholder="Please VAT Number" />
+            <input
+                type="text"
+                pInputText
+                formControlName="vat_number"
+                [placeholder]="'enter_company_vat_number' | translate"
+            />
             <small class="p-error" *ngIf="isControlHasError('vat_number', 'required')">
                 {{ 'required' | translate }}
             </small>
