@@ -38,7 +38,8 @@ export const getLanguage = (code: string): Language => {
 };
 
 export const countWords = (value: string = ''): number => {
-    return (value || '').replace(/\s+/gi, ' ').split(' ').length;
+    const str = (value || '').replace(/(^\s*)|(\s*$)/gi, '').replace(/\s+/gi, ' ');
+    return str ? str.split(' ').length : 0;
 };
 
 export const checkFile = (file: File, maxSize = 30, maxWidth = 5000, maxHeight = 5000): Observable<any> => {
