@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { ApiResponse, ShopDetails, UserProfile } from '@models';
-import { ContactGroup, FileModule, FileType, OrganizationType, ProfileImageType, VatType } from '@enums';
+import { ApiResponse, OrganizationProfile, ShopDetails, UserProfile } from '@models';
+import { ContactGroup, FileModule, FileType, OrganizationType, ProfileImageType, ServiceType, VatType } from '@enums';
 import { AuthService } from '../auth';
 import { SocketService } from '../socket';
 import { map, tap } from 'rxjs/operators';
@@ -118,6 +118,54 @@ export class UserService extends ApiService {
         return this.postWithOrg(this.orgPostUrl, `shop-details`);
     }
 
+    // ------------ APIs for public company profile ------------
+    // General endpoint to view the details of the organization
+    getGeneralProfile(orgId: number, orgType: OrganizationType): Observable<OrganizationProfile> {
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/profile`, 'GET').pipe(
+            map((response) => {
+                if (response.success) {
+                    return response.result;
+                }
+                return null;
+            }),
+        );
+    }
+    getGeneralContactList(orgId: any, orgType: OrganizationType): Observable<any> {
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/users/top-contacts`, 'GET');
+    }
+
+    getGeneralCertificates(orgId: any, orgType: OrganizationType): Observable<any> {
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/certificates`, 'GET');
+    }
+
+    getGeneralVirtualTourFiles(orgId: any, orgType: OrganizationType, query: object): Observable<any> {
+        const params = this.serializeParams(query);
+        return this.post(this.postUrl, `general/${orgType}/${orgId}/file-manager/all-files?${params}`, 'GET');
+    }
+
+    // Return the list of all brands under roaster
+    getPublicBrands(orgId: number): Observable<ApiResponse<any>> {
+        return this.post(this.postUrl, `general/ro/${orgId}/brands`);
+    }
+
+    // List all branches under Micro roaster for public
+    getPublicBranches(orgId: number): Observable<ApiResponse<any>> {
+        return this.post(this.postUrl, `general/mr/${orgId}/branches`);
+    }
+
+    getPublicServices(orgId: number): Observable<ApiResponse<any>> {
+        return this.post(this.postUrl, `general/fc/${orgId}/services`);
+    }
+
+    getPublicService(orgId: number, slug: ServiceType): Observable<ApiResponse<any>> {
+        return this.post(this.postUrl, `general/fc/${orgId}/services/${slug}`);
+    }
+
+    // List all branches under Micro roaster for public
+    getPublicPartners(orgId: number): Observable<ApiResponse<any>> {
+        return this.post(this.postUrl, `general/hrc/${orgId}/partners`);
+    }
+
     //////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
@@ -125,35 +173,6 @@ export class UserService extends ApiService {
     //////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
     // Have to remove below functions step by step
-
-    // API Function Name : Roaster Login
-    // API Description: This API calls helps to get the username and password of the user
-    // and send to the backend to check the user is valid or not.
-
-    roasterLogin(body: any) {
-        const data = {
-            api_call: '/users/token',
-            token: 'No',
-            data: {
-                email: body.email,
-                password: body.password,
-            },
-        };
-        return this.http.post(this.orgPostUrl, data);
-    }
-
-    // API Function Name : Logged in User Data
-    // API Description: This API calls helps to get the user Details of the Logged in User.
-
-    getUsers() {
-        const userId = this.authService.userId;
-        const roasterId = this.getOrgId();
-        const data = {
-            api_call: '/ro/' + roasterId + '/users/' + userId,
-            token: this.authService.token,
-        };
-        return this.http.post(this.postUrl, data);
-    }
 
     // API Function Name :Logout
     // API Description: This API calls helps to Logout from the current session.
@@ -181,70 +200,6 @@ export class UserService extends ApiService {
             data: body,
         };
         return this.http.post(this.postUrl, data);
-    }
-
-    // API Function Name : Change Password
-    // API Description: This API calls helps to Change the User Password.
-
-    changePassword(body: any) {
-        const data = {
-            api_call: '/users/reset-password',
-            token: this.authService.token,
-            data: {
-                email: body.email,
-                token: body.token,
-                password: body.password,
-                confirm_password: body.confirm_password,
-            },
-        };
-
-        return this.http.post(this.postUrl, data);
-    }
-
-    // API Function Name : Verify OTP
-    // API Description: This API calls helps to genarate OTP and send to the user recovery Email and Verify it.
-
-    verifyOtp(body: any) {
-        const data = {
-            api_call: '/users/verify-otp',
-            token: this.authService.token,
-            data: {
-                email: body.email,
-                otp: body.otp,
-            },
-        };
-        return this.http.post(this.postUrl, data);
-    }
-
-    // API Function Name : Recovery Email
-    // API Description: This API calls helps, if the user forgot his password, this API will get the user recovery Email and Verify it.
-
-    recoveryEmail(body: any) {
-        const data = {
-            api_call: '/users/forgot-password',
-            token: this.authService.token,
-            data: {
-                email: body.email,
-            },
-        };
-        return this.http.post(this.postUrl, data);
-    }
-
-    getProfileCreationData(orgId: any, orgType: OrganizationType): Observable<any> {
-        return this.post(this.orgPostUrl, `${orgType}/${orgId}/profile`, 'GET');
-    }
-
-    getGeneralContactList(orgId: any, orgType: OrganizationType): Observable<any> {
-        return this.post(this.postUrl, `general/${orgType}/${orgId}/users/top-contacts`, 'GET');
-    }
-
-    getGeneralCertificates(orgId: any, orgType: OrganizationType): Observable<any> {
-        return this.post(this.postUrl, `general/${orgType}/${orgId}/certificates`, 'GET');
-    }
-
-    getGeneralVirtualTourFiles(orgId: any, orgType: OrganizationType, query: Object): Observable<any> {
-        const params = this.serializeParams(query);
-        return this.post(this.postUrl, `general/${orgType}/${orgId}/file-manager/all-files?${params}`, 'GET');
     }
 
     // API Function Name : Roaster Account

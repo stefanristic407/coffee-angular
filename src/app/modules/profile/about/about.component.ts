@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FACILITATOR_SERVICES, QUANTIRY_UNIT_LIST } from '@constants';
 import { OrganizationType, ServiceType } from '@enums';
-import {
-    BranchService,
-    ChatHandlerService,
-    FcServicesService,
-    HrcPartnerService,
-    RoBrandService,
-    UserService,
-} from '@services';
+import { ChatHandlerService, UserService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../profile.service';
 
@@ -34,11 +27,7 @@ export class AboutComponent implements OnInit {
     millingContent: any;
 
     constructor(
-        private branchService: BranchService,
         private chatHandler: ChatHandlerService,
-        private fcServicesService: FcServicesService,
-        private hrcPartnerService: HrcPartnerService,
-        private roBrandService: RoBrandService,
         private toastrService: ToastrService,
         private userService: UserService,
         public profileService: ProfileService,
@@ -74,7 +63,7 @@ export class AboutComponent implements OnInit {
     }
 
     getBrands() {
-        this.roBrandService.getPublicBrands(this.profileService.orgId).subscribe((res) => {
+        this.userService.getPublicBrands(this.profileService.orgId).subscribe((res) => {
             if (res.success) {
                 this.brands = res.result || [];
             }
@@ -82,7 +71,7 @@ export class AboutComponent implements OnInit {
     }
 
     getBranches() {
-        this.branchService.getPublicBranches(this.profileService.orgId).subscribe((res: any) => {
+        this.userService.getPublicBranches(this.profileService.orgId).subscribe((res: any) => {
             if (res.success) {
                 this.branches = res.result || [];
             }
@@ -90,7 +79,7 @@ export class AboutComponent implements OnInit {
     }
 
     getFcServices() {
-        this.fcServicesService.getPublicServices(this.profileService.orgId).subscribe((res: any) => {
+        this.userService.getPublicServices(this.profileService.orgId).subscribe((res: any) => {
             if (res.success) {
                 this.serviceOptions = [];
                 (res.result || []).map((item: any) => {
@@ -116,7 +105,7 @@ export class AboutComponent implements OnInit {
     }
 
     viewService(slug: ServiceType) {
-        this.fcServicesService.getPublicService(this.profileService.orgId, slug).subscribe((res: any) => {
+        this.userService.getPublicService(this.profileService.orgId, slug).subscribe((res: any) => {
             if (res.success) {
                 if (slug === ServiceType.MILLING) {
                     this.millingContent = res.result;
@@ -128,7 +117,7 @@ export class AboutComponent implements OnInit {
     }
 
     getPartners() {
-        this.hrcPartnerService.getPublicPartners(this.profileService.orgId).subscribe((res: any) => {
+        this.userService.getPublicPartners(this.profileService.orgId).subscribe((res: any) => {
             if (res.success) {
                 this.partners = res.result;
             }

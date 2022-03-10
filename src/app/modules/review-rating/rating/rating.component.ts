@@ -96,7 +96,7 @@ export class RatingComponent extends ResizeableComponent implements OnInit {
     }
 
     getOrganization() {
-        this.organizationService.getGeneralProfile(this.orgId, this.orgType).subscribe({
+        this.userSrv.getGeneralProfile(this.orgId, this.orgType).subscribe({
             next: (result) => {
                 if (result) {
                     this.companyImg = result.company_image_thumbnail_url;

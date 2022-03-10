@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { HealthCheckComponent } from '@components';
-import { LayoutComponent } from '@components';
-import { GateComponent } from '@components';
+import { GateComponent, HealthCheckComponent, LayoutComponent } from '@components';
 
 export const routes: Routes = [
     {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ContactGroup, OrganizationType } from '@enums';
+import { OrganizationType } from '@enums';
 import { OrganizationProfile } from '@models';
-import { OrganizationService, UserService } from '@services';
+import { UserService } from '@services';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +18,7 @@ export class ProfileService {
     myTopContacts: any = [];
     employeeChartData: { name: string; value: any }[];
 
-    constructor(private newUserService: UserService, private organizationService: OrganizationService) {}
+    constructor(private userService: UserService) {}
 
     clearData() {
         this.organizationProfile = null;
@@ -30,7 +30,7 @@ export class ProfileService {
     getProfile() {
         this.isLoading = true;
         this.clearData();
-        this.organizationService.getGeneralProfile(this.orgId, this.orgType).subscribe((result) => {
+        this.userService.getGeneralProfile(this.orgId, this.orgType).subscribe((result) => {
             if (result) {
                 this.organizationProfile = result;
 
@@ -54,7 +54,7 @@ export class ProfileService {
     }
 
     getContactList() {
-        this.newUserService.getGeneralContactList(this.orgId, this.orgType).subscribe((res: any) => {
+        this.userService.getGeneralContactList(this.orgId, this.orgType).subscribe((res: any) => {
             if (res.success) {
                 this.myTopContacts = res.result || [];
                 this.topContacts = this.myTopContacts.concat(this.parentTopContacts);
@@ -63,7 +63,7 @@ export class ProfileService {
     }
 
     getParentContacts(parentId) {
-        this.newUserService.getGeneralContactList(parentId, this.orgType).subscribe((res: any) => {
+        this.userService.getGeneralContactList(parentId, this.orgType).subscribe((res: any) => {
             if (res.success) {
                 this.parentTopContacts = res.result || [];
                 this.topContacts = this.myTopContacts.concat(this.parentTopContacts);
