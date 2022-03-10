@@ -14,7 +14,7 @@ export class WordLimitDirective {
     // @HostListener('paste', ['$event']) // This is needed to prevent overflowing paste
     @HostListener('keydown', ['$event'])
     onKeyDown(event) {
-        const availableTagList = ['INPUT', 'TEXTARE'];
+        const availableTagList = ['INPUT', 'TEXTAREA'];
         let current = '';
         if (availableTagList.indexOf(this.el.nativeElement.tagName) !== -1) {
             current = this.el.nativeElement.value;
