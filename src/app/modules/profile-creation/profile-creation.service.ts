@@ -237,6 +237,7 @@ export class ProfileCreationService {
         Promise.all(promises)
             .then(() => {
                 this.roasterProfile();
+                this.getContactList();
                 this.isSaving = false;
                 this.toastrService.success('Roaster profile details updated successfully');
             })
