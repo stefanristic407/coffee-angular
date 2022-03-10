@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { countWords } from '@utils';
 
 @Directive({
     selector: '[appWordLimit]',
@@ -34,11 +35,7 @@ export class WordLimitDirective {
             }
             next = current.concat(event.key);
         }
-        const stringData = next
-            .replace(/(^\s*)|(\s*$)/gi, '')
-            .replace(/[ ]{2,}/gi, ' ')
-            .replace(/\n /, '\n');
-        const length = stringData ? stringData.split(' ').length : 0;
+        const length = countWords(next);
 
         if (length > this.appWordLimit) {
             event.preventDefault();
