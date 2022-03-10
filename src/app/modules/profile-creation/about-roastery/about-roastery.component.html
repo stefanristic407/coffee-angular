@@ -67,15 +67,12 @@
                         </div>
                     </div>
                     <div *ngIf="isSaveMode && certificateTypes?.length" class="p-25 p-md-4">
-                        <span class="brown-cta" (click)="profileCreationService.editCertificate()">
-                            +
-                            {{
-                                (profileCreationService.certificates?.length
-                                    ? 'add_another_certificate'
-                                    : 'add_certificate'
-                                ) | translate
-                            }}
-                        </span>
+                        <span class="brown-cta plus-icon" (click)="profileCreationService.editCertificate()">{{
+                            (profileCreationService.certificates?.length
+                                ? 'add_another_certificate'
+                                : 'add_certificate'
+                            ) | translate
+                        }}</span>
                     </div>
                 </div>
             </div>
@@ -343,8 +340,10 @@
                         ></button>
                     </div>
                 </div>
-                <div class="brown-cta mt-4" (click)="showContact()">
-                    + {{ (members.controls?.length ? 'add_another_contact' : 'add_contact') | translate }}
+                <div class="mt-4">
+                    <span class="brown-cta plus-icon" (click)="showContact()">{{
+                        (members.controls?.length ? 'add_another_contact' : 'add_contact') | translate
+                    }}</span>
                 </div>
             </div>
         </form>
@@ -518,8 +517,10 @@
             <ng-template *ngTemplateOutlet="brandFormTemplate"></ng-template>
         </div>
 
-        <div *ngIf="isSaveMode && !isEditBrandMode" class="brown-cta mt-4" (click)="addBrandMode()">
-            + {{ (brands?.length ? 'add_another_brand' : 'add_brand') | translate }}
+        <div *ngIf="isSaveMode && !isEditBrandMode" class="mt-4">
+            <span class="brown-cta plus-icon" (click)="addBrandMode()">{{
+                (brands?.length ? 'add_another_brand' : 'add_brand') | translate
+            }}</span>
         </div>
     </section>
 </ng-template>

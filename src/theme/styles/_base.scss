@@ -166,6 +166,22 @@ input[type='number'] {
     @media (max-width: 767px) {
         text-decoration: underline !important;
     }
+
+    &.plus-icon {
+        &::before {
+            content: '\e90d';
+            display: inline-block;
+            font-size: 14px;
+            font-weight: $fw-b;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: 8px;
+            font-family: 'primeicons';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
 }
 
 .hover-underline {
