@@ -31,7 +31,7 @@
                     {{ 'phone_number' | translate }}
                 </p>
                 <p class="fnt-14 fw-m lh-129 lh-md-normal mb-0" [ngClass]="mobileView ? 'text-clr334' : 'text-clr588'">
-                    {{ data?.phone || '--' }}
+                    {{ (data?.phone | phonenumber) || '--' }}
                 </p>
             </div>
             <div class="d-flex flex-column flex-md-row p-3 py-md-25 border-bottom-dashed-primary border-bottom-md-none">

@@ -4400,15 +4400,6 @@ li.select-list__item {
     background: #f8f8f8 !important;
 }
 
-.phone-nmber__select .enetered-number:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.035rem green !important;
-}
-
-.mobile-farm {
-    display: none !important;
-}
-
 @media (max-width: 767px) {
     .mobile-farm {
         display: block !important;

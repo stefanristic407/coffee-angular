@@ -210,9 +210,10 @@
                                 <div class="mt-3 mt-md-0">
                                     <div>
                                         {{
-                                            infoForm.value.service
+                                            (infoForm.value.service
                                                 ? shipInfo.facilitator_phone
                                                 : authService.currentOrganization?.phone
+                                            ) | phonenumber
                                         }}
                                     </div>
                                     <div class="pt-3">
@@ -251,7 +252,7 @@
                                     <div>{{ billingAddress?.country | country }}</div>
                                 </div>
                                 <div class="mt-3 mt-md-0">
-                                    <div>{{ authService.currentOrganization?.phone }}</div>
+                                    <div>{{ authService.currentOrganization?.phone | phonenumber }}</div>
                                     <div class="pt-3">{{ authService.currentOrganization?.email }}</div>
                                 </div>
                             </div>
