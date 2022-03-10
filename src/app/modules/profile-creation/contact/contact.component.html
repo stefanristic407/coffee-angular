@@ -157,7 +157,7 @@
                         ><span class="d-none d-md-block">{{ 'phone_number' | translate }}</span
                         ><span class="d-md-none">{{ 'phone' | translate }}</span>
                     </div>
-                    <div>{{ profileCreationService.organizationProfile?.phone }}</div>
+                    <div>{{ profileCreationService.organizationProfile?.phone | phonenumber }}</div>
                 </li>
                 <li class="col-12 d-flex">
                     <div>{{ 'country' | translate }}</div>

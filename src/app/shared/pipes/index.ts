@@ -14,6 +14,7 @@ export * from './link';
 export * from './month/month.pipe';
 export * from './order';
 export * from './org-type.pipe';
+export * from './phone-number.pipe';
 export * from './reverse.pipe';
 export * from './safe-html.pipe';
 export * from './sentence-case.pipe';
