@@ -34,6 +34,7 @@
                             optionValue="isoCode"
                             [autoDisplayFirst]="false"
                             filter="true"
+                            [placeholder]="'select_your_country' | translate"
                         >
                         </p-dropdown>
                         <small *ngIf="isControlHasError('country', 'required')" class="p-error">
@@ -42,7 +43,13 @@
                     </div>
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'state' | translate }}</label>
-                        <p-dropdown formControlName="state" [options]="cities" [autoDisplayFirst]="false"> </p-dropdown>
+                        <p-dropdown
+                            formControlName="state"
+                            [options]="cities"
+                            [autoDisplayFirst]="false"
+                            [placeholder]="'select_your_state' | translate"
+                        >
+                        </p-dropdown>
                     </div>
                     <div class="sewn-form-field col-md-6">
                         <label>{{ 'address' | translate }}<span class="star">*</span></label>
