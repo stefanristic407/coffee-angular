@@ -1,7 +1,3 @@
-// Custom Theming for Prime Ng
-
-@import '../variables';
-
 // SelectButton
 .p-selectbutton {
     display: inline-flex;
@@ -23,13 +19,15 @@
     border-radius: 4px !important;
 }
 
-.p-selectbutton .p-button.p-highlight {
+.p-selectbutton .p-button.p-highlight,
+.p-selectbutton .p-button.p-highlight:not(.p-state-disabled):not(.p-state-active):hover {
     background: $primary-color;
+    color: $white;
 }
 
 .p-selectbutton .p-button:not(.p-state-disabled):not(.p-state-active):hover {
-    background-color: $gray-color;
-    color: $white;
+    background-color: transparent;
+    color: $general-text-color;
 }
 .p-selectbutton .p-button .p-button-label {
     font-size: 12px;

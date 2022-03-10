@@ -39,12 +39,23 @@ hr {
         color: $general-text-color;
         white-space: nowrap;
         overflow: visible;
+        border-color: $secondary-border-color !important;
+        &:not(:first-child) {
+            border-left: 1px solid $secondary-border-color;
+        }
+        border-radius: 0 !important;
 
         &.p-highlight,
         &.p-highlight:not(.p-state-disabled):not(.p-state-active):hover {
             color: $primary-color;
             background: #e5f0eb;
-            border-radius: 4px;
+            border-radius: 4px !important;
+            border-color: $secondary-border-color;
+            border: none;
+
+            & + .p-button {
+                border: none;
+            }
         }
     }
 }
