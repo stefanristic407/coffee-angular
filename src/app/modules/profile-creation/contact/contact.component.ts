@@ -43,6 +43,7 @@ export class ContactComponent implements OnInit {
 
     initialForm() {
         this.contactForm = this.fb.group({
+            website: ['', Validators.compose([urlValidator(true)])],
             email: ['', Validators.compose([Validators.required]), emailValidator(this.validateService)],
             phone: ['', Validators.compose([Validators.required])],
             country: ['', Validators.compose([Validators.required])],
