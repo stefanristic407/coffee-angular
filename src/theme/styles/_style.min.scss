@@ -4400,6 +4400,10 @@ li.select-list__item {
     background: #f8f8f8 !important;
 }
 
+.mobile-farm {
+    display: none !important;
+}
+
 @media (max-width: 767px) {
     .mobile-farm {
         display: block !important;

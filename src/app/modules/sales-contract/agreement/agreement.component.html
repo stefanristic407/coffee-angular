@@ -19,6 +19,17 @@
 
         <section class="estate-orders-heading">
             <h5 class="fnt-18 fw-b text-clr24">{{ 'menu_sales_contracts' | translate }}</h5>
+            <div class="col-12 col-md-4 ml-md-auto px-0 mt-25 d-md-none">
+                <span class="custom-search">
+                    <input
+                        type="text"
+                        pInputText
+                        [(ngModel)]="searchTerm"
+                        [placeholder]="'search_files_customer' | translate"
+                        class="w-100 {{ searchTerm ? 'highlight' : '' }}"
+                    />
+                </span>
+            </div>
         </section>
 
         <div class="row">

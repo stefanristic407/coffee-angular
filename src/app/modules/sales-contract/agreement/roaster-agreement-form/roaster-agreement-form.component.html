@@ -1,7 +1,7 @@
 <div class="custom-padding">
     <div class="d-flex flex-column">
         <div class="w-100 pb-3 mobile-farm">
-            <a class="back-page" routerLink="/sales-contract"> {{ 'back' | translate }}</a>
+            <a class="back-page" (click)="closeModal.emit()" routerLink="/sales-contract"> {{ 'back' | translate }}</a>
         </div>
         <h4 class="fnt-18 fw-b text-clr334 mt-3 mb-3 mobile-farm">
             {{ 'upload_new_agreement' | translate }}
@@ -87,7 +87,12 @@
                                 </button>
                             </div>
                             <div class="mobile-farm mt-3">
-                                <button type="button" [routerLink]="['/sales-contract']" class="btn-stroked btn-width">
+                                <button
+                                    type="button"
+                                    (click)="closeModal.emit()"
+                                    [routerLink]="['/sales-contract']"
+                                    class="btn-stroked btn-width"
+                                >
                                     {{ 'cancel' | translate }}
                                 </button>
                             </div>
