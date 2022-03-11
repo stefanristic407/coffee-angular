@@ -135,7 +135,7 @@ export class PublicInviteComponent extends ResizeableComponent implements OnInit
                     field: 'user_first_name',
                     header: this.globals.languageJson?.customer_name,
                     sortable: false,
-                    width: 10,
+                    width: 11,
                 },
                 {
                     field: 'email',
