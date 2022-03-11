@@ -4,6 +4,14 @@
             <div class="border-md-main br-4 p-md-4">
                 <div class="row gutter-16">
                     <div class="sewn-form-field col-md-6">
+                        <label>{{ 'website' | translate }}</label>
+                        <app-url-input formControlName="website" placeholder="www.royalcoffee.az.com"></app-url-input>
+                        <small *ngIf="isControlHasError('website', 'url')" class="p-error">
+                            {{ 'url_must_be_in_a_valid_format' | translate }}
+                        </small>
+                    </div>
+                    <div class="col-6 d-none d-md-block"></div>
+                    <div class="sewn-form-field col-md-6">
                         <label>{{ 'email_address' | translate }}<span class="star">*</span></label>
                         <input
                             type="email"

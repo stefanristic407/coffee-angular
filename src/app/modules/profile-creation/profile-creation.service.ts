@@ -51,6 +51,7 @@ export class ProfileCreationService {
     ) {
         this.roasterId = this.authService.getOrgId();
         this.refreshData(this.authService.currentOrganization);
+        this.getContactList();
     }
 
     public editProfileData(subData: any) {
@@ -114,6 +115,7 @@ export class ProfileCreationService {
         this.newUserService.getContacts(ContactGroup.TOP).subscribe((res: any) => {
             if (res.success) {
                 this.topContacts = res.result || [];
+                this.updatedContacts = this.topContacts.map((element) => element.user_id);
             }
         });
     }
