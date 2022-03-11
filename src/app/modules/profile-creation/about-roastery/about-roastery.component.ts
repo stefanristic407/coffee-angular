@@ -51,7 +51,6 @@ export class AboutRoasteryComponent implements OnInit {
     ngOnInit(): void {
         this.getCertificateTypes();
         this.profileCreationService.getCertificates();
-        this.profileCreationService.getContactList();
         this.getBrands();
         this.getOrgUsers();
         this.initialForm();
@@ -123,10 +122,7 @@ export class AboutRoasteryComponent implements OnInit {
             description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
         });
 
-        this.membersForm = this.fb.group({
-            members: this.fb.array([]),
-        });
-
+        this.membersForm = this.fb.group({ members: this.fb.array([]) });
         this.members.valueChanges.subscribe((changedData: any) => {
             this.profileCreationService.editTopContacts(changedData);
         });
@@ -157,11 +153,14 @@ export class AboutRoasteryComponent implements OnInit {
     setFormValue() {
         this.aboutForm.patchValue(this.profileCreationService.toUpdateProfileData);
 
+        // When we remove member controls, editTopContacts is triggered,
+        // so we have to store updated values before remove member controls.
+        const updatedContacts = this.profileCreationService.updatedContacts;
         while (this.members.length !== 0) {
             this.members.removeAt(0);
         }
-        this.profileCreationService.topContacts.forEach((element) => {
-            this.members.push(this.fb.control(element.user_id, Validators.compose([Validators.required])));
+        updatedContacts.forEach((element) => {
+            this.members.push(this.fb.control(element, Validators.compose([Validators.required])));
         });
     }
 
