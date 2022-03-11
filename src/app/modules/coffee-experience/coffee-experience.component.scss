@@ -4,3 +4,9 @@
     max-width: 394px;
     width: 100%;
 }
+
+@media (max-width: 767px) {
+    ::placeholder {
+        font-size: 10px;
+    }
+}

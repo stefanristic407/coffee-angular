@@ -192,6 +192,39 @@
                             </span>
                         </div>
                     </span>
+                    <span *ngSwitchCase="'product_name'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'product_name' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['product_name'] || '-' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'roast_level'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'ro_roast_level' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['roast_level'] || '-' }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'order_id'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'estate_order_id' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['order_id'] || '-' }}
+                            </span>
+                        </div>
+                    </span>
                     <span *ngSwitchCase="'status'" (click)="availabilityPage(rowData)">
                         <span *ngIf="!primeTableService.isMobileView">
                             {{ rowData['status'] | titlecase }}
@@ -199,15 +232,23 @@
                     </span>
                     <span *ngSwitchCase="'varieties'" (click)="availabilityPage(rowData)">
                         <div class="d-flex">
-                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'variety' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
                                 {{ rowData['varieties'] || 'NA' }}
                             </span>
                         </div>
                     </span>
                     <span *ngSwitchCase="'sub_order_id'" (click)="availabilityPage(rowData)">
                         <div class="d-flex">
-                            <span class="truncate break-word">
-                                {{ rowData['order_id'] }}
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                {{ 'sub_order_id' | translate }}
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['order_id'] || '-' }}
                             </span>
                         </div>
                     </span>
@@ -222,33 +263,57 @@
                         </div>
                     </span>
                     <span *ngSwitchCase="'roast_level'" (click)="availabilityPage(rowData)">
-                        {{ (rowData['roast_level'] | titlecase)?.replace('-', ' ') }}
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                <span> {{ 'roast_level' | translate }}</span>
+                            </span>
+                            <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
+                                {{ (rowData['roast_level'] | titlecase)?.replace('-', ' ') }}
+                            </span>
+                        </div>
+                    </span>
+                    <span *ngSwitchCase="'cup_score'" (click)="availabilityPage(rowData)">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                <span> {{ 'cupping_score' | translate }}</span>
+                            </span>
+                            <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['cup_score'] || '-' }}
+                            </span>
+                        </div>
                     </span>
                     <span *ngSwitchCase="'quantity'" (click)="availabilityPage(rowData)">
-                        <span *ngIf="path === 'orders'">
-                            {{ rowData['quantity_count'] }}
-                            {{
-                                rowData['quantity_type'] === 'jute_bags'
-                                    ? 'Jute bags'
-                                    : (rowData['quantity_type'] | translate)
-                            }}</span
-                        >
-                        <span *ngIf="path === 'mr-orders'">
-                            {{ rowData['quantity'] }}
-                            {{
-                                rowData['quantity_type'] === 'jute_bags'
-                                    ? 'Jute bags'
-                                    : (rowData['quantity_type'] | translate)
-                            }}</span
-                        >
-                        <span *ngIf="path === 'hrc-orders'">
-                            {{ rowData['quantity'] }}
-                            {{
-                                rowData['available_quantity_type'] === 'jute_bags'
-                                    ? 'Jute bags'
-                                    : rowData['available_quantity_type']
-                            }}</span
-                        >
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                <span> {{ 'quantity' | translate }}</span>
+                            </span>
+                            <span [class.w-50]="primeTableService.isMobileView" class="truncate break-word">
+                                <span *ngIf="path === 'orders'">
+                                    {{ rowData['quantity_count'] }}
+                                    {{
+                                        rowData['quantity_type'] === 'jute_bags'
+                                            ? 'Jute bags'
+                                            : (rowData['quantity_type'] | translate)
+                                    }}</span
+                                >
+                                <span *ngIf="path === 'mr-orders'">
+                                    {{ rowData['quantity'] }}
+                                    {{
+                                        rowData['quantity_type'] === 'jute_bags'
+                                            ? 'Jute bags'
+                                            : (rowData['quantity_type'] | translate)
+                                    }}</span
+                                >
+                                <span *ngIf="path === 'hrc-orders'">
+                                    {{ rowData['quantity'] }}
+                                    {{
+                                        rowData['available_quantity_type'] === 'jute_bags'
+                                            ? 'Jute bags'
+                                            : rowData['available_quantity_type']
+                                    }}</span
+                                >
+                            </span>
+                        </div>
                     </span>
 
                     <span *ngSwitchCase="'id'">
