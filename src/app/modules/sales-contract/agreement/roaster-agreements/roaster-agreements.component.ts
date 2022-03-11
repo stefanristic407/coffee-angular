@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResizeableComponent } from '@base-components';
 import { OrganizationType } from '@enums';
+import { Download } from '@models';
 import { TranslateService } from '@ngx-translate/core';
-import { ResizeService, RoasterService } from '@services';
+import { DownloadService, ResizeService, RoasterService } from '@services';
 import { ConfirmComponent } from '@shared';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -35,6 +36,7 @@ export class RoasterAgreementsComponent extends ResizeableComponent implements O
         private toastrService: ToastrService,
         private translator: TranslateService,
         protected resizeService: ResizeService,
+        public downloadService: DownloadService,
     ) {
         super(resizeService);
     }
@@ -116,8 +118,32 @@ export class RoasterAgreementsComponent extends ResizeableComponent implements O
             });
     }
 
+    onDownloadModal(item) {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Please confirm!',
+                    desp: 'Are you sure want to download',
+                },
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.downloadService.download(item.url, item.file_name, item.file_mime).subscribe(
+                        (res: Download) => {
+                            if (res.state === 'DONE') {
+                                this.toastrService.success('Downloaded successfully');
+                            }
+                        },
+                        (error) => {
+                            this.toastrService.error('Download failed');
+                        },
+                    );
+                }
+            });
+    }
+
     getMenuItems(item) {
-        return [
+        let menu = [
             this.resizeService.isMobile()
                 ? {
                       label: this.translator.instant('update'),
@@ -126,5 +152,9 @@ export class RoasterAgreementsComponent extends ResizeableComponent implements O
                 : { label: this.translator.instant('update'), command: () => this.onUpdateModal(item.id) },
             { label: this.translator.instant('delete'), command: () => this.onOpenDeleteModal(item.id) },
         ];
+        if (this.resizeService.isMobile()) {
+            menu.push({ label: this.translator.instant('download'), command: () => this.onDownloadModal(item.id) });
+        }
+        return menu;
     }
 }
