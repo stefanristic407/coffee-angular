@@ -156,6 +156,9 @@ input[type='number'] {
     font-size: 14px;
     font-weight: $fw-m;
     white-space: nowrap;
+    padding: 0;
+    border: none;
+    background: transparent;
 
     &:hover {
         color: $brown-color !important;
@@ -165,6 +168,10 @@ input[type='number'] {
 
     @media (max-width: 767px) {
         text-decoration: underline !important;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
     }
 
     &.plus-icon {

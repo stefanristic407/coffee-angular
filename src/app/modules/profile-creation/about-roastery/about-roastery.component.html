@@ -580,7 +580,9 @@
 
 <ng-template #brandButtonGroup>
     <div class="d-flex float-right float-md-none">
-        <span class="brown-cta mr-3" (click)="saveBrand()">{{ 'save' | translate }}</span>
+        <button class="brown-cta mr-3" (click)="saveBrand()" [disabled]="isBrandSubmitted">
+            {{ 'save' | translate }}
+        </button>
         <span *ngIf="toEditBrand?.id" class="brown-cta mr-3" (click)="deleteBrand()">{{ 'delete' | translate }}</span>
         <span class="brown-cta" (click)="cancelEditBrand()">{{ 'cancel' | translate }}</span>
     </div>

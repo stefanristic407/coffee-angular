@@ -32,6 +32,7 @@ export class AboutRoasteryComponent implements OnInit {
 
     isEditBrandMode = false;
     toEditBrand: any;
+    isBrandSubmitted = false;
 
     get members() {
         return this.membersForm.get('members') as FormArray;
@@ -276,6 +277,7 @@ export class AboutRoasteryComponent implements OnInit {
             this.toastrService.error(this.translator.instant('please_check_form_data'));
             return;
         }
+        this.isBrandSubmitted = true;
         const data: FormData = new FormData();
         data.append('name', this.brandForm.controls.name.value);
         data.append('description', this.brandForm.controls.description.value);
@@ -292,6 +294,7 @@ export class AboutRoasteryComponent implements OnInit {
                     this.getBrands();
                     this.toastrService.success('Brand is updated successfully');
                 }
+                this.isBrandSubmitted = false;
             });
         } else {
             data.append('api_call', `${this.roasterService.apiCallPrefix}/brands`);
@@ -301,6 +304,7 @@ export class AboutRoasteryComponent implements OnInit {
                     this.getBrands();
                     this.toastrService.success('Brand is added successfully');
                 }
+                this.isBrandSubmitted = false;
             });
         }
     }
