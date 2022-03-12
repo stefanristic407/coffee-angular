@@ -403,7 +403,10 @@
                 <small *ngIf="isControlHasError('capacity', 'required')" class="p-error">
                     {{ 'required' | translate }}
                 </small>
-                <small *ngIf="isControlHasError('capacity_unit', 'required')" class="p-error">
+                <small
+                    *ngIf="!isControlHasError('capacity', 'required') && isControlHasError('capacity_unit', 'required')"
+                    class="p-error"
+                >
                     {{ 'select_unit' | translate }}
                 </small>
             </div>
