@@ -1,11 +1,4 @@
 .license-content-wrapper {
-    @media (max-width: 767px) {
-        .btn-raised,
-        .btn-stroke {
-            width: 100%;
-        }
-    }
-
     .certification-item {
         & > div {
             @media (max-width: 767px) {
@@ -35,45 +28,6 @@
         align-items: center;
         span {
             max-width: 150px;
-        }
-    }
-
-    .button-wrapper {
-        @media (max-width: 767px) {
-            width: 100%;
-        }
-    }
-
-    .certification-wrapper {
-        .certification-name {
-            width: 50%;
-        }
-
-        .certification-year {
-            width: 50%;
-        }
-    }
-
-    @media (max-width: 767px) {
-        .certification-name {
-            width: 100% !important;
-        }
-
-        .certification-year {
-            width: 100% !important;
-        }
-    }
-
-    @media (min-width: 1200px) {
-        .certification-wrapper {
-            width: 652px;
-            .certification-name {
-                width: 370px !important;
-            }
-
-            .certification-year {
-                width: 270px !important;
-            }
         }
     }
 }

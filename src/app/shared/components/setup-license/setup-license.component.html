@@ -39,57 +39,53 @@
             <div class="mt-2" *ngIf="editingRowIndex === -1 || !certificationArray.length">
                 <ng-container *ngTemplateOutlet="addAndEditTemplate"></ng-container>
             </div>
-            <span class="brown-cta" (click)="onAdd()">+ {{ 'add_another_certificate' | translate }} </span>
+            <span class="brown-cta plus-icon" (click)="onAdd()">{{ 'add_another_certificate' | translate }} </span>
         </div>
         <div class="py-2 py-lg-3">
             <p-divider type="dashed"></p-divider>
         </div>
         <div class="mt-1 mb-3 mb-md-5">
-            <button class="btn-stroked" (click)="close()">
-                {{ 'cancel' | translate }}
-            </button>
+            <button class="btn-stroked w-mob-100" (click)="close()">{{ 'cancel' | translate }}</button>
         </div>
         <input #myFileInput type="file" class="d-none" (change)="onFileChange($event)" />
     </div>
 
     <ng-template #addAndEditTemplate>
-        <div class="d-flex flex-wrap flex-column flex-lg-row pb-3 pb-lg-0">
-            <div class="d-flex flex-wrap pr-lg-25 certification-wrapper">
-                <div class="p-0 pr-md-2 pr-lg-25 sewn-form-field mb-3 certification-name">
-                    <label>{{ 'certification_name' | translate }}</label>
-                    <p-dropdown
-                        [options]="certificateList"
-                        optionLabel="name"
-                        optionValue="id"
-                        [(ngModel)]="
-                            editingRowIndex < 0
-                                ? selectedCertification
-                                : certificationArray[editingRowIndex].certificate_type_id
-                        "
-                        [placeholder]="'enter_certification_name' | translate"
-                        [autoDisplayFirst]="false"
-                        (onChange)="onChangeType($event)"
-                    >
-                        <ng-template let-item pTemplate="item">
-                            {{ item.type | sentencecase }}
-                        </ng-template>
-                    </p-dropdown>
-                </div>
-                <div class="p-0 pl-md-2 pl-lg-25 sewn-form-field mb-3 certification-year">
-                    <label>{{ 'year_of_certification' | translate }}</label>
-                    <p-dropdown
-                        [options]="yearList"
-                        [(ngModel)]="
-                            editingRowIndex < 0 ? selectedCertificationYear : certificationArray[editingRowIndex].year
-                        "
-                        [placeholder]="'please_select_year' | translate"
-                        [autoDisplayFirst]="false"
-                        (onChange)="onChangeYear($event)"
-                    ></p-dropdown>
-                </div>
+        <div class="row gutter-16 gutter-lg-24 pb-3 pb-lg-0">
+            <div class="sewn-form-field col-md-6 col-lg-4">
+                <label>{{ 'certification_name' | translate }}</label>
+                <p-dropdown
+                    [options]="certificateList"
+                    optionLabel="name"
+                    optionValue="id"
+                    [(ngModel)]="
+                        editingRowIndex < 0
+                            ? selectedCertification
+                            : certificationArray[editingRowIndex].certificate_type_id
+                    "
+                    [placeholder]="'enter_certification_name' | translate"
+                    [autoDisplayFirst]="false"
+                    (onChange)="onChangeType($event)"
+                >
+                    <ng-template let-item pTemplate="item">
+                        {{ item.type | sentencecase }}
+                    </ng-template>
+                </p-dropdown>
             </div>
-            <div class="pl-lg-25">
-                <label class="fw-m mb-2">{{ 'upload_certificate' | translate }}</label>
+            <div class="sewn-form-field col-md-6 col-lg-3">
+                <label>{{ 'year_of_certification' | translate }}</label>
+                <p-dropdown
+                    [options]="yearList"
+                    [(ngModel)]="
+                        editingRowIndex < 0 ? selectedCertificationYear : certificationArray[editingRowIndex].year
+                    "
+                    [placeholder]="'please_select_year' | translate"
+                    [autoDisplayFirst]="false"
+                    (onChange)="onChangeYear($event)"
+                ></p-dropdown>
+            </div>
+            <div class="sewn-form-field col-md-auto mb-md-0">
+                <label>{{ 'upload_certificate' | translate }}</label>
                 <div
                     class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between"
                 >
@@ -106,11 +102,16 @@
                     >
                         {{ 'upload' | translate }}
                     </div>
-                    <div class="d-flex flex-column flex-md-row button-wrapper align-items-center">
-                        <button class="btn-raised ml-md-4 mt-3 mt-md-0" (click)="onSave()">
-                            {{ 'save' | translate }}
-                        </button>
-                        <button class="btn-stroked ml-md-3" *ngIf="editingRowIndex > -1" (click)="onCancel()">
+                </div>
+            </div>
+            <div class="sewn-form-field col-md-auto mb-0 ml-md-auto ml-lg-0">
+                <label class="d-none d-md-block">&nbsp;</label>
+                <div class="row gutter-16 v-gutter-16">
+                    <div class="col-md-auto">
+                        <button class="btn-raised w-100" (click)="onSave()">{{ 'save' | translate }}</button>
+                    </div>
+                    <div class="col-md-auto">
+                        <button *ngIf="editingRowIndex > -1" class="btn-stroked w-100" (click)="onCancel()">
                             {{ 'cancel' | translate }}
                         </button>
                     </div>
