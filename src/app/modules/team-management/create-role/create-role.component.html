@@ -1,11 +1,10 @@
 <div class="main-block">
     <ng-container *ngIf="!isLoading; else loader">
-        <div class="row mb-3">
-            <div class="col-10">
-                <p-breadcrumb [model]="breadCrumbItem" styleClass="breadcrumb-mb"></p-breadcrumb>
-            </div>
-            <div class="col-2">
-                <button type="submit" class="btn pull-right btn-raised d-lg-block d-none" (click)="roleAdd()">
+        <div class="d-flex justify-content-between mb-3">
+            <p-breadcrumb [model]="breadCrumbItem" styleClass="breadcrumb-mb"></p-breadcrumb>
+
+            <div class="d-none d-lg-block">
+                <button type="submit" class="pull-right btn-raised" (click)="roleAdd()">
                     {{ btnValue }}
                 </button>
             </div>
