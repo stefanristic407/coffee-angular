@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
@@ -51,7 +50,6 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
         private userManagementSearchService: UserManagementSearchService,
         private userService: UserService,
         protected resizeService: ResizeService,
-        public location: Location,
         public route: ActivatedRoute,
     ) {
         super(resizeService);
@@ -145,7 +143,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                         {
                             field: 'last_login_at',
                             header: 'last_login',
-                            width: 15,
+                            width: 18,
                         },
                         {
                             field: 'email',
@@ -155,7 +153,7 @@ export class TeamMemberTableComponent extends ResizeableComponent implements OnI
                         {
                             field: 'status',
                             header: 'status',
-                            width: 15,
+                            width: 12,
                         },
                         {
                             field: 'roles',
