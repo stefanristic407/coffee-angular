@@ -72,7 +72,8 @@
 </ng-template>
 
 <p-paginator
-    *ngIf="totalRecords"
+    *ngIf="totalRecords > rows"
+    [pageLinkSize]="(isMobile$ | async) ? 3 : 5"
     [rows]="rows"
     [totalRecords]="totalRecords"
     (onPageChange)="getData($event)"
