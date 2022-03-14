@@ -66,7 +66,7 @@
                                 </ng-template>
                             </div>
                         </div>
-                        <div class="certify-green d-none d-lg-block" *ngIf="sourcing.estateCertify != ''">
+                        <div class="certify-green d-none d-lg-block" *ngIf="sourcing.estateCertify?.length">
                             <h5 class="fnt-16 fnt-md-18 fw-b text-clr000">Certificates</h5>
                             <div class="pt-3">
                                 <img
@@ -283,34 +283,28 @@
         </div>
     </div>
 
-    <div class="bg-white br-4 pl-2 px-md-3 px-lg-5 py-3 py-lg-4 mt-4">
-        <div class="px-0">
-            <div class="fnt-16 fnt-md-18 fw-b text-clr000 mt-lg-2 mb-3 mb-lg-4">
-                {{ 'estates_other_green_coffee' | translate }}
+    <div class="main-block mt-4">
+        <div class="fnt-16 fnt-md-18 fw-b mb-3 mb-lg-4">{{ 'available_gc_of_lot' | translate }}</div>
+        <ng-container *ngIf="sourcing.otherGreenList && sourcing.otherGreenList.length; else noOtherCoffee">
+            <div *ngIf="(isMobile$ | async) && sourcing.otherGreenList.length !== 1; else noCarousel" class="mr-n3">
+                <p-carousel [value]="sourcing.otherGreenList" [numVisible]="1" [numScroll]="1" [circular]="true">
+                    <ng-template let-item pTemplate="item">
+                        <div class="cursor-pointer" routerLink="/sourcing/coffee-details/{{ item.harvest_id }}">
+                            <app-harvest-card [data]="item"></app-harvest-card>
+                        </div>
+                    </ng-template>
+                </p-carousel>
             </div>
-            <div
-                *ngIf="sourcing.otherGreenList && sourcing.otherGreenList.length; else noOtherCoffee"
-                class="row gutter-md-16 gutter-lg-26 card-block"
-            >
-                <div
-                    class="col-lg-4 col-md-6 col-12 cursor-pointer card-wrap d-none d-md-block"
-                    *ngFor="let item of sourcing.otherGreenList"
-                    routerLink="/sourcing/coffee-details/{{ item.harvest_id }}"
-                >
-                    <app-harvest-card [data]="item"></app-harvest-card>
+            <ng-template #noCarousel>
+                <div class="row gutter-16 gutter-lg-26 v-gutter-16 v-gutter-lg-26">
+                    <div *ngFor="let item of sourcing.otherGreenList" class="col-md-6 col-lg-4">
+                        <div class="cursor-pointer" routerLink="/sourcing/coffee-details/{{ item.harvest_id }}">
+                            <app-harvest-card [data]="item"></app-harvest-card>
+                        </div>
+                    </div>
                 </div>
-                <!-- Mobile Carousel -->
-                <div class="col-lg-4 col-md-6 col-12 cursor-pointer d-md-none">
-                    <p-carousel [value]="sourcing.otherGreenList" [numVisible]="1" [numScroll]="1" [circular]="true">
-                        <ng-template let-item pTemplate="item">
-                            <div routerLink="/sourcing/coffee-details/{{ item.harvest_id }}">
-                                <app-harvest-card [data]="item"></app-harvest-card>
-                            </div>
-                        </ng-template>
-                    </p-carousel>
-                </div>
-            </div>
-        </div>
+            </ng-template>
+        </ng-container>
     </div>
 </section>
 
@@ -333,5 +327,5 @@
 </ng-template>
 
 <ng-template #noOtherCoffee>
-    <app-blank title="No data available" button="Browse availabilities" link="/"></app-blank>
+    <app-empty [title]="'no_data_available' | translate"></app-empty>
 </ng-template>

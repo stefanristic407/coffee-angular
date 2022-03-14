@@ -40,6 +40,11 @@
                     (click)="bannerFileInput.click()"
                     src="assets/images/camera.svg"
                 />
+                <i
+                    *ngIf="profileCreationService.bannerUrl"
+                    class="pi pi-trash fnt-16 text-white mb-delete-icon cursor-pointer d-md-none"
+                    (click)="handleDeleteBannerImage()"
+                ></i>
                 <div class="cover-pic text-center" *ngIf="!profileCreationService.bannerUrl">
                     <img
                         class="d-none d-md-block plus-circle"
@@ -93,7 +98,7 @@
             </div>
 
             <div class="profile-metadata-container pl-3 pr-3 pb-3 p-md-0">
-                <div class="fnt-18 fw-b pt-4">
+                <div class="fnt-18 fw-b text-break pt-4">
                     {{ profileCreationService.organizationProfile?.name }}
                 </div>
                 <div class="fw-m text-break mt-2">
@@ -117,7 +122,7 @@
         <button
             type="button"
             pButton
-            class="btn-stroked w-100"
+            class="btn-raised w-100"
             label="{{ 'edit' | translate }}"
             (click)="profileCreationService.editProfile()"
         ></button>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeableComponent } from '@base-components';
-import { OTHER_PRODUCT_STATUS_ITEMS } from '@constants';
+import { BUSINESS_TYPE_ITEMS, OTHER_PRODUCT_STATUS_ITEMS } from '@constants';
 import { FileModule } from '@enums';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService, ECommerceService, FileService, ResizeService } from '@services';
@@ -16,6 +16,8 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./other-product-details.component.scss'],
 })
 export class OtherProductDetailsComponent extends ResizeableComponent implements OnInit {
+    readonly BUSINESS_TYPE_ITEMS = BUSINESS_TYPE_ITEMS;
+
     breadCrumbItem: MenuItem[] = [];
     productForm: FormGroup;
     roasterId: any = '';
@@ -27,11 +29,6 @@ export class OtherProductDetailsComponent extends ResizeableComponent implements
         { label: 'Private', value: false },
     ];
     isPublished: boolean;
-    businessTypeList: any[] = [
-        { label: 'B2B', value: 'b2b' },
-        { label: 'B2C', value: 'b2c' },
-        { label: 'Both', value: 'both' },
-    ];
     statusList = OTHER_PRODUCT_STATUS_ITEMS;
     lengthUnitList: any[] = [
         { label: 'mm', value: 'mm' },

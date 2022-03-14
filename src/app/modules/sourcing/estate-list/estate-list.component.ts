@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ResizeableComponent } from '@base-components';
+import { EstateService, ResizeService } from '@services';
 import { takeUntil } from 'rxjs/operators';
-import { DestroyableComponent } from '@base-components';
-import { EstateService, GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { SourcingService } from '../sourcing.service';
     templateUrl: './estate-list.component.html',
     styleUrls: ['./estate-list.component.scss'],
 })
-export class EstateListComponent extends DestroyableComponent implements OnInit {
+export class EstateListComponent extends ResizeableComponent implements OnInit {
     isLoaded = false;
     estateData: any[] = [];
     queryParams: any;
@@ -18,11 +18,11 @@ export class EstateListComponent extends DestroyableComponent implements OnInit 
     totalRecords;
 
     constructor(
-        public sourcingSrv: SourcingService,
-        public globals: GlobalsService,
         private estateService: EstateService,
+        protected resizeService: ResizeService,
+        public sourcingSrv: SourcingService,
     ) {
-        super();
+        super(resizeService);
     }
 
     ngOnInit(): void {

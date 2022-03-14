@@ -62,23 +62,6 @@
     border: solid 1px #747588;
 }
 
-.card-block {
-    margin-top: -8px;
-    margin-bottom: -8px;
-    @media (min-width: 992px) {
-        margin-top: -13px;
-        margin-bottom: -13px;
-    }
-    .card-wrap {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        @media (min-width: 992px) {
-            margin-top: 13px;
-            margin-bottom: 13px;
-        }
-    }
-}
-
 :host ::ng-deep {
     .p-carousel .p-carousel-content .p-carousel-prev,
     .p-carousel .p-carousel-content .p-carousel-next {

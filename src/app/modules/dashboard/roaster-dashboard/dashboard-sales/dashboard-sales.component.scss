@@ -144,3 +144,7 @@ li.nav-item {
 ::ng-deep .ng-tns-c229-5:before {
     content: '$';
 }
+
+:host .chart-wrap {
+    overflow-x: auto;
+}
