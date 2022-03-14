@@ -290,7 +290,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
             };
             this.greenGradingService.updateStatus(this.cuppingReportId, data).subscribe((res: any) => {
                 if (res.success === true) {
-                    this.toastrService.success('The Report has been updated.');
+                    this.toastrService.success('The report has been updated.');
                     this.next.emit('screen5');
                 } else {
                     this.toastrService.error('Error while updating the report');
@@ -313,7 +313,7 @@ export class GenerateCuppingResultsComponent implements OnInit, OnChanges {
 
         this.greenGradingService.updateStatus(this.cuppingReportId, data).subscribe((res: any) => {
             if (res.success === true) {
-                this.toastrService.success('The Report has been updated.');
+                this.toastrService.success('The report has been updated.');
                 this.router.navigate(['/green-grading/green-coffee-orders']);
             } else {
                 this.toastrService.error('Error while updating the report');

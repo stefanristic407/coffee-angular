@@ -165,7 +165,7 @@ export class GenerateCuppingReportComponent implements OnInit, OnChanges {
         };
         this.greenGradingService.updateStatus(this.cuppingReportId, data).subscribe((res: any) => {
             if (res.success === true) {
-                this.toastrService.success('The Report has been completed.');
+                this.toastrService.success('The report has been completed.');
                 this.afterUpload.emit();
             } else {
                 this.toastrService.error('Error while updating the report');
