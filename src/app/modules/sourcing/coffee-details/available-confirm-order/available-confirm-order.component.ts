@@ -308,11 +308,10 @@ export class AvailableConfirmOrderComponent extends ResizeableComponent implemen
                 this.coffeePrice = this.sourcing.harvestDetail.price * totalKg;
                 if (this.infoForm.value.service) {
                     this.shipmentPrice = this.activePriceTier?.amount || 0;
-                    this.shipmentPriceCurrency =
-                        this.activePriceTier?.currency || this.sourcing.harvestDetail.price_unit;
                 } else {
                     this.shipmentPrice = 0;
                 }
+                this.shipmentPriceCurrency = this.activePriceTier?.currency || this.sourcing.harvestDetail.price_unit;
                 this.totalPrice = this.coffeePrice + this.shipmentPrice;
                 this.totalPriceCurrency = this.sourcing.harvestDetail.price_unit;
             } else if (this.orderType === OrderType.Sample) {
