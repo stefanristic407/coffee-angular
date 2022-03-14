@@ -42,10 +42,8 @@
             <div class="col-12 col-md-6 col-lg-3 sewn-form-field mb-3 mb-lg-4">
                 <label>{{ 'product_is_for' | translate }}<span class="star">*</span></label>
                 <p-dropdown
-                    [options]="businessTypeList"
-                    optionLabel="label"
+                    [options]="BUSINESS_TYPE_ITEMS"
                     formControlName="business_type"
-                    optionValue="value"
                     [autoDisplayFirst]="false"
                 ></p-dropdown>
                 <small *ngIf="productForm.controls['business_type'].errors?.required" class="p-error">

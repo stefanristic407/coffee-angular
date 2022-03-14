@@ -188,7 +188,7 @@
                         {{ rowData[col.field] | number: '1.2-4' }} {{ rowData.price_unit }}
                     </span>
                     <span *ngSwitchCase="'business_type'">
-                        {{ rowData[col.field]?.toUpperCase() }}
+                        {{ rowData[col.field] | businessType }}
                     </span>
                     <span class="d-flex align-items-center" *ngSwitchCase="'actions'">
                         <span class="brown-cta mr-2 d-none d-lg-block">
