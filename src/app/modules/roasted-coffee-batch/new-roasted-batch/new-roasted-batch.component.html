@@ -50,10 +50,7 @@
                         </div>
                         <div class="col-md-4 sewn-form-field">
                             <div class="p-inputgroup custom-addon cursor-pointer" (click)="showOrder = true">
-                                <p-inputNumber
-                                    placeholder="Select the order"
-                                    formControlName="gc_order_id"
-                                ></p-inputNumber>
+                                <input pInputText placeholder="Select the order" formControlName="gc_order_id" />
                                 <span class="p-inputgroup-addon"><i class="pi pi-chevron-right text-clr97"></i> </span>
                                 <small *ngIf="batchForm.controls['gc_order_id'].errors?.required" class="p-error">
                                     {{ 'required' | translate }}
