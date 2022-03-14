@@ -43,6 +43,7 @@ export class LotDetailsComponent extends ResizeableComponent implements OnInit {
 
     refreshData() {
         this.isLoaded = false;
+        this.sourcing.harvestId = null;
         this.sourcing.polygonId = '';
         this.sourcing.harvestDetail = null;
         this.sourcing.estate = null;
