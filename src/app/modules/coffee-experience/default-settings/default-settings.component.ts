@@ -466,7 +466,7 @@ export class DefaultSettingsComponent implements OnInit {
         if (!this.defaultDetails.description) {
             this.toastrService.error('Please enter the description');
             return false;
-        } else if (this.defaultDetails.description && this.defaultDetails.description.split(' ').length > 100) {
+        } else if (this.defaultDetails.description && this.defaultDetails.description.split(' ').length > 250) {
             this.toastrService.error('Description is long');
             return false;
         }

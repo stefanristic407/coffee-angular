@@ -85,6 +85,10 @@ export class CoffeeProcuredTabComponent extends ResizeableComponent implements O
                     header: 'estate_name',
                 },
                 {
+                    field: 'origin',
+                    header: 'origin',
+                },
+                {
                     field: 'order_reference',
                     header: 'roaster_ref_no',
                 },
