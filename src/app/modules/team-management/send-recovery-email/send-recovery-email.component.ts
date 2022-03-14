@@ -59,7 +59,7 @@ export class SendRecoveryEmailComponent implements OnInit {
                 Validators.compose([Validators.required]),
             ),
             email: new FormControl(
-                { value: '', disabled: !this.isEdit || this.userStatus !== UserStatus.ACTIVE },
+                { value: '', disabled: true },
                 Validators.compose([Validators.required]),
                 emailValidator(this.validateService),
             ),
@@ -172,12 +172,10 @@ export class SendRecoveryEmailComponent implements OnInit {
     updateForm(): void {
         this.userForm.controls.firstname.enable();
         this.userForm.controls.lastname.enable();
-        this.userForm.controls.email.enable();
         this.roles.controls.forEach((element) => element.enable());
         if (!this.isEdit || this.userStatus !== UserStatus.ACTIVE) {
             this.userForm.controls.firstname.disable();
             this.userForm.controls.lastname.disable();
-            this.userForm.controls.email.disable();
             this.roles.controls.forEach((element) => element.disable());
         }
     }
