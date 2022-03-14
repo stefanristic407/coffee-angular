@@ -60,22 +60,21 @@
         <div class="solid-divider-de mb-3"></div>
         <div>
             <div class="fnt-12 fnt-md-14 fw-m text-clr588 mb-2">{{ 'top_lots' | translate }}</div>
-            <div>
-                <a
-                    *ngFor="let item of data.lots | slice: 0:3"
-                    class="brown-cta mr-3"
-                    routerLink="/sourcing/lot-details/{{ data.estate_id }}/{{ item.id }}"
-                >
-                    {{ item.name }}
-                </a>
-                <a
-                    *ngIf="data.lots?.length > 3"
-                    class="brown-cta"
-                    routerLink="/sourcing/estate-details/{{ data.estate_id }}"
-                    [queryParams]="{ dataLots: true }"
-                    >+{{ data.lots?.length - 3 }}more</a
-                >
-                <span *ngIf="!data.lots?.length" class="fw-m">NA</span>
+            <div class="row gutter-16 v-gutter-8">
+                <div *ngFor="let item of data.lots | slice: 0:3" class="col-auto">
+                    <a class="brown-cta" routerLink="/sourcing/lot-details/{{ data.estate_id }}/{{ item.id }}">
+                        {{ item.name }}
+                    </a>
+                </div>
+                <div *ngIf="data.lots?.length > 3" class="col-auto">
+                    <a
+                        class="brown-cta"
+                        routerLink="/sourcing/estate-details/{{ data.estate_id }}"
+                        [queryParams]="{ dataLots: true }"
+                        >+{{ data.lots?.length - 3 }}more</a
+                    >
+                </div>
+                <div *ngIf="!data.lots?.length" class="col-auto fw-m">NA</div>
             </div>
         </div>
     </div>
